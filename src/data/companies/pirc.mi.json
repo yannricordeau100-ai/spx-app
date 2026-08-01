@@ -38,9 +38,7 @@
       "is_short_history": true,
       "period_type": "annual",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le document fourni est une table des matières et des pages préliminaires du rapport annuel 2005. La section 4.3 'Net Asset Value' est mentio",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_hero_history_unverified_reason": "Le document fourni est une table des matières et des pages préliminaires du rapport annuel 2005. La section 4.3 'Net Asset Value' est mentio"
     },
     {
       "short": "Revenue",
@@ -63,9 +61,7 @@
       "is_generic": true,
       "is_short_history": true,
       "period_type": "annual",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "_source_month": "décembre 2005",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Operating Profit",
@@ -88,9 +84,7 @@
       "is_generic": true,
       "is_short_history": true,
       "period_type": "annual",
-      "explanation_en": "Operating Profit — profit from core business operations.",
-      "_source_month": "décembre 2005",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Operating Profit, profit from core business operations."
     },
     {
       "short": "Net Financial Position",
@@ -112,9 +106,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "décembre 2005",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Total Revenue",
@@ -133,11 +125,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 6.86 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only a single explicit revenue figure (5.3 billion € for 2017) is found; fewer than four consecutive annual values are available.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +154,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 13.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,11 +181,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.96 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -202,10 +208,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.53 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -219,7 +229,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.08,
         0.161,
@@ -232,7 +242,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -247,7 +257,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.1854,
@@ -260,7 +270,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -275,7 +285,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         44.38,
@@ -288,7 +298,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -304,7 +314,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.418,
@@ -317,7 +327,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -358,7 +368,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur situé en section 1 du rapport (marché européen et italien). Langage modéré mais contexte économique 2005 montre ralentissement du secteur. Tendance stable mais cyclique. Poids élevé : activité core dépend entièrement de la demande immobilière italienne et européenne.",
       "trend": "stable",
-      "summary": "Pirelli RE opère principalement sur les marchés immobiliers italien et d'Europe centrale-orientale, secteurs cycliques sensibles aux conditions économiques. Le ralentissement de 2005 (croissance PIB 1,3% en Europe occidentale) a impacté la demande commerciale et résidentielle, réduisant les volumes de transactions et les rendements locatifs."
+      "summary": "Pirelli RE opère principalement sur les marchés immobiliers italien et d'Europe centrale-orientale, secteurs cycliques sensibles aux conditions économiques. Le ralentissement de 2005 (croissance PIB 1,3% en Europe occidentale) a impacté la demande commerciale et résidentielle, réduisant les volumes de transactions et les rendements locatifs.",
+      "score": 4
     },
     {
       "title": "Concentration géographique sur trois métropoles italiennes",
@@ -366,7 +377,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement : trois centres opérationnels (Milan, Rome, Naples). Position dans section 4 (profil groupe). Langage neutre mais révèle concentration de risque. Tendance stable. Poids modéré : diversification géographique limitée malgré réseau franchisé national.",
       "trend": "stable",
-      "summary": "Le groupe concentre ses activités directes sur Milan, Rome et Naples, les trois principaux marchés métropolitains italiens. Cette concentration expose Pirelli RE aux chocs économiques régionaux et limite la diversification des sources de revenus, bien que le réseau de franchisés offre une couverture nationale."
+      "summary": "Le groupe concentre ses activités directes sur Milan, Rome et Naples, les trois principaux marchés métropolitains italiens. Cette concentration expose Pirelli RE aux chocs économiques régionaux et limite la diversification des sources de revenus, bien que le réseau de franchisés offre une couverture nationale.",
+      "score": 3
     },
     {
       "title": "Risque de dépendance envers les fonds d'investissement opportunistes",
@@ -374,7 +386,8 @@
       "severity": 4,
       "score_rationale": "Modèle économique fondamental décrit en section 4 et 5 (CEO message). Langage détaillé sur repositionnement du portefeuille (38% core vs 62% opportuniste). Tendance up : transition vers core mais opportuniste reste dominant. Poids très élevé : 20-35% de participation dans fonds opportunistes génère revenus critiques.",
       "trend": "up",
-      "summary": "Pirelli RE dépend fortement des fonds d'investissement opportunistes (non-performing loans, résidentiel, commercial) pour ses revenus de dividendes et participations. La volatilité de ces fonds, leur dépendance aux cycles de marché et les risques de dépréciation d'actifs exposent le groupe à des chocs de rentabilité importants."
+      "summary": "Pirelli RE dépend fortement des fonds d'investissement opportunistes (non-performing loans, résidentiel, commercial) pour ses revenus de dividendes et participations. La volatilité de ces fonds, leur dépendance aux cycles de marché et les risques de dépréciation d'actifs exposent le groupe à des chocs de rentabilité importants.",
+      "score": 4
     },
     {
       "title": "Risque de performance du portefeuille de créances non performantes",
@@ -382,7 +395,8 @@
       "severity": 4,
       "score_rationale": "Segment NPL représente 16% des actifs gérés (section 5, CEO message). Langage spécifique sur création récente de ce portefeuille. Tendance new/up : expansion stratégique dans NPL. Poids élevé : segment hautement spécialisé avec risques de recouvrement et de valorisation importants.",
       "trend": "up",
-      "summary": "Pirelli RE a créé un portefeuille de créances non performantes représentant 16% des €13 milliards d'actifs gérés. Ce segment requiert expertise spécialisée en recouvrement et présente des risques de dépréciation, de délais de réalisation prolongés et de rendements inférieurs aux attentes."
+      "summary": "Pirelli RE a créé un portefeuille de créances non performantes représentant 16% des €13 milliards d'actifs gérés. Ce segment requiert expertise spécialisée en recouvrement et présente des risques de dépréciation, de délais de réalisation prolongés et de rendements inférieurs aux attentes.",
+      "score": 4
     },
     {
       "title": "Risque de croissance et d'intégration du réseau de franchisage",
@@ -390,7 +404,8 @@
       "severity": 3,
       "score_rationale": "Franchising décrit comme succès rapide (>1000 accords, break-even atteint) en section 5. Langage enthousiaste mais risque d'expansion rapide. Tendance up : croissance accélérée du réseau. Poids modéré : franchisage représente 44% des revenus opérationnels (vs 24% avant).",
       "trend": "up",
-      "summary": "Le réseau de franchisés Pirelli RE a signé plus de 1000 accords d'affiliation et atteint l'équilibre financier en 2005. Cette expansion rapide expose le groupe aux risques de qualité de service inégale, de contrôle de marque, de litiges contractuels avec franchisés et de dépendance à la performance de partenaires externes."
+      "summary": "Le réseau de franchisés Pirelli RE a signé plus de 1000 accords d'affiliation et atteint l'équilibre financier en 2005. Cette expansion rapide expose le groupe aux risques de qualité de service inégale, de contrôle de marque, de litiges contractuels avec franchisés et de dépendance à la performance de partenaires externes.",
+      "score": 3
     },
     {
       "title": "Dépendance à l'expertise et aux talents en gestion immobilière",
@@ -398,7 +413,8 @@
       "severity": 3,
       "score_rationale": "CEO message souligne explicitement : 'professionalism and specialist expertise of our personnel represent the cornerstones of our competitive advantage'. Langage fort sur facteur critique. Tendance stable. Poids modéré-élevé : service company dépend entièrement du capital humain spécialisé.",
       "trend": "stable",
-      "summary": "Pirelli RE opère comme société de services immobiliers spécialisée dont la compétitivité repose sur l'expertise et la rétention de talents en gestion de fonds, valorisation d'actifs et services immobiliers. La perte de cadres clés ou de gestionnaires de fonds pourrait compromettre les relations clients et la performance."
+      "summary": "Pirelli RE opère comme société de services immobiliers spécialisée dont la compétitivité repose sur l'expertise et la rétention de talents en gestion de fonds, valorisation d'actifs et services immobiliers. La perte de cadres clés ou de gestionnaires de fonds pourrait compromettre les relations clients et la performance.",
+      "score": 3
     },
     {
       "title": "Risque réglementaire et de conformité dans la gestion de fonds",
@@ -406,7 +422,8 @@
       "severity": 3,
       "score_rationale": "Mention de l'approbation récente de la Banque d'Italie pour la première société de gestion de fonds opportunistes (section 5). Langage neutre mais indique environnement réglementaire en évolution. Tendance up : marché se régule progressivement. Poids modéré : activité Fund Management soumise à supervision bancaire croissante.",
       "trend": "up",
-      "summary": "Pirelli RE opère dans un secteur de gestion de fonds immobiliers en cours de régulation. L'approbation récente de la Banque d'Italie pour la gestion de fonds opportunistes indique une supervision accrue. Les changements réglementaires futurs pourraient imposer des coûts de conformité supplémentaires ou limiter les stratégies d'investissement."
+      "summary": "Pirelli RE opère dans un secteur de gestion de fonds immobiliers en cours de régulation. L'approbation récente de la Banque d'Italie pour la gestion de fonds opportunistes indique une supervision accrue. Les changements réglementaires futurs pourraient imposer des coûts de conformité supplémentaires ou limiter les stratégies d'investissement.",
+      "score": 3
     },
     {
       "title": "Risque de concurrence accrue sur le marché immobilier européen",
@@ -414,7 +431,8 @@
       "severity": 3,
       "score_rationale": "Section 1 décrit marché européen attractif (€47,9 Mds investis H1 2005) attirant nouveaux entrants. Expansion Pirelli RE en Europe centrale-orientale (Berlin, Varsovie) indique stratégie offensive. Tendance up : marché devient plus compétitif. Poids modéré : modèle Pirelli RE doit se différencier face à concurrents internationaux.",
       "trend": "up",
-      "summary": "Le marché immobilier européen attire des investisseurs institutionnels et des gestionnaires de fonds internationaux. L'expansion de Pirelli RE en Allemagne et Pologne la positionne face à des concurrents établis et mieux capitalisés. La différenciation par expertise locale et modèle de services devient critique."
+      "summary": "Le marché immobilier européen attire des investisseurs institutionnels et des gestionnaires de fonds internationaux. L'expansion de Pirelli RE en Allemagne et Pologne la positionne face à des concurrents établis et mieux capitalisés. La différenciation par expertise locale et modèle de services devient critique.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:15:17.613706+00:00",
@@ -502,9 +520,6 @@
   "_hero_kpi_original": "Net Asset Value",
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
-  "_dividends_extracted_at": "2026-05-09T20:22:52Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
-  "_dividends_currency": "EUR",
   "revenue_by_segment": {
     "unit": "€B",
     "source_date": "2005-12-31",
@@ -541,9 +556,12 @@
     ],
     "total": 0.73
   },
+  "_dividends_extracted_at": "2026-05-09T20:22:52Z",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_currency": "EUR",
   "_segments_fetched_at": "2026-05-15T00:00:57.741515+00:00",
   "_eps_extracted_at": "2026-05-18T16:46:49Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "PIRC.MI",
     "fetched_at": "2026-05-14T18:26:18.179288+00:00",
@@ -586,6 +604,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Pirelli & C. S.p.A. est un fabricant italien de pneumatiques premium pour voitures, motos et vélos. Coté à Milan, basé à Milan. Fondé en 1872.",
+          "products": "Pneus voitures premium et prestige (P ZERO, Cinturato, Scorpion, Winter Sottozero), pneus de compétition (P Zero Trofeo R, P Zero Slick et Rain pour la F1), pneus moto (Diablo, Scorpion, Angel) et vélo. Pneu fournisseur exclusif de la F1.",
+          "customers": "Constructeurs automobiles premium et prestige (OEM : Porsche, BMW, Mercedes, Ferrari, Audi), équipes de Formule 1, marché du replacement (after-market) particuliers haut de gamme.",
+          "edge": "Position de référence sur le segment ultra-premium des pneus voitures (Prestige). Fournisseur exclusif F1. Marque historique iconique avec >150 ans d'histoire."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Pirelli est positionnée comme le pure-play pneu premium et prestige (vs Michelin, Bridgestone, Continental). Stratégie sous Marco Tronchetti Provera et Andrea Casaluci centrée sur le High Value (≥18 pouces), où Pirelli est numéro un mondial. Tensions actionnariales avec Sinochem (actionnaire chinois 37 %) résolues en 2023.",
+          "tech_products": "Gamme axée High Value avec P ZERO comme produit phare. Premier équipementier OEM des constructeurs prestige (Porsche 911 par exemple). Position exclusive en F1 jusqu'en 2027 (contrat renouvelé). Innovation cyber-tire (Connesso) et pneus pour véhicules électriques (Elect). Capacité industrielle Italie, Roumanie, Russie cession, Brésil, Mexique.",
+          "moat": "Position structurelle sur le pneu prestige (haut de gamme). Marque héritée Pirelli iconique. Relations exclusives long terme avec les constructeurs prestige (Porsche, Ferrari, Lamborghini). Compétence F1 et marketing distinctif.",
+          "risks": "Cyclicité du marché auto premium. Concurrence Michelin Pilot Sport sur le segment ultra-premium. Tensions géopolitiques sur Sinochem (actionnaire chinois). Risques opérationnels Russie (cession progressive). Sensibilité matières premières (caoutchouc naturel et synthétique)."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "PIRC.MI",
     "ranks": {
@@ -598,14 +637,15 @@
     "country": "Italy",
     "_data_freshness_date": "2026-05-21T02:17:14.297057+00:00",
     "fetched_at": "2026-05-21T02:17:14.297058+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.630Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.620Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pirc.mi.json",
     "enrich_root": "v2-pipeline-enrich/pirc.mi.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

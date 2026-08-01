@@ -37,7 +37,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Demand strengthening, end-market traction"
     },
     {
@@ -61,7 +61,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -157,7 +157,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Margin — net income divided by revenue.",
+      "explanation_en": "Net Margin, net income divided by revenue.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -199,11 +199,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.26 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -217,7 +221,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2020-2024). ex-div dates.",
       "history": [
         null,
         null,
@@ -230,7 +234,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding."
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding."
     },
     {
       "short": "Cap Return",
@@ -244,7 +248,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2020-2024) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2020-2024) en milliards USD. cashflow.",
       "history": [
         null,
         null,
@@ -257,7 +261,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks)."
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks)."
     },
     {
       "short": "Payout Ratio",
@@ -271,7 +275,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2020-2024). Source yfinance.",
+      "description": "Dividendes / résultat net (2020-2024).",
       "history": [
         null,
         null,
@@ -284,7 +288,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -299,7 +303,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         null,
@@ -312,7 +316,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -338,9 +342,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "septembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Innovation"
     },
     {
       "short": "Gross Margin Expansion",
@@ -363,13 +365,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Execution",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Execution"
     }
   ],
   "ai_positioning": {
-    "stance": "supplier",
+    "stance": "absent",
     "summary": "Camtek est un fournisseur de solutions d'inspection et de métrologie critiques pour l'industrie des semi-conducteurs. L'entreprise bénéficie indirectement de la croissance de la demande en capacités de production semi-conducteur en Asie-Pacifique, mais ne tire pas directement ses revenus des applications IA et n'est pas positionné comme intégrateur IA.",
     "evidence": [
       "Camtek vend des systèmes d'inspection et métrologie à des fabricants de semi-conducteurs",
@@ -453,7 +453,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en premier dans Item 1A avec développement détaillé (3 paragraphes). Langage intensif (« materially and adversely affect »). ~50% des revenus dépendent des produits IA/HBM. Tendance : nouvelle exposition majeure liée à la concentration croissante sur l'IA.",
       "trend": "up",
-      "summary": "Environ 50% des revenus de Camtek proviennent de produits supportant la production d'applications IA (HBM, advanced packaging). Un ralentissement des investissements en IA entraînerait une baisse significative des ventes, une sous-utilisation des capacités de production et des charges de restructuration. La visibilité limitée et l'absence d'engagements d'achat long terme rendent les prévisions de demande IA peu fiables."
+      "summary": "Environ 50% des revenus de Camtek proviennent de produits supportant la production d'applications IA (HBM, advanced packaging). Un ralentissement des investissements en IA entraînerait une baisse significative des ventes, une sous-utilisation des capacités de production et des charges de restructuration. La visibilité limitée et l'absence d'engagements d'achat long terme rendent les prévisions de demande IA peu fiables.",
+      "score": 5
     },
     {
       "title": "Concentration géographique extrême en Asie-Pacifique",
@@ -461,7 +462,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur : 91% des revenus 2025 en Asie-Pacifique, 49% en Chine seule. Développement détaillé avec énumération des risques spécifiques (instabilité politique, catastrophes naturelles, régulation). Langage très intensif sur les risques China-spécifiques.",
       "trend": "up",
-      "summary": "La dépendance extrême à la région Asie-Pacifique (91% des ventes, dont 49% en Chine) expose Camtek aux instabilités politiques (tensions Taiwan-Chine, Corée), aux catastrophes naturelles, aux changements réglementaires rapides et aux politiques protectionnistes chinoises favorisant les concurrents locaux."
+      "summary": "La dépendance extrême à la région Asie-Pacifique (91% des ventes, dont 49% en Chine) expose Camtek aux instabilités politiques (tensions Taiwan-Chine, Corée), aux catastrophes naturelles, aux changements réglementaires rapides et aux politiques protectionnistes chinoises favorisant les concurrents locaux.",
+      "score": 5
     },
     {
       "title": "Restrictions commerciales et contrôles d'exportation US",
@@ -469,7 +471,8 @@
       "severity": 5,
       "score_rationale": "Risque détaillé sur 2 pages avec exemples concrets (ajouts continus à la liste d'entités interdites en 2025). Langage d'alerte élevé sur la complexité croissante et les risques de réputation. Impact direct sur les ventes en Chine et la conformité.",
       "trend": "up",
-      "summary": "Les restrictions d'exportation US (notamment contre les fabricants de semiconducteurs chinois depuis oct. 2022, intensifiées en 2025) affectent directement la capacité de Camtek à vendre en Chine. Même les produits fabriqués hors US peuvent être soumis aux contrôles si contenant des composants US ou utilisant de la technologie US. Risques de violation involontaire et dommages réputationnels."
+      "summary": "Les restrictions d'exportation US (notamment contre les fabricants de semiconducteurs chinois depuis oct. 2022, intensifiées en 2025) affectent directement la capacité de Camtek à vendre en Chine. Même les produits fabriqués hors US peuvent être soumis aux contrôles si contenant des composants US ou utilisant de la technologie US. Risques de violation involontaire et dommages réputationnels.",
+      "score": 5
     },
     {
       "title": "Instabilités régionales et hostilités au Moyen-Orient",
@@ -477,7 +480,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique à Camtek (basée en Israël). Développement détaillé des conflits Iran-Israël (2024-2026), Hamas, Hezbollah, Houthis. Impact direct sur les opérations, les installations, les chaînes d'approvisionnement et les aéroports/ports d'exportation.",
       "trend": "up",
-      "summary": "Les hostilités continues au Moyen-Orient (conflits Iran-Israël en 2024-2026, guerre Hamas-Hezbollah 2023-2025, attaques Houthis) risquent de perturber les installations de Camtek en Israël, les ports/aéroports d'import-export, et de causer des retards de livraison ou des pertes de contrats. Dommages potentiels aux installations et ralentissement du développement produit."
+      "summary": "Les hostilités continues au Moyen-Orient (conflits Iran-Israël en 2024-2026, guerre Hamas-Hezbollah 2023-2025, attaques Houthis) risquent de perturber les installations de Camtek en Israël, les ports/aéroports d'import-export, et de causer des retards de livraison ou des pertes de contrats. Dommages potentiels aux installations et ralentissement du développement produit.",
+      "score": 4
     },
     {
       "title": "Concurrence intense de rivaux mieux dotés en ressources",
@@ -485,7 +489,8 @@
       "severity": 4,
       "score_rationale": "Risque structurel du secteur décrit en détail. Concurrents globaux avec plus de ressources et concurrents locaux low-cost. Impact sur les marges et les prix. Langage modéré mais risque persistant.",
       "trend": "stable",
-      "summary": "Les marchés de Camtek (inspection/métrology semiconducteurs) sont hautement compétitifs avec des acteurs globaux mieux dotés en ressources et des concurrents locaux low-cost. Les rivaux peuvent réagir plus vite aux nouvelles technologies, offrir des prix agressifs et bénéficier d'économies d'échelle, entraînant une compression des marges brutes et une réduction des revenus."
+      "summary": "Les marchés de Camtek (inspection/métrology semiconducteurs) sont hautement compétitifs avec des acteurs globaux mieux dotés en ressources et des concurrents locaux low-cost. Les rivaux peuvent réagir plus vite aux nouvelles technologies, offrir des prix agressifs et bénéficier d'économies d'échelle, entraînant une compression des marges brutes et une réduction des revenus.",
+      "score": 4
     },
     {
       "title": "Risques d'intégration et de gestion des acquisitions",
@@ -493,7 +498,8 @@
       "severity": 4,
       "score_rationale": "Risque détaillé sur 1 page avec 9 sous-risques spécifiques (due diligence, intégration, distraction management, coûts inattendus). Stratégie d'acquisition active mentionnée. Langage d'alerte modéré à élevé.",
       "trend": "stable",
-      "summary": "Camtek poursuit une stratégie d'acquisition pour la croissance et la diversification technologique. Les risques incluent : due diligence incomplète, intégration prolongée, distraction du management, coûts inattendus (amortissement, restructuration, litiges), utilisation importante de trésorerie ou endettement, et échec à atteindre les objectifs de synergies."
+      "summary": "Camtek poursuit une stratégie d'acquisition pour la croissance et la diversification technologique. Les risques incluent : due diligence incomplète, intégration prolongée, distraction du management, coûts inattendus (amortissement, restructuration, litiges), utilisation importante de trésorerie ou endettement, et échec à atteindre les objectifs de synergies.",
+      "score": 4
     },
     {
       "title": "Perturbations de la chaîne d'approvisionnement en composants",
@@ -501,7 +507,8 @@
       "severity": 4,
       "score_rationale": "Risque mentionné dans le résumé et développé dans le contexte des hostilités et de la demande accrue. Camtek pré-commande des composants sur prévisions internes. Langage d'alerte modéré.",
       "trend": "up",
-      "summary": "La demande accrue en composants électroniques crée des contraintes d'approvisionnement. Camtek pré-commande des composants et subsystèmes basés sur des prévisions internes plutôt que sur des commandes fermes. Les perturbations géopolitiques (notamment au Moyen-Orient) ou les ruptures de capacité de production risquent de causer des délais de livraison et une sous-utilisation des stocks."
+      "summary": "La demande accrue en composants électroniques crée des contraintes d'approvisionnement. Camtek pré-commande des composants et subsystèmes basés sur des prévisions internes plutôt que sur des commandes fermes. Les perturbations géopolitiques (notamment au Moyen-Orient) ou les ruptures de capacité de production risquent de causer des délais de livraison et une sous-utilisation des stocks.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et conformité réglementaire associée",
@@ -509,7 +516,8 @@
       "severity": 3,
       "score_rationale": "Risque mentionné dans le résumé des facteurs de risque mais sans développement détaillé dans l'extrait fourni. Langage générique. Pertinent pour une entreprise technologique opérant en Israël et vendant à des clients sensibles.",
       "trend": "stable",
-      "summary": "Camtek est exposée aux risques de cybersécurité et doit se conformer à un cadre réglementaire croissant. Les violations ou incidents pourraient affecter les opérations, la réputation et la conformité réglementaire, particulièrement dans un contexte géopolitique tendu."
+      "summary": "Camtek est exposée aux risques de cybersécurité et doit se conformer à un cadre réglementaire croissant. Les violations ou incidents pourraient affecter les opérations, la réputation et la conformité réglementaire, particulièrement dans un contexte géopolitique tendu.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:34:19.609999+00:00",
@@ -553,10 +561,10 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:20:14Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2024)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2024)",
   "_dividends_currency": "USD",
   "_eps_extracted_at": "2026-05-18T16:44:08Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "CAMT",
     "fetched_at": "2026-05-14T18:22:54.861078+00:00",
@@ -654,7 +662,10 @@
             "accession": "0001178913-25-003301",
             "end": "2025-06-30"
           }
-        ]
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -670,9 +681,9 @@
     "country": "Israel",
     "_data_freshness_date": "2026-05-21T02:17:14.235619+00:00",
     "fetched_at": "2026-05-21T02:17:14.235620+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.101Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.529Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/camt.json",
     "enrich_root": "v2-pipeline-enrich/camt.json",

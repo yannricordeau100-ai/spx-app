@@ -21,8 +21,8 @@
       "name_fr": "Prêts immobiliers commerciaux détenus en investissement",
       "name_en": "Commercial Mortgage Loans Held for Investment",
       "explanation": "Valeur comptable des prêts immobiliers commerciaux que l'entreprise détient comme actifs d'investissement.",
-      "value": 4383.1,
-      "unit": "M $",
+      "value": 4.383,
+      "unit": "Mds $",
       "yoy": "-10.7%",
       "type": "Capital",
       "nature": "Cyclique",
@@ -30,8 +30,8 @@
       "signal": "Actif principal de l'entreprise",
       "description": "Ce portefeuille représente le cœur de l'activité de financement immobilier de FBRT. La baisse d'environ 10,7 % entre 2024 et 2025 reflète une contraction ou une désallocation stratégique.",
       "history": [
-        4908.7,
-        4383.1
+        4.909,
+        4.383
       ],
       "last_data_date": "2026-03-31",
       "is_wow": true,
@@ -39,11 +39,15 @@
       "is_short_history": false,
       "ttm": 4265.77,
       "_validation": "Correction unité: Mds $ converti en M$ (4383.1 M$), valeur numérique ajustée",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of explicit annual values found. Minimum 4 years required. Data extracted from MDA section: Dec 31, 2020: $2,693.8M",
       "explanation_en": "Investment in Commercial Mortgage Loans Held for.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Real Estate Owned Held for Investment",
@@ -126,8 +130,8 @@
       "name_fr": "Encours brut du portefeuille de services",
       "name_en": "Servicing Portfolio Unpaid Principal Balance",
       "explanation": "Montant total des prêts que l'entreprise gère pour le compte d'autres investisseurs.",
-      "value": "47800",
-      "unit": "M $",
+      "value": 47.8,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Pipeline",
       "nature": "Structurel",
@@ -135,13 +139,14 @@
       "signal": "Échelle significative de l'activité de service",
       "description": "Ce portefeuille de 47,8 milliards de dollars montre que FBRT joue un rôle important dans la gestion de prêts immobiliers commerciaux, même si ce n'est pas un actif consolidé.",
       "history": [
-        47800
+        47.8
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Correction unité: Mds $ converti en M$ (47800 M$)"
+      "_validation": "Correction unité: Mds $ converti en M$ (47800 M$)",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "MSRs",
@@ -186,7 +191,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Ajout unité: headcount, correction type: Investment en Structural",
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -205,11 +210,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.06 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -223,7 +232,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.285,
         1.42,
@@ -236,7 +245,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -251,7 +260,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.156,
@@ -264,7 +273,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -279,7 +288,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -292,7 +301,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -308,7 +317,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -0.38,
@@ -321,7 +330,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -349,9 +358,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 643.1,
-      "_validation": "Donnée validée conforme au 10-K",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Donnée validée conforme au 10-K"
     },
     {
       "short": "Real Estate Securities AFS",
@@ -376,9 +383,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 142.12,
-      "_validation": "Amélioration name_fr (AFS clarifiée en disponibles à la vente)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Amélioration name_fr (AFS clarifiée en disponibles à la vente)"
     }
   ],
   "ai_positioning": {
@@ -394,7 +399,8 @@
       "severity": 4,
       "score_rationale": "Le risque de cybersécurité est mentionné dans l'Item 1A Risk Factors, avec une intensité de langage élevée, indiquant une préoccupation importante pour l'entreprise notamment concernant les systèmes du Advisor.",
       "trend": "stable",
-      "summary": "Le risque de cybersécurité est un risque majeur pour l'entreprise, car une faille de sécurité pourrait avoir des conséquences graves sur les opérations et la réputation de l'entreprise."
+      "summary": "Le risque de cybersécurité est un risque majeur pour l'entreprise, car une faille de sécurité pourrait avoir des conséquences graves sur les opérations et la réputation de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Régulation",
@@ -402,7 +408,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est soumise à des réglementations strictes en tant que REIT et une non-conformité pourrait avoir des conséquences négatives.",
       "trend": "stable",
-      "summary": "L'entreprise doit se conformer à des réglementations strictes pour maintenir son statut de REIT et éviter des pénalités ou des amendes."
+      "summary": "L'entreprise doit se conformer à des réglementations strictes pour maintenir son statut de REIT et éviter des pénalités ou des amendes.",
+      "score": 3
     },
     {
       "title": "Concurrence",
@@ -410,7 +417,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise opère dans un marché concurrentiel, avec des entreprises similaires qui pourraient attirer les clients et les investisseurs.",
       "trend": "up",
-      "summary": "La concurrence est un risque majeur pour l'entreprise, car elle pourrait perdre des parts de marché et des revenus si elle ne parvient pas à se différencier de ses concurrents."
+      "summary": "La concurrence est un risque majeur pour l'entreprise, car elle pourrait perdre des parts de marché et des revenus si elle ne parvient pas à se différencier de ses concurrents.",
+      "score": 4
     },
     {
       "title": "Litige",
@@ -418,7 +426,8 @@
       "severity": 2,
       "score_rationale": "L'entreprise est impliquée dans des litiges, mais ceux-ci ne semblent pas avoir un impact significatif sur les opérations ou la réputation de l'entreprise selon le 10-K.",
       "trend": "stable",
-      "summary": "Les litiges sont un risque pour l'entreprise, mais ils ne semblent pas avoir un impact majeur sur les opérations ou la réputation de l'entreprise."
+      "summary": "Les litiges sont un risque pour l'entreprise, mais ils ne semblent pas avoir un impact majeur sur les opérations ou la réputation de l'entreprise.",
+      "score": 2
     },
     {
       "title": "Réputation",
@@ -426,7 +435,8 @@
       "severity": 4,
       "score_rationale": "La réputation de l'entreprise est cruciale pour attirer les clients et les investisseurs, et une atteinte à la réputation pourrait avoir des conséquences négatives.",
       "trend": "stable",
-      "summary": "La réputation de l'entreprise est un actif précieux qui doit être protégé pour maintenir la confiance des clients et des investisseurs."
+      "summary": "La réputation de l'entreprise est un actif précieux qui doit être protégé pour maintenir la confiance des clients et des investisseurs.",
+      "score": 4
     },
     {
       "title": "Géopolitique",
@@ -434,7 +444,8 @@
       "severity": 3,
       "score_rationale": "Les événements géopolitiques pourraient avoir un impact sur les opérations et les revenus de l'entreprise, notamment en cas de changements dans les politiques commerciales ou les relations internationales.",
       "trend": "up",
-      "summary": "Les événements géopolitiques sont un risque pour l'entreprise, car ils pourraient avoir un impact sur les opérations et les revenus, notamment en cas de changements dans les politiques commerciales ou les relations internationales."
+      "summary": "Les événements géopolitiques sont un risque pour l'entreprise, car ils pourraient avoir un impact sur les opérations et les revenus, notamment en cas de changements dans les politiques commerciales ou les relations internationales.",
+      "score": 3
     }
   ],
   "governance": {
@@ -467,7 +478,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -524,7 +535,7 @@
   "_segments_fetched_at": "2026-05-06T19:30:29.939799+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T19:59:45.258213+00:00",
   "_dividends_extracted_at": "2026-05-09T20:23:06Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -548,7 +559,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:35Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:54Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "FBRT",
     "fetched_at": "2026-05-06T17:48:24.509437+00:00",
@@ -603,9 +614,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.259844+00:00",
     "fetched_at": "2026-05-21T02:17:14.259845+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.100Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.668Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fbrt.json",
     "enrich_root": "v2-pipeline-enrich/fbrt.json",

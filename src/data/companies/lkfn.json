@@ -1,6 +1,6 @@
 {
   "ticker": "LKFN",
-  "name": "Lakeland Financial Corporation",
+  "name": "Lakeland Financial",
   "sector": "Finance",
   "subsector": "Banks",
   "tagline": "Community bank providing commercial and consumer banking services across Northern and Central Indiana",
@@ -70,7 +70,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 1.5,
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -97,8 +101,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 6.99,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -125,8 +133,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 103.4,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -153,8 +165,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 4.01,
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Return on Average Equity",
@@ -181,51 +197,65 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 14.4,
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.18,
-      "unit": "Mds €",
+      "value": 180,
+      "unit": "M €",
       "yoy": "",
       "history": [
-        0.28,
-        0.05,
+        280,
+        50,
         0,
-        0.18
+        180
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.18 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "-17.6%",
       "history": [
-        0.13,
-        0.15,
-        0.17,
-        0.14
+        130,
+        150,
+        170,
+        140
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.14 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -251,9 +281,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 243,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 243
     },
     {
       "short": "Balance Sheet Expansion",
@@ -277,9 +305,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Stratégie",
-      "ttm": 311.6,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 311.6
     }
   ],
   "ai_positioning": {
@@ -295,7 +321,8 @@
       "severity": 5,
       "score_rationale": "The company explicitly mentions risks of economic downturn due to Federal Reserve monetary policy, with potential consequences on operating results and financial condition, including impacts on borrower repayment ability and collateral values.",
       "trend": "up",
-      "summary": "A recession could have a negative impact on operating results and financial condition, particularly given geographic concentration in Northern and Central Indiana markets."
+      "summary": "A recession could have a negative impact on operating results and financial condition, particularly given geographic concentration in Northern and Central Indiana markets.",
+      "score": 5
     },
     {
       "title": "Interest Rate Risk",
@@ -303,7 +330,8 @@
       "severity": 4,
       "score_rationale": "The company is exposed to interest rate changes which significantly affect net interest income, the largest revenue component, with material impacts on operating results and financial condition.",
       "trend": "up",
-      "summary": "Changes in interest rates could negatively impact net interest income and financial condition."
+      "summary": "Changes in interest rates could negatively impact net interest income and financial condition.",
+      "score": 4
     },
     {
       "title": "Inflation",
@@ -311,7 +339,8 @@
       "severity": 4,
       "score_rationale": "The company mentions inflation risks, including impacts on consumer purchasing power and operating costs, affecting borrower repayment capacity and bank profitability.",
       "trend": "stable",
-      "summary": "Inflation could negatively impact operating results through increased costs and reduced customer purchasing power."
+      "summary": "Inflation could negatively impact operating results through increased costs and reduced customer purchasing power.",
+      "score": 4
     },
     {
       "title": "Credit Risk",
@@ -319,7 +348,8 @@
       "severity": 4,
       "score_rationale": "The company maintains allowances for credit losses and manages risks related to loan defaults and collateral value declines, with detailed evaluation processes reflecting inherent portfolio uncertainty.",
       "trend": "stable",
-      "summary": "Credit risks from loan defaults and collateral value declines could negatively impact operating results and financial condition."
+      "summary": "Credit risks from loan defaults and collateral value declines could negatively impact operating results and financial condition.",
+      "score": 4
     },
     {
       "title": "Geographic Concentration",
@@ -327,7 +357,8 @@
       "severity": 4,
       "score_rationale": "Business is heavily concentrated in Northern and Central Indiana markets, limiting diversification of credit risks compared to regional and national competitors.",
       "trend": "stable",
-      "summary": "Geographic concentration limits ability to diversify credit risks across multiple markets."
+      "summary": "Geographic concentration limits ability to diversify credit risks across multiple markets.",
+      "score": 4
     },
     {
       "title": "Competition",
@@ -335,7 +366,8 @@
       "severity": 3,
       "score_rationale": "The company faces competition in the banking sector, particularly in deposit costs and interest rates, which could affect profitability.",
       "trend": "stable",
-      "summary": "Competition could negatively impact operating results and financial condition."
+      "summary": "Competition could negatively impact operating results and financial condition.",
+      "score": 3
     },
     {
       "title": "Regulatory Risk",
@@ -343,7 +375,8 @@
       "severity": 3,
       "score_rationale": "As a bank holding company, the company is subject to extensive regulatory oversight and potential changes in regulations governing banking operations.",
       "trend": "stable",
-      "summary": "Regulatory changes could negatively impact operating results and financial condition."
+      "summary": "Regulatory changes could negatively impact operating results and financial condition.",
+      "score": 3
     }
   ],
   "governance": {
@@ -382,7 +415,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -458,7 +491,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.046Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.799Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lkfn.json",
     "enrich_root": "v2-pipeline-enrich/lkfn.json",

@@ -67,8 +67,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Industrial free cash flow",
@@ -145,11 +149,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 195.15 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -168,11 +176,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 45.95 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -191,34 +203,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 30.15 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "BEV market share",
-      "name_fr": "Part de marché des véhicules électriques",
-      "name_en": "BEV market share",
-      "explanation": "Part de marché des véhicules électriques de l'entreprise",
-      "value": "38.8",
-      "unit": "%",
-      "yoy": "Non disponible",
-      "type": "Mix",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Leadership sur le marché des véhicules électriques",
-      "description": "Part de marché des véhicules électriques de l'entreprise",
-      "history": [],
-      "last_data_date": "2023-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption"
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "absent",
     "summary": "Pas de mention de l'intelligence artificielle dans le texte",
@@ -244,7 +239,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "semester",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -258,7 +253,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur positionné en avant-plan du rapport (forward-looking statements, strategic reassessment). Langage intensif : « revised view on expected pace », « demand-led approach », « flexibility across powertrain technologies ». Tendance haussière : révision stratégique 2025 suite à défis commerciaux. Poids critique : redéfinition du plan Dare Forward 2030 (100% EV Europe, 50% US).",
       "trend": "up",
-      "summary": "Stellantis révise sa stratégie d'électrification suite à une demande client inférieure aux attentes et à des défis d'affordabilité. Le groupe abandonne partiellement ses cibles 100% EV Europe/50% US 2030 pour adopter une approche « demand-led » avec flexibilité technologique, reflétant l'incertitude sur le rythme réel de transition énergétique."
+      "summary": "Stellantis révise sa stratégie d'électrification suite à une demande client inférieure aux attentes et à des défis d'affordabilité. Le groupe abandonne partiellement ses cibles 100% EV Europe/50% US 2030 pour adopter une approche « demand-led » avec flexibilité technologique, reflétant l'incertitude sur le rythme réel de transition énergétique.",
+      "score": 5
     },
     {
       "title": "Défis opérationnels et qualité des nouvelles plateformes",
@@ -266,7 +262,8 @@
       "severity": 5,
       "score_rationale": "Explicitement cité comme facteur de réassessment stratégique (« quality related challenges associated with new platforms and powertrains »). Langage direct et grave. Tendance montante : problèmes identifiés 2024-H1 2025. Impact financier visible : perte nette 22,3 Md€ 2025, AOI négatif (-0,8 Md€).",
       "trend": "up",
-      "summary": "Stellantis a rencontré des défis de qualité significatifs sur ses nouvelles plateformes et groupes motopropulseurs en 2024-2025, particulièrement en Europe et Amérique du Nord. Ces problèmes opérationnels ont contribué aux pertes financières et à la nécessité d'une réinitialisation stratégique complète."
+      "summary": "Stellantis a rencontré des défis de qualité significatifs sur ses nouvelles plateformes et groupes motopropulseurs en 2024-2025, particulièrement en Europe et Amérique du Nord. Ces problèmes opérationnels ont contribué aux pertes financières et à la nécessité d'une réinitialisation stratégique complète.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue et consolidation sectorielle",
@@ -274,7 +271,8 @@
       "severity": 4,
       "score_rationale": "Identifié dans forward-looking statements comme risque majeur (« level of competition may increase due to consolidation and new entrants »). Langage modéré mais clair. Tendance stable mais structurelle. Contexte : industrie automobile en consolidation, nouveaux entrants chinois (Leapmotor, BYD).",
       "trend": "stable",
-      "summary": "L'industrie automobile fait face à une intensification concurrentielle due à la consolidation des acteurs existants et à l'émergence de nouveaux concurrents, notamment chinois. Stellantis doit maintenir sa compétitivité produit et coûts face à des rivaux mieux positionnés sur l'électrique (Tesla, BYD, Nio)."
+      "summary": "L'industrie automobile fait face à une intensification concurrentielle due à la consolidation des acteurs existants et à l'émergence de nouveaux concurrents, notamment chinois. Stellantis doit maintenir sa compétitivité produit et coûts face à des rivaux mieux positionnés sur l'électrique (Tesla, BYD, Nio).",
+      "score": 4
     },
     {
       "title": "Dépendance aux matières premières et chaîne d'approvisionnement",
@@ -282,7 +280,8 @@
       "severity": 4,
       "score_rationale": "Cité explicitement dans forward-looking statements (« increases in costs, disruptions of supply or shortages of raw materials, parts, components »). Langage d'alerte modéré. Tendance montante : pressions inflationnistes 2024-2025 mentionnées. Poids élevé : critique pour production EV (batteries, lithium, cobalt).",
       "trend": "up",
-      "summary": "Stellantis est exposée à des risques d'augmentation des coûts et de perturbations d'approvisionnement en matières premières critiques (lithium, cobalt, nickel) et composants électroniques. Les pressions inflationnistes 2024-2025 et la concentration géographique des fournisseurs (Asie) amplifient cette vulnérabilité."
+      "summary": "Stellantis est exposée à des risques d'augmentation des coûts et de perturbations d'approvisionnement en matières premières critiques (lithium, cobalt, nickel) et composants électroniques. Les pressions inflationnistes 2024-2025 et la concentration géographique des fournisseurs (Asie) amplifient cette vulnérabilité.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire émissions et efficacité énergétique",
@@ -290,7 +289,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans forward-looking statements (« increasingly stringent regulations regarding fuel efficiency and greenhouse gas and tailpipe emissions »). Langage d'alerte modéré. Tendance stable mais structurelle. Poids élevé : impact direct sur portefeuille produits et investissements R&D.",
       "trend": "stable",
-      "summary": "Stellantis doit se conformer à des normes d'émissions et d'efficacité énergétique de plus en plus strictes en Europe (Euro 7), aux États-Unis (EPA) et en Chine. Le non-respect entraîne des amendes substantielles et contraint les investissements en électrification et technologies alternatives."
+      "summary": "Stellantis doit se conformer à des normes d'émissions et d'efficacité énergétique de plus en plus strictes en Europe (Euro 7), aux États-Unis (EPA) et en Chine. Le non-respect entraîne des amendes substantielles et contraint les investissements en électrification et technologies alternatives.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et systèmes de contrôle électronique véhicules",
@@ -298,7 +298,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité (« significant malfunction, disruption or security breach compromising information technology systems or electronic control systems »). Langage d'alerte direct. Tendance montante : risque croissant avec connectivité accrue des véhicules. Poids élevé : impact sécurité client et responsabilité légale.",
       "trend": "up",
-      "summary": "Stellantis est exposée aux risques de dysfonctionnement, perturbation ou violation de sécurité de ses systèmes informatiques et systèmes de contrôle électronique embarqués. L'augmentation de la connectivité des véhicules (OTA, 5G) amplifie cette vulnérabilité et les risques de rappels massifs."
+      "summary": "Stellantis est exposée aux risques de dysfonctionnement, perturbation ou violation de sécurité de ses systèmes informatiques et systèmes de contrôle électronique embarqués. L'augmentation de la connectivité des véhicules (OTA, 5G) amplifie cette vulnérabilité et les risques de rappels massifs.",
+      "score": 4
     },
     {
       "title": "Volatilité des taux de change et exposition géographique",
@@ -306,7 +307,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans forward-looking statements (« exchange rate fluctuations »). Langage modéré. Tendance stable mais structurelle. Poids modéré : Stellantis opère en 6 régions avec devises multiples (EUR, USD, BRL, TRY, CNY).",
       "trend": "stable",
-      "summary": "Stellantis est exposée aux fluctuations des taux de change sur ses opérations multidevises (USD, BRL, TRY, CNY). L'exposition est significative notamment en Amérique du Nord (USD) et Amérique du Sud (BRL), impactant marges et compétitivité."
+      "summary": "Stellantis est exposée aux fluctuations des taux de change sur ses opérations multidevises (USD, BRL, TRY, CNY). L'exposition est significative notamment en Amérique du Nord (USD) et Amérique du Sud (BRL), impactant marges et compétitivité.",
+      "score": 3
     },
     {
       "title": "Incitations gouvernementales et politiques énergétiques",
@@ -314,7 +316,8 @@
       "severity": 3,
       "score_rationale": "Cité dans forward-looking statements (« level of governmental economic incentives available to support adoption of battery electric vehicles »). Langage modéré. Tendance montante : réduction des incitations observée 2024-2025 (Allemagne, France). Poids modéré : impact sur demande EV et rentabilité.",
       "trend": "up",
-      "summary": "Stellantis dépend partiellement des incitations gouvernementales (subventions, crédits d'impôt) pour soutenir l'adoption des véhicules électriques. La réduction ou suppression de ces aides (Allemagne 2024, France 2025) réduit la demande EV et pèse sur les volumes et marges."
+      "summary": "Stellantis dépend partiellement des incitations gouvernementales (subventions, crédits d'impôt) pour soutenir l'adoption des véhicules électriques. La réduction ou suppression de ces aides (Allemagne 2024, France 2025) réduit la demande EV et pèse sur les volumes et marges.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:28:28.754305+00:00",
@@ -489,9 +492,9 @@
     "country": "Netherlands",
     "_data_freshness_date": "2026-05-21T02:17:14.314313+00:00",
     "fetched_at": "2026-05-21T02:17:14.314314+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.214Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.235Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/stla.json",
     "enrich_root": "v2-pipeline-enrich/stla.json",

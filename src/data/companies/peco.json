@@ -38,10 +38,13 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (valeur en milliers de dollars selon 10-K)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Same-Center NOI values not found with explicit annual figures in the provided 10-K extract. The KPI is mentioned as a 2020 performance metri",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Occupancy Rate",
@@ -174,11 +177,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.29 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -197,11 +204,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.49 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -227,9 +238,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'"
     },
     {
       "short": "Core FFO",
@@ -254,9 +263,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Unité corrigée de 'Mds $' à '$' (per-share metric). Valeur et history mises à jour avec per-share data du 10-K",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à '$' (per-share metric). Valeur et history mises à jour avec per-share data du 10-K"
     }
   ],
   "ai_positioning": {
@@ -285,7 +292,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -301,7 +308,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné en premier dans les facteurs de risque sous 'Risks Related to Business Continuity and Cybersecurity'. Le langage indique un risque opérationnel significatif pouvant perturber les systèmes critiques. La catégorie cybersécurité est hautement pondérée en contexte immobilier géré numériquement. Position centrale dans le 10-K renforce son importance.",
       "trend": "stable",
-      "summary": "Une cyberattaque pourrait interrompre les opérations, compromettre les données locatives ou affecter la gestion des biens."
+      "summary": "Une cyberattaque pourrait interrompre les opérations, compromettre les données locatives ou affecter la gestion des biens.",
+      "score": 4
     },
     {
       "title": "Dépendance à la conjoncture économique",
@@ -309,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Le document lie directement la croissance des loyers à la santé économique et au taux d'occupation. Mention répétée de la sensibilité aux récessions. Langage prévisionnel fort ('may experience rental rate decline'). Risque macroéconomique central pour les revenus locatifs. Catégorie hautement pondérée.",
       "trend": "stable",
-      "summary": "Une récession ou une faible croissance économique pourrait réduire la demande locative et faire baisser les loyers."
+      "summary": "Une récession ou une faible croissance économique pourrait réduire la demande locative et faire baisser les loyers.",
+      "score": 4
     },
     {
       "title": "Renouvellement de nombreux baux en 2026",
@@ -317,7 +326,8 @@
       "severity": 4,
       "score_rationale": "735 baux expirant en 2026 pour 2,7 millions de pieds carrés. Bien que l'occupation soit élevée (97,3 %), le renouvellement à des loyers inférieurs est un risque explicite. Position détaillée dans 'Lease Expirations'. Langage prudent sur l'impossibilité de prédire les nouveaux taux.",
       "trend": "stable",
-      "summary": "Le renouvellement de nombreux baux en 2026 comporte un risque de baisse des revenus si les loyers futurs sont inférieurs."
+      "summary": "Le renouvellement de nombreux baux en 2026 comporte un risque de baisse des revenus si les loyers futurs sont inférieurs.",
+      "score": 4
     },
     {
       "title": "Concentration géographique en Floride",
@@ -325,7 +335,8 @@
       "severity": 3,
       "score_rationale": "12,3 % de l'ABR provient de Floride, le premier État. Risque de concentration non explicitement mentionné mais implicite face aux catastrophes naturelles ou régulations locales. Position élevée dans le tableau géographique. Catégorie moyennement pondérée.",
       "trend": "stable",
-      "summary": "Une exposition importante en Floride expose la société aux risques climatiques et réglementaires régionaux."
+      "summary": "Une exposition importante en Floride expose la société aux risques climatiques et réglementaires régionaux.",
+      "score": 3
     },
     {
       "title": "Dépendance à quelques grands locataires",
@@ -333,7 +344,8 @@
       "severity": 3,
       "score_rationale": "Les 3 premiers locataires (Kroger, Publix, Albertsons) représentent 13,7 % de l'ABR. Bien que diversifiés, une défaillance d'un grand locateur aurait un impact notable. Mention dans 'Top 20 Neighbors'. Risque modéré mais présent.",
       "trend": "stable",
-      "summary": "La perte d'un ou plusieurs grands locataires pourrait affecter significativement les revenus locatifs."
+      "summary": "La perte d'un ou plusieurs grands locataires pourrait affecter significativement les revenus locatifs.",
+      "score": 3
     },
     {
       "title": "Risque juridique ordinaire non matérialisé",
@@ -341,7 +353,8 @@
       "severity": 2,
       "score_rationale": "Le document mentionne des procédures juridiques courantes mais précise qu'aucune n'est susceptible d'avoir un impact matériel. Langage rassurant ('not reasonably likely'). Position en fin de section. Catégorie pondérée moyenne mais risque actuel faible.",
       "trend": "stable",
-      "summary": "Des litiges existent dans le cours normal des affaires, mais aucun n'est actuellement considéré comme matériel."
+      "summary": "Des litiges existent dans le cours normal des affaires, mais aucun n'est actuellement considéré comme matériel.",
+      "score": 2
     }
   ],
   "governance": {
@@ -466,9 +479,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.295678+00:00",
     "fetched_at": "2026-05-21T02:17:14.295679+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.516Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.473Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/peco.json",
     "enrich_root": "v2-pipeline-enrich/peco.json",

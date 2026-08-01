@@ -51,8 +51,8 @@
       "name_fr": "Revenu des ventes de maisons",
       "name_en": "Home Closings Revenue",
       "explanation": "Revenu généré par les ventes de maisons",
-      "value": 2091.258,
-      "unit": "M $",
+      "value": 2.091,
+      "unit": "Mds $",
       "yoy": "+1.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -60,8 +60,8 @@
       "signal": "Augmentation modérée du revenu des ventes de maisons",
       "description": "Le revenu des ventes de maisons a augmenté de 1,0% en 2025 par rapport à 2024.",
       "history": [
-        2069.756,
-        2091.258
+        2.07,
+        2.091
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -69,7 +69,8 @@
       "is_short_history": false,
       "ttm": 2096.689,
       "explanation_en": "Revenue from the Home Closings segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Average Sales Price",
@@ -169,24 +170,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue stable, monitor outlook"
+      "signal_en": "Revenue stable, monitor outlook",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.313,
-      "unit": "Mds $",
+      "value": 313,
+      "unit": "M $",
       "yoy": "-18.1%",
       "history": [
-        0.052,
-        0.059,
-        0.114,
-        0.19,
-        0.292,
-        0.285,
-        0.382,
-        0.313
+        52,
+        59,
+        114,
+        190,
+        292,
+        285,
+        382,
+        313
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -195,24 +200,29 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.072,
-      "unit": "Mds $",
+      "value": 72,
+      "unit": "M $",
       "yoy": "+22.0%",
       "history": [
         0,
-        -0.04,
-        -0.01,
-        0.033,
-        0.048,
-        0.059,
-        0.072
+        -40,
+        -10,
+        33,
+        48,
+        59,
+        72
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -221,8 +231,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 7 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -263,7 +278,8 @@
       "severity": 5,
       "score_rationale": "Le risque est placé en premier dans le 10-K, avec un langage fort (significantly and adversely affect). Il est répété plusieurs fois avec des facteurs clés comme les taux d'intérêt, le chômage et la confiance des consommateurs. Catégorie hautement pondérée en raison de l'exposition directe du secteur immobilier aux cycles économiques.",
       "trend": "stable",
-      "summary": "Une récession, des taux élevés ou une baisse de la demande peuvent réduire les ventes et augmenter les annulations de commandes."
+      "summary": "Une récession, des taux élevés ou une baisse de la demande peuvent réduire les ventes et augmenter les annulations de commandes.",
+      "score": 5
     },
     {
       "title": "Inflation élevée et pression sur les marges",
@@ -271,7 +287,8 @@
       "severity": 5,
       "score_rationale": "Le texte décrit l'inflation comme persistante et identifie des impacts directs sur les coûts (matériaux, main-d'œuvre, financement). Le risque de non-compensation par des hausses de prix est explicite, avec mention d'une compression des marges. Langage intensif et lien avec les taux d'intérêt.",
       "trend": "up",
-      "summary": "L'inflation augmente les coûts de construction, mais la société peut ne pas pouvoir répercuter ces hausses sur les prix de vente."
+      "summary": "L'inflation augmente les coûts de construction, mais la société peut ne pas pouvoir répercuter ces hausses sur les prix de vente.",
+      "score": 5
     },
     {
       "title": "Pénurie de main-d'œuvre et matériaux",
@@ -279,7 +296,8 @@
       "severity": 5,
       "score_rationale": "Le risque est détaillé avec des exemples concrets (lumber, drywall, immigration). Mention de retards de construction, de délais prolongés et de compression de marge. Le texte souligne l'impact des politiques publiques et des catastrophes naturelles, renforçant la gravité.",
       "trend": "up",
-      "summary": "Les pénuries de main-d'œuvre qualifiée et de matériaux de construction peuvent retarder les livraisons et augmenter les coûts."
+      "summary": "Les pénuries de main-d'œuvre qualifiée et de matériaux de construction peuvent retarder les livraisons et augmenter les coûts.",
+      "score": 5
     },
     {
       "title": "Dépendance aux sous-traitants",
@@ -287,7 +305,8 @@
       "severity": 4,
       "score_rationale": "Le texte indique que les sous-traitants réalisent la quasi-totalité des travaux. La disponibilité et la qualité de leur prestation sont critiques. Le langage est préoccupé mais moins alarmiste que pour les risques macro. Risque opérationnel majeur mais moins existentiel.",
       "trend": "stable",
-      "summary": "La qualité et la ponctualité de la construction dépendent fortement de sous-traitants externes, dont la disponibilité n'est pas garantie."
+      "summary": "La qualité et la ponctualité de la construction dépendent fortement de sous-traitants externes, dont la disponibilité n'est pas garantie.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue pour l'acquisition de terrains",
@@ -295,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien développé avec des facteurs comme la densité, les permis et l'inflation des prix. Mention d'un impact direct sur les marges et la croissance. Position élevée dans le document, mais moins centrale que les risques macro.",
       "trend": "stable",
-      "summary": "L'accès à des terrains à prix raisonnables est menacé par la concurrence et la réglementation, ce qui limite l'expansion et comprime les marges."
+      "summary": "L'accès à des terrains à prix raisonnables est menacé par la concurrence et la réglementation, ce qui limite l'expansion et comprime les marges.",
+      "score": 4
     },
     {
       "title": "Retards dans le développement de communautés",
@@ -303,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne que plusieurs années peuvent s'écouler avant la première vente. Les retards exposent à des changements de marché. Mention d'un impact sur la trésorerie et le service de la dette. Risque opérationnel important avec conséquences financières.",
       "trend": "stable",
-      "summary": "Les délais longs entre l'acquisition foncière et la vente des maisons exposent la société aux fluctuations du marché immobilier."
+      "summary": "Les délais longs entre l'acquisition foncière et la vente des maisons exposent la société aux fluctuations du marché immobilier.",
+      "score": 4
     },
     {
       "title": "Perte de cadres clés ou difficultés de recrutement",
@@ -311,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Le texte insiste sur l'importance des managers et des compétences locales. Mention explicite de l'absence d'assurance key person. Le risque est bien argumenté mais moins systémique que les autres.",
       "trend": "stable",
-      "summary": "La perte de dirigeants ou de talents clés, notamment dans l'acquisition foncière, pourrait nuire à la performance et à la croissance."
+      "summary": "La perte de dirigeants ou de talents clés, notamment dans l'acquisition foncière, pourrait nuire à la performance et à la croissance.",
+      "score": 4
     }
   ],
   "governance": {
@@ -414,7 +436,6 @@
       "date": "2026-04-30"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-07T09:38:21.408952+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -466,6 +487,7 @@
     ],
     "total": 2.1
   },
+  "_ai_positioning_fetched_at": "2026-05-07T09:38:21.408952+00:00",
   "_segments_fetched_at": "2026-05-07T10:00:53.549988+00:00",
   "financial_snapshot": {
     "market_cap_usd": 2883034624,
@@ -625,9 +647,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.269599+00:00",
     "fetched_at": "2026-05-21T02:17:14.269599+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.834Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.506Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/grbk.json",
     "enrich_root": "v2-pipeline-enrich/grbk.json",

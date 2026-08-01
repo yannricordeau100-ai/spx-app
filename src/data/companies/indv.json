@@ -67,7 +67,7 @@
       "is_short_history": false,
       "ttm": 85.04,
       "_validation": "YoY corrigé de -3.9 pts (calcul: 80.2 - 84.1 = -3.9 pts). Gross profit 994M / Revenue 1239M = 80.2% confirmé. History réordonnée (79.6, 80.5, 84.1) en ordre chronologique 2023-2024-2025. Valeur 2024 (80.5) corrigée de 80.1 à 80.5 (957/1188)",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -121,7 +121,7 @@
       "is_short_history": false,
       "ttm": 48.03,
       "_validation": "Valeur 66M$ confirmée en source (Cash flows: Purchases of property and equipment 66M). YoY +127.6% confirmé (66/29 - 1 = 1.276). History réordonnée chronologiquement (2023: 8M, 2024: 29M, 2025: 66M).",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -175,7 +175,7 @@
       "is_short_history": false,
       "ttm": -48.75,
       "_validation": "Valeur -27M$ confirmée (Cash flows from operating activities: -27M). History réordonnée chronologiquement (2023: -300M, 2024: +36M, 2025: -27M). TTM recalculé: (-300+36-27)/3 = -97M / 3 = -32.33M ou somme périodes: (-300+36-27) = -291M. Valeur négative portée par accrued legal and settlement expenses (-368M change) partiellement offset par les changements dans current assets and liabilities.",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations."
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations."
     },
     {
       "short": "Total Assets",
@@ -194,34 +194,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.2 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.35,
-      "unit": "Mds €",
+      "value": 350,
+      "unit": "M €",
       "yoy": "-7.9%",
       "history": [
-        0.28,
-        0.28,
-        0.38,
-        0.35
+        280,
+        280,
+        380,
+        350
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.35 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,9 +258,7 @@
       "is_short_history": true,
       "story_category": "Risque",
       "ttm": 145.67,
-      "_validation": "Valeur 3M$ confirmée (Consolidated Statements of Operations - Litigation settlement). History réordonnée chronologiquement (2023: 239M, 2024: 195M, 2025: 3M). YoY -192M$ confirmé (3 - 195 = -192M). story_category corrigé de 'Marché' à 'Risque' (classification plus appropriée). TTM recalculé: (239+195+3)/3 = 145.67M.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur 3M$ confirmée (Consolidated Statements of Operations - Litigation settlement). History réordonnée chronologiquement (2023: 239M, 2024: 195M, 2025: 3M). YoY -192M$ confirmé (3 - 195 = -192M). story_category corrigé de 'Marché' à 'Risque' (classification plus appropriée). TTM recalculé: (239+195+3)/3 = 145.67M."
     },
     {
       "short": "Capex Expansion",
@@ -277,9 +284,7 @@
       "is_short_history": true,
       "story_category": "Investissement",
       "ttm": 48.03,
-      "_validation": "Valeur 66M$ confirmée (Cash flows from investing activities et MD&A Capital Expenditures section). YoY +127.6% confirmé. History réordonnée chronologiquement (2023: 8M, 2024: 29M, 2025: 66M). name_fr amélioration pour clarifier le scope spécifique à Raleigh. TTM: (8+29+66)/3 = 34.33M ou annualisé ~48M selon méthodologie.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur 66M$ confirmée (Cash flows from investing activities et MD&A Capital Expenditures section). YoY +127.6% confirmé. History réordonnée chronologiquement (2023: 8M, 2024: 29M, 2025: 66M). name_fr amélioration pour clarifier le scope spécifique à Raleigh. TTM: (8+29+66)/3 = 34.33M ou annualisé ~48M selon méthodologie."
     }
   ],
   "ai_positioning": {
@@ -295,7 +300,8 @@
       "severity": 5,
       "score_rationale": "Risque explicitement cité en avant-plan du forward-looking statements (« We rely heavily on SUBLOCADE for a significant portion of our revenues »). Langage direct et répété. Position stratégique centrale dans le portefeuille. Poids catégorique majeur pour la viabilité commerciale.",
       "trend": "stable",
-      "summary": "SUBLOCADE représente une part substantielle des revenus d'Indivior. Toute perturbation de sa fabrication, commercialisation ou acceptation marché menacerait directement la performance financière. Le risque inclut la dépendance à un seul produit phare sans diversification suffisante."
+      "summary": "SUBLOCADE représente une part substantielle des revenus d'Indivior. Toute perturbation de sa fabrication, commercialisation ou acceptation marché menacerait directement la performance financière. Le risque inclut la dépendance à un seul produit phare sans diversification suffisante.",
+      "score": 5
     },
     {
       "title": "Dépendance envers tiers fabricants (CMO) pour production",
@@ -303,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans forward-looking statements (« Our reliance on third parties to manufacture commercial supplies »). Glossaire identifie Aquestive (SUBOXONE Film) et Curia (SUBLOCADE) comme CMO exclusifs. Risque opérationnel critique sans contrôle direct de la chaîne d'approvisionnement.",
       "trend": "stable",
-      "summary": "Indivior dépend de partenaires externes (Aquestive, Curia) pour la fabrication exclusive de ses produits clés. Toute interruption de production, défaut de qualité ou rupture contractuelle compromettrait la disponibilité des médicaments et les revenus. Acquisition de l'usine Raleigh (2023) vise partiellement à réduire cette dépendance."
+      "summary": "Indivior dépend de partenaires externes (Aquestive, Curia) pour la fabrication exclusive de ses produits clés. Toute interruption de production, défaut de qualité ou rupture contractuelle compromettrait la disponibilité des médicaments et les revenus. Acquisition de l'usine Raleigh (2023) vise partiellement à réduire cette dépendance.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire stricte et accords de règlement",
@@ -311,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Glossaire détaille CIA (Corporate Integrity Agreement, juillet 2020, 5 ans) et FTC Order (novembre 2020, 10 ans). Langage impératif sur obligations de conformité FDA/CMS/Medicaid. Position centrale dans Item 1A. Risque de non-conformité entraînerait sanctions majeures.",
       "trend": "stable",
-      "summary": "Indivior Inc. est liée par un CIA avec HHS-OIG (jusqu'à juillet 2025) et un FTC Order (jusqu'à novembre 2030) imposant des mesures strictes de conformité avec Medicare, Medicaid et FDA. Tout manquement pourrait entraîner amendes, exclusion des programmes fédéraux ou révocation d'approbations. Surveillance continue requise."
+      "summary": "Indivior Inc. est liée par un CIA avec HHS-OIG (jusqu'à juillet 2025) et un FTC Order (jusqu'à novembre 2030) imposant des mesures strictes de conformité avec Medicare, Medicaid et FDA. Tout manquement pourrait entraîner amendes, exclusion des programmes fédéraux ou révocation d'approbations. Surveillance continue requise.",
+      "score": 4
     },
     {
       "title": "Litiges opioides multiples et responsabilité produit",
@@ -319,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Glossaire définit « Opioid MDL » : plus de 400 poursuites civiles alléguant marketing abusif d'opioïdes. Forward-looking statements cite « litigation to which we are or may become a party » et « product liability claims ». Exposition financière et réputationnelle majeure non quantifiée précisément.",
       "trend": "stable",
-      "summary": "Indivior fait face à un multi-district litigation (MDL) impliquant plus de 400 poursuites civiles pour allégations de marketing abusif d'opioïdes et de responsabilité produit. Bien que le document indique que la résolution finale ne devrait pas avoir d'effet matériel, le risque de jugements défavorables ou de règlements supplémentaires persiste."
+      "summary": "Indivior fait face à un multi-district litigation (MDL) impliquant plus de 400 poursuites civiles pour allégations de marketing abusif d'opioïdes et de responsabilité produit. Bien que le document indique que la résolution finale ne devrait pas avoir d'effet matériel, le risque de jugements défavorables ou de règlements supplémentaires persiste.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue et pression tarifaire croissante",
@@ -327,7 +336,8 @@
       "severity": 4,
       "score_rationale": "Forward-looking statements cite explicitement « Competition » et « increasing focus on pricing and competition in our industry ». Dépendance aux tiers payeurs mentionnée. Marché OUD en expansion attire nouveaux entrants. Langage modéré mais risque structurel du secteur.",
       "trend": "up",
-      "summary": "Le marché des traitements OUD (notamment LAI) attire une concurrence croissante. Indivior subit une pression tarifaire accrue de la part des payeurs (assurances, Medicaid) et fait face à des produits concurrents. La capacité à maintenir les prix et les parts de marché est menacée par l'intensification compétitive."
+      "summary": "Le marché des traitements OUD (notamment LAI) attire une concurrence croissante. Indivior subit une pression tarifaire accrue de la part des payeurs (assurances, Medicaid) et fait face à des produits concurrents. La capacité à maintenir les prix et les parts de marché est menacée par l'intensification compétitive.",
+      "score": 4
     },
     {
       "title": "Incertitudes réglementoires et approbations produits futurs",
@@ -335,7 +345,8 @@
       "severity": 3,
       "score_rationale": "Forward-looking statements cite « The uncertainties related to the development of new products, including through acquisitions, and the related regulatory approval process ». Acquisition Opiant (mars 2023) introduit OPVEE (nalmefene). Risque de délais ou rejets d'approbation FDA/EMA.",
       "trend": "up",
-      "summary": "Indivior dépend de l'approbation réglementaire pour ses nouveaux produits en développement (notamment OPVEE via acquisition Opiant). Les délais d'approbation FDA/EMA, les exigences d'études cliniques supplémentaires ou les rejets pourraient retarder ou empêcher la commercialisation et la croissance future."
+      "summary": "Indivior dépend de l'approbation réglementaire pour ses nouveaux produits en développement (notamment OPVEE via acquisition Opiant). Les délais d'approbation FDA/EMA, les exigences d'études cliniques supplémentaires ou les rejets pourraient retarder ou empêcher la commercialisation et la croissance future.",
+      "score": 3
     },
     {
       "title": "Protection de la propriété intellectuelle et litiges brevets",
@@ -343,7 +354,8 @@
       "severity": 3,
       "score_rationale": "Forward-looking statements cite « Our ability to protect our intellectual property rights and the substantial cost of litigation or other proceedings related to intellectual property rights ». Produits clés (SUBLOCADE, SUBOXONE Film) protégés par brevets. Risque d'expiration ou de contestation.",
       "trend": "stable",
-      "summary": "Indivior dépend fortement de la protection brevets pour SUBLOCADE et SUBOXONE Film. L'expiration de brevets, les contestations ANDA ou les litiges de propriété intellectuelle pourraient exposer les produits à la concurrence générique et réduire les marges. Les coûts de défense IP sont substantiels."
+      "summary": "Indivior dépend fortement de la protection brevets pour SUBLOCADE et SUBOXONE Film. L'expiration de brevets, les contestations ANDA ou les litiges de propriété intellectuelle pourraient exposer les produits à la concurrence générique et réduire les marges. Les coûts de défense IP sont substantiels.",
+      "score": 3
     },
     {
       "title": "Risques de fabrication et matières dangereuses",
@@ -351,12 +363,17 @@
       "severity": 3,
       "score_rationale": "Forward-looking statements cite « We are subject to risks related to the manufacture and distribution of our products » et « Our use of hazardous materials in our manufacturing facilities ». Glossaire mentionne FCP (Fine Chemical Plant) pour buprenorphine HCl. Risques environnementaux et opérationnels.",
       "trend": "stable",
-      "summary": "Indivior fabrique ou supervise la fabrication de substances contrôlées (buprenorphine HCl) et utilise des matières dangereuses. Les risques incluent accidents de fabrication, contamination environnementale, non-conformité aux normes de sécurité, et rappels produits. L'usine Raleigh (2023) introduit de nouveaux risques opérationnels."
+      "summary": "Indivior fabrique ou supervise la fabrication de substances contrôlées (buprenorphine HCl) et utilise des matières dangereuses. Les risques incluent accidents de fabrication, contamination environnementale, non-conformité aux normes de sécurité, et rappels produits. L'usine Raleigh (2023) introduit de nouveaux risques opérationnels.",
+      "score": 3
     }
   ],
   "governance": {
     "agm_date": "TBD",
-    "_validation": "AGM date non trouvée dans source fournie - marqué comme TBD pour clarification."
+    "_validation": "AGM date non trouvée dans source fournie - marqué comme TBD pour clarification.",
+    "ceo_name": "Joe Ciaffoni",
+    "board_size": 8,
+    "board_independence_pct": 87.5,
+    "voting_structure": "One voting class of stock, with each share of common stock entitled to one vote"
   },
   "_dataset_validation": {
     "corrections_summary": "11 corrections apportées au dataset",
@@ -384,7 +401,7 @@
   },
   "_risks_reextracted_at": "2026-05-14T05:34:11.416487+00:00",
   "_risks_source": "10-K FY2026",
-  "_companies_unified_built_at": "2026-05-29T21:19:38.080Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.604Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/indv.json",
     "enrich_root": null,

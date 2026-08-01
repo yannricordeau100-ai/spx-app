@@ -40,9 +40,12 @@
         "Unit corrigée: 'Mds $' -> 'B $'",
         "Last_data_date corrigée: '2025-12-31' -> '2026-01-03' (date de clôture fiscale réelle du 10-K)"
       ],
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Extrait incomplet : aucune valeur annuelle explicite de revenu total (en $B ou autre unité) n'est présente dans le texte fourni. La section "
+      "_hero_history_unverified_reason": "Extrait incomplet : aucune valeur annuelle explicite de revenu total (en $B ou autre unité) n'est présente dans le texte fourni. La section ",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Bénéfice net",
@@ -90,59 +93,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 6.14 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:22.676493+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "-78.6%",
       "history": [
-        0.74,
-        0.65,
-        0.28,
-        0.06
+        740,
+        650,
+        280,
+        60
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.06 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "+46.4%",
       "history": [
-        0.7,
-        0.6,
-        0.28,
-        0.41
+        700,
+        600,
+        280,
+        410
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.41 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +178,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.3 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,33 +205,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.16 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+12.5%",
       "history": [
-        0.13,
-        0.13,
-        0.08,
-        0.09
+        130,
+        130,
+        80,
+        90
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.09 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -238,9 +268,7 @@
       "_validation": [
         "Unit corrigée: 'Mds $' -> 'B $'",
         "Last_data_date corrigée: '2025-12-31' -> '2026-01-03'"
-      ],
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -256,7 +284,8 @@
       "severity": 4,
       "score_rationale": "La société est régulièrement confrontée à des risques cybernétiques, qui pourraient avoir un impact matériel sur l'entreprise. La direction de la cybersécurité et le directeur de l'informatique sont responsables de la gestion de ces risques. En cas d'incident, un plan de réponse structuré est activé avec engagement de la direction exécutive et du conseil.",
       "trend": "stable",
-      "summary": "La société est vulnérable aux cyberattaques, qui pourraient affecter son activité et ses résultats financiers."
+      "summary": "La société est vulnérable aux cyberattaques, qui pourraient affecter son activité et ses résultats financiers.",
+      "score": 4
     },
     {
       "title": "Réglementations environnementales",
@@ -264,7 +293,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations environnementales strictes, notamment en ce qui concerne les déchets et les émissions. Les non-conformités pourraient entraîner des amendes et des pénalités.",
       "trend": "up",
-      "summary": "La société doit se conformer aux réglementations environnementales pour éviter les amendes et les pénalités."
+      "summary": "La société doit se conformer aux réglementations environnementales pour éviter les amendes et les pénalités.",
+      "score": 3
     },
     {
       "title": "Litiges et contentieux",
@@ -272,7 +302,8 @@
       "severity": 4,
       "score_rationale": "La société est impliquée dans plusieurs litiges et contentieux, notamment en ce qui concerne les déchets et les émissions. Les résultats de ces litiges pourraient avoir un impact matériel sur l'entreprise.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés aux litiges et contentieux, qui pourraient affecter son activité et ses résultats financiers."
+      "summary": "La société est exposée à des risques liés aux litiges et contentieux, qui pourraient affecter son activité et ses résultats financiers.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie",
@@ -280,7 +311,8 @@
       "severity": 3,
       "score_rationale": "La société dépend fortement de la technologie pour son activité. Les défaillances ou les cyberattaques pourraient affecter son fonctionnement et ses résultats financiers.",
       "trend": "up",
-      "summary": "La société est vulnérable aux défaillances et aux cyberattaques liées à la technologie, qui pourraient affecter son activité et ses résultats financiers."
+      "summary": "La société est vulnérable aux défaillances et aux cyberattaques liées à la technologie, qui pourraient affecter son activité et ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Risques de réputation",
@@ -288,7 +320,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de réputation liés à ses activités et à ses produits. Les incidents ou les scandales pourraient affecter sa réputation et ses résultats financiers.",
       "trend": "stable",
-      "summary": "La société est vulnérable aux risques de réputation, qui pourraient affecter son activité et ses résultats financiers."
+      "summary": "La société est vulnérable aux risques de réputation, qui pourraient affecter son activité et ses résultats financiers.",
+      "score": 4
     },
     {
       "title": "Risques de conformité",
@@ -296,7 +329,8 @@
       "severity": 3,
       "score_rationale": "La société doit se conformer à des réglementations strictes, notamment en ce qui concerne les déchets et les émissions. Les non-conformités pourraient entraîner des amendes et des pénalités.",
       "trend": "up",
-      "summary": "La société doit se conformer aux réglementations pour éviter les amendes et les pénalités."
+      "summary": "La société doit se conformer aux réglementations pour éviter les amendes et les pénalités.",
+      "score": 3
     },
     {
       "title": "Risques de gestion des déchets",
@@ -307,7 +341,8 @@
       "summary": "La société est vulnérable aux risques de gestion des déchets, qui pourraient affecter son activité et ses résultats financiers.",
       "_validation": [
         "Category corrigée: 'Industriel' -> 'Industriel' (confirmée)"
-      ]
+      ],
+      "score": 3
     }
   ],
   "governance": {
@@ -338,7 +373,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -473,166 +508,62 @@
   },
   "enrich_quarterly_history": {
     "ticker": "DAR",
-    "extracted_at": "2026-05-15T18:10:32Z",
-    "method": "xbrl-companyfacts",
-    "cik": 916540,
+    "extracted_at": "2026-06-01T03:09:39Z",
     "n_kpis": 2,
     "kpis": [
       {
         "short": "Revenu",
         "period_type": "quarter",
         "history": [
-          2.2454,
-          3.4313,
-          -1.982,
-          1.3663,
-          3.0165,
-          4.7641,
-          -2.6148,
-          1.7912,
-          3.5488,
-          5.174,
-          -3.7259,
-          1.4203,
-          2.8756,
-          4.2975,
-          -2.8782,
-          1.3806,
-          2.8621,
-          4.4261,
-          -2.5329,
-          1.5508
+          0.431633,
+          0.571859,
+          0.4019,
+          0.980692,
+          1.455886,
+          1.470036
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2022"
         ],
-        "last_data_date": "2026-04-04",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 2.8621,
-            "accession": "0000916540-25-000023",
-            "end": "2025-06-28"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 4.4261,
-            "accession": "0000916540-25-000031",
-            "end": "2025-09-27"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -2.5329,
-            "accession": "calc-0000916540-26-000008",
-            "end": "2026-01-03"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.5508,
-            "accession": "0000916540-26-000013",
-            "end": "2026-04-04"
-          }
-        ]
+        "last_data_date": "2022-09-30",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T03:09:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Bénéfice net",
         "period_type": "quarter",
         "history": [
-          348.348,
-          495.16,
-          -344.36,
-          188.053,
-          390.049,
-          581.13,
-          -421.542,
-          185.801,
-          438.184,
-          563.21,
-          -539.469,
-          81.157,
-          160.023,
-          176.972,
-          -139.272,
-          -26.16,
-          -13.499,
-          5.864,
-          96.599,
-          134.313
+          204.45,
+          251.576,
+          107.902,
+          143.608,
+          147.36,
+          206.828
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2022"
         ],
-        "last_data_date": "2026-04-04",
+        "last_data_date": "2022-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": -13.499,
-            "accession": "0000916540-25-000023",
-            "end": "2025-06-28"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 5.864,
-            "accession": "0000916540-25-000031",
-            "end": "2025-09-27"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 96.599,
-            "accession": "calc-0000916540-26-000008",
-            "end": "2026-01-03"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 134.313,
-            "accession": "0000916540-26-000013",
-            "end": "2026-04-04"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:09:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ]
   },
@@ -648,9 +579,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.249129+00:00",
     "fetched_at": "2026-05-21T02:17:14.249130+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.105Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.642Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dar.json",
     "enrich_root": "v2-pipeline-enrich/dar.json",

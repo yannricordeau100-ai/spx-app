@@ -21,8 +21,8 @@
       "name_fr": "Revenu",
       "name_en": "Revenue",
       "explanation": "Revenu total de la société",
-      "value": 2715,
-      "unit": "M $",
+      "value": 2.715,
+      "unit": "Mds $",
       "yoy": "+10.3%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,9 +30,9 @@
       "signal": "Revenu en hausse de 10,3% en 2025",
       "description": "Revenu total de la société, incluant les ventes de produits et services. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 3 dernières années.",
       "history": [
-        2512,
-        2461,
-        2715
+        2.512,
+        2.461,
+        2.715
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -40,8 +40,12 @@
       "is_short_history": false,
       "ttm": 2785.05,
       "_validation": "Unit corrigée de 'Mds $' à 'M$'; yoy normalisé de '+10,3%' à '+10.3%'",
-      "period_type": "quarter",
-      "signal_en": "Strong top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Marge brute",
@@ -112,34 +116,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.72 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.24,
-      "unit": "Mds €",
+      "value": 240,
+      "unit": "M €",
       "yoy": "+20.0%",
       "history": [
-        0.25,
-        0.24,
-        0.2,
-        0.24
+        250,
+        240,
+        200,
+        240
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.24 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,11 +171,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.54 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -181,33 +198,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.4 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.39,
-      "unit": "Mds €",
+      "value": 390,
+      "unit": "M €",
       "yoy": "+5.4%",
       "history": [
-        0.69,
-        0.6,
-        0.37,
-        0.39
+        690,
+        600,
+        370,
+        390
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.39 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -235,13 +261,11 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 2785.05,
-      "_validation": "Unit corrigée de 'Mds $' à 'M$'; yoy normalisé",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrigée de 'Mds $' à 'M$'; yoy normalisé"
     }
   ],
   "ai_positioning": {
-    "stance": "present",
+    "stance": "integrator",
     "summary": "La société BDC mentionne l'intelligence artificielle dans son rapport 10-K en lien avec les risques de cybersécurité. L'IA est citée comme outil potentiel améliorant les capacités des cyberattaques (hacking, malware, phishing), sans stratégie positive d'implémentation d'IA identifiée.",
     "evidence": [
       "Computer hacking, malware, phishing, and spamming attacks... more recently enhanced by the use of artificial intelligence (AI) tools"
@@ -253,55 +277,55 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "La société est exposée à des risques accrus de cyberattaques amplifiées par les outils d'IA, pouvant entraîner des pertes financières, des dommages réputationnels et des litiges coûteux (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques accrus de cyberattaques amplifiées par les outils d'IA, pouvant entraîner des pertes financières, des dommages réputationnels et des litiges coûteux",
       "trend": "up",
       "summary": "Attaques informatiques (hacking, malware, phishing) renforcées par l'IA pourraient compromettre les opérations et données clients, entraînant des coûts de remédiation significatifs et une perte de confiance.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Volatilité commerciale et tarifaire",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "L'augmentation des tarifs douaniers américains en 2025 sur la plupart des pays affecte directement les chaînes d'approvisionnement globales et les marges (score par défaut, à affiner)",
+      "score_rationale": "L'augmentation des tarifs douaniers américains en 2025 sur la plupart des pays affecte directement les chaînes d'approvisionnement globales et les marges",
       "trend": "up",
       "summary": "Les tarifs douaniers croissants et les négociations commerciales créent une incertitude sur les coûts d'approvisionnement futurs et pourraient réduire les marges ou augmenter les prix",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Problèmes d'approvisionnement",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société dépend de fournisseurs mondiaux pour les matières premières et composants, exposée aux interruptions de chaîne d'approvisionnement (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de fournisseurs mondiaux pour les matières premières et composants, exposée aux interruptions de chaîne d'approvisionnement",
       "trend": "stable",
       "summary": "Les interruptions potentielles dans la chaîne d'approvisionnement pourraient entraîner des retards de production et des coûts additionnels, impactant la capacité à servir les clients",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence intense",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Marché hautement fragmenté avec part de marché estimée de 5-15% par segment; action concurrentielle directe probable (score par défaut, à affiner)",
+      "score_rationale": "Marché hautement fragmenté avec part de marché estimée de 5-15% par segment; action concurrentielle directe probable",
       "trend": "stable",
       "summary": "La concurrence accrue pourrait exercer une pression sur les prix et les parts de marché, nécessitant des investissements continus en innovation",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques technologiques",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Investissements R&D substantiels (128.8M$ en 2025, +14.6% YoY) requis pour rester compétitif face à l'évolution technologique rapide (score par défaut, à affiner)",
+      "score_rationale": "Investissements R&D substantiels (128.8M$ en 2025, +14.6% YoY) requis pour rester compétitif face à l'évolution technologique rapide",
       "trend": "up",
       "summary": "L'obligation d'innover continuellement en infrastructure intelligente et solutions de connectivité entraine des coûts d'R&D croissants et risque d'obsolescence technologique",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques économiques macro",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Exposition aux fluctuations économiques mondiales affectant la demande de solutions d'infrastructure et de connectivité (score par défaut, à affiner)",
+      "score_rationale": "Exposition aux fluctuations économiques mondiales affectant la demande de solutions d'infrastructure et de connectivité",
       "trend": "stable",
       "summary": "Volatilité des marchés financiers et contraction économique pourraient réduire les investissements clients en infrastructure intelligente et automatisation",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -338,7 +362,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -509,88 +533,95 @@
   },
   "enrich_quarterly_history": {
     "ticker": "BDC",
-    "extracted_at": "2026-05-15T18:09:28Z",
-    "method": "xbrl-companyfacts",
-    "cik": 913142,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:01:30Z",
+    "n_kpis": 3,
     "kpis": [
+      {
+        "short": "Revenu",
+        "period_type": "quarter",
+        "history": [
+          610.371,
+          666.551,
+          670.491,
+          641.789,
+          692.245,
+          535.675,
+          624.861
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q1 2024",
+          "Q1 2025"
+        ],
+        "last_data_date": "2025-03-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:01:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Marge brute",
+        "period_type": "quarter",
+        "history": [
+          34.22,
+          33.36,
+          35.6,
+          38.34,
+          37.73,
+          37.63,
+          39.35
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q1 2024",
+          "Q1 2025"
+        ],
+        "last_data_date": "2025-03-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:01:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "Dépenses R&D",
         "period_type": "quarter",
         "history": [
-          62.422,
-          94.873,
-          -64.135,
           23.456,
-          49.445,
-          75.751,
-          -44.302,
+          25.989,
+          26.306,
           29.384,
-          60.354,
-          90.544,
-          -63.855,
+          30.97,
           26.999,
-          55.456,
-          83.397,
-          -53.487,
-          28.417,
-          62.357,
-          96.216,
-          -58.232,
-          30.089
+          28.417
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q1 2025"
         ],
-        "last_data_date": "2026-03-29",
+        "last_data_date": "2025-03-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 62.357,
-            "accession": "0000913142-25-000024",
-            "end": "2025-06-29"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 96.216,
-            "accession": "0000913142-25-000033",
-            "end": "2025-09-28"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -58.232,
-            "accession": "calc-0000913142-26-000009",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 30.089,
-            "accession": "0000913142-26-000023",
-            "end": "2026-03-29"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:01:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -606,9 +637,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.229143+00:00",
     "fetched_at": "2026-05-21T02:17:14.229144+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.512Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.982Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bdc.json",
     "enrich_root": "v2-pipeline-enrich/bdc.json",

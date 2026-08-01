@@ -1,6 +1,6 @@
 {
   "ticker": "CVBF",
-  "name": "CVB Financial Corp.",
+  "name": "CVB Financial",
   "sector": "Financial Services",
   "subsector": "Banking/Financial Services",
   "tagline": "Regional banking leader serving businesses and communities with financial solutions and capital support",
@@ -69,7 +69,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Total Risk-Based Capital ratio.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Tier 1 Leverage Ratio",
@@ -96,7 +100,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Tier 1 Leverage ratio.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Share Repurchases",
@@ -121,7 +129,11 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Employees",
@@ -149,25 +161,29 @@
       "is_generic": true,
       "is_short_history": false,
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Total Employees — total number of employees at period end.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Total Employees, total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.209,
-      "unit": "Mds $",
+      "value": 209,
+      "unit": "M $",
       "yoy": "+4.0%",
       "history": [
-        0.152,
-        0.208,
-        0.177,
-        0.213,
-        0.235,
-        0.221,
-        0.201,
-        0.209
+        152,
+        208,
+        177,
+        213,
+        235,
+        221,
+        201,
+        209
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -176,21 +192,26 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.314,
-      "unit": "Mds $",
+      "value": 314,
+      "unit": "M $",
       "yoy": "+0.0%",
       "history": [
         0,
-        0.314,
-        0.314,
-        0.314
+        314,
+        314,
+        314
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -199,8 +220,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 4 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability stable"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability stable",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -226,8 +252,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Steady growth, healthy trend"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -253,9 +283,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capital",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capital"
     },
     {
       "short": "Total Risk-Based Capital Ratio",
@@ -279,9 +307,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Capital",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capital"
     }
   ],
   "ai_positioning": {
@@ -297,7 +323,8 @@
       "severity": 5,
       "score_rationale": "La société est soumise à de nombreuses lois et réglementations fédérales et étatiques, et une non-conformité pourrait entraîner des amendes, des pénalités et des dommages à la réputation. Le langage utilisé dans le rapport est intense et souligne l'importance de la conformité.",
       "trend": "stable",
-      "summary": "La société doit se conformer à de nombreuses lois et réglementations, et une non-conformité pourrait avoir des conséquences graves."
+      "summary": "La société doit se conformer à de nombreuses lois et réglementations, et une non-conformité pourrait avoir des conséquences graves.",
+      "score": 5
     },
     {
       "title": "Risques de crédit",
@@ -305,7 +332,8 @@
       "severity": 4,
       "score_rationale": "La concentration des prêts immobiliers commerciaux (CRE) de la banque est élevée, ce qui pourrait augmenter le risque de crédit. La banque a un ratio de prêts CRE à capital de 237%, ce qui est inférieur au seuil de 300%.",
       "trend": "stable",
-      "summary": "La banque a une concentration de prêts immobiliers commerciaux à surveiller, mais en-dessous du seuil d'alerte réglementaire."
+      "summary": "La banque a une concentration de prêts immobiliers commerciaux à surveiller, mais en-dessous du seuil d'alerte réglementaire.",
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité",
@@ -313,7 +341,8 @@
       "severity": 4,
       "score_rationale": "La société est soumise à des risques de cybersécurité, notamment en raison de la collecte et du traitement de données personnelles. Une faille de sécurité pourrait entraîner des dommages à la réputation et des coûts importants.",
       "trend": "up",
-      "summary": "La société est exposée à des risques de cybersécurité, ce qui pourrait avoir des conséquences graves pour la réputation et les finances."
+      "summary": "La société est exposée à des risques de cybersécurité, ce qui pourrait avoir des conséquences graves pour la réputation et les finances.",
+      "score": 4
     },
     {
       "title": "Risques de réputation",
@@ -321,7 +350,8 @@
       "severity": 4,
       "score_rationale": "Une non-conformité réglementaire ou une faille de sécurité pourrait entraîner des dommages à la réputation de la société. La réputation est essentielle pour attirer et conserver des clients.",
       "trend": "stable",
-      "summary": "La réputation de la société est essentielle, et une non-conformité ou une faille de sécurité pourrait avoir des conséquences graves."
+      "summary": "La réputation de la société est essentielle, et une non-conformité ou une faille de sécurité pourrait avoir des conséquences graves.",
+      "score": 4
     },
     {
       "title": "Risques fiscaux",
@@ -329,7 +359,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des changements dans les lois et réglementations fiscales, ce qui pourrait avoir un impact sur les résultats financiers. Les changements récents, tels que l'Inflation Reduction Act, pourraient avoir des conséquences négatives.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques fiscaux, notamment en raison des changements dans les lois et réglementations fiscales."
+      "summary": "La société est exposée à des risques fiscaux, notamment en raison des changements dans les lois et réglementations fiscales.",
+      "score": 3
     },
     {
       "title": "Risques de conformité à OFAC",
@@ -337,7 +368,8 @@
       "severity": 3,
       "score_rationale": "La société doit se conformer aux réglementations de l'Office of Foreign Assets Control (OFAC), et une non-conformité pourrait entraîner des amendes et des pénalités.",
       "trend": "stable",
-      "summary": "La société doit se conformer aux réglementations de l'OFAC, et une non-conformité pourrait avoir des conséquences graves."
+      "summary": "La société doit se conformer aux réglementations de l'OFAC, et une non-conformité pourrait avoir des conséquences graves.",
+      "score": 3
     },
     {
       "title": "Risques de législation future",
@@ -345,7 +377,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des changements dans les lois et réglementations, ce qui pourrait avoir un impact sur les résultats financiers et la stratégie commerciale.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de législation future, ce qui pourrait avoir des conséquences négatives sur les résultats financiers et la stratégie commerciale."
+      "summary": "La société est exposée à des risques de législation future, ce qui pourrait avoir des conséquences négatives sur les résultats financiers et la stratégie commerciale.",
+      "score": 3
     }
   ],
   "governance": {
@@ -393,7 +426,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -570,6 +603,52 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CVBF",
+    "extracted_at": "2026-06-01T03:09:02Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Common Equity Tier 1 Ratio",
+        "period_type": "quarter",
+        "history": [
+          13.6,
+          13.4,
+          13.5,
+          13.8,
+          14.07,
+          14.38,
+          14.95,
+          15.29,
+          15.77,
+          16.52,
+          16.52,
+          16.3
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:09:02Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CVBF",
     "ranks": {
@@ -582,15 +661,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.247767+00:00",
     "fetched_at": "2026-05-21T02:17:14.247767+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.993Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.509Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cvbf.json",
     "enrich_root": "v2-pipeline-enrich/cvbf.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

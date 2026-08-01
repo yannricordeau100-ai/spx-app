@@ -21,8 +21,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Revenu total généré par la vente de tous les produits de terrasses composites, rampes, clôtures, revêtements et accessoires de la société.",
-      "value": 1174.267,
-      "unit": "M $",
+      "value": 1.174,
+      "unit": "Mds $",
       "yoy": "+2.0%",
       "type": "Demand",
       "nature": null,
@@ -30,14 +30,14 @@
       "signal": "Indicateur clé de la croissance dans le segment des produits de vie extérieure durable.",
       "description": "Ce KPI mesure la contribution totale de l'entreprise dans le marché des matériaux de construction composites durables.",
       "history": [
-        684.25,
-        745.347,
-        880.831,
-        1196.952,
-        1106.043,
-        1094.837,
-        1151.449,
-        1174.267
+        0.684,
+        0.745,
+        0.881,
+        1.197,
+        1.106,
+        1.095,
+        1.151,
+        1.174
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -45,7 +45,12 @@
       "is_short_history": false,
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:42.452139+00:00",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -64,34 +69,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.45 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "-26.9%",
       "history": [
-        0.25,
-        0.03,
-        0.26,
-        0.19
+        250,
+        30,
+        260,
+        190
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.19 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -108,7 +122,8 @@
       "severity": 4,
       "score_rationale": "Mentionné en premier dans la liste des risques, avec un langage répété sur le développement et le lancement de nouveaux produits. L'accent mis sur l'innovation dans les highlights suggère une dépendance croissante à la réussite des nouveaux produits, ce qui augmente la gravité.",
       "trend": "stable",
-      "summary": "Le succès de l'entreprise dépend en partie de l'acceptation par le marché de ses nouveaux produits, ce qui comporte un risque commercial significatif."
+      "summary": "Le succès de l'entreprise dépend en partie de l'acceptation par le marché de ses nouveaux produits, ce qui comporte un risque commercial significatif.",
+      "score": 4
     },
     {
       "title": "Sensibilité aux conditions économiques générales",
@@ -116,7 +131,8 @@
       "severity": 5,
       "score_rationale": "Présent dans le texte avec une formulation forte ('sensitivity'), et corroboré par la baisse du bénéfice net de 20,1 % en 2025. Les conditions économiques affectent directement la demande dans le secteur de la rénovation domiciliaire, ce qui en fait un risque existentiel.",
       "trend": "up",
-      "summary": "La performance de l'entreprise est fortement liée à la santé de l'économie, notamment au niveau des dépenses des consommateurs en aménagement extérieur."
+      "summary": "La performance de l'entreprise est fortement liée à la santé de l'économie, notamment au niveau des dépenses des consommateurs en aménagement extérieur.",
+      "score": 5
     },
     {
       "title": "Disponibilité et coût des matières premières",
@@ -124,7 +140,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite spécifiquement la dépendance à des matières comme le polyéthylène recyclé et les fibres de bois. Le lien avec l'inflation et les tarifs renforce l'importance du risque. Présence continue dans les rapports, mais accentué en 2025.",
       "trend": "up",
-      "summary": "Des pénuries ou hausses de prix des matières premières recyclées pourraient impacter la production et la rentabilité."
+      "summary": "Des pénuries ou hausses de prix des matières premières recyclées pourraient impacter la production et la rentabilité.",
+      "score": 4
     },
     {
       "title": "Cyberattaques et vulnérabilités de sécurité",
@@ -132,7 +149,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite des cyberattaques et des risques liés aux lois sur la protection des données (RGPD). Le risque est amplifié par l'investissement dans des plateformes ERP modernes, augmentant la surface d'attaque.",
       "trend": "stable",
-      "summary": "Une violation de sécurité informatique pourrait compromettre les données clients et entraîner des coûts importants."
+      "summary": "Une violation de sécurité informatique pourrait compromettre les données clients et entraîner des coûts importants.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur les marchés",
@@ -140,7 +158,8 @@
       "severity": 4,
       "score_rationale": "Le terme 'highly competitive markets' est utilisé, ce qui indique un environnement difficile. Le lancement de nouveaux produits intermédiaires (Trex Select) montre une stratégie active pour contrer la concurrence, ce qui souligne l'intensité du risque.",
       "trend": "stable",
-      "summary": "L'entreprise évolue dans un secteur très concurrentiel, ce qui peut limiter sa capacité à fixer les prix et à gagner des parts de marché."
+      "summary": "L'entreprise évolue dans un secteur très concurrentiel, ce qui peut limiter sa capacité à fixer les prix et à gagner des parts de marché.",
+      "score": 4
     },
     {
       "title": "Coûts et impacts des garanties produits",
@@ -148,7 +167,8 @@
       "severity": 5,
       "score_rationale": "Le recours à un actuaire pour la première fois en 2025 et une augmentation de la réserve de garantie ayant réduit le bénéfice soulignent un risque croissant. Le langage technique et détaillé sur les garanties souligne leur importance financière.",
       "trend": "up",
-      "summary": "Les obligations de garantie à long terme (jusqu'à 50 ans) représentent un risque financier important en cas de défaillance de produit."
+      "summary": "Les obligations de garantie à long terme (jusqu'à 50 ans) représentent un risque financier important en cas de défaillance de produit.",
+      "score": 5
     },
     {
       "title": "Pénuries ou hausse des coûts de la main-d'œuvre",
@@ -156,7 +176,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite des pénuries de main-d'œuvre et de la hausse des coûts salariaux comme risque matériel. Cela affecte directement la capacité de production et les marges, surtout dans un contexte d'automatisation en cours.",
       "trend": "stable",
-      "summary": "Les difficultés à recruter ou les augmentations salariales pourraient nuire à la rentabilité et à la production."
+      "summary": "Les difficultés à recruter ou les augmentations salariales pourraient nuire à la rentabilité et à la production.",
+      "score": 4
     }
   ],
   "governance": {
@@ -212,10 +233,113 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Produits de construction",
-  "_companies_unified_built_at": "2026-05-29T21:19:36.621Z",
+  "enrich_quarterly_history": {
+    "ticker": "TREX",
+    "extracted_at": "2026-06-01T09:24:46Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          0.92,
+          0.972,
+          0.887,
+          0.842,
+          0.934,
+          1.133,
+          1.07,
+          0.997,
+          0.933,
+          1.293,
+          1.27,
+          1.267,
+          1.324,
+          1.641,
+          1.538,
+          1.452
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:24:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Debt",
+        "period_type": "quarter",
+        "history": [
+          0.195,
+          0.251,
+          0.246,
+          0.285,
+          0.195,
+          0.415,
+          0.446,
+          0.305,
+          0.216,
+          0.489,
+          0.375,
+          0.379,
+          0.474,
+          0.731,
+          0.549,
+          0.41
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:24:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
+  "_companies_unified_built_at": "2026-08-01T20:28:02.695Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/trex.json",
     "enrich_root": "v2-pipeline-enrich/trex.json",
-    "enrich_subkeys": []
+    "enrich_subkeys": [
+      "quarterly-history"
+    ]
   }
 }

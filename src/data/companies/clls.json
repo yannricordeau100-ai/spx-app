@@ -64,24 +64,29 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "+75.0%",
       "history": [
-        0.02,
+        20,
         0,
-        0.04,
-        0.07
+        40,
+        70
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.07 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -100,11 +105,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.07 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -123,79 +132,98 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de -0.03 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.32,
-      "unit": "Mds €",
+      "value": 320,
+      "unit": "M €",
       "yoy": "-15.8%",
       "history": [
-        0.26,
-        0.33,
-        0.38,
-        0.32
+        260,
+        330,
+        380,
+        320
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.32 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.08,
-        0.09,
-        0.09,
-        0.09
+        80,
+        90,
+        90,
+        90
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.09 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "-57.1%",
       "history": [
-        0.09,
-        0.14,
-        0.14,
-        0.06
+        90,
+        140,
+        140,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -235,7 +263,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans le 10-K, langage fort sur l'impact potentiel, tendance stable, catégorie critique pour la production clinique.",
       "trend": "stable",
-      "summary": "Cellectis dépend d'un tiers pour la fourniture d'alemtuzumab, un agent utilisé dans ses protocoles de lymphodéplétion clinique. Toute interruption d'approvisionnement pourrait retarder ou bloquer le développement clinique et la commercialisation de ses produits."
+      "summary": "Cellectis dépend d'un tiers pour la fourniture d'alemtuzumab, un agent utilisé dans ses protocoles de lymphodéplétion clinique. Toute interruption d'approvisionnement pourrait retarder ou bloquer le développement clinique et la commercialisation de ses produits.",
+      "score": 4
     },
     {
       "title": "Concurrence intense dans l'immuno-oncologie",
@@ -243,7 +272,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K, langage alarmiste sur les ressources supérieures des concurrents, tendance stable, poids élevé en raison du risque de perte de parts de marché.",
       "trend": "stable",
-      "summary": "Cellectis fait face à une concurrence accrue de grands groupes pharmaceutiques et de biotechs spécialisés en immunothérapie. Ces acteurs disposent de ressources financières, industrielles et commerciales bien supérieures, menaçant la viabilité de ses candidats-médicaments."
+      "summary": "Cellectis fait face à une concurrence accrue de grands groupes pharmaceutiques et de biotechs spécialisés en immunothérapie. Ces acteurs disposent de ressources financières, industrielles et commerciales bien supérieures, menaçant la viabilité de ses candidats-médicaments.",
+      "score": 5
     },
     {
       "title": "Réglementation stricte des thérapies géniques",
@@ -251,7 +281,8 @@
       "severity": 5,
       "score_rationale": "Présent de manière répétée, langage très prudent, tendance stable, poids élevé en raison de l'impact direct sur l'approbation et la commercialisation.",
       "trend": "stable",
-      "summary": "L'activité de Cellectis est soumise à un cadre réglementaire rigoureux pour les thérapies cellulaires et d'édition génique. Tout échec de conformité peut entraîner des retards, des sanctions ou des refus d'autorisation de mise sur le marché."
+      "summary": "L'activité de Cellectis est soumise à un cadre réglementaire rigoureux pour les thérapies cellulaires et d'édition génique. Tout échec de conformité peut entraîner des retards, des sanctions ou des refus d'autorisation de mise sur le marché.",
+      "score": 5
     },
     {
       "title": "Dépendance à la technologie d'édition génique",
@@ -259,7 +290,8 @@
       "severity": 5,
       "score_rationale": "Risque central dans le document, langage fort sur la dépendance totale, tendance stable, poids critique car fondamental à l'activité.",
       "trend": "stable",
-      "summary": "La réussite commerciale de Cellectis repose entièrement sur le développement réussi de ses technologies d'édition génique (CAR-T allogénique). Tout échec technique ou scientifique compromettrait l'ensemble de son portefeuille."
+      "summary": "La réussite commerciale de Cellectis repose entièrement sur le développement réussi de ses technologies d'édition génique (CAR-T allogénique). Tout échec technique ou scientifique compromettrait l'ensemble de son portefeuille.",
+      "score": 5
     },
     {
       "title": "Risques liés à la propriété intellectuelle",
@@ -267,7 +299,8 @@
       "severity": 4,
       "score_rationale": "Mention fréquente, langage préoccupé sur les litiges potentiels, tendance stable, poids élevé en raison des enjeux de protection technologique.",
       "trend": "stable",
-      "summary": "La position concurrentielle de Cellectis dépend de la protection de ses brevets sur l'édition génique. Des défis juridiques ou des lacunes de couverture brevetaire pourraient permettre à des concurrents d'exploiter ses innovations."
+      "summary": "La position concurrentielle de Cellectis dépend de la protection de ses brevets sur l'édition génique. Des défis juridiques ou des lacunes de couverture brevetaire pourraient permettre à des concurrents d'exploiter ses innovations.",
+      "score": 4
     },
     {
       "title": "Défis de montée en échelle de fabrication",
@@ -275,7 +308,8 @@
       "severity": 4,
       "score_rationale": "Mention claire dans les risques opérationnels, langage précautionneux, tendance stable, poids élevé pour la commercialisation.",
       "trend": "stable",
-      "summary": "La fabrication de thérapies CAR-T allogéniques est complexe et fortement régulée. Cellectis pourrait rencontrer des difficultés à produire à grande échelle tout en maintenant la qualité et la conformité réglementaire."
+      "summary": "La fabrication de thérapies CAR-T allogéniques est complexe et fortement régulée. Cellectis pourrait rencontrer des difficultés à produire à grande échelle tout en maintenant la qualité et la conformité réglementaire.",
+      "score": 4
     },
     {
       "title": "Dépendance à des partenariats stratégiques",
@@ -283,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite sur Servier et AstraZeneca, langage inquiet sur les dépendances, tendance stable, poids élevé pour le développement clinique.",
       "trend": "stable",
-      "summary": "Cellectis s'appuie sur des partenaires comme Servier pour le développement de ses candidats-médicaments. L'arrêt ou la sous-performance de ces collaborations (ex. CD19) pourrait retarder significativement son pipeline."
+      "summary": "Cellectis s'appuie sur des partenaires comme Servier pour le développement de ses candidats-médicaments. L'arrêt ou la sous-performance de ces collaborations (ex. CD19) pourrait retarder significativement son pipeline.",
+      "score": 4
     },
     {
       "title": "Réticences du marché à adopter les CAR-T",
@@ -291,7 +326,8 @@
       "severity": 3,
       "score_rationale": "Présent dans les risques commerciaux, langage mesuré mais préoccupé, tendance stable, poids modéré mais croissant.",
       "trend": "stable",
-      "summary": "L'acceptation clinique et commerciale de ses thérapies CAR-T dépend de la perception des risques (effets secondaires) et du remboursement par les assureurs. Une faible adoption limiterait son potentiel de revenus."
+      "summary": "L'acceptation clinique et commerciale de ses thérapies CAR-T dépend de la perception des risques (effets secondaires) et du remboursement par les assureurs. Une faible adoption limiterait son potentiel de revenus.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:44:51.827831+00:00",
@@ -405,9 +441,9 @@
     "country": "France",
     "_data_freshness_date": "2026-05-21T02:17:14.239310+00:00",
     "fetched_at": "2026-05-21T02:17:14.239311+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.445Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.910Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/clls.json",
     "enrich_root": "v2-pipeline-enrich/clls.json",

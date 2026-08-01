@@ -1,6 +1,6 @@
 {
   "ticker": "BAH",
-  "name": "Booz Allen Hamilton Holding Corporation",
+  "name": "Booz Allen Hamilton Holding",
   "sector": "Technologie",
   "subsector": "IT Services",
   "tagline": "Trusted to transform missions with the power of tomorrow's technologies.",
@@ -21,8 +21,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Montant total des revenus générés par l'entreprise au cours de l'exercice fiscal.",
-      "value": 12400,
-      "unit": "M $",
+      "value": 12.4,
+      "unit": "Mds $",
       "yoy": "+12%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -30,17 +30,21 @@
       "signal": "Croissance soutenue du chiffre d'affaires tirée par la demande.",
       "description": "Le chiffre d'affaires a augmenté de 12% en fiscal 2025, porté par une forte demande pour les solutions et services, l'augmentation des effectifs et des dépenses facturables.",
       "history": [
-        11072,
-        12400
+        11.072,
+        12.4
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "L'extrait fourni ne contient pas de tableau de données financières historiques avec les valeurs annuelles explicites de revenu total pour 4 ",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Revenu segment IA / cloud",
@@ -61,9 +65,7 @@
       "last_data_date": "2025-03-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Marge opérationnelle",
@@ -93,8 +95,8 @@
       "name_fr": "Bénéfice d'exploitation",
       "name_en": "Operating Income",
       "explanation": "Montant du bénéfice généré par les opérations avant intérêts et impôts.",
-      "value": "1370",
-      "unit": "M $",
+      "value": 1.37,
+      "unit": "Mds $",
       "yoy": "+35%",
       "type": "Profitability",
       "nature": "Structurel",
@@ -102,14 +104,15 @@
       "signal": "Forte croissance du bénéfice d'exploitation.",
       "description": "Le bénéfice d'exploitation a augmenté de 35% à 1 370 millions de dollars en fiscal 2025 depuis 1 014 millions de dollars en fiscal 2024, impacté par les mêmes moteurs de croissance du revenu et les efforts de gestion des coûts.",
       "history": [
-        1014,
-        1370
+        1.014,
+        1.37
       ],
       "last_data_date": "2025-03-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Effectif (employés)",
@@ -130,9 +133,7 @@
       "last_data_date": "2025-03-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
@@ -151,11 +152,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.31 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -174,33 +179,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.22 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.89,
-      "unit": "Mds €",
+      "value": 890,
+      "unit": "M €",
       "yoy": "+61.8%",
       "history": [
-        0.7,
-        0.4,
-        0.55,
-        0.89
+        700,
+        400,
+        550,
+        890
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.89 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -225,9 +239,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Performance",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Performance"
     },
     {
       "short": "Marge opérationnelle",
@@ -250,13 +262,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "story_category": "Marché",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
-    "stance": "central",
+    "stance": "integrator",
     "summary": "Booz Allen se positionne comme un intégrateur de technologies avancées incluant l'IA, la cybersécurité et le cloud pour les missions critiques du gouvernement américain et des clients commerciaux.",
     "evidence": [
       "As an advanced technology company, we build technology solutions using AI, cyber, and other cutting-edge technologies to advance and protect the nation and its citizens",
@@ -269,52 +279,52 @@
       "title": "Audit gouvernemental impactant résultats",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Le risque est mentionné en premier dans le 10-K et décrit un impact matériel sur le revenu, le bénéfice d'exploitation et les bénéfices par action. Le langage est répété et insiste sur la matérialité et l'incertitude des ajustements futurs basés sur des audits en cours. La catégorie Régulation est hautement pondérée pour les sociétés contractantes avec le gouvernement. Ce risque est stable par rapport à l'année précédente. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné en premier dans le 10-K et décrit un impact matériel sur le revenu, le bénéfice d'exploitation et les bénéfices par action. Le langage est répété et insiste sur la matérialité et l'incertitude des ajustements futurs basés sur des audits en cours. La catégorie Régulation est hautement pondérée pour les sociétés contractantes avec le gouvernement. Ce risque est stable par rapport à l'année précédente.",
       "trend": "stable",
       "summary": "Les audits des coûts déclarés par les agences gouvernementales peuvent entraîner des ajustements rétroactifs significatifs, affectant négativement les résultats financiers.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Estimations critiques en reconnaissance des revenus",
       "category": "Comptabilité",
       "severity": 4,
-      "score_rationale": "Le risque est classé comme une estimation comptable critique, avec un accent sur l'incertitude des EAC (Estimate-at-Completion) et des revenus variables. Le texte souligne que des changements d'estimation peuvent impacter fortement la rentabilité des contrats. Bien que récurrent, l'intensité du langage et l'impact potentiel justifient une sévérité élevée. Catégorie Comptabilité fortement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est classé comme une estimation comptable critique, avec un accent sur l'incertitude des EAC (Estimate-at-Completion) et des revenus variables. Le texte souligne que des changements d'estimation peuvent impacter fortement la rentabilité des contrats. Bien que récurrent, l'intensité du langage et l'impact potentiel justifient une sévérité élevée. Catégorie Comptabilité fortement pondérée.",
       "trend": "stable",
       "summary": "Les estimations de coûts futurs et de revenus variables sur contrats à long terme sont incertaines et peuvent modifier significativement les résultats déclarés.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Provision pour coûts déclarés contestés",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Ce risque est explicitement lié à des provisions comptables pour ajustements futurs sur des coûts historiques depuis 2011. Il est cité comme pouvant avoir un impact matériel sur les bénéfices. Le lien direct avec des pertes potentielles et la continuité des audits gouvernementaux renforcent son caractère existentiel. Identique au risque d'audit mais distinct dans le texte. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est explicitement lié à des provisions comptables pour ajustements futurs sur des coûts historiques depuis 2011. Il est cité comme pouvant avoir un impact matériel sur les bénéfices. Le lien direct avec des pertes potentielles et la continuité des audits gouvernementaux renforcent son caractère existentiel. Identique au risque d'audit mais distinct dans le texte.",
       "trend": "stable",
       "summary": "La société a constitué une provision pour des ajustements futurs sur coûts déclarés, dont les variations pourraient fortement impacter les résultats.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Incertaines positions fiscales et réserves",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le texte décrit des jugements significatifs nécessaires pour les impôts, des réserves pour positions fiscales incertaines, et un impact potentiel sur le taux d'imposition effectif. L'incertitude réglementaire fiscale est élevée, notamment avec des décisions judiciaires passées (DC OTR). Le risque est stable mais avec une exposition continue. (score par défaut, à affiner)",
+      "score_rationale": "Le texte décrit des jugements significatifs nécessaires pour les impôts, des réserves pour positions fiscales incertaines, et un impact potentiel sur le taux d'imposition effectif. L'incertitude réglementaire fiscale est élevée, notamment avec des décisions judiciaires passées (DC OTR). Le risque est stable mais avec une exposition continue.",
       "trend": "stable",
       "summary": "Des positions fiscales contestées ou incertaines pourraient entraîner des paiements supplémentaires ou des ajustements significatifs aux impôts déclarés.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Capacité à générer des revenus futurs pour actifs fiscaux",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le portefeuille d'actifs fiscaux reportables dépend de la génération de bénéfices futurs. Si la société ne génère pas assez de revenus imposables, une provision (allowance) doit être constituée. Cela affecterait directement le résultat net. Le risque est récurrent, avec un langage prudent mais sans signe d'aggravation ou d'amélioration. (score par défaut, à affiner)",
+      "score_rationale": "Le portefeuille d'actifs fiscaux reportables dépend de la génération de bénéfices futurs. Si la société ne génère pas assez de revenus imposables, une provision (allowance) doit être constituée. Cela affecterait directement le résultat net. Le risque est récurrent, avec un langage prudent mais sans signe d'aggravation ou d'amélioration.",
       "trend": "stable",
       "summary": "La valeur des actifs fiscaux reportables dépend de la capacité future à générer des bénéfices, faute de quoi une dépréciation pourrait survenir.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Gestion centralisée des segments uniques",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société opère en un seul segment, ce qui limite la diversification des risques opérationnels et financiers. Bien que cela favorise la collaboration, cela augmente la vulnérabilité à des chocs sectoriels ou clients. Le langage est neutre, mais le manque de segmentation est un facteur structurel de concentration des risques. (score par défaut, à affiner)",
+      "score_rationale": "La société opère en un seul segment, ce qui limite la diversification des risques opérationnels et financiers. Bien que cela favorise la collaboration, cela augmente la vulnérabilité à des chocs sectoriels ou clients. Le langage est neutre, mais le manque de segmentation est un facteur structurel de concentration des risques.",
       "trend": "stable",
       "summary": "L'absence de segmentation opérationnelle expose l'entreprise à des risques concentrés liés à son marché principal ou à ses grands clients.",
       "score": 3
@@ -375,7 +385,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": false,
@@ -474,23 +484,18 @@
         "short": "Revenu",
         "period_type": "quarter",
         "history": [
-          -3.9528,
           1.9891,
           4.0951,
           6.1256,
-          -3.8461,
           2.2496,
           4.5486,
           6.8257,
-          -4.3649,
           2.6545,
           5.3208,
           7.8906,
-          -5.2039,
           2.9418,
           6.0882,
           9.0054,
-          -6.0554,
           2.924,
           5.814,
           8.434
@@ -546,29 +551,30 @@
             "accession": "0001628280-26-003187",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (BAH)"
         ]
       },
       {
         "short": "Bénéfice d'exploitation",
         "period_type": "quarter",
         "history": [
-          -419.989,
           141.257,
           359.624,
           536.836,
-          -352.536,
           207.195,
           431.116,
           489.756,
-          -681.219,
           234.418,
           501.407,
           748.965,
-          -471.387,
           255.164,
           803.773,
           1095.032,
-          -783.969,
           257,
           540,
           770
@@ -624,6 +630,12 @@
             "accession": "0001628280-26-003187",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (BAH)"
         ]
       }
     ]
@@ -640,9 +652,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.227705+00:00",
     "fetched_at": "2026-05-21T02:17:14.227705+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.344Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.822Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bah.json",
     "enrich_root": "v2-pipeline-enrich/bah.json",

@@ -21,8 +21,8 @@
       "name_fr": "Revenus de la construction de maisons",
       "name_en": "Homebuilding Revenues",
       "explanation": "Revenus générés par la construction et la vente de maisons",
-      "value": 1194.256,
-      "unit": "M $",
+      "value": 1.194,
+      "unit": "Mds $",
       "yoy": "-23.4%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,16 @@
       "signal": "Baisse des revenus de la construction de maisons",
       "description": "Revenus de la construction de maisons en baisse due à une diminution de la demande et une réduction stratégique des prix",
       "history": [
-        1315.866,
-        1560.115,
-        2097.13,
-        2400.949,
-        3032.03,
-        3594.646,
-        4368.529,
-        4547.002,
-        1558.675,
-        1194.256
+        1.316,
+        1.56,
+        2.097,
+        2.401,
+        3.032,
+        3.595,
+        4.369,
+        4.547,
+        1.559,
+        1.194
       ],
       "last_data_date": "2026-02-28",
       "is_wow": false,
@@ -50,7 +50,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:34.232265+00:00",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Orders",
@@ -183,24 +184,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.429,
-      "unit": "Mds $",
+      "value": 429,
+      "unit": "M $",
       "yoy": "-34.5%",
       "history": [
-        0.17,
-        0.269,
-        0.296,
-        0.565,
-        0.817,
-        0.59,
-        0.655,
-        0.429
+        170,
+        269,
+        296,
+        565,
+        817,
+        590,
+        655,
+        429
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -209,25 +214,30 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.346,
-      "unit": "Mds $",
+      "value": 346,
+      "unit": "M $",
       "yoy": "+22.3%",
       "history": [
-        -0.103,
-        -0.02,
-        0.092,
-        0.116,
-        0.139,
-        0.152,
-        0.283,
-        0.346
+        -103,
+        -20,
+        92,
+        116,
+        139,
+        152,
+        283,
+        346
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -236,8 +246,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -262,9 +277,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Unité précisée de '' à 'unités'",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité précisée de '' à 'unités'"
     }
   ],
   "ai_positioning": {
@@ -280,7 +293,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans la section 'RESULTS OF OPERATIONS' et 'HOMEBUILDING Financial Results'. Le langage utilisé ('challenging', 'softer demand', 'affordability challenges', 'elevated mortgage loan interest rates') indique une gravité significative. La comparaison N-1 montre une baisse des revenus et des bénéfices, soulignant une détérioration. La catégorie Macroeconomic est pondérée car elle affecte directement le cœur de métier.",
       "trend": "up",
-      "summary": "Les conditions de marché immobilier sont difficiles en raison de la confiance des consommateurs faible, des incertitudes macroéconomiques, des problèmes d'accessibilité et des taux d'intérêt hypothécaires élevés, limitant la demande des acheteurs."
+      "summary": "Les conditions de marché immobilier sont difficiles en raison de la confiance des consommateurs faible, des incertitudes macroéconomiques, des problèmes d'accessibilité et des taux d'intérêt hypothécaires élevés, limitant la demande des acheteurs.",
+      "score": 4
     },
     {
       "title": "Baisse des prix de vente et des marges brutes",
@@ -288,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est détaillé dans 'RESULTS OF OPERATIONS' et 'HOMEBUILDING Financial Results', avec des données chiffrées ('average selling price of net orders was down 6%', 'housing gross profit margin for 2025 was 18.6% compared to 21.0% for 2024'). L'intensité du langage est modérée mais les chiffres sont clairs. La baisse des marges impacte directement la rentabilité, justifiant une sévérité élevée dans la catégorie Industrielle.",
       "trend": "up",
-      "summary": "L'entreprise a dû réduire ses prix de vente et a constaté une diminution de sa marge brute sur les logements en raison des conditions de marché et des coûts de terrain plus élevés."
+      "summary": "L'entreprise a dû réduire ses prix de vente et a constaté une diminution de sa marge brute sur les logements en raison des conditions de marché et des coûts de terrain plus élevés.",
+      "score": 4
     },
     {
       "title": "Augmentation des charges de vente, générales et administratives",
@@ -296,7 +311,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est identifié dans 'RESULTS OF OPERATIONS' et 'HOMEBUILDING Financial Results' ('selling, general and administrative expenses as a percentage of housing revenues... increased 40 basis points'). Le langage est factuel mais l'augmentation est soulignée comme un facteur contribuant à la baisse de la marge opérationnelle. La catégorie Industrielle est pertinente car ces coûts sont liés à l'exploitation.",
       "trend": "up",
-      "summary": "Les dépenses de vente, générales et administratives ont augmenté en proportion des revenus de l'habitat, notamment en raison de dépenses marketing accrues et d'un effet de levier opérationnel réduit."
+      "summary": "Les dépenses de vente, générales et administratives ont augmenté en proportion des revenus de l'habitat, notamment en raison de dépenses marketing accrues et d'un effet de levier opérationnel réduit.",
+      "score": 3
     },
     {
       "title": "Diminution des commandes nettes et de la valeur des commandes",
@@ -304,7 +320,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est quantifié dans 'RESULTS OF OPERATIONS' ('net orders in 2025 decreased 11% year over year', 'value of our net orders for 2025 was down 17%'). L'intensité du langage est modérée, mais la baisse significative des commandes impacte directement les revenus futurs. La catégorie Macroéconomique est appropriée car elle reflète la demande globale du marché.",
       "trend": "up",
-      "summary": "Le nombre et la valeur des commandes nettes ont diminué par rapport à l'année précédente, indiquant une faiblesse de la demande pour les nouvelles constructions."
+      "summary": "Le nombre et la valeur des commandes nettes ont diminué par rapport à l'année précédente, indiquant une faiblesse de la demande pour les nouvelles constructions.",
+      "score": 3
     },
     {
       "title": "Risque lié aux taux d'intérêt et à l'accessibilité",
@@ -312,7 +329,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans 'RESULTS OF OPERATIONS' comme un facteur limitant la demande ('affordability challenges and persistently elevated mortgage loan interest rates'). Le langage est direct et souligne l'impact sur le 'pool of actionable buyers'. La sévérité est élevée car les taux d'intérêt sont un moteur clé du marché immobilier. Catégorie Macroéconomique.",
       "trend": "up",
-      "summary": "Les taux d'intérêt hypothécaires élevés et les défis d'accessibilité financière limitent le nombre d'acheteurs potentiels et les incitent à hésiter avant d'acheter."
+      "summary": "Les taux d'intérêt hypothécaires élevés et les défis d'accessibilité financière limitent le nombre d'acheteurs potentiels et les incitent à hésiter avant d'acheter.",
+      "score": 4
     },
     {
       "title": "Charges d'inventaire et dépréciation des terrains",
@@ -320,7 +338,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est détaillé dans 'HOMEBUILDING Financial Results' avec des chiffres précis ('total inventory-related charges of $32.1 million and $4.6 million, respectively'). L'intensité du langage est factuelle mais l'impact sur la marge brute est significatif. La catégorie Industrielle est pertinente car elle concerne la gestion des actifs immobiliers.",
       "trend": "up",
-      "summary": "L'entreprise a enregistré des charges d'inventaire significatives en 2025, affectant négativement la marge brute, en partie à cause de la baisse des prix et de l'augmentation des coûts de terrain."
+      "summary": "L'entreprise a enregistré des charges d'inventaire significatives en 2025, affectant négativement la marge brute, en partie à cause de la baisse des prix et de l'augmentation des coûts de terrain.",
+      "score": 3
     }
   ],
   "governance": {
@@ -354,7 +373,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -597,9 +616,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.272839+00:00",
     "fetched_at": "2026-05-21T02:17:14.272840+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.716Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.456Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kbh.json",
     "enrich_root": "v2-pipeline-enrich/kbh.json",

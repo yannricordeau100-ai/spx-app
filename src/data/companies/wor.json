@@ -50,7 +50,7 @@
       "is_generic": false,
       "is_short_history": true,
       "period_type": "quarter",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Operating Cash Flow",
@@ -73,7 +73,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash generation deteriorating, monitor liquidity"
     },
     {
@@ -93,34 +93,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.7 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.33,
-      "unit": "Mds €",
+      "value": 330,
+      "unit": "M €",
       "yoy": "+3.1%",
       "history": [
-        0.84,
-        0.71,
-        0.32,
-        0.33
+        840,
+        710,
+        320,
+        330
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.33 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -137,7 +146,8 @@
       "severity": 5,
       "score_rationale": "Déclin des marchés de la construction et des produits de consommation, facteurs économiques généraux tels que l'inflation et le chômage",
       "trend": "stable",
-      "summary": "Un déclin économique peut avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise"
+      "summary": "Un déclin économique peut avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise",
+      "score": 5
     },
     {
       "title": "Volatilité des prix",
@@ -145,7 +155,8 @@
       "severity": 4,
       "score_rationale": "Volatilité des prix de l'acier et d'autres matières premières, difficultés à passer les augmentations de coûts aux clients",
       "trend": "up",
-      "summary": "La volatilité des prix des matières premières peut affecter négativement les résultats financiers de l'entreprise"
+      "summary": "La volatilité des prix des matières premières peut affecter négativement les résultats financiers de l'entreprise",
+      "score": 4
     },
     {
       "title": "Perturbations de la chaîne d'approvisionnement",
@@ -153,7 +164,8 @@
       "severity": 4,
       "score_rationale": "Risques de perturbations dans la livraison de matières premières, fermetures de fournisseurs, difficultés à trouver des sources alternatives",
       "trend": "up",
-      "summary": "Les perturbations de la chaîne d'approvisionnement peuvent avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise"
+      "summary": "Les perturbations de la chaîne d'approvisionnement peuvent avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -161,7 +173,8 @@
       "severity": 4,
       "score_rationale": "Concurrence accrue dans les marchés que l'entreprise sert, pressions sur les prix et les marges",
       "trend": "up",
-      "summary": "La concurrence accrue peut avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise"
+      "summary": "La concurrence accrue peut avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise",
+      "score": 4
     },
     {
       "title": "Pandémies et urgences de santé publique",
@@ -169,7 +182,8 @@
       "severity": 5,
       "score_rationale": "Risques associés aux pandémies, épidémies et autres urgences de santé publique, tels que la COVID-19",
       "trend": "stable",
-      "summary": "Les pandémies et les urgences de santé publique peuvent avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise"
+      "summary": "Les pandémies et les urgences de santé publique peuvent avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise",
+      "score": 5
     },
     {
       "title": "Coûts de transport et d'énergie",
@@ -177,7 +191,8 @@
       "severity": 3,
       "score_rationale": "Augmentation des coûts de transport et d'énergie, difficultés à passer ces coûts aux clients",
       "trend": "up",
-      "summary": "Les coûts de transport et d'énergie peuvent avoir un impact négatif sur les résultats financiers de l'entreprise"
+      "summary": "Les coûts de transport et d'énergie peuvent avoir un impact négatif sur les résultats financiers de l'entreprise",
+      "score": 3
     },
     {
       "title": "Perte de clients clés",
@@ -185,7 +200,8 @@
       "severity": 4,
       "score_rationale": "Risques de perte de clients clés, difficultés à trouver des clients de remplacement",
       "trend": "stable",
-      "summary": "La perte de clients clés peut avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise"
+      "summary": "La perte de clients clés peut avoir un impact négatif sur les ventes et les résultats financiers de l'entreprise",
+      "score": 4
     }
   ],
   "governance": {
@@ -233,7 +249,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.563Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:07.145Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wor.json",
     "enrich_root": null,

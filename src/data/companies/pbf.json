@@ -100,11 +100,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 29.33 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -123,11 +127,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 13.02 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -146,33 +154,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.91 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.53,
-      "unit": "Mds €",
+      "value": 530,
+      "unit": "M €",
       "yoy": "-1.9%",
       "history": [
-        2.2,
-        1.78,
-        0.54,
-        0.53
+        2200,
+        1780,
+        540,
+        530
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.53 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -197,9 +214,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Unit corrected from 'Mds $' to 'M $'; Value verified in source: $29.6 million RBI initiative expenses",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'M $'; Value verified in source: $29.6 million RBI initiative expenses"
     },
     {
       "short": "Terminal Sale Gain",
@@ -222,9 +237,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Unit corrected from 'Mds $' to 'M $'; Value verified in source: $94.0 million gain on sale of terminal assets",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Unit corrected from 'Mds $' to 'M $'; Value verified in source: $94.0 million gain on sale of terminal assets"
     }
   ],
   "ai_positioning": {
@@ -244,7 +257,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -260,7 +273,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, avec des impacts opérationnels, financiers et réglementaires majeurs. Le langage est fort (investigations en cours, coûts élevés, dépendance aux assurances). Comparé à l'année précédente, ce risque est nouveau et domine les résultats 2025. La catégorie Industriel a une pondération élevée en cas d'arrêt total.",
       "trend": "new",
-      "summary": "L'incendie de février 2025 a entraîné un arrêt total de la raffinerie de Martinez, des pertes de production importantes, des coûts opérationnels élevés et une dépendance aux recouvrements d'assurance pour la relance."
+      "summary": "L'incendie de février 2025 a entraîné un arrêt total de la raffinerie de Martinez, des pertes de production importantes, des coûts opérationnels élevés et une dépendance aux recouvrements d'assurance pour la relance.",
+      "score": 5
     },
     {
       "title": "Volatilité des prix des matières premières",
@@ -268,7 +282,8 @@
       "severity": 4,
       "score_rationale": "Mentionné en tête des facteurs de risque, avec un langage répété et insisté sur la volatilité des prix du pétrole brut et des produits raffinés. Ce risque est stable mais structurel, affectant directement la marge de raffinage. La catégorie Macro est systémiquement critique pour les raffineurs.",
       "trend": "stable",
-      "summary": "Les fluctuations des prix du pétrole brut et des produits raffinés affectent directement la rentabilité, notamment en cas de contraintes d'approvisionnement ou de pressions réglementaires sur la production."
+      "summary": "Les fluctuations des prix du pétrole brut et des produits raffinés affectent directement la rentabilité, notamment en cas de contraintes d'approvisionnement ou de pressions réglementaires sur la production.",
+      "score": 4
     },
     {
       "title": "Conflits géopolitiques mondiaux",
@@ -276,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Le document cite explicitement la guerre en Ukraine, les tensions au Moyen-Orient et les attaques contre les navires marchands. Le langage est alarmiste (sanctions, perturbations des chaînes d'approvisionnement). Ce risque est en hausse par rapport à N-1, avec une pondération forte en contexte de transition énergétique.",
       "trend": "up",
-      "summary": "Les conflits géopolitiques perturbent les marchés énergétiques mondiaux, affectent les prix du brut et des produits, et peuvent entraîner des sanctions ou des ruptures d'approvisionnement."
+      "summary": "Les conflits géopolitiques perturbent les marchés énergétiques mondiaux, affectent les prix du brut et des produits, et peuvent entraîner des sanctions ou des ruptures d'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Pressions réglementaires en Californie",
@@ -284,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Plusieurs lois californiennes (AB 32, AB X2-1) sont citées comme sources de risque, notamment pour la raffinerie de Martinez. Le langage évoque des restrictions sur l'extraction et le transport du brut. La catégorie Régulation est critique en Californie, et le risque est en hausse avec l'agenda climatique local.",
       "trend": "up",
-      "summary": "Les réglementations strictes en Californie, notamment sur les émissions de gaz à effet de serre et l'exploration pétrolière, menacent l'approvisionnement et la viabilité des opérations dans l'État."
+      "summary": "Les réglementations strictes en Californie, notamment sur les émissions de gaz à effet de serre et l'exploration pétrolière, menacent l'approvisionnement et la viabilité des opérations dans l'État.",
+      "score": 4
     },
     {
       "title": "Cyberattaques et dépendance technologique",
@@ -292,7 +309,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné explicitement, bien que brièvement. Le langage est générique mais s'inscrit dans un contexte de dépendance accrue aux systèmes numériques. Stable par rapport à N-1, mais la catégorie Cybersécurité est de plus en plus stratégique pour les infrastructures critiques.",
       "trend": "stable",
-      "summary": "La société reconnaît un risque accru de cyberattaques pouvant perturber ses opérations critiques, en raison de sa dépendance croissante aux systèmes numériques."
+      "summary": "La société reconnaît un risque accru de cyberattaques pouvant perturber ses opérations critiques, en raison de sa dépendance croissante aux systèmes numériques.",
+      "score": 3
     },
     {
       "title": "Volatilité des crédits carbone (RINs)",
@@ -300,7 +318,8 @@
       "severity": 3,
       "score_rationale": "Le document souligne l'exposition au marché des RINs et des crédits carbone (AB 32), avec un risque de volatilité des prix. Le langage est préoccupé mais pas alarmiste. Ce risque est stable, mais la catégorie Concurrence inclut les coûts réglementaires qui affectent la compétitivité.",
       "trend": "stable",
-      "summary": "La société doit acheter des crédits carbone (RINs) pour se conformer aux normes fédérales et californiennes, mais la volatilité de leurs prix représente un risque financier et concurrentiel."
+      "summary": "La société doit acheter des crédits carbone (RINs) pour se conformer aux normes fédérales et californiennes, mais la volatilité de leurs prix représente un risque financier et concurrentiel.",
+      "score": 3
     },
     {
       "title": "Dette et flexibilité financière",
@@ -308,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Le risque de dette est abordé à plusieurs reprises, notamment avec l'émission de nouveaux notes senior en 2025. Le langage mentionne des covenants restrictifs et un risque de dégradation de la notation. En hausse après l'émission de 800M$ de dette. La catégorie Capital est critique après un tel refinancement.",
       "trend": "up",
-      "summary": "Le niveau d'endettement élevé et les covenants associés limitent la flexibilité financière de la société et pourraient affecter sa capacité à distribuer des dividendes ou à investir."
+      "summary": "Le niveau d'endettement élevé et les covenants associés limitent la flexibilité financière de la société et pourraient affecter sa capacité à distribuer des dividendes ou à investir.",
+      "score": 4
     }
   ],
   "governance": {
@@ -433,9 +453,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.295248+00:00",
     "fetched_at": "2026-05-21T02:17:14.295249+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.464Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.424Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pbf.json",
     "enrich_root": "v2-pipeline-enrich/pbf.json",

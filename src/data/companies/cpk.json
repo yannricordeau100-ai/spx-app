@@ -1,6 +1,6 @@
 {
   "ticker": "CPK",
-  "name": "Chesapeake Utilities Corporation",
+  "name": "Chesapeake Utilities",
   "sector": "Services aux collectivités",
   "subsector": "Natural Gas & Electric Distribution",
   "tagline": "Delivering Energy and Essential Services to Communities",
@@ -70,8 +70,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 175.5,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -98,54 +102,68 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 1880,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Pressure, deteriorating trend"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.93,
-      "unit": "Mds €",
+      "value": 930,
+      "unit": "M €",
       "yoy": "+17.7%",
       "history": [
-        0.68,
-        0.67,
-        0.79,
-        0.93
+        680,
+        670,
+        790,
+        930
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.93 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "+16.7%",
       "history": [
-        0.09,
-        0.09,
-        0.12,
-        0.14
+        90,
+        90,
+        120,
+        140
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.14 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -164,11 +182,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.99 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -187,11 +209,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.63 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -210,10 +236,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -264,7 +294,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -278,7 +308,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement mentionné dans les facteurs de risque et renforcé par un Item 1C dédié à la cybersécurité. Le langage indique un risque élevé de perturbation opérationnelle et de perte de données sensibles. Catégorie hautement critique pour les utilities.",
       "trend": "stable",
-      "summary": "Une cyberattaque pourrait interrompre les services, endommager les systèmes ou exposer des données confidentielles des clients et de l'entreprise."
+      "summary": "Une cyberattaque pourrait interrompre les services, endommager les systèmes ou exposer des données confidentielles des clients et de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Réglementation accrue sur la sécurité",
@@ -286,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans les facteurs de risque généraux avec un langage préoccupé sur une réglementation fédérale, étatique et locale croissante. Impact potentiel élevé sur les coûts d'exploitation et les normes opérationnelles.",
       "trend": "up",
-      "summary": "L'augmentation des exigences réglementaires sur la sécurité des opérations pourrait accroître les coûts et contraindre les activités."
+      "summary": "L'augmentation des exigences réglementaires sur la sécurité des opérations pourrait accroître les coûts et contraindre les activités.",
+      "score": 4
     },
     {
       "title": "Dépendance aux marchés de capitaux",
@@ -294,7 +326,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété dans les facteurs de risque et dans la section Safe Harbor. Le financement de la stratégie de croissance dépend de l'accès aux marchés de crédit. Langage insiste sur les conditions économiques et les notations de crédit.",
       "trend": "stable",
-      "summary": "L'incapacité à obtenir un financement à des conditions favorables pourrait entraver la croissance et les investissements en capital."
+      "summary": "L'incapacité à obtenir un financement à des conditions favorables pourrait entraver la croissance et les investissements en capital.",
+      "score": 4
     },
     {
       "title": "Intégration d'acquisitions complexes",
@@ -302,7 +335,8 @@
       "severity": 4,
       "score_rationale": "Le risque d'intégration d'acquisitions est mentionné dans les facteurs de risque et illustré par l'acquisition récente de FCG pour 922,8 M$. L'échec d'intégration pourrait affecter la rentabilité.",
       "trend": "new",
-      "summary": "L'échec à intégrer efficacement des acquisitions, comme celle de FCG, pourrait nuire à la performance financière et opérationnelle."
+      "summary": "L'échec à intégrer efficacement des acquisitions, comme celle de FCG, pourrait nuire à la performance financière et opérationnelle.",
+      "score": 4
     },
     {
       "title": "Variabilité de la demande énergétique",
@@ -310,7 +344,8 @@
       "severity": 3,
       "score_rationale": "Le facteur est mentionné dans les risques macroéconomiques. Dépend de la conjoncture économique, des préférences clients et des conditions météorologiques. Moins critique que d'autres mais récurrent.",
       "trend": "stable",
-      "summary": "Les variations de la demande due à l'économie, aux prix des commodités ou aux conditions météo peuvent affecter les revenus."
+      "summary": "Les variations de la demande due à l'économie, aux prix des commodités ou aux conditions météo peuvent affecter les revenus.",
+      "score": 3
     },
     {
       "title": "Concurrence des fournisseurs d'énergie",
@@ -318,7 +353,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans les facteurs de risque généraux. Le risque de perte de clients vers d'autres fournisseurs ou sources d'énergie alternatives est présent mais atténué par la nature régulée de l'activité principale.",
       "trend": "stable",
-      "summary": "La concurrence accrue des fournisseurs d'énergie ou des sources alternatives peut réduire la part de marché et les marges."
+      "summary": "La concurrence accrue des fournisseurs d'énergie ou des sources alternatives peut réduire la part de marché et les marges.",
+      "score": 3
     },
     {
       "title": "Risques liés aux changements fiscaux",
@@ -326,7 +362,8 @@
       "severity": 4,
       "score_rationale": "Cité dans les facteurs de risque avec référence explicite au TCJA. Les changements fiscaux peuvent impacter fortement la rentabilité et les flux de trésorerie. Langage souligne un risque significatif.",
       "trend": "stable",
-      "summary": "Des modifications importantes des réglementations fiscales, comme celles du TCJA, pourraient affecter négativement les résultats financiers."
+      "summary": "Des modifications importantes des réglementations fiscales, comme celles du TCJA, pourraient affecter négativement les résultats financiers.",
+      "score": 4
     }
   ],
   "_governance_fetched_at": "2026-05-12T13:12:07.234173+00:00",
@@ -486,7 +523,6 @@
         "history": [
           104.631,
           148.213,
-          -117.914,
           29.887,
           65.087,
           98.028,
@@ -498,11 +534,9 @@
           75.512,
           157.96,
           259.586,
-          -137.758,
           113.8,
           213.9,
           322.2,
-          -201.3,
           141.9
         ],
         "history_periods": [
@@ -556,6 +590,12 @@
             "accession": "0001628280-26-031397",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (CPK)"
         ]
       }
     ]
@@ -572,9 +612,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.244097+00:00",
     "fetched_at": "2026-05-21T02:17:14.244098+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.753Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.255Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cpk.json",
     "enrich_root": null,

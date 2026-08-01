@@ -1,6 +1,6 @@
 {
   "ticker": "CPF",
-  "name": "Central Pacific Financial Corp.",
+  "name": "Central Pacific Financial",
   "sector": "Finance",
   "subsector": "Regional Banks",
   "tagline": "A Hawaii-based bank holding company providing comprehensive commercial and retail banking services.",
@@ -43,7 +43,11 @@
       "ttm": 2.03,
       "_validation": "Renamed from 'Gross Margin' to 'Net Interest Margin' (appropriate metric for banking sector); corrected description to reflect banking terminology",
       "explanation_en": "Profit margin on Net Interest.",
-      "signal_en": "Margin stable, monitor cost dynamics"
+      "signal_en": "Margin stable, monitor cost dynamics",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Margin",
@@ -72,7 +76,7 @@
       "ttm": 25.65,
       "_validation": "No changes required",
       "period_type": "quarter",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -101,7 +105,11 @@
       "is_short_history": false,
       "ttm": 8.72,
       "_validation": "Corrected name_fr from 'Investissements (semi : fabs)' to 'Investissements en capital'; updated explanation to remove semiconductor/manufacturing references",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Employees",
@@ -131,8 +139,13 @@
       "ttm": 1.1,
       "_validation": "Renamed 'Headcount' to 'Total Employees'; updated type from 'Investment' to 'Headcount'",
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Total Employees — total number of employees at period end.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Total Employees, total number of employees at period end.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ],
+      "_audit_flag": "VALUE_ABERRANT_OUTLIER"
     },
     {
       "short": "Allowance for Credit Losses",
@@ -160,24 +173,28 @@
       "is_short_history": false,
       "ttm": 47.91,
       "_validation": "Updated explanation and description to reflect CECL methodology and Hawaii-specific indicators mentioned in audit matter",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.077,
-      "unit": "Mds $",
+      "value": 77,
+      "unit": "M $",
       "yoy": "+45.3%",
       "history": [
-        0.059,
-        0.058,
-        0.037,
-        0.08,
-        0.074,
-        0.059,
-        0.053,
-        0.077
+        59,
+        58,
+        37,
+        80,
+        74,
+        59,
+        53,
+        77
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -186,8 +203,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -213,8 +235,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -242,9 +268,7 @@
       "is_short_history": true,
       "story_category": "Capital",
       "ttm": 34.73,
-      "_validation": "Updated name_fr and explanation to clarify authorization terminology; updated description to include 2026 plan approval",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Updated name_fr and explanation to clarify authorization terminology; updated description to include 2026 plan approval"
     },
     {
       "short": "Net Income",
@@ -271,9 +295,7 @@
       "is_short_history": true,
       "story_category": "Financial Performance",
       "ttm": 21.49,
-      "_validation": "Updated type from 'Revenue' to 'Profitability'; updated explanation and description for clarity; corrected story_category from 'Marché' to 'Financial Performance'",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Updated type from 'Revenue' to 'Profitability'; updated explanation and description for clarity; corrected story_category from 'Marché' to 'Financial Performance'"
     }
   ],
   "ai_positioning": {
@@ -289,7 +311,8 @@
       "severity": 4,
       "score_rationale": "La société est sensible aux conditions économiques locales et nationales, avec une dépendance à l'égard de l'économie hawaïenne. Les projections de croissance économique et les taux de chômage sont des indicateurs clés.",
       "trend": "stable",
-      "summary": "L'économie hawaïenne est sensible aux conditions nationales et mondiales, ce qui peut impacter les résultats de la société."
+      "summary": "L'économie hawaïenne est sensible aux conditions nationales et mondiales, ce qui peut impacter les résultats de la société.",
+      "score": 4
     },
     {
       "title": "Risque de crédit",
@@ -297,7 +320,8 @@
       "severity": 4,
       "score_rationale": "La société a une exposition significative aux prêts hypothécaires et commerciaux, ce qui la rend vulnérable aux défauts de paiement. La qualité des actifs et la provision pour pertes de crédit sont des facteurs clés.",
       "trend": "up",
-      "summary": "La société doit gérer son portefeuille de prêts pour minimiser les pertes potentielles, avec une augmentation des provisions de crédit."
+      "summary": "La société doit gérer son portefeuille de prêts pour minimiser les pertes potentielles, avec une augmentation des provisions de crédit.",
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -305,7 +329,8 @@
       "severity": 3,
       "score_rationale": "Les changements dans les taux d'intérêt impactent les revenus d'intérêts et les dépenses d'intérêts, ainsi que la valeur des actifs et passifs. La marge nette d'intérêt faible reflète cette exposition.",
       "trend": "down",
-      "summary": "La société doit gérer son exposition aux taux d'intérêt pour minimiser les impacts négatifs."
+      "summary": "La société doit gérer son exposition aux taux d'intérêt pour minimiser les impacts négatifs.",
+      "score": 3
     },
     {
       "title": "Risque de régulation",
@@ -313,7 +338,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations strictes en tant qu'établissement bancaire, ce qui peut impacter ses activités et ses résultats. Les changements dans les réglementations peuvent être difficiles à prévoir.",
       "trend": "stable",
-      "summary": "La société doit se conformer aux réglementations fédérales et étatiques pour éviter les pénalités et les pertes potentielles."
+      "summary": "La société doit se conformer aux réglementations fédérales et étatiques pour éviter les pénalités et les pertes potentielles.",
+      "score": 3
     },
     {
       "title": "Risque de concurrence",
@@ -321,7 +347,8 @@
       "severity": 2,
       "score_rationale": "La société opère dans un marché compétitif, ce qui peut impacter ses parts de marché et ses revenus. La concurrence peut venir de nouvelles entrées sur le marché ou de l'expansion de concurrents existants.",
       "trend": "stable",
-      "summary": "La société doit maintenir sa compétitivité pour conserver ses parts de marché et ses revenus."
+      "summary": "La société doit maintenir sa compétitivité pour conserver ses parts de marché et ses revenus.",
+      "score": 2
     },
     {
       "title": "Risque de liquidité",
@@ -329,7 +356,8 @@
       "severity": 2,
       "score_rationale": "La société doit maintenir une liquidité suffisante pour faire face à ses obligations et à ses engagements. Les défis de liquidité peuvent impacter ses activités et ses résultats.",
       "trend": "down",
-      "summary": "La société doit gérer sa liquidité pour minimiser les risques potentiels."
+      "summary": "La société doit gérer sa liquidité pour minimiser les risques potentiels.",
+      "score": 2
     },
     {
       "title": "Risque de cyberattaques",
@@ -337,7 +365,8 @@
       "severity": 2,
       "score_rationale": "La société est vulnérable aux cyberattaques, ce qui peut impacter la confidentialité et la sécurité des données de ses clients. Les attaques peuvent également impacter les systèmes et les opérations de la société.",
       "trend": "up",
-      "summary": "La société doit maintenir des mesures de sécurité robustes pour protéger les données des clients et les systèmes opérationnels."
+      "summary": "La société doit maintenir des mesures de sécurité robustes pour protéger les données des clients et les systèmes opérationnels.",
+      "score": 2
     }
   ],
   "governance": {
@@ -380,7 +409,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -583,166 +612,47 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CPF",
-    "extracted_at": "2026-05-15T18:10:16Z",
-    "method": "xbrl-companyfacts",
-    "cik": 701347,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:07:51Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "Technology Investment",
+        "short": "Operating Margin",
         "period_type": "quarter",
         "history": [
-          14.792,
-          20.11,
-          -21.702,
-          0.858,
-          11.819,
-          14.981,
-          -9.218,
-          3.822,
-          8.27,
-          10.969,
-          -10.411,
-          3.253,
-          7.932,
-          13.579,
-          -9.672,
-          0.889,
-          2.888,
-          3.761,
-          -2.376,
-          1.066
+          39.99,
+          34.41,
+          35.02,
+          33.55,
+          32.19,
+          30.85,
+          33.55,
+          35.08,
+          29.88,
+          33.55,
+          33.42,
+          33.46
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 2.888,
-            "accession": "0000701347-25-000027",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 3.761,
-            "accession": "0000701347-25-000049",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -2.376,
-            "accession": "calc-0000701347-26-000021",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.066,
-            "accession": "0000701347-26-000028",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Capital Expenditures",
-        "period_type": "quarter",
-        "history": [
-          14.792,
-          20.11,
-          -21.702,
-          0.858,
-          11.819,
-          14.981,
-          -9.218,
-          3.822,
-          8.27,
-          10.969,
-          -10.411,
-          3.253,
-          7.932,
-          13.579,
-          -9.672,
-          0.889,
-          2.888,
-          3.761,
-          -2.376,
-          1.066
-        ],
-        "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 2.888,
-            "accession": "0000701347-25-000027",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 3.761,
-            "accession": "0000701347-25-000049",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -2.376,
-            "accession": "calc-0000701347-26-000021",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.066,
-            "accession": "0000701347-26-000028",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:07:51Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -758,9 +668,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.243846+00:00",
     "fetched_at": "2026-05-21T02:17:14.243847+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.748Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.248Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cpf.json",
     "enrich_root": "v2-pipeline-enrich/cpf.json",

@@ -21,8 +21,8 @@
       "name_fr": "Demande IA / HPC / Automobile",
       "name_en": "AI / HPC / Automotive Demand",
       "explanation": "Demande pour les services d'emballage et de test de semi-conducteurs dans les secteurs de l'intelligence artificielle, du calcul haute performance, de l'automobile et des centres de données.",
-      "value": 6708,
-      "unit": "M $",
+      "value": 6.708,
+      "unit": "Mds $",
       "yoy": "+6.2%",
       "type": "Demand",
       "nature": "Structurel",
@@ -30,8 +30,8 @@
       "signal": "Croissance tirée par les marchés technologiques clés.",
       "description": "Représente les ventes nettes consolidées, reflétant la demande globale pour les services d'Amkor dans des applications de pointe.",
       "history": [
-        6317.7,
-        6503.1,
+        6.318,
+        6.503,
         null,
         null,
         null
@@ -40,8 +40,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -67,7 +71,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -94,7 +98,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -121,7 +125,7 @@
       "is_wow": true,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -156,8 +160,8 @@
       "name_fr": "Trésorerie et équivalents",
       "name_en": "Cash and Cash Equivalents",
       "explanation": "Liquidités disponibles et actifs facilement convertibles en espèces.",
-      "value": "1378.3",
-      "unit": "M $",
+      "value": 1.378,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Cash",
       "nature": "Structurel",
@@ -168,7 +172,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Debt",
@@ -187,11 +192,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -210,10 +219,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.38 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -227,7 +240,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.17,
         0.225,
@@ -240,7 +253,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -255,7 +268,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0551,
@@ -268,7 +281,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -283,7 +296,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         7.2,
@@ -296,7 +309,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -312,7 +325,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.11,
@@ -325,7 +338,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -348,9 +361,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     },
     {
       "short": "Arizona Facility Construction",
@@ -370,13 +381,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
-    "stance": "Leader",
+    "stance": "absent",
     "summary": "Amkor se positionne comme un leader dans les solutions d'emballage et de test de semi-conducteurs pour les applications d'IA et de calcul haute performance. L'entreprise développe activement des technologies d'emballage avancées ciblées spécifiquement pour soutenir les demandes croissantes des applications d'IA, notamment dans les segments du calcul haute performance et des centres de données.",
     "evidence": [
       "Comprehensive portfolio includes advanced packaging solutions targeting AI applications for data centers and high-performance computing",
@@ -390,34 +399,34 @@
       "title": "Downturn industriel",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "La société est exposée aux fluctuations du marché des semi-conducteurs, qui peut avoir un impact significatif sur ses résultats d'exploitation. La nature cyclique de l'industrie des semi-conducteurs crée des risques importants de volatilité des revenus et de rentabilité. (Item 1A, Item 7) (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux fluctuations du marché des semi-conducteurs, qui peut avoir un impact significatif sur ses résultats d'exploitation. La nature cyclique de l'industrie des semi-conducteurs crée des risques importants de volatilité des revenus et de rentabilité. (Item 1A, Item 7)",
       "trend": "stable",
       "summary": "La société est vulnérable aux baisses de la demande dans l'industrie des semi-conducteurs, ce qui peut affecter significativement ses résultats d'exploitation et ses flux de trésorerie.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance aux fournisseurs",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société dépend de quelques fournisseurs pour certains matériaux et composants, ce qui peut créer des risques de disruption de la chaîne d'approvisionnement. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de quelques fournisseurs pour certains matériaux et composants, ce qui peut créer des risques de disruption de la chaîne d'approvisionnement. (Item 1A)",
       "trend": "up",
       "summary": "La société est exposée aux risques de disruption de la chaîne d'approvisionnement en raison de sa dépendance à l'égard de quelques fournisseurs clés.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société fait face à une concurrence accrue dans le marché des services de conditionnement et de test de semi-conducteurs, y compris les capacités internes des IDMs et d'autres concurrents, ce qui peut affecter ses parts de marché. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "La société fait face à une concurrence accrue dans le marché des services de conditionnement et de test de semi-conducteurs, y compris les capacités internes des IDMs et d'autres concurrents, ce qui peut affecter ses parts de marché. (Item 1A)",
       "trend": "up",
       "summary": "La société est exposée à une concurrence accrue dans le marché des services de conditionnement et de test de semi-conducteurs, provenant de concurrents établis et des capacités internes des clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "La société est exposée aux risques de cybersécurité, notamment en raison de sa dépendance aux systèmes d'information et aux données sensibles. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques de cybersécurité, notamment en raison de sa dépendance aux systèmes d'information et aux données sensibles. (Item 1A)",
       "trend": "up",
       "summary": "La société est exposée aux risques de cybersécurité, notamment en raison de sa dépendance aux systèmes d'information et aux données sensibles des clients.",
       "score": 3
@@ -426,7 +435,7 @@
       "title": "Fluctuations des prix",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société est exposée aux fluctuations des prix des matériaux et des composants, ce qui peut affecter ses coûts et ses résultats d'exploitation. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux fluctuations des prix des matériaux et des composants, ce qui peut affecter ses coûts et ses résultats d'exploitation. (Item 1A)",
       "trend": "stable",
       "summary": "La société est exposée aux fluctuations des prix des matériaux et des composants, ce qui peut affecter ses coûts de fabrication et ses marges opérationnelles.",
       "score": 3
@@ -435,7 +444,7 @@
       "title": "Dépendance aux clients clés",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société dépend de quelques clients clés, ce qui peut créer des risques de perte de chiffre d'affaires en cas de départ de ces clients. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de quelques clients clés, ce qui peut créer des risques de perte de chiffre d'affaires en cas de départ de ces clients. (Item 1A)",
       "trend": "stable",
       "summary": "La société est exposée aux risques de perte de chiffre d'affaires en cas de départ ou de réduction de volume de ses clients clés.",
       "score": 3
@@ -444,7 +453,7 @@
       "title": "Risques réglementaires et commerciaux",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est exposée aux risques réglementaires et aux changements de politique commerciale, notamment en raison des nouveaux tarifs et restrictions commerciales. (Item 7 MD&A) (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques réglementaires et aux changements de politique commerciale, notamment en raison des nouveaux tarifs et restrictions commerciales. (Item 7 MD&A)",
       "trend": "up",
       "summary": "La société est exposée aux risques liés aux changements dans les lois, réglementations et politiques commerciales applicables à l'industrie des semi-conducteurs et au commerce international.",
       "score": 3
@@ -453,7 +462,7 @@
   "governance": {
     "agm_date": "2026-05-13",
     "fiscal_year": 2025,
-    "ceo_name": "Stephen D. Kelley",
+    "ceo_name": "Kevin K. Engel",
     "ceo_total_comp_m": 4.2,
     "exec_comp_approval_pct": 98.5,
     "board_size": 11,
@@ -504,7 +513,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -525,7 +534,7 @@
     "margin_trend": "Marges stables (variation moyenne -0.4 pts)."
   },
   "_dividends_extracted_at": "2026-05-09T20:21:15Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2021,
@@ -542,7 +551,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:15Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:27Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Semi-conducteurs & équipements",
   "enrich_description": {
     "ticker": "AMKR",
@@ -597,7 +606,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.761Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.216Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/amkr.json",
     "enrich_root": "v2-pipeline-enrich/amkr.json",

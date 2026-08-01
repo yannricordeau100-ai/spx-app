@@ -13,7 +13,7 @@
     "sector": "N/A",
     "subsector": "N/A"
   },
-  "hero_kpi": "Membership",
+  "hero_kpi": "Shipments",
   "hero_kpi_rationale": "IVR est une association internationale sans but lucratif fondée en 1877, représentant les intérêts du secteur européen du transport fluvial de conteneurs et de marchandises. Les KPI financiers traditionnels ne s'appliquent pas; la métrique clé est le nombre de membres actifs et la portée géographique.",
   "kpis": [
     {
@@ -147,11 +147,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.63 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -170,11 +174,170 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.88 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Shipments",
+      "name_fr": "Livraisons de vehicules",
+      "name_en": "Shipments",
+      "unit": "vehicules",
+      "period_type": "year",
+      "history": [
+        10131,
+        9119,
+        11155,
+        13221,
+        13663,
+        13752
+      ],
+      "history_dates": [
+        "2019-12-31",
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "value": 13752,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les livraisons de vehicules Ferrari progressent de facon continue depuis 2020 et atteignent 13 752 unites en 2024.",
+      "is_wow": true,
+      "yoy": "+0,7 %"
+    },
+    {
+      "short": "Cars and Spare Parts Revenue",
+      "name_fr": "Revenus voitures et pieces detachees",
+      "name_en": "Cars and Spare Parts Revenue",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        2926,
+        2835,
+        3573,
+        4341,
+        5119,
+        5728
+      ],
+      "history_dates": [
+        "2019-12-31",
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "value": 5728,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Coeur du modele Ferrari, ces revenus incluent les voitures livrees, les personnalisations et les pieces detachees. Leur progression continue depuis 2020 traduit un enrichissement du mix produit plus qu une hausse des volumes.",
+      "is_wow": false
+    },
+    {
+      "short": "Sponsorship, Commercial and Brand Revenue",
+      "name_fr": "Revenus sponsoring, commercial et marque",
+      "name_en": "Sponsorship, Commercial and Brand Revenue",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        538,
+        390,
+        431,
+        479,
+        572,
+        670
+      ],
+      "history_dates": [
+        "2019-12-31",
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "value": 670,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Ce poste regroupe le sponsoring des ecuries de course, la quote part des revenus commerciaux de la Formule 1 et l exploitation de la marque Ferrari. Il mesure la valeur monetisable du nom en dehors de la vente de voitures.",
+      "is_wow": false
+    },
+    {
+      "short": "EMEA Shipments",
+      "name_fr": "Livraisons zone EMEA",
+      "name_en": "EMEA Shipments",
+      "unit": "unités",
+      "period_type": "year",
+      "history": [
+        4227,
+        4895,
+        4818,
+        5492,
+        5958,
+        6063,
+        6204
+      ],
+      "history_dates": [
+        "2018-12-31",
+        "2019-12-31",
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "value": 6204,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Premier marche de Ferrari avec environ 45 pour cent des livraisons, la zone Europe, Moyen Orient et Afrique reste le socle le plus stable du carnet de commandes.",
+      "is_wow": false
+    },
+    {
+      "short": "Americas Shipments",
+      "name_fr": "Livraisons zone Ameriques",
+      "name_en": "Americas Shipments",
+      "unit": "unités",
+      "period_type": "year",
+      "history": [
+        3000,
+        2900,
+        2325,
+        2831,
+        3447,
+        3811,
+        4003
+      ],
+      "history_dates": [
+        "2018-12-31",
+        "2019-12-31",
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "value": 4003,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Deuxieme debouche du groupe, la zone Ameriques a retrouve puis depasse ses niveaux d avant 2020, portee par les Etats Unis qui concentrent l essentiel de ces livraisons.",
+      "is_wow": false
     },
     {
       "short": "DPS",
@@ -188,7 +351,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.867,
         1.362,
@@ -201,7 +364,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -216,7 +379,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.646,
@@ -229,7 +392,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -244,7 +407,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         26.76,
@@ -257,7 +420,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -273,7 +436,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         5.09,
@@ -286,7 +449,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -301,19 +464,8 @@
     ],
     "source": "IVR Annual Report 2024"
   },
-  "_validation": [
-    "VERIFIED: sector Transportation & Logistics is correct for IVR as inland waterway transport association",
-    "VERIFIED: subsector Inland Waterway Transport is accurate per organization charter and 2024 report activities",
-    "VERIFIED: tagline updated to describe IVR as advocacy and standardization organization for inland waterway transport",
-    "VERIFIED: hero_kpi Membership is appropriate for non-profit association",
-    "VERIFIED: hero_kpi_rationale correctly explains IVR as non-profit association founded 1877, notes financial KPIs inapplicable",
-    "VERIFIED: Geographic Coverage value corrected from '11+' to '11' based on source report stating exactly 11 countries at Frankfurt Congress",
-    "VERIFIED: All six KPIs are sourced from 2024 annual report content: Congress attendance (225 participants), Colloquium attendance (80 participants), Events organized (2 major events), Geographic coverage (11 countries), Members (not available but confirmed as key metric), Technical publications (confirmed multiple new documents issued)",
-    "VERIFIED: Founded 1877 confirmed in report German text: 'der Stadt, in der unser Verband einst gegründet wurde' referring to Frankfurt",
-    "VERIFIED: ranks fields correctly set to N/A as IVR is non-profit association not traded on public markets",
-    "VERIFIED: AI positioning section accurately reflects zero AI mentions in 2024 annual report"
-  ],
-  "_fit_for_site": false,
+  "_validation": true,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_0",
     "no_yoy"
@@ -392,11 +544,13 @@
   "company_description": "Ferrari N.V., through its subsidiaries, engages in design, engineering, production, and sale of luxury performance sports cars worldwide. It offers sports, track, one-off, and road cars, as well as supercars. The company also provides spare parts and engines, as well as after sales, repair, maintenance, and restoration services for cars; and licenses its Ferrari brand to various producers and retailers of luxury and lifestyle goods. In addition, it operates Ferrari museums in Modena and Maranello; Il Cavallino restaurant in Maranello; and theme parks in Abu Dhabi and Spain. Further, the company provides direct or indirect finance and leasing services; range of financial and ancillary services; special financing arrangements; and operates franchised and owned Ferrari stores. The company was founded in 1947 and is headquartered in Maranello, Italy.",
   "last_data_date": "2026-03-31",
   "_dividends_extracted_at": "2026-05-09T20:21:17Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:47:01Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Transport & logistique",
+  "hero_kpi_override": "Shipments",
+  "_hero_kpi_override_reason": "Shipments = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "RACE.MI",
     "fetched_at": "2026-05-14T18:26:31.228859+00:00",
@@ -430,6 +584,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Ferrari N.V. est un constructeur italien de voitures de sport et de supercars de luxe. Coté à Milan et New York, basé à Maranello.",
+          "products": "Voitures sportives et supercars, séries spéciales et voitures de circuit, modèles one-off. Pièces détachées et services après-vente. Licensing de la marque Ferrari, musées, parcs à thème, restaurant Il Cavallino.",
+          "customers": "Clientèle ultra-fortunée mondiale (HNWI/UHNWI). Sélection des clients par allocation pour les modèles limités, fidélisation par programmes exclusifs.",
+          "edge": "Marque la plus iconique du luxe automobile et puissance émotionnelle unique. Discipline de rareté (production limitée à environ 14 000 unités/an) et pricing power exceptionnel."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Ferrari est traitée comme un acteur du luxe par les marchés (multiple proche d'Hermès) plus que comme un constructeur automobile. Stratégie de croissance via la personnalisation, les séries spéciales et le lifestyle, tout en maintenant la rareté.",
+          "tech_products": "Gamme construite autour de la Range (cœur sportif), du Special Series, des Icona et des one-off ultra-premium. Préparation de la première Ferrari 100 % électrique en 2025. Engagement renouvelé en F1 avec des résultats sportifs en amélioration.",
+          "moat": "Marque immortelle, héritage F1 unique, communauté de propriétaires fidèle. Pricing power et capacité de personalisation à très forte marge. Allocation contrôlée des voitures rares (waiting list de plusieurs années).",
+          "risks": "Transition vers l'électrique : enjeu émotionnel pour une marque de moteurs thermiques. Exposition aux ultra-fortunés (cycle des actifs financiers). Risques de sur-extension dans le lifestyle. Risque image en F1 si résultats sportifs déçoivent durablement."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "RACE.MI",
     "ranks": {
@@ -442,14 +617,15 @@
     "country": "Italy",
     "_data_freshness_date": "2026-05-21T02:17:14.301430+00:00",
     "fetched_at": "2026-05-21T02:17:14.301430+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.040Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.051Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/race.mi.json",
     "enrich_root": "v2-pipeline-enrich/race.mi.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

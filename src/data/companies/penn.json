@@ -36,7 +36,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Capex (Capital Expenditures) values not explicitly stated in the provided 10-K extract. The document contains MD&A and audit opinion section",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "HCCB_Project",
@@ -80,13 +80,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 6.96 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:28.778849+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
@@ -105,34 +109,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.84 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.27,
-      "unit": "Mds €",
+      "value": 270,
+      "unit": "M €",
       "yoy": "+68.8%",
       "history": [
-        1.09,
-        0.36,
-        0.16,
-        0.27
+        1090,
+        360,
+        160,
+        270
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.27 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -151,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 14.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -174,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 11.27 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.69,
-      "unit": "Mds €",
+      "value": 690,
+      "unit": "M €",
       "yoy": "-2.8%",
       "history": [
-        1.62,
-        1.07,
-        0.71,
-        0.69
+        1620,
+        1070,
+        710,
+        690
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.69 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -318,7 +344,8 @@
       "severity": 5,
       "score_rationale": "Le goodwill du segment Interactive a été entièrement amorti avec une perte d'impairment de 825 millions USD, supérieure au solde comptable. Le langage insiste sur la sensibilité des hypothèses (revenus, taux d'actualisation) et le risque d'ajouts futurs d'impairments si les prévisions ne sont pas tenues. Catégorie 'Capital' fortement pondérée ici.",
       "trend": "up",
-      "summary": "La valeur comptable du goodwill du segment interactif a été largement dépassée par sa valeur marchande, entraînant une dépréciation majeure."
+      "summary": "La valeur comptable du goodwill du segment interactif a été largement dépassée par sa valeur marchande, entraînant une dépréciation majeure.",
+      "score": 5
     },
     {
       "title": "Sensibilité des licences de jeu",
@@ -326,7 +353,8 @@
       "severity": 4,
       "score_rationale": "Plusieurs licences (ex. L'Auberge Lake Charles) ont une marge de passage inférieure à 1 %, avec risque d'impairment significatif si le taux d'actualisation augmente de 100 pb. Le texte souligne la dépendance aux régulations locales et aux hypothèses de flux futurs.",
       "trend": "stable",
-      "summary": "Certaines licences de jeu sont proches du seuil d'impairment, sensibles aux hausses des taux ou baisses de croissance."
+      "summary": "Certaines licences de jeu sont proches du seuil d'impairment, sensibles aux hausses des taux ou baisses de croissance.",
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt variable",
@@ -334,7 +362,8 @@
       "severity": 4,
       "score_rationale": "1,99 milliard USD de dettes à taux variable exposées aux variations de SOFR. Le tableau de maturité montre une forte concentration en 2027. L'augmentation des taux impacte directement le coût de la dette.",
       "trend": "stable",
-      "summary": "Une grande partie de la dette est à taux variable, exposant la société à des hausses des coûts financiers si les taux montent."
+      "summary": "Une grande partie de la dette est à taux variable, exposant la société à des hausses des coûts financiers si les taux montent.",
+      "score": 4
     },
     {
       "title": "Chocs économiques locaux",
@@ -342,7 +371,8 @@
       "severity": 4,
       "score_rationale": "Les flux de trésorerie prévus sont sensibles au chômage, à l'inflation et aux taux d'intérêt. Mention répétée dans les sections goodwill et licences. Hypothèses critiques pour les DCF.",
       "trend": "stable",
-      "summary": "Les performances des unités locales dépendent fortement de la santé économique des régions où elles opèrent."
+      "summary": "Les performances des unités locales dépendent fortement de la santé économique des régions où elles opèrent.",
+      "score": 4
     },
     {
       "title": "Risque de change non couvert",
@@ -350,7 +380,8 @@
       "severity": 3,
       "score_rationale": "Absence de couverture des risques de change, notamment sur le dollar canadien. Gains/pertes de change non réalisés importants (ex. 139M$ de perte en 2024). Impact direct sur les états financiers consolidés.",
       "trend": "stable",
-      "summary": "Les résultats en devises étrangères, comme ceux de theScore, sont traduits sans couverture, exposant la société aux fluctuations."
+      "summary": "Les résultats en devises étrangères, comme ceux de theScore, sont traduits sans couverture, exposant la société aux fluctuations.",
+      "score": 3
     },
     {
       "title": "Augmentation des taxes sur les jeux",
@@ -358,7 +389,8 @@
       "severity": 4,
       "score_rationale": "Cité comme facteur négatif direct sur les flux de trésorerie dans les segments Interactive et physiques. Risque réglementaire récurrent, avec pouvoir discrétionnaire des États et provinces.",
       "trend": "up",
-      "summary": "Les hausses de taxes sur les jeux, décidées par les autorités locales, peuvent réduire la rentabilité des opérations."
+      "summary": "Les hausses de taxes sur les jeux, décidées par les autorités locales, peuvent réduire la rentabilité des opérations.",
+      "score": 4
     }
   ],
   "governance": {
@@ -540,7 +572,6 @@
           42.8,
           73.7,
           97.6,
-          -77.1,
           25.7,
           64.6,
           137.8,
@@ -548,7 +579,6 @@
           65.6,
           125.6,
           189.6,
-          -117.4,
           63.2,
           132.8,
           207.8
@@ -599,6 +629,12 @@
             "accession": "0000921738-23-000050",
             "end": "2023-09-30"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (PENN)"
         ]
       },
       {
@@ -674,9 +710,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.295907+00:00",
     "fetched_at": "2026-05-21T02:17:14.295908+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.536Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.500Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/penn.json",
     "enrich_root": null,

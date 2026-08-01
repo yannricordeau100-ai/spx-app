@@ -40,7 +40,7 @@
       "is_generic": true,
       "is_short_history": true,
       "period_type": "quarter",
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T09:38:07.290126+00:00",
       "signal_en": "Strong top-line growth, market traction"
     },
@@ -124,11 +124,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.48 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -147,56 +151,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.11 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "+8.3%",
       "history": [
-        0.05,
-        0.01,
-        0.12,
-        0.13
+        50,
+        10,
+        120,
+        130
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.13 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.61,
-      "unit": "Mds €",
+      "value": 610,
+      "unit": "M €",
       "yoy": "+22.0%",
       "history": [
-        0.44,
-        0.75,
-        0.5,
-        0.61
+        440,
+        750,
+        500,
+        610
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.61 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -211,16 +229,16 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché compétitif avec de nombreux acteurs, ce qui peut entraîner des pressions sur les prix et les parts de marché. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché compétitif avec de nombreux acteurs, ce qui peut entraîner des pressions sur les prix et les parts de marché.",
       "trend": "stable",
       "summary": "La concurrence dans le secteur de la construction de maisons préfabriquées peut affecter les ventes et les marges de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Régulation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements dans les réglementations gouvernementales affectant la production et la vente de maisons préfabriquées peuvent avoir un impact sur les opérations et les coûts. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les réglementations gouvernementales affectant la production et la vente de maisons préfabriquées peuvent avoir un impact sur les opérations et les coûts.",
       "trend": "up",
       "summary": "Les réglementations gouvernementales complexes et changeantes peuvent affecter les activités de la société.",
       "score": 3
@@ -229,25 +247,25 @@
       "title": "Litige",
       "category": "Litige",
       "severity": 2,
-      "score_rationale": "La société peut être impliquée dans des procédures judiciaires qui peuvent avoir un impact sur ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être impliquée dans des procédures judiciaires qui peuvent avoir un impact sur ses résultats financiers.",
       "trend": "stable",
       "summary": "Les litiges peuvent avoir un impact sur la réputation et les finances de la société.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société a des dettes et des obligations financières qui peuvent affecter sa capacité à investir et à se développer. (score par défaut, à affiner)",
+      "score_rationale": "La société a des dettes et des obligations financières qui peuvent affecter sa capacité à investir et à se développer.",
       "trend": "up",
       "summary": "Les dettes et les obligations financières de la société peuvent limiter sa capacité à investir et à se développer.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Géopolitique",
       "category": "Géopolitique",
       "severity": 3,
-      "score_rationale": "Les événements géopolitiques et les changements dans les politiques commerciales américaines peuvent avoir un impact sur les opérations et les ventes. (score par défaut, à affiner)",
+      "score_rationale": "Les événements géopolitiques et les changements dans les politiques commerciales américaines peuvent avoir un impact sur les opérations et les ventes.",
       "trend": "up",
       "summary": "Les événements géopolitiques et les tarifs commerciaux peuvent affecter les opérations et les ventes.",
       "score": 3
@@ -256,16 +274,16 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques de cybersécurité et à des perturbations informatiques qui peuvent avoir un impact sur ses opérations et sa réputation. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de cybersécurité et à des perturbations informatiques qui peuvent avoir un impact sur ses opérations et sa réputation.",
       "trend": "up",
       "summary": "Les risques de cybersécurité et les perturbations informatiques peuvent avoir un impact sur les opérations et la réputation de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Chaîne d'approvisionnement",
       "category": "Opérationnel",
       "severity": 3,
-      "score_rationale": "La société est exposée à des risques liés à la disponibilité et aux prix des matériaux, ainsi qu'à des perturbations de la chaîne d'approvisionnement. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques liés à la disponibilité et aux prix des matériaux, ainsi qu'à des perturbations de la chaîne d'approvisionnement.",
       "trend": "stable",
       "summary": "Les problèmes d'approvisionnement et les perturbations de la chaîne d'approvisionnement peuvent avoir un impact sur les opérations et les ventes.",
       "score": 3
@@ -300,7 +318,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -405,7 +423,6 @@
         "short": "Revenu",
         "period_type": "quarter",
         "history": [
-          -0.7971,
           0.2733,
           0.5957,
           0.9732,
@@ -413,7 +430,6 @@
           0.5102,
           1.0344,
           1.5691,
-          -0.9065,
           0.4648,
           0.929,
           1.4885,
@@ -421,7 +437,6 @@
           0.6278,
           1.2447,
           1.8896,
-          -1.2786,
           0.7013,
           1.3857,
           2.0424
@@ -477,6 +492,12 @@
             "accession": "0001193125-26-037613",
             "end": "2025-12-27"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (SKY)"
         ]
       },
       {
@@ -548,9 +569,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.310194+00:00",
     "fetched_at": "2026-05-21T02:17:14.310195+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.827Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.827Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sky.json",
     "enrich_root": "v2-pipeline-enrich/sky.json",

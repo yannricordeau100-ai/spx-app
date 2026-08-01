@@ -36,7 +36,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document est un Capital Markets Update de mars 2026 contenant principalement des informations stratégiques et des projections futures. Au",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Gearing",
@@ -113,11 +113,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 137.07 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -144,7 +148,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -172,7 +176,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -200,7 +204,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -216,7 +220,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         7.9,
@@ -229,7 +233,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Flat year-over-year, monitor closely"
     }
   ],
@@ -252,9 +256,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Transition",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Transition"
     },
     {
       "short": "Biorefineries construction",
@@ -274,9 +276,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Transition",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Transition"
     },
     {
       "short": "CCS transaction",
@@ -296,9 +296,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Transition",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Transition"
     },
     {
       "short": "EP production growth",
@@ -318,9 +316,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Growth",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Growth"
     }
   ],
   "ai_positioning": {
@@ -372,7 +368,8 @@
       "severity": 4,
       "score_rationale": "Risque fondamental pour E&P (31-52 pages). Langage modéré mais impact structurel : renouvellement des contrats, conditions économiques variables, expiration des droits d'exploitation. Tendance stable mais poids critique pour 40%+ du portefeuille.",
       "trend": "stable",
-      "summary": "Eni dépend fortement de contrats de concession et Production Sharing Agreements (PSA) pour ses activités d'exploration et production. L'expiration de ces contrats, le non-renouvellement ou la modification des termes (royalties, taxes, partage de production) peuvent réduire significativement les réserves accessibles et les flux de trésorerie futurs, notamment en Afrique de l'Ouest et en Asie du Pacifique."
+      "summary": "Eni dépend fortement de contrats de concession et Production Sharing Agreements (PSA) pour ses activités d'exploration et production. L'expiration de ces contrats, le non-renouvellement ou la modification des termes (royalties, taxes, partage de production) peuvent réduire significativement les réserves accessibles et les flux de trésorerie futurs, notamment en Afrique de l'Ouest et en Asie du Pacifique.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix du pétrole et du gaz naturel",
@@ -380,7 +377,8 @@
       "severity": 5,
       "score_rationale": "Risque omniprésent dans Item 5 (OFAR) et Item 11 (Market Risk). Langage intensif sur l'exposition directe aux prix spot et contrats. Tendance up (transition énergétique, géopolitique). Poids dominant pour E&P, Gas & LNG, Refining.",
       "trend": "up",
-      "summary": "Les prix du pétrole brut et du gaz naturel sont extrêmement volatiles et impactent directement les marges de raffinage, les revenus d'E&P et la rentabilité du portefeuille LNG. Une baisse prolongée des prix (ex. 2020, 2023) réduit les cash-flows, les investissements en exploration et la capacité à financer la transition énergétique."
+      "summary": "Les prix du pétrole brut et du gaz naturel sont extrêmement volatiles et impactent directement les marges de raffinage, les revenus d'E&P et la rentabilité du portefeuille LNG. Une baisse prolongée des prix (ex. 2020, 2023) réduit les cash-flows, les investissements en exploration et la capacité à financer la transition énergétique.",
+      "score": 5
     },
     {
       "title": "Risques géopolitiques et sanctions dans zones clés",
@@ -388,7 +386,8 @@
       "severity": 4,
       "score_rationale": "Implicite dans Item 4 (E&P en Afrique, Moyen-Orient, Russie). Langage prudent mais contexte géopolitique tendu (Ukraine, Iran, Libye). Tendance up. Poids élevé pour portefeuille de réserves.",
       "trend": "up",
-      "summary": "Eni opère dans des zones géopolitiquement instables (Libye, Nigeria, Mozambique, Russie). Les sanctions, conflits armés, instabilité politique ou changements de gouvernement peuvent interrompre les opérations, geler les actifs ou invalider les contrats, comme observé avec les sanctions russes post-2022."
+      "summary": "Eni opère dans des zones géopolitiquement instables (Libye, Nigeria, Mozambique, Russie). Les sanctions, conflits armés, instabilité politique ou changements de gouvernement peuvent interrompre les opérations, geler les actifs ou invalider les contrats, comme observé avec les sanctions russes post-2022.",
+      "score": 4
     },
     {
       "title": "Transition énergétique et dépréciation d'actifs pétroliers",
@@ -396,7 +395,8 @@
       "severity": 4,
       "score_rationale": "Risque structurel mentionné dans Item 4 (stratégie de décarbonation) et Item 5. Langage modéré mais tendance up (régulation EU, demande déclinante). Poids croissant pour valorisation E&P et Refining.",
       "trend": "up",
-      "summary": "La transition vers les énergies renouvelables et l'électrification réduisent la demande de pétrole et gaz à long terme. Eni risque des dépréciations d'actifs (impairments), une baisse de la valeur des réserves non développées et une réduction des opportunités d'exploration rentables, notamment en raffinage et chimie."
+      "summary": "La transition vers les énergies renouvelables et l'électrification réduisent la demande de pétrole et gaz à long terme. Eni risque des dépréciations d'actifs (impairments), une baisse de la valeur des réserves non développées et une réduction des opportunités d'exploration rentables, notamment en raffinage et chimie.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue en gaz naturel et LNG",
@@ -404,7 +404,8 @@
       "severity": 3,
       "score_rationale": "Explicite dans Item 4 (Global Gas & LNG Portfolio, p. 53). Langage modéré sur concurrence avec producteurs US, Australie, Qatar. Tendance stable/up. Poids moyen pour segment Gas & LNG (20%+ revenus).",
       "trend": "up",
-      "summary": "Le marché du GNL est saturé avec nouveaux entrants (US, Australie, Qatar). Eni fait face à une compression des marges de commercialisation, une baisse des prix de long terme et une réduction de la demande européenne post-crise énergétique. Les contrats long-terme se renégocient à la baisse."
+      "summary": "Le marché du GNL est saturé avec nouveaux entrants (US, Australie, Qatar). Eni fait face à une compression des marges de commercialisation, une baisse des prix de long terme et une réduction de la demande européenne post-crise énergétique. Les contrats long-terme se renégocient à la baisse.",
+      "score": 3
     },
     {
       "title": "Risques de cybersécurité et interruption opérationnelle",
@@ -412,7 +413,8 @@
       "severity": 3,
       "score_rationale": "Mentionné Item 16K (Cybersecurity disclosure). Langage prudent mais secteur critique (infrastructure énergétique). Tendance up (attaques croissantes). Poids modéré mais impact potentiel élevé.",
       "trend": "up",
-      "summary": "Eni opère des infrastructures critiques (pipelines, raffineries, plateformes offshore) vulnérables aux cyberattaques. Une intrusion majeure pourrait interrompre la production, compromettre les données commerciales sensibles ou affecter les systèmes de contrôle industriel, avec impacts financiers et réputationnels."
+      "summary": "Eni opère des infrastructures critiques (pipelines, raffineries, plateformes offshore) vulnérables aux cyberattaques. Une intrusion majeure pourrait interrompre la production, compromettre les données commerciales sensibles ou affecter les systèmes de contrôle industriel, avec impacts financiers et réputationnels.",
+      "score": 3
     },
     {
       "title": "Réglementation environnementale et coûts de conformité",
@@ -420,7 +422,8 @@
       "severity": 4,
       "score_rationale": "Détaillé Item 4 (Environmental matters, p. 70) et Item 5. Langage intensif sur EU Taxonomy, CBAM, émissions Scope 3. Tendance up (durcissement EU). Poids croissant pour tous les segments.",
       "trend": "up",
-      "summary": "La réglementation environnementale européenne (EU Taxonomy, CBAM, directives GES) impose des coûts croissants de conformité, de décarbonation et de reporting. Eni doit investir massivement en réduction d'émissions (flaring, méthane) et risque des pénalités ou exclusion de financements si les cibles ne sont pas atteintes."
+      "summary": "La réglementation environnementale européenne (EU Taxonomy, CBAM, directives GES) impose des coûts croissants de conformité, de décarbonation et de reporting. Eni doit investir massivement en réduction d'émissions (flaring, méthane) et risque des pénalités ou exclusion de financements si les cibles ne sont pas atteintes.",
+      "score": 4
     },
     {
       "title": "Dépendance aux investissements en exploration et développement",
@@ -428,7 +431,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans Item 4 (E&P, p. 31-52) et Item 5 (Capex). Langage modéré sur risques d'exploration (secs wells, découvertes insuffisantes). Tendance stable. Poids élevé pour renouvellement de réserves.",
       "trend": "stable",
-      "summary": "Eni dépend d'une exploration continue pour remplacer les réserves produites (reserve replacement ratio). Les puits secs, les découvertes sous-dimensionnées ou les retards de développement réduisent la durée de vie des réserves et la production future, impactant la croissance long-terme."
+      "summary": "Eni dépend d'une exploration continue pour remplacer les réserves produites (reserve replacement ratio). Les puits secs, les découvertes sous-dimensionnées ou les retards de développement réduisent la durée de vie des réserves et la production future, impactant la croissance long-terme.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:15:19.311330+00:00",
@@ -513,7 +517,7 @@
   "_dividends_extracted_at": "2026-05-09T20:59:11Z",
   "_dividends_source": "10-K FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-1 strict-table)",
   "_eps_extracted_at": "2026-05-18T16:44:43Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Pétrole & gaz intégré",
   "enrich_events": {
     "ticker": "E",
@@ -569,9 +573,9 @@
     "country": "Italy",
     "_data_freshness_date": "2026-05-21T02:17:14.253226+00:00",
     "fetched_at": "2026-05-21T02:17:14.253227+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.514Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.070Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/e.json",
     "enrich_root": "v2-pipeline-enrich/e.json",

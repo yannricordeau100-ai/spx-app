@@ -41,31 +41,40 @@
       "is_short_history": false,
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:03.964739+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+42.9%",
       "history": [
-        0.08,
-        0.07,
-        0.07,
-        0.1
+        80,
+        70,
+        70,
+        100
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.1 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -84,11 +93,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.0 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -107,10 +120,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de -0.02 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -129,79 +146,98 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -0.44 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "+2.5%",
       "history": [
-        0.45,
-        0.41,
-        0.4,
-        0.41
+        450,
+        410,
+        400,
+        410
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.41 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.04,
-        0.03,
-        0.03,
-        0.02
+        40,
+        30,
+        30,
+        20
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-66.7%",
       "history": [
-        0.02,
-        0.03,
-        0.09,
-        0.03
+        20,
+        30,
+        90,
+        30
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.03 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -223,9 +259,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "M&A",
-      "_source_month": "avril 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "M&A"
     }
   ],
   "ai_positioning": {
@@ -239,61 +273,61 @@
       "title": "Défauts produits",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Le risque est mentionné explicitement dans le rapport avec impact potentiel sur les revenus, l'acceptation du marché et la réputation (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné explicitement dans le rapport avec impact potentiel sur les revenus, l'acceptation du marché et la réputation",
       "trend": "stable",
       "summary": "Les défauts ou erreurs dans les produits peuvent entraîner des pertes de revenus, une atteinte à la réputation et des coûts supplémentaires",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné comme une menace pour l'entreprise avec conséquences négatives sur les résultats opérationnels (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné comme une menace pour l'entreprise avec conséquences négatives sur les résultats opérationnels",
       "trend": "up",
       "summary": "La concurrence dans l'industrie est élevée et les entreprises rivales peuvent développer des technologies supérieures ou plus attractives",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Perte de clients clés",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné explicitement avec conséquences négatives pour les revenus et résultats opérationnels (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné explicitement avec conséquences négatives pour les revenus et résultats opérationnels",
       "trend": "stable",
       "summary": "La perte de clients clés peut entraîner des pertes de revenus et une atteinte aux résultats opérationnels de l'entreprise",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Défaillances de fabrication",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné explicitement avec impact potentiel sur les revenus et résultats opérationnels (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné explicitement avec impact potentiel sur les revenus et résultats opérationnels",
       "trend": "stable",
       "summary": "Les défaillances de fabrication peuvent entraîner des retards dans les livraisons, des coûts supplémentaires et une atteinte à la réputation",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de responsabilité",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné explicitement avec conséquences négatives pour les résultats opérationnels et la réputation (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné explicitement avec conséquences négatives pour les résultats opérationnels et la réputation",
       "trend": "stable",
       "summary": "Les risques de responsabilité peuvent entraîner des coûts supplémentaires, des pertes de revenus et une atteinte à la réputation",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à la chaîne d'approvisionnement",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné explicitement avec impact sur les revenus et résultats opérationnels (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné explicitement avec impact sur les revenus et résultats opérationnels",
       "trend": "stable",
       "summary": "La dépendance à la chaîne d'approvisionnement peut entraîner des retards de livraison, coûts supplémentaires et atteinte aux résultats opérationnels",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Perte de personnel clé",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "Le risque est mentionné explicitement avec conséquences négatives pour les résultats opérationnels et la réputation (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné explicitement avec conséquences négatives pour les résultats opérationnels et la réputation",
       "trend": "stable",
       "summary": "La perte de personnel clé peut entraîner des pertes de revenus, une atteinte à la réputation et des coûts supplémentaires",
       "score": 3
@@ -351,7 +385,6 @@
       "date": "2026-04-27"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:59:57.954112+00:00",
   "revenue_by_geography": {
     "unit": "%",
     "source_date": "2025-12-31",
@@ -380,6 +413,7 @@
       }
     ]
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:59:57.954112+00:00",
   "_segments_fetched_at": "2026-05-06T19:24:56.139053+00:00",
   "subsector_fr": "Outils & services pour sciences de la vie",
   "enrich_description": {
@@ -462,9 +496,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.231305+00:00",
     "fetched_at": "2026-05-21T02:17:14.231306+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.722Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.205Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/blfs.json",
     "enrich_root": "v2-pipeline-enrich/blfs.json",

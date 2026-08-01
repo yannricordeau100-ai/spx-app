@@ -39,9 +39,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 103.33,
-      "period_type": "quarter",
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue.",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -66,7 +69,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -111,34 +114,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.49 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "+11.5%",
       "history": [
-        0.11,
-        0.14,
-        0.26,
-        0.29
+        110,
+        140,
+        260,
+        290
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.29 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,56 +169,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.63 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.35,
-      "unit": "Mds €",
+      "value": 350,
+      "unit": "M €",
       "yoy": "-5.4%",
       "history": [
-        0.49,
-        0.4,
-        0.37,
-        0.35
+        490,
+        400,
+        370,
+        350
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.35 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.39,
-      "unit": "Mds €",
+      "value": 390,
+      "unit": "M €",
       "yoy": "-40.9%",
       "history": [
-        0.18,
-        0.47,
-        0.66,
-        0.39
+        180,
+        470,
+        660,
+        390
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.39 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,7 +262,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "Sterling Infrastructure recognizes artificial intelligence as a growth driver for its E-Infrastructure Solutions segment through increasing adoption in cloud computing and digital transformation projects for hyperscaler data centers.",
     "evidence": [
       "Investments driven by 'increasing adoption and complexity of artificial intelligence applications and digital transformation across industries'",
@@ -251,7 +277,8 @@
       "severity": 2,
       "score_rationale": "At December 31, 2025, variable rate debt of $292.5 million means a 100-basis point increase in interest rates would increase annual interest expense by approximately $2.9 million. This is a manageable risk given the company's strong cash position of $390.7 million and improving profitability.",
       "trend": "stable",
-      "summary": "Variable rate debt exposure of $292.5 million creates interest rate sensitivity, but strong cash generation mitigates this risk."
+      "summary": "Variable rate debt exposure of $292.5 million creates interest rate sensitivity, but strong cash generation mitigates this risk.",
+      "score": 2
     },
     {
       "title": "Long-Lived Asset Impairment",
@@ -259,7 +286,8 @@
       "severity": 3,
       "score_rationale": "The company's acquisitions of Drake ($25M) and CEC ($562M) introduce goodwill and intangible assets that could be subject to impairment if acquired businesses underperform. Management assessed no impairment in 2025, 2024, or 2023, but integration risks exist.",
       "trend": "stable",
-      "summary": "Significant recent acquisitions create potential for asset impairment if operational targets are not achieved, though no indicators present as of year-end 2025."
+      "summary": "Significant recent acquisitions create potential for asset impairment if operational targets are not achieved, though no indicators present as of year-end 2025.",
+      "score": 3
     },
     {
       "title": "Residential Building Demand Cyclicality",
@@ -267,7 +295,8 @@
       "severity": 3,
       "score_rationale": "Building Solutions segment faced declining demand starting in Q2 2024 due to homebuyer affordability challenges. Management expects near-term muted demand, though long-term demographics support recovery. This segment represents meaningful revenue contribution.",
       "trend": "down",
-      "summary": "Residential market headwinds from affordability challenges create near-term revenue pressure on Building Solutions segment despite favorable long-term demographics."
+      "summary": "Residential market headwinds from affordability challenges create near-term revenue pressure on Building Solutions segment despite favorable long-term demographics.",
+      "score": 3
     },
     {
       "title": "RHB Deconsolidation Revenue Loss",
@@ -275,7 +304,8 @@
       "severity": 2,
       "score_rationale": "RHB deconsolidation effective January 1, 2025 removed $235.9 million of 2024 revenue from 2025 comparables. However, organic revenue growth of 17.7% (excluding this impact) demonstrates underlying business strength. Future RHB earnings will be recognized as equity method income.",
       "trend": "stable",
-      "summary": "Accounting change for RHB joint venture (from consolidation to equity method) removes approximately $236M in annual revenue visibility but reflects ownership structure clarification."
+      "summary": "Accounting change for RHB joint venture (from consolidation to equity method) removes approximately $236M in annual revenue visibility but reflects ownership structure clarification.",
+      "score": 2
     },
     {
       "title": "Backlog Conversion and Margin Realization",
@@ -283,7 +313,8 @@
       "severity": 2,
       "score_rationale": "Despite strong backlog growth to $3.01B (+78%), the company must successfully execute projects to convert this into earnings. Backlog margin of 17.8% provides visibility, but execution risks in large E-Infrastructure projects exist, particularly in newly acquired CEC operations.",
       "trend": "stable",
-      "summary": "Converting $3.01 billion backlog into profit requires successful project execution and margin realization, particularly for large-scale E-Infrastructure Solutions projects."
+      "summary": "Converting $3.01 billion backlog into profit requires successful project execution and margin realization, particularly for large-scale E-Infrastructure Solutions projects.",
+      "score": 2
     }
   ],
   "governance": {
@@ -339,7 +370,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -354,7 +385,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Construction & ingénierie",
-  "_companies_unified_built_at": "2026-05-29T21:19:36.234Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.739Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/strl.json",
     "enrich_root": "v2-pipeline-enrich/strl.json",

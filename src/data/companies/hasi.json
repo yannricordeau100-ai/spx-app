@@ -72,7 +72,11 @@
       "ttm": 175.5,
       "_validation": "Value verified at 286M$ from source (Interest and rental income line). name_fr and name_en updated for accuracy.",
       "explanation_en": "Interest income generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -100,31 +104,40 @@
       "is_short_history": false,
       "ttm": 115.71,
       "_validation": "Value verified at 188.236M$ (rounded to 188). Type corrected from 'Revenue' to 'Profitability'. name_fr corrected from 'Résultat net' to 'Revenu net'.",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "+5.1%",
       "history": [
-        0.16,
-        0.29,
-        0.39,
-        0.41
+        160,
+        290,
+        390,
+        410
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.41 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -143,11 +156,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 1.41 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -166,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.19 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -189,33 +210,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.15 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "-15.4%",
       "history": [
-        0.16,
-        0.06,
-        0.13,
-        0.11
+        160,
+        60,
+        130,
+        110
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.11 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,9 +275,7 @@
       "is_short_history": false,
       "story_category": "Croissance",
       "ttm": 20.56,
-      "_validation": "Value format corrected: 15% stored as 15 (numeric). yoy changed from 'stable' to '+0%' for consistency. Description improved with actual figures from source.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value format corrected: 15% stored as 15 (numeric). yoy changed from 'stable' to '+0%' for consistency. Description improved with actual figures from source."
     }
   ],
   "ai_positioning": {
@@ -263,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Les variations des taux d'intérêt impactent directement le coût du financement de HASI et les rendements des investissements. La société utilise significativement la dette pour financer ses investissements.",
       "trend": "up",
-      "summary": "Les taux d'intérêt pourraient avoir un impact sur le coût du financement et les rendements des investissements de l'entreprise"
+      "summary": "Les taux d'intérêt pourraient avoir un impact sur le coût du financement et les rendements des investissements de l'entreprise",
+      "score": 4
     },
     {
       "title": "Inflation et prix de l'électricité",
@@ -271,7 +300,8 @@
       "severity": 3,
       "score_rationale": "L'augmentation des prix de l'électricité pourrait affecter les rendements des projets d'énergie renouvelable et la rentabilité des actifs du portefeuille.",
       "trend": "up",
-      "summary": "L'inflation et les variations des prix de l'électricité pourraient impacter les rendements des projets d'infrastructures durables du portefeuille"
+      "summary": "L'inflation et les variations des prix de l'électricité pourraient impacter les rendements des projets d'infrastructures durables du portefeuille",
+      "score": 3
     },
     {
       "title": "Risques climatiques",
@@ -279,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Les événements climatiques extrêmes pourraient affecter la performance physique des actifs d'énergie renouvelable et les rendements des investissements dans les infrastructures durables.",
       "trend": "up",
-      "summary": "Les événements climatiques pourraient avoir un impact sur la demande d'énergie et les rendements des investissements de l'entreprise"
+      "summary": "Les événements climatiques pourraient avoir un impact sur la demande d'énergie et les rendements des investissements de l'entreprise",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -287,7 +318,8 @@
       "severity": 3,
       "score_rationale": "La concurrence croissante sur le marché des infrastructures durables pourrait impacter les rendements et la capacité à déployer du capital aux niveaux de rendement souhaités.",
       "trend": "stable",
-      "summary": "La concurrence sur le marché des infrastructures durables pourrait avoir un impact sur les rendements de l'entreprise"
+      "summary": "La concurrence sur le marché des infrastructures durables pourrait avoir un impact sur les rendements de l'entreprise",
+      "score": 3
     },
     {
       "title": "Risques réglementaires",
@@ -295,7 +327,8 @@
       "severity": 3,
       "score_rationale": "Les changements réglementaires en matière d'énergie renouvelable, d'incitations fiscales et de réglementation du financement pourraient impacter les rendements des investissements.",
       "trend": "stable",
-      "summary": "Les changements réglementaires pourraient avoir un impact sur les rendements de l'entreprise"
+      "summary": "Les changements réglementaires pourraient avoir un impact sur les rendements de l'entreprise",
+      "score": 3
     },
     {
       "title": "Risques de crédit",
@@ -303,7 +336,8 @@
       "severity": 2,
       "score_rationale": "La qualité de crédit des emprunteurs et des contreparties pourrait affecter les rendements et les pertes sur créances. HASI a enregistré 12,1 millions de provisions en 2025.",
       "trend": "up",
-      "summary": "Les risques de crédit et les pertes potentielles sur créances pourraient affecter les rendements de l'entreprise"
+      "summary": "Les risques de crédit et les pertes potentielles sur créances pourraient affecter les rendements de l'entreprise",
+      "score": 2
     },
     {
       "title": "Risques opérationnels",
@@ -311,7 +345,8 @@
       "severity": 2,
       "score_rationale": "Les risques opérationnels liés à la gestion d'un portefeuille complexe de plus de 700 transactions pourraient impacter la performance des investissements.",
       "trend": "stable",
-      "summary": "Les risques opérationnels pourraient avoir un impact sur les rendements de l'entreprise"
+      "summary": "Les risques opérationnels pourraient avoir un impact sur les rendements de l'entreprise",
+      "score": 2
     }
   ],
   "governance": {
@@ -347,7 +382,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -509,9 +544,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.270576+00:00",
     "fetched_at": "2026-05-21T02:17:14.270577+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.949Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.610Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hasi.json",
     "enrich_root": "v2-pipeline-enrich/hasi.json",

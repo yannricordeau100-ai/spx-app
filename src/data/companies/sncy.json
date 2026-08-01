@@ -55,59 +55,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.13 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:26.451886+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.02,
-        0.07,
-        0.05,
-        0.05
+        20,
+        70,
+        50,
+        50
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.05 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-9.1%",
       "history": [
-        0.06,
-        0.13,
-        0.11,
-        0.1
+        60,
+        130,
+        110,
+        100
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.1 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Pressure, deteriorating trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Pressure, deteriorating trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -126,11 +140,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.96 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,56 +167,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.68 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.59,
-      "unit": "Mds €",
+      "value": 590,
+      "unit": "M €",
       "yoy": "-4.8%",
       "history": [
-        0.63,
-        0.7,
-        0.62,
-        0.59
+        630,
+        700,
+        620,
+        590
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.59 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "+75.0%",
       "history": [
-        0.09,
-        0.05,
-        0.08,
-        0.14
+        90,
+        50,
+        80,
+        140
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.14 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -234,43 +266,43 @@
       "title": "Dépendance du contrat cargo avec Amazon",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le document mentionne explicitement la concentration du 'Cargo business with Amazon' comme un risque. Cette concentration est pondérée par la nature critique du contrat pour une partie significative de l'activité. L'accord amélioré signé en juin 2024 (A R ATSA) reste un élément clé de la stratégie. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne explicitement la concentration du 'Cargo business with Amazon' comme un risque. Cette concentration est pondérée par la nature critique du contrat pour une partie significative de l'activité. L'accord amélioré signé en juin 2024 (A R ATSA) reste un élément clé de la stratégie.",
       "trend": "stable",
       "summary": "La forte dépendance vis-à-vis d'Amazon pour l'activité cargo représente un risque majeur si ce contrat venait à être remis en cause ou modifié défavorablement.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité des coûts du carburant et des opérations",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le document souligne la 'price and availability of aircraft fuel and our ability to control other costs' comme un risque clé. L'intensité du langage et le contexte de l'industrie aérienne justifient une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le document souligne la 'price and availability of aircraft fuel and our ability to control other costs' comme un risque clé. L'intensité du langage et le contexte de l'industrie aérienne justifient une sévérité élevée.",
       "trend": "up",
       "summary": "Les fluctuations des prix du carburant et la capacité à maîtriser les autres coûts opérationnels impactent directement la rentabilité de la compagnie aérienne.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence intense dans le secteur aérien",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le risque lié à 'operate in an exceedingly competitive industry' est clairement identifié. L'industrie aérienne est intrinsèquement compétitive, ce qui rend ce facteur particulièrement pertinent. Les compagnies aériennes à bas coût (LCC) et ultra-bas coûts (ULCC) exercent une pression concurrentielle significative. (score par défaut, à affiner)",
+      "score_rationale": "Le risque lié à 'operate in an exceedingly competitive industry' est clairement identifié. L'industrie aérienne est intrinsèquement compétitive, ce qui rend ce facteur particulièrement pertinent. Les compagnies aériennes à bas coût (LCC) et ultra-bas coûts (ULCC) exercent une pression concurrentielle significative.",
       "trend": "stable",
       "summary": "L'environnement très concurrentiel du transport aérien, notamment avec les compagnies low-cost, exerce une pression constante sur les prix et les marges.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la transaction de fusion avec Allegiant",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Plusieurs points mentionnent les 'Expenses, litigation, or disruption to our business relating to the pending Merger' et 'Failure to receive regulatory approvals required to complete the Merger'. Le Merger Agreement signé le 11 janvier 2026 pour l'acquisition par Allegiant Travel Company justifie une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Plusieurs points mentionnent les 'Expenses, litigation, or disruption to our business relating to the pending Merger' et 'Failure to receive regulatory approvals required to complete the Merger'. Le Merger Agreement signé le 11 janvier 2026 pour l'acquisition par Allegiant Travel Company justifie une sévérité élevée.",
       "trend": "up",
       "summary": "La fusion en cours avec Allegiant comporte des risques significatifs liés à l'obtention des approbations réglementaires, aux coûts associés et aux potentielles perturbations opérationnelles.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance technologique et systèmes tiers",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "Le risque 'Our reliance on our and third-party technology and systems' est mentionné. Bien que moins critique que d'autres, la dépendance technologique est un facteur clé dans le secteur aérien, notamment pour les systèmes de distribution globaux (GDS) comme Amadeus, Sabre et Travelport. (score par défaut, à affiner)",
+      "score_rationale": "Le risque 'Our reliance on our and third-party technology and systems' est mentionné. Bien que moins critique que d'autres, la dépendance technologique est un facteur clé dans le secteur aérien, notamment pour les systèmes de distribution globaux (GDS) comme Amadeus, Sabre et Travelport.",
       "trend": "stable",
       "summary": "La compagnie dépend de ses propres systèmes technologiques et de ceux de tiers, dont la fiabilité et la sécurité sont cruciales pour le bon fonctionnement des opérations.",
       "score": 3
@@ -279,7 +311,7 @@
       "title": "Conditions économiques générales et inflation",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Les 'Changes in economic conditions, including inflationary pressures' sont cités comme un risque. Ce facteur macroéconomique a un impact direct sur la demande et les coûts dans le secteur du transport aérien. (score par défaut, à affiner)",
+      "score_rationale": "Les 'Changes in economic conditions, including inflationary pressures' sont cités comme un risque. Ce facteur macroéconomique a un impact direct sur la demande et les coûts dans le secteur du transport aérien.",
       "trend": "up",
       "summary": "Les ralentissements économiques, l'inflation et les pressions sur le pouvoir d'achat des consommateurs peuvent réduire la demande de voyages aériens.",
       "score": 3
@@ -288,7 +320,7 @@
       "title": "Risques liés au personnel et aux relations de travail",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "Le document évoque les 'loss of key personnel, increased labor costs, union disputes, employee strikes'. Les relations de travail et la gestion du personnel sont critiques pour une compagnie aérienne. L'entreprise a des accords collectifs avec ALPA (pilots), AMFA (technicians), IBT (flight attendants) et TWU (dispatchers). (score par défaut, à affiner)",
+      "score_rationale": "Le document évoque les 'loss of key personnel, increased labor costs, union disputes, employee strikes'. Les relations de travail et la gestion du personnel sont critiques pour une compagnie aérienne. L'entreprise a des accords collectifs avec ALPA (pilots), AMFA (technicians), IBT (flight attendants) et TWU (dispatchers).",
       "trend": "stable",
       "summary": "La perte de personnel clé, l'augmentation des coûts salariaux, les conflits syndicaux et les pénuries de main-d'œuvre qualifiée (pilotes, techniciens) constituent des risques opérationnels.",
       "score": 3
@@ -478,6 +510,148 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SNCY",
+    "extracted_at": "2026-06-01T09:21:52Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          0.012416,
+          0.052177,
+          0.013379,
+          0.003637,
+          -0.003922,
+          0.010677,
+          0.038328,
+          0.058946,
+          0.066536,
+          0.035313,
+          0.058946,
+          0.039467,
+          0.036535,
+          0.043112,
+          0.044664
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:21:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          0.024933,
+          0.049789,
+          0.021321,
+          0.021833,
+          0.003369,
+          0.015391,
+          0.055783,
+          0.09137,
+          0.040592,
+          0.055176,
+          0.09137,
+          0.019006,
+          0.056246,
+          0.072508,
+          0.08241
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:21:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Diluted EPS",
+        "period_type": "quarter",
+        "history": [
+          0.24,
+          0.84,
+          0.22,
+          0.06,
+          -0.07,
+          0.18,
+          0.64,
+          0.99,
+          1.12,
+          0.64,
+          0.99,
+          0.75,
+          0.66,
+          0.78,
+          0.81
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T09:21:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SNCY",
     "ranks": {
@@ -490,15 +664,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.311311+00:00",
     "fetched_at": "2026-05-21T02:17:14.311312+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.953Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.946Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sncy.json",
     "enrich_root": "v2-pipeline-enrich/sncy.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -40,8 +40,8 @@
       "name_fr": "Revenus totaux",
       "name_en": "Total Revenues",
       "explanation": "Total des revenus générés par les activités éducatives provenant principalement des frais de scolarité des étudiants inscrits.",
-      "value": "1701.9",
-      "unit": "M $",
+      "value": 1.702,
+      "unit": "Mds $",
       "yoy": 9,
       "type": "Revenue",
       "nature": "Structurel",
@@ -66,7 +66,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Mexico Revenue",
@@ -128,13 +129,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.7 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:36.860299+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,56 +158,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.21 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.52,
-      "unit": "Mds €",
+      "value": 520,
+      "unit": "M €",
       "yoy": "+20.9%",
       "history": [
-        0.65,
-        0.58,
-        0.43,
-        0.52
+        650,
+        580,
+        430,
+        520
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.52 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "+66.7%",
       "history": [
-        0.09,
-        0.09,
-        0.09,
-        0.15
+        90,
+        90,
+        90,
+        150
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.15 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -219,7 +238,8 @@
       "severity": 2,
       "score_rationale": "La société pourrait être soumise à une taxe minimum globale suite aux initiatives de l'OCDE Base Erosion and Profit Shifting. Les détails et orientations demeurent en attente. La société ne prévoit pas d'impact matériel sur les résultats.",
       "trend": "new",
-      "summary": "La société pourrait être soumise à une taxe minimum globale, bien que l'impact prévisible soit non matériel selon la direction."
+      "summary": "La société pourrait être soumise à une taxe minimum globale, bien que l'impact prévisible soit non matériel selon la direction.",
+      "score": 2
     },
     {
       "title": "Fluctuations monétaires et risques de change",
@@ -227,7 +247,8 @@
       "severity": 4,
       "score_rationale": "Les opérations internationales au Mexique et au Pérou exposent l'entreprise à des fluctuations de taux de change, dévaluations possibles, inflation et contrôles de change, ce qui pourrait affecter les revenus convertis en USD.",
       "trend": "stable",
-      "summary": "Les fluctuations des taux de change et restrictions de change dans les marchés opérationnels peuvent affecter les revenus et les coûts."
+      "summary": "Les fluctuations des taux de change et restrictions de change dans les marchés opérationnels peuvent affecter les revenus et les coûts.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans les marchés émergents",
@@ -235,7 +256,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans des marchés mexicain et péruvien en maturation où la concurrence s'intensifie. Les succès futurs dépendent de la capacité à anticiper et gérer les risques concurrentiels.",
       "trend": "up",
-      "summary": "L'intensification attendue de la concurrence à mesure que les marchés mexicain et péruvien se consolident pourrait affecter les parts de marché."
+      "summary": "L'intensification attendue de la concurrence à mesure que les marchés mexicain et péruvien se consolident pourrait affecter les parts de marché.",
+      "score": 3
     },
     {
       "title": "Instabilité politique et économique",
@@ -243,7 +265,8 @@
       "severity": 4,
       "score_rationale": "Les opérations aux Mexique et Pérou exposent l'entreprise à des risques politiques, économiques et réglementaires complexes incluant l'expropriation d'actifs, l'inflation et les changements de politiques gouvernementales.",
       "trend": "stable",
-      "summary": "Les opérations internationales exposent l'entreprise à des risques d'instabilité politique, économique et réglementaire dans les pays d'opération."
+      "summary": "Les opérations internationales exposent l'entreprise à des risques d'instabilité politique, économique et réglementaire dans les pays d'opération.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire multiple et variable",
@@ -251,7 +274,8 @@
       "severity": 3,
       "score_rationale": "Les activités sont soumises à des lois et réglementations complexes et variables au Mexique et au Pérou. Les changements réglementaires imprévisibles pourraient affecter l'activité et les coûts de conformité.",
       "trend": "new",
-      "summary": "Les institutions sont soumises à des lois et réglementations incertaines et variables qui pourraient être modifiées et impacter l'activité."
+      "summary": "Les institutions sont soumises à des lois et réglementations incertaines et variables qui pourraient être modifiées et impacter l'activité.",
+      "score": 3
     },
     {
       "title": "Dépendance géographique concentrée",
@@ -259,7 +283,8 @@
       "severity": 3,
       "score_rationale": "La société dépend entièrement des marchés mexicain (52% des revenus) et péruvien (48% des revenus). Cette concentration géographique crée une vulnérabilité aux chocs régionaux.",
       "trend": "stable",
-      "summary": "La dépendance à l'égard de deux marchés spécifiques concentre les risques opérationnels et financiers."
+      "summary": "La dépendance à l'égard de deux marchés spécifiques concentre les risques opérationnels et financiers.",
+      "score": 3
     },
     {
       "title": "Gestion de la croissance et de l'expansion",
@@ -267,7 +292,8 @@
       "severity": 2,
       "score_rationale": "La stratégie de croissance organique par ajout de programmes, expansion démographique et augmentation de capacité requiert une gestion efficace et l'anticipation des risques.",
       "trend": "stable",
-      "summary": "L'efficacité de la croissance organique dépend de la capacité à gérer et anticiper les risques opérationnels et concurrentiels."
+      "summary": "L'efficacité de la croissance organique dépend de la capacité à gérer et anticiper les risques opérationnels et concurrentiels.",
+      "score": 2
     }
   ],
   "governance": {
@@ -467,12 +493,11 @@
     "kpis": [
       {
         "short": "Revenues",
-        "period_type": "quarter",
+        "period_type": "year",
         "history": [
           0.5286,
           1.3202,
-          0.7397,
-          -1.5636
+          0.7397
         ],
         "history_periods": [
           "Q1 2020",
@@ -509,6 +534,12 @@
             "accession": "calc-0001628280-21-003163",
             "end": "2020-12-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (LAUR)"
         ]
       },
       {
@@ -591,7 +622,10 @@
             "source": "calc-LAUR_2026-02-19.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Mexico Revenue",
@@ -673,7 +707,10 @@
             "source": "calc-LAUR_2026-02-19.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -690,9 +727,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.275906+00:00",
     "fetched_at": "2026-05-21T02:17:14.275907+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.949Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.731Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/laur.json",
     "enrich_root": null,

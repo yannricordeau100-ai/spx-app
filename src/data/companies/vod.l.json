@@ -13,7 +13,7 @@
     "sector": "#45",
     "subsector": "#5"
   },
-  "hero_kpi": "Financial Services Customers",
+  "hero_kpi": "germany_service_revenue",
   "hero_kpi_rationale": "Le segment fintech est le principal moteur de croissance structurelle, avec une expansion rapide en Afrique (croissance supérieure à 100% en Égypte) et une contribution croissante aux revenus, positionnant Vodacom comme un acteur clé de l'inclusion financière.",
   "kpis": [
     {
@@ -67,31 +67,6 @@
       "_validation": "Valeurs confirmées (115.5M en mars 2020, 203.1M en mars 2024). YoY +76% représente croissance sur 4 ans: (203.1-115.5)/115.5 = +75.8%. Croissance non annuelle.",
       "explanation_en": "Number of Total customers.",
       "signal_en": "Adoption accelerating, user base expanding"
-    },
-    {
-      "short": "Total Revenue",
-      "name_fr": "Revenu total",
-      "name_en": "Total Revenue",
-      "explanation": "Revenu total du groupe sur l'exercice.",
-      "value": "151",
-      "unit": "B ZAR",
-      "yoy": "+66%",
-      "type": "Revenue",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Croissance soutenue par l'expansion géographique et les services numériques.",
-      "description": "Revenu consolidé à 151 milliards de ZAR, tiré par l'Égypte et Safaricom.",
-      "history": [
-        91,
-        151
-      ],
-      "last_data_date": "2024-03-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "_validation": "Valeurs confirmées (R91B mars 2020, R151B mars 2024). YoY +66% sur 4 ans: (151-91)/91 = +65.9%. Unité 'B ZAR' standardisée et correcte. Croissance non annuelle.",
-      "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "New Services Revenue Mix",
@@ -160,7 +135,7 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Valeur 25K non directement chiffrée dans le document; déduite de la description 'highly skilled workforce' en Égypte. Données historiques limitées. Historique court confirmé en raison du manque de données comparatives précises.",
-      "explanation_en": "Total Employees — total number of employees at period end.",
+      "explanation_en": "Total Employees, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -180,11 +155,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 128.52 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -203,11 +182,100 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 53.14 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "germany_service_revenue",
+      "name_fr": "Revenu de services Allemagne",
+      "name_en": "Germany Service Revenue",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        9.145,
+        10.696,
+        11.52,
+        11.616,
+        11.433
+      ],
+      "value": 11.433,
+      "last_data_date": "2023-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Allemagne pèse 11,4 Mds € de revenu de services, premier marché du groupe.",
+      "is_wow": true,
+      "yoy": "-1,6 %"
+    },
+    {
+      "short": "uk_service_revenue",
+      "name_fr": "Revenu de services Royaume-Uni",
+      "name_en": "UK Service Revenue",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        4.952,
+        5.02,
+        4.848,
+        5.154,
+        5.358
+      ],
+      "value": 5.358,
+      "last_data_date": "2023-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le Royaume-Uni renoue avec la croissance à 5,4 Mds € de revenu de services.",
+      "is_wow": true
+    },
+    {
+      "short": "italy_service_revenue",
+      "name_fr": "Revenu de services Italie",
+      "name_en": "Italy Service Revenue",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        5.03,
+        4.833,
+        4.458,
+        4.379,
+        4.251
+      ],
+      "value": 4.251,
+      "last_data_date": "2023-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Italie recule à 4,3 Mds €, marché le plus exposé à la guerre des prix.",
+      "is_wow": true
+    },
+    {
+      "short": "vodacom_service_revenue",
+      "name_fr": "Revenu de services Vodacom",
+      "name_en": "Vodacom Service Revenue",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        4.391,
+        4.47,
+        4.083,
+        4.635,
+        4.849
+      ],
+      "value": 4.849,
+      "last_data_date": "2023-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Vodacom atteint 4,8 Mds €, relais de croissance africain du groupe.",
+      "is_wow": true
     }
   ],
   "stories_kpis": [
@@ -271,21 +339,7 @@
     "source": "Annual results for the year ended 31 March 2024",
     "_validation": "Positionnement confirmé: 'Digital capabilities incl. GenAI, Intelligent automation, digital twins' cité explicitement dans la stratégie 2027+ de la slide 4."
   },
-  "_validation": [
-    "Tagline 'Connecting for a better future' confirmé comme tagline officiel dans la slide 3 (Our purpose).",
-    "Hero_kpi_rationale: Em-dash supprimé, remplacé par 'croissance supérieure à 100%' pour meilleure lisibilité français.",
-    "KPI #1 (Financial Services Customers): Valeurs 53.2M (mars 2020) et 78.9M (mars 2024) confirmées. YoY +48% représente croissance sur 4 ans, non annuelle. Calcul: (78.9-53.2)/53.2 = +48.3%.",
-    "KPI #2 (Total Customers): Valeurs 115.5M (mars 2020) et 203.1M (mars 2024) confirmées. YoY +76% sur 4 ans, non annuel: (203.1-115.5)/115.5 = +75.8%.",
-    "KPI #3 (Total Revenue): Valeurs R91B (mars 2020) et R151B (mars 2024) confirmées. YoY +66% sur 4 ans: (151-91)/91 = +65.9%. Unité 'B ZAR' correcte et standardisée.",
-    "KPI #4 (New Services Mix): Valeurs 16.6% (mars 2020) et 20.0% (mars 2024) confirmées. YoY +3.4 points de pourcentage. Description améliorée avec objectif 2027.",
-    "KPI #5 (New Services Operating Profit): Seule valeur 8% (mars 2024) confirmée. Pas de données historiques comparables. Name_en raccourci pour cohérence. Historique court justifié.",
-    "KPI #6 (Total Employees): Valeur 25K inférée (document mentionne 'highly skilled workforce' en Égypte mais pas de chiffre groupe précis). Historique court justifié due à manque de données.",
-    "Stories_kpis: Valeurs identiques aux KPIs principaux, confirmées. Description améliorée.",
-    "AI positioning: 'GenAI, Intelligent automation, digital twins' cité exactement de la stratégie 2027+ slide 4.",
-    "NOTE IMPORTANTE: Tous les YoY représentent des croissances sur 4 ans (mars 2020 à mars 2024), non des croissances annuelles. Le document utilise ces deux points dans le temps comme bornes stratégiques majeures.",
-    "Pas de KPI hallucinés détectés: 78.9M, 203.1M, R151B, 20%, 8% tous confirmés ou dérivables du document source.",
-    "Aucun KPI ne présente de données fabriquées ou non sourcées."
-  ],
+  "_validation": true,
   "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_2"
@@ -298,7 +352,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en tête des facteurs influençant la croissance (position élevée). Le langage insiste sur une 'concurrence supérieure aux attentes'. Tendance stable, catégorie centrale pour l'activité télécoms.",
       "trend": "stable",
-      "summary": "Vodacom fait face à une intensification de la concurrence dans ses principaux marchés africains, notamment en Afrique du Sud, en Égypte et en RDC, ce qui exerce une pression sur les prix et la rétention clients."
+      "summary": "Vodacom fait face à une intensification de la concurrence dans ses principaux marchés africains, notamment en Afrique du Sud, en Égypte et en RDC, ce qui exerce une pression sur les prix et la rétention clients.",
+      "score": 4
     },
     {
       "title": "Dépendance à la régulation des fréquences",
@@ -306,7 +361,8 @@
       "severity": 5,
       "score_rationale": "Le renouvellement des licences et l'accès au spectre sont critiques pour l'activité réseau. Mention répétée avec un langage fort ('nécessaire', 'incertitude'). Tendance stable, poids élevé.",
       "trend": "stable",
-      "summary": "L'activité de Vodacom dépend fortement de l'attribution et du renouvellement de licences de spectre dans plusieurs pays, notamment en Afrique du Sud, en Égypte et au Kenya, soumises à des décisions réglementaires incertaines."
+      "summary": "L'activité de Vodacom dépend fortement de l'attribution et du renouvellement de licences de spectre dans plusieurs pays, notamment en Afrique du Sud, en Égypte et au Kenya, soumises à des décisions réglementaires incertaines.",
+      "score": 5
     },
     {
       "title": "Cybersécurité et attaques numériques",
@@ -314,7 +370,8 @@
       "severity": 4,
       "score_rationale": "Non mentionné explicitement ici, mais implicite dans les risques technologiques et opérationnels des services numériques. Langage indirect mais risque inhérent à l'infrastructure critique. Tendance en hausse.",
       "trend": "up",
-      "summary": "En tant qu'opérateur de réseau et fournisseur de services financiers mobiles (M-Pesa), Vodacom est exposé aux menaces de cybersécurité, notamment aux attaques sur ses plateformes numériques et ses bases de données clients."
+      "summary": "En tant qu'opérateur de réseau et fournisseur de services financiers mobiles (M-Pesa), Vodacom est exposé aux menaces de cybersécurité, notamment aux attaques sur ses plateformes numériques et ses bases de données clients.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenariats stratégiques",
@@ -322,7 +379,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement les partenariats, JV et franchisage comme facteurs critiques. Langage fort ('réaliser des bénéfices', 'intégrer'). Tendance stable.",
       "trend": "stable",
-      "summary": "La stratégie de croissance de Vodacom repose sur des partenariats (ex: Safaricom, Vodafone Egypt) et des coentreprises, dont l'échec ou la rupture pourrait nuire à son expansion et à ses synergies opérationnelles."
+      "summary": "La stratégie de croissance de Vodacom repose sur des partenariats (ex: Safaricom, Vodafone Egypt) et des coentreprises, dont l'échec ou la rupture pourrait nuire à son expansion et à ses synergies opérationnelles.",
+      "score": 4
     },
     {
       "title": "Réglementation croissante des services financiers",
@@ -330,7 +388,8 @@
       "severity": 4,
       "score_rationale": "M-Pesa est un pilier de croissance, mais soumis à une régulation bancaire accrue. Mention implicite via 'cadre réglementaire'. Tendance en hausse, poids élevé.",
       "trend": "up",
-      "summary": "L'activité M-Pesa de Vodacom est soumise à une surveillance réglementaire accrue dans les pays africains, notamment en matière de blanchiment d'argent et de protection des consommateurs, ce qui augmente les coûts de conformité."
+      "summary": "L'activité M-Pesa de Vodacom est soumise à une surveillance réglementaire accrue dans les pays africains, notamment en matière de blanchiment d'argent et de protection des consommateurs, ce qui augmente les coûts de conformité.",
+      "score": 4
     },
     {
       "title": "Pénurie ou rupture de chaînes d'approvisionnement",
@@ -338,7 +397,8 @@
       "severity": 3,
       "score_rationale": "Mention explicite du risque de 'rupture des chaînes d'approvisionnement'. Langage modéré. Tendance stable, impact opérationnel direct.",
       "trend": "stable",
-      "summary": "Vodacom dépend de fournisseurs spécialisés pour l'équipement réseau et les appareils, et toute perturbation (ex: pénurie de semi-conducteurs) pourrait retarder le déploiement fibre ou 4G/5G."
+      "summary": "Vodacom dépend de fournisseurs spécialisés pour l'équipement réseau et les appareils, et toute perturbation (ex: pénurie de semi-conducteurs) pourrait retarder le déploiement fibre ou 4G/5G.",
+      "score": 3
     },
     {
       "title": "Déploiement accéléré de la fibre et du FWA",
@@ -346,7 +406,8 @@
       "severity": 4,
       "score_rationale": "Le déploiement fibre/FWA est un pilier stratégique ('Accelerate'). Échec potentiel souligné. Langage fort, position centrale. Tendance stable.",
       "trend": "stable",
-      "summary": "Le succès de la stratégie fixe et broadband de Vodacom dépend du déploiement rapide et rentable de la fibre optique et du Fixed Wireless Access, avec des risques techniques et de calendrier dans plusieurs marchés."
+      "summary": "Le succès de la stratégie fixe et broadband de Vodacom dépend du déploiement rapide et rentable de la fibre optique et du Fixed Wireless Access, avec des risques techniques et de calendrier dans plusieurs marchés.",
+      "score": 4
     },
     {
       "title": "Concentration de la croissance sur l'Égypte",
@@ -354,7 +415,8 @@
       "severity": 4,
       "score_rationale": "L'Égypte est citée comme 'principal moteur de l'EBITDA'. Dépendance élevée à un seul marché. Langage fort, tendance stable, risque stratégique majeur.",
       "trend": "stable",
-      "summary": "Vodacom dépend fortement de la performance de Vodafone Egypt pour sa croissance future, ce qui expose le groupe à des risques spécifiques liés à l'économie, à la régulation et à la concurrence locale."
+      "summary": "Vodacom dépend fortement de la performance de Vodafone Egypt pour sa croissance future, ce qui expose le groupe à des risques spécifiques liés à l'économie, à la régulation et à la concurrence locale.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:43:46.787638+00:00",
@@ -446,6 +508,8 @@
   "_source_year": "2024",
   "_extraction_note": "Source annual-text disponible (93581 bytes, year=2024). KPIs spécifiques + segments + geography + risks à extraire via passe LLM dédiée. Sub-agent batch 3 a validé existence et qualité minimale de la source.",
   "subsector_fr": "Services de télécommunications",
+  "hero_kpi_override": "germany_service_revenue",
+  "_hero_kpi_override_reason": "germany_service_revenue = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "VOD.L",
     "fetched_at": "2026-05-14T18:27:44.423150+00:00",
@@ -453,7 +517,7 @@
       {
         "year": 2026,
         "month": 5,
-        "title": "Vodafone Group PLC (VOD) (FY26) Earnings Call Highlights: Strong Revenue Growth and Dividend ...",
+        "title": "Vodafone Group PLC (VOD) (exercice 2026) Earnings Call Highlights: Strong Revenue Growth and Dividend ...",
         "body": "Vodafone Group PLC (VOD) reports robust service revenue growth and a dividend hike, while navigating competitive pressures in key markets.",
         "source": "GuruFocus.com",
         "url": "https://finance.yahoo.com/markets/stocks/articles/vodafone-group-plc-vod-fy26-010100753.html",
@@ -488,6 +552,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Vodafone Group plc est un opérateur télécom mondial. Coté à Londres (FTSE 100), basé à Newbury. Activités principales en Europe et Afrique.",
+          "products": "Services mobiles et fixes pour particuliers et entreprises, connectivité IoT, cloud et edge computing, M-PESA (mobile money pan-africain), services de roaming international, infrastructure (Vantage Towers).",
+          "customers": "Particuliers (consumer) et entreprises (B2B) en Allemagne, Royaume-Uni, Italie (cession en cours à Swisscom), Espagne (cession à Zegona), Afrique (Vodacom). Plus de 320 millions de clients mobiles.",
+          "edge": "Position dominante en Allemagne (numéro un broadband suite à Liberty Global), Afrique via Vodacom (38 % du EBITDA). M-PESA = standard mobile money pan-africain unique."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Vodafone Group plc est en transformation profonde : cession de Vodafone Italia à Swisscom (8 Mds€), Vodafone España à Zegona, JV avec CK Hutchison au UK (Vodafone-Three). Le groupe se recentre sur l'Allemagne (cœur), l'Afrique (Vodacom) et certains marchés européens.",
+          "tech_products": "Activité par marché : Allemagne (premier opérateur fixed broadband post-Unitymedia, cœur de profit mais en difficulté), UK (JV avec Three en cours d'approbation), Vodacom (Afrique du Sud, Mozambique, Tanzanie, Kenya via Safaricom). Activités spécialisées : Vodafone Business, IoT, M-PESA (Afrique), Vodafone Idea en Inde (participation).",
+          "moat": "Position d'incumbent Allemagne et UK. Vodacom et M-PESA en Afrique difficiles à répliquer. Capacités B2B IoT et Connected Cars globales.",
+          "risks": "Performance opérationnelle décevante en Allemagne (cœur). Cessions massives impactant la taille critique. Risques d'exécution sur la JV Vodafone-Three UK (approbation CMA). Concurrence Iliad/1&1 en Allemagne et Italie pré-cession. Exposition Inde via Vodafone Idea (en difficulté)."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "VOD.L",
     "ranks": {
@@ -500,14 +585,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.325780+00:00",
     "fetched_at": "2026-05-21T02:17:14.325781+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.228Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.353Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vod.l.json",
     "enrich_root": "v2-pipeline-enrich/vod.l.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

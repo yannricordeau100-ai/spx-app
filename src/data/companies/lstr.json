@@ -48,7 +48,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:49.419450+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -112,34 +112,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.74 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "-40.0%",
       "history": [
-        0.43,
-        0.26,
-        0.2,
-        0.12
+        430,
+        260,
+        200,
+        120
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.12 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,56 +167,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.64 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "-18.8%",
       "history": [
-        0.2,
-        0.13,
-        0.16,
-        0.13
+        200,
+        130,
+        160,
+        130
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.13 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.4,
-      "unit": "Mds €",
+      "value": 400,
+      "unit": "M €",
       "yoy": "-23.1%",
       "history": [
-        0.34,
-        0.48,
-        0.52,
-        0.4
+        340,
+        480,
+        520,
+        400
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.4 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -221,7 +244,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.92,
         3.1,
@@ -234,7 +257,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +272,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.4017,
@@ -262,7 +285,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +300,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         26.84,
@@ -290,7 +313,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -306,7 +329,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         11.76,
@@ -319,7 +342,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -346,9 +369,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Average Revenue Per MDA",
@@ -372,9 +393,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "MDA Revenue Concentration",
@@ -398,9 +417,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -416,7 +433,8 @@
       "severity": 5,
       "score_rationale": "La société est exposée à des responsabilités potentielles associées aux accidents dans l'industrie du camionnage, avec une auto-assurance jusqu'à 5 millions de dollars par sinistre. L'imprévisibilité et la sévérité des accidents constituent un risque majeur pour les résultats d'exploitation.",
       "trend": "up",
-      "summary": "La fréquence et la sévérité des accidents routiers pourraient avoir un impact négatif significatif sur les résultats d'exploitation et les dépenses d'assurance."
+      "summary": "La fréquence et la sévérité des accidents routiers pourraient avoir un impact négatif significatif sur les résultats d'exploitation et les dépenses d'assurance.",
+      "score": 5
     },
     {
       "title": "Litigation and Claims Risks",
@@ -424,7 +442,8 @@
       "severity": 4,
       "score_rationale": "La société est impliquée dans des litiges et des réclamations liées aux accidents routiers et aux dommages aux biens. Les coûts associés à ces litiges pourraient être importants et imprévisibles.",
       "trend": "stable",
-      "summary": "Exposition à des réclamations et litiges liés aux accidents de camionnage et aux dommages aux biens."
+      "summary": "Exposition à des réclamations et litiges liés aux accidents de camionnage et aux dommages aux biens.",
+      "score": 4
     },
     {
       "title": "Dependence on Independent Commission Sales Agents",
@@ -432,7 +451,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de ses 960 agents de vente indépendants pour générer des revenus, avec 95% du chiffre d'affaires provenant de 457 agents clés. La perte de ces agents, notamment le plus grand agent (impact de la crise russo-ukrainienne), pourrait impacter significativement les résultats.",
       "trend": "stable",
-      "summary": "Dépendance critique envers un réseau concentré d'agents de vente indépendants pour la génération de revenus."
+      "summary": "Dépendance critique envers un réseau concentré d'agents de vente indépendants pour la génération de revenus.",
+      "score": 4
     },
     {
       "title": "Dependence on Third Party Capacity Providers",
@@ -440,7 +460,8 @@
       "severity": 4,
       "score_rationale": "La société utilise exclusivement des prestataires tiers pour la capacité de transport, représentant plus de 70000 fournisseurs. Toute interruption dans cette chaîne d'approvisionnement pourrait affecter la capacité à servir les clients.",
       "trend": "stable",
-      "summary": "Exposition à des interruptions ou défaillances des prestataires de capacité tiers qui assurent 53% des revenus via les transporteurs de courtage."
+      "summary": "Exposition à des interruptions ou défaillances des prestataires de capacité tiers qui assurent 53% des revenus via les transporteurs de courtage.",
+      "score": 4
     },
     {
       "title": "Fraud and Theft Risks",
@@ -448,7 +469,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée à des risques de fraude et de vol liés aux transports de marchandises. Ces risques pourraient entraîner des pertes de revenus et des coûts supplémentaires.",
       "trend": "up",
-      "summary": "Risques de fraude, vol et détournement de marchandises lors du transport."
+      "summary": "Risques de fraude, vol et détournement de marchandises lors du transport.",
+      "score": 3
     },
     {
       "title": "Geopolitical Risks",
@@ -456,7 +478,8 @@
       "severity": 3,
       "score_rationale": "La société opère internationalement (Canada, Mexique, autres pays). Les conflits géopolitiques, notamment la crise russo-ukrainienne affectant son deuxième plus grand agent, pourraient impacter les opérations.",
       "trend": "up",
-      "summary": "Exposition aux risques géopolitiques, notamment la crise russo-ukrainienne impactant un agent de vente majeur."
+      "summary": "Exposition aux risques géopolitiques, notamment la crise russo-ukrainienne impactant un agent de vente majeur.",
+      "score": 3
     },
     {
       "title": "Regulatory and Legislative Risks",
@@ -464,7 +487,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations strictes sur les émissions diesel, la qualité de l'air et l'obligation d'utiliser des véhicules zéro-émission. Ces changements réglementaires pourraient affecter les coûts opérationnels et la viabilité économique.",
       "trend": "stable",
-      "summary": "Exposition aux changements réglementaires concernant les émissions, les véhicules électriques et la sécurité du transport."
+      "summary": "Exposition aux changements réglementaires concernant les émissions, les véhicules électriques et la sécurité du transport.",
+      "score": 3
     },
     {
       "title": "Credit Risk",
@@ -472,7 +496,8 @@
       "severity": 2,
       "score_rationale": "La société est exposée aux risques de défaut de paiement de ses clients. Les pertes de crédit pourraient impacter la trésorerie et les résultats opérationnels.",
       "trend": "stable",
-      "summary": "Exposition aux risques de non-paiement et de défaut de crédit des clients."
+      "summary": "Exposition aux risques de non-paiement et de défaut de crédit des clients.",
+      "score": 2
     }
   ],
   "governance": {
@@ -505,7 +530,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -558,7 +583,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:22:23Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2013,
@@ -583,7 +608,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:48Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:58Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "LSTR",
     "fetched_at": "2026-05-14T18:25:28.648440+00:00",
@@ -639,23 +664,18 @@
         "history": [
           2.8583,
           4.5926,
-          -2.2008,
           1.9706,
           3.9457,
           5.7618,
-          -4.2415,
           1.4357,
           2.8095,
           4.0989,
-          -3.0408,
           1.171,
           2.396,
           3.6099,
-          -2.3578,
           1.1525,
           2.3639,
           3.5693,
-          -2.3419,
           1.1713
         ],
         "history_periods": [
@@ -709,6 +729,12 @@
             "accession": "0001193125-26-191131",
             "end": "2026-03-28"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (LSTR)"
         ]
       },
       {
@@ -791,7 +817,10 @@
             "source": "calc-LSTR_2026-02-24.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -808,9 +837,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.278420+00:00",
     "fetched_at": "2026-05-21T02:17:14.278420+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.162Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.980Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lstr.json",
     "enrich_root": "v2-pipeline-enrich/lstr.json",

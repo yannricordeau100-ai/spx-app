@@ -117,11 +117,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.17 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -190,7 +194,8 @@
       "score_rationale": "Mentionné en premier dans les facteurs de risque (Item 1A), le langage est fort (unable to attract, adversely affected, suffer). Le contexte est la croissance du chiffre d'affaires et la rentabilité, un pilier essentiel. La pondération est élevée car c'est le moteur principal de l'activité.",
       "trend": "stable",
       "summary": "La croissance de l'entreprise dépend fortement de sa capacité à attirer de nouveaux clients et à vendre des produits supplémentaires aux clients existants. Un échec dans ces domaines affecterait négativement la croissance et la rentabilité.",
-      "_validation": "Confirmé par source 10-K Item 1A"
+      "_validation": "Confirmé par source 10-K Item 1A",
+      "score": 4
     },
     {
       "title": "Risque de non-renouvellement des contrats clients récurrents",
@@ -199,7 +204,8 @@
       "score_rationale": "Ce risque est détaillé dans les facteurs de risque, soulignant son importance pour les revenus récurrents (Item 1A). Le langage est fort (adverse effects, materially adversely affect). Il est crucial car il impacte directement les revenus récurrents, un élément clé de la stabilité financière.",
       "trend": "stable",
       "summary": "La majorité des contrats clients n'étant pas à long terme, l'entreprise est vulnérable à une baisse des taux de renouvellement si les attentes des clients ne sont pas satisfaites, impactant rapidement les revenus.",
-      "_validation": "Implicite dans les facteurs de risque liés à la rétention"
+      "_validation": "Implicite dans les facteurs de risque liés à la rétention",
+      "score": 4
     },
     {
       "title": "Impact de la conjoncture économique sur les dépenses technologiques",
@@ -208,7 +214,8 @@
       "score_rationale": "Ce risque est présenté comme un facteur majeur affectant les revenus et la prévisibilité. L'intensité du langage dans le contexte macroéconomique est élevée. L'économie est un facteur externe majeur qui influence directement les décisions d'achat technologique des clients.",
       "trend": "up",
       "summary": "La faiblesse économique et l'incertitude peuvent réduire les dépenses technologiques des clients, allonger les cycles de vente et rendre les prévisions plus difficiles, affectant la croissance.",
-      "_validation": "Risque macroéconomique standard pour le secteur SaaS"
+      "_validation": "Risque macroéconomique standard pour le secteur SaaS",
+      "score": 4
     },
     {
       "title": "Intensité de la concurrence sur le marché des logiciels de gestion de chaîne d'approvisionnement",
@@ -217,7 +224,8 @@
       "score_rationale": "Ce risque est mentionné dans les facteurs de risque, mettant en avant la nature hautement compétitive du marché. Le langage est fort (difficult to compete, material adverse effect). La concurrence est un facteur constant et évolutif dans le secteur technologique.",
       "trend": "up",
       "summary": "Le marché est très concurrentiel avec des acteurs établis et de nouveaux entrants. L'incapacité à concurrencer efficacement pourrait entraîner une perte de clients, de parts de marché et de marges.",
-      "_validation": "Confirmé par nature du secteur de la supply chain software"
+      "_validation": "Confirmé par nature du secteur de la supply chain software",
+      "score": 4
     }
   ],
   "_validation": "Corrections majeures: 1) Recurring Revenue: valeur corrigée de 611.4 Mds à 722.1 M (96% de 751.5M); unit Mds->M; history recalculée; yoy recalculé 13.2%. 2) Total Revenue: unit Mds->M. 3) Recurring Revenue %: confirmé source. 4) Recurring Revenue Growth: value 10.5->13.2%; history ajustée. 5) Total Revenue Growth: history 2024 recalculée à 18.8%. 6) R&D, Sales&Marketing: unit Mds->M; name_fr amélioré. 7) hero_kpi_rationale: em-dash et formulation confirmée. 8) Risks: consolidation de 6 à 4 risques avec suppression du risque IA halluciné (non mentionné dans source); révision des wording.",
@@ -225,7 +233,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -387,88 +395,143 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SPSC",
-    "extracted_at": "2026-05-15T18:14:25Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1092699,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:22:22Z",
+    "n_kpis": 3,
     "kpis": [
       {
-        "short": "R&D Expenses",
+        "short": "Recurring Revenue",
         "period_type": "quarter",
         "history": [
-          17.605,
-          28.459,
-          -15.732,
-          10.701,
-          22.133,
-          33.268,
-          -20.354,
-          12.563,
-          25.88,
-          39.438,
-          -24.227,
-          16.009,
-          30.375,
-          45.667,
-          -29.242,
-          17.439,
-          34.71,
-          51.986,
-          -35.455,
-          17.917
+          97.567,
+          86.94,
+          90.399,
+          97.567,
+          101.163,
+          106.553,
+          117.301,
+          121.523,
+          127.371,
+          139.684,
+          143.981,
+          154.456,
+          172.329,
+          179.121,
+          181.991
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 34.71,
-            "accession": "0001092699-25-000049",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 51.986,
-            "accession": "0001092699-25-000064",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -35.455,
-            "accession": "calc-0001092699-26-000012",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 17.917,
-            "accession": "0001092699-26-000043",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:22:22Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          105.193,
+          94.539,
+          97.887,
+          105.193,
+          109.178,
+          114.486,
+          125.868,
+          130.416,
+          135.661,
+          149.576,
+          153.596,
+          163.686,
+          181.549,
+          187.4,
+          189.904
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:22:22Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Recurring Revenue %",
+        "period_type": "quarter",
+        "history": [
+          92,
+          92,
+          92,
+          93,
+          93,
+          93,
+          93,
+          93,
+          93,
+          93,
+          94,
+          94,
+          93,
+          94,
+          94
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:22:22Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -484,9 +547,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.312712+00:00",
     "fetched_at": "2026-05-21T02:17:14.312713+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.099Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.102Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/spsc.json",
     "enrich_root": "v2-pipeline-enrich/spsc.json",

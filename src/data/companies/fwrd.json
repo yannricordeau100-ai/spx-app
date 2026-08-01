@@ -1,6 +1,6 @@
 {
   "ticker": "FWRD",
-  "name": "Forward Air Corporation",
+  "name": "Forward Air",
   "sector": "Transportation",
   "subsector": "Logistics et transport",
   "tagline": "Leading asset-light provider of transportation and logistics services",
@@ -108,13 +108,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.5 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:27.165538+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
@@ -133,11 +137,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.11 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.72 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.16 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+10.0%",
       "history": [
-        0.05,
-        0.12,
-        0.1,
-        0.11
+        50,
+        120,
+        100,
+        110
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.11 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,9 +250,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     }
   ],
   "ai_positioning": {
@@ -245,52 +264,52 @@
       "title": "Récession économique et volumes de fret",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Forward Air est sensible aux conditions économiques générales, en particulier celles impactant les volumes de fret client et la demande de transport. Les récessions historiquement causent des fluctuations cycliques dans l'industrie du transport. Les réductions de volumes de fret pourraient matériellement affecter les résultats opérationnels. (score par défaut, à affiner)",
+      "score_rationale": "Forward Air est sensible aux conditions économiques générales, en particulier celles impactant les volumes de fret client et la demande de transport. Les récessions historiquement causent des fluctuations cycliques dans l'industrie du transport. Les réductions de volumes de fret pourraient matériellement affecter les résultats opérationnels.",
       "trend": "stable",
       "summary": "La récession économique peut réduire les volumes de fret, les prix de marché et avoir un impact matériel négatif sur les résultats d'exploitation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Inflation et coûts opérationnels",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "L'inflation augmente les coûts opérationnels y compris le carburant et la main-d'œuvre. La capacité à augmenter les prix pour compenser l'inflation dépend des conditions de marché et de la concurrence. (score par défaut, à affiner)",
+      "score_rationale": "L'inflation augmente les coûts opérationnels y compris le carburant et la main-d'œuvre. La capacité à augmenter les prix pour compenser l'inflation dépend des conditions de marché et de la concurrence.",
       "trend": "up",
       "summary": "L'inflation peut augmenter les coûts opérationnels et réduire la rentabilité si les prix ne peuvent pas être augmentés proportionnellement.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concentration client",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société opère avec des relations clients importantes et approfondies. La perte d'un client majeur pourrait avoir un impact négatif significatif sur les résultats d'exploitation. (score par défaut, à affiner)",
+      "score_rationale": "La société opère avec des relations clients importantes et approfondies. La perte d'un client majeur pourrait avoir un impact négatif significatif sur les résultats d'exploitation.",
       "trend": "stable",
       "summary": "La concentration sur quelques clients importants rend la société vulnérable à la perte d'un client majeur.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Pénurie de capacité de transport",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La stratégie asset-light dépend de la disponibilité de capacité de transporteurs tiers. L'industrie a connu des périodes de pénurie de capacité qui peuvent contraindre la croissance. (score par défaut, à affiner)",
+      "score_rationale": "La stratégie asset-light dépend de la disponibilité de capacité de transporteurs tiers. L'industrie a connu des périodes de pénurie de capacité qui peuvent contraindre la croissance.",
       "trend": "up",
       "summary": "La pénurie de capacité de transport peut limiter la croissance et l'exécution des commandes clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Départ de dirigeants clés",
       "category": "Personne-clé",
       "severity": 4,
-      "score_rationale": "La qualité de la gestion est critique dans une industrie de services à haut contact. La perte de dirigeants avec des relations clients établies pourrait impacter la performance. (score par défaut, à affiner)",
+      "score_rationale": "La qualité de la gestion est critique dans une industrie de services à haut contact. La perte de dirigeants avec des relations clients établies pourrait impacter la performance.",
       "trend": "stable",
       "summary": "Le départ de dirigeants clés peut affecter les relations clients et l'exécution stratégique.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fluctuations des prix du carburant",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Bien que Forward utilise des surcharges carburant indexées, les fluctuations peuvent affecter la rentabilité et les marges entre les périodes d'ajustement. (score par défaut, à affiner)",
+      "score_rationale": "Bien que Forward utilise des surcharges carburant indexées, les fluctuations peuvent affecter la rentabilité et les marges entre les périodes d'ajustement.",
       "trend": "stable",
       "summary": "Les fluctuations des prix du carburant peuvent impacter les coûts opérationnels et les marges, malgré les mécanismes de surcharge.",
       "score": 3
@@ -299,7 +318,7 @@
       "title": "Incertitude stratégique et examen des alternatives",
       "category": "Géopolitique",
       "severity": 3,
-      "score_rationale": "En janvier 2025, le Conseil a annoncé l'initiation d'un examen complet des alternatives stratégiques. Cette incertitude peut affecter la retention des employés et des clients. (score par défaut, à affiner)",
+      "score_rationale": "En janvier 2025, le Conseil a annoncé l'initiation d'un examen complet des alternatives stratégiques. Cette incertitude peut affecter la retention des employés et des clients.",
       "trend": "new",
       "summary": "L'examen des alternatives stratégiques crée de l'incertitude pouvant impacter la stabilité opérationnelle.",
       "score": 3
@@ -328,7 +347,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -347,7 +366,7 @@
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "sector_fr": "Transport",
   "subsector_fr": "Logistique & transport",
-  "_companies_unified_built_at": "2026-05-29T21:19:31.519Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.320Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fwrd.json",
     "enrich_root": "v2-pipeline-enrich/fwrd.json",

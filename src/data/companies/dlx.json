@@ -1,6 +1,6 @@
 {
   "ticker": "DLX",
-  "name": "Deluxe Corporation",
+  "name": "Deluxe",
   "sector": "Technologie",
   "subsector": "Business Services",
   "tagline": "Empowering businesses to build stronger customer relationships through trusted, technology-enabled solutions",
@@ -41,9 +41,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 20.41,
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Profit margin on Adjusted EBITDA.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Revenue",
@@ -70,7 +73,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 2.13,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -98,7 +101,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 93.58,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -126,7 +129,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 436.58,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -154,24 +157,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.232,
-      "unit": "Mds $",
+      "value": 232,
+      "unit": "M $",
       "yoy": "+20.8%",
       "history": [
-        0.231,
-        -0.158,
-        0.045,
-        0.142,
-        0.169,
-        0.161,
-        0.192,
-        0.232
+        231,
+        -158,
+        45,
+        142,
+        169,
+        161,
+        192,
+        232
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -180,8 +187,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -205,9 +217,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Merchant Services Growth",
@@ -229,9 +239,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -245,43 +253,43 @@
       "title": "Échec de la stratégie de croissance à long terme",
       "category": "Stratégie",
       "severity": 4,
-      "score_rationale": "Ce risque est mentionné en premier dans la section 'STRATEGIC RISKS'. Le langage utilisé est fort ('adversely impacted', 'fall short of expectations', 'harmed', 'decline'). Il est pondéré par son impact potentiel sur la stratégie globale de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné en premier dans la section 'STRATEGIC RISKS'. Le langage utilisé est fort ('adversely impacted', 'fall short of expectations', 'harmed', 'decline'). Il est pondéré par son impact potentiel sur la stratégie globale de l'entreprise.",
       "trend": "stable",
       "summary": "Si la stratégie de croissance de l'entreprise échoue, cela pourrait nuire à ses activités, sa situation financière et ses résultats d'exploitation, potentiellement affectant la réputation et le cours de l'action.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Intensification de la concurrence et pression sur les prix",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Ce risque est détaillé dans la section sur la concurrence, soulignant l'intensité des pressions dans plusieurs segments. Le langage est fort ('intensify', 'substantial competition', 'downward pressure', 'pricing challenges'). La concurrence est une menace constante et significative pour les marges et la part de marché. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé dans la section sur la concurrence, soulignant l'intensité des pressions dans plusieurs segments. Le langage est fort ('intensify', 'substantial competition', 'downward pressure', 'pricing challenges'). La concurrence est une menace constante et significative pour les marges et la part de marché.",
       "trend": "up",
       "summary": "L'entreprise opère sur des marchés très concurrentiels où les pressions s'intensifient, ce qui peut entraîner une baisse des prix, une réduction des marges et une perte de clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Déclin de l'utilisation des chèques et des formulaires papier",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Ce risque est présenté comme un défi majeur affectant une part significative des revenus ('significant portion of our business'). Le langage est clair sur le déclin séculaire et l'incertitude quant à la capacité de compensation ('unable to offset'). Ce déclin structurel est une menace directe pour une partie clé de l'activité. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est présenté comme un défi majeur affectant une part significative des revenus ('significant portion of our business'). Le langage est clair sur le déclin séculaire et l'incertitude quant à la capacité de compensation ('unable to offset'). Ce déclin structurel est une menace directe pour une partie clé de l'activité.",
       "trend": "up",
       "summary": "La demande de chèques et de formulaires papier est en déclin constant au profit des solutions numériques, et l'entreprise pourrait ne pas être en mesure de compenser cette baisse par une croissance rentable d'autres activités.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Adaptation aux changements technologiques rapides",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Ce risque est souligné comme un défi majeur dans plusieurs sections, notamment la concurrence et la stratégie. Le langage insiste sur la rapidité et le caractère disruptif des changements ('rapid and disruptive technological change', 'less competitive or obsolete'). L'incapacité à suivre le rythme technologique est critique pour la survie et la croissance. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est souligné comme un défi majeur dans plusieurs sections, notamment la concurrence et la stratégie. Le langage insiste sur la rapidité et le caractère disruptif des changements ('rapid and disruptive technological change', 'less competitive or obsolete'). L'incapacité à suivre le rythme technologique est critique pour la survie et la croissance.",
       "trend": "up",
       "summary": "L'entreprise doit s'adapter rapidement aux avancées technologiques pour éviter que ses offres ne deviennent obsolètes et ne perdent des parts de marché.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Difficulté à attirer et retenir les clients",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Ce risque est abordé dans la section sur la stratégie et la concurrence, soulignant l'importance du coût et de l'efficacité de l'acquisition et rétention client. Le langage indique des défis ('challenges in enhancing', 'may not deliver expected results'). Bien que moins existentiel que le déclin des chèques, la capacité à acquérir et fidéliser est fondamentale. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est abordé dans la section sur la stratégie et la concurrence, soulignant l'importance du coût et de l'efficacité de l'acquisition et rétention client. Le langage indique des défis ('challenges in enhancing', 'may not deliver expected results'). Bien que moins existentiel que le déclin des chèques, la capacité à acquérir et fidéliser est fondamentale.",
       "trend": "stable",
       "summary": "L'entreprise fait face à des défis pour attirer et fidéliser les clients de manière rentable, notamment en raison de l'évolution des stratégies marketing et de la concurrence accrue.",
       "score": 3
@@ -290,7 +298,7 @@
       "title": "Risque lié à la réputation et à la confiance de la marque",
       "category": "Réputation",
       "severity": 3,
-      "score_rationale": "Ce risque est explicitement mentionné comme essentiel pour le succès de l'entreprise ('essential for driving customer adoption'). Le langage souligne l'importance de la confiance et les conséquences négatives de sa perte ('damage our reputation', 'erode customer trust'). La réputation est un actif clé, et sa dégradation aurait un impact significatif. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est explicitement mentionné comme essentiel pour le succès de l'entreprise ('essential for driving customer adoption'). Le langage souligne l'importance de la confiance et les conséquences négatives de sa perte ('damage our reputation', 'erode customer trust'). La réputation est un actif clé, et sa dégradation aurait un impact significatif.",
       "trend": "stable",
       "summary": "La réputation et la confiance associées à la marque sont cruciales ; toute publicité négative ou incapacité à maintenir une expérience client de haute qualité pourrait éroder la confiance et impacter la croissance.",
       "score": 3
@@ -361,7 +369,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -528,6 +536,38 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "DLX",
+    "extracted_at": "2026-06-01T03:11:36Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Adjusted EBITDA Margin",
+        "period_type": "quarter",
+        "history": [
+          17.9,
+          18.4,
+          19,
+          18.8,
+          19.2
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q1 2024",
+          "Q2 2024"
+        ],
+        "last_data_date": "2024-06-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:11:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "DLX",
     "ranks": {
@@ -540,14 +580,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.251376+00:00",
     "fetched_at": "2026-05-21T02:17:14.251377+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.325Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.885Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dlx.json",
     "enrich_root": "v2-pipeline-enrich/dlx.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

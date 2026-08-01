@@ -90,11 +90,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.54 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -113,11 +117,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.28 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -136,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.7 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -159,33 +171,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.05 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "-42.5%",
       "history": [
-        0.91,
-        0.72,
-        0.4,
-        0.23
+        910,
+        720,
+        400,
+        230
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.23 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -199,7 +220,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         0.28,
@@ -212,7 +233,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -227,7 +248,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.234,
@@ -240,7 +261,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -255,7 +276,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -268,7 +289,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -283,7 +304,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.71,
@@ -296,7 +317,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -337,7 +358,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné en tant que facteur important dans le 10-K, avec reconnaissance d'incidents passés. Bien qu'aucun effet matériel n'ait été constaté à ce jour, l'exposition potentielle est élevée en raison de la dépendance aux systèmes informatiques et aux tiers. La catégorie Cybersécurité est pondérée fortement dans le secteur immobilier de luxe.",
       "trend": "stable",
-      "summary": "Des cyberattaques pourraient perturber les opérations hôtelières ou compromettre des données sensibles, malgré des mesures de protection et une assurance en place."
+      "summary": "Des cyberattaques pourraient perturber les opérations hôtelières ou compromettre des données sensibles, malgré des mesures de protection et une assurance en place.",
+      "score": 4
     },
     {
       "title": "Litiges commerciaux et responsabilités civiles",
@@ -345,7 +367,8 @@
       "severity": 3,
       "score_rationale": "Plusieurs litiges en cours sont signalés, notamment en matière de responsabilité civile, de droits des employés et de protection des consommateurs. L'entreprise estime que l'effet global n'est pas matériel, mais certains dossiers non couverts par l'assurance pourraient entraîner des pertes significatives. Position centrale dans le 10-K.",
       "trend": "stable",
-      "summary": "Des poursuites judiciaires liées aux activités hôtelières pourraient entraîner des coûts importants, même si la majorité est couverte par l'assurance."
+      "summary": "Des poursuites judiciaires liées aux activités hôtelières pourraient entraîner des coûts importants, même si la majorité est couverte par l'assurance.",
+      "score": 3
     },
     {
       "title": "Dépendance aux conditions macroéconomiques",
@@ -353,7 +376,8 @@
       "severity": 5,
       "score_rationale": "Le document mentionne explicitement l'impact des taux d'intérêt élevés, de l'inflation, des conflits géopolitiques et des politiques commerciales. Ces facteurs affectent directement la demande en voyages et les revenus hôteliers. Langage fort ('adversely affect', 'heightened uncertainty'), position stratégique dans l'analyse de gestion.",
       "trend": "up",
-      "summary": "Une détérioration des conditions économiques ou une récession pourrait réduire la demande pour les hôtels de luxe, affectant fortement les revenus et la rentabilité."
+      "summary": "Une détérioration des conditions économiques ou une récession pourrait réduire la demande pour les hôtels de luxe, affectant fortement les revenus et la rentabilité.",
+      "score": 5
     },
     {
       "title": "Concentration du portefeuille sur les hôtels haut de gamme",
@@ -361,7 +385,8 @@
       "severity": 4,
       "score_rationale": "Plus de 96 % des chambres du portefeuille Core sont classées luxe ou haut de gamme. Cette spécialisation augmente la vulnérabilité aux changements de comportement des voyageurs aisés. Mention implicite dans la description du portefeuille et l'analyse de segmentation, avec un risque accru en période de crise.",
       "trend": "stable",
-      "summary": "Une forte exposition aux segments luxe et haut de gamme rend l'entreprise sensible aux fluctuations de la demande des voyageurs premium."
+      "summary": "Une forte exposition aux segments luxe et haut de gamme rend l'entreprise sensible aux fluctuations de la demande des voyageurs premium.",
+      "score": 4
     },
     {
       "title": "Dépendance aux gestionnaires d'hôtels tiers",
@@ -369,7 +394,8 @@
       "severity": 4,
       "score_rationale": "Le risque est lié à la gestion opérationnelle par des tiers (ex. : Hilton, Hyatt), mentionné dans le contexte de la cybersécurité mais étendu aux performances opérationnelles. Une mauvaise gestion ou une rupture de contrat pourrait impacter les revenus. Position implicite mais critique dans le modèle économique.",
       "trend": "stable",
-      "summary": "La performance des hôtels dépend largement de gestionnaires externes, dont les décisions peuvent affecter la rentabilité et la réputation des actifs."
+      "summary": "La performance des hôtels dépend largement de gestionnaires externes, dont les décisions peuvent affecter la rentabilité et la réputation des actifs.",
+      "score": 4
     }
   ],
   "governance": {
@@ -405,7 +431,7 @@
   },
   "_hero_kpi_original": "Hotel Adjusted EBITDA - Core",
   "_dividends_extracted_at": "2026-05-09T20:22:55Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2017,
@@ -426,7 +452,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:26Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:49Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "PK",
     "simple": {
@@ -480,7 +506,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.640Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.263Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pk.json",
     "enrich_root": "v2-pipeline-enrich/pk.json",

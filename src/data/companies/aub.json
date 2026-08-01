@@ -1,6 +1,6 @@
 {
   "ticker": "AUB",
-  "name": "Atlantic Union Bankshares Corporation",
+  "name": "Atlantic Union Bankshares",
   "sector": "Finance",
   "subsector": "Banks",
   "tagline": "Regional bank providing comprehensive financial services across the Mid-Atlantic region",
@@ -21,8 +21,8 @@
       "name_fr": "Revenu net d'intérêts (FTE)",
       "name_en": "Net Interest Income (FTE)",
       "explanation": "Net interest income adjusted for tax-equivalent basis (FTE adjustment reflects tax treatment differences on tax-exempt income sources)",
-      "value": 1172.074,
-      "unit": "M $",
+      "value": 1.172,
+      "unit": "Mds $",
       "yoy": "64.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,25 +30,29 @@
       "signal": "Net interest income increased significantly year-over-year",
       "description": "Net interest income adjusted for differences in tax treatment of interest income sources",
       "history": [
-        625.923,
-        713.765,
-        1172.074
+        0.626,
+        0.714,
+        1.172
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "ttm": null,
-      "period_type": "quarter",
-      "signal_en": "Strong top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Tangible Common Equity",
       "name_fr": "Capital commun tangible",
       "name_en": "Tangible Common Equity",
       "explanation": "Common equity adjusted for goodwill and amortizable intangibles, excluding perpetual preferred stock",
-      "value": "2791.21",
-      "unit": "M $",
+      "value": 2.791,
+      "unit": "Mds $",
       "yoy": "66.3%",
       "type": "Capital",
       "nature": "Structurel",
@@ -56,16 +60,17 @@
       "signal": "Tangible common equity increased significantly year-over-year",
       "description": "Common equity adjusted for goodwill and intangible assets",
       "history": [
-        1445.576,
-        1677.906,
-        2791.21
+        1.446,
+        1.678,
+        2.791
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "ttm": 2791210,
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Tangible Common Equity Ratio",
@@ -135,11 +140,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.37 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,11 +167,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 37.59 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -181,33 +194,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.42 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.94,
-      "unit": "Mds €",
+      "value": 940,
+      "unit": "M €",
       "yoy": "+168.6%",
       "history": [
-        0.32,
-        0.36,
-        0.35,
-        0.94
+        320,
+        360,
+        350,
+        940
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.94 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -233,9 +255,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Acquisitions & Strategic Initiatives",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Acquisitions & Strategic Initiatives"
     },
     {
       "short": "CRE Loan Sale Gain",
@@ -255,9 +275,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Portfolio Management",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Portfolio Management"
     }
   ],
   "ai_positioning": {
@@ -271,64 +289,64 @@
       "title": "Insufficiency of Allowance for Credit Losses",
       "category": "Credit",
       "severity": 5,
-      "score_rationale": "This risk is highlighted as the primary credit risk factor with strong language regarding estimation uncertainty and impact on results. It is central to the 10-K risk disclosures and reinforced by changing economic conditions. Credit risk is a highly weighted category in the financial sector. (score par défaut, à affiner)",
+      "score_rationale": "This risk is highlighted as the primary credit risk factor with strong language regarding estimation uncertainty and impact on results. It is central to the 10-K risk disclosures and reinforced by changing economic conditions. Credit risk is a highly weighted category in the financial sector.",
       "trend": "stable",
       "summary": "Estimation of credit losses may prove inaccurate, potentially resulting in insufficient reserves and unexpected losses on the loan portfolio.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Exposure to Local Real Estate Market Risk",
       "category": "Industrial",
       "severity": 4,
-      "score_rationale": "Text emphasizes geographic concentration of real estate loans and vulnerability to local market shocks. The risk is repeated and directly linked to portfolio quality and collateral values. (score par défaut, à affiner)",
+      "score_rationale": "Text emphasizes geographic concentration of real estate loans and vulnerability to local market shocks. The risk is repeated and directly linked to portfolio quality and collateral values.",
       "trend": "stable",
       "summary": "Deterioration in local real estate markets could reduce collateral values and increase loan losses.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Commercial Real Estate Loan Risk",
       "category": "Credit",
       "severity": 5,
-      "score_rationale": "Commercial real estate loans are identified as higher risk with significant balances and tenant cash flow dependencies. Text mentions heightened regulatory scrutiny, increasing the severity rating. (score par défaut, à affiner)",
+      "score_rationale": "Commercial real estate loans are identified as higher risk with significant balances and tenant cash flow dependencies. Text mentions heightened regulatory scrutiny, increasing the severity rating.",
       "trend": "stable",
       "summary": "Commercial real estate loans are sensitive to occupancy rates and economic conditions, with elevated default risk.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Construction and Development Loan Risk",
       "category": "Credit",
       "severity": 4,
-      "score_rationale": "Risk stems from uncertainty in construction costs and future value assessments. Text emphasizes that collateral may be insufficient in case of price declines, signaling elevated concern. (score par défaut, à affiner)",
+      "score_rationale": "Risk stems from uncertainty in construction costs and future value assessments. Text emphasizes that collateral may be insufficient in case of price declines, signaling elevated concern.",
       "trend": "stable",
       "summary": "Construction loans are exposed to cost overruns and valuation errors, increasing loss potential.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dependence on Federal Guarantee Programs",
       "category": "Regulation",
       "severity": 4,
-      "score_rationale": "Risk relates to regulatory compliance and potential loss of guarantee coverage. While program-specific, it is noted as potentially material, with non-negligible exposure. (score par défaut, à affiner)",
+      "score_rationale": "Risk relates to regulatory compliance and potential loss of guarantee coverage. While program-specific, it is noted as potentially material, with non-negligible exposure.",
       "trend": "stable",
       "summary": "Non-compliance with federal program rules could result in credit losses or program exclusion.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Real Estate Valuation Inaccuracy",
       "category": "Industrial",
       "severity": 4,
-      "score_rationale": "Appraisal errors are cited as potentially distorting collateral values and impacting financial statements. Risk is recurring and linked to market volatility, especially during uncertain periods. (score par défaut, à affiner)",
+      "score_rationale": "Appraisal errors are cited as potentially distorting collateral values and impacting financial statements. Risk is recurring and linked to market volatility, especially during uncertain periods.",
       "trend": "stable",
       "summary": "Inaccurate real estate appraisals could lead to underestimated losses or undetected non-performing assets.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Small and Medium Enterprise Credit Risk",
       "category": "Credit",
       "severity": 4,
-      "score_rationale": "Text highlights SME vulnerability to economic cycles and limited financial resources. Risk is heightened by fact that some borrowers lack crisis experience, increasing uncertainty. (score par défaut, à affiner)",
+      "score_rationale": "Text highlights SME vulnerability to economic cycles and limited financial resources. Risk is heightened by fact that some borrowers lack crisis experience, increasing uncertainty.",
       "trend": "stable",
       "summary": "SME borrowers have lower economic resilience, increasing default risk during economic downturns.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -370,7 +388,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -592,6 +610,103 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "AUB",
+    "extracted_at": "2026-06-01T02:58:54Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Net Interest Income (FTE)",
+        "period_type": "quarter",
+        "history": [
+          137.951,
+          143.692,
+          140.652,
+          134.267,
+          142.344,
+          154.557,
+          157.231,
+          155.75,
+          155.685,
+          151.546,
+          188.348,
+          186.831,
+          187.921,
+          325.733,
+          323.629
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:58:54Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Net Interest Margin (FTE)",
+        "period_type": "quarter",
+        "history": [
+          3.16,
+          3.23,
+          3.12,
+          3.04,
+          3.24,
+          3.43,
+          3.5,
+          3.45,
+          3.35,
+          3.19,
+          3.46,
+          3.38,
+          3.45,
+          3.83,
+          3.83
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T02:58:54Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "AUB",
     "ranks": {
@@ -604,15 +719,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.225587+00:00",
     "fetched_at": "2026-05-21T02:17:14.225588+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.157Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.621Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aub.json",
     "enrich_root": "v2-pipeline-enrich/aub.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

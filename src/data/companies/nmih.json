@@ -37,9 +37,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from Mds $ to B $ (billion dollars standard notation)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Seule une valeur annuelle explicite de RIF (Risque assuré) trouvée : 38.7 Mds $ au 31 décembre 2021. Moins de 4 années consécutives disponib"
+      "_hero_history_unverified_reason": "Seule une valeur annuelle explicite de RIF (Risque assuré) trouvée : 38.7 Mds $ au 31 décembre 2021. Moins de 4 années consécutives disponib",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "IIF",
@@ -132,7 +135,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit standardized to 'units'; description improved; signal enhanced",
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -151,56 +154,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.42,
-      "unit": "Mds €",
+      "value": 420,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.4,
-        0.4,
-        0.42,
-        0.42
+        400,
+        400,
+        420,
+        420
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.42 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-20.0%",
       "history": [
-        0.04,
-        0.1,
-        0.05,
-        0.04
+        40,
+        100,
+        50,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -228,9 +245,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 90,
-      "_validation": "YoY verified from 10-K (118 to 90 = -23.7%); name_fr improved; unit standardized; description enriched with context; short name clarified",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "YoY verified from 10-K (118 to 90 = -23.7%); name_fr improved; unit standardized; description enriched with context; short name clarified"
     },
     {
       "short": "Customers",
@@ -256,9 +271,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 2193,
-      "_validation": "YoY verified from 10-K (2086 to 2193 = +5.1%); unit standardized to 'units'; description enriched with customer diversity context; comparable changed from 'Non comparable' to 'Comparable'",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "YoY verified from 10-K (2086 to 2193 = +5.1%); unit standardized to 'units'; description enriched with customer diversity context; comparable changed from 'Non comparable' to 'Comparable'"
     }
   ],
   "ai_positioning": {
@@ -296,7 +309,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en tête des facteurs de risque et mentionné comme critique pour atteindre les objectifs commerciaux. Le langage est répété et renforcé, notamment sur la pression sur les prix et les politiques de souscription. Catégorie 'Concurrence' hautement pondérée dans le secteur MI.",
       "trend": "stable",
-      "summary": "La concurrence accrue avec d'autres assureurs privés ou publics peut réduire nos parts de marché, nos revenus et notre rentabilité."
+      "summary": "La concurrence accrue avec d'autres assureurs privés ou publics peut réduire nos parts de marché, nos revenus et notre rentabilité.",
+      "score": 5
     },
     {
       "title": "Perte de reconnaissance par les GSEs",
@@ -304,7 +318,8 @@
       "severity": 5,
       "score_rationale": "Mentionné comme risque existentiel lié aux PMIERs et à l'approbation par les GSEs. Une perte d'approbation aurait un impact direct sur l'activité. Langage fort ('adversely impact', 'could reduce revenues').",
       "trend": "stable",
-      "summary": "Si les GSEs ne nous reconnaissent plus comme assureur approuvé, notre accès au marché principal serait gravement compromis."
+      "summary": "Si les GSEs ne nous reconnaissent plus comme assureur approuvé, notre accès au marché principal serait gravement compromis.",
+      "score": 5
     },
     {
       "title": "Alternatives à l'assurance hypothécaire privée",
@@ -312,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Décrit en détail avec multiples exemples (FHA, VA, auto-assurance, structures de prêt). Risque structurel sur la demande de MI. Moins intense que la concurrence directe mais toujours majeur.",
       "trend": "stable",
-      "summary": "Les prêteurs peuvent choisir des alternatives publiques ou structurelles qui réduisent ou éliminent le besoin d'assurance privée."
+      "summary": "Les prêteurs peuvent choisir des alternatives publiques ou structurelles qui réduisent ou éliminent le besoin d'assurance privée.",
+      "score": 4
     },
     {
       "title": "Défaillance des réserves de sinistres",
@@ -320,7 +336,8 @@
       "severity": 5,
       "score_rationale": "Langage fort : 'actual claim payments may materially exceed reserves', 'unexpected charges to income'. Risque central pour un assureur. Position clé dans le 10-K, avec lien direct aux résultats financiers.",
       "trend": "stable",
-      "summary": "Des estimations incorrectes des sinistres peuvent entraîner des pertes imprévues et affecter gravement la rentabilité."
+      "summary": "Des estimations incorrectes des sinistres peuvent entraîner des pertes imprévues et affecter gravement la rentabilité.",
+      "score": 5
     },
     {
       "title": "Dépendance aux partenaires technologiques",
@@ -328,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel clé lié à la connectivité client et aux plateformes propriétaires. Mention de perte de clients si insuffisance technologique. Moins existentiel que les risques de crédit ou réglementaires.",
       "trend": "stable",
-      "summary": "L'incapacité à maintenir une technologie compétitive peut nuire à la relation client et à la croissance."
+      "summary": "L'incapacité à maintenir une technologie compétitive peut nuire à la relation client et à la croissance.",
+      "score": 4
     },
     {
       "title": "Risques liés aux réassureurs",
@@ -336,7 +354,8 @@
       "severity": 4,
       "score_rationale": "Impact sur la solvabilité via la perte de crédit de capital. Mention de contrepartie et de downgrades. Risque amplifié par la dépendance aux décisions des GSEs et de l'OCI du Wisconsin.",
       "trend": "stable",
-      "summary": "Un défaut de réassureur ou une perte de crédit de capital peut affaiblir notre position financière et réglementaire."
+      "summary": "Un défaut de réassureur ou une perte de crédit de capital peut affaiblir notre position financière et réglementaire.",
+      "score": 4
     },
     {
       "title": "Cybermenace et divulgation non autorisée",
@@ -344,7 +363,8 @@
       "severity": 4,
       "score_rationale": "Mention de risque opérationnel sur données confidentielles. Langage modéré mais implicite sur les conséquences réglementaires et de réputation. Moins central que les risques financiers directs.",
       "trend": "stable",
-      "summary": "Une faille de sécurité pourrait entraîner des pertes de données, des sanctions et des dommages à la réputation."
+      "summary": "Une faille de sécurité pourrait entraîner des pertes de données, des sanctions et des dommages à la réputation.",
+      "score": 4
     }
   ],
   "governance": {
@@ -388,7 +408,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -506,9 +526,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.289239+00:00",
     "fetched_at": "2026-05-21T02:17:14.289240+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.959Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.896Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nmih.json",
     "enrich_root": "v2-pipeline-enrich/nmih.json",

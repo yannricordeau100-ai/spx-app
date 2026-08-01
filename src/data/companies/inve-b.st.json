@@ -191,11 +191,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1102.81 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -214,11 +218,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 115.31 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,9 +251,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Value corrigée de -7 à 3 (croissance organique en devise constante); description et signal améliorés pour clarifier la distinction entre données publiées et croissance organique",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value corrigée de -7 à 3 (croissance organique en devise constante); description et signal améliorés pour clarifier la distinction entre données publiées et croissance organique"
     },
     {
       "short": "Mölnlycke Growth",
@@ -268,13 +274,11 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur confirmée (3% organic growth constant currency); description enrichie avec détail Wound Care (2%)",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée (3% organic growth constant currency); description enrichie avec détail Wound Care (2%)"
     }
   ],
   "ai_positioning": {
-    "stance": "present",
+    "stance": "integrator",
     "summary": "Investor souligne l'importance stratégique de l'IA comme levier clé de création de valeur. L'entreprise investit activement dans l'adoption de l'IA au sein de son portefeuille et reconnaît le potentiel important non encore exploité. Des exemples concrets incluent l'utilisation d'IA générative dans la lutte contre la fraude (Verafin/Nasdaq) et l'optimisation réseau chez Ericsson.",
     "evidence": [
       "CEO statement: 'Focus on the implementation of value-creating AI remains high' et 'including AI, the green transition, and geographic expansion, to drive value creation'",
@@ -395,9 +399,9 @@
     "country": "Sweden",
     "_data_freshness_date": "2026-05-21T01:44:37.530496+00:00",
     "fetched_at": "2026-05-21T01:44:37.530497+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.460Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.153Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/inve-b.st.json",
     "enrich_root": null,

@@ -69,76 +69,95 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 0,
-      "_validation": "Unit corrigée de Mds $ à M $; valeur confirmée à 500 M$ redeemed le 31 juillet 2025 dans la source"
+      "_validation": "Unit corrigée de Mds $ à M $; valeur confirmée à 500 M$ redeemed le 31 juillet 2025 dans la source",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.77,
-      "unit": "Mds €",
+      "value": 770,
+      "unit": "M €",
       "yoy": "+10.0%",
       "history": [
-        0.62,
-        0.65,
-        0.7,
-        0.77
+        620,
+        650,
+        700,
+        770
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.77 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "+23.1%",
       "history": [
-        -0.08,
-        0.01,
-        0.13,
-        0.16
+        -80,
+        10,
+        130,
+        160
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.16 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.23,
-        0.22,
-        0.26,
-        0.26
+        230,
+        220,
+        260,
+        260
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.26 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,11 +176,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.49 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -180,33 +203,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.55 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "+16.7%",
       "history": [
-        0.05,
-        0.04,
-        0.06,
-        0.07
+        50,
+        40,
+        60,
+        70
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.07 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -252,7 +284,8 @@
       "severity": 4,
       "score_rationale": "L'augmentation des taux d'intérêt pourrait augmenter les coûts d'emprunt sur la facilité de crédit renouvelable et la dette future, rendant le financement de nouveaux investissements plus coûteux et affectant négativement le prix des actions.",
       "trend": "stable",
-      "summary": "Les hausses des taux d'intérêt augmentent les coûts d'intérêt sur les emprunts et limitent l'accès au financement pour les tiers souhaitant acquérir les actifs en vente."
+      "summary": "Les hausses des taux d'intérêt augmentent les coûts d'intérêt sur les emprunts et limitent l'accès au financement pour les tiers souhaitant acquérir les actifs en vente.",
+      "score": 4
     },
     {
       "title": "Inflation",
@@ -260,7 +293,8 @@
       "severity": 4,
       "score_rationale": "L'inflation pourrait augmenter les dépenses d'exploitation de la société, de ses locataires, emprunteurs et communautés de logements gérées à des taux qui dépassent les augmentations des revenus locatifs.",
       "trend": "up",
-      "summary": "L'inflation augmente les coûts d'exploitation et affecte la capacité des locataires et emprunteurs à respecter leurs obligations envers la société."
+      "summary": "L'inflation augmente les coûts d'exploitation et affecte la capacité des locataires et emprunteurs à respecter leurs obligations envers la société.",
+      "score": 4
     },
     {
       "title": "Pandémies et crises sanitaires",
@@ -268,7 +302,8 @@
       "severity": 5,
       "score_rationale": "Les pandémies pourraient avoir un impact négatif significatif sur les opérations et les résultats financiers, comme l'a démontré la pandémie de COVID-19.",
       "trend": "stable",
-      "summary": "Les pandémies pourraient avoir un impact négatif significatif sur les opérations des communautés de logements pour personnes âgées et sur les résultats financiers."
+      "summary": "Les pandémies pourraient avoir un impact négatif significatif sur les opérations des communautés de logements pour personnes âgées et sur les résultats financiers.",
+      "score": 5
     },
     {
       "title": "Concurrence",
@@ -276,7 +311,8 @@
       "severity": 3,
       "score_rationale": "La concurrence intense dans le secteur immobilier de santé rend difficile l'identification et l'acquisition de propriétés à des prix favorables.",
       "trend": "stable",
-      "summary": "La concurrence dans le secteur immobilier de santé pourrait rendre difficile l'acquisition de propriétés aux prix souhaités."
+      "summary": "La concurrence dans le secteur immobilier de santé pourrait rendre difficile l'acquisition de propriétés aux prix souhaités.",
+      "score": 3
     },
     {
       "title": "Perte de personnel clé",
@@ -284,7 +320,8 @@
       "severity": 4,
       "score_rationale": "La perte de personnel clé pourrait affecter la capacité de la société à gérer ses opérations et à atteindre ses objectifs stratégiques.",
       "trend": "stable",
-      "summary": "La perte de personnel clé pourrait affecter la gestion des opérations et la réalisation des objectifs."
+      "summary": "La perte de personnel clé pourrait affecter la gestion des opérations et la réalisation des objectifs.",
+      "score": 4
     },
     {
       "title": "Impairment des actifs immobiliers",
@@ -292,7 +329,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée au risque d'impairment des investissements immobiliers et des prêts en raison de la détérioration des résultats opérationnels des locataires et de la non-recouvrement des montants investis.",
       "trend": "stable",
-      "summary": "La détérioration prolongée des résultats opérationnels pourrait entraîner une impairment des investissements immobiliers."
+      "summary": "La détérioration prolongée des résultats opérationnels pourrait entraîner une impairment des investissements immobiliers.",
+      "score": 4
     },
     {
       "title": "Risques environnementaux et climatiques",
@@ -300,7 +338,8 @@
       "severity": 3,
       "score_rationale": "Les catastrophes naturelles et le changement climatique pourraient affecter les opérations des propriétés et les résultats financiers.",
       "trend": "up",
-      "summary": "Les risques environnementaux et les catastrophes naturelles pourraient avoir un impact négatif sur les opérations et les résultats financiers."
+      "summary": "Les risques environnementaux et les catastrophes naturelles pourraient avoir un impact négatif sur les opérations et les résultats financiers.",
+      "score": 3
     }
   ],
   "governance": {
@@ -326,7 +365,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -422,6 +461,56 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SBRA",
+    "extracted_at": "2026-06-01T09:20:22Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Investissements",
+        "period_type": "quarter",
+        "history": [
+          28.654,
+          62.107,
+          62.116,
+          26.196,
+          26.196,
+          98.297,
+          51.474,
+          51.474,
+          51.474,
+          36.128,
+          112.225,
+          7.854,
+          61.137,
+          283.09
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:20:22Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SBRA",
     "ranks": {
@@ -434,14 +523,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.307060+00:00",
     "fetched_at": "2026-05-21T02:17:14.307061+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.560Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.587Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sbra.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

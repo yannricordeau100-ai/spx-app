@@ -1,6 +1,6 @@
 {
   "ticker": "GATX",
-  "name": "GATX Corporation",
+  "name": "GATX",
   "sector": "Industrie",
   "subsector": "Transportation Equipment Leasing",
   "tagline": "Leasing, operating, managing, and remarketing long-lived, widely used assets, primarily in the rail market",
@@ -117,8 +117,8 @@
       "name_fr": "Chiffre d'affaires total",
       "name_en": "Total Revenues",
       "explanation": "Revenus totaux générés par tous les segments de l'entreprise.",
-      "value": "1740.4",
-      "unit": "M $",
+      "value": 1.74,
+      "unit": "Mds $",
       "yoy": "+9.8%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -126,9 +126,9 @@
       "signal": "Croissance à deux chiffres du CA en 2025",
       "description": "Le chiffre d'affaires a progressé grâce à une hausse des loyers et à l'acquisition de nouveaux actifs.",
       "history": [
-        1410.9,
-        1585.5,
-        1740.4
+        1.411,
+        1.585,
+        1.74
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -138,7 +138,8 @@
       "_validation": [
         "Unit corrected from 'Mds $' to 'M $' (millions, not billions - confirmed from 10-K segment results)"
       ],
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Return on Equity",
@@ -173,8 +174,8 @@
       "name_fr": "Volume d'investissement",
       "name_en": "Investment Volume",
       "explanation": "Montant investi dans de nouveaux actifs ou acquisitions pendant l'année.",
-      "value": "1316.7",
-      "unit": "M $",
+      "value": 1.317,
+      "unit": "Mds $",
       "yoy": "-21.4%",
       "type": "Investment",
       "nature": "Conjoncturel",
@@ -182,9 +183,9 @@
       "signal": "Réduction marquée des investissements en 2025",
       "description": "Le volume d'investissement a baissé par rapport à 2024, avant l'acquisition Wells Fargo Rail finalisée en janvier 2026.",
       "history": [
-        1665,
-        1674.4,
-        1316.7
+        1.665,
+        1.674,
+        1.317
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -197,7 +198,8 @@
         "Description updated: Wells Fargo transaction closed January 1, 2026, not 2026"
       ],
       "explanation_en": "Volume of Investment over the period.",
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -224,24 +226,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.333,
-      "unit": "Mds $",
+      "value": 333,
+      "unit": "M $",
       "yoy": "+17.3%",
       "history": [
-        0.502,
-        0.211,
-        0.211,
-        0.151,
-        0.156,
-        0.259,
-        0.284,
-        0.333
+        502,
+        211,
+        211,
+        151,
+        156,
+        259,
+        284,
+        333
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -250,8 +256,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -265,7 +276,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2,
         2.08,
@@ -278,7 +289,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -293,7 +304,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1238,
@@ -306,7 +317,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -321,7 +332,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         49.13,
@@ -334,7 +345,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -350,7 +361,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.35,
@@ -363,7 +374,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -394,9 +405,7 @@
       "ttm": 127.5,
       "_validation": [
         "Unit corrected from 'Mds $' to 'M $' (millions, not billions - confirmed from 10-K segment results)"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Engine Leasing Segment Profit",
@@ -424,9 +433,7 @@
       "ttm": 206.33,
       "_validation": [
         "Unit corrected from 'Mds $' to 'M $' (millions, not billions - confirmed from 10-K segment results)"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -440,25 +447,25 @@
       "title": "Dépendance de la demande client et des conditions économiques",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Ce risque est mentionné dès le début (page 13) et est répété plusieurs fois, soulignant l'importance de la demande client pour les actifs de transport. L'intensité du langage est élevée, décrivant des impacts potentiels matériellement défavorables. Le contexte économique global est un facteur clé. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné dès le début (page 13) et est répété plusieurs fois, soulignant l'importance de la demande client pour les actifs de transport. L'intensité du langage est élevée, décrivant des impacts potentiels matériellement défavorables. Le contexte économique global est un facteur clé.",
       "trend": "stable",
       "summary": "La rentabilité de l'entreprise dépend fortement de la demande continue des clients pour ses actifs de transport et services, qui est sensible aux conditions économiques mondiales et sectorielles.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à l'intégration de l'acquisition Wells Fargo Rail",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Ce risque est détaillé sur plusieurs paragraphes (pages 14-15) et concerne une acquisition majeure. Le langage est fort (nombreux risques et incertitudes, au-delà de notre contrôle). L'intégration réussie est cruciale pour les résultats futurs. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé sur plusieurs paragraphes (pages 14-15) et concerne une acquisition majeure. Le langage est fort (nombreux risques et incertitudes, au-delà de notre contrôle). L'intégration réussie est cruciale pour les résultats futurs.",
       "trend": "up",
       "summary": "L'intégration de l'important portefeuille ferroviaire de Wells Fargo, réalisée via une coentreprise (GABX) avec Brookfield Infrastructure, présente des défis opérationnels et financiers significatifs qui pourraient affecter négativement l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue et ressources financières des concurrents",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Ce risque est clairement identifié (page 13) et met en avant la taille et les ressources financières supérieures de certains concurrents. L'impact potentiel sur la rentabilité et l'utilisation des actifs est souligné. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est clairement identifié (page 13) et met en avant la taille et les ressources financières supérieures de certains concurrents. L'impact potentiel sur la rentabilité et l'utilisation des actifs est souligné.",
       "trend": "stable",
       "summary": "L'entreprise opère dans un environnement concurrentiel où des acteurs plus importants disposant de meilleures ressources financières peuvent offrir des conditions plus avantageuses, impactant la rentabilité.",
       "score": 3
@@ -467,7 +474,7 @@
       "title": "Impact des politiques commerciales et des tarifs douaniers",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Ce risque est traité spécifiquement (page 13) avec une mention de l'incertitude actuelle concernant les relations commerciales internationales. L'impact sur les coûts et la demande client est jugé potentiellement significatif. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est traité spécifiquement (page 13) avec une mention de l'incertitude actuelle concernant les relations commerciales internationales. L'impact sur les coûts et la demande client est jugé potentiellement significatif.",
       "trend": "up",
       "summary": "Les changements dans les politiques commerciales mondiales, y compris les tarifs douaniers, créent de l'incertitude et peuvent augmenter les coûts ou réduire la demande des clients.",
       "score": 3
@@ -476,7 +483,7 @@
       "title": "Augmentation des coûts de maintenance et contraintes de réparation",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Ce risque est détaillé (page 14) et concerne à la fois les renouvellements de contrats et les événements de maintenance. L'augmentation potentielle des coûts et l'impact sur les opérations sont clairement énoncés. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé (page 14) et concerne à la fois les renouvellements de contrats et les événements de maintenance. L'augmentation potentielle des coûts et l'impact sur les opérations sont clairement énoncés.",
       "trend": "stable",
       "summary": "Une augmentation du nombre d'actifs nécessitant une maintenance, notamment pour des raisons réglementaires, ou des contraintes sur les réseaux de réparation peuvent entraîner une hausse significative des coûts.",
       "score": 3
@@ -485,7 +492,7 @@
       "title": "Risques liés aux engagements d'achat de wagons à long terme",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Ce risque est bien expliqué (page 14) et concerne les engagements financiers à long terme pour l'achat de nouveaux wagons. La difficulté potentielle de louer ces wagons à des taux rentables en cas de ralentissement économique est un point clé. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est bien expliqué (page 14) et concerne les engagements financiers à long terme pour l'achat de nouveaux wagons. La difficulté potentielle de louer ces wagons à des taux rentables en cas de ralentissement économique est un point clé.",
       "trend": "stable",
       "summary": "Les engagements à long terme pour l'achat de wagons neufs peuvent devenir coûteux si les conditions économiques se détériorent, rendant difficile la location de ces actifs à des prix profitables.",
       "score": 3
@@ -494,7 +501,7 @@
       "title": "Dépendance vis-à-vis des opérations des chemins de fer nord-américains",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Ce risque est spécifiquement mentionné (page 13) et concerne la sensibilité de la demande aux changements dans les opérations des chemins de fer nord-américains. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est spécifiquement mentionné (page 13) et concerne la sensibilité de la demande aux changements dans les opérations des chemins de fer nord-américains.",
       "trend": "stable",
       "summary": "La rentabilité du segment Rail North America dépend fortement de la santé et des décisions opérationnelles des chemins de fer nord-américains qui louent les wagons.",
       "score": 3
@@ -516,17 +523,23 @@
   "governance": {
     "agm_date": "2026-04-24",
     "fiscal_year": 2025,
-    "ceo_name": "President and Chief Executive Officer",
+    "ceo_name": "Robert C. Lyons",
     "board_size": 9,
     "board_independence_pct": 88.9,
     "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
-    "exec_comp_approval_pct": 94.3
+    "exec_comp_approval_pct": 94.3,
+    "top_capital": [
+      {
+        "holder": "Non précisé",
+        "pct": "Non précisé"
+      }
+    ]
   },
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -580,7 +593,7 @@
   "company_description": "GATX Corporation, together its subsidiaries, operates as railcar leasing company in the United States, Canada, Mexico, Europe, and India. It operates through three segments: Rail North America, Rail International, and Engine Leasing. The company leases tank and freight railcars, and locomotives for petroleum, chemical, food/agriculture, and transportation industries. It also offers maintenance services, including the interior cleaning of railcars, routine maintenance and repair of car body and safety appliances, regulatory compliance works, wheelset replacements, interior blast and lining, exterior blast and painting, and car stenciling services. In addition, the company manufactures commercial aircraft jet engines and leases aircraft spare engines; and owns and manages tank containers that are leased to chemical, industrial gas, energy, food, cryogenic and pharmaceutical industries, transport and logistic, and tank container operators, as well as provides tank container leasing, remarketing, and inspection and maintenance services. As of December 31, 2025, it owned and operated a fleet of approximately 156,000 railcars; 567 four-axle and 60 six-axle locomotives; 456 aircraft spare engines; and 25,602 tank containers. GATX Corporation was founded in 1898 and is headquartered in Chicago, Illinois.",
   "_profile_fetched_at": "2026-05-07T11:56:47.769580+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:47Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -606,7 +619,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:54Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:06Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "GATX",
     "simple": {
@@ -695,15 +708,12 @@
           77.4,
           140.7,
           193.2,
-          -152.1,
           74.3,
           118.7,
           207.7,
-          -116.5,
           78.6,
           154.1,
           236.3,
-          -135.7,
           85.5
         ],
         "history_periods": [
@@ -756,6 +766,12 @@
             "accession": "0000040211-26-000055",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (GATX)"
         ]
       },
       {
@@ -771,15 +787,12 @@
           338.9,
           682.1,
           1042.2,
-          -652.3,
           379.9,
           766.6,
           1172,
-          -733,
           421.6,
           852.1,
           1291.4,
-          -824.7,
           583.7
         ],
         "history_periods": [
@@ -832,6 +845,12 @@
             "accession": "0000040211-26-000055",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (GATX)"
         ]
       },
       {
@@ -847,15 +866,12 @@
           2.1015,
           2.1789,
           2.1745,
-          -4.1819,
           2.3243,
           2.3434,
           2.4367,
-          -4.6655,
           2.5494,
           2.6697,
           2.7189,
-          -5.1875,
           2.7781
         ],
         "history_periods": [
@@ -908,6 +924,12 @@
             "accession": "0000040211-26-000055",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (GATX)"
         ]
       }
     ]
@@ -924,9 +946,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.265304+00:00",
     "fetched_at": "2026-05-21T02:17:14.265305+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.547Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.138Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gatx.json",
     "enrich_root": "v2-pipeline-enrich/gatx.json",

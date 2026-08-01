@@ -40,7 +40,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Net Income",
@@ -66,7 +66,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes."
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes."
     },
     {
       "short": "Operating Cash Flow",
@@ -92,7 +92,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations."
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations."
     },
     {
       "short": "Fleet Size",
@@ -118,7 +118,10 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Cash Balance",
@@ -212,11 +215,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.53 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -245,7 +252,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -261,7 +268,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est central dans le 10-K, mentionné en premier et répété plusieurs fois. Le langage est fort (\"material adverse effect\") et le contexte montre une volatilité persistante des prix (ex. : 2020 vs 2022). La catégorie Macro est hautement pondérée car elle affecte toute l'activité.",
       "trend": "stable",
-      "summary": "La chute ou l'instabilité des prix du pétrole et du gaz réduit l'activité d'exploration offshore, ce qui diminue la demande pour nos services et nos revenus."
+      "summary": "La chute ou l'instabilité des prix du pétrole et du gaz réduit l'activité d'exploration offshore, ce qui diminue la demande pour nos services et nos revenus.",
+      "score": 5
     },
     {
       "title": "Concurrence intense sur les tarifs et surcapacité de flotte",
@@ -269,7 +277,8 @@
       "severity": 5,
       "score_rationale": "Le document décrit une concurrence féroce, une surcapacité de rigs et une pression à la baisse sur les dayrates. Le langage est alarmant (\"substantially lower dayrates\", \"idle for long periods\"). Risque récurrent et aggravé par les nouveaux rigs.",
       "trend": "stable",
-      "summary": "La surabondance de rigs et la concurrence accrue forcent à des baisses de prix et des taux d'utilisation faibles, réduisant notre rentabilité."
+      "summary": "La surabondance de rigs et la concurrence accrue forcent à des baisses de prix et des taux d'utilisation faibles, réduisant notre rentabilité.",
+      "score": 5
     },
     {
       "title": "Résiliation ou renégociation de contrats par les clients",
@@ -277,7 +286,8 @@
       "severity": 4,
       "score_rationale": "Plusieurs paragraphes détaillent le risque de résiliation, de force majeure ou de non-paiement. Le langage est répétitif et préoccupé (\"material adverse effect\"). Moins existentiel que les prix, mais très présent dans le cycle de marché.",
       "trend": "stable",
-      "summary": "Les clients peuvent annuler, repousser ou renégocier les contrats, surtout en période de crise, ce qui réduit notre carnet de commandes et notre trésorerie."
+      "summary": "Les clients peuvent annuler, repousser ou renégocier les contrats, surtout en période de crise, ce qui réduit notre carnet de commandes et notre trésorerie.",
+      "score": 4
     },
     {
       "title": "Contrats avec des compagnies pétrolières nationales à risque élevé",
@@ -285,7 +295,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne des risques accrus (terminaison sans cause, non-paiement, litiges). Langage prudent (\"can provide no assurance\"). Moins fréquent que les autres risques, mais de haute gravité quand il se réalise.",
       "trend": "stable",
-      "summary": "Les contrats avec des États impliquent des risques politiques, juridiques et financiers plus élevés, notamment en cas de rupture unilatérale ou de difficultés de recouvrement."
+      "summary": "Les contrats avec des États impliquent des risques politiques, juridiques et financiers plus élevés, notamment en cas de rupture unilatérale ou de difficultés de recouvrement.",
+      "score": 4
     },
     {
       "title": "Impossibilité de réaliser le carnet de commandes",
@@ -293,7 +304,8 @@
       "severity": 4,
       "score_rationale": "Le risque de non-exécution du backlog est explicitement mentionné avec des hypothèses incertaines sur les dayrates. Langage de doute (\"we can provide no assurance\"). Impact direct sur les revenus futurs.",
       "trend": "stable",
-      "summary": "Le carnet de commandes prévu pourrait ne pas être honoré en raison de ruptures contractuelles, de non-renouvellements ou d'hypothèses erronées sur les tarifs."
+      "summary": "Le carnet de commandes prévu pourrait ne pas être honoré en raison de ruptures contractuelles, de non-renouvellements ou d'hypothèses erronées sur les tarifs.",
+      "score": 4
     },
     {
       "title": "Exposition accrue aux responsabilités environnementales",
@@ -301,7 +313,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne des clauses d'indemnisation limitées et des risques de responsabilité illimitée en cas de négligence grave. Le cadre réglementaire environnemental est en renforcement, ce qui augmente le risque juridique.",
       "trend": "up",
-      "summary": "Nous pourrions être tenus responsables de dommages environnementaux, notamment en cas de négligence grave, avec des coûts potentiels très élevés."
+      "summary": "Nous pourrions être tenus responsables de dommages environnementaux, notamment en cas de négligence grave, avec des coûts potentiels très élevés.",
+      "score": 4
     },
     {
       "title": "Dépendance à quelques clients et zones géographiques",
@@ -309,7 +322,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné mais partiellement coupé dans l'extrait. Langage standard sur la concentration des clients. Moins développé que les autres, mais plausible dans un secteur niche.",
       "trend": "stable",
-      "summary": "Une forte dépendance à certains clients ou régions expose l'entreprise à des chocs localisés en cas de perte de contrat ou de crise régionale."
+      "summary": "Une forte dépendance à certains clients ou régions expose l'entreprise à des chocs localisés en cas de perte de contrat ou de crise régionale.",
+      "score": 3
     }
   ],
   "governance": {
@@ -429,15 +443,12 @@
           186.186,
           255.356,
           244.792,
-          -325.54,
           212.467,
           162.852,
           391.858,
-          -519.874,
           303.755,
           338.185,
           477.946,
-          -648.487,
           662.65
         ],
         "history_periods": [
@@ -485,6 +496,12 @@
             "accession": "0001895262-26-000111",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (NE)"
         ]
       }
     ]
@@ -501,9 +518,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.287540+00:00",
     "fetched_at": "2026-05-21T02:17:14.287541+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.843Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.749Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ne.json",
     "enrich_root": null,

@@ -48,7 +48,11 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:42.368134+00:00",
       "explanation_en": "Revenue from the Lease segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Gain on Sale of Assets",
@@ -94,7 +98,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -141,7 +145,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
       "signal_en": "Capital base contracting, monitor structure"
     },
     {
@@ -165,7 +169,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -185,11 +189,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 71.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -208,10 +216,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.38 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -225,7 +237,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -238,7 +250,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -253,7 +265,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0174,
@@ -266,7 +278,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -281,7 +293,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -294,7 +306,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -310,7 +322,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -3.02,
@@ -323,7 +335,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -358,7 +370,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné en position centrale dans le 10-K, avec un langage fort (\\\"rely on a small number of manufacturers\\\"). La tendance est stable, mais les pénuries et problèmes de chaîne d'approvisionnement persistent. Cette catégorie pèse lourd dans le modèle économique d'AerCap.",
       "trend": "stable",
-      "summary": "AerCap dépend fortement de quelques fabricants comme Boeing et Airbus. Tout retard de livraison dû à des problèmes de chaîne d'approvisionnement, grèves ou défauts de qualité peut retarder les mises en service et impacter les revenus de leasing."
+      "summary": "AerCap dépend fortement de quelques fabricants comme Boeing et Airbus. Tout retard de livraison dû à des problèmes de chaîne d'approvisionnement, grèves ou défauts de qualité peut retarder les mises en service et impacter les revenus de leasing.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue dans le leasing aéronautique",
@@ -366,7 +379,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement identifié dans le 10-K avec un langage affirmé (\\\"significant competition\\\"). La tendance est stable, mais le secteur attire de nouveaux entrants. La concurrence affecte directement les taux de leasing et la capacité de placement.",
       "trend": "stable",
-      "summary": "Le marché du leasing aéronautique est très concurrentiel. La consolidation du secteur, les entrées de nouveaux acteurs ou les changements stratégiques de concurrents peuvent réduire les marges et limiter l'accès à des clients de qualité."
+      "summary": "Le marché du leasing aéronautique est très concurrentiel. La consolidation du secteur, les entrées de nouveaux acteurs ou les changements stratégiques de concurrents peuvent réduire les marges et limiter l'accès à des clients de qualité.",
+      "score": 4
     },
     {
       "title": "Réglementation environnementale croissante",
@@ -374,7 +388,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien positionné dans le document, avec un langage préoccupé (\\\"may be supplemented by additional regulations\\\"). La tendance est à la hausse en lien avec les pressions ESG. Il affecte la valeur future des actifs.",
       "trend": "up",
-      "summary": "Les réglementations liées au climat, aux émissions carbone et à l'efficacité énergétique des aéronefs se renforcent. Cela peut déprécier les appareils anciens et contraindre AerCap à accélérer le renouvellement de son parc."
+      "summary": "Les réglementations liées au climat, aux émissions carbone et à l'efficacité énergétique des aéronefs se renforcent. Cela peut déprécier les appareils anciens et contraindre AerCap à accélérer le renouvellement de son parc.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des systèmes d'information",
@@ -382,7 +397,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement cité avec un langage d'alerte (\\\"damaged or interrupted, including by cyberattack\\\"). La tendance est à la hausse. Les systèmes critiques dépendent de la continuité numérique.",
       "trend": "up",
-      "summary": "AerCap dépend de systèmes informatiques internes et de tiers pour gérer ses contrats, ses actifs et ses paiements. Une cyberattaque pourrait interrompre ses opérations, compromettre des données sensibles ou nuire à sa réputation."
+      "summary": "AerCap dépend de systèmes informatiques internes et de tiers pour gérer ses contrats, ses actifs et ses paiements. Une cyberattaque pourrait interrompre ses opérations, compromettre des données sensibles ou nuire à sa réputation.",
+      "score": 4
     },
     {
       "title": "Adoption de l'intelligence artificielle",
@@ -390,7 +406,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné dans une section spécifique, avec un langage prudent (\\\"may result in operational errors\\\"). La tendance est à la hausse. Il s'agit d'un risque émergent lié à la transformation numérique.",
       "trend": "new",
-      "summary": "L'intégration de l'IA dans la gestion des actifs ou des risques expose AerCap à des erreurs opérationnelles, à des biais algorithmiques ou à des atteintes à la vie privée, avec des conséquences réglementaires ou réputationnelles possibles."
+      "summary": "L'intégration de l'IA dans la gestion des actifs ou des risques expose AerCap à des erreurs opérationnelles, à des biais algorithmiques ou à des atteintes à la vie privée, avec des conséquences réglementaires ou réputationnelles possibles.",
+      "score": 3
     },
     {
       "title": "Réglementation accrue sur le commerce et les sanctions",
@@ -398,7 +415,8 @@
       "severity": 5,
       "score_rationale": "Le risque est fortement mis en avant, notamment avec les sanctions liées au conflit en Ukraine. Langage intense et position stratégique dans le document. Tendance à la hausse en contexte géopolitique tendu.",
       "trend": "up",
-      "summary": "Les régulations commerciales, les sanctions internationales (ex: Russie, Ukraine) et les barrières douanières peuvent empêcher la relocalisation d'appareils, bloquer des paiements ou forcer des retraits de marché, impactant directement les revenus."
+      "summary": "Les régulations commerciales, les sanctions internationales (ex: Russie, Ukraine) et les barrières douanières peuvent empêcher la relocalisation d'appareils, bloquer des paiements ou forcer des retraits de marché, impactant directement les revenus.",
+      "score": 5
     },
     {
       "title": "Maintenance et assurance par les locataires",
@@ -406,7 +424,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement énoncé avec un langage de dépendance (\\\"depend on our lessees to properly maintain\\\"). Tendance stable. Il touche directement l'intégrité des actifs et les coûts futurs.",
       "trend": "stable",
-      "summary": "Pendant les baux, les compagnies aériennes sont responsables de la maintenance et de l'assurance des appareils. Une mauvaise maintenance peut dégrader la valeur des actifs et entraîner des coûts imprévus pour AerCap lors de la reprise."
+      "summary": "Pendant les baux, les compagnies aériennes sont responsables de la maintenance et de l'assurance des appareils. Une mauvaise maintenance peut dégrader la valeur des actifs et entraîner des coûts imprévus pour AerCap lors de la reprise.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:12:24.388853+00:00",
@@ -490,7 +509,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:26Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2024,
@@ -503,7 +522,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:17Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:16Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "AER",
     "simple": {
@@ -611,9 +630,9 @@
     "country": "Ireland",
     "_data_freshness_date": "2026-05-21T02:17:14.216128+00:00",
     "fetched_at": "2026-05-21T02:17:14.216130+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.417Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.866Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aer.json",
     "enrich_root": "v2-pipeline-enrich/aer.json",

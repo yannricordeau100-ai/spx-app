@@ -121,7 +121,7 @@
       "is_short_history": false,
       "ttm": 210.7,
       "_validation": "Unit verified as M $ (millions). Type corrected from 'Margin' to 'Profitability'. YoY calculation verified: (83.3 - 364.1) / 364.1 = -77.1%. History values verified from 10-K Consolidated Results Operating Income table. TTM calculated: (83.3 + 364.1 + 184.7) / 3 = 210.7.",
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -148,7 +148,7 @@
       "is_short_history": false,
       "ttm": 342.63,
       "_validation": "Unit verified as M $ (millions). Type corrected from 'Revenue' to 'Profitability'. YoY calculation verified: (480.4 - 369.0) / 369.0 = 30.1%. History values verified from 10-K Consolidated Results Net Income table: 2025: 480.4, 2024: 369.0, 2023: 178.5. TTM calculated: (480.4 + 369.0 + 178.5) / 3 = 342.63. Note: 2025 includes gain on discontinued operations of 404.4M$.",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -178,24 +178,24 @@
       "ttm": null,
       "_validation": "Unit verified as M $ (millions). YoY calculation verified: (248.0 - 230.2) / 230.2 = 7.7%. History and values verified from 10-K Consolidated Results Adjusted EBITDA (g) line: 2025: 248.0, 2024: 230.2, 2023: 246.0. TTM calculated: (248.0 + 230.2 + 246.0) / 3 = 241.4. Hero KPI designation confirmed as primary operational performance metric.",
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.484,
-      "unit": "Mds $",
+      "value": 484,
+      "unit": "M $",
       "yoy": "-61.7%",
       "history": [
-        0.816,
-        0.859,
-        1.11,
-        0.909,
-        1.057,
-        1.263,
-        0.484
+        816,
+        859,
+        1110,
+        909,
+        1057,
+        1263,
+        484
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -205,7 +205,12 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -231,8 +236,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -246,7 +255,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.08,
         1.125,
@@ -259,7 +268,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -274,7 +283,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1699,
@@ -287,7 +296,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -302,7 +311,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         154.75,
@@ -315,7 +324,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -331,7 +340,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.73,
@@ -344,7 +353,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -442,7 +451,8 @@
       "score_rationale": "Risque positionné en début de section (Item 1A), langage modéré ('generally produced consistent cash flow'), mais souligné que les acquisitions 'generally require funding from external sources'. Tendance stable. Catégorie Capital pondérée fortement pour REIT.",
       "trend": "stable",
       "summary": "La société dépend principalement de la vente de bois et d'immobilier pour générer ses liquidités. Les acquisitions de terres forestières nécessitent régulièrement un financement externe, ce qui limite la flexibilité opérationnelle.",
-      "citation": "Our principal source of cash is cash flow from operations, primarily the harvesting of timber and sales of real estate... acquisitions of timberlands generally require funding from external sources or Large Dispositions."
+      "citation": "Our principal source of cash is cash flow from operations, primarily the harvesting of timber and sales of real estate... acquisitions of timberlands generally require funding from external sources or Large Dispositions.",
+      "score": 3
     },
     {
       "title": "Risque de dégradation des notations de crédit",
@@ -451,7 +461,8 @@
       "score_rationale": "Risque explicitement identifié en section dédiée 'CREDIT RATINGS', langage fort ('Both our ability to obtain financing and the related costs of borrowing are affected'). Notations actuelles BBB/Baa3 avec perspective stable, mais dégradation antérieure visible (dette réduite de 1,3Md$ à 1,05Md$). Catégorie Crédit critique pour REIT.",
       "trend": "stable",
       "summary": "Les agences de notation (S&P et Moody's) évaluent régulièrement la capacité de la société à emprunter. Une dégradation de notation augmenterait les coûts de financement et réduirait l'accès aux marchés de capitaux.",
-      "citation": "Both our ability to obtain financing and the related costs of borrowing are affected by our credit ratings, which are periodically reviewed by the rating agencies."
+      "citation": "Both our ability to obtain financing and the related costs of borrowing are affected by our credit ratings, which are periodically reviewed by the rating agencies.",
+      "score": 4
     },
     {
       "title": "Obligations de remboursement de dette importants",
@@ -460,7 +471,8 @@
       "score_rationale": "Risque détaillé dans tableau 'Future uses of cash' en milieu de rapport, montrant 200M$ d'échéances 2026 et 850M$ de dette long-terme. Langage factuel mais chiffres substantiels. Tendance stable (dette réduite depuis 2023). Pondération Crédit forte.",
       "trend": "stable",
       "summary": "La société doit rembourser 200 millions de dollars de dette en 2026 et 850 millions supplémentaires entre 2027 et après 2030. Ces obligations réduisent la flexibilité financière pour les investissements stratégiques.",
-      "citation": "Current maturities of long-term debt (b) 200.0 [2026]... Long-term debt (a) $850.0 [2027-2030 and thereafter]"
+      "citation": "Current maturities of long-term debt (b) 200.0 [2026]... Long-term debt (a) $850.0 [2027-2030 and thereafter]",
+      "score": 3
     },
     {
       "title": "Risque de flux de trésorerie d'exploitation décroissant",
@@ -469,7 +481,8 @@
       "score_rationale": "Risque identifié en section 'CASH PROVIDED BY OPERATING ACTIVITIES', langage modéré ('decreased $4.9 million'), mais tendance baissante sur 3 ans (298,4M$ en 2023 à 256,7M$ en 2025). Impacté par 'timing of working capital requirements'. Catégorie Capital pondérée.",
       "trend": "down",
       "summary": "Les flux de trésorerie opérationnels diminuent progressivement (298M$ en 2023 vs 257M$ en 2025), principalement en raison des variations du besoin en fonds de roulement et des revenus non-monétaires du segment immobilier.",
-      "citation": "Cash provided by operating activities decreased $4.9 million versus the prior year... This decrease was primarily driven by the timing of working capital requirements"
+      "citation": "Cash provided by operating activities decreased $4.9 million versus the prior year... This decrease was primarily driven by the timing of working capital requirements",
+      "score": 3
     },
     {
       "title": "Engagements de développement immobilier substantiels",
@@ -478,7 +491,8 @@
       "score_rationale": "Risque détaillé dans tableau 'Future uses of cash', montrant 70,9M$ d'engagements immobiliers (Wildlight, Heartwood, Chenal Valley). Langage factuel mais montants significatifs. Tendance stable. Pondération Capital modérée pour REIT.",
       "trend": "stable",
       "summary": "La société s'est engagée à investir 71 millions de dollars dans des projets immobiliers de développement communautaire (Wildlight, Heartwood, Chenal Valley) entre 2026 et après 2030, ce qui immobilise des ressources financières.",
-      "citation": "Commitments real estate projects (e) 70.9 [total]... primarily consists of payments expected to be made on our Wildlight and Heartwood development projects"
+      "citation": "Commitments real estate projects (e) 70.9 [total]... primarily consists of payments expected to be made on our Wildlight and Heartwood development projects",
+      "score": 3
     },
     {
       "title": "Passifs environnementaux et dommages aux ressources naturelles",
@@ -487,7 +501,8 @@
       "score_rationale": "Risque identifié dans tableau 'Future uses of cash' avec 9,3M$ d'engagements de remédiation environnementale à Port Gamble, Washington. Langage factuel mais référence explicite à 'environmental contamination and Natural Resource Damages'. Tendance stable. Catégorie Environnement pondérée fortement.",
       "trend": "stable",
       "summary": "La société doit provisionner 9,3 millions de dollars pour la remédiation environnementale et les dommages aux ressources naturelles à Port Gamble, Washington, avec des paiements échelonnés jusqu'après 2030.",
-      "citation": "Commitments environmental remediation (f) 9.3... represents our estimate of potential liability associated with environmental contamination and Natural Resource Damages in Port Gamble, Washington"
+      "citation": "Commitments environmental remediation (f) 9.3... represents our estimate of potential liability associated with environmental contamination and Natural Resource Damages in Port Gamble, Washington",
+      "score": 3
     },
     {
       "title": "Intégration du rapprochement PotlatchDeltic",
@@ -496,7 +511,8 @@
       "score_rationale": "Risque nouveau et majeur mentionné en fin de rapport ('recently completed merger with PotlatchDeltic'), avec 'costs related to the merger' de 6,7M$ en 2025 et augmentation du nombre d'actions de 140,9M. Langage indiquant complexité opérationnelle. Tendance new. Pondération Industriel forte.",
       "trend": "new",
       "summary": "La fusion récente avec PotlatchDeltic crée des risques d'intégration opérationnelle et financière majeurs, incluant l'augmentation de 140,9 millions d'actions et les coûts de fusion de 6,7 millions de dollars en 2025.",
-      "citation": "Notably, this table does not include the impact of the recently completed merger with PotlatchDeltic... The estimated aggregate payments reflect the issuance of approximately 140.9 million additional common shares associated with the merger"
+      "citation": "Notably, this table does not include the impact of the recently completed merger with PotlatchDeltic... The estimated aggregate payments reflect the issuance of approximately 140.9 million additional common shares associated with the merger",
+      "score": 4
     }
   ],
   "_validation": {
@@ -561,7 +577,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "EBITDA"
   },
   "_fit_for_site": true,
@@ -664,7 +680,7 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.174Z",
   "_dividends_extracted_at": "2026-05-09T20:21:52Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -691,7 +707,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:20Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:17Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_ai_pos": {
     "stance": "absent",
@@ -879,7 +895,10 @@
             "source": "calc-RYN_2026-02-23.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -895,9 +914,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.305861+00:00",
     "fetched_at": "2026-05-21T02:17:14.305862+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.448Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.482Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ryn.json",
     "enrich_root": "v2-pipeline-enrich/ryn.json",

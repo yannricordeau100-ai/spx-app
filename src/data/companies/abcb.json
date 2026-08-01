@@ -21,8 +21,8 @@
       "name_fr": "Bénéfice net",
       "name_en": "Net Income",
       "explanation": "Bénéfice net de la société",
-      "value": 73500,
-      "unit": "M $",
+      "value": 73.5,
+      "unit": "Mds $",
       "yoy": "+15%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,14 +30,14 @@
       "signal": "Augmentation du bénéfice net",
       "description": "Bénéfice net de la société en 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 8 dernières années.",
       "history": [
-        62800,
-        64400,
-        65800,
-        67500,
-        68900,
-        70200,
-        72100,
-        73500
+        62.8,
+        64.4,
+        65.8,
+        67.5,
+        68.9,
+        70.2,
+        72.1,
+        73.5
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -45,8 +45,9 @@
       "is_short_history": false,
       "ttm": 427.57,
       "period_type": "quarter",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Tangible Book Value per Share",
@@ -115,11 +116,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.17 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -138,11 +143,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 6.0 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,34 +170,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 27.52 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.69,
-      "unit": "Mds €",
+      "value": 690,
+      "unit": "M €",
       "yoy": "+64.3%",
       "history": [
-        2,
-        0.64,
-        0.42,
-        0.69
+        2000,
+        640,
+        420,
+        690
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.69 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -207,10 +225,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.09 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -237,9 +259,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 427.57,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 427.57
     }
   ],
   "ai_positioning": {
@@ -358,7 +378,6 @@
       "date": "2026-04-23"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:56:29.531927+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -395,6 +414,7 @@
     ],
     "total": 1.09
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:56:29.531927+00:00",
   "_segments_fetched_at": "2026-05-06T19:21:22.631507+00:00",
   "risks": [
     {
@@ -403,7 +423,8 @@
       "severity": 4,
       "score_rationale": "Risque stratégique majeur placé en premier. Langage fort : « highly competitive », « may adversely affect our success ». Mention explicite de l'IA et quantum computing comme accélérateurs de disruption. Concurrence de fintechs et non-banks non régulées augmente la pression.",
       "trend": "up",
-      "summary": "ABCB opère dans un environnement bancaire hautement compétitif face à des concurrents plus grands, des fintechs et des non-banks moins régulés. L'adoption rapide de l'IA et nouvelles technologies intensifie la disruption et menace la rentabilité."
+      "summary": "ABCB opère dans un environnement bancaire hautement compétitif face à des concurrents plus grands, des fintechs et des non-banks moins régulés. L'adoption rapide de l'IA et nouvelles technologies intensifie la disruption et menace la rentabilité.",
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt sur NII",
@@ -411,7 +432,8 @@
       "severity": 5,
       "score_rationale": "Risque existentiel : 77,6% des revenus 2025 proviennent de NII. Langage critique : « highly correlated », « could materially adversely affect ». Position actuelle asset-sensitive mais vulnérable aux mouvements de courbe. Impact direct sur valorisation des actifs/passifs.",
       "trend": "stable",
-      "summary": "La marge nette d'intérêt (77,6% des revenus) est extrêmement sensible aux variations de taux. Mouvements inattendus des taux pourraient réduire significativement la rentabilité et la valeur des actifs."
+      "summary": "La marge nette d'intérêt (77,6% des revenus) est extrêmement sensible aux variations de taux. Mouvements inattendus des taux pourraient réduire significativement la rentabilité et la valeur des actifs.",
+      "score": 5
     },
     {
       "title": "Risque de liquidité et fuite de dépôts",
@@ -419,7 +441,8 @@
       "severity": 4,
       "score_rationale": "Risque de liquidité explicite et détaillé. 47,7% des dépôts non assurés au 31/12/2025. Référence à la crise de printemps 2023 et risque de bank runs. Langage fort : « material adverse effect ».",
       "trend": "up",
-      "summary": "ABCB dépend fortement de dépôts à vue (47,7% non assurés). Une perte de confiance, une crise bancaire ou une hausse des taux pourrait déclencher des retraits massifs et compromettre la liquidité."
+      "summary": "ABCB dépend fortement de dépôts à vue (47,7% non assurés). Une perte de confiance, une crise bancaire ou une hausse des taux pourrait déclencher des retraits massifs et compromettre la liquidité.",
+      "score": 4
     },
     {
       "title": "Intégration d'acquisitions et risques M&A",
@@ -427,7 +450,8 @@
       "severity": 3,
       "score_rationale": "Risque stratégique détaillé avec multiples sous-risques : attrition de dépôts, perte de talents, disruption opérationnelle. Langage modéré mais exhaustif. Dépendance à l'approbation réglementaire fédérale crée incertitude.",
       "trend": "stable",
-      "summary": "Les acquisitions (stratégie de croissance clé) comportent des risques d'intégration : attrition de dépôts, perte de collaborateurs clés, disruption opérationnelle et impact négatif sur capital/earnings à court terme."
+      "summary": "Les acquisitions (stratégie de croissance clé) comportent des risques d'intégration : attrition de dépôts, perte de collaborateurs clés, disruption opérationnelle et impact négatif sur capital/earnings à court terme.",
+      "score": 3
     },
     {
       "title": "Dépendance aux dividendes bancaires",
@@ -435,7 +459,8 @@
       "severity": 3,
       "score_rationale": "Risque structurel : Ameris (holding) dépend quasi-entièrement des dividendes de sa filiale bancaire pour servir sa dette et dividendes. Restrictions légales fédérales/étatiques limitent les dividendes versables. Langage clair sur la dépendance.",
       "trend": "stable",
-      "summary": "Ameris (holding) reçoit la quasi-totalité de ses revenus des dividendes de sa banque filiale. Des restrictions réglementaires fédérales/étatiques pourraient limiter ces dividendes et compromettre le service de la dette et des dividendes aux actionnaires."
+      "summary": "Ameris (holding) reçoit la quasi-totalité de ses revenus des dividendes de sa banque filiale. Des restrictions réglementaires fédérales/étatiques pourraient limiter ces dividendes et compromettre le service de la dette et des dividendes aux actionnaires.",
+      "score": 3
     },
     {
       "title": "Risques du portefeuille hypothécaire",
@@ -443,7 +468,8 @@
       "severity": 3,
       "score_rationale": "Risque spécifique au métier de mortgage banking. Langage détaillé sur les représentations/garanties, risque de rachat de prêts, impact de la baisse des taux sur originations. Dépendance au marché secondaire pour la liquidité.",
       "trend": "stable",
-      "summary": "L'activité de mortgage banking (source de revenus et liquidité) est exposée aux variations de taux, à la baisse des valeurs immobilières et aux risques de breach de représentations/garanties nécessitant des rachats coûteux."
+      "summary": "L'activité de mortgage banking (source de revenus et liquidité) est exposée aux variations de taux, à la baisse des valeurs immobilières et aux risques de breach de représentations/garanties nécessitant des rachats coûteux.",
+      "score": 3
     },
     {
       "title": "Politique monétaire et fiscale gouvernementale",
@@ -451,7 +477,8 @@
       "severity": 3,
       "score_rationale": "Risque macro-économique : dépendance aux décisions de la Fed (taux, réserves obligatoires) et du Congrès (fiscalité, budget). Langage : « could materially adversely affect ». Impact indirect mais significatif sur l'économie régionale.",
       "trend": "stable",
-      "summary": "Les politiques monétaires de la Fed et fiscales du Congrès influencent directement les taux d'intérêt et les conditions économiques régionales, affectant la rentabilité et les opportunités de prêt d'ABCB."
+      "summary": "Les politiques monétaires de la Fed et fiscales du Congrès influencent directement les taux d'intérêt et les conditions économiques régionales, affectant la rentabilité et les opportunités de prêt d'ABCB.",
+      "score": 3
     },
     {
       "title": "Inflation et hausse des coûts opérationnels",
@@ -459,7 +486,8 @@
       "severity": 2,
       "score_rationale": "Risque secondaire mais explicite. Inflation modérée mais élevée historiquement. Impact sur salaires, technologie, fournitures. Langage : « faster pace than revenues ». Moins critique que NII mais mentionné comme préoccupation actuelle.",
       "trend": "down",
-      "summary": "L'inflation persistante (bien que modérée récemment) augmente les coûts de salaires, technologie et fournitures potentiellement plus vite que les revenus, comprimant les marges opérationnelles."
+      "summary": "L'inflation persistante (bien que modérée récemment) augmente les coûts de salaires, technologie et fournitures potentiellement plus vite que les revenus, comprimant les marges opérationnelles.",
+      "score": 2
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T20:27:19.052470+00:00",
@@ -560,6 +588,103 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "ABCB",
+    "extracted_at": "2026-06-01T02:54:16Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          124.962,
+          171.764,
+          81.68,
+          81.698,
+          90.066,
+          92.555,
+          60.421,
+          62.635,
+          80.115,
+          74.312,
+          90.785,
+          99.212,
+          87.935,
+          109.834,
+          106.029
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:54:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Diluted EPS",
+        "period_type": "quarter",
+        "history": [
+          1.08,
+          1.17,
+          1.09,
+          1.65,
+          2.82,
+          3.89,
+          0.8,
+          0.84,
+          1.07,
+          0.8,
+          0.84,
+          1.07,
+          0.99,
+          1.21,
+          1.32
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "€",
+        "_extracted_at": "2026-06-01T02:54:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "ABCB",
     "ranks": {
@@ -572,15 +697,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.130667+00:00",
     "fetched_at": "2026-05-21T02:17:14.130669+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.125Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.639Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/abcb.json",
     "enrich_root": "v2-pipeline-enrich/abcb.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -34,7 +34,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Gross Margin",
@@ -54,7 +54,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Digital Payment Volumes Growth",
@@ -95,34 +95,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.76 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "+15.0%",
       "history": [
-        0.14,
-        0.12,
-        0.2,
-        0.23
+        140,
+        120,
+        200,
+        230
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.23 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -141,56 +150,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.1 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.85,
-      "unit": "Mds €",
+      "value": 850,
+      "unit": "M €",
       "yoy": "-11.5%",
       "history": [
-        1.14,
-        1.08,
-        0.96,
-        0.85
+        1140,
+        1080,
+        960,
+        850
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.85 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "-9.1%",
       "history": [
-        0.12,
-        0.16,
-        0.22,
-        0.2
+        120,
+        160,
+        220,
+        200
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.2 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -216,7 +239,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "ACI Worldwide reconnaît l'importance croissante de l'IA et des analyses avancées dans la prévention de la fraude et l'amélioration de l'expérience client. La société voit des opportunités pour que l'IA automatise la protection financière, y compris la reconnaissance des identités synthétiques et la remédiation automatisée, en particulier face aux risques accrus liés aux agents IA créant de nouveaux vecteurs d'exploitation.",
     "evidence": [
       "Payments Intelligence and Artificial Intelligence section in MD&A: ACI discusses AI's role in combating fraud, recognizing synthetic identities, and automating financial protection",
@@ -230,52 +253,52 @@
       "title": "Intense Market Competition",
       "category": "Competition",
       "severity": 5,
-      "score_rationale": "ACI operates in rapidly changing, highly competitive markets with larger competitors possessing significantly greater financial, technical and marketing resources. Consolidation among competitors and in-house development by clients create ongoing competitive pressures. (score par défaut, à affiner)",
+      "score_rationale": "ACI operates in rapidly changing, highly competitive markets with larger competitors possessing significantly greater financial, technical and marketing resources. Consolidation among competitors and in-house development by clients create ongoing competitive pressures.",
       "trend": "stable",
       "summary": "Intense competition could lead to price reductions, reduced market share, and reduced profitability for ACI.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Cybersecurity and Data Protection",
       "category": "Cybersecurity",
       "severity": 5,
-      "score_rationale": "As a payments infrastructure provider, ACI is exposed to cybersecurity threats, data breaches, and system disruptions. The increasing threat landscape with AI-driven fraud exploits requires continuous investment in security measures. (score par défaut, à affiner)",
+      "score_rationale": "As a payments infrastructure provider, ACI is exposed to cybersecurity threats, data breaches, and system disruptions. The increasing threat landscape with AI-driven fraud exploits requires continuous investment in security measures.",
       "trend": "up",
       "summary": "A significant security breach could result in data loss, service interruptions, regulatory penalties, and damage to ACI's reputation and customer relationships.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Cloud and Infrastructure Dependencies",
       "category": "Operations",
       "severity": 4,
-      "score_rationale": "ACI increasingly relies on cloud infrastructure partners (AWS, Azure) and strategic technology partners (IBM, Red Hat) for cloud-native solutions delivery. Service disruptions could impact customer operations. (score par défaut, à affiner)",
+      "score_rationale": "ACI increasingly relies on cloud infrastructure partners (AWS, Azure) and strategic technology partners (IBM, Red Hat) for cloud-native solutions delivery. Service disruptions could impact customer operations.",
       "trend": "up",
       "summary": "Failure or degradation of cloud infrastructure services could result in service interruptions and loss of revenues.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Regulatory and Compliance Changes",
       "category": "Regulatory",
       "severity": 4,
-      "score_rationale": "ACI operates in heavily regulated financial services markets. Regulatory changes such as ISO 20022 implementation, stablecoin regulations (GENIUS Act), and evolving payment standards require ongoing solution adaptation. (score par défaut, à affiner)",
+      "score_rationale": "ACI operates in heavily regulated financial services markets. Regulatory changes such as ISO 20022 implementation, stablecoin regulations (GENIUS Act), and evolving payment standards require ongoing solution adaptation.",
       "trend": "up",
       "summary": "Regulatory changes or non-compliance could result in operational restrictions, additional costs, and loss of customer contracts.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Acquisition Integration Risk",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "ACI pursues growth through acquisitions and strategic partnerships. Integration challenges could impact financial performance and strategic objectives. (score par défaut, à affiner)",
+      "score_rationale": "ACI pursues growth through acquisitions and strategic partnerships. Integration challenges could impact financial performance and strategic objectives.",
       "trend": "stable",
       "summary": "Failed acquisition integration or unsuccessful partnerships could result in financial losses and distraction from core business objectives.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Foreign Exchange and Currency Risks",
       "category": "Financial",
       "severity": 3,
-      "score_rationale": "While majority of contracts are USD-denominated, significant portions of sales occur in local currencies, and operational expenses are incurred internationally, creating exposure to currency fluctuations. (score par défaut, à affiner)",
+      "score_rationale": "While majority of contracts are USD-denominated, significant portions of sales occur in local currencies, and operational expenses are incurred internationally, creating exposure to currency fluctuations.",
       "trend": "stable",
       "summary": "Foreign currency exchange rate fluctuations could result in unrealized gains or losses and impact reported financial performance.",
       "score": 3
@@ -284,7 +307,7 @@
       "title": "Customer Concentration and In-House Development",
       "category": "Commercial",
       "severity": 3,
-      "score_rationale": "Some existing and potential customers develop key payment solutions in-house, reducing demand for ACI solutions. Customer consolidation in financial services could concentrate revenues. (score par défaut, à affiner)",
+      "score_rationale": "Some existing and potential customers develop key payment solutions in-house, reducing demand for ACI solutions. Customer consolidation in financial services could concentrate revenues.",
       "trend": "stable",
       "summary": "Customer defection to in-house solutions or customer consolidation could reduce addressable market and revenue growth opportunities.",
       "score": 3
@@ -426,7 +449,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.231Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.050Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aciw.json",
     "enrich_root": null,

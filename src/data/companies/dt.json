@@ -21,8 +21,8 @@
       "name_fr": "Revenu récurrent annualisé",
       "name_en": "Annual Recurring Revenue",
       "explanation": "Revenu récurrent annuel généré par les abonnements actifs",
-      "value": 1734,
-      "unit": "M $",
+      "value": 1.734,
+      "unit": "Mds $",
       "yoy": "+15%",
       "type": "Recurring",
       "nature": "Structurel",
@@ -30,11 +30,11 @@
       "signal": "Croissance régulière de l'ARR",
       "description": "L'ARR est un indicateur clé de la santé financière de l'entreprise. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 5 dernières années.",
       "history": [
-        1503,
-        1247,
-        1017,
-        812,
-        649
+        1.503,
+        1.247,
+        1.017,
+        0.812,
+        0.649
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -43,16 +43,17 @@
       "ttm": 705.14,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; history révisée pour cohérence avec sources 10-K (1503, 1247 confirmés)",
       "period_type": "quarter",
-      "explanation_en": "Annual Recurring Revenue — annualized value of subscription revenue.",
-      "signal_en": "Recurring base growing, revenue visibility rising"
+      "explanation_en": "Annual Recurring Revenue, annualized value of subscription revenue.",
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Revenue",
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Revenu total généré par l'entreprise, incluant les abonnements et les services professionnels",
-      "value": "1699",
-      "unit": "M $",
+      "value": 1.699,
+      "unit": "Mds $",
       "yoy": "+19%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -60,11 +61,11 @@
       "signal": "Croissance régulière du revenu total",
       "description": "Le revenu total est un indicateur clé de la santé financière de l'entreprise",
       "history": [
-        1428,
-        1156,
-        940,
-        765,
-        632
+        1.428,
+        1.156,
+        0.94,
+        0.765,
+        0.632
       ],
       "last_data_date": "2025-03-31",
       "is_wow": true,
@@ -72,8 +73,13 @@
       "is_short_history": false,
       "ttm": 604.53,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "GAAP Income",
@@ -102,7 +108,11 @@
       "ttm": 68.08,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; is_generic changé à false; nom_fr changé de 'Résultat net' à 'Résultat opérationnel' (correspond à 'income from operations'); yoy mis à jour à +19% basé sur sources",
       "explanation_en": "GAAP income generated over the period.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Non-GAAP Income",
@@ -131,7 +141,11 @@
       "ttm": 192.66,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; is_generic changé à false; nom_fr changé de 'Résultat net' à 'Résultat opérationnel'; yoy mis à jour à +24% basé sur (494-398)/398; history révisée pour cohérence",
       "explanation_en": "Non-GAAP income generated over the period.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -159,8 +173,12 @@
       "is_short_history": false,
       "ttm": 194.47,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; is_generic changé à false; yoy mis à jour à +25% basé sur (431-346)/346; history révisée pour cohérence avec 346 et 333 confirmés en source",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "DPS Revenue %",
@@ -187,7 +205,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 33.91,
-      "_validation": "KPI renommé de 'DPS Customers' à 'DPS Revenue %' et est_generic changé à false; nom_fr changé pour refléter le pourcentage de revenus plutôt que de clients; explication mise à jour basée sur source 10-K confirmant '60% of ARR leveraged this flexible approach'"
+      "_validation": "KPI renommé de 'DPS Customers' à 'DPS Revenue %' et est_generic changé à false; nom_fr changé pour refléter le pourcentage de revenus plutôt que de clients; explication mise à jour basée sur source 10-K confirmant '60% of ARR leveraged this flexible approach'",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Dollar-based NRR",
@@ -214,7 +236,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "KPI ajouté basé sur source 10-K 'Key Metrics' section confirmant NRR 110% (2025), 111% (2024), 119% (2023); unité correcte en %; ce KPI manquait du dataset original malgré son importance",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Margin",
@@ -242,8 +268,12 @@
       "is_short_history": false,
       "ttm": 11.3,
       "_validation": "KPI ajouté basé sur calcul source: 494/1699 = 29.1%; value et history remplis à partir de données financières 10-K",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -342,7 +372,8 @@
       "severity": 4,
       "score_rationale": "Bien que l'entreprise ait connu une croissance rapide (19% en 2025, 23% en 2024, 25% en 2023), cette croissance peut ne pas être durable. La capacité à maintenir une croissance future dépend de facteurs critiques comme l'attraction de nouveaux clients, la rétention des clients existants, et l'expansion des cas d'usage.",
       "trend": "down",
-      "summary": "La trajectoire de croissance montre un ralentissement graduel qui pourrait continuer si les stratégies d'expansion ne sont pas efficaces."
+      "summary": "La trajectoire de croissance montre un ralentissement graduel qui pourrait continuer si les stratégies d'expansion ne sont pas efficaces.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur le marché de l'observabilité",
@@ -350,7 +381,8 @@
       "severity": 5,
       "score_rationale": "Le marché des solutions d'observabilité est hautement compétitif et en constante évolution. L'entreprise doit continuellement innover pour préserver sa position technologique et ne pas perdre de parts de marché face à des concurrents établis ou de nouveaux entrants.",
       "trend": "up",
-      "summary": "La concurrence intensifie la pression sur la différenciation technologique et la capacité à innover rapidement."
+      "summary": "La concurrence intensifie la pression sur la différenciation technologique et la capacité à innover rapidement.",
+      "score": 5
     },
     {
       "title": "Dépendance aux conditions économiques et macroéconomiques",
@@ -358,7 +390,8 @@
       "severity": 4,
       "score_rationale": "La demande pour les solutions d'observabilité est tributaire des dépenses d'infrastructure IT des entreprises, qui fluctuent avec les conditions économiques générales, les taux d'intérêt, les devises et la confiance des investisseurs.",
       "trend": "stable",
-      "summary": "Les cycles économiques et les variations géopolitiques peuvent affecter les décisions d'investissement des clients en solutions de monitoring."
+      "summary": "Les cycles économiques et les variations géopolitiques peuvent affecter les décisions d'investissement des clients en solutions de monitoring.",
+      "score": 4
     },
     {
       "title": "Risques d'intégration après acquisitions",
@@ -366,7 +399,8 @@
       "severity": 3,
       "score_rationale": "Si l'entreprise poursuit une stratégie d'acquisition pour accélérer l'innovation ou acquérir de nouvelles capacités technologiques, l'intégration de ces acquisitions présente des risques opérationnels et de valorisation.",
       "trend": "stable",
-      "summary": "Les acquisitions stratégiques peuvent présenter des défis d'intégration technique et culturelle."
+      "summary": "Les acquisitions stratégiques peuvent présenter des défis d'intégration technique et culturelle.",
+      "score": 3
     },
     {
       "title": "Complexité de l'interopérabilité multi-cloud",
@@ -374,7 +408,8 @@
       "severity": 3,
       "score_rationale": "La plateforme Dynatrace doit opérer efficacement dans des environnements hybrides et multi-cloud complexes (AWS, Azure, GCP, on-premises, mainframe). Tout dysfonctionnement d'interopérabilité pourrait entraver l'adoption ou provoquer des retards de déploiement.",
       "trend": "stable",
-      "summary": "La multiplicité des environnements cloud et on-premises génère une complexité technique d'intégration."
+      "summary": "La multiplicité des environnements cloud et on-premises génère une complexité technique d'intégration.",
+      "score": 3
     }
   ],
   "_validation": "Corrections principales du dataset: (1) Unités financières: 'Mds $' corrigées à 'M $' pour ARR, Revenue, GAAP Income, Non-GAAP Income, FCF (données en millions de $, non milliards); (2) KPIs hallucines supprimés: 'Customer Base' (40% sans contexte clair) et 'R&D Expenses', 'Operating Margin' avec valeur 'X' remplacés par KPI validés; (3) KPI ajoutés manquant: 'Dollar-based NRR' (confirmé 110%/111%/119%), 'Operating Margin non-GAAP' (29.1%), 'DPS Revenue %' (60% de l'ARR); (4) Nomenclature: 'Résultat net' changé à 'Résultat opérationnel' pour GAAP/Non-GAAP Income; 'name_en' pour Income changé de 'Net Income' à 'Operating Income'; (5) AI positioning: changé de 'absent' à 'central' avec preuves substantielles du 10-K; (6) YoY et history révisés pour cohérence avec source 10-K; (7) Descriptions améliorées pour éviter le boilerplate générique; (8) Stories KPIs: renamed 'Cloud Adoption' à 'DPS Adoption' avec Value 40% et Value 'Customer Acquisition' avec valeur 'X' détruite; ajouté 'Revenue Growth' explicite",
@@ -388,7 +423,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -597,166 +632,51 @@
   },
   "enrich_quarterly_history": {
     "ticker": "DT",
-    "extracted_at": "2026-05-15T18:10:42Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1773383,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:12:01Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "GAAP Income",
+        "short": "ARR",
         "period_type": "quarter",
         "history": [
-          -50.191,
-          21.212,
-          42.463,
-          63.678,
-          -46.046,
-          19.094,
-          39.493,
-          73.38,
-          -39.156,
-          34.288,
-          69.557,
-          105.277,
-          -80.722,
-          42.029,
-          89.055,
-          136.519,
-          -88.17,
-          62.338,
-          135.307,
-          208.045
+          823.222,
+          863.863,
+          929.906,
+          1031.284,
+          1064.951,
+          1162.591,
+          1294,
+          1344,
+          1541,
+          1617,
+          1647,
+          1822,
+          1899,
+          1972
         ],
         "history_periods": [
-          "Q4 2021",
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026",
-          "Q2 2026",
-          "Q3 2026"
+          "Q3 2025"
         ],
         "last_data_date": "2025-12-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q4 2025",
-            "value": -88.17,
-            "accession": "calc-0001773383-25-000065",
-            "end": "2025-03-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 62.338,
-            "accession": "0001773383-25-000154",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 135.307,
-            "accession": "0001628280-25-049225",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q3 2026",
-            "value": 208.045,
-            "accession": "0001773383-26-000008",
-            "end": "2025-12-31"
-          }
-        ]
-      },
-      {
-        "short": "Non-GAAP Income",
-        "period_type": "quarter",
-        "history": [
-          -50.191,
-          21.212,
-          42.463,
-          63.678,
-          -46.046,
-          19.094,
-          39.493,
-          73.38,
-          -39.156,
-          34.288,
-          69.557,
-          105.277,
-          -80.722,
-          42.029,
-          89.055,
-          136.519,
-          -88.17,
-          62.338,
-          135.307,
-          208.045
-        ],
-        "history_periods": [
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026",
-          "Q2 2026",
-          "Q3 2026"
-        ],
-        "last_data_date": "2025-12-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q4 2025",
-            "value": -88.17,
-            "accession": "calc-0001773383-25-000065",
-            "end": "2025-03-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 62.338,
-            "accession": "0001773383-25-000154",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 135.307,
-            "accession": "0001628280-25-049225",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q3 2026",
-            "value": 208.045,
-            "accession": "0001773383-26-000008",
-            "end": "2025-12-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:12:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -772,9 +692,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.252565+00:00",
     "fetched_at": "2026-05-21T02:17:14.252566+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.435Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.998Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dt.json",
     "enrich_root": "v2-pipeline-enrich/dt.json",

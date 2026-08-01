@@ -69,7 +69,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 386.4
+      "ttm": 386.4,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Lease Property Acquisitions",
@@ -95,7 +99,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 182.1
+      "ttm": 182.1,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Investing and Servicing Segment",
@@ -121,15 +129,19 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 153
+      "ttm": 153,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Senior Notes Issued",
       "name_fr": "Billets de rang senior émis",
       "name_en": "Senior Notes Issued",
       "explanation": "Long-term debt financing raised during the quarter",
-      "value": "1050.0",
-      "unit": "M $",
+      "value": 1.05,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Capital",
       "nature": "Structurel",
@@ -141,15 +153,16 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "ttm": 1050
+      "ttm": 1050,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "CLO Refinancing Volume",
       "name_fr": "Volume de refinancement CLO",
       "name_en": "CLO Refinancing Volume",
       "explanation": "Collateralized Loan Obligations securitization volume completed during the quarter",
-      "value": "1600.0",
-      "unit": "M $",
+      "value": 1.6,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Capital",
       "nature": "Structurel",
@@ -162,7 +175,8 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 1600,
-      "explanation_en": "Volume of CLO Refinancing over the period."
+      "explanation_en": "Volume of CLO Refinancing over the period.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Assets",
@@ -181,11 +195,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 63.18 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -204,11 +222,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 13.2 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -304,7 +326,8 @@
       "severity": 5,
       "score_rationale": "Risk is positioned first in Risk Factors section and describes structural dependence on Starwood Capital Group key personnel. Strong language: departure could have material adverse effect. No clear succession plan. High weighting for key-person risk at manager level.",
       "trend": "stable",
-      "summary": "STWD performance depends heavily on Starwood Capital Group officers and key personnel. Their departure could materially harm the company."
+      "summary": "STWD performance depends heavily on Starwood Capital Group officers and key personnel. Their departure could materially harm the company.",
+      "score": 5
     },
     {
       "title": "Conflicts of interest with affiliated private funds",
@@ -312,7 +335,8 @@
       "severity": 5,
       "score_rationale": "Document describes exclusivity arrangements preventing STWD from accessing certain investments from SCG funds. Concerning language: no flexibility to expand strategy. Recurring unmitigated risk. Highly weighted for Competition category.",
       "trend": "stable",
-      "summary": "Starwood Capital Group private funds have priority on certain investment opportunities, limiting those available to STWD shareholders."
+      "summary": "Starwood Capital Group private funds have priority on certain investment opportunities, limiting those available to STWD shareholders.",
+      "score": 5
     },
     {
       "title": "High fixed management fees not tied to performance",
@@ -320,7 +344,8 @@
       "severity": 4,
       "score_rationale": "Risk explicitly mentioned: base fees are performance-independent, which could reduce manager incentives. Central position in Risk Factors. Category Capital significant but less existential than key-person or conflicts.",
       "trend": "stable",
-      "summary": "Manager receives fixed fees regardless of performance, which could misalign incentives with shareholder returns."
+      "summary": "Manager receives fixed fees regardless of performance, which could misalign incentives with shareholder returns.",
+      "score": 4
     },
     {
       "title": "Incentive to take excess risk to maximize performance fee",
@@ -328,7 +353,8 @@
       "severity": 5,
       "score_rationale": "Risk clearly stated: bonus incentivizes revenue maximization over capital preservation, language mentions riskier investments. Critical for financial services company. Credit category highest priority.",
       "trend": "stable",
-      "summary": "Manager's bonus structure may encourage riskier asset selection to increase distributable income and compensation."
+      "summary": "Manager's bonus structure may encourage riskier asset selection to increase distributable income and compensation.",
+      "score": 5
     },
     {
       "title": "High cost and complexity of management agreement termination",
@@ -336,7 +362,8 @@
       "severity": 4,
       "score_rationale": "Contract auto-renews annually and termination costs three times average fees. Described as costly and difficult. Unambiguous language limiting board flexibility.",
       "trend": "stable",
-      "summary": "Terminating the management agreement is costly and complex, constraining board options for manager replacement."
+      "summary": "Terminating the management agreement is costly and complex, constraining board options for manager replacement.",
+      "score": 4
     },
     {
       "title": "CECL allowance estimation uncertainty for credit losses",
@@ -344,7 +371,8 @@
       "severity": 4,
       "score_rationale": "Risk well-articulated: CECL estimates are difficult to determine with multiple uncertain factors. Impacts office, retail and multifamily sectors. Less central than governance risks but high language intensity regarding reserve volatility.",
       "trend": "stable",
-      "summary": "Estimating expected credit losses is complex and uncertain, potentially impacting earnings through reserve adjustments."
+      "summary": "Estimating expected credit losses is complex and uncertain, potentially impacting earnings through reserve adjustments.",
+      "score": 4
     },
     {
       "title": "Risks from future public health crises",
@@ -352,7 +380,8 @@
       "severity": 4,
       "score_rationale": "Well-developed risk: material adverse impacts possible with highly uncertain timing. References recent pandemic experience. Moderate weighting for Geopolitical category given uncertainty.",
       "trend": "stable",
-      "summary": "Future health crises could disrupt operations, markets and borrower performance, materially affecting STWD results."
+      "summary": "Future health crises could disrupt operations, markets and borrower performance, materially affecting STWD results.",
+      "score": 4
     },
     {
       "title": "Economic headwinds from tariffs and interest rates",
@@ -360,7 +389,8 @@
       "severity": 4,
       "score_rationale": "Risk addresses uncertain tariff impacts creating economic slowdown possibilities. Elevated rates and tariffs dampen consumer spending affecting collateral values. Observable trend in 2025 with ongoing uncertainty.",
       "trend": "stable",
-      "summary": "Tariffs and sustained higher interest rates may reduce borrower income and property values, weakening portfolio credit quality."
+      "summary": "Tariffs and sustained higher interest rates may reduce borrower income and property values, weakening portfolio credit quality.",
+      "score": 4
     }
   ],
   "governance": {
@@ -657,9 +687,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.314678+00:00",
     "fetched_at": "2026-05-21T02:17:14.314678+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.250Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.271Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/stwd.json",
     "enrich_root": "v2-pipeline-enrich/stwd.json",

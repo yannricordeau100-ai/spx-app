@@ -1,6 +1,6 @@
 {
   "ticker": "HAE",
-  "name": "Haemonetics Corporation",
+  "name": "Haemonetics",
   "sector": "Santé",
   "subsector": "Medical Devices & Technology",
   "tagline": "Global medical technology company advancing patient outcomes through innovative hospital, plasma collection, and blood center solutions",
@@ -51,9 +51,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Extracted actual R&D values from Consolidated Statements of Income; corrected unit from % to $M; added YoY calculation and complete 3-year history",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Capex",
@@ -74,7 +77,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Corrected unit from $B to $M; flagged as unavailable in source document",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Revenue",
@@ -93,57 +96,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.36 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "+41.7%",
       "history": [
-        0.04,
-        0.12,
-        0.12,
-        0.17
+        40,
+        120,
+        120,
+        170
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.17 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "+17.6%",
       "history": [
-        0.07,
-        0.16,
-        0.17,
-        0.2
+        70,
+        160,
+        170,
+        200
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.2 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -162,11 +179,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.45 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -185,33 +206,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.22 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.31,
-      "unit": "Mds €",
+      "value": 310,
+      "unit": "M €",
       "yoy": "+72.2%",
       "history": [
-        0.26,
-        0.28,
-        0.18,
-        0.31
+        260,
+        280,
+        180,
+        310
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.31 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -247,9 +277,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Innovation",
-      "_validation": "Consolidated both acquisitions into single KPI; corrected value to total $442.2M (OpSens $254.5M + Attune Medical $187.7M); updated unit from $M implicit to explicit $M; added both acquisitions to history with descriptions",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Consolidated both acquisitions into single KPI; corrected value to total $442.2M (OpSens $254.5M + Attune Medical $187.7M); updated unit from $M implicit to explicit $M; added both acquisitions to history with descriptions"
     },
     {
       "short": "Divestiture",
@@ -270,9 +298,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Portfolio Optimization",
-      "_validation": "New KPI extracted from Recent Developments section; documents strategic divestiture completed post-fiscal year-end",
-      "_source_month": "janvier 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "New KPI extracted from Recent Developments section; documents strategic divestiture completed post-fiscal year-end"
     }
   ],
   "ai_positioning": {
@@ -286,43 +312,43 @@
       "title": "Dependence on few customers in Plasma segment",
       "category": "Commercial",
       "severity": 5,
-      "score_rationale": "Risk explicitly cited as leading market factor. Source states 'only a few customers provide the majority of our Plasma revenue' with approximately two-thirds of world source plasma collected in U.S. where customer concentration is highest. High structural barriers to entry prevent rapid diversification. Classified as Commercial risk given direct revenue impact and customer concentration dynamics. (score par défaut, à affiner)",
+      "score_rationale": "Risk explicitly cited as leading market factor. Source states 'only a few customers provide the majority of our Plasma revenue' with approximately two-thirds of world source plasma collected in U.S. where customer concentration is highest. High structural barriers to entry prevent rapid diversification. Classified as Commercial risk given direct revenue impact and customer concentration dynamics.",
       "trend": "stable",
       "summary": "Company depends heavily on few major biopharmaceutical customers for Plasma segment sales, creating material revenue risk if customers reduce purchases or consolidate.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Intensified competition in blood collection automation",
       "category": "Commercial",
       "severity": 4,
-      "score_rationale": "MD&A explicitly states competition 'has negatively impacted our sales' in multiproduct collection technology. Risk compounds effect of declining transfusion rates in Blood Center market. Competitive pressure directly affects revenue recognition and margin realization. (score par défaut, à affiner)",
+      "score_rationale": "MD&A explicitly states competition 'has negatively impacted our sales' in multiproduct collection technology. Risk compounds effect of declining transfusion rates in Blood Center market. Competitive pressure directly affects revenue recognition and margin realization.",
       "trend": "stable",
       "summary": "Increased competition in automated blood collection systems limits growth opportunities in Blood Center segment amid declining transfusion demand.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cybersecurity risks in connected medical systems",
       "category": "Cybersecurity",
       "severity": 5,
-      "score_rationale": "Explicit cross-reference to Item 1A cybersecurity risk factors indicates critical exposure. Medical device companies are high-value targets for cyber attacks. Connected Hospital technologies including sensor-guided systems and software solutions increase attack surface. Data breach or system compromise could disrupt patient care and trigger regulatory consequences. (score par défaut, à affiner)",
+      "score_rationale": "Explicit cross-reference to Item 1A cybersecurity risk factors indicates critical exposure. Medical device companies are high-value targets for cyber attacks. Connected Hospital technologies including sensor-guided systems and software solutions increase attack surface. Data breach or system compromise could disrupt patient care and trigger regulatory consequences.",
       "trend": "stable",
       "summary": "Connected medical systems and software platforms expose company to significant cybersecurity threats that could interrupt operations or compromise patient safety.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Market and Regional Alignment restructuring costs and execution risk",
       "category": "Operational",
       "severity": 4,
-      "score_rationale": "Board-approved initiative (May 2025) plans $20M restructuring costs (50% severance, 50% exit costs) continuing through end of fiscal 2027. Source explicitly states 'amounts and timing may vary materially' and actual costs could exceed estimates. Execution risks include organizational disruption and delayed benefit realization. Initiative expected to generate $30M annualized savings once complete. (score par défaut, à affiner)",
+      "score_rationale": "Board-approved initiative (May 2025) plans $20M restructuring costs (50% severance, 50% exit costs) continuing through end of fiscal 2027. Source explicitly states 'amounts and timing may vary materially' and actual costs could exceed estimates. Execution risks include organizational disruption and delayed benefit realization. Initiative expected to generate $30M annualized savings once complete.",
       "trend": "new",
       "summary": "Strategic restructuring initiative targeting $20M in costs to optimize geography and market focus carries execution risk and uncertain benefit timing.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Shareholder dilution from employee equity grants despite buyback program",
       "category": "Capital Allocation",
       "severity": 3,
-      "score_rationale": "New $500M share repurchase program (April 2025) explicitly designed 'to offset the dilutive impact of recent and future employee equity grants.' Program represents structural capital commitment to manage dilution. Risk is mitigated by formal buyback authorization but reflects ongoing dilution pressure from compensation structure. (score par défaut, à affiner)",
+      "score_rationale": "New $500M share repurchase program (April 2025) explicitly designed 'to offset the dilutive impact of recent and future employee equity grants.' Program represents structural capital commitment to manage dilution. Risk is mitigated by formal buyback authorization but reflects ongoing dilution pressure from compensation structure.",
       "trend": "stable",
       "summary": "Recurring shareholder dilution from employee stock awards requires ongoing capital commitment to repurchase shares and maintain per-share metrics.",
       "score": 3
@@ -331,10 +357,10 @@
       "title": "Integration risks from OpSens and Attune Medical acquisitions",
       "category": "Integration",
       "severity": 4,
-      "score_rationale": "Two major acquisitions completed within 4-month window (OpSens December 2023 at $254.5M, Attune Medical April 2024 at $187.7M) with significant contingent payments tied to future performance milestones. Integration challenges include technology assimilation, team retention, sales channel alignment, and regulatory compliance. Combined acquisition value of $442.2M represents material operational commitment through fiscal 2027 milestone periods. (score par défaut, à affiner)",
+      "score_rationale": "Two major acquisitions completed within 4-month window (OpSens December 2023 at $254.5M, Attune Medical April 2024 at $187.7M) with significant contingent payments tied to future performance milestones. Integration challenges include technology assimilation, team retention, sales channel alignment, and regulatory compliance. Combined acquisition value of $442.2M represents material operational commitment through fiscal 2027 milestone periods.",
       "trend": "up",
       "summary": "Successful integration of OpSens and Attune Medical acquisitions is critical for realizing synergies and achieving milestone-based contingent payment targets.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -377,7 +403,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -444,7 +470,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.920Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.392Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hae.json",
     "enrich_root": null,

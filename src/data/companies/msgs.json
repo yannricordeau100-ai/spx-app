@@ -1,6 +1,6 @@
 {
   "ticker": "MSGS",
-  "name": "Madison Square Garden Sports Corp.",
+  "name": "Madison Square Garden Sports",
   "sector": "Technologie",
   "subsector": "Media & Entertainment",
   "tagline": "Owner and operator of iconic professional sports franchises including the New York Knicks and New York Rangers",
@@ -33,11 +33,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.04 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -56,34 +60,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.02 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-93.3%",
       "history": [
-        0.09,
-        0.09,
-        0.15,
-        0.01
+        90,
+        90,
+        150,
+        10
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.01 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -102,34 +115,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -0.93 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
       "name_fr": "Free Cash Flow",
       "name_en": "Free Cash Flow",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.18,
-        0.15,
-        0.09,
-        0.09
+        180,
+        150,
+        90,
+        90
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 0.09 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position stable"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -148,11 +170,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.47 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -171,33 +197,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.18 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "+55.6%",
       "history": [
-        0.09,
-        0.04,
-        0.09,
-        0.14
+        90,
+        40,
+        90,
+        140
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.14 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -212,16 +247,16 @@
       "title": "Endettement des filiales",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Certaines filiales de la société ont contracté une dette substantielle. Un événement de défaut sous les facilités de crédit pourrait affecter négativement les actifs et l'activité. (score par défaut, à affiner)",
+      "score_rationale": "Certaines filiales de la société ont contracté une dette substantielle. Un événement de défaut sous les facilités de crédit pourrait affecter négativement les actifs et l'activité.",
       "trend": "stable",
       "summary": "Les filiales de la société ont une dette importante qui pourrait avoir un impact négatif sur l'entreprise en cas de défaut.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance des revenus vis-à-vis de la performance sportive",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société dépend fortement de la performance et de la popularité de ses équipes sportives, ce qui affecte les revenus de billets, les partenariats et la demande pour les droits médias. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de la performance et de la popularité de ses équipes sportives, ce qui affecte les revenus de billets, les partenariats et la demande pour les droits médias.",
       "trend": "stable",
       "summary": "La société dépend fortement des revenus de ses équipes de sport, ce qui pourrait être affecté par les performances sportives et les facteurs externes.",
       "score": 3
@@ -230,16 +265,16 @@
       "title": "Risques de liquidité",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La société a des obligations contractuelles importantes, notamment vis-à-vis des joueurs et des conventions collectives de la ligue, qui pourraient affecter sa liquidité. (score par défaut, à affiner)",
+      "score_rationale": "La société a des obligations contractuelles importantes, notamment vis-à-vis des joueurs et des conventions collectives de la ligue, qui pourraient affecter sa liquidité.",
       "trend": "up",
       "summary": "La société a des obligations contractuelles importantes qui pourraient affecter sa liquidité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de dépréciation d'actifs",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société a des actifs à long terme et des actifs incorporels (franchises sportives, goodwill) qui pourraient être affectés par des facteurs externes impactant la valeur des franchises. (score par défaut, à affiner)",
+      "score_rationale": "La société a des actifs à long terme et des actifs incorporels (franchises sportives, goodwill) qui pourraient être affectés par des facteurs externes impactant la valeur des franchises.",
       "trend": "stable",
       "summary": "La société a des actifs à long terme et des actifs incorporels qui pourraient être affectés par des facteurs externes.",
       "score": 3
@@ -248,37 +283,37 @@
       "title": "Risques de régulation",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "La société est soumise aux règles et réglementations de la NBA et de la NHL, ainsi qu'aux accords collectifs, qui pourraient affecter son activité et ses coûts. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise aux règles et réglementations de la NBA et de la NHL, ainsi qu'aux accords collectifs, qui pourraient affecter son activité et ses coûts.",
       "trend": "stable",
       "summary": "La société est soumise à des réglementations de la NBA et de la NHL qui pourraient affecter son activité.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques de saisonnalité",
       "category": "Industriel",
       "severity": 2,
-      "score_rationale": "Les revenus sont fortement concentrés durant les deuxième et troisième trimestres fiscaux correspondant aux saisons NBA et NHL, créant une saisonnalité prononcée. (score par défaut, à affiner)",
+      "score_rationale": "Les revenus sont fortement concentrés durant les deuxième et troisième trimestres fiscaux correspondant aux saisons NBA et NHL, créant une saisonnalité prononcée.",
       "trend": "stable",
       "summary": "La société a une activité qui est affectée par la saisonnalité des saisons sportives NBA et NHL.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques de change",
       "category": "Macro",
       "severity": 1,
-      "score_rationale": "L'exposition aux risques de change est limitée pour une entreprise basée aux États-Unis et opérant principalement en dollars américains. (score par défaut, à affiner)",
+      "score_rationale": "L'exposition aux risques de change est limitée pour une entreprise basée aux États-Unis et opérant principalement en dollars américains.",
       "trend": "stable",
       "summary": "La société a une exposition limitée aux risques de change.",
-      "score": 3
+      "score": 1
     },
     {
       "title": "Risques de litige",
       "category": "Litige",
       "severity": 1,
-      "score_rationale": "La société est potentiellement exposée aux risques de litige liés à ses opérations, mais le risque semble faible comparé aux autres facteurs. (score par défaut, à affiner)",
+      "score_rationale": "La société est potentiellement exposée aux risques de litige liés à ses opérations, mais le risque semble faible comparé aux autres facteurs.",
       "trend": "stable",
       "summary": "La société est exposée aux risques de litige associés à ses opérations.",
-      "score": 3
+      "score": 1
     }
   ],
   "governance": {
@@ -415,9 +450,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.284959+00:00",
     "fetched_at": "2026-05-21T02:17:14.284960+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.652Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.529Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/msgs.json",
     "enrich_root": "v2-pipeline-enrich/msgs.json",

@@ -89,53 +89,63 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.294,
-      "unit": "Mds €",
+      "value": 294,
+      "unit": "M €",
       "yoy": "+9.7%",
       "history": [
-        0.033,
-        0.124,
-        0.133,
-        0.199,
-        0.223,
-        0.251,
-        0.268,
-        0.294
+        33,
+        124,
+        133,
+        199,
+        223,
+        251,
+        268,
+        294
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.29 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:26.370049+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+10.0%",
       "history": [
-        0.1,
-        0.1,
-        0.1,
-        0.11
+        100,
+        100,
+        100,
+        110
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.11 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -154,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -177,32 +191,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.21 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "",
       "history": [
-        0.03,
-        0.02,
+        30,
+        20,
         0,
-        0.01
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -216,7 +239,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.287,
         1.339,
@@ -229,7 +252,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -244,7 +267,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1075,
@@ -257,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -272,7 +295,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         109.99,
@@ -285,7 +308,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -301,7 +324,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.2,
@@ -314,7 +337,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -340,9 +363,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Investissement",
-      "_validation": "Unit corrected from 'Mds $' to 'M$' (value is 325.5 millions not billions). Value normalized from '325.5 M$' to '325.5'. Name_fr improved from generic 'Investissements' to 'Investissements immobiliers'",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'M$' (value is 325.5 millions not billions). Value normalized from '325.5 M$' to '325.5'. Name_fr improved from generic 'Investissements' to 'Investissements immobiliers'"
     }
   ],
   "ai_positioning": {
@@ -358,7 +379,8 @@
       "severity": 4,
       "score_rationale": "Identified as a critical audit matter by KPMG, reflecting the complexity and judgment required in evaluating potential impairment of the 2.8 billion dollar real estate asset base. The uncertainty regarding estimated holding periods is a key factor.",
       "trend": "stable",
-      "summary": "The company must regularly assess impairment of its real estate assets. Changes in holding period estimates or market conditions could indicate that asset carrying values are no longer recoverable, potentially impacting financial statements."
+      "summary": "The company must regularly assess impairment of its real estate assets. Changes in holding period estimates or market conditions could indicate that asset carrying values are no longer recoverable, potentially impacting financial statements.",
+      "score": 4
     },
     {
       "title": "Interest Rate Hedging Risk",
@@ -366,7 +388,8 @@
       "severity": 3,
       "score_rationale": "Explicitly mentioned in risk factors, this risk concerns potential negative impacts of hedging transactions on results. While a hypothetical 1% rate decline is currently judged immaterial with 1.19 billion in fixed rate debt, hedge instrument risk remains.",
       "trend": "stable",
-      "summary": "Interest rate hedging strategies used to manage fixed-rate debt could potentially have adverse effects on operating results, though current impact is assessed as limited."
+      "summary": "Interest rate hedging strategies used to manage fixed-rate debt could potentially have adverse effects on operating results, though current impact is assessed as limited.",
+      "score": 3
     },
     {
       "title": "Internal Control Risk",
@@ -374,7 +397,8 @@
       "severity": 3,
       "score_rationale": "The auditor's report confirms effectiveness of internal financial controls but emphasizes inherent limitations. Future deterioration in compliance could create issues.",
       "trend": "stable",
-      "summary": "While internal financial controls are assessed as effective, they have inherent limitations. Changes in conditions or reduced procedural compliance could compromise financial reporting reliability."
+      "summary": "While internal financial controls are assessed as effective, they have inherent limitations. Changes in conditions or reduced procedural compliance could compromise financial reporting reliability.",
+      "score": 3
     },
     {
       "title": "Insider Trading Compliance Risk",
@@ -382,7 +406,8 @@
       "severity": 2,
       "score_rationale": "The company has insider trading policies designed to comply with applicable laws. Though reasonably designed, risks of non-compliance or misinterpretation remain.",
       "trend": "stable",
-      "summary": "The company has implemented trading policies governing director and employee transactions. Risk exists in potential non-compliance with these policies or insider trading laws."
+      "summary": "The company has implemented trading policies governing director and employee transactions. Risk exists in potential non-compliance with these policies or insider trading laws.",
+      "score": 2
     },
     {
       "title": "Financial Statement Presentation Risk",
@@ -390,7 +415,8 @@
       "severity": 3,
       "score_rationale": "The auditor's report expresses an unmodified opinion on fair financial statement presentation, but notes audits provide reasonable assurance against material errors or fraud.",
       "trend": "stable",
-      "summary": "Auditors ensure financial statements are fairly presented. While audit procedures reduce risk, the possibility of material errors or fraud cannot be entirely eliminated."
+      "summary": "Auditors ensure financial statements are fairly presented. While audit procedures reduce risk, the possibility of material errors or fraud cannot be entirely eliminated.",
+      "score": 3
     }
   ],
   "governance": {
@@ -421,7 +447,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -501,7 +527,7 @@
   "_segments_fetched_at": "2026-05-06T19:30:35.072254+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T19:59:51.245861+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:23Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2016,
@@ -523,7 +549,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:57Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:56Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_description": {
     "ticker": "FCPT",
@@ -620,6 +646,55 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "FCPT",
+    "extracted_at": "2026-06-01T03:15:53Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Rental Revenues",
+        "period_type": "quarter",
+        "history": [
+          41.515,
+          42.162,
+          43.673,
+          46.903,
+          47.904,
+          48.719,
+          52.197,
+          52.843,
+          57.243,
+          58.573,
+          58.539,
+          59.288,
+          63.482,
+          64.814,
+          66.508
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:15:53Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "FCPT",
     "ranks": {
@@ -632,15 +707,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.260156+00:00",
     "fetched_at": "2026-05-21T02:17:14.260157+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.124Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.693Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fcpt.json",
     "enrich_root": "v2-pipeline-enrich/fcpt.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

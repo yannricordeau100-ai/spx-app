@@ -37,11 +37,14 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Operating Margin (%) not explicitly stated in the provided 10-K extract. Only operating expenses in absolute dollars ($1,856.5M for 2020, $1",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Brokerage Fees Growth",
@@ -134,7 +137,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -201,11 +204,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 20.15 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -219,7 +226,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.96,
         0.96,
@@ -232,7 +239,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -247,7 +254,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.8641,
@@ -260,7 +267,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -275,7 +282,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         147.05,
@@ -288,7 +295,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -304,7 +311,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.44,
@@ -317,7 +324,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -379,25 +386,25 @@
       "title": "Non-conformité réglementaire et sanctions",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné en premier dans la section 'Risks Related to Our Business'. Le langage utilisé ('sanctions', 'negatively impact our reputation, prospects, revenues and earnings') indique une gravité élevée. Ce risque est récurrent et fondamental pour une entreprise réglementée dans les services financiers. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné en premier dans la section 'Risks Related to Our Business'. Le langage utilisé ('sanctions', 'negatively impact our reputation, prospects, revenues and earnings') indique une gravité élevée. Ce risque est récurrent et fondamental pour une entreprise réglementée dans les services financiers.",
       "trend": "stable",
       "summary": "Le non-respect des lois et réglementations applicables pourrait entraîner des sanctions, nuisant à la réputation, aux perspectives, aux revenus et aux bénéfices de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Restrictions sur les dividendes et les distributions",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Ce risque est détaillé et mentionné à plusieurs reprises, soulignant les limitations du 'Credit Agreement' et la possibilité de ne pas pouvoir verser de dividendes. La sévérité est élevée car elle impacte directement le retour aux actionnaires. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé et mentionné à plusieurs reprises, soulignant les limitations du 'Credit Agreement' et la possibilité de ne pas pouvoir verser de dividendes. La sévérité est élevée car elle impacte directement le retour aux actionnaires.",
       "trend": "stable",
       "summary": "Les accords de crédit limitent les distributions des filiales, ce qui pourrait empêcher l'entreprise de verser des dividendes même si le conseil d'administration le jugeait approprié.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Obstacles aux acquisitions et contrôle hostile",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Plusieurs dispositions statutaires et réglementaires (FINRA, CBI, FCA) sont citées comme pouvant retarder ou empêcher une acquisition. Bien que protectrices, elles peuvent aussi décourager les offres et réduire le prix des actions. (score par défaut, à affiner)",
+      "score_rationale": "Plusieurs dispositions statutaires et réglementaires (FINRA, CBI, FCA) sont citées comme pouvant retarder ou empêcher une acquisition. Bien que protectrices, elles peuvent aussi décourager les offres et réduire le prix des actions.",
       "trend": "stable",
       "summary": "Les dispositions statutaires et les réglementations sur le changement de contrôle pourraient dissuader les tentatives de prise de contrôle hostile et potentiellement réduire la valeur des actions.",
       "score": 3
@@ -406,7 +413,7 @@
       "title": "Volatilité du cours de l'action",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Ce risque est explicitement mentionné comme une source potentielle de fluctuations importantes du prix de l'action, indépendantes de la performance de l'entreprise. L'intensité du langage ('significant fluctuations', 'materially reduce') justifie une sévérité modérée. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est explicitement mentionné comme une source potentielle de fluctuations importantes du prix de l'action, indépendantes de la performance de l'entreprise. L'intensité du langage ('significant fluctuations', 'materially reduce') justifie une sévérité modérée.",
       "trend": "stable",
       "summary": "Le prix de l'action peut fluctuer considérablement en raison de facteurs externes et de conditions de marché, indépendamment des résultats opérationnels de l'entreprise.",
       "score": 3
@@ -415,28 +422,28 @@
       "title": "Coûts liés au statut de société cotée",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "Le texte mentionne des 'significant levels of legal, accounting and other expenses' et des exigences de conformité (Sarbanes-Oxley, NYSE). Le risque de radiation ou de sanctions est évoqué, mais le coût est le risque principal ici. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne des 'significant levels of legal, accounting and other expenses' et des exigences de conformité (Sarbanes-Oxley, NYSE). Le risque de radiation ou de sanctions est évoqué, mais le coût est le risque principal ici.",
       "trend": "stable",
       "summary": "Le statut de société cotée entraîne des coûts juridiques, comptables et de conformité élevés, ainsi que des exigences strictes en matière de contrôle interne et de divulgation.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques liés aux événements imprévus et catastrophiques",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Ce risque couvre un large éventail d'événements (pandémie, guerre, catastrophes naturelles) pouvant causer des perturbations économiques, financières et opérationnelles. L'incertitude quant à la reprise après une perturbation majeure justifie une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque couvre un large éventail d'événements (pandémie, guerre, catastrophes naturelles) pouvant causer des perturbations économiques, financières et opérationnelles. L'incertitude quant à la reprise après une perturbation majeure justifie une sévérité élevée.",
       "trend": "up",
       "summary": "Des événements imprévus comme des pandémies, des conflits géopolitiques ou des catastrophes naturelles pourraient perturber l'économie, les opérations et la capacité de l'entreprise à se rétablir.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Bien que l'entreprise ait un programme de cybersécurité robuste, une violation majeure pourrait compromettre les données des clients, interrompre les opérations et causer des dommages réputationnels. La dépendance à la technologie propriétaire amplifie ce risque. (score par défaut, à affiner)",
+      "score_rationale": "Bien que l'entreprise ait un programme de cybersécurité robuste, une violation majeure pourrait compromettre les données des clients, interrompre les opérations et causer des dommages réputationnels. La dépendance à la technologie propriétaire amplifie ce risque.",
       "trend": "up",
       "summary": "Les attaques cybernétiques pourraient compromettre l'infrastructure technologique, les données des clients et les opérations critiques de l'entreprise.",
-      "score": 3
+      "score": 4
     }
   ],
   "_validation": [
@@ -481,7 +488,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -567,7 +574,7 @@
   "_segments_fetched_at": "2026-05-06T19:45:42.638426+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:18:39.912169+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:06Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2016,
@@ -585,7 +592,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:33Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:11Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "VIRT",
     "fetched_at": "2026-05-06T17:55:41.832875+00:00",
@@ -630,88 +637,167 @@
   },
   "enrich_quarterly_history": {
     "ticker": "VIRT",
-    "extracted_at": "2026-05-15T18:15:01Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1592386,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:27:29Z",
+    "n_kpis": 4,
     "kpis": [
+      {
+        "short": "Operating Margin",
+        "period_type": "quarter",
+        "history": [
+          56.2,
+          31.9,
+          34.7,
+          39.6,
+          41.7,
+          24.1,
+          28.5,
+          12.4,
+          34.7,
+          17.7,
+          5.8,
+          14.6,
+          22.6,
+          18.5,
+          16.8
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:27:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "R&D Capitalized",
         "period_type": "quarter",
         "history": [
-          12.589,
-          16.326,
-          -7.841,
-          9.958,
-          14.246,
-          18.354,
-          -15.357,
-          13.795,
-          21.865,
-          24.292,
-          -22.178,
-          2.815,
-          6.734,
-          12.608,
-          -9.73,
-          5.732,
-          10.944,
-          18.945,
-          -12.819,
-          5.608
+          18.077,
+          18.077,
+          16.933,
+          16.48,
+          16.277,
+          16.48,
+          16.02,
+          16.48,
+          16.06,
+          16.02,
+          14.687,
+          14.687,
+          14.687,
+          11.783,
+          11.783
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 10.944,
-            "accession": "0001592386-25-000123",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 18.945,
-            "accession": "0001592386-25-000149",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -12.819,
-            "accession": "calc-0001592386-26-000009",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 5.608,
-            "accession": "0001592386-26-000016",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:27:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Depreciation and Amortization",
+        "period_type": "quarter",
+        "history": [
+          16.778,
+          16.349,
+          16.636,
+          17.477,
+          16.334,
+          16.658,
+          16.02,
+          16.02,
+          16.658,
+          16.02,
+          16.02,
+          16.02,
+          16.02,
+          16.02,
+          16.02
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:27:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Performance",
+        "nature": "Cyclique",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Interest and Dividends Expense",
+        "period_type": "quarter",
+        "history": [
+          24.028,
+          24.971,
+          26.586,
+          42.538,
+          48.716,
+          61.989
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022"
+        ],
+        "last_data_date": "2022-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:27:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -727,9 +813,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.325019+00:00",
     "fetched_at": "2026-05-21T02:17:14.325020+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.155Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.274Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/virt.json",
     "enrich_root": "v2-pipeline-enrich/virt.json",

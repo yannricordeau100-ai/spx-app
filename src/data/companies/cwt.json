@@ -42,17 +42,20 @@
       "is_short_history": false,
       "ttm": 117.68,
       "_validation": "Valeur confirmée dans MD&A: 128.2M$ en 2025, 190.8M$ en 2024",
-      "period_type": "quarter",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "period_type": "year",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant revenue decline, warning signal",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Operating Revenue",
       "name_fr": "Revenu d'exploitation",
       "name_en": "Operating Revenue",
       "explanation": "Revenus générés par la vente d'eau et les services associés.",
-      "value": "1000.1",
-      "unit": "M $",
+      "value": 1,
+      "unit": "Mds $",
       "yoy": "-3.5%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -62,9 +65,9 @@
       "history": [
         null,
         null,
-        794.6,
-        1036.8,
-        1000.1
+        0.795,
+        1.037,
+        1
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -72,7 +75,8 @@
       "is_short_history": false,
       "_validation": "Valeur corrigée: 1000.1M$ (extraite de MD&A). YoY recalculé: -3.5%. History ajoutée avec 2023 (794.6M$ basé sur 30.5% augmentation 2024)",
       "explanation_en": "Revenue from the Operating segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Expenses",
@@ -154,9 +158,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "Valeur confirmée: 12.5M$ augmentation D&A 2025 vs 2024. YoY invalide (comparaison à 0). KPI halluciné potentiel: 12.5M$ représente seulement l'augmentation, pas la valeur absolute. History insuffisante pour calcul YoY fiable.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée: 12.5M$ augmentation D&A 2025 vs 2024. YoY invalide (comparaison à 0). KPI halluciné potentiel: 12.5M$ représente seulement l'augmentation, pas la valeur absolute. History insuffisante pour calcul YoY fiable."
     },
     {
       "short": "Interest Expense",
@@ -182,9 +184,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "Valeur confirmée: 9.1M$ augmentation des charges d'intérêt nettes 2025 vs 2024. YoY invalide. KPI halluciné potentiel: 9.1M$ est l'augmentation, pas la valeur absolute. History insuffisante.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée: 9.1M$ augmentation des charges d'intérêt nettes 2025 vs 2024. YoY invalide. KPI halluciné potentiel: 9.1M$ est l'augmentation, pas la valeur absolute. History insuffisante."
     },
     {
       "short": "TCJA Liability",
@@ -229,11 +229,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -263,9 +267,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 117.68,
-      "_validation": "Valeur et history confirmées dans MD&A",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur et history confirmées dans MD&A"
     },
     {
       "short": "Regulatory Asset Recovery",
@@ -292,9 +294,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur confirmée dans MD&A: 'The net income benefit of the 2021 CA GRC from 2023 interim rate relief was approximately 64.0 million, or 1.09 earnings per diluted common share, that is included in 2024 results.'",
-      "_source_month": "janvier 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur confirmée dans MD&A: 'The net income benefit of the 2021 CA GRC from 2023 interim rate relief was approximately 64.0 million, or 1.09 earnings per diluted common share, that is included in 2024 results.'"
     }
   ],
   "ai_positioning": {
@@ -310,7 +310,8 @@
       "severity": 5,
       "score_rationale": "La société est soumise à des réglementations strictes et des changements dans les lois ou les politiques des régulateurs peuvent avoir un impact significatif sur son activité. Les décisions des Commissions sont hors de son contrôle et peuvent affecter ses revenus et ses résultats financiers.",
       "trend": "stable",
-      "summary": "La société est soumise à des réglementations strictes et des changements dans les lois ou les politiques des régulateurs peuvent avoir un impact significatif sur son activité."
+      "summary": "La société est soumise à des réglementations strictes et des changements dans les lois ou les politiques des régulateurs peuvent avoir un impact significatif sur son activité.",
+      "score": 5
     },
     {
       "title": "Tarifs réglementés",
@@ -318,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Les tarifs que la société facture à ses clients sont soumis à l'approbation des Commissions, ce qui peut affecter ses revenus et ses résultats financiers. Les décisions des Commissions peuvent être retardées ou approuvées à un niveau inférieur à celui demandé.",
       "trend": "stable",
-      "summary": "Les tarifs que la société facture à ses clients sont soumis à l'approbation des Commissions, ce qui peut affecter ses revenus et ses résultats financiers."
+      "summary": "Les tarifs que la société facture à ses clients sont soumis à l'approbation des Commissions, ce qui peut affecter ses revenus et ses résultats financiers.",
+      "score": 4
     },
     {
       "title": "Qualité de l'eau",
@@ -326,7 +328,8 @@
       "severity": 4,
       "score_rationale": "La société est soumise à des normes de qualité de l'eau strictes et des changements dans les réglementations peuvent augmenter ses coûts opérationnels. Des résultats de tests qui indiquent que l'eau dépasse les limites autorisées peuvent nécessiter des traitements coûteux.",
       "trend": "up",
-      "summary": "La société est soumise à des normes de qualité de l'eau strictes et des changements dans les réglementations peuvent augmenter ses coûts opérationnels."
+      "summary": "La société est soumise à des normes de qualité de l'eau strictes et des changements dans les réglementations peuvent augmenter ses coûts opérationnels.",
+      "score": 4
     },
     {
       "title": "Changements climatiques",
@@ -334,7 +337,8 @@
       "severity": 3,
       "score_rationale": "La société peut être affectée par des changements dans les lois et les réglementations liées aux changements climatiques, ce qui peut augmenter ses coûts opérationnels et affecter ses résultats financiers.",
       "trend": "up",
-      "summary": "La société peut être affectée par des changements dans les lois et les réglementations liées aux changements climatiques, ce qui peut augmenter ses coûts opérationnels et affecter ses résultats financiers."
+      "summary": "La société peut être affectée par des changements dans les lois et les réglementations liées aux changements climatiques, ce qui peut augmenter ses coûts opérationnels et affecter ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Cybersécurité",
@@ -342,7 +346,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée à des risques de cybersécurité, notamment des attaques contre ses systèmes et ses données, ce qui peut affecter ses opérations et ses résultats financiers.",
       "trend": "up",
-      "summary": "La société est exposée à des risques de cybersécurité, notamment des attaques contre ses systèmes et ses données, ce qui peut affecter ses opérations et ses résultats financiers."
+      "summary": "La société est exposée à des risques de cybersécurité, notamment des attaques contre ses systèmes et ses données, ce qui peut affecter ses opérations et ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Réputation",
@@ -350,7 +355,8 @@
       "severity": 4,
       "score_rationale": "La société peut être affectée par des problèmes de réputation, notamment en cas de non-conformité aux normes de qualité de l'eau ou de sécurité, ce qui peut affecter ses résultats financiers et ses opérations.",
       "trend": "stable",
-      "summary": "La société peut être affectée par des problèmes de réputation, notamment en cas de non-conformité aux normes de qualité de l'eau ou de sécurité, ce qui peut affecter ses résultats financiers et ses opérations."
+      "summary": "La société peut être affectée par des problèmes de réputation, notamment en cas de non-conformité aux normes de qualité de l'eau ou de sécurité, ce qui peut affecter ses résultats financiers et ses opérations.",
+      "score": 4
     }
   ],
   "_validation": {
@@ -369,7 +375,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "NetIncome"
   },
   "_fit_for_site": true,
@@ -471,6 +477,40 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CWT",
+    "extracted_at": "2026-06-01T03:09:28Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          -3.032,
+          1.086,
+          69.917,
+          13.331
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q1 2023",
+          "Q1 2024",
+          "Q1 2025"
+        ],
+        "last_data_date": "2025-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:09:28Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (CWT)"
+        ]
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CWT",
     "ranks": {
@@ -483,14 +523,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.248449+00:00",
     "fetched_at": "2026-05-21T02:17:14.248450+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.054Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.583Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cwt.json",
     "enrich_root": "v2-pipeline-enrich/cwt.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

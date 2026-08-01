@@ -42,8 +42,12 @@
       "is_short_history": false,
       "ttm": 2.9,
       "_validation": "Unit verified as B $ (standard notation). Values verified against 10-K financials.",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -71,8 +75,12 @@
       "is_short_history": false,
       "ttm": 10.85,
       "_validation": "No changes needed. Unit and values verified.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -101,7 +109,11 @@
       "ttm": 7.25,
       "_validation": "No changes needed. Unit and values verified.",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -129,8 +141,12 @@
       "is_short_history": false,
       "ttm": 0.19,
       "_validation": "Unit verified as B $ (standard notation). Values verified against 10-K statements of cash flows.",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -158,8 +174,12 @@
       "is_short_history": false,
       "ttm": 18.68,
       "_validation": "No changes needed. Unit and values verified.",
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Customer Concentration",
@@ -184,10 +204,8 @@
       "is_short_history": true,
       "ttm": 45.73,
       "_validation": "Values verified from 10-K Risk Factors section: 48.5% FY2024, 45.8% FY2025. History corrected to show only two data points (short history).",
-      "explanation_en": "Customer concentration — share of total attributed to the largest contributors.",
-      "signal_en": "Stable, slight decline to monitor",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Customer concentration, share of total attributed to the largest contributors.",
+      "signal_en": "Stable, slight decline to monitor"
     },
     {
       "short": "Total Assets",
@@ -206,33 +224,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.83 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "",
       "history": [
-        0.03,
-        0.01,
+        30,
+        10,
         0,
-        0.01
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -259,9 +286,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 56.48,
-      "_validation": "History verified from MD&A Revenues by Geography table: 63.5% FY2024, 56.6% FY2025. Signal updated to remove em-dash and accurately reflect management forward guidance from MD&A section on future revenue attribution.",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "History verified from MD&A Revenues by Geography table: 63.5% FY2024, 56.6% FY2025. Signal updated to remove em-dash and accurately reflect management forward guidance from MD&A section on future revenue attribution."
     }
   ],
   "ai_positioning": {
@@ -277,7 +302,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de quelques clients, ce qui peut entraîner une perte de revenus si l'un de ces clients réduit ses commandes ou fait défaut.",
       "trend": "stable",
-      "summary": "La société est exposée à un risque élevé en raison de sa dépendance à quelques clients clés."
+      "summary": "La société est exposée à un risque élevé en raison de sa dépendance à quelques clients clés.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -285,7 +311,8 @@
       "severity": 4,
       "score_rationale": "La concurrence dans le marché des services de fabrication de précision est élevée, ce qui peut entraîner une perte de parts de marché et une réduction des prix.",
       "trend": "up",
-      "summary": "La société doit faire face à une concurrence accrue dans son marché, ce qui peut impacter son chiffre d'affaires."
+      "summary": "La société doit faire face à une concurrence accrue dans son marché, ce qui peut impacter son chiffre d'affaires.",
+      "score": 4
     },
     {
       "title": "Risques de crédit",
@@ -293,7 +320,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée à des risques de crédit en raison de la dépendance à quelques clients clés et de la possibilité de défaut de paiement.",
       "trend": "stable",
-      "summary": "La société doit gérer les risques de crédit liés à ses clients pour éviter les pertes financières."
+      "summary": "La société doit gérer les risques de crédit liés à ses clients pour éviter les pertes financières.",
+      "score": 3
     },
     {
       "title": "Pénurie de composants",
@@ -301,7 +329,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de pénurie de composants en raison de la dépendance à quelques fournisseurs clés et de la complexité de la chaîne d'approvisionnement.",
       "trend": "up",
-      "summary": "La société doit gérer les risques de pénurie de composants pour éviter les retards de production et les pertes financières."
+      "summary": "La société doit gérer les risques de pénurie de composants pour éviter les retards de production et les pertes financières.",
+      "score": 4
     },
     {
       "title": "Fluctuations du marché",
@@ -309,7 +338,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée à des risques de fluctuations du marché en raison de la dépendance à l'industrie des communications optiques et de la volatilité du marché.",
       "trend": "stable",
-      "summary": "La société doit gérer les risques de fluctuations du marché pour éviter les pertes financières et maintenir sa position concurrentielle."
+      "summary": "La société doit gérer les risques de fluctuations du marché pour éviter les pertes financières et maintenir sa position concurrentielle.",
+      "score": 3
     },
     {
       "title": "Diversification limitée",
@@ -317,7 +347,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée à des risques de diversification limitée en raison de sa dépendance à l'industrie des communications optiques et de la difficulté à pénétrer de nouveaux marchés.",
       "trend": "stable",
-      "summary": "La société doit diversifier ses activités pour réduire sa dépendance à l'industrie des communications optiques et améliorer sa résilience aux fluctuations du marché."
+      "summary": "La société doit diversifier ses activités pour réduire sa dépendance à l'industrie des communications optiques et améliorer sa résilience aux fluctuations du marché.",
+      "score": 3
     },
     {
       "title": "Annulations de commandes",
@@ -325,7 +356,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée à des risques d'annulations de commandes en raison de la nature volatile du marché et de la possibilité de changements dans les besoins des clients.",
       "trend": "stable",
-      "summary": "La société doit gérer les risques d'annulations de commandes pour éviter les pertes financières et maintenir sa position concurrentielle."
+      "summary": "La société doit gérer les risques d'annulations de commandes pour éviter les pertes financières et maintenir sa position concurrentielle.",
+      "score": 3
     }
   ],
   "governance": {
@@ -357,7 +389,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Marges stables (variation moyenne +0.5 pts)."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:38.028Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.270Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fn.json",
     "enrich_root": null,

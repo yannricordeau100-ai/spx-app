@@ -37,9 +37,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Augmenté de 3 à 6 programmes basé sur la description détaillée du MD&A qui mentionne 4 programmes en développement clinique (Icotyde, Rusfertide, PN-881, PN-477, PN-458, PN-8047) plus les programmes découverts en phase pré-clinique.",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le KPI 'Pipeline Development' (nombre de programmes en développement) n'est pas quantifié explicitement par année dans le 10-K. Le texte déc"
+      "_hero_history_unverified_reason": "Le KPI 'Pipeline Development' (nombre de programmes en développement) n'est pas quantifié explicitement par année dans le 10-K. Le texte déc",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Cash Position",
@@ -135,69 +138,84 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.67,
-      "unit": "Mds €",
+      "value": 670,
+      "unit": "M €",
       "yoy": "-9.5%",
       "history": [
-        0.25,
-        0.36,
-        0.74,
-        0.67
+        250,
+        360,
+        740,
+        670
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
         0,
         0,
-        0.01,
-        0.01
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "+30.0%",
       "history": [
-        0.13,
-        0.19,
-        0.1,
-        0.13
+        130,
+        190,
+        100,
+        130
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -222,9 +240,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Pipeline",
-      "_validation": "Description améliorée pour clarifier que c'est Janssen qui a soumis les demandes et préciser l'indication thérapeutique.",
-      "_source_month": "juillet 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Description améliorée pour clarifier que c'est Janssen qui a soumis les demandes et préciser l'indication thérapeutique."
     },
     {
       "short": "Rusfertide NDA Submission",
@@ -247,9 +263,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Pipeline",
-      "_validation": "Description améliorée pour préciser l'indication thérapeutique et clarifier la nature du médicament.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Description améliorée pour préciser l'indication thérapeutique et clarifier la nature du médicament."
     },
     {
       "short": "Takeda Collaboration Upfront",
@@ -272,9 +286,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Finance",
-      "_validation": "Corrigé l'unité de 'Mds $' à 'M $'. Description améliorée pour clarifier les termes de l'accord.",
-      "_source_month": "avril 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Corrigé l'unité de 'Mds $' à 'M $'. Description améliorée pour clarifier les termes de l'accord."
     }
   ],
   "ai_positioning": {
@@ -304,7 +316,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -321,7 +333,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de la section Risk Factors, avec un langage fort (pertes cumulées de 470,7M$). La société dépend de financements futurs, ce qui le rend existentiel. Catégorie Capital fortement pondérée.",
       "trend": "stable",
-      "summary": "La société a accumulé des pertes importantes et pourrait ne jamais devenir rentable, nécessitant des financements supplémentaires."
+      "summary": "La société a accumulé des pertes importantes et pourrait ne jamais devenir rentable, nécessitant des financements supplémentaires.",
+      "score": 5
     },
     {
       "title": "Dépendance aux paiements de collaboration variables",
@@ -329,7 +342,8 @@
       "severity": 4,
       "score_rationale": "La chute de 89 % du revenu de collaboration entre 2024 et 2025 est soulignée avec des chiffres précis. Le revenu est décrit comme « hautement variable », ce qui crée une forte incertitude de trésorerie.",
       "trend": "up",
-      "summary": "Les revenus dépendent de jalons réglementaires ou commerciaux incertains avec des partenaires, entraînant une forte volatilité."
+      "summary": "Les revenus dépendent de jalons réglementaires ou commerciaux incertains avec des partenaires, entraînant une forte volatilité.",
+      "score": 4
     },
     {
       "title": "Échec possible des essais cliniques ou développement",
@@ -337,7 +351,8 @@
       "severity": 5,
       "score_rationale": "Mention répétée que l'approbation réglementaire n'est pas garantie malgré les coûts. Langage fort : « nous pouvons ne jamais réussir ». Risque central pour une biotech.",
       "trend": "stable",
-      "summary": "Les candidats médicaments peuvent échouer à tout stade du développement, annulant les investissements réalisés."
+      "summary": "Les candidats médicaments peuvent échouer à tout stade du développement, annulant les investissements réalisés.",
+      "score": 5
     },
     {
       "title": "Estimations comptables incertaines affectant les états financiers",
@@ -345,7 +360,8 @@
       "severity": 4,
       "score_rationale": "Plusieurs paragraphes détaillent les jugements complexes sur les revenus, R&D et hypothèses. Mention d'« écarts matériels possibles », ce qui affecte la fiabilité des états.",
       "trend": "stable",
-      "summary": "Les décisions comptables reposent sur des hypothèses incertaines pouvant modifier significativement les résultats."
+      "summary": "Les décisions comptables reposent sur des hypothèses incertaines pouvant modifier significativement les résultats.",
+      "score": 4
     },
     {
       "title": "Dépendance à des partenaires pour le développement et la commercialisation",
@@ -353,7 +369,8 @@
       "severity": 4,
       "score_rationale": "Les accords avec Takeda et JNJ sont centraux. La perte ou modification d’un partenariat (ex: opt-out) aurait un impact majeur, comme indiqué dans les revenus 2025.",
       "trend": "stable",
-      "summary": "La réussite dépend fortement de tiers pour le financement, le développement et la vente des produits."
+      "summary": "La réussite dépend fortement de tiers pour le financement, le développement et la vente des produits.",
+      "score": 4
     },
     {
       "title": "Coûts de R&D élevés et croissants",
@@ -361,7 +378,8 @@
       "severity": 4,
       "score_rationale": "La R&D devrait augmenter avec des programmes cliniques. Ces coûts sont expensés immédiatement, pesant sur les pertes. Mention de 159M$ en 2025, en hausse.",
       "trend": "up",
-      "summary": "Les dépenses de recherche et développement restent très élevées et pourraient s'accroître, aggravant les pertes."
+      "summary": "Les dépenses de recherche et développement restent très élevées et pourraient s'accroître, aggravant les pertes.",
+      "score": 4
     }
   ],
   "governance": {
@@ -484,23 +502,18 @@
         "history": [
           192.412,
           120.542,
-          -272.289,
           98.477,
           120.237,
           152.816,
-          -245.786,
           127.686,
           235.382,
           230.527,
-          -406.868,
           172.568,
           355.643,
           131.121,
-          -562.083,
           139.653,
           168.543,
           113.713,
-          -293.519,
           193.712
         ],
         "history_periods": [
@@ -554,6 +567,12 @@
             "accession": "0001104659-26-055661",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PTGX)"
         ]
       }
     ]
@@ -570,9 +589,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.300370+00:00",
     "fetched_at": "2026-05-21T02:17:14.300371+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.945Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.956Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ptgx.json",
     "enrich_root": null,

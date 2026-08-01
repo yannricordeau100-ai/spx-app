@@ -1,6 +1,6 @@
 {
   "ticker": "TDC",
-  "name": "Teradata Corporation",
+  "name": "Teradata",
   "sector": "Technologie",
   "subsector": "Data Analytics and Cloud Infrastructure",
   "tagline": "Enterprise hybrid cloud analytics platform for data-driven organizations",
@@ -42,18 +42,21 @@
         "Amélioration name_fr pour clarté",
         "Suppression em-dash dans hero_kpi_rationale"
       ],
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 valeurs annuelles explicites trouvées (2020: $106M, 2021: $202M). Minimum 4 années consécutives requis. Données insuffisantes po",
-      "signal_en": "Recurring base growing, revenue visibility rising"
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Total ARR",
       "name_fr": "Revenu récurrent annuel total",
       "name_en": "Total Annual Recurring Revenue",
       "explanation": "Revenu récurrent total, incluant cloud public, abonnements on-premises et droits de maintenance.",
-      "value": "1522",
-      "unit": "M $",
+      "value": 1.522,
+      "unit": "Mds $",
       "yoy": "+3%",
       "type": "Recurring",
       "nature": "Structurel",
@@ -61,8 +64,8 @@
       "signal": "Croissance de 3% malgré la baisse des segments traditionnels",
       "description": "Le Total ARR augmente grâce à la forte croissance du cloud, qui compense les baisses dans les abonnements on-premises et la maintenance.",
       "history": [
-        1474,
-        1522
+        1.474,
+        1.522
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -72,7 +75,8 @@
         "Correction unité: 1.522 Mds $ -> 1522 M $",
         "Amélioration explanation pour précision"
       ],
-      "signal_en": "Recurring base growing, revenue visibility rising"
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Cloud Net Expansion Rate",
@@ -126,7 +130,7 @@
       "_validation": [
         "Amélioration explanation et description"
       ],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -188,8 +192,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Chiffre d'affaires total de l'entreprise, incluant les revenus récurrents, les licences perpétuelles et les services de conseil.",
-      "value": "1663",
-      "unit": "M $",
+      "value": 1.663,
+      "unit": "Mds $",
       "yoy": "-5%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -197,8 +201,8 @@
       "signal": "Baisse de 5% en 2025, liée à la transition du modèle commercial",
       "description": "Le revenu total recule en raison de la diminution des licences perpétuelles et des services de conseil, compensée partiellement par la croissance du cloud public.",
       "history": [
-        1750,
-        1663
+        1.75,
+        1.663
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -208,8 +212,9 @@
         "Correction unité: 1.663 Mds $ -> 1663 M $",
         "Amélioration explanation et description"
       ],
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Assets",
@@ -228,11 +233,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.78 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -292,7 +301,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "strategic",
+    "stance": "absent",
     "summary": "Teradata positionne l'IA/ML comme élément clé de sa stratégie de transformation. L'entreprise investit dans des capacités d'IA autonome et de machine learning pour son offre platform Vantage, en particulier pour les environnements hybrides cloud et on-premises, et la demande clients pour l'IA/ML est un driver clé de la croissance du Public Cloud ARR.",
     "evidence": [
       "R&D investments targeted at AI/ML technologies across on-premises and cloud environments",
@@ -307,52 +316,52 @@
       "title": "Défaillance stratégique",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "La société met en avant les risques liés à la mise en oeuvre de sa stratégie de transformation, y compris le développement d'offres cloud, hybrides et IA/ML, et à la réalisation des bénéfices attendus. (score par défaut, à affiner)",
+      "score_rationale": "La société met en avant les risques liés à la mise en oeuvre de sa stratégie de transformation, y compris le développement d'offres cloud, hybrides et IA/ML, et à la réalisation des bénéfices attendus.",
       "trend": "stable",
       "summary": "Risque d'exécution significatif de la stratégie de transformation incluant les offres cloud, hybrides, on-premises et IA/ML, avec potentiel d'impact matériel sur l'activité, la réputation et la position concurrentielle.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Cycle de vente long et imprévisibilité des revenus",
       "category": "Opérationnel",
       "severity": 5,
-      "score_rationale": "Les délais de cycle de vente variables et difficiles à prévoir ont un impact significatif sur la capacité de l'entreprise à estimer l'ARR et à fournir des prévisions fiables. (score par défaut, à affiner)",
+      "score_rationale": "Les délais de cycle de vente variables et difficiles à prévoir ont un impact significatif sur la capacité de l'entreprise à estimer l'ARR et à fournir des prévisions fiables.",
       "trend": "stable",
       "summary": "La longueur et l'imprévisibilité du cycle de vente entraînent une variabilité significative des résultats opérationnels trimestriels et impactent la fiabilité des prévisions financières, notamment pour le Total ARR et Public Cloud ARR.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Cyberattaques et sécurité des données",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "La société, en tant que fournisseur d'infrastructure de données et d'analytics critiques, est exposée à des risques élevés de cyberattaques qui pourraient compromettre ses systèmes et données clients. (score par défaut, à affiner)",
+      "score_rationale": "La société, en tant que fournisseur d'infrastructure de données et d'analytics critiques, est exposée à des risques élevés de cyberattaques qui pourraient compromettre ses systèmes et données clients.",
       "trend": "up",
       "summary": "Exposition accrue aux cyberattaques pouvant compromettre la sécurité des systèmes, des données et de la plateforme, avec potentiel d'impact matériel sur l'activité, la réputation et la confiance client.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Défis technologiques et innovation",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "La société doit maintenir et accélérer l'innovation technologique dans l'IA/ML et les environnements hybrides pour rester compétitive face à des acteurs majeurs du cloud. (score par défaut, à affiner)",
+      "score_rationale": "La société doit maintenir et accélérer l'innovation technologique dans l'IA/ML et les environnements hybrides pour rester compétitive face à des acteurs majeurs du cloud.",
       "trend": "stable",
       "summary": "Nécessité de développer, lancer et opérer efficacement des offres cloud, hybrides et IA/ML pour maintenir la position concurrentielle et répondre aux attentes du marché.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Variabilité des résultats basée sur le comportement d'achat",
       "category": "Marché",
       "severity": 4,
-      "score_rationale": "La transition du modèle de tarification perpétuelle au modèle d'abonnement crée une variabilité des résultats selon le calendrier et le pattern d'achat des clients. (score par défaut, à affiner)",
+      "score_rationale": "La transition du modèle de tarification perpétuelle au modèle d'abonnement crée une variabilité des résultats selon le calendrier et le pattern d'achat des clients.",
       "trend": "stable",
       "summary": "Le shift vers un modèle d'abonnement et de cloud entraîne une variabilité des revenus reconnus et des résultats opérationnels basée sur le comportement et le calendrier d'achat des clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance technologique",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "La dépendance forte envers la technologie et les partenaires cloud expose l'entreprise à des risques d'indisponibilité et de défaillance opérationnelle. (score par défaut, à affiner)",
+      "score_rationale": "La dépendance forte envers la technologie et les partenaires cloud expose l'entreprise à des risques d'indisponibilité et de défaillance opérationnelle.",
       "trend": "up",
       "summary": "Dépendance forte envers la technologie pour les opérations et vers les partenaires fournisseurs de cloud, créant une vulnérabilité aux défaillances technologiques et aux cyberattaques.",
       "score": 3
@@ -361,10 +370,10 @@
       "title": "Risques réglementaires et conformité",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "Evolution continue des exigences réglementaires en matière de protection des données et de confidentialité dans différentes juridictions où opère l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Evolution continue des exigences réglementaires en matière de protection des données et de confidentialité dans différentes juridictions où opère l'entreprise.",
       "trend": "stable",
       "summary": "Exposition à des risques réglementaires liés à l'évolution des exigences légales en matière de données, de confidentialité, de sécurité et de conformité dans les juridictions d'opération.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -419,7 +428,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -562,88 +571,153 @@
   },
   "enrich_quarterly_history": {
     "ticker": "TDC",
-    "extracted_at": "2026-05-15T18:14:37Z",
-    "method": "xbrl-companyfacts",
-    "cik": 816761,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:23:49Z",
+    "n_kpis": 4,
     "kpis": [
       {
-        "short": "R&D",
+        "short": "Public Cloud ARR",
         "period_type": "quarter",
         "history": [
-          156,
-          235,
-          -159,
-          76,
-          157,
-          236,
-          -156,
-          70,
-          146,
-          222,
-          -144,
-          75,
-          143,
-          216,
-          -150,
-          66,
-          137,
-          207,
-          -130,
-          72
+          124,
+          139,
+          148,
+          209,
+          234,
+          279,
+          388,
+          414,
+          454,
+          525,
+          542,
+          570,
+          606,
+          634,
+          633
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 137,
-            "accession": "0000816761-25-000182",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 207,
-            "accession": "0001628280-25-049313",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -130,
-            "accession": "calc-0001628280-26-012671",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 72,
-            "accession": "0001628280-26-031053",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:23:49Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total ARR",
+        "period_type": "quarter",
+        "history": [
+          1404,
+          1426,
+          1437,
+          1427,
+          1390,
+          1374,
+          1506,
+          1523,
+          1524,
+          1480,
+          1465,
+          1482,
+          1442,
+          1489,
+          1490
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:23:49Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Cloud Net Expansion Rate",
+        "period_type": "quarter",
+        "history": [
+          119,
+          121,
+          123,
+          123,
+          123,
+          123
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2024-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:23:49Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          63.4,
+          59.7,
+          59.1,
+          61.1,
+          60.8,
+          60.5,
+          59.3,
+          56.4
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025"
+        ],
+        "last_data_date": "2025-06-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:23:49Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -659,9 +733,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.316469+00:00",
     "fetched_at": "2026-05-21T02:17:14.316470+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.394Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.446Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tdc.json",
     "enrich_root": "v2-pipeline-enrich/tdc.json",

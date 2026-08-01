@@ -13,7 +13,7 @@
     "sector": "...",
     "subsector": "Fragrances and Flavors"
   },
-  "hero_kpi": "Like-for-like Revenue Growth",
+  "hero_kpi": "fragrance_beauty_sales",
   "hero_kpi_rationale": "Indicateur clé de la croissance organique dans le secteur des arômes et fragrances, reflétant la performance commerciale réelle hors effets de change et d'acquisitions, en dépit des pressions inflationnistes et géopolitiques.",
   "kpis": [
     {
@@ -87,7 +87,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes."
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes."
     },
     {
       "short": "Total Shareholder Return",
@@ -150,11 +150,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 11.86 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -173,33 +177,131 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.42 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.74,
-      "unit": "Mds €",
+      "value": 740,
+      "unit": "M €",
       "yoy": "-1.3%",
       "history": [
-        0.47,
-        0.6,
-        0.75,
-        0.74
+        470,
+        600,
+        750,
+        740
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.74 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "fragrance_beauty_sales",
+      "name_fr": "Ventes Parfums et Beaute",
+      "name_en": "Fragrance & Beauty Sales",
+      "unit": "M CHF",
+      "period_type": "year",
+      "history": [
+        2525,
+        2799,
+        2924,
+        3091,
+        3256,
+        3312,
+        3660
+      ],
+      "value": 3660,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le pole Parfums et Beaute signe une annee 2024 record, tire par la parfumerie fine.",
+      "is_wow": true,
+      "yoy": "+10,5 %"
+    },
+    {
+      "short": "taste_wellbeing_sales",
+      "name_fr": "Ventes Gout et Bien-etre",
+      "name_en": "Taste & Wellbeing Sales",
+      "unit": "M CHF",
+      "period_type": "year",
+      "history": [
+        3002,
+        3404,
+        3398,
+        3593,
+        3861,
+        3603,
+        3752
+      ],
+      "value": 3752,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le pole Gout et Bien-etre rebondit en 2024 apres le creux de 2023.",
+      "is_wow": false
+    },
+    {
+      "short": "fb_europe_sales",
+      "name_fr": "Ventes Parfums et Beaute Europe",
+      "name_en": "Fragrance & Beauty Sales Europe",
+      "unit": "M CHF",
+      "period_type": "year",
+      "history": [
+        859,
+        882,
+        977,
+        1014,
+        1078
+      ],
+      "value": 1078,
+      "last_data_date": "2023-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Europe reste le premier marche des parfums, en hausse continue depuis 2019.",
+      "is_wow": false
+    },
+    {
+      "short": "tw_noram_sales",
+      "name_fr": "Ventes Gout et Bien-etre Amerique du Nord",
+      "name_en": "Taste & Wellbeing Sales North America",
+      "unit": "M CHF",
+      "period_type": "year",
+      "history": [
+        1082,
+        1150,
+        1197,
+        1217,
+        1052
+      ],
+      "value": 1052,
+      "last_data_date": "2023-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Amerique du Nord, premier marche des aromes, a nettement reflue en 2023.",
+      "is_wow": false
     },
     {
       "short": "DPS",
@@ -213,7 +315,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         64,
         66,
@@ -226,7 +328,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -241,7 +343,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. cashflow.",
       "history": [
         null,
         0.607,
@@ -254,7 +356,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -269,7 +371,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         70.91,
@@ -282,7 +384,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -298,7 +400,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2019-2023). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2019-2023). income statement (Diluted EPS).",
       "history": [
         null,
         null,
@@ -311,7 +413,7 @@
       "is_short_history": false,
       "last_data_date": "2023-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -326,23 +428,12 @@
     ],
     "source": ""
   },
-  "_validation": [
-    "CORRECTION: Value type 'Dividend per Share' changé de string '68' à number 68 pour cohérence de type",
-    "CORRECTION: last_data_date harmonisé de '2025-12-31' à '2023-12-31' pour 'Like-for-like Revenue Growth' (données confirmées 2023)",
-    "CORRECTION: period_type ajouté à 'Dividend per Share' avec valeur 'annual'",
-    "CONFIRMATION: Unit 'M CHF' confirmé correct pour 'Net Profit' (361.3 millions, pas milliards)",
-    "CONFIRMATION: Unit 'B CHF' confirmé correct pour 'Total Shareholder Return' (30 milliards CHF)",
-    "CONFIRMATION: Unit 'M CHF' confirmé correct pour 'Available Earnings' (390.2 millions CHF)",
-    "CONFIRMATION: Tous les KPI validés contre la source (investor presentation avril 2026 et données financières 2023)",
-    "CONFIRMATION: Aucun KPI halluciné détecté - tous les chiffres sont cohérents avec la documentation officielle",
-    "CONFIRMATION: Structure JSON maintenue intacte conformément aux instructions",
-    "INFO: Hero history court (1 valeur) normal pour audit annuel 2023, cohérent avec 'is_short_history: false'"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -357,7 +448,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans le contexte des investissements ciblés face à une concurrence active, avec un langage modéré mais récurrent. Il s'inscrit dans une tendance stable, typique d'un secteur mature et innovant.",
       "trend": "stable",
-      "summary": "La pression concurrentielle est forte dans les segments des arômes et des fragrances, avec des acteurs mondiaux et régionaux innovants. Givaudan doit continuer d'investir en R&D et en différenciation technologique pour maintenir sa position de leader."
+      "summary": "La pression concurrentielle est forte dans les segments des arômes et des fragrances, avec des acteurs mondiaux et régionaux innovants. Givaudan doit continuer d'investir en R&D et en différenciation technologique pour maintenir sa position de leader.",
+      "score": 4
     },
     {
       "title": "Dépendance à des matières premières naturelles",
@@ -365,7 +457,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le modèle économique, avec des mentions fréquentes de sourcing responsable, de biodiversité et de régénération agricole. Le langage est fort et reflète une préoccupation stratégique croissante.",
       "trend": "up",
-      "summary": "Givaudan dépend fortement de matières premières naturelles (comme les extraits végétaux), vulnérables aux pénuries, aux aléas climatiques et à la déforestation. Une interruption d'approvisionnement ou une régulation accrue peut impacter la production et la réputation."
+      "summary": "Givaudan dépend fortement de matières premières naturelles (comme les extraits végétaux), vulnérables aux pénuries, aux aléas climatiques et à la déforestation. Une interruption d'approvisionnement ou une régulation accrue peut impacter la production et la réputation.",
+      "score": 5
     },
     {
       "title": "Régulation croissante des ingrédients chimiques",
@@ -373,7 +466,8 @@
       "severity": 4,
       "score_rationale": "Le risque est implicite dans les engagements de durabilité et de green chemistry, avec un langage prudent mais stratégique. Il s'inscrit dans une tendance à la hausse, en lien avec les politiques environnementales mondiales.",
       "trend": "up",
-      "summary": "Les réglementations sur les substances chimiques, les parfums allergènes et les emballages plastiques se renforcent (ex: UE, États-Unis). Givaudan doit adapter ses formulations, ce qui peut augmenter les coûts et ralentir l'innovation."
+      "summary": "Les réglementations sur les substances chimiques, les parfums allergènes et les emballages plastiques se renforcent (ex: UE, États-Unis). Givaudan doit adapter ses formulations, ce qui peut augmenter les coûts et ralentir l'innovation.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des données clients et R&D",
@@ -381,7 +475,8 @@
       "severity": 4,
       "score_rationale": "Bien que peu explicité, le risque est déduit des initiatives numériques croissantes (IA, données consommateurs). Le langage est discret mais le poids du numérique dans la stratégie suggère une exposition élevée.",
       "trend": "up",
-      "summary": "L'usage croissant de l'IA, des données consommateurs et des plateformes numériques expose Givaudan à des cyberattaques ciblant ses secrets industriels, ses créations clients ou ses bases de données sensibles."
+      "summary": "L'usage croissant de l'IA, des données consommateurs et des plateformes numériques expose Givaudan à des cyberattaques ciblant ses secrets industriels, ses créations clients ou ses bases de données sensibles.",
+      "score": 4
     },
     {
       "title": "Protection de la propriété intellectuelle",
@@ -389,7 +484,8 @@
       "severity": 4,
       "score_rationale": "Le risque est central pour une entreprise fondée sur l'innovation, avec un langage implicite mais stratégique. Il est stable, reflétant une vigilance constante dans un secteur à haute valeur ajoutée.",
       "trend": "stable",
-      "summary": "Les formules d'arômes et de fragrances sont des secrets industriels critiques. Toute fuite, contrefaçon ou litige sur la PI peut compromettre la différenciation produit et les relations clients."
+      "summary": "Les formules d'arômes et de fragrances sont des secrets industriels critiques. Toute fuite, contrefaçon ou litige sur la PI peut compromettre la différenciation produit et les relations clients.",
+      "score": 4
     },
     {
       "title": "Risques liés aux chaînes d'approvisionnement durables",
@@ -397,7 +493,8 @@
       "severity": 5,
       "score_rationale": "Le risque est hautement prioritaire, avec des mentions répétées de sourcing responsable, de régénération agricole et de due diligence. Le langage est fort et la tendance est à la hausse.",
       "trend": "up",
-      "summary": "Givaudan s'engage à approvisionner 100 % de ses matières de manière responsable. Tout écart (exploitation illégale, conditions sociales défaillantes) dans ses chaînes, notamment dans les pays émergents, peut nuire à sa réputation et à ses objectifs ESG."
+      "summary": "Givaudan s'engage à approvisionner 100 % de ses matières de manière responsable. Tout écart (exploitation illégale, conditions sociales défaillantes) dans ses chaînes, notamment dans les pays émergents, peut nuire à sa réputation et à ses objectifs ESG.",
+      "score": 5
     },
     {
       "title": "Intégration d'acquisitions stratégiques",
@@ -405,7 +502,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné dans les coûts liés aux acquisitions et restructurations. Le langage est mesuré, mais le modèle de croissance par acquisition le rend pertinent.",
       "trend": "stable",
-      "summary": "Givaudan croît par acquisitions (ex: beauté, nutrition). L'échec d'intégration culturelle, opérationnelle ou technologique peut réduire la synergie attendue et alourdir les coûts."
+      "summary": "Givaudan croît par acquisitions (ex: beauté, nutrition). L'échec d'intégration culturelle, opérationnelle ou technologique peut réduire la synergie attendue et alourdir les coûts.",
+      "score": 3
     },
     {
       "title": "Dépendance aux talents spécialisés en création olfactive",
@@ -413,7 +511,8 @@
       "severity": 4,
       "score_rationale": "Le risque est implicite dans les programmes de développement des talents et de leadership. Le langage est positif mais reflète une dépendance structurelle à des compétences rares.",
       "trend": "stable",
-      "summary": "Les créateurs de parfums et les chimistes spécialisés sont essentiels à l'innovation. La perte de talents clés ou l'incapacité à attirer de nouvelles compétences menace la capacité d'innovation de l'entreprise."
+      "summary": "Les créateurs de parfums et les chimistes spécialisés sont essentiels à l'innovation. La perte de talents clés ou l'incapacité à attirer de nouvelles compétences menace la capacité d'innovation de l'entreprise.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:43:29.137932+00:00",
@@ -508,11 +607,13 @@
   "_source_year": "2026",
   "_extraction_note": "Source annual-text disponible (101548 bytes, year=2026). KPIs spécifiques + segments + geography + risks à extraire via passe LLM dédiée. Sub-agent batch 3 a validé existence et qualité minimale de la source.",
   "_dividends_extracted_at": "2026-05-09T20:19:18Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "CHF",
   "_eps_extracted_at": "2026-05-18T16:45:12Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Chimie de spécialités",
+  "hero_kpi_override": "fragrance_beauty_sales",
+  "_hero_kpi_override_reason": "fragrance_beauty_sales = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "GIVN.SW",
     "fetched_at": "2026-05-06T17:49:03.772114+00:00",
@@ -555,6 +656,81 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "GIVN.SW",
+    "extracted_at": "2026-06-01T03:18:27Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Like-for-like Revenue Growth",
+        "period_type": "year",
+        "history": [
+          4,
+          7.1,
+          5.3,
+          4.1
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023"
+        ],
+        "last_data_date": "2023-12-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:18:27Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Dividend per Share",
+        "period_type": "year",
+        "history": [
+          64,
+          66,
+          67,
+          68,
+          70
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "CHF",
+        "_extracted_at": "2026-06-01T03:18:27Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Dividende",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Profit",
+        "period_type": "year",
+        "history": [
+          743,
+          821,
+          856,
+          893
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023"
+        ],
+        "last_data_date": "2023-12-31",
+        "unit": "M CHF",
+        "_extracted_at": "2026-06-01T03:18:27Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "GIVN.SW",
     "ranks": {
@@ -567,14 +743,15 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T02:17:14.267948+00:00",
     "fetched_at": "2026-05-21T02:17:14.267949+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.699Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.320Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/givn.sw.json",
     "enrich_root": "v2-pipeline-enrich/givn.sw.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

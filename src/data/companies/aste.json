@@ -41,17 +41,20 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur confirmée dans MD&A: 514.1 M$, croissance YoY +22.5% confirmée",
-      "period_type": "quarter",
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue.",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Net Sales",
       "explanation": "Revenu total généré par les ventes de produits et services.",
-      "value": "1410.4",
-      "unit": "M $",
+      "value": 1.41,
+      "unit": "Mds $",
       "yoy": "+8.1%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -62,8 +65,8 @@
         null,
         null,
         null,
-        1305.1,
-        1410.4
+        1.305,
+        1.41
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -71,8 +74,9 @@
       "is_short_history": false,
       "ttm": 1438.85,
       "_validation": "Valeur confirmée dans MD&A: 1 410,4 M$ (vs 1 305,1 M$ en 2024), unité corrigée de B$ à M$, description simplifiée",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -100,7 +104,7 @@
       "is_short_history": false,
       "ttm": 26.87,
       "_validation": "Valeur confirmée dans MD&A: 26,5% marge brute en 2025 vs 25,1% en 2024, YoY +1,4 pts confirmé",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -157,7 +161,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur confirmée dans MD&A: coûts ERP cumulés 151 M$ à fin 2025, fourchette 180-200 M$ confirmée",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Revenue",
@@ -184,24 +188,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.039,
-      "unit": "Mds $",
+      "value": 39,
+      "unit": "M $",
       "yoy": "+875.0%",
       "history": [
-        -0.06,
-        0.022,
-        0.047,
-        0.018,
+        -60,
+        22,
+        47,
+        18,
         0,
-        0.034,
-        0.004,
-        0.039
+        34,
+        4,
+        39
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -210,8 +218,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -240,9 +253,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Valeur confirmée dans MD&A: 84,7 M$ de ventes nettes additionnelles de TerraSource en 2025",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée dans MD&A: 84,7 M$ de ventes nettes additionnelles de TerraSource en 2025"
     },
     {
       "short": "ERP Costs",
@@ -269,9 +280,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Valeur confirmée dans MD&A: 151 M$ de coûts de mise en œuvre cumulés, fourchette totale 180-200 M$ confirmée",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée dans MD&A: 151 M$ de coûts de mise en œuvre cumulés, fourchette totale 180-200 M$ confirmée"
     }
   ],
   "ai_positioning": {
@@ -285,25 +294,25 @@
       "title": "Risque de taux d'intérêt",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Un changement de 100 points de base dans les taux d'intérêt pourrait avoir un impact de 3,5 millions de dollars sur les frais d'intérêt annuels. Cela représente une variation significative et justifie une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Un changement de 100 points de base dans les taux d'intérêt pourrait avoir un impact de 3,5 millions de dollars sur les frais d'intérêt annuels. Cela représente une variation significative et justifie une sévérité élevée.",
       "trend": "stable",
       "summary": "Le risque de taux d'intérêt est élevé en raison de l'exposition de la société aux fluctuations des taux d'intérêt, notamment en ce qui concerne les facilités de crédit de 2025.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de change",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Une fluctuation de 10% des taux de change pourrait avoir un impact de 17,7 millions de dollars sur les ventes nettes et de 1,1 million de dollars sur le bénéfice net. Cela représente une variation significative et justifie une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Une fluctuation de 10% des taux de change pourrait avoir un impact de 17,7 millions de dollars sur les ventes nettes et de 1,1 million de dollars sur le bénéfice net. Cela représente une variation significative et justifie une sévérité élevée.",
       "trend": "stable",
       "summary": "Le risque de change est élevé en raison de l'exposition de la société aux fluctuations des taux de change, notamment en ce qui concerne les opérations à l'étranger. Les ventes internationales représentent 19,9% du chiffre d'affaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de matières premières",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les fluctuations des prix des matières premières, notamment l'acier, peuvent avoir un impact sur les coûts de production et les marges bénéficiaires. Cependant, la société utilise des stratégies pour minimiser cet impact. (score par défaut, à affiner)",
+      "score_rationale": "Les fluctuations des prix des matières premières, notamment l'acier, peuvent avoir un impact sur les coûts de production et les marges bénéficiaires. Cependant, la société utilise des stratégies pour minimiser cet impact.",
       "trend": "stable",
       "summary": "Le risque de matières premières est moyen en raison de la dépendance de la société à l'égard des prix des matières premières, notamment l'acier et les produits pétroliers.",
       "score": 3
@@ -312,7 +321,7 @@
       "title": "Risque de fiscalité",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements dans les lois fiscales ou les interprétations des autorités fiscales peuvent avoir un impact sur les obligations fiscales de la société. Cependant, la société suit les réglementations fiscales en vigueur. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les lois fiscales ou les interprétations des autorités fiscales peuvent avoir un impact sur les obligations fiscales de la société. Cependant, la société suit les réglementations fiscales en vigueur.",
       "trend": "stable",
       "summary": "Le risque d'impôt est moyen en raison de la complexité des lois fiscales et des interprétations des autorités fiscales, particulièrement pour les positions fiscales incertaines.",
       "score": 3
@@ -321,10 +330,10 @@
       "title": "Risque de reconnaissance des revenus",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La reconnaissance des revenus est un processus complexe qui nécessite des jugements et des estimations. Les erreurs ou les interprétations incorrectes peuvent avoir un impact sur les états financiers. (score par défaut, à affiner)",
+      "score_rationale": "La reconnaissance des revenus est un processus complexe qui nécessite des jugements et des estimations. Les erreurs ou les interprétations incorrectes peuvent avoir un impact sur les états financiers.",
       "trend": "stable",
       "summary": "Le risque de reconnaissance des revenus est élevé en raison de la complexité des contrats avec les clients, des jugements nécessaires pour déterminer le moment de la reconnaissance, et de l'impact de l'acquisition de TerraSource.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -389,7 +398,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -448,7 +457,6 @@
       "date": "2026-05-01"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:58:20.887984+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -471,6 +479,7 @@
     ],
     "total": 1.41
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:58:20.887984+00:00",
   "_segments_fetched_at": "2026-05-06T19:23:35.568431+00:00",
   "financial_snapshot": {
     "market_cap_usd": 1228495616,
@@ -635,88 +644,53 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ASTE",
-    "extracted_at": "2026-05-15T18:09:12Z",
-    "method": "xbrl-companyfacts",
-    "cik": 792987,
+    "extracted_at": "2026-06-01T02:58:41Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Capex",
+        "short": "Backlog",
         "period_type": "quarter",
         "history": [
-          7.2,
-          10.9,
-          -1.3,
-          11.6,
-          18.8,
-          27.6,
-          -17.3,
-          8,
-          17.1,
-          25,
-          -16,
-          5.8,
-          13.4,
-          16,
-          -14.7,
-          3.9,
-          7.8,
-          12,
-          17,
-          8.1
+          420.8,
+          436.1,
+          620.5,
+          834.7,
+          837.4,
+          969,
+          800.2,
+          688.8,
+          614.7,
+          559.8,
+          531.1,
+          475.9,
+          402.6,
+          380.9,
+          449.5
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 7.8,
-            "accession": "0000792987-25-000047",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 12,
-            "accession": "0000792987-25-000064",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 17,
-            "accession": "calc-0000792987-26-000011",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 8.1,
-            "accession": "0000792987-26-000027",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T02:58:41Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -732,9 +706,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.224749+00:00",
     "fetched_at": "2026-05-21T02:17:14.224750+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.075Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.537Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aste.json",
     "enrich_root": "v2-pipeline-enrich/aste.json",

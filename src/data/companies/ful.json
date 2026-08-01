@@ -36,10 +36,13 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Capex - Dépenses d'investissement projet ONE' non trouvé dans l'extrait du 10-K. Le document fourni ne contient pas de données explicit",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -62,10 +65,8 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "HALLUCINATED - Value not found in 10-K source document",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin stable, monitor cost dynamics",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Op Margin",
@@ -89,9 +90,7 @@
       "is_short_history": true,
       "_validation": "HALLUCINATED - Value not found in 10-K source document",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin stable, monitor cost dynamics",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "R&D",
@@ -115,9 +114,7 @@
       "is_short_history": true,
       "_validation": "HALLUCINATED - Value not found in 10-K source document",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Headcount",
@@ -140,9 +137,7 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "HALLUCINATED - Value not found in 10-K source document",
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Restructuring Costs",
@@ -184,11 +179,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.18 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -207,11 +206,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.08 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -225,7 +228,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.667,
         0.738,
@@ -238,7 +241,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -253,7 +256,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0432,
@@ -266,7 +269,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -281,7 +284,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         21.74,
@@ -294,7 +297,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -310,7 +313,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.26,
@@ -323,7 +326,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -349,9 +352,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Capacity",
-      "_validation": "Unit corrected from Mds $ to M $; Value confirmed in 10-K MD&A",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from Mds $ to M $; Value confirmed in 10-K MD&A"
     }
   ],
   "ai_positioning": {
@@ -365,16 +366,16 @@
       "title": "Economic Risk",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Company is exposed to economic risks including recessions, which may negatively impact sales and profitability. Discretionary consumer spending is subject to reduction due to economic uncertainties. (Item 1A, p. 27) (score par défaut, à affiner)",
+      "score_rationale": "Company is exposed to economic risks including recessions, which may negatively impact sales and profitability. Discretionary consumer spending is subject to reduction due to economic uncertainties. (Item 1A, p. 27)",
       "trend": "stable",
       "summary": "Company is vulnerable to global economic fluctuations and recession impacts",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Interest Rate Risk",
       "category": "Credit",
       "severity": 3,
-      "score_rationale": "Company is exposed to interest rate changes from floating rate credit facilities used to fund operations, affecting borrowing costs and profitability. (Item 7A, p. 27) (score par défaut, à affiner)",
+      "score_rationale": "Company is exposed to interest rate changes from floating rate credit facilities used to fund operations, affecting borrowing costs and profitability. (Item 7A, p. 27)",
       "trend": "stable",
       "summary": "Company is sensitive to interest rate variations on floating debt",
       "score": 3
@@ -383,16 +384,16 @@
       "title": "Foreign Exchange Risk",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Company is exposed to foreign exchange risks across 34 countries of operations, which may impact sales and profitability. (Item 1A, p. 27) (score par défaut, à affiner)",
+      "score_rationale": "Company is exposed to foreign exchange risks across 34 countries of operations, which may impact sales and profitability. (Item 1A, p. 27)",
       "trend": "up",
       "summary": "Company is vulnerable to currency exchange rate fluctuations",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Raw Materials Price Risk",
       "category": "Industrial",
       "severity": 3,
-      "score_rationale": "Company is exposed to raw materials price volatility, which may impact costs and profitability. (Item 1A, p. 28) (score par défaut, à affiner)",
+      "score_rationale": "Company is exposed to raw materials price volatility, which may impact costs and profitability. (Item 1A, p. 28)",
       "trend": "stable",
       "summary": "Company is sensitive to raw materials and commodity price variations",
       "score": 3
@@ -401,7 +402,7 @@
       "title": "Goodwill Impairment Risk",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Company holds significant goodwill that may be impaired by economic fluctuations and business environment changes. Fair values of reporting units exceeded carrying values by 33-80% in 2025 impairment test. (Item 8, p. 16) (score par défaut, à affiner)",
+      "score_rationale": "Company holds significant goodwill that may be impaired by economic fluctuations and business environment changes. Fair values of reporting units exceeded carrying values by 33-80% in 2025 impairment test. (Item 8, p. 16)",
       "trend": "stable",
       "summary": "Company is vulnerable to goodwill impairment from adverse economic conditions",
       "score": 3
@@ -410,16 +411,16 @@
       "title": "Internal Controls Risk",
       "category": "Governance",
       "severity": 2,
-      "score_rationale": "Company maintains internal controls but remains exposed to potential control failures or ineffectiveness. (Item 8, p. 16) (score par défaut, à affiner)",
+      "score_rationale": "Company maintains internal controls but remains exposed to potential control failures or ineffectiveness. (Item 8, p. 16)",
       "trend": "stable",
       "summary": "Company is sensitive to internal control failures",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Reputation Risk",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "Company is exposed to reputation risks as a global manufacturer and marketer in specialty chemicals, which could impact sales and brand value. (Item 1A, p. 26) (score par défaut, à affiner)",
+      "score_rationale": "Company is exposed to reputation risks as a global manufacturer and marketer in specialty chemicals, which could impact sales and brand value. (Item 1A, p. 26)",
       "trend": "stable",
       "summary": "Company is exposed to reputational damage from product quality or safety issues",
       "score": 3
@@ -471,7 +472,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -496,7 +497,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:22:35Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -522,9 +523,9 @@
     "xbrl_fetched_at": "2026-05-09T20:27:24Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:05Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Chimie de spécialités",
-  "_companies_unified_built_at": "2026-05-29T21:19:31.495Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.314Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ful.json",
     "enrich_root": "v2-pipeline-enrich/ful.json",

@@ -21,8 +21,8 @@
       "name_fr": "Primes brutes émises",
       "name_en": "Direct Written Premium",
       "explanation": "Montant total des primes souscrites avant réassurance.",
-      "value": "1279.605",
-      "unit": "M $",
+      "value": 1.28,
+      "unit": "Mds $",
       "yoy": "+7.2%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -30,9 +30,9 @@
       "signal": "Croissance solide portée par les hausses de tarifs",
       "description": "Les primes brutes émises ont atteint 1 279,6 M$ en 2025, en hausse de 7,2% vs 2024 (1 193,1 M$), tirées par des hausses tarifaires dans les trois États.",
       "history": [
-        991.224,
-        1193.057,
-        1278.605,
+        0.991,
+        1.193,
+        1.279,
         null,
         null
       ],
@@ -44,7 +44,8 @@
         "Correction unité: 'Mds $' changé en 'M$' (valeur en milliers selon 10-K)",
         "Correction valeur: '1.279' changé en '1279.605' (conversion depuis milliers)"
       ],
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Loss Ratio",
@@ -71,8 +72,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [],
-      "explanation_en": "Loss Ratio — incurred losses divided by net earned premiums.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Loss Ratio, incurred losses divided by net earned premiums.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Expense Ratio",
@@ -99,16 +104,20 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [],
-      "explanation_en": "Expense Ratio — operating expenses divided by net earned premiums.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Expense Ratio, operating expenses divided by net earned premiums.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Written Premium",
       "name_fr": "Primes nettes émises",
       "name_en": "Net Written Premium",
       "explanation": "Primes brutes moins celles cédées en réassurance.",
-      "value": "1193.057",
-      "unit": "M $",
+      "value": 1.193,
+      "unit": "Mds $",
       "yoy": "+7.5%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -117,8 +126,8 @@
       "description": "Les primes nettes émises ont progressé de 7,5% en 2025 vs 2024, légèrement plus vite que les primes brutes (7,2%), suggérant une gestion stable de la réassurance.",
       "history": [
         null,
-        1193.057,
-        1278.605,
+        1.193,
+        1.279,
         null,
         null
       ],
@@ -130,7 +139,8 @@
         "Correction unité: 'Mds $' changé en 'M$'",
         "Correction valeur: '1.279' changé en '1193.057' (primes nettes 2024 selon source)"
       ],
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Catastrophe Losses",
@@ -184,24 +194,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.099,
-      "unit": "Mds $",
+      "value": 99,
+      "unit": "M $",
       "yoy": "+39.4%",
       "history": [
-        0.083,
-        0.1,
-        0.138,
-        0.131,
-        0.047,
-        0.019,
-        0.071,
-        0.099
+        83,
+        100,
+        138,
+        131,
+        47,
+        19,
+        71,
+        99
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -210,8 +224,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -283,7 +302,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est identifié comme un 'Critical Audit Matter' par les auditeurs (p. 61-62), impliquant des jugements complexes et un effort accru. L'estimation des réserves est sujette à de nombreuses incertitudes (législatives, judiciaires, économiques) et a un impact matériel sur les états financiers.",
       "trend": "stable",
-      "summary": "L'estimation des montants nécessaires pour couvrir les sinistres passés et futurs, ainsi que les frais associés, est complexe et sujette à des incertitudes significatives, impactant directement la santé financière de l'entreprise."
+      "summary": "L'estimation des montants nécessaires pour couvrir les sinistres passés et futurs, ainsi que les frais associés, est complexe et sujette à des incertitudes significatives, impactant directement la santé financière de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Risque de taux d'intérêt sur les investissements et la dette",
@@ -291,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Le document (p. 58) mentionne explicitement l'exposition au risque de taux d'intérêt sur les investissements (obligations) et la dette. Une variation de 100 points de base pourrait entraîner une variation significative de la juste valeur des investissements (estimée à +/- 63 millions USD).",
       "trend": "stable",
-      "summary": "Les fluctuations des taux d'intérêt peuvent affecter négativement la valeur des portefeuilles d'investissement de l'entreprise et augmenter le coût de sa dette."
+      "summary": "Les fluctuations des taux d'intérêt peuvent affecter négativement la valeur des portefeuilles d'investissement de l'entreprise et augmenter le coût de sa dette.",
+      "score": 4
     },
     {
       "title": "Risque lié aux prix des actions",
@@ -299,7 +320,8 @@
       "severity": 3,
       "score_rationale": "Le risque de perte économique dû aux variations des prix des actions est mentionné (p. 59) en raison des détentions d'actions et de fonds communs de placement pour le financement des plans de rémunération différée. L'entreprise évalue continuellement les conditions de marché.",
       "trend": "stable",
-      "summary": "Les variations défavorables des cours boursiers peuvent entraîner des pertes sur les investissements en actions détenus par l'entreprise, notamment pour financer des engagements envers ses dirigeants."
+      "summary": "Les variations défavorables des cours boursiers peuvent entraîner des pertes sur les investissements en actions détenus par l'entreprise, notamment pour financer des engagements envers ses dirigeants.",
+      "score": 3
     },
     {
       "title": "Risque opérationnel et de marché général",
@@ -307,7 +329,8 @@
       "severity": 3,
       "score_rationale": "Le texte introductif (p. 58) mentionne des risques de marché, opérationnels et de liquidité qui pourraient différer des résultats prévisionnels. Ces risques sont décrits ailleurs dans le rapport.",
       "trend": "stable",
-      "summary": "Des événements imprévus liés aux opérations de l'entreprise ou aux conditions générales du marché pourraient entraîner des résultats financiers différents de ceux attendus."
+      "summary": "Des événements imprévus liés aux opérations de l'entreprise ou aux conditions générales du marché pourraient entraîner des résultats financiers différents de ceux attendus.",
+      "score": 3
     },
     {
       "title": "Risque de liquidité des investissements",
@@ -315,7 +338,8 @@
       "severity": 3,
       "score_rationale": "Le document (p. 58) indique que dans l'environnement de marché actuel, les investissements peuvent contenir des risques de liquidité. Cela peut affecter la capacité de l'entreprise à vendre ses actifs rapidement sans perte significative.",
       "trend": "stable",
-      "summary": "L'entreprise pourrait rencontrer des difficultés à vendre certains de ses actifs rapidement et sans décote importante, en particulier dans le contexte économique actuel."
+      "summary": "L'entreprise pourrait rencontrer des difficultés à vendre certains de ses actifs rapidement et sans décote importante, en particulier dans le contexte économique actuel.",
+      "score": 3
     },
     {
       "title": "Risque lié à la réglementation et à la supervision",
@@ -323,7 +347,8 @@
       "severity": 3,
       "score_rationale": "Le texte introductif (p. 58) mentionne que les facteurs liés à la réglementation et à la supervision de l'entreprise sont décrits ou incorporés dans le rapport. Cela suggère une sensibilité aux changements réglementaires.",
       "trend": "stable",
-      "summary": "L'entreprise est soumise à des réglementations et à une supervision qui pourraient évoluer, entraînant potentiellement des contraintes ou des coûts supplémentaires."
+      "summary": "L'entreprise est soumise à des réglementations et à une supervision qui pourraient évoluer, entraînant potentiellement des contraintes ou des coûts supplémentaires.",
+      "score": 3
     }
   ],
   "governance": {
@@ -557,9 +582,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.306066+00:00",
     "fetched_at": "2026-05-21T02:17:14.306067+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.463Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.494Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/saft.json",
     "enrich_root": "v2-pipeline-enrich/saft.json",

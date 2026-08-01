@@ -20,54 +20,64 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.095,
-      "unit": "Mds €",
+      "value": 95,
+      "unit": "M €",
       "yoy": "-70.5%",
       "history": [
-        0.091,
-        0.108,
-        0.134,
-        0.164,
-        0.198,
-        0.231,
-        0.279,
-        0.322,
-        0.095
+        91,
+        108,
+        134,
+        164,
+        198,
+        231,
+        279,
+        322,
+        95
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.67 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:57.653203+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=9)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "+17.6%",
       "history": [
-        0.11,
-        0.15,
-        0.17,
-        0.2
+        110,
+        150,
+        170,
+        200
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.2 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -86,56 +96,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.1 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.04,
-        0.03,
-        0.05,
-        0.05
+        40,
+        30,
+        50,
+        50
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.05 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.25,
-      "unit": "Mds €",
+      "value": 250,
+      "unit": "M €",
       "yoy": "+8.7%",
       "history": [
-        0.17,
-        0.2,
-        0.23,
-        0.25
+        170,
+        200,
+        230,
+        250
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.25 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -186,7 +210,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en premier et décrit comme ayant un impact direct sur le cours de l'action et pouvant entraîner des poursuites. Le langage est répétitif et insiste sur l'incapacité à réduire les coûts fixes à court terme. Position centrale dans le 10-K. Pondération élevée pour un risque financier.",
       "trend": "stable",
-      "summary": "Les fluctuations imprévues des revenus, dues à de nombreux facteurs externes, pourraient faire chuter le cours de l'action et nuire à la rentabilité."
+      "summary": "Les fluctuations imprévues des revenus, dues à de nombreux facteurs externes, pourraient faire chuter le cours de l'action et nuire à la rentabilité.",
+      "score": 4
     },
     {
       "title": "Échec à innover face à la concurrence",
@@ -194,7 +219,8 @@
       "severity": 5,
       "score_rationale": "Langage fort : 'substantially decrease or delay market acceptance', 'lose existing customers'. Le risque est lié à la survie du modèle économique dans un marché en évolution rapide. Positionné tôt dans le document, avec une liste exhaustive de causes d'échec. Catégorie 'Concurrence' fortement pondérée.",
       "trend": "stable",
-      "summary": "L'incapacité à développer rapidement des solutions adaptées pourrait entraîner une perte de clients et une chute des ventes."
+      "summary": "L'incapacité à développer rapidement des solutions adaptées pourrait entraîner une perte de clients et une chute des ventes.",
+      "score": 5
     },
     {
       "title": "Problèmes de montée en charge de la plateforme",
@@ -202,7 +228,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne l'investissement massif nécessaire et la complexité des technologies. Mention de risques concrets si la plateforme ne suit pas la croissance des clients. Langage préoccupé ('may be harmed'). Positionnement stratégique après les risques commerciaux.",
       "trend": "stable",
-      "summary": "Si la plateforme ne s'adapte pas à la demande croissante, la performance se dégradera et nuira à l'activité."
+      "summary": "Si la plateforme ne s'adapte pas à la demande croissante, la performance se dégradera et nuira à l'activité.",
+      "score": 4
     },
     {
       "title": "Risque de non-renouvellement des abonnements",
@@ -210,7 +237,8 @@
       "severity": 4,
       "score_rationale": "Le modèle SaaS repose sur les renouvellements. Le texte insiste sur l'absence d'obligation de renouvellement et l'impact direct sur la croissance des revenus. Langage clair et répété ('revenues may grow more slowly or decline'). Risque central pour la récurrence.",
       "trend": "stable",
-      "summary": "La faible fidélisation des clients ou leur désabonnement pourrait ralentir la croissance ou réduire les revenus."
+      "summary": "La faible fidélisation des clients ou leur désabonnement pourrait ralentir la croissance ou réduire les revenus.",
+      "score": 4
     },
     {
       "title": "Cyberattaques sur la plateforme ou fournisseurs",
@@ -218,7 +246,8 @@
       "severity": 5,
       "score_rationale": "Langage alarmant : 'targeted for cyber-attacks', 'materially disrupt', 'loss of FedRAMP authorization'. Risque existentiel car l'entreprise vend des solutions de sécurité. Mention de menaces étatiques et d'IA malveillante. Positionné tard mais avec intensité élevée.",
       "trend": "up",
-      "summary": "Une faille de sécurité, réelle ou perçue, pourrait détruire la confiance des clients et entraîner des sanctions réglementaires."
+      "summary": "Une faille de sécurité, réelle ou perçue, pourrait détruire la confiance des clients et entraîner des sanctions réglementaires.",
+      "score": 5
     },
     {
       "title": "Dépendance aux développements R&D",
@@ -226,7 +255,8 @@
       "severity": 4,
       "score_rationale": "Le texte reconnaît que les efforts de R&D sont coûteux et sans garantie de retour. Mention explicite d'un impact 'matériel et défavorable' si l'investissement échoue. Position après les risques commerciaux, mais avec gravité soulignée.",
       "trend": "stable",
-      "summary": "Les dépenses importantes en recherche et développement pourraient ne pas générer de retour suffisant, nuisant aux résultats."
+      "summary": "Les dépenses importantes en recherche et développement pourraient ne pas générer de retour suffisant, nuisant aux résultats.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques accrus sur la cybersécurité",
@@ -234,7 +264,8 @@
       "severity": 4,
       "score_rationale": "Mention spécifique des tensions en Europe de l'Est et au Moyen-Orient comme facteurs aggravants. Langage renforçant la menace ('heightened risks', 'nation-state actors'). Apparaît comme un renforcement par rapport aux années précédentes. Catégorie géopolitique en hausse.",
       "trend": "up",
-      "summary": "Les conflits géopolitiques augmentent la probabilité d'attaques cybermenées par des États, menaçant l'intégrité des systèmes."
+      "summary": "Les conflits géopolitiques augmentent la probabilité d'attaques cybermenées par des États, menaçant l'intégrité des systèmes.",
+      "score": 4
     }
   ],
   "governance": {
@@ -278,10 +309,154 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "subsector_fr": "Cybersécurité",
-  "_companies_unified_built_at": "2026-05-29T21:19:35.006Z",
+  "enrich_quarterly_history": {
+    "ticker": "QLYS",
+    "extracted_at": "2026-06-01T09:18:01Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          0.000228,
+          0.021142,
+          0.027769,
+          0.02541,
+          0.026596,
+          0.02766,
+          0.029105,
+          0.035382,
+          0.046515,
+          0.039731,
+          0.043772,
+          0.046212,
+          0.047534,
+          0.04729,
+          0.050346
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:18:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          0.401359,
+          0.393725,
+          0.401359,
+          0.485676,
+          0.493725,
+          0.485676,
+          0.521716,
+          0.53401,
+          0.568088,
+          0.610923,
+          0.623939,
+          0.642435,
+          0.677531,
+          0.691886,
+          0.71045
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:18:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Cash & Equivalents",
+        "period_type": "quarter",
+        "history": [
+          0.196554,
+          0.066813,
+          0.15501,
+          0.274983,
+          0.085505,
+          0.210766,
+          0.196554,
+          0.085505,
+          0.210766,
+          0.274983,
+          0.085505,
+          0.210766,
+          0.291871,
+          0.195183,
+          0.226453
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:18:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
+  "_companies_unified_built_at": "2026-08-01T20:28:01.020Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/qlys.json",
     "enrich_root": "v2-pipeline-enrich/qlys.json",
-    "enrich_subkeys": []
+    "enrich_subkeys": [
+      "quarterly-history"
+    ]
   }
 }

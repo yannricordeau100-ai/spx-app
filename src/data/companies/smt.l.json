@@ -71,11 +71,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.24 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni ne contient aucune valeur annuelle explicite du chiffre d'affaires (Total Revenue) pour les années récentes.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -94,11 +100,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.22 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -117,11 +127,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.95 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -140,11 +154,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 13.74 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -163,33 +181,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.62 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-91.7%",
       "history": [
-        0.23,
-        0.18,
-        0.12,
-        0.01
+        230,
+        180,
+        120,
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -238,7 +265,8 @@
       "severity": 4,
       "score_rationale": "Le risque est central dans le document (mentionné dès l'ouverture), avec un langage fort (\"scarce\", \"supressing global growth\"). La tendance est à la hausse, et la catégorie 'Capital' est stratégique pour un trust d'investissement. Son poids est élevé car il affecte directement la stratégie d'investissement.",
       "trend": "up",
-      "summary": "La raréfaction du capital à risque, due à des politiques monétaires restrictives et à une inflation persistante, pourrait limiter les levées de fonds pour les entreprises en difficulté, réduisant ainsi les opportunités d'acquisition à bas prix pour le trust."
+      "summary": "La raréfaction du capital à risque, due à des politiques monétaires restrictives et à une inflation persistante, pourrait limiter les levées de fonds pour les entreprises en difficulté, réduisant ainsi les opportunités d'acquisition à bas prix pour le trust.",
+      "score": 4
     },
     {
       "title": "Dépendance à la reprise du marché UK",
@@ -246,7 +274,8 @@
       "severity": 4,
       "score_rationale": "Le document insiste sur l'opportunité liée à la sous-pondération actuelle du marché britannique. Le langage est optimiste mais expose un risque si la tendance ne s'inverse pas. Position centrale, tendance stable, poids élevé car stratégique.",
       "trend": "stable",
-      "summary": "La stratégie du trust repose sur une revalorisation future des actions britanniques, notamment les smallcaps. Si cette reprise n’a pas lieu, la performance du portefeuille pourrait être décevante en l'absence de croissance des valorisations."
+      "summary": "La stratégie du trust repose sur une revalorisation future des actions britanniques, notamment les smallcaps. Si cette reprise n’a pas lieu, la performance du portefeuille pourrait être décevante en l'absence de croissance des valorisations.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue pour actifs en détresse",
@@ -254,7 +283,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne l'avantage des sociétés cotées générant des excédents de trésorerie, mais cela implique une compétition pour acquérir des actifs en difficulté. Langage modéré, position secondaire, tendance en hausse.",
       "trend": "up",
-      "summary": "D'autres investisseurs, notamment des fonds cotés ou des entreprises en surplus de trésorerie, pourraient rivaliser avec le trust pour l'acquisition d'entreprises surendettées, réduisant ainsi la disponibilité et augmentant le prix des bonnes opportunités."
+      "summary": "D'autres investisseurs, notamment des fonds cotés ou des entreprises en surplus de trésorerie, pourraient rivaliser avec le trust pour l'acquisition d'entreprises surendettées, réduisant ainsi la disponibilité et augmentant le prix des bonnes opportunités.",
+      "score": 3
     },
     {
       "title": "Délocalisations de sociétés hors du Royaume-Uni",
@@ -262,7 +292,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné avec un langage fort (\"dribble could become a stream\"). Il affecte la base d'investissement disponible. Position élevée, tendance à la hausse, poids élevé.",
       "trend": "up",
-      "summary": "Un nombre croissant de sociétés britanniques pourrait transférer leur cotation principale vers les États-Unis ou d'autres marchés, réduisant la taille et la diversité du vivier d'investissement disponible pour le trust au Royaume-Uni."
+      "summary": "Un nombre croissant de sociétés britanniques pourrait transférer leur cotation principale vers les États-Unis ou d'autres marchés, réduisant la taille et la diversité du vivier d'investissement disponible pour le trust au Royaume-Uni.",
+      "score": 4
     },
     {
       "title": "Sensibilité aux pressions inflationnistes persistantes",
@@ -270,7 +301,8 @@
       "severity": 4,
       "score_rationale": "L'inflation est un thème récurrent, présenté comme un changement de paradigme. Langage fort (\"inflation changes everything\"). Position centrale, tendance stable, poids élevé.",
       "trend": "stable",
-      "summary": "Bien que l'inflation puisse créer des opportunités d'acquisition, elle menace aussi la rentabilité des entreprises du portefeuille si elles ne parviennent pas à répercuter les coûts, affectant ainsi les dividendes et la croissance des revenus."
+      "summary": "Bien que l'inflation puisse créer des opportunités d'acquisition, elle menace aussi la rentabilité des entreprises du portefeuille si elles ne parviennent pas à répercuter les coûts, affectant ainsi les dividendes et la croissance des revenus.",
+      "score": 4
     },
     {
       "title": "Dépendance aux stratégies de compounding en cash",
@@ -278,7 +310,8 @@
       "severity": 3,
       "score_rationale": "Le modèle repose sur la croissance des dividendes et les acquisitions via trésorerie. Mention fréquente mais implicite. Langage positif, mais exposition stratégique. Tendance stable.",
       "trend": "stable",
-      "summary": "La performance du trust dépend fortement de la capacité des entreprises du portefeuille à générer des excédents de trésorerie. Un affaiblissement de ce modèle, par exemple en cas de crise sectorielle, pourrait nuire à la stratégie globale."
+      "summary": "La performance du trust dépend fortement de la capacité des entreprises du portefeuille à générer des excédents de trésorerie. Un affaiblissement de ce modèle, par exemple en cas de crise sectorielle, pourrait nuire à la stratégie globale.",
+      "score": 3
     },
     {
       "title": "Risque de changement de régulation au Royaume-Uni",
@@ -286,7 +319,8 @@
       "severity": 3,
       "score_rationale": "Le document évoque un possible durcissement réglementaire ou des pressions politiques. Mention secondaire, langage prudent. Tendance en hausse, poids modéré.",
       "trend": "up",
-      "summary": "Des changements réglementaires ou politiques au Royaume-Uni, notamment en matière de fiscalité ou de gouvernance des entreprises cotées, pourraient affecter la rentabilité ou l'attractivité des investissements du trust."
+      "summary": "Des changements réglementaires ou politiques au Royaume-Uni, notamment en matière de fiscalité ou de gouvernance des entreprises cotées, pourraient affecter la rentabilité ou l'attractivité des investissements du trust.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:44:11.701927+00:00",
@@ -371,9 +405,9 @@
     "country": "",
     "_data_freshness_date": "2026-05-21T02:17:14.311165+00:00",
     "fetched_at": "2026-05-21T02:17:14.311166+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.924Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.924Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/smt.l.json",
     "enrich_root": "v2-pipeline-enrich/smt.l.json",

@@ -21,8 +21,8 @@
       "name_fr": "Trésorerie et valeurs mobilières",
       "name_en": "Cash and Marketable Securities",
       "explanation": "Montant total de la trésorerie et des valeurs mobilières disponibles",
-      "value": 1945.4,
-      "unit": "M $",
+      "value": 1.945,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Cash",
       "nature": "Conjoncturel",
@@ -35,7 +35,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le filing fournit uniquement la valeur ponctuelle au 31 décembre 2020 ($1.1 milliard) dans la section MDA, sans historique annuel explicite "
+      "_hero_history_unverified_reason": "Le filing fournit uniquement la valeur ponctuelle au 31 décembre 2020 ($1.1 milliard) dans la section MDA, sans historique annuel explicite ",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating_CF",
@@ -73,57 +74,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.73 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.68,
-      "unit": "Mds €",
+      "value": 680,
+      "unit": "M €",
       "yoy": "+288.9%",
       "history": [
-        -0.56,
-        -0.63,
-        -0.36,
-        0.68
+        -560,
+        -630,
+        -360,
+        680
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.68 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.86,
-      "unit": "Mds €",
+      "value": 860,
+      "unit": "M €",
       "yoy": "+673.3%",
       "history": [
-        -0.44,
-        -0.35,
-        -0.15,
-        0.86
+        -440,
+        -350,
+        -150,
+        860
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.86 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -142,11 +157,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.9 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -165,33 +184,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.98,
-      "unit": "Mds €",
+      "value": 980,
+      "unit": "M €",
       "yoy": "+25.6%",
       "history": [
-        0.28,
-        0.59,
-        0.78,
-        0.98
+        280,
+        590,
+        780,
+        980
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.98 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -213,9 +241,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Partnership",
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Partnership"
     },
     {
       "short": "Sephience_Approvals",
@@ -235,9 +261,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Innovation",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -274,7 +298,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K avec mention d'un risque substantiel sur les revenus. Langage fort : 'substantial risk' de perte de revenus. Contexte aggravé par le retrait de l'AMM en EEA. Catégorie Régulation fortement pondérée.",
       "trend": "stable",
-      "summary": "Le rejet du renouvellement de l'autorisation de mise sur le marché de Translarna en Europe menace gravement les revenus liés à ce produit."
+      "summary": "Le rejet du renouvellement de l'autorisation de mise sur le marché de Translarna en Europe menace gravement les revenus liés à ce produit.",
+      "score": 5
     },
     {
       "title": "Échec du développement de Translarna aux États-Unis",
@@ -282,7 +307,8 @@
       "severity": 5,
       "score_rationale": "Mention explicite du retrait de la demande d'AMM après un échec réglementaire. Langage définitif : 'further development not planned'. Impact majeur sur la stratégie. Catégorie Régulation critique.",
       "trend": "stable",
-      "summary": "Le retrait de la demande d'approbation aux États-Unis et l'arrêt du développement de Translarna suppriment toute perspective de croissance aux États-Unis."
+      "summary": "Le retrait de la demande d'approbation aux États-Unis et l'arrêt du développement de Translarna suppriment toute perspective de croissance aux États-Unis.",
+      "score": 5
     },
     {
       "title": "Concurrence générique sur Emflaza",
@@ -290,7 +316,8 @@
       "severity": 4,
       "score_rationale": "Risque documenté avec perte d'exclusivité en 2024 et impact négatif confirmé sur les revenus. Langage clair sur l'impact futur. Catégorie Concurrence de poids modéré.",
       "trend": "stable",
-      "summary": "La fin de l'exclusivité d'Emflaza aux États-Unis entraîne une concurrence accrue des génériques, réduisant ses revenus."
+      "summary": "La fin de l'exclusivité d'Emflaza aux États-Unis entraîne une concurrence accrue des génériques, réduisant ses revenus.",
+      "score": 4
     },
     {
       "title": "Échec de l'AMM de vatiquinone pour la FA",
@@ -298,7 +325,8 @@
       "severity": 4,
       "score_rationale": "Lettre de réponse complète de la FDA exigeant une nouvelle étude. Langage fort : 'substantial evidence not demonstrated'. Risque élevé pour un produit en phase avancée. Catégorie Régulation.",
       "trend": "stable",
-      "summary": "La FDA a rejeté l'AMM de vatiquinone, exigeant une étude supplémentaire, ce qui retarde sa commercialisation potentielle."
+      "summary": "La FDA a rejeté l'AMM de vatiquinone, exigeant une étude supplémentaire, ce qui retarde sa commercialisation potentielle.",
+      "score": 4
     },
     {
       "title": "Dépendance à la reconnaissance des prix",
@@ -306,7 +334,8 @@
       "severity": 4,
       "score_rationale": "Mention répétée des négociations pays par pays pour Sephience. Risque direct sur le lancement commercial. Langage soulignant la vulnérabilité réglementaire. Catégorie Régulation.",
       "trend": "new",
-      "summary": "Le lancement de Sephience dépend des accords de prix et de remboursement dans chaque pays, ce qui peut ralentir ou limiter sa pénétration."
+      "summary": "Le lancement de Sephience dépend des accords de prix et de remboursement dans chaque pays, ce qui peut ralentir ou limiter sa pénétration.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenariats externes",
@@ -314,7 +343,8 @@
       "severity": 3,
       "score_rationale": "Références aux accords avec Roche et Novartis. Perte de contrôle partiel sur le développement (ex. votoplam). Langage prudent mais sans urgence. Catégorie Capital modérée.",
       "trend": "up",
-      "summary": "La société dépend de partenaires comme Novartis pour le développement de certains candidats-médicaments, limitant son autonomie stratégique."
+      "summary": "La société dépend de partenaires comme Novartis pour le développement de certains candidats-médicaments, limitant son autonomie stratégique.",
+      "score": 3
     },
     {
       "title": "Risque sur les études post-Autorisation",
@@ -322,7 +352,8 @@
       "severity": 3,
       "score_rationale": "Obligations post-commercialisation pour Kebilidi mentionnées. Langage standard sur les exigences réglementaires. Moins critique que d'autres risques réglementaires. Catégorie Régulation.",
       "trend": "new",
-      "summary": "L'approbation accélérée de Kebilidi impose des études de sécurité post-commercialisation, avec un risque de non-conformité ou de retrait."
+      "summary": "L'approbation accélérée de Kebilidi impose des études de sécurité post-commercialisation, avec un risque de non-conformité ou de retrait.",
+      "score": 3
     }
   ],
   "governance": {
@@ -410,7 +441,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.935Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.326Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ptct.json",
     "enrich_root": null,

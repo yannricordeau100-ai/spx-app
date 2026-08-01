@@ -103,34 +103,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.88 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "-4.7%",
       "history": [
-        0.27,
-        0.3,
-        0.43,
-        0.41
+        270,
+        300,
+        430,
+        410
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.41 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,56 +158,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.55 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.97,
-      "unit": "Mds €",
+      "value": 970,
+      "unit": "M €",
       "yoy": "+14.1%",
       "history": [
-        0.75,
-        0.77,
-        0.85,
-        0.97
+        750,
+        770,
+        850,
+        970
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.97 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "-48.0%",
       "history": [
-        0.17,
-        0.1,
-        0.25,
-        0.13
+        170,
+        100,
+        250,
+        130
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -212,7 +235,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.2,
         1.84,
@@ -225,7 +248,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -240,7 +263,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.3506,
@@ -253,7 +276,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -268,7 +291,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         46.01,
@@ -281,7 +304,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -297,7 +320,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.97,
@@ -310,7 +333,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -349,7 +372,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de son expansion pour maintenir sa croissance, mais des facteurs tels que la concurrence pour les sites, les coûts de construction et les retards dans l'ouverture de nouveaux restaurants peuvent impacter négativement ses résultats.",
       "trend": "stable",
-      "summary": "La croissance de la société est menacée par des facteurs tels que la concurrence pour les sites et les coûts de construction."
+      "summary": "La croissance de la société est menacée par des facteurs tels que la concurrence pour les sites et les coûts de construction.",
+      "score": 4
     },
     {
       "title": "Inflation des coûts",
@@ -357,7 +381,8 @@
       "severity": 5,
       "score_rationale": "L'inflation des coûts, en particulier des denrées alimentaires, peut avoir un impact significatif sur les résultats de la société, car elle peut entraîner une augmentation des coûts sans pouvoir augmenter les prix des menus.",
       "trend": "up",
-      "summary": "L'inflation des coûts, notamment des denrées alimentaires, peut impacter négativement les résultats de la société."
+      "summary": "L'inflation des coûts, notamment des denrées alimentaires, peut impacter négativement les résultats de la société.",
+      "score": 5
     },
     {
       "title": "Risques réputationnels",
@@ -365,7 +390,8 @@
       "severity": 5,
       "score_rationale": "La réputation de la société est cruciale pour son succès, et tout incident négatif, tel qu'une crise de sécurité alimentaire ou un scandale, peut avoir des conséquences graves sur son activité.",
       "trend": "stable",
-      "summary": "La réputation de la société est essentielle à son succès, et tout incident négatif peut avoir des conséquences graves."
+      "summary": "La réputation de la société est essentielle à son succès, et tout incident négatif peut avoir des conséquences graves.",
+      "score": 5
     },
     {
       "title": "Dépendance à la chaîne d'approvisionnement",
@@ -373,7 +399,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de ses fournisseurs pour ses denrées alimentaires, et tout problème avec ces fournisseurs peut impacter négativement ses résultats.",
       "trend": "stable",
-      "summary": "La société dépend fortement de ses fournisseurs, et tout problème avec ces derniers peut avoir des conséquences négatives."
+      "summary": "La société dépend fortement de ses fournisseurs, et tout problème avec ces derniers peut avoir des conséquences négatives.",
+      "score": 4
     },
     {
       "title": "Risques liés à l'expansion internationale",
@@ -381,7 +408,8 @@
       "severity": 4,
       "score_rationale": "L'expansion de la société dans les marchés internationaux présente des risques économiques, politiques et réglementaires supplémentaires qui peuvent impacter négativement ses résultats.",
       "trend": "new",
-      "summary": "L'expansion internationale de la société présente des risques supplémentaires qui peuvent impacter négativement ses résultats."
+      "summary": "L'expansion internationale de la société présente des risques supplémentaires qui peuvent impacter négativement ses résultats.",
+      "score": 4
     },
     {
       "title": "Concentration géographique",
@@ -389,7 +417,8 @@
       "severity": 4,
       "score_rationale": "La concentration de la société dans certains États, tels que le Texas et la Floride, la rend vulnérable aux tendances économiques et aux événements négatifs dans ces régions.",
       "trend": "stable",
-      "summary": "La concentration géographique de la société la rend vulnérable aux tendances économiques et aux événements négatifs dans ces régions."
+      "summary": "La concentration géographique de la société la rend vulnérable aux tendances économiques et aux événements négatifs dans ces régions.",
+      "score": 4
     },
     {
       "title": "Risques liés à la concurrence",
@@ -397,7 +426,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un environnement très concurrentiel, et la concurrence peut impacter négativement ses résultats, en particulier si les concurrents offrent des menus plus attractifs ou des prix plus bas.",
       "trend": "stable",
-      "summary": "La concurrence peut impacter négativement les résultats de la société, en particulier si les concurrents offrent des menus plus attractifs ou des prix plus bas."
+      "summary": "La concurrence peut impacter négativement les résultats de la société, en particulier si les concurrents offrent des menus plus attractifs ou des prix plus bas.",
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions",
@@ -405,7 +435,8 @@
       "severity": 4,
       "score_rationale": "Les acquisitions de restaurants existants ou de nouvelles marques peuvent présenter des risques, tels que des coûts d'intégration élevés, des problèmes de culture d'entreprise et des défis liés à la gestion de nouvelles marques.",
       "trend": "new",
-      "summary": "Les acquisitions peuvent présenter des risques, tels que des coûts d'intégration élevés et des problèmes de culture d'entreprise."
+      "summary": "Les acquisitions peuvent présenter des risques, tels que des coûts d'intégration élevés et des problèmes de culture d'entreprise.",
+      "score": 4
     }
   ],
   "governance": {
@@ -438,7 +469,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 4,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -500,7 +531,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:19:36Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -527,7 +558,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:41Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:58Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Restauration",
   "enrich_events": {
     "ticker": "TXRH",
@@ -674,9 +705,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.321016+00:00",
     "fetched_at": "2026-05-21T02:17:14.321017+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.787Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.872Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/txrh.json",
     "enrich_root": "v2-pipeline-enrich/txrh.json",

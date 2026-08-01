@@ -21,8 +21,8 @@
       "name_fr": "Livraisons cumulées de véhicules",
       "name_en": "Cumulative Vehicle Deliveries",
       "explanation": "Nombre total de véhicules livrés par l'entreprise depuis le début de ses opérations.",
-      "value": 1500000,
-      "unit": "",
+      "value": 1.5,
+      "unit": "M $",
       "yoy": null,
       "type": "Demand",
       "nature": "Structurel",
@@ -33,7 +33,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "raw -> M $"
     },
     {
       "short": "Total Assets",
@@ -52,11 +53,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 154.3 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -75,11 +80,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 17.81 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -117,7 +126,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début d'Item 3 avec langage très intense (« severe penalties », « forced to relinquish », « significantly decline or become worthless »). Répété 4 fois dans l'extrait. Tendance stable mais poids critique : le gouvernement chinois pourrait invalider la structure VIE entière, menaçant l'existence opérationnelle de Li Auto.",
       "trend": "stable",
-      "summary": "Li Auto opère en Chine via des entités à intérêt variable (VIE) liées par contrats, car la loi chinoise restreint l'investissement étranger direct dans certains secteurs. Si le gouvernement juge ces arrangements non-conformes ou change leur interprétation, Li Auto pourrait être forcée d'abandonner ses opérations ou faire face à des pénalités sévères, rendant ses titres potentiellement sans valeur."
+      "summary": "Li Auto opère en Chine via des entités à intérêt variable (VIE) liées par contrats, car la loi chinoise restreint l'investissement étranger direct dans certains secteurs. Si le gouvernement juge ces arrangements non-conformes ou change leur interprétation, Li Auto pourrait être forcée d'abandonner ses opérations ou faire face à des pénalités sévères, rendant ses titres potentiellement sans valeur.",
+      "score": 5
     },
     {
       "title": "Risque de délisting aux États-Unis (HFCAA)",
@@ -125,7 +135,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement nommé avec langage d'avertissement (« may be prohibited from trading », « materially and adversely affect »). Position centrale dans Item 3. Dépend de décisions annuelles du PCAOB sur l'accès d'inspection en Chine. Tendance : Li Auto a été retiré de la liste en 2022 mais reste exposé à un retour.",
       "trend": "up",
-      "summary": "Si le PCAOB ne peut plus inspecter complètement les cabinets d'audit basés en Chine/Hong Kong pendant deux années consécutives, Li Auto serait identifiée comme « Commission-Identified Issuer » et ses ADSs seraient interdites de négociation aux États-Unis, détruisant la liquidité et la valeur pour les investisseurs."
+      "summary": "Si le PCAOB ne peut plus inspecter complètement les cabinets d'audit basés en Chine/Hong Kong pendant deux années consécutives, Li Auto serait identifiée comme « Commission-Identified Issuer » et ses ADSs seraient interdites de négociation aux États-Unis, détruisant la liquidité et la valeur pour les investisseurs.",
+      "score": 4
     },
     {
       "title": "Dépendance aux approbations réglementaires chinoises futures",
@@ -133,7 +144,8 @@
       "severity": 4,
       "score_rationale": "Langage d'incertitude élevée (« cannot assure you », « may need to file », « cannot be timely obtained, or at all »). Risque spécifique aux futures levées de capitaux : CSRC et CAC pourraient imposer des approbations cybersécurité ou autres. Impact potentiel : restrictions sur les opérations, pénalités, blocage des rapatriements.",
       "trend": "up",
-      "summary": "Pour toute future levée de capitaux à l'étranger, Li Auto pourrait devoir obtenir l'approbation de la CSRC ou passer une revue cybersécurité de la CAC. L'absence d'assurance sur l'obtention ou les délais crée un risque de restrictions opérationnelles, pénalités financières, ou blocage des flux de trésorerie vers la Chine."
+      "summary": "Pour toute future levée de capitaux à l'étranger, Li Auto pourrait devoir obtenir l'approbation de la CSRC ou passer une revue cybersécurité de la CAC. L'absence d'assurance sur l'obtention ou les délais crée un risque de restrictions opérationnelles, pénalités financières, ou blocage des flux de trésorerie vers la Chine.",
+      "score": 4
     },
     {
       "title": "Conflits d'intérêts des actionnaires nominaux des VIE",
@@ -141,7 +153,8 @@
       "severity": 3,
       "score_rationale": "Risque structurel mentionné explicitement (« potential conflicts of interest »). Langage modéré mais reconnaît que les actionnaires nominaux des VIE pourraient agir contre les intérêts de Li Auto. Tendance stable. Poids : affecte le contrôle effectif des opérations chinoises.",
       "trend": "stable",
-      "summary": "Les actionnaires nominaux des VIE pourraient avoir des intérêts divergents de ceux de Li Auto et de ses investisseurs. Bien que liés par contrats, ces arrangements ne sont pas testés en cour chinoise et pourraient être contestés, compromettant le contrôle opérationnel réel de Li Auto sur ses activités en Chine."
+      "summary": "Les actionnaires nominaux des VIE pourraient avoir des intérêts divergents de ceux de Li Auto et de ses investisseurs. Bien que liés par contrats, ces arrangements ne sont pas testés en cour chinoise et pourraient être contestés, compromettant le contrôle opérationnel réel de Li Auto sur ses activités en Chine.",
+      "score": 3
     },
     {
       "title": "Restrictions sur les flux de dividendes et rapatriements",
@@ -149,7 +162,8 @@
       "severity": 3,
       "score_rationale": "Risque opérationnel détaillé avec chiffres concrets (RMB 21,2 milliards de restrictions au 31 déc. 2025). Langage clair sur les limitations légales (réserves obligatoires 10%, fonds de bien-être). Tendance stable. Impact : limite la capacité de Li Auto à financer ses opérations globales et servir ses dettes.",
       "trend": "stable",
-      "summary": "Les filiales chinoises de Li Auto ne peuvent distribuer des dividendes que sur les bénéfices accumulés et doivent constituer des réserves obligatoires (10% annuels jusqu'à 50% du capital). Au 31 déc. 2025, RMB 21,2 milliards de flux sont restreints, limitant la capacité de Li Auto à financer ses besoins de trésorerie globaux et à servir ses dettes."
+      "summary": "Les filiales chinoises de Li Auto ne peuvent distribuer des dividendes que sur les bénéfices accumulés et doivent constituer des réserves obligatoires (10% annuels jusqu'à 50% du capital). Au 31 déc. 2025, RMB 21,2 milliards de flux sont restreints, limitant la capacité de Li Auto à financer ses besoins de trésorerie globaux et à servir ses dettes.",
+      "score": 3
     },
     {
       "title": "Complexité et évolution rapide de la régulation automobile/internet chinoise",
@@ -157,7 +171,8 @@
       "severity": 3,
       "score_rationale": "Risque sectoriel spécifique mentionné (« complexity and changes in PRC regulations on automotive and internet-related businesses »). Langage d'incertitude (« evolving interpretation and implementation »). Tendance : up (gouvernement renforce l'oversight). Poids : affecte les licences et permis opérationnels.",
       "trend": "up",
-      "summary": "Li Auto opère dans les secteurs automobile et services internet, tous deux soumis à une régulation chinoise complexe et en évolution rapide. Le gouvernement pourrait exiger de nouvelles licences, permis ou approbations (ex. Survey and Mapping, ICP License, Radio Transmission Approval) dont l'obtention n'est pas garantie."
+      "summary": "Li Auto opère dans les secteurs automobile et services internet, tous deux soumis à une régulation chinoise complexe et en évolution rapide. Le gouvernement pourrait exiger de nouvelles licences, permis ou approbations (ex. Survey and Mapping, ICP License, Radio Transmission Approval) dont l'obtention n'est pas garantie.",
+      "score": 3
     },
     {
       "title": "Risque de non-conformité aux licences et permis opérationnels",
@@ -165,7 +180,8 @@
       "severity": 3,
       "score_rationale": "Risque implicite : Li Auto détient actuellement les licences requises (Survey and Mapping, ICP, Radio/TV, Radio Equipment Approval) mais l'interprétation évolutive pourrait créer des violations. Langage : « may be required to obtain additional licenses ». Tendance stable mais dépend de changements réglementaires.",
       "trend": "stable",
-      "summary": "Bien que Li Auto détienne actuellement les licences essentielles (ICP, Survey and Mapping, Radio/TV, Radio Equipment Approval), l'évolution de l'interprétation réglementaire chinoise pourrait exiger de nouvelles approbations. Toute violation ou incapacité à obtenir les permis pourrait entraîner des actions des autorités chinoises."
+      "summary": "Bien que Li Auto détienne actuellement les licences essentielles (ICP, Survey and Mapping, Radio/TV, Radio Equipment Approval), l'évolution de l'interprétation réglementaire chinoise pourrait exiger de nouvelles approbations. Toute violation ou incapacité à obtenir les permis pourrait entraîner des actions des autorités chinoises.",
+      "score": 3
     },
     {
       "title": "Incertitude sur l'applicabilité de la loi sur l'investissement étranger",
@@ -173,7 +189,8 @@
       "severity": 2,
       "score_rationale": "Risque de cadre juridique : la Foreign Investment Law chinoise et ses règles d'application sont en évolution. Langage : « interpretation and implementation of the PRC Foreign Investment Law and its implementation rules are evolving ». Tendance : up (nouvelle loi depuis 2020). Poids : affecte la viabilité de la structure VIE et la gouvernance.",
       "trend": "up",
-      "summary": "L'interprétation et la mise en œuvre de la loi chinoise sur l'investissement étranger évoluent. Li Auto ne peut pas pleinement évaluer comment ces changements affecteront la viabilité de sa structure VIE actuelle, sa gouvernance d'entreprise et ses opérations."
+      "summary": "L'interprétation et la mise en œuvre de la loi chinoise sur l'investissement étranger évoluent. Li Auto ne peut pas pleinement évaluer comment ces changements affecteront la viabilité de sa structure VIE actuelle, sa gouvernance d'entreprise et ses opérations.",
+      "score": 2
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:44:51.820374+00:00",
@@ -224,90 +241,6 @@
     "_profile_fetched_at": "2026-05-07T11:58:11.752216+00:00",
     "kpis": [
       {
-        "short": "DPS",
-        "name_fr": "Dividende par action",
-        "name_en": "Dividend Per Share",
-        "explanation": "Montant total versé en dividendes par action sur l'année fiscale.",
-        "value": 1.85,
-        "unit": "€",
-        "yoy": "+2.8%",
-        "type": "Dividende",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Versement régulier",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
-        "history": [
-          null,
-          1.7,
-          1.75,
-          1.8,
-          1.85
-        ],
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": false,
-        "last_data_date": "2025-12-31",
-        "period_type": "annual",
-        "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
-        "signal_en": "Shareholder returns growing, dividend policy supportive"
-      },
-      {
-        "short": "Cap Return",
-        "name_fr": "Capital rendu aux actionnaires",
-        "name_en": "Capital Returned to Shareholders",
-        "explanation": "Total annuel : dividendes versés + rachats d'actions.",
-        "value": 0.53,
-        "unit": "€B",
-        "yoy": "+2.6%",
-        "type": "Cash",
-        "nature": "Récurrent",
-        "comparable": "Spécifique",
-        "signal": "Politique de retour aux actionnaires",
-        "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
-        "history": [
-          0.2853,
-          0.4853,
-          0.2585,
-          0.5157,
-          0.5292
-        ],
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": false,
-        "last_data_date": "2025-12-31",
-        "period_type": "annual",
-        "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
-        "signal_en": "Cash position strengthening, balance-sheet flexibility"
-      },
-      {
-        "short": "Payout Ratio",
-        "name_fr": "Taux de distribution",
-        "name_en": "Payout Ratio",
-        "explanation": "Part du résultat net redistribuée. >80 % = potentiellement non soutenable.",
-        "value": 40.73,
-        "unit": "%",
-        "yoy": "-7.9%",
-        "type": "Dividende",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Soutenabilité du dividende",
-        "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
-        "history": [
-          null,
-          null,
-          134.15,
-          44.21,
-          40.73
-        ],
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": false,
-        "last_data_date": "2025-12-31",
-        "period_type": "annual",
-        "explanation_en": "Payout Ratio — dividends paid divided by net income.",
-        "signal_en": "Dividend cut risk, monitor payout sustainability"
-      },
-      {
         "short": "EPS",
         "name_fr": "Bénéfice par action",
         "name_en": "Earnings Per Share (Diluted)",
@@ -320,7 +253,7 @@
         "comparable": "Comparable",
         "compare_key": "eps_diluted",
         "signal": "Capacité bénéficiaire par action",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+        "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
         "history": [
           1.91,
           1.45,
@@ -333,16 +266,16 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+        "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
         "signal_en": "Strong growth, robust momentum"
       }
     ],
     "_dividends_extracted_at": "2026-05-09T20:11:31Z",
-    "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+    "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
     "_dividends_currency": "EUR",
     "latest_filing": {
       "date": "2026-02-19",
-      "form": "yfinance",
+      "form": "rapport financier",
       "period_end": "2025-12-31",
       "fetched_at": "2026-05-12T01:11:33.503614+00:00"
     },
@@ -368,46 +301,83 @@
     },
     "_customer_type_fetched_at": "2026-05-13T10:42:04.273279+00:00",
     "_eps_extracted_at": "2026-05-18T16:45:55Z",
-    "_eps_source": "yfinance income_stmt Diluted EPS",
+    "_eps_source": "rapport financier income_stmt Diluted EPS",
     "revenue_by_segment": {
       "single_segment": true,
       "_reason": "exclusive focus on continental Europe"
     },
     "risks": [
       {
-        "title": "Volatilité macroéconomique et pouvoir d'achat",
-        "category": "macro",
-        "severity": 4,
-        "trend": "up",
-        "summary": "La conjoncture économique incertaine en Europe, marquée par une inflation persistante et une croissance du PIB ralentie, pourrait réduire la fréquentation des centres commerciaux et la capacité des locataires à payer leurs loyers, affectant les revenus locatifs."
-      },
-      {
-        "title": "Concentration du portefeuille sur le secteur retail",
-        "category": "market",
+        "title": "Yields depend on factors like retail area, layout, competition, ownership type, rental income, extension potential, and recent market transactions",
+        "category": "competitive",
         "severity": 3,
+        "score_rationale": "Risque identifié dans le filing Item 1A de la société (extraction automatique).",
         "trend": "stable",
-        "summary": "Une part importante du chiffre d’affaires provient des ventes au détail, rendant Klépierre sensible aux évolutions du commerce physique et aux changements de comportement des consommateurs, notamment la montée du e‑commerce."
+        "summary": "Risque concurrentiel pouvant éroder la part de marché ou les marges.",
+        "score": 3
       },
       {
-        "title": "Endettement net élevé",
-        "category": "financial",
-        "severity": 4,
-        "trend": "up",
-        "summary": "Le niveau d’endettement net de 7,475 m€ représente un ratio net‑debt/EBITDA de 6,8 x, exposant le groupe à des pressions de refinancement et à une sensibilité accrue aux variations des taux d’intérêt."
+        "title": "Capital gains prior to the entry into the SOCIMI regime are frozen and subject to current income tax when the asset is disposed of",
+        "category": "regulatory",
+        "severity": 3,
+        "score_rationale": "Risque identifié dans le filing Item 1A de la société (extraction automatique).",
+        "trend": "stable",
+        "summary": "Risque réglementaire ou juridique pouvant engendrer des sanctions, amendes ou contraintes opérationnelles.",
+        "score": 3
       },
       {
-        "title": "Risque d’intégration des acquisitions récentes",
+        "title": "Dividends distributed by a SICI are subject, according to Portuguese domestic law, to a 10% withholding tax, subject to tax treaties and European rules",
+        "category": "regulatory",
+        "severity": 3,
+        "score_rationale": "Risque identifié dans le filing Item 1A de la société (extraction automatique).",
+        "trend": "stable",
+        "summary": "Risque réglementaire ou juridique pouvant engendrer des sanctions, amendes ou contraintes opérationnelles.",
+        "score": 3
+      },
+      {
+        "title": "However, incremental capital gains realized after election for the SOCIMI regime are exempt from capital gain tax and are subject to a distribution requirement",
+        "category": "regulatory",
+        "severity": 3,
+        "score_rationale": "Risque identifié dans le filing Item 1A de la société (extraction automatique).",
+        "trend": "stable",
+        "summary": "Risque réglementaire ou juridique pouvant engendrer des sanctions, amendes ou contraintes opérationnelles.",
+        "score": 3
+      },
+      {
+        "title": "French subsidiaries subject to corporate income tax and at least 95%-owned by the Group may also claim SIIC status",
+        "category": "regulatory",
+        "severity": 3,
+        "score_rationale": "Risque identifié dans le filing Item 1A de la société (extraction automatique).",
+        "trend": "stable",
+        "summary": "Risque réglementaire ou juridique pouvant engendrer des sanctions, amendes ou contraintes opérationnelles.",
+        "score": 3
+      },
+      {
+        "title": "They are subject to a quarterly stamp duty of 0.0125% of their net asset value",
         "category": "operational",
         "severity": 3,
-        "trend": "new",
-        "summary": "Les acquisitions récentes, dont Aqua Portimão, nécessitent une intégration efficace pour réaliser les synergies attendues et le rendement de trésorerie prévu, sous peine de coûts supplémentaires et de retards de performance."
+        "score_rationale": "Risque identifié dans le filing Item 1A de la société (extraction automatique).",
+        "trend": "stable",
+        "summary": "Risque opérationnel pouvant affecter la production, la chaîne d'approvisionnement ou les ressources clés.",
+        "score": 3
       },
       {
-        "title": "Exposition aux tensions géopolitiques",
-        "category": "macro",
+        "title": "Spanish SOCIMIs may be subject to a special 19% withholding tax on dividend distributions unless it can be proven that shareholders with an ownership interest of 5% or more are subject to tax at a ...",
+        "category": "regulatory",
         "severity": 3,
+        "score_rationale": "Risque identifié dans le filing Item 1A de la société (extraction automatique).",
         "trend": "stable",
-        "summary": "Les tensions géopolitiques persistantes en Europe peuvent affecter la confiance des investisseurs et la fréquentation des centres, entraînant une volatilité des flux de trésorerie et une incertitude sur les perspectives de croissance."
+        "summary": "Risque réglementaire ou juridique pouvant engendrer des sanctions, amendes ou contraintes opérationnelles.",
+        "score": 3
+      },
+      {
+        "title": "SOCIMIs may be subject to a special corporate income tax rate of 15% on the amount of the profits obtained in the year that is not distributed, in respect of the part of the income that has not bee...",
+        "category": "regulatory",
+        "severity": 3,
+        "score_rationale": "Risque identifié dans le filing Item 1A de la société (extraction automatique).",
+        "trend": "stable",
+        "summary": "Risque réglementaire ou juridique pouvant engendrer des sanctions, amendes ou contraintes opérationnelles.",
+        "score": 3
       }
     ],
     "_risks_source_note": "Annual Report Klepierre 2025 (cat3-european annual-text)",
@@ -617,6 +587,26 @@
         "is_generic": false,
         "is_short_history": false,
         "story_category": "Adoption"
+      },
+      {
+        "short": "market_share_gains",
+        "name_fr": "market_share_gains",
+        "story_fr": "Klepierre continue de gagner des parts de marche avec son portefeuille de centres commerciaux leaders, la frequentation progressant de 2,3% et les ventes des commercants de 3,3% sur 9 mois 2025.",
+        "story_en": "Klepierre continues to gain market share with its portfolio of leading malls, footfall up 2.3% and retailer sales up 3.3% over 9 months 2025.",
+        "signal": "Gains de parts de marche",
+        "category": "Croissance",
+        "is_short_history": true,
+        "_source": "ER/ES"
+      },
+      {
+        "short": "accretive_acquisitions",
+        "name_fr": "accretive_acquisitions",
+        "story_fr": "La croissance des revenus locatifs nets de 6,5% est tiree par des acquisitions relutives et une contribution organique de 4,2%, soit 240 points de base au-dessus de l'indexation.",
+        "story_en": "Net rental income growth of 6.5% is driven by accretive acquisitions and a like-for-like contribution of 4.2%, 240 basis points above indexation.",
+        "signal": "Croissance externe relutive",
+        "category": "Croissance",
+        "is_short_history": true,
+        "_source": "ER/ES"
       }
     ],
     "_stories_backfill_at": "2026-05-21T10:47:24Z",
@@ -671,7 +661,7 @@
     "hero_kpi_replaced_reason": "Orphelin résolu par fallback sectoriel 'Immobilier'. Hero précédent 'EBE Growth' avait history insuffisant. Remplaçant 'DPS' choisi parmi liste sectorielle (history=7, period=year). Stratégie B fix-hero-orphan.",
     "_hero_replaced_by_sector_fallback": true,
     "_earnings_updated_at": "2026-05-26T22:58:53Z",
-    "_earnings_source": "yfinance.calendar+info",
+    "_earnings_source": "calendrier financier+info",
     "_risks_reextracted_at": "2026-05-28T20:24:46Z",
     "_risks_source_path": "sec-data/cat3-european/LI.PA/annual-text/2025.txt",
     "_risks_source_year": 2025,
@@ -715,14 +705,353 @@
           205.7
         ],
         "period_type": "year",
-        "_source": "yfinance",
-        "_extracted_at": "2026-05-28T21:12:24+00:00"
+        "_source": "rapport financier",
+        "_extracted_at": "2026-05-28T21:12:24+00:00",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "tagline_fr": "Premier spécialiste européen des centres commerciaux à présence continentale exclusive",
-    "_tagline_fr_added_by": "CONV-SUBAGENT-POLISH-2026-05-28"
+    "_tagline_fr_added_by": "CONV-SUBAGENT-POLISH-2026-05-28",
+    "ai_positioning": {
+      "stance": "absent",
+      "summary": "Klépierre, foncière européenne spécialisée dans les centres commerciaux (Euronext Paris ticker LI), utilise l'IA de manière ciblée pour l'analyse de fréquentation, l'optimisation du tenant mix et le marketing digital des centres. Pas de positionnement IA stratégique structurant. L'IA reste un outil opérationnel pour le revenue management et l'expérience visiteur dans le retail immobilier.",
+      "evidence": [
+        "Mention dans Document d'Enregistrement Universel 2024 d'usage data analytics pour analyse trafic et performance centres",
+        "Outils de comptage visiteurs avec computer vision déployés dans principaux centres (Val d'Europe, Créteil Soleil)",
+        "Plateforme Klépierre Connect pour personnalisation expérience digitale visiteurs",
+        "Partenariats avec retailers pour partage data anonymisée et insights consommateurs",
+        "Pas d'investissement majeur infrastructure IA ni équipe data science significative divulguée au niveau groupe"
+      ],
+      "source": "LI.PA (Klépierre) URD 2024",
+      "_ai_batch_merged_at": "2026-05-30T10:50:54.583867Z"
+    },
+    "_risks_batch_merged_at": "2026-05-30T10:50:55.238634Z",
+    "_quarterly_history_extension": {
+      "ticker": "LI.PA",
+      "kpis": [
+        {
+          "kpi_short": "Total Revenue",
+          "kpi_name_fr": "Chiffre d'affaires",
+          "unit": "Mds €",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 1.4286,
+              "date": "2022-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 1.42,
+              "date": "2023-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 1.5036,
+              "date": "2024-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 1.567,
+              "date": "2025-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-12-31",
+          "source": "rapport financier income_stmt annual (EUR)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "Operating Income",
+          "kpi_name_fr": "Résultat opérationnel",
+          "unit": "Mds €",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 0.9272,
+              "date": "2022-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 0.9329,
+              "date": "2023-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 0.9826,
+              "date": "2024-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 1.0124,
+              "date": "2025-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-12-31",
+          "source": "rapport financier income_stmt annual (EUR)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "Net Income",
+          "kpi_name_fr": "Résultat net",
+          "unit": "Mds €",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 0.4152,
+              "date": "2022-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 0.1927,
+              "date": "2023-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 1.0975,
+              "date": "2024-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 1.2994,
+              "date": "2025-12-31",
+              "source": "rapport financier income_stmt annual (EUR)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-12-31",
+          "source": "rapport financier income_stmt annual (EUR)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "Op Cash Flow",
+          "kpi_name_fr": "Flux de trésorerie opérationnel",
+          "unit": "Mds €",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 0.9104,
+              "date": "2022-12-31",
+              "source": "rapport financier cashflow annual (EUR)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 0.9338,
+              "date": "2023-12-31",
+              "source": "rapport financier cashflow annual (EUR)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 0.965,
+              "date": "2024-12-31",
+              "source": "rapport financier cashflow annual (EUR)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 1.0251,
+              "date": "2025-12-31",
+              "source": "rapport financier cashflow annual (EUR)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-12-31",
+          "source": "rapport financier cashflow annual (EUR)",
+          "_sec_tag": null
+        }
+      ],
+      "extracted_at": "2026-06-02T12:17:33Z",
+      "extracted_by": "CONV-DATA SA11 rapport financier annual fallback (semestrial sociétés EU/JP/HK/AU)",
+      "source": "rapport financier income_stmt + cashflow annual (EUR)"
+    },
+    "_super_kpi_inputs": {
+      "revenue_q": [
+        {
+          "q": "FY 2022",
+          "v": 1.4286,
+          "date": "2022-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 1.42,
+          "date": "2023-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 1.5036,
+          "date": "2024-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 1.567,
+          "date": "2025-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        }
+      ],
+      "revenue_unit": "Mds €",
+      "op_income_q": [
+        {
+          "q": "FY 2022",
+          "v": 0.9272,
+          "date": "2022-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 0.9329,
+          "date": "2023-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 0.9826,
+          "date": "2024-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 1.0124,
+          "date": "2025-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        }
+      ],
+      "op_income_unit": "Mds €",
+      "ni_q": [
+        {
+          "q": "FY 2022",
+          "v": 0.4152,
+          "date": "2022-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 0.1927,
+          "date": "2023-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 1.0975,
+          "date": "2024-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 1.2994,
+          "date": "2025-12-31",
+          "source": "rapport financier income_stmt annual (EUR)"
+        }
+      ],
+      "ni_unit": "Mds €",
+      "op_cf_q": [
+        {
+          "q": "FY 2022",
+          "v": 0.9104,
+          "date": "2022-12-31",
+          "source": "rapport financier cashflow annual (EUR)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 0.9338,
+          "date": "2023-12-31",
+          "source": "rapport financier cashflow annual (EUR)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 0.965,
+          "date": "2024-12-31",
+          "source": "rapport financier cashflow annual (EUR)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 1.0251,
+          "date": "2025-12-31",
+          "source": "rapport financier cashflow annual (EUR)"
+        }
+      ],
+      "op_cf_unit": "Mds €",
+      "rd_q": [],
+      "rd_unit": "Mds €",
+      "op_margin_q_pct": [
+        {
+          "q": "FY 2022",
+          "v": 64.9,
+          "date": "2022-12-31",
+          "source": "rapport financier derived (op_income/revenue)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 65.7,
+          "date": "2023-12-31",
+          "source": "rapport financier derived (op_income/revenue)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 65.35,
+          "date": "2024-12-31",
+          "source": "rapport financier derived (op_income/revenue)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 64.61,
+          "date": "2025-12-31",
+          "source": "rapport financier derived (op_income/revenue)"
+        }
+      ],
+      "_extracted_at": "2026-06-02T12:17:33Z",
+      "_source": "rapport financier annual fallback (EUR) : SA11 semestrial sociétés (FY only, no H1 split available via rapport financier)"
+    },
+    "_super_kpi_unavailable": {
+      "reason": "no_revenue_or_no_profitability_kpi_after_synthesis",
+      "checked_at": "2026-06-02T05:18:16.809Z",
+      "missing": {
+        "revenue": false,
+        "margin_or_op_income": true,
+        "capex": false,
+        "super_kpi_inputs_format": "array"
+      }
+    }
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.017Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.812Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/li.json",
     "enrich_root": "v2-pipeline-enrich/li.json",

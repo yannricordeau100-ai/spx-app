@@ -21,8 +21,8 @@
       "name_fr": "Carnet de commandes",
       "name_en": "Backlog",
       "explanation": "Valeur des contrats en cours et des projets à venir non encore facturés",
-      "value": 1712.8,
-      "unit": "M $",
+      "value": 1.713,
+      "unit": "Mds $",
       "yoy": "Non disponible",
       "type": "Demand",
       "nature": "Cyclique",
@@ -30,21 +30,22 @@
       "signal": "Indicateur de croissance future",
       "description": "Le backlog représente la valeur totale des contrats de construction et de maintenance en cours ou à venir qui n'ont pas encore été complétés, reflétant la visibilité des revenus futurs et la santé opérationnelle de l'entreprise.",
       "history": [
-        1452.3,
-        1501.8,
-        1530.2,
-        1567.4,
-        1605.9,
-        1643.7,
-        1680.5,
-        1712.8
+        1.452,
+        1.502,
+        1.53,
+        1.567,
+        1.606,
+        1.644,
+        1.681,
+        1.713
       ],
       "last_data_date": "2025-09-30",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue."
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Revenue",
@@ -64,7 +65,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Gross Margin",
@@ -84,7 +85,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Total Revenue",
@@ -103,34 +104,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.75 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "+42.9%",
       "history": [
-        0.12,
-        0.14,
-        0.14,
-        0.2
+        120,
+        140,
+        140,
+        200
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.2 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,56 +159,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.73 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.37,
-      "unit": "Mds €",
+      "value": 370,
+      "unit": "M €",
       "yoy": "+2.8%",
       "history": [
-        0.31,
-        0.22,
-        0.36,
-        0.37
+        310,
+        220,
+        360,
+        370
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.37 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "+88.9%",
       "history": [
         0,
         0,
-        0.09,
-        0.17
+        90,
+        170
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -234,16 +258,16 @@
       "title": "Interest Rate Risk on Variable Rate Debt",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Exposure of $285 million in variable rate Term Loan at 5.67% (Term SOFR + spread). Quantified impact: 1% rate increase = $2.8 million additional annual interest expense. Concrete financial metrics and direct operational impact justify high severity. (score par défaut, à affiner)",
+      "score_rationale": "Exposure of $285 million in variable rate Term Loan at 5.67% (Term SOFR + spread). Quantified impact: 1% rate increase = $2.8 million additional annual interest expense. Concrete financial metrics and direct operational impact justify high severity.",
       "trend": "stable",
       "summary": "La société est exposée à une hausse des charges financières en cas d'augmentation des taux d'intérêt, en raison de sa dette à taux variable de 285 millions de dollars.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Reinvestment Risk at Lower Interest Rates",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Related to captive insurance arrangement and investment maturity timing. Less immediate than rate increase risk but reflects cash management prudence. Conditional risk with moderate impact on investment returns. (score par défaut, à affiner)",
+      "score_rationale": "Related to captive insurance arrangement and investment maturity timing. Less immediate than rate increase risk but reflects cash management prudence. Conditional risk with moderate impact on investment returns.",
       "trend": "stable",
       "summary": "Une baisse des taux d'intérêt lors du réinvestissement des liquidités affectées aux obligations de l'assurance captive pourrait réduire les revenus financiers de la société.",
       "score": 3
@@ -252,28 +276,28 @@
       "title": "Commodity Price and Cost Inflation Risk",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Fluctuations in commodity prices (copper, steel, plastics) and fuel costs directly affect project execution costs. Company acknowledges inability to fully pass through price increases to customers in all cases, limiting pricing power. Operational and margin pressure. (score par défaut, à affiner)",
+      "score_rationale": "Fluctuations in commodity prices (copper, steel, plastics) and fuel costs directly affect project execution costs. Company acknowledges inability to fully pass through price increases to customers in all cases, limiting pricing power. Operational and margin pressure.",
       "trend": "stable",
       "summary": "Les fluctuations des prix des matières premières et des carburants augmentent les coûts de transport, de construction et de main-d'œuvre, avec un risque de non-compensation intégrale par des prix plus élevés.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Labor Cost Inflation and Wage Pressure",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Inflation impacts labor costs directly, a significant operational expense for construction services. Company dependency on union partnerships and skilled workforce retention in tight labor markets. Material margin compression risk if unable to recover costs. (score par défaut, à affiner)",
+      "score_rationale": "Inflation impacts labor costs directly, a significant operational expense for construction services. Company dependency on union partnerships and skilled workforce retention in tight labor markets. Material margin compression risk if unable to recover costs.",
       "trend": "stable",
       "summary": "L'inflation et les pressions économiques augmentent les coûts salariaux et les dépenses opérationnelles, avec un risque de réduction des marges si ces hausses ne peuvent être répercutées sur les clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Competitive Pricing Pressure and Cost Recovery",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Company explicitly states it may not be able to fully compensate for cost increases through higher prices. Highly fragmented industry with thousands of competitors; smaller projects face aggressive competition. Structural weakness in negotiating power. (score par défaut, à affiner)",
+      "score_rationale": "Company explicitly states it may not be able to fully compensate for cost increases through higher prices. Highly fragmented industry with thousands of competitors; smaller projects face aggressive competition. Structural weakness in negotiating power.",
       "trend": "stable",
       "summary": "La pression concurrentielle, particulièrement sur les projets de petite et moyenne envergure, limite la capacité de la société à répercuter intégralement les hausses de coûts sur ses clients.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -408,6 +432,98 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "ECG",
+    "extracted_at": "2026-06-01T03:12:37Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Backlog",
+        "period_type": "quarter",
+        "history": [
+          1850,
+          2010.9,
+          2884.8,
+          2780.6,
+          2780.6,
+          2183.7,
+          3057.5,
+          2546.7,
+          2382,
+          2382.5
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:12:37Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          1329.062,
+          1748.095,
+          703.373,
+          921.466,
+          986.82
+        ],
+        "history_periods": [
+          "Q4 2023",
+          "Q1 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:12:37Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          12.28,
+          12.15,
+          12.6,
+          13.01,
+          12.59
+        ],
+        "history_periods": [
+          "Q4 2023",
+          "Q1 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:12:37Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "ECG",
     "ranks": {
@@ -420,14 +536,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.253442+00:00",
     "fetched_at": "2026-05-21T02:17:14.253443+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.538Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.098Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ecg.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -38,7 +38,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -81,11 +81,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.17 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -104,11 +108,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.68 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -122,7 +130,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.923,
         1.934,
@@ -135,7 +143,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -150,7 +158,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0628,
@@ -163,7 +171,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -178,7 +186,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         72.73,
@@ -191,7 +199,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -207,7 +215,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.42936,
@@ -220,7 +228,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -246,9 +254,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Growth",
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Growth"
     }
   ],
   "ai_positioning": {
@@ -287,7 +293,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès les premiers facteurs avec un langage fort (\"adversely impact\", \"failure to approve rates\"). Il concerne la capacité à récupérer les coûts d'investissement et d'exploitation via les tarifs, fondamental pour les utilities régulées. La catégorie Régulation a un poids élevé dans le secteur. Le texte souligne des délais d'approbation, des recours judiciaires et des restrictions législatives (ex. HB 3179), aggravant le risque.",
       "trend": "stable",
-      "summary": "Les autorités régulatrices peuvent refuser de permettre la récupération des coûts d'exploitation et d'investissement, menaçant la rentabilité et la liquidité."
+      "summary": "Les autorités régulatrices peuvent refuser de permettre la récupération des coûts d'exploitation et d'investissement, menaçant la rentabilité et la liquidité.",
+      "score": 5
     },
     {
       "title": "Restrictions législatives sur les demandes tarifaires",
@@ -295,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Le facteur est spécifiquement lié à la loi Oregon HB 3179, citée avec précision. Le langage est préoccupé (\"inability to file\", \"delay recovery\"). Ce risque est nouveau ou renforcé par rapport à l'année précédente, car lié à une loi récente. La catégorie Régulation est critique pour les utilities. Le risque limite la flexibilité tarifaire pendant 18 mois, impactant la trésorerie.",
       "trend": "new",
-      "summary": "Une loi récente interdit les nouvelles demandes tarifaires pendant 18 mois, retardant la récupération des coûts et limitant la réactivité."
+      "summary": "Une loi récente interdit les nouvelles demandes tarifaires pendant 18 mois, retardant la récupération des coûts et limitant la réactivité.",
+      "score": 4
     },
     {
       "title": "Perte possible de la comptabilité réglementaire",
@@ -303,7 +311,8 @@
       "severity": 5,
       "score_rationale": "Mentionné explicitement comme un risque existentiel : perte des actifs réglementaires et impossibilité de reporter des coûts. Le langage est fort (\"required to write off\", \"precluded from future deferral\"). Ce risque est stable mais critique car il remet en cause tout le modèle comptable des activités régulées. La catégorie Régulation est hautement pondérée.",
       "trend": "stable",
-      "summary": "Si les conditions de la comptabilité réglementaire ne sont plus remplies, la société devrait effacer ses actifs réglementaires et perdre la capacité de reporter des coûts."
+      "summary": "Si les conditions de la comptabilité réglementaire ne sont plus remplies, la société devrait effacer ses actifs réglementaires et perdre la capacité de reporter des coûts.",
+      "score": 5
     },
     {
       "title": "Intégration et performance des acquisitions",
@@ -311,7 +320,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mis en avant avec des exemples concrets (acquisition de SiEnergy en 2025). Le langage est répétitif et détaillé (\"unexpected costs\", \"fail to achieve benefits\", \"undisclosed liabilities\"). Plusieurs acquisitions récentes augmentent l'exposition. Bien que la catégorie Stratégie soit moins pondérée que Régulation, l'intensité du langage et le contexte récent justifient une sévérité élevée.",
       "trend": "up",
-      "summary": "Les acquisitions récentes, comme celle de SiEnergy, comportent des risques d'intégration, de surcoûts et de non-réalisation des synergies attendues."
+      "summary": "Les acquisitions récentes, comme celle de SiEnergy, comportent des risques d'intégration, de surcoûts et de non-réalisation des synergies attendues.",
+      "score": 4
     },
     {
       "title": "Pressions sur l'image du gaz naturel",
@@ -319,7 +329,8 @@
       "severity": 4,
       "score_rationale": "Le risque est décrit en détail avec des menaces spécifiques : opposition des groupes de pression, préoccupations sanitaires et climatiques, fuites de méthane. Le langage est alarmant (\"opposed altogether\", \"detrimental health effects\"). Le risque est en hausse en raison de l'activisme croissant. Une détérioration de la réputation peut impacter les décisions réglementaires et la croissance clientèle.",
       "trend": "up",
-      "summary": "La perception négative du gaz naturel, alimentée par des groupes environnementaux et sanitaires, menace la légitimité du modèle d'affaires et la croissance future."
+      "summary": "La perception négative du gaz naturel, alimentée par des groupes environnementaux et sanitaires, menace la légitimité du modèle d'affaires et la croissance future.",
+      "score": 4
     },
     {
       "title": "Complexité réglementaire accrue par l'expansion",
@@ -327,7 +338,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne l'entrée dans de nouveaux États (Texas, Idaho, Arizona) et la régulation par de nouvelles autorités (ex. Railroad Commission of Texas). Le langage indique une augmentation du risque de non-conformité involontaire. Bien que le risque soit lié à la croissance, il est fortement ancré dans la catégorie Régulation, qui est critique. Le contexte de croissance externe récente (SiEnergy, Pines) renforce ce risque.",
       "trend": "new",
-      "summary": "L'expansion géographique expose la société à une complexité réglementaire accrue et à un risque plus élevé de non-conformité dans de nouveaux marchés."
+      "summary": "L'expansion géographique expose la société à une complexité réglementaire accrue et à un risque plus élevé de non-conformité dans de nouveaux marchés.",
+      "score": 4
     },
     {
       "title": "Risques liés aux changements fiscaux et interprétations",
@@ -335,7 +347,8 @@
       "severity": 3,
       "score_rationale": "Le risque fiscal est bien décrit, avec des références à des audits, litiges et incertitudes sur les actifs différés. Le langage est prudent (\"cannot predict\", \"adverse judgments\"). Bien que les montants en jeu puissent être importants, le risque est moins central que les risques réglementaires. La catégorie Capital est modérément pondérée. Le risque est stable, sans mention de changements récents majeurs.",
       "trend": "stable",
-      "summary": "Des changements dans la législation fiscale ou des interprétations défavorables pourraient entraîner des coûts supplémentaires et affecter les résultats."
+      "summary": "Des changements dans la législation fiscale ou des interprétations défavorables pourraient entraîner des coûts supplémentaires et affecter les résultats.",
+      "score": 3
     }
   ],
   "governance": {
@@ -359,7 +372,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:22:52Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2018,
@@ -379,8 +392,8 @@
     "xbrl_fetched_at": "2026-05-09T20:27:51Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:33Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:34.170Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.122Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nwn.json",
     "enrich_root": "v2-pipeline-enrich/nwn.json",

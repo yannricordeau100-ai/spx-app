@@ -1,6 +1,6 @@
 {
   "ticker": "PRA",
-  "name": "ProAssurance Corporation",
+  "name": "ProAssurance",
   "sector": "Finance",
   "subsector": "Assurance",
   "tagline": "Protecting healthcare providers with disciplined underwriting and rate adequacy.",
@@ -38,9 +38,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "period_type": "year",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Operating Margin",
@@ -64,7 +67,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -89,7 +92,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -145,7 +148,7 @@
         "diff_pct": 61.1,
         "reason": "kept_original_likely_pollution_or_unit"
       },
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Stable, slight decline to monitor"
     },
     {
@@ -173,24 +176,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.051,
-      "unit": "Mds $",
+      "value": 51,
+      "unit": "M $",
       "yoy": "-3.8%",
       "history": [
-        0.047,
-        0.001,
-        -0.176,
-        0.144,
+        47,
+        1,
+        -176,
+        144,
         0,
-        -0.039,
-        0.053,
-        0.051
+        -39,
+        53,
+        51
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -199,8 +206,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -226,8 +238,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -241,7 +257,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2019-2023). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2019-2023). ex-div dates.",
       "history": [
         1.24,
         0.46,
@@ -254,7 +270,7 @@
       "is_short_history": false,
       "last_data_date": "2023-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -269,7 +285,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2019-2023) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2019-2023) en milliards USD. cashflow.",
       "history": [
         null,
         null,
@@ -282,7 +298,7 @@
       "is_short_history": false,
       "last_data_date": "2023-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
@@ -307,9 +323,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Product Mix",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Product Mix"
     },
     {
       "short": "WC Premium Mix",
@@ -331,9 +345,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Product Mix",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Product Mix"
     }
   ],
   "ai_positioning": {
@@ -361,7 +373,8 @@
       "severity": 4,
       "score_rationale": "Le risque est central dans le 10-K, décrit comme cyclique et récurrent, avec un langage fort sur l'impact sur les profits et volumes de primes. Il est réaffirmé chaque année, indiquant une stabilité du risque. La catégorie Concurrence est fortement pondérée ici.",
       "trend": "stable",
-      "summary": "Les cycles de marché ('soft' ou 'hard') affectent la rentabilité et la croissance, rendant difficile le maintien des marges et des parts de marché."
+      "summary": "Les cycles de marché ('soft' ou 'hard') affectent la rentabilité et la croissance, rendant difficile le maintien des marges et des parts de marché.",
+      "score": 4
     },
     {
       "title": "Sous-estimation des réserves de sinistres",
@@ -369,7 +382,8 @@
       "severity": 5,
       "score_rationale": "Présenté comme le principal poste de passif, avec un impact direct sur les résultats si ajusté. Langage très préoccupé sur l'incertitude et les conséquences matérielles. Risque récurrent et central, catégorie Capital très critique.",
       "trend": "stable",
-      "summary": "L'estimation des réserves de sinistres est complexe et incertaine ; toute erreur peut impacter fortement les résultats financiers et la solidité du bilan."
+      "summary": "L'estimation des réserves de sinistres est complexe et incertaine ; toute erreur peut impacter fortement les résultats financiers et la solidité du bilan.",
+      "score": 5
     },
     {
       "title": "Exposition aux catastrophes majeures",
@@ -377,7 +391,8 @@
       "severity": 5,
       "score_rationale": "Risque existentiel cité en tête des menaces, avec exposition aux pandémies, catastrophes naturelles et terrorisme. Mention explicite de l'absence de provision avant événement. Catégorie Géopolitique fortement pondérée en gravité.",
       "trend": "stable",
-      "summary": "Les événements catastrophiques imprévisibles (naturels, sanitaires ou terroristes) peuvent entraîner des pertes massives non anticipées, menaçant la liquidité et la solvabilité."
+      "summary": "Les événements catastrophiques imprévisibles (naturels, sanitaires ou terroristes) peuvent entraîner des pertes massives non anticipées, menaçant la liquidité et la solvabilité.",
+      "score": 5
     },
     {
       "title": "Dépendance à la réassurance",
@@ -385,7 +400,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne le risque de contrepartie si les réassureurs ne paient pas. Le montant des créances est important, et le langage insiste sur l'impact sur la liquidité. Risque récurrent, catégorie Crédit critique.",
       "trend": "stable",
-      "summary": "La capacité à récupérer des montants dus par les réassureurs est cruciale ; un défaut pourrait nuire à la trésorerie et aux résultats."
+      "summary": "La capacité à récupérer des montants dus par les réassureurs est cruciale ; un défaut pourrait nuire à la trésorerie et aux résultats.",
+      "score": 4
     },
     {
       "title": "Inflation sociale et judiciaire",
@@ -393,7 +409,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de l'inflation sociale comme facteur de hausse des sinistres, avec langage renforcé sur les litiges, financements externes et décisions pro-plaignants. Risque en accentuation par rapport aux années passées.",
       "trend": "up",
-      "summary": "L'augmentation des coûts de sinistres due à des décisions judiciaires plus favorables aux victimes et à la montée des litiges financés menace la maîtrise des provisions."
+      "summary": "L'augmentation des coûts de sinistres due à des décisions judiciaires plus favorables aux victimes et à la montée des litiges financés menace la maîtrise des provisions.",
+      "score": 4
     },
     {
       "title": "Défaillance des modèles actuariels",
@@ -401,7 +418,8 @@
       "severity": 4,
       "score_rationale": "Les modèles sont centraux pour la tarification et les réserves. Le texte reconnaît des limites, erreurs possibles et risque de perte d'avantage concurrentiel. Catégorie Technologie moyennement pondérée, mais impact élevé.",
       "trend": "stable",
-      "summary": "Les décisions stratégiques reposent sur des modèles statistiques ; si ceux-ci sont erronés, cela peut fausser la tarification et la provision pour sinistres."
+      "summary": "Les décisions stratégiques reposent sur des modèles statistiques ; si ceux-ci sont erronés, cela peut fausser la tarification et la provision pour sinistres.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans l'assurance médicale",
@@ -409,7 +427,8 @@
       "severity": 4,
       "score_rationale": "Le risque est détaillé avec plusieurs sources de concurrence (mutuelles, captives, groupes intégrés). Langage précis sur la pression sur les primes et la marge. Position centrale dans le document, répété chaque année.",
       "trend": "stable",
-      "summary": "La consolidation du secteur de la santé et la montée des structures auto-assurées renforcent la pression concurrentielle sur les primes et la rentabilité."
+      "summary": "La consolidation du secteur de la santé et la montée des structures auto-assurées renforcent la pression concurrentielle sur les primes et la rentabilité.",
+      "score": 4
     }
   ],
   "governance": {
@@ -437,7 +456,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -614,7 +633,7 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.168Z",
   "_dividends_extracted_at": "2026-05-09T20:21:23Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2023)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2023)",
   "_dividends_currency": "USD",
   "sector_fr": "Finance",
   "enrich_description": {
@@ -712,6 +731,52 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "PRA",
+    "extracted_at": "2026-06-01T09:16:57Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Capex",
+        "period_type": "quarter",
+        "history": [
+          0.811,
+          2.232,
+          3.484,
+          0.93,
+          2.12,
+          3.345,
+          0.961,
+          2.704,
+          3.345,
+          0.35,
+          0.381,
+          3.536
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:16:57Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "PRA",
     "ranks": {
@@ -724,15 +789,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.298601+00:00",
     "fetched_at": "2026-05-21T02:17:14.298602+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.774Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.785Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pra.json",
     "enrich_root": "v2-pipeline-enrich/pra.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

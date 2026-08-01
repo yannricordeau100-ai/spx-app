@@ -37,8 +37,10 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le rapport fourni ne contient aucune valeur explicite de \"Gross Margin\" (marge brute) exprimée en pourcentage pour les années récentes."
     },
     {
       "short": "Operating Margin",
@@ -61,7 +63,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -85,7 +87,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -109,7 +111,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Earnings Before Interest and Taxes — operating profit.",
+      "explanation_en": "Earnings Before Interest and Taxes, operating profit.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -133,7 +135,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -176,11 +178,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.61 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -205,9 +211,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Asia Pacific EBIT Growth",
@@ -227,9 +231,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -417,7 +419,7 @@
     "country": "Germany",
     "fetched_at": "2026-05-06T18:14:08.430907+00:00"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.405Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.277Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fpe3.de.json",
     "enrich_root": "v2-pipeline-enrich/fpe3.de.json",

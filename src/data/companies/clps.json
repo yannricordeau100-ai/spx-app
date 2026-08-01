@@ -39,7 +39,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Adoption accelerating, user base expanding"
+      "signal_en": "Adoption accelerating, user base expanding",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Customized IT Solutions",
@@ -109,7 +113,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -187,24 +191,29 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+10.0%",
       "history": [
-        0.08,
-        0.1,
-        0.1,
-        0.11
+        80,
+        100,
+        100,
+        110
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.11 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -218,7 +227,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2020-2024). ex-div dates.",
       "history": [
         null,
         null,
@@ -231,7 +240,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -246,7 +255,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2020-2024) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2020-2024) en milliards USD. cashflow.",
       "history": [
         null,
         null,
@@ -259,7 +268,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
@@ -285,9 +294,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Innovation"
     },
     {
       "short": "Overseas Revenue",
@@ -310,9 +317,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -349,7 +354,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de la section 'Risks Related to Our Business' avec un langage fort ('intense competition', 'persist and intensify'). La tendance est stable mais critique, et la catégorie 'Concurrence' est centrale pour le modèle économique de CLPS.",
       "trend": "stable",
-      "summary": "CLPS fait face à une concurrence accrue des entreprises de services IT en Chine et à l'étranger, ce qui peut entraîner la perte de clients et une baisse des revenus. Les clients préfèrent souvent des fournisseurs à coûts inférieurs ou avec une présence mondiale plus étendue."
+      "summary": "CLPS fait face à une concurrence accrue des entreprises de services IT en Chine et à l'étranger, ce qui peut entraîner la perte de clients et une baisse des revenus. Les clients préfèrent souvent des fournisseurs à coûts inférieurs ou avec une présence mondiale plus étendue.",
+      "score": 5
     },
     {
       "title": "Dépendance à quelques grands clients",
@@ -357,7 +363,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de la concentration des revenus sur un petit nombre de clients clés. Le langage est préoccupant ('significant portion', 'could reduce our revenues'). Risque récurrent, position élevé dans le document, poids élevé pour le modèle métier.",
       "trend": "stable",
-      "summary": "Une part importante des revenus de CLPS provient d'un nombre limité de clients majeurs. La perte d'un ou plusieurs de ces clients pourrait gravement nuire à ses revenus et à sa stabilité commerciale."
+      "summary": "Une part importante des revenus de CLPS provient d'un nombre limité de clients majeurs. La perte d'un ou plusieurs de ces clients pourrait gravement nuire à ses revenus et à sa stabilité commerciale.",
+      "score": 4
     },
     {
       "title": "Difficulté à attirer et retenir les talents",
@@ -365,7 +372,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné plusieurs fois avec un langage fort ('intense competition for highly skilled personnel', 'negatively affected'). Il est lié à la croissance et à la capacité opérationnelle. Tendance stable mais critique.",
       "trend": "stable",
-      "summary": "En raison de la forte demande de professionnels qualifiés en technologie, CLPS pourrait ne pas réussir à recruter ou retenir suffisamment de personnel formé, ce qui affecterait sa capacité à remporter de nouveaux projets et à maintenir sa croissance."
+      "summary": "En raison de la forte demande de professionnels qualifiés en technologie, CLPS pourrait ne pas réussir à recruter ou retenir suffisamment de personnel formé, ce qui affecterait sa capacité à remporter de nouveaux projets et à maintenir sa croissance.",
+      "score": 5
     },
     {
       "title": "Dépendance aux efforts des cadres dirigeants",
@@ -373,7 +381,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne que la réussite dépend 'substantially' des cadres dirigeants. Langage fort, risque structurel, position élevé dans le document. Tendance stable.",
       "trend": "stable",
-      "summary": "L'activité de CLPS repose fortement sur l'engagement continu de ses cadres supérieurs et de ses personnels clés. Leur départ pourrait perturber gravement l'entreprise et nuire à sa stratégie."
+      "summary": "L'activité de CLPS repose fortement sur l'engagement continu de ses cadres supérieurs et de ses personnels clés. Leur départ pourrait perturber gravement l'entreprise et nuire à sa stratégie.",
+      "score": 4
     },
     {
       "title": "Évolution rapide des technologies",
@@ -381,7 +390,8 @@
       "severity": 5,
       "score_rationale": "Langage fort ('rapid changes in technology'), risque central pour le secteur IT. Position élevé dans le texte, tendance stable mais critique. Catégorie 'Technologie' essentielle pour CLPS.",
       "trend": "stable",
-      "summary": "CLPS doit constamment anticiper et développer de nouveaux services pour suivre l'évolution technologique rapide. Un échec dans l'innovation ou l'amélioration des services existants pourrait nuire à sa compétitivité et à sa croissance."
+      "summary": "CLPS doit constamment anticiper et développer de nouveaux services pour suivre l'évolution technologique rapide. Un échec dans l'innovation ou l'amélioration des services existants pourrait nuire à sa compétitivité et à sa croissance.",
+      "score": 5
     },
     {
       "title": "Risques liés à la cybersécurité",
@@ -389,7 +399,8 @@
       "severity": 5,
       "score_rationale": "Mention explicite des risques de divulgation non autorisée d'informations confidentielles et de vulnérabilités des réseaux. Langage alarmant ('substantial damages', 'security risks'). Tendance renforcée par les incertitudes sur la loi chinoise.",
       "trend": "up",
-      "summary": "Les réseaux informatiques de CLPS sont exposés à des risques de sécurité pouvant entraîner des interruptions de service, des fuites de données sensibles et des poursuites. La conformité à la loi chinoise sur la cybersécurité reste incertaine."
+      "summary": "Les réseaux informatiques de CLPS sont exposés à des risques de sécurité pouvant entraîner des interruptions de service, des fuites de données sensibles et des poursuites. La conformité à la loi chinoise sur la cybersécurité reste incertaine.",
+      "score": 5
     },
     {
       "title": "Défis liés à la croissance rapide",
@@ -397,7 +408,8 @@
       "severity": 4,
       "score_rationale": "Le risque est en tête des facteurs de risque avec un langage fort ('significant strain', 'materially and adversely affect'). Tendance à la hausse avec l'expansion géographique. Catégorie 'Industriel' centrale.",
       "trend": "up",
-      "summary": "La croissance rapide de CLPS exerce une pression sur ses systèmes de gestion, ses ressources humaines et ses infrastructures. Une mauvaise gestion de cette expansion pourrait nuire à sa performance opérationnelle et à sa qualité de service."
+      "summary": "La croissance rapide de CLPS exerce une pression sur ses systèmes de gestion, ses ressources humaines et ses infrastructures. Une mauvaise gestion de cette expansion pourrait nuire à sa performance opérationnelle et à sa qualité de service.",
+      "score": 4
     },
     {
       "title": "Réglementation chinoise incertaine",
@@ -405,7 +417,8 @@
       "severity": 5,
       "score_rationale": "Le texte mentionne des 'substantial uncertainties' concernant la loi sur la cybersécurité et d'autres réglementations. Langage fort, position élevée, impact élevé sur l'activité. Tendance à la hausse.",
       "trend": "up",
-      "summary": "Les réglementations chinoises, notamment en matière de cybersécurité, de contrôle des changes et de conformité fiscale, sont imprévisibles. Des changements soudains pourraient nuire à la structure corporative et aux opérations de CLPS."
+      "summary": "Les réglementations chinoises, notamment en matière de cybersécurité, de contrôle des changes et de conformité fiscale, sont imprévisibles. Des changements soudains pourraient nuire à la structure corporative et aux opérations de CLPS.",
+      "score": 5
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:06:37.743132+00:00",
@@ -588,7 +601,7 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.122Z",
   "_dividends_extracted_at": "2026-05-09T20:23:15Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2024)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2024)",
   "_dividends_currency": "USD",
   "subsector_fr": "Services informatiques",
   "enrich_description": {
@@ -656,9 +669,9 @@
     "country": "Hong Kong",
     "_data_freshness_date": "2026-05-21T02:17:14.239528+00:00",
     "fetched_at": "2026-05-21T02:17:14.239529+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.460Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.929Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/clps.json",
     "enrich_root": "v2-pipeline-enrich/clps.json",

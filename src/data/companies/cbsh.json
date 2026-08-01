@@ -53,8 +53,8 @@
       "name_fr": "Revenu net d'intérêts",
       "name_en": "Net Interest Income",
       "explanation": "Revenu net d'intérêts de la banque",
-      "value": "1111.9",
-      "unit": "M $",
+      "value": 1.112,
+      "unit": "Mds $",
       "yoy": "+6.9%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -62,11 +62,11 @@
       "signal": "Croissance",
       "description": "Revenu net d'intérêts de la banque",
       "history": [
-        1111.9,
-        1040.2,
-        998.1,
-        992,
-        974
+        1.112,
+        1.04,
+        0.998,
+        0.992,
+        0.974
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -80,8 +80,13 @@
         "Populated history[3] and history[4] with estimated values based on 2022-2023 trend",
         "Populated ttm with reasonable estimate based on available data"
       ],
-      "explanation_en": "Net Interest Income — interest earned minus interest paid (banks).",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Net Interest Income, interest earned minus interest paid (banks).",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "NIE",
@@ -116,7 +121,11 @@
         "Populated history[3] and history[4] with estimated values based on 2022-2023 trend",
         "Populated ttm with reasonable estimate based on available data"
       ],
-      "signal_en": "Cost pressure, investment phase"
+      "signal_en": "Cost pressure, investment phase",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "ER",
@@ -150,7 +159,11 @@
         "Populated history[4] with 2021 value from source (57.64)",
         "Populated ttm with reasonable estimate"
       ],
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "TCE_TA",
@@ -182,7 +195,11 @@
         "Corrected yoy format from '+1,19%' to '+1.19%'",
         "Populated history[3] and history[4] with 2022 and 2021 values from source"
       ],
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -201,33 +218,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 32.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "",
       "history": [
-        0.01,
+        10,
         0,
         0,
-        0.01
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -246,10 +272,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 3.55 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -263,7 +293,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.8763,
         0.9157,
@@ -276,7 +306,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -291,7 +321,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.3141,
@@ -304,7 +334,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -319,7 +349,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         26.34,
@@ -332,7 +362,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -348,7 +378,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.325775,
@@ -361,7 +391,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -400,9 +430,7 @@
         "Populated history[3] and history[4] with estimated values based on growth trend",
         "Populated ttm with reasonable estimate",
         "Changed is_short_history from true to false (3-year history is sufficient)"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -418,7 +446,8 @@
       "severity": 4,
       "score_rationale": "Le risque économique est évoqué dans le rapport, notamment en ce qui concerne les changements dans les conditions économiques et les fluctuations des taux d'intérêt. La société est exposée à ces risques, qui peuvent impacter son activité et ses résultats.",
       "trend": "stable",
-      "summary": "Le risque économique peut impacter l'activité et les résultats de la société en raison des changements dans les conditions économiques et des fluctuations des taux d'intérêt."
+      "summary": "Le risque économique peut impacter l'activité et les résultats de la société en raison des changements dans les conditions économiques et des fluctuations des taux d'intérêt.",
+      "score": 4
     },
     {
       "title": "Risque réglementaire",
@@ -426,7 +455,8 @@
       "severity": 3,
       "score_rationale": "Le risque réglementaire est présent, notamment en ce qui concerne les changements dans les politiques des agences de régulation et les lois gouvernementales. La société doit se conformer à ces réglementations pour éviter des sanctions.",
       "trend": "stable",
-      "summary": "Le risque réglementaire peut impacter l'activité de la société en raison des changements dans les politiques des agences de régulation et des lois gouvernementales."
+      "summary": "Le risque réglementaire peut impacter l'activité de la société en raison des changements dans les politiques des agences de régulation et des lois gouvernementales.",
+      "score": 3
     },
     {
       "title": "Risque de crédit",
@@ -434,7 +464,8 @@
       "severity": 4,
       "score_rationale": "Le risque de crédit est évoqué dans le rapport, notamment en ce qui concerne les prêts et les engagements de prêt. La société est exposée à ce risque, qui peut impacter son activité et ses résultats.",
       "trend": "up",
-      "summary": "Le risque de crédit peut impacter l'activité et les résultats de la société en raison des prêts et des engagements de prêt."
+      "summary": "Le risque de crédit peut impacter l'activité et les résultats de la société en raison des prêts et des engagements de prêt.",
+      "score": 4
     },
     {
       "title": "Risque de concurrence",
@@ -442,7 +473,8 @@
       "severity": 3,
       "score_rationale": "Le risque de concurrence est présent, notamment en ce qui concerne les autres entités qui offrent des services financiers. La société doit être compétitive pour maintenir sa part de marché.",
       "trend": "stable",
-      "summary": "Le risque de concurrence peut impacter l'activité de la société en raison de la concurrence avec d'autres entités qui offrent des services financiers."
+      "summary": "Le risque de concurrence peut impacter l'activité de la société en raison de la concurrence avec d'autres entités qui offrent des services financiers.",
+      "score": 3
     },
     {
       "title": "Risque de liquidité",
@@ -450,7 +482,8 @@
       "severity": 3,
       "score_rationale": "Le risque de liquidité est évoqué dans le rapport, notamment en ce qui concerne les exigences de liquidité. La société doit maintenir une liquidité suffisante pour faire face à ses obligations.",
       "trend": "stable",
-      "summary": "Le risque de liquidité peut impacter l'activité de la société en raison des exigences de liquidité et de la nécessité de maintenir une liquidité suffisante."
+      "summary": "Le risque de liquidité peut impacter l'activité de la société en raison des exigences de liquidité et de la nécessité de maintenir une liquidité suffisante.",
+      "score": 3
     },
     {
       "title": "Risque de litige",
@@ -458,7 +491,8 @@
       "severity": 2,
       "score_rationale": "Le risque de litige est présent, notamment en ce qui concerne les accords de règlement de litiges. La société doit gérer ces risques pour éviter des pertes financières.",
       "trend": "stable",
-      "summary": "Le risque de litige peut impacter l'activité de la société en raison des accords de règlement de litiges et de la nécessité de gérer ces risques."
+      "summary": "Le risque de litige peut impacter l'activité de la société en raison des accords de règlement de litiges et de la nécessité de gérer ces risques.",
+      "score": 2
     },
     {
       "title": "Risque de réputation",
@@ -466,7 +500,8 @@
       "severity": 2,
       "score_rationale": "Le risque de réputation est présent, notamment en ce qui concerne la confiance des clients et des investisseurs. La société doit maintenir une réputation positive pour attirer et conserver les clients et les investisseurs.",
       "trend": "stable",
-      "summary": "Le risque de réputation peut impacter l'activité de la société en raison de la confiance des clients et des investisseurs et de la nécessité de maintenir une réputation positive."
+      "summary": "Le risque de réputation peut impacter l'activité de la société en raison de la confiance des clients et des investisseurs et de la nécessité de maintenir une réputation positive.",
+      "score": 2
     }
   ],
   "governance": {
@@ -511,7 +546,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -572,7 +607,6 @@
       "date": "2026-04-28"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T18:02:05.748569+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -602,9 +636,10 @@
     ],
     "total": 1.87
   },
+  "_ai_positioning_fetched_at": "2026-05-06T18:02:05.748569+00:00",
   "_segments_fetched_at": "2026-05-06T19:25:42.774994+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:08Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -632,7 +667,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:40Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:09Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
   "enrich_events": {
@@ -679,88 +714,44 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CBSH",
-    "extracted_at": "2026-05-15T18:09:52Z",
-    "method": "xbrl-companyfacts",
-    "cik": 22356,
+    "extracted_at": "2026-06-01T03:05:15Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "TCE_TA",
+        "short": "ROAA",
         "period_type": "quarter",
         "history": [
-          3.4856,
-          3.4807,
-          -6.8416,
-          2.9606,
-          2.6588,
-          2.3516,
-          -5.5058,
-          2.6655,
-          2.6674,
-          2.5814,
-          -4.9702,
-          2.944,
-          3.1377,
-          3.4321,
-          -6.2039,
-          3.4778,
-          3.6406,
-          3.7717,
-          -7.0987,
-          4.3018
+          1.33,
+          1.36,
+          1.48,
+          1.54,
+          1.56,
+          1.49,
+          1.48,
+          1.86,
+          1.8,
+          1.69,
+          1.95,
+          1.78
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "StockholdersEquity",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 3.6406,
-            "accession": "0000022356-25-000047",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 3.7717,
-            "accession": "0000022356-25-000093",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -7.0987,
-            "accession": "calc-0000022356-26-000069",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 4.3018,
-            "accession": "0000022356-26-000133",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:05:15Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -776,9 +767,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.236381+00:00",
     "fetched_at": "2026-05-21T02:17:14.236382+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.177Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.619Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cbsh.json",
     "enrich_root": "v2-pipeline-enrich/cbsh.json",

@@ -21,8 +21,8 @@
       "name_fr": "Revenu Sterigenics",
       "name_en": "Sterigenics Revenue",
       "explanation": "Revenu du segment Sterigenics (sterilisation par oxyde d'éthylène et irradiation gamma)",
-      "value": 1163.617,
-      "unit": "M $",
+      "value": 1.164,
+      "unit": "Mds $",
       "yoy": "+5.7%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,11 +30,11 @@
       "signal": "Croissance de 8,3% en 2025, portée par les prix et le volume",
       "description": "Revenu du segment Sterigenics, principale activité de stérilisation de la société",
       "history": [
-        931.478,
-        1003.687,
-        1049.288,
-        1100.441,
-        1163.617
+        0.931,
+        1.004,
+        1.049,
+        1.1,
+        1.164
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -46,7 +46,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:58.651028+00:00",
       "explanation_en": "Revenue from the Sterigenics segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Nordion Revenue",
@@ -167,11 +168,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.26 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -190,33 +195,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.27 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "+21.4%",
       "history": [
-        0.4,
-        0.3,
-        0.28,
-        0.34
+        400,
+        300,
+        280,
+        340
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.34 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -285,7 +299,8 @@
       "score_rationale": "Le risque est classé comme critique (5) car la société dépend d'un seul fournisseur d'oxyde d'éthylène aux États-Unis, un matériel critique pour ses opérations de stérilisation Sterigenics. Le 10-K souligne explicitement les risques de rupture d'approvisionnement avec impact matériel adverse. L'absence d'alternatives immédiates augmente la vulnérabilité opérationnelle. Ce risque reste stable par rapport à l'année précédente.",
       "trend": "stable",
       "summary": "La société dépend d'un seul fournisseur d'oxyde d'éthylène aux États-Unis, ce qui expose les opérations Sterigenics (65% des revenus) à des risques critiques de rupture d'approvisionnement.",
-      "_validation": "Rationale reformatée sans em-dash, clarification apportée au périmètre du risque"
+      "_validation": "Rationale reformatée sans em-dash, clarification apportée au périmètre du risque",
+      "score": 5
     },
     {
       "title": "Risque d'approvisionnement en cobalt-60 depuis la Russie",
@@ -294,7 +309,8 @@
       "score_rationale": "Le risque est classé 5 car jusqu'à 50% de l'approvisionnement en cobalt-60 pourrait provenir de réacteurs russes. Le 10-K cite explicitement les sanctions géopolitiques, les restrictions logistiques et les défis de renouvellement de licences comme menaces majeures au segment Nordion. Le langage insiste sur un impact matériel adverse. La catégorie Géopolitique est hautement critique. Ce risque est en hausse en intensité et urgence.",
       "trend": "up",
       "summary": "Les sanctions contre la Russie et les restrictions logistiques menacent directement l'approvisionnement en cobalt-60, essentiel aux activités de stérilisation par irradiation gamma et au segment Nordion.",
-      "_validation": "Rationale reformatée sans em-dash, contexte élargi au segment Nordion"
+      "_validation": "Rationale reformatée sans em-dash, contexte élargi au segment Nordion",
+      "score": 5
     },
     {
       "title": "Litiges en cours pour émissions d'oxyde d'éthylène et impacts sanitaires",
@@ -303,7 +319,8 @@
       "score_rationale": "Le risque est classé 5 car la société fait face à des poursuites actuelles pour émissions d'oxyde d'éthylène ayant causé ou alléguant des impacts sanitaires. Le texte du 10-K mentionne des réclamations substantielles et un risque de responsabilité importante. Le langage est répété et alarmant. La catégorie Litige est pondérée fortement en cas de risque systémique. Ce risque est renforcé ou nouveau dans la période actuelle.",
       "trend": "new",
       "summary": "Des poursuites en cours allèguent des dommages sanitaires liés aux émissions d'oxyde d'éthylène des installations Sterigenics, exposant la société à d'importantes indemnisations et impacts opérationnels.",
-      "_validation": "Rationale reformatée sans em-dash, titre clarifié (litiges en cours)"
+      "_validation": "Rationale reformatée sans em-dash, titre clarifié (litiges en cours)",
+      "score": 5
     },
     {
       "title": "Réglementations croissantes sur l'oxyde d'éthylène et alternatives",
@@ -312,7 +329,8 @@
       "score_rationale": "Le risque est noté 4 car la FDA et autres régulateurs poussent vers des alternatives à l'oxyde d'éthylène, avec approbation récente du peroxyde d'hydrogène. Cela menace la demande future pour les services de stérilisation EO. Le 10-K indique un impact matériel mais la société investit déjà dans des solutions alternatives et améliorations environnementales (24,4 M$ en 2025, 51 M$ attendus en 2026). La catégorie Régulation est critique. Le risque est en hausse avec les réglementations environnementales et sanitaires.",
       "trend": "up",
       "summary": "Les réglementations environnementales et sanitaires plus strictes sur l'oxyde d'éthylène pourraient réduire la demande pour ces services de stérilisation, affectant la rentabilité de Sterigenics (54,6% de marge en 2025).",
-      "_validation": "Rationale reformatée sans em-dash, ajout de contexte investissement mitigant"
+      "_validation": "Rationale reformatée sans em-dash, ajout de contexte investissement mitigant",
+      "score": 4
     },
     {
       "title": "Cybersécurité et dépendance aux systèmes informatiques",
@@ -321,7 +339,8 @@
       "score_rationale": "Le risque est évalué à 4 car la société dépend fortement de ses systèmes informatiques pour les opérations critiques, et le 10-K cite les incidents de cybersécurité comme une menace directe à la continuité opérationnelle. Bien que le langage soit modéré, la dépendance opérationnelle est forte. La catégorie Cybersécurité est stratégique pour une société de services essentiels. Ce risque est stable sans indication de changement materiel.",
       "trend": "stable",
       "summary": "Une cyberattaque ou une défaillance majeure des systèmes informatiques pourrait perturber les opérations de stérilisation et de test, compromettant les données sensibles des clients.",
-      "_validation": "Rationale reformatée sans em-dash"
+      "_validation": "Rationale reformatée sans em-dash",
+      "score": 4
     },
     {
       "title": "Risques émergents liés à l'intégration de l'intelligence artificielle",
@@ -330,7 +349,8 @@
       "score_rationale": "Le risque est noté 3 car l'IA est mentionnée comme un risque technologique émergent dans le 10-K, mais sans détails concrets sur son impact potentiel ou son intégration opérationnelle. Le langage est prudent mais non alarmant. La catégorie Technologie est moyennement critique dans le contexte de services. Ce risque est nouveau ou récemment identifié.",
       "trend": "new",
       "summary": "L'intégration potentielle de l'intelligence artificielle dans les processus opérationnels et de test comporte des risques technologiques et opérationnels encore mal maîtrisés et mal définis.",
-      "_validation": "Titre clarifié (émergents), rationale reformatée sans em-dash"
+      "_validation": "Titre clarifié (émergents), rationale reformatée sans em-dash",
+      "score": 3
     },
     {
       "title": "Endettement élevé et restrictions de flexibilité financière",
@@ -339,13 +359,14 @@
       "score_rationale": "Le risque est classé 4 car la société a un degré significatif d'endettement avec 1.419,5 M$ de term loans et 750 M$ de senior secured notes dues 2031, limitant sa flexibilité financière et sa capacité à réagir aux chocs économiques ou opérationnels. Le 10-K mentionne explicitement le risque d'être incapable de remplir ses obligations. La catégorie Capital est hautement critique. Ce risque reste stable avec une structure d'endettement bien définie et refinancée en 2025.",
       "trend": "stable",
       "summary": "Un niveau élevé d'endettement (2,17 Mds$) limite la flexibilité financière et augmente la vulnérabilité aux conditions économiques défavorables et aux augmentations de taux d'intérêt.",
-      "_validation": "Titre clarifié, rationale reformatée sans em-dash, montants précis ajoutés basés sur 10-K"
+      "_validation": "Titre clarifié, rationale reformatée sans em-dash, montants précis ajoutés basés sur 10-K",
+      "score": 4
     }
   ],
   "governance": {
     "agm_date": "2026-05-21",
     "fiscal_year": 2025,
-    "ceo_name": "Christopher A. Simon",
+    "ceo_name": "Alton E. Shader",
     "board_size": 12,
     "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
     "top_capital": [
@@ -389,7 +410,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -587,11 +608,9 @@
           45,
           98.134,
           150.149,
-          -78.308,
           34.89,
           76.811,
           113.2,
-          -45.831,
           19.918,
           51.147,
           87.319,
@@ -649,6 +668,12 @@
             "accession": "0001822479-26-000031",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (SHC)"
         ]
       },
       {
@@ -657,7 +682,6 @@
         "history": [
           156.217,
           114.912,
-          -272.221,
           121.44,
           139.564,
           163.975,
@@ -665,15 +689,12 @@
           647.948,
           262.7,
           244.959,
-          -859.2,
           261.133,
           246.084,
           306.738,
-          -536.713,
           304.39,
           332.437,
           299.192,
-          -591.398,
           314.147
         ],
         "history_periods": [
@@ -727,6 +748,12 @@
             "accession": "0001822479-26-000031",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (SHC)"
         ]
       },
       {
@@ -809,7 +836,10 @@
             "source": "calc-SHC_2026-02-24.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Nordion Revenue",
@@ -891,7 +921,10 @@
             "source": "calc-SHC_2026-02-24.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -908,9 +941,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.308717+00:00",
     "fetched_at": "2026-05-21T02:17:14.308718+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.735Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.732Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/shc.json",
     "enrich_root": "v2-pipeline-enrich/shc.json",

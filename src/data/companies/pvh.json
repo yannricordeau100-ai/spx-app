@@ -1,6 +1,6 @@
 {
   "ticker": "PVH",
-  "name": "PVH Corp.",
+  "name": "PVH",
   "sector": "Consommation discrétionnaire",
   "subsector": "Apparel Retail",
   "tagline": "PVH Corp. is one of the largest global apparel companies in the world, with over 140 years of history.",
@@ -46,7 +46,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:41.928888+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -121,7 +121,11 @@
       "is_generic": true,
       "is_short_history": false,
       "_employees_synced_from_yfinance": true,
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Tariff Impact on Gross Profit 2026",
@@ -142,9 +146,7 @@
       "last_data_date": "2026-02-01",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "février 2026",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Goodwill and Intangible Asset Impairment",
@@ -216,7 +218,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -242,9 +248,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "novembre 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     },
     {
       "short": "Tommy Hilfiger Employment Agreement Amendment",
@@ -266,9 +270,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "septembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -303,7 +305,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -316,7 +318,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité en première position dans les facteurs d'impact sur la marge brute 2025, avec un effet négatif de 80 pb en 2025 et une projection de 215 pb en 2026. Le langage est alarmant (\"significant negative impact\"). La gravité est exacerbée par l'incertitude réglementaire et l'ampleur croissante du risque. Pondération élevée pour les risques macroéconomiques dans le secteur de la mode.",
       "trend": "up",
-      "summary": "L'augmentation des tarifs douaniers, notamment aux États-Unis, pèse fortement sur la marge brute et devrait s'aggraver en 2026."
+      "summary": "L'augmentation des tarifs douaniers, notamment aux États-Unis, pèse fortement sur la marge brute et devrait s'aggraver en 2026.",
+      "score": 5
     },
     {
       "title": "Détérioration de la qualité des ventes en EMEA",
@@ -324,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Mentionné comme une stratégie délibérée en 2023-2024 pour 'améliorer la qualité des ventes', mais entraîne des baisses répétées de revenus dans les segments wholesale et DTC en EMEA. Le langage évolue vers une préoccupation durable, avec des impacts sur la croissance. Catégorie industrielle pondérée moyennement.",
       "trend": "stable",
-      "summary": "Une réduction stratégique des ventes en Europe vise à améliorer la qualité, mais pèse sur les revenus et la dynamique commerciale."
+      "summary": "Une réduction stratégique des ventes en Europe vise à améliorer la qualité, mais pèse sur les revenus et la dynamique commerciale.",
+      "score": 4
     },
     {
       "title": "Réduction de revenus après cession des intimes Heritage Brands",
@@ -332,7 +336,8 @@
       "severity": 4,
       "score_rationale": "Impact direct de 2% sur la baisse de revenus en 2024, avec mention répétée dans les segments Americas et wholesale. Le risque est consolidé dans les états financiers et affecte la structure de revenus. Langage factuel mais révélateur d'une transformation structurelle. Pondération moyenne pour risque de désinvestissement.",
       "trend": "stable",
-      "summary": "La cession de la ligne intime Heritage Brands continue d'impacter négativement les revenus, surtout en Amérique du Nord."
+      "summary": "La cession de la ligne intime Heritage Brands continue d'impacter négativement les revenus, surtout en Amérique du Nord.",
+      "score": 4
     },
     {
       "title": "Volatilité des résultats liés aux régimes de retraite",
@@ -340,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Le document souligne une 'volatilité significative' liée aux gains/pertes actuariels, avec un risque de pertes importantes en cas de variation des taux d'actualisation. Mention explicite d'incertitude en 2026. Langage prudent mais inquiet. Risque récurrent et non maîtrisable, pondéré fortement.",
       "trend": "up",
-      "summary": "Les écarts actuariels sur les retraites peuvent fortement affecter les résultats, avec un risque accru en cas de fluctuations des marchés financiers."
+      "summary": "Les écarts actuariels sur les retraites peuvent fortement affecter les résultats, avec un risque accru en cas de fluctuations des marchés financiers.",
+      "score": 4
     },
     {
       "title": "Délais de livraison Calvin Klein",
@@ -348,7 +354,8 @@
       "severity": 4,
       "score_rationale": "Cité comme cause de coûts supplémentaires (fret, remises) en 2025, impactant la marge brute. Mention explicite de perturbations opérationnelles. Bien que présenté comme ponctuel, l'effet est significatif (plusieurs dizaines de millions). Catégorie industrielle, gravité élevée pour la marque phare.",
       "trend": "new",
-      "summary": "Les retards dans la livraison des produits Calvin Klein ont entraîné des coûts supplémentaires et des remises clients."
+      "summary": "Les retards dans la livraison des produits Calvin Klein ont entraîné des coûts supplémentaires et des remises clients.",
+      "score": 4
     },
     {
       "title": "Transition vers le modèle wholesale à marge réduite",
@@ -356,7 +363,8 @@
       "severity": 4,
       "score_rationale": "La reprise en main de catégories précédemment sous licence (ex. femmes) pèse sur la marge brute (-50 pb en 2025, -50 pb attendus en 2026). Mention répétée comme facteur structurel. Langage neutre mais données inquiétantes. Risque opérationnel stratégique majeur.",
       "trend": "stable",
-      "summary": "Le passage de licences à un modèle de distribution directe en wholesale réduit les marges en raison de la structure de coûts inférieure."
+      "summary": "Le passage de licences à un modèle de distribution directe en wholesale réduit les marges en raison de la structure de coûts inférieure.",
+      "score": 4
     },
     {
       "title": "Dépendance à la performance en Amérique latine via JV",
@@ -364,7 +372,8 @@
       "severity": 3,
       "score_rationale": "Les revenus d'investissements dans des coentreprises (Mexique notamment) sont cités, mais sans détail de risque spécifique. L'absence de contrôle direct et la dépendance à des partenaires soulèvent un risque modéré de concurrence ou de désalignement. Mention discrète mais implicite. Catégorie concurrence, pondération moyenne.",
       "trend": "stable",
-      "summary": "La performance dans certaines régions dépend de joint-ventures, ce qui limite le contrôle stratégique et expose à des risques partenariaux."
+      "summary": "La performance dans certaines régions dépend de joint-ventures, ce qui limite le contrôle stratégique et expose à des risques partenariaux.",
+      "score": 3
     }
   ],
   "governance": {
@@ -518,7 +527,7 @@
       "Absence de mention d'une stratégie GenAI dédiée ou d'investissements R&D spécifiques dans les transcripts récents, contrairement aux pairs du secteur luxury/apparel.",
       "Aucune annonce de partenariat technologique majeur avec des fournisseurs IA ou de création d'une unité IA interne autonome."
     ],
-    "source_note": "10-K FY2025 et transcripts earnings calls 2025-2026 (mentions limitées et fragmentées sur IA/automation)",
+    "source_note": "10-K exercice 2025 et transcripts earnings calls 2025-2026 (mentions limitées et fragmentées sur IA/automation)",
     "_bucket": "HIGH",
     "_subsector": "Apparel Retail",
     "_sources_used": {
@@ -617,166 +626,45 @@
   },
   "enrich_quarterly_history": {
     "ticker": "PVH",
-    "extracted_at": "2026-05-15T18:13:49Z",
-    "method": "xbrl-companyfacts",
-    "cik": 78239,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T09:17:40Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "International Revenue %",
+        "short": "Revenue",
         "period_type": "quarter",
         "history": [
           2.0793,
-          4.3925,
-          6.725,
-          -4.0421,
+          2.3132,
           2.1227,
-          4.2547,
-          6.5355,
-          -3.8887,
+          2.132,
+          2.1227,
+          2.132,
+          2.2808,
           2.1579,
-          4.3649,
-          6.7278,
-          -4.0329,
+          2.207,
           1.9519,
-          4.0262,
-          6.2813,
-          -3.6065,
-          1.9836,
-          4.1508,
-          6.4451,
-          -3.6293
+          2.0743
         ],
         "history_periods": [
           "Q1 2021",
           "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
           "Q4 2022",
           "Q1 2023",
-          "Q2 2023",
           "Q3 2023",
           "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q2 2024"
         ],
-        "last_data_date": "2026-02-01",
+        "last_data_date": "2024-08-04",
         "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 1.9836,
-            "accession": "0000078239-25-000052",
-            "end": "2025-05-04"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 4.1508,
-            "accession": "0000078239-25-000072",
-            "end": "2025-08-03"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 6.4451,
-            "accession": "0000078239-25-000090",
-            "end": "2025-11-02"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -3.6293,
-            "accession": "calc-0000078239-26-000021",
-            "end": "2026-02-01"
-          }
-        ]
-      },
-      {
-        "short": "Tariff Impact on Gross Profit 2026",
-        "period_type": "quarter",
-        "history": [
-          1.2291,
-          2.5627,
-          3.9078,
-          -2.3755,
-          1.2387,
-          2.4582,
-          3.7324,
-          -2.3064,
-          1.2503,
-          2.5226,
-          3.862,
-          -2.2717,
-          1.1987,
-          2.4446,
-          3.7612,
-          -2.262,
-          1.1617,
-          2.4125,
-          3.7053,
-          -2.1309
-        ],
-        "history_periods": [
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
-        ],
-        "last_data_date": "2026-02-01",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "GrossProfit",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 1.1617,
-            "accession": "0000078239-25-000052",
-            "end": "2025-05-04"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 2.4125,
-            "accession": "0000078239-25-000072",
-            "end": "2025-08-03"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 3.7053,
-            "accession": "0000078239-25-000090",
-            "end": "2025-11-02"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -2.1309,
-            "accession": "calc-0000078239-26-000021",
-            "end": "2026-02-01"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:17:40Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -792,9 +680,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.300419+00:00",
     "fetched_at": "2026-05-21T02:17:14.300420+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.954Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.962Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pvh.json",
     "enrich_root": "v2-pipeline-enrich/pvh.json",

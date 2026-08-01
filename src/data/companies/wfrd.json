@@ -21,8 +21,8 @@
       "name_fr": "Actifs à long terme",
       "name_en": "Long-lived assets",
       "explanation": "Actifs à long terme, tels que les biens immobiliers, les équipements, les droits d'utilisation de baux d'exploitation et les actifs incorporels de durée limitée",
-      "value": 72074.659,
-      "unit": "M $",
+      "value": 72.075,
+      "unit": "Mds $",
       "yoy": "Pas de variation en pourcentage trouvée",
       "type": "Investment",
       "nature": "Structurel",
@@ -30,20 +30,21 @@
       "signal": "Critical audit matter identifiée par KPMG",
       "description": "Actifs à long terme de Weatherford International plc au 31 décembre 2025, incluant immobilisations corporelles, droits d'utilisation de baux et actifs incorporels",
       "history": [
-        70522.7,
-        70545.415,
-        70608.639,
-        72064.267,
-        72074.659,
-        72074.659,
-        72074.659,
-        72074.659
+        70.523,
+        70.545,
+        70.609,
+        72.064,
+        72.075,
+        72.075,
+        72.075,
+        72.075
       ],
       "last_data_date": "2026-03-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -62,57 +63,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.92 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "-15.7%",
       "history": [
-        0.03,
-        0.42,
-        0.51,
-        0.43
+        30,
+        420,
+        510,
+        430
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.43 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.74,
-      "unit": "Mds €",
+      "value": 740,
+      "unit": "M €",
       "yoy": "-24.5%",
       "history": [
-        0.41,
-        0.83,
-        0.98,
-        0.74
+        410,
+        830,
+        980,
+        740
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.74 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -131,11 +146,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 5.93 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -154,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.2 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -177,33 +200,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.64 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.99,
-      "unit": "Mds €",
+      "value": 990,
+      "unit": "M €",
       "yoy": "+7.6%",
       "history": [
-        0.91,
-        0.96,
-        0.92,
-        0.99
+        910,
+        960,
+        920,
+        990
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.99 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,7 +275,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en tête du 1A, mentionne des conflits majeurs (Russie-Ukraine, Moyen-Orient, Amérique latine), avec un langage fort sur l'impact matériel et imprévisible. La catégorie Géopolitique est hautement pondérée ici. Le risque est stable par rapport à l'année précédente.",
       "trend": "stable",
-      "summary": "Les conflits géopolitiques mondiaux peuvent perturber les opérations, les marchés et les devises, avec des effets hors contrôle de l'entreprise."
+      "summary": "Les conflits géopolitiques mondiaux peuvent perturber les opérations, les marchés et les devises, avec des effets hors contrôle de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Volatilité des prix du pétrole et du gaz",
@@ -251,7 +284,8 @@
       "severity": 5,
       "score_rationale": "Mentionné explicitement comme facteur clé affectant la demande et les revenus. Langage direct sur la volatilité et son impact sur les résultats. Répercussions macroéconomiques majeures. Position centrale dans le 10-K. Stable vs N-1.",
       "trend": "stable",
-      "summary": "Les fluctuations des prix du pétrole et du gaz impactent directement la demande pour les services et produits de l'entreprise."
+      "summary": "Les fluctuations des prix du pétrole et du gaz impactent directement la demande pour les services et produits de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Cyberattaques et sécurité numérique",
@@ -259,7 +293,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne une vulnérabilité accrue due à la digitalisation et aux conflits géopolitiques. Mention de l'augmentation du taux d'incidents. Risque en hausse implicite. Catégorie Cybersécurité fortement pondérée.",
       "trend": "up",
-      "summary": "L'augmentation de la dépendance aux technologies numériques expose l'entreprise à des cybermenaces plus fréquentes et sophistiquées."
+      "summary": "L'augmentation de la dépendance aux technologies numériques expose l'entreprise à des cybermenaces plus fréquentes et sophistiquées.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire et environnementale",
@@ -267,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Le risque couvre des domaines critiques : environnement, fiscalité, ESG, et législation climatique. Langage insistant sur la complexité croissante. Mention des initiatives mondiales. Pondération élevée pour Régulation.",
       "trend": "stable",
-      "summary": "L'entreprise doit s'adapter à des réglementations environnementales et sociales de plus en plus strictes, notamment liées au climat."
+      "summary": "L'entreprise doit s'adapter à des réglementations environnementales et sociales de plus en plus strictes, notamment liées au climat.",
+      "score": 4
     },
     {
       "title": "Pénuries et délais d'approvisionnement",
@@ -275,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite des pénuries, délais et hausses de prix liés aux conditions macro et géopolitiques. Impact direct sur les coûts et la rentabilité. Mention explicite des tarifs et politiques commerciales. Catégorie Industriel fortement affectée.",
       "trend": "stable",
-      "summary": "Les perturbations de la chaîne d'approvisionnement peuvent retarder les livraisons et augmenter les coûts."
+      "summary": "Les perturbations de la chaîne d'approvisionnement peuvent retarder les livraisons et augmenter les coûts.",
+      "score": 4
     },
     {
       "title": "Difficultés d'innovation technologique",
@@ -283,7 +320,8 @@
       "severity": 4,
       "score_rationale": "Le risque est formulé comme une capacité à s'adapter aux évolutions technologiques et à la transition énergétique. Mention de l'intelligence artificielle et de la digitalisation. Langage préoccupé sur la compétitivité. Catégorie Technologie en tension.",
       "trend": "stable",
-      "summary": "L'entreprise doit innover rapidement pour rester compétitive face aux nouvelles technologies et à la demande en énergies alternatives."
+      "summary": "L'entreprise doit innover rapidement pour rester compétitive face aux nouvelles technologies et à la demande en énergies alternatives.",
+      "score": 4
     },
     {
       "title": "Impairment d'actifs non courants",
@@ -291,7 +329,8 @@
       "severity": 4,
       "score_rationale": "Le montant en jeu est élevé (1,5 Md$ d'actifs). Le commissaire aux comptes (KPMG) souligne ce point comme matière critique d'audit. Risque de charges non monétaires significatives. Catégorie Capital sensible.",
       "trend": "stable",
-      "summary": "Une dépréciation future d'actifs longévifs pourrait entraîner des charges importantes et affecter la santé financière."
+      "summary": "Une dépréciation future d'actifs longévifs pourrait entraîner des charges importantes et affecter la santé financière.",
+      "score": 4
     }
   ],
   "governance": {
@@ -527,9 +566,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.327885+00:00",
     "fetched_at": "2026-05-21T02:17:14.327886+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.475Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.593Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wfrd.json",
     "enrich_root": "v2-pipeline-enrich/wfrd.json",

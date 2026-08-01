@@ -1,6 +1,6 @@
 {
   "ticker": "HUT",
-  "name": "Hut 8 Corp.",
+  "name": "Hut 8",
   "sector": "Technologie",
   "subsector": "Energy Infrastructure",
   "tagline": "Where Power Unlocks Potential",
@@ -40,7 +40,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "AI Infrastructure Partnership",
@@ -66,30 +70,39 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.24,
-      "unit": "Mds €",
+      "value": 240,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
-        0.08,
-        0.09,
-        0.16,
-        0.24
+        80,
+        90,
+        160,
+        240
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.24 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -108,11 +121,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.23 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -131,89 +148,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.75 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "+22.9%",
       "history": [
-        0.13,
-        0.15,
-        0.35,
-        0.43
+        130,
+        150,
+        350,
+        430
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.43 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-55.6%",
       "history": [
-        0.02,
-        0.01,
-        0.09,
-        0.04
+        20,
+        10,
+        90,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "AI Infrastructure Development",
-      "name_fr": "Développement de l'infrastructure IA en construction",
-      "name_en": "AI Infrastructure Under Construction",
-      "explanation": "Capacité d'infrastructure IA en cours de construction au campus River Bend",
-      "value": "330",
-      "unit": "MW",
-      "yoy": "n/a",
-      "type": "Development",
-      "nature": "Conjoncturel",
-      "comparable": "Non comparable",
-      "signal": "La société développe son offre d'infrastructure IA",
-      "description": "La capacité d'infrastructure IA en construction représente les 330 MW de capacité utilitaire en cours de commercialisation au campus River Bend en Louisiane, avec livraison initiale prévue au Q2 2027.",
-      "history": [
-        330,
-        0,
-        0,
-        0,
-        0
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "ttm": 0,
-      "_source_month": "juin 2027",
-      "_source_month_reason": "via_signal_quarter"
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "integrator",
     "summary": "Hut 8 Corp. intègre des unités de traitement graphique (GPU) pour l'intelligence artificielle dans ses infrastructures de centres de données. L'entreprise mentionne l'acquisition de ces équipements spécialisés, suggérant une utilisation active dans ses opérations.",
@@ -230,25 +231,25 @@
       "title": "Bitcoin Price Volatility",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le prix du Bitcoin est très volatil et peut avoir un impact significatif sur les résultats de l'entreprise. La société est exposée au prix du Bitcoin en raison de ses réserves stratégiques et de ses activités de minage. (score par défaut, à affiner)",
+      "score_rationale": "Le prix du Bitcoin est très volatil et peut avoir un impact significatif sur les résultats de l'entreprise. La société est exposée au prix du Bitcoin en raison de ses réserves stratégiques et de ses activités de minage.",
       "trend": "stable",
       "summary": "Le prix du Bitcoin peut fluctuer de manière significative et avoir un impact sur les résultats de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Power Supply Constraints",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "L'accès à l'énergie est un facteur clé pour l'entreprise, et les contraintes énergétiques peuvent avoir un impact sur la croissance et les résultats de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "L'accès à l'énergie est un facteur clé pour l'entreprise, et les contraintes énergétiques peuvent avoir un impact sur la croissance et les résultats de l'entreprise.",
       "trend": "up",
       "summary": "Les contraintes énergétiques peuvent limiter la croissance de l'entreprise et avoir un impact sur ses résultats.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Mining Competition",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La concurrence dans le minage de Bitcoin peut augmenter, ce qui pourrait réduire les revenus de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "La concurrence dans le minage de Bitcoin peut augmenter, ce qui pourrait réduire les revenus de l'entreprise.",
       "trend": "up",
       "summary": "La concurrence dans le minage de Bitcoin peut augmenter et réduire les revenus de l'entreprise.",
       "score": 3
@@ -257,7 +258,7 @@
       "title": "Credit and Liquidity Risks",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "L'entreprise a des dettes et des crédits, et les risques de crédit peuvent avoir un impact sur sa capacité à rembourser ses dettes. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise a des dettes et des crédits, et les risques de crédit peuvent avoir un impact sur sa capacité à rembourser ses dettes.",
       "trend": "stable",
       "summary": "Les risques de crédit peuvent avoir un impact sur la capacité de l'entreprise à rembourser ses dettes.",
       "score": 3
@@ -266,7 +267,7 @@
       "title": "Regulatory Changes",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements réglementaires peuvent avoir un impact sur l'entreprise et ses activités. (score par défaut, à affiner)",
+      "score_rationale": "Les changements réglementaires peuvent avoir un impact sur l'entreprise et ses activités.",
       "trend": "stable",
       "summary": "Les changements réglementaires peuvent avoir un impact sur l'entreprise et ses activités.",
       "score": 3
@@ -275,19 +276,19 @@
       "title": "Technology Dependence",
       "category": "Technologie",
       "severity": 2,
-      "score_rationale": "L'entreprise dépend fortement de la technologie, et les problèmes techniques peuvent avoir un impact sur ses activités. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise dépend fortement de la technologie, et les problèmes techniques peuvent avoir un impact sur ses activités.",
       "trend": "stable",
       "summary": "L'entreprise dépend fortement de la technologie, et les problèmes techniques peuvent avoir un impact sur ses activités.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Reputational Risks",
       "category": "Reputation",
       "severity": 2,
-      "score_rationale": "Les problèmes de réputation peuvent avoir un impact sur l'entreprise et ses activités. (score par défaut, à affiner)",
+      "score_rationale": "Les problèmes de réputation peuvent avoir un impact sur l'entreprise et ses activités.",
       "trend": "stable",
       "summary": "Les problèmes de réputation peuvent avoir un impact sur l'entreprise et ses activités.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -520,9 +521,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.528454+00:00",
     "fetched_at": "2026-05-21T01:44:37.528455+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.245Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.895Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hut.json",
     "enrich_root": "v2-pipeline-enrich/hut.json",

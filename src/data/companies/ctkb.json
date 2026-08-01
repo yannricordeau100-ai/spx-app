@@ -35,9 +35,12 @@
       "is_short_history": false,
       "ttm": 22.64,
       "_validation": "Valeur validée: 36.5M / 201.5M = 18.1%",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Revenue",
@@ -63,7 +66,7 @@
       "is_short_history": false,
       "ttm": 200.5,
       "_validation": "Unité corrigée: Mds $ -> M $ (valeur 201.5M confirmée dans MD&A)",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -166,8 +169,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -190,22 +197,26 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.462,
-      "unit": "Mds $",
+      "value": 462,
+      "unit": "M $",
       "yoy": "-7.4%",
       "history": [
-        0.463,
-        0.519,
-        0.494,
-        0.499,
-        0.462
+        463,
+        519,
+        494,
+        499,
+        462
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
@@ -214,8 +225,13 @@
       "description": "Total des actifs extrait SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,9 +259,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 200.5,
-      "_validation": "Unité corrigée: Mds $ -> M $",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée: Mds $ -> M $"
     },
     {
       "short": "R&D",
@@ -271,9 +285,7 @@
       "is_short_history": true,
       "story_category": "Innovation",
       "ttm": 22.64,
-      "_validation": "Valeur validée",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur validée"
     },
     {
       "short": "Net Loss",
@@ -299,9 +311,7 @@
       "is_short_history": true,
       "story_category": "Finance",
       "ttm": -9.02,
-      "_validation": "Unité corrigée: Mds $ -> M $; YoY recalculé; description améliorée avec contexte de provision",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée: Mds $ -> M $; YoY recalculé; description améliorée avec contexte de provision"
     }
   ],
   "ai_positioning": {
@@ -315,52 +325,52 @@
       "title": "Inflation",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "L'inflation peut avoir un impact négatif sur les résultats opérationnels de l'entreprise, en augmentant les coûts des matériaux, de la main-d'œuvre et des frais généraux. (score par défaut, à affiner)",
+      "score_rationale": "L'inflation peut avoir un impact négatif sur les résultats opérationnels de l'entreprise, en augmentant les coûts des matériaux, de la main-d'œuvre et des frais généraux.",
       "trend": "up",
       "summary": "L'inflation peut affecter les coûts et les marges bénéficiaires de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Conflits commerciaux",
       "category": "Géopolitique",
       "severity": 5,
-      "score_rationale": "Les conflits commerciaux, notamment les tarifs douaniers, peuvent avoir un impact négatif sur les ventes et les coûts de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les conflits commerciaux, notamment les tarifs douaniers, peuvent avoir un impact négatif sur les ventes et les coûts de l'entreprise.",
       "trend": "up",
       "summary": "Les conflits commerciaux peuvent limiter la capacité de l'entreprise à concurrencer sur les marchés internationaux.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à la recherche",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "L'entreprise dépend fortement de la recherche et du développement pour maintenir sa position sur le marché. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise dépend fortement de la recherche et du développement pour maintenir sa position sur le marché.",
       "trend": "stable",
       "summary": "L'entreprise doit continuer à investir dans la recherche et le développement pour rester compétitive.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les changements dans les politiques réglementaires, notamment en ce qui concerne les subventions de recherche, peuvent avoir un impact négatif sur les ventes de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les politiques réglementaires, notamment en ce qui concerne les subventions de recherche, peuvent avoir un impact négatif sur les ventes de l'entreprise.",
       "trend": "up",
       "summary": "Les changements réglementaires peuvent affecter les ventes et les marges bénéficiaires de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "L'entreprise opère dans un marché concurrentiel, ce qui peut affecter ses ventes et ses marges bénéficiaires. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise opère dans un marché concurrentiel, ce qui peut affecter ses ventes et ses marges bénéficiaires.",
       "trend": "stable",
       "summary": "L'entreprise doit continuer à innover et à améliorer ses produits pour rester compétitive.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à la clientèle",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "L'entreprise dépend fortement de sa clientèle, notamment dans le secteur de la recherche et du développement. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise dépend fortement de sa clientèle, notamment dans le secteur de la recherche et du développement.",
       "trend": "stable",
       "summary": "L'entreprise doit continuer à maintenir de bonnes relations avec ses clients pour assurer ses ventes.",
       "score": 3
@@ -369,7 +379,7 @@
       "title": "Risques liés à la chaîne d'approvisionnement",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les perturbations dans la chaîne d'approvisionnement peuvent avoir un impact négatif sur les ventes et les coûts de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les perturbations dans la chaîne d'approvisionnement peuvent avoir un impact négatif sur les ventes et les coûts de l'entreprise.",
       "trend": "up",
       "summary": "L'entreprise doit continuer à gérer efficacement sa chaîne d'approvisionnement pour minimiser les risques.",
       "score": 3
@@ -410,7 +420,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -468,7 +478,6 @@
       "date": "2026-02-27"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-07T09:37:59.061207+00:00",
   "revenue_by_geography": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -505,6 +514,7 @@
     ],
     "total": 0.2
   },
+  "_ai_positioning_fetched_at": "2026-05-07T09:37:59.061207+00:00",
   "_segments_fetched_at": "2026-05-09T14:38:39.848498+00:00",
   "financial_snapshot": {
     "market_cap_usd": 637964352,
@@ -630,86 +640,233 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CTKB",
-    "extracted_at": "2026-05-15T18:10:24Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1831915,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:08:46Z",
+    "n_kpis": 5,
     "kpis": [
       {
         "short": "R&D",
         "period_type": "quarter",
         "history": [
-          11.288,
-          17.366,
-          8.025,
-          16.461,
-          25.111,
-          -14.739,
-          9.974,
-          22.11,
-          33.282,
-          -21.215,
-          9.796,
-          19.796,
-          29.679,
-          -19.869,
-          9.725,
-          18.55,
-          27.506,
-          -19.313,
-          9.604
+          20.99,
+          20.37,
+          17.67,
+          22.89,
+          21.02,
+          21.37,
+          21.65,
+          16.98,
+          18.02,
+          22.25,
+          21,
+          19.19,
+          23.63,
+          21.94,
+          18.91
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:08:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          24.272,
+          30.408,
+          34.376,
+          35.064,
+          40.159,
+          40.477,
+          37.088,
+          49.693,
+          48,
+          44.86,
+          46.617,
+          51.5,
+          41.457,
+          45.602,
+          52.293
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 18.55,
-            "accession": "0001628280-25-038422",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 27.506,
-            "accession": "0001628280-25-049697",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -19.313,
-            "accession": "calc-0001628280-26-012352",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 9.604,
-            "accession": "0001628280-26-032293",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:08:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Loss",
+        "period_type": "quarter",
+        "history": [
+          -0.102,
+          2.67,
+          1.42,
+          2.158,
+          0.702,
+          1.626,
+          6.807,
+          4.388,
+          6.456,
+          6.169,
+          6.807,
+          6.456,
+          6.169,
+          11.402,
+          5.478
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:08:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Sales & Marketing Expenses",
+        "period_type": "quarter",
+        "history": [
+          4.277,
+          5.576,
+          6.553,
+          6.96,
+          8.431,
+          8.81,
+          6.96,
+          8.431,
+          8.81,
+          11.145,
+          12.543,
+          12.076,
+          12.543,
+          12.268,
+          12.429
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:08:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Direct Sales Revenue %",
+        "period_type": "quarter",
+        "history": [
+          93.55,
+          94.24,
+          93.73,
+          89.86,
+          92.44,
+          89.9,
+          84.07,
+          81.44,
+          80.09,
+          76.07,
+          74.15,
+          76.78,
+          67.78,
+          68.88,
+          72.93
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:08:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -725,9 +882,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.247162+00:00",
     "fetched_at": "2026-05-21T02:17:14.247163+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.940Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.455Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ctkb.json",
     "enrich_root": "v2-pipeline-enrich/ctkb.json",

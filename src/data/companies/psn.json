@@ -1,6 +1,6 @@
 {
   "ticker": "PSN",
-  "name": "Parsons Corporation",
+  "name": "Parsons",
   "sector": "Technologie",
   "subsector": "Systèmes d'information et services",
   "tagline": "Enabling a safer, smarter, and more interconnected world",
@@ -40,7 +40,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T09:42:57.999199+00:00",
       "signal_en": "Demand stable"
     },
@@ -49,8 +49,8 @@
       "name_fr": "Commandes nouvelles",
       "name_en": "New Awards",
       "explanation": "Valeur des commandes nouvelles",
-      "value": 6371.95,
-      "unit": "M $",
+      "value": 6.372,
+      "unit": "Mds $",
       "yoy": "-9%",
       "type": "Demand",
       "nature": "Cyclique",
@@ -58,23 +58,24 @@
       "signal": "Indicateur de croissance",
       "description": "Reflet de la capacité de l'entreprise à générer de nouveaux contrats",
       "history": [
-        6371.95,
-        7039.27,
-        5996.78
+        6.372,
+        7.039,
+        5.997
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Backlog",
       "name_fr": "Carnet de commandes",
       "name_en": "Backlog",
       "explanation": "Valeur des commandes en cours",
-      "value": 8716.79,
-      "unit": "M $",
+      "value": 8.717,
+      "unit": "Mds $",
       "yoy": "-2%",
       "type": "Demand",
       "nature": "Cyclique",
@@ -82,24 +83,25 @@
       "signal": "Indicateur de visibilité",
       "description": "Reflet de la capacité de l'entreprise à maintenir son carnet de commandes",
       "history": [
-        8716.79,
-        8893.92,
-        8592.27
+        8.717,
+        8.894,
+        8.592
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue.",
-      "signal_en": "Demand softening, monitor end-markets"
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
+      "signal_en": "Demand softening, monitor end-markets",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Chiffre d'affaires de l'entreprise",
-      "value": 4000,
-      "unit": "M $",
+      "value": 4,
+      "unit": "Mds $",
       "yoy": "+11%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -107,16 +109,17 @@
       "signal": "Indicateur de croissance",
       "description": "Reflet de la capacité de l'entreprise à générer des revenus",
       "history": [
-        4000,
-        3604.5,
-        3139.5
+        4,
+        3.604,
+        3.139
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Headcount",
@@ -140,7 +143,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -160,11 +163,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.77 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -183,33 +190,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.38 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.47,
-      "unit": "Mds €",
+      "value": 470,
+      "unit": "M €",
       "yoy": "+4.4%",
       "history": [
-        0.26,
-        0.27,
-        0.45,
-        0.47
+        260,
+        270,
+        450,
+        470
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.47 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -235,9 +251,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Croissance",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Croissance"
     },
     {
       "short": "Backlog",
@@ -261,9 +275,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Visibilité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Visibilité"
     }
   ],
   "ai_positioning": {
@@ -289,7 +301,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -303,7 +315,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès l'introduction des déclarations prospectives. Le langage insiste sur la dépendance critique aux budgets et approbations gouvernementales. La pondération est maximale car l'activité repose presque entièrement sur des contrats publics, notamment fédéraux. Positionné en tête des risques.",
       "trend": "stable",
-      "summary": "La société dépend fortement de contrats publics renouvelables, dont la perte ou la réduction peut impacter gravement ses revenus."
+      "summary": "La société dépend fortement de contrats publics renouvelables, dont la perte ou la réduction peut impacter gravement ses revenus.",
+      "score": 5
     },
     {
       "title": "Perte de crédibilité auprès du gouvernement",
@@ -311,7 +324,8 @@
       "severity": 5,
       "score_rationale": "Mentionné en premier dans les facteurs de risque prospectifs, avec un langage fort : 'compromises our relationships' et 'damage our professional reputation'. Le risque est existentiel car il menace l'accès aux marchés publics. Catégorie réputation fortement pondérée dans le secteur de la défense.",
       "trend": "stable",
-      "summary": "Toute atteinte à sa réputation ou à ses relations avec les agences gouvernementales pourrait compromettre ses activités."
+      "summary": "Toute atteinte à sa réputation ou à ses relations avec les agences gouvernementales pourrait compromettre ses activités.",
+      "score": 5
     },
     {
       "title": "Changements dans les priorités gouvernementales",
@@ -319,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité dans les déclarations prospectives. L'intensité du langage ('shift expenditures away') et le contexte géopolitique instable justifient une sévérité élevée. Moins existentiel que la perte de contrat, mais structurel.",
       "trend": "stable",
-      "summary": "Des changements dans les priorités de dépense des gouvernements pourraient réduire la demande pour ses services."
+      "summary": "Des changements dans les priorités de dépense des gouvernements pourraient réduire la demande pour ses services.",
+      "score": 4
     },
     {
       "title": "Cyberattaques ou défaillances système",
@@ -327,7 +342,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné dans les déclarations prospectives et fait l'objet d'un item dédié (Item 1C). Le langage est alarmant ('security breaches', 'internal system failures'). En tant que prestataire de défense, la cybersécurité est critique. Catégorie hautement pondérée.",
       "trend": "up",
-      "summary": "Des failles de cybersécurité ou des défaillances internes pourraient compromettre des contrats sensibles et nuire à sa réputation."
+      "summary": "Des failles de cybersécurité ou des défaillances internes pourraient compromettre des contrats sensibles et nuire à sa réputation.",
+      "score": 5
     },
     {
       "title": "Difficulté à recruter avec habilitations",
@@ -335,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Cité dans les risques prospectifs avec un langage fort ('inability to attract, train or retain'). Le besoin d'habilitations de sécurité est crucial pour ses activités fédérales. Moins existentiel que les contrats, mais structurel pour la croissance.",
       "trend": "stable",
-      "summary": "L'incapacité à attirer ou retenir du personnel qualifié et habilité menace la capacité à exécuter les contrats."
+      "summary": "L'incapacité à attirer ou retenir du personnel qualifié et habilité menace la capacité à exécuter les contrats.",
+      "score": 4
     },
     {
       "title": "Protestations de concurrents sur marchés",
@@ -343,7 +360,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans les risques prospectifs avec un impact opérationnel direct ('delays, contract terminations or cancellations'). Le secteur est très concurrentiel. Le risque est accru par la taille des contrats publics. Catégorie modérément pondérée.",
       "trend": "stable",
-      "summary": "Les recours de concurrents après attribution de marchés peuvent retarder ou annuler des contrats clés."
+      "summary": "Les recours de concurrents après attribution de marchés peuvent retarder ou annuler des contrats clés.",
+      "score": 4
     },
     {
       "title": "Non-renouvellement de contrats clés",
@@ -351,7 +369,8 @@
       "severity": 5,
       "score_rationale": "Explicitement cité comme risque majeur ('termination or nonrenewal of our government contracts'). Le langage est sans ambiguïté et le risque est répété dans plusieurs sections. Directement lié à la pérennité du modèle économique.",
       "trend": "stable",
-      "summary": "La fin ou le non-renouvellement de grands contrats publics, notamment fédéraux, pourrait réduire drastiquement les revenus."
+      "summary": "La fin ou le non-renouvellement de grands contrats publics, notamment fédéraux, pourrait réduire drastiquement les revenus.",
+      "score": 5
     }
   ],
   "governance": {
@@ -547,7 +566,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Versement régulier",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+        "description": "Historique 5 ans (2021-2025). ex-div dates.",
         "history": [
           235,
           235,
@@ -560,7 +579,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+        "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
         "signal_en": "Dividend stable, payout consistent"
       },
       {
@@ -575,7 +594,7 @@
         "nature": "Récurrent",
         "comparable": "Spécifique",
         "signal": "Politique de retour aux actionnaires",
-        "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+        "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
         "history": [
           null,
           0.7508,
@@ -588,7 +607,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+        "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
         "signal_en": "Cash position strengthening, balance-sheet flexibility"
       },
       {
@@ -603,7 +622,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Soutenabilité du dividende",
-        "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+        "description": "Dividendes / résultat net (2021-2025).",
         "history": [
           null,
           133.71,
@@ -616,7 +635,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+        "explanation_en": "Payout Ratio, dividends paid divided by net income.",
         "signal_en": "Dividend cut risk, monitor payout sustainability"
       },
       {
@@ -632,7 +651,7 @@
         "comparable": "Comparable",
         "compare_key": "eps_diluted",
         "signal": "Capacité bénéficiaire par action",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+        "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
         "history": [
           null,
           1.743,
@@ -645,16 +664,16 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+        "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
         "signal_en": "Steady growth, healthy trend"
       }
     ],
     "_dividends_extracted_at": "2026-05-09T20:19:34Z",
-    "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+    "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
     "_dividends_currency": "GBp",
     "_segments_fetched_at": "2026-05-15T00:01:02.025288+00:00",
     "_eps_extracted_at": "2026-05-18T16:46:58Z",
-    "_eps_source": "yfinance income_stmt Diluted EPS",
+    "_eps_source": "rapport financier income_stmt Diluted EPS",
     "overrides_governance": {
       "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
       "extraction_status": "heuristic_real_eu",
@@ -668,7 +687,7 @@
         "month": 3,
         "title": "Assemblee generale (estimation)",
         "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-        "source": "yfinance.info.lastFiscalYearEnd",
+        "source": "données de marché.lastFiscalYearEnd",
         "url": "",
         "date": "2027-03-15"
       },
@@ -677,7 +696,7 @@
         "month": 8,
         "title": "Prochaine publication Q3 2026",
         "body": "Publication attendue le 6 aout 2026.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-08-06"
       },
@@ -686,7 +705,7 @@
         "month": 6,
         "title": "Prochain ex-dividende",
         "body": "Date ex-dividende : 18 juin 2026. Montant precedent : 20.0000.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-06-18"
       },
@@ -695,7 +714,7 @@
         "month": 10,
         "title": "Ex-dividende paye",
         "body": "Ex-dividende du 16 octobre 2025 : 20.0000.",
-        "source": "yfinance.dividends",
+        "source": "historique des dividendes",
         "url": "",
         "date": "2025-10-16"
       },
@@ -704,7 +723,7 @@
         "month": 6,
         "title": "Ex-dividende paye",
         "body": "Ex-dividende du 19 juin 2025 : 40.0000.",
-        "source": "yfinance.dividends",
+        "source": "historique des dividendes",
         "url": "",
         "date": "2025-06-19"
       },
@@ -713,98 +732,150 @@
         "month": 10,
         "title": "Ex-dividende paye",
         "body": "Ex-dividende du 17 octobre 2024 : 20.0000.",
-        "source": "yfinance.dividends",
+        "source": "historique des dividendes",
         "url": "",
         "date": "2024-10-17"
       }
     ],
     "_events_sub_agent_101_fill_at": "2026-05-21T09:53:25.900627+00:00",
-    "_events_sub_agent_101_source": "yfinance-batch (earnings_dates + calendar + dividends + info)"
+    "_events_sub_agent_101_source": "rapport financier-batch (earnings_dates + calendar + dividends + info)"
   },
   "enrich_quarterly_history": {
     "ticker": "PSN",
-    "extracted_at": "2026-05-15T18:13:48Z",
-    "method": "xbrl-companyfacts",
-    "cik": 275880,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:17:22Z",
+    "n_kpis": 3,
     "kpis": [
       {
         "short": "Book-to-Bill",
         "period_type": "quarter",
         "history": [
-          1.7541,
-          2.7101,
-          -1.6781,
-          0.9491,
-          1.9578,
-          3.0922,
-          -1.8037,
-          1.1735,
-          2.53,
-          3.9485,
-          -2.2092,
-          1.5357,
-          3.2061,
-          5.0163,
-          -3.0075,
-          1.5544,
-          3.1387,
-          4.7604,
-          -3.0892,
-          1.4912
+          1.2,
+          1.5,
+          1.4,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1.2,
+          1.4,
+          1,
+          1.1,
+          1,
+          1
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 3.1387,
-            "accession": "0000950170-25-103507",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 4.7604,
-            "accession": "0001193125-25-265659",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -3.0892,
-            "accession": "calc-0001193125-26-045495",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.4912,
-            "accession": "0001193125-26-188862",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "ratio",
+        "_extracted_at": "2026-06-01T09:17:22Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Awards",
+        "period_type": "quarter",
+        "history": [
+          1010.974,
+          2692.557,
+          3736.126,
+          917.156,
+          1908.767,
+          3167.023,
+          1382.229,
+          3313.391,
+          4748.32,
+          2082.309,
+          3582.373,
+          5367.109,
+          1766.506,
+          3272.551,
+          4865.56
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:17:22Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Backlog",
+        "period_type": "quarter",
+        "history": [
+          8170.126,
+          8412.208,
+          8584.539,
+          8224.785,
+          8227.636,
+          8228.989,
+          8365.242,
+          8901.587,
+          8815.561,
+          9028.843,
+          8831.606,
+          8784.047,
+          9071.226,
+          8943.038,
+          8832.447
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:17:22Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -820,9 +891,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.299959+00:00",
     "fetched_at": "2026-05-21T02:17:14.299959+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.897Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.906Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/psn.json",
     "enrich_root": null,

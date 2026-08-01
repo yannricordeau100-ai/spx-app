@@ -21,8 +21,8 @@
       "name_fr": "Revenu des médicaments",
       "name_en": "Drug Revenue",
       "explanation": "Chiffre d'affaires généré par la vente des médicaments commercialisés par l'entreprise.",
-      "value": 1003.782,
-      "unit": "M $",
+      "value": 1.004,
+      "unit": "Mds $",
       "yoy": "+28.5%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -30,12 +30,12 @@
       "signal": "Croissance solide des ventes de médicaments clés.",
       "description": "Ce KPI représente les revenus totaux issus des ventes des produits pharmaceutiques d'Apellis, notamment EMPAVELI et SYFOVRE.",
       "history": [
-        250.646,
-        66.563,
-        75.422,
-        396.591,
-        781.367,
-        1003.782
+        0.251,
+        0.067,
+        0.075,
+        0.397,
+        0.781,
+        1.004
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -47,7 +47,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:28.495611+00:00",
       "explanation_en": "Revenue from the Drug segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -73,7 +74,7 @@
       "is_short_history": false,
       "ttm": 68.83,
       "_validation": "Pas de correction nécessaire",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -154,7 +155,7 @@
       "is_short_history": false,
       "ttm": -104.17,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (données de Apellis en millions USD)",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -176,7 +177,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; last_data_date mis à jour à 2024-12-31 (cohérent avec la source); signal et description améliorés pour mentionner Sixth Street Financing Agreement",
-      "explanation_en": "Net Debt — total debt minus cash and cash equivalents."
+      "explanation_en": "Net Debt, total debt minus cash and cash equivalents."
     },
     {
       "short": "Total Revenue",
@@ -201,24 +202,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.022,
-      "unit": "Mds $",
+      "value": 22,
+      "unit": "M $",
       "yoy": "+111.1%",
       "history": [
-        -0.128,
-        -0.305,
-        -0.345,
-        -0.746,
-        -0.652,
-        -0.529,
-        -0.198,
-        0.022
+        -128,
+        -305,
+        -345,
+        -746,
+        -652,
+        -529,
+        -198,
+        22
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -227,8 +232,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -255,9 +265,7 @@
       "is_short_history": true,
       "story_category": "Adoption",
       "ttm": 121.78,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'; description enrichie avec indications cliniques précises",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'; description enrichie avec indications cliniques précises"
     },
     {
       "short": "SYFOVRE Revenue",
@@ -281,9 +289,7 @@
       "is_short_history": true,
       "story_category": "Adoption",
       "ttm": null,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'; description enrichie avec indication précise; ttm défini à null (insufficient history)",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'; description enrichie avec indication précise; ttm défini à null (insufficient history)"
     }
   ],
   "ai_positioning": {
@@ -297,64 +303,64 @@
       "title": "Perte d'exploitation continue et besoin de financement",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le risque est en haut de la section RISK FACTOR SUMMARY, mentionnant des pertes cumulées depuis la création et une dépendance à des financements futurs, y compris la nouvelle facility Sixth Street de $375M en mai 2024. Langage alarmant. La catégorie Capital a une pondération élevée en biotech. Le risque demeure stable. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est en haut de la section RISK FACTOR SUMMARY, mentionnant des pertes cumulées depuis la création et une dépendance à des financements futurs, y compris la nouvelle facility Sixth Street de $375M en mai 2024. Langage alarmant. La catégorie Capital a une pondération élevée en biotech. Le risque demeure stable.",
       "trend": "stable",
       "summary": "La société accumule des pertes depuis sa création et dépend de financements externes récents (Sixth Street, factoring d'AR) pour poursuivre ses activités.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance au succès commercial de SYFOVRE et EMPAVELI",
       "category": "Concurrence",
       "severity": 5,
-      "score_rationale": "Mentionné comme risque principal en haut de la section RISK FACTOR SUMMARY. Le succès de l'entreprise dépend entièrement de deux produits récemment commercialisés. Langage catégorique : 'our prospects depend upon'. Risque existentiel pour une société en phase commerciale initiale. Stable vs N-1. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné comme risque principal en haut de la section RISK FACTOR SUMMARY. Le succès de l'entreprise dépend entièrement de deux produits récemment commercialisés. Langage catégorique : 'our prospects depend upon'. Risque existentiel pour une société en phase commerciale initiale. Stable vs N-1.",
       "trend": "stable",
       "summary": "La viabilité de la société repose entièrement sur l'acceptation marchande de SYFOVRE (GA) et EMPAVELI (PNH/C3G/IC-MPGN).",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence forte dans les indications clés",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le document cite explicitement des concurrents directs pour GA et PNH/C3G. Langage indiquant un risque substantiel de perte de parts de marché. La concurrence est nommée dans le résumé des risques. Stable. (score par défaut, à affiner)",
+      "score_rationale": "Le document cite explicitement des concurrents directs pour GA et PNH/C3G. Langage indiquant un risque substantiel de perte de parts de marché. La concurrence est nommée dans le résumé des risques. Stable.",
       "trend": "stable",
       "summary": "Des traitements concurrents bien établis menacent la pénétration de marché de SYFOVRE et EMPAVELI dans les indications cibles.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à un partenaire pour la croissance internationale",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Risque lié à la collaboration avec Sobi pour la commercialisation hors États-Unis. Mentionné dans le résumé et le texte financier. Le succès international dépend entièrement d'un tiers. Langage fort : 'depend in part on the success'. Sobi a fourni $414.7M en paiements et royalties. Nouveau ou renforcé par rapport à N-1. (score par défaut, à affiner)",
+      "score_rationale": "Risque lié à la collaboration avec Sobi pour la commercialisation hors États-Unis. Mentionné dans le résumé et le texte financier. Le succès international dépend entièrement d'un tiers. Langage fort : 'depend in part on the success'. Sobi a fourni $414.7M en paiements et royalties. Nouveau ou renforcé par rapport à N-1.",
       "trend": "up",
       "summary": "La croissance hors États-Unis dépend de la collaboration avec Sobi, ce qui limite le contrôle de la société sur la commercialisation internationale.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de défaut sur la dette contractée",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Mention explicite d'une Sixth Street Financing Agreement pour $375M (mai 2024) et SFJ. Le texte indique que les flux de trésorerie pourraient être insuffisants pour servir la dette. Langage préoccupant : 'may not generate cash flows'. Catégorie Capital = risque élevé. Nouveau (2024). (score par défaut, à affiner)",
+      "score_rationale": "Mention explicite d'une Sixth Street Financing Agreement pour $375M (mai 2024) et SFJ. Le texte indique que les flux de trésorerie pourraient être insuffisants pour servir la dette. Langage préoccupant : 'may not generate cash flows'. Catégorie Capital = risque élevé. Nouveau (2024).",
       "trend": "new",
       "summary": "La société a contracté $532.5M de dettes (incluant Sixth Street et SFJ) dont le remboursement dépend de flux futurs incertains.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Acceptation limitée par les médecins et assureurs",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Risque cité dans le résumé : échec d'acceptation par les médecins, patients et payeurs. Langage fort : 'may fail to achieve the degree of market acceptance'. Critique pour des produits commercialisés récemment. Stable. (score par défaut, à affiner)",
+      "score_rationale": "Risque cité dans le résumé : échec d'acceptation par les médecins, patients et payeurs. Langage fort : 'may fail to achieve the degree of market acceptance'. Critique pour des produits commercialisés récemment. Stable.",
       "trend": "stable",
       "summary": "Même avec une approbation réglementaire, les produits pourraient ne pas être adoptés en raison de la résistance des prescripteurs ou des remboursements insuffisants.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à des tiers pour la fabrication et distribution",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le texte souligne la sous-traitance totale de la fabrication et distribution. Risque de rupture ou de coûts élevés. Langage clair : 'increases the risk that we will not have sufficient quantities'. Fréquent dans la biotech, mais critique ici. Stable. (score par défaut, à affiner)",
+      "score_rationale": "Le texte souligne la sous-traitance totale de la fabrication et distribution. Risque de rupture ou de coûts élevés. Langage clair : 'increases the risk that we will not have sufficient quantities'. Fréquent dans la biotech, mais critique ici. Stable.",
       "trend": "stable",
       "summary": "Toute défaillance d'un sous-traitant pourrait interrompre la fourniture des produits et nuire à la réputation et aux revenus.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -392,7 +398,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -614,88 +620,35 @@
   },
   "enrich_quarterly_history": {
     "ticker": "APLS",
-    "extracted_at": "2026-05-15T18:08:55Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1492422,
+    "extracted_at": "2026-06-01T02:57:29Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "R&D Expenses",
+        "short": "Drug Revenue",
         "period_type": "quarter",
         "history": [
-          179.955,
-          267.688,
-          -185.786,
-          90.945,
-          192.606,
-          287.813,
-          -184.128,
-          110.027,
-          205.684,
-          285.105,
-          -246.429,
-          84.701,
-          162.647,
-          251.216,
-          -170.994,
-          86.42,
-          153.435,
-          221.621,
-          -165.622,
-          76.958
+          163.075,
+          179.136,
+          176.571,
+          149.9,
+          171.387,
+          177.755
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 153.435,
-            "accession": "0000950170-25-100545",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 221.621,
-            "accession": "0001193125-25-257374",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -165.622,
-            "accession": "calc-0001193125-26-065179",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 76.958,
-            "accession": "0001492422-26-000108",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T02:57:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -711,9 +664,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.222302+00:00",
     "fetched_at": "2026-05-21T02:17:14.222303+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.906Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.354Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/apls.json",
     "enrich_root": "v2-pipeline-enrich/apls.json",

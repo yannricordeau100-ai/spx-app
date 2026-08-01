@@ -21,8 +21,8 @@
       "name_fr": "Revenu de distribution",
       "name_en": "Distribution Revenue",
       "explanation": "Fees received for the retransmission of stations signals and carriage of networks by cable, satellite, and other MVPDs",
-      "value": 1167,
-      "unit": "M $",
+      "value": 1.167,
+      "unit": "Mds $",
       "yoy": -0.1,
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,13 +30,13 @@
       "signal": "Stable with renewed distribution agreements covering 60%+ of subscriber base",
       "description": "Distribution revenue from retransmission and carriage agreements in millions USD",
       "history": [
-        1210,
-        1245,
-        1269,
-        1257,
-        1240,
-        1132,
-        1167
+        1.21,
+        1.245,
+        1.269,
+        1.257,
+        1.24,
+        1.132,
+        1.167
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -44,15 +44,16 @@
       "is_short_history": false,
       "period_type": "quarter",
       "explanation_en": "Revenue from the Distribution segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Advertising Revenue",
       "name_fr": "Revenu publicitaire",
       "name_en": "Advertising Revenue",
       "explanation": "Revenue from local and national advertising across stations, networks, websites, apps and digital platforms",
-      "value": 1959,
-      "unit": "M $",
+      "value": 1.959,
+      "unit": "Mds $",
       "yoy": -18.9,
       "type": "Revenue",
       "nature": "Cyclique",
@@ -78,15 +79,16 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Revenue from the Advertising segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Net Revenue",
       "name_fr": "Revenu net total",
       "name_en": "Total Net Revenue",
       "explanation": "Combined revenue from distribution, advertising and other sources",
-      "value": 4949,
-      "unit": "M $",
+      "value": 4.949,
+      "unit": "Mds $",
       "yoy": -8.5,
       "type": "Revenue",
       "nature": "Cyclique",
@@ -112,7 +114,8 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Revenue from the Total Net segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Income",
@@ -145,7 +148,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -179,7 +182,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -206,7 +209,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -232,8 +239,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -259,8 +270,12 @@
       "description": "Total des actifs extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -274,7 +289,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.8,
         3.6,
@@ -287,7 +302,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -302,7 +317,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         1.023,
@@ -315,7 +330,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -330,7 +345,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         14.62,
@@ -343,7 +358,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -359,7 +374,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         24.16,
@@ -372,7 +387,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -395,9 +410,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Corporate Action",
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Corporate Action"
     },
     {
       "short": "Capital Returned to Shareholders",
@@ -417,9 +430,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capital Allocation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capital Allocation"
     }
   ],
   "ai_positioning": {
@@ -455,7 +466,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès l'introduction du Item 1A. Le langage souligne que la clôture dépend d'approbations réglementaires incertaines. La taille de la transaction (6,2 Md$) et son impact stratégique majeur justifient une sévérité maximale. Catégorie Concurrence en raison des enjeux de concentration du marché.",
       "trend": "new",
-      "summary": "La fusion avec TEGNA, essentielle pour la croissance, pourrait être bloquée par les autorités antitrust."
+      "summary": "La fusion avec TEGNA, essentielle pour la croissance, pourrait être bloquée par les autorités antitrust.",
+      "score": 5
     },
     {
       "title": "Endettement élevé post-fusion",
@@ -463,7 +475,8 @@
       "severity": 5,
       "score_rationale": "Le 10-K mentionne explicitement que l'entreprise est 'highly leveraged' et que la fusion nécessite 5,725 Md$ de dette. Le risque est amplifié par la sensibilité aux taux d'intérêt et aux conditions économiques. Positionnement en haut du document et langage préoccupant ('vulnerable') confirment la gravité.",
       "trend": "up",
-      "summary": "L'endettement massif pour financer la fusion expose la société à un risque financier accru en cas de hausse des taux ou de ralentissement."
+      "summary": "L'endettement massif pour financer la fusion expose la société à un risque financier accru en cas de hausse des taux ou de ralentissement.",
+      "score": 5
     },
     {
       "title": "Dépendance aux cycles électoraux",
@@ -471,7 +484,8 @@
       "severity": 4,
       "score_rationale": "Le document montre une chute de 446 M$ en publicité politique en 2025 (non-année électorale). Ce risque est récurrent et structurel, bien documenté dans l'analyse des revenus. L'intensité du langage ('significant decline') et l'impact direct sur la rentabilité justifient une sévérité élevée.",
       "trend": "stable",
-      "summary": "Les revenus publicitaires varient fortement selon les années électorales, créant une volatilité importante."
+      "summary": "Les revenus publicitaires varient fortement selon les années électorales, créant une volatilité importante.",
+      "score": 4
     },
     {
       "title": "Pressions sur les réseaux câblés (ex: Food Network)",
@@ -479,7 +493,8 @@
       "severity": 4,
       "score_rationale": "Un impair de 381 M$ sur l'investissement dans TV Food Network est signalé, attribué à 'ongoing pressures in the cable network industry'. Ce risque est nouveau en intensité, avec un langage fort ('non-cash impairment'). Il affecte un actif majeur et reflète une tendance sectorielle structurelle.",
       "trend": "up",
-      "summary": "La dégradation du modèle économique des réseaux câblés menace la valeur des participations stratégiques."
+      "summary": "La dégradation du modèle économique des réseaux câblés menace la valeur des participations stratégiques.",
+      "score": 4
     },
     {
       "title": "Évolution réglementaire incertaine (FCC)",
@@ -487,7 +502,8 @@
       "severity": 4,
       "score_rationale": "Le risque est détaillé sur plusieurs paragraphes, avec des décisions judiciaires récentes (juillet 2025) et des règles en suspens. Le langage indique une incertitude réglementaire majeure ('FCC has not yet issued an order'). La régulation est vitale pour les licences et la structure du marché.",
       "trend": "stable",
-      "summary": "Les changements potentiels des règles de propriété média par la FCC pourraient limiter la croissance ou imposer des désinvestitures."
+      "summary": "Les changements potentiels des règles de propriété média par la FCC pourraient limiter la croissance ou imposer des désinvestitures.",
+      "score": 4
     },
     {
       "title": "Déclin du marché publicitaire non politique",
@@ -495,7 +511,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne à plusieurs reprises une 'ongoing advertising market softness', avec une baisse de 10 M$ en 2025. Ce risque est répété dans les deux comparaisons annuelles, montrant une tendance structurelle. Le langage est récurrent et préoccupant.",
       "trend": "stable",
-      "summary": "Le marché publicitaire traditionnel est en baisse, affectant les revenus même en dehors des cycles électoraux."
+      "summary": "Le marché publicitaire traditionnel est en baisse, affectant les revenus même en dehors des cycles électoraux.",
+      "score": 4
     },
     {
       "title": "Exposition aux conditions économiques générales",
@@ -503,7 +520,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement cité dans 'Liquidity and Capital Resources' avec mention de l'inflation, des taux élevés et des ruptures d'approvisionnement. Le lien direct avec la capacité à générer des flux de trésorerie opérationnels et à servir la dette renforce sa gravité. Position stratégique dans le document.",
       "trend": "stable",
-      "summary": "La performance financière est sensible aux chocs macroéconomiques comme l'inflation ou les taux d'intérêt."
+      "summary": "La performance financière est sensible aux chocs macroéconomiques comme l'inflation ou les taux d'intérêt.",
+      "score": 4
     }
   ],
   "governance": {
@@ -610,7 +628,7 @@
   "company_description": "Nexstar Media Group, Inc. operates as a diversified media company that produces and distributes local and national news, sports, and entertainment contents on the television and digital platforms in the United States. It owns, operates, programs, or provides sales and other services to power television and radio stations; and provides television programming services. The company offers video and display advertising platforms through its own and various third party websites, mobile and over-the-top applications, digital media solutions to media publishers and advertisers, and a consumer product reviews platform. In addition, it owns NewsNation, a national cable news network; and WGN-AM, a Chicago radio station, as well as owns and operates digital multicast networks. Further, its digital assets include 125 local websites, 229 mobile applications, 110 connected television applications, television channels from The CW and The Hill, BestReviews, and advertising solutions. Additionally, the company engages in the digital business. Its stations are affiliates of ABC, NBC, FOX, CBS, The CW, MyNetworkTV, and other broadcast television networks. Nexstar Media Group, Inc. was formerly known as Nexstar Broadcasting Group, Inc. and changed its name to Nexstar Media Group, Inc. in January 2017. The company was founded in 1996 and is headquartered in Irving, Texas.",
   "_profile_fetched_at": "2026-05-07T11:59:24.633756+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:54Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2013,
@@ -635,7 +653,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:26Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:34Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Communication",
   "subsector_fr": "Médias & divertissement",
   "enrich_ai_pos": {
@@ -820,7 +838,10 @@
             "source": "calc-NXST_2026-02-27.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -836,9 +857,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.292433+00:00",
     "fetched_at": "2026-05-21T02:17:14.292434+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.200Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.157Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nxst.json",
     "enrich_root": "v2-pipeline-enrich/nxst.json",

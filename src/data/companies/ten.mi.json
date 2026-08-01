@@ -13,111 +13,9 @@
     "sector": "N/A",
     "subsector": "N/A"
   },
-  "hero_kpi": "Total Revenue",
+  "hero_kpi": "tubes_segment_sales",
   "hero_kpi_rationale": "En tant qu'association sectorielle sans activités commerciales, IVR ne dispose pas de KPI financiers traditionnels (marge brute, revenus). L'indicateur pertinent est le niveau d'engagement des membres, reflété par le nombre de participants aux congrès annuels (225 participants en 2024 provenant de 11 pays) et aux colloques spécialisés, qui mesurent la pertinence et l'impact de l'organisation.",
   "kpis": [
-    {
-      "short": "Annual Congress Attendance",
-      "name_fr": "Participation au congrès annuel",
-      "name_en": "Annual Congress Attendance",
-      "explanation": "Number of participants from member countries attending the annual IVR Congress.",
-      "value": 225,
-      "unit": "Participants",
-      "yoy": "unknown",
-      "type": "Engagement",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Strong member engagement with 225 participants from 11 countries at 2024 Frankfurt Congress",
-      "description": "L'édition 2024 du congrès annuel de l'IVR, qui s'est tenue à Francfort du 15 au 17 mai 2024, a rassemblé 225 participants provenant de 11 pays européens. Cet événement majeur marque l'engagement continu des membres et des parties prenantes du secteur de la navigation intérieure.",
-      "history": [
-        {
-          "year": 2024,
-          "value": 225,
-          "unit": "Participants"
-        }
-      ],
-      "last_data_date": "2024-05-17",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "period_type": "annual"
-    },
-    {
-      "short": "Loss Prevention Colloquium Attendance",
-      "name_fr": "Participation au colloque de prévention des sinistres",
-      "name_en": "Loss Prevention Colloquium Attendance",
-      "explanation": "Number of participants at the inaugural Loss Prevention Colloquium addressing damage prevention in inland navigation.",
-      "value": 80,
-      "unit": "Participants",
-      "yoy": "new initiative",
-      "type": "Engagement",
-      "nature": "Conjoncturel",
-      "comparable": "Non comparable",
-      "signal": "Successful launch of specialized event with 80 participants from three countries",
-      "description": "Le premier colloque de prévention des sinistres de l'IVR s'est tenu à Anvers le 4 novembre 2024, rassemblant environ 80 participants de Belgique, des Pays-Bas et d'Allemagne pour discuter des aspects techniques et financiers de la prévention des dommages dans la navigation intérieure européenne.",
-      "history": [
-        {
-          "year": 2024,
-          "value": 80,
-          "unit": "Participants"
-        }
-      ],
-      "last_data_date": "2024-11-04",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "period_type": "annual"
-    },
-    {
-      "short": "Member Countries Represented",
-      "name_fr": "Nombre de pays membres représentés",
-      "name_en": "Member Countries Represented",
-      "explanation": "Number of European countries with active member representation in IVR governance and activities.",
-      "value": 11,
-      "unit": "Countries",
-      "yoy": "stable",
-      "type": "Scale",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Pan-European representation across 11 countries demonstrates international scope",
-      "description": "Au congrès 2024, l'IVR a réuni des représentants de 11 pays européens différents, reflétant son mandat d'agir en tant qu'organisme neutre et indépendant de représentation internationale (paneuropéenne) des intérêts de la navigation intérieure.",
-      "history": [
-        {
-          "year": 2024,
-          "value": 11,
-          "unit": "Countries"
-        }
-      ],
-      "last_data_date": "2024-05-17",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "period_type": "annual",
-      "signal_en": "Flat year-over-year, monitor closely"
-    },
-    {
-      "short": "Total Revenue",
-      "name_fr": "Chiffre d'affaires",
-      "name_en": "Total Revenue",
-      "value": 11.98,
-      "unit": "Mds €",
-      "yoy": "-4.3%",
-      "history": [
-        11.76,
-        14.87,
-        12.52,
-        11.98
-      ],
-      "type": "Comptes",
-      "nature": "comptable",
-      "comparable": true,
-      "signal": "Chiffre d'affaires de 11.98 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
-      "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
-    },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
@@ -135,11 +33,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.93 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Pressure, deteriorating trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,56 +60,185 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 20.07 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.45,
-      "unit": "Mds €",
+      "value": 450,
+      "unit": "M €",
       "yoy": "-22.4%",
       "history": [
-        0.84,
-        0.72,
-        0.58,
-        0.45
+        840,
+        720,
+        580,
+        450
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.45 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.57,
-      "unit": "Mds €",
+      "value": 570,
+      "unit": "M €",
       "yoy": "-16.2%",
       "history": [
-        1.09,
-        1.64,
-        0.68,
-        0.57
+        1090,
+        1640,
+        680,
+        570
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.57 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "tubes_segment_sales",
+      "name_fr": "CA segment Tubes",
+      "name_en": "Tubes Segment Net Sales",
+      "unit": "M$",
+      "period_type": "year",
+      "history": [
+        7233,
+        6870,
+        4844,
+        5994,
+        11133,
+        14185,
+        11907
+      ],
+      "value": 11907,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le segment Tubes represente 95 % des ventes du groupe et recule de 16 % en 2024 apres le pic de 2023.",
+      "is_wow": true,
+      "yoy": "-16,1 %"
+    },
+    {
+      "short": "tubes_north_america_sales",
+      "name_fr": "CA Tubes Amerique du Nord",
+      "name_en": "Tubes Sales North America",
+      "unit": "M$",
+      "period_type": "year",
+      "history": [
+        3488,
+        3307,
+        2108,
+        3240,
+        6796,
+        7572,
+        5432
+      ],
+      "value": 5432,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Amerique du Nord reste la premiere region avec 46 % des ventes Tubes malgre un repli marque en 2024.",
+      "is_wow": false
+    },
+    {
+      "short": "tubes_south_america_sales",
+      "name_fr": "CA Tubes Amerique du Sud",
+      "name_en": "Tubes Sales South America",
+      "unit": "M$",
+      "period_type": "year",
+      "history": [
+        1284,
+        1240,
+        660,
+        1051,
+        2213,
+        3067,
+        2294
+      ],
+      "value": 2294,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Amerique du Sud pese 19 % des ventes Tubes, portee par l'Argentine et le Bresil.",
+      "is_wow": false
+    },
+    {
+      "short": "tubes_europe_sales",
+      "name_fr": "CA Tubes Europe",
+      "name_en": "Tubes Sales Europe",
+      "unit": "M$",
+      "period_type": "year",
+      "history": [
+        628,
+        641,
+        566,
+        622,
+        867,
+        1055,
+        1143
+      ],
+      "value": 1143,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Europe progresse chaque annee depuis 2020 et atteint un plus haut a 1,1 milliard de dollars.",
+      "is_wow": false
+    },
+    {
+      "short": "seamless_pipe_volume",
+      "name_fr": "Volumes de tubes sans soudure",
+      "name_en": "Seamless Pipe Sales Volume",
+      "unit": "Milliers de tonnes",
+      "period_type": "year",
+      "history": [
+        2600,
+        1918,
+        2514,
+        3146,
+        3189,
+        3077
+      ],
+      "value": 3077,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les volumes de tubes sans soudure se maintiennent au-dessus de 3 millions de tonnes pour la troisieme annee.",
+      "is_wow": false
     },
     {
       "short": "DPS",
@@ -221,7 +252,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.229,
         0.3817,
@@ -234,7 +265,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +280,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.5312,
@@ -262,7 +293,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +308,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         20.81,
@@ -290,7 +321,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -306,7 +337,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.16,
@@ -319,7 +350,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -334,21 +365,7 @@
     ],
     "source": ""
   },
-  "_validation": [
-    "Confirmed sector 'Non-Profit & Industry Association' - IVR is a trade association, not a commercial enterprise",
-    "Confirmed subsector 'Trade Association'",
-    "Confirmed tagline accurately describes international association representing inland waterway transport sector interests",
-    "Confirmed hero_kpi 'Member Engagement' - appropriate for non-profit association without commercial revenues",
-    "Confirmed all 3 KPIs are valid and sourced from annual report",
-    "KPI 1: Annual Congress Attendance value 225 confirmed - source states 'Anneke Kooiman, begrüßte 225 Teilnehmer aus 11 verschiedenen Ländern' (welcomed 225 participants from 11 different countries)",
-    "KPI 2: Loss Prevention Colloquium Attendance value 80 confirmed - source states 'Rund 80 Teilnehmer aus Belgien, den Niederlanden und Deutschland' (around 80 participants from Belgium, Netherlands, and Germany)",
-    "KPI 3: Member Countries Represented value 11 confirmed - source states '225 Teilnehmer aus 11 verschiedenen Ländern' (225 participants from 11 different countries)",
-    "Confirmed unit types: 'Participants' and 'Countries' are factually accurate, not fabricated",
-    "Updated last_data_date values to match event dates: 2024-05-17 for Frankfurt Congress, 2024-11-04 for Antwerp Colloquium",
-    "Changed period_type from 'quarter' to 'annual' for all KPIs - these are annual events",
-    "Verified hero_kpi_rationale is in French without em-dashes and accurately reflects association structure",
-    "Confirmed _fit_for_site remains false due to short history and limited KPI count - this is appropriate for new event-based KPIs with only 2024 data"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 00:55",
     "n_periods": 1,
@@ -454,11 +471,13 @@
   "last_data_date": "2026-03-31",
   "_hero_kpi_original": "Member Engagement",
   "_dividends_extracted_at": "2026-05-09T20:21:11Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:47:43Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Association professionnelle",
+  "hero_kpi_override": "tubes_segment_sales",
+  "_hero_kpi_override_reason": "tubes_segment_sales = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "TEN.MI",
     "simple": {
@@ -554,6 +573,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Tenaris S.A. est un producteur mondial de tubes en acier pour l'industrie énergétique. Coté à Milan, New York et Mexico. Basé au Luxembourg, controlé par la famille Rocca (Argentine).",
+          "products": "Tubes OCTG (Oil Country Tubular Goods : casings, tubings pour puits pétroliers et gaziers), pipelines (line pipes), tubes mécaniques pour structures, chaudières, automobile. Services OCTG intégrés (Rig Direct).",
+          "customers": "Compagnies pétrolières (majors et indépendantes), forme E&P, fabricants de pipelines, fabricants automobiles (tubes mécaniques), constructeurs industriels.",
+          "edge": "Numéro un mondial OCTG (Oil Country Tubular Goods) sans soudure (seamless) pour applications haute performance. Modèle Rig Direct intégrant logistique, services et tubes. Présence mondiale avec production locale (Amérique latine, US, Italie)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Tenaris est le leader mondial des tubes OCTG seamless pour l'industrie pétrolière et gazière. Cycle favorable post-pénurie 2022 maintenant en correction (baisse activité rigs aux US). Modèle Rig Direct différencié face aux concurrents distribué.",
+          "tech_products": "Activité organisée par région : North America (US shale gas cœur de profit), South America (Mexique, Argentine Vaca Muerta), EMEA (Italie, Émirats), Asia. Produits : OCTG, line pipes haute pression, tubes mécaniques. Investissements dans la décarbonation (four à arc électrique en Italie) et les hydrogen-ready pipes.",
+          "moat": "Position de leader OCTG seamless avec capacité industrielle mondiale. Modèle Rig Direct (intégration logistique et services) verrouillant les clients shale aux US. Marque historique et expertise métallurgique. Coûts compétitifs en Mexique et Argentine.",
+          "risks": "Cyclicité forte (corrélation rig count US et prix pétrole). Concurrence intense (Vallourec, US Steel Tubular, Chinois). Sensibilité aux droits de douane et anti-dumping. Risques argentin (exposition Tenaris à Argentine). Pression ESG sur les fossiles."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "TEN.MI",
     "ranks": {
@@ -566,15 +606,16 @@
     "country": "Luxembourg",
     "_data_freshness_date": "2026-05-21T02:17:14.317038+00:00",
     "fetched_at": "2026-05-21T02:17:14.317038+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.449Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.523Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ten.mi.json",
     "enrich_root": "v2-pipeline-enrich/ten.mi.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

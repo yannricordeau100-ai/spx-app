@@ -40,8 +40,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -68,7 +72,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -95,7 +103,11 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -121,8 +133,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -148,8 +164,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Steady growth, healthy trend"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -176,7 +196,11 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -195,94 +219,46 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.0 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.22,
-        0.03,
-        0.03,
-        0.03
+        220,
+        30,
+        30,
+        30
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.03 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part des produits incluant fonctionnalités IA",
-      "name_en": "AI-Integrated Products Mix",
-      "explanation": "Pourcentage des nouveaux produits intégrant des outils d'analyse par intelligence artificielle.",
-      "value": "35",
-      "unit": "%",
-      "yoy": "+5 pts",
-      "type": "Adoption",
-      "nature": "Conjoncturel",
-      "comparable": "Non comparable",
-      "signal": "Adoption croissante de l'IA pour l'analyse des marchés crypto",
-      "description": "L'IA est utilisée pour les signaux de trading et la gestion des risques sur les produits d'investissement.",
-      "history": [
-        20,
-        24,
-        28,
-        30,
-        35
-      ],
-      "last_data_date": "2025-06-30",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "AI API Calls",
-      "name_fr": "Volume d'appels API IA",
-      "name_en": "AI API Call Volume",
-      "explanation": "Nombre d'appels mensuels aux moteurs d'analyse IA internes, en milliards.",
-      "value": "4.2",
-      "unit": "B",
-      "yoy": "+85%",
-      "type": "Adoption",
-      "nature": "Conjoncturel",
-      "comparable": "Non comparable",
-      "signal": "Explosion de l'utilisation des outils IA pour les décisions d'investissement",
-      "description": "Les algorithmes d'IA sont intégrés dans les plateformes clients et de gestion.",
-      "history": [
-        1.1,
-        1.8,
-        2.3,
-        3.1,
-        4.2
-      ],
-      "last_data_date": "2025-06-30",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "integrator",
     "summary": "CoinShares intègre progressivement l'intelligence artificielle dans ses outils d'analyse de marché et de gestion des risques, sans en faire un pilier central. L'IA est utilisée pour enrichir les signaux de trading et améliorer la sécurité des systèmes.",
@@ -314,7 +290,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental pour un gestionnaire d'actifs numériques ; langage intensif attendu dans Item 1A (incorporé par référence au Proxy) ; tendance croissante avec évolution réglementaire mondiale ; poids catégorie critique pour le modèle économique.",
       "trend": "up",
-      "summary": "CoinShares opère dans un secteur hautement régulé et en évolution rapide. Les changements de régulation concernant les crypto-actifs, les ETF numériques et les services de garde pourraient restreindre les activités, augmenter les coûts de conformité ou rendre certains produits non viables (ex: interdiction des ETF Bitcoin dans certaines juridictions)."
+      "summary": "CoinShares opère dans un secteur hautement régulé et en évolution rapide. Les changements de régulation concernant les crypto-actifs, les ETF numériques et les services de garde pourraient restreindre les activités, augmenter les coûts de conformité ou rendre certains produits non viables (ex: interdiction des ETF Bitcoin dans certaines juridictions).",
+      "score": 5
     },
     {
       "title": "Volatilité extrême et cycles de marché crypto",
@@ -322,7 +299,8 @@
       "severity": 5,
       "score_rationale": "Risque inhérent à l'activité de gestion d'actifs numériques ; impact direct sur AUM et revenus ; cycles boom-bust documentés ; poids critique pour la viabilité opérationnelle.",
       "trend": "stable",
-      "summary": "Les revenus et AUM de CoinShares sont fortement corrélés aux prix des crypto-actifs. Les cycles de marché extrêmes (bull/bear markets) créent une volatilité importante des revenus et peuvent réduire drastiquement les actifs sous gestion, comme observé lors des krachs de 2022 et 2023."
+      "summary": "Les revenus et AUM de CoinShares sont fortement corrélés aux prix des crypto-actifs. Les cycles de marché extrêmes (bull/bear markets) créent une volatilité importante des revenus et peuvent réduire drastiquement les actifs sous gestion, comme observé lors des krachs de 2022 et 2023.",
+      "score": 5
     },
     {
       "title": "Cybersécurité et risques de vol d'actifs numériques",
@@ -330,7 +308,8 @@
       "severity": 5,
       "score_rationale": "Risque existentiel pour un custodian/gestionnaire d'actifs numériques ; langage intensif probable dans Item 1A ; tendance croissante avec sophistication des attaques ; poids catégorie très élevé.",
       "trend": "up",
-      "summary": "CoinShares gère et custodialise des actifs numériques pour clients. Les attaques cybernétiques, les failles de sécurité ou les vols de clés privées pourraient entraîner des pertes massives d'actifs clients, des litiges, des amendes réglementaires et une perte de confiance irréversible."
+      "summary": "CoinShares gère et custodialise des actifs numériques pour clients. Les attaques cybernétiques, les failles de sécurité ou les vols de clés privées pourraient entraîner des pertes massives d'actifs clients, des litiges, des amendes réglementaires et une perte de confiance irréversible.",
+      "score": 5
     },
     {
       "title": "Concurrence intense d'acteurs établis et nouveaux entrants",
@@ -338,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Marché des ETF et produits numériques très compétitif ; présence de géants financiers (BlackRock, Fidelity, Grayscale) ; langage modéré à intensif ; tendance croissante ; poids catégorie élevé.",
       "trend": "up",
-      "summary": "CoinShares fait face à une concurrence croissante de gestionnaires d'actifs traditionnels (BlackRock, Fidelity) et de nouveaux entrants offrant des produits similaires. La compression des frais de gestion et la perte de parts de marché menacent la rentabilité et la croissance."
+      "summary": "CoinShares fait face à une concurrence croissante de gestionnaires d'actifs traditionnels (BlackRock, Fidelity) et de nouveaux entrants offrant des produits similaires. La compression des frais de gestion et la perte de parts de marché menacent la rentabilité et la croissance.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs de services critiques (custodians, exchanges)",
@@ -346,7 +326,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel majeur ; dépendance à des tiers pour la garde d'actifs et l'exécution ; langage modéré à intensif probable ; tendance stable ; poids catégorie élevé.",
       "trend": "stable",
-      "summary": "CoinShares dépend de custodians tiers, de plateformes d'échange et de fournisseurs d'infrastructure pour opérer. Les défaillances, fermetures ou changements de conditions de ces partenaires (ex: FTX, Celsius) pourraient interrompre les services et causer des pertes aux clients."
+      "summary": "CoinShares dépend de custodians tiers, de plateformes d'échange et de fournisseurs d'infrastructure pour opérer. Les défaillances, fermetures ou changements de conditions de ces partenaires (ex: FTX, Celsius) pourraient interrompre les services et causer des pertes aux clients.",
+      "score": 4
     },
     {
       "title": "Risque de réputation lié aux scandales crypto et blanchiment",
@@ -354,7 +335,8 @@
       "severity": 4,
       "score_rationale": "Secteur crypto associé à des scandales (FTX, Celsius, Mt. Gox) ; langage modéré à intensif ; tendance croissante avec scrutin réglementaire ; poids catégorie élevé pour une marque.",
       "trend": "up",
-      "summary": "L'industrie crypto subit des scandales récurrents (fraudes, faillites, blanchiment d'argent). CoinShares risque une association réputationnelle négative, une perte de clients institutionnels et une restriction d'accès aux services bancaires traditionnels."
+      "summary": "L'industrie crypto subit des scandales récurrents (fraudes, faillites, blanchiment d'argent). CoinShares risque une association réputationnelle négative, une perte de clients institutionnels et une restriction d'accès aux services bancaires traditionnels.",
+      "score": 4
     },
     {
       "title": "Concentration de propriété et risques de gouvernance",
@@ -362,7 +344,8 @@
       "severity": 3,
       "score_rationale": "Mognetti et Masters détiennent 32,6% combinés (16,3% chacun) ; fondateurs/insiders contrôlent 32,6% du groupe ; langage modéré ; tendance stable ; poids catégorie modéré.",
       "trend": "stable",
-      "summary": "Jean-Marie Mognetti et Daniel Masters détiennent ensemble 32,6% des actions. Cette concentration de propriété crée des risques de conflits d'intérêts, de décisions non alignées avec les minoritaires, et de dépendance à la vision stratégique de ces actionnaires clés."
+      "summary": "Jean-Marie Mognetti et Daniel Masters détiennent ensemble 32,6% des actions. Cette concentration de propriété crée des risques de conflits d'intérêts, de décisions non alignées avec les minoritaires, et de dépendance à la vision stratégique de ces actionnaires clés.",
+      "score": 3
     },
     {
       "title": "Risque de liquidité et de financement post-SPAC",
@@ -370,7 +353,8 @@
       "severity": 3,
       "score_rationale": "Trésorerie pro forma de $60M seulement ; dettes de $30M ; accumulated deficit de $1,25B ; langage modéré ; tendance stable ; poids catégorie modéré pour une jeune entité publique.",
       "trend": "stable",
-      "summary": "CoinShares sort d'une fusion SPAC avec une trésorerie limitée ($60M) et un accumulated deficit significatif ($1,25B). La capacité à financer la croissance, les acquisitions ou à traverser des cycles baissiers du marché crypto dépend de l'accès aux marchés de capitaux."
+      "summary": "CoinShares sort d'une fusion SPAC avec une trésorerie limitée ($60M) et un accumulated deficit significatif ($1,25B). La capacité à financer la croissance, les acquisitions ou à traverser des cycles baissiers du marché crypto dépend de l'accès aux marchés de capitaux.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:12:37.463443+00:00",
@@ -414,7 +398,7 @@
     "fiscal_year": 2025
   },
   "_governance_yf_fallback_at": "2026-05-14T04:41:03.482711+00:00",
-  "_companies_unified_built_at": "2026-05-29T21:19:29.902Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.776Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cshr.json",
     "enrich_root": null,

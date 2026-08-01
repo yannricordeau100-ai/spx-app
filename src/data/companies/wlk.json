@@ -1,6 +1,6 @@
 {
   "ticker": "WLK",
-  "name": "Westlake Corporation",
+  "name": "Westlake",
   "sector": "Matériaux",
   "subsector": "Performance and Essential Materials",
   "tagline": "A global vertically integrated manufacturer of housing, infrastructure and performance materials",
@@ -41,7 +41,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Clarified description to reflect actual restructuring charges reported in Q4 2025",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Goodwill Impairment",
@@ -68,7 +68,10 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Marked as is_wow=true due to material impairment charge; clarified description with Q3 timing and specific drivers",
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -87,11 +90,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 11.17 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -110,11 +117,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -1.51 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -133,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 19.96 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -156,11 +171,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.41 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -179,10 +198,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.72 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,7 +252,8 @@
       "severity": 4,
       "score_rationale": "The company explicitly addresses cybersecurity risks with Board-level oversight through the Corporate Risk and Sustainability Committee. The committee includes directors with cybersecurity expertise and receives regular updates from the Chief Information Officer. The severity remains high due to potential operational impact from security breaches.",
       "trend": "stable",
-      "summary": "Company has established cybersecurity governance with Board-level oversight, cross-functional incident response teams, and regular monitoring of risks and incidents."
+      "summary": "Company has established cybersecurity governance with Board-level oversight, cross-functional incident response teams, and regular monitoring of risks and incidents.",
+      "score": 4
     },
     {
       "title": "Regulatory and Environmental Compliance",
@@ -237,7 +261,8 @@
       "severity": 3,
       "score_rationale": "Company is subject to government and environmental regulations that impact operations. The company does not characterize these as major risks, but compliance costs and operational constraints are material considerations in the chemicals and materials industry.",
       "trend": "stable",
-      "summary": "Company must comply with government and environmental regulations that affect operational costs and strategic decisions, particularly for chemical production facilities."
+      "summary": "Company must comply with government and environmental regulations that affect operational costs and strategic decisions, particularly for chemical production facilities.",
+      "score": 3
     },
     {
       "title": "Market Competition",
@@ -245,7 +270,8 @@
       "severity": 4,
       "score_rationale": "Westlake operates in highly competitive global markets for performance materials and housing products. Recent industry deterioration in chlorovinyls and epoxy segments demonstrates exposure to competitive and commodity price pressures.",
       "trend": "up",
-      "summary": "Company faces intense competition in performance materials and housing products markets with exposure to commodity pricing and global competitive dynamics."
+      "summary": "Company faces intense competition in performance materials and housing products markets with exposure to commodity pricing and global competitive dynamics.",
+      "score": 4
     },
     {
       "title": "Key Person Risk",
@@ -253,7 +279,8 @@
       "severity": 2,
       "score_rationale": "James Chao (age 78) serves as Senior Chairman and Albert Chao (age 76) serves as Executive Chairman following recent succession changes in July 2024. Both founders remain actively involved but represent concentration of leadership among aging principals. Succession planning in place but execution risk remains.",
       "trend": "stable",
-      "summary": "Company has experienced leadership team but both senior founders remain active with advanced age. Recent restructuring reflects ongoing succession planning."
+      "summary": "Company has experienced leadership team but both senior founders remain active with advanced age. Recent restructuring reflects ongoing succession planning.",
+      "score": 2
     },
     {
       "title": "Litigation Risk",
@@ -261,7 +288,8 @@
       "severity": 2,
       "score_rationale": "Company indicates involvement in various legal proceedings incidental to business operations but does not expect material adverse effects. Antidumping and countervailing duty investigations in epoxy resin trade represent emerging regulatory risk rather than traditional litigation.",
       "trend": "stable",
-      "summary": "Company faces routine litigation incidental to operations plus emerging trade investigation risks related to epoxy resin imports and tariff disputes, none currently expected to be material."
+      "summary": "Company faces routine litigation incidental to operations plus emerging trade investigation risks related to epoxy resin imports and tariff disputes, none currently expected to be material.",
+      "score": 2
     }
   ],
   "governance": {
@@ -299,7 +327,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -412,19 +440,15 @@
           263,
           493,
           811,
-          -459,
           267,
           507,
           752,
-          -492,
           272,
           503,
           723,
-          -490,
           248,
           515,
           754,
-          -522,
           209
         ],
         "history_periods": [
@@ -478,6 +502,12 @@
             "accession": "0001262823-26-000022",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (WLK)"
         ]
       }
     ]
@@ -494,9 +524,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.328596+00:00",
     "fetched_at": "2026-05-21T02:17:14.328597+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.521Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.650Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wlk.json",
     "enrich_root": null,

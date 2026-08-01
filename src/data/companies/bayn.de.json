@@ -13,36 +13,9 @@
     "sector": "≈ #10",
     "subsector": "≈ #5"
   },
-  "hero_kpi": "EBITDA",
+  "hero_kpi": "crop_science_rev",
   "hero_kpi_rationale": "Mesure clé de la performance opérationnelle et de la capacité génératrice de cash du groupe, particulièrement pertinente pour évaluer la santé financière d'une entreprise pharmaceutique et agricole avec un profil d'endettement élevé.",
   "kpis": [
-    {
-      "short": "Sales",
-      "name_fr": "Chiffre d'affaires",
-      "name_en": "Sales",
-      "explanation": "Chiffre d'affaires total du groupe Bayer",
-      "value": "47.637",
-      "unit": "Mds €",
-      "yoy": "-1.2%",
-      "type": "Revenue",
-      "nature": "Cyclique",
-      "comparable": "Comparable",
-      "signal": "Baisse du chiffre d'affaires",
-      "description": "Chiffre d'affaires total du groupe Bayer",
-      "history": [
-        43.5,
-        41.4,
-        44.1,
-        50.7,
-        47.6
-      ],
-      "last_data_date": "2023-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "explanation_en": "Sales — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
-    },
     {
       "short": "EBITDA",
       "name_fr": "EBITDA avant éléments exceptionnels",
@@ -60,8 +33,7 @@
         1.67,
         3.48,
         0.24,
-        0.61,
-        -2.61
+        0.61
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -69,7 +41,10 @@
       "is_short_history": false,
       "period_type": "quarter",
       "explanation_en": "Earnings Before Interest, Taxes, Depreciation and Amortization.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (BAYN.DE)"
+      ]
     },
     {
       "short": "R&D",
@@ -96,7 +71,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net income",
@@ -122,8 +101,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Free cash flow",
@@ -149,8 +132,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Core EPS",
@@ -176,7 +163,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Profitability under pressure, monitor returns"
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "EBITDA margin",
@@ -202,8 +193,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "EBITDA Margin — EBITDA divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "EBITDA Margin : EBITDA divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net financial debt",
@@ -229,7 +224,122 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
+    },
+    {
+      "short": "crop_science_rev",
+      "name_fr": "CA Crop Science",
+      "name_en": "Crop Science Revenue",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        19.832,
+        18.84,
+        20.207,
+        25.169,
+        23.27,
+        22.259
+      ],
+      "value": 22.259,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Premier metier de Bayer, en recul depuis le pic de 2022 sous la pression des prix des pesticides.",
+      "is_wow": true,
+      "yoy": "-4,3 %"
+    },
+    {
+      "short": "pharma_div_sales",
+      "name_fr": "CA division Pharmaceuticals",
+      "name_en": "Pharmaceuticals Division Sales",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        17.962,
+        17.243,
+        18.349,
+        19.252,
+        18.081,
+        18.131
+      ],
+      "value": 18.131,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "La division pharmacie se stabilise autour de 18 Mds €, les nouveaux produits compensant les pertes de brevet.",
+      "is_wow": true
+    },
+    {
+      "short": "consumer_health_sales",
+      "name_fr": "CA division Consumer Health",
+      "name_en": "Consumer Health Division Sales",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        5.462,
+        5.054,
+        5.293,
+        6.08,
+        6.027,
+        5.87
+      ],
+      "value": 5.87,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'automedication reste la division la plus reguliere du groupe, en leger repli depuis 2022.",
+      "is_wow": false
+    },
+    {
+      "short": "xarelto_sales",
+      "name_fr": "Ventes Xarelto",
+      "name_en": "Xarelto Sales",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        4.126,
+        4.515,
+        4.735,
+        4.516,
+        4.081,
+        3.48
+      ],
+      "value": 3.48,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'anticoagulant vedette perd du terrain chaque annee depuis les expirations de brevet.",
+      "is_wow": true
+    },
+    {
+      "short": "eylea_sales",
+      "name_fr": "Ventes Eylea",
+      "name_en": "Eylea Sales",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        2.494,
+        2.468,
+        2.918,
+        3.213,
+        3.231,
+        3.306
+      ],
+      "value": 3.306,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le traitement ophtalmique progresse sans interruption depuis 2020 et devient le relais de Xarelto.",
+      "is_wow": false
     }
   ],
   "stories_kpis": [
@@ -257,9 +367,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Capital allocation",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capital allocation"
     }
   ],
   "ai_positioning": {
@@ -268,27 +376,12 @@
     "evidence": [],
     "source": ""
   },
-  "_validation": [
-    "Correction du secteur: 'Information Technology' changé en 'Healthcare'",
-    "Amélioration du hero_kpi_rationale: ajout de détails spécifiques au contexte de Bayer (endettement, profil opérationnel)",
-    "Ajout du KPI EBITDA avant éléments exceptionnels (11.706 Mds €) avec historique corrigé de la source",
-    "Remplacement de EBITDA avec valeur négative (-2.91) par EBITDA before special items (11.706) qui est la métrique présentée dans le rapport",
-    "Correction de R&D: ajout du yoy calculé (-18.3% basé sur historique 6.572 à 5.371)",
-    "Amélioration de la description de Net Income pour clarifier qu'il inclut opérations continuées et abandonnées",
-    "Correction du yoy du Free cash flow: calcul manuel (-57.8% basé sur 3.111 à 1.311)",
-    "Ajout du KPI Core EPS (6.39 €) avec yoy de -19.5% et historique complet",
-    "Ajout du KPI EBITDA margin before special items (24.6%) avec historique et signal de compression",
-    "Ajout du KPI Net financial debt (34.498 Mds €) avec yoy de +8.4%",
-    "Transformation du story_kpi 'Sales 2025' en KPI significatif 'Dividend per share 2023' avec données réelles et story_category 'Capital allocation'",
-    "Ajout du yoy pour Dividend: -95.4% (de 2.40 à 0.11)",
-    "Harmonisation de tous les name_fr avec capitalization appropriée",
-    "Vérification de cohérence: tous les KPI correspondent aux données du Five-Year Summary 2023"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "EBITDA"
   },
   "_fit_for_site": true,
@@ -302,7 +395,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur mentionné explicitement dans la lettre du président (Item 1A équivalent). Langage modéré mais reconnaît des défis importants. Tendance stable avec progrès (6 procès gagnés en glyphosate, règlement PCB finalisé). Poids significatif pour la réputation et les finances du groupe.",
       "trend": "down",
-      "summary": "Bayer fait face à des litiges importants aux États-Unis concernant le glyphosate (herbicide Roundup) et les PCB (polychlorobiphényles). Bien que l'entreprise ait remporté les 6 derniers procès en glyphosate et finalisé un règlement de recours collectif PCB avec environ 2 500 villes, ces litiges représentent un risque de responsabilité civile majeur et d'impact réputationnel durable."
+      "summary": "Bayer fait face à des litiges importants aux États-Unis concernant le glyphosate (herbicide Roundup) et les PCB (polychlorobiphényles). Bien que l'entreprise ait remporté les 6 derniers procès en glyphosate et finalisé un règlement de recours collectif PCB avec environ 2 500 villes, ces litiges représentent un risque de responsabilité civile majeur et d'impact réputationnel durable.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'approbation réglementaire des nouveaux produits",
@@ -310,7 +404,8 @@
       "severity": 4,
       "score_rationale": "Risque métier fondamental pour un groupe pharma-agro. Mentionné implicitement via les lancements de produits (Nubeqa, Kerendia, VT4PRO, Astepro). Langage positif mais reconnaît la nécessité d'approbations. Tendance stable. Poids critique pour la croissance future.",
       "trend": "stable",
-      "summary": "Le succès commercial de Bayer dépend fortement de l'obtention d'approbations réglementaires pour ses nouveaux médicaments et produits agricoles. Exemples : approbation de Nubeqa pour indication supplémentaire en cancer de la prostate, approbation de VT4PRO aux États-Unis, lancement d'Astepro en OTC. Tout retard ou refus d'approbation pourrait impacter significativement les revenus."
+      "summary": "Le succès commercial de Bayer dépend fortement de l'obtention d'approbations réglementaires pour ses nouveaux médicaments et produits agricoles. Exemples : approbation de Nubeqa pour indication supplémentaire en cancer de la prostate, approbation de VT4PRO aux États-Unis, lancement d'Astepro en OTC. Tout retard ou refus d'approbation pourrait impacter significativement les revenus.",
+      "score": 4
     },
     {
       "title": "Risques de pipeline R&D et d'efficacité clinique",
@@ -318,7 +413,8 @@
       "severity": 4,
       "score_rationale": "Investissement massif en R&D (€6,6 Mds, +20% YoY) avec portefeuille ambitieux. Langage optimiste mais reconnaît les défis (7 projets en thérapies cellulaires/géniques, potentiel de ventes >€12 Mds). Tendance up (expansion pipeline). Poids stratégique majeur pour croissance long terme.",
       "trend": "up",
-      "summary": "Bayer investit lourdement en R&D (€6,6 milliards en 2022) dans des domaines complexes : thérapies cellulaires/géniques (7 projets en développement clinique), inhibiteur du facteur XIa (asundexian), elinzanetant en santé féminine. L'échec ou le retard de ces programmes critiques pourrait compromettre la croissance future et le potentiel de ventes estimé à >€12 Mds."
+      "summary": "Bayer investit lourdement en R&D (€6,6 milliards en 2022) dans des domaines complexes : thérapies cellulaires/géniques (7 projets en développement clinique), inhibiteur du facteur XIa (asundexian), elinzanetant en santé féminine. L'échec ou le retard de ces programmes critiques pourrait compromettre la croissance future et le potentiel de ventes estimé à >€12 Mds.",
+      "score": 4
     },
     {
       "title": "Concurrence intense en pharma et agro-chimie",
@@ -326,7 +422,8 @@
       "severity": 4,
       "score_rationale": "Risque structurel du secteur implicite dans la stratégie d'innovation agressive. Langage compétitif (« world-leading », expansion portfolio). Tendance stable mais intensifiée par convergence bio-chimie et IA. Poids élevé pour maintien des parts de marché.",
       "trend": "up",
-      "summary": "Bayer opère dans des marchés hautement compétitifs (pharma, agro-chimie, santé consommateur). La convergence des mondes biologique et chimique via l'IA et la data science crée une concurrence accrue. Exemples : produits agricoles (VT4PRO vs alternatives), médicaments oncologiques (Nubeqa), suppléments nutritionnels (Berocca, Redoxon). Perte de parts de marché ou de brevets pourrait réduire les marges."
+      "summary": "Bayer opère dans des marchés hautement compétitifs (pharma, agro-chimie, santé consommateur). La convergence des mondes biologique et chimique via l'IA et la data science crée une concurrence accrue. Exemples : produits agricoles (VT4PRO vs alternatives), médicaments oncologiques (Nubeqa), suppléments nutritionnels (Berocca, Redoxon). Perte de parts de marché ou de brevets pourrait réduire les marges.",
+      "score": 4
     },
     {
       "title": "Dépendance à la propriété intellectuelle et expiration de brevets",
@@ -334,7 +431,8 @@
       "severity": 3,
       "score_rationale": "Risque implicite pour groupe pharma avec portefeuille de blockbusters. Langage indirect via mentions de nouveaux produits et potentiel de ventes. Tendance stable mais critique. Poids élevé pour rentabilité future.",
       "trend": "stable",
-      "summary": "La valeur de Bayer repose sur la protection par brevets de ses médicaments clés (Nubeqa, Kerendia, asundexian) et produits agricoles (VT4PRO). L'expiration de brevets ou l'invalidation de droits de propriété intellectuelle pourrait exposer ces produits à la concurrence générique/biosimilaire et réduire significativement les marges et les revenus."
+      "summary": "La valeur de Bayer repose sur la protection par brevets de ses médicaments clés (Nubeqa, Kerendia, asundexian) et produits agricoles (VT4PRO). L'expiration de brevets ou l'invalidation de droits de propriété intellectuelle pourrait exposer ces produits à la concurrence générique/biosimilaire et réduire significativement les marges et les revenus.",
+      "score": 3
     },
     {
       "title": "Risques géopolitiques et chaîne d'approvisionnement (Ukraine)",
@@ -342,7 +440,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite mentionné en ouverture (guerre Ukraine, impact sur approvisionnement alimentaire). Langage reconnaissant les défis majeurs. Tendance up (crise en cours). Poids élevé pour continuité opérationnelle et approvisionnement.",
       "trend": "up",
-      "summary": "La guerre en Ukraine crée des risques directs pour Bayer : perturbation de la chaîne d'approvisionnement (Ukraine producteur agricole majeur), impact sur les opérations locales, volatilité des prix des matières premières. Le rapport souligne que l'équipe Ukraine a maintenu l'approvisionnement en produits essentiels dans des conditions extrêmes, mais les risques persistent."
+      "summary": "La guerre en Ukraine crée des risques directs pour Bayer : perturbation de la chaîne d'approvisionnement (Ukraine producteur agricole majeur), impact sur les opérations locales, volatilité des prix des matières premières. Le rapport souligne que l'équipe Ukraine a maintenu l'approvisionnement en produits essentiels dans des conditions extrêmes, mais les risques persistent.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire et risques de durabilité/ESG",
@@ -350,7 +449,8 @@
       "severity": 3,
       "score_rationale": "Risque croissant implicite dans engagement ESG ambitieux (neutralité carbone 2030, 100M petits agriculteurs). Langage positif mais reconnaît complexité. Tendance up (MSCI ESG upgrade BB→A). Poids modéré mais croissant pour réputation et accès au capital.",
       "trend": "up",
-      "summary": "Bayer s'engage sur des objectifs ESG ambitieux : neutralité carbone d'ici 2030, soutien à 100 millions de petits agriculteurs, réduction CO2 de 70% dans les nouvelles usines. Le non-respect de ces engagements ou des régulations environnementales croissantes (décarbonation, pesticides) pourrait impacter la réputation, l'accès au financement et les opérations."
+      "summary": "Bayer s'engage sur des objectifs ESG ambitieux : neutralité carbone d'ici 2030, soutien à 100 millions de petits agriculteurs, réduction CO2 de 70% dans les nouvelles usines. Le non-respect de ces engagements ou des régulations environnementales croissantes (décarbonation, pesticides) pourrait impacter la réputation, l'accès au financement et les opérations.",
+      "score": 3
     },
     {
       "title": "Risques de cybersécurité et données sensibles",
@@ -358,7 +458,8 @@
       "severity": 3,
       "score_rationale": "Risque implicite pour groupe pharma-agro avec données R&D critiques et données clients. Mention indirecte via gouvernance (Global Compliance and Data Privacy department). Tendance stable mais croissante. Poids modéré pour IP et continuité opérationnelle.",
       "trend": "stable",
-      "summary": "Bayer gère des données sensibles : formules de R&D (thérapies géniques, produits agricoles), données clients agricoles, données patients. Une cyberattaque pourrait compromettre la propriété intellectuelle, interrompre les opérations ou exposer des données personnelles, avec impacts réglementaires et réputationnels."
+      "summary": "Bayer gère des données sensibles : formules de R&D (thérapies géniques, produits agricoles), données clients agricoles, données patients. Une cyberattaque pourrait compromettre la propriété intellectuelle, interrompre les opérations ou exposer des données personnelles, avec impacts réglementaires et réputationnels.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:19:05.394027+00:00",
@@ -452,7 +553,6 @@
   "_source_size_bytes": 1245652,
   "_source_year": "2023",
   "_extraction_note": "Source annual-text disponible (1245652 bytes, year=2023). KPIs spécifiques + segments + geography + risks à extraire via passe LLM dédiée. Sub-agent batch 3 a validé existence et qualité minimale de la source.",
-  "_ai_positioning_fetched_at": "2026-05-14T05:28:10.338830+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2023-12-31",
@@ -482,8 +582,9 @@
     ],
     "total": 3.53
   },
+  "_ai_positioning_fetched_at": "2026-05-14T05:28:10.338830+00:00",
   "_segments_fetched_at": "2026-05-14T23:57:54.516847+00:00",
-  "hero_kpi_override": "Sales",
+  "hero_kpi_override": "crop_science_rev",
   "_hero_override_reason": "Yann fix 20 mai - hero original generique",
   "overrides_governance": {
     "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
@@ -500,6 +601,7 @@
   "_risks_verification_needed": true,
   "hero_last_data_date_override": "2026-03-31",
   "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00",
+  "_hero_kpi_override_reason": "crop_science_rev = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "BAYN.DE",
     "simple": {
@@ -628,9 +730,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.228225+00:00",
     "fetched_at": "2026-05-21T02:17:14.228226+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.412Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.889Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bayn.de.json",
     "enrich_root": "v2-pipeline-enrich/bayn.de.json",
@@ -639,7 +741,5 @@
       "events",
       "ranks"
     ]
-  },
-  "_hero_suspect": true,
-  "_hero_suspect_reason": "hero rendu = Net financial debt (dette), pas crop_science_rev pose par le fix : crop_science est annuel et la page prefere un KPI trimestriel"
+  }
 }

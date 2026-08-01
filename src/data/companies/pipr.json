@@ -21,8 +21,8 @@
       "name_fr": "Revenus nets",
       "name_en": "Net Revenues",
       "explanation": "Total net revenues from investment banking and institutional brokerage services",
-      "value": 1904.217,
-      "unit": "M $",
+      "value": 1.904,
+      "unit": "Mds $",
       "yoy": "+24.3%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,16 @@
       "signal": "Strong revenue growth driven by capital markets activity",
       "description": "Net revenues for the year ended December 31, 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 10 dernières années.",
       "history": [
-        769.874,
-        895.191,
-        800.993,
-        846.299,
-        1252.658,
-        2041.795,
-        1435.118,
-        1358.113,
-        1531.595,
-        1904.217
+        0.77,
+        0.895,
+        0.801,
+        0.846,
+        1.253,
+        2.042,
+        1.435,
+        1.358,
+        1.532,
+        1.904
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -49,7 +49,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:08.585896+00:00",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Compensation Ratio",
@@ -124,34 +125,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.84 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.28,
-      "unit": "Mds €",
+      "value": 280,
+      "unit": "M €",
       "yoy": "+55.6%",
       "history": [
-        0.11,
-        0.09,
-        0.18,
-        0.28
+        110,
+        90,
+        180,
+        280
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.28 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -170,56 +180,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.59 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "+20.0%",
       "history": [
-        0.23,
-        0.12,
-        0.1,
-        0.12
+        230,
+        120,
+        100,
+        120
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.12 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.81,
-      "unit": "Mds €",
+      "value": 810,
+      "unit": "M €",
       "yoy": "+68.8%",
       "history": [
-        0.37,
-        0.38,
-        0.48,
-        0.81
+        370,
+        380,
+        480,
+        810
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.81 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -277,7 +301,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -291,7 +315,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès l'introduction des facteurs de risque. Le langage est fort (\"impact immédiat et significatif\"). Il est répété comme principal déterminant des revenus d'investissement. La catégorie Macro est hautement pondérée pour un acteur financier.",
       "trend": "stable",
-      "summary": "Une détérioration des conditions économiques ou un choc exogène pourrait réduire fortement nos revenus d'investissement et notre rentabilité."
+      "summary": "Une détérioration des conditions économiques ou un choc exogène pourrait réduire fortement nos revenus d'investissement et notre rentabilité.",
+      "score": 5
     },
     {
       "title": "Concentration sectorielle dans l'investissement",
@@ -299,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne que les secteurs santé et services financiers pèsent lourd dans les résultats. Un recul dans un seul de ces secteurs aurait un impact disproportionné. Le langage est préoccupé (\"matériellement et de manière disproportionnée\").",
       "trend": "stable",
-      "summary": "Notre exposition concentrée aux secteurs de la santé et des services financiers rend nos revenus vulnérables à des chocs sectoriels spécifiques."
+      "summary": "Notre exposition concentrée aux secteurs de la santé et des services financiers rend nos revenus vulnérables à des chocs sectoriels spécifiques.",
+      "score": 4
     },
     {
       "title": "Concurrence avec des acteurs plus gros",
@@ -307,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Le risque est détaillé longuement, avec mention d'un désavantage structurel. Le langage est explicite sur l'impact sur les revenus. La taille réduite de la société est un thème récurrent.",
       "trend": "stable",
-      "summary": "Notre taille plus petite nous place en désavantage face à des concurrents disposant de plus de ressources, de capital et de diversification."
+      "summary": "Notre taille plus petite nous place en désavantage face à des concurrents disposant de plus de ressources, de capital et de diversification.",
+      "score": 4
     },
     {
       "title": "Volatilité des revenus transactionnels",
@@ -315,7 +342,8 @@
       "severity": 4,
       "score_rationale": "Le caractère transactionnel des activités de conseil est présenté comme une source majeure de volatilité. Le texte insiste sur l'imprévisibilité des revenus. Ce risque est structurel et répété.",
       "trend": "stable",
-      "summary": "La nature ponctuelle des mandats de conseil entraîne une forte volatilité des revenus d'un trimestre à l'autre."
+      "summary": "La nature ponctuelle des mandats de conseil entraîne une forte volatilité des revenus d'un trimestre à l'autre.",
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions stratégiques",
@@ -323,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Les acquisitions sont clés pour la croissance, mais le texte met en garde contre des coûts imprévus, des difficultés d'intégration et des pertes de personnel clé. Le risque est qualifié d'important pour la stratégie à long terme.",
       "trend": "stable",
-      "summary": "Les acquisitions, essentielles à notre croissance, comportent des risques d'intégration, de coûts imprévus et de non-réalisation des synergies."
+      "summary": "Les acquisitions, essentielles à notre croissance, comportent des risques d'intégration, de coûts imprévus et de non-réalisation des synergies.",
+      "score": 4
     },
     {
       "title": "Concentration sur le marché municipal",
@@ -331,7 +360,8 @@
       "severity": 3,
       "score_rationale": "Le risque est spécifique au métier de finance publique. Le texte mentionne une dépendance aux conditions du marché municipal et aux politiques fiscales. Moins global que d'autres, mais significatif pour cette division.",
       "trend": "stable",
-      "summary": "Notre activité de finance publique est sensible aux conditions du marché municipal et aux changements réglementaires sur les obligations exonérées d'impôt."
+      "summary": "Notre activité de finance publique est sensible aux conditions du marché municipal et aux changements réglementaires sur les obligations exonérées d'impôt.",
+      "score": 3
     },
     {
       "title": "Chocs géopolitiques et conflits armés",
@@ -339,7 +369,8 @@
       "severity": 4,
       "score_rationale": "Plusieurs menaces géopolitiques sont listées (Moyen-Orient, Europe de l'Est, Taïwan). Le texte lie explicitement ces risques à une érosion de la confiance économique. Le langage est préventif et répété.",
       "trend": "stable",
-      "summary": "Les tensions géopolitiques mondiales pourraient nuire à la confiance économique et réduire l'activité financière, affectant nos revenus."
+      "summary": "Les tensions géopolitiques mondiales pourraient nuire à la confiance économique et réduire l'activité financière, affectant nos revenus.",
+      "score": 4
     }
   ],
   "governance": {
@@ -555,9 +586,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.296986+00:00",
     "fetched_at": "2026-05-21T02:17:14.296987+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.626Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.613Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pipr.json",
     "enrich_root": "v2-pipeline-enrich/pipr.json",

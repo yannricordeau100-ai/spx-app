@@ -55,7 +55,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -78,59 +78,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 7.5 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:18.738296+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+250.0%",
       "history": [
-        -0.24,
-        0.04,
-        -0.06,
-        0.09
+        -240,
+        40,
+        -60,
+        90
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.09 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.21,
-      "unit": "Mds €",
+      "value": 210,
+      "unit": "M €",
       "yoy": "+520.0%",
       "history": [
-        0.26,
-        -0.07,
-        -0.05,
-        0.21
+        260,
+        -70,
+        -50,
+        210
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.21 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,11 +163,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.81 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -172,33 +190,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.52 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.47,
-      "unit": "Mds €",
+      "value": 470,
+      "unit": "M €",
       "yoy": "-4.1%",
       "history": [
-        0.42,
-        0.53,
-        0.49,
-        0.47
+        420,
+        530,
+        490,
+        470
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.47 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -220,9 +247,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Cost Optimization",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Cost Optimization"
     },
     {
       "short": "Off-Highway Divestiture Proceeds",
@@ -242,9 +267,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Capital Allocation",
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capital Allocation"
     },
     {
       "short": "Sales Geographic Distribution",
@@ -264,9 +287,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "story_category": "Business Mix",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Business Mix"
     },
     {
       "short": "Customer Concentration",
@@ -286,9 +307,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Risk Exposure",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Risk Exposure"
     }
   ],
   "ai_positioning": {
@@ -304,7 +323,8 @@
       "severity": 5,
       "score_rationale": "Risk is placed first among risk factors with strong language regarding substantial adverse effect. Directly impacts vehicle demand, the core of Dana's business. Dependency on economic conditions is repeated multiple times, compounded by exposure to customer and supplier bankruptcies.",
       "trend": "stable",
-      "summary": "A global economic downturn could substantially reduce vehicle demand, directly impacting Dana's sales and profitability."
+      "summary": "A global economic downturn could substantially reduce vehicle demand, directly impacting Dana's sales and profitability.",
+      "score": 5
     },
     {
       "title": "Climate Change and Carbon Regulation",
@@ -312,7 +332,8 @@
       "severity": 5,
       "score_rationale": "Text emphasizes potentially major impact of new GHG emission regulations with increased costs for Dana (taxes, facility improvements, energy). Global scientific consensus and stakeholder pressure reinforce severity. Risk is characterized as uncertain but critical.",
       "trend": "up",
-      "summary": "Future climate regulations could significantly increase Dana's operating costs and constrain product offerings."
+      "summary": "Future climate regulations could significantly increase Dana's operating costs and constrain product offerings.",
+      "score": 5
     },
     {
       "title": "Dependence on Few Major Customers",
@@ -320,7 +341,8 @@
       "severity": 5,
       "score_rationale": "76% of 2025 sales from top 10 customers. Loss of a single major customer or key program described as having material adverse impact. Risk is central and repeatedly emphasized.",
       "trend": "stable",
-      "summary": "High concentration of sales among few customers exposes Dana to massive revenue losses if a major customer reduces orders or faces bankruptcy."
+      "summary": "High concentration of sales among few customers exposes Dana to massive revenue losses if a major customer reduces orders or faces bankruptcy.",
+      "score": 5
     },
     {
       "title": "Trade Policy and Tariffs",
@@ -328,7 +350,8 @@
       "severity": 4,
       "score_rationale": "Risk detailed with concrete examples (tariffs on steel, aluminum, 2026 Supreme Court decision). Uncertainty about future measures emphasized. Direct impact on costs and global supply chain.",
       "trend": "up",
-      "summary": "New tariffs and trade measures could increase costs and disrupt Dana's global supply chains."
+      "summary": "New tariffs and trade measures could increase costs and disrupt Dana's global supply chains.",
+      "score": 4
     },
     {
       "title": "Rising Interest Rates",
@@ -336,7 +359,8 @@
       "severity": 4,
       "score_rationale": "Text mentions substantial adverse effect from rate increases, affecting vehicle demand and financing costs. While less central than other risks, clear direct macroeconomic impact on growth and acquisitions.",
       "trend": "new",
-      "summary": "Higher interest rates could reduce vehicle demand and increase Dana's financing costs."
+      "summary": "Higher interest rates could reduce vehicle demand and increase Dana's financing costs.",
+      "score": 4
     },
     {
       "title": "Pandemics and Health Crises",
@@ -344,7 +368,8 @@
       "severity": 4,
       "score_rationale": "Risk illustrated by COVID-19 pandemic with prolonged supply chain impact. Strong language regarding material adverse effect. Text emphasizes interdependence of global chains beyond direct control.",
       "trend": "stable",
-      "summary": "Global health crises can paralyze Dana's operations and those of its suppliers and customers with major production consequences."
+      "summary": "Global health crises can paralyze Dana's operations and those of its suppliers and customers with major production consequences.",
+      "score": 4
     },
     {
       "title": "Unionized Workforce and Strikes",
@@ -352,7 +377,8 @@
       "severity": 4,
       "score_rationale": "Risk of strikes at Dana, suppliers or customers presented as potentially causing major operational disruptions. Linked to unionized actors, increasing likelihood of collective action.",
       "trend": "stable",
-      "summary": "Work stoppages at Dana or its partners could interrupt production and seriously harm operations."
+      "summary": "Work stoppages at Dana or its partners could interrupt production and seriously harm operations.",
+      "score": 4
     },
     {
       "title": "Foreign Currency Exposure",
@@ -360,7 +386,8 @@
       "severity": 3,
       "score_rationale": "43% of sales outside the U.S., providing significant exposure. Text notes impact on margins and USD-denominated results. Hedging measures in place partially limit risk.",
       "trend": "stable",
-      "summary": "U.S. dollar strengthening reduces the value of international sales and can erode Dana's profit margins."
+      "summary": "U.S. dollar strengthening reduces the value of international sales and can erode Dana's profit margins.",
+      "score": 3
     }
   ],
   "governance": {
@@ -554,9 +581,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.249010+00:00",
     "fetched_at": "2026-05-21T02:17:14.249011+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.095Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.629Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dan.json",
     "enrich_root": "v2-pipeline-enrich/dan.json",

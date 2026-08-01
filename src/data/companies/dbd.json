@@ -71,8 +71,12 @@
       "is_short_history": false,
       "ttm": 28.65,
       "_validation": "No changes needed",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -101,7 +105,11 @@
       "ttm": 5.31,
       "_validation": "No changes needed",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -130,7 +138,11 @@
       "ttm": 4.1,
       "_validation": "No changes needed",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -158,8 +170,12 @@
       "is_short_history": false,
       "ttm": 0.18,
       "_validation": "Unit corrected from 'Mds $' to 'B $'; name_fr clarified to remove misleading reference to 'semi : fabs' (not applicable to DBD)",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Pressure, deteriorating trend"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -193,8 +209,12 @@
         "diff_pct": 71,
         "reason": "kept_original_likely_pollution_or_unit"
       },
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -221,24 +241,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.095,
-      "unit": "Mds $",
+      "value": 95,
+      "unit": "M $",
       "yoy": "+658.8%",
       "history": [
-        -0.569,
-        -0.341,
-        -0.269,
-        -0.079,
-        -0.581,
-        0.018,
-        -0.017,
-        0.095
+        -569,
+        -341,
+        -269,
+        -79,
+        -581,
+        18,
+        -17,
+        95
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -247,72 +271,16 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "AI API Calls",
-      "name_fr": "Volume d'appels API IA",
-      "name_en": "AI API Call Volume",
-      "explanation": "Nombre d'appels aux APIs d'intelligence artificielle dans les solutions logicielles.",
-      "value": "1.2",
-      "unit": "B",
-      "yoy": "+150%",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Croissance explosive de l'adoption IA dans les services clients.",
-      "description": "DBD intègre progressivement des fonctionnalités IA dans ses plateformes de service, avec une adoption rapide.",
-      "history": [
-        0.3,
-        0.5,
-        0.8,
-        1,
-        1.2
-      ],
-      "last_data_date": "2026-02-24",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "ttm": 1.26,
-      "_validation": "HALLUCINATED KPI: Unit changed from 'Mds' to 'B' but no source data provided in 10-K for AI API call volume. This metric appears fabricated and not verifiable from the 10-K extract provided. Flagged as unsupported claim.",
-      "_source_month": "février 2026",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part deals incluant fonctionnalités IA",
-      "name_en": "AI-related Cloud Deals Mix",
-      "explanation": "Pourcentage des nouveaux contrats cloud qui incluent des fonctionnalités d'intelligence artificielle.",
-      "value": "35",
-      "unit": "%",
-      "yoy": "+10 pts",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "IA de plus en plus intégrée dans les offres cloud.",
-      "description": "La part des deals cloud incluant l'IA progresse rapidement, reflétant une demande client croissante.",
-      "history": [
-        15,
-        20,
-        25,
-        30,
-        35
-      ],
-      "last_data_date": "2026-02-24",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "ttm": 36.46,
-      "_validation": "HALLUCINATED KPI: No source data provided in 10-K for AI cloud deals mix percentage. Company's ai_positioning section explicitly states 'stance: absent' and 'no mention of AI in 10-K'. This metric contradicts the 10-K content and appears fabricated.",
-      "_source_month": "février 2026",
-      "_source_month_reason": "via_last_data"
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "absent",
     "summary": "La société DBD ne mentionne pas l'intelligence artificielle (IA) ou l'apprentissage automatique dans son rapport 10-K/20-F. Il n'y a aucune indication de l'utilisation ou du développement de l'IA au sein de l'entreprise.",
@@ -326,7 +294,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement la cybersécurité dans l'index (Item 1C) et le langage utilisé dans ces sections est généralement intense pour souligner l'importance de la protection des données et des systèmes. Ce risque est fondamental pour une entreprise technologique.",
       "trend": "up",
-      "summary": "La société est exposée aux menaces de cybersécurité qui pourraient compromettre ses systèmes, ses données et sa réputation, entraînant des pertes financières et une perte de confiance des clients."
+      "summary": "La société est exposée aux menaces de cybersécurité qui pourraient compromettre ses systèmes, ses données et sa réputation, entraînant des pertes financières et une perte de confiance des clients.",
+      "score": 4
     },
     {
       "title": "Risques liés à la concurrence sur le marché IT",
@@ -334,7 +303,8 @@
       "severity": 4,
       "score_rationale": "Le secteur des technologies de l'information est intrinsèquement compétitif. L'intensité du langage dans les facteurs de risque, même sans extrait spécifique, reflète la pression constante des concurrents. Ce risque est majeur dans ce secteur.",
       "trend": "stable",
-      "summary": "La concurrence intense dans le secteur des technologies de l'information peut affecter la part de marché de la société, ses prix et sa rentabilité si elle ne parvient pas à innover et à se différencier."
+      "summary": "La concurrence intense dans le secteur des technologies de l'information peut affecter la part de marché de la société, ses prix et sa rentabilité si elle ne parvient pas à innover et à se différencier.",
+      "score": 4
     },
     {
       "title": "Risques liés aux litiges et procédures judiciaires",
@@ -342,7 +312,8 @@
       "severity": 3,
       "score_rationale": "La présence de l'Item 3 'Legal Proceedings' avec des numéros de page significatifs indique que les litiges sont une préoccupation notable. Le langage utilisé dans ces sections est souvent prudent et souligne les incertitudes financières potentielles.",
       "trend": "stable",
-      "summary": "La société peut être confrontée à des litiges coûteux ou à des procédures judiciaires qui pourraient entraîner des dépenses importantes, des amendes ou des restrictions d'exploitation."
+      "summary": "La société peut être confrontée à des litiges coûteux ou à des procédures judiciaires qui pourraient entraîner des dépenses importantes, des amendes ou des restrictions d'exploitation.",
+      "score": 3
     },
     {
       "title": "Risques liés à l'évolution technologique rapide",
@@ -350,7 +321,8 @@
       "severity": 4,
       "score_rationale": "En tant qu'entreprise technologique, l'incapacité à suivre le rythme rapide des innovations est un risque existentiel. Le langage utilisé dans les facteurs de risque technologiques est souvent fort pour souligner la nécessité d'une adaptation constante.",
       "trend": "up",
-      "summary": "L'incapacité à s'adapter aux avancées technologiques rapides et à développer de nouveaux produits ou services pourrait rendre les offres de la société obsolètes et nuire à sa compétitivité."
+      "summary": "L'incapacité à s'adapter aux avancées technologiques rapides et à développer de nouveaux produits ou services pourrait rendre les offres de la société obsolètes et nuire à sa compétitivité.",
+      "score": 4
     },
     {
       "title": "Risques liés à la dépendance vis-à-vis des fournisseurs",
@@ -358,7 +330,8 @@
       "severity": 3,
       "score_rationale": "Les entreprises technologiques dépendent souvent de chaînes d'approvisionnement complexes. Les perturbations chez les fournisseurs clés, même si non explicitement détaillées ici, représentent un risque industriel significatif, souvent souligné par un langage prudent.",
       "trend": "stable",
-      "summary": "Des interruptions dans la chaîne d'approvisionnement ou des problèmes avec des fournisseurs clés pourraient affecter la production, la livraison des produits et les coûts de la société."
+      "summary": "Des interruptions dans la chaîne d'approvisionnement ou des problèmes avec des fournisseurs clés pourraient affecter la production, la livraison des produits et les coûts de la société.",
+      "score": 3
     },
     {
       "title": "Risques liés à la conformité réglementaire",
@@ -366,7 +339,8 @@
       "severity": 3,
       "score_rationale": "Les entreprises technologiques opèrent dans un environnement réglementaire complexe et en évolution (ex: protection des données). Le non-respect des réglementations peut entraîner des amendes et nuire à la réputation, justifiant un risque de sévérité moyenne à élevée.",
       "trend": "up",
-      "summary": "Les changements dans les lois et réglementations, notamment en matière de protection des données et de vie privée, pourraient augmenter les coûts de conformité et affecter les opérations de la société."
+      "summary": "Les changements dans les lois et réglementations, notamment en matière de protection des données et de vie privée, pourraient augmenter les coûts de conformité et affecter les opérations de la société.",
+      "score": 3
     }
   ],
   "governance": {
@@ -396,7 +370,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -645,23 +619,18 @@
         "history": [
           69.7,
           95.3,
-          -72.8,
           32.3,
           65.4,
           92.1,
-          -69.1,
           26.4,
           51.8,
           12,
-          -55.8,
           24.2,
           46.3,
           69.7,
-          -46.6,
           22.7,
           45.1,
           65.3,
-          -46.4,
           22.1
         ],
         "history_periods": [
@@ -715,6 +684,12 @@
             "accession": "0000028823-26-000021",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (DBD)"
         ]
       },
       {
@@ -797,7 +772,10 @@
             "source": "calc-DBD_2026-02-12.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -814,9 +792,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.249392+00:00",
     "fetched_at": "2026-05-21T02:17:14.249393+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.135Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.674Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dbd.json",
     "enrich_root": "v2-pipeline-enrich/dbd.json",

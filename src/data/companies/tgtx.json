@@ -43,7 +43,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:33.802954+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Significant revenue decline, warning signal"
     },
     {
@@ -63,34 +63,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.06 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.25,
-      "unit": "Mds €",
+      "value": 250,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.08,
-        0.11,
-        0.25,
-        0.25
+        80,
+        110,
+        250,
+        250
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.25 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -105,43 +114,43 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société mentionne explicitement les risques liés à la cybersécurité et aux pannes de systèmes informatiques, notamment les risques de failles de sécurité et d'interruptions potentielles des programmes de développement. Le Vice-Président IT possède plus de 25 ans d'expérience et de certifications reconnues du secteur. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne explicitement les risques liés à la cybersécurité et aux pannes de systèmes informatiques, notamment les risques de failles de sécurité et d'interruptions potentielles des programmes de développement. Le Vice-Président IT possède plus de 25 ans d'expérience et de certifications reconnues du secteur.",
       "trend": "stable",
       "summary": "La société est exposée à des risques de cybersécurité qui pourraient avoir un impact sur ses opérations, ses programmes de développement de médicaments et sa commercialisation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 5,
-      "score_rationale": "Le marché des traitements contre la sclérose en plaques est très compétitif, avec de nombreux produits approuvés et en développement. La classe anti-CD20 représente un segment significatif avec une concurrence au sein de cette classe et face à d'autres mécanismes d'action. (score par défaut, à affiner)",
+      "score_rationale": "Le marché des traitements contre la sclérose en plaques est très compétitif, avec de nombreux produits approuvés et en développement. La classe anti-CD20 représente un segment significatif avec une concurrence au sein de cette classe et face à d'autres mécanismes d'action.",
       "trend": "up",
       "summary": "La société doit faire face à une concurrence accrue sur le marché des traitements contre la sclérose en plaques, avec des stratégies de prix, de contrats avec les payeurs et potentiellement des biosimilaires.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Régulation",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société est soumise à des réglementations strictes dans le domaine des produits pharmaceutiques, notamment en ce qui concerne les essais cliniques, les approbations réglementaires par pays et les exigences de remboursement spécifiques à chaque juridiction. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations strictes dans le domaine des produits pharmaceutiques, notamment en ce qui concerne les essais cliniques, les approbations réglementaires par pays et les exigences de remboursement spécifiques à chaque juridiction.",
       "trend": "stable",
       "summary": "La société doit se conformer à des réglementations strictes pour assurer l'approbation, la commercialisation et le remboursement de ses produits dans plusieurs juridictions.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Développement de produits",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société investit dans le développement d'une formulation sous-cutanée d'ublituximab, l'expansion en dehors de la sclérose en plaques et le développement précoce de candidats supplémentaires comme azer-cel pour les maladies auto-immunes. (score par défaut, à affiner)",
+      "score_rationale": "La société investit dans le développement d'une formulation sous-cutanée d'ublituximab, l'expansion en dehors de la sclérose en plaques et le développement précoce de candidats supplémentaires comme azer-cel pour les maladies auto-immunes.",
       "trend": "up",
       "summary": "La société doit investir dans la recherche et le développement pour créer de nouvelles formulations, étendre les indications et maintenir sa position concurrentielle à long terme.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Capital et liquidités",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Au 31 décembre 2025, la société dispose de 199,5 millions de dollars en trésorerie et titres de placement. Le déficit accumulé est d'environ 1,1 milliard de dollars, mais la société a récemment atteint la rentabilité. (score par défaut, à affiner)",
+      "score_rationale": "Au 31 décembre 2025, la société dispose de 199,5 millions de dollars en trésorerie et titres de placement. Le déficit accumulé est d'environ 1,1 milliard de dollars, mais la société a récemment atteint la rentabilité.",
       "trend": "stable",
       "summary": "Bien que la société ait atteint la rentabilité récemment, elle devra générer des revenus substantiels pour maintenir une rentabilité durable et pourrait envisager un financement supplémentaire pour les initiatives stratégiques.",
       "score": 3
@@ -150,10 +159,10 @@
       "title": "Réputation et adoption des produits",
       "category": "Réputation",
       "severity": 4,
-      "score_rationale": "La réputation de la société est cruciale pour l'adoption de BRIUMVI, les ajustements bruts-nets (rabais gouvernementaux, remboursements des payeurs), la persistance des patients et l'adhérence au traitement. (score par défaut, à affiner)",
+      "score_rationale": "La réputation de la société est cruciale pour l'adoption de BRIUMVI, les ajustements bruts-nets (rabais gouvernementaux, remboursements des payeurs), la persistance des patients et l'adhérence au traitement.",
       "trend": "stable",
       "summary": "La société doit protéger sa réputation et assurer la qualité et la sécurité de ses produits pour soutenir l'adoption de BRIUMVI et la confiance des prescripteurs et des patients.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -187,7 +196,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -208,7 +217,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.490Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.573Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tgtx.json",
     "enrich_root": null,

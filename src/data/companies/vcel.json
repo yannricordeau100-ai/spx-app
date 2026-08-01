@@ -1,6 +1,6 @@
 {
   "ticker": "VCEL",
-  "name": "Vericel Corporation",
+  "name": "Vericel",
   "sector": "Technologie",
   "subsector": "Biotechnologie",
   "tagline": "Leading provider of advanced cell therapies for sports medicine and severe burn care",
@@ -37,10 +37,13 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le texte fourni contient uniquement des sections MDA et le rapport d'audit, mais ne contient pas le Consolidated Statement of Cash Flows ave",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -63,7 +66,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -139,69 +142,84 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.49,
-      "unit": "Mds €",
+      "value": 490,
+      "unit": "M €",
       "yoy": "+14.0%",
       "history": [
-        0.27,
-        0.35,
-        0.43,
-        0.49
+        270,
+        350,
+        430,
+        490
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.49 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.05,
-        0.09,
-        0.1,
-        0.1
+        50,
+        90,
+        100,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+42.9%",
       "history": [
-        0.05,
-        0.07,
-        0.07,
-        0.1
+        50,
+        70,
+        70,
+        100
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.1 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -259,7 +277,8 @@
       "severity": 5,
       "score_rationale": "Central risk mentioned repeatedly in 10-K with strong language (limit supply, adversely impact). Concerns dependency on third parties like Matricel and qualification of new Burlington site. Industrial category has high weighting for disruption risks. Risk remains stable year-over-year.",
       "trend": "stable",
-      "summary": "Any difficulty in manufacturing or sourcing critical components could limit production and severely harm the business."
+      "summary": "Any difficulty in manufacturing or sourcing critical components could limit production and severely harm the business.",
+      "score": 5
     },
     {
       "title": "Dependence on novel technology with regulatory uncertainty",
@@ -267,7 +286,8 @@
       "severity": 5,
       "score_rationale": "Described as fundamental risk inherent to VCEL's product nature. Text emphasizes reduced chance of regulatory approval and material impact on results. Language is stark and risk is existential. Stable but central to strategy.",
       "trend": "stable",
-      "summary": "Therapies based on novel technologies face uncertainty in development, acceptance, and regulatory approval."
+      "summary": "Therapies based on novel technologies face uncertainty in development, acceptance, and regulatory approval.",
+      "score": 5
     },
     {
       "title": "Third-party manufacturer regulatory non-compliance",
@@ -275,7 +295,8 @@
       "severity": 5,
       "score_rationale": "Text emphasizes dependency on FDA-regulated third parties and risk of product withdrawal or restrictions if standards are not met. Strong language (limit our ability, withdrawn from the market). Existential risk for marketed products. Stable but critical.",
       "trend": "stable",
-      "summary": "Non-compliance with regulatory requirements by external manufacturers could result in product recalls or sales bans."
+      "summary": "Non-compliance with regulatory requirements by external manufacturers could result in product recalls or sales bans.",
+      "score": 5
     },
     {
       "title": "Cybersecurity breach or data violation",
@@ -283,7 +304,8 @@
       "severity": 4,
       "score_rationale": "Explicitly mentioned with clear consequences: data loss, costs, litigation, reputational harm. While less central than industrial risks, intensity of language (disruptive to our business) and HIPAA obligations justify elevated severity. Trend is up compared to prior year.",
       "trend": "up",
-      "summary": "A cybersecurity failure could expose sensitive data and result in sanctions or financial losses."
+      "summary": "A cybersecurity failure could expose sensitive data and result in sanctions or financial losses.",
+      "score": 4
     },
     {
       "title": "NexoBrid U.S. commercial launch failure",
@@ -291,7 +313,8 @@
       "severity": 5,
       "score_rationale": "NexoBrid commercial success depends on critical factors (production, supply chain, geopolitical conflicts). Risk repeated multiple times with concerning language (adversely affect). Linked to key product making it existential. Highly positioned in document.",
       "trend": "stable",
-      "summary": "Failed commercialization of NexoBrid in the U.S. due to production or acceptance issues would severely harm revenue."
+      "summary": "Failed commercialization of NexoBrid in the U.S. due to production or acceptance issues would severely harm revenue.",
+      "score": 5
     },
     {
       "title": "Key personnel dependency",
@@ -299,7 +322,8 @@
       "severity": 4,
       "score_rationale": "Text explicitly mentions dependency on key personnel in manufacturing, quality, and management. Loss of these individuals described as factor that could harm business. Less broad than industrial risk but critical for continuity. Stable.",
       "trend": "stable",
-      "summary": "Loss of essential executives or experts, particularly in production, could harm operational performance."
+      "summary": "Loss of essential executives or experts, particularly in production, could harm operational performance.",
+      "score": 4
     },
     {
       "title": "Inflationary pressures and adverse economic conditions",
@@ -307,7 +331,8 @@
       "severity": 4,
       "score_rationale": "Risk cited with specific geopolitical factors (Ukraine, Middle East). Linked to inflation, rates, and global economic conditions. Moderate but repeated language. Less specific than operational risks but broad in scope. Trend is up compared to prior year.",
       "trend": "up",
-      "summary": "Global economic tensions and geopolitical conflicts could increase costs and disrupt operations."
+      "summary": "Global economic tensions and geopolitical conflicts could increase costs and disrupt operations.",
+      "score": 4
     }
   ],
   "governance": {
@@ -368,7 +393,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -392,7 +417,7 @@
     "rationale": "Hero KPI Net Cash Provided by Operating Activities en repli (-10.8%), signal de prudence. Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.099Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.976Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vcel.json",
     "enrich_root": null,

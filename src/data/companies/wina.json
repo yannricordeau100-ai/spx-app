@@ -1,6 +1,6 @@
 {
   "ticker": "WINA",
-  "name": "Winmark Corporation",
+  "name": "Winmark",
   "sector": "Consommation discrétionnaire",
   "subsector": "Specialty Retail",
   "tagline": "Resale for Everyone",
@@ -67,76 +67,95 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+12.5%",
       "history": [
-        0.08,
-        0.08,
-        0.08,
-        0.09
+        80,
+        80,
+        80,
+        90
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.09 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.03,
-        0.03,
-        0.03,
-        0.02
+        30,
+        30,
+        30,
+        20
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.02 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.08,
-        0.07,
-        0.06,
-        0.06
+        80,
+        70,
+        60,
+        60
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.06 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -150,7 +169,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         9.1,
         5.55,
@@ -163,7 +182,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -178,7 +197,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0684,
@@ -191,7 +210,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -206,7 +225,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         48.85,
@@ -219,7 +238,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -235,7 +254,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         10.97,
@@ -248,7 +267,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -290,16 +309,16 @@
       "title": "Dépendance aux renouvellements de franchises",
       "category": "Opérationnel",
       "severity": 4,
-      "score_rationale": "305 franchises arrivent à expiration dans les 3 prochaines années. L'absence de renouvellement d'un nombre significatif de ces franchises aurait un impact matériel négatif sur les performances financières. (score par défaut, à affiner)",
+      "score_rationale": "305 franchises arrivent à expiration dans les 3 prochaines années. L'absence de renouvellement d'un nombre significatif de ces franchises aurait un impact matériel négatif sur les performances financières.",
       "trend": "stable",
       "summary": "Le renouvellement des franchises est crucial pour maintenir le flux de revenus de royalties. Une baisse importante des taux de renouvellement pourrait matériellement réduire les revenus.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux royalties",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les royalties représentent 88,7% des revenus de la société, ce qui la rend vulnérable à une baisse des ventes des franchises. (score par défaut, à affiner)",
+      "score_rationale": "Les royalties représentent 88,7% des revenus de la société, ce qui la rend vulnérable à une baisse des ventes des franchises.",
       "trend": "stable",
       "summary": "La société est fortement dépendante des royalties, ce qui crée une vulnérabilité aux ralentissements économiques affectant les franchisés.",
       "score": 3
@@ -308,7 +327,7 @@
       "title": "Risques de modernisation du système POS",
       "category": "Opérationnel",
       "severity": 3,
-      "score_rationale": "La modernisation du système POS est une initiative complexe avec risques d'instabilité système, interruptions opérationnelles et perturbations chez les franchisés. (score par défaut, à affiner)",
+      "score_rationale": "La modernisation du système POS est une initiative complexe avec risques d'instabilité système, interruptions opérationnelles et perturbations chez les franchisés.",
       "trend": "new",
       "summary": "Un échec de la modernisation du POS pourrait compromettre les opérations des franchisés et endommager les relations avec ces derniers.",
       "score": 3
@@ -317,7 +336,7 @@
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "L'industrie du détail est hautement compétitive. Les franchisés font face à une concurrence des détaillants de nouveaux articles et des magasins d'occasion. (score par défaut, à affiner)",
+      "score_rationale": "L'industrie du détail est hautement compétitive. Les franchisés font face à une concurrence des détaillants de nouveaux articles et des magasins d'occasion.",
       "trend": "up",
       "summary": "La concurrence croissante pourrait réduire les marges des franchisés et affecter leurs ventes et les royalties versées à Winmark.",
       "score": 3
@@ -326,19 +345,19 @@
       "title": "Restrictions de financement et risques de covenant",
       "category": "Capital",
       "severity": 2,
-      "score_rationale": "L'entreprise est soumise à des restrictions opérationnelles et financières sous ses accords de crédit. Le non-respect des covenants pourrait entraîner une accélération de la dette. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est soumise à des restrictions opérationnelles et financières sous ses accords de crédit. Le non-respect des covenants pourrait entraîner une accélération de la dette.",
       "trend": "stable",
       "summary": "L'entreprise respectait tous les covenants financiers au 27 décembre 2025, mais un futur manquement pourrait avoir un impact matériel.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Dépendance à l'approvisionnement en articles d'occasion",
       "category": "Opérationnel",
       "severity": 2,
-      "score_rationale": "Le modèle commercial repose sur l'approvisionnement régulier en articles d'occasion de qualité. Cet approvisionnement est peu fiable et soumis à des contraintes réglementaires. (score par défaut, à affiner)",
+      "score_rationale": "Le modèle commercial repose sur l'approvisionnement régulier en articles d'occasion de qualité. Cet approvisionnement est peu fiable et soumis à des contraintes réglementaires.",
       "trend": "stable",
       "summary": "Les franchisés pourraient faire face à des problèmes d'approvisionnement en articles d'occasion, impactant la performance des magasins.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -398,7 +417,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -452,7 +471,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:03Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2012,
@@ -478,7 +497,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:14Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:17Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Commerce de détail spécialisé",
   "enrich_description": {
     "ticker": "WINA",
@@ -678,9 +697,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.328163+00:00",
     "fetched_at": "2026-05-21T02:17:14.328164+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.501Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.625Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wina.json",
     "enrich_root": "v2-pipeline-enrich/wina.json",

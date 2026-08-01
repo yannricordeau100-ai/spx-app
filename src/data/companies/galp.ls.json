@@ -37,7 +37,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -87,7 +87,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -110,9 +110,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Cash",
@@ -177,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 15.33 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -200,11 +202,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.9 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -231,7 +237,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -259,7 +265,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -287,7 +293,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -303,7 +309,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.858125,
@@ -316,7 +322,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -363,7 +369,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental pour Galp : les états financiers reposent sur des hypothèses de prix futurs du pétrole, gaz et marges de raffinage (Note 5). Langage intensif : « large uncertainty », « volatility ». Tendance stable mais structurelle. Poids catégorique majeur : impacte directement les revenus (€18,978m ventes 2025) et les tests de dépréciation d'actifs.",
       "trend": "stable",
-      "summary": "Galp dépend fortement des prix futurs des hydrocarbures et des marges de raffinage pour la viabilité de ses actifs. L'incertitude sur les prix à long terme (décennies) affecte les tests de dépréciation, les provisions d'abandon et la rentabilité des projets d'exploration-production. Les scénarios climatiques externes peuvent diverger des estimations de management, impactant la recouvrabilité des actifs."
+      "summary": "Galp dépend fortement des prix futurs des hydrocarbures et des marges de raffinage pour la viabilité de ses actifs. L'incertitude sur les prix à long terme (décennies) affecte les tests de dépréciation, les provisions d'abandon et la rentabilité des projets d'exploration-production. Les scénarios climatiques externes peuvent diverger des estimations de management, impactant la recouvrabilité des actifs.",
+      "score": 5
     },
     {
       "title": "Transition énergétique et dépréciation d'actifs pétroliers",
@@ -371,7 +378,8 @@
       "severity": 5,
       "score_rationale": "Risque stratégique majeur explicitement traité dans les hypothèses comptables (section 2.1). Langage : « energy transition expected to bring volatility », « large uncertainty ». Tendance : up (portfolio restructuring en cours). Poids : affecte la valeur comptable des actifs (€6,291m actifs corporels) et les provisions d'abandon (€1,409m provisions non-courantes).",
       "trend": "up",
-      "summary": "La transition énergétique crée un risque de dépréciation prématurée des actifs pétroliers et gaziers. Galp exécute une restructuration de portefeuille (cessions Mozambique, Guinée-Bissau, actifs solaires) pour adapter son modèle. Les hypothèses de prix futurs intègrent des coûts carbone (€120/t CO2 en 2030, €330/t en 2050) qui pourraient réduire la rentabilité des projets."
+      "summary": "La transition énergétique crée un risque de dépréciation prématurée des actifs pétroliers et gaziers. Galp exécute une restructuration de portefeuille (cessions Mozambique, Guinée-Bissau, actifs solaires) pour adapter son modèle. Les hypothèses de prix futurs intègrent des coûts carbone (€120/t CO2 en 2030, €330/t en 2050) qui pourraient réduire la rentabilité des projets.",
+      "score": 5
     },
     {
       "title": "Risque de décommissionnement anticipé et provisions d'abandon",
@@ -379,7 +387,8 @@
       "severity": 4,
       "score_rationale": "Explicitement identifié : « Energy transition may lead to earlier than planned decommissioning ». Provisions reconnues : €1,409m (non-courant). Langage : risque matériel. Tendance : up (transition accélère les calendriers). Poids : impact direct sur les flux de trésorerie et les passifs futurs.",
       "trend": "up",
-      "summary": "La transition énergétique peut accélérer les obligations de décommissionnement et restauration des sites. Galp a reconnu des provisions d'abandon pour tous les actifs matériels, sauf la raffinerie de Sines (considérée comme actif à long terme). Un décommissionnement anticipé augmenterait les charges et réduirait les flux de trésorerie d'exploitation."
+      "summary": "La transition énergétique peut accélérer les obligations de décommissionnement et restauration des sites. Galp a reconnu des provisions d'abandon pour tous les actifs matériels, sauf la raffinerie de Sines (considérée comme actif à long terme). Un décommissionnement anticipé augmenterait les charges et réduirait les flux de trésorerie d'exploitation.",
+      "score": 4
     },
     {
       "title": "Dépendance à la rentabilité de la raffinerie de Sines",
@@ -387,7 +396,8 @@
       "severity": 4,
       "score_rationale": "Sines est classée comme actif à durée de vie indéfinie et « highly resilient » (langage positif mais révélateur de concentration). Pas de provision d'abandon reconnue. Tendance : stable mais vulnérable. Poids : actif stratégique majeur dans le portefeuille de raffinage ibérique.",
       "trend": "stable",
-      "summary": "La raffinerie de Sines est considérée comme un actif compétitif à long terme dans le contexte ibérique, mais sa viabilité dépend de la demande de produits pétroliers. Aucune provision d'abandon n'a été reconnue, ce qui suppose une continuité opérationnelle. Un déclin accéléré de la demande de carburants fossiles pourrait rendre cet actif non-rentable."
+      "summary": "La raffinerie de Sines est considérée comme un actif compétitif à long terme dans le contexte ibérique, mais sa viabilité dépend de la demande de produits pétroliers. Aucune provision d'abandon n'a été reconnue, ce qui suppose une continuité opérationnelle. Un déclin accéléré de la demande de carburants fossiles pourrait rendre cet actif non-rentable.",
+      "score": 4
     },
     {
       "title": "Risques physiques climatiques sur les opérations",
@@ -395,7 +405,8 @@
       "severity": 3,
       "score_rationale": "Identifié mais peu détaillé : « Extreme weather events could have negative impact ». Langage modéré : « closely monitored ». Tendance : up (fréquence accrue). Poids : impact potentiel sur les actifs côtiers et les opérations de raffinage.",
       "trend": "up",
-      "summary": "Les événements météorologiques extrêmes (tempêtes, inondations) liés au changement climatique pourraient affecter les installations côtières de Galp, notamment la raffinerie de Sines et les terminaux portuaires. Ces risques sont surveillés mais peu quantifiés dans les états financiers."
+      "summary": "Les événements météorologiques extrêmes (tempêtes, inondations) liés au changement climatique pourraient affecter les installations côtières de Galp, notamment la raffinerie de Sines et les terminaux portuaires. Ces risques sont surveillés mais peu quantifiés dans les états financiers.",
+      "score": 3
     },
     {
       "title": "Exposition géopolitique et volatilité des marchés énergétiques",
@@ -403,7 +414,8 @@
       "severity": 4,
       "score_rationale": "Contexte global mentionné : « increasingly challenging global energy landscape, marked by significant geopolitical and market volatility ». Langage intensif. Tendance : up (tensions géopolitiques croissantes). Poids : affecte les prix, l'accès aux ressources et la sécurité énergétique.",
       "trend": "up",
-      "summary": "Galp opère dans un contexte de volatilité géopolitique accrue (tensions Moyen-Orient, sanctions, transitions énergétiques nationales). Cela affecte les prix des hydrocarbures, l'accès aux gisements (notamment en Afrique) et la demande d'énergie. Les cessions d'actifs en Mozambique et Guinée-Bissau reflètent cette exposition."
+      "summary": "Galp opère dans un contexte de volatilité géopolitique accrue (tensions Moyen-Orient, sanctions, transitions énergétiques nationales). Cela affecte les prix des hydrocarbures, l'accès aux gisements (notamment en Afrique) et la demande d'énergie. Les cessions d'actifs en Mozambique et Guinée-Bissau reflètent cette exposition.",
+      "score": 4
     },
     {
       "title": "Risque de régulation carbone et coûts de conformité",
@@ -411,7 +423,8 @@
       "severity": 4,
       "score_rationale": "Explicitement intégré aux hypothèses financières : coûts carbone prévus (€120-330/t CO2). Langage : « evolving carbon regulations ». Tendance : up (durcissement des politiques EU). Poids : impact croissant sur la rentabilité des actifs d'E&P et de raffinage.",
       "trend": "up",
-      "summary": "Les régulations carbone européennes (ETS, Carbon Border Adjustment Mechanism) augmentent les coûts d'exploitation de Galp. Les hypothèses de coûts carbone à €120/t en 2030 et €330/t en 2050 réduisent la rentabilité des projets. Un durcissement réglementaire accéléré pourrait rendre certains actifs non-viables."
+      "summary": "Les régulations carbone européennes (ETS, Carbon Border Adjustment Mechanism) augmentent les coûts d'exploitation de Galp. Les hypothèses de coûts carbone à €120/t en 2030 et €330/t en 2050 réduisent la rentabilité des projets. Un durcissement réglementaire accéléré pourrait rendre certains actifs non-viables.",
+      "score": 4
     },
     {
       "title": "Incertitude sur les hypothèses de prix et impairment testing",
@@ -419,7 +432,8 @@
       "severity": 4,
       "score_rationale": "Risque d'estimation majeur : « reasonable and supportable assumptions » mais « large uncertainty ». Langage : « may impact recoverability ». Tendance : up (scénarios climatiques divergents). Poids : affecte directement la valeur des actifs corporels (€6,291m) et immatériels (€571m).",
       "trend": "up",
-      "summary": "Les tests de dépréciation d'actifs reposent sur des hypothèses de prix futurs qui divergent entre les scénarios climatiques externes et les estimations de management. Une révision à la baisse des prix futurs ou des marges pourrait déclencher des dépréciations matérielles sur les actifs d'E&P et de raffinage."
+      "summary": "Les tests de dépréciation d'actifs reposent sur des hypothèses de prix futurs qui divergent entre les scénarios climatiques externes et les estimations de management. Une révision à la baisse des prix futurs ou des marges pourrait déclencher des dépréciations matérielles sur les actifs d'E&P et de raffinage.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:24:24.494605+00:00",
@@ -509,7 +523,7 @@
   "_dividends_source": "cat3-european annual-text FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:45:05Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Pétrole & gaz",
   "enrich_events": {
     "ticker": "GALP.LS",
@@ -565,9 +579,9 @@
     "country": "Portugal",
     "_data_freshness_date": "2026-05-21T02:17:14.264662+00:00",
     "fetched_at": "2026-05-21T02:17:14.264663+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.538Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.125Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/galp.ls.json",
     "enrich_root": "v2-pipeline-enrich/galp.ls.json",

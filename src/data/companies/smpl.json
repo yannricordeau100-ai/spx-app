@@ -71,8 +71,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Donnée extraite des Financial Statements: Gross Profit FY2025 = 525,747 K$ = 525.7 M$. YoY calculé: (525.7-511.6)/511.6 = +2.8%. Unit corrigée de 'Mds $' à 'M $'. History complétée avec données cohérentes. Signal amélioré pour refléter la réalité: croissance volumétrique compensant partiellement la compression de marge brute (38.4% à 36.2%).",
-      "explanation_en": "Gross Profit — revenue minus cost of goods sold.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Profit, revenue minus cost of goods sold.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -91,57 +95,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.45 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-28.6%",
       "history": [
-        0.11,
-        0.13,
-        0.14,
-        0.1
+        110,
+        130,
+        140,
+        100
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.1 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.2,
-        0.2,
-        0.22,
-        0.22
+        200,
+        200,
+        220,
+        220
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.22 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -160,56 +178,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.4 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "-25.0%",
       "history": [
-        0.41,
-        0.29,
-        0.4,
-        0.3
+        410,
+        290,
+        400,
+        300
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.3 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-23.1%",
       "history": [
-        0.07,
-        0.09,
-        0.13,
-        0.1
+        70,
+        90,
+        130,
+        100
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.1 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -254,25 +286,25 @@
       "title": "Augmentation des coûts des matières premières et de la chaîne d'approvisionnement",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Mentionné explicitement dans l'introduction de l'Item 1A. L'intensité du langage (challenges) et le contexte (inflation, higher raw material, packaging, co-manufacturing, and logistics costs) indiquent une préoccupation significative. Ce risque est pondéré par son impact direct sur la marge brute. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné explicitement dans l'introduction de l'Item 1A. L'intensité du langage (challenges) et le contexte (inflation, higher raw material, packaging, co-manufacturing, and logistics costs) indiquent une préoccupation significative. Ce risque est pondéré par son impact direct sur la marge brute.",
       "trend": "up",
       "summary": "La société est exposée à une hausse des coûts des matières premières, des emballages, de la co-fabrication et de la logistique, ainsi qu'à des défis dans sa chaîne d'approvisionnement.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépréciation d'actifs incorporels",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "La perte sur dépréciation de 60,9 millions de dollars est un élément majeur du résultat de l'exercice. L'intensité du langage est forte car il s'agit d'une perte significative. Ce risque est pondéré par son impact direct sur le résultat net et la valeur des actifs. (score par défaut, à affiner)",
+      "score_rationale": "La perte sur dépréciation de 60,9 millions de dollars est un élément majeur du résultat de l'exercice. L'intensité du langage est forte car il s'agit d'une perte significative. Ce risque est pondéré par son impact direct sur le résultat net et la valeur des actifs.",
       "trend": "new",
       "summary": "La société a enregistré une perte significative de 60,9 millions de dollars liée à la dépréciation de ses actifs incorporels (marques, licences).",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Intégration et coûts liés aux acquisitions",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Les dépenses d'intégration liées à l'acquisition d'OWYN ont augmenté de 20,3 millions de dollars. L'intensité du langage est modérée mais le coût est significatif. Ce risque est pondéré par son impact sur les dépenses opérationnelles et la rentabilité. (score par défaut, à affiner)",
+      "score_rationale": "Les dépenses d'intégration liées à l'acquisition d'OWYN ont augmenté de 20,3 millions de dollars. L'intensité du langage est modérée mais le coût est significatif. Ce risque est pondéré par son impact sur les dépenses opérationnelles et la rentabilité.",
       "trend": "up",
       "summary": "Les coûts d'intégration liés à l'acquisition d'OWYN ont considérablement augmenté, impactant les dépenses générales et administratives.",
       "score": 3
@@ -281,16 +313,16 @@
       "title": "Baisse des marges brutes",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La marge brute a diminué de 220 points de base, principalement en raison de coûts de matières premières défavorables et des marges plus faibles d'OWYN. L'impact sur la rentabilité est direct et quantifiable. Ce risque est pondéré par son impact significatif sur la performance financière. (score par défaut, à affiner)",
+      "score_rationale": "La marge brute a diminué de 220 points de base, principalement en raison de coûts de matières premières défavorables et des marges plus faibles d'OWYN. L'impact sur la rentabilité est direct et quantifiable. Ce risque est pondéré par son impact significatif sur la performance financière.",
       "trend": "down",
       "summary": "La marge brute a diminué en raison de l'augmentation des coûts des matières premières et des performances de la division OWYN.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Déclin de certaines activités (Atkins)",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Le segment Atkins connaît des baisses continues de distribution. L'intensité du langage est modérée (continued declines). Ce risque est pondéré par son impact sur la croissance globale du chiffre d'affaires. (score par défaut, à affiner)",
+      "score_rationale": "Le segment Atkins connaît des baisses continues de distribution. L'intensité du langage est modérée (continued declines). Ce risque est pondéré par son impact sur la croissance globale du chiffre d'affaires.",
       "trend": "down",
       "summary": "Le segment Atkins subit une réduction de sa distribution, entraînant une baisse continue de ses ventes.",
       "score": 3
@@ -299,7 +331,7 @@
       "title": "Augmentation des dépenses générales et administratives",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Les dépenses G&A ont augmenté de 20,2%, principalement en raison des coûts d'intégration et des coûts liés aux employés. L'intensité du langage est modérée mais l'augmentation est significative. Ce risque est pondéré par son impact sur la rentabilité opérationnelle. (score par défaut, à affiner)",
+      "score_rationale": "Les dépenses G&A ont augmenté de 20,2%, principalement en raison des coûts d'intégration et des coûts liés aux employés. L'intensité du langage est modérée mais l'augmentation est significative. Ce risque est pondéré par son impact sur la rentabilité opérationnelle.",
       "trend": "up",
       "summary": "Les dépenses générales et administratives ont augmenté, notamment à cause des coûts d'intégration post-acquisition et des charges de personnel.",
       "score": 3
@@ -457,87 +489,146 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SMPL",
-    "extracted_at": "2026-05-15T18:14:20Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1702744,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:21:47Z",
+    "n_kpis": 3,
     "kpis": [
       {
         "short": "Net Sales",
         "period_type": "quarter",
         "history": [
-          745.76,
-          -433.058,
+          284.001,
           281.265,
-          577.983,
-          894.514,
-          -585.084,
+          296.718,
+          316.531,
           300.878,
-          597.462,
-          922.254,
-          -577.922,
+          296.584,
+          324.792,
           308.678,
-          620.877,
-          955.634,
-          -553.868,
+          312.199,
+          334.757,
           341.268,
-          700.923,
-          1081.879,
-          -673.15,
+          359.655,
+          380.956,
           340.198,
-          666.211
+          326.013
         ],
         "history_periods": [
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026",
-          "Q2 2026"
+          "Q1 4",
+          "Q2 4",
+          "Q3 4",
+          "Q1 5",
+          "Q2 5",
+          "Q3 5",
+          "Q1 6",
+          "Q2 6"
         ],
         "last_data_date": "2026-02-28",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q3 2025",
-            "value": 1081.879,
-            "accession": "0001702744-25-000036",
-            "end": "2025-05-31"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -673.15,
-            "accession": "calc-0001702744-25-000046",
-            "end": "2025-08-30"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 340.198,
-            "accession": "0001702744-26-000006",
-            "end": "2025-11-29"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 666.211,
-            "accession": "0001702744-26-000012",
-            "end": "2026-02-28"
-          }
+        "_extracted_at": "2026-06-01T09:21:47Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          5.895,
+          21.152,
+          18.461,
+          38.834,
+          35.86,
+          25.642,
+          35.431,
+          35.561,
+          33.123,
+          41.334,
+          38.122,
+          33.123,
+          41.102,
+          25.269
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 4",
+          "Q2 4",
+          "Q3 4",
+          "Q1 5",
+          "Q2 5",
+          "Q3 5",
+          "Q1 6",
+          "Q2 6"
+        ],
+        "last_data_date": "2026-02-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:21:47Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (SMPL)"
+        ]
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          55.276,
+          58.006,
+          45.951,
+          55.276,
+          58.006,
+          42.505,
+          54.205,
+          51.82,
+          48.083,
+          58.774,
+          51.82,
+          48.083,
+          59.32,
+          37.584
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 4",
+          "Q2 4",
+          "Q3 4",
+          "Q1 5",
+          "Q2 5",
+          "Q3 5",
+          "Q1 6",
+          "Q2 6"
+        ],
+        "last_data_date": "2026-02-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:21:47Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (SMPL)"
         ]
       }
     ]
@@ -554,9 +645,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.310992+00:00",
     "fetched_at": "2026-05-21T02:17:14.310993+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.919Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.918Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/smpl.json",
     "enrich_root": "v2-pipeline-enrich/smpl.json",

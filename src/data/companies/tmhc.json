@@ -1,6 +1,6 @@
 {
   "ticker": "TMHC",
-  "name": "Taylor Morrison Home Corporation",
+  "name": "Taylor Morrison Home",
   "sector": "Consommation discrétionnaire",
   "subsector": "Homebuilding",
   "tagline": "Leading homebuilder serving entry-level, move-up, and lifestyle buyers across 12 states",
@@ -58,9 +58,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "KPI 'Total Liquidity' not found with explicit annual values in the provided 10-K excerpt. The document contains MD&A and financial statement"
+      "_hero_history_unverified_reason": "KPI 'Total Liquidity' not found with explicit annual values in the provided 10-K excerpt. The document contains MD&A and financial statement",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -82,36 +85,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 8.12 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:12.893073+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.78,
-      "unit": "Mds €",
+      "value": 780,
+      "unit": "M €",
       "yoy": "-11.4%",
       "history": [
-        1.05,
-        0.77,
-        0.88,
-        0.78
+        1050,
+        770,
+        880,
+        780
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.78 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -130,11 +142,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 1.14 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Pressure, deteriorating trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,33 +196,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.36 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.85,
-      "unit": "Mds €",
+      "value": 850,
+      "unit": "M €",
       "yoy": "+73.5%",
       "history": [
-        0.72,
-        0.8,
-        0.49,
-        0.85
+        720,
+        800,
+        490,
+        850
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.85 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -244,7 +273,8 @@
       "severity": 4,
       "score_rationale": "La société dispose d'un programme structuré de cybersécurité dirigé par un CIO expérimenté (25+ ans en IT, 20+ avec Taylor Morrison) et une équipe dédiée avec certifications spécialisées. Cependant, les cyberattaques restent une menace évolutive significative.",
       "trend": "stable",
-      "summary": "La société est exposée aux risques de cyberattaques qui pourraient impacter les opérations et la réputation, malgré des mesures de sécurité robustes."
+      "summary": "La société est exposée aux risques de cyberattaques qui pourraient impacter les opérations et la réputation, malgré des mesures de sécurité robustes.",
+      "score": 4
     },
     {
       "title": "Régulation",
@@ -252,7 +282,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations gouvernementales multiples affectant ses opérations dans 12 états. Ces réglementations évoluent constamment.",
       "trend": "stable",
-      "summary": "Conformité requise à des réglementations gouvernementales fédérales et étatiques qui peuvent évoluer et impacter les activités."
+      "summary": "Conformité requise à des réglementations gouvernementales fédérales et étatiques qui peuvent évoluer et impacter les activités.",
+      "score": 3
     },
     {
       "title": "Concurrence",
@@ -260,7 +291,8 @@
       "severity": 4,
       "score_rationale": "TMHC opère dans un marché hautement compétitif avec ajustements constants des prix et stratégies de financement pour maintenir la compétitivité.",
       "trend": "up",
-      "summary": "Exposition à une concurrence accrue impactant les prix, les ventes et les marges bénéficiaires."
+      "summary": "Exposition à une concurrence accrue impactant les prix, les ventes et les marges bénéficiaires.",
+      "score": 4
     },
     {
       "title": "Litige",
@@ -268,7 +300,8 @@
       "severity": 3,
       "score_rationale": "Les provisions légales ont augmenté de 53,3 M$ en 2025 vs 49,1 M$ en 2024, indiquant une exposition litigieuse significative dans les opérations immobilières.",
       "trend": "stable",
-      "summary": "Exposition aux litiges (provisions légales de 53,3 M$) pouvant impacter les opérations et la réputation."
+      "summary": "Exposition aux litiges (provisions légales de 53,3 M$) pouvant impacter les opérations et la réputation.",
+      "score": 3
     },
     {
       "title": "Réputation",
@@ -276,7 +309,8 @@
       "severity": 4,
       "score_rationale": "En tant que constructeur résidentiel majeur, la réputation est critique pour la confiance des consommateurs et la marque. Les incidents de qualité ou de service peuvent impacter significativement les ventes.",
       "trend": "stable",
-      "summary": "Exposition aux risques d'atteinte à la réputation impactant les ventes, les marques Taylor Morrison et Esplanade, et les opérations."
+      "summary": "Exposition aux risques d'atteinte à la réputation impactant les ventes, les marques Taylor Morrison et Esplanade, et les opérations.",
+      "score": 4
     },
     {
       "title": "Géopolitique",
@@ -284,7 +318,8 @@
       "severity": 2,
       "score_rationale": "TMHC opère principalement aux États-Unis (12 états). L'exposition géopolitique directe est limitée, bien que les chaînes d'approvisionnement puissent être affectées indirectement.",
       "trend": "stable",
-      "summary": "Exposition géopolitique limitée avec opérations concentrées aux États-Unis."
+      "summary": "Exposition géopolitique limitée avec opérations concentrées aux États-Unis.",
+      "score": 2
     },
     {
       "title": "Technologie",
@@ -292,7 +327,8 @@
       "severity": 3,
       "score_rationale": "La dépendance aux systèmes informatiques pour les opérations métier crée des risques de défaillance technologique. Les investissements en cybersécurité atténuent partiellement ce risque.",
       "trend": "up",
-      "summary": "Exposition aux risques technologiques affectant les systèmes critiques, les opérations et la continuité métier."
+      "summary": "Exposition aux risques technologiques affectant les systèmes critiques, les opérations et la continuité métier.",
+      "score": 3
     }
   ],
   "governance": {
@@ -334,7 +370,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -503,9 +539,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.318754+00:00",
     "fetched_at": "2026-05-21T02:17:14.318754+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.563Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.631Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tmhc.json",
     "enrich_root": null,

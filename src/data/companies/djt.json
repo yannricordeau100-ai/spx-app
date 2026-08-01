@@ -1,6 +1,6 @@
 {
   "ticker": "DJT",
-  "name": "Trump Media Technology Group Corp.",
+  "name": "Trump Media Technology Group",
   "sector": "Technologie",
   "subsector": "Social Media and Digital Platforms",
   "tagline": "End Big Tech's assault on free speech by opening up the Internet and giving people their voices back",
@@ -21,8 +21,8 @@
       "name_fr": "Trésorerie et actifs numériques",
       "name_en": "Cash, Cash Equivalents and Digital Assets",
       "explanation": "Total des liquidités, investissements à court terme et actifs numériques détenus par la société.",
-      "value": "2473.2",
-      "unit": "M $",
+      "value": 2.473,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Cash",
       "nature": "Structurel",
@@ -30,7 +30,7 @@
       "signal": "Trésorerie massive pour une société de taille réduite, soutenue par une base d'investisseurs engagés.",
       "description": "Au 31 décembre 2025, TMTG détenait environ 2,473.2 millions de dollars en trésorerie, équivalents de trésorerie, investissements à court terme, titres equity, créances et actifs numériques.",
       "history": [
-        2473.2
+        2.473
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -39,7 +39,8 @@
       "_validation": [
         "Unité confirmée: M$ (source 10-K Overview et MDA indiquent 2,473.2 millions de dollars)",
         "Valeur confirmée: 2473.2 (cohérence avec source 10-K MDA)"
-      ]
+      ],
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Debt",
@@ -107,10 +108,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -129,11 +134,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.71 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -152,56 +161,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.63 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.95,
-      "unit": "Mds €",
+      "value": 950,
+      "unit": "M €",
       "yoy": "+9400.0%",
       "history": [
         0,
-        0.05,
-        0.01,
-        0.95
+        50,
+        10,
+        950
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.95 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "-23.5%",
       "history": [
-        0.01,
+        10,
         0,
-        0.17,
-        0.13
+        170,
+        130
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,9 +254,7 @@
         "Dates confirmées: Phase 1 (7 août 2024), Phase 2 (21 octobre 2024), Phase 3 (23 octobre 2024) selon 10-K MDA",
         "Lancement global: 7 juillet 2025 confirmé selon 10-K MDA",
         "History conservée avec années 2024 et 2025"
-      ],
-      "_source_month": "août 2024",
-      "_source_month_reason": "via_signal_quarter"
+      ]
     },
     {
       "short": "Truth.Fi Launch",
@@ -261,13 +282,11 @@
         "SMA launch: 15 avril 2025 confirmée selon 10-K MDA",
         "ETF agreement: 22 avril 2025 confirmée selon 10-K MDA",
         "ETF launch: 30 décembre 2025 confirmée selon 10-K MDA avec cinq produits nommés (TSSD, TSFN, TSIC, TSES, TSRS)"
-      ],
-      "_source_month": "janvier 2025",
-      "_source_month_reason": "via_signal_quarter"
+      ]
     }
   ],
   "ai_positioning": {
-    "stance": "tactical",
+    "stance": "absent",
     "summary": "Trump Media Technology Group Corp. utilise l'IA pour la modération de contenu sur Truth Social en partenariat avec le fournisseur HIVE, mettant en place un système de modération décrit comme robuste, équitable et neutre en matière de point de vue. L'IA joue un rôle opérationnel limité dans la modération de contenu sans constituer une stratégie technologique centrale.",
     "evidence": [
       "Using human moderators and an artificial intelligence vendor known as HIVE, Truth Social has developed what TMTG believes is a robust, fair, and viewpoint-neutral moderation system"
@@ -286,7 +305,8 @@
       "severity": 4,
       "score_rationale": "TMTG a un historique opérationnel limité, ce qui rend difficile l'évaluation de son modèle économique et de ses perspectives. Cela augmente les risques associés à l'investissement.",
       "trend": "stable",
-      "summary": "TMTG a un historique opérationnel limité, ce qui rend difficile l'évaluation de son modèle économique et de ses perspectives."
+      "summary": "TMTG a un historique opérationnel limité, ce qui rend difficile l'évaluation de son modèle économique et de ses perspectives.",
+      "score": 4
     },
     {
       "title": "Concurrence intense dans les réseaux sociaux et le streaming",
@@ -294,7 +314,8 @@
       "severity": 5,
       "score_rationale": "La concurrence est un risque majeur pour TMTG, car elle opère dans un marché encombré et compétitif dominé par des géants technologiques établis.",
       "trend": "up",
-      "summary": "TMTG opère dans un marché de réseaux sociaux et de streaming hautement compétitif dominé par des acteurs bien établis avec des ressources considérables."
+      "summary": "TMTG opère dans un marché de réseaux sociaux et de streaming hautement compétitif dominé par des acteurs bien établis avec des ressources considérables.",
+      "score": 5
     },
     {
       "title": "Dépendance à la réputation de Donald Trump",
@@ -302,7 +323,8 @@
       "severity": 5,
       "score_rationale": "La réussite de TMTG dépend significativement de la popularité de sa marque associée à Donald Trump et de sa capacité à conserver le soutien de sa base d'utilisateurs.",
       "trend": "stable",
-      "summary": "La réussite de TMTG dépend significativement de la popularité de sa marque associée à Donald Trump et du maintien du soutien de sa base d'utilisateurs engagés."
+      "summary": "La réussite de TMTG dépend significativement de la popularité de sa marque associée à Donald Trump et du maintien du soutien de sa base d'utilisateurs engagés.",
+      "score": 5
     },
     {
       "title": "Risques de cybersécurité et de piratage",
@@ -310,7 +332,8 @@
       "severity": 4,
       "score_rationale": "TMTG est exposée à des risques importants de cybersécurité, incluant les attaques de malware, les violations de données et les menaces de pirates informatiques.",
       "trend": "up",
-      "summary": "TMTG est exposée à des risques importants de cybersécurité, incluant les attaques de malware, les violations de données et les menaces contre l'intégrité des plateformes."
+      "summary": "TMTG est exposée à des risques importants de cybersécurité, incluant les attaques de malware, les violations de données et les menaces contre l'intégrité des plateformes.",
+      "score": 4
     },
     {
       "title": "Environnement réglementaire complexe et évolutif",
@@ -318,7 +341,8 @@
       "severity": 4,
       "score_rationale": "TMTG est soumise à des réglementations complexes et évolutives en matière de protection des données, de vie privée, de contenu et potentiellement de services financiers.",
       "trend": "up",
-      "summary": "TMTG est soumise à des réglementations complexes et évolutives concernant la protection des données, la vie privée, la modération de contenu et les services financiers."
+      "summary": "TMTG est soumise à des réglementations complexes et évolutives concernant la protection des données, la vie privée, la modération de contenu et les services financiers.",
+      "score": 4
     },
     {
       "title": "Volatilité du cours de l'action",
@@ -326,7 +350,8 @@
       "severity": 4,
       "score_rationale": "Le marché des actions de TMTG est caractérisé par une volatilité importante, ce qui peut entraîner des pertes significatives pour les investisseurs.",
       "trend": "stable",
-      "summary": "Le marché des actions de TMTG est caractérisé par une volatilité importante pouvant entraîner des pertes significatives pour les investisseurs."
+      "summary": "Le marché des actions de TMTG est caractérisé par une volatilité importante pouvant entraîner des pertes significatives pour les investisseurs.",
+      "score": 4
     },
     {
       "title": "Risques de litiges et de responsabilité civile",
@@ -334,7 +359,8 @@
       "severity": 4,
       "score_rationale": "TMTG est exposée à des risques de litiges, notamment en raison de la responsabilité des contenus publiés sur Truth Social et des questions de modération.",
       "trend": "up",
-      "summary": "TMTG est exposée à des risques de litiges, notamment en raison de la responsabilité des contenus publiés sur Truth Social et de la modération des messages."
+      "summary": "TMTG est exposée à des risques de litiges, notamment en raison de la responsabilité des contenus publiés sur Truth Social et de la modération des messages.",
+      "score": 4
     },
     {
       "title": "Risques de réputation et d'image de marque",
@@ -342,7 +368,8 @@
       "severity": 5,
       "score_rationale": "La réputation de TMTG est critique pour son succès, et tout événement nuisant à sa réputation pourrait avoir un impact majeur négatif sur l'adoption et les perspectives commerciales.",
       "trend": "stable",
-      "summary": "La réputation de TMTG est critique pour son succès, et tout événement nuisant à sa réputation pourrait avoir un impact majeur sur l'adoption de ses plateformes et ses perspectives commerciales."
+      "summary": "La réputation de TMTG est critique pour son succès, et tout événement nuisant à sa réputation pourrait avoir un impact majeur sur l'adoption de ses plateformes et ses perspectives commerciales.",
+      "score": 5
     }
   ],
   "governance": {
@@ -440,158 +467,90 @@
   },
   "enrich_quarterly_history": {
     "ticker": "DJT",
-    "extracted_at": "2026-05-15T18:10:37Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1849635,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:11:07Z",
+    "n_kpis": 3,
     "kpis": [
       {
         "short": "Cash & Digital Assets",
         "period_type": "quarter",
         "history": [
-          1.4946,
-          0.0415,
-          0.003,
-          0.001,
-          -0.0445,
-          0.1527,
-          0.0848,
-          3.2856,
-          -3.128,
-          233.7009,
-          343.9544,
-          372.1357,
-          -779.5549,
-          146.1274,
-          1343.9017,
-          166.0727,
-          -1521.5442,
-          249.0669
+          293.252,
+          293.287,
+          293.683,
+          297.885,
+          307.221,
+          310.481,
+          276.302,
+          346.527,
+          672.878,
+          379.828,
+          2963.2,
+          2519.022
         ],
         "history_periods": [
           "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1343.9017,
-            "accession": "0001140361-25-028418",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 166.0727,
-            "accession": "0001140361-25-040977",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -1521.5442,
-            "accession": "calc-0001140361-26-007174",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 249.0669,
-            "accession": "0001140361-26-020229",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:11:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Debt",
+        "period_type": "quarter",
+        "history": [
+          4.75,
+          9.804,
+          9.994,
+          5.124
+        ],
+        "history_periods": [
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:11:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Restricted Cash",
         "period_type": "quarter",
         "history": [
-          1.4946,
-          0.0415,
-          0.003,
-          0.001,
-          -0.0445,
-          0.1527,
-          0.0848,
-          3.2856,
-          -3.128,
-          233.7009,
-          343.9544,
-          372.1357,
-          -779.5549,
-          146.1274,
-          1343.9017,
-          166.0727,
-          -1521.5442,
-          249.0669
+          40.028,
+          0,
+          1000,
+          335.839
         ],
         "history_periods": [
-          "Q3 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1343.9017,
-            "accession": "0001140361-25-028418",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 166.0727,
-            "accession": "0001140361-25-040977",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -1521.5442,
-            "accession": "calc-0001140361-26-007174",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 249.0669,
-            "accession": "0001140361-26-020229",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:11:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -607,9 +566,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.251033+00:00",
     "fetched_at": "2026-05-21T02:17:14.251034+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.296Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.844Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/djt.json",
     "enrich_root": null,

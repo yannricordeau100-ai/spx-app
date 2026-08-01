@@ -39,11 +39,14 @@
       "is_short_history": false,
       "ttm": 3.9,
       "_validation": [],
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Net Interest Margin (tax equivalent) extracted from MDA section. Only 3 consecutive years found explicitly in the filing (2017-2019). Minimu",
       "explanation_en": "Profit margin on Net Interest.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -71,7 +74,7 @@
         "Correction unité: Mds $ -> B$ (standard international)",
         "Correction type: Revenue -> Balance Sheet"
       ],
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -99,7 +102,7 @@
       "_validation": [
         "Correction type: Revenue -> Profitability"
       ],
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -210,7 +213,7 @@
       "_validation": [
         "Correction type: Capital -> Capital Adequacy"
       ],
-      "explanation_en": "Common Equity Tier 1 ratio — core capital strength measure (banks).",
+      "explanation_en": "Common Equity Tier 1 ratio, core capital strength measure (banks).",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -252,7 +255,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.14,
         1.2,
@@ -265,7 +268,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -280,7 +283,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1864,
@@ -293,7 +296,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -308,7 +311,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         54.13,
@@ -321,7 +324,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -337,7 +340,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.55,
@@ -350,7 +353,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -380,9 +383,7 @@
       "ttm": 339.17,
       "_validation": [
         "Correction type: Investment -> Operating Expense"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Share Repurchase",
@@ -410,9 +411,7 @@
       "_validation": [
         "Correction type: Capital -> Shareholder Returns",
         "Correction name_en: Share Repurchase -> Share Repurchase Program"
-      ],
-      "_source_month": "octobre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      ]
     }
   ],
   "ai_positioning": {
@@ -428,7 +427,8 @@
       "severity": 5,
       "score_rationale": "La société est vulnérable aux cyberattaques et aux défaillances des systèmes opérationnels, qui pourraient avoir un impact matériel sur l'activité, la réputation et les résultats financiers. Le rapport souligne que les techniques de cybercriminalité évoluent constamment et que la prévention complète n'est pas garantie.",
       "trend": "up",
-      "summary": "La société est exposée à des risques de cyberattaques pouvant compromettre la confidentialité des données, perturber les activités en ligne et entraîner des perturbations du service client."
+      "summary": "La société est exposée à des risques de cyberattaques pouvant compromettre la confidentialité des données, perturber les activités en ligne et entraîner des perturbations du service client.",
+      "score": 5
     },
     {
       "title": "Risques d'intégration d'acquisitions",
@@ -436,7 +436,8 @@
       "severity": 4,
       "score_rationale": "La société a récemment complété l'acquisition de Pacific Premier, ce qui comporte des risques d'intégration, notamment la perte d'employés clés, la disruption des activités et des coûts élevés (148 M$ en 2025). Le rapport souligne l'importance de la réussite de l'intégration.",
       "trend": "new",
-      "summary": "La société doit gérer les risques liés à l'intégration de Pacific Premier, notamment la conversion de systèmes, la consolidation de branches et la rétention des talents."
+      "summary": "La société doit gérer les risques liés à l'intégration de Pacific Premier, notamment la conversion de systèmes, la consolidation de branches et la rétention des talents.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie et infrastructure IT",
@@ -444,7 +445,8 @@
       "severity": 4,
       "score_rationale": "La société est fortement dépendante de la technologie pour ses opérations critiques (traitement des dépôts, gestion des prêts, services bancaires en ligne). Toute défaillance majeure pourrait perturber les activités et impacter la confiance des clients.",
       "trend": "up",
-      "summary": "La société doit gérer les risques liés à sa dépendance technologique, notamment les perturbations d'activité, les défaillances systèmes et les attaques ciblées."
+      "summary": "La société doit gérer les risques liés à sa dépendance technologique, notamment les perturbations d'activité, les défaillances systèmes et les attaques ciblées.",
+      "score": 4
     },
     {
       "title": "Rétention des employés clés",
@@ -452,7 +454,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée au risque de perte d'employés clés, notamment en raison de la concurrence pour les talents dans le secteur financier et des perturbations liées à l'intégration de Pacific Premier. Le rapport souligne l'importance de la rétention.",
       "trend": "stable",
-      "summary": "La société doit gérer les risques liés à la perte d'employés clés, notamment en raison de la concurrence pour les talents et de l'incertitude pendant l'intégration."
+      "summary": "La société doit gérer les risques liés à la perte d'employés clés, notamment en raison de la concurrence pour les talents et de l'incertitude pendant l'intégration.",
+      "score": 4
     },
     {
       "title": "Risques de crédit et détérioration économique",
@@ -460,7 +463,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques de crédit en cas de détérioration économique dans les régions du sud-ouest où elle opère. Le rapport souligne l'importance de la gestion des concentrations immobilières et des risques de crédit pour assurer la stabilité financière.",
       "trend": "up",
-      "summary": "La société doit gérer les risques de crédit, notamment la détérioration économique, les défaillances de prêts immobiliers commerciaux et les concentrations de portefeuille."
+      "summary": "La société doit gérer les risques de crédit, notamment la détérioration économique, les défaillances de prêts immobiliers commerciaux et les concentrations de portefeuille.",
+      "score": 4
     }
   ],
   "_validation": [
@@ -488,7 +492,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -598,7 +602,7 @@
   "_ai_positioning_fetched_at": "2026-05-06T18:03:14.741959+00:00",
   "_risks_gov_fetched_at": "2026-05-06T20:51:42.573033+00:00",
   "_dividends_extracted_at": "2026-05-09T20:23:07Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -624,7 +628,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:45Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:23Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Banques régionales",
   "sector_fr": "Finance",
   "enrich_events": {
@@ -669,6 +673,143 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "COLB",
+    "extracted_at": "2026-06-01T03:07:29Z",
+    "n_kpis": 4,
+    "kpis": [
+      {
+        "short": "Net Interest Margin",
+        "period_type": "quarter",
+        "history": [
+          3.31,
+          3.05,
+          3.12,
+          3.16,
+          3.47,
+          4.01,
+          4.08,
+          3.93,
+          3.91,
+          3.78,
+          3.52,
+          3.56,
+          3.56,
+          3.6,
+          3.75,
+          3.84
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:07:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          16.892,
+          20.858,
+          20.956,
+          20.77,
+          20.698,
+          31.8,
+          54
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023"
+        ],
+        "last_data_date": "2023-03-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:07:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Deposits",
+        "period_type": "quarter",
+        "history": [
+          7.121,
+          9.147,
+          9.402,
+          9.335,
+          9.196,
+          41.6
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023"
+        ],
+        "last_data_date": "2023-03-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:07:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Total Loans",
+        "period_type": "quarter",
+        "history": [
+          9.587,
+          10.545,
+          10.665,
+          10.989,
+          11.514,
+          37.1
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023"
+        ],
+        "last_data_date": "2023-03-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:07:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "COLB",
     "ranks": {
@@ -681,14 +822,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.243041+00:00",
     "fetched_at": "2026-05-21T02:17:14.243042+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.674Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.152Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/colb.json",
     "enrich_root": "v2-pipeline-enrich/colb.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

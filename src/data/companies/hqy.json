@@ -69,7 +69,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 18.01,
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Cash and cash equivalents",
@@ -96,7 +100,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 321.19,
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -115,34 +123,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.31 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "+120.0%",
       "history": [
-        -0.03,
-        0.06,
-        0.1,
-        0.22
+        -30,
+        60,
+        100,
+        220
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.22 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +178,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.38 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,33 +205,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.32,
-      "unit": "Mds €",
+      "value": 320,
+      "unit": "M €",
       "yoy": "+6.7%",
       "history": [
-        0.25,
-        0.4,
-        0.3,
-        0.32
+        250,
+        400,
+        300,
+        320
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.32 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -252,34 +282,34 @@
       "title": "Réforme fiscale",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "La société est très exposée aux changements dans les avantages fiscaux des HSA et CDB, ce qui pourrait avoir un impact significatif sur son activité. Le langage utilisé dans le rapport est très clair sur les risques potentiels. (score par défaut, à affiner)",
+      "score_rationale": "La société est très exposée aux changements dans les avantages fiscaux des HSA et CDB, ce qui pourrait avoir un impact significatif sur son activité. Le langage utilisé dans le rapport est très clair sur les risques potentiels.",
       "trend": "stable",
       "summary": "Les changements dans les lois fiscales pourraient éliminer ou réduire les avantages fiscaux des HSA et CDB, affectant ainsi l'activité de la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Défaillance des partenaires",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La défaillance d'un partenaire pourrait avoir un impact significatif sur la société, notamment en termes de perte de confiance et de réputation. (score par défaut, à affiner)",
+      "score_rationale": "La défaillance d'un partenaire pourrait avoir un impact significatif sur la société, notamment en termes de perte de confiance et de réputation.",
       "trend": "stable",
       "summary": "La défaillance d'un partenaire, tel qu'un partenaire d'assurance ou de dépôt, pourrait avoir un impact négatif sur l'activité de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La concurrence dans le marché des HSA et CDB est élevée et les concurrents ont des ressources importantes pour développer de nouveaux produits et services. (score par défaut, à affiner)",
+      "score_rationale": "La concurrence dans le marché des HSA et CDB est élevée et les concurrents ont des ressources importantes pour développer de nouveaux produits et services.",
       "trend": "up",
       "summary": "La concurrence accrue dans le marché des HSA et CDB pourrait rendre plus difficile pour la société de maintenir sa part de marché et son chiffre d'affaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Déclin des taux d'intérêt",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Un déclin des taux d'intérêt pourrait réduire les revenus de la société et rendre plus difficile pour elle de maintenir sa compétitivité. (score par défaut, à affiner)",
+      "score_rationale": "Un déclin des taux d'intérêt pourrait réduire les revenus de la société et rendre plus difficile pour elle de maintenir sa compétitivité.",
       "trend": "stable",
       "summary": "Un déclin des taux d'intérêt pourrait avoir un impact négatif sur les revenus de la société et sa capacité à attirer de nouveaux clients.",
       "score": 3
@@ -288,7 +318,7 @@
       "title": "Risques liés à la technologie et la sécurité des données",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "L'utilisation croissante de la technologie par la société crée des risques de sécurité et de confidentialité des données, particulièrement important dans le contexte healthcare. (score par défaut, à affiner)",
+      "score_rationale": "L'utilisation croissante de la technologie par la société crée des risques de sécurité et de confidentialité des données, particulièrement important dans le contexte healthcare.",
       "trend": "stable",
       "summary": "Les défis liés à la sécurité des données et à la continuité technologique pourraient affecter la confiance des clients et la conformité réglementaire.",
       "score": 3
@@ -297,7 +327,7 @@
       "title": "Changements dans l'industrie de la santé",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les changements dans l'industrie de la santé pourraient avoir un impact sur la demande pour les produits et services de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans l'industrie de la santé pourraient avoir un impact sur la demande pour les produits et services de la société.",
       "trend": "stable",
       "summary": "Les changements dans l'industrie de la santé pourraient avoir un impact sur la demande pour les produits et services de la société et rendre plus difficile pour elle de maintenir sa part de marché.",
       "score": 3
@@ -306,10 +336,10 @@
       "title": "Perte de confiance des clients",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La perte de confiance des clients pourrait avoir un impact significatif sur l'activité de la société et sa capacité à maintenir sa part de marché. (score par défaut, à affiner)",
+      "score_rationale": "La perte de confiance des clients pourrait avoir un impact significatif sur l'activité de la société et sa capacité à maintenir sa part de marché.",
       "trend": "stable",
       "summary": "La perte de confiance des clients pourrait avoir un impact négatif sur l'activité de la société et sa capacité à maintenir sa part de marché.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -348,7 +378,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -519,23 +549,18 @@
           736.773,
           753.754,
           649.129,
-          -1914.242,
           161.247,
           176.886,
           210.197,
-          -294.064,
           225.642,
           290.345,
           334.061,
-          -446.069,
           251.229,
           326.893,
           322.163,
-          -604.337,
           287.894,
           304.461,
-          309.259,
-          -582.687
+          309.259
         ],
         "history_periods": [
           "Q1 2022",
@@ -588,6 +613,12 @@
             "accession": "calc-0001428336-26-000010",
             "end": "2026-01-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (HQY)"
         ]
       }
     ]
@@ -604,9 +635,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.527210+00:00",
     "fetched_at": "2026-05-21T01:44:37.527211+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.156Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.807Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hqy.json",
     "enrich_root": "v2-pipeline-enrich/hqy.json",

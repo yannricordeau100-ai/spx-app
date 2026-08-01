@@ -67,7 +67,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Portfolio Concentration",
@@ -93,8 +97,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Portfolio concentration — share of total attributed to the largest contributors.",
-      "signal_en": "Mix improving, premiumization underway"
+      "explanation_en": "Portfolio concentration, share of total attributed to the largest contributors.",
+      "signal_en": "Mix improving, premiumization underway",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Core Companies Revenue Growth",
@@ -120,9 +128,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Year-over-year growth in Core Companies Revenue.",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Year-over-year growth in Core Companies Revenue."
     },
     {
       "short": "DPS",
@@ -149,7 +155,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding."
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding."
     },
     {
       "short": "Cap Return",
@@ -176,7 +182,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks)."
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks)."
     },
     {
       "short": "Payout Ratio",
@@ -203,7 +209,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -218,7 +224,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -69.83,
@@ -231,7 +237,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -272,7 +278,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -285,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en position centrale dans le rapport, avec un langage fort sur l'absence de contrôle direct malgré l'influence. La tendance est stable et la catégorie est centrale pour le modèle d'investissement de Kinnevik.",
       "trend": "stable",
-      "summary": "Kinnevik exerce une influence significative via des participations minoritaires mais n'a pas de contrôle direct sur ses sociétés portefeuille, ce qui limite sa capacité à imposer des décisions stratégiques ou opérationnelles."
+      "summary": "Kinnevik exerce une influence significative via des participations minoritaires mais n'a pas de contrôle direct sur ses sociétés portefeuille, ce qui limite sa capacité à imposer des décisions stratégiques ou opérationnelles.",
+      "score": 4
     },
     {
       "title": "Risque climatique physique sur le portefeuille",
@@ -293,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement modélisé en 2023 avec une méthodologie claire, langage technique précis, tendance à la hausse, et poids élevé dans la stratégie ESG.",
       "trend": "up",
-      "summary": "Les sociétés du portefeuille sont exposées à des risques physiques liés au climat (inondations, sécheresses, incendies), pouvant endommager leurs actifs ou perturber leurs chaînes d'approvisionnement."
+      "summary": "Les sociétés du portefeuille sont exposées à des risques physiques liés au climat (inondations, sécheresses, incendies), pouvant endommager leurs actifs ou perturber leurs chaînes d'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Pression croissante sur la gouvernance ESG",
@@ -301,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété dans plusieurs sections, avec un langage insistant sur les attentes des parties prenantes. Tendance à la hausse, catégorie clé pour les investisseurs.",
       "trend": "up",
-      "summary": "Les investisseurs et analystes exigent des structures de gouvernance solides dans les sociétés du portefeuille, notamment sur les droits humains, l'éthique et les conditions de travail, particulièrement dans les sociétés en phase initiale."
+      "summary": "Les investisseurs et analystes exigent des structures de gouvernance solides dans les sociétés du portefeuille, notamment sur les droits humains, l'éthique et les conditions de travail, particulièrement dans les sociétés en phase initiale.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et protection des données",
@@ -309,7 +318,8 @@
       "severity": 3,
       "score_rationale": "Le risque est implicite dans les exigences de conformité et les attentes en matière de gestion des risques, avec une intensité modérée, tendance à la hausse, et poids croissant dans les évaluations ESG.",
       "trend": "up",
-      "summary": "Les sociétés du portefeuille, notamment les startups technologiques, font face à des risques accrus de cyberattaques et de violations de données, nécessitant des systèmes de sécurité robustes."
+      "summary": "Les sociétés du portefeuille, notamment les startups technologiques, font face à des risques accrus de cyberattaques et de violations de données, nécessitant des systèmes de sécurité robustes.",
+      "score": 3
     },
     {
       "title": "Attractivité des talents et diversité",
@@ -317,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Le risque est cité par plusieurs groupes d'acteurs comme critique, langage fort sur l'enjeu stratégique, tendance stable, poids élevé pour la performance à long terme.",
       "trend": "stable",
-      "summary": "Kinnevik dépend de sa capacité à attirer et retenir des talents de haut niveau, avec une pression accrue pour améliorer la diversité, notamment ethnique, au-delà des progrès déjà réalisés sur le genre."
+      "summary": "Kinnevik dépend de sa capacité à attirer et retenir des talents de haut niveau, avec une pression accrue pour améliorer la diversité, notamment ethnique, au-delà des progrès déjà réalisés sur le genre.",
+      "score": 4
     },
     {
       "title": "Conformité des fournisseurs aux normes internationales",
@@ -325,7 +336,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné dans les indicateurs de performance, avec un langage factuel, tendance à l'amélioration, mais poids modéré en raison de la gestion déléguée.",
       "trend": "up",
-      "summary": "Bien que Kinnevik ne gère pas directement la chaîne d'approvisionnement, il attend que ses fournisseurs clés respectent des normes internationales, notamment via un code de conduite partagé."
+      "summary": "Bien que Kinnevik ne gère pas directement la chaîne d'approvisionnement, il attend que ses fournisseurs clés respectent des normes internationales, notamment via un code de conduite partagé.",
+      "score": 3
     },
     {
       "title": "Intégration des risques climatiques dans la stratégie",
@@ -333,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Le risque est central dans le cadre TCFD et le reporting, langage stratégique fort, tendance à la hausse, poids élevé dans les engagements climatiques.",
       "trend": "up",
-      "summary": "Un faible pourcentage de sociétés du portefeuille intègre actuellement le changement climatique dans leurs discussions stratégiques avec leurs conseils, ce qui constitue un risque d'alignement insuffisant avec les objectifs climatiques."
+      "summary": "Un faible pourcentage de sociétés du portefeuille intègre actuellement le changement climatique dans leurs discussions stratégiques avec leurs conseils, ce qui constitue un risque d'alignement insuffisant avec les objectifs climatiques.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:03:24.961918+00:00",
@@ -447,7 +460,7 @@
   "_dividends_source": "cat3-european annual-text FY2026 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
   "_dividends_currency": "SEK",
   "_eps_extracted_at": "2026-05-18T16:45:49Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "KINV-B.ST",
     "simple": {
@@ -555,9 +568,9 @@
     "country": "Sweden",
     "_data_freshness_date": "2026-05-21T02:17:14.273590+00:00",
     "fetched_at": "2026-05-21T02:17:14.273591+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.789Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.533Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kinv-b.st.json",
     "enrich_root": "v2-pipeline-enrich/kinv-b.st.json",

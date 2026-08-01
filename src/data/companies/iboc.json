@@ -1,6 +1,6 @@
 {
   "ticker": "IBOC",
-  "name": "International Bancshares Corporation",
+  "name": "International Bancshares",
   "sector": "Finance",
   "subsector": "Banks",
   "tagline": "We Do More",
@@ -47,8 +47,12 @@
       "is_short_history": false,
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:50.188666+00:00",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Total Employees",
@@ -68,30 +72,35 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Total Employees — total number of employees at period end."
+      "explanation_en": "Total Employees, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.84,
-      "unit": "Mds €",
+      "value": 840,
+      "unit": "M €",
       "yoy": "+1.2%",
       "history": [
-        0.67,
-        0.83,
-        0.83,
-        0.84
+        670,
+        830,
+        830,
+        840
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.84 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -110,34 +119,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 6.62 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Moderate growth, slightly positive"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
       "name_fr": "Free Cash Flow",
       "name_en": "Free Cash Flow",
-      "value": 0.47,
-      "unit": "Mds €",
+      "value": 470,
+      "unit": "M €",
       "yoy": "+2.2%",
       "history": [
-        0.37,
-        0.45,
-        0.46,
-        0.47
+        370,
+        450,
+        460,
+        470
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 0.47 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,56 +174,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 16.58 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.15,
-        0.12,
-        0.12,
-        0.12
+        150,
+        120,
+        120,
+        120
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.12 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.54,
-      "unit": "Mds €",
+      "value": 540,
+      "unit": "M €",
       "yoy": "+54.3%",
       "history": [
-        2.09,
-        0.65,
-        0.35,
-        0.54
+        2090,
+        650,
+        350,
+        540
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.54 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -241,43 +273,43 @@
       "title": "Risk of Insufficient Allowance for Probable Loan Losses",
       "category": "Credit",
       "severity": 4,
-      "score_rationale": "Mentionné en premier dans les facteurs de risque (Item 1A). Le langage est fort ('may be insufficient', 'material adverse effect'). Le contexte montre que la méthodologie CECL adoptée en 2020 a augmenté les provisions, indiquant une vigilance accrue. Le crédit est une catégorie centrale pour une banque holding. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné en premier dans les facteurs de risque (Item 1A). Le langage est fort ('may be insufficient', 'material adverse effect'). Le contexte montre que la méthodologie CECL adoptée en 2020 a augmenté les provisions, indiquant une vigilance accrue. Le crédit est une catégorie centrale pour une banque holding.",
       "trend": "stable",
       "summary": "Les provisions pour pertes sur prêts pourraient être insuffisantes en raison de la complexité et de la subjectivité des estimations. Une augmentation de ces provisions réduirait les bénéfices nets et le capital.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Increased Competition from Fintechs and New Business Models",
       "category": "Competition",
       "severity": 4,
-      "score_rationale": "Décrit en détail après le risque de crédit (Item 1A). Utilise un langage fort ('substantial competition', 'material adverse effect'). Le contexte montre une intensification avec les fintechs et les modèles BaaS. La concurrence est une catégorie majeure pour le secteur bancaire. (score par défaut, à affiner)",
+      "score_rationale": "Décrit en détail après le risque de crédit (Item 1A). Utilise un langage fort ('substantial competition', 'material adverse effect'). Le contexte montre une intensification avec les fintechs et les modèles BaaS. La concurrence est une catégorie majeure pour le secteur bancaire.",
       "trend": "up",
       "summary": "La concurrence des fintechs, des plateformes de services bancaires en tant que service (BaaS) et des actifs numériques réduit les barrières à l'entrée, menaçant les revenus traditionnels et la base de dépôts des banques régionales.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risks Related to AI Adoption and Integration",
       "category": "Technology",
       "severity": 4,
-      "score_rationale": "Décrit en détail après la concurrence (Item 1A). Le langage est très fort ('significant technological risks', 'material adverse effect'). Le contexte est nouveau et en évolution rapide ('rapid technological change'). La technologie est une catégorie clé pour l'avenir du secteur financier. (score par défaut, à affiner)",
+      "score_rationale": "Décrit en détail après la concurrence (Item 1A). Le langage est très fort ('significant technological risks', 'material adverse effect'). Le contexte est nouveau et en évolution rapide ('rapid technological change'). La technologie est une catégorie clé pour l'avenir du secteur financier.",
       "trend": "up",
       "summary": "L'incapacité à intégrer rapidement et efficacement l'IA pourrait désavantager la société face aux concurrents et aux attentes des clients, entraînant des coûts élevés et des risques opérationnels importants.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Interest Rate Risk",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Décrit en détail (Item 1A). Le langage est fort ('material adverse effect'). Le contexte inclut des détails sur la volatilité récente des taux, soulignant l'exposition directe. Le risque de taux est fondamental pour les banques de réseau de détail. (score par défaut, à affiner)",
+      "score_rationale": "Décrit en détail (Item 1A). Le langage est fort ('material adverse effect'). Le contexte inclut des détails sur la volatilité récente des taux, soulignant l'exposition directe. Le risque de taux est fondamental pour les banques de réseau de détail.",
       "trend": "stable",
       "summary": "La volatilité des taux d'intérêt peut affecter négativement le revenu net d'intérêt et la valorisation des actifs et passifs, surtout si les coûts de financement augmentent plus rapidement que les revenus de prêts.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Regulatory and Compliance Risks",
       "category": "Regulation",
       "severity": 3,
-      "score_rationale": "Mentionné explicitement (Item 1A). Le langage est fort ('substantial and unpredictable ways', 'material adverse effect'). Le contexte indique un cadre réglementaire en évolution constante pour les banques holding. La régulation est une catégorie essentielle pour le secteur bancaire. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné explicitement (Item 1A). Le langage est fort ('substantial and unpredictable ways', 'material adverse effect'). Le contexte indique un cadre réglementaire en évolution constante pour les banques holding. La régulation est une catégorie essentielle pour le secteur bancaire.",
       "trend": "stable",
       "summary": "Les changements réglementaires constants peuvent imposer des coûts supplémentaires de conformité, limiter les services offerts et augmenter la concurrence des acteurs non bancaires, avec des sanctions potentielles en cas de non-conformité.",
       "score": 3
@@ -286,7 +318,7 @@
       "title": "Key Person Risk: CEO Dependency",
       "category": "Key Person",
       "severity": 3,
-      "score_rationale": "Mentionné spécifiquement (Item 1A et Item 10). Dennis E. Nixon est âgé de 83 ans et CEO/Chairman depuis 1979 et 1992 respectivement. Le langage indique ('material adverse effect'). Le contexte souligne la croissance historique liée à cette personne et l'absence de contrat de succession documenté. La dépendance à une personne clé est un risque significatif. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné spécifiquement (Item 1A et Item 10). Dennis E. Nixon est âgé de 83 ans et CEO/Chairman depuis 1979 et 1992 respectivement. Le langage indique ('material adverse effect'). Le contexte souligne la croissance historique liée à cette personne et l'absence de contrat de succession documenté. La dépendance à une personne clé est un risque significatif.",
       "trend": "stable",
       "summary": "La perte du PDG et Président, qui a joué un rôle clé dans la croissance de l'entreprise depuis 1979, pourrait avoir un impact négatif majeur sur les activités, la stratégie et les perspectives de la société.",
       "score": 3
@@ -295,7 +327,7 @@
       "title": "Information Systems Failure and Cybersecurity Risk",
       "category": "Cybersecurity",
       "severity": 3,
-      "score_rationale": "Mentionné (Item 1A). Le langage est fort ('interruption or breach in security', 'materially and adversely affected'). Le contexte souligne la dépendance critique aux systèmes d'information et aux services de tiers. La cybersécurité est une préoccupation majeure pour les institutions financières. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné (Item 1A). Le langage est fort ('interruption or breach in security', 'materially and adversely affected'). Le contexte souligne la dépendance critique aux systèmes d'information et aux services de tiers. La cybersécurité est une préoccupation majeure pour les institutions financières.",
       "trend": "up",
       "summary": "Une interruption ou une violation de sécurité des systèmes d'information, y compris ceux des fournisseurs externes, pourrait nuire aux opérations, à la confidentialité des données clients, à la conformité et à la réputation.",
       "score": 3
@@ -304,7 +336,7 @@
       "title": "Real Estate Value Decline Risk",
       "category": "Credit",
       "severity": 3,
-      "score_rationale": "Mentionné (Item 1A). Le langage est fort ('significantly impair the value', 'material adverse effect'). Le contexte lie ce risque à une part significative du portefeuille de prêts immobiliers. Le crédit est une catégorie centrale, et l'immobilier commercial et résidentiel représente un sous-segment important pour une banque régionale. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné (Item 1A). Le langage est fort ('significantly impair the value', 'material adverse effect'). Le contexte lie ce risque à une part significative du portefeuille de prêts immobiliers. Le crédit est une catégorie centrale, et l'immobilier commercial et résidentiel représente un sous-segment important pour une banque régionale.",
       "trend": "stable",
       "summary": "Une baisse significative de la valeur immobilière dans les marchés cibles du Texas et de l'Oklahoma pourrait dégrader la valeur des garanties des prêts et affecter la capacité de recouvrement en cas de saisie.",
       "score": 3
@@ -533,9 +565,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.528935+00:00",
     "fetched_at": "2026-05-21T01:44:37.528936+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.310Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.955Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/iboc.json",
     "enrich_root": "v2-pipeline-enrich/iboc.json",

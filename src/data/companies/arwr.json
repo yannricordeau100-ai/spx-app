@@ -39,10 +39,13 @@
       "is_short_history": false,
       "ttm": 294.76,
       "_validation": "Corrigé: unit M$ confirmée, yoy +121% confirmée, valeur confirmée à 226,5",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Extrait fourni ne contient pas de bilan consolidé ni de tableau de flux de trésorerie avec les valeurs annuelles explicites de Cash/Cash equ",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Investments",
@@ -95,30 +98,35 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.016,
-      "unit": "Mds €",
+      "value": 16,
+      "unit": "M €",
       "yoy": "-48.4%",
       "history": [
-        0.004,
-        0.004,
-        0.004,
+        4,
+        4,
+        4,
         0,
         0,
         0,
-        0.031,
-        0.016
+        31,
+        16
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.83 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:39.581907+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -137,11 +145,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.0 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -160,56 +172,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.39 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.37,
-      "unit": "Mds €",
+      "value": 370,
+      "unit": "M €",
       "yoy": "-27.5%",
       "history": [
-        0.08,
-        0.12,
-        0.51,
-        0.37
+        80,
+        120,
+        510,
+        370
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.37 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+12.5%",
       "history": [
-        0.11,
-        0.11,
-        0.08,
-        0.09
+        110,
+        110,
+        80,
+        90
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.09 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -234,9 +260,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Corrigé: name_fr et name_en pour préciser qu'il s'agit d'une approbation FDA, description enrichie avec détails du produit et de l'indication",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Corrigé: name_fr et name_en pour préciser qu'il s'agit d'une approbation FDA, description enrichie avec détails du produit et de l'indication"
     }
   ],
   "ai_positioning": {
@@ -250,16 +274,16 @@
       "title": "Dépendance financière à l'égard des partenaires",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La société dépend fortement de ses partenaires pour les financements et les jalons. L'accord Sarepta a généré 325 M$ et 500 M$ d'apports, suivi d'un paiement de 100 M$ au titre d'un jalon. Cette dépendance représente un risque important pour la stabilité financière et la réalisation des objectifs commerciaux. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de ses partenaires pour les financements et les jalons. L'accord Sarepta a généré 325 M$ et 500 M$ d'apports, suivi d'un paiement de 100 M$ au titre d'un jalon. Cette dépendance représente un risque important pour la stabilité financière et la réalisation des objectifs commerciaux.",
       "trend": "stable",
       "summary": "La société reçoit des financements importants de partenaires (Sarepta, Novartis) pour les jalons cliniques, créant une dépendance financière qui pourrait impacter sa stabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de remboursement de crédit",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "La société a contracté une facilité de crédit de 500 M$ en août 2024. Bien que la trésorerie soit importante (226,5 M$), le remboursement de cette dette sur 7 ans représente une obligation financière significative. (score par défaut, à affiner)",
+      "score_rationale": "La société a contracté une facilité de crédit de 500 M$ en août 2024. Bien que la trésorerie soit importante (226,5 M$), le remboursement de cette dette sur 7 ans représente une obligation financière significative.",
       "trend": "stable",
       "summary": "La facilité de crédit de 500 M$ crée une obligation de remboursement qui pourrait impacter la flexibilité financière si les revenus commerciaux ne se développent pas comme prévu.",
       "score": 3
@@ -268,16 +292,16 @@
       "title": "Risques réglementaires et de conformité clinique",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société opère dans le secteur des soins de santé hautement réglementé avec 18 candidats en essais cliniques. L'approbation réglementaire et la conformité aux protocoles d'essai sont critiques pour le succès commercial et peuvent être impactées par des changements de politiques. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans le secteur des soins de santé hautement réglementé avec 18 candidats en essais cliniques. L'approbation réglementaire et la conformité aux protocoles d'essai sont critiques pour le succès commercial et peuvent être impactées par des changements de politiques.",
       "trend": "stable",
       "summary": "La société doit naviguer des réglementations strictes pour ses essais cliniques et ses approbations de commercialisation. Les retards réglementaires pourraient impacter le calendrier de mise sur le marché.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de marché et d'adoption commerciale",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Le succès du lancement de REDEMPLO dépend de l'adoption du marché pour le FCS (rare disease) et du sHTG (indication plus large). L'incapacité à construire une présence commerciale adéquate ou à obtenir le remboursement pourrait impacter la croissance des revenus. (score par défaut, à affiner)",
+      "score_rationale": "Le succès du lancement de REDEMPLO dépend de l'adoption du marché pour le FCS (rare disease) et du sHTG (indication plus large). L'incapacité à construire une présence commerciale adéquate ou à obtenir le remboursement pourrait impacter la croissance des revenus.",
       "trend": "stable",
       "summary": "L'adoption commerciale du REDEMPLO et l'expansion à des indications plus larges (sHTG) dépendent de facteurs de marché et de remboursement qui pourraient ne pas se matérialiser comme prévu.",
       "score": 3
@@ -286,7 +310,7 @@
       "title": "Risques de fabrication et de capacité",
       "category": "Operations",
       "severity": 3,
-      "score_rationale": "La société investit massivement dans une installation de fabrication à Verona, Wisconsin (12,5 M$ en 2025, 136,9 M$ en 2024). La capacité de cette installation à soutenir la demande commerciale est critique pour la mise à l'échelle. (score par défaut, à affiner)",
+      "score_rationale": "La société investit massivement dans une installation de fabrication à Verona, Wisconsin (12,5 M$ en 2025, 136,9 M$ en 2024). La capacité de cette installation à soutenir la demande commerciale est critique pour la mise à l'échelle.",
       "trend": "stable",
       "summary": "La construction et la mise en service de l'installation de fabrication à Verona sont essentielles pour la capacité de production commerciale.",
       "score": 3
@@ -295,16 +319,16 @@
       "title": "Risques de concurrence dans les thérapies RNAi",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La technologie RNAi est exploitée par plusieurs entreprises. Arrowhead opère dans un marché compétitif avec d'autres acteurs développant des thérapies RNAi. Les avances concurrentes pourraient impacter la position de marché et la valorisation. (score par défaut, à affiner)",
+      "score_rationale": "La technologie RNAi est exploitée par plusieurs entreprises. Arrowhead opère dans un marché compétitif avec d'autres acteurs développant des thérapies RNAi. Les avances concurrentes pourraient impacter la position de marché et la valorisation.",
       "trend": "stable",
       "summary": "La société opère dans un marché compétitif pour les thérapies RNAi. La concurrence technologique et commerciale pourrait impacter la croissance et la rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques d'efficacité clinique et de sécurité",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Bien que REDEMPLO a été approuvé, 17 autres candidats sont en développement clinique. Les résultats de sécurité ou d'efficacité inattendus dans les essais en cours (SHASTA-3, SHASTA-4, SHASTA-5) pourraient retarder les approbations. (score par défaut, à affiner)",
+      "score_rationale": "Bien que REDEMPLO a été approuvé, 17 autres candidats sont en développement clinique. Les résultats de sécurité ou d'efficacité inattendus dans les essais en cours (SHASTA-3, SHASTA-4, SHASTA-5) pourraient retarder les approbations.",
       "trend": "stable",
       "summary": "Les résultats d'essais cliniques pour les indications futures (sHTG) sont critiques. Des données d'efficacité ou de sécurité négatives pourraient compromettre les approbations futures.",
       "score": 3
@@ -313,10 +337,10 @@
       "title": "Risques de litige en propriété intellectuelle",
       "category": "Litige",
       "severity": 2,
-      "score_rationale": "Les technologies RNAi font l'objet de brevets croisés dans l'industrie. Bien que non mentionné comme un risque immédiat, les litiges en propriété intellectuelle pourraient survenir et impacter les opérations. (score par défaut, à affiner)",
+      "score_rationale": "Les technologies RNAi font l'objet de brevets croisés dans l'industrie. Bien que non mentionné comme un risque immédiat, les litiges en propriété intellectuelle pourraient survenir et impacter les opérations.",
       "trend": "stable",
       "summary": "Le paysage de propriété intellectuelle des thérapies RNAi comporte des risques de litige potentiels bien que non actuellement matérialiser.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -370,7 +394,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -479,82 +503,209 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ARWR",
-    "extracted_at": "2026-05-15T18:09:10Z",
-    "method": "xbrl-companyfacts",
-    "cik": 879407,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T02:58:08Z",
+    "n_kpis": 5,
     "kpis": [
       {
         "short": "Cash",
         "period_type": "quarter",
         "history": [
-          461.0322,
-          256.6507,
-          219.3226,
-          -793.4229,
-          139.921,
-          372.377,
-          325.981,
-          -653.845,
-          91.587,
+          184.434,
           86.408,
           139.439,
-          202.2,
-          135,
-          105.3,
-          58.2,
-          127.7,
-          69.4
+          108.005,
+          202.249,
+          134.959,
+          105.334,
+          110.891,
+          58.215,
+          127.704,
+          69.399,
+          102.685,
+          53.889,
+          185.709,
+          129.793,
+          88.706,
+          71.37
         ],
         "history_periods": [
-          "Q1 2020",
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
+          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
+          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
-          "Q3 2024"
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025"
         ],
-        "last_data_date": "2024-06-30",
+        "last_data_date": "2025-12-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q3 2023",
-            "value": 105.3,
-            "accession": "0001628280-23-027771",
-            "end": "2023-06-30"
-          },
-          {
-            "period": "Q1 2024",
-            "value": 58.2,
-            "accession": "0001628280-24-003492",
-            "end": "2023-12-31"
-          },
-          {
-            "period": "Q2 2024",
-            "value": 127.7,
-            "accession": "0001628280-24-022215",
-            "end": "2024-03-31"
-          },
-          {
-            "period": "Q3 2024",
-            "value": 69.4,
-            "accession": "0001628280-24-036104",
-            "end": "2024-06-30"
-          }
-        ]
+        "_extracted_at": "2026-06-01T02:58:08Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Investments",
+        "period_type": "quarter",
+        "history": [
+          126.728,
+          122.575,
+          126.728,
+          292.735,
+          162.064,
+          292.735,
+          162.064,
+          395.41,
+          367.272,
+          578.276,
+          499.046,
+          911.7,
+          770.579,
+          692.818,
+          714.967
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:58:08Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Debt",
+        "period_type": "quarter",
+        "history": [
+          1.625,
+          40,
+          40,
+          40
+        ],
+        "history_periods": [
+          "Q4 2024",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:58:08Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          0.044366,
+          -0.041325,
+          -0.041811,
+          0.048675,
+          -0.102946,
+          -0.135376,
+          -0.132864,
+          -0.1253,
+          -0.170793,
+          -0.173085
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q4 2022",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T02:58:08Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          0.710148,
+          0.703575,
+          0.751782,
+          0.691939,
+          0.891489,
+          0.891308,
+          0.795856,
+          0.765552,
+          0.626286,
+          0.95515,
+          0.883759,
+          1.139802,
+          1.013694,
+          1.573498,
+          1.380612,
+          1.385295,
+          1.604181
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T02:58:08Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -570,9 +721,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.223937+00:00",
     "fetched_at": "2026-05-21T02:17:14.223938+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.017Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.478Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/arwr.json",
     "enrich_root": "v2-pipeline-enrich/arwr.json",

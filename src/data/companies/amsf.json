@@ -47,8 +47,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "period_type": "year",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Book Value per Share",
@@ -140,9 +143,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Cash Dividends per Share",
@@ -200,9 +201,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
@@ -221,33 +220,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.13 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
-        0.06,
-        0.04,
-        0.04,
-        0.06
+        60,
+        40,
+        40,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -261,7 +269,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         5.16,
         5.24,
@@ -274,7 +282,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -289,7 +297,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1128,
@@ -302,7 +310,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -317,7 +325,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         180.62,
@@ -330,7 +338,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -346,7 +354,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.88,
@@ -359,7 +367,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -375,73 +383,73 @@
       "title": "Cyclicité de l'assurance contre les accidents du travail",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Explicitement cité comme premier facteur de risque dans les forward-looking statements, avec langage affirmatif. Risque structurel impactant directement les résultats financiers sur le long terme. (score par défaut, à affiner)",
+      "score_rationale": "Explicitement cité comme premier facteur de risque dans les forward-looking statements, avec langage affirmatif. Risque structurel impactant directement les résultats financiers sur le long terme.",
       "trend": "stable",
       "summary": "Le marché de l'assurance contre les accidents du travail est soumis à des cycles économiques réguliers affectant la rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur prix et services",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Mentionné dans les forward-looking statements avec langage fort sur la concurrence basée sur les types d'assurances, taux de primes, disponibilité de couverture et réputation. Affecte directement la rentabilité d'exploitation. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné dans les forward-looking statements avec langage fort sur la concurrence basée sur les types d'assurances, taux de primes, disponibilité de couverture et réputation. Affecte directement la rentabilité d'exploitation.",
       "trend": "stable",
       "summary": "La pression concurrentielle sur les prix, la couverture et les services menace la part de marché et la rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cyberattaques ou défaillances technologiques",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Mentionné dans les forward-looking statements avec langage fort incluant malicious cyber attack et technology breaches or failures. Risque existentiel pour une entreprise d'assurance dépendante des systèmes d'information. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné dans les forward-looking statements avec langage fort incluant malicious cyber attack et technology breaches or failures. Risque existentiel pour une entreprise d'assurance dépendante des systèmes d'information.",
       "trend": "stable",
       "summary": "Une violation ou défaillance des systèmes informatiques pourrait compromettre les données et nuire gravement à l'activité.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Perte de cadres ou employés clés",
       "category": "Personne-clé",
       "severity": 4,
-      "score_rationale": "Citation directe dans les forward-looking statements: loss of the services of any of our senior management or other key employees. L'entreprise souligne l'importance de ses employés dans sa stratégie disciplinée. (score par défaut, à affiner)",
+      "score_rationale": "Citation directe dans les forward-looking statements: loss of the services of any of our senior management or other key employees. L'entreprise souligne l'importance de ses employés dans sa stratégie disciplinée.",
       "trend": "stable",
       "summary": "La démission ou la perte d'employés expérimentés, notamment en souscription ou gestion des sinistres, pourrait nuire à la performance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Changements réglementaires ou législatifs",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Cité dans les forward-looking statements: changes in regulations, laws, rates, rating factors, or taxes applicable to the Company. Directement lié à l'activité d'assurance très réglementée par les États. (score par défaut, à affiner)",
+      "score_rationale": "Cité dans les forward-looking statements: changes in regulations, laws, rates, rating factors, or taxes applicable to the Company. Directement lié à l'activité d'assurance très réglementée par les États.",
       "trend": "stable",
       "summary": "Des modifications aux lois ou réglementations sur les assurances salariales pourraient impacter les primes, les coûts ou la conformité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Défaillance ou retard de paiement des réassureurs",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Mentionné dans les forward-looking statements: the failure of our reinsurers to pay claims in a timely manner or at all. Impact direct sur la solvabilité et la liquidité de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné dans les forward-looking statements: the failure of our reinsurers to pay claims in a timely manner or at all. Impact direct sur la solvabilité et la liquidité de l'entreprise.",
       "trend": "stable",
       "summary": "Si les réassureurs ne paient pas leurs indemnisations, l'entreprise pourrait subir des pertes importantes.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fluctuations des marchés financiers et des taux d'intérêt",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Cité dans les forward-looking statements avec liste étendue d'effets: recession, inflation, performance of financial markets, interest rates. Impacte directement les investissements et la trésorerie de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Cité dans les forward-looking statements avec liste étendue d'effets: recession, inflation, performance of financial markets, interest rates. Impacte directement les investissements et la trésorerie de l'entreprise.",
       "trend": "stable",
       "summary": "Les conditions économiques défavorables peuvent réduire la valeur des actifs d'investissement et affecter la rentabilité globale.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fréquence ou gravité accrue des sinistres",
       "category": "Risque opérationnel",
       "severity": 4,
-      "score_rationale": "Mentionné dans les forward-looking statements: greater frequency or severity of claims and loss activity than our underwriting, reserving or investment practices anticipate. Risque intrinsèque au secteur de l'assurance. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné dans les forward-looking statements: greater frequency or severity of claims and loss activity than our underwriting, reserving or investment practices anticipate. Risque intrinsèque au secteur de l'assurance.",
       "trend": "stable",
       "summary": "Une augmentation inattendue de la fréquence ou de la gravité des sinistres pourrait dépasser les prévisions et réduire la rentabilité.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -492,7 +500,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -552,7 +560,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:37Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2013,
@@ -577,7 +585,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:35Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:28Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "enrich_description": {
     "ticker": "AMSF",
@@ -676,166 +684,168 @@
   },
   "enrich_quarterly_history": {
     "ticker": "AMSF",
-    "extracted_at": "2026-05-15T18:08:50Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1018979,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T02:56:52Z",
+    "n_kpis": 4,
     "kpis": [
       {
         "short": "ROAE",
         "period_type": "quarter",
         "history": [
-          468.366,
-          480.156,
-          -996.825,
-          395.273,
-          384.989,
-          373.019,
-          -835.849,
-          332.855,
-          340.567,
-          335.883,
-          -716.854,
-          301.094,
-          300.992,
-          314.371,
-          -659.116,
-          260.813,
-          265.57,
-          274.773,
-          -549.558,
-          246.597
+          20.8,
+          16.1,
+          17.4,
+          6.3,
+          12,
+          21.3,
+          18.6,
+          11.8,
+          22.8,
+          14.6,
+          18.6,
+          13.8,
+          21.2,
+          20.5,
+          13.1
         ],
         "history_periods": [
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T02:56:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Book Value per Share",
+        "period_type": "quarter",
+        "history": [
+          24.19,
+          24.8,
+          20.46,
+          19.95,
+          19.47,
+          17.38,
+          17.76,
+          17.51,
+          15.74,
+          15.78,
+          16.5,
+          13.69,
+          13.96,
+          14.47,
+          13.18
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T02:56:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net Investment Income",
+        "period_type": "quarter",
+        "history": [
+          6.73,
+          6.05,
+          6.113,
+          6.485,
+          6.983,
+          7.433,
+          7.724,
+          8.105,
+          7.366,
+          7.447,
+          7.485,
+          6.652,
+          6.691,
+          6.566,
+          6.597
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
           "Q1 2026"
         ],
         "last_data_date": "2026-03-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "StockholdersEquity",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 265.57,
-            "accession": "0000950170-25-098775",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 274.773,
-            "accession": "0001193125-25-258532",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -549.558,
-            "accession": "calc-0001193125-26-082513",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 246.597,
-            "accession": "0001193125-26-173630",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T02:56:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       },
       {
         "short": "Investment Portfolio",
         "period_type": "quarter",
         "history": [
-          589000,
-          732000,
-          -415000,
-          258000,
-          1032000,
-          1872000,
-          -1073000,
-          32000,
-          37000,
-          527000,
-          -43000,
-          746000,
-          802000,
-          826000,
-          -1534000,
-          2000,
-          1084000,
-          1975000,
-          -913000,
-          26000
+          1200,
+          1076.4,
+          1100,
+          1000,
+          960.7,
+          964.1,
+          961.2,
+          902.9,
+          888.7,
+          893.3,
+          835.5
         ],
         "history_periods": [
           "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q1 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "$",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1084000,
-            "accession": "0000950170-25-098775",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 1975000,
-            "accession": "0001193125-25-258532",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -913000,
-            "accession": "calc-0001193125-26-082513",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 26000,
-            "accession": "0001193125-26-173630",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:56:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -851,9 +861,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.221023+00:00",
     "fetched_at": "2026-05-21T02:17:14.221025+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.797Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.230Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/amsf.json",
     "enrich_root": "v2-pipeline-enrich/amsf.json",

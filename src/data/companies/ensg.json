@@ -40,8 +40,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Revenue from the Skilled Nursing segment."
+      "period_type": "year",
+      "explanation_en": "Revenue from the Skilled Nursing segment.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Long-term Debt",
@@ -73,8 +76,8 @@
       "name_fr": "Obligations de location opérationnelle",
       "name_en": "Operating Lease Obligations",
       "explanation": "Obligations de location opérationnelle totales sur tous les périodes de paiement futures",
-      "value": "3075.7",
-      "unit": "M $",
+      "value": 3.076,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Risk",
       "nature": "Structurel",
@@ -86,12 +89,13 @@
         null,
         null,
         null,
-        3075.7
+        3.076
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -110,34 +114,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.06 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "+13.3%",
       "history": [
-        0.22,
-        0.21,
-        0.3,
-        0.34
+        220,
+        210,
+        300,
+        340
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.34 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.46 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,33 +196,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.21 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "+8.7%",
       "history": [
-        0.32,
-        0.51,
-        0.46,
-        0.5
+        320,
+        510,
+        460,
+        500
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.5 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,9 +255,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -245,34 +269,34 @@
       "title": "Litiges et enquêtes réglementaires",
       "category": "Litige",
       "severity": 5,
-      "score_rationale": "Le texte mentionne explicitement des litiges, des enquêtes du DOJ, des verdicts de jury et des règlements coûteux (48M$). L'intensité du langage (material adverse effect, significant regulatory action) et la fréquence des mentions indiquent une gravité élevée. Le contexte montre une augmentation des enquêtes gouvernementales. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne explicitement des litiges, des enquêtes du DOJ, des verdicts de jury et des règlements coûteux (48M$). L'intensité du langage (material adverse effect, significant regulatory action) et la fréquence des mentions indiquent une gravité élevée. Le contexte montre une augmentation des enquêtes gouvernementales.",
       "trend": "up",
       "summary": "La société fait face à de nombreux litiges et enquêtes réglementaires, notamment du DOJ concernant les soumissions de facturation Medicare/Medicaid, pouvant entraîner des amendes, des pénalités et des exclusions des programmes gouvernementaux.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques liés à la conformité réglementaire",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le secteur des soins de santé est fortement réglementé (Medicare, Medicaid, HIPAA). Le texte souligne la complexité des lois, la surveillance continue et les conséquences potentielles de la non-conformité (amendes, pénalités, exclusion). L'intensité du langage est modérée à élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le secteur des soins de santé est fortement réglementé (Medicare, Medicaid, HIPAA). Le texte souligne la complexité des lois, la surveillance continue et les conséquences potentielles de la non-conformité (amendes, pénalités, exclusion). L'intensité du langage est modérée à élevée.",
       "trend": "stable",
       "summary": "La société opère dans un environnement fortement réglementé et est soumise à une surveillance constante des autorités fédérales et étatiques, avec des risques de sanctions en cas de non-conformité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité et de protection des données",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le texte décrit les mesures de sécurité mises en place (cadre NIST, formation, audits) et l'importance de la protection des données. L'intensité du langage est modérée, mais le contexte d'une société technologique et de la sensibilité des données patient rend ce risque significatif. (score par défaut, à affiner)",
+      "score_rationale": "Le texte décrit les mesures de sécurité mises en place (cadre NIST, formation, audits) et l'importance de la protection des données. L'intensité du langage est modérée, mais le contexte d'une société technologique et de la sensibilité des données patient rend ce risque significatif.",
       "trend": "stable",
       "summary": "Bien que des mesures soient en place, la société est exposée aux menaces de cybersécurité et aux risques liés à la protection des données sensibles des patients, nécessitant des investissements continus.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux indemnités contractuelles",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Le texte mentionne des contrats incluant des clauses d'indemnisation contingente pour des passifs environnementaux, des transferts d'opérations, des accords de prêt et des accords avec les dirigeants. L'intensité du langage est modérée, mais le manque de montant spécifié ou maximum rend l'estimation difficile. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne des contrats incluant des clauses d'indemnisation contingente pour des passifs environnementaux, des transferts d'opérations, des accords de prêt et des accords avec les dirigeants. L'intensité du langage est modérée, mais le manque de montant spécifié ou maximum rend l'estimation difficile.",
       "trend": "stable",
       "summary": "La société peut être tenue d'indemniser des tiers dans le cadre de divers contrats (baux, transferts d'opérations, prêts), sans que le montant de ces obligations potentielles ne soit toujours clairement définissable.",
       "score": 3
@@ -281,7 +305,7 @@
       "title": "Risques liés aux dommages punitifs",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Le texte indique que dans certains États, la couverture d'assurance pour les dommages punitifs peut être indisponible. Cela représente un risque financier potentiel non couvert par l'assurance. L'intensité du langage est modérée. (score par défaut, à affiner)",
+      "score_rationale": "Le texte indique que dans certains États, la couverture d'assurance pour les dommages punitifs peut être indisponible. Cela représente un risque financier potentiel non couvert par l'assurance. L'intensité du langage est modérée.",
       "trend": "stable",
       "summary": "La société pourrait être tenue de payer des dommages punitifs dans certains États où l'assurance pour ce type de risque n'est pas disponible, ce qui pourrait avoir un impact financier significatif.",
       "score": 3
@@ -290,10 +314,10 @@
       "title": "Risques liés aux poursuites de type lanceur d'alerte",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Le texte mentionne explicitement les dispositions de lanceur d'alerte de la loi sur les fausses déclarations (FCA) et leur fréquence croissante. L'exemple d'un règlement de 48M$ illustre le potentiel impact financier. L'intensité du langage est élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne explicitement les dispositions de lanceur d'alerte de la loi sur les fausses déclarations (FCA) et leur fréquence croissante. L'exemple d'un règlement de 48M$ illustre le potentiel impact financier. L'intensité du langage est élevée.",
       "trend": "up",
       "summary": "Les lois sur les lanceurs d'alerte rendent la société vulnérable aux poursuites pour fraude présumée, pouvant entraîner des coûts de défense élevés et des règlements importants, comme illustré par un cas récent.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -330,7 +354,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -439,9 +463,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.255909+00:00",
     "fetched_at": "2026-05-21T02:17:14.255910+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.783Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.347Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ensg.json",
     "enrich_root": "v2-pipeline-enrich/ensg.json",

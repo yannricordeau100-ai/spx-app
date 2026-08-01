@@ -46,7 +46,7 @@
       "period_type": "annual",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 années consécutives trouvées explicitement dans le bilan (2022 et 2023). Le minimum requis est 4 années. Les données antérieures",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -216,33 +216,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.51 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
-        0.14,
-        0.07,
-        0.04,
-        0.06
+        140,
+        70,
+        40,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -286,7 +295,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement identifié en section 4.2 et 16.4 du filing. Langage modéré mais reconnaît l'absence de contrôle sur les délais/résultats administratifs. Tendance stable mais structurelle à l'activité. Poids significatif pour une entreprise de développement de projets solaires.",
       "trend": "stable",
-      "summary": "Le développement de projets solaires dépend fortement des autorisations administratives (EIS, permis de construction, points de connexion) dont les délais et résultats échappent au contrôle de Solaria. Bien que l'entreprise dispose d'une vaste expérience, les changements réglementaires récents en Espagne (inflation énergétique) illustrent cette vulnérabilité réglementaire."
+      "summary": "Le développement de projets solaires dépend fortement des autorisations administratives (EIS, permis de construction, points de connexion) dont les délais et résultats échappent au contrôle de Solaria. Bien que l'entreprise dispose d'une vaste expérience, les changements réglementaires récents en Espagne (inflation énergétique) illustrent cette vulnérabilité réglementaire.",
+      "score": 4
     },
     {
       "title": "Concentration géographique sur le marché ibérique",
@@ -294,7 +304,8 @@
       "severity": 4,
       "score_rationale": "Identifié explicitement en section 4.1 comme 'main market risk'. Langage direct sur le positionnement fort en Ibérie. Tendance up : stratégie de diversification annoncée (Italie, Allemagne, Portugal) mais encore en phase initiale. Poids élevé pour la rentabilité future.",
       "trend": "up",
-      "summary": "La majorité des activités et du portefeuille de projets de Solaria sont concentrés en Espagne et Portugal. Cette concentration expose l'entreprise aux risques réglementaires et de marché spécifiques à la région ibérique, notamment les changements de politique énergétique et les variations de prix de l'électricité."
+      "summary": "La majorité des activités et du portefeuille de projets de Solaria sont concentrés en Espagne et Portugal. Cette concentration expose l'entreprise aux risques réglementaires et de marché spécifiques à la région ibérique, notamment les changements de politique énergétique et les variations de prix de l'électricité.",
+      "score": 4
     },
     {
       "title": "Risque de change sur les opérations internationales en dollars",
@@ -302,7 +313,8 @@
       "severity": 2,
       "score_rationale": "Mentionné en section 4.5.a) mais minimisé (aucune transaction en USD en 2023). Langage indiquant une exposition potentielle future. Tendance stable/down car opérations internationales encore limitées. Poids faible actuellement mais croissant avec l'expansion.",
       "trend": "stable",
-      "summary": "Solaria opère internationalement et est exposée au risque de change, notamment en dollars américains, principalement via les distributions de filiales. Bien que l'exposition soit actuellement limitée (aucune transaction USD en 2023), elle augmentera avec l'expansion en Italie, Allemagne et Portugal."
+      "summary": "Solaria opère internationalement et est exposée au risque de change, notamment en dollars américains, principalement via les distributions de filiales. Bien que l'exposition soit actuellement limitée (aucune transaction USD en 2023), elle augmentera avec l'expansion en Italie, Allemagne et Portugal.",
+      "score": 2
     },
     {
       "title": "Dépendance aux contrats de vente d'électricité (PPA) long terme",
@@ -310,7 +322,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans la stratégie (PPA avec Shell, accord 10 ans avec 126 MW en 2023). Langage neutre mais révèle dépendance critique aux contrats clients. Tendance up : augmentation des PPA signés. Poids modéré mais croissant pour la viabilité des projets.",
       "trend": "up",
-      "summary": "La rentabilité des projets solaires de Solaria dépend fortement de la signature de contrats de vente d'électricité long terme (PPA). L'entreprise a signé un PPA avec Shell (300 MW, extension 3 ans) et un accord 10 ans pour 126 MW en 2023, mais reste exposée au risque de non-renouvellement ou de conditions défavorables."
+      "summary": "La rentabilité des projets solaires de Solaria dépend fortement de la signature de contrats de vente d'électricité long terme (PPA). L'entreprise a signé un PPA avec Shell (300 MW, extension 3 ans) et un accord 10 ans pour 126 MW en 2023, mais reste exposée au risque de non-renouvellement ou de conditions défavorables.",
+      "score": 3
     },
     {
       "title": "Risque de financement et de refinancement de projets",
@@ -318,7 +331,8 @@
       "severity": 3,
       "score_rationale": "Identifié implicitement via les annonces de financement (EIB 1,7 Md€, Santander 515 M€). Langage positif mais révèle dépendance aux financements externes. Tendance up : besoin croissant pour financer 5,6 GW en développement. Poids élevé pour la croissance.",
       "trend": "up",
-      "summary": "Solaria dépend fortement du financement externe pour développer son portefeuille de 5,6 GW (notamment en Italie et Portugal). Bien que des accords aient été conclus avec l'EIB et Santander, l'entreprise reste exposée aux risques de refinancement, aux conditions de crédit et à la disponibilité du financement projet."
+      "summary": "Solaria dépend fortement du financement externe pour développer son portefeuille de 5,6 GW (notamment en Italie et Portugal). Bien que des accords aient été conclus avec l'EIB et Santander, l'entreprise reste exposée aux risques de refinancement, aux conditions de crédit et à la disponibilité du financement projet.",
+      "score": 3
     },
     {
       "title": "Risque de construction et de mise en service des projets",
@@ -326,7 +340,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans le portefeuille de 104 SPV en développement/construction. Langage neutre mais révèle exposition opérationnelle. Tendance up : accélération des mises en service (Cifuentes-Trillo 626 MW en 2023, Garoña 595 MW en 2024). Poids modéré mais croissant.",
       "trend": "up",
-      "summary": "Solaria est exposée aux risques de dépassement de coûts, de retards de construction et de défaillance technique lors de la mise en service de ses projets solaires. L'entreprise a mis en service Cifuentes-Trillo (626 MW) en 2023 et prévoit Garoña (595 MW) en 2024, augmentant l'exposition opérationnelle."
+      "summary": "Solaria est exposée aux risques de dépassement de coûts, de retards de construction et de défaillance technique lors de la mise en service de ses projets solaires. L'entreprise a mis en service Cifuentes-Trillo (626 MW) en 2023 et prévoit Garoña (595 MW) en 2024, augmentant l'exposition opérationnelle.",
+      "score": 3
     },
     {
       "title": "Volatilité des prix de l'électricité et des matières premières",
@@ -334,7 +349,8 @@
       "severity": 3,
       "score_rationale": "Mentionné en section 4.5.b) et 4.1 (changements réglementaires dus à l'inflation énergétique). Langage modéré mais reconnaît l'impact sur la rentabilité. Tendance stable mais contexte inflationniste persistant. Poids modéré pour la marge d'exploitation.",
       "trend": "stable",
-      "summary": "Solaria est exposée à la volatilité des prix de l'électricité et des matières premières (panneaux, acier, cuivre). L'inflation énergétique récente a entraîné des changements réglementaires en Espagne. L'entreprise gère ce risque en négociant des contrats à prix fixe, mais reste vulnérable aux chocs de prix."
+      "summary": "Solaria est exposée à la volatilité des prix de l'électricité et des matières premières (panneaux, acier, cuivre). L'inflation énergétique récente a entraîné des changements réglementaires en Espagne. L'entreprise gère ce risque en négociant des contrats à prix fixe, mais reste vulnérable aux chocs de prix.",
+      "score": 3
     },
     {
       "title": "Risque de capacité de financement et de liquidité pour la croissance",
@@ -342,7 +358,8 @@
       "severity": 3,
       "score_rationale": "Identifié en section 4.3 et 16.3 : working capital négatif de 28 M€ en 2023. Langage rassurant mais révèle tension de trésorerie. Tendance stable : management confiant en génération de cash future. Poids modéré mais important pour la croissance accélérée.",
       "trend": "stable",
-      "summary": "Solaria présente un working capital négatif de 28 millions d'euros au 31 décembre 2023, reflétant une tension de trésorerie liée à l'expansion rapide. Bien que le management soit confiant en la génération de cash future et en la disponibilité de lignes de crédit non utilisées, cette situation limite la flexibilité financière."
+      "summary": "Solaria présente un working capital négatif de 28 millions d'euros au 31 décembre 2023, reflétant une tension de trésorerie liée à l'expansion rapide. Bien que le management soit confiant en la génération de cash future et en la disponibilité de lignes de crédit non utilisées, cette situation limite la flexibilité financière.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:27:14.477183+00:00",
@@ -446,9 +463,9 @@
     "country": "Spain",
     "_data_freshness_date": "2026-05-21T02:17:14.310537+00:00",
     "fetched_at": "2026-05-21T02:17:14.310538+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.877Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.873Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/slr.mc.json",
     "enrich_root": "v2-pipeline-enrich/slr.mc.json",

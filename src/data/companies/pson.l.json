@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires total",
       "name_en": "Total Revenue",
       "explanation": "Chiffre d'affaires généré par l'ensemble des activités de la société.",
-      "value": "3552",
-      "unit": "M £",
+      "value": 3.552,
+      "unit": "Mds £",
       "yoy": "-3%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -30,15 +30,16 @@
       "signal": "Stabilisation après transition digitale.",
       "description": "Revenu en légère baisse en 2024, impacté par la transition vers des offres numériques et la désaffection des manuels physiques.",
       "history": [
-        3674,
-        3552
+        3.674,
+        3.552
       ],
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds £ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -64,7 +65,7 @@
       "period_type": "annual",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Gross Margin (%) data not found in the provided extract. The document shows headline sales, adjusted operating profit margin (16.9% for 2024",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -136,7 +137,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Stable, slight decline to monitor"
     },
     {
@@ -160,7 +161,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -184,7 +185,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash generation improving, financial flexibility rising"
     },
     {
@@ -204,40 +205,18 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.46 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
-    {
-      "short": "AI Integration",
-      "name_fr": "Part des produits intégrant l'IA",
-      "name_en": "AI-enabled Products Mix",
-      "explanation": "Proportion des offres éducatives incluant des fonctionnalités d'intelligence artificielle.",
-      "value": "45",
-      "unit": "%",
-      "yoy": "+10 pts",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Accélération visible de l'adoption interne de l'IA.",
-      "description": "En 2024, près de la moitié des nouvelles offres incorporent des outils IA (ex: rétroaction automatisée, tuteurs virtuels).",
-      "history": [
-        25,
-        35,
-        45
-      ],
-      "last_data_date": "2024-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
-    },
     {
       "short": "Digital Revenue",
       "name_fr": "Revenu digital",
@@ -260,9 +239,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     }
   ],
   "ai_positioning": {
@@ -290,7 +267,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -306,7 +283,8 @@
       "severity": 4,
       "score_rationale": "Risque mentionné explicitement en Item 1A (pages 35-36) avec langage modéré mais répété ('policymakers are looking to regulate AI'). Pearson reconnaît dépendre de cadres réglementaires en évolution rapide pour l'IA en éducation. Tendance croissante (new/up) car l'IA est intégrée massivement dans 80%+ des produits. Poids catégorie élevé : impact direct sur conformité produits et modèle commercial.",
       "trend": "up",
-      "summary": "Pearson intègre l'IA dans plus de 80% de ses produits (eTextbooks, Credly, certifications). La régulation gouvernementale de l'IA en éducation se durcit mondialement. Tout changement réglementaire (RGPD-like pour l'IA, restrictions d'usage en classe) pourrait forcer des modifications produits coûteuses ou limiter l'adoption. Pearson participe à TeachAI pour influencer les normes, mais reste exposée aux décisions politiques."
+      "summary": "Pearson intègre l'IA dans plus de 80% de ses produits (eTextbooks, Credly, certifications). La régulation gouvernementale de l'IA en éducation se durcit mondialement. Tout changement réglementaire (RGPD-like pour l'IA, restrictions d'usage en classe) pourrait forcer des modifications produits coûteuses ou limiter l'adoption. Pearson participe à TeachAI pour influencer les normes, mais reste exposée aux décisions politiques.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et protection données learners",
@@ -314,7 +292,8 @@
       "severity": 4,
       "score_rationale": "Risque métier explicite (pages 36-37) : 'learners can access content safely and securely' avec détails opérationnels (NIST Framework, Cyturus, Trust and Safety Centre 2025). Langage intensif sur criticité ('highest standards', 'personal information entrusted'). Tendance stable/up (renforcement continu). Poids catégorie très élevé : données sensibles d'enfants et étudiants, exposition réputationnelle majeure en cas de breach.",
       "trend": "up",
-      "summary": "Pearson gère des données personnelles massives d'apprenants (enfants, étudiants, professionnels). Tout incident de cybersécurité (breach de données, accès non autorisé à eTextbooks ou Credly) risque de compromettre la confiance, générer des litiges et des amendes RGPD/COPPA. Pearson renforce son approche (NIST, Cyturus, Trust and Safety Centre) mais la surface d'attaque s'élargit avec l'IA et la digitalisation."
+      "summary": "Pearson gère des données personnelles massives d'apprenants (enfants, étudiants, professionnels). Tout incident de cybersécurité (breach de données, accès non autorisé à eTextbooks ou Credly) risque de compromettre la confiance, générer des litiges et des amendes RGPD/COPPA. Pearson renforce son approche (NIST, Cyturus, Trust and Safety Centre) mais la surface d'attaque s'élargit avec l'IA et la digitalisation.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans l'apprentissage numérique et l'IA",
@@ -322,7 +301,8 @@
       "severity": 4,
       "score_rationale": "Risque implicite mais structurel : Pearson positionne l'IA comme différenciatrice clé (1M badges Credly, partenariat Microsoft, AI tools engagement). Langage compétitif ('spearheading research', 'best-in-class learning science'). Tendance up : Microsoft, Google, OpenAI, et pure-players EdTech intègrent l'IA rapidement. Poids catégorie élevé : IA est moteur de croissance stratégique.",
       "trend": "up",
-      "summary": "Pearson fait face à une concurrence croissante de géants technologiques (Microsoft, Google) et de startups EdTech spécialisées en IA. Le partenariat Microsoft (mentionné page 35) montre la nécessité de s'allier pour rester compétitif. Risque que des acteurs mieux dotés en R&D IA ou avec des écosystèmes plus larges (cloud, données) érodent la part de marché de Pearson dans les produits numériques et les certifications (Credly)."
+      "summary": "Pearson fait face à une concurrence croissante de géants technologiques (Microsoft, Google) et de startups EdTech spécialisées en IA. Le partenariat Microsoft (mentionné page 35) montre la nécessité de s'allier pour rester compétitif. Risque que des acteurs mieux dotés en R&D IA ou avec des écosystèmes plus larges (cloud, données) érodent la part de marché de Pearson dans les produits numériques et les certifications (Credly).",
+      "score": 4
     },
     {
       "title": "Dépendance à la conformité CSRD et reporting ESG",
@@ -330,7 +310,8 @@
       "severity": 3,
       "score_rationale": "Risque explicite (page 33) : 'Actively preparing our business for compliance with the Corporate Sustainability Reporting Directive (CSRD)' et 'finalising double materiality assessment'. Langage modéré mais opérationnel. Tendance new/up : CSRD est obligation légale UE 2025-2026. Poids catégorie moyen : impact sur reporting et gouvernance, moins sur opérations métier directes.",
       "trend": "up",
-      "summary": "Pearson doit se conformer à la CSRD (Corporate Sustainability Reporting Directive) avec double materiality assessment. Tout écart entre ambitions affichées (5.3% réduction GHG, Education Bond) et réalité opérationnelle risque de générer des critiques ESG, des amendes ou une dégradation de notation (Sustainalytics, S&P CSA). Coûts de conformité et de reporting augmentent."
+      "summary": "Pearson doit se conformer à la CSRD (Corporate Sustainability Reporting Directive) avec double materiality assessment. Tout écart entre ambitions affichées (5.3% réduction GHG, Education Bond) et réalité opérationnelle risque de générer des critiques ESG, des amendes ou une dégradation de notation (Sustainalytics, S&P CSA). Coûts de conformité et de reporting augmentent.",
+      "score": 3
     },
     {
       "title": "Accessibilité produits et risque de litige discrimination",
@@ -338,7 +319,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique (pages 34-36) : Pearson s'engage sur accessibilité (Braille, Inclusio pour malvoyants, ADHD, Universal Design for Learning). Langage d'engagement fort mais aussi d'exposition : 'Global Content Policy', 'accessibility framework enhanced 2024'. Tendance stable/up : régulations ADA/AODA se renforcent. Poids catégorie moyen-élevé : litige potentiel si produits non accessibles.",
       "trend": "stable",
-      "summary": "Pearson s'engage à rendre ses produits accessibles (400k pages Braille, Inclusio pour aveugles, support ADHD via Revibe). Tout manquement à ces engagements ou à la conformité ADA/AODA (US/Canada) risque de générer des litiges de discrimination, des amendes et une dégradation de réputation. Coûts de développement d'accessibilité sont élevés et continus."
+      "summary": "Pearson s'engage à rendre ses produits accessibles (400k pages Braille, Inclusio pour aveugles, support ADHD via Revibe). Tout manquement à ces engagements ou à la conformité ADA/AODA (US/Canada) risque de générer des litiges de discrimination, des amendes et une dégradation de réputation. Coûts de développement d'accessibilité sont élevés et continus.",
+      "score": 3
     },
     {
       "title": "Propriété intellectuelle et contenu tiers",
@@ -346,7 +328,8 @@
       "severity": 3,
       "score_rationale": "Risque implicite mais structurel : Pearson produit massivement du contenu éducatif (eTextbooks, assessments, labs, certifications) et intègre l'IA. Langage sur 'Global Content Policy' et 'authoring content using AI' (page 36) indique exposition à droits d'auteur et IP. Tendance up : IA générative crée risques de contrefaçon involontaire. Poids catégorie moyen : litige IP peut être coûteux.",
       "trend": "up",
-      "summary": "Pearson crée et distribue du contenu éducatif massif (eTextbooks, assessments, Pearson Interactive Labs). L'intégration de l'IA générative dans la création de contenu (mentionnée page 36) crée des risques de violation involontaire de droits d'auteur ou de brevets. Tout litige IP majeur (plainte d'auteurs, éditeurs concurrents) risque de bloquer des produits ou générer des dommages."
+      "summary": "Pearson crée et distribue du contenu éducatif massif (eTextbooks, assessments, Pearson Interactive Labs). L'intégration de l'IA générative dans la création de contenu (mentionnée page 36) crée des risques de violation involontaire de droits d'auteur ou de brevets. Tout litige IP majeur (plainte d'auteurs, éditeurs concurrents) risque de bloquer des produits ou générer des dommages.",
+      "score": 3
     },
     {
       "title": "Dépendance à partenaires technologiques clés",
@@ -354,7 +337,8 @@
       "severity": 3,
       "score_rationale": "Risque implicite : Pearson s'appuie sur Microsoft (partenariat stratégique page 35), Degreed, smartwatches tiers (Revibe), cloud providers. Langage de dépendance ('strategic collaboration with Microsoft'). Tendance stable/up : intégration croissante de tiers. Poids catégorie moyen : interruption de service ou changement de termes pourrait impacter produits.",
       "trend": "stable",
-      "summary": "Pearson dépend de partenaires technologiques clés : Microsoft (AI, cloud), Degreed (skills mapping), Revibe (ADHD tech), smartwatches. Toute rupture de partenariat, augmentation de coûts ou changement de conditions commerciales risque de dégrader la compétitivité ou les marges. Risque de lock-in technologique avec Microsoft."
+      "summary": "Pearson dépend de partenaires technologiques clés : Microsoft (AI, cloud), Degreed (skills mapping), Revibe (ADHD tech), smartwatches. Toute rupture de partenariat, augmentation de coûts ou changement de conditions commerciales risque de dégrader la compétitivité ou les marges. Risque de lock-in technologique avec Microsoft.",
+      "score": 3
     },
     {
       "title": "Risque réputationnel lié à l'IA en éducation",
@@ -362,7 +346,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique : Pearson positionne l'IA comme transformatrice (pages 35-36) mais reconnaît les risques ('responsible use of AI', 'mitigate risks'). Langage d'engagement fort mais aussi de prudence. Tendance up : débat public sur IA en éducation s'intensifie (biais, dépendance, emploi). Poids catégorie moyen-élevé : réputation critique pour confiance des écoles/parents.",
       "trend": "up",
-      "summary": "Pearson promeut l'IA comme moteur d'apprentissage (1M badges Credly, AI tools, partenariat Microsoft). Tout incident (biais algorithmique, données d'enfants mal protégées, IA remplaçant enseignants) risque de générer une crise réputationnelle auprès des écoles, parents et régulateurs. Pearson doit équilibrer innovation et responsabilité."
+      "summary": "Pearson promeut l'IA comme moteur d'apprentissage (1M badges Credly, AI tools, partenariat Microsoft). Tout incident (biais algorithmique, données d'enfants mal protégées, IA remplaçant enseignants) risque de générer une crise réputationnelle auprès des écoles, parents et régulateurs. Pearson doit équilibrer innovation et responsabilité.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:54:48.473525+00:00",
@@ -428,17 +413,6 @@
   ],
   "company_description": "Pearson plc provides educational courseware, assessments, and services in the United Kingdom, the United States, Canada, the Asia Pacific, other European countries, and internationally. It operates through five segments: Assessment & Qualifications, Virtual Learning, English Language Learning, Enterprise Learning & Skills, and Higher Education. The Assessment & Qualifications segment offers pearson professional assessments, US student assessment, clinical assessment, UK GCSE, and A levels and international academic qualifications and associated courseware, including the English-speaking Canadian and Australian K-12 businesses, and PDR. The Virtual Learning segment provides virtual schools and online program management. The English Language Learning segment offers Pearson test of English, institutional courseware, and English online solutions. The Enterprise Learning & Skills segment provides vocational qualifications, GED, TalentLens, Faethm, Credly, Pearson College, and Enterprise content and training. The Higher Education segment engages in the US, Canadian, and international higher education courseware businesses. Pearson plc was founded in 1844 and is headquartered in London, t",
   "last_data_date": "2025-12-31",
-  "hero_kpi_override": "AI Integration",
-  "_hero_override_reason": "Yann fix 20 mai - hero original generique",
-  "overrides_governance": {
-    "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
-    "extraction_status": "heuristic_real_eu",
-    "_extracted_at": "2026-05-21T09:19:00Z",
-    "_source_file": "sec-data/cat3-european/PSON.L/annual-text/2026.txt",
-    "voting_structure": "one_share_one_vote"
-  },
-  "_stories_backfill_at": "2026-05-21T10:52:08Z",
-  "_stories_backfill_source": "scaleup_residuel_cerebras_key2",
   "revenue_by_geography": {
     "slices": [
       {
@@ -462,6 +436,17 @@
     "currency": "USD",
     "total": 27
   },
+  "hero_kpi_override": "AI Integration",
+  "_hero_override_reason": "Yann fix 20 mai - hero original generique",
+  "overrides_governance": {
+    "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:19:00Z",
+    "_source_file": "sec-data/cat3-european/PSON.L/annual-text/2026.txt",
+    "voting_structure": "one_share_one_vote"
+  },
+  "_stories_backfill_at": "2026-05-21T10:52:08Z",
+  "_stories_backfill_source": "scaleup_residuel_cerebras_key2",
   "_repartition_backfill_at": "2026-05-25T17:32:38Z",
   "_repartition_backfill_source": "cerebras_paid_k2",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/PSON.L/annual-text/2024.txt",
@@ -524,55 +509,70 @@
         1.61,
         1.62
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Higher Education Rev",
       "name_fr": "Revenus Sup",
       "name_en": "Higher Education Revenue",
-      "value": 0.62,
-      "unit": "Mds £",
+      "value": 620,
+      "unit": "M £",
       "yoy": "-4.6%",
       "history": [
-        0.79,
-        0.82,
-        0.69,
-        0.65,
-        0.62
+        790,
+        820,
+        690,
+        650,
+        620
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "Mds->M £",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "English Lang Learning",
       "name_fr": "Apprentissage langue",
       "name_en": "English Language Learning Revenue",
-      "value": 0.44,
-      "unit": "Mds £",
+      "value": 440,
+      "unit": "M £",
       "yoy": "+2.3%",
       "history": [
-        0.3,
-        0.34,
-        0.4,
-        0.43,
-        0.44
+        300,
+        340,
+        400,
+        430,
+        440
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "Mds->M £",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Virtual Learning Rev",
       "name_fr": "Revenus apprentissage virtuel",
       "name_en": "Virtual Learning Revenue",
-      "value": 0.58,
-      "unit": "Mds £",
+      "value": 580,
+      "unit": "M £",
       "yoy": "-3.3%",
       "history": [
-        0.56,
-        0.6,
-        0.61,
-        0.6,
-        0.58
+        560,
+        600,
+        610,
+        600,
+        580
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "Mds->M £",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Digital Sales Mix",
@@ -588,7 +588,10 @@
         67,
         70
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_added_at": "2026-05-28",
@@ -618,6 +621,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Pearson est un groupe britannique d'éducation et de formation. Spécialisé dans les contenus pédagogiques, les évaluations et les services d'apprentissage.",
+          "products": "Cinq segments : Assessment & Qualifications (examens professionnels et académiques), Virtual Learning (écoles en ligne, OPM), English Language Learning (PTE), Enterprise Learning & Skills (formation pro), Higher Education (contenus universitaires).",
+          "customers": "Établissements scolaires et universitaires, employeurs, étudiants, candidats à des certifications professionnelles, autorités éducatives.",
+          "edge": "Marque historique fondée en 1844, portefeuille de certifications et examens reconnus (PTE, GCSE, A Levels). Position globale sur l'éducation B2B et B2B2C."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Pearson est en phase de transformation post-désinvestissement de Penguin Random House : recentrage sur l'éducation digitale et les services de certification. Stratégie de croissance via les segments Assessment et Workforce/Lifelong Learning.",
+          "tech_products": "Cinq divisions opérationnelles avec mix B2B (évaluation, certifications, OPM) et B2C/B2B2C (cours en ligne, contenus). Plateformes Pearson VUE (testing center), MyLab/Mastering (higher ed). Investissements dans l'IA appliquée à l'éducation.",
+          "moat": "Position de quasi-standard dans plusieurs certifications (PTE pour l'anglais, GCSE/A-Levels au UK). Catalogue de contenus pédagogiques difficile à répliquer. Réseau Pearson VUE (testing centers physiques).",
+          "risks": "Disruption par l'IA générative (ChatGPT) sur les contenus pédagogiques traditionnels. Déclin structurel du higher ed US (manuels physiques). Cycle des examens dépendant des saisons scolaires. Concurrence d'edtech disruptifs (Duolingo)."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "PSON.L",
     "ranks": {
@@ -630,14 +654,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.300073+00:00",
     "fetched_at": "2026-05-21T02:17:14.300074+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.907Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.919Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pson.l.json",
     "enrich_root": "v2-pipeline-enrich/pson.l.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

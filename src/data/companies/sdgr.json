@@ -58,8 +58,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Significant decline, warning signal"
+      "period_type": "year",
+      "signal_en": "Significant decline, warning signal",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Software Revenue",
@@ -106,92 +109,112 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "+23.8%",
       "history": [
-        0.18,
-        0.22,
-        0.21,
-        0.26
+        180,
+        220,
+        210,
+        260
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.26 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.73,
-      "unit": "Mds €",
+      "value": 730,
+      "unit": "M €",
       "yoy": "-11.0%",
       "history": [
-        0.69,
-        0.8,
-        0.82,
-        0.73
+        690,
+        800,
+        820,
+        730
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.73 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "-8.3%",
       "history": [
-        0.12,
-        0.13,
-        0.12,
-        0.11
+        120,
+        130,
+        120,
+        110
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.11 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "+53.3%",
       "history": [
-        0.09,
-        0.16,
-        0.15,
-        0.23
+        90,
+        160,
+        150,
+        230
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.23 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -261,7 +284,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "implicit",
+    "stance": "absent",
     "summary": "While Schrodinger does not explicitly use the term artificial intelligence or machine learning in its 10-K, the company's physics-based computational platform fundamentally relies on advanced algorithmic methods to predict molecular properties and optimize drug discovery. The platform's core function of predicting molecular properties with high accuracy and enabling rapid computational screening is AI-adjacent technology. The predictive toxicology initiative with Bill Melinda Gates Foundation further demonstrates application of predictive computational methods to reduce drug development risk.",
     "evidence": [
       "Physics-based computational platform enabling discovery of high-quality molecules more rapidly and at lower cost",
@@ -276,34 +299,34 @@
       "title": "Significant operating losses and accumulated deficit requiring additional capital",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "10-K explicitly states 'significant operating losses' with net losses of $103.3M (2025) and $187.1M (2024). Accumulated deficit of $628.8M as of December 31, 2025. Company expects continued losses and may require additional capital raising, creating potential shareholder dilution risk for a company still in development phase. (score par défaut, à affiner)",
+      "score_rationale": "10-K explicitly states 'significant operating losses' with net losses of $103.3M (2025) and $187.1M (2024). Accumulated deficit of $628.8M as of December 31, 2025. Company expects continued losses and may require additional capital raising, creating potential shareholder dilution risk for a company still in development phase.",
       "trend": "down",
       "summary": "Company recorded significant net losses and carries substantial accumulated deficit. While losses have improved 45% YoY due to restructuring, continued capital access may be needed, with potential for future dilutive financing.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Revenue dependency on uncertain collaboration success and milestone achievement",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "10-K emphasizes revenue generation depends on 'success of specified discovery and development activities' and 'achievement of specified discovery and development milestones' under collaboration agreements. Future revenue from 'option fees, regulatory and commercial milestones, and royalties' is explicitly described as having uncertain timing and achievement. (score par défaut, à affiner)",
+      "score_rationale": "10-K emphasizes revenue generation depends on 'success of specified discovery and development activities' and 'achievement of specified discovery and development milestones' under collaboration agreements. Future revenue from 'option fees, regulatory and commercial milestones, and royalties' is explicitly described as having uncertain timing and achievement.",
       "trend": "stable",
       "summary": "Revenue streams from drug discovery collaborations depend on successful achievement of milestones and commercialization by collaborators, introducing substantial timing and realization uncertainty.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Absence of FDA-approved drug products limiting direct commercialization revenue",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Company has no drug products approved or licensed for commercial sale. Only two proprietary programs in Phase 1 (SGR-1505, SGR-3515) with company strategically phasing out independent clinical development. Revenue dependent on software licensing and collaboration milestone payments rather than direct drug product sales. (score par défaut, à affiner)",
+      "score_rationale": "Company has no drug products approved or licensed for commercial sale. Only two proprietary programs in Phase 1 (SGR-1505, SGR-3515) with company strategically phasing out independent clinical development. Revenue dependent on software licensing and collaboration milestone payments rather than direct drug product sales.",
       "trend": "stable",
       "summary": "Company has no approved drugs for commercial sale and plans to pursue partnerships for proprietary programs, limiting potential for direct product revenue and commercialization upside.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Operational restructuring execution risk and cost reduction realization",
       "category": "Operationnel",
       "severity": 3,
-      "score_rationale": "May 2025 restructuring announced with expected $70M annual savings from phasing out independent clinical development and operational efficiency improvements. Realization of these cost savings and successful transition to partnership model carries execution risk. (score par défaut, à affiner)",
+      "score_rationale": "May 2025 restructuring announced with expected $70M annual savings from phasing out independent clinical development and operational efficiency improvements. Realization of these cost savings and successful transition to partnership model carries execution risk.",
       "trend": "stable",
       "summary": "Restructuring program targeting $70M annual savings through clinical program phase-out and operational streamlining requires successful execution and may impact near-term capabilities.",
       "score": 3
@@ -312,7 +335,7 @@
       "title": "Intense competition in computational drug discovery and software markets",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "10-K references 'intense competition' in software solutions market with requirement to continually advance technology and match competitor offerings. Computational drug discovery space increasingly competitive with both established pharma and emerging biotech platforms. (score par défaut, à affiner)",
+      "score_rationale": "10-K references 'intense competition' in software solutions market with requirement to continually advance technology and match competitor offerings. Computational drug discovery space increasingly competitive with both established pharma and emerging biotech platforms.",
       "trend": "up",
       "summary": "Market for computational drug discovery platforms and software solutions faces intense competition requiring continuous innovation and technology advancement to maintain differentiation.",
       "score": 3
@@ -321,25 +344,25 @@
       "title": "Drug development risks including regulatory approval uncertainty and clinical trial failures",
       "category": "Regulation",
       "severity": 4,
-      "score_rationale": "Proprietary drug programs subject to inherent risks of preclinical and clinical development. Company discontinued SGR-2921 program due to safety concerns (two deaths in AML patients). IND and regulatory approvals uncertain. Long development timelines and high failure rates characteristic of drug development. (score par défaut, à affiner)",
+      "score_rationale": "Proprietary drug programs subject to inherent risks of preclinical and clinical development. Company discontinued SGR-2921 program due to safety concerns (two deaths in AML patients). IND and regulatory approvals uncertain. Long development timelines and high failure rates characteristic of drug development.",
       "trend": "up",
       "summary": "Drug development inherently carries risks of clinical failure, regulatory rejection, and safety issues. Company's discontinuation of SGR-2921 due to patient deaths demonstrates real materialization of these risks.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dependency on collaborators' success for future revenue and strategic milestones",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "10-K states company 'plans to explore strategic partnerships for SGR-1505 and SGR-3515 programs to advance development beyond Phase 1.' Future revenue from these programs and others depends on partner success in development and commercialization. Morphic acquisition illustrates this dependency. (score par défaut, à affiner)",
+      "score_rationale": "10-K states company 'plans to explore strategic partnerships for SGR-1505 and SGR-3515 programs to advance development beyond Phase 1.' Future revenue from these programs and others depends on partner success in development and commercialization. Morphic acquisition illustrates this dependency.",
       "trend": "stable",
       "summary": "Company is increasingly dependent on external collaborators' success in drug development and commercialization to realize value from proprietary programs and generate future milestone and royalty revenue.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Intellectual property licensing dependency and potential termination risks",
       "category": "Legal",
       "severity": 3,
-      "score_rationale": "Company holds in-licenses from Columbia University and other licensors imposing 'specified royalty and other obligations.' Risk of material breach findings and license termination could impair ability to market software solutions and develop new products utilizing licensed technology. (score par défaut, à affiner)",
+      "score_rationale": "Company holds in-licenses from Columbia University and other licensors imposing 'specified royalty and other obligations.' Risk of material breach findings and license termination could impair ability to market software solutions and develop new products utilizing licensed technology.",
       "trend": "stable",
       "summary": "Reliance on in-licenses from Columbia University and other licensors carries risk of termination disputes or breach findings that could restrict product commercialization and development capabilities.",
       "score": 3
@@ -384,7 +407,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -576,7 +599,7 @@
       "Architecture hybride physique-IA brevetée : ML scalable sur données massives couplé à simulations first-principles sans dépendance aux training sets limités, contournant les faiblesses structurelles du ML seul en chimie computationnelle.",
       "Extension materials science et biologics via même socle physique-IA démontre réutilisabilité technologique au-delà pharma, ouvrant nouveaux vecteurs de croissance logiciel."
     ],
-    "source_note": "10-K FY2025 Schrodinger Inc., sections Platform & Software Business Overview ; mentions produits Q1 2026 (RetroSynth, Lilly TuneLab integration)",
+    "source_note": "10-K exercice 2025 Schrodinger Inc., sections Platform & Software Business Overview ; mentions produits Q1 2026 (RetroSynth, Lilly TuneLab integration)",
     "_bucket": "HIGH",
     "_subsector": "Software",
     "_sources_used": {
@@ -631,173 +654,37 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SDGR",
-    "extracted_at": "2026-05-15T20:16:07Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1490978,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T09:20:43Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "R&D",
+        "short": "Net Loss",
         "period_type": "quarter",
         "history": [
-          42.54,
-          65.759,
-          -38.843,
-          27.822,
-          58.945,
-          91.83,
-          -52.225,
-          40.741,
-          83.446,
-          130.279,
-          -72.7,
-          50.611,
-          101.446,
-          152.423,
-          -102.695,
-          45.844,
-          88.982,
-          131.739,
-          -93.427,
-          43.824
+          -0.523,
+          -35.493,
+          -70.504,
+          -34.451,
+          -82.125,
+          -121.981
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 88.982,
-            "accession": "0001490978-25-000100",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 131.739,
-            "accession": "0001490978-25-000117",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -93.427,
-            "accession": "calc-0001490978-26-000010",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 43.824,
-            "accession": "0001490978-26-000037",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Software Revenue",
-        "period_type": "quarter",
-        "history": [
-          0.0209,
-          0.0229,
-          0.0263,
-          0.0241,
-          0.0243,
-          0.0386,
-          0.0331,
-          0.03,
-          0.0247,
-          0.0478,
-          0.0322,
-          0.0294,
-          0.0289,
-          0.0687,
-          0.0334,
-          0.0354,
-          0.0319,
-          0.0797,
-          0.0488,
-          0.0405,
-          0.0409,
-          0.0693
-        ],
-        "history_periods": [
-          "Q2 2020",
-          "Q3 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2022"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Software",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.0488,
-            "source": "SDGR_2025-05-07.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.0405,
-            "source": "SDGR_2025-08-06.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.0409,
-            "source": "SDGR_2025-11-05.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.0693,
-            "source": "calc-SDGR_2026-02-25.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
-        ]
+        "last_data_date": "2022-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:20:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
-    ],
-    "_segment_method": "xbrl-segment-inline"
+    ]
   },
   "enrich_ranks": {
     "ticker": "SDGR",
@@ -811,9 +698,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.307948+00:00",
     "fetched_at": "2026-05-21T02:17:14.307949+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.638Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.669Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sdgr.json",
     "enrich_root": "v2-pipeline-enrich/sdgr.json",

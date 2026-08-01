@@ -38,7 +38,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Net Asset Value — total assets minus liabilities, often per share.",
+      "explanation_en": "Net Asset Value, total assets minus liabilities, often per share.",
       "signal_en": "Capital base contracting, monitor structure"
     },
     {
@@ -178,11 +178,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 99.56 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -201,11 +205,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 42.7 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,9 +239,7 @@
       "is_generic": true,
       "is_short_history": true,
       "period_type": "annual",
-      "story_category": "Marché",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Total Portfolio Revenue",
@@ -256,9 +262,7 @@
       "is_generic": true,
       "is_short_history": true,
       "period_type": "annual",
-      "story_category": "Marché",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -305,7 +309,8 @@
       "severity": 5,
       "score_rationale": "Aker BP représente 45,3% de la GAV (29,7 Mds NOK). Le texte souligne l'exposition directe aux prix du Brent (baisse 2,9% en 2024) et la dépendance aux revenus pétroliers. Langage intensif sur l'importance stratégique du portefeuille E&P. Tendance stable mais risque structurel majeur pour la valeur du groupe.",
       "trend": "stable",
-      "summary": "Aker BP, plus grand actif du portefeuille (45,3% de GAV), génère ses revenus de l'exploration-production pétrolière sur le plateau continental norvégien. La baisse du Brent de 2,9% en 2024 et l'incertitude macroéconomique mondiale impactent directement la valorisation et les dividendes reçus (3,5 Mds NOK en 2024). Toute chute prolongée des prix affecterait significativement la NAV du groupe."
+      "summary": "Aker BP, plus grand actif du portefeuille (45,3% de GAV), génère ses revenus de l'exploration-production pétrolière sur le plateau continental norvégien. La baisse du Brent de 2,9% en 2024 et l'incertitude macroéconomique mondiale impactent directement la valorisation et les dividendes reçus (3,5 Mds NOK en 2024). Toute chute prolongée des prix affecterait significativement la NAV du groupe.",
+      "score": 5
     },
     {
       "title": "Risques de projet et dépassements budgétaires dans les chantiers majeurs",
@@ -313,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Aker Solutions détient un carnet de commandes substantiel incluant des projets majeurs de développement de champs. Le texte mentionne explicitement la nécessité de 'livrer en temps et dans les budgets'. Langage modéré mais risque opérationnel significatif pour une entreprise d'ingénierie. Tendance stable avec focus sur l'exécution.",
       "trend": "stable",
-      "summary": "Aker Solutions (9,2% de GAV) fournit des solutions intégrées et services d'ingénierie à l'industrie énergétique mondiale. Le groupe souligne l'importance de 'livrer sur le carnet de commandes substantiel, en toute sécurité, à temps et dans les budgets'. Les dépassements de coûts ou retards sur les grands projets de développement de champs pourraient éroder les marges EBITDA (8,7% en 2024)."
+      "summary": "Aker Solutions (9,2% de GAV) fournit des solutions intégrées et services d'ingénierie à l'industrie énergétique mondiale. Le groupe souligne l'importance de 'livrer sur le carnet de commandes substantiel, en toute sécurité, à temps et dans les budgets'. Les dépassements de coûts ou retards sur les grands projets de développement de champs pourraient éroder les marges EBITDA (8,7% en 2024).",
+      "score": 4
     },
     {
       "title": "Transition énergétique et obsolescence du portefeuille pétrolier",
@@ -321,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Aker Horizons (1,7% GAV) perd de la valeur (-0,9 Mds NOK en 2024). Le texte reconnaît 'le besoin croissant d'énergie sûre, rentable et à faibles émissions'. Langage modéré mais tendance négative claire : Mainstream Renewable Power réduit sa base de coûts, ACC a vendu 80% à SLB. Risque réglementaire et de transition énergétique majeur.",
       "trend": "up",
-      "summary": "Aker Horizons investit dans les énergies renouvelables et technologies vertes, mais subit des pertes opérationnelles (-496 M NOK EBITDA en 2024). La transition énergétique mondiale crée une pression réglementaire sur le portefeuille pétrolier traditionnel (Aker BP) tout en rendant difficile la rentabilité des investissements verts. Mainstream Renewable Power restructure ses opérations, signalant des défis de rentabilité dans le secteur."
+      "summary": "Aker Horizons investit dans les énergies renouvelables et technologies vertes, mais subit des pertes opérationnelles (-496 M NOK EBITDA en 2024). La transition énergétique mondiale crée une pression réglementaire sur le portefeuille pétrolier traditionnel (Aker BP) tout en rendant difficile la rentabilité des investissements verts. Mainstream Renewable Power restructure ses opérations, signalant des défis de rentabilité dans le secteur.",
+      "score": 4
     },
     {
       "title": "Risques de litiges et contentieux dans les restructurations",
@@ -329,7 +336,8 @@
       "severity": 3,
       "score_rationale": "Deux litiges explicitement mentionnés : (1) réclamation contre Aker Capital et autres parties pour pertes liées au refinancement de Solstad Offshore (audience automne 2025), (2) Aker Capital conteste le bien-fondé. Langage factuel mais présence de risque juridique identifié. Tendance stable mais impact potentiel sur la valeur de Solstad (8,7% GAV combinée).",
       "trend": "stable",
-      "summary": "En mai 2024, une réclamation a été déposée contre Aker Capital (filiale 100% d'Aker ASA) et plusieurs autres parties pour des pertes alléguées liées au refinancement de Solstad Offshore. L'audience est prévue à l'automne 2025. Bien qu'Aker Capital conteste le bien-fondé de la réclamation, ce litige pourrait générer des coûts légaux et affecter la valeur des investissements Solstad (combinés 8,7% de GAV)."
+      "summary": "En mai 2024, une réclamation a été déposée contre Aker Capital (filiale 100% d'Aker ASA) et plusieurs autres parties pour des pertes alléguées liées au refinancement de Solstad Offshore. L'audience est prévue à l'automne 2025. Bien qu'Aker Capital conteste le bien-fondé de la réclamation, ce litige pourrait générer des coûts légaux et affecter la valeur des investissements Solstad (combinés 8,7% de GAV).",
+      "score": 3
     },
     {
       "title": "Dépendance à la croissance et rentabilité des logiciels industriels",
@@ -337,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Cognite et Aize sont des actifs technologiques clés en croissance rapide. Cognite : ARR +38% (1 Mds NOK), mais perte nette -62 M USD en 2024. Aize : ARR +240%, mais perte nette -21 M USD. Langage intensif sur la stratégie SaaS et l'expansion internationale. Tendance 'up' : croissance rapide mais rentabilité non atteinte. Risque de brûlure de cash et de dilution.",
       "trend": "up",
-      "summary": "Cognite (logiciel de digitalisation industrielle) et Aize (digital twin) sont des investissements technologiques à forte croissance mais non rentables. Cognite affiche une ARR record de 1 Md NOK (+38%) mais reste en perte (-62 M USD). Aize a connu une croissance ARR de 240% et signé des accords avec BP et ExxonMobil, mais reste en perte (-21 M USD). Le succès dépend de la capacité à monétiser rapidement et atteindre la rentabilité avant épuisement du cash."
+      "summary": "Cognite (logiciel de digitalisation industrielle) et Aize (digital twin) sont des investissements technologiques à forte croissance mais non rentables. Cognite affiche une ARR record de 1 Md NOK (+38%) mais reste en perte (-62 M USD). Aize a connu une croissance ARR de 240% et signé des accords avec BP et ExxonMobil, mais reste en perte (-21 M USD). Le succès dépend de la capacité à monétiser rapidement et atteindre la rentabilité avant épuisement du cash.",
+      "score": 4
     },
     {
       "title": "Risques opérationnels et de marché dans l'aquaculture et la nutrition marine",
@@ -345,7 +354,8 @@
       "severity": 3,
       "score_rationale": "Aker BioMarine (7,0% GAV) et Aker Qrill Company (2,4% GAV) opèrent dans la nutrition marine. BioMarine : EBITDA margin 8,0%, perte nette -14 M USD en 2024. Qrill Company : EBITDA margin -5,1%, perte nette -21 M USD en 2024. Langage modéré mais tendance négative : restructuration en cours (vente Feed Ingredients à AIP). Risque de volatilité des prix des matières premières et de la demande.",
       "trend": "up",
-      "summary": "Aker BioMarine (leader mondial du krill) et Aker Qrill Company (récolte de krill antarctique) opèrent dans un secteur exposé à la volatilité des prix des matières premières et à la demande de nutrition marine. BioMarine a enregistré une perte nette de -14 M USD en 2024 malgré une marge EBITDA de 8,0%. La restructuration récente (vente du Feed Ingredients business) crée des risques d'intégration et de concentration sur le segment santé-nutrition."
+      "summary": "Aker BioMarine (leader mondial du krill) et Aker Qrill Company (récolte de krill antarctique) opèrent dans un secteur exposé à la volatilité des prix des matières premières et à la demande de nutrition marine. BioMarine a enregistré une perte nette de -14 M USD en 2024 malgré une marge EBITDA de 8,0%. La restructuration récente (vente du Feed Ingredients business) crée des risques d'intégration et de concentration sur le segment santé-nutrition.",
+      "score": 3
     },
     {
       "title": "Risques de refinancement et de structure de capital dans les filiales",
@@ -353,7 +363,8 @@
       "severity": 3,
       "score_rationale": "Solstad Offshore a refinancé sa dette en 2024 (échéance mars 2024) avec nouveaux emprunts DNB et Eksportfinans. Aker a injecté 2,3 Mds NOK. Langage factuel sur les opérations de refinancement. Tendance stable mais risque de refinancement récurrent. Solstad Maritime prévoit une IPO Q2 2025, créant des risques de dilution et de volatilité.",
       "trend": "stable",
-      "summary": "Solstad Offshore a refinancé sa dette en 2024 avec de nouveaux emprunts auprès de DNB et Eksportfinans, Aker contribuant 2,3 Mds NOK. Solstad Maritime prévoit une introduction en bourse au Q2 2025, avec distribution de 19,6% des actions par AMSC aux actionnaires. Ces opérations de refinancement et de restructuration créent des risques de dilution, de volatilité de marché et de dépendance aux conditions de crédit."
+      "summary": "Solstad Offshore a refinancé sa dette en 2024 avec de nouveaux emprunts auprès de DNB et Eksportfinans, Aker contribuant 2,3 Mds NOK. Solstad Maritime prévoit une introduction en bourse au Q2 2025, avec distribution de 19,6% des actions par AMSC aux actionnaires. Ces opérations de refinancement et de restructuration créent des risques de dilution, de volatilité de marché et de dépendance aux conditions de crédit.",
+      "score": 3
     },
     {
       "title": "Concentration du portefeuille et risque de valorisation des actifs majeurs",
@@ -361,7 +372,8 @@
       "severity": 4,
       "score_rationale": "Aker BP seul représente 45,3% de GAV (29,7 Mds NOK). Les 5 plus grands actifs (BP, Solutions, BioMarine, Horizons, Solstad) représentent ~75% de GAV. NAV a baissé de 63,2 à 58,2 Mds NOK (-7,9%) en 2024. Langage intensif sur la dépendance au portefeuille. Tendance négative : baisse de valeur généralisée. Risque systémique majeur.",
       "trend": "down",
-      "summary": "Le portefeuille d'Aker est fortement concentré : Aker BP représente seul 45,3% de la GAV, et les cinq plus grands actifs représentent environ 75% de la valeur totale. La NAV a diminué de 7,9% en 2024 (de 63,2 à 58,2 Mds NOK), reflétant des baisses de valorisation généralisées, notamment chez Aker BP (-9,9 Mds NOK) et Aker Solutions (-2,1 Mds NOK). Cette concentration crée un risque systémique majeur : toute détérioration significative des actifs majeurs affecte directement la valeur du groupe."
+      "summary": "Le portefeuille d'Aker est fortement concentré : Aker BP représente seul 45,3% de la GAV, et les cinq plus grands actifs représentent environ 75% de la valeur totale. La NAV a diminué de 7,9% en 2024 (de 63,2 à 58,2 Mds NOK), reflétant des baisses de valorisation généralisées, notamment chez Aker BP (-9,9 Mds NOK) et Aker Solutions (-2,1 Mds NOK). Cette concentration crée un risque systémique majeur : toute détérioration significative des actifs majeurs affecte directement la valeur du groupe.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:13:08.685468+00:00",
@@ -489,6 +501,102 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "AKER.OL",
+    "extracted_at": "2026-06-01T02:56:01Z",
+    "n_kpis": 4,
+    "kpis": [
+      {
+        "short": "NAV",
+        "period_type": "year",
+        "history": [
+          53.4,
+          69.8,
+          66.9,
+          63.2,
+          58.2
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "B NOK",
+        "_extracted_at": "2026-06-01T02:56:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "GAV",
+        "period_type": "year",
+        "history": [
+          63.9,
+          80,
+          76.1,
+          63.9,
+          53.7
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "B NOK",
+        "_extracted_at": "2026-06-01T02:56:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Dividend Paid",
+        "period_type": "year",
+        "history": [
+          1.75,
+          1.75,
+          2.15,
+          2.22,
+          3.8
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "B NOK",
+        "_extracted_at": "2026-06-01T02:56:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Dividende",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Upstream Dividends",
+        "period_type": "year",
+        "history": [
+          2.341,
+          2.01,
+          2.765,
+          4.407
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023"
+        ],
+        "last_data_date": "2023-12-31",
+        "unit": "B NOK",
+        "_extracted_at": "2026-06-01T02:56:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "AKER.OL",
     "ranks": {
@@ -501,14 +609,15 @@
     "country": "Norway",
     "_data_freshness_date": "2026-05-21T02:17:14.218454+00:00",
     "fetched_at": "2026-05-21T02:17:14.218455+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.572Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.027Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aker.ol.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

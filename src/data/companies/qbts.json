@@ -38,10 +38,13 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 35.64,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'HPC / Cloud' : Revenu QCaaS not found with explicit annual breakdown. Document mentions total revenue ($7.2M in 2022, $6.3M in 2021, $5",
-      "signal_en": "Recurring base growing, revenue visibility rising"
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -133,7 +136,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Capex",
@@ -155,53 +158,63 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.92,
-      "unit": "Mds €",
+      "value": 920,
+      "unit": "M €",
       "yoy": "+360.0%",
       "history": [
-        0.03,
-        0.06,
-        0.2,
-        0.92
+        30,
+        60,
+        200,
+        920
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.04,
-        0.07,
-        0.04,
-        0.04
+        40,
+        70,
+        40,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -251,7 +264,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "active",
+    "stance": "integrator",
     "summary": "D-Wave positionne l'IA comme un cas d'usage clé pour l'informatique quantique, avec une démonstration commerciale d'utilisation de la technologie quantique pour l'entraînement de modèles d'IA. La société met en avant son rôle de pionnier dans la convergence quantique-IA.",
     "evidence": [
       "First with commercial customer use of its quantum computing technology with AI model training",
@@ -264,61 +277,61 @@
       "title": "Pertes financières continues",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "La société a enregistré des pertes nettes de 355,1M$ en 2025 et une perte opérationnelle de 100,4M$, avec un déficit cumulé de 982,0M$. Les dirigeants s'attendent à des pertes significatives pour le futur prévisible en raison des investissements R&D continus. (score par défaut, à affiner)",
+      "score_rationale": "La société a enregistré des pertes nettes de 355,1M$ en 2025 et une perte opérationnelle de 100,4M$, avec un déficit cumulé de 982,0M$. Les dirigeants s'attendent à des pertes significatives pour le futur prévisible en raison des investissements R&D continus.",
       "trend": "stable",
       "summary": "Pertes financières importantes liées aux investissements massifs en R&D et en go-to-market, impactant la durabilité financière et la capacité de développement à long terme.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à la R&D et à l'innovation technologique",
       "category": "Technologie",
       "severity": 5,
-      "score_rationale": "L'entreprise dépend entièrement de sa capacité à développer des systèmes quantiques commerciaux viables et performants. Les efforts de conception et développement continuent tout au long de la vie utile des systèmes. Toute défaillance technologique impacterait gravement les perspectives commerciales. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise dépend entièrement de sa capacité à développer des systèmes quantiques commerciaux viables et performants. Les efforts de conception et développement continuent tout au long de la vie utile des systèmes. Toute défaillance technologique impacterait gravement les perspectives commerciales.",
       "trend": "up",
       "summary": "Dépendance critique à la R&D continue pour rester compétitif et commercialiser des systèmes gate-model en 2026, avec des risques de retards technologiques.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Incertitude de la demande commerciale",
       "category": "Marché",
       "severity": 4,
-      "score_rationale": "La société est en phase de croissance précoce sur un marché émergent et dépend fortement de l'adoption commerciale de l'informatique quantique, qui reste imprévisible. La réalisation des cas d'usage quantiques en production est encore limitée. (score par défaut, à affiner)",
+      "score_rationale": "La société est en phase de croissance précoce sur un marché émergent et dépend fortement de l'adoption commerciale de l'informatique quantique, qui reste imprévisible. La réalisation des cas d'usage quantiques en production est encore limitée.",
       "trend": "up",
       "summary": "L'adoption commerciale de l'informatique quantique reste incertaine, avec un pipeline de clients limité et des cycles de vente potentiellement longs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans le quantique",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Bien que D-Wave détienne un avantage de premier entrant, de nombreuses autres entreprises et laboratoires (Google, IBM, IonQ, etc.) investissent massivement dans les technologies quantiques, créant une compétition intensifiée. (score par défaut, à affiner)",
+      "score_rationale": "Bien que D-Wave détienne un avantage de premier entrant, de nombreuses autres entreprises et laboratoires (Google, IBM, IonQ, etc.) investissent massivement dans les technologies quantiques, créant une compétition intensifiée.",
       "trend": "up",
       "summary": "Compétition croissante d'acteurs bien financés pourrait éroder la position de leader technologique et commerciale de D-Wave.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux talents et expertise technique rare",
       "category": "Personne-clé",
       "severity": 4,
-      "score_rationale": "L'industrie quantique souffre d'une pénurie critque de talents qualifiés. Le départ de personnel clé en R&D ou en direction impacterait directement la capacité à innover et exécuter la stratégie commerciale. (score par défaut, à affiner)",
+      "score_rationale": "L'industrie quantique souffre d'une pénurie critque de talents qualifiés. Le départ de personnel clé en R&D ou en direction impacterait directement la capacité à innover et exécuter la stratégie commerciale.",
       "trend": "stable",
       "summary": "Concurrence féroce pour les talents en informatique quantique pourrait affecter la rétention et le recrutement de personnel stratégique.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Immaturité du marché de l'informatique quantique",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le marché commercial de l'informatique quantique n'en est qu'aux débuts avec peu d'applications rentables en production. Les délais d'adoption et les profils de rentabilité restent hautement imprévisibles. (score par défaut, à affiner)",
+      "score_rationale": "Le marché commercial de l'informatique quantique n'en est qu'aux débuts avec peu d'applications rentables en production. Les délais d'adoption et les profils de rentabilité restent hautement imprévisibles.",
       "trend": "up",
       "summary": "Le manque de maturité commerciale du marché quantique crée une incertitude sur les horizons de rentabilité et la croissance revenue.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité de la structure du capital et des warrant",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "La société a enregistré 270,5M$ de charges mark-to-market liées à ses warrants publiquement cotés en 2025, créant une volatilité significative au résultat net indépendante des opérations commerciales. (score par défaut, à affiner)",
+      "score_rationale": "La société a enregistré 270,5M$ de charges mark-to-market liées à ses warrants publiquement cotés en 2025, créant une volatilité significative au résultat net indépendante des opérations commerciales.",
       "trend": "up",
       "summary": "Les ajustements de valeur des warrants créent une volatilité non opérationnelle substantielle dans les états financiers.",
       "score": 3
@@ -327,7 +340,7 @@
       "title": "Croissance rapide et défis opérationnels",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La croissance revenue de 180% crée des défis opérationnels en gestion, scalabilité et ressources. L'expansion de quatre sites, la transition du siège social et l'ouverture de nouveaux centres R&D ajoutent une complexité opérationnelle. (score par défaut, à affiner)",
+      "score_rationale": "La croissance revenue de 180% crée des défis opérationnels en gestion, scalabilité et ressources. L'expansion de quatre sites, la transition du siège social et l'ouverture de nouveaux centres R&D ajoutent une complexité opérationnelle.",
       "trend": "up",
       "summary": "Défis de scalabilité et de gestion associés à la croissance rapide pourraient impacter l'exécution opérationnelle.",
       "score": 3
@@ -370,7 +383,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -508,223 +521,51 @@
   },
   "enrich_quarterly_history": {
     "ticker": "QBTS",
-    "extracted_at": "2026-05-15T19:50:33Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1907982,
-    "n_kpis": 3,
+    "extracted_at": "2026-06-01T09:17:51Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "R&D Spend",
+        "short": "Total Revenue",
         "period_type": "quarter",
         "history": [
-          13.599,
-          20.933,
-          10.915,
-          20.463,
-          29.922,
-          -23.422,
-          8.525,
-          16.88,
-          25.548,
-          -15.653,
-          10.288,
-          22.982,
-          37.057,
-          -19.593,
-          25.793
+          1.3,
+          1.7,
+          1.4,
+          1.7,
+          1.6,
+          1.7,
+          2.6,
+          2.5,
+          2.2,
+          1.9,
+          15,
+          3.1,
+          3.7
         ],
         "history_periods": [
-          "Q2 2022",
-          "Q3 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 22.982,
-            "accession": "0001907982-25-000181",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 37.057,
-            "accession": "0001907982-25-000251",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -19.593,
-            "accession": "calc-0001907982-26-000026",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 25.793,
-            "accession": "0001907982-26-000059",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Capex",
-        "period_type": "quarter",
-        "history": [
-          0.175,
-          0.249,
-          0.064,
-          0.059,
-          0.141,
-          0.319,
-          0.305,
-          0.85,
-          1.156,
-          -0.205,
-          0.438,
-          1.187,
-          2.203,
-          0.034,
-          1.081
-        ],
-        "history_periods": [
-          "Q2 2022",
-          "Q3 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1.187,
-            "accession": "0001907982-25-000181",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 2.203,
-            "accession": "0001907982-25-000251",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.034,
-            "accession": "calc-0001907982-26-000026",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.081,
-            "accession": "0001907982-26-000059",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "HPC / Cloud",
-        "period_type": "quarter",
-        "history": [
-          0.001,
-          0.001,
-          0.0014,
-          0.0012,
-          0.0013,
-          0.0017,
-          0.0012,
-          0.001,
-          0.0011,
-          0.0016,
-          0.0017,
-          0.0018,
-          0.0016,
-          0.0017,
-          0.0015,
-          0.0012,
-          0.0014,
-          0.0014
-        ],
-        "history_periods": [
-          "Q2 2021",
           "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "QCaaS",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.0015,
-            "source": "QBTS_2025-05-08.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.0012,
-            "source": "QBTS_2025-08-07.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.0014,
-            "source": "QBTS_2025-11-06.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.0014,
-            "source": "calc-QBTS_2026-02-26.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:17:51Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
-    ],
-    "_segment_method": "xbrl-segment-inline"
+    ]
   },
   "enrich_ranks": {
     "ticker": "QBTS",
@@ -738,9 +579,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.300845+00:00",
     "fetched_at": "2026-05-21T02:17:14.300845+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.986Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.998Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/qbts.json",
     "enrich_root": "v2-pipeline-enrich/qbts.json",

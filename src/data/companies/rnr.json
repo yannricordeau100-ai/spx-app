@@ -38,10 +38,13 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mille' à 'M' (milliers USD); YoY calculé: (1511011-1276975)/1276975 = 18.4%; Valeur history[0] corrigée de 1276968 à 1276975 (conforme source); is_wow passé à true; is_generic passé à false",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 années de données explicites trouvées (2020 et 2019). Le KPI 'Total carrying value of investments exposed to equity price risk' ",
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Impact of a hypothetical 10% increase in the carrying value of investments exposed to equity price risk",
@@ -90,13 +93,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 12.78 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:27.797744+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
@@ -115,11 +122,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 2.68 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -138,11 +149,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 3.69 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +176,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 53.8 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,11 +203,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.33 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -207,10 +230,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.73 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -224,7 +251,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.44,
         1.48,
@@ -237,7 +264,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -252,7 +279,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2667,
@@ -265,7 +292,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -280,7 +307,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -293,7 +320,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -309,7 +336,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -25.5,
@@ -322,7 +349,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -373,7 +400,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -387,7 +414,8 @@
       "severity": 5,
       "score_rationale": "Le risque est fréquemment mentionné dans le 10-K avec un langage fort (\"incidents\", \"prévention, détection, mitigation\"). Le comité d'audit et le board sont activement impliqués, ce qui souligne l'importance stratégique. La catégorie cybersécurité est critique pour les institutions financières. Le risque est stable par rapport à l'année précédente.",
       "trend": "stable",
-      "summary": "Une cyberattaque pourrait compromettre les systèmes critiques, entraîner des pertes de données ou interrompre les opérations."
+      "summary": "Une cyberattaque pourrait compromettre les systèmes critiques, entraîner des pertes de données ou interrompre les opérations.",
+      "score": 5
     },
     {
       "title": "Risque fiscal à Bermudes",
@@ -395,7 +423,8 @@
       "severity": 4,
       "score_rationale": "La mise en place d'une imposition de 15% au Bermudes depuis 2025 est un changement majeur (langage explicite sur l'impact). Ce risque est nouveau par rapport à l'année précédente, car auparavant l'absence d'impôt était un avantage structurel. La catégorie réglementaire est fortement pondérée ici.",
       "trend": "new",
-      "summary": "L'introduction d'un impôt sur les sociétés de 15% à Bermudes affecte directement la rentabilité des bénéfices locaux."
+      "summary": "L'introduction d'un impôt sur les sociétés de 15% à Bermudes affecte directement la rentabilité des bénéfices locaux.",
+      "score": 4
     },
     {
       "title": "Dépendance aux systèmes informatiques",
@@ -403,7 +432,8 @@
       "severity": 4,
       "score_rationale": "Le texte insiste sur les plans de continuité, sauvegardes et centres de données secondaires. Le risque est lié à la disponibilité des systèmes critiques. Le langage montre une préparation active, mais l'exposition est élevée. Position centrale dans le 10-K. Catégorie technologie fortement impactante.",
       "trend": "stable",
-      "summary": "Toute défaillance majeure des systèmes informatiques pourrait perturber les opérations et nuire à la performance financière."
+      "summary": "Toute défaillance majeure des systèmes informatiques pourrait perturber les opérations et nuire à la performance financière.",
+      "score": 4
     },
     {
       "title": "Gestion des capitaux propres",
@@ -411,7 +441,8 @@
       "severity": 3,
       "score_rationale": "Le programme de rachat d'actions (750M$) et la dépendance aux décisions du board sur les dividendes montrent une exposition au risque de gestion du capital. Le langage est mesuré, mais le montant élevé des rachats souligne l'importance. Risque stable vs N-1.",
       "trend": "stable",
-      "summary": "Les décisions de rachat d'actions et de distribution de dividendes dépendent de la situation financière et pourraient limiter la flexibilité en cas de stress."
+      "summary": "Les décisions de rachat d'actions et de distribution de dividendes dépendent de la situation financière et pourraient limiter la flexibilité en cas de stress.",
+      "score": 3
     },
     {
       "title": "Litiges juridiques",
@@ -419,7 +450,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné par référence à la Note 20, sans détails, ce qui suggère un risque existant mais maîtrisé. L'absence de description détaillée indique une intensité modérée. Catégorie litige moins pondérée ici. Position standard dans le 10-K.",
       "trend": "stable",
-      "summary": "Des poursuites ou litiges en cours pourraient entraîner des coûts importants ou des sanctions."
+      "summary": "Des poursuites ou litiges en cours pourraient entraîner des coûts importants ou des sanctions.",
+      "score": 3
     }
   ],
   "governance": {
@@ -448,7 +480,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:23:25Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -476,7 +508,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:34Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:10Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "enrich_description": {
     "ticker": "RNR",
@@ -531,7 +563,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.293Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.458Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rnr.json",
     "enrich_root": "v2-pipeline-enrich/rnr.json",

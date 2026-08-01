@@ -46,8 +46,8 @@
       "name_fr": "Bénéfice ajusté",
       "name_en": "Adjusted earnings",
       "explanation": "Bénéfice opérationnel ajusté excluant les variations de marché, les gains/pertes sur dérivés et les éléments non récurrents, mesure non-GAAP de performance opérationnelle durable",
-      "value": "1617",
-      "unit": "M $",
+      "value": 1.617,
+      "unit": "Mds $",
       "yoy": "+22.6%",
       "type": "Profitability",
       "nature": "Cyclique",
@@ -55,8 +55,8 @@
       "signal": "Augmentation significative du bénéfice ajusté",
       "description": "Mesure non-GAAP reflétant la performance opérationnelle durable avant éléments extraordinaires, présentation détaillée par activités clés dans le MD&A",
       "history": [
-        1319,
-        1617
+        1.319,
+        1.617
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -64,7 +64,8 @@
       "is_short_history": false,
       "ttm": 1617,
       "_validation": "Valeurs confirmées dans MDA Executive Summary (2024: $1,319M, 2025: $1,617M), YoY calculé: (1617-1319)/1319 = +22,6%, is_wow=true justifié par croissance supérieure (22,6% vs 15,7%), is_generic=false car mesure spécifique non-GAAP, ttm=1617, unité M$ correcte, aucune correction nécessaire",
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -83,34 +84,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 6.39 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "+10.3%",
       "history": [
-        3.88,
-        -1.11,
-        0.39,
-        0.43
+        3880,
+        -1110,
+        390,
+        430
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.43 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -129,11 +139,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 5.71 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -152,11 +166,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 241.8 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -175,11 +193,16 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.15 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ],
+      "_audit_flag": "HISTORY_FLAT_SUSPECT"
     },
     {
       "short": "Cash & Equivalents",
@@ -198,10 +221,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 5.39 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -228,9 +255,7 @@
       "is_short_history": false,
       "story_category": "Performance",
       "ttm": 1617,
-      "_validation": "KPI confirmé comme adjusted earnings (croissance 22,6%), valeurs sources validées (2024: $1,319M, 2025: $1,617M) dans MDA Executive Summary, story_category='Performance' approprié, is_wow=true et is_generic=false corrects, ttm=1617, unité M$ correcte, aucune correction nécessaire",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "KPI confirmé comme adjusted earnings (croissance 22,6%), valeurs sources validées (2024: $1,319M, 2025: $1,617M) dans MDA Executive Summary, story_category='Performance' approprié, is_wow=true et is_generic=false corrects, ttm=1617, unité M$ correcte, aucune correction nécessaire"
     }
   ],
   "ai_positioning": {
@@ -248,7 +273,8 @@
       "score_rationale": "Ce risque est mentionné en premier dans la section Risks Related to the Merger. Le langage utilisé est fort (materially adversely affected, lose all or part of your investment). L'échec de la fusion pourrait entraîner des coûts de résiliation importants et affecter négativement le cours de l'action et les opérations.",
       "trend": "up",
       "summary": "L'échec de la fusion avec Aquarian Parent pourrait avoir des conséquences financières et opérationnelles graves, y compris des coûts de résiliation élevés et une baisse du cours de l'action.",
-      "_validation": "Confirmé dans la source, Merger Agreement daté 6 novembre 2025, adopté par stockholders 12 février 2026, conditions pendantes incluant approbations réglementaires d'assurance, HSR waiting period expiré"
+      "_validation": "Confirmé dans la source, Merger Agreement daté 6 novembre 2025, adopté par stockholders 12 février 2026, conditions pendantes incluant approbations réglementaires d'assurance, HSR waiting period expiré",
+      "score": 5
     },
     {
       "title": "Inexactitude des hypothèses actuarielles",
@@ -257,7 +283,8 @@
       "score_rationale": "Ce risque est détaillé dans la section Risks Related to Our Business et est fondamental pour le modèle économique de l'entreprise. Le langage (materially adverse effect, impair our solvency) indique une gravité élevée. Il s'agit d'un risque récurrent pour les assureurs.",
       "trend": "stable",
       "summary": "Des écarts entre les expériences réelles des sinistres et les hypothèses actuarielles pourraient entraîner une augmentation des passifs et affecter négativement les résultats financiers et la solvabilité.",
-      "_validation": "Confirmé dans la source, risque standard pour assureurs annuités mentionné dans Risk Factors section"
+      "_validation": "Confirmé dans la source, risque standard pour assureurs annuités mentionné dans Risk Factors section",
+      "score": 4
     },
     {
       "title": "Garanties des produits d'annuité",
@@ -266,7 +293,8 @@
       "score_rationale": "Ce risque est bien expliqué dans la section Risks Related to Our Business et concerne des produits spécifiques. L'impact potentiel sur les résultats, le capital et la solvabilité est clairement énoncé (material adverse effect, ultimately impact our solvency).",
       "trend": "stable",
       "summary": "Les garanties offertes sur certains produits d'annuité (GMDB, GMWB, Shield Annuity) peuvent augmenter la volatilité des résultats et affecter la capitalisation et la solvabilité en cas de conditions de marché défavorables.",
-      "_validation": "Confirmé dans la source, produits Shield Annuity et variable annuity avec hedging mentionnés dans Risk Management Strategies, nouvelle version Shield Annuity lancée en 2024 avec gestion standalone"
+      "_validation": "Confirmé dans la source, produits Shield Annuity et variable annuity avec hedging mentionnés dans Risk Management Strategies, nouvelle version Shield Annuity lancée en 2024 avec gestion standalone",
+      "score": 4
     },
     {
       "title": "Inefficacité de la stratégie de couverture",
@@ -275,7 +303,8 @@
       "score_rationale": "Ce risque est abordé dans la section Risks Related to Our Business et concerne la gestion des risques de marché. Le texte souligne que la stratégie may not be fully effective et peut entraîner une significant volatility in our profitability measures.",
       "trend": "stable",
       "summary": "La stratégie de couverture des risques de marché pourrait ne pas être entièrement efficace, entraînant une volatilité accrue des bénéfices et des impacts potentiels sur le capital réglementaire.",
-      "_validation": "Confirmé dans la source MDA Risk Management Strategies, mentionné explicitement Our hedging strategy may not be effective, gestion RBC cible 400-450%, Q3 2025 initiative établissant standalone hedging programs pour variable annuity et Shield Annuity"
+      "_validation": "Confirmé dans la source MDA Risk Management Strategies, mentionné explicitement Our hedging strategy may not be effective, gestion RBC cible 400-450%, Q3 2025 initiative établissant standalone hedging programs pour variable annuity et Shield Annuity",
+      "score": 4
     },
     {
       "title": "Restrictions commerciales pendant la fusion",
@@ -284,7 +313,8 @@
       "score_rationale": "Ce risque est mentionné dans la section Risks Related to the Merger. Il décrit des limitations sur les actions commerciales avant la finalisation de la fusion (adversely affect our ability to execute certain of our business strategies).",
       "trend": "up",
       "summary": "Les restrictions imposées pendant la période de fusion limitent la capacité de l'entreprise à poursuivre des transactions stratégiques ou d'autres actions potentiellement bénéfiques.",
-      "_validation": "Confirmé dans la source, période de fusion s'étendant jusqu'en 2026, HSR waiting period expiré, approbations assurance toujours attendues selon Executive Summary"
+      "_validation": "Confirmé dans la source, période de fusion s'étendant jusqu'en 2026, HSR waiting period expiré, approbations assurance toujours attendues selon Executive Summary",
+      "score": 3
     },
     {
       "title": "Litiges liés à la fusion",
@@ -293,7 +323,8 @@
       "score_rationale": "Ce risque est identifié dans la section Risks Related to the Merger. La mention de plaintes et de lettres de demande, ainsi que le potentiel de litiges futurs (could result in significant costs and divert management's attention), justifient sa classification.",
       "trend": "up",
       "summary": "Des litiges liés à la fusion, y compris ceux concernant la déclaration de procuration, pourraient entraîner des coûts importants et détourner l'attention de la direction.",
-      "_validation": "Confirmé dans la source, Merger Agreement adopté par stockholders 12 février 2026, litiges relatifs à proxy statement mentionnés dans Executive Summary"
+      "_validation": "Confirmé dans la source, Merger Agreement adopté par stockholders 12 février 2026, litiges relatifs à proxy statement mentionnés dans Executive Summary",
+      "score": 3
     },
     {
       "title": "Impact des conditions économiques",
@@ -302,7 +333,8 @@
       "score_rationale": "Ce risque est mentionné dans la section Economic Environment and Capital Markets-Related Risks. Les conditions économiques défavorables peuvent affecter la persistance des polices et la valorisation des actifs.",
       "trend": "stable",
       "summary": "Les conditions économiques défavorables peuvent affecter la persistance des contrats d'assurance et la valorisation des portefeuilles d'investissement, impactant ainsi les résultats financiers.",
-      "_validation": "Confirmé dans la source, section dédiée Economic Environment and Capital Markets-Related Risks dans Risk Factors, impacts sur persistance et valorisation d'actifs"
+      "_validation": "Confirmé dans la source, section dédiée Economic Environment and Capital Markets-Related Risks dans Risk Factors, impacts sur persistance et valorisation d'actifs",
+      "score": 3
     }
   ],
   "governance": {
@@ -330,7 +362,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "sector_fr": "Finance",
-  "_companies_unified_built_at": "2026-05-29T21:19:37.868Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.378Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bhf.json",
     "enrich_root": "v2-pipeline-enrich/bhf.json",

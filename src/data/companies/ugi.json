@@ -1,6 +1,6 @@
 {
   "ticker": "UGI",
-  "name": "UGI Corporation",
+  "name": "UGI",
   "sector": "Services aux collectivités",
   "subsector": "Energy Distribution",
   "tagline": "Energy Distribution and Marketing Leader",
@@ -38,11 +38,14 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 747.36,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of Adjusted Net Income found (FY2019: $413M, FY2020: $561M). Minimum 4 years required per rules. Earlier years not ",
       "explanation_en": "Adjusted Net income generated over the period.",
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Total Margin",
@@ -90,7 +93,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -113,36 +116,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 7.29 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:52.981564+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.68,
-      "unit": "Mds €",
+      "value": 680,
+      "unit": "M €",
       "yoy": "+151.9%",
       "history": [
-        1.07,
-        -1.5,
-        0.27,
-        0.68
+        1070,
+        -1500,
+        270,
+        680
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.68 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 15.46 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,33 +200,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 7.13 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "+61.9%",
       "history": [
-        0.41,
-        0.24,
-        0.21,
-        0.34
+        410,
+        240,
+        210,
+        340
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.34 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -251,7 +276,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est mentionné dès le début de la section 'Risk Factors' (point 1) et est répété plusieurs fois, soulignant son importance pour les revenus. L'intensité du langage ('adversely affect', 'significant impact') et le contexte (dépendance saisonnière forte) justifient une sévérité élevée.",
       "trend": "stable",
-      "summary": "La demande pour les produits énergétiques de l'entreprise est fortement saisonnière et dépend des conditions météorologiques (hivers froids). Des hivers plus doux ou des conditions défavorables peuvent réduire la demande et affecter négativement les résultats."
+      "summary": "La demande pour les produits énergétiques de l'entreprise est fortement saisonnière et dépend des conditions météorologiques (hivers froids). Des hivers plus doux ou des conditions défavorables peuvent réduire la demande et affecter négativement les résultats.",
+      "score": 4
     },
     {
       "title": "Transition énergétique et déclin de la demande fossile",
@@ -259,7 +285,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est présenté comme une conséquence majeure de la transition vers une économie bas-carbone, avec des réglementations ('regulatory responses', 'laws and regulations') et des avancées technologiques ('technological advances') qui réduisent la demande pour les produits fossiles. L'impact potentiel est jugé existentiel pour le modèle d'affaires actuel.",
       "trend": "up",
-      "summary": "Les politiques climatiques, les avancées technologiques (efficacité énergétique, énergies alternatives) et la pression réglementaire poussent vers une réduction de la consommation d'énergies fossiles, ce qui pourrait diminuer la demande pour les produits de l'entreprise."
+      "summary": "Les politiques climatiques, les avancées technologiques (efficacité énergétique, énergies alternatives) et la pression réglementaire poussent vers une réduction de la consommation d'énergies fossiles, ce qui pourrait diminuer la demande pour les produits de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Volatilité des prix des matières premières énergétiques",
@@ -267,7 +294,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement la 'volatile fluctuations' des prix du GPL et du gaz naturel. Les décalages de prix ('time lags') entre l'achat et la revente peuvent entraîner des 'significant gross margin fluctuations', impactant directement la rentabilité.",
       "trend": "up",
-      "summary": "Les prix du GPL et du gaz naturel sont sujets à de fortes variations. Ces fluctuations, combinées aux délais de répercussion sur les clients, peuvent entraîner des variations importantes de la marge brute et affecter les résultats."
+      "summary": "Les prix du GPL et du gaz naturel sont sujets à de fortes variations. Ces fluctuations, combinées aux délais de répercussion sur les clients, peuvent entraîner des variations importantes de la marge brute et affecter les résultats.",
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions et intégrations stratégiques",
@@ -275,7 +303,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est détaillé avec de nombreux sous-points (passifs, distraction managériale, intégration culturelle/systèmes, surpaiement). L'échec de ces transactions stratégiques est explicitement lié à un impact négatif sur 'business, cash flows, financial condition and results of operations'.",
       "trend": "stable",
-      "summary": "Les acquisitions et autres transactions stratégiques comportent des risques significatifs, tels que l'intégration difficile, la distraction du management, l'hypothèse de passifs imprévus et le risque de surpayer les actifs acquis."
+      "summary": "Les acquisitions et autres transactions stratégiques comportent des risques significatifs, tels que l'intégration difficile, la distraction du management, l'hypothèse de passifs imprévus et le risque de surpayer les actifs acquis.",
+      "score": 4
     },
     {
       "title": "Concurrence des sources d'énergie alternatives",
@@ -283,7 +312,8 @@
       "severity": 3,
       "score_rationale": "Le risque de concurrence par d'autres sources d'énergie (électricité, gaz naturel) est clairement identifié. Bien que l'électricité soit souvent plus chère, les politiques climatiques favorisant les énergies renouvelables ('climate change policies favoring electricity from renewable energy sources') pourraient modifier cet équilibre.",
       "trend": "up",
-      "summary": "L'entreprise fait face à la concurrence d'autres sources d'énergie comme l'électricité et le gaz naturel. Les politiques environnementales pourraient rendre ces alternatives plus compétitives et réduire la demande pour les produits actuels."
+      "summary": "L'entreprise fait face à la concurrence d'autres sources d'énergie comme l'électricité et le gaz naturel. Les politiques environnementales pourraient rendre ces alternatives plus compétitives et réduire la demande pour les produits actuels.",
+      "score": 3
     },
     {
       "title": "Impacts physiques du changement climatique",
@@ -291,7 +321,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne les 'physical effects of climate change' comme l'augmentation de la fréquence des tempêtes, inondations, etc., qui pourraient perturber les opérations et la chaîne d'approvisionnement, entraînant des coûts significatifs ('significant costs').",
       "trend": "up",
-      "summary": "Les événements climatiques extrêmes (tempêtes, inondations) liés au changement climatique peuvent perturber les opérations, la chaîne d'approvisionnement et entraîner des coûts supplémentaires pour l'entreprise."
+      "summary": "Les événements climatiques extrêmes (tempêtes, inondations) liés au changement climatique peuvent perturber les opérations, la chaîne d'approvisionnement et entraîner des coûts supplémentaires pour l'entreprise.",
+      "score": 3
     },
     {
       "title": "Réglementations gouvernementales complexes et imprévisibles",
@@ -299,7 +330,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est souligné par l'expression 'comprehensive, complex, and sometimes unpredictable governmental regulations'. Ces réglementations peuvent augmenter les coûts et limiter la croissance des revenus ('increase our costs and limit our revenue growth').",
       "trend": "stable",
-      "summary": "L'entreprise doit se conformer à un cadre réglementaire complexe et parfois imprévisible, notamment en matière de concurrence et d'environnement, ce qui peut augmenter ses coûts et limiter sa croissance."
+      "summary": "L'entreprise doit se conformer à un cadre réglementaire complexe et parfois imprévisible, notamment en matière de concurrence et d'environnement, ce qui peut augmenter ses coûts et limiter sa croissance.",
+      "score": 4
     }
   ],
   "governance": {
@@ -343,7 +375,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -512,18 +544,13 @@
           836,
           829,
           -495,
-          -954,
-          -844,
-          -1633,
           1929,
           94,
           590,
           542,
-          -957,
           375,
           854,
           691,
-          -1242,
           297,
           817
         ],
@@ -578,6 +605,12 @@
             "accession": "0000884614-26-000022",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (UGI)"
         ]
       }
     ]
@@ -594,9 +627,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.322117+00:00",
     "fetched_at": "2026-05-21T02:17:14.322118+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.888Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.977Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ugi.json",
     "enrich_root": "v2-pipeline-enrich/ugi.json",

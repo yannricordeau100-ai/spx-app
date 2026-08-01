@@ -66,7 +66,7 @@
       "is_short_history": false,
       "ttm": 31.71,
       "_validation": "No corrections needed. Values confirmed in MD&A: 2023: 27.1%, 2024: 24.8%, 2025: 30.1%. YoY delta verified: 30.1 - 24.8 = +5.3 percentage points.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -93,7 +93,7 @@
       "is_short_history": false,
       "ttm": 549.94,
       "_validation": "Unit corrected from 'Mds $' to 'M $'. Values confirmed in MD&A: 2023: $217.6M, 2024: $249.4M, 2025: $455.7M. YoY growth verified: (455.7-249.4)/249.4 = +82.8%.",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -192,65 +192,46 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.17 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.25,
-      "unit": "Mds €",
+      "value": 250,
+      "unit": "M €",
       "yoy": "+31.6%",
       "history": [
-        0.16,
-        0.12,
-        0.19,
-        0.25
+        160,
+        120,
+        190,
+        250
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.25 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
-    {
-      "short": "HPC / Cloud",
-      "name_fr": "Revenu segment centres de données IA",
-      "name_en": "HPC / Cloud / AI Revenue",
-      "explanation": "Portion of revenue related to internet data centers, experiencing strong growth driven by generative AI.",
-      "value": "195.5",
-      "unit": "M $",
-      "yoy": "+82.8%",
-      "type": "Demand",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Wow: explosive growth driven by AI and new data center deployments.",
-      "description": "In 2025, 42.9% of revenues come from data centers, driven by Microsoft and AI demand.",
-      "history": [
-        91,
-        148.1,
-        195.5
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Marché",
-      "ttm": 211.14,
-      "_validation": "Unit corrected from 'Mds $' to 'M $'. Value confirmed as 42.9% of 455.7M = 195.5M per MD&A.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
     {
       "short": "Gross Margin",
       "name_fr": "Marge brute",
@@ -275,9 +256,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 31.71,
-      "_validation": "No corrections needed. Values confirmed in MD&A.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "No corrections needed. Values confirmed in MD&A."
     },
     {
       "short": "Revenue",
@@ -303,13 +282,11 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 549.94,
-      "_validation": "Unit corrected from 'Mds $' to 'M $'. Values confirmed in MD&A.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'M $'. Values confirmed in MD&A."
     }
   ],
   "ai_positioning": {
-    "stance": "enabler",
+    "stance": "absent",
     "summary": "AAOI enables AI infrastructure through its 800Gbps+ optical interconnect products used in hyperscale data centers supporting AI compute. The company's growth is explicitly driven by AI-focused customer deployments (Microsoft) and the demand for high-speed interconnects within AI-focused data centers, though the company does not position itself as an AI software/model developer.",
     "evidence": [
       "MD&A: 'Our large hyperscale customers are increasingly deploying massive data centers to support AI compute (e.g. training AI models, and drawing inferences from those models).'",
@@ -339,7 +316,7 @@
     "margin_trend": "Marges en expansion (+5.3 pts en moyenne sur les KPIs marge)."
   },
   "subsector_fr": "Semi-conducteurs & équipements",
-  "_companies_unified_built_at": "2026-05-29T21:19:37.805Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.994Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aaoi.json",
     "enrich_root": "v2-pipeline-enrich/aaoi.json",

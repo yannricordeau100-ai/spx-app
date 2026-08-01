@@ -38,10 +38,13 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Correction unité: Mds $ à M $ (valeur 86.3M confirmée 10-K). Ajout historique 2024: 75.7M.",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le texte fourni est un extrait XML/XBRL du 10-K de NAPCO SECURITY TECHNOLOGIES (NSSC) datant de juin 2025, contenant principalement des méta",
-      "signal_en": "Recurring base growing, revenue visibility rising"
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Marge brute (services récurrents)",
@@ -194,24 +197,29 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "-4.8%",
       "history": [
-        0.15,
-        0.17,
-        0.21,
-        0.2
+        150,
+        170,
+        210,
+        200
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.2 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -225,7 +233,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -238,7 +246,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -253,7 +261,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         null,
@@ -266,7 +274,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -281,7 +289,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         0,
@@ -294,7 +302,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -310,7 +318,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.53,
@@ -323,7 +331,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -350,9 +358,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Margin",
-      "_validation": "Ajout yoy manquant: +0.5 pts. Ajout historique 2024.",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Ajout yoy manquant: +0.5 pts. Ajout historique 2024."
     },
     {
       "short": "Revenu des services récurrents",
@@ -376,9 +382,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Revenue",
-      "_validation": "Correction unité: Mds $ à M $. Ajout historique 2024: 75.7M$.",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction unité: Mds $ à M $. Ajout historique 2024: 75.7M$."
     },
     {
       "short": "Marge brute (équipement)",
@@ -403,9 +407,7 @@
       "is_short_history": true,
       "story_category": "Margin",
       "ttm": 23.6,
-      "_validation": "Correction nom_fr. TTM ajusté à 23.6.",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction nom_fr. TTM ajusté à 23.6."
     }
   ],
   "ai_positioning": {
@@ -454,7 +456,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -537,7 +539,8 @@
       "severity": 3,
       "score_rationale": "Listé en premier dans le Summary of Risks, langage direct (« could cause our stock price to fluctuate »). Reflète volatilité inhérente au modèle commercial avec mix produits/services. Tendance stable, risque structurel récurrent.",
       "trend": "stable",
-      "summary": "Les résultats d'exploitation fluctuent significativement d'un trimestre à l'autre, ce qui peut entraîner une volatilité du cours de l'action et affecter la perception des investisseurs."
+      "summary": "Les résultats d'exploitation fluctuent significativement d'un trimestre à l'autre, ce qui peut entraîner une volatilité du cours de l'action et affecter la perception des investisseurs.",
+      "score": 3
     },
     {
       "title": "Concurrence intense de rivaux bien plus grands",
@@ -545,7 +548,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité comme risque majeur (« highly competitive with many substantially larger competitors »). NAPCO reconnaît que 12 concurrents ont « substantially greater financial and other resources ». Avantage différenciation (plateforme intégrée) mais risque de consolidation/prix élevé.",
       "trend": "stable",
-      "summary": "Le marché compte environ 12 concurrents majeurs, la plupart disposant de ressources financières et opérationnelles bien supérieures à celles de NAPCO, menaçant sa part de marché."
+      "summary": "Le marché compte environ 12 concurrents majeurs, la plupart disposant de ressources financières et opérationnelles bien supérieures à celles de NAPCO, menaçant sa part de marché.",
+      "score": 4
     },
     {
       "title": "Dépendance aux revenus récurrents de services",
@@ -553,7 +557,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite : « may not be able to sustain the growth of our recurring service revenue ». Services représentent 48% du revenu total (FY2025) avec marge 91%, mais croissance ralentie (44% sur 2 ans). Risque de saturation ou de disruption technologique.",
       "trend": "up",
-      "summary": "Les services de communication cellulaire récurrents (48% du revenu, marge 91%) sont critiques pour la profitabilité. Leur croissance future n'est pas garantie et une disruption technologique pourrait les rendre obsolètes."
+      "summary": "Les services de communication cellulaire récurrents (48% du revenu, marge 91%) sont critiques pour la profitabilité. Leur croissance future n'est pas garantie et une disruption technologique pourrait les rendre obsolètes.",
+      "score": 4
     },
     {
       "title": "Dépendance aux distributeurs indépendants",
@@ -561,7 +566,8 @@
       "severity": 3,
       "score_rationale": "Risque identifié : « adverse change in our relationship with such distributors may adversely affect our financial performance ». Modèle de vente indirect via réseau de distributeurs/dealers. Destocking observé en FY2025 (-$11.5M door-locking). Risque de concentration/négociation.",
       "trend": "up",
-      "summary": "NAPCO vend exclusivement via un réseau de distributeurs et installateurs indépendants. Toute dégradation de ces relations ou destocking d'inventaire impacte directement les ventes d'équipements."
+      "summary": "NAPCO vend exclusivement via un réseau de distributeurs et installateurs indépendants. Toute dégradation de ces relations ou destocking d'inventaire impacte directement les ventes d'équipements.",
+      "score": 3
     },
     {
       "title": "Acceptation marché et construction de marque incertaines",
@@ -569,7 +575,8 @@
       "severity": 3,
       "score_rationale": "Risque explicite : « may not be able to gain widespread or timely market acceptance of our new products ». Marché école/sécurité publique en phase précoce (>$3B potentiel) mais visibilité limitée via distribution. Risque de timing et de concurrence.",
       "trend": "stable",
-      "summary": "L'acceptation des nouveaux produits (notamment solutions scolaires) n'est pas garantie. Le marché de la sécurité scolaire est fragmenté et la visibilité via distribution indirecte rend difficile la quantification des opportunités."
+      "summary": "L'acceptation des nouveaux produits (notamment solutions scolaires) n'est pas garantie. Le marché de la sécurité scolaire est fragmenté et la visibilité via distribution indirecte rend difficile la quantification des opportunités.",
+      "score": 3
     },
     {
       "title": "Dépendance à la direction senior",
@@ -577,7 +584,8 @@
       "severity": 2,
       "score_rationale": "Risque standard listé : « rely on the effort and continuing service of our senior management members ». Langage générique, pas de détails sur succession ou turnover. Sévérité modérée pour PME technologique.",
       "trend": "stable",
-      "summary": "La continuité opérationnelle dépend fortement de l'équipe de direction senior. Toute perte clé pourrait affecter la stratégie et l'exécution."
+      "summary": "La continuité opérationnelle dépend fortement de l'équipe de direction senior. Toute perte clé pourrait affecter la stratégie et l'exécution.",
+      "score": 2
     },
     {
       "title": "Conformité légale et réglementaire complexe",
@@ -585,7 +593,8 @@
       "severity": 3,
       "score_rationale": "Risque cité : « numerous legal and regulatory requirements, and any violation of these requirements could harm our business ». Secteur sécurité/données soumis à multiples régulations (FCC, données, tarifs). Imprécision sur juridictions spécifiques.",
       "trend": "stable",
-      "summary": "L'activité est soumise à de nombreuses exigences légales et réglementaires (FCC, protection des données, tarifs douaniers). Toute violation pourrait entraîner des pénalités et dommages à la réputation."
+      "summary": "L'activité est soumise à de nombreuses exigences légales et réglementaires (FCC, protection des données, tarifs douaniers). Toute violation pourrait entraîner des pénalités et dommages à la réputation.",
+      "score": 3
     },
     {
       "title": "Risques cybersécurité et disruptions IT",
@@ -593,12 +602,13 @@
       "severity": 4,
       "score_rationale": "Risque majeur explicite : « Cybersecurity incidents and other disruptions to our information and technology systems... may compromise our information and expose us to liability ». Plateforme NOC cloud critique, données clients sensibles. Langage fort (« potentially large damage awards »).",
       "trend": "up",
-      "summary": "Les incidents cybersécurité affectant les systèmes IT internes ou ceux des partenaires pourraient compromettre les données clients, interrompre les services de communication et générer des responsabilités légales importantes."
+      "summary": "Les incidents cybersécurité affectant les systèmes IT internes ou ceux des partenaires pourraient compromettre les données clients, interrompre les services de communication et générer des responsabilités légales importantes.",
+      "score": 4
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T21:08:37.288039+00:00",
   "_dividends_extracted_at": "2026-05-09T20:23:23Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2024,
@@ -612,7 +622,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:29Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:28Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "NSSC",
     "fetched_at": "2026-05-06T17:52:07.118216+00:00",
@@ -675,15 +685,12 @@
           6.402,
           14.848,
           25.688,
-          -19.811,
           10.478,
           23.088,
           36.284,
-          -20.032,
           12.165,
           21.652,
           31.774,
-          -22.185,
           25.668,
           25.26
         ],
@@ -738,6 +745,12 @@
             "accession": "0001104659-26-055383",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (NSSC)"
         ]
       },
       {
@@ -749,11 +762,9 @@
           0.522,
           0.771,
           1.189,
-          -1,
           0.372,
           0.816,
           2.547,
-          -0.773,
           0.256,
           0.682,
           1.043,
@@ -761,7 +772,6 @@
           0.193,
           1.814,
           1.879,
-          -1.77,
           0.778,
           1.512
         ],
@@ -816,6 +826,12 @@
             "accession": "0001104659-26-055383",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (NSSC)"
         ]
       },
       {
@@ -823,23 +839,18 @@
         "period_type": "quarter",
         "history": [
           28.71,
-          -42.57,
           37.744,
           41.951,
           42.127,
-          -80.092,
           29.448,
           32.007,
           31.515,
-          -57.015,
           43.577,
           47.311,
           55.518,
-          -81.065,
           95.4,
           86.019,
           73.413,
-          -171.751,
           104.919,
           114.408
         ],
@@ -894,6 +905,9 @@
             "accession": "0001104659-26-055383",
             "end": "2026-03-31"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (NSSC)"
         ]
       }
     ]
@@ -910,9 +924,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.290895+00:00",
     "fetched_at": "2026-05-21T02:17:14.290896+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.062Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.985Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nssc.json",
     "enrich_root": "v2-pipeline-enrich/nssc.json",

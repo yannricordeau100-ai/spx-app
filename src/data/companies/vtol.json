@@ -140,11 +140,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.49 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,56 +167,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.31 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.91,
-      "unit": "Mds €",
+      "value": 910,
+      "unit": "M €",
       "yoy": "-5.2%",
       "history": [
-        0.72,
-        0.84,
-        0.96,
-        0.91
+        720,
+        840,
+        960,
+        910
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.91 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "+16.0%",
       "history": [
-        0.26,
-        0.18,
-        0.25,
-        0.29
+        260,
+        180,
+        250,
+        290
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.29 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -308,7 +326,8 @@
       "severity": 5,
       "score_rationale": "Les accidents liés aux opérations d'hélicoptères et d'avions à voilure fixe peuvent entraîner des pertes de vies humaines, des dommages importants aux équipements et des suspensions d'opérations. Le document 10-K met l'accent sur ces risques inhérents à l'industrie de l'aviation.",
       "trend": "stable",
-      "summary": "Les opérations d'aéronefs comportent des risques inhérents incluant tempêtes, défaillances mécaniques, erreurs humaines et collisions pouvant résulter en pertes de vies, dommages matériels et suspension d'opérations."
+      "summary": "Les opérations d'aéronefs comportent des risques inhérents incluant tempêtes, défaillances mécaniques, erreurs humaines et collisions pouvant résulter en pertes de vies, dommages matériels et suspension d'opérations.",
+      "score": 5
     },
     {
       "title": "Dépendance à des fournisseurs",
@@ -316,7 +335,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise dépend fortement de quelques fournisseurs pour ses besoins en avions et en pièces détachées. Une interruption de la chaîne d'approvisionnement ou des délais de livraison prolongés pourraient avoir des conséquences importantes sur les opérations.",
       "trend": "stable",
-      "summary": "La dépendance à un nombre limité de fournisseurs et fabricants d'aéronefs, combinée aux défis de la chaîne d'approvisionnement et aux délais de livraison prolongés, peut entraîner des problèmes d'approvisionnement."
+      "summary": "La dépendance à un nombre limité de fournisseurs et fabricants d'aéronefs, combinée aux défis de la chaîne d'approvisionnement et aux délais de livraison prolongés, peut entraîner des problèmes d'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Risques de change",
@@ -324,7 +344,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est exposée aux fluctuations des taux de change en raison de ses opérations internationales et de contrats en devises multiples, ce qui peut affecter sa rentabilité et ses résultats financiers.",
       "trend": "up",
-      "summary": "Les risques de change liés aux opérations à l'étranger et aux contrats en devises multiples peuvent avoir un impact sur les résultats financiers de l'entreprise."
+      "summary": "Les risques de change liés aux opérations à l'étranger et aux contrats en devises multiples peuvent avoir un impact sur les résultats financiers de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Pénurie de personnel qualifié",
@@ -332,7 +353,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise a besoin de personnel hautement qualifié pour opérer ses aéronefs, assurer les services SAR et maintenir ses opérations. Une pénurie de personnel pourrait entraîner des problèmes de sécurité, de qualité et de disponibilité des services.",
       "trend": "up",
-      "summary": "La pénurie de personnel qualifié incluant pilotes, techniciens et personnel d'intervention d'urgence peut affecter la sécurité, la qualité et la capacité opérationnelle de l'entreprise."
+      "summary": "La pénurie de personnel qualifié incluant pilotes, techniciens et personnel d'intervention d'urgence peut affecter la sécurité, la qualité et la capacité opérationnelle de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risques de crédit et de financement",
@@ -340,7 +362,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise peut avoir des difficultés à obtenir des financements ou à les obtenir à des conditions favorables. Les besoins en capital pour financer les opérations et les investissements en aéronefs peuvent être significatifs.",
       "trend": "stable",
-      "summary": "Les risques de crédit peuvent limiter l'accès de l'entreprise à des financements et affecter sa capacité à investir, se développer et gérer ses obligations de dette existantes."
+      "summary": "Les risques de crédit peuvent limiter l'accès de l'entreprise à des financements et affecter sa capacité à investir, se développer et gérer ses obligations de dette existantes.",
+      "score": 3
     },
     {
       "title": "Risques réglementaires et de conformité",
@@ -348,7 +371,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est soumise à des réglementations strictes de l'aviation civile et des autorités maritimes. Les changements réglementaires, les non-conformités ou les évolutions des normes de sécurité peuvent avoir des conséquences importantes.",
       "trend": "stable",
-      "summary": "Les risques réglementaires incluant les normes d'exploitation aérienne, les exigences de sécurité et les évolutions réglementaires peuvent impacter les opérations et les coûts de l'entreprise."
+      "summary": "Les risques réglementaires incluant les normes d'exploitation aérienne, les exigences de sécurité et les évolutions réglementaires peuvent impacter les opérations et les coûts de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Risques de réputation et de marché",
@@ -356,7 +380,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise peut subir des dommages significatifs à sa réputation en cas d'accidents, de problèmes de sécurité ou de non-conformités réglementaires, ce qui affecterait sa capacité à attirer et retenir des clients.",
       "trend": "stable",
-      "summary": "Les risques de réputation liés à la sécurité, aux accidents ou aux incidents de sécurité peuvent affecter la confiance des clients et la position concurrentielle de l'entreprise."
+      "summary": "Les risques de réputation liés à la sécurité, aux accidents ou aux incidents de sécurité peuvent affecter la confiance des clients et la position concurrentielle de l'entreprise.",
+      "score": 4
     }
   ],
   "governance": {
@@ -645,7 +670,10 @@
             "source": "calc-VTOL_2025-02-27.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -661,9 +689,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.326729+00:00",
     "fetched_at": "2026-05-21T02:17:14.326730+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.324Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.453Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vtol.json",
     "enrich_root": "v2-pipeline-enrich/vtol.json",

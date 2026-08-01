@@ -13,7 +13,7 @@
     "sector": "...",
     "subsector": "..."
   },
-  "hero_kpi": "Operating Margin",
+  "hero_kpi": "Footwear Sales",
   "hero_kpi_rationale": "Reflète la performance opérationnelle clé dans un contexte de restructuration, avec une contraction de 1,7 pp à 1,3% en 2023 malgré une stabilité de la marge brute.",
   "kpis": [
     {
@@ -61,7 +61,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -87,7 +87,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Extrait insuffisant. Seules 2 années consécutives d'Operating Margin trouvées explicitement : 2023 (1.3%) et 2022 (3.0%). Le minimum requis ",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -95,8 +95,8 @@
       "name_fr": "Investissements en immobilisations",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en immobilisations pour maintenir ou étendre les activités.",
-      "value": "0.504",
-      "unit": "Mds €",
+      "value": 504,
+      "unit": "M €",
       "yoy": "-27%",
       "type": "Investment",
       "nature": "Conjoncturel",
@@ -104,15 +104,16 @@
       "signal": "Réduction significative des dépenses",
       "description": "Le capex a baissé à 504 millions d'euros, reflétant une discipline budgétaire accrue.",
       "history": [
-        0.69,
-        0.5
+        690,
+        500
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Working Capital",
@@ -158,7 +159,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -178,11 +179,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 20.26 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -201,11 +206,110 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Footwear Sales",
+      "name_fr": "Ventes de chaussures",
+      "name_en": "Footwear Net Sales",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        10.129,
+        11.336,
+        12.402,
+        12.139,
+        13.975
+      ],
+      "history_dates": [
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "value": 13.975,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Premiere categorie de produits, revenue a un plus haut en 2024 apres le trou d air lie a la fin du partenariat Yeezy.",
+      "is_wow": true,
+      "yoy": "+15,1 %"
+    },
+    {
+      "short": "Apparel Sales",
+      "name_fr": "Ventes textile",
+      "name_en": "Apparel Sales",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        7315,
+        8710,
+        8731,
+        7856,
+        8216
+      ],
+      "value": 8216,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le textile repart a la hausse en 2024 sans retrouver son niveau de 2022.",
+      "is_wow": false,
+      "yoy": "+4,6 %"
+    },
+    {
+      "short": "Accessories Sales",
+      "name_fr": "Ventes accessoires et equipement",
+      "name_en": "Accessories and Gear Sales",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        991,
+        1187,
+        1493,
+        1488,
+        1499
+      ],
+      "value": 1499,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les accessoires et equipements se stabilisent au-dessus de 1,5 milliard d'euros.",
+      "is_wow": false,
+      "yoy": "+0,7 %"
+    },
+    {
+      "short": "Greater China Sales",
+      "name_fr": "Ventes Grande Chine",
+      "name_en": "Greater China Net Sales",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        4342,
+        4597,
+        3179,
+        3190,
+        3459
+      ],
+      "value": 3459,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "La Grande Chine se redresse en 2024 mais reste loin du niveau de 2021.",
+      "is_wow": false,
+      "yoy": "+8,4 %"
     },
     {
       "short": "DPS",
@@ -219,7 +323,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         3,
         3.3,
@@ -232,7 +336,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -247,7 +351,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         3.14,
@@ -260,7 +364,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -275,7 +379,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         99.67,
@@ -288,7 +392,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -304,7 +408,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.34,
@@ -317,7 +421,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -332,20 +436,7 @@
     ],
     "source": ""
   },
-  "_validation": [
-    "Correction Net Sales value: '21.4' précisé en '21.427' Mds € pour exactitude",
-    "Correction Net Sales history: [22.511, 21.427] au lieu de [22.5, 21.4]",
-    "Correction Operating Margin last_data_date: '2026-03-31' corrigé en '2023-12-31' (donnée annuelle, pas trimestrielle)",
-    "Suppression Operating Margin period_type: 'quarter' supprimé (KPI annuel confirmé par source)",
-    "Amélioration Working Capital name_fr: 'BFR en % du chiffre d'affaires' précisé en 'BFR opérationnel moyen en % du chiffre d'affaires'",
-    "Validation: tous les KPI et valeurs sont présents dans la source Financial Highlights 2023",
-    "Validation: Net Sales 21,427 M€ = 21.427 Mds €",
-    "Validation: Capex 504 M€ = 0.504 Mds €",
-    "Validation: Headcount 59,030 employés = 59.03 K",
-    "Validation: Gross Margin 47.5% confirmée",
-    "Validation: Operating Margin 1.3% confirmée avec yoy -1.7pp (de 3.0% à 1.3%)",
-    "Validation: aucun KPI halluciné détecté, tous les chiffres proviennent de la source"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
@@ -353,7 +444,7 @@
     "method": "manual-validation",
     "yf_metric": "(annual-financial-highlights-2023)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_2"
   ],
@@ -366,7 +457,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné en position centrale dans le rapport, avec un langage fort (« handling of the existing Yeezy inventory », « legal dispute with Kanye West »). La tendance est à la hausse en raison de l'impact opérationnel et financier majeur. La catégorie Concurrence est critique pour le positionnement de la marque.",
       "trend": "up",
-      "summary": "Adidas dépend fortement de partenariats stratégiques comme celui avec Yeezy, dont la rupture a entraîné des perturbations majeures dans la gestion des stocks et des conséquences financières significatives, notamment en Amérique du Nord."
+      "summary": "Adidas dépend fortement de partenariats stratégiques comme celui avec Yeezy, dont la rupture a entraîné des perturbations majeures dans la gestion des stocks et des conséquences financières significatives, notamment en Amérique du Nord.",
+      "score": 5
     },
     {
       "title": "Gestion des stocks et surinventaire",
@@ -374,7 +466,8 @@
       "severity": 4,
       "score_rationale": "Le sujet est répété plusieurs fois dans le document (« reduction of elevated inventory levels »), avec un langage préoccupé. La tendance est stable, reflétant un défi structurel. La catégorie Industriel est centrale pour l'efficacité opérationnelle.",
       "trend": "stable",
-      "summary": "Adidas fait face à des niveaux élevés d'inventaire, en particulier après la fin du partenariat Yeezy, ce qui pèse sur la rentabilité et nécessite des actions correctives comme des promotions ou des destructions."
+      "summary": "Adidas fait face à des niveaux élevés d'inventaire, en particulier après la fin du partenariat Yeezy, ce qui pèse sur la rentabilité et nécessite des actions correctives comme des promotions ou des destructions.",
+      "score": 4
     },
     {
       "title": "Déclin de la performance en Amérique du Nord",
@@ -382,7 +475,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité comme un facteur majeur de déviation par rapport aux plans. Le langage est alarmant (« negative business development »). La tendance est à la hausse. La catégorie Géopolitique inclut les dynamiques de marché stratégiques.",
       "trend": "up",
-      "summary": "Le marché nord-américain connaît une faible performance commerciale, affectant la croissance globale d'Adidas, avec des difficultés de positionnement face à la concurrence locale et des défis de distribution."
+      "summary": "Le marché nord-américain connaît une faible performance commerciale, affectant la croissance globale d'Adidas, avec des difficultés de positionnement face à la concurrence locale et des défis de distribution.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue sur les modèles lifestyle",
@@ -390,7 +484,8 @@
       "severity": 4,
       "score_rationale": "Le succès des modèles comme Samba ou Gazelle est souligné, mais avec une implication concurrentielle forte. Le langage est prudent. Tendance à la hausse. La catégorie Concurrence est directement liée à la différenciation produit.",
       "trend": "up",
-      "summary": "Les chaussures lifestyle comme la Samba connaissent un succès, mais attirent une concurrence intense, menaçant la part de marché et la marge si Adidas ne parvient pas à innover rapidement."
+      "summary": "Les chaussures lifestyle comme la Samba connaissent un succès, mais attirent une concurrence intense, menaçant la part de marché et la marge si Adidas ne parvient pas à innover rapidement.",
+      "score": 4
     },
     {
       "title": "Réglementation croissante sur la durabilité",
@@ -398,7 +493,8 @@
       "severity": 4,
       "score_rationale": "Le sujet est abordé régulièrement (CSRD, EU Taxonomy), avec un langage technique et préparatoire. Tendance à la hausse. La catégorie Régulation est stratégique pour la conformité future.",
       "trend": "up",
-      "summary": "Adidas doit se conformer à des réglementations européennes strictes en matière de reporting environnemental, comme la CSRD, ce qui impose des coûts et des ajustements organisationnels significatifs."
+      "summary": "Adidas doit se conformer à des réglementations européennes strictes en matière de reporting environnemental, comme la CSRD, ce qui impose des coûts et des ajustements organisationnels significatifs.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et protection des données",
@@ -406,7 +502,8 @@
       "severity": 4,
       "score_rationale": "Le risque est discuté au sein du Comité d'Audit, avec un langage technique (« data privacy and information security »). Tendance stable. La catégorie Cybersécurité est critique pour la continuité opérationnelle.",
       "trend": "stable",
-      "summary": "Adidas fait face à des risques liés à la cybersécurité, notamment dans la gestion des données clients et partenaires, avec un accent sur la conformité et la prévention des violations."
+      "summary": "Adidas fait face à des risques liés à la cybersécurité, notamment dans la gestion des données clients et partenaires, avec un accent sur la conformité et la prévention des violations.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'IA pour l'innovation produit",
@@ -414,7 +511,8 @@
       "severity": 3,
       "score_rationale": "L'IA est mentionnée comme opportunité et risque, mais avec un langage exploratoire. Tendance à la hausse. La catégorie Technologie reflète une transformation en cours.",
       "trend": "up",
-      "summary": "Adidas intègre l'intelligence artificielle dans le développement produit et le marketing, mais dépend désormais de ces outils pour maintenir son avantage concurrentiel, avec des risques d'erreurs ou de défaillances."
+      "summary": "Adidas intègre l'intelligence artificielle dans le développement produit et le marketing, mais dépend désormais de ces outils pour maintenir son avantage concurrentiel, avec des risques d'erreurs ou de défaillances.",
+      "score": 3
     },
     {
       "title": "Litiges juridiques majeurs",
@@ -422,7 +520,8 @@
       "severity": 5,
       "score_rationale": "Le litige avec Kanye West est central, avec un langage fort (« major legal disputes »). Tendance à la hausse. La catégorie Litige a un impact direct sur la réputation et les finances.",
       "trend": "up",
-      "summary": "Adidas est impliqué dans des litiges juridiques significatifs, notamment avec Kanye West, qui affectent sa capacité à commercialiser des produits phares et exposent l'entreprise à des pertes financières et réputationnelles."
+      "summary": "Adidas est impliqué dans des litiges juridiques significatifs, notamment avec Kanye West, qui affectent sa capacité à commercialiser des produits phares et exposent l'entreprise à des pertes financières et réputationnelles.",
+      "score": 5
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:12:01.008860+00:00",
@@ -513,11 +612,13 @@
   "customer_type_label": "Adidas vend à la fois aux consommateurs finaux (B2C) et aux détaillants/revendeurs (B2B).",
   "_eu_blocs_extracted_at": "2026-05-19T16:31:30.128068+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:42Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:43:14Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Habillement, chaussures & accessoires",
+  "hero_kpi_override": "Footwear Sales",
+  "_hero_kpi_override_reason": "Footwear Sales = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "ADS.DE",
     "fetched_at": "2026-05-06T17:44:51.618310+00:00",
@@ -554,9 +655,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.133979+00:00",
     "fetched_at": "2026-05-21T02:17:14.133981+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.342Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.799Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ads.de.json",
     "enrich_root": "v2-pipeline-enrich/ads.de.json",

@@ -106,34 +106,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.43 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "+18.2%",
       "history": [
-        0.22,
-        0.23,
-        0.22,
-        0.26
+        220,
+        230,
+        220,
+        260
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.26 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -152,11 +161,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.85 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -175,33 +188,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.37 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-83.3%",
       "history": [
-        0.01,
-        0.02,
-        0.06,
-        0.01
+        10,
+        20,
+        60,
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -215,7 +237,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.32,
         2.48,
@@ -228,7 +250,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -243,7 +265,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.134,
@@ -256,7 +278,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -271,7 +293,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         60.41,
@@ -284,7 +306,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -300,7 +322,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.08,
@@ -313,7 +335,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -338,9 +360,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Capacité",
-      "_source_month": "septembre 2028",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -377,7 +397,8 @@
       "severity": 5,
       "score_rationale": "Le risque est placé en haut de la section opérationnelle, avec un langage fort (\"matériellement et négativement affecter\") et mention répétée de catastrophes climatiques. La référence au changement climatique accentue sa gravité. Catégorie Industriel fortement pondérée.",
       "trend": "stable",
-      "summary": "Les événements climatiques extrêmes peuvent endommager les infrastructures, interrompre le service et augmenter les coûts d'exploitation."
+      "summary": "Les événements climatiques extrêmes peuvent endommager les infrastructures, interrompre le service et augmenter les coûts d'exploitation.",
+      "score": 5
     },
     {
       "title": "Cyberattaques ou défaillances technologiques",
@@ -385,7 +406,8 @@
       "severity": 5,
       "score_rationale": "Langage alarmant sur les cyber-risques (\"peut perturber les opérations\", \"perte d'information confidentielle\"). Mention de réglementations accrues (DHS, TSA) et de coûts croissants. Position élevé dans le texte et intensité du langage justifient un niveau 5.",
       "trend": "up",
-      "summary": "Une cyberattaque ou une panne technologique majeure pourrait paralyser les systèmes opérationnels et compromettre des données sensibles."
+      "summary": "Une cyberattaque ou une panne technologique majeure pourrait paralyser les systèmes opérationnels et compromettre des données sensibles.",
+      "score": 5
     },
     {
       "title": "Pénurie ou rupture d'approvisionnement en gaz naturel",
@@ -393,7 +415,8 @@
       "severity": 4,
       "score_rationale": "Risque central pour un distributeur de gaz, décrit comme pouvant \"diminuer et compromettre\" la capacité de service. Mention de causes multiples (climat, cyber, réglementation). Moins existentiel que les risques physiques directs.",
       "trend": "stable",
-      "summary": "L'incapacité à garantir un approvisionnement suffisant en gaz naturel pourrait nuire à la satisfaction client et aux revenus."
+      "summary": "L'incapacité à garantir un approvisionnement suffisant en gaz naturel pourrait nuire à la satisfaction client et aux revenus.",
+      "score": 4
     },
     {
       "title": "Difficultés de recrutement et arrêts de travail syndicaux",
@@ -401,7 +424,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de 18 % d'employés syndiqués et de risques de grèves. Langage sérieux (\"effet négatif sur nos résultats\"). Moins fréquent que les risques opérationnels, mais impact élevé sur la continuité.",
       "trend": "stable",
-      "summary": "La pénurie de main-d'œuvre qualifiée ou une grève pourrait perturber les opérations et augmenter les coûts."
+      "summary": "La pénurie de main-d'œuvre qualifiée ou une grève pourrait perturber les opérations et augmenter les coûts.",
+      "score": 4
     },
     {
       "title": "Non-conformité aux réglementations de sécurité des pipelines",
@@ -409,7 +433,8 @@
       "severity": 4,
       "score_rationale": "Références multiples à PHMSA, DOT, OSHA. Risque de sanctions lourdes et de coûts non récupérables. Position élevé dans la section réglementaire. Langage ferme sur les amendes et pénalités.",
       "trend": "stable",
-      "summary": "Le non-respect des normes de sécurité des pipelines peut entraîner des amendes, des poursuites et des coûts non récupérés."
+      "summary": "Le non-respect des normes de sécurité des pipelines peut entraîner des amendes, des poursuites et des coûts non récupérés.",
+      "score": 4
     },
     {
       "title": "Impacts financiers du changement climatique",
@@ -417,7 +442,8 @@
       "severity": 4,
       "score_rationale": "Lien direct entre changement climatique, coûts d'exploitation et revenus. Mention de mécanismes WNA insuffisants. Risque systémique croissant, bien que moins immédiat que les événements physiques.",
       "trend": "up",
-      "summary": "Le changement climatique peut réduire la demande d'énergie ou augmenter les coûts, affectant la rentabilité."
+      "summary": "Le changement climatique peut réduire la demande d'énergie ou augmenter les coûts, affectant la rentabilité.",
+      "score": 4
     },
     {
       "title": "Réglementation environnementale et émissions de gaz à effet de serre",
@@ -425,7 +451,8 @@
       "severity": 4,
       "score_rationale": "Présence de risques liés aux taxes carbone, réglementations futures et coûts d'adaptation. Langage préventif mais inquiet face à des initiatives étatiques croissantes. Moins immédiat que les risques opérationnels.",
       "trend": "up",
-      "summary": "De nouvelles réglementations environnementales pourraient imposer des coûts supplémentaires ou restreindre l'usage du gaz naturel."
+      "summary": "De nouvelles réglementations environnementales pourraient imposer des coûts supplémentaires ou restreindre l'usage du gaz naturel.",
+      "score": 4
     }
   ],
   "governance": {
@@ -499,7 +526,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:19:47Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -519,7 +546,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:06Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:36Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "OGS",
     "fetched_at": "2026-05-14T18:26:05.625851+00:00",
@@ -575,15 +602,12 @@
         "history": [
           234.943,
           348.915,
-          -226.03,
           99.093,
           217.039,
           347.701,
-          -168.587,
           113.307,
           251.06,
           412.519,
-          -167.4,
           322.231,
           490.338,
           342.37,
@@ -591,7 +615,6 @@
           166.597,
           347.065,
           539.433,
-          -345.869,
           156.533
         ],
         "history_periods": [
@@ -645,6 +668,12 @@
             "accession": "0001587732-26-000021",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (OGS)"
         ]
       }
     ]
@@ -661,9 +690,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.292787+00:00",
     "fetched_at": "2026-05-21T02:17:14.292788+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.242Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.185Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ogs.json",
     "enrich_root": "v2-pipeline-enrich/ogs.json",

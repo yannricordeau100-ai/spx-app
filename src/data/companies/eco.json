@@ -1,6 +1,6 @@
 {
   "ticker": "ECO",
-  "name": "Okeanis Eco Tankers Corp.",
+  "name": "Okeanis Eco Tankers",
   "sector": "Transportation",
   "subsector": "Maritime Transportation",
   "tagline": "International shipping company specializing in eco-efficient tanker operations",
@@ -62,7 +62,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -132,9 +132,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Employee Wages",
@@ -176,34 +174,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.2 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.61,
-      "unit": "Mds €",
+      "value": 610,
+      "unit": "M €",
       "yoy": "-6.2%",
       "history": [
-        0.74,
-        0.69,
-        0.65,
-        0.61
+        740,
+        690,
+        650,
+        610
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.61 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -228,9 +235,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     },
     {
       "short": "Payments to Capital Providers",
@@ -253,9 +258,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Capital",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capital"
     }
   ],
   "ai_positioning": {
@@ -296,7 +299,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en premier dans la section industrie avec langage très intensif (« cyclical and volatile », « material adverse effect »). Multiples références aux indices BDTI, aux fluctuations historiques extrêmes (799-1468 en 2025). Tendance stable mais amplifiée par géopolitique. Poids catégorique majeur pour armateur pétrolier.",
       "trend": "stable",
-      "summary": "Les taux de fret des pétroliers (mesurés par l'indice BDTI) fluctuent fortement selon l'offre/demande de navires et la demande pétrolière mondiale. Ces variations imprévisibles affectent directement les revenus et la rentabilité des contrats d'affrètement. Par exemple, le BDTI a varié de 799 à 1468 en 2025, créant une incertitude majeure sur les revenus futurs."
+      "summary": "Les taux de fret des pétroliers (mesurés par l'indice BDTI) fluctuent fortement selon l'offre/demande de navires et la demande pétrolière mondiale. Ces variations imprévisibles affectent directement les revenus et la rentabilité des contrats d'affrètement. Par exemple, le BDTI a varié de 799 à 1468 en 2025, créant une incertitude majeure sur les revenus futurs.",
+      "score": 5
     },
     {
       "title": "Dépendance à la demande pétrolière et transition énergétique",
@@ -304,7 +308,8 @@
       "severity": 5,
       "score_rationale": "Risque structurel majeur discuté extensivement avec langage alarmiste (« material adverse effect », « accelerating »). L'IEA prévoit 50% de ventes de véhicules électriques en 2035 et un pic pétrolier vers 2030. Tendance clairement à la hausse (up). Poids existentiel pour l'activité pétrolière.",
       "trend": "up",
-      "summary": "La transition énergétique mondiale réduit structurellement la demande pétrolière : 25% des nouvelles voitures vendues en 2025 sont électriques (vs 18% en 2024), et l'IEA prévoit un pic pétrolier vers 2030 suivi d'un déclin. Cette évolution menace directement la demande de transport maritime pétrolier et les taux de fret à long terme."
+      "summary": "La transition énergétique mondiale réduit structurellement la demande pétrolière : 25% des nouvelles voitures vendues en 2025 sont électriques (vs 18% en 2024), et l'IEA prévoit un pic pétrolier vers 2030 suivi d'un déclin. Cette évolution menace directement la demande de transport maritime pétrolier et les taux de fret à long terme.",
+      "score": 5
     },
     {
       "title": "Suroffre de capacité de transport pétrolier",
@@ -312,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Risque industrie explicitement développé avec données précises (carnet de commandes à 14,1% en nov 2025, plus haut en 9 ans). Langage d'alerte modéré mais clair (« could materially decline »). Tendance à la hausse (up) avec impact direct sur taux. Poids catégorique élevé.",
       "trend": "up",
-      "summary": "Le carnet de commandes de nouveaux pétroliers a atteint 14,1% en novembre 2025 (plus haut en 9 ans). Si les livraisons de nouveaux navires dépassent les démolitions, l'offre de capacité augmentera, réduisant les taux de fret et la valeur des navires existants. Cela pourrait rendre improfitable l'exploitation de la flotte."
+      "summary": "Le carnet de commandes de nouveaux pétroliers a atteint 14,1% en novembre 2025 (plus haut en 9 ans). Si les livraisons de nouveaux navires dépassent les démolitions, l'offre de capacité augmentera, réduisant les taux de fret et la valeur des navires existants. Cela pourrait rendre improfitable l'exploitation de la flotte.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et sanctions affectant les routes pétrolières",
@@ -320,7 +326,8 @@
       "severity": 4,
       "score_rationale": "Risque industrie majeur avec multiples exemples concrets (guerre Ukraine, sanctions russes, tensions Moyen-Orient, crise Houthis en Mer Rouge, Venezuela). Langage intensif (« great uncertainty », « material adverse effect »). Tendance à la hausse (up) avec impacts actuels documentés. Poids catégorique élevé.",
       "trend": "up",
-      "summary": "Les conflits géopolitiques (guerre Ukraine, sanctions russes, tensions Iran-Israël, attaques Houthis en Mer Rouge, instabilité Venezuela) créent une volatilité accrue des taux de fret et perturbent les routes commerciales. Les saisies de navires liés au Venezuela et les restrictions commerciales réduisent les opportunités d'affrètement et augmentent les risques opérationnels."
+      "summary": "Les conflits géopolitiques (guerre Ukraine, sanctions russes, tensions Iran-Israël, attaques Houthis en Mer Rouge, instabilité Venezuela) créent une volatilité accrue des taux de fret et perturbent les routes commerciales. Les saisies de navires liés au Venezuela et les restrictions commerciales réduisent les opportunités d'affrètement et augmentent les risques opérationnels.",
+      "score": 4
     },
     {
       "title": "Dépendance à un nombre limité de clients charterers",
@@ -328,7 +335,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique listé dans le résumé (« dependence on a limited number of customers »). Langage modéré mais clair. Pas de détails quantitatifs fournis dans l'extrait. Tendance stable. Poids catégorique moyen pour armateur.",
       "trend": "stable",
-      "summary": "Okeanis Eco Tankers dépend d'un nombre limité de charterers pour une part importante de ses revenus. Le défaut ou la résiliation de contrats par ces clients majeurs pourrait réduire significativement les revenus et la rentabilité opérationnelle."
+      "summary": "Okeanis Eco Tankers dépend d'un nombre limité de charterers pour une part importante de ses revenus. Le défaut ou la résiliation de contrats par ces clients majeurs pourrait réduire significativement les revenus et la rentabilité opérationnelle.",
+      "score": 3
     },
     {
       "title": "Dépendance au gestionnaire technique Kyklades Maritime",
@@ -336,7 +344,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique mentionné dans le résumé (« dependence on KMC ») et dans les conflits d'intérêts potentiels. Kyklades est une entité liée au Président. Langage modéré. Tendance stable. Poids catégorique moyen pour structure d'armement.",
       "trend": "stable",
-      "summary": "La gestion technique de la flotte est entièrement confiée à Kyklades Maritime Corporation (KMC), une entité liée au Président. Toute défaillance de KMC dans la maintenance, la conformité réglementaire ou l'optimisation opérationnelle pourrait affecter la performance des navires et les revenus."
+      "summary": "La gestion technique de la flotte est entièrement confiée à Kyklades Maritime Corporation (KMC), une entité liée au Président. Toute défaillance de KMC dans la maintenance, la conformité réglementaire ou l'optimisation opérationnelle pourrait affecter la performance des navires et les revenus.",
+      "score": 3
     },
     {
       "title": "Conformité réglementaire environnementale et sécurité croissante",
@@ -344,7 +353,8 @@
       "severity": 3,
       "score_rationale": "Risque régulation mentionné dans le résumé (« environmental and safety laws ») et développé dans les facteurs d'offre (ballast water, low sulfur fuel, CO2 reductions). Langage modéré mais clair. Tendance à la hausse (up) avec nouvelles normes. Poids catégorique moyen.",
       "trend": "up",
-      "summary": "Les réglementations environnementales se renforcent (gestion des eaux de ballast, carburants à faible teneur en soufre, réductions CO2). Ces exigences augmentent les coûts opérationnels et peuvent rendre obsolètes les navires plus anciens, forçant des investissements en modernisation ou remplacement de flotte."
+      "summary": "Les réglementations environnementales se renforcent (gestion des eaux de ballast, carburants à faible teneur en soufre, réductions CO2). Ces exigences augmentent les coûts opérationnels et peuvent rendre obsolètes les navires plus anciens, forçant des investissements en modernisation ou remplacement de flotte.",
+      "score": 3
     },
     {
       "title": "Vieillissement de la flotte et coûts de remplacement",
@@ -352,7 +362,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique listé (« aging of our fleet and vessel replacement »). Langage modéré. Tendance stable mais structurelle. Poids catégorique moyen pour armateur avec flotte mature. Lié aux coûts d'exploitation croissants.",
       "trend": "stable",
-      "summary": "Le vieillissement de la flotte d'Okeanis Eco Tankers augmente les coûts de maintenance, les risques d'indisponibilité et les dépenses de conformité réglementaire. Le remplacement de navires anciens par des newbuildings requiert des investissements capitaux importants et dépend de la disponibilité de financement."
+      "summary": "Le vieillissement de la flotte d'Okeanis Eco Tankers augmente les coûts de maintenance, les risques d'indisponibilité et les dépenses de conformité réglementaire. Le remplacement de navires anciens par des newbuildings requiert des investissements capitaux importants et dépend de la disponibilité de financement.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:15:37.856538+00:00",
@@ -455,9 +466,9 @@
     "country": "Greece",
     "_data_freshness_date": "2026-05-21T02:17:14.253560+00:00",
     "fetched_at": "2026-05-21T02:17:14.253561+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.547Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.112Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/eco.json",
     "enrich_root": "v2-pipeline-enrich/eco.json",

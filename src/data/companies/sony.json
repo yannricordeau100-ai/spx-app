@@ -1,6 +1,6 @@
 {
   "ticker": "SONY",
-  "name": "Sony Group Corporation",
+  "name": "Sony Group",
   "sector": "Technologie",
   "subsector": "Consumer Electronics, Entertainment, Semiconductors",
   "tagline": "Creating a Kando moment for people all over the world through our technology and creativity.",
@@ -47,7 +47,11 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:28.484963+00:00",
       "explanation_en": "Revenue from the Game segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Music Revenue",
@@ -98,7 +102,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Value confirmed: 100% - 70.7% = 29.3%. YoY corrected: FY2024 had 71.8% cost ratio = 28.2% gross margin. FY2025 has 70.7% = 29.3%, delta = +1.1 pts (not -1.1 pts). History confirmed: [28.2, 28.2, 29.3]. Date: 2025-03-31.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -124,7 +128,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Value verified: 1,407.2 / 12,957.1 = 10.86% (rounded 10.9%). YoY confirmed: +0.7 pts (FY2024 was 1,208.8 / 13,020.8 = 9.28%). History recalculated from FY2023 figure (~9.3%) and FY2024 (9.3%) to FY2025 (10.9%). Date: 2025-03-31.",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -170,11 +174,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 35293.17 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,11 +201,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4198.25 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -224,7 +236,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -252,7 +264,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -280,7 +292,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -296,7 +308,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         141.032,
@@ -309,7 +321,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -461,7 +473,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en premier dans Item 1A, langage très intense (« increasingly intense competition », « many existing and new competitors »), affecte tous les segments (électronique, jeux, musique, cinéma). Tendance stable mais structurelle. Poids catégorique majeur pour Sony.",
       "trend": "stable",
-      "summary": "Sony fait face à une concurrence croissante de la part de grands groupes multinationaux et d'entités spécialisées, avec des avantages concurrentiels potentiellement érodés. Par exemple, dans l'électronique grand public, la pression tarifaire et la consolidation des distributeurs réduisent les marges ; dans les jeux et le cinéma, la concurrence pour les talents (créateurs, artistes, réalisateurs) et le contenu augmente les coûts sans garantie de retour."
+      "summary": "Sony fait face à une concurrence croissante de la part de grands groupes multinationaux et d'entités spécialisées, avec des avantages concurrentiels potentiellement érodés. Par exemple, dans l'électronique grand public, la pression tarifaire et la consolidation des distributeurs réduisent les marges ; dans les jeux et le cinéma, la concurrence pour les talents (créateurs, artistes, réalisateurs) et le contenu augmente les coûts sans garantie de retour.",
+      "score": 5
     },
     {
       "title": "Risques d'intégration et d'échec des acquisitions stratégiques",
@@ -469,7 +482,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement développé sur 2 paragraphes, langage modéré mais détaillé (« may not be successful », « adversely affected »). Exemple concret : acquisition de KADOKAWA en FY2025. Tendance up (acquisitions actives). Poids significatif pour la stratégie de croissance.",
       "trend": "up",
-      "summary": "Les acquisitions, joint-ventures et investissements stratégiques de Sony (ex. : KADOKAWA) peuvent échouer à atteindre leurs objectifs en raison de délais réglementaires, de synergies non réalisées, de pertes de talents clés ou de risques IT/sécurité introduits. Les coûts d'intégration et les passifs assumés peuvent affecter significativement les résultats financiers."
+      "summary": "Les acquisitions, joint-ventures et investissements stratégiques de Sony (ex. : KADOKAWA) peuvent échouer à atteindre leurs objectifs en raison de délais réglementaires, de synergies non réalisées, de pertes de talents clés ou de risques IT/sécurité introduits. Les coûts d'intégration et les passifs assumés peuvent affecter significativement les résultats financiers.",
+      "score": 4
     },
     {
       "title": "Dépendance envers distributeurs tiers et revendeurs",
@@ -477,7 +491,8 @@
       "severity": 4,
       "score_rationale": "Risque dédié avec exemples concrets (cinéma, télévision, distributeurs en ligne). Langage modéré mais spécifique (« dependent », « may adversely impact »). Tendance stable mais contexte de consolidation du retail. Poids élevé pour les segments Pictures et distribution.",
       "trend": "stable",
-      "summary": "Sony dépend fortement de grossistes, détaillants et distributeurs tiers pour la distribution de ses produits, notamment dans le cinéma (exploitation théâtrale) et la télévision (contrats de diffusion câble/satellite). L'affaiblissement financier de ces partenaires, la réduction de leurs commandes ou l'échec du renouvellement des contrats de diffusion peuvent réduire significativement les ventes et la rentabilité."
+      "summary": "Sony dépend fortement de grossistes, détaillants et distributeurs tiers pour la distribution de ses produits, notamment dans le cinéma (exploitation théâtrale) et la télévision (contrats de diffusion câble/satellite). L'affaiblissement financier de ces partenaires, la réduction de leurs commandes ou l'échec du renouvellement des contrats de diffusion peuvent réduire significativement les ventes et la rentabilité.",
+      "score": 4
     },
     {
       "title": "Risques de R&D et d'innovation technologique insuffisante",
@@ -485,7 +500,8 @@
       "severity": 4,
       "score_rationale": "Risque développé sur 2 paragraphes, langage intense (« may not be successful », « competitors may lead »). Mention explicite de l'IA générative comme disrupteur. Tendance up (IA comme nouveau vecteur de risque). Poids majeur pour la compétitivité future.",
       "trend": "up",
-      "summary": "Sony doit investir massivement en R&D pour rester compétitif, notamment dans les jeux, capteurs d'image et services réseau. Cependant, les investissements peuvent ne pas générer les innovations attendues assez rapidement, ou les concurrents peuvent devancer Sony. L'émergence de l'IA générative et son adoption par les concurrents risquent de perturber les modèles commerciaux existants de Sony."
+      "summary": "Sony doit investir massivement en R&D pour rester compétitif, notamment dans les jeux, capteurs d'image et services réseau. Cependant, les investissements peuvent ne pas générer les innovations attendues assez rapidement, ou les concurrents peuvent devancer Sony. L'émergence de l'IA générative et son adoption par les concurrents risquent de perturber les modèles commerciaux existants de Sony.",
+      "score": 4
     },
     {
       "title": "Dépendance aux développeurs tiers et acceptation consommateur",
@@ -493,7 +509,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique au segment G&NS, langage modéré mais explicite (« no assurance », « difficult to predict »). Exemple concret : dépendance aux éditeurs de jeux tiers. Tendance stable. Poids significatif pour la profitabilité du segment jeux.",
       "trend": "stable",
-      "summary": "Le succès du segment G&NS dépend de la capacité à fournir des catalogues de jeux attrayants et des services en ligne, mais Sony ne peut pas garantir que les développeurs tiers continueront à développer des jeux pour ses plateformes. L'acceptation mondiale des produits est imprévisible et affectée par les loisirs alternatifs et les produits concurrents lancés simultanément."
+      "summary": "Le succès du segment G&NS dépend de la capacité à fournir des catalogues de jeux attrayants et des services en ligne, mais Sony ne peut pas garantir que les développeurs tiers continueront à développer des jeux pour ses plateformes. L'acceptation mondiale des produits est imprévisible et affectée par les loisirs alternatifs et les produits concurrents lancés simultanément.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire multi-juridictionnelle et coûts croissants",
@@ -501,7 +518,8 @@
       "severity": 4,
       "score_rationale": "Risque développé sur 2 paragraphes, langage modéré mais exhaustif (« onerous and expensive », « frequently and without warning »). Couvre 15+ domaines réglementaires. Tendance up (nouvelles régulations IA, tarifs, durabilité). Poids élevé pour les opérations globales.",
       "trend": "up",
-      "summary": "Sony est soumise à des lois et régulations complexes et divergentes dans de nombreux pays (publicité, protection des données, anti-corruption, environnement, IA, tarifs douaniers). Les changements réglementaires fréquents, notamment en matière de décarbonation, de composés organofluorés, de tarifs commerciaux et de régulation de l'IA, augmentent les coûts de conformité et peuvent retarder ou interdire le lancement de nouveaux produits."
+      "summary": "Sony est soumise à des lois et régulations complexes et divergentes dans de nombreux pays (publicité, protection des données, anti-corruption, environnement, IA, tarifs douaniers). Les changements réglementaires fréquents, notamment en matière de décarbonation, de composés organofluorés, de tarifs commerciaux et de régulation de l'IA, augmentent les coûts de conformité et peuvent retarder ou interdire le lancement de nouveaux produits.",
+      "score": 4
     },
     {
       "title": "Risques d'intégration technologique et de stratégie réseau",
@@ -509,7 +527,8 @@
       "severity": 3,
       "score_rationale": "Risque implicite dans la stratégie d'intégration hardware/software/IA/services réseau, langage modéré (« depends on », « essential »). Tendance stable mais complexité croissante. Poids modéré pour la différenciation produit.",
       "trend": "stable",
-      "summary": "Sony doit intégrer ses matériels, logiciels (incluant l'IA), contenus de divertissement et services réseau tout en minimisant la consommation énergétique. Cette stratégie dépend de la capacité à développer l'IA et les technologies réseau, à coordonner les unités commerciales et à standardiser les spécifications technologiques. L'échec de cette intégration pourrait affecter la croissance des revenus et la rentabilité."
+      "summary": "Sony doit intégrer ses matériels, logiciels (incluant l'IA), contenus de divertissement et services réseau tout en minimisant la consommation énergétique. Cette stratégie dépend de la capacité à développer l'IA et les technologies réseau, à coordonner les unités commerciales et à standardiser les spécifications technologiques. L'échec de cette intégration pourrait affecter la croissance des revenus et la rentabilité.",
+      "score": 3
     },
     {
       "title": "Risques de restructuration et de transformation insuffisante",
@@ -517,7 +536,8 @@
       "severity": 3,
       "score_rationale": "Risque développé dans le contexte des initiatives de restructuration, langage modéré (« may not be realized »). Tendance stable mais contexte de spin-off du secteur financier (octobre 2025). Poids modéré pour la profitabilité future.",
       "trend": "stable",
-      "summary": "Sony met en œuvre des initiatives de restructuration et de transformation pour améliorer la rentabilité et la valeur actionnariale. Cependant, les bénéfices attendus peuvent ne pas être réalisés en raison d'obstacles internes/externes ou de conditions de marché dégradées, affectant les résultats opérationnels et la compétitivité."
+      "summary": "Sony met en œuvre des initiatives de restructuration et de transformation pour améliorer la rentabilité et la valeur actionnariale. Cependant, les bénéfices attendus peuvent ne pas être réalisés en raison d'obstacles internes/externes ou de conditions de marché dégradées, affectant les résultats opérationnels et la compétitivité.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:27:50.969032+00:00",
@@ -565,8 +585,8 @@
   "_dividends_extracted_at": "2026-05-09T21:01:27Z",
   "_dividends_source": "10-K FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-1 strict-table)",
   "_eps_extracted_at": "2026-05-18T16:47:32Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:38.292Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.695Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sony.json",
     "enrich_root": "v2-pipeline-enrich/sony.json",

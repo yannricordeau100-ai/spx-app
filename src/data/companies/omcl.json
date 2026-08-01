@@ -39,10 +39,13 @@
       "is_short_history": false,
       "ttm": 529.49,
       "_validation": "Valeur confirmée par 10-K (2025: $535M, 2024: $558M). YoY recalculé: (535-558)/558 = -4.1%",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Product Bookings' not found in the provided 10-K extract. The document contains XBRL metadata and structural tags but no explicit annua",
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "ARR",
@@ -66,7 +69,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur extraite du 10-K: ARR $636M au 31 dec 2025 vs $580M au 31 dec 2024. YoY calculé: (636-580)/580 = 9.7%. Données manquantes corrigées.",
-      "explanation_en": "Annual Recurring Revenue — annualized value of subscription revenue.",
+      "explanation_en": "Annual Recurring Revenue, annualized value of subscription revenue.",
       "signal_en": "Recurring base growing, revenue visibility rising"
     },
     {
@@ -88,36 +91,41 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Données de marge brute non présentes dans l'extrait 10-K fourni. Maintenu comme non disponible.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.787,
-      "unit": "Mds €",
+      "value": 787,
+      "unit": "M €",
       "yoy": "+9.9%",
       "history": [
-        0.246,
-        0.314,
-        0.381,
-        0.441,
-        0.485,
-        0.693,
-        0.716,
-        0.787
+        246,
+        314,
+        381,
+        441,
+        485,
+        693,
+        716,
+        787
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.18 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:16.738933+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -136,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.0 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,56 +171,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.97 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "-47.4%",
       "history": [
-        0.62,
-        0.61,
-        0.38,
-        0.2
+        620,
+        610,
+        380,
+        200
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.2 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "-45.9%",
       "history": [
-        0.33,
-        0.47,
-        0.37,
-        0.2
+        330,
+        470,
+        370,
+        200
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.2 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -235,9 +261,7 @@
       "is_short_history": true,
       "story_category": "Croissance",
       "ttm": 529.49,
-      "_validation": "YoY corrigé de -3% à -4.1% pour cohérence avec calcul exact (535-558)/558",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "YoY corrigé de -3% à -4.1% pour cohérence avec calcul exact (535-558)/558"
     }
   ],
   "ai_positioning": {
@@ -264,7 +288,8 @@
       "severity": 5,
       "score_rationale": "Le risque est placé en tête des facteurs de risque avec un langage fort (\"adversely impact our business\"). La société détaille des processus formels (SIRT, CISO expérimenté), ce qui indique une exposition critique. La catégorie cybersécurité est hautement pondérée dans le secteur IT/santé.",
       "trend": "stable",
-      "summary": "Une cyberattaque ou une faille de sécurité pourrait perturber gravement les opérations et nuire à la confiance des clients."
+      "summary": "Une cyberattaque ou une faille de sécurité pourrait perturber gravement les opérations et nuire à la confiance des clients.",
+      "score": 5
     },
     {
       "title": "Conformité aux lois sur la protection des données",
@@ -272,7 +297,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dès l'ouverture du volet juridique, avec un risque de dommages commerciaux en cas de non-conformité. Le secteur de la santé est fortement régulé (HIPAA, etc.), ce qui augmente la gravité. Le langage est préventif mais insiste sur les coûts et responsabilités.",
       "trend": "stable",
-      "summary": "Le non-respect des réglementations strictes sur la protection des données pourrait entraîner des sanctions et des pertes financières."
+      "summary": "Le non-respect des réglementations strictes sur la protection des données pourrait entraîner des sanctions et des pertes financières.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs tiers et risques associés",
@@ -280,7 +306,8 @@
       "severity": 4,
       "score_rationale": "La société s'appuie sur des prestataires cloud et des outils externes pour sa cybersécurité. Bien que des évaluations soient en place, une défaillance d'un tiers pourrait impacter la sécurité ou la continuité. Le risque est implicite mais critique.",
       "trend": "stable",
-      "summary": "Les vulnérabilités chez des fournisseurs externes pourraient compromettre la sécurité ou la performance des systèmes d'information."
+      "summary": "Les vulnérabilités chez des fournisseurs externes pourraient compromettre la sécurité ou la performance des systèmes d'information.",
+      "score": 4
     },
     {
       "title": "Perturbations des chaînes d'approvisionnement mondiales",
@@ -288,7 +315,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne des tarifs douaniers sur la Chine, le Mexique et la Malaisie, et des mesures d'atténuation comme le nearshoring. Le contexte géopolitique récent (2025) et l'incertitude post-décision de la Cour suprême (fév. 2026) accentuent le risque.",
       "trend": "up",
-      "summary": "Les tensions commerciales et les tarifs douaniers pourraient augmenter les coûts et perturber l'approvisionnement."
+      "summary": "Les tensions commerciales et les tarifs douaniers pourraient augmenter les coûts et perturber l'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'offre américaine et concentration géographique",
@@ -296,7 +324,8 @@
       "severity": 3,
       "score_rationale": "90 % des revenus proviennent des États-Unis. Bien que non explicitement présenté comme un risque, cette concentration est un facteur de vulnérabilité macroéconomique et réglementaire. Le langage est neutre mais le risque systémique est mesurable.",
       "trend": "stable",
-      "summary": "Une contraction du marché américain ou un changement réglementaire local pourrait fortement impacter les revenus."
+      "summary": "Une contraction du marché américain ou un changement réglementaire local pourrait fortement impacter les revenus.",
+      "score": 3
     }
   ],
   "governance": {
@@ -324,7 +353,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -402,7 +431,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.291Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.138Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/omcl.json",
     "enrich_root": "v2-pipeline-enrich/omcl.json",

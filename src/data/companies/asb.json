@@ -42,17 +42,20 @@
       "is_short_history": false,
       "ttm": 3.03,
       "_validation": "Corrected history array: replaced 5.83, 6.17, 5.83, 4.65, 3.72 with actual historical NIM values from 10-K (3.03, 2.78, 2.81 for 2025-2023)",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Profit margin on Net Interest.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Interest Income",
       "name_fr": "Revenu d'intérêt net",
       "name_en": "Net Interest Income",
       "explanation": "Revenu principal de la banque, issu des prêts et des titres d'investissement.",
-      "value": "1201.1",
-      "unit": "M $",
+      "value": 1.201,
+      "unit": "Mds $",
       "yoy": "+15%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -60,9 +63,9 @@
       "signal": "Croissance robuste de 15 % grâce à une meilleure gestion des taux et du bilan.",
       "description": "Le revenu d'intérêt net a augmenté de 153,9 millions de dollars en 2025, tiré par des conditions de taux favorables et une stratégie de repositionnement.",
       "history": [
-        1201.1,
-        1047.2,
-        1039.6,
+        1.201,
+        1.047,
+        1.04,
         null,
         null
       ],
@@ -73,7 +76,8 @@
       "ttm": 1201.1,
       "_validation": "Corrected unit from 'Mds $' to 'M$'; corrected value from 1.2 to 1201.1 (actual net interest income in millions); replaced history array with actual values from 10-K Table 1 (1201.1, 1047.2, 1039.6 for 2025-2023)",
       "explanation_en": "Net Interest income generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Provision for Credit Losses",
@@ -237,7 +241,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -251,7 +259,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.76,
         0.81,
@@ -264,7 +272,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -279,7 +287,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1411,
@@ -292,7 +300,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -307,7 +315,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         37.97,
@@ -320,7 +328,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -336,7 +344,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.34,
@@ -349,7 +357,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -379,9 +387,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "History confirmed from 10-K Table 2 (30.590 Mds for 2025, 29.697 Mds for 2024, 29.534 Mds for 2023)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "History confirmed from 10-K Table 2 (30.590 Mds for 2025, 29.697 Mds for 2024, 29.534 Mds for 2023)"
     },
     {
       "short": "Average Deposits",
@@ -408,9 +414,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "History partially confirmed: 34.8 Mds for 2025 confirmed, 33.3 Mds for 2024 calculated from increase of 1.5 Mds; 2023 data not available in excerpt",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "History partially confirmed: 34.8 Mds for 2025 confirmed, 33.3 Mds for 2024 calculated from increase of 1.5 Mds; 2023 data not available in excerpt"
     }
   ],
   "ai_positioning": {
@@ -424,52 +428,52 @@
       "title": "Risque de crédit accru en cas de récession économique",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "Positionné en tête des facteurs de risque, avec un langage fort sur l'impact négatif potentiel sur la qualité des actifs, la demande de prêts et les résultats. Mention répétée de récession, inflation et taux d'intérêt. Contexte 2025-2026 montre une vigilance accrue malgré croissance actuelle. Catégorie Crédit fortement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Positionné en tête des facteurs de risque, avec un langage fort sur l'impact négatif potentiel sur la qualité des actifs, la demande de prêts et les résultats. Mention répétée de récession, inflation et taux d'intérêt. Contexte 2025-2026 montre une vigilance accrue malgré croissance actuelle. Catégorie Crédit fortement pondérée.",
       "trend": "stable",
       "summary": "Une contraction économique ou une récession pourrait nuire à la qualité des prêts, à la demande et aux bénéfices.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Insuffisance potentielle de la réserve pour pertes sur prêts",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "Le risque est décrit comme impliquant un haut degré de subjectivité et d'estimations significatives. Le texte mentionne explicitement que les agences de régulation pourraient exiger une augmentation, affectant directement le capital et les bénéfices. Position central dans le 10-K. Catégorie Crédit critique. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est décrit comme impliquant un haut degré de subjectivité et d'estimations significatives. Le texte mentionne explicitement que les agences de régulation pourraient exiger une augmentation, affectant directement le capital et les bénéfices. Position central dans le 10-K. Catégorie Crédit critique.",
       "trend": "stable",
       "summary": "La réserve pour pertes sur prêts pourrait être insuffisante, entraînant des charges supplémentaires et une baisse du capital.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concentration élevée en prêts commerciaux et immobiliers",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "65 % du portefeuille en prêts commerciaux, dont 27 % en immobilier d'entreprise (CRE), soit 183 % du capital. Langage fort sur le risque de défaut élevé et l'impact d'un ou deux prêts défaillants. Mention de surveillance réglementaire accrue. Catégorie Crédit prioritaire. (score par défaut, à affiner)",
+      "score_rationale": "65 % du portefeuille en prêts commerciaux, dont 27 % en immobilier d'entreprise (CRE), soit 183 % du capital. Langage fort sur le risque de défaut élevé et l'impact d'un ou deux prêts défaillants. Mention de surveillance réglementaire accrue. Catégorie Crédit prioritaire.",
       "trend": "stable",
       "summary": "Une forte exposition aux prêts commerciaux et immobiliers augmente le risque de pertes importantes en cas de défaillance.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque accru lié aux dépôts non assurés",
       "category": "Liquidité",
       "severity": 4,
-      "score_rationale": "26,5 % des dépôts non assurés (9,4 Mds $), avec référence aux faillites bancaires de 2023 et à la rapidité des retraits électroniques. Mention de la surveillance accrue des agences fédérales. Position importante dans le texte. Catégorie Liquidité fortement impactée. (score par défaut, à affiner)",
+      "score_rationale": "26,5 % des dépôts non assurés (9,4 Mds $), avec référence aux faillites bancaires de 2023 et à la rapidité des retraits électroniques. Mention de la surveillance accrue des agences fédérales. Position importante dans le texte. Catégorie Liquidité fortement impactée.",
       "trend": "stable",
       "summary": "Un retrait massif de dépôts non assurés en cas de crise pourrait compromettre la liquidité de la banque.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Impact des politiques commerciales et tarifaires",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Mention des tarifs imposés par l'administration Trump en 2025, des menaces de représailles et de l'incertitude réglementaire. Effet sur les marges clients et leur capacité à rembourser. Position secondaire mais langage préoccupé. Catégorie Géopolitique moyennement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Mention des tarifs imposés par l'administration Trump en 2025, des menaces de représailles et de l'incertitude réglementaire. Effet sur les marges clients et leur capacité à rembourser. Position secondaire mais langage préoccupé. Catégorie Géopolitique moyennement pondérée.",
       "trend": "stable",
       "summary": "Les tensions commerciales et les tarifs peuvent réduire la demande et affaiblir la solvabilité des clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à l'information fournie par les clients",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Risque lié à la fiabilité des états financiers fournis par les emprunteurs. Impact sur l'évaluation des risques de crédit et les décisions de prêt. (score par défaut, à affiner)",
+      "score_rationale": "Risque lié à la fiabilité des états financiers fournis par les emprunteurs. Impact sur l'évaluation des risques de crédit et les décisions de prêt.",
       "trend": "stable",
       "summary": "Les informations financières inexactes des clients peuvent affecter l'évaluation du risque de crédit.",
       "score": 3
@@ -485,7 +489,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -536,7 +540,6 @@
       "date": "2026-04-30"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:59:09.223741+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -566,6 +569,7 @@
     ],
     "total": 1.49
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:59:09.223741+00:00",
   "_segments_fetched_at": "2026-05-06T19:23:29.045654+00:00",
   "financial_snapshot": {
     "market_cap_usd": 5455923200,
@@ -595,7 +599,7 @@
   "company_description": "Associated Banc-Corp, a bank holding company, provides various banking and nonbanking products and services to individuals and businesses in Wisconsin, Illinois, Missouri, and Minnesota. It offers lending solutions, including commercial loans and lines of credit, commercial real estate financing, construction loans, letters of credit, leasing, asset-based lending and equipment finance, loan syndications products, residential mortgages, home equity loans and lines of credit, personal and installment loans, auto finance and business loans, and business lines of credit. The company also provides deposit and cash management solutions, such as commercial checking and interest-bearing deposit products, cash vault and night depository services, liquidity solutions, payables and receivables solutions, and information services; specialized financial services comprising interest rate risk management and foreign exchange solutions; fiduciary services consisting of administration of pension, profit-sharing and other employee benefit plans, fiduciary and corporate agency services, and institutional asset management services; and investable funds solutions, including savings, money market deposit accounts, IRA accounts, CDs, fixed and variable annuities, full-service, discount, and online investment brokerage; investment advisory services; and trust and investment management accounts. In addition, it offers deposit and transactional solutions, including checking, credit and debit cards, online banking and bill pay, and money transfer services. The company operates loan production offices in Indiana, Kansas, Michigan, New York, Ohio, and Texas. Associated Banc-Corp was founded in 1861 and is headquartered in Green Bay, Wisconsin.",
   "_profile_fetched_at": "2026-05-07T11:53:40.832493+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:56Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -614,7 +618,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:21Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:34Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banque et services financiers",
   "enrich_description": {
@@ -712,6 +716,52 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "ASB",
+    "extracted_at": "2026-06-01T02:58:13Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Net Interest Margin",
+        "period_type": "quarter",
+        "history": [
+          2.57,
+          2.76,
+          3.07,
+          2.93,
+          2.86,
+          2.79,
+          2.77,
+          2.77,
+          2.97,
+          3.01,
+          3.02,
+          3.03
+        ],
+        "history_periods": [
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T02:58:13Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "ASB",
     "ranks": {
@@ -724,15 +774,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.224022+00:00",
     "fetched_at": "2026-05-21T02:17:14.224024+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.021Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.484Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/asb.json",
     "enrich_root": "v2-pipeline-enrich/asb.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

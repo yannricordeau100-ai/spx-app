@@ -40,47 +40,57 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.68,
-      "unit": "Mds €",
+      "value": 680,
+      "unit": "M €",
       "yoy": "+1.5%",
       "history": [
-        0.44,
-        0.56,
-        0.67,
-        0.68
+        440,
+        560,
+        670,
+        680
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.68 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "-31.2%",
       "history": [
-        0.22,
-        0.28,
-        0.32,
-        0.22
+        220,
+        280,
+        320,
+        220
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.22 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -99,11 +109,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 3.78 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -122,11 +136,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 19.45 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -145,33 +163,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.84 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.21,
-      "unit": "Mds €",
+      "value": 210,
+      "unit": "M €",
       "yoy": "-56.3%",
       "history": [
-        0.23,
-        0.58,
-        0.48,
-        0.21
+        230,
+        580,
+        480,
+        210
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.21 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -198,9 +225,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Croissance",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Croissance"
     }
   ],
   "ai_positioning": {
@@ -216,7 +241,8 @@
       "severity": 4,
       "score_rationale": "Le rapport mentionne l'importance de la gestion du risque de crédit, notamment dans le contexte des portefeuilles de prêts hypothécaires et multifamiliaux. La société a mis en place des mesures pour atténuer ce risque, mais il demeure une préoccupation majeure.",
       "trend": "stable",
-      "summary": "Le risque de crédit est un risque majeur pour la société, en particulier dans les portefeuilles hypothécaires et multifamiliaux."
+      "summary": "Le risque de crédit est un risque majeur pour la société, en particulier dans les portefeuilles hypothécaires et multifamiliaux.",
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
@@ -224,7 +250,8 @@
       "severity": 3,
       "score_rationale": "La société dépend de la liquidité pour financer ses activités, notamment ses prêts hypothécaires et warehouse. Une pénurie de liquidité pourrait avoir des conséquences graves sur les activités de la société.",
       "trend": "stable",
-      "summary": "Le risque de liquidité est un risque important pour la société, en particulier dans le contexte du financement des prêts."
+      "summary": "Le risque de liquidité est un risque important pour la société, en particulier dans le contexte du financement des prêts.",
+      "score": 3
     },
     {
       "title": "Risque réglementaire",
@@ -232,7 +259,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations strictes de la part de la FDIC et de l'OCC. Une non-conformité aux réglementations pourrait avoir des conséquences graves sur les activités de la société.",
       "trend": "stable",
-      "summary": "Le risque réglementaire est un risque important pour la société, notamment concernant les ratios de capital réglementaires et les normes prudentielles."
+      "summary": "Le risque réglementaire est un risque important pour la société, notamment concernant les ratios de capital réglementaires et les normes prudentielles.",
+      "score": 3
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -240,7 +268,8 @@
       "severity": 4,
       "score_rationale": "La société est très sensible aux fluctuations des taux d'intérêt, qui impactent directement les volumes de prêts hypothécaires, la marge nette d'intérêts et le coût du financement. La volatilité des taux a un impact significatif sur les résultats opérationnels.",
       "trend": "up",
-      "summary": "Le risque de taux d'intérêt est un risque majeur pour la société, affectant les volumes de prêts et les marges."
+      "summary": "Le risque de taux d'intérêt est un risque majeur pour la société, affectant les volumes de prêts et les marges.",
+      "score": 4
     },
     {
       "title": "Risque de cyberattaques",
@@ -248,7 +277,8 @@
       "severity": 3,
       "score_rationale": "La société est vulnérable aux cyberattaques en tant qu'institution financière. Une cyberattaque pourrait avoir des conséquences graves sur les activités et la confiance des clients.",
       "trend": "stable",
-      "summary": "Le risque de cyberattaques est un risque important pour la société opérant dans le secteur financier."
+      "summary": "Le risque de cyberattaques est un risque important pour la société opérant dans le secteur financier.",
+      "score": 3
     }
   ],
   "governance": {
@@ -468,9 +498,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.281695+00:00",
     "fetched_at": "2026-05-21T02:17:14.281696+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.332Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.176Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mbin.json",
     "enrich_root": "v2-pipeline-enrich/mbin.json",

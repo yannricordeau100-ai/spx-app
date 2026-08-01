@@ -1,6 +1,6 @@
 {
   "ticker": "KALU",
-  "name": "Kaiser Aluminum Corporation",
+  "name": "Kaiser Aluminum",
   "sector": "Matériaux",
   "subsector": "Aluminum & Metals",
   "tagline": "Leading producer of semi-fabricated aluminum products for aerospace, automotive, and specialty applications",
@@ -90,7 +90,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items."
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items."
     },
     {
       "short": "Total Revenue",
@@ -109,34 +109,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.37 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+57.1%",
       "history": [
-        -0.03,
-        0.07,
-        0.07,
-        0.11
+        -30,
+        70,
+        70,
+        110
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.11 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.56 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -178,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.09 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-50.0%",
       "history": [
-        0.06,
-        0.08,
-        0.02,
-        0.01
+        60,
+        80,
+        20,
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -230,9 +252,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 3.37,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 3.37
     }
   ],
   "ai_positioning": {
@@ -246,16 +266,16 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques de cyberattaques, mais elle a mis en place des mesures de sécurité et une équipe de réponse aux incidents. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de cyberattaques, mais elle a mis en place des mesures de sécurité et une équipe de réponse aux incidents.",
       "trend": "stable",
       "summary": "La société est vulnérable aux cyberattaques, mais elle prend des mesures pour se protéger.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fluctuations du marché",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "La société est exposée aux fluctuations du marché de l'aluminium, ce qui peut impacter ses ventes et ses bénéfices. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux fluctuations du marché de l'aluminium, ce qui peut impacter ses ventes et ses bénéfices.",
       "trend": "up",
       "summary": "Les fluctuations du marché de l'aluminium peuvent avoir un impact sur les ventes et les bénéfices de la société.",
       "score": 3
@@ -264,16 +284,16 @@
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "La société est soumise à des réglementations environnementales et de sécurité, mais elle semble être en conformité avec ces réglementations. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations environnementales et de sécurité, mais elle semble être en conformité avec ces réglementations.",
       "trend": "stable",
       "summary": "La société est soumise à des réglementations, mais elle semble être en conformité avec celles-ci.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La société opère dans un marché concurrentiel, ce qui peut impacter ses ventes et ses parts de marché. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché concurrentiel, ce qui peut impacter ses ventes et ses parts de marché.",
       "trend": "up",
       "summary": "La concurrence peut avoir un impact sur les ventes et les parts de marché de la société.",
       "score": 3
@@ -282,16 +302,16 @@
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 2,
-      "score_rationale": "La société a émis des obligations, ce qui peut impacter sa situation financière en cas de défaut de paiement. (score par défaut, à affiner)",
+      "score_rationale": "La société a émis des obligations, ce qui peut impacter sa situation financière en cas de défaut de paiement.",
       "trend": "stable",
       "summary": "La société a émis des obligations, ce qui peut présenter des risques de crédit.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques opérationnels",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société est exposée à des risques opérationnels, tels que les accidents et les pannes, ce qui peut impacter sa production et ses ventes. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques opérationnels, tels que les accidents et les pannes, ce qui peut impacter sa production et ses ventes.",
       "trend": "up",
       "summary": "La société est exposée à des risques opérationnels qui peuvent avoir un impact sur sa production et ses ventes.",
       "score": 3
@@ -300,10 +320,10 @@
       "title": "Risques de réputation",
       "category": "Reputation",
       "severity": 2,
-      "score_rationale": "La société peut être exposée à des risques de réputation en cas de non-conformité avec les réglementations ou les attentes des clients. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être exposée à des risques de réputation en cas de non-conformité avec les réglementations ou les attentes des clients.",
       "trend": "stable",
       "summary": "La société peut être exposée à des risques de réputation en cas de non-conformité avec les réglementations ou les attentes des clients.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -335,7 +355,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -402,7 +422,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.707Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.686Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kalu.json",
     "enrich_root": null,

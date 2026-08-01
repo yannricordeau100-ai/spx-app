@@ -77,7 +77,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'B $' (standard US convention); verified amount $3.28 billion from 10-K Item 7A",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings."
     },
     {
       "short": "Fixed-Rate Debt %",
@@ -122,13 +122,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.0 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:48.126033+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -147,33 +151,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 12.61 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "+183.3%",
       "history": [
-        0.04,
-        0.03,
-        0.06,
-        0.17
+        40,
+        30,
+        60,
+        170
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -192,10 +205,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 8.46 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -209,7 +226,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.96,
         1.26,
@@ -222,7 +239,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -237,7 +254,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.225,
@@ -250,7 +267,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -265,7 +282,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         141.52,
@@ -278,7 +295,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -294,7 +311,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.92,
@@ -307,7 +324,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -359,7 +376,8 @@
       "score_rationale": "Risque placé en début de section (position forte), langage très intensif ('could materially adversely affect'), tendance stable mais structurelle, poids macro élevé. Exposition concentrée à une seule région avec multiples vulnérabilités (séismes, régulation, homelessness).",
       "trend": "stable",
       "summary": "Tous les immeubles de REXR sont en Californie du Sud, ce qui expose l'entreprise aux crises économiques régionales, aux tremblements de terre et aux politiques fiscales locales restrictives. Une récession locale ou une catastrophe naturelle pourrait réduire gravement les revenus.",
-      "citation": "All of our properties are located in Southern California, which may expose us to greater or lesser economic risks... we are particularly susceptible to adverse economic or other conditions in Southern California, as well as to natural disasters that occur in this market."
+      "citation": "All of our properties are located in Southern California, which may expose us to greater or lesser economic risks... we are particularly susceptible to adverse economic or other conditions in Southern California, as well as to natural disasters that occur in this market.",
+      "score": 5
     },
     {
       "title": "Concentration sectorielle dans l'immobilier industriel",
@@ -368,7 +386,8 @@
       "score_rationale": "Risque en début de rapport (position forte), langage direct ('would be adversely affected'), tendance stable, poids macro significatif. Dépendance à trois secteurs (Manufacturing 22.5%, Wholesale 21.7%, Transportation 21.6%) crée vulnérabilité concentrée.",
       "trend": "stable",
       "summary": "REXR dépend fortement de trois secteurs économiques (fabrication, commerce de gros, transport). Une récession dans l'un de ces secteurs pourrait forcer les locataires à déclarer faillite ou cesser de payer les loyers.",
-      "citation": "Our properties are concentrated in certain industries... Any downturn in one or more of these industries... could materially and adversely affect us."
+      "citation": "Our properties are concentrated in certain industries... Any downturn in one or more of these industries... could materially and adversely affect us.",
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions et intégration",
@@ -377,7 +396,8 @@
       "score_rationale": "Risque placé au milieu (position modérée), langage intensif ('could harm our business', 'may dilute'), tendance stable mais structurelle à la stratégie, poids capital élevé. Dépendance à 77% sur transactions off-market crée vulnérabilité stratégique.",
       "trend": "stable",
       "summary": "REXR dépend fortement de l'acquisition de propriétés hors marché (77% des acquisitions). Si cette source tarit, l'entreprise devra payer plus cher et accepter des conditions moins favorables, réduisant sa croissance et ses rendements.",
-      "citation": "approximately 77% of the acquisitions by property count completed by us since our initial public offering were acquired in off-market or lightly-marketed transactions... If we cannot obtain off-market or lightly-marketed deal flow in the future, our ability to locate and acquire additional properties may be adversely affected."
+      "citation": "approximately 77% of the acquisitions by property count completed by us since our initial public offering were acquired in off-market or lightly-marketed transactions... If we cannot obtain off-market or lightly-marketed deal flow in the future, our ability to locate and acquire additional properties may be adversely affected.",
+      "score": 4
     },
     {
       "title": "Hausse des couts d'exploitation et inflation",
@@ -386,7 +406,8 @@
       "score_rationale": "Risque en milieu de rapport (position modérée), langage modéré mais détaillé ('could adversely impact'), tendance accrue (inflation 2.7% en 2025, dépassant certains escaliers de loyer), poids macro significatif. Exposition directe aux couts de construction et services.",
       "trend": "up",
       "summary": "L'inflation augmente les couts d'exploitation (assurances, taxes, réparations, salaires). Bien que REXR puisse répercuter certains couts sur les locataires, l'inflation de 2.7% dépasse parfois les augmentations de loyer contractuelles (3% fixes), réduisant les marges.",
-      "citation": "Many of our costs... could be adversely impacted by periods of heightened inflation... the impact of the current rate of inflation of 2.7% may not be adequately offset by some of our annual rent escalations."
+      "citation": "Many of our costs... could be adversely impacted by periods of heightened inflation... the impact of the current rate of inflation of 2.7% may not be adequately offset by some of our annual rent escalations.",
+      "score": 4
     },
     {
       "title": "Risques de taux d'interet et financement",
@@ -395,14 +416,16 @@
       "score_rationale": "Risque en milieu de rapport (position modérée), langage direct ('could increase our financing costs'), tendance stable mais incertaine (Fed a baissé les taux en 2024-2025 mais avenir incertain), poids crédit élevé. Exposition de 760M$ en dette variable.",
       "trend": "stable",
       "summary": "REXR a 760 millions de dollars de dette à taux variable. Bien que couverte par des swaps de taux, une hausse des taux d'interet augmenterait les couts de financement lors du refinancement ou de nouveaux emprunts.",
-      "citation": "As of December 31, 2025, we had $760.0 million of variable-rate debt... the effect of inflation on interest rates could increase our financing costs over time."
+      "citation": "As of December 31, 2025, we had $760.0 million of variable-rate debt... the effect of inflation on interest rates could increase our financing costs over time.",
+      "score": 4
     },
     {
       "title": "Passifs environnementaux et asbestos non divulgués",
       "category": "Environnement",
       "severity": 4,
       "score_rationale": "Risque en milieu de rapport (position modérée), langage intensif ('undisclosed liabilities', 'may be insufficient'), tendance stable mais structurelle aux acquisitions, poids environnemental élevé. Exposition lors de chaque acquisition sans recours complet.",
-      "citation": "we may acquire properties subject to liabilities and without any recourse... such as liabilities for clean-up of environmental contamination... including environmental or asbestos liability, for which our insurance may be insufficient."
+      "citation": "we may acquire properties subject to liabilities and without any recourse... such as liabilities for clean-up of environmental contamination... including environmental or asbestos liability, for which our insurance may be insufficient.",
+      "score": 4
     },
     {
       "title": "Mesures fiscales locales (Measure ULA et Prop 13)",
@@ -411,7 +434,8 @@
       "score_rationale": "Risque en début de rapport (position forte), langage modéré ('could cause a significant increase'), tendance accrue (Measure ULA en vigueur depuis avril 2023, 12% du portefeuille affecté), poids régulation élevé. Impact direct sur rentabilité des ventes.",
       "trend": "up",
       "summary": "La Measure ULA de Los Angeles impose une taxe de 4-5.5% sur les ventes immobilières depuis avril 2023. Des initiatives futures pourraient supprimer les protections Prop 13, augmentant drastiquement les taxes foncières de REXR.",
-      "citation": "Beginning on April 1, 2023, Measure ULA imposed an additional fee at the time of sale at a rate of 4% for properties between $5 million and $10 million and 5.5% for those $10 million or above."
+      "citation": "Beginning on April 1, 2023, Measure ULA imposed an additional fee at the time of sale at a rate of 4% for properties between $5 million and $10 million and 5.5% for those $10 million or above.",
+      "score": 3
     },
     {
       "title": "Declarations d'urgence gouvernementale et collecte de loyers",
@@ -420,7 +444,8 @@
       "score_rationale": "Risque en début de rapport (position forte), langage intensif ('significant adverse impact', 'could trigger'), tendance nouvelle/accrue (référence aux impacts COVID et crises récentes), poids régulation élevé. Risque systémique sur capacité de paiement des locataires.",
       "trend": "new",
       "summary": "Les declarations d'urgence gouvernementale (comme lors de la COVID-19) peuvent paralyser l'économie locale, empêcher les locataires de payer les loyers et réduire la liquidité de REXR pour servir sa dette.",
-      "citation": "The impact from governmental emergency declarations with emergency powers may have significant adverse impact on economic and market conditions... could trigger a period of sustained global and U.S. economic downturn or recession... could lead to adverse impacts on our ability to satisfy our debt service obligations."
+      "citation": "The impact from governmental emergency declarations with emergency powers may have significant adverse impact on economic and market conditions... could trigger a period of sustained global and U.S. economic downturn or recession... could lead to adverse impacts on our ability to satisfy our debt service obligations.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:56:21.680349+00:00",
@@ -435,7 +460,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:21:38Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2013,
@@ -460,7 +485,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:18Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:06Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "REXR",
     "simple": {
@@ -514,7 +539,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.148Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.403Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rexr.json",
     "enrich_root": "v2-pipeline-enrich/rexr.json",

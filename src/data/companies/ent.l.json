@@ -33,9 +33,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Loss Prevention Colloquium",
@@ -54,9 +52,7 @@
       "last_data_date": "2024-11-04",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Member Countries",
@@ -95,11 +91,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.26 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni concerne le rapport annuel d'Entain plc, pas celui de l'International Association of Classification Societies (ENT.L). Aucun",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -118,11 +120,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.4 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -141,33 +147,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.99 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.35,
-      "unit": "Mds €",
+      "value": 350,
+      "unit": "M €",
       "yoy": "-10.3%",
       "history": [
-        0.61,
-        0.25,
-        0.39,
-        0.35
+        610,
+        250,
+        390,
+        350
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.35 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -318,7 +333,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.787Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.084Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ent.l.json",
     "enrich_root": "v2-pipeline-enrich/ent.l.json",

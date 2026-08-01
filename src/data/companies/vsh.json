@@ -38,9 +38,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "period_type": "year",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net revenues",
@@ -115,7 +118,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -141,25 +148,29 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.057,
-      "unit": "Mds $",
+      "value": 57,
+      "unit": "M $",
       "yoy": "+850.0%",
       "history": [
-        0.485,
-        0.262,
-        0.21,
-        0.468,
-        0.615,
-        0.486,
-        0.006,
-        0.057
+        485,
+        262,
+        210,
+        468,
+        615,
+        486,
+        6,
+        57
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -168,8 +179,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -199,7 +215,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "Vishay mentionne l'intelligence artificielle comme l'un des domaines clés soutenus par ses composants, dans le contexte de ses stratégies d'automatisation et de connectivité.",
     "evidence": [
       "Mention de l'IA parmi les technologies soutenues par la portfolio de composants"
@@ -213,7 +229,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux conditions économiques mondiales, ce qui peut impacter ses revenus et résultats d'exploitation. Le langage utilisé dans le 10-K est prudent, indiquant une vigilance accrue face aux ralentissements économiques.",
       "trend": "stable",
-      "summary": "La société est sensible aux fluctuations économiques mondiales, ce qui peut affecter ses performances financières."
+      "summary": "La société est sensible aux fluctuations économiques mondiales, ce qui peut affecter ses performances financières.",
+      "score": 4
     },
     {
       "title": "Concurrence intense",
@@ -221,7 +238,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un marché compétitif avec plusieurs entreprises rivales offrant des produits similaires. Cependant, Vishay mise sur sa stratégie de croissance et son large portefeuille de produits pour maintenir sa position concurrentielle.",
       "trend": "stable",
-      "summary": "La société doit faire face à une concurrence accrue sur le marché, mais elle compte sur sa stratégie et son portefeuille pour maintenir sa position."
+      "summary": "La société doit faire face à une concurrence accrue sur le marché, mais elle compte sur sa stratégie et son portefeuille pour maintenir sa position.",
+      "score": 3
     },
     {
       "title": "Dépendance aux marchés finaux",
@@ -229,7 +247,8 @@
       "severity": 4,
       "score_rationale": "La société est dépendante de la demande des marchés finaux ciblés, tels que l'automobile et l'industrie. Une baisse de la demande dans ces secteurs clés pourrait impacter significativement les revenus.",
       "trend": "stable",
-      "summary": "La société est exposée aux fluctuations de la demande dans les marchés finaux qu'elle cible, ce qui peut affecter ses revenus."
+      "summary": "La société est exposée aux fluctuations de la demande dans les marchés finaux qu'elle cible, ce qui peut affecter ses revenus.",
+      "score": 4
     },
     {
       "title": "Risques de production et d'approvisionnement",
@@ -237,7 +256,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux risques de production, tels que les pénuries de composants et les problèmes de qualité. La société a mis en place des stratégies pour gérer ces risques, notamment en optimisant son empreinte manufacturière.",
       "trend": "stable",
-      "summary": "La société est sensible aux risques de production et d'approvisionnement, mais elle a des plans pour atténuer ces risques."
+      "summary": "La société est sensible aux risques de production et d'approvisionnement, mais elle a des plans pour atténuer ces risques.",
+      "score": 3
     },
     {
       "title": "Risques financiers et de liquidité",
@@ -245,7 +265,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques financiers, tels que les fluctuations des taux d'intérêt et les changements dans les conditions de crédit. La politique de retour aux actionnaires et les investissements d'expansion affectent la gestion du capital.",
       "trend": "stable",
-      "summary": "La société est sensible aux risques financiers, mais elle a mis en place des stratégies pour gérer ces risques et maintenir sa santé financière."
+      "summary": "La société est sensible aux risques financiers, mais elle a mis en place des stratégies pour gérer ces risques et maintenir sa santé financière.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et de conformité",
@@ -253,7 +274,8 @@
       "severity": 2,
       "score_rationale": "La société est exposée aux risques réglementaires relatifs aux changements dans les lois et réglementations. Cependant, la société semble avoir une bonne compréhension de ces risques et des stratégies appropriées pour les gérer.",
       "trend": "stable",
-      "summary": "La société est sensible aux risques réglementaires, mais elle dispose de plans pour les gérer efficacement."
+      "summary": "La société est sensible aux risques réglementaires, mais elle dispose de plans pour les gérer efficacement.",
+      "score": 2
     },
     {
       "title": "Risques de gestion et de succession",
@@ -261,7 +283,8 @@
       "severity": 3,
       "score_rationale": "La société a mis en place une nouvelle équipe de direction en 2023 (Vishay 3.0) promue de l'interne. La société est exposée aux risques de rétention des talents clés et de succession, mais dispose d'une équipe expérimentée.",
       "trend": "stable",
-      "summary": "La société a une nouvelle équipe de direction en place avec un plan stratégique de trois ans, mais reste exposée aux risques de gestion des talents clés."
+      "summary": "La société a une nouvelle équipe de direction en place avec un plan stratégique de trois ans, mais reste exposée aux risques de gestion des talents clés.",
+      "score": 3
     }
   ],
   "governance": {
@@ -298,7 +321,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -470,88 +493,71 @@
   },
   "enrich_quarterly_history": {
     "ticker": "VSH",
-    "extracted_at": "2026-05-15T18:15:05Z",
-    "method": "xbrl-companyfacts",
-    "cik": 103730,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:28:31Z",
+    "n_kpis": 2,
     "kpis": [
+      {
+        "short": "Capex",
+        "period_type": "quarter",
+        "history": [
+          95.7,
+          117.25,
+          53.084,
+          117.25,
+          115.648,
+          61.569,
+          115.648,
+          126.167,
+          178.491
+        ],
+        "history_periods": [
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:28:31Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "Net revenues",
         "period_type": "quarter",
         "history": [
-          1583.752,
-          2397.415,
-          -1505.312,
-          853.793,
-          1717.305,
-          2642.103,
-          -1715.8,
-          871.046,
-          1763.156,
-          2616.809,
-          -1848.966,
-          746.279,
-          1487.518,
-          2222.871,
-          -1519.081,
-          715.236,
-          1477.486,
-          2268.126,
-          -1391.8,
-          839.242
+          0.149,
+          0.146,
+          0.145,
+          0.149,
+          0.146,
+          0.145,
+          0.153,
+          0.155,
+          0.147
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-04-04",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1477.486,
-            "accession": "0000103730-25-000055",
-            "end": "2025-06-28"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 2268.126,
-            "accession": "0000103730-25-000067",
-            "end": "2025-09-27"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -1391.8,
-            "accession": "calc-0000103730-26-000019",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 839.242,
-            "accession": "0000103730-26-000038",
-            "end": "2026-04-04"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:28:31Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -567,9 +573,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.326539+00:00",
     "fetched_at": "2026-05-21T02:17:14.326540+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.299Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.434Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vsh.json",
     "enrich_root": "v2-pipeline-enrich/vsh.json",

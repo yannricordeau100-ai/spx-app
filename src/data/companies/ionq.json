@@ -55,7 +55,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -115,7 +115,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -135,7 +135,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -154,34 +154,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.57 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
         0,
-        0.01,
-        0.02,
-        0.03
+        10,
+        20,
+        30
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.03 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -208,9 +217,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Financial Performance",
-      "ttm": 579.2,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 579.2
     },
     {
       "short": "Accumulated Deficit",
@@ -235,9 +242,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Financial Performance",
-      "ttm": 1623.95,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": 1623.95
     }
   ],
   "ai_positioning": {
@@ -258,61 +263,61 @@
       "title": "Pertes opératoires",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Histoire de pertes opératoires significatives et prévision de pertes continues pour le futur proche (10-K p. Business/MD&A) (score par défaut, à affiner)",
+      "score_rationale": "Histoire de pertes opératoires significatives et prévision de pertes continues pour le futur proche (10-K p. Business/MD&A)",
       "trend": "up",
       "summary": "L'entreprise a une histoire de pertes opératoires substantielles (510,4 M$ en 2025) et prévoit des pertes continues pour le futur proche tout en priorisant les jalons technologiques.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance aux talents clés",
       "category": "Personne-clé",
       "severity": 4,
-      "score_rationale": "Dépendance forte à l'égard des employés clés ayant des connaissances spécialisées en informatique quantique (10-K Risk Factors) (score par défaut, à affiner)",
+      "score_rationale": "Dépendance forte à l'égard des employés clés ayant des connaissances spécialisées en informatique quantique (10-K Risk Factors)",
       "trend": "up",
       "summary": "L'entreprise est fortement dépendante de ses employés clés disposant de connaissances spécialisées, dont le départ pourrait impacter la R&D et la capacité d'innovation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Intensité concurrentielle",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Industrie de l'informatique quantique très compétitive avec des acteurs académiques et commerciaux majeurs (10-K Risk Factors) (score par défaut, à affiner)",
+      "score_rationale": "Industrie de l'informatique quantique très compétitive avec des acteurs académiques et commerciaux majeurs (10-K Risk Factors)",
       "trend": "up",
       "summary": "L'industrie de l'informatique quantique est hautement compétitive, menaçant la capacité d'IonQ à se démarquer et maintenir sa position leadership.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques technologiques",
       "category": "Technologie",
       "severity": 5,
-      "score_rationale": "Risques technologiques intrinsèques au développement de l'informatique quantique et à l'atteinte de l'avantage quantique (10-K Risk Factors) (score par défaut, à affiner)",
+      "score_rationale": "Risques technologiques intrinsèques au développement de l'informatique quantique et à l'atteinte de l'avantage quantique (10-K Risk Factors)",
       "trend": "stable",
       "summary": "L'entreprise est exposée à des risques technologiques majeurs liés au développement de systèmes quantiques fiables, à l'augmentation du nombre de qubits et à la correction d'erreurs quantiques.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Défauts produits",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Risques de défauts de production et de qualité des systèmes quantiques complexes (10-K Risk Factors) (score par défaut, à affiner)",
+      "score_rationale": "Risques de défauts de production et de qualité des systèmes quantiques complexes (10-K Risk Factors)",
       "trend": "up",
       "summary": "L'entreprise est exposée à des risques de défauts de production et de qualité des produits quantiques hautement techniques, impactant ventes et réputation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Scalabilité et croissance",
       "category": "Opérationnel",
       "severity": 4,
-      "score_rationale": "Risques liés à la capacité de scaler rapidement face à la demande et de gérer la croissance (10-K Risk Factors) (score par défaut, à affiner)",
+      "score_rationale": "Risques liés à la capacité de scaler rapidement face à la demande et de gérer la croissance (10-K Risk Factors)",
       "trend": "up",
       "summary": "L'entreprise peut ne pas être capable de scaler son infrastructure et ses ressources assez rapidement pour rencontrer la demande des clients et du marché.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Risques liés à la réglementation, aux exigences légales et aux contrôles d'exportation technologique (10-K Risk Factors) (score par défaut, à affiner)",
+      "score_rationale": "Risques liés à la réglementation, aux exigences légales et aux contrôles d'exportation technologique (10-K Risk Factors)",
       "trend": "up",
       "summary": "L'entreprise est exposée à des risques réglementaires, notamment les contrôles d'exportation technologique et les exigences de conformité applicables à la technologie quantique.",
       "score": 3
@@ -365,7 +370,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.478Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.622Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ionq.json",
     "enrich_root": null,

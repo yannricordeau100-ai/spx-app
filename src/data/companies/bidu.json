@@ -68,8 +68,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Pressure, deteriorating trend"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -95,8 +99,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -123,7 +131,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -142,11 +154,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 129.08 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -165,11 +181,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 449.16 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -188,11 +208,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 97.08 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -211,70 +235,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 24.61 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part des contrats cloud incluant fonctionnalités IA",
-      "name_en": "AI-related Cloud Deals Mix",
-      "explanation": "Pourcentage des contrats cloud qui incluent des fonctionnalités d'intelligence artificielle.",
-      "value": "38",
-      "unit": "%",
-      "yoy": "+8 pts",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Croissance rapide de l'intégration de l'IA dans les solutions cloud.",
-      "description": "De plus en plus de clients adoptent des solutions cloud de Baidu intégrant l'IA générative via Ernie Bot.",
-      "history": [
-        22,
-        25,
-        28,
-        30,
-        38
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "AI API Calls",
-      "name_fr": "Volume d'appels API IA",
-      "name_en": "AI API Call Volume",
-      "explanation": "Nombre d'appels mensuels aux interfaces de programmation d'intelligence artificielle.",
-      "value": "1200",
-      "unit": "M",
-      "yoy": "+150%",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Explosion de l'utilisation des API IA, signe d'adoption massive.",
-      "description": "Le volume d'appels aux API d'Ernie Bot a triplé en un an, tiré par les développeurs et entreprises.",
-      "history": [
-        300,
-        400,
-        500,
-        800,
-        1200
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "leader",
     "summary": "Baidu est un leader de l'IA en Chine, avec son modèle Ernie Bot en compétition directe avec les grands modèles occidentaux. L'entreprise intègre l'IA dans ses moteurs de recherche, cloud, et véhicules autonomes.",
@@ -303,7 +274,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -330,7 +301,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début d'Item 1A avec langage très fort (« may not be as effective », « substantial costs », « not been tested in courts »). 50% des revenus 2025 proviennent des VIE. Tendance stable mais critique structurellement. Poids catégorique maximal : menace existentielle sur la consolidation financière.",
       "trend": "stable",
-      "summary": "Les contrats de contrôle (proxy agreements, options d'achat exclusives) liant Baidu aux VIE chinoises ne garantissent pas un contrôle effectif équivalent à la propriété directe. Si les VIE ou leurs actionnaires nominatifs ne respectent pas leurs obligations, Baidu ne pourrait pas consolider leurs résultats financiers (50% des revenus), rendant les titres potentiellement sans valeur."
+      "summary": "Les contrats de contrôle (proxy agreements, options d'achat exclusives) liant Baidu aux VIE chinoises ne garantissent pas un contrôle effectif équivalent à la propriété directe. Si les VIE ou leurs actionnaires nominatifs ne respectent pas leurs obligations, Baidu ne pourrait pas consolider leurs résultats financiers (50% des revenus), rendant les titres potentiellement sans valeur.",
+      "score": 5
     },
     {
       "title": "Déconsolidation des VIE et perte de contrôle opérationnel",
@@ -338,7 +310,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur répété 4 fois dans l'extrait avec intensité extrême (« severe penalties », « forced to relinquish », « value of securities diminish substantially or become worthless »). Positionné comme menace existentielle. Tendance stable mais critique. Poids catégorique : impact financier et opérationnel total.",
       "trend": "stable",
-      "summary": "Si le gouvernement chinois juge que la structure contractuelle viole les lois PRC, les VIE pourraient être déconsolidées. Cela éliminerait l'accès aux licences critiques (Value-Added Telecom, Internet News, Online Video) et aux actifs opérationnels majeurs, anéantissant potentiellement la valeur de l'entreprise."
+      "summary": "Si le gouvernement chinois juge que la structure contractuelle viole les lois PRC, les VIE pourraient être déconsolidées. Cela éliminerait l'accès aux licences critiques (Value-Added Telecom, Internet News, Online Video) et aux actifs opérationnels majeurs, anéantissant potentiellement la valeur de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Conflits d'intérêts des actionnaires nominatifs des VIE",
@@ -346,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement nommé avec langage d'avertissement (« potential conflicts of interest », « no arrangements in place »). Actionnaires nominatifs sont des employés/directeurs de Baidu. Tendance stable. Poids catégorique : risque de gouvernance structurel sans mitigation déclarée.",
       "trend": "stable",
-      "summary": "Les actionnaires nominatifs des VIE (Baidu Netcom, Beijing Perusal, Beijing iQIYI) sont des employés ou directeurs de Baidu. Aucun mécanisme de gestion des conflits d'intérêts n'est en place, créant un risque que ces individus agissent contre les intérêts de Baidu ou des investisseurs."
+      "summary": "Les actionnaires nominatifs des VIE (Baidu Netcom, Beijing Perusal, Beijing iQIYI) sont des employés ou directeurs de Baidu. Aucun mécanisme de gestion des conflits d'intérêts n'est en place, créant un risque que ces individus agissent contre les intérêts de Baidu ou des investisseurs.",
+      "score": 4
     },
     {
       "title": "Incertitude légale sur l'interprétation des arrangements contractuels",
@@ -354,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Risque répété avec langage d'incertitude forte (« substantial uncertainties », « uncertain whether », « not been tested in courts »). Positionné comme risque systémique du cadre légal PRC. Tendance stable. Poids catégorique : risque juridique fondamental sans précédent jurisprudentiel.",
       "trend": "stable",
-      "summary": "Les arrangements contractuels avec les VIE n'ont jamais été testés devant les tribunaux chinois. L'interprétation et l'application des lois PRC concernant ces structures restent incertaines, et les autorités réglementaires chinoises disposent d'un large pouvoir discrétionnaire pour sanctionner les violations."
+      "summary": "Les arrangements contractuels avec les VIE n'ont jamais été testés devant les tribunaux chinois. L'interprétation et l'application des lois PRC concernant ces structures restent incertaines, et les autorités réglementaires chinoises disposent d'un large pouvoir discrétionnaire pour sanctionner les violations.",
+      "score": 4
     },
     {
       "title": "Risque de reclassification en investissement étranger indirect",
@@ -362,7 +337,8 @@
       "severity": 4,
       "score_rationale": "Risque émergent explicitement identifié avec langage prospectif (« no assurance », « future laws », « catch-all provision »). Loi sur l'investissement étranger PRC contient clause générale englobante. Tendance : new/up. Poids catégorique : risque réglementaire futur avec impact structurel potentiel.",
       "trend": "up",
-      "summary": "La Loi sur l'investissement étranger PRC pourrait reclassifier les arrangements contractuels comme investissement étranger indirect. Si les activités de Baidu figurent sur une liste négative d'investissement étranger, cela pourrait forcer une restructuration majeure ou l'arrêt des opérations."
+      "summary": "La Loi sur l'investissement étranger PRC pourrait reclassifier les arrangements contractuels comme investissement étranger indirect. Si les activités de Baidu figurent sur une liste négative d'investissement étranger, cela pourrait forcer une restructuration majeure ou l'arrêt des opérations.",
+      "score": 4
     },
     {
       "title": "Interdiction de négociation aux États-Unis sous HFCAA",
@@ -370,7 +346,8 @@
       "severity": 4,
       "score_rationale": "Risque réglementaire transfrontalier avec langage d'avertissement (« may be prohibited », « no assurance »). Baidu a été identifiée comme Commission-Identified Issuer en 2022 (levé en 2023). Dépend de l'accès PCAOB annuel. Tendance : stable mais cyclique. Poids catégorique : risque de liquidité/cotation critique.",
       "trend": "stable",
-      "summary": "Si le PCAOB perd accès complet aux cabinets d'audit chinois pendant 2 années consécutives, Baidu serait identifiée comme Commission-Identified Issuer et ses ADSs pourraient être interdites de négociation aux États-Unis, éliminant l'accès au marché américain."
+      "summary": "Si le PCAOB perd accès complet aux cabinets d'audit chinois pendant 2 années consécutives, Baidu serait identifiée comme Commission-Identified Issuer et ses ADSs pourraient être interdites de négociation aux États-Unis, éliminant l'accès au marché américain.",
+      "score": 4
     },
     {
       "title": "Dépendance critique aux licences réglementaires chinoises",
@@ -378,7 +355,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel implicite : Baidu détient via VIE des licences essentielles (Value-Added Telecom, Internet News, Online Video, Internet Culture, etc.). Langage : « requisite licenses and permits material for business operations ». Tendance stable. Poids catégorique : risque de continuité opérationnelle.",
       "trend": "stable",
-      "summary": "Les VIE détiennent les licences critiques pour les opérations chinoises (télécommunications, contenu vidéo, services d'information, culture internet). Toute révocation ou non-renouvellement de ces licences paralyserait les activités principales de Baidu en Chine."
+      "summary": "Les VIE détiennent les licences critiques pour les opérations chinoises (télécommunications, contenu vidéo, services d'information, culture internet). Toute révocation ou non-renouvellement de ces licences paralyserait les activités principales de Baidu en Chine.",
+      "score": 4
     },
     {
       "title": "Mesures administratives PRC sur les offres de titres étrangères",
@@ -386,7 +364,8 @@
       "severity": 3,
       "score_rationale": "Risque réglementaire avec langage d'avertissement (« could significantly limit or completely hinder », « adverse effect »). Positionné comme risque émergent de régulation sectorielle. Tendance : stable mais contexte géopolitique tendu. Poids catégorique : risque de financement/levée de capitaux.",
       "trend": "up",
-      "summary": "Le gouvernement PRC pourrait imposer des restrictions administratives sur les offres de titres à l'étranger par des émetteurs chinois, limitant ou bloquant la capacité de Baidu à lever des capitaux sur les marchés internationaux ou à maintenir ses cotations actuelles."
+      "summary": "Le gouvernement PRC pourrait imposer des restrictions administratives sur les offres de titres à l'étranger par des émetteurs chinois, limitant ou bloquant la capacité de Baidu à lever des capitaux sur les marchés internationaux ou à maintenir ses cotations actuelles.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:20:52.905609+00:00",
@@ -454,7 +433,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.595Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.391Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bidu.json",
     "enrich_root": "v2-pipeline-enrich/bidu.json",

@@ -33,7 +33,6 @@
         36.4,
         13.5,
         93.6,
-        -258.3,
         35.9
       ],
       "last_data_date": "2026-03-31",
@@ -42,8 +41,11 @@
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'M$' (410.2 millions, non milliards). Valeur confirmée dans MD&A ligne 'Adjusted EBITDA of $410.2 million'.",
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (PII)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -70,7 +72,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Pas de correction nécessaire. Valeur confirmée: Gross profit 1,368.7M$ / Sales 7,152.0M$ = 19.1%.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -98,7 +100,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Correction du YoY de 'stable' à '~0%' pour précision. Correction de 'name_en' de 'Sales' à 'Revenue'. Correction histoire pour utiliser chiffres exacts du 10-K: 8.934, 7.175, 7.152 Mds$ (plutôt que 8.93, 7.18, 7.15).",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue stable, monitor outlook"
     },
     {
@@ -207,7 +209,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -233,8 +239,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -263,9 +273,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Pas de correction nécessaire. Données de marché confirmées dans le 10-K Item 1 Business section.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Pas de correction nécessaire. Données de marché confirmées dans le 10-K Item 1 Business section."
     },
     {
       "short": "North America ORV Sales",
@@ -292,9 +300,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Pas de correction nécessaire. Données de marché confirmées dans le 10-K Item 1 Business section.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Pas de correction nécessaire. Données de marché confirmées dans le 10-K Item 1 Business section."
     }
   ],
   "ai_positioning": {
@@ -316,7 +322,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "EBITDA"
   },
   "_fit_for_site": true,
@@ -329,7 +335,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est en tête du 10-K, décrit comme ayant déjà affecté la société et pouvant impacter fortement la demande. Le langage est répétitif et insiste sur l'impact direct sur les ventes et la rentabilité. La catégorie Macro est hautement pondérée en contexte inflationniste. Risque existentiel en cas de récession durable.",
       "trend": "stable",
-      "summary": "Une baisse du pouvoir d'achat ou de la dépense discrétionnaire des consommateurs pourrait réduire significativement la demande pour les produits de la société."
+      "summary": "Une baisse du pouvoir d'achat ou de la dépense discrétionnaire des consommateurs pourrait réduire significativement la demande pour les produits de la société.",
+      "score": 5
     },
     {
       "title": "Hausses des coûts des matières premières et fret",
@@ -337,7 +344,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné tôt dans le document, avec des références explicites à des pressions inflationnistes passées et futures. L'impact direct sur la marge brute est clair. Le texte souligne des difficultés persistantes liées aux chaînes d'approvisionnement et aux coûts énergétiques. Catégorie Industriel fortement impactante.",
       "trend": "stable",
-      "summary": "Les fluctuations des prix de l'aluminium, de l'acier, du pétrole et du diesel affectent directement les coûts de production et la rentabilité."
+      "summary": "Les fluctuations des prix de l'aluminium, de l'acier, du pétrole et du diesel affectent directement les coûts de production et la rentabilité.",
+      "score": 5
     },
     {
       "title": "Restrictions réglementaires sur les PFAS",
@@ -345,7 +353,8 @@
       "severity": 4,
       "score_rationale": "Le risque est décrit avec un langage préoccupé (« non-availability », « adversely impact »). Il touche la chaîne d'approvisionnement et la compétitivité. Bien que nouveau ou renforcé, il est encore en phase d'évolution réglementaire. La catégorie Régulation est moyennement pondérée mais le risque est stratégique.",
       "trend": "up",
-      "summary": "L'interdiction ou la restriction des substances PFAS pourrait rendre indisponibles des composants critiques, sans alternative à coût équivalent."
+      "summary": "L'interdiction ou la restriction des substances PFAS pourrait rendre indisponibles des composants critiques, sans alternative à coût équivalent.",
+      "score": 4
     },
     {
       "title": "Impact des tarifs douaniers et mesures commerciales",
@@ -353,7 +362,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien développé, avec mention d'effets concrets sur les coûts et la compétitivité. Le texte note une incertitude élevée et un environnement « rapidly evolving ». L'impact est combiné avec l'inflation, ce qui amplifie le risque. Catégorie Géopolitique fortement pondérée actuellement.",
       "trend": "stable",
-      "summary": "Les tarifs sur les importations, notamment depuis la Chine, augmentent les coûts et perturbent les chaînes d'approvisionnement internationales."
+      "summary": "Les tarifs sur les importations, notamment depuis la Chine, augmentent les coûts et perturbent les chaînes d'approvisionnement internationales.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur tous les marchés",
@@ -361,7 +371,8 @@
       "severity": 4,
       "score_rationale": "Le risque est longuement détaillé, avec mention de concurrents mieux dotés, plus innovants ou mieux positionnés géographiquement. Le langage est préoccupé (« failure to compete could negatively impact »). La catégorie Concurrence est critique pour un acteur de biens de consommation discrétionnaires.",
       "trend": "stable",
-      "summary": "La société fait face à une concurrence intense sur les prix, la qualité, l'innovation et la digitalisation, menaçant sa part de marché."
+      "summary": "La société fait face à une concurrence intense sur les prix, la qualité, l'innovation et la digitalisation, menaçant sa part de marché.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'innovation et développement produit",
@@ -369,7 +380,8 @@
       "severity": 4,
       "score_rationale": "Le texte insiste sur le besoin d'investissements lourds en R&D et de rapidité face aux concurrents. Mention explicite de l'électrification et de l'intelligence artificielle. Le risque est stratégique pour l'avenir. Catégorie Technologie en croissance d'importance.",
       "trend": "up",
-      "summary": "L'incapacité à innover rapidement ou à lancer de nouveaux produits pourrait affaiblir la compétitivité de la société."
+      "summary": "L'incapacité à innover rapidement ou à lancer de nouveaux produits pourrait affaiblir la compétitivité de la société.",
+      "score": 4
     },
     {
       "title": "Risques liés aux transactions stratégiques et séparation Indian Motorcycle",
@@ -377,7 +389,8 @@
       "severity": 4,
       "score_rationale": "Le risque est détaillé avec des exemples concrets (séparation Indian Motorcycle). Le texte mentionne des coûts imprévus, des perturbations opérationnelles et un risque d'échec d'intégration. Catégorie Capital pertinente car lié à la stratégie de croissance externe.",
       "trend": "new",
-      "summary": "Les acquisitions, cessions ou joint-ventures peuvent échouer à créer de la valeur ou perturber les activités existantes."
+      "summary": "Les acquisitions, cessions ou joint-ventures peuvent échouer à créer de la valeur ou perturber les activités existantes.",
+      "score": 4
     },
     {
       "title": "Perturbations dans la chaîne d'approvisionnement",
@@ -385,7 +398,8 @@
       "severity": 5,
       "score_rationale": "Le risque est décrit comme pouvant entraîner l'arrêt complet de la production. Mention de sources uniques, de retards logistiques et de risques géopolitiques. Langage fort (« suspend production entirely »). Impact direct sur les revenus. Catégorie Industriel critique.",
       "trend": "stable",
-      "summary": "Toute interruption chez un fournisseur clé ou dans la logistique peut bloquer la production et empêcher de répondre à la demande."
+      "summary": "Toute interruption chez un fournisseur clé ou dans la logistique peut bloquer la production et empêcher de répondre à la demande.",
+      "score": 5
     }
   ],
   "governance": {
@@ -651,23 +665,18 @@
         "history": [
           168.3,
           255.1,
-          -166.2,
           82.8,
           167.6,
           266.1,
-          -149.8,
           96.5,
           189.7,
           281.5,
-          -193.4,
           87.8,
           174.6,
           258.7,
-          -184.2,
           82.9,
           173.2,
           266,
-          -150.2,
           82.3
         ],
         "history_periods": [
@@ -721,6 +730,12 @@
             "accession": "0001628280-26-027854",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PII)"
         ]
       }
     ]
@@ -737,9 +752,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.296936+00:00",
     "fetched_at": "2026-05-21T02:17:14.296937+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.616Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.607Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pii.json",
     "enrich_root": "v2-pipeline-enrich/pii.json",

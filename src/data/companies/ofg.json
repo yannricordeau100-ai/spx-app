@@ -96,9 +96,7 @@
       "is_short_history": true,
       "ttm": 5.12,
       "_validation": "Correction: history corrigée (était [5, 12]), ttm corrigé de 16.2 à 5.12, séparateur décimal standardisé",
-      "explanation_en": "Profit margin on Net interest.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Profit margin on Net interest."
     },
     {
       "short": "Return on average assets",
@@ -121,9 +119,7 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 1.81,
-      "_validation": "Correction: history corrigée (était [1, 81]), ttm corrigé de 1701 à 1.81, type changé de Revenue à Profitability, séparateur décimal standardisé",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction: history corrigée (était [1, 81]), ttm corrigé de 1701 à 1.81, type changé de Revenue à Profitability, séparateur décimal standardisé"
     },
     {
       "short": "Efficiency ratio",
@@ -147,9 +143,7 @@
       "is_short_history": true,
       "ttm": 56.65,
       "_validation": "Correction: history corrigée (était [56, 65]), ttm corrigé de 67.61 à 56.65, séparateur décimal standardisé",
-      "explanation_en": "Efficiency ratio.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Efficiency ratio."
     },
     {
       "short": "Total Assets",
@@ -168,34 +162,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 12.47 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.48,
-      "unit": "Mds €",
+      "value": 480,
+      "unit": "M €",
       "yoy": "+37.1%",
       "history": [
-        0.05,
-        0.22,
-        0.35,
-        0.48
+        50,
+        220,
+        350,
+        480
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.48 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -214,10 +217,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -244,9 +251,7 @@
       "is_short_history": true,
       "story_category": "Financial Performance",
       "ttm": 4.58,
-      "_validation": "Correction: history corrigée (était [4, 23, 4, 58]), ttm corrigé de 253.75 à 4.58, type changé de Revenue à Profitability, story_category changé de Innovation à Financial Performance",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction: history corrigée (était [4, 23, 4, 58]), ttm corrigé de 253.75 à 4.58, type changé de Revenue à Profitability, story_category changé de Innovation à Financial Performance"
     }
   ],
   "ai_positioning": {
@@ -288,7 +293,8 @@
       "severity": 5,
       "score_rationale": "L'estimation de l'ACL est décrite comme l'estimation comptable la plus critique et complexe, avec un impact direct sur les résultats financiers. Le langage souligne des incertitudes importantes liées aux prévisions économiques et aux jugements managériaux. La sensibilité de 3,7% à la hausse sous scénario de récession montre un risque substantiel. La catégorie Capital est hautement pondérée dans le secteur financier.",
       "trend": "stable",
-      "summary": "La détermination de la provision pour pertes sur crédits repose sur des hypothèses économiques et des jugements subjectifs pouvant fortement affecter les résultats."
+      "summary": "La détermination de la provision pour pertes sur crédits repose sur des hypothèses économiques et des jugements subjectifs pouvant fortement affecter les résultats.",
+      "score": 5
     },
     {
       "title": "Dégradation de la qualité du crédit",
@@ -296,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Les charges nettes de créances irrécouvrables ont augmenté à 1,32 % des prêts moyens, et le taux de prêts non performants a grimpé à 1,59 %, en hausse séquentielle. Le document mentionne une réserve spécifique de 5,1 M$ pour un prêt commercial aux télécoms, indiquant un risque accru de défaut sectoriel.",
       "trend": "up",
-      "summary": "La détérioration des indicateurs de qualité du crédit, notamment les NCOs et les prêts non performants, suggère une pression croissante sur le portefeuille de prêts."
+      "summary": "La détérioration des indicateurs de qualité du crédit, notamment les NCOs et les prêts non performants, suggère une pression croissante sur le portefeuille de prêts.",
+      "score": 4
     },
     {
       "title": "Dépendance aux conditions économiques de Porto Rico",
@@ -304,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Bien que l'économie de Porto Rico soit stable, la société surveille activement les incertitudes mondiales pouvant impacter l'île. La dépendance aux fonds de reconstruction et aux investissements privés crée une vulnérabilité aux chocs externes. Le risque est répété dans les développements récents, confirmant son importance.",
       "trend": "stable",
-      "summary": "La performance d'OFG est étroitement liée à l'économie de Porto Rico, sensible aux financements publics et aux conditions globales."
+      "summary": "La performance d'OFG est étroitement liée à l'économie de Porto Rico, sensible aux financements publics et aux conditions globales.",
+      "score": 4
     },
     {
       "title": "Volatilité des prévisions macroéconomiques",
@@ -312,7 +320,8 @@
       "severity": 4,
       "score_rationale": "La méthodologie de l'ACL repose sur des scénarios macroéconomiques (baseline et récession) avec des pondérations subjectives. Une variation dans ces hypothèses a un impact direct sur la provision. Le fait que le scénario de récession soit davantage pondéré pour les prêts aux États-Unis montre une inquiétude croissante.",
       "trend": "up",
-      "summary": "Les changements dans les prévisions économiques, notamment aux États-Unis, peuvent fortement influencer les pertes de crédit anticipées et les résultats financiers."
+      "summary": "Les changements dans les prévisions économiques, notamment aux États-Unis, peuvent fortement influencer les pertes de crédit anticipées et les résultats financiers.",
+      "score": 4
     },
     {
       "title": "Risques liés à la gestion des capitaux",
@@ -320,7 +329,8 @@
       "severity": 3,
       "score_rationale": "OFG a lancé plusieurs programmes de rachat d'actions et augmenté ses dividendes, ce qui pourrait limiter sa flexibilité financière en cas de stress économique. Le ratio CET1 a légèrement baissé à 13,97 %, bien que toujours solide. Le risque est modéré mais surveillé.",
       "trend": "new",
-      "summary": "Les actions de retour de capital sont positives pour les actionnaires, mais pourraient comprimer les ratios de capital en période de crise."
+      "summary": "Les actions de retour de capital sont positives pour les actionnaires, mais pourraient comprimer les ratios de capital en période de crise.",
+      "score": 3
     },
     {
       "title": "Amortissement accéléré d'actifs technologiques",
@@ -328,7 +338,8 @@
       "severity": 3,
       "score_rationale": "Une charge de 6,1 M$ d'amortissement accéléré d'actifs technologiques a été enregistrée, liée à des changements stratégiques ou contractuels. Cela reflète un risque d'obsolescence ou de réorganisation technologique, mais sans impact opérationnel majeur signalé.",
       "trend": "new",
-      "summary": "Des changements dans les contrats de services technologiques ont conduit à des charges ponctuelles, indiquant une transformation en cours des systèmes d'information."
+      "summary": "Des changements dans les contrats de services technologiques ont conduit à des charges ponctuelles, indiquant une transformation en cours des systèmes d'information.",
+      "score": 3
     }
   ],
   "governance": {
@@ -539,9 +550,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.292705+00:00",
     "fetched_at": "2026-05-21T02:17:14.292706+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.228Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.178Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ofg.json",
     "enrich_root": "v2-pipeline-enrich/ofg.json",

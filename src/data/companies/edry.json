@@ -40,8 +40,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -68,7 +72,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -94,8 +102,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Fleet Size",
@@ -121,98 +133,122 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "-16.7%",
       "history": [
-        0.07,
-        0.05,
-        0.06,
-        0.05
+        70,
+        50,
+        60,
+        50
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.05 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.21,
-      "unit": "Mds €",
+      "value": 210,
+      "unit": "M €",
       "yoy": "-4.5%",
       "history": [
-        0.2,
-        0.23,
-        0.22,
-        0.21
+        200,
+        230,
+        220,
+        210
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.21 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-9.1%",
       "history": [
-        0.08,
-        0.1,
-        0.11,
-        0.1
+        80,
+        100,
+        110,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.03,
-        0.01,
-        0.01,
-        0.02
+        30,
+        10,
+        10,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -283,7 +319,8 @@
       "severity": 5,
       "score_rationale": "Risque présenté en premier dans Item 1A avec données historiques détaillées (BDI 11,793 en 2008 vs 290 en 2016). Langage intensif (« volatile », « cyclical », « unpredictable »). Tendance stable mais persistante. Poids dominant : affecte directement la rentabilité et les revenus.",
       "trend": "stable",
-      "summary": "La rentabilité d'EuroDry dépend entièrement des taux de fret du marché du vrac sec, qui fluctuent drastiquement selon l'offre/demande de capacité. Le BDI a varié de 290 points (2016) à 11,793 points (2008), avec une baisse de 34% en 2022 et volatilité continue (1,681 points en 2025). Ces cycles imprévisibles réduisent les revenus et la capacité à honorer les obligations."
+      "summary": "La rentabilité d'EuroDry dépend entièrement des taux de fret du marché du vrac sec, qui fluctuent drastiquement selon l'offre/demande de capacité. Le BDI a varié de 290 points (2016) à 11,793 points (2008), avec une baisse de 34% en 2022 et volatilité continue (1,681 points en 2025). Ces cycles imprévisibles réduisent les revenus et la capacité à honorer les obligations.",
+      "score": 5
     },
     {
       "title": "Dépréciation de la valeur marchande des navires et violations de covenants",
@@ -291,7 +328,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur détaillé sur 2 pages avec exemples concrets de violations de covenants. Langage très intensif (« significantly », « materially decline », « foreclosure »). Tendance stable mais critique. Poids élevé : affecte la liquidité, les emprunts et la conformité aux accords de crédit.",
       "trend": "stable",
-      "summary": "La valeur marchande des navires fluctue avec les taux de fret et l'âge de la flotte. Une baisse de valeur peut déclencher des violations de covenants financiers (ratios d'équité minimale, levier maximal, couverture de valeur). EuroDry pourrait être forcée de rembourser des dettes, fournir des garanties supplémentaires ou faire face à la saisie de navires par les prêteurs."
+      "summary": "La valeur marchande des navires fluctue avec les taux de fret et l'âge de la flotte. Une baisse de valeur peut déclencher des violations de covenants financiers (ratios d'équité minimale, levier maximal, couverture de valeur). EuroDry pourrait être forcée de rembourser des dettes, fournir des garanties supplémentaires ou faire face à la saisie de navires par les prêteurs.",
+      "score": 5
     },
     {
       "title": "Suroffre de capacité de transport et compression des taux de fret",
@@ -299,7 +337,8 @@
       "severity": 5,
       "score_rationale": "Risque structurel détaillé avec données historiques (orderbook 80% en 2008, 25% en 2014, 12% en 2018). Langage direct (« oversupply », « materially decline »). Tendance stable. Poids critique : affecte directement les revenus et la viabilité.",
       "trend": "stable",
-      "summary": "Si les nouvelles livraisons de navires dépassent les démolitions, la capacité augmente et les taux de fret baissent. Le carnet de commandes peut augmenter rapidement (orderbook à 80% de la flotte en 2008). La flotte devrait croître de 3,5% en 2026-2027. Une suroffre prolongée comprime les marges et réduit la rentabilité."
+      "summary": "Si les nouvelles livraisons de navires dépassent les démolitions, la capacité augmente et les taux de fret baissent. Le carnet de commandes peut augmenter rapidement (orderbook à 80% de la flotte en 2008). La flotte devrait croître de 3,5% en 2026-2027. Une suroffre prolongée comprime les marges et réduit la rentabilité.",
+      "score": 5
     },
     {
       "title": "Dépendance à un nombre limité de clients et risque de non-renouvellement de contrats",
@@ -307,7 +346,8 @@
       "severity": 4,
       "score_rationale": "Risque mentionné explicitement dans le résumé des facteurs de risque (« dependence on a limited number of customers »). Langage modéré mais clair. Tendance stable. Poids moyen-élevé : affecte la stabilité des revenus et la capacité à renouveler les contrats.",
       "trend": "stable",
-      "summary": "EuroDry dépend d'un nombre restreint de clients pour ses contrats d'affrètement. L'incapacité à renouveler les contrats existants ou à en conclure de nouveaux à des taux rentables pourrait réduire significativement les revenus et la capacité à respecter les obligations financières."
+      "summary": "EuroDry dépend d'un nombre restreint de clients pour ses contrats d'affrètement. L'incapacité à renouveler les contrats existants ou à en conclure de nouveaux à des taux rentables pourrait réduire significativement les revenus et la capacité à respecter les obligations financières.",
+      "score": 4
     },
     {
       "title": "Perturbations géopolitiques et fermetures de routes commerciales",
@@ -315,7 +355,8 @@
       "severity": 4,
       "score_rationale": "Risque mentionné 4 fois dans Item 1A avec exemples concrets (conflit Israël-Hamas, Strait of Hormuz, Red Sea, Panama Canal, Suez Canal). Langage intensif (« disruptions », « shutdown », « attacks »). Tendance up (Red Sea 2024-2025, Panama Canal drought). Poids moyen-élevé : affecte les routes commerciales et la demande.",
       "trend": "up",
-      "summary": "Les conflits géopolitiques (Moyen-Orient, Ukraine) et les attaques de navires (Houthis en Mer Rouge, Golfe d'Aden) perturbent les routes commerciales. Les fermetures du Détroit d'Hormuz, du Canal de Suez et les restrictions du Canal de Panama allongent les trajets et créent des inefficacités. Ces disruptions réduisent la demande de capacité et les taux de fret."
+      "summary": "Les conflits géopolitiques (Moyen-Orient, Ukraine) et les attaques de navires (Houthis en Mer Rouge, Golfe d'Aden) perturbent les routes commerciales. Les fermetures du Détroit d'Hormuz, du Canal de Suez et les restrictions du Canal de Panama allongent les trajets et créent des inefficacités. Ces disruptions réduisent la demande de capacité et les taux de fret.",
+      "score": 4
     },
     {
       "title": "Incertitudes réglementaires ESG et conformité environnementale croissante",
@@ -323,7 +364,8 @@
       "severity": 4,
       "score_rationale": "Risque mentionné dans le résumé (« increasing scrutiny and changing expectations from investors, lenders, charterers »). Langage modéré mais clair. Tendance up (ESG scrutiny croissant). Poids moyen : affecte les coûts opérationnels et l'accès au financement.",
       "trend": "up",
-      "summary": "Les investisseurs, prêteurs et affréteurs imposent des exigences ESG croissantes. Les réglementations environnementales et de sécurité maritime évoluent (normes de classification, réductions d'émissions). EuroDry doit investir dans la conformité et l'upgrade des navires, augmentant les coûts opérationnels et réduisant la compétitivité."
+      "summary": "Les investisseurs, prêteurs et affréteurs imposent des exigences ESG croissantes. Les réglementations environnementales et de sécurité maritime évoluent (normes de classification, réductions d'émissions). EuroDry doit investir dans la conformité et l'upgrade des navires, augmentant les coûts opérationnels et réduisant la compétitivité.",
+      "score": 4
     },
     {
       "title": "Risque de cyberattaques et perturbation des opérations",
@@ -331,7 +373,8 @@
       "severity": 3,
       "score_rationale": "Risque mentionné explicitement (« Potential cyber-attacks which may disrupt our business operations »). Langage modéré. Tendance stable. Poids moyen-faible : risque opérationnel spécifique au secteur maritime.",
       "trend": "stable",
-      "summary": "Les cyberattaques pourraient perturber les systèmes de gestion des navires, les communications et les opérations commerciales d'EuroDry. Dans le secteur maritime, les attaques contre les systèmes de navigation ou de contrôle pourraient affecter la sécurité et la disponibilité des navires."
+      "summary": "Les cyberattaques pourraient perturber les systèmes de gestion des navires, les communications et les opérations commerciales d'EuroDry. Dans le secteur maritime, les attaques contre les systèmes de navigation ou de contrôle pourraient affecter la sécurité et la disponibilité des navires.",
+      "score": 3
     },
     {
       "title": "Capacité à attirer et retenir des équipages qualifiés à coûts raisonnables",
@@ -339,7 +382,8 @@
       "severity": 3,
       "score_rationale": "Risque mentionné dans le résumé (« ability to attract and retain qualified, skilled crew at reasonable cost »). Langage modéré. Tendance stable. Poids moyen-faible : affecte les coûts opérationnels.",
       "trend": "stable",
-      "summary": "EuroDry dépend de la disponibilité d'équipages qualifiés à des coûts compétitifs. Les pénuries de marins ou l'augmentation des salaires augmentent les coûts opérationnels et réduisent la rentabilité des navires."
+      "summary": "EuroDry dépend de la disponibilité d'équipages qualifiés à des coûts compétitifs. Les pénuries de marins ou l'augmentation des salaires augmentent les coûts opérationnels et réduisent la rentabilité des navires.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:32:44.888978+00:00",
@@ -425,6 +469,69 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "EDRY",
+    "extracted_at": "2026-06-01T03:12:50Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Total Revenue",
+        "period_type": "year",
+        "history": [
+          22.289,
+          70.183,
+          47.592,
+          61.083,
+          52.264,
+          52.264
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:12:50Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "year",
+        "history": [
+          107.512,
+          199.505,
+          231.053,
+          231.053,
+          231.053,
+          219.735,
+          212.1
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025",
+          "2026"
+        ],
+        "last_data_date": "2026-12-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:12:50Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "EDRY",
     "ranks": {
@@ -437,15 +544,16 @@
     "country": "Greece",
     "_data_freshness_date": "2026-05-21T02:17:14.253876+00:00",
     "fetched_at": "2026-05-21T02:17:14.253877+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.584Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.145Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/edry.json",
     "enrich_root": "v2-pipeline-enrich/edry.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

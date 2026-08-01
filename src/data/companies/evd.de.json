@@ -168,34 +168,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.07 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.14,
-        0.12,
-        0.12,
-        0.12
+        140,
+        120,
+        120,
+        120
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.12 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -246,7 +255,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans la section sur les nouvelles fonctions de l'ISIF, avec un langage affirmant la nécessité de coordination. Position centrale dans le document, langage d'importance ('critical', 'align strategies'), tendance à la hausse avec l'expansion du mandat ISIF, catégorie Concurrence pertinente car liée à l'accès aux opportunités d'investissement.",
       "trend": "up",
-      "summary": "L'agence dépend fortement de sa capacité à coordonner avec IDA Ireland et Enterprise Ireland pour aligner ses stratégies d'investissement. Un manque de synergie pourrait limiter l'efficacité du fonds ISIF et réduire son impact économique."
+      "summary": "L'agence dépend fortement de sa capacité à coordonner avec IDA Ireland et Enterprise Ireland pour aligner ses stratégies d'investissement. Un manque de synergie pourrait limiter l'efficacité du fonds ISIF et réduire son impact économique.",
+      "score": 4
     },
     {
       "title": "Réduction de l'autonomie avec la dissolution de comités",
@@ -254,7 +264,8 @@
       "severity": 3,
       "score_rationale": "Plusieurs comités (Advisory Committee, State Claims Agency Policy Committee) ont été dissous en 2014, indiquant un recentrage institutionnel. Langage neutre mais structurel, tendance stable depuis 2014, poids modéré car lié à la gouvernance interne.",
       "trend": "stable",
-      "summary": "La dissolution des comités consultatifs en 2014 a centralisé les décisions au sein du NTMA, réduisant les contre-pouvoirs internes et augmentant les risques de prise de décision moins diversifiée."
+      "summary": "La dissolution des comités consultatifs en 2014 a centralisé les décisions au sein du NTMA, réduisant les contre-pouvoirs internes et augmentant les risques de prise de décision moins diversifiée.",
+      "score": 3
     },
     {
       "title": "Cybersécurité du système NIMS",
@@ -262,7 +273,8 @@
       "severity": 4,
       "score_rationale": "Le système NIMS est décrit comme critique pour la gestion des risques dans toute la fonction publique. Langage fort ('critical', 'end-to-end'), position importante dans le texte, tendance à la hausse avec le déploiement, catégorie hautement sensible.",
       "trend": "up",
-      "summary": "Le National Incident Management System (NIMS), système centralisé de gestion des risques pour la fonction publique irlandaise, représente une cible potentielle majeure pour les cyberattaques, avec des conséquences étendues en cas de compromission."
+      "summary": "Le National Incident Management System (NIMS), système centralisé de gestion des risques pour la fonction publique irlandaise, représente une cible potentielle majeure pour les cyberattaques, avec des conséquences étendues en cas de compromission.",
+      "score": 4
     },
     {
       "title": "Dépendance aux compétences internes du NTMA",
@@ -270,7 +282,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne à plusieurs reprises l'expertise et le dévouement des employés comme atout clé. Langage valorisant ('struck by the expertise', 'critical role'), tendance à la hausse avec la perte de John Corrigan, poids élevé car lié à la continuité opérationnelle.",
       "trend": "up",
-      "summary": "Le NTMA repose fortement sur un noyau de personnel hautement qualifié. Le départ de dirigeants clés ou une difficulté à attirer des talents pourrait nuire à sa capacité à exécuter ses mandats complexes."
+      "summary": "Le NTMA repose fortement sur un noyau de personnel hautement qualifié. Le départ de dirigeants clés ou une difficulté à attirer des talents pourrait nuire à sa capacité à exécuter ses mandats complexes.",
+      "score": 4
     },
     {
       "title": "Extension du mandat du SCA à 129 entités publiques",
@@ -278,7 +291,8 @@
       "severity": 3,
       "score_rationale": "Le mandat élargi du State Claims Agency est documenté avec des chiffres précis. Langage factuel mais impliquant une complexité accrue, tendance à la hausse, catégorie Industriel car lié à l'opérationnel.",
       "trend": "up",
-      "summary": "L'élargissement du périmètre du SCA à 129 entités publiques augmente sa charge opérationnelle et la complexité de gestion des sinistres, avec un risque de surcharge ou d'erreurs dans le traitement des réclamations."
+      "summary": "L'élargissement du périmètre du SCA à 129 entités publiques augmente sa charge opérationnelle et la complexité de gestion des sinistres, avec un risque de surcharge ou d'erreurs dans le traitement des réclamations.",
+      "score": 3
     },
     {
       "title": "Transfert des actifs NPRF vers ISIF et dissolution",
@@ -286,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Le transfert des actifs du NPRF vers l'ISIF et la dissolution du NPRF sont des changements structurels majeurs. Langage de transformation ('transfer', 'dissolved'), tendance à la hausse, poids élevé car impact sur la structure de capital.",
       "trend": "up",
-      "summary": "Le transfert intégral des actifs du NPRF vers l'ISIF et la dissolution du NPRF créent un risque de concentration des actifs et de perte de spécialisation dans la gestion des investissements antérieurs."
+      "summary": "Le transfert intégral des actifs du NPRF vers l'ISIF et la dissolution du NPRF créent un risque de concentration des actifs et de perte de spécialisation dans la gestion des investissements antérieurs.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:33:41.134030+00:00",
@@ -426,9 +441,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.258124+00:00",
     "fetched_at": "2026-05-21T02:17:14.258125+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.935Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.519Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/evd.de.json",
     "enrich_root": null,

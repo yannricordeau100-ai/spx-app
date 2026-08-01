@@ -42,7 +42,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -62,34 +62,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 7.8 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "-83.7%",
       "history": [
-        1.22,
-        0.86,
-        0.49,
-        0.08
+        1220,
+        860,
+        490,
+        80
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.08 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -108,11 +117,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.17 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -131,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.35 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -154,10 +171,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -171,7 +192,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.5,
         0.58,
@@ -184,7 +205,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -199,7 +220,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2296,
@@ -212,7 +233,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -227,7 +248,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         5.57,
@@ -240,7 +261,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -256,7 +277,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         9.95,
@@ -269,7 +290,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -292,9 +313,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Acquisition",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Acquisition"
     },
     {
       "short": "Foley Acquisition",
@@ -314,9 +333,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Acquisition",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Acquisition"
     },
     {
       "short": "Fourth Micro Mill Investment",
@@ -336,9 +353,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "CapEx",
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "CapEx"
     },
     {
       "short": "WVEDA Government Assistance",
@@ -358,9 +373,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Funding",
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Funding"
     }
   ],
   "ai_positioning": {
@@ -376,7 +389,8 @@
       "severity": 4,
       "score_rationale": "Les prix de la ferraille et d'autres intrants sont historiquement sujets à des fluctuations importantes et la société ne peut pas toujours ajuster les prix des produits pour récupérer les augmentations rapides des coûts de matières premières, particulièrement à court terme et dans les contrats à prix fixe. (Item 1A)",
       "trend": "stable",
-      "summary": "Les fluctuations des prix des matières premières et des intrants peuvent affecter matériellement la rentabilité de l'entreprise"
+      "summary": "Les fluctuations des prix des matières premières et des intrants peuvent affecter matériellement la rentabilité de l'entreprise",
+      "score": 4
     },
     {
       "title": "Disponibilité limitée des intrants critiques",
@@ -384,7 +398,8 @@
       "severity": 4,
       "score_rationale": "La société dépend de la ferraille de ferraille, des électrodes de graphite et d'autres intrants pour ses opérations d'aciérie et peut être incapable d'obtenir un approvisionnement adéquat à des conditions acceptables. (Item 1A)",
       "trend": "stable",
-      "summary": "L'approvisionnement insuffisant en matières premières critiques peut impacter la capacité de production et la rentabilité"
+      "summary": "L'approvisionnement insuffisant en matières premières critiques peut impacter la capacité de production et la rentabilité",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -392,7 +407,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est exposée à une concurrence de la part de sociétés plus grandes ayant plus de ressources, pouvant impacter la part de marché et la rentabilité. (Item 1A)",
       "trend": "stable",
-      "summary": "La concurrence accrue peut impacter la part de marché et la rentabilité de l'entreprise"
+      "summary": "La concurrence accrue peut impacter la part de marché et la rentabilité de l'entreprise",
+      "score": 3
     },
     {
       "title": "Risques liés aux tarifs commerciaux",
@@ -400,7 +416,8 @@
       "severity": 4,
       "score_rationale": "L'Ordre exécutif du 10 février 2025 rétablit les tarifs de 25% sur les importations d'acier à compter du 12 mars 2025, augmentés à 50% le 4 juin 2025 pour tous les pays sauf le Royaume-Uni, s'étendant aux produits d'acier fabriqués. (Item 7, MDA)",
       "trend": "up",
-      "summary": "Les tarifs commerciaux élevés sur les aciers importés et les produits fabriqués peuvent impacter les coûts et la compétitivité"
+      "summary": "Les tarifs commerciaux élevés sur les aciers importés et les produits fabriqués peuvent impacter les coûts et la compétitivité",
+      "score": 4
     },
     {
       "title": "Perturbations opérationnelles",
@@ -408,7 +425,8 @@
       "severity": 4,
       "score_rationale": "Les perturbations opérationnelles, pannes d'équipements ou interruptions de production peuvent avoir un impact négatif sur la capacité de production et la rentabilité. (Item 1A)",
       "trend": "stable",
-      "summary": "Les perturbations opérationnelles peuvent impacter la production et la rentabilité de l'entreprise"
+      "summary": "Les perturbations opérationnelles peuvent impacter la production et la rentabilité de l'entreprise",
+      "score": 4
     },
     {
       "title": "Risques environnementaux et de conformité",
@@ -416,7 +434,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est soumise à des réglementations environnementales de plus en plus strictes qui peuvent impacter les coûts et la rentabilité des opérations. (Item 1A)",
       "trend": "up",
-      "summary": "Les réglementations environnementales peuvent impacter les coûts opérationnels et la rentabilité"
+      "summary": "Les réglementations environnementales peuvent impacter les coûts opérationnels et la rentabilité",
+      "score": 4
     },
     {
       "title": "Incertitudes macroéconomiques",
@@ -424,7 +443,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est exposée à des risques liés à l'incertitude macroéconomique, la volatilité des marchés financiers, les changements des conditions économiques et l'augmentation des tensions commerciales. (Item 7, MDA)",
       "trend": "up",
-      "summary": "Les incertitudes macroéconomiques et les tensions commerciales peuvent impacter la demande et la rentabilité"
+      "summary": "Les incertitudes macroéconomiques et les tensions commerciales peuvent impacter la demande et la rentabilité",
+      "score": 4
     }
   ],
   "governance": {
@@ -527,7 +547,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:19:32Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -554,7 +574,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:41Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:17Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "CMC",
     "simple": {
@@ -641,6 +661,181 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CMC",
+    "extracted_at": "2026-06-01T03:06:43Z",
+    "n_kpis": 4,
+    "kpis": [
+      {
+        "short": "Adjusted EBITDA",
+        "period_type": "quarter",
+        "history": [
+          221.121,
+          314.022,
+          564.119,
+          465.28,
+          402.736,
+          296.687,
+          374.078,
+          305.637,
+          754.721,
+          1166.514,
+          336.624,
+          153.089,
+          848.568,
+          234.678,
+          666.082
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026",
+          "Q2 2026"
+        ],
+        "last_data_date": "2026-02-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:06:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          1845.041,
+          1981.801,
+          2008.888,
+          2515.727,
+          2227.313,
+          2018.003,
+          2344.989,
+          2003.051,
+          4245.316,
+          5929.823,
+          2003.051,
+          3851.338,
+          5929.823,
+          2120.307,
+          2156.41
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026",
+          "Q2 2026"
+        ],
+        "last_data_date": "2026-02-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:06:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          130.408,
+          232.889,
+          383.314,
+          312.429,
+          261.774,
+          179.849,
+          233.971,
+          176.273,
+          262.12,
+          119.44,
+          85.847,
+          119.44
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-05-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:06:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (CMC)"
+        ]
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          6273.967,
+          6484.851,
+          6520.86,
+          6695.169,
+          6639.094,
+          6710.231,
+          6817.839,
+          6817.839,
+          9242.891,
+          4634.875
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026",
+          "Q2 2026"
+        ],
+        "last_data_date": "2026-02-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:06:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CMC",
     "ranks": {
@@ -653,15 +848,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.239807+00:00",
     "fetched_at": "2026-05-21T02:17:14.239815+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.486Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.954Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cmc.json",
     "enrich_root": "v2-pipeline-enrich/cmc.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -1,6 +1,6 @@
 {
   "ticker": "PCTY",
-  "name": "Paylocity Holding Corporation",
+  "name": "Paylocity Holding",
   "sector": "Technologie",
   "subsector": "Software - Application",
   "tagline": "A comprehensive cloud-based HCM, payroll and spend management platform for the modern workforce.",
@@ -21,8 +21,8 @@
       "name_fr": "Revenu de service/abonnement/ARR",
       "name_en": "Service / Subscription / ARR Revenue",
       "explanation": "Revenu généré par les abonnements aux logiciels et les services associés.",
-      "value": 1595.221,
-      "unit": "M $",
+      "value": 1.595,
+      "unit": "Mds $",
       "yoy": "+13.7%",
       "type": "Recurring",
       "nature": "Structurel",
@@ -30,16 +30,16 @@
       "signal": "Croissance solide des revenus récurrents, signe de fidélisation client.",
       "description": "Le revenu récurrent est la pierre angulaire du modèle économique de Paylocity, reflétant la valeur continue de ses solutions SaaS pour les clients.",
       "history": [
-        230.701,
-        300.01,
-        377.527,
-        467.633,
-        561.329,
-        635.627,
-        852.651,
-        1174.598,
-        1402.515,
-        1595.221
+        0.231,
+        0.3,
+        0.378,
+        0.468,
+        0.561,
+        0.636,
+        0.853,
+        1.175,
+        1.403,
+        1.595
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -49,7 +49,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:13.719314+00:00",
       "explanation_en": "Revenue from the Service / Subscription / ARR segment.",
-      "signal_en": "Recurring base growing, revenue visibility rising"
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Client Count",
@@ -116,11 +117,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.39 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -146,9 +151,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Client Count Growth",
@@ -172,9 +175,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -200,7 +201,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -213,7 +214,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en tant que facteur clé de performance (client count growth) avec une forte dépendance à l'acquisition de nouveaux clients. Le langage insiste sur l'incertitude de la croissance future et la saisonnalité. La catégorie Capital est pondérée fortement ici car la croissance organique est centrale au modèle économique. Le risque est stable par rapport à l'année précédente.",
       "trend": "stable",
-      "summary": "La croissance dépend fortement de l'acquisition de nouveaux clients, ce qui est incertain et saisonnier."
+      "summary": "La croissance dépend fortement de l'acquisition de nouveaux clients, ce qui est incertain et saisonnier.",
+      "score": 4
     },
     {
       "title": "Rétention des revenus annuels en jeu",
@@ -221,7 +223,8 @@
       "severity": 4,
       "score_rationale": "Le taux de rétention des revenus (>92%) est présenté comme un indicateur clé de satisfaction client. Une baisse pourrait signaler des problèmes de produit ou de service. Le langage est mesuré mais le risque est existentiel à long terme. Mentionné chaque année, donc tendance stable.",
       "trend": "stable",
-      "summary": "Une baisse du taux de rétention des revenus pourrait nuire à la croissance et à la rentabilité."
+      "summary": "Une baisse du taux de rétention des revenus pourrait nuire à la croissance et à la rentabilité.",
+      "score": 4
     },
     {
       "title": "Investissements coûteux en avance",
@@ -229,7 +232,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne que les investissements (RH, R&D, infrastructures) précèdent les bénéfices, rendant l'allocation des ressources difficile à évaluer. Langage fort sur l'incertitude du retour. Catégorie Capital très pertinente. Risque stable vs N-1.",
       "trend": "stable",
-      "summary": "Les investissements importants sont faits avant tout retour, ce qui rend leur efficacité difficile à mesurer."
+      "summary": "Les investissements importants sont faits avant tout retour, ce qui rend leur efficacité difficile à mesurer.",
+      "score": 4
     },
     {
       "title": "Intégration post-acquisition risquée",
@@ -237,7 +241,8 @@
       "severity": 4,
       "score_rationale": "L'acquisition d'Airbase en octobre 2024 est récente et cruciale pour l'expansion du module de dépenses. Le texte mentionne des coûts d'acquisition et des ajustements de personnel. Langage prudent mais risque élevé d'échec d'intégration. Catégorie Technologie car liée à l'architecture de plateforme. Nouveau risque cette année.",
       "trend": "new",
-      "summary": "L'intégration d'Airbase est critique pour l'offre élargie, mais comporte des risques techniques et organisationnels."
+      "summary": "L'intégration d'Airbase est critique pour l'offre élargie, mais comporte des risques techniques et organisationnels.",
+      "score": 4
     },
     {
       "title": "Cycles de vente plus longs",
@@ -245,7 +250,8 @@
       "severity": 3,
       "score_rationale": "Mention explicite de cycles de vente allongés en raison de conditions économiques incertaines. Langage modéré mais récurrent. Catégorie Macro car lié à l'environnement économique. Moins existentiel que d'autres, mais en hausse d'intensité par rapport à N-1.",
       "trend": "up",
-      "summary": "Les conditions économiques peuvent ralentir les décisions d'achat, allongeant les cycles de vente."
+      "summary": "Les conditions économiques peuvent ralentir les décisions d'achat, allongeant les cycles de vente.",
+      "score": 3
     },
     {
       "title": "Dépendance aux solutions cloud",
@@ -253,7 +259,8 @@
       "severity": 4,
       "score_rationale": "Bien que non explicitement mentionné ici, le modèle entièrement basé sur le cloud implique un risque élevé de cybersécurité et de disponibilité. Par déduction du modèle d'activité (HCM, paie, dépenses), la panne ou la violation de données serait catastrophique. Catégorie Cybersécurité pondérée fortement. Risque implicite mais critique, donc sévérité élevée.",
       "trend": "stable",
-      "summary": "En tant que fournisseur cloud de services critiques, toute interruption ou faille de sécurité aurait un impact majeur."
+      "summary": "En tant que fournisseur cloud de services critiques, toute interruption ou faille de sécurité aurait un impact majeur.",
+      "score": 4
     }
   ],
   "governance": {
@@ -423,11 +430,9 @@
         "short": "R&D Investment (% Revenue)",
         "period_type": "quarter",
         "history": [
-          -6.784,
           3.22,
           10.528,
           15.355,
-          -11.034,
           3.447,
           6.663,
           8.769,
@@ -495,6 +500,12 @@
             "accession": "0001591698-26-000037",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (PCTY)"
         ]
       }
     ]
@@ -511,9 +522,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.295512+00:00",
     "fetched_at": "2026-05-21T02:17:14.295513+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.497Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.453Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pcty.json",
     "enrich_root": "v2-pipeline-enrich/pcty.json",

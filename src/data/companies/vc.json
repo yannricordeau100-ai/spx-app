@@ -1,6 +1,6 @@
 {
   "ticker": "VC",
-  "name": "Visteon Corporation",
+  "name": "Visteon",
   "sector": "Technologie",
   "subsector": "Automotive Technology",
   "tagline": "Creating a more enjoyable, connected, and safe driving experience.",
@@ -36,9 +36,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Only one explicit annual value found: 2020 with $4.6 billion in new business awards. The filing excerpt does not contain comparable historic"
+      "_hero_history_unverified_reason": "Only one explicit annual value found: 2020 with $4.6 billion in new business awards. The filing excerpt does not contain comparable historic",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Sales",
@@ -60,7 +63,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Sales — total sales generated over the period.",
+      "explanation_en": "Sales, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -68,8 +71,8 @@
       "name_fr": "Résultat net",
       "name_en": "Net Income",
       "explanation": "Bénéfice net de l'entreprise après déduction de toutes les charges et impôts.",
-      "value": 0.2,
-      "unit": "Mds $",
+      "value": 200,
+      "unit": "M $",
       "yoy": null,
       "type": "Profitability",
       "nature": "Conjoncturel",
@@ -77,21 +80,22 @@
       "signal": "Rentabilité nette maintenue malgré la baisse du chiffre d'affaires, grâce à une solide performance opérationnelle.",
       "description": "Le bénéfice net attribuable à Visteon, affecté par une provision d'impôt plus élevée mais compensé par des coûts de restructuration plus bas.",
       "history": [
-        0.2
+        200
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes."
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Adjusted EBITDA",
       "name_fr": "EBITDA ajusté",
       "name_en": "Adjusted EBITDA",
       "explanation": "Mesure de la performance opérationnelle avant intérêts, impôts, dépréciation et amortissement, ajustée des éléments exceptionnels.",
-      "value": 0.49,
-      "unit": "Mds $",
+      "value": 490,
+      "unit": "M $",
       "yoy": null,
       "type": "Profitability",
       "nature": "Conjoncturel",
@@ -99,13 +103,14 @@
       "signal": "Expansion de la marge d'EBITDA ajusté pour la cinquième année consécutive.",
       "description": "Indicateur clé de la performance opérationnelle, démontrant une gestion rigoureuse des coûts et une exécution commerciale disciplinée.",
       "history": [
-        0.49
+        490
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items."
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Capital Allocation to Shareholders",
@@ -166,34 +171,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.39 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.48,
-        0.45,
-        0.43,
-        0.43
+        480,
+        450,
+        430,
+        430
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.43 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -277,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Les pénuries de composants, notamment les puces électroniques et DRAM, pourraient avoir un impact significatif sur la production et les ventes de la société. (Item 1A)",
       "trend": "stable",
-      "summary": "Les pénuries de composants pourraient entraîner des retards de production et des pertes de ventes."
+      "summary": "Les pénuries de composants pourraient entraîner des retards de production et des pertes de ventes.",
+      "score": 4
     },
     {
       "title": "Risques de chaîne d'approvisionnement",
@@ -285,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Les perturbations de la chaîne d'approvisionnement pourraient avoir un impact significatif sur la production et les ventes de la société. (Item 1A)",
       "trend": "up",
-      "summary": "Les perturbations de la chaîne d'approvisionnement pourraient entraîner des retards de production et des pertes de ventes."
+      "summary": "Les perturbations de la chaîne d'approvisionnement pourraient entraîner des retards de production et des pertes de ventes.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et tarifaires",
@@ -293,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Les changements dans les accords commerciaux et les tarifs pourraient augmenter les coûts de production et affecter les volumes de production de l'industrie. (Item 1A, MDA)",
       "trend": "up",
-      "summary": "Les changements dans les accords commerciaux et les politiques gouvernementales pourraient entraîner des pertes de ventes et des perturbations de la chaîne d'approvisionnement."
+      "summary": "Les changements dans les accords commerciaux et les politiques gouvernementales pourraient entraîner des pertes de ventes et des perturbations de la chaîne d'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -301,7 +318,8 @@
       "severity": 4,
       "score_rationale": "La concurrence accrue dans l'industrie automobile pourrait avoir un impact significatif sur les ventes et les marges bénéficiaires de la société.",
       "trend": "up",
-      "summary": "La concurrence accrue pourrait entraîner des pertes de ventes et des pressions sur les prix."
+      "summary": "La concurrence accrue pourrait entraîner des pertes de ventes et des pressions sur les prix.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'égard de quelques clients",
@@ -309,7 +327,8 @@
       "severity": 4,
       "score_rationale": "La société est fortement dépendante de quelques clients majeurs incluant Ford, General Motors, BMW, Volkswagen et autres. (Item 1A)",
       "trend": "stable",
-      "summary": "La perte d'un de ces clients pourrait avoir un impact significatif sur les ventes et les marges bénéficiaires de la société."
+      "summary": "La perte d'un de ces clients pourrait avoir un impact significatif sur les ventes et les marges bénéficiaires de la société.",
+      "score": 4
     }
   ],
   "governance": {
@@ -341,7 +360,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -453,11 +472,9 @@
           0.643,
           1.014,
           1.761,
-          -0.87,
           0.934,
           1.903,
-          2.82,
-          -1.889
+          2.82
         ],
         "history_periods": [
           "Q1 2020",
@@ -498,6 +515,12 @@
             "accession": "calc-0001111335-26-000006",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (VC)"
         ]
       }
     ]
@@ -514,9 +537,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.324608+00:00",
     "fetched_at": "2026-05-21T02:17:14.324609+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.094Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.206Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vc.json",
     "enrich_root": "v2-pipeline-enrich/vc.json",

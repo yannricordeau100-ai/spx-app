@@ -21,8 +21,8 @@
       "name_fr": "Revenu segment systèmes carburant",
       "name_en": "Fuel Systems Revenue",
       "explanation": "Chiffre d'affaires généré par la conception et fabrication de systèmes de gestion du carburant pour véhicules commerciaux et industriels.",
-      "value": 2320,
-      "unit": "M $",
+      "value": 2.32,
+      "unit": "Mds $",
       "yoy": "+2.0%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -30,26 +30,30 @@
       "signal": "Segment principal représentant plus des deux tiers des ventes.",
       "description": "Le segment Fuel Systems est au cœur de la stratégie de PHINIA, notamment avec l'acquisition de SEM en 2025 pour renforcer ses capacités dans les carburants alternatifs comme l'hydrogène.",
       "history": [
-        2275,
-        2320
+        2.275,
+        2.32
       ],
       "last_data_date": "2026-03-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of explicit Fuel Systems Revenue found in the filing (2024: $2,275M, 2025: $2,320M). Minimum threshold of 4 years r",
       "explanation_en": "Revenue from the Fuel Systems segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Aftermarket Revenue",
       "name_fr": "Revenu segment après-vente",
       "name_en": "Aftermarket Revenue",
       "explanation": "Revenus provenant des pièces d'origine et remanufacturées vendues sur le marché indépendant non-OEM.",
-      "value": "1306",
-      "unit": "M $",
+      "value": 1.306,
+      "unit": "Mds $",
       "yoy": "+1.9%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -57,15 +61,16 @@
       "signal": "Croissance stable portée par le parc automobile mondial croissant.",
       "description": "Le segment Aftermarket bénéficie de la demande récurrente liée à l'entretien et à la réparation des véhicules existants.",
       "history": [
-        1282,
-        1306
+        1.282,
+        1.306
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Revenue from the Aftermarket segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -88,7 +93,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -156,11 +161,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.82 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,33 +188,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.36,
-      "unit": "Mds €",
+      "value": 360,
+      "unit": "M €",
       "yoy": "-25.0%",
       "history": [
-        0.25,
-        0.36,
-        0.48,
-        0.36
+        250,
+        360,
+        480,
+        360
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.36 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,9 +247,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -258,7 +274,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -274,7 +290,8 @@
       "severity": 5,
       "score_rationale": "Le risque est placé en premier dans le 10-K et décrit comme ayant déjà affecté négativement l'entreprise. Le langage est fort (\"materially adversely affect\") et le risque est récurrent avec une intensité accrue par les tensions géopolitiques et l'inflation. Pondéré au maximum pour un risque macroéconomique systémique.",
       "trend": "stable",
-      "summary": "Une récession ou ralentissement économique pourrait réduire la production automobile et industrielle, affectant directement nos ventes et résultats."
+      "summary": "Une récession ou ralentissement économique pourrait réduire la production automobile et industrielle, affectant directement nos ventes et résultats.",
+      "score": 5
     },
     {
       "title": "Transition énergétique accélérée",
@@ -282,7 +299,8 @@
       "severity": 5,
       "score_rationale": "Le texte souligne l'impact existentiel de l'électrification et des régulations climatiques. Mention de phase-outs réglementaires d'ici 2030 et de baisse de demande pour nos produits. Langage alarmiste et position centrale dans la stratégie.",
       "trend": "up",
-      "summary": "L'adoption plus rapide que prévue des véhicules électriques ou des réglementations anti-combustion menace notre modèle économique."
+      "summary": "L'adoption plus rapide que prévue des véhicules électriques ou des réglementations anti-combustion menace notre modèle économique.",
+      "score": 5
     },
     {
       "title": "Cybersécurité et attaques informatiques",
@@ -290,7 +308,8 @@
       "severity": 4,
       "score_rationale": "Le risque est détaillé avec des menaces spécifiques (ransomware, phishing, AI-generated attacks). Bien que non matérialisé matériellement à ce jour, l'entreprise reconnaît des incidents passés et des coûts croissants. Catégorie hautement pondérée en contexte actuel.",
       "trend": "up",
-      "summary": "Une attaque informatique pourrait paralyser la production, exposer des données sensibles et nuire gravement à notre réputation."
+      "summary": "Une attaque informatique pourrait paralyser la production, exposer des données sensibles et nuire gravement à notre réputation.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue et pression sur les marges",
@@ -298,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Le risque est décrit comme global, avec des concurrents mieux dotés et des pressions sur les coûts. Mention de l'IA comme levier concurrentiel. Positionnement stratégique clé dans le document.",
       "trend": "stable",
-      "summary": "Des concurrents plus grands et mieux équipés, notamment en IA, pourraient nous dépasser en innovation, coûts ou rapidité."
+      "summary": "Des concurrents plus grands et mieux équipés, notamment en IA, pourraient nous dépasser en innovation, coûts ou rapidité.",
+      "score": 4
     },
     {
       "title": "Intégration de l'acquisition SEM",
@@ -306,7 +326,8 @@
       "severity": 4,
       "score_rationale": "L'acquisition du 1er août 2025 est présentée comme stratégique mais complexe. Le texte insiste sur les risques d'intégration, de perte d'employés clés et de synergies non réalisées. Catégorie industrielle pondérée pour un événement ponctuel mais critique.",
       "trend": "new",
-      "summary": "L'échec d'intégration de SEM pourrait compromettre notre stratégie dans les carburants alternatifs et générer des coûts imprévus."
+      "summary": "L'échec d'intégration de SEM pourrait compromettre notre stratégie dans les carburants alternatifs et générer des coûts imprévus.",
+      "score": 4
     },
     {
       "title": "Dépendance aux technologies de l'IA",
@@ -314,7 +335,8 @@
       "severity": 3,
       "score_rationale": "L'IA est mentionnée comme un levier mais aussi un risque (cybersécurité, adoption concurrentielle). Langage prudent mais répété. Moins sévère car encore émergent, mais en forte montée.",
       "trend": "new",
-      "summary": "Notre capacité à adopter l'IA dans la conception et la production déterminera notre compétitivité future."
+      "summary": "Notre capacité à adopter l'IA dans la conception et la production déterminera notre compétitivité future.",
+      "score": 3
     },
     {
       "title": "Tensions géopolitiques et tarifs douaniers",
@@ -322,7 +344,8 @@
       "severity": 4,
       "score_rationale": "Lié au risque macro mais spécifiquement mentionné avec des effets concrets : hausse des coûts, restrictions commerciales. Langage fort (\"material impact\") et mention de l'incertitude réglementaire.",
       "trend": "up",
-      "summary": "Les conflits internationaux et les barrières commerciales peuvent augmenter nos coûts et perturber nos chaînes d'approvisionnement."
+      "summary": "Les conflits internationaux et les barrières commerciales peuvent augmenter nos coûts et perturber nos chaînes d'approvisionnement.",
+      "score": 4
     }
   ],
   "governance": {
@@ -497,11 +520,9 @@
           27,
           57,
           83,
-          -55,
           28,
           58,
           78,
-          -59,
           29
         ],
         "history_periods": [
@@ -546,6 +567,12 @@
             "accession": "0001968915-26-000070",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (PHIN)"
         ]
       },
       {
@@ -612,7 +639,10 @@
             "source": "calc-PHIN_2026-02-12.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -629,9 +659,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.296753+00:00",
     "fetched_at": "2026-05-21T02:17:14.296755+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.598Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.586Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/phin.json",
     "enrich_root": "v2-pipeline-enrich/phin.json",

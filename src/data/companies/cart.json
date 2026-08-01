@@ -21,8 +21,8 @@
       "name_fr": "Valeur totale des transactions",
       "name_en": "Gross Transaction Value",
       "explanation": "Valeur totale des transactions effectuées sur la plateforme",
-      "value": 37224,
-      "unit": "M $",
+      "value": 37.224,
+      "unit": "Mds $",
       "yoy": "+11%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,9 +30,9 @@
       "signal": "Croissance de 11% par rapport à l'année précédente",
       "description": "Indicateur clé de la croissance de l'entreprise. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 3 dernières années.",
       "history": [
-        30322,
-        33461,
-        37224
+        30.322,
+        33.461,
+        37.224
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -40,17 +40,21 @@
       "is_short_history": false,
       "ttm": 38270.55,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (37224 millions de dollars)",
-      "period_type": "quarter",
-      "explanation_en": "Gross Transaction Value — total value transacted on the platform.",
-      "signal_en": "Strong top-line growth, market traction"
+      "period_type": "year",
+      "explanation_en": "Gross Transaction Value, total value transacted on the platform.",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Chiffre d'affaires de l'entreprise",
-      "value": "3742",
-      "unit": "M $",
+      "value": 3.742,
+      "unit": "Mds $",
       "yoy": "+11%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -58,9 +62,9 @@
       "signal": "Croissance de 11% par rapport à l'année précédente",
       "description": "Indicateur clé de la performance financière de l'entreprise",
       "history": [
-        3042,
-        3378,
-        3742
+        3.042,
+        3.378,
+        3.742
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -68,8 +72,9 @@
       "is_short_history": false,
       "ttm": 3842.81,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (3742 millions de dollars)",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -95,7 +100,7 @@
       "is_short_history": false,
       "ttm": 73.75,
       "_validation": "Format de valeur corrigé de '74%' à '74' (unité séparée)",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -129,8 +134,8 @@
       "name_fr": "EBITDA ajusté",
       "name_en": "Adjusted EBITDA",
       "explanation": "EBITDA ajusté de l'entreprise",
-      "value": "1087",
-      "unit": "M $",
+      "value": 1.087,
+      "unit": "Mds $",
       "yoy": "+23%",
       "type": "Cash",
       "nature": "Cyclique",
@@ -138,9 +143,9 @@
       "signal": "Croissance de 23% par rapport à l'année précédente",
       "description": "Indicateur clé de la performance financière de l'entreprise",
       "history": [
-        641,
-        885,
-        1087
+        0.641,
+        0.885,
+        1.087
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -148,8 +153,9 @@
       "is_short_history": false,
       "ttm": 1149.03,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (1087 millions de dollars)",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Income",
@@ -175,7 +181,7 @@
       "is_short_history": false,
       "ttm": 444.55,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (447 millions de dollars)",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -195,34 +201,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.69 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+33.3%",
       "history": [
-        0.05,
-        0.04,
-        0.03,
-        0.04
+        50,
+        40,
+        30,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,9 +264,7 @@
       "is_short_history": true,
       "story_category": "Innovation",
       "ttm": 11.27,
-      "_validation": "Format de valeur corrigé de '11%' à '11' (unité séparée)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Format de valeur corrigé de '11%' à '11' (unité séparée)"
     },
     {
       "short": "Orders Growth",
@@ -276,13 +289,11 @@
       "is_short_history": true,
       "story_category": "Adoption",
       "ttm": 17.5,
-      "_validation": "Format de valeur corrigé de '15%' à '15' (unité séparée)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Format de valeur corrigé de '15%' à '15' (unité séparée)"
     }
   ],
   "ai_positioning": {
-    "stance": "present",
+    "stance": "integrator",
     "summary": "Instacart intègre l'intelligence artificielle dans ses opérations pour améliorer les produits, développer de meilleurs outils et augmenter la précision. L'IA soutient la plateforme globale et aide à offrir une meilleure expérience utilisateur.",
     "evidence": [
       "Supporting all of this is AI, which helps us build smarter products, better tools, and more accurate"
@@ -294,73 +305,73 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 5,
-      "score_rationale": "La société opère dans un marché très concurrentiel avec des entreprises bien capitalisées et mieux connues, ce qui pourrait avoir un impact négatif sur son business et ses perspectives financières. Le langage utilisé dans le rapport est très alarmant, indiquant un niveau élevé de risque. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché très concurrentiel avec des entreprises bien capitalisées et mieux connues, ce qui pourrait avoir un impact négatif sur son business et ses perspectives financières. Le langage utilisé dans le rapport est très alarmant, indiquant un niveau élevé de risque.",
       "trend": "up",
       "summary": "La concurrence accrue dans le marché de la livraison de courses en ligne pourrait nuire à la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Perte de partenaires",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La perte de partenaires retail ou la réduction de leur engagement avec Instacart pourrait avoir un impact négatif sur le business de la société. Le rapport souligne l'importance de ces partenariats pour le succès de la société. (score par défaut, à affiner)",
+      "score_rationale": "La perte de partenaires retail ou la réduction de leur engagement avec Instacart pourrait avoir un impact négatif sur le business de la société. Le rapport souligne l'importance de ces partenariats pour le succès de la société.",
       "trend": "stable",
       "summary": "La perte de partenaires retail pourrait nuire à la société en réduisant son offre de produits et ses revenus.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à la croissance",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "La société a une histoire limitée d'exploitation à son échelle actuelle et pourrait faire face à des défis pour maintenir ou augmenter sa rentabilité à l'avenir. Le rapport souligne les défis liés à la croissance et à la concurrence dans le marché. (score par défaut, à affiner)",
+      "score_rationale": "La société a une histoire limitée d'exploitation à son échelle actuelle et pourrait faire face à des défis pour maintenir ou augmenter sa rentabilité à l'avenir. Le rapport souligne les défis liés à la croissance et à la concurrence dans le marché.",
       "trend": "up",
       "summary": "La société dépend fortement de sa capacité à croître et à innover pour maintenir sa position sur le marché.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Réglementation du statut des contractuels",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les lois et réglementations relatives au statut des contractuels et aux exigences de rémunération pourraient changer ou augmenter, ce qui pourrait entraîner des coûts de conformité et des responsabilités accrues pour la société. La Proposition 22 en Californie fournit un cadre mais pourrait être contestée ou amendée. (score par défaut, à affiner)",
+      "score_rationale": "Les lois et réglementations relatives au statut des contractuels et aux exigences de rémunération pourraient changer ou augmenter, ce qui pourrait entraîner des coûts de conformité et des responsabilités accrues pour la société. La Proposition 22 en Californie fournit un cadre mais pourrait être contestée ou amendée.",
       "trend": "up",
       "summary": "Les changements réglementaires concernant le statut des shoppers comme travailleurs indépendants pourraient avoir un impact négatif sur les coûts d'exploitation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Défis opérationnels à grande échelle",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société a une histoire limitée d'exploitation à son échelle actuelle, ce qui rend difficile la planification de ses opérations futures et la prévision de ses résultats. Le rapport souligne les défis liés à la gestion de la croissance et à la maintenance de la qualité des services. (score par défaut, à affiner)",
+      "score_rationale": "La société a une histoire limitée d'exploitation à son échelle actuelle, ce qui rend difficile la planification de ses opérations futures et la prévision de ses résultats. Le rapport souligne les défis liés à la gestion de la croissance et à la maintenance de la qualité des services.",
       "trend": "stable",
       "summary": "La société doit relever des défis opérationnels importants pour maintenir sa qualité de service et sa croissance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Impacts macroéconomiques",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Le business, la condition financière, l'acquisition et la rétention de clients, ainsi que les KPI clés comme le GTV et les commandes pourraient être impactés par les tendances macroéconomiques incluant l'inflation, les fluctuations des taux d'intérêt, les défis de la chaîne d'approvisionnement, les politiques commerciales et les conflits géopolitiques. (score par défaut, à affiner)",
+      "score_rationale": "Le business, la condition financière, l'acquisition et la rétention de clients, ainsi que les KPI clés comme le GTV et les commandes pourraient être impactés par les tendances macroéconomiques incluant l'inflation, les fluctuations des taux d'intérêt, les défis de la chaîne d'approvisionnement, les politiques commerciales et les conflits géopolitiques.",
       "trend": "up",
       "summary": "La volatilité macroéconomique pourrait avoir un impact négatif sur la demande client et les revenus.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité du marché et incertitude économique",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Le marché de la livraison de courses en ligne est très volatile et pourrait être affecté par les conditions économiques générales, l'incertitude concernant une récession et ses impacts sur le comportement des consommateurs. Le rapport souligne l'importance de ces facteurs pour le succès de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le marché de la livraison de courses en ligne est très volatile et pourrait être affecté par les conditions économiques générales, l'incertitude concernant une récession et ses impacts sur le comportement des consommateurs. Le rapport souligne l'importance de ces facteurs pour le succès de la société.",
       "trend": "up",
       "summary": "L'incertitude économique et l'impact potentiel d'une récession pourraient réduire la demande et les revenus.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Acquisition et engagement client",
       "category": "Commercial",
       "severity": 4,
-      "score_rationale": "Si la société échoue à acquérir de nouveaux clients de manière rentable ou à augmenter l'engagement des clients existants, y compris par des stratégies marketing efficaces, le business serait affecté négativement. Les tendances historiques ne garantissent pas les performances futures. (score par défaut, à affiner)",
+      "score_rationale": "Si la société échoue à acquérir de nouveaux clients de manière rentable ou à augmenter l'engagement des clients existants, y compris par des stratégies marketing efficaces, le business serait affecté négativement. Les tendances historiques ne garantissent pas les performances futures.",
       "trend": "stable",
       "summary": "L'incapacité à maintenir une croissance rentable de la base client affecterait la croissance future.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -403,7 +414,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -576,73 +587,212 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CART",
-    "extracted_at": "2026-05-15T19:48:45Z",
-    "method": "xbrl-companyfacts",
-    "_segment_method": "xbrl-segment-inline",
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:05:00Z",
+    "n_kpis": 6,
     "kpis": [
       {
         "short": "GTV",
         "period_type": "quarter",
         "history": [
-          0.482,
-          0.559,
-          0.51,
-          0.542,
-          0.56,
-          0.603,
-          0.595,
-          0.606,
-          0.616,
-          0.65,
-          0.659,
-          0.67,
-          0.698
+          7080,
+          7465,
+          7472,
+          7494,
+          8319,
+          8194,
+          8303,
+          9122,
+          9081,
+          9170
         ],
         "history_periods": [
           "Q3 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Transaction",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.65,
-            "source": "CART_2025-05-08.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.659,
-            "source": "CART_2025-08-08.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.67,
-            "source": "CART_2025-11-10.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.698,
-            "source": "calc-CART_2026-02-26.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:00Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          668,
+          759,
+          716,
+          764,
+          820,
+          823,
+          852,
+          897,
+          914,
+          939
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:00Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Orders",
+        "period_type": "quarter",
+        "history": [
+          63.8,
+          66.6,
+          66.3,
+          66.2,
+          72.8,
+          70.8,
+          72.9,
+          83.2,
+          82.7,
+          83.4
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M",
+        "_extracted_at": "2026-06-01T03:05:00Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          73,
+          77,
+          74,
+          73,
+          75,
+          76,
+          75,
+          75,
+          74,
+          74
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:05:00Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Adjusted EBITDA",
+        "period_type": "quarter",
+        "history": [
+          74,
+          169,
+          110,
+          163,
+          198,
+          208,
+          227,
+          244,
+          262
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025"
+        ],
+        "last_data_date": "2025-06-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:00Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          36,
+          128,
+          114,
+          130,
+          61,
+          118,
+          106,
+          116
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025"
+        ],
+        "last_data_date": "2025-06-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:00Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (CART)"
         ]
       }
     ]
@@ -659,9 +809,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.235894+00:00",
     "fetched_at": "2026-05-21T02:17:14.235895+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.125Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.562Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cart.json",
     "enrich_root": "v2-pipeline-enrich/cart.json",

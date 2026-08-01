@@ -74,7 +74,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 649.1,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -99,9 +99,7 @@
       "is_short_history": true,
       "ttm": 3,
       "explanation_en": "Year-over-year growth in Gross Profit.",
-      "signal_en": "Margin expansion, operating leverage",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Total Revenue",
@@ -120,11 +118,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 27.63 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -143,11 +145,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 1.31 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Moderate growth, slightly positive"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -166,11 +172,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 14.39 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -189,33 +199,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 10.18 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.07,
-        0.06,
-        0.06,
-        0.06
+        70,
+        60,
+        60,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -255,43 +274,43 @@
       "title": "Conditions économiques",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "L'industrie de la vente de véhicules est sensible aux conditions économiques, notamment le chômage, la confiance des consommateurs, les prix du carburant, les taux d'intérêt et les tarifs douaniers. Les tarifs annoncés en 2025 pourraient augmenter les coûts et réduire la demande. (score par défaut, à affiner)",
+      "score_rationale": "L'industrie de la vente de véhicules est sensible aux conditions économiques, notamment le chômage, la confiance des consommateurs, les prix du carburant, les taux d'intérêt et les tarifs douaniers. Les tarifs annoncés en 2025 pourraient augmenter les coûts et réduire la demande.",
       "trend": "stable",
       "summary": "Les conditions économiques peuvent avoir un impact significatif sur les ventes de véhicules et les résultats de l'entreprise.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Tarifs douaniers",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Les tarifs annoncés par le gouvernement américain sur les véhicules et pièces importés pourraient augmenter les coûts, limiter la disponibilité d'inventaire et réduire la demande, avec un impact matériel sur les opérations. (score par défaut, à affiner)",
+      "score_rationale": "Les tarifs annoncés par le gouvernement américain sur les véhicules et pièces importés pourraient augmenter les coûts, limiter la disponibilité d'inventaire et réduire la demande, avec un impact matériel sur les opérations.",
       "trend": "up",
       "summary": "L'impact ultime des tarifs reste incertain et dépendra de facteurs tels que leur maintien, durée et portée, ainsi que des réponses des fabricants et consommateurs.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance des fabricants",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "L'entreprise dépend fortement des fabricants de véhicules pour son approvisionnement en véhicules neufs et pour les services de garantie et de maintenance. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise dépend fortement des fabricants de véhicules pour son approvisionnement en véhicules neufs et pour les services de garantie et de maintenance.",
       "trend": "stable",
       "summary": "La dépendance à l'égard des fabricants de véhicules peut avoir un impact négatif sur l'entreprise en cas de problèmes de production ou de distribution.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "L'entreprise est exposée à des risques de cybersécurité, notamment en raison de sa dépendance à l'égard de fournisseurs tiers pour ses systèmes d'information. La défaillance CDK de 2024 a démontré l'impact potentiel. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est exposée à des risques de cybersécurité, notamment en raison de sa dépendance à l'égard de fournisseurs tiers pour ses systèmes d'information. La défaillance CDK de 2024 a démontré l'impact potentiel.",
       "trend": "up",
       "summary": "Les risques de cybersécurité peuvent avoir un impact significatif sur l'entreprise, notamment en cas de violation de données ou de perturbation des systèmes d'information.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "L'entreprise opère dans un marché concurrentiel, avec de nombreux acteurs présents sur le marché de la vente automobile de détail. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise opère dans un marché concurrentiel, avec de nombreux acteurs présents sur le marché de la vente automobile de détail.",
       "trend": "stable",
       "summary": "La concurrence peut avoir un impact négatif sur l'entreprise, notamment en termes de parts de marché et de prix.",
       "score": 3
@@ -300,7 +319,7 @@
       "title": "Réglementation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "L'entreprise est soumise à des réglementations gouvernementales, notamment en matière de protection de l'environnement et de sécurité routière. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est soumise à des réglementations gouvernementales, notamment en matière de protection de l'environnement et de sécurité routière.",
       "trend": "stable",
       "summary": "Les réglementations gouvernementales peuvent avoir un impact sur l'entreprise, notamment en termes de coûts et de contraintes opérationnelles.",
       "score": 3
@@ -309,7 +328,7 @@
       "title": "Taux d'intérêt",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Les taux d'intérêt peuvent avoir un impact sur les ventes de véhicules et les résultats de l'entreprise en affectant l'accessibilité financière des véhicules pour les consommateurs. (score par défaut, à affiner)",
+      "score_rationale": "Les taux d'intérêt peuvent avoir un impact sur les ventes de véhicules et les résultats de l'entreprise en affectant l'accessibilité financière des véhicules pour les consommateurs.",
       "trend": "stable",
       "summary": "Les taux d'intérêt peuvent influencer les décisions d'achat des consommateurs et avoir un impact sur les résultats de l'entreprise.",
       "score": 3
@@ -318,10 +337,10 @@
       "title": "Prix du carburant",
       "category": "Macro",
       "severity": 2,
-      "score_rationale": "Les prix du carburant peuvent avoir un impact sur les ventes de véhicules, notamment les véhicules à essence. (score par défaut, à affiner)",
+      "score_rationale": "Les prix du carburant peuvent avoir un impact sur les ventes de véhicules, notamment les véhicules à essence.",
       "trend": "stable",
       "summary": "Les prix du carburant peuvent influencer les décisions d'achat des consommateurs et avoir un impact sur les résultats de l'entreprise.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -392,7 +411,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -450,7 +469,6 @@
       "date": "2026-05-01"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:57:41.806028+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -480,6 +498,7 @@
     ],
     "total": 13.5
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:57:41.806028+00:00",
   "_segments_fetched_at": "2026-05-06T19:22:55.837941+00:00",
   "sector_fr": "Consommation discrétionnaire",
   "subsector_fr": "Commerce de détail automobile",
@@ -527,88 +546,78 @@
   },
   "enrich_quarterly_history": {
     "ticker": "AN",
-    "extracted_at": "2026-05-15T18:08:51Z",
-    "method": "xbrl-companyfacts",
-    "cik": 350698,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T02:57:03Z",
+    "n_kpis": 2,
     "kpis": [
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          362.1,
+          376.5,
+          352.7,
+          288.7,
+          272.5,
+          243.7,
+          190.1,
+          185.8,
+          175.5,
+          215.1
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:57:03Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "Gross Profit Growth",
         "period_type": "quarter",
         "history": [
-          2.3591,
-          3.631,
-          -2.0703,
-          1.3089,
-          2.6706,
-          3.9834,
-          -2.6976,
-          1.2864,
-          2.6217,
-          3.9163,
-          -2.6929,
-          1.1979,
-          2.361,
-          3.5438,
-          -2.3173,
-          1.2199,
-          2.4953,
-          3.7337,
-          -2.5004,
-          1.2111
+          26.7,
+          2.7,
+          3.2,
+          -1.7,
+          -1.9,
+          -1.4,
+          -6.9,
+          -9,
+          2,
+          5
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "GrossProfit",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 2.4953,
-            "accession": "0000350698-25-000100",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 3.7337,
-            "accession": "0001628280-25-046121",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -2.5004,
-            "accession": "calc-0001628280-26-007800",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.2111,
-            "accession": "0001628280-26-029317",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T02:57:03Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ]
   },
@@ -624,9 +633,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.221592+00:00",
     "fetched_at": "2026-05-21T02:17:14.221593+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.826Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.272Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/an.json",
     "enrich_root": "v2-pipeline-enrich/an.json",

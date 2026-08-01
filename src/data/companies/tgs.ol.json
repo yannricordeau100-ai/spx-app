@@ -69,7 +69,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur confirmée dans source (our pre-funding revenues ended close to 140% of capitalized MultiClient cash investment, significantly above our target range of 80-120%)",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -96,8 +100,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "HALLUCINATION DÉTECTÉE: Valeur non trouvée dans source. Données insuffisantes dans extrait 10-K pour valider cette métrique spécifique.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -125,7 +133,11 @@
       "is_short_history": false,
       "_validation": "HALLUCINATION DÉTECTÉE: Valeur numérique non présente dans source. Seule information disponible: Profitability for our contract work improved through the year and is approaching sustainable levels (sans chiffre exact).",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -152,8 +164,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "CORRECTION UNITÉ: 0.12 Mds$ → 120 M$ (conversion cohérente). Valeur logique confirmée par contexte cloud.",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -182,8 +198,12 @@
       "is_short_history": false,
       "_validation": "CORRECTION UNITÉ: 1.2 K → 1200 employés (clarification). Valeur non explicitement présente dans source fournie.",
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -276,7 +296,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -289,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement identifié dans la matrice d'impact (Enterprise Level Risks) comme « Accelerating energy transition and decline in demand for seismic ». Langage direct et répété dans le contexte CSRD/TCFD. Tendance stable mais structurelle. Poids élevé : classé parmi les 3 enjeux matériels prioritaires (Climate Change and Energy Transition).",
       "trend": "stable",
-      "summary": "La transition énergétique mondiale et l'accélération du déclin de la demande de services sismiques traditionnels menacent le modèle économique historique de PGS. Le rapport identifie explicitement ce risque et montre que PGS développe des activités alternatives (offshore wind, CCUS, carbon storage surveys) pour compenser cette érosion de marché."
+      "summary": "La transition énergétique mondiale et l'accélération du déclin de la demande de services sismiques traditionnels menacent le modèle économique historique de PGS. Le rapport identifie explicitement ce risque et montre que PGS développe des activités alternatives (offshore wind, CCUS, carbon storage surveys) pour compenser cette érosion de marché.",
+      "score": 4
     },
     {
       "title": "Incident majeur de pollution marine ou déversement",
@@ -297,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement listé dans la matrice d'impact (« Major spill or pollution incident »). Opérations marines intensives (flotte de navires sismiques). Langage direct. Tendance stable. Poids élevé : lié à l'enjeu matériel « Biodiversity and Nature ».",
       "trend": "stable",
-      "summary": "Les opérations de PGS impliquent une flotte de navires sismiques (Ramform Titan-class) opérant en zones marines sensibles. Un incident majeur de déversement ou de pollution pourrait causer des dommages environnementaux significatifs, des amendes réglementaires et une atteinte à la réputation, notamment dans un contexte de régulation maritime stricte (EU ETS, FuelEU Maritime)."
+      "summary": "Les opérations de PGS impliquent une flotte de navires sismiques (Ramform Titan-class) opérant en zones marines sensibles. Un incident majeur de déversement ou de pollution pourrait causer des dommages environnementaux significatifs, des amendes réglementaires et une atteinte à la réputation, notamment dans un contexte de régulation maritime stricte (EU ETS, FuelEU Maritime).",
+      "score": 4
     },
     {
       "title": "Incident de cybersécurité majeur affectant les données clients",
@@ -305,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement identifié dans la matrice d'impact (« Victim of major cyber security incident »). PGS gère des données sismiques propriétaires et multiclient de haute valeur. Langage direct. Tendance stable. Poids modéré-élevé : classé parmi les risques d'impact sur la valeur d'entreprise.",
       "trend": "stable",
-      "summary": "PGS détient et traite des données sismiques multiclient sensibles et propriétaires (GeoStreamer®, MultiClient OnDemand, cloud-based Eos). Une cyberattaque majeure pourrait compromettre la confidentialité des données clients, interrompre les opérations numériques (Digital Factory, cloud computing) et éroder la confiance des clients."
+      "summary": "PGS détient et traite des données sismiques multiclient sensibles et propriétaires (GeoStreamer®, MultiClient OnDemand, cloud-based Eos). Une cyberattaque majeure pourrait compromettre la confidentialité des données clients, interrompre les opérations numériques (Digital Factory, cloud computing) et éroder la confiance des clients.",
+      "score": 4
     },
     {
       "title": "Capacité à attirer et retenir les talents dans un secteur en transition",
@@ -313,7 +336,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement identifié dans la matrice d'impact (« Ability to attract, develop and retain talent »). Contexte de transition énergétique et fusion TGS en cours. Langage direct. Tendance stable. Poids élevé : classé parmi les 3 enjeux matériels prioritaires (Future Workforce).",
       "trend": "stable",
-      "summary": "La transition du secteur sismique vers les énergies renouvelables et la fusion TGS créent une incertitude stratégique qui complique l'attraction et la rétention de talents qualifiés en géophysique, géologie et technologie. PGS a mis en place des programmes de diversité et d'inclusion, mais la perception d'un secteur en déclin peut affecter le recrutement."
+      "summary": "La transition du secteur sismique vers les énergies renouvelables et la fusion TGS créent une incertitude stratégique qui complique l'attraction et la rétention de talents qualifiés en géophysique, géologie et technologie. PGS a mis en place des programmes de diversité et d'inclusion, mais la perception d'un secteur en déclin peut affecter le recrutement.",
+      "score": 3
     },
     {
       "title": "Risque de violation des sanctions internationales ou d'engagement dans la corruption",
@@ -321,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Risques explicitement listés dans la matrice d'impact (« Violation of international sanctions », « Engagement in corrupt activities »). Opérations globales dans 40+ pays. Langage direct. Tendance stable. Poids élevé : classé parmi les 3 enjeux matériels prioritaires (Business Ethics and Integrity).",
       "trend": "stable",
-      "summary": "PGS opère mondialement (Afrique, Asie, Amérique du Nord) et est exposée aux risques de violation de sanctions internationales et de corruption. Le rapport souligne la révision 2023 des standards de chaîne d'approvisionnement pour intégrer la Loi norvégienne de transparence et renforce la formation anti-corruption, indiquant une exposition significative."
+      "summary": "PGS opère mondialement (Afrique, Asie, Amérique du Nord) et est exposée aux risques de violation de sanctions internationales et de corruption. Le rapport souligne la révision 2023 des standards de chaîne d'approvisionnement pour intégrer la Loi norvégienne de transparence et renforce la formation anti-corruption, indiquant une exposition significative.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie propriétaire et à l'innovation sismique",
@@ -329,7 +354,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans le modèle économique : GeoStreamer®, Ramform Titan-class, cloud-based Eos sont des actifs critiques. Langage indirect mais répété (« digitalization », « innovation »). Tendance stable. Poids modéré : lié à la compétitivité dans un secteur en transition.",
       "trend": "stable",
-      "summary": "La compétitivité de PGS repose sur des technologies propriétaires (GeoStreamer® streamer, navires Ramform Titan-class, plateformes cloud Eos/MultiClient OnDemand). L'obsolescence technologique, la concurrence ou l'échec de l'innovation dans les nouveaux domaines (offshore wind, CCUS) pourraient éroder l'avantage concurrentiel."
+      "summary": "La compétitivité de PGS repose sur des technologies propriétaires (GeoStreamer® streamer, navires Ramform Titan-class, plateformes cloud Eos/MultiClient OnDemand). L'obsolescence technologique, la concurrence ou l'échec de l'innovation dans les nouveaux domaines (offshore wind, CCUS) pourraient éroder l'avantage concurrentiel.",
+      "score": 3
     },
     {
       "title": "Risque réglementaire lié aux émissions maritimes et à la transition énergétique",
@@ -337,7 +363,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans les références à EU ETS, FuelEU Maritime et objectifs net-zero 2050. Langage direct dans le contexte de conformité. Tendance up : nouvelles régulations mentionnées (EU ETS, FuelEU Maritime MRV). Poids modéré-élevé : lié à Climate Change and Energy Transition.",
       "trend": "up",
-      "summary": "PGS est soumise à des régulations maritimes strictes et croissantes (EU ETS, FuelEU Maritime, objectif 50% réduction CO2 d'ici 2030, net-zero 2050). Le non-respect ou les coûts de conformité pourraient impacter la rentabilité opérationnelle, notamment pour la flotte de navires sismiques."
+      "summary": "PGS est soumise à des régulations maritimes strictes et croissantes (EU ETS, FuelEU Maritime, objectif 50% réduction CO2 d'ici 2030, net-zero 2050). Le non-respect ou les coûts de conformité pourraient impacter la rentabilité opérationnelle, notamment pour la flotte de navires sismiques.",
+      "score": 3
     },
     {
       "title": "Risque de litige ou d'incident impliquant des dommages à la faune marine",
@@ -345,7 +372,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement identifié dans la matrice d'impact (« Incident involving harm to marine fauna »). Opérations sismiques en zones marines sensibles. Langage direct. Tendance stable. Poids modéré : lié à l'enjeu matériel « Biodiversity and Nature ».",
       "trend": "stable",
-      "summary": "Les opérations sismiques de PGS (acquisition 3D haute résolution, notamment en zones offshore wind) peuvent affecter la faune marine (cétacés, poissons). Les litiges environnementaux, les amendes réglementaires ou les restrictions d'accès à certaines zones pourraient résulter d'incidents ou de pressions de groupes de défense de l'environnement."
+      "summary": "Les opérations sismiques de PGS (acquisition 3D haute résolution, notamment en zones offshore wind) peuvent affecter la faune marine (cétacés, poissons). Les litiges environnementaux, les amendes réglementaires ou les restrictions d'accès à certaines zones pourraient résulter d'incidents ou de pressions de groupes de défense de l'environnement.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:05:04.716153+00:00",
@@ -555,9 +583,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.317240+00:00",
     "fetched_at": "2026-05-21T02:17:14.317241+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.479Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.559Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tgs.ol.json",
     "enrich_root": "v2-pipeline-enrich/tgs.ol.json",

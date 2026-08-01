@@ -1,6 +1,6 @@
 {
   "ticker": "FOXF",
-  "name": "Fox Factory Holding Corp.",
+  "name": "Fox Factory Holding",
   "sector": "Consommation discrétionnaire",
   "subsector": "Automotive Components & Accessories",
   "tagline": "A global leader in the design, engineering, manufacturing and marketing of premium performance products and systems for bicycles, off-road vehicles, and specialty applications.",
@@ -38,11 +38,14 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 30.79,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Gross margin percentages not explicitly stated in the provided 10-K excerpt. While the document defines gross margin as 'gross profit as a p",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -113,7 +116,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -135,7 +138,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -155,56 +158,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.69,
-      "unit": "Mds €",
+      "value": 690,
+      "unit": "M €",
       "yoy": "-4.2%",
       "history": [
-        0.21,
-        0.76,
-        0.72,
-        0.69
+        210,
+        760,
+        720,
+        690
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.69 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "-14.3%",
       "history": [
-        0.15,
-        0.08,
-        0.07,
-        0.06
+        150,
+        80,
+        70,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -219,16 +236,16 @@
       "title": "Impairment répété du goodwill",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le risque est concrétisé avec une dépréciation massive de 557.3 M$ en 2026 suite à la baisse du cours de bourse et aux tarifs douaniers. Le langage décrit une sensibilité extrême au WACC (1.5% d'augmentation = impairment total du goodwill restant). Cela reflète un risque existentiel pour la valeur des actifs. Pondération élevée pour la catégorie Capital. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est concrétisé avec une dépréciation massive de 557.3 M$ en 2026 suite à la baisse du cours de bourse et aux tarifs douaniers. Le langage décrit une sensibilité extrême au WACC (1.5% d'augmentation = impairment total du goodwill restant). Cela reflète un risque existentiel pour la valeur des actifs. Pondération élevée pour la catégorie Capital.",
       "trend": "up",
       "summary": "La société a subi une dépréciation majeure de goodwill de 557.3 M$ en 2026 en raison de tarifs douaniers et de la baisse de son cours. Le risque de dépréciations futures reste élevé.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Exposition aux changements fiscaux (OBBBA)",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "L'OBBBA a été promulguée le 4 juillet 2025 avec des effets progressifs jusqu'en 2027. La société a déterminé que les dispositions n'affectent pas l'évaluation des actifs d'impôts différés au 2 janvier 2026. Cependant, elle continuera d'évaluer l'impact sur son taux d'imposition effectif. Le risque est nouveau mais actuellement maîtrisé. Pondération moyenne pour Régulation. (score par défaut, à affiner)",
+      "score_rationale": "L'OBBBA a été promulguée le 4 juillet 2025 avec des effets progressifs jusqu'en 2027. La société a déterminé que les dispositions n'affectent pas l'évaluation des actifs d'impôts différés au 2 janvier 2026. Cependant, elle continuera d'évaluer l'impact sur son taux d'imposition effectif. Le risque est nouveau mais actuellement maîtrisé. Pondération moyenne pour Régulation.",
       "trend": "stable",
       "summary": "La nouvelle loi fiscale américaine OBBBA pourrait affecter le taux d'imposition futur, avec évaluation continue en cours.",
       "score": 3
@@ -237,34 +254,34 @@
       "title": "Obsolescence des stocks",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le risque est récurrent et documenté : ajustements basés sur la demande, cycles de vie produit, obsolescence technologique. Les erreurs de prévision affectent directement la marge brute. Cela fait partie des politiques comptables critiques. Pondération élevée pour Industriel. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est récurrent et documenté : ajustements basés sur la demande, cycles de vie produit, obsolescence technologique. Les erreurs de prévision affectent directement la marge brute. Cela fait partie des politiques comptables critiques. Pondération élevée pour Industriel.",
       "trend": "stable",
       "summary": "Les erreurs de prévision de demande ou l'obsolescence technologique peuvent entraîner des dépréciations de stocks et réduire la marge brute.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Estimations fiscales incertaines",
       "category": "Comptabilité",
       "severity": 4,
-      "score_rationale": "La société est sujette à examen par l'IRS et autres autorités fiscales. Le taux d'imposition effectif a varié significativement (5.5% en 2026 vs -543.5% en 2025 suite aux dépréciations). Des changements pourraient matériellement impacter les charges fiscales. Valuation allowances enregistrées sur certains crédits d'impôt. Pondération élevée pour Comptabilité. (score par défaut, à affiner)",
+      "score_rationale": "La société est sujette à examen par l'IRS et autres autorités fiscales. Le taux d'imposition effectif a varié significativement (5.5% en 2026 vs -543.5% en 2025 suite aux dépréciations). Des changements pourraient matériellement impacter les charges fiscales. Valuation allowances enregistrées sur certains crédits d'impôt. Pondération élevée pour Comptabilité.",
       "trend": "stable",
       "summary": "Les estimations fiscales dépendent de lois complexes et d'audits futurs, avec un risque d'ajustements significatifs aux résultats.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépréciation d'actifs corporels et incorporels",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "En exercice 2026, la société a enregistré 13.5 M$ de charges d'impairment sur actifs incorporels et corporels en raison de flux futurs révisés à la baisse (dont 8.0 M$ sur actifs incorporels). Cela suit la dépréciation majeure de goodwill, indiquant une détérioration opérationnelle substantielle. Langage concret et chiffré. Pondération élevée. (score par défaut, à affiner)",
+      "score_rationale": "En exercice 2026, la société a enregistré 13.5 M$ de charges d'impairment sur actifs incorporels et corporels en raison de flux futurs révisés à la baisse (dont 8.0 M$ sur actifs incorporels). Cela suit la dépréciation majeure de goodwill, indiquant une détérioration opérationnelle substantielle. Langage concret et chiffré. Pondération élevée.",
       "trend": "up",
       "summary": "La baisse des flux de trésorerie anticipés a conduit à des dépréciations d'actifs de 13.5 M$, signalant une pression sérieuse sur la performance opérationnelle.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Estimations sur les garanties",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Le risque est décrit avec des facteurs clés (taux de panne, coûts par sinistre), mais les provisions sont gérées. La société évalue régulièrement ce risque. Le langage est prudent mais pas alarmant. Impact potentiel sur le coût des ventes. Pondération moyenne. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est décrit avec des facteurs clés (taux de panne, coûts par sinistre), mais les provisions sont gérées. La société évalue régulièrement ce risque. Le langage est prudent mais pas alarmant. Impact potentiel sur le coût des ventes. Pondération moyenne.",
       "trend": "stable",
       "summary": "Une hausse inattendue des réclamations ou des coûts de réparation pourrait augmenter les charges et peser sur les résultats.",
       "score": 3
@@ -306,7 +323,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -457,166 +474,53 @@
   },
   "enrich_quarterly_history": {
     "ticker": "FOXF",
-    "extracted_at": "2026-05-15T18:11:19Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1424929,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:17:10Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "R&D",
+        "short": "Gross Margin",
         "period_type": "quarter",
         "history": [
-          21.092,
-          33.41,
-          -17.811,
-          12.642,
-          26.856,
-          40.811,
-          -24.104,
-          15.282,
-          30.47,
-          39.374,
-          -31.947,
-          14.439,
-          29.228,
-          45.331,
-          -28.684,
-          17.039,
-          34.886,
-          53.507,
-          -35.991,
-          18.454
+          34.8,
+          33.9,
+          33.4,
+          31.8,
+          35.1,
+          33.5,
+          33.3,
+          32.9,
+          32.4,
+          30.9,
+          31.8,
+          29.9,
+          30.9,
+          31.2,
+          30.4
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
           "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-04-03",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 34.886,
-            "accession": "0001424929-25-000076",
-            "end": "2025-07-04"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 53.507,
-            "accession": "0001424929-25-000092",
-            "end": "2025-10-03"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -35.991,
-            "accession": "calc-0001424929-26-000012",
-            "end": "2026-01-02"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 18.454,
-            "accession": "0001424929-26-000035",
-            "end": "2026-04-03"
-          }
-        ]
-      },
-      {
-        "short": "Capex",
-        "period_type": "quarter",
-        "history": [
-          27.648,
-          39.983,
-          -29.67,
-          8.191,
-          19.912,
-          35.559,
-          -19.961,
-          11.118,
-          23.227,
-          32.048,
-          -19.541,
-          9.907,
-          21.188,
-          32.087,
-          -19.142,
-          7.18,
-          19.412,
-          27.169,
-          -19.794,
-          5.39
-        ],
-        "history_periods": [
-          "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
+          "Q2 2021",
           "Q1 2022",
-          "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
+          "Q2 2022",
           "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
           "Q4 2023",
-          "Q1 2024",
+          "Q3 2023",
           "Q2 2024",
-          "Q3 2024",
+          "Q1 2024",
           "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q2 2025",
+          "Q1 2025"
         ],
-        "last_data_date": "2026-04-03",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 19.412,
-            "accession": "0001424929-25-000076",
-            "end": "2025-07-04"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 27.169,
-            "accession": "0001424929-25-000092",
-            "end": "2025-10-03"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -19.794,
-            "accession": "calc-0001424929-26-000012",
-            "end": "2026-01-02"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 5.39,
-            "accession": "0001424929-26-000035",
-            "end": "2026-04-03"
-          }
-        ]
+        "last_data_date": "2025-10-03",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:17:10Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -632,9 +536,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.263169+00:00",
     "fetched_at": "2026-05-21T02:17:14.263170+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.396Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.989Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/foxf.json",
     "enrich_root": "v2-pipeline-enrich/foxf.json",

@@ -43,7 +43,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -70,16 +70,20 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin stable, monitor cost dynamics"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "ARR",
       "name_fr": "Revenu récurrent annuel",
       "name_en": "Annual Recurring Revenue",
       "explanation": "Revenu récurrent annuel",
-      "value": "1852.6",
-      "unit": "M $",
+      "value": 1.853,
+      "unit": "Mds $",
       "yoy": "+11%",
       "type": "Recurring",
       "nature": "Cyclique",
@@ -87,18 +91,23 @@
       "signal": "Croissance de 11% par rapport à l'année précédente",
       "description": "Revenu récurrent annuel de l'entreprise",
       "history": [
-        1852.6,
-        1671.1,
-        1482.5,
-        1301.2,
-        1141.1
+        1.853,
+        1.671,
+        1.482,
+        1.301,
+        1.141
       ],
       "last_data_date": "2026-01-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Annual Recurring Revenue — annualized value of subscription revenue.",
-      "signal_en": "Recurring base growing, revenue visibility rising"
+      "explanation_en": "Annual Recurring Revenue, annualized value of subscription revenue.",
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -117,34 +126,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.61 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.28,
-      "unit": "Mds €",
+      "value": 280,
+      "unit": "M €",
       "yoy": "+500.0%",
       "history": [
-        -0.33,
-        -0.09,
-        -0.07,
-        0.28
+        -330,
+        -90,
+        -70,
+        280
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.28 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,56 +181,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.18 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.06,
-        0.07,
-        0.08,
-        0.08
+        60,
+        70,
+        80,
+        80
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.08 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.87,
-      "unit": "Mds €",
+      "value": 870,
+      "unit": "M €",
       "yoy": "-1.1%",
       "history": [
-        1.4,
-        1.06,
-        0.88,
-        0.87
+        1400,
+        1060,
+        880,
+        870
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.87 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -239,9 +271,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Croissance",
-      "_source_month": "janvier 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Croissance"
     }
   ],
   "ai_positioning": {
@@ -268,7 +298,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K, mention répétée de pertes passées et futures, langage fort sur le risque existentiel pour la rentabilité. Le risque est amplifié par des engagements cloud coûteux et fixes. Pondération élevée pour un risque de trésorerie.",
       "trend": "stable",
-      "summary": "La société a connu des pertes et pourrait ne pas atteindre une rentabilité durable en raison de dépenses élevées et d'engagements fixes."
+      "summary": "La société a connu des pertes et pourrait ne pas atteindre une rentabilité durable en raison de dépenses élevées et d'engagements fixes.",
+      "score": 5
     },
     {
       "title": "Difficulté à gérer la croissance",
@@ -276,7 +307,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien développé avec données financières précises (croissance à 13 %), mais le langage reste prudent. Mention de facteurs internes et externes. Catégorie industrielle modérément pondérée.",
       "trend": "stable",
-      "summary": "Une croissance rapide peut nuire à l'efficacité opérationnelle et compromettre la rentabilité si mal maîtrisée."
+      "summary": "Une croissance rapide peut nuire à l'efficacité opérationnelle et compromettre la rentabilité si mal maîtrisée.",
+      "score": 4
     },
     {
       "title": "Risques macroéconomiques globaux",
@@ -284,7 +316,8 @@
       "severity": 5,
       "score_rationale": "Langage très fort sur les impacts passés et futurs, mention de récession, inflation, taux d'intérêt, conflits géopolitiques. 54 % des revenus hors États-Unis. Catégorie macroéconomique fortement pondérée.",
       "trend": "up",
-      "summary": "Les conditions économiques mondiales et les tensions géopolitiques menacent la demande, les investissements IT et les prévisions."
+      "summary": "Les conditions économiques mondiales et les tensions géopolitiques menacent la demande, les investissements IT et les prévisions.",
+      "score": 5
     },
     {
       "title": "Fluctuations des résultats financiers",
@@ -292,7 +325,8 @@
       "severity": 4,
       "score_rationale": "Position importante dans le document, avec liste détaillée de 20 facteurs. Langage technique mais sans urgence existentielle. Risque de volatilité boursière souligné.",
       "trend": "stable",
-      "summary": "Les résultats varient fortement en raison de multiples facteurs internes et externes, rendant les prévisions difficiles."
+      "summary": "Les résultats varient fortement en raison de multiples facteurs internes et externes, rendant les prévisions difficiles.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs cloud",
@@ -300,7 +334,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite d'engagements multi-annuels non résiliables, paiements indépendants de l'utilisation. Risque de surcoût si la croissance ralentit. Catégorie technologie moyennement pondérée.",
       "trend": "new",
-      "summary": "Des contrats cloud à long terme fixes exposent la société à des coûts élevés même en cas de baisse de la demande."
+      "summary": "Des contrats cloud à long terme fixes exposent la société à des coûts élevés même en cas de baisse de la demande.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue et évolution technologique",
@@ -308,7 +343,8 @@
       "severity": 4,
       "score_rationale": "Mention récurrente de la concurrence, des innovations et de l'adoption de nouvelles technologies. Risque lié à l'obsolescence ou à l'échec de lancement. Langage préoccupé mais pas alarmiste.",
       "trend": "stable",
-      "summary": "L'innovation rapide et la pression concurrentielle pourraient réduire la part de marché ou la valeur des produits."
+      "summary": "L'innovation rapide et la pression concurrentielle pourraient réduire la part de marché ou la valeur des produits.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et commerciaux",
@@ -316,7 +352,8 @@
       "severity": 4,
       "score_rationale": "Mention de tarifs, barrières commerciales, nationalisme économique, et restrictions d'accès à certains marchés. 54 % des revenus internationaux. Langage préventif mais sérieux.",
       "trend": "up",
-      "summary": "Les tensions commerciales et les politiques protectionnistes peuvent limiter l'accès aux marchés et nuire à la croissance."
+      "summary": "Les tensions commerciales et les politiques protectionnistes peuvent limiter l'accès aux marchés et nuire à la croissance.",
+      "score": 4
     }
   ],
   "governance": {
@@ -538,9 +575,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.294903+00:00",
     "fetched_at": "2026-05-21T02:17:14.294904+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.435Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.391Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/path.json",
     "enrich_root": "v2-pipeline-enrich/path.json",

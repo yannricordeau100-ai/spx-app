@@ -1,6 +1,6 @@
 {
   "ticker": "ARRKF",
-  "name": "Arras Minerals Corp.",
+  "name": "Arras Minerals",
   "sector": "Matériaux",
   "subsector": "Mining",
   "tagline": "Early-stage mineral exploration company in Kazakhstan",
@@ -38,9 +38,7 @@
       "is_short_history": true,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de Capex (dépenses d'immobilisations) trouvée dans l'extrait fourni. Le document est un présentation/prospe",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -62,9 +60,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -83,10 +79,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -105,10 +105,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.01 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -127,10 +131,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de -0.01 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -149,31 +157,40 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "",
       "history": [
         0,
         0,
         0,
-        0.01
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -210,7 +227,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné en première partie du texte comme central (exploration stage mining company with no history of operations). Le langage est fort (no commercially mineable ore body), en tendance stable, et représente un risque fondamental pour le modèle économique.",
       "trend": "stable",
-      "summary": "Arras Minerals est une société en phase d'exploration sans historique d'exploitation ni gisement exploitable commercialement identifié, ce qui rend sa viabilité dépendante de la découverte future de ressources économiquement viables."
+      "summary": "Arras Minerals est une société en phase d'exploration sans historique d'exploitation ni gisement exploitable commercialement identifié, ce qui rend sa viabilité dépendante de la découverte future de ressources économiquement viables.",
+      "score": 5
     },
     {
       "title": "Concurrence pour l'acquisition de permis",
@@ -218,7 +236,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement les risques liés à la concurrence dans le secteur minier et à l'acquisition de propriétés minérales. Le langage est modéré mais récurrent, et le contexte géopolitique (Kazakhstan) renforce l'intensité du risque.",
       "trend": "stable",
-      "summary": "La société fait face à une concurrence accrue pour l'acquisition de concessions minières au Kazakhstan, notamment avec l'arrivée de grands acteurs internationaux attirés par les minéraux critiques."
+      "summary": "La société fait face à une concurrence accrue pour l'acquisition de concessions minières au Kazakhstan, notamment avec l'arrivée de grands acteurs internationaux attirés par les minéraux critiques.",
+      "score": 4
     },
     {
       "title": "Instabilité politique au Kazakhstan",
@@ -226,7 +245,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement cité (risk of political and economic instability in Kazakhstan), avec un langage fort et une position centrale dans les risques spécifiques. Il est en tendance stable, crucial pour les opérations sur site.",
       "trend": "stable",
-      "summary": "Les activités d'Arras au Kazakhstan sont exposées à l'instabilité politique et économique du pays, ce qui pourrait perturber les permis, les opérations d'exploration et les relations avec les autorités locales."
+      "summary": "Les activités d'Arras au Kazakhstan sont exposées à l'instabilité politique et économique du pays, ce qui pourrait perturber les permis, les opérations d'exploration et les relations avec les autorités locales.",
+      "score": 5
     },
     {
       "title": "Dépendance aux communautés locales",
@@ -234,7 +254,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne l'importance des relations avec les communautés locales (our success depends on developing and maintaining relationships). Le langage est affirmé, le risque est structurel et stable, impactant la licence sociale d'exploiter.",
       "trend": "stable",
-      "summary": "La réussite des projets d'Arras dépend fortement de l'acceptabilité sociale et de la collaboration avec les communautés locales, sous peine de blocages ou de contestations sociales."
+      "summary": "La réussite des projets d'Arras dépend fortement de l'acceptabilité sociale et de la collaboration avec les communautés locales, sous peine de blocages ou de contestations sociales.",
+      "score": 4
     },
     {
       "title": "Risques liés aux coentreprises",
@@ -242,7 +263,8 @@
       "severity": 4,
       "score_rationale": "Plusieurs mentions des risques liés aux accords d'option et de coentreprise (joint venture agreements, risks associated with joint ventures), avec un langage précis et répété. Risque stable, clé pour le financement et le développement.",
       "trend": "stable",
-      "summary": "La société s'appuie sur des accords de coentreprise et d'option pour développer ses projets, ce qui implique des dépendances stratégiques, des conflits potentiels et un contrôle partagé des décisions."
+      "summary": "La société s'appuie sur des accords de coentreprise et d'option pour développer ses projets, ce qui implique des dépendances stratégiques, des conflits potentiels et un contrôle partagé des décisions.",
+      "score": 4
     },
     {
       "title": "Activisme environnemental et social",
@@ -250,7 +272,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite spécifiquement les risques liés à l'activisme social et environnemental. Le langage est direct, le risque est en contexte de régulation croissante, et représente une menace pour les permis et la réputation.",
       "trend": "stable",
-      "summary": "Les projets miniers d'Arras peuvent être affectés par des mouvements d'activisme environnemental ou social, qui pourraient retarder les autorisations ou nuire à l'image de la société."
+      "summary": "Les projets miniers d'Arras peuvent être affectés par des mouvements d'activisme environnemental ou social, qui pourraient retarder les autorisations ou nuire à l'image de la société.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des systèmes d'information",
@@ -258,7 +281,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné brièvement (risks relating to information systems and cybersecurity), sans approfondissement. Langage générique mais présent, dans une catégorie de plus en plus critique, tendance stable.",
       "trend": "stable",
-      "summary": "La société reconnaît des risques liés à la cybersécurité de ses systèmes d'information, pouvant affecter la protection des données techniques, financières et stratégiques."
+      "summary": "La société reconnaît des risques liés à la cybersécurité de ses systèmes d'information, pouvant affecter la protection des données techniques, financières et stratégiques.",
+      "score": 3
     },
     {
       "title": "Obtention des permis et autorisations",
@@ -266,7 +290,8 @@
       "severity": 5,
       "score_rationale": "Le texte cite explicitement les risques liés à l'obtention et au maintien des permis (our ability to obtain required permits, timing of receipt). Langage fort, risque central pour l'activité, en contexte réglementaire instable, tendance stable.",
       "trend": "stable",
-      "summary": "Le développement des projets d'Arras dépend de l'obtention en temps voulu de permis environnementaux, miniers et gouvernementaux, un processus complexe et incertain au Kazakhstan."
+      "summary": "Le développement des projets d'Arras dépend de l'obtention en temps voulu de permis environnementaux, miniers et gouvernementaux, un processus complexe et incertain au Kazakhstan.",
+      "score": 5
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:15:24.609369+00:00",
@@ -407,9 +432,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.223860+00:00",
     "fetched_at": "2026-05-21T02:17:14.223861+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.008Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.472Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/arrkf.json",
     "enrich_root": "v2-pipeline-enrich/arrkf.json",

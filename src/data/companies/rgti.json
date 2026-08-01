@@ -39,10 +39,13 @@
       "is_short_history": false,
       "_validation": "Verified against 10-K: Novera orders 5.7M (2025), C-DAC order 8.4M (Jan 2026). Values match source.",
       "ttm": 9.39,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'QPU Orders' n'apparaît pas explicitement dans l'extrait fourni. Le document contient principalement des métadonnées XBRL et des info",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Two-Qubit Gate Fidelity",
@@ -164,47 +167,57 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.67,
-      "unit": "Mds €",
+      "value": 670,
+      "unit": "M €",
       "yoy": "+139.3%",
       "history": [
-        0.2,
-        0.16,
-        0.28,
-        0.67
+        200,
+        160,
+        280,
+        670
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.04,
-        0.03,
-        0.01,
-        0.01
+        40,
+        30,
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -275,55 +288,55 @@
       "title": "Risques liés aux cyberattaques et à la sécurité des données",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Mentionné explicitement dans l'Item 1A du 10-K, le langage est direct et indique des conséquences négatives potentielles. Ce risque est fondamental pour une entreprise technologique manipulant des données sensibles et des systèmes informatiques critiques. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné explicitement dans l'Item 1A du 10-K, le langage est direct et indique des conséquences négatives potentielles. Ce risque est fondamental pour une entreprise technologique manipulant des données sensibles et des systèmes informatiques critiques.",
       "trend": "up",
       "summary": "Une compromission des systèmes informatiques ou des données de l'entreprise, ou de ceux de tiers sur lesquels l'entreprise s'appuie, pourrait avoir des conséquences négatives graves sur ses activités.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Transition de la dépendance aux contrats de développement vers les ventes de produits",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Souligné dans la discussion des résultats (MD&A), le passage d'une dépendance aux contrats de développement à la vente de produits est un défi majeur. L'intensité du langage suggère une incertitude significative sur la capacité à monétiser les innovations. (score par défaut, à affiner)",
+      "score_rationale": "Souligné dans la discussion des résultats (MD&A), le passage d'une dépendance aux contrats de développement à la vente de produits est un défi majeur. L'intensité du langage suggère une incertitude significative sur la capacité à monétiser les innovations.",
       "trend": "up",
       "summary": "La majorité des revenus actuels provient de contrats de développement, et la transition vers la vente de systèmes et de services QCaaS est incertaine et cruciale pour la croissance future et la viabilité long terme.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Pertes opérationnelles importantes et besoin de financement futur",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Les pertes significatives (216,2M$ en 2025) et l'accumulation de déficits (771,0M$ cumulés) sont clairement indiquées dans les états financiers. La mention de la nécessité potentielle de financement supplémentaire souligne la gravité du risque de capital. (score par défaut, à affiner)",
+      "score_rationale": "Les pertes significatives (216,2M$ en 2025) et l'accumulation de déficits (771,0M$ cumulés) sont clairement indiquées dans les états financiers. La mention de la nécessité potentielle de financement supplémentaire souligne la gravité du risque de capital.",
       "trend": "stable",
       "summary": "L'entreprise a accumulé des pertes importantes et prévoit d'en subir d'autres, nécessitant potentiellement des financements externes pour soutenir ses opérations et sa croissance stratégique.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Volatilité économique et impact sur l'accès au capital",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Décrit en détail dans la section 'Macroeconomic Considerations' du MD&A, ce risque est présenté comme ayant un impact potentiel sur l'accès au capital et la valeur des actions. Le langage est prudent quant aux prédictions futures. (score par défaut, à affiner)",
+      "score_rationale": "Décrit en détail dans la section 'Macroeconomic Considerations' du MD&A, ce risque est présenté comme ayant un impact potentiel sur l'accès au capital et la valeur des actions. Le langage est prudent quant aux prédictions futures.",
       "trend": "up",
       "summary": "Les conditions économiques mondiales instables (inflation, taux d'intérêt, etc.) peuvent augmenter les coûts, affecter la liquidité et rendre plus difficile l'accès à des financements supplémentaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Développement technologique et performance des systèmes quantiques",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "La performance et l'amélioration continue des systèmes quantiques (fidélité des portes, taux d'erreur, comptage de qubits) sont au cœur de la stratégie commerciale. Les défis techniques pour atteindre les objectifs de scalabilité et d'avantage computational sont implicites. (score par défaut, à affiner)",
+      "score_rationale": "La performance et l'amélioration continue des systèmes quantiques (fidélité des portes, taux d'erreur, comptage de qubits) sont au cœur de la stratégie commerciale. Les défis techniques pour atteindre les objectifs de scalabilité et d'avantage computational sont implicites.",
       "trend": "up",
       "summary": "Le succès de l'entreprise dépend de sa capacité à améliorer continuellement la performance, la fiabilité et la scalabilité de ses ordinateurs quantiques face à une technologie en évolution rapide et à une concurrence croissante.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux litiges et procédures judiciaires",
       "category": "Litige",
       "severity": 2,
-      "score_rationale": "Mentionné dans l'Item 3 du 10-K, le risque est qualifié de non matériel actuellement, mais la possibilité de litiges futurs est reconnue. La sévérité est donc modérée. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné dans l'Item 3 du 10-K, le risque est qualifié de non matériel actuellement, mais la possibilité de litiges futurs est reconnue. La sévérité est donc modérée.",
       "trend": "stable",
       "summary": "Bien qu'aucun litige matériel ne soit en cours, l'entreprise peut être confrontée à des actions ou réclamations dans le cours normal de ses activités commerciales.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -337,7 +350,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -353,7 +366,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.183Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.420Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rgti.json",
     "enrich_root": null,

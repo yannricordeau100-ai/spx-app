@@ -42,9 +42,12 @@
         "Conversion valeurs history de RMB milliers à B $ (divisé par 1000 pour normaliser)",
         "Correction valeur principale: 393094 à 393.094 B $"
       ],
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Guarantee income generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Interest Income",
@@ -129,7 +132,7 @@
       "_validation": [
         "Données validées avec source 10-K: marge 2.8% (2023), -14.7% (2024), -6.3% (2025)"
       ],
-      "explanation_en": "Net Margin — net income divided by revenue.",
+      "explanation_en": "Net Margin, net income divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -205,11 +208,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 208.11 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -228,11 +235,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 70.3 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -246,7 +257,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2020-2024). ex-div dates.",
       "history": [
         null,
         null,
@@ -259,7 +270,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -274,7 +285,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2020-2024) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2020-2024) en milliards USD. cashflow.",
       "history": [
         null,
         6.4385,
@@ -287,7 +298,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     }
   ],
@@ -317,9 +328,7 @@
       "_validation": [
         "Correction unité: Mds $ à B $ (valeur en milliards USD)",
         "Conversion valeurs history de RMB milliers à B $ (divisé par 1000 pour normaliser)"
-      ],
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Net Interest Income Growth",
@@ -346,9 +355,7 @@
       "_validation": [
         "Correction unité: Mds $ à B $ (valeur en milliards USD)",
         "Conversion valeurs history de RMB milliers à B $ (divisé par 1000 pour normaliser)"
-      ],
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -372,7 +379,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -387,7 +394,8 @@
       "severity": 4,
       "score_rationale": "Risque placé en premier dans Item 1A, langage direct (« rapidly changing », « evolved significantly »), tendance stable mais structurelle. Lufax opère dans un secteur fintech en transformation constante avec modifications répétées du modèle commercial.",
       "trend": "stable",
-      "summary": "L'industrie du fintech en Chine évolue rapidement, obligeant Lufax à adapter continuellement son modèle commercial. Les mises à jour en cours du modèle commercial peuvent ne pas réussir, rendant difficile l'évaluation des perspectives futures et la capacité à lancer de nouveaux produits ou canaux de marketing en temps opportun."
+      "summary": "L'industrie du fintech en Chine évolue rapidement, obligeant Lufax à adapter continuellement son modèle commercial. Les mises à jour en cours du modèle commercial peuvent ne pas réussir, rendant difficile l'évaluation des perspectives futures et la capacité à lancer de nouveaux produits ou canaux de marketing en temps opportun.",
+      "score": 4
     },
     {
       "title": "Dégradation du portefeuille de crédit et gestion du risque",
@@ -395,7 +403,8 @@
       "severity": 5,
       "score_rationale": "Risque métier critique pour une plateforme de crédit. Langage fort (« increased », « materially adversely affected »), position centrale dans les risques opérationnels. Augmentation documentée de l'exposition au risque de crédit ces dernières années.",
       "trend": "up",
-      "summary": "Le pourcentage de prêts en souffrance a augmenté ces dernières années. Si Lufax échoue à gérer efficacement le risque de crédit, notamment via son modèle d'évaluation du crédit ou la détection de fraude emprunteur, les défauts augmenteraient, impactant directement la rentabilité et la réputation de la plateforme."
+      "summary": "Le pourcentage de prêts en souffrance a augmenté ces dernières années. Si Lufax échoue à gérer efficacement le risque de crédit, notamment via son modèle d'évaluation du crédit ou la détection de fraude emprunteur, les défauts augmenteraient, impactant directement la rentabilité et la réputation de la plateforme.",
+      "score": 5
     },
     {
       "title": "Conformité réglementaire complexe et évolutive en Chine",
@@ -403,7 +412,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur répété plusieurs fois dans Item 1A (« complex and evolving rapidly »). Lufax a déjà modifié ses opérations en réponse à des changements réglementaires. Non-conformité peut entraîner pénalités, limitations ou interdictions d'activité.",
       "trend": "up",
-      "summary": "Les lois et régulations régissant le crédit de détail et les services financiers en Chine sont complexes et changent rapidement. Lufax a dû modifier ses pratiques commerciales et produits discontinués en réponse à des changements réglementaires. Tout changement futur pourrait nécessiter des modifications opérationnelles majeures ou entraîner des pénalités."
+      "summary": "Les lois et régulations régissant le crédit de détail et les services financiers en Chine sont complexes et changent rapidement. Lufax a dû modifier ses pratiques commerciales et produits discontinués en réponse à des changements réglementaires. Tout changement futur pourrait nécessiter des modifications opérationnelles majeures ou entraîner des pénalités.",
+      "score": 5
     },
     {
       "title": "Plafonnement réglementaire des taux d'intérêt et compression de marges",
@@ -411,7 +421,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique au secteur du crédit en Chine. Langage explicite (« compress our margins », « materially and adversely affect »). Efforts réglementaires continus pour réduire les taux d'intérêt, impactant directement la profitabilité.",
       "trend": "up",
-      "summary": "Les autorités réglementaires chinoises exercent une pression continue pour réduire les taux d'intérêt des prêts. Les frais totaux facturés aux emprunteurs pourraient être jugés excessifs par rapport aux limites légales, rendant certains intérêts et frais non exécutoires. Cela comprime directement les marges de Lufax."
+      "summary": "Les autorités réglementaires chinoises exercent une pression continue pour réduire les taux d'intérêt des prêts. Les frais totaux facturés aux emprunteurs pourraient être jugés excessifs par rapport aux limites légales, rendant certains intérêts et frais non exécutoires. Cela comprime directement les marges de Lufax.",
+      "score": 4
     },
     {
       "title": "Risque de structure VIE et contrôle réglementaire PRC",
@@ -419,7 +430,8 @@
       "severity": 5,
       "score_rationale": "Risque structurel fondamental pour Lufax. Langage très fort (« severe penalties », « forced to relinquish »). Lufax opère via contrats avec entités affiliées consolidées, sans propriété directe. Changements réglementaires pourraient invalider cette structure.",
       "trend": "stable",
-      "summary": "Lufax est une holding des Îles Caïmans sans opérations directes en Chine. Elle contrôle les opérations via des arrangements contractuels avec des entités affiliées consolidées (VIE). Si le gouvernement PRC juge ces accords non-conformes aux lois chinoises, Lufax pourrait être forcée à abandonner ses intérêts opérationnels ou faire face à des pénalités sévères."
+      "summary": "Lufax est une holding des Îles Caïmans sans opérations directes en Chine. Elle contrôle les opérations via des arrangements contractuels avec des entités affiliées consolidées (VIE). Si le gouvernement PRC juge ces accords non-conformes aux lois chinoises, Lufax pourrait être forcée à abandonner ses intérêts opérationnels ou faire face à des pénalités sévères.",
+      "score": 5
     },
     {
       "title": "Dépendance à Ping An Group et conflits d'intérêts",
@@ -427,7 +439,8 @@
       "severity": 3,
       "score_rationale": "Risque de gouvernance et de conflits d'intérêts. Ping An Insurance contrôle Lufax et détient des intérêts potentiellement divergents. Position dans Item 1A dédiée aux risques relationnels avec Ping An Group.",
       "trend": "stable",
-      "summary": "Ping An Insurance contrôle Lufax et ses stratégies. Certains intérêts de Ping An pourraient ne pas être alignés avec ceux des autres actionnaires. Lufax est une « controlled company » et bénéficie d'exemptions de gouvernance, réduisant les protections des minoritaires."
+      "summary": "Ping An Insurance contrôle Lufax et ses stratégies. Certains intérêts de Ping An pourraient ne pas être alignés avec ceux des autres actionnaires. Lufax est une « controlled company » et bénéficie d'exemptions de gouvernance, réduisant les protections des minoritaires.",
+      "score": 3
     },
     {
       "title": "Risque de délisting et restrictions PCAOB/HFCAA",
@@ -435,7 +448,8 @@
       "severity": 4,
       "score_rationale": "Risque géopolitique et réglementaire spécifique aux émetteurs chinois cotés aux USA. Langage fort (« may be prohibited », « materially and adversely affect »). PCAOB historiquement incapable d'inspecter les auditeurs chinois de Lufax.",
       "trend": "up",
-      "summary": "Les ADSs de Lufax pourraient être interdites de négociation aux USA si le PCAOB ne peut pas inspecter complètement les auditeurs chinois (Holding Foreign Companies Accountable Act). Le délisting ou la menace de délisting affecterait matériellement la valeur de l'investissement et l'accès aux marchés de capitaux."
+      "summary": "Les ADSs de Lufax pourraient être interdites de négociation aux USA si le PCAOB ne peut pas inspecter complètement les auditeurs chinois (Holding Foreign Companies Accountable Act). Le délisting ou la menace de délisting affecterait matériellement la valeur de l'investissement et l'accès aux marchés de capitaux.",
+      "score": 4
     },
     {
       "title": "Risque de fraude emprunteur et qualité des données de crédit",
@@ -443,7 +457,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel spécifique aux plateformes de crédit. Langage direct (« inaccurately reflects », « compromised »). Données incomplètes sur les emprunteurs limitent la capacité à détecter la fraude et gérer les risques de défaut.",
       "trend": "stable",
-      "summary": "Les informations sur les emprunteurs peuvent être incomplètes, compromettant la capacité de Lufax à effectuer la diligence raisonnable et détecter la fraude. Si le modèle d'évaluation du crédit est défectueux ou les données inexactes, les défauts augmenteraient, impactant les résultats opérationnels et la réputation."
+      "summary": "Les informations sur les emprunteurs peuvent être incomplètes, compromettant la capacité de Lufax à effectuer la diligence raisonnable et détecter la fraude. Si le modèle d'évaluation du crédit est défectueux ou les données inexactes, les défauts augmenteraient, impactant les résultats opérationnels et la réputation.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:45:41.239761+00:00",
@@ -476,7 +491,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:22:54Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2024)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2024)",
   "_dividends_currency": "USD",
   "subsector_fr": "Services financiers",
   "enrich_events": {
@@ -515,9 +530,9 @@
     "country": "China",
     "_data_freshness_date": "2026-05-21T02:17:14.278582+00:00",
     "fetched_at": "2026-05-21T02:17:14.278582+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.177Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.999Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lu.json",
     "enrich_root": "v2-pipeline-enrich/lu.json",

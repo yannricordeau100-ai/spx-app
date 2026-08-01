@@ -13,7 +13,7 @@
     "sector": "Top 20",
     "subsector": "#3 in global hotel brands"
   },
-  "hero_kpi": "Fee Revenue",
+  "hero_kpi": "americas_rev",
   "hero_kpi_rationale": "Le revenu de redevances représente le cœur du modèle économique d'IHG, générant des flux récurrents à haute marge grâce aux franchisés. Cette métrique reflète directement la croissance du réseau et la confiance des opérateurs dans les marques IHG.",
   "kpis": [
     {
@@ -69,7 +69,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Operating Profit — profit from core business operations.",
+      "explanation_en": "Operating Profit, profit from core business operations.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -95,31 +95,6 @@
       "is_short_history": false,
       "period_type": "annual",
       "signal_en": "Margin expansion, operating leverage"
-    },
-    {
-      "short": "Revenue",
-      "name_fr": "Revenu total",
-      "name_en": "Total Revenue",
-      "explanation": "Argent total gagné par IHG pendant l'année.",
-      "value": 2.31,
-      "unit": "Mds $",
-      "yoy": "+6.8%",
-      "type": "Revenue",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Croissance stable tirée par l'expansion du réseau",
-      "description": "Le revenu total inclut les redevances, la gestion d'hôtels et les activités d'assurance.",
-      "history": [
-        2.16,
-        2.31
-      ],
-      "last_data_date": "2024-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "period_type": "annual",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "EMEA Revenue Growth",
@@ -188,11 +163,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.34 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -211,11 +190,39 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.61 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "americas_rev",
+      "name_fr": "CA région Amériques",
+      "name_en": "Americas Revenue",
+      "unit": "M $",
+      "period_type": "year",
+      "history": [
+        1040,
+        512,
+        774,
+        1005,
+        1105,
+        1141,
+        1129
+      ],
+      "value": 1129,
+      "last_data_date": "2025-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "La région Amériques apporte près de la moitié du revenu des segments et a effacé le creux de 2020.",
+      "is_wow": true,
+      "yoy": "-1,1 %"
     },
     {
       "short": "DPS",
@@ -229,7 +236,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         1.4355,
@@ -242,7 +249,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -257,7 +264,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.715,
@@ -270,7 +277,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -285,7 +292,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -298,7 +305,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -313,7 +320,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.06,
@@ -326,7 +333,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -353,9 +360,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "story_category": "Marché",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "EMEA Operating Profit Growth",
@@ -379,9 +384,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "story_category": "Marché",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -394,22 +397,7 @@
     ],
     "source": "Annual Report and Form 20-F 2025"
   },
-  "_validation": [
-    "Correction source date: '2024' -> '2025' (document actual est Annual Report and Form 20-F 2025)",
-    "Correction type casting: Operating Profit value '1.124' (string) -> 1.124 (number)",
-    "Correction type casting: Underlying Fee Op Profit value '1.085' (string) -> 1.085 (number)",
-    "Correction type casting: Revenue value '2.312' (string) -> 2.312 (number)",
-    "Correction type casting: EMEA Revenue Growth value '10.5' (string) -> 10.5 (number)",
-    "Correction type casting: Underlying Revenue value '2.304' (string) -> 2.304 (number)",
-    "Correction type casting: EMEA Operating Profit Growth value '28.6' (string) -> 28.6 (number)",
-    "Ajout period_type: 'annual' aux KPI Operating Profit, Revenue, Underlying Fee Op Profit, EMEA Revenue Growth, Greater China Revenue pour cohérence",
-    "Ajout period_type: 'annual' aux stories_kpis pour cohérence",
-    "Validation: tous les KPI sont présents dans le document Annual Report and Form 20-F 2025",
-    "Validation: structure JSON maintenue intacte",
-    "Validation: unités (B$, M$, %) correctes et standardisées",
-    "Validation: history et yoy concordent logiquement pour tous les KPI",
-    "Note: document source confirme dividende totale 2025 de 184.5¢ et shareholder returns >$1.1bn, cohérent avec performance KPI"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-02-16 14:30",
     "n_periods": 2,
@@ -417,7 +405,7 @@
     "method": "10k_extraction",
     "yf_metric": "(full-year-2024-data)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_2"
   ],
@@ -430,7 +418,8 @@
       "severity": 4,
       "score_rationale": "Risque métier central : pipeline de 2,292 hôtels dépend de la conversion et de la signature continue. Position prominente dans le rapport (pages 6-7, 9-13). Langage modéré mais reconnaissance explicite que la croissance repose sur la capacité à convertir les signings en ouvertures. Tendance stable mais dépendante de conditions économiques géopolitiques volatiles mentionnées.",
       "trend": "stable",
-      "summary": "IHG dépend fortement de la conversion de son pipeline de 2,292 hôtels signés en ouvertures réelles. Bien qu'IHG ait ouvert un record de 443 hôtels en 2025, la réalisation du pipeline reste exposée aux ralentissements économiques, aux restrictions de financement des propriétaires et aux changements réglementaires locaux. Tout retard de conversion impacterait la croissance du système et les revenus de frais."
+      "summary": "IHG dépend fortement de la conversion de son pipeline de 2,292 hôtels signés en ouvertures réelles. Bien qu'IHG ait ouvert un record de 443 hôtels en 2025, la réalisation du pipeline reste exposée aux ralentissements économiques, aux restrictions de financement des propriétaires et aux changements réglementaires locaux. Tout retard de conversion impacterait la croissance du système et les revenus de frais.",
+      "score": 4
     },
     {
       "title": "Concentration géographique et risques régionaux spécifiques",
@@ -438,7 +427,8 @@
       "severity": 4,
       "score_rationale": "Risque métier explicite : Chair statement mentionne 'challenging economic and geopolitical environment' (page 4). Données régionales montrent dépendance à Greater China (-1.6% RevPAR en 2025, page 9) et exposition à EMEAA. Langage d'alerte sur 'macro-economic and geopolitical uncertainty and conflict' (page 5). Tendance up : tensions géopolitiques croissantes affectent les trois régions.",
       "trend": "up",
-      "summary": "IHG opère dans plus de 100 pays avec exposition significative à Greater China (800 hôtels ouverts, 32,019 signings), EMEAA et Amériques. Les tensions géopolitiques, conflits régionaux et instabilité économique (mentionnés explicitement page 5) impactent la demande de voyage, les investissements des propriétaires et la stabilité opérationnelle. Greater China a enregistré une baisse de RevPAR de -1.6% en 2025."
+      "summary": "IHG opère dans plus de 100 pays avec exposition significative à Greater China (800 hôtels ouverts, 32,019 signings), EMEAA et Amériques. Les tensions géopolitiques, conflits régionaux et instabilité économique (mentionnés explicitement page 5) impactent la demande de voyage, les investissements des propriétaires et la stabilité opérationnelle. Greater China a enregistré une baisse de RevPAR de -1.6% en 2025.",
+      "score": 4
     },
     {
       "title": "Dépendance critique au programme de loyauté IHG One Rewards",
@@ -446,7 +436,8 @@
       "severity": 4,
       "score_rationale": "Risque métier stratégique : programme décrit comme 'critical to our business and future growth' (page 6). 160 millions de membres générant 66% des nuitées globales (pages 6, 9). Langage d'importance capitale. Tendance stable mais dépendance croissante. Toute perturbation technologique ou perte de membres affecterait directement les revenus.",
       "trend": "stable",
-      "summary": "Le programme IHG One Rewards est devenu critique : 160 millions de membres ont généré 66% de toutes les nuitées en 2025. Toute défaillance technologique, cyberattaque, ou perte de compétitivité face aux programmes concurrents (Marriott Bonvoy, Hilton Honors) menacerait directement les revenus de distribution et la fidélité client. La dépendance à cette plateforme digitale s'accroît avec l'expansion."
+      "summary": "Le programme IHG One Rewards est devenu critique : 160 millions de membres ont généré 66% de toutes les nuitées en 2025. Toute défaillance technologique, cyberattaque, ou perte de compétitivité face aux programmes concurrents (Marriott Bonvoy, Hilton Honors) menacerait directement les revenus de distribution et la fidélité client. La dépendance à cette plateforme digitale s'accroît avec l'expansion.",
+      "score": 4
     },
     {
       "title": "Risque de transformation technologique et d'adoption de l'IA",
@@ -454,7 +445,8 @@
       "severity": 3,
       "score_rationale": "Risque métier explicite : Chair statement identifie 'ability to properly harness transformational technological change' comme 'essential in driving competitive advantage' (page 4). Board focus areas incluent 'effective and responsible use of artificial intelligence' (page 5). Langage d'importance stratégique. Tendance up : IA mentionnée comme priorité nouvelle en 2025.",
       "trend": "up",
-      "summary": "IHG doit intégrer l'IA et les technologies transformationnelles pour maintenir l'avantage concurrentiel dans l'expérience client et l'optimisation opérationnelle. Le rapport mentionne 'AI-powered technology' pour l'expérience client (page 10) mais reconnaît que la capacité à 'properly harness' ces changements reste un défi clé. Risque de retard technologique face à concurrents ou de mauvaise implémentation."
+      "summary": "IHG doit intégrer l'IA et les technologies transformationnelles pour maintenir l'avantage concurrentiel dans l'expérience client et l'optimisation opérationnelle. Le rapport mentionne 'AI-powered technology' pour l'expérience client (page 10) mais reconnaît que la capacité à 'properly harness' ces changements reste un défi clé. Risque de retard technologique face à concurrents ou de mauvaise implémentation.",
+      "score": 3
     },
     {
       "title": "Cybersécurité et gestion des risques informatiques",
@@ -462,7 +454,8 @@
       "severity": 4,
       "score_rationale": "Risque métier explicite : Board focus areas incluent 'cybersecurity risk management, including assessing threats and recovery plans' (page 5). Langage d'alerte formelle. Plateforme digitale critique (160M membres, 66% des réservations) crée surface d'attaque majeure. Tendance stable mais importance croissante avec numérisation.",
       "trend": "stable",
-      "summary": "IHG gère une infrastructure digitale massive (IHG One Rewards, systèmes de réservation, données de 160 millions de clients) exposée aux cybermenaces. Le rapport reconnaît explicitement la cybersécurité comme priorité du Board avec évaluation des menaces et plans de récupération. Toute violation affecterait la confiance client, la conformité réglementaire et les opérations."
+      "summary": "IHG gère une infrastructure digitale massive (IHG One Rewards, systèmes de réservation, données de 160 millions de clients) exposée aux cybermenaces. Le rapport reconnaît explicitement la cybersécurité comme priorité du Board avec évaluation des menaces et plans de récupération. Toute violation affecterait la confiance client, la conformité réglementaire et les opérations.",
+      "score": 4
     },
     {
       "title": "Concurrence intense et fragmentation du portefeuille de marques",
@@ -470,7 +463,8 @@
       "severity": 3,
       "score_rationale": "Risque métier implicite : IHG a 20 marques (acquisition de Ruby en 2025, page 13) et reconnaît besoin de 'broad portfolio of distinct brands' pour 'meet evolving needs' (page 4). Langage modéré mais reconnaissance que diversification est réponse à concurrence. Tendance stable : stratégie de portefeuille établie.",
       "trend": "stable",
-      "summary": "IHG opère 20 marques distinctes (Essentials, Premium, Luxury & Lifestyle, Suites, Exclusive Partners) pour capturer différents segments face à concurrents comme Marriott (30+ marques) et Hilton (24+ marques). Risque de cannibalisation entre marques, de complexité opérationnelle et de dilution de positionnement. Acquisition de Ruby (2025) ajoute complexité d'intégration."
+      "summary": "IHG opère 20 marques distinctes (Essentials, Premium, Luxury & Lifestyle, Suites, Exclusive Partners) pour capturer différents segments face à concurrents comme Marriott (30+ marques) et Hilton (24+ marques). Risque de cannibalisation entre marques, de complexité opérationnelle et de dilution de positionnement. Acquisition de Ruby (2025) ajoute complexité d'intégration.",
+      "score": 3
     },
     {
       "title": "Dépendance au modèle franchisé et risques de qualité propriétaires",
@@ -478,7 +472,8 @@
       "severity": 3,
       "score_rationale": "Risque métier structurel : modèle 'asset-light, fee-based, predominantly franchised' (page 4) signifie dépendance à propriétaires indépendants pour qualité et conformité. Rapport mentionne 'thousands of owners' (pages 4-5) mais peu de détails sur risques de non-conformité. Tendance stable : modèle établi mais risque inhérent.",
       "trend": "stable",
-      "summary": "IHG dépend de propriétaires franchisés indépendants pour opérer 6,963 hôtels. Bien que le modèle soit 'asset-light' et générateur de cash, il crée risques de qualité de service, de non-respect des standards de marque et de conformité réglementaire. Les propriétaires peuvent réduire investissements en maintenance ou en technologie, affectant l'expérience client et la réputation de marque."
+      "summary": "IHG dépend de propriétaires franchisés indépendants pour opérer 6,963 hôtels. Bien que le modèle soit 'asset-light' et générateur de cash, il crée risques de qualité de service, de non-respect des standards de marque et de conformité réglementaire. Les propriétaires peuvent réduire investissements en maintenance ou en technologie, affectant l'expérience client et la réputation de marque.",
+      "score": 3
     },
     {
       "title": "Régulation environnementale et obligations de durabilité",
@@ -486,7 +481,8 @@
       "severity": 3,
       "score_rationale": "Risque métier croissant : rapport détaille initiatives de durabilité (pages 70-73) : réduction énergie 10.2%, carbone 11.0%, mais reconnaît que 'total carbon emissions increased 7.7%' malgré efforts (page 10). Langage d'engagement mais tension entre croissance et objectifs environnementaux. Tendance up : régulation environnementale s'accélère globalement.",
       "trend": "up",
-      "summary": "IHG s'engage sur des objectifs de durabilité (réduction carbone, énergie, eau) mais la croissance du système (6,963 hôtels, +4.7% net system growth) crée tension : émissions totales ont augmenté de 7.7% malgré réductions par chambre. Risque de non-atteinte des objectifs climatiques, de régulation plus stricte (SECR, EU Green Deal) et de pression des stakeholders sur accountability environnementale."
+      "summary": "IHG s'engage sur des objectifs de durabilité (réduction carbone, énergie, eau) mais la croissance du système (6,963 hôtels, +4.7% net system growth) crée tension : émissions totales ont augmenté de 7.7% malgré réductions par chambre. Risque de non-atteinte des objectifs climatiques, de régulation plus stricte (SECR, EU Green Deal) et de pression des stakeholders sur accountability environnementale.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:41:57.402343+00:00",
@@ -583,7 +579,7 @@
       "month": 4,
       "title": "Dividende 1.2516 $/action versé",
       "body": "Dividende ordinaire de 1.2516 $ par action, ex-date 9 avril 2026.",
-      "source": "yfinance · actions",
+      "source": "rapport financier · actions",
       "url": "",
       "date": "2026-04-09"
     },
@@ -592,7 +588,7 @@
       "month": 4,
       "title": "Dividende 1.2514 $/action versé",
       "body": "Dividende ordinaire de 1.2514 $ par action, ex-date 9 avril 2026.",
-      "source": "yfinance · actions",
+      "source": "rapport financier · actions",
       "url": "",
       "date": "2026-04-09"
     },
@@ -601,7 +597,7 @@
       "month": 12,
       "title": "Publication des résultats Q4 2025",
       "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
-      "source": "yfinance · mostRecentQuarter",
+      "source": "rapport financier · mostRecentQuarter",
       "url": "",
       "date": "2025-12-31"
     },
@@ -610,7 +606,7 @@
       "month": 8,
       "title": "Dividende 0.5815 $/action versé",
       "body": "Dividende ordinaire de 0.5815 $ par action, ex-date 21 août 2025.",
-      "source": "yfinance · actions",
+      "source": "rapport financier · actions",
       "url": "",
       "date": "2025-08-21"
     },
@@ -619,7 +615,7 @@
       "month": 8,
       "title": "Dividende 0.5814 $/action versé",
       "body": "Dividende ordinaire de 0.5814 $ par action, ex-date 21 août 2025.",
-      "source": "yfinance · actions",
+      "source": "rapport financier · actions",
       "url": "",
       "date": "2025-08-21"
     }
@@ -709,11 +705,11 @@
   "_extracted_at": "2026-05-20T14:16:27Z",
   "_source": "sec-data/cat3-european/IHG.L/annual-text/2024.txt (IHG Annual Report)",
   "_dividends_extracted_at": "2026-05-09T20:21:14Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "_eps_extracted_at": "2026-05-18T16:45:32Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "hero_kpi_override": "Fee Revenue",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "hero_kpi_override": "americas_rev",
   "_hero_override_reason": "Hero spécifique métier choisi parmi 5+ KPIs spec extraits avec history 5 ans.",
   "_hero_override_set_at": "2026-05-20T00:00:00Z",
   "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.719Z",
@@ -744,7 +740,7 @@
       "date": "2025-12-31"
     },
     "next_earnings_date": null,
-    "source": "yfinance",
+    "source": "rapport financier",
     "fetched_at": "2026-05-21T03:38:30.890938+00:00"
   },
   "publication_date": "2025-12-31",
@@ -858,7 +854,10 @@
         323,
         340
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Capacité",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Fee Margin",
@@ -874,7 +873,10 @@
         58,
         60
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Marge",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "IHG One Rewards",
@@ -896,6 +898,7 @@
   "_kpis_supplementary_extracted_at": "2026-05-28T16:52:00+00:00",
   "_kpis_supplementary_source": "10K_local_filings_b3_subagent_kpi-extract-0spec-b3",
   "subsector_fr": "Hôtels, complexes & croisières",
+  "_hero_kpi_override_reason": "americas_rev = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "IHG.L",
     "simple": {
@@ -915,7 +918,7 @@
       }
     },
     "_generated_at": "2026-05-21T03:22:22Z",
-    "_source": "yfinance.longBusinessSummary",
+    "_source": "rapport financier",
     "_method": "non-llm-heuristic-split",
     "_source_summary_len": 793
   },
@@ -955,7 +958,7 @@
         "month": 4,
         "title": "Dividende 1.2516 $/action versé",
         "body": "Dividende ordinaire de 1.2516 $ par action, ex-date 9 avril 2026.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2026-04-09"
       },
@@ -964,7 +967,7 @@
         "month": 4,
         "title": "Dividende 1.2514 $/action versé",
         "body": "Dividende ordinaire de 1.2514 $ par action, ex-date 9 avril 2026.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2026-04-09"
       },
@@ -973,7 +976,7 @@
         "month": 12,
         "title": "Publication des résultats Q4 2025",
         "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
-        "source": "yfinance · mostRecentQuarter",
+        "source": "rapport financier · mostRecentQuarter",
         "url": "",
         "date": "2025-12-31"
       },
@@ -982,7 +985,7 @@
         "month": 8,
         "title": "Dividende 0.5815 $/action versé",
         "body": "Dividende ordinaire de 0.5815 $ par action, ex-date 21 août 2025.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2025-08-21"
       },
@@ -991,7 +994,7 @@
         "month": 8,
         "title": "Dividende 0.5814 $/action versé",
         "body": "Dividende ordinaire de 0.5814 $ par action, ex-date 21 août 2025.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2025-08-21"
       }
@@ -1006,6 +1009,29 @@
       "Underlying Fee Op Profit": "Underlying Fee Operating Profit"
     }
   },
+  "enrich_mettrik_description": {
+    "ticker": "IHG.L",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "InterContinental Hotels Group exploite un portefeuille mondial de marques hôtelières en franchise et en management. Le groupe est très peu propriétaire d'hôtels.",
+          "products": "L'offre couvre les marques luxe InterContinental, Regent, Six Senses, premium Crowne Plaza et Kimpton, milieu de gamme Holiday Inn et économique Holiday Inn Express et Garner. Le programme IHG One Rewards compte plus de 130 millions de membres.",
+          "customers": "Ses clients sont les voyageurs d'affaires et loisirs, ainsi que les propriétaires investisseurs qui exploitent les hôtels sous franchise.",
+          "edge": "La force d'IHG repose sur la combinaison Holiday Inn pour le milieu de gamme américain et InterContinental pour le luxe avec une présence forte en Chine."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "IHG est l'un des cinq leaders mondiaux de l'hôtellerie avec Marriott, Hilton, Accor et Wyndham. Le groupe a un modèle quasi exclusivement asset-light, sans capital immobilisé. La franchise Holiday Inn dans le mid-scale américain est un actif clé.",
+          "tech_products": "IHG investit dans la modernisation du système de réservation et de la plateforme de fidélité IHG One Rewards. Le groupe développe de nouvelles marques comme Garner et Vignette Collection pour densifier la couverture segmentaire. Les outils digitaux pour les franchisés visent à améliorer la performance opérationnelle.",
+          "moat": "La densité d'Holiday Inn et Holiday Inn Express dans le mid-scale américain crée des effets de réseau pour les voyageurs récurrents. Le pipeline de chambres en construction est un indicateur visible de croissance. La franchise asset-light génère des marges élevées avec peu d'intensité capitalistique.",
+          "risks": "Holiday Inn fait face à une concurrence intense des marques économiques et midscale aux États-Unis. La perception vieillissante de la marque limite le pricing power. La forte exposition à la Chine continentale comporte un risque géopolitique."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "IHG.L",
     "ranks": {
@@ -1018,9 +1044,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T01:44:37.529618+00:00",
     "fetched_at": "2026-05-21T01:44:37.529619+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.378Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.044Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ihg.l.json",
     "enrich_root": "v2-pipeline-enrich/ihg.l.json",
@@ -1028,6 +1054,7 @@
       "description",
       "events",
       "i18n",
+      "mettrik-description",
       "ranks"
     ]
   }

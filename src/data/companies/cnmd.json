@@ -1,6 +1,6 @@
 {
   "ticker": "CNMD",
-  "name": "CONMED Corporation",
+  "name": "CONMED",
   "sector": "Santé",
   "subsector": "Medical Devices",
   "tagline": "Leading provider of surgical devices and equipment for orthopedic and general surgery procedures",
@@ -126,34 +126,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.37 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "-61.5%",
       "history": [
-        -0.08,
-        0.06,
-        0.13,
-        0.05
+        -80,
+        60,
+        130,
+        50
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.05 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -172,56 +181,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.33 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.83,
-      "unit": "Mds €",
+      "value": 830,
+      "unit": "M €",
       "yoy": "-8.8%",
       "history": [
-        1.05,
-        0.97,
-        0.91,
-        0.83
+        1050,
+        970,
+        910,
+        830
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.83 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.03,
-        0.02,
-        0.02,
-        0.04
+        30,
+        20,
+        20,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -235,7 +258,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.8,
         0.8,
@@ -248,7 +271,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -263,7 +286,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.024,
@@ -276,7 +299,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position stable"
     },
     {
@@ -291,7 +314,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -304,7 +327,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -320,7 +343,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -2.68,
@@ -333,7 +356,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -370,25 +393,25 @@
       "title": "Incapacité à rembourser la dette à l'échéance",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le document mentionne explicitement la nécessité de rechercher un financement supplémentaire pour rembourser les Notes Convertibles de 800 millions de dollars arrivant à échéance en 2027. L'incapacité à obtenir ce financement est présentée comme un risque majeur. Ce risque est pondéré par sa nature existentielle pour la continuité de l'entreprise (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne explicitement la nécessité de rechercher un financement supplémentaire pour rembourser les Notes Convertibles de 800 millions de dollars arrivant à échéance en 2027. L'incapacité à obtenir ce financement est présentée comme un risque majeur. Ce risque est pondéré par sa nature existentielle pour la continuité de l'entreprise",
       "trend": "up",
       "summary": "L'entreprise pourrait avoir du mal à trouver le financement nécessaire pour rembourser ses Notes Convertibles de 800 millions de dollars en 2027, ce qui pourrait l'obliger à adopter des stratégies drastiques",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque lié aux covenants de la dette",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le contrat de crédit senior impose des covenants financiers stricts, des restrictions sur les dividendes, l'endettement et les acquisitions. Bien que l'entreprise soit en conformité, le non-respect futur de ces covenants, notamment le covenant de liquidité minimum, pourrait déclencher des clauses restrictives. Ce risque est jugé élevé en raison de son impact potentiel sur la flexibilité financière (score par défaut, à affiner)",
+      "score_rationale": "Le contrat de crédit senior impose des covenants financiers stricts, des restrictions sur les dividendes, l'endettement et les acquisitions. Bien que l'entreprise soit en conformité, le non-respect futur de ces covenants, notamment le covenant de liquidité minimum, pourrait déclencher des clauses restrictives. Ce risque est jugé élevé en raison de son impact potentiel sur la flexibilité financière",
       "trend": "stable",
       "summary": "Le respect des clauses restrictives du contrat de crédit est crucial. Un non-respect pourrait limiter les actions de l'entreprise, y compris les acquisitions et les dividendes",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité des taux d'intérêt",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "L'entreprise a 40 millions de dollars de dette à taux variable. Une augmentation de 1% des taux d'intérêt entraînerait une hausse des charges d'intérêts de 0,4 million de dollars. Bien que l'impact soit modéré, il s'agit d'un risque financier récurrent. Ce risque est classé comme moyen en raison de son impact financier direct mais limité (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise a 40 millions de dollars de dette à taux variable. Une augmentation de 1% des taux d'intérêt entraînerait une hausse des charges d'intérêts de 0,4 million de dollars. Bien que l'impact soit modéré, il s'agit d'un risque financier récurrent. Ce risque est classé comme moyen en raison de son impact financier direct mais limité",
       "trend": "up",
       "summary": "Une hausse des taux d'intérêt pourrait augmenter les charges financières de l'entreprise, impactant sa rentabilité",
       "score": 3
@@ -397,7 +420,7 @@
       "title": "Risque de change sur les ventes internationales",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Environ 44% des ventes sont réalisées à l'international, dans diverses devises. Les fluctuations des taux de change peuvent affecter les résultats financiers. L'entreprise utilise des instruments de couverture, mais un risque résiduel subsiste. Ce risque est jugé moyen car il affecte une part significative des revenus (score par défaut, à affiner)",
+      "score_rationale": "Environ 44% des ventes sont réalisées à l'international, dans diverses devises. Les fluctuations des taux de change peuvent affecter les résultats financiers. L'entreprise utilise des instruments de couverture, mais un risque résiduel subsiste. Ce risque est jugé moyen car il affecte une part significative des revenus",
       "trend": "stable",
       "summary": "Les variations des taux de change des devises étrangères peuvent impacter négativement les ventes et les bénéfices de l'entreprise",
       "score": 3
@@ -406,19 +429,19 @@
       "title": "Programme de rachat d'actions et suspension des dividendes",
       "category": "Capital",
       "severity": 2,
-      "score_rationale": "L'entreprise a un programme de rachat d'actions actif et a suspendu ses dividendes. Bien que cela puisse soutenir le cours de l'action, cela réduit la trésorerie disponible pour d'autres usages et peut être perçu négativement par certains investisseurs. Ce risque est considéré comme mineur à moyen, car il s'agit d'une décision stratégique (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise a un programme de rachat d'actions actif et a suspendu ses dividendes. Bien que cela puisse soutenir le cours de l'action, cela réduit la trésorerie disponible pour d'autres usages et peut être perçu négativement par certains investisseurs. Ce risque est considéré comme mineur à moyen, car il s'agit d'une décision stratégique",
       "trend": "stable",
       "summary": "La décision de privilégier le rachat d'actions au détriment des dividendes pourrait affecter la perception des investisseurs et la disponibilité de trésorerie",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Augmentation des dépenses d'investissement",
       "category": "Capital",
       "severity": 2,
-      "score_rationale": "L'entreprise prévoit une augmentation des dépenses d'investissement en 2026 par rapport à 2025. Bien que financées par les flux de trésorerie opérationnels, ces dépenses accrues nécessitent une gestion attentive. Ce risque est jugé mineur à moyen, car il est lié à des investissements stratégiques (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise prévoit une augmentation des dépenses d'investissement en 2026 par rapport à 2025. Bien que financées par les flux de trésorerie opérationnels, ces dépenses accrues nécessitent une gestion attentive. Ce risque est jugé mineur à moyen, car il est lié à des investissements stratégiques",
       "trend": "up",
       "summary": "L'augmentation prévue des dépenses d'investissement pourrait exercer une pression sur les flux de trésorerie si elle n'est pas gérée efficacement",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -458,7 +481,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -583,7 +606,7 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.123Z",
   "_dividends_extracted_at": "2026-05-09T20:19:59Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2012,
@@ -608,7 +631,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:07Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:21Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Dispositifs médicaux",
   "enrich_description": {
     "ticker": "CNMD",
@@ -717,9 +740,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.240958+00:00",
     "fetched_at": "2026-05-21T02:17:14.240960+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.568Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.053Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cnmd.json",
     "enrich_root": "v2-pipeline-enrich/cnmd.json",

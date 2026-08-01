@@ -77,8 +77,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 7.29,
-      "explanation_en": "Loss Ratio — incurred losses divided by net earned premiums.",
-      "signal_en": "Steady growth, healthy trend"
+      "explanation_en": "Loss Ratio, incurred losses divided by net earned premiums.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Earned Premiums",
@@ -105,7 +109,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 0.98,
-      "signal_en": "Revenue stable, monitor outlook"
+      "signal_en": "Revenue stable, monitor outlook",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -124,34 +132,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 7.11 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "-26.7%",
       "history": [
-        0.92,
-        0.08,
-        0.3,
-        0.22
+        920,
+        80,
+        300,
+        220
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.22 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -170,11 +187,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 88.08 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,11 +214,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.51 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -216,10 +241,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -260,7 +289,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est exposée à des fluctuations de taux d'intérêt qui peuvent affecter la valeur de ses investissements et de ses passifs. Le rapport mentionne une exposition significative au risque de taux d'intérêt, notamment via sa dette à taux variable de 539 millions de dollars échéant en 2066 et partiellement couverte par des swaps de taux d'intérêt. L'augmentation de 100 points de base des taux d'intérêt pourrait potentiellement générer une perte estimée à 3,1 milliards de dollars sur le portefeuille d'investissement.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée à des fluctuations de taux d'intérêt qui peuvent affecter sa valeur et ses résultats financiers, notamment via son portefeuille obligataire et ses obligations de dette à taux variable."
+      "summary": "L'entreprise est exposée à des fluctuations de taux d'intérêt qui peuvent affecter sa valeur et ses résultats financiers, notamment via son portefeuille obligataire et ses obligations de dette à taux variable.",
+      "score": 4
     },
     {
       "title": "Market Risk",
@@ -268,7 +298,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est exposée à des fluctuations des marchés financiers qui peuvent affecter la valeur de ses investissements. Le rapport mentionne une exposition significative au risque de marché à travers son portefeuille d'investissements diversifiés, avec une estimation de perte potentielle estimée à environ 50 millions de dollars en cas de déclin de 10% des marchés actions.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée à des fluctuations des marchés financiers qui peuvent affecter la valeur de ses investissements et ses résultats financiers."
+      "summary": "L'entreprise est exposée à des fluctuations des marchés financiers qui peuvent affecter la valeur de ses investissements et ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Credit Risk",
@@ -276,7 +307,8 @@
       "severity": 2,
       "score_rationale": "L'entreprise est exposée à des risques de crédit liés à ses investissements, ses prêts commerciaux hypothécaires et ses contreparties de réassurance. Le rapport mentionne une exposition au risque de crédit, mais sans fournir d'estimation spécifique de perte potentielle maximale.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée à des risques de crédit liés à ses investissements, ses prêts et ses accords de réassurance."
+      "summary": "L'entreprise est exposée à des risques de crédit liés à ses investissements, ses prêts et ses accords de réassurance.",
+      "score": 2
     },
     {
       "title": "Regulatory Risk",
@@ -284,7 +316,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est soumise à des réglementations strictes de la part des GSE (Fannie Mae et Freddie Mac) et de la FHFA, notamment les exigences PMIERs qui dictent les normes de capital et les conditions d'éligibilité pour assurer les prêts hypothécaires. L'adoption prévue de VantageScore 4.0 et les révisions des exigences PMIERs phased entre mars 2025 et septembre 2026 introduisent une incertitude réglementaire croissante.",
       "trend": "up",
-      "summary": "L'entreprise est soumise à des réglementations strictes de la part des GSE et de la FHFA qui peuvent affecter ses activités, ses normes de souscription et ses résultats financiers."
+      "summary": "L'entreprise est soumise à des réglementations strictes de la part des GSE et de la FHFA qui peuvent affecter ses activités, ses normes de souscription et ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Liquidity Risk",
@@ -292,7 +325,8 @@
       "severity": 2,
       "score_rationale": "L'entreprise peut être exposée à des risques de liquidité liés à ses investissements et à ses passifs, notamment ses obligations de dette de 783 millions de dollars pour Genworth Holdings et 750 millions de dollars pour Enact Holdings. Le rapport mentionne des exigences de liquidité qui doivent être respectées et des obligations de garantir certains accords de réassurance.",
       "trend": "stable",
-      "summary": "L'entreprise peut être exposée à des risques de liquidité liés à ses investissements, ses passifs de dette et ses obligations de garantie de réassurance."
+      "summary": "L'entreprise peut être exposée à des risques de liquidité liés à ses investissements, ses passifs de dette et ses obligations de garantie de réassurance.",
+      "score": 2
     }
   ],
   "governance": {
@@ -457,9 +491,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.269023+00:00",
     "fetched_at": "2026-05-21T02:17:14.269024+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.782Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.428Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gnw.json",
     "enrich_root": "v2-pipeline-enrich/gnw.json",

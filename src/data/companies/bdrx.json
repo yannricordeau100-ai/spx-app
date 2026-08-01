@@ -33,33 +33,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.01,
-        0.01,
-        0.01,
-        0.02
+        10,
+        10,
+        10,
+        20
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.02 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -78,31 +87,40 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "",
       "history": [
         0,
-        0.01,
+        10,
         0,
-        0.01
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -192,7 +210,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début de section Risk Factors avec langage très direct (« Our future success is dependent »). Intensité élevée : modèle commercial entièrement fondé sur la capacité à trouver des partenaires pour développer et commercialiser. Tendance stable mais structurelle. Poids catégorie majeur pour biotech précoce.",
       "trend": "stable",
-      "summary": "Biodexa dépend entièrement de partenaires externes pour obtenir l'approbation réglementaire et la commercialisation de ses candidats (eRapa, tolimidone). L'absence de partenaire viable ou l'échec des négociations commerciales pourrait bloquer le développement et empêcher toute génération de revenus (royalties, jalons)."
+      "summary": "Biodexa dépend entièrement de partenaires externes pour obtenir l'approbation réglementaire et la commercialisation de ses candidats (eRapa, tolimidone). L'absence de partenaire viable ou l'échec des négociations commerciales pourrait bloquer le développement et empêcher toute génération de revenus (royalties, jalons).",
+      "score": 5
     },
     {
       "title": "Risque d'échec des essais cliniques et approbation réglementaire",
@@ -200,7 +219,8 @@
       "severity": 5,
       "score_rationale": "Mentionné 4 fois dans la section Risk Factors avec langage d'intensité maximale (« substantially harmed », « inherently unpredictable »). Tous les candidats sont en phase clinique/préclinique. Processus FDA/EMA décrits comme « lengthy, time consuming and inherently unpredictable ». Poids critique pour biotech.",
       "trend": "stable",
-      "summary": "Tous les candidats-médicaments de Biodexa (eRapa, tolimidone) sont en développement clinique ou préclinique. Les résultats des études précliniques ne prédisent pas les résultats cliniques ultérieurs. L'obtention d'approbations réglementaires auprès de la FDA, l'EMA et la MHRA est longue, imprévisible et non garantie."
+      "summary": "Tous les candidats-médicaments de Biodexa (eRapa, tolimidone) sont en développement clinique ou préclinique. Les résultats des études précliniques ne prédisent pas les résultats cliniques ultérieurs. L'obtention d'approbations réglementaires auprès de la FDA, l'EMA et la MHRA est longue, imprévisible et non garantie.",
+      "score": 5
     },
     {
       "title": "Dépendance envers tiers fabricants et fournisseurs",
@@ -208,7 +228,8 @@
       "severity": 4,
       "score_rationale": "Deux risques distincts mentionnés : dépendance aux fabricants tiers pour essais cliniques et approvisionnement commercial, et dépendance aux fournisseurs tiers. Langage d'intensité modérée-élevée (« could be stopped, delayed or made less profitable »). Tendance stable. Poids significatif pour biotech sans capacités manufacturières internes.",
       "trend": "stable",
-      "summary": "Biodexa s'appuie entièrement sur des tiers pour la fabrication clinique et commerciale de ses candidats. Tout défaut de qualité, retard de livraison, non-conformité réglementaire ou augmentation de prix des fournisseurs pourrait arrêter ou retarder le développement et réduire la rentabilité future."
+      "summary": "Biodexa s'appuie entièrement sur des tiers pour la fabrication clinique et commerciale de ses candidats. Tout défaut de qualité, retard de livraison, non-conformité réglementaire ou augmentation de prix des fournisseurs pourrait arrêter ou retarder le développement et réduire la rentabilité future.",
+      "score": 4
     },
     {
       "title": "Absence de revenus récurrents et modèle commercial non validé",
@@ -216,7 +237,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental répété 3 fois (« no sources of recurring revenue », « minimal amount of revenue »). Langage très direct sur l'incertitude commerciale. Tendance stable mais structurelle. Poids critique : aucun candidat n'a généré de revenus à ce jour.",
       "trend": "stable",
-      "summary": "Biodexa n'a généré que des revenus minimes à ce jour et n'a aucune source de revenus récurrents. Le modèle repose sur la découverte de partenaires de licence et la réalisation de jalons/royalties, ce qui n'est pas attendu à court terme. Aucune garantie de profitabilité future même en cas d'approbation réglementaire."
+      "summary": "Biodexa n'a généré que des revenus minimes à ce jour et n'a aucune source de revenus récurrents. Le modèle repose sur la découverte de partenaires de licence et la réalisation de jalons/royalties, ce qui n'est pas attendu à court terme. Aucune garantie de profitabilité future même en cas d'approbation réglementaire.",
+      "score": 5
     },
     {
       "title": "Risque de perte de personnel clé et scientifique",
@@ -224,7 +246,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement dans Risk Factors (« unable to retain and recruit qualified scientists, key executives »). Langage modéré (« may delay our development efforts »). Tendance stable. Poids modéré pour biotech en phase précoce avec ressources limitées.",
       "trend": "stable",
-      "summary": "Biodexa opère avec des ressources limitées et pourrait avoir des difficultés à recruter et retenir des scientifiques qualifiés, des cadres clés et des consultants. La perte de personnel clé pourrait retarder les efforts de développement et nuire à la capacité à avancer les candidats."
+      "summary": "Biodexa opère avec des ressources limitées et pourrait avoir des difficultés à recruter et retenir des scientifiques qualifiés, des cadres clés et des consultants. La perte de personnel clé pourrait retarder les efforts de développement et nuire à la capacité à avancer les candidats.",
+      "score": 3
     },
     {
       "title": "Protection insuffisante de la propriété intellectuelle",
@@ -232,7 +255,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite : « Our success depends in part on our ability to protect rights in our intellectual property, which cannot be assured ». Langage d'incertitude directe (« cannot be assured »). Tendance stable. Poids significatif pour biotech dont la valeur repose sur les brevets et la technologie propriétaire.",
       "trend": "stable",
-      "summary": "Le succès de Biodexa dépend de sa capacité à obtenir et maintenir une protection par brevet pour ses candidats et sa technologie propriétaire. L'absence de protection IP adéquate ou l'expiration de brevets pourrait permettre à des concurrents de copier ou contourner la technologie."
+      "summary": "Le succès de Biodexa dépend de sa capacité à obtenir et maintenir une protection par brevet pour ses candidats et sa technologie propriétaire. L'absence de protection IP adéquate ou l'expiration de brevets pourrait permettre à des concurrents de copier ou contourner la technologie.",
+      "score": 4
     },
     {
       "title": "Concurrence intense dans l'industrie pharmaceutique/biotech",
@@ -240,7 +264,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite : « The pharmaceutical and biotechnology industries are highly competitive ». Langage direct mais générique. Tendance stable. Poids modéré-significatif : concurrence affecte l'acceptation commerciale et la viabilité des candidats.",
       "trend": "stable",
-      "summary": "L'industrie pharmaceutique et biotech est hautement compétitive. Le succès commercial de tout candidat-médicament de Biodexa dépend de l'acceptation du marché face à des thérapies concurrentes existantes ou futures, y compris des traitements alternatifs pour les mêmes indications."
+      "summary": "L'industrie pharmaceutique et biotech est hautement compétitive. Le succès commercial de tout candidat-médicament de Biodexa dépend de l'acceptation du marché face à des thérapies concurrentes existantes ou futures, y compris des traitements alternatifs pour les mêmes indications.",
+      "score": 4
     },
     {
       "title": "Risque géopolitique lié au Brexit et régulation UK/UE",
@@ -248,7 +273,8 @@
       "severity": 3,
       "score_rationale": "Risque explicite mentionné deux fois : « exposed to political, regulatory, social and economic risk relating to the United Kingdom's exit from the European Union ». Langage modéré. Tendance stable mais contexte post-Brexit. Poids modéré pour biotech basée au UK avec accès aux marchés UE/US.",
       "trend": "stable",
-      "summary": "Biodexa est exposée aux risques politiques, réglementaires et économiques liés au Brexit. Les changements dans les régimes réglementaires UK, UE et US, ainsi que les difficultés à faire des affaires à l'international, pourraient affecter l'approbation réglementaire et la commercialisation des candidats."
+      "summary": "Biodexa est exposée aux risques politiques, réglementaires et économiques liés au Brexit. Les changements dans les régimes réglementaires UK, UE et US, ainsi que les difficultés à faire des affaires à l'international, pourraient affecter l'approbation réglementaire et la commercialisation des candidats.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:31:30.343066+00:00",
@@ -318,9 +344,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.229219+00:00",
     "fetched_at": "2026-05-21T02:17:14.229220+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.517Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.988Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bdrx.json",
     "enrich_root": null,

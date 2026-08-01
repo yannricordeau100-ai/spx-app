@@ -1,6 +1,6 @@
 {
   "ticker": "FNB",
-  "name": "F.N.B. Corporation",
+  "name": "F.N.B.",
   "sector": "Financial Services",
   "subsector": "Banking",
   "tagline": "F.N.B. Corporation is a diversified community-focused financial services company providing comprehensive banking and financial solutions.",
@@ -64,11 +64,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 50.23 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -87,38 +91,20 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.08 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "AI API Calls",
-      "name_fr": "Volume d'appels API IA",
-      "name_en": "AI API Call Volume",
-      "explanation": "Volume d'appels aux interfaces de programmation d'applications (API) liées à l'intelligence artificielle.",
-      "value": null,
-      "unit": null,
-      "yoy": null,
-      "type": "Adoption",
-      "nature": "Conjoncturel",
-      "comparable": "Non comparable",
-      "signal": "Indicateur précoce de l'adoption de l'IA par les clients.",
-      "description": "Ce KPI mesure l'utilisation des services d'IA par les clients, reflétant leur adoption de ces technologies.",
-      "history": [],
-      "last_data_date": null,
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_validation": "HALLUCINATED KPI - No AI API calls mentioned in 10-K source. MD&A explicitly states 'risks associated with reliance on third-party vendors and AI' but no quantitative AI adoption metrics provided. Should be removed."
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
-    "stance": "nascent",
+    "stance": "absent",
     "summary": "F.N.B. Corporation mentions risks and challenges associated with AI and third-party vendors in its forward-looking statements and risk discussions, but does not articulate a clear strategic positioning around AI adoption or implementation.",
     "evidence": [
       "Risks associated with reliance on third-party vendors and AI mentioned in forward-looking statements",
@@ -131,25 +117,25 @@
       "title": "Allowance for Credit Losses (ACL) Estimation",
       "category": "Credit",
       "severity": 4,
-      "score_rationale": "This risk is highlighted as a critical accounting policy in the MD&A. The source explicitly states that ACL determination 'is complex and requires significant management judgment about the effect of matters that are inherently uncertain' and notes that 'significant changes to the ACL level could occur in future periods'. For a financial institution, credit loss provisioning is foundational to financial reporting reliability. (score par défaut, à affiner)",
+      "score_rationale": "This risk is highlighted as a critical accounting policy in the MD&A. The source explicitly states that ACL determination 'is complex and requires significant management judgment about the effect of matters that are inherently uncertain' and notes that 'significant changes to the ACL level could occur in future periods'. For a financial institution, credit loss provisioning is foundational to financial reporting reliability.",
       "trend": "stable",
       "summary": "The determination of the Allowance for Credit Losses relies on complex models incorporating macroeconomic forecasts, historical default rates, and management judgment. The calculation is sensitive to changes in economic conditions, lending policies, and portfolio composition, creating potential for material changes in future periods.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fair Value Measurement of Financial Instruments",
       "category": "Credit",
       "severity": 4,
-      "score_rationale": "Identified as a critical accounting policy in MD&A. The source explicitly states 'significant and complex estimates, assumptions and judgments' are required, and notes that 'estimates are inherently subjective and can result in significant changes in the fair value estimates'. For a financial institution with substantial investments and trading portfolios, fair value volatility directly impacts financial statements. (score par défaut, à affiner)",
+      "score_rationale": "Identified as a critical accounting policy in MD&A. The source explicitly states 'significant and complex estimates, assumptions and judgments' are required, and notes that 'estimates are inherently subjective and can result in significant changes in the fair value estimates'. For a financial institution with substantial investments and trading portfolios, fair value volatility directly impacts financial statements.",
       "trend": "stable",
       "summary": "Fair value measurements require complex estimates and subjective judgments, especially when third-party valuation sources are unavailable and internal cash flow modeling is used. Volatility in markets, interest rates, and asset valuations can lead to significant fluctuations in reported financial position.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Goodwill and Intangible Assets Impairment",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Listed as a critical accounting policy. Impairment risk is driven by the company's ability to maintain competitive service quality and revenue generation. Given FNB's acquisition history and the banking sector's competitive pressures, this represents a material exposure. (score par défaut, à affiner)",
+      "score_rationale": "Listed as a critical accounting policy. Impairment risk is driven by the company's ability to maintain competitive service quality and revenue generation. Given FNB's acquisition history and the banking sector's competitive pressures, this represents a material exposure.",
       "trend": "stable",
       "summary": "The value of goodwill and intangible assets depends on sustained competitive positioning and revenue generation. Economic deterioration, competitive pressures, or integration challenges from acquisitions could trigger material impairment charges.",
       "score": 3
@@ -158,7 +144,7 @@
       "title": "Income Tax and Deferred Tax Asset Complexity",
       "category": "Regulation",
       "severity": 3,
-      "score_rationale": "Critical accounting policy requiring complex judgment across multiple tax jurisdictions. Source notes that determination of tax provisions and DTAs 'requires management judgment' with potential for contestation by tax authorities, particularly given changes in federal tax policy. (score par défaut, à affiner)",
+      "score_rationale": "Critical accounting policy requiring complex judgment across multiple tax jurisdictions. Source notes that determination of tax provisions and DTAs 'requires management judgment' with potential for contestation by tax authorities, particularly given changes in federal tax policy.",
       "trend": "stable",
       "summary": "FNB operates across multiple jurisdictions with varying tax rules. Complex judgments are required for tax provision calculations and deferred tax assets, with exposure to changes in federal, state, and local tax regulations or administrative interpretations.",
       "score": 3
@@ -167,16 +153,16 @@
       "title": "Credit Risk in Commercial Loan Portfolio",
       "category": "Credit",
       "severity": 4,
-      "score_rationale": "Explicitly identified in forward-looking statements as a key risk factor. The MD&A identifies 'the credit risk associated with the substantial amount of commercial loans and leases in our loan portfolio' as a material factor that could cause results to differ from forward-looking statements. (score par défaut, à affiner)",
+      "score_rationale": "Explicitly identified in forward-looking statements as a key risk factor. The MD&A identifies 'the credit risk associated with the substantial amount of commercial loans and leases in our loan portfolio' as a material factor that could cause results to differ from forward-looking statements.",
       "trend": "stable",
       "summary": "FNB's substantial commercial loan and lease portfolio creates concentrated credit risk exposure. Economic downturns, sectoral stress, or individual counterparty defaults could materially impact asset quality and provisioning requirements.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Compliance with DOJ Consent Orders",
       "category": "Regulation",
       "severity": 3,
-      "score_rationale": "Explicitly mentioned in risk factors as ongoing compliance obligations with DOJ and North Carolina State Department of Justice consent orders. Non-compliance carries legal and reputational risks with potential financial consequences. (score par défaut, à affiner)",
+      "score_rationale": "Explicitly mentioned in risk factors as ongoing compliance obligations with DOJ and North Carolina State Department of Justice consent orders. Non-compliance carries legal and reputational risks with potential financial consequences.",
       "trend": "stable",
       "summary": "FNBPA operates under consent orders from DOJ and North Carolina authorities. Failure to comply could result in enforcement actions, fines, and reputational damage affecting customer relationships and market position.",
       "score": 3
@@ -185,7 +171,7 @@
       "title": "Interest Rate Volatility and Asset Sensitivity",
       "category": "Market",
       "severity": 3,
-      "score_rationale": "Identified in forward-looking statements as a material risk factor affecting financial performance. Changes in interest rates impact both the value of investment securities portfolios and net interest margin dynamics for a community bank. (score par défaut, à affiner)",
+      "score_rationale": "Identified in forward-looking statements as a material risk factor affecting financial performance. Changes in interest rates impact both the value of investment securities portfolios and net interest margin dynamics for a community bank.",
       "trend": "stable",
       "summary": "FNB's earnings and equity value are sensitive to interest rate movements. Rapid rate changes can impact net interest margins, investment portfolio valuations, and hedging effectiveness.",
       "score": 3
@@ -244,10 +230,110 @@
   },
   "sector_fr": "Services financiers",
   "subsector_fr": "Banque",
-  "_companies_unified_built_at": "2026-05-29T21:19:31.344Z",
+  "enrich_quarterly_history": {
+    "ticker": "FNB",
+    "extracted_at": "2026-06-01T03:16:46Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Allowance for Credit Losses",
+        "period_type": "quarter",
+        "history": [
+          344,
+          371,
+          378,
+          385,
+          402,
+          403,
+          413,
+          412,
+          406,
+          406,
+          419,
+          420,
+          423,
+          423,
+          432,
+          437
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:16:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          39.513,
+          42.022,
+          41.681,
+          42.59,
+          43.725,
+          44.146,
+          44.778,
+          45.496,
+          46.158,
+          45.896,
+          47.715,
+          47.976,
+          48.625,
+          49.02,
+          49.725,
+          49.889
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:16:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
+  "_companies_unified_built_at": "2026-08-01T20:27:56.919Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fnb.json",
     "enrich_root": "v2-pipeline-enrich/fnb.json",
-    "enrich_subkeys": []
+    "enrich_subkeys": [
+      "quarterly-history"
+    ]
   }
 }

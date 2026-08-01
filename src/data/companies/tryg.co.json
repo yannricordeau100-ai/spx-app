@@ -36,7 +36,7 @@
       "is_short_history": true,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seules 3 valeurs annuelles complètes trouvées (2021: 84.5%, 2022: 82.2%). Q4 2022 (82.1%) est un trimestre, non une année complète. Minimum ",
-      "explanation_en": "Combined Ratio — losses plus expenses divided by net earned premiums."
+      "explanation_en": "Combined Ratio, losses plus expenses divided by net earned premiums."
     },
     {
       "short": "Total Employees",
@@ -56,7 +56,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Total Employees — total number of employees at period end."
+      "explanation_en": "Total Employees, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -75,11 +75,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 41.37 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "No explicit annual total revenue figures found in the provided excerpt; only ranges and non‑annual mentions are present.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -98,11 +104,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 5.41 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -121,11 +131,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 8.8 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -144,11 +158,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 103.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -167,11 +185,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.64 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -190,10 +212,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.86 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -207,7 +233,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         4.572,
         4.2,
@@ -220,7 +246,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -235,7 +261,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards DKK. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards DKK. cashflow.",
       "history": [
         0.137,
         7.024,
@@ -248,7 +274,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -263,7 +289,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         167.82,
@@ -276,7 +302,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -292,7 +318,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.47,
@@ -305,7 +331,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -362,7 +388,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné de manière récurrente dans le document, notamment autour de l'intégration de Codan Norway et Trygg-Hansa. Le langage est affirmé (\"intense work\", \"challenging year\"). La tendance est à l'up car les efforts d'intégration sont en cours. La catégorie Industriel est centrale pour Tryg.",
       "trend": "up",
-      "summary": "L'intégration des activités récemment acquises en Norvège et Suède (Codan Norway, Trygg-Hansa) représente un défi opérationnel majeur, avec des risques liés à la migration des systèmes, à l'harmonisation des cultures et à la rétention des clients."
+      "summary": "L'intégration des activités récemment acquises en Norvège et Suède (Codan Norway, Trygg-Hansa) représente un défi opérationnel majeur, avec des risques liés à la migration des systèmes, à l'harmonisation des cultures et à la rétention des clients.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue en ligne",
@@ -370,7 +397,8 @@
       "severity": 4,
       "score_rationale": "Le document souligne la montée en puissance de la vente en ligne et la pression concurrentielle, notamment en Suède. Le ton est stratégique et préoccupé. La tendance est à l'up. La catégorie Concurrence est fortement pesante.",
       "trend": "up",
-      "summary": "Tryg fait face à une concurrence croissante de nouveaux entrants digitaux, notamment en Suède, où les ventes en ligne progressent rapidement et obligent à investir massivement en marketing digital et en solutions numériques."
+      "summary": "Tryg fait face à une concurrence croissante de nouveaux entrants digitaux, notamment en Suède, où les ventes en ligne progressent rapidement et obligent à investir massivement en marketing digital et en solutions numériques.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenariats auto",
@@ -378,7 +406,8 @@
       "severity": 3,
       "score_rationale": "Le partenariat avec BMW et Tesla est mis en avant comme moteur de croissance. Le langage est positif mais révèle une dépendance. Tendance stable. Risque sectoriel clé pour l'activité motorisée.",
       "trend": "stable",
-      "summary": "La croissance dans le segment automobile dépend fortement de partenariats stratégiques avec des constructeurs comme BMW et Tesla, dont la pérennité peut influencer significativement les volumes de primes."
+      "summary": "La croissance dans le segment automobile dépend fortement de partenariats stratégiques avec des constructeurs comme BMW et Tesla, dont la pérennité peut influencer significativement les volumes de primes.",
+      "score": 3
     },
     {
       "title": "Pression réglementaire ESG",
@@ -386,7 +415,8 @@
       "severity": 4,
       "score_rationale": "Tryg obtient des certifications ISO 14001 et EMAS, ce qui montre une exigence réglementaire forte. Le langage est proactif mais implique des coûts. Tendance à l'up. Catégorie Régulation centrale.",
       "trend": "up",
-      "summary": "L'entreprise fait face à une réglementation environnementale croissante en Scandinavie, renforcée par ses propres engagements ESG, avec des obligations concrètes en matière de réduction de CO2 et de gestion durable."
+      "summary": "L'entreprise fait face à une réglementation environnementale croissante en Scandinavie, renforcée par ses propres engagements ESG, avec des obligations concrètes en matière de réduction de CO2 et de gestion durable.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des systèmes intégrés",
@@ -394,7 +424,8 @@
       "severity": 4,
       "score_rationale": "L'intégration de nouveaux systèmes IT après fusion augmente la surface d'attaque. Non mentionné explicitement, mais implicite dans les risques technologiques. Tendance à l'up. Catégorie Technologie critique.",
       "trend": "up",
-      "summary": "La fusion avec Codan Norway et Trygg-Hansa implique la convergence de systèmes informatiques hétérogènes, augmentant les risques de cyberattaques ou de défaillances techniques dans la gestion des données clients et sinistres."
+      "summary": "La fusion avec Codan Norway et Trygg-Hansa implique la convergence de systèmes informatiques hétérogènes, augmentant les risques de cyberattaques ou de défaillances techniques dans la gestion des données clients et sinistres.",
+      "score": 4
     },
     {
       "title": "Rétention client en baisse",
@@ -402,7 +433,8 @@
       "severity": 3,
       "score_rationale": "Le document mentionne une hausse du churn au Q4 2022, notamment chez les clients mono-produits. Langage mesuré mais inquiétant. Tendance à l'up. Catégorie Réputation impactée.",
       "trend": "up",
-      "summary": "Tryg observe une augmentation du taux de désabonnement, particulièrement dans le segment privé en partenariat, ce qui menace la stabilité du portefeuille et la satisfaction client à long terme."
+      "summary": "Tryg observe une augmentation du taux de désabonnement, particulièrement dans le segment privé en partenariat, ce qui menace la stabilité du portefeuille et la satisfaction client à long terme.",
+      "score": 3
     },
     {
       "title": "Concentration du marché suédois",
@@ -410,7 +442,8 @@
       "severity": 3,
       "score_rationale": "Trygg-Hansa est désormais le leader sur certains produits en Suède, mais le marché est consolidé. Langage neutre à positif. Tendance stable. Risque concurrentiel modéré.",
       "trend": "stable",
-      "summary": "En Suède, la position dominante de Trygg-Hansa sur certains produits (comme l'assurance grossesse) attire une surveillance concurrentielle et réglementaire accrue, avec risque de pression sur les marges."
+      "summary": "En Suède, la position dominante de Trygg-Hansa sur certains produits (comme l'assurance grossesse) attire une surveillance concurrentielle et réglementaire accrue, avec risque de pression sur les marges.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:49:31.785549+00:00",
@@ -543,11 +576,11 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:21:31Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "DKK",
   "_segments_fetched_at": "2026-05-15T00:02:21.999656+00:00",
   "_eps_extracted_at": "2026-05-18T16:47:53Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "enrich_description": {
     "ticker": "TRYG.CO",
@@ -656,9 +689,9 @@
     "country": "Denmark",
     "_data_freshness_date": "2026-05-21T02:17:14.320204+00:00",
     "fetched_at": "2026-05-21T02:17:14.320205+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.695Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.759Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tryg.co.json",
     "enrich_root": "v2-pipeline-enrich/tryg.co.json",

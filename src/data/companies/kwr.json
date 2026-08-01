@@ -1,6 +1,6 @@
 {
   "ticker": "KWR",
-  "name": "Quaker Chemical Corporation",
+  "name": "Quaker Chemical",
   "sector": "Matériaux",
   "subsector": "Specialty Chemicals",
   "tagline": "Global leader in industrial process fluids for advanced manufacturing",
@@ -40,9 +40,12 @@
       "is_short_history": false,
       "ttm": 32.1,
       "_validation": "History values normalized to match precision of reported value",
-      "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin stable, monitor cost dynamics"
+      "period_type": "year",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -169,7 +172,7 @@
       "is_short_history": false,
       "_validation": "Unit corrected from 'K' (ambiguous) to 'people'. Value verified as approximately 2,500 employees mentioned in source",
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -197,7 +200,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -223,8 +230,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -252,9 +263,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 13.89,
-      "_validation": "Verified in source product line table: Surface solutions 10.9% (2025), 5.2% (2024), 5.0% (2023)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Verified in source product line table: Surface solutions 10.9% (2025), 5.2% (2024), 5.0% (2023)"
     },
     {
       "short": "Metal Removal Fluids Mix",
@@ -280,9 +289,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 18.28,
-      "_validation": "Verified in source product line table: Metal removal fluids 19.0% (2025), 22.4% (2024), 23.6% (2023)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Verified in source product line table: Metal removal fluids 19.0% (2025), 22.4% (2024), 23.6% (2023)"
     }
   ],
   "ai_positioning": {
@@ -298,7 +305,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès l'introduction des facteurs de risque. Le langage insiste sur des effets matériels et défavorables répétés. La société dépend fortement des cycles économiques des secteurs de l'acier, automobile et aéronautique, très volatils. La catégorie Industriel est hautement pondérée ici.",
       "trend": "stable",
-      "summary": "Une baisse de la production ou de la demande dans les secteurs clients comme l'acier ou l'automobile pourrait fortement impacter les ventes et la trésorerie."
+      "summary": "Une baisse de la production ou de la demande dans les secteurs clients comme l'acier ou l'automobile pourrait fortement impacter les ventes et la trésorerie.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue dans les produits chimiques",
@@ -306,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Le facteur est explicitement développé avec des mentions de pression sur les prix, la perte de parts de marché et la supériorité potentielle des concurrents. Le secteur est décrit comme très concurrentiel. La catégorie Concurrence est critique pour la marge et la croissance.",
       "trend": "stable",
-      "summary": "Des concurrents mieux dotés ou plus agiles pourraient offrir des prix ou services plus attractifs, menaçant la rentabilité et la position de marché."
+      "summary": "Des concurrents mieux dotés ou plus agiles pourraient offrir des prix ou services plus attractifs, menaçant la rentabilité et la position de marché.",
+      "score": 4
     },
     {
       "title": "Échec du développement de nouveaux produits",
@@ -314,7 +323,8 @@
       "severity": 5,
       "score_rationale": "Le risque est présenté comme vital pour la pérennité de l'entreprise, avec des mentions de succès continu dépendant de l'innovation. Le langage est fort: produits obsolètes, effet matériel défavorable. La catégorie Technologie est essentielle ici.",
       "trend": "stable",
-      "summary": "L'incapacité à innover face aux évolutions comme les véhicules électriques ou les matériaux légers pourrait rendre les produits obsolètes."
+      "summary": "L'incapacité à innover face aux évolutions comme les véhicules électriques ou les matériaux légers pourrait rendre les produits obsolètes.",
+      "score": 5
     },
     {
       "title": "Difficultés d'intégration des acquisitions",
@@ -322,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Le risque est détaillé avec des menaces sur les synergies, coûts d'intégration, dettes cachées et dilution. Mention répétée d'effets négatifs sur la situation financière. La catégorie Capital est fortement pondérée en cas d'échec stratégique.",
       "trend": "stable",
-      "summary": "Les acquisitions, bien qu'au cœur de la stratégie, pourraient entraîner des coûts imprévus ou des difficultés d'intégration nuisant aux résultats."
+      "summary": "Les acquisitions, bien qu'au cœur de la stratégie, pourraient entraîner des coûts imprévus ou des difficultés d'intégration nuisant aux résultats.",
+      "score": 4
     },
     {
       "title": "Indemnités liées à des cessions passées",
@@ -330,7 +341,8 @@
       "severity": 4,
       "score_rationale": "Le risque est spécifiquement lié à des obligations contractuelles post-cédantes, notamment environnementales. Le texte mentionne l'absence de couverture d'assurance et l'imprévisibilité des montants. La catégorie Litige inclut les risques réglementaires et financiers.",
       "trend": "stable",
-      "summary": "Des contaminations ou obligations fiscales découvertes sur des sites cédés pourraient entraîner des coûts importants non anticipés."
+      "summary": "Des contaminations ou obligations fiscales découvertes sur des sites cédés pourraient entraîner des coûts importants non anticipés.",
+      "score": 4
     },
     {
       "title": "Influence des actionnaires majoritaires",
@@ -338,7 +350,8 @@
       "severity": 4,
       "score_rationale": "Le document décrit une influence substantielle de Gulf sur les décisions stratégiques et le conseil d'administration. Bien que des garde-fous existent, le risque de conflit d'intérêts est explicitement mentionné. La catégorie Personne-clé s'applique aux détenteurs de pouvoir décisionnel.",
       "trend": "stable",
-      "summary": "Les actionnaires majoritaires peuvent influencer fortement la stratégie, ce qui pourrait aller à l'encontre des intérêts des autres actionnaires."
+      "summary": "Les actionnaires majoritaires peuvent influencer fortement la stratégie, ce qui pourrait aller à l'encontre des intérêts des autres actionnaires.",
+      "score": 4
     }
   ],
   "governance": {
@@ -371,7 +384,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -577,23 +590,18 @@
         "history": [
           145.61,
           141.393,
-          -285.282,
           161.552,
           202.348,
           138.891,
-          -321.828,
           189.872,
           189.405,
           198.358,
-          -383.108,
           195.75,
           188.568,
           212.074,
-          -407.512,
           186.223,
           201.918,
           172.038,
-          -380.35,
           169.728
         ],
         "history_periods": [
@@ -647,6 +655,12 @@
             "accession": "0001628280-26-028949",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (KWR)"
         ]
       }
     ]
@@ -663,9 +677,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.275631+00:00",
     "fetched_at": "2026-05-21T02:17:14.275632+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.924Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.698Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kwr.json",
     "enrich_root": "v2-pipeline-enrich/kwr.json",

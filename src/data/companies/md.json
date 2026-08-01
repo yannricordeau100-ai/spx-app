@@ -36,7 +36,10 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -55,57 +58,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.91 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "+270.0%",
       "history": [
-        0.07,
-        -0.06,
-        -0.1,
-        0.17
+        70,
+        -60,
+        -100,
+        170
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.17 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "+27.8%",
       "history": [
-        0.2,
-        0.16,
-        0.18,
-        0.23
+        200,
+        160,
+        180,
+        230
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.23 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -124,56 +141,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.25 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.63,
-      "unit": "Mds €",
+      "value": 630,
+      "unit": "M €",
       "yoy": "-4.5%",
       "history": [
-        0.72,
-        0.7,
-        0.66,
-        0.63
+        720,
+        700,
+        660,
+        630
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.63 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.38,
-      "unit": "Mds €",
+      "value": 380,
+      "unit": "M €",
       "yoy": "+65.2%",
       "history": [
-        0.01,
-        0.07,
-        0.23,
-        0.38
+        10,
+        70,
+        230,
+        380
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.38 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -197,9 +228,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -215,7 +244,8 @@
       "severity": 5,
       "score_rationale": "Positionné en premier dans le 10-K, mention de coupes fédérales de 1 trillion de dollars et d'exclusion de 10,5 millions de personnes. Langage fort: 'adverse effect', 'cannot predict'. Catégorie Régulation hautement critique dans le secteur médical.",
       "trend": "stable",
-      "summary": "Le One Big Beautiful Bill Act signé en juillet 2025 réduira les dépenses fédérales Medicaid de 1 trillion de dollars et éliminera au moins 10,5 millions de bénéficiaires d'ici 2034, menaçant une part majeure des revenus."
+      "summary": "Le One Big Beautiful Bill Act signé en juillet 2025 réduira les dépenses fédérales Medicaid de 1 trillion de dollars et éliminera au moins 10,5 millions de bénéficiaires d'ici 2034, menaçant une part majeure des revenus.",
+      "score": 5
     },
     {
       "title": "Dépendance aux remboursements publics",
@@ -223,7 +253,8 @@
       "severity": 4,
       "score_rationale": "Part significative des revenus liée aux programmes gouvernementaux. Forte exposition aux politiques publiques et aux ajustements contractuels.",
       "trend": "stable",
-      "summary": "Une part importante de l'activité dépend des remboursements publics sensibles aux changements réglementaires et budgétaires."
+      "summary": "Une part importante de l'activité dépend des remboursements publics sensibles aux changements réglementaires et budgétaires.",
+      "score": 4
     },
     {
       "title": "Concentration géographique des revenus",
@@ -231,7 +262,8 @@
       "severity": 3,
       "score_rationale": "Réseau présent dans 37 États. Risque modéré de dépendance à des marchés régionaux spécifiques.",
       "trend": "stable",
-      "summary": "Les activités sont distribuées sur 37 États, réduisant la concentration géographique par rapport à certains concurrents."
+      "summary": "Les activités sont distribuées sur 37 États, réduisant la concentration géographique par rapport à certains concurrents.",
+      "score": 3
     },
     {
       "title": "Fluctuations trimestrielles de rentabilité",
@@ -239,7 +271,8 @@
       "severity": 3,
       "score_rationale": "Variations dues aux jours ouvrés, charges sociales et volumes de patients. Mention que les résultats trimestriels ne préjugent pas de l'année complète.",
       "trend": "stable",
-      "summary": "La rentabilité varie fortement selon les trimestres en raison de facteurs opérationnels et fiscaux récurrents."
+      "summary": "La rentabilité varie fortement selon les trimestres en raison de facteurs opérationnels et fiscaux récurrents.",
+      "score": 3
     },
     {
       "title": "Programmes de rachat d'actions",
@@ -247,7 +280,8 @@
       "severity": 3,
       "score_rationale": "Nouveau programme de 250M$ lancé en août 2025, avec 166,2M$ encore disponibles au 31 décembre 2025. Impact sur la trésorerie et la structure du capital.",
       "trend": "new",
-      "summary": "Nouveau programme de rachat d'actions de 250M$ lancé en août 2025, représentant un engagement significatif de trésorerie sensible aux conditions de marché."
+      "summary": "Nouveau programme de rachat d'actions de 250M$ lancé en août 2025, représentant un engagement significatif de trésorerie sensible aux conditions de marché.",
+      "score": 3
     },
     {
       "title": "Législation surprise billing",
@@ -255,7 +289,8 @@
       "severity": 3,
       "score_rationale": "No Surprises Act effectif depuis janvier 2022 restreint la facturation hors réseau. Impact sur les tarifs recouverts et les revenus hors contrat.",
       "trend": "stable",
-      "summary": "Les restrictions sur la surprise billing limitent les montants facturables pour les services hors réseau, affectant potentiellement les revenus."
+      "summary": "Les restrictions sur la surprise billing limitent les montants facturables pour les services hors réseau, affectant potentiellement les revenus.",
+      "score": 3
     }
   ],
   "governance": {
@@ -296,7 +331,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -456,9 +491,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.281978+00:00",
     "fetched_at": "2026-05-21T02:17:14.281979+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.377Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.209Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/md.json",
     "enrich_root": null,

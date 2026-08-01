@@ -68,7 +68,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "ttm": 0
+      "ttm": 0,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -87,34 +91,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.34 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.47,
-      "unit": "Mds €",
+      "value": 470,
+      "unit": "M €",
       "yoy": "+123.8%",
       "history": [
-        0.22,
-        0.37,
-        0.21,
-        0.47
+        220,
+        370,
+        210,
+        470
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.47 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -133,11 +146,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 7.49 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,34 +173,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 15.16 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.9,
-      "unit": "Mds €",
+      "value": 900,
+      "unit": "M €",
       "yoy": "+76.5%",
       "history": [
-        0.5,
-        0.5,
-        0.51,
-        0.9
+        500,
+        500,
+        510,
+        900
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.9 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -202,9 +228,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -247,25 +277,25 @@
       "title": "Risque de catastrophe",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Le rapport mentionne explicitement les risques de catastrophe, tels que les ouragans, les tremblements de terre et les tempêtes hivernales, qui peuvent avoir un impact significatif sur les opérations de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne explicitement les risques de catastrophe, tels que les ouragans, les tremblements de terre et les tempêtes hivernales, qui peuvent avoir un impact significatif sur les opérations de la société.",
       "trend": "stable",
       "summary": "La société est exposée à des risques de catastrophe qui peuvent affecter ses opérations et ses finances.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Le rapport mentionne les risques de crédit associés aux réassureurs, qui peuvent avoir un impact sur la capacité de la société à recouvrer les pertes. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques de crédit associés aux réassureurs, qui peuvent avoir un impact sur la capacité de la société à recouvrer les pertes.",
       "trend": "down",
       "summary": "La société a mis en place des mesures pour minimiser les risques de crédit, telles que la collateralisation des réassurances.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de réglementation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne les risques de réglementation, tels que les changements dans les lois et les réglementations, qui peuvent affecter les opérations de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques de réglementation, tels que les changements dans les lois et les réglementations, qui peuvent affecter les opérations de la société.",
       "trend": "up",
       "summary": "La société doit se conformer aux réglementations en vigueur et adapter ses opérations en conséquence.",
       "score": 3
@@ -274,16 +304,16 @@
       "title": "Risque de cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le rapport mentionne les risques de cybersécurité, tels que les attaques informatiques, qui peuvent avoir un impact sur les opérations de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques de cybersécurité, tels que les attaques informatiques, qui peuvent avoir un impact sur les opérations de la société.",
       "trend": "up",
       "summary": "La société doit prendre des mesures pour protéger ses systèmes et ses données contre les menaces de cybersécurité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne les risques de concurrence, tels que la concurrence accrue dans le secteur, qui peuvent affecter les parts de marché de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques de concurrence, tels que la concurrence accrue dans le secteur, qui peuvent affecter les parts de marché de la société.",
       "trend": "stable",
       "summary": "La société doit maintenir sa compétitivité et adapter ses stratégies pour rester compétitive sur le marché.",
       "score": 3
@@ -292,19 +322,19 @@
       "title": "Risque de terrorisme",
       "category": "Géopolitique",
       "severity": 5,
-      "score_rationale": "Le rapport mentionne explicitement les risques de terrorisme, qui peuvent avoir un impact significatif sur les opérations de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne explicitement les risques de terrorisme, qui peuvent avoir un impact significatif sur les opérations de la société.",
       "trend": "stable",
       "summary": "La société est exposée à des risques de terrorisme qui peuvent affecter ses opérations et ses finances.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de changement climatique",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le rapport mentionne les risques de changement climatique, tels que les ouragans et les tempêtes hivernales, qui peuvent avoir un impact sur les opérations de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques de changement climatique, tels que les ouragans et les tempêtes hivernales, qui peuvent avoir un impact sur les opérations de la société.",
       "trend": "up",
       "summary": "La société doit prendre en compte les risques de changement climatique dans ses stratégies et ses opérations.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -364,7 +394,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -633,9 +663,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.309697+00:00",
     "fetched_at": "2026-05-21T02:17:14.309698+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.793Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.793Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sigi.json",
     "enrich_root": "v2-pipeline-enrich/sigi.json",

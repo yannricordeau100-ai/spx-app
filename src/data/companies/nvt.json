@@ -74,7 +74,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 1.3,
-      "explanation_en": "Revenue from the Electrical Connections segment."
+      "explanation_en": "Revenue from the Electrical Connections segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -100,8 +104,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 35.26,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Margin",
@@ -127,8 +135,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 20,
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "R&D Investment",
@@ -154,8 +166,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 10,
-      "explanation_en": "Research & Development expenses — investment in innovation.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "explanation_en": "Research & Development expenses, investment in innovation.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Capital Expenditures",
@@ -181,7 +197,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 0.2,
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -200,11 +220,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.85 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -223,11 +247,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.7 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -241,7 +269,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.7,
         0.7,
@@ -254,7 +282,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -269,7 +297,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1829,
@@ -282,7 +310,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -297,7 +325,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         29.26,
@@ -310,7 +338,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -326,7 +354,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         1.61,
@@ -339,7 +367,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -470,7 +498,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en tête du document et mentionné comme affectant matériellement la demande, les revenus et la performance financière. Le langage est répété et renforcé par des facteurs comme l'inflation, les taux d'intérêt et les conflits militaires. La catégorie Macro est hautement pondérée en gravité. Position centrale dans le 10-K.",
       "trend": "stable",
-      "summary": "Les récessions, l'inflation et l'instabilité géopolitique peuvent réduire la demande pour nos produits et nuire à notre performance."
+      "summary": "Les récessions, l'inflation et l'instabilité géopolitique peuvent réduire la demande pour nos produits et nuire à notre performance.",
+      "score": 5
     },
     {
       "title": "Concurrence intense sur les marges",
@@ -478,7 +507,8 @@
       "severity": 4,
       "score_rationale": "Le document souligne une pression sur les prix et les marges, avec des concurrents basés sur le coût, la localisation ou le prix. Mention répétée de l'impact négatif sur les marges et la part de marché. Langage affirmé mais moins existentiel que les risques macro. Position secondaire dans le texte.",
       "trend": "stable",
-      "summary": "La forte concurrence, notamment sur les prix, menace nos marges et notre capacité à gagner des parts de marché."
+      "summary": "La forte concurrence, notamment sur les prix, menace nos marges et notre capacité à gagner des parts de marché.",
+      "score": 4
     },
     {
       "title": "Dépendance aux chaînes d'approvisionnement mondiales",
@@ -486,7 +516,8 @@
       "severity": 4,
       "score_rationale": "Le risque est détaillé avec des exemples concrets (acier, cuivre, Chine, Mexique) et mention de perturbations possibles. Langage préoccupé, avec référence à la qualité, disponibilité et coûts. Impact direct sur la production et la compétitivité. Position importante dans le document.",
       "trend": "stable",
-      "summary": "Les ruptures d'approvisionnement ou hausses de prix des matières premières pourraient augmenter nos coûts et perturber la production."
+      "summary": "Les ruptures d'approvisionnement ou hausses de prix des matières premières pourraient augmenter nos coûts et perturber la production.",
+      "score": 4
     },
     {
       "title": "Difficultés d'intégration des acquisitions",
@@ -494,7 +525,8 @@
       "severity": 4,
       "score_rationale": "Le texte met en garde contre les risques d'intégration, de perte de talents, de dettes et de dilution. Langage fort sur les coûts, pertes opérationnelles et échecs potentiels. Stratégie d'acquisition centrale, donc risque élevé. Position claire dans le document.",
       "trend": "stable",
-      "summary": "Les acquisitions peuvent échouer à être intégrées, coûter cher ou nuire à notre performance financière."
+      "summary": "Les acquisitions peuvent échouer à être intégrées, coûter cher ou nuire à notre performance financière.",
+      "score": 4
     },
     {
       "title": "Exposition aux risques géopolitiques internationaux",
@@ -502,7 +534,8 @@
       "severity": 4,
       "score_rationale": "24 % des ventes hors États-Unis, avec risques liés aux tarifs, conflits, nationalisation, et restrictions commerciales. Langage détaillé et préoccupé, notamment sur les systèmes juridiques étrangers et la protection de la propriété intellectuelle. Risque multi-facettes et répété. Position significative.",
       "trend": "stable",
-      "summary": "L'activité internationale expose l'entreprise à des tensions commerciales, réglementaires et politiques dans plusieurs pays."
+      "summary": "L'activité internationale expose l'entreprise à des tensions commerciales, réglementaires et politiques dans plusieurs pays.",
+      "score": 4
     },
     {
       "title": "Dépendance à de grands clients",
@@ -510,7 +543,8 @@
       "severity": 4,
       "score_rationale": "Un client représente 11 % des ventes, et la perte d'un grand client est qualifiée d'impact matériel. Langage clair sur le risque de rupture ou de report de commandes. Risque concentré mais pas nouveau. Position bien établie dans le texte.",
       "trend": "stable",
-      "summary": "La perte ou la réduction d'achats par un ou plusieurs grands clients pourrait nuire sérieusement à nos revenus."
+      "summary": "La perte ou la réduction d'achats par un ou plusieurs grands clients pourrait nuire sérieusement à nos revenus.",
+      "score": 4
     },
     {
       "title": "Inflation des coûts de production",
@@ -518,7 +552,8 @@
       "severity": 4,
       "score_rationale": "Inflation des matières premières, logistique et main-d'œuvre explicitement mentionnée pour 2024-2025. Malgré des mesures d'atténuation, le risque d'échec est souligné. Langage préoccupé, avec lien direct aux marges. Position centrale dans les risques opérationnels.",
       "trend": "stable",
-      "summary": "L'augmentation des coûts de matières, de transport et de main-d'œuvre pourrait réduire nos marges si non compensée."
+      "summary": "L'augmentation des coûts de matières, de transport et de main-d'œuvre pourrait réduire nos marges si non compensée.",
+      "score": 4
     }
   ],
   "governance": {
@@ -540,7 +575,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 4,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -646,7 +681,7 @@
   "_segments_fetched_at": "2026-05-06T19:38:08.610119+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:09:43.590178+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:27Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2018,
@@ -666,7 +701,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:23Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:32Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "NVT",
     "simple": {
@@ -773,25 +808,20 @@
         "short": "Systems Protection Revenue",
         "period_type": "quarter",
         "history": [
-          -0.9678,
           0.5489,
           1.4222,
           1.793,
-          -1.3021,
           0.6947,
           2.1674,
           0.7406,
           1.5436,
           2.4024,
-          -1.423,
           0.8746,
           1.7549,
           2.2539,
-          -1.8773,
           0.8093,
           1.7724,
           2.8264,
-          -1.515,
           1.242
         ],
         "history_periods": [
@@ -845,31 +875,32 @@
             "accession": "0001628280-26-029370",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (NVT)"
         ]
       },
       {
         "short": "Electrical Connections Revenue",
         "period_type": "quarter",
         "history": [
-          -0.9678,
           0.5489,
           1.4222,
           1.793,
-          -1.3021,
           0.6947,
           2.1674,
           0.7406,
           1.5436,
           2.4024,
-          -1.423,
           0.8746,
           1.7549,
           2.2539,
-          -1.8773,
           0.8093,
           1.7724,
           2.8264,
-          -1.515,
           1.242
         ],
         "history_periods": [
@@ -923,6 +954,12 @@
             "accession": "0001628280-26-029370",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (NVT)"
         ]
       },
       {
@@ -939,15 +976,12 @@
           17.1,
           32.3,
           48.9,
-          -27.3,
           16.1,
           34.6,
           47.5,
-          -24.2,
           21.1,
           38,
           56.6,
-          -22.4,
           36.1
         ],
         "history_periods": [
@@ -1001,6 +1035,12 @@
             "accession": "0001628280-26-029370",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (NVT)"
         ]
       },
       {
@@ -1017,15 +1057,12 @@
           17.1,
           32.3,
           48.9,
-          -27.3,
           16.1,
           34.6,
           47.5,
-          -24.2,
           21.1,
           38,
           56.6,
-          -22.4,
           36.1
         ],
         "history_periods": [
@@ -1079,6 +1116,12 @@
             "accession": "0001628280-26-029370",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (NVT)"
         ]
       }
     ]
@@ -1095,9 +1138,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.291718+00:00",
     "fetched_at": "2026-05-21T02:17:14.291719+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.141Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.083Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nvt.json",
     "enrich_root": "v2-pipeline-enrich/nvt.json",

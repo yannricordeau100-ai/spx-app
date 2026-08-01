@@ -85,7 +85,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -169,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 31.0 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -192,11 +196,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 10.8 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -223,7 +231,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -251,7 +259,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -279,7 +287,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -295,7 +303,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.3,
@@ -308,7 +316,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -333,9 +341,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     },
     {
       "short": "AI-Driven Interventions",
@@ -357,9 +363,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     }
   ],
   "ai_positioning": {
@@ -396,7 +400,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de l'Item 1A, mentionné avec un langage fort (\"material adverse impact\"). Il est récurrent et central dans le secteur de la dialyse. La catégorie Régulation est critique pour FMC.",
       "trend": "stable",
-      "summary": "Aux États-Unis, les réformes du Medicare et du Medicaid, comme la réduction de 2% des paiements depuis 2013 ou les coupes prévues par l'OBBBA, menacent les revenus de FMC. Un basculement des patients vers ces programmes à faible remboursement affecte directement la rentabilité."
+      "summary": "Aux États-Unis, les réformes du Medicare et du Medicaid, comme la réduction de 2% des paiements depuis 2013 ou les coupes prévues par l'OBBBA, menacent les revenus de FMC. Un basculement des patients vers ces programmes à faible remboursement affecte directement la rentabilité.",
+      "score": 5
     },
     {
       "title": "Impact du ruling Marietta sur l'assurance privée",
@@ -404,7 +409,8 @@
       "severity": 4,
       "score_rationale": "Le ruling Marietta est spécifiquement cité avec des conséquences opérationnelles claires. Le langage est préoccupé, et le risque est récent et évolutif. Il touche un pilier du modèle économique.",
       "trend": "stable",
-      "summary": "La décision de la Cour suprême dans l'affaire Marietta permet aux régimes collectifs d'ajuster leurs prestations pour les patients en dialyse, les rendant moins attractifs. Cela pousse les patients vers Medicare, qui rembourse moins, réduisant ainsi les revenus de FMC."
+      "summary": "La décision de la Cour suprême dans l'affaire Marietta permet aux régimes collectifs d'ajuster leurs prestations pour les patients en dialyse, les rendant moins attractifs. Cela pousse les patients vers Medicare, qui rembourse moins, réduisant ainsi les revenus de FMC.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue des grands acteurs régionaux",
@@ -412,7 +418,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite dans le texte sur la taille et le pouvoir de marché des concurrents. Langage direct et factuel. Risque structurel dans plusieurs lignes métiers.",
       "trend": "stable",
-      "summary": "Dans certaines régions et segments, des concurrents plus grands et mieux établis disposent d'avantages en termes d'offre de produits et de pouvoir de marché, ce qui limite la capacité de FMC à gagner des parts ou à augmenter ses prix."
+      "summary": "Dans certaines régions et segments, des concurrents plus grands et mieux établis disposent d'avantages en termes d'offre de produits et de pouvoir de marché, ce qui limite la capacité de FMC à gagner des parts ou à augmenter ses prix.",
+      "score": 4
     },
     {
       "title": "Dépendance aux remboursements des assureurs privés",
@@ -420,7 +427,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le texte, avec mention de risques multiples (perte de patients, baisse des tarifs). Langage alarmant et répété. Poids élevé dans la structure de revenus.",
       "trend": "stable",
-      "summary": "FMC dépend fortement des paiements des assureurs privés, qui cherchent à réduire leurs coûts. Toute restriction de couverture, baisse de remboursement ou perte de patients commerciaux menace directement la profitabilité du groupe."
+      "summary": "FMC dépend fortement des paiements des assureurs privés, qui cherchent à réduire leurs coûts. Toute restriction de couverture, baisse de remboursement ou perte de patients commerciaux menace directement la profitabilité du groupe.",
+      "score": 5
     },
     {
       "title": "Consolidation des assureurs et gestionnaires de prestations",
@@ -428,7 +436,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement identifié avec un impact direct sur la négociation des tarifs. Mention dans un contexte actuel de concentration du marché. Langage préoccupé.",
       "trend": "up",
-      "summary": "La consolidation croissante des assureurs santé et des gestionnaires de prestations pharmaceutiques renforce leur pouvoir d'achat, limitant la capacité de FMC à négocier des tarifs favorables pour ses services et produits."
+      "summary": "La consolidation croissante des assureurs santé et des gestionnaires de prestations pharmaceutiques renforce leur pouvoir d'achat, limitant la capacité de FMC à négocier des tarifs favorables pour ses services et produits.",
+      "score": 4
     },
     {
       "title": "Risques liés à la réglementation des dispositifs médicaux",
@@ -436,7 +445,8 @@
       "severity": 5,
       "score_rationale": "Présent de manière répétée, avec des conséquences sévères (retrait de produits, amendes, fermetures). Langage très fort et détaillé. Impact direct sur la production et la vente.",
       "trend": "stable",
-      "summary": "Les dispositifs médicaux et produits pharmaceutiques de FMC sont soumis à une réglementation stricte et changeante. Toute non-conformité peut entraîner des rappels, des amendes ou l'interdiction de vendre, perturbant gravement l'activité."
+      "summary": "Les dispositifs médicaux et produits pharmaceutiques de FMC sont soumis à une réglementation stricte et changeante. Toute non-conformité peut entraîner des rappels, des amendes ou l'interdiction de vendre, perturbant gravement l'activité.",
+      "score": 5
     },
     {
       "title": "Vulnérabilités dans la chaîne d'approvisionnement réglementée",
@@ -444,7 +454,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne les inspections des fournisseurs et la dépendance à leur conformité. Risque indirect mais critique. Langage prudent mais répété.",
       "trend": "stable",
-      "summary": "Les installations et procédés des fournisseurs de FMC sont soumis à des inspections réglementaires. Un défaut de conformité chez un fournisseur clé peut entraîner des interruptions de production ou des rappels de produits."
+      "summary": "Les installations et procédés des fournisseurs de FMC sont soumis à des inspections réglementaires. Un défaut de conformité chez un fournisseur clé peut entraîner des interruptions de production ou des rappels de produits.",
+      "score": 4
     },
     {
       "title": "Difficulté à maintenir le contrôle opérationnel global",
@@ -452,7 +463,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné avec insistance sur l'échelle mondiale et la complexité. Langage préventif mais inquiet. Impact potentiel élevé sur la conformité et la réputation.",
       "trend": "stable",
-      "summary": "Avec des milliers d'employés et de partenaires à travers le monde, il est difficile de garantir un contrôle total sur les pratiques opérationnelles. Un écart local peut entraîner des sanctions réglementaires ou judiciaires à grande échelle."
+      "summary": "Avec des milliers d'employés et de partenaires à travers le monde, il est difficile de garantir un contrôle total sur les pratiques opérationnelles. Un écart local peut entraîner des sanctions réglementaires ou judiciaires à grande échelle.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:36:35.433882+00:00",
@@ -538,7 +550,7 @@
   "_dividends_extracted_at": "2026-05-09T20:59:56Z",
   "_dividends_source": "10-K FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-1 strict-table)",
   "_eps_extracted_at": "2026-05-18T16:45:00Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Services de santé",
   "enrich_events": {
     "ticker": "FMCQF",
@@ -594,9 +606,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.262294+00:00",
     "fetched_at": "2026-05-21T02:17:14.262295+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.312Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.894Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fmcqf.json",
     "enrich_root": "v2-pipeline-enrich/fmcqf.json",

@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Chiffre d'affaires total",
-      "value": 5442.6,
-      "unit": "M $",
+      "value": 5.443,
+      "unit": "Mds $",
       "yoy": "+4.7%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,8 +30,8 @@
       "signal": "Croissance du chiffre d'affaires",
       "description": "Chiffre d'affaires total de l'entreprise. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 5 dernières années.",
       "history": [
-        5442.6,
-        5198.7,
+        5.443,
+        5.199,
         0,
         0,
         0
@@ -42,8 +42,9 @@
       "is_short_history": false,
       "ttm": 0,
       "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -70,8 +71,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -99,7 +104,11 @@
       "is_short_history": false,
       "ttm": 0,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "U.S. Federal Government Revenue",
@@ -127,7 +136,11 @@
       "is_short_history": false,
       "ttm": 0,
       "explanation_en": "Revenue from the U.S. Federal Government segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -146,34 +159,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.28 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.99,
-      "unit": "Mds €",
+      "value": 990,
+      "unit": "M €",
       "yoy": "-2.9%",
       "history": [
-        0.46,
-        1.09,
-        1.02,
-        0.99
+        460,
+        1090,
+        1020,
+        990
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.99 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -206,7 +228,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "Tetra Tech mentionne l'utilisation de l'IA et du machine learning comme éléments clés de sa stratégie de différenciation. La société intègre des solutions d'analytics avancées, d'IA et de machine learning avec ses offres de services consultatifs et d'ingénierie pour améliorer ses solutions en matière d'eau, d'environnement et d'infrastructure durable.",
     "evidence": [
       "We are Leading with Science throughout our operations, with domain experts across multiple disciplines supported by our advanced analytics, artificial intelligence (AI), machine learning and digital technology solutions.",
@@ -221,7 +243,8 @@
       "severity": 5,
       "score_rationale": "La société a perdu pratiquement tous ses contrats USAID (576,4 millions $ en fiscal 2025, soit 10,6% du chiffre d'affaires total) suite à l'Executive Order 14169 signé en janvier 2025 et l'annulation de 83% des programmes USAID en février 2025. Aucun revenu USAID significatif n'est attendu en fiscal 2026.",
       "trend": "up",
-      "summary": "Suite à la cancellation de 83% des programmes USAID en février 2025, Tetra Tech a perdu pratiquement tous ses contrats USAID (576,4 millions $ en fiscal 2025). Cet événement représente un risque majeur de dépendance aux contrats gouvernementaux et aux changements de politique gouvernementale."
+      "summary": "Suite à la cancellation de 83% des programmes USAID en février 2025, Tetra Tech a perdu pratiquement tous ses contrats USAID (576,4 millions $ en fiscal 2025). Cet événement représente un risque majeur de dépendance aux contrats gouvernementaux et aux changements de politique gouvernementale.",
+      "score": 5
     },
     {
       "title": "Cybersécurité",
@@ -229,7 +252,8 @@
       "severity": 4,
       "score_rationale": "La société traite des données sensibles pour des contrats gouvernementaux et mentionne explicitement les risques de cybersécurité. Le Chief Information Officer, avec 18+ ans d'expérience, rapporte directement au CEO et supervise la gestion des risques cybersécurité.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de cybersécurité importants en raison de la nature de ses activités gouvernementales et de la sensibilité des données qu'elle traite."
+      "summary": "La société est exposée à des risques de cybersécurité importants en raison de la nature de ses activités gouvernementales et de la sensibilité des données qu'elle traite.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et opérationnels",
@@ -237,7 +261,8 @@
       "severity": 4,
       "score_rationale": "Tetra Tech opère dans plus de 100 pays sur les sept continents. Les risques géopolitiques peuvent affecter les opérations internationales et l'exécution des contrats dans des zones instables ou à risque.",
       "trend": "up",
-      "summary": "La société opère dans plus de 100 pays sur les sept continents, ce qui expose ses activités à des risques géopolitiques, notamment en raison de la situation politique et économique dans certaines régions."
+      "summary": "La société opère dans plus de 100 pays sur les sept continents, ce qui expose ses activités à des risques géopolitiques, notamment en raison de la situation politique et économique dans certaines régions.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et de conformité",
@@ -245,7 +270,8 @@
       "severity": 3,
       "score_rationale": "En tant que fournisseur de services gouvernementales dans les domaines de l'environnement et de l'infrastructure, Tetra Tech est soumise à des réglementations strictes et à des exigences de conformité complexes.",
       "trend": "stable",
-      "summary": "La société doit se conformer à des réglementations strictes, notamment en matière de protection de l'environnement, de sécurité des données et de contrats gouvernementaux, pour maintenir ses licences et éviter des pénalités."
+      "summary": "La société doit se conformer à des réglementations strictes, notamment en matière de protection de l'environnement, de sécurité des données et de contrats gouvernementaux, pour maintenir ses licences et éviter des pénalités.",
+      "score": 3
     },
     {
       "title": "Exposition à la volatilité des revenus de catastrophes naturelles",
@@ -253,7 +279,8 @@
       "severity": 3,
       "score_rationale": "En fiscal 2025, une part importante de la croissance des revenus état/local (28,8%) provenait des travaux de réponse aux catastrophes liés aux Hurricanes Helene, Milton et aux incendies Palisades/Eaton. Cette dépendance à des événements ponctuels crée une volatilité des revenus.",
       "trend": "up",
-      "summary": "Une part significative de la croissance des revenus état et local en fiscal 2025 provient de travaux de réponse aux catastrophes, ce qui crée une volatilité des revenus et une prévisibilité réduite."
+      "summary": "Une part significative de la croissance des revenus état et local en fiscal 2025 provient de travaux de réponse aux catastrophes, ce qui crée une volatilité des revenus et une prévisibilité réduite.",
+      "score": 3
     },
     {
       "title": "Concurrence dans les services consultatifs et d'ingénierie",
@@ -261,7 +288,8 @@
       "severity": 2,
       "score_rationale": "Tetra Tech opère dans un marché concurrentiel avec de nombreux acteurs dans les services consultatifs et d'ingénierie. Bien que classée #1 dans plusieurs catégories par ENR, elle doit maintenir sa position face à la concurrence.",
       "trend": "stable",
-      "summary": "La société doit faire face à une concurrence accrue pour maintenir sa position de leader et attirer de nouveaux clients dans ses domaines de spécialisation."
+      "summary": "La société doit faire face à une concurrence accrue pour maintenir sa position de leader et attirer de nouveaux clients dans ses domaines de spécialisation.",
+      "score": 2
     },
     {
       "title": "Dépendance technologique et évolution du marché",
@@ -269,7 +297,8 @@
       "severity": 2,
       "score_rationale": "Tetra Tech s'appuie sur des solutions d'analytics avancées, d'IA et de machine learning. Elle doit continuer à investir dans l'innovation technologique pour rester compétitive.",
       "trend": "stable",
-      "summary": "La société doit investir continuellement dans l'évolution de ses capacités technologiques, notamment en IA et machine learning, pour maintenir sa compétitivité et protéger ses données."
+      "summary": "La société doit investir continuellement dans l'évolution de ses capacités technologiques, notamment en IA et machine learning, pour maintenir sa compétitivité et protéger ses données.",
+      "score": 2
     }
   ],
   "governance": {
@@ -337,7 +366,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -403,7 +432,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.746Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.910Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ttek.json",
     "enrich_root": null,

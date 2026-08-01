@@ -98,7 +98,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Net Debt — total debt minus cash and cash equivalents."
+      "explanation_en": "Net Debt, total debt minus cash and cash equivalents."
     },
     {
       "short": "Operating Income TTS",
@@ -148,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.97 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -171,56 +175,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.89 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.75,
-      "unit": "Mds €",
+      "value": 750,
+      "unit": "M €",
       "yoy": "+15.4%",
       "history": [
-        0.69,
-        0.65,
-        0.65,
-        0.75
+        690,
+        650,
+        650,
+        750
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.75 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
-        0.11,
-        0.06,
-        0.04,
-        0.06
+        110,
+        60,
+        40,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -414,7 +432,8 @@
       "severity": 5,
       "score_rationale": "La société est sensible aux conditions économiques et géopolitiques, qui affectent directement les volumes de fret, la demande de services de transport et les coûts de carburant. Les changements dans les politiques commerciales et les tarifs peuvent impacter les coûts de matériaux et l'équipement.",
       "trend": "stable",
-      "summary": "Les conditions économiques et géopolitiques peuvent avoir un impact significatif sur les volumes de fret et la demande de services de transport."
+      "summary": "Les conditions économiques et géopolitiques peuvent avoir un impact significatif sur les volumes de fret et la demande de services de transport.",
+      "score": 5
     },
     {
       "title": "Pénurie de conducteurs",
@@ -422,7 +441,8 @@
       "severity": 4,
       "score_rationale": "La pénurie de conducteurs est un enjeu majeur de l'industrie qui peut augmenter les salaires et les coûts sans amélioration proportionnelle des tarifs de fret, impactant directement la rentabilité opérationnelle.",
       "trend": "up",
-      "summary": "La pénurie de conducteurs peut limiter la croissance et augmenter les coûts opérationnels de la société."
+      "summary": "La pénurie de conducteurs peut limiter la croissance et augmenter les coûts opérationnels de la société.",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -430,7 +450,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un secteur hautement concurrentiel du transport routier, ce qui limite les opportunités de croissance et la rentabilité en cas de pression tarifaire.",
       "trend": "stable",
-      "summary": "La concurrence peut avoir un impact sur les résultats et limiter les opportunités de croissance de la société."
+      "summary": "La concurrence peut avoir un impact sur les résultats et limiter les opportunités de croissance de la société.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie",
@@ -438,7 +459,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de systèmes d'information pour ses opérations, ses systèmes de gestion de flotte et ses services de logistique, ce qui crée des risques en cas de défaillance technologique ou de cyberattaque.",
       "trend": "up",
-      "summary": "La dépendance à la technologie crée des risques opérationnels en cas de défaillance ou d'incident de sécurité informatique."
+      "summary": "La dépendance à la technologie crée des risques opérationnels en cas de défaillance ou d'incident de sécurité informatique.",
+      "score": 4
     },
     {
       "title": "Risques liés aux opérations internationales",
@@ -446,7 +468,8 @@
       "severity": 3,
       "score_rationale": "Les opérations de la société au Canada et au Mexique (services transfrontaliers) sont exposées aux fluctuations des taux de change, aux changements de politique commerciale et aux instabilités politiques.",
       "trend": "stable",
-      "summary": "Les opérations internationales peuvent être affectées par des facteurs géopolitiques et économiques."
+      "summary": "Les opérations internationales peuvent être affectées par des facteurs géopolitiques et économiques.",
+      "score": 3
     },
     {
       "title": "Cybersécurité",
@@ -454,7 +477,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de cybersécurité en raison de sa dépendance aux systèmes informatiques pour les opérations de transport et la gestion des données clients sensibles.",
       "trend": "up",
-      "summary": "Les risques de cybersécurité pourraient affecter les opérations et la confidentialité des données de la société."
+      "summary": "Les risques de cybersécurité pourraient affecter les opérations et la confidentialité des données de la société.",
+      "score": 4
     },
     {
       "title": "Perte de personnel clé",
@@ -462,7 +486,8 @@
       "severity": 3,
       "score_rationale": "La perte de personnel clé en gestion ou en expertise opérationnelle pourrait affecter la performance de la société, bien que les opérations soient largement opérationnalisées.",
       "trend": "stable",
-      "summary": "La perte de personnel clé pourrait avoir un impact sur les résultats et les opportunités de croissance."
+      "summary": "La perte de personnel clé pourrait avoir un impact sur les résultats et les opportunités de croissance.",
+      "score": 3
     }
   ],
   "governance": {
@@ -593,7 +618,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.459Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:07.113Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wern.json",
     "enrich_root": "v2-pipeline-enrich/wern.json",

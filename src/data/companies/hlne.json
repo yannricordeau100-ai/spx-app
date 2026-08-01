@@ -43,7 +43,7 @@
       "ttm": 0,
       "_validation": "Unité corrigée: Mds $ -> B $",
       "period_type": "quarter",
-      "explanation_en": "Assets Under Management — total client assets managed by the firm.",
+      "explanation_en": "Assets Under Management, total client assets managed by the firm.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -72,7 +72,11 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "Unité corrigée: Mds $ -> B $; format valeur normalisé: 819,5 -> 819.5",
-      "explanation_en": "Assets Under Administration — total client assets administered."
+      "explanation_en": "Assets Under Administration, total client assets administered.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "EMPLOYEES",
@@ -100,53 +104,67 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "Unité ajoutée: headcount; type corrigé: Investment -> Operational; description enrichie avec détails source",
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.71,
-      "unit": "Mds €",
+      "value": 710,
+      "unit": "M €",
       "yoy": "+29.1%",
       "history": [
-        0.37,
-        0.53,
-        0.55,
-        0.71
+        370,
+        530,
+        550,
+        710
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.71 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "+57.1%",
       "history": [
-        0.15,
-        0.11,
-        0.14,
-        0.22
+        150,
+        110,
+        140,
+        220
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.22 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -165,56 +183,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.69 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.37,
-      "unit": "Mds €",
+      "value": 370,
+      "unit": "M €",
       "yoy": "+32.1%",
       "history": [
-        0.25,
-        0.29,
-        0.28,
-        0.37
+        250,
+        290,
+        280,
+        370
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.37 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.28,
-      "unit": "Mds €",
+      "value": 280,
+      "unit": "M €",
       "yoy": "+154.5%",
       "history": [
-        0.07,
-        0.11,
-        0.11,
-        0.28
+        70,
+        110,
+        110,
+        280
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.28 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -239,9 +271,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Croissance",
-      "_validation": "Unité corrigée: Mds $ -> B $; nom court standardisé: AUM 2025 -> AUM_2025; description enrichie avec ventilation source",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Unité corrigée: Mds $ -> B $; nom court standardisé: AUM 2025 -> AUM_2025; description enrichie avec ventilation source"
     }
   ],
   "ai_positioning": {
@@ -255,64 +285,64 @@
       "title": "Performance passée non garante de résultats futurs",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Ce risque est mentionné en premier dans le 10-K et répété plusieurs fois avec un langage fort (not necessarily indicative, could cause a decline). Il affecte directement la perception des investisseurs et les revenus. La catégorie Capital est fortement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné en premier dans le 10-K et répété plusieurs fois avec un langage fort (not necessarily indicative, could cause a decline). Il affecte directement la perception des investisseurs et les revenus. La catégorie Capital est fortement pondérée.",
       "trend": "stable",
       "summary": "Les performances passées des fonds gérés n'assurent pas des résultats futurs et pourraient impacter négativement les revenus et la confiance des investisseurs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue pour opportunités d'investissement",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le texte souligne une increased competition dans les marchés privés et les marchés de crédit. Le langage est répété et insiste sur un impact direct sur les rendements futurs. Position centrale dans le document. (score par défaut, à affiner)",
+      "score_rationale": "Le texte souligne une increased competition dans les marchés privés et les marchés de crédit. Le langage est répété et insiste sur un impact direct sur les rendements futurs. Position centrale dans le document.",
       "trend": "up",
       "summary": "L'augmentation du capital dans les marchés alternatifs réduit l'accès à des opportunités d'investissement attractives, menaçant la croissance future.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Perte de clients en gestion sur mesure",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le risque est décrit comme materially and adversely affect avec des contrats résiliables sous 30-90 jours. Mention de renouvellement périodique des contrats publics, ce qui augmente la vulnérabilité. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est décrit comme materially and adversely affect avec des contrats résiliables sous 30-90 jours. Mention de renouvellement périodique des contrats publics, ce qui augmente la vulnérabilité.",
       "trend": "stable",
       "summary": "L'absence de contrats à long terme dans les services de gestion sur mesure expose la société à une perte soudaine de revenus si les clients partent.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Conflits d'intérêts dans les conseils et allocations",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Langage très fort: material adverse effect on our reputation, regulatory enforcement, fiduciary duty. Risque lié à la SEC et aux obligations légales. Catégorie Régulation hautement critique. (score par défaut, à affiner)",
+      "score_rationale": "Langage très fort: material adverse effect on our reputation, regulatory enforcement, fiduciary duty. Risque lié à la SEC et aux obligations légales. Catégorie Régulation hautement critique.",
       "trend": "up",
       "summary": "Les conflits entre clients, fonds affiliés et actionnaires pourraient entraîner des poursuites, des amendes ou une perte de réputation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Départ de personnel clé ou événement clé",
       "category": "Personne-clé",
       "severity": 5,
-      "score_rationale": "Mention d'un key person event pouvant suspendre la période d'investissement. Langage alarmant: materially and adversely affect. Position élevée dans le document et impact opérationnel direct. (score par défaut, à affiner)",
+      "score_rationale": "Mention d'un key person event pouvant suspendre la période d'investissement. Langage alarmant: materially and adversely affect. Position élevée dans le document et impact opérationnel direct.",
       "trend": "stable",
       "summary": "La perte d'un membre clé de la direction pourrait suspendre des fonds et nuire gravement à la performance et aux relations clients.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Expansion vers les investisseurs de détail et tokenisation",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Nouvelle initiative exposant à greater levels of risk. Langage fort: heightened litigation, regulatory enforcement and reputational risks. Catégorie Technologie avec impact transversal. (score par défaut, à affiner)",
+      "score_rationale": "Nouvelle initiative exposant à greater levels of risk. Langage fort: heightened litigation, regulatory enforcement and reputational risks. Catégorie Technologie avec impact transversal.",
       "trend": "new",
       "summary": "L'entrée sur le marché des investisseurs de détail via la tokenisation augmente les risques réglementaires, juridiques et de réputation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Rédemptions élevées dans les fonds evergreen",
       "category": "Liquidité",
       "severity": 4,
-      "score_rationale": "Risque lié aux conditions de marché difficiles et aux limites de rachat. Mention de reputational harm et d'impact sur les flux. Position en fin de document mais avec langage significatif. (score par défaut, à affiner)",
+      "score_rationale": "Risque lié aux conditions de marché difficiles et aux limites de rachat. Mention de reputational harm et d'impact sur les flux. Position en fin de document mais avec langage significatif.",
       "trend": "stable",
       "summary": "Des rachats massifs dans les fonds evergreen pourraient nuire à leur attractivité et réduire les revenus, surtout en période de crise.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -380,7 +410,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -462,9 +492,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.271577+00:00",
     "fetched_at": "2026-05-21T02:17:14.271578+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.077Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.718Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hlne.json",
     "enrich_root": "v2-pipeline-enrich/hlne.json",

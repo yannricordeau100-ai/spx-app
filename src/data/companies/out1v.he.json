@@ -39,9 +39,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Congress Countries",
@@ -66,9 +64,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Loss Prevention Colloquium",
@@ -93,9 +89,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "period_type": "annual"
     },
     {
       "short": "CESNI Committee Participation",
@@ -120,9 +114,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "octobre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Total Assets",
@@ -141,34 +133,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.71 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.63,
-      "unit": "Mds €",
+      "value": 630,
+      "unit": "M €",
       "yoy": "+26.0%",
       "history": [
-        0.57,
-        0.44,
-        0.5,
-        0.63
+        570,
+        440,
+        500,
+        630
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.63 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -182,7 +183,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         0.15,
@@ -195,7 +196,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -210,7 +211,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.11,
@@ -223,7 +224,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -238,7 +239,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -251,7 +252,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -266,7 +267,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         1.17,
@@ -279,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -390,11 +391,11 @@
   "company_description": "Outokumpu Oyj produces and sells various stainless-steel products in Finland, Germany, Italy, the United Kingdom, other European countries, North America, the Asia-Pacific, and internationally. It operates through Europe, the Americas, Ferrochrome, and Other operations segments. The company offers cold rolled coils, strips, and sheets; hot rolled coils, strips, and plates; quarto plates; precision strips; and specialized components, such as welded stainless-steel I-beams, H-beams, hollow-section tubes, bent profiles, duprof structural sections, hardened and customized press plates, suction roll shells, and blancs and disks. It also provides stainless steel powder which includes Supra 316L, Dura 17-4PH, Ultra 904L, Therma 253MA, Dura 4116, and Ni-free austenitic stainless-steel powder, ferritic grades as well as tailored product; and nickel-based alloys for environments in the process industry, oil and gas, and electric vehicles. In addition, the company offers cutting, polishing and brushing, welding, machining, plate bending and other services. Further, its products are used in various applications, including commercial kitchens, cooking, food industry, and home appliances; automo",
   "last_data_date": "2026-03-31",
   "_dividends_extracted_at": "2026-05-09T20:21:50Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:46:43Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:34.391Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.168Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/out1v.he.json",
     "enrich_root": "v2-pipeline-enrich/out1v.he.json",

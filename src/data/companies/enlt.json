@@ -37,10 +37,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Operating Profit",
@@ -63,10 +61,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Operating Profit — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Operating Profit, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Net Profit",
@@ -89,10 +85,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Installed Capacity",
@@ -118,7 +112,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Capacity expanding, future growth supported"
+      "signal_en": "Capacity expanding, future growth supported",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Electricity Generation",
@@ -144,7 +142,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,11 +165,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.63 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -186,33 +192,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.12 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.53,
-      "unit": "Mds €",
+      "value": 530,
+      "unit": "M €",
       "yoy": "+35.9%",
       "history": [
-        0.19,
-        0.4,
-        0.39,
-        0.53
+        190,
+        400,
+        390,
+        530
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.53 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -237,9 +252,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Revenu",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Revenu"
     },
     {
       "short": "U.S. Revenue Contribution",
@@ -262,9 +275,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Expansion",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Expansion"
     },
     {
       "short": "U.S. Solar PPA Prices",
@@ -287,13 +298,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
-    "stance": "indirect",
+    "stance": "absent",
     "summary": "AI impact mentioned as a driver of electricity demand through data center expansion, but not positioned as a core operational lever for the company.",
     "evidence": [
       "Reference to increased adoption of machine learning and AI driving electricity demand for data centers",
@@ -338,7 +347,8 @@
       "score_rationale": "Risque positionné en début de document avec langage fort ('materially differ', 'unpredictable impact'). Catégorie Capital pondérée fortement. Tendance stable mais structurelle à la nature des projets en développement. Impacte directement la fiabilité des prévisions EBITDA et cash-flows.",
       "trend": "stable",
       "summary": "La société ne peut pas réconcilier ses mesures non-IFRS (EBITDA) avec les résultats nets futurs car de nombreux éléments échappent à son contrôle ou ne peuvent être prédits. Les projections de revenus et de performance sont soumises à des incertitudes importantes.",
-      "citation": "Such information may have a significant, and potentially unpredictable, impact on the Company's future financial results. The Company is unable to provide a reconciliation of EBITDA to Net Income on a forward-looking basis without unreasonable effort"
+      "citation": "Such information may have a significant, and potentially unpredictable, impact on the Company's future financial results. The Company is unable to provide a reconciliation of EBITDA to Net Income on a forward-looking basis without unreasonable effort",
+      "score": 4
     },
     {
       "title": "Risque de change devises multiples",
@@ -347,7 +357,8 @@
       "score_rationale": "Risque identifié en milieu de document avec exposition explicite à EUR, NIS et USD. Langage neutre mais données montrent volatilité (EUR: 1.07-1.17, NIS: 0.27-0.30). Tendance stable mais structurelle. Portefeuille géographiquement diversifié (États-Unis, Europe, Israël, MENA) amplifie l'exposition.",
       "trend": "stable",
       "summary": "La société opère dans plusieurs devises (dollar, euro, shekel israélien) et consolide ses comptes en dollars. Les fluctuations de change peuvent affecter significativement les résultats financiers consolidés et la valeur des actifs étrangers.",
-      "citation": "For the purpose of consolidating the financial statements, results and financial position of each of the Group's member companies are translated into the NIS... The Group's consolidated financial statements are presented in USD."
+      "citation": "For the purpose of consolidating the financial statements, results and financial position of each of the Group's member companies are translated into the NIS... The Group's consolidated financial statements are presented in USD.",
+      "score": 3
     },
     {
       "title": "Dépendance aux crédits d'impôt américains",
@@ -356,7 +367,8 @@
       "score_rationale": "Risque majeur pour portefeuille US (73% du total). Langage technique mais critique: IRA tax credits (PTC, ITC) sont fondamentaux à la valorisation. Tendance nouvelle/accrue avec références explicites aux ajustements IRA. Catégorie Régulation pondérée fortement. Changements législatifs pourraient réduire drastiquement les rendements.",
       "trend": "up",
       "summary": "Les projets américains (73% du portefeuille) dépendent fortement des crédits d'impôt fédéraux (IRA: Production Tax Credit et Investment Tax Credit). Tout changement législatif ou réduction de ces incitations pourrait compromettre la viabilité économique des projets.",
-      "citation": "PTC is assumed, based on the project's expected production and a yearly CPI indexation of 2%, discounted by 8% to COD. For the ITC, a step-up adjustment was made to reflect the eligible higher tax credit rates"
+      "citation": "PTC is assumed, based on the project's expected production and a yearly CPI indexation of 2%, discounted by 8% to COD. For the ITC, a step-up adjustment was made to reflect the eligible higher tax credit rates",
+      "score": 4
     },
     {
       "title": "Risque de financement des projets en construction",
@@ -365,7 +377,8 @@
       "score_rationale": "Portefeuille massif en construction (3.9 GW) et pré-construction (8.1 GW) requiert financement substantiel. Langage implicite mais critique: 'required equity during construction estimated at 10%'. Tendance accrue avec expansion rapide du pipeline. Catégorie Capital existentielle pour croissance.",
       "trend": "up",
       "summary": "La société doit financer la construction de 3.9 GW additionnels et développer 8.1 GW en pré-construction. Les besoins en capital-equity et en dette sont considérables et dépendent de l'accès aux marchés de financement et des conditions de taux.",
-      "citation": "The required equity during construction is estimated at 10% and is expected to decrease to 0% at COD. Total Pre-Construction 2,059 MW +3,914MWh"
+      "citation": "The required equity during construction is estimated at 10% and is expected to decrease to 0% at COD. Total Pre-Construction 2,059 MW +3,914MWh",
+      "score": 4
     },
     {
       "title": "Risque de signature des contrats PPA",
@@ -374,7 +387,8 @@
       "score_rationale": "Plusieurs projets majeurs sans PPA signé ('PPA to be signed'): Nardo (97 MW, 1.3 GWh), Tapolca BESS (140 MWh), Israel Storage (813 MWh), Yatir (38 MW). Langage neutre mais absence de contrats est risque commercial critique. Tendance stable mais structurelle au pipeline. Impacte la bankabilité.",
       "trend": "stable",
       "summary": "Plusieurs projets importants en pré-construction n'ont pas encore de contrat d'achat d'électricité (PPA) signé. L'absence de PPA retarde le financement et expose la société au risque de prix de marché volatiles.",
-      "citation": "Nardo Italy 97 1,254 100% PPA to be signed; Tapolca BESS Hungary - 140 100% Merchant; Israel Storage Israel - 813 94% PPA to be signed"
+      "citation": "Nardo Italy 97 1,254 100% PPA to be signed; Tapolca BESS Hungary - 140 100% Merchant; Israel Storage Israel - 813 94% PPA to be signed",
+      "score": 3
     },
     {
       "title": "Concentration géographique et risques politiques",
@@ -383,7 +397,8 @@
       "score_rationale": "Portefeuille exposé à Israël (mature et développement), MENA (Iftach), Europe de l'Est (Serbie, Croatie, Hongrie, Kosovo). Langage neutre mais contexte géopolitique tendu (Israël-Hamas, tensions régionales). Tendance accrue avec expansion MENA. Catégorie Géopolitique pondérée.",
       "trend": "up",
       "summary": "La société opère dans des régions géopolitiquement sensibles (Israël, MENA, Europe de l'Est). Les tensions politiques, conflits ou instabilités pourraient interrompre les opérations, retarder les projets ou affecter les contrats avec les autorités locales.",
-      "citation": "MENA 4/134 0/72 38/645 227-239... 645MWh in 2028 attributed to Iftach, estimated revenue for the first 5 years is $6 million per year"
+      "citation": "MENA 4/134 0/72 38/645 227-239... 645MWh in 2028 attributed to Iftach, estimated revenue for the first 5 years is $6 million per year",
+      "score": 3
     },
     {
       "title": "Risque de partenaires en capital-investissement",
@@ -392,7 +407,8 @@
       "score_rationale": "Nombreux projets avec partenaires tax-equity (Atrisco PV/BESS: 17.5%-19% share, durée 5-10 ans). Langage technique mais dépendance structurelle. Tendance stable mais croissante avec pipeline US. Catégorie Capital pondérée. Termes commerciaux variables ('subject to market conditions').",
       "trend": "stable",
       "summary": "La société finance ses projets américains via des partenaires tax-equity qui prennent une part des flux de trésorerie (5-19% selon les projets). Les termes de ces partenariats sont variables et dépendent des conditions de marché, ce qui crée une incertitude sur les rendements nets.",
-      "citation": "Tax equity partner's share of cash flows... Atrisco PV 369 198 55 17.5% (5%) 10; Atrisco BESS 458 222 - 19% (5%) 5"
+      "citation": "Tax equity partner's share of cash flows... Atrisco PV 369 198 55 17.5% (5%) 10; Atrisco BESS 458 222 - 19% (5%) 5",
+      "score": 3
     },
     {
       "title": "Risque de réalisation du pipeline de développement",
@@ -401,7 +417,8 @@
       "score_rationale": "Pipeline massif (19.3 GW total) dont 11.2 GW en développement tardif. Langage neutre mais risque d'exécution implicite. Tendance accrue avec expansion rapide. Catégorie Industriel pondérée. Délais de construction, permitting, supply-chain sont critiques.",
       "trend": "up",
       "summary": "Le portefeuille de développement (11.2 GW) représente une expansion majeure. La réalisation dépend de l'obtention des permis, de la disponibilité des composants, de la capacité de construction et de la stabilité des chaînes d'approvisionnement.",
-      "citation": "Development portfolio (rest of portfolio) Storage Generation Capacity... Total 11,163 MW 31,452 MWh; Advanced development portfolio... Total 2,638 MW 11,630 MWh"
+      "citation": "Development portfolio (rest of portfolio) Storage Generation Capacity... Total 11,163 MW 31,452 MWh; Advanced development portfolio... Total 2,638 MW 11,630 MWh",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:32:41.059168+00:00",
@@ -446,7 +463,7 @@
   "_governance_yf_fallback_at": "2026-05-14T04:40:58.731846+00:00",
   "_freshness_yf_refreshed_at": "2026-05-14T07:13:25.669607",
   "subsector_fr": "Énergies renouvelables",
-  "_companies_unified_built_at": "2026-05-29T21:19:30.760Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.053Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/enlt.json",
     "enrich_root": "v2-pipeline-enrich/enlt.json",

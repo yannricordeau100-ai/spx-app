@@ -41,7 +41,11 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds sq ft' à 'M sq ft' (14.0 millions, non milliards); YoY recalculé: (14.009-12.96)/12.96 = +8.1%",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Rental Revenue",
@@ -96,7 +100,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur confirmée par source 10-K MD&A: net income increased $16.7M to $119.5M in 2025 vs $102.8M in 2024",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -241,7 +245,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement mentionné en tête des facteurs de risque, avec un accent fort sur les menaces croissantes liées à la cybersécurité, y compris les systèmes d'information et les technologies émergentes comme l'IA générative. Le langage est préventif mais insiste sur la gravité potentielle d'un incident. La supervision par le Comité d'Audit et la fréquence des rapports renforcent son importance stratégique.",
       "trend": "stable",
-      "summary": "Une cyberattaque pourrait perturber les opérations, exposer des données sensibles et nuire à la réputation ou entraîner des poursuites."
+      "summary": "Une cyberattaque pourrait perturber les opérations, exposer des données sensibles et nuire à la réputation ou entraîner des poursuites.",
+      "score": 5
     },
     {
       "title": "Dépendance aux loyers des locataires",
@@ -249,7 +254,8 @@
       "severity": 4,
       "score_rationale": "Le modèle économique repose sur les loyers fixes et variables des locataires. Une baisse de la performance commerciale des enseignes ou une augmentation des défaillances locatives pourrait impacter les revenus. Le document mentionne des renouvellements et des écarts de loyers, indiquant une pression sur la négociation.",
       "trend": "stable",
-      "summary": "La santé financière dépend fortement des capacités de paiement des locataires, sensibles aux conditions économiques et à la consommation."
+      "summary": "La santé financière dépend fortement des capacités de paiement des locataires, sensibles aux conditions économiques et à la consommation.",
+      "score": 4
     },
     {
       "title": "Exposition aux risques immobiliers locatifs",
@@ -257,7 +263,8 @@
       "severity": 4,
       "score_rationale": "Le portefeuille est composé de centres commerciaux en plein air, sensibles aux tendances du commerce de détail, à la concurrence en ligne et aux changements de comportement des consommateurs. Le risque est récurrent et discuté dans le contexte des renouvellements de baux et des taux d'occupation.",
       "trend": "stable",
-      "summary": "Les évolutions du commerce de détail, notamment la montée du e-commerce, pourraient réduire la demande en surfaces commerciales physiques."
+      "summary": "Les évolutions du commerce de détail, notamment la montée du e-commerce, pourraient réduire la demande en surfaces commerciales physiques.",
+      "score": 4
     },
     {
       "title": "Risques liés aux baux fonciers",
@@ -265,7 +272,8 @@
       "severity": 3,
       "score_rationale": "Six centres sont concernés par des baux fonciers, dont certains expirent dans les prochaines années (ex. : Myrtle Beach en 2027). Le renouvellement ou la reconduction n'est pas automatique, ce qui crée une incertitude sur la pérennité de certains actifs. Le document les mentionne spécifiquement avec des dates précises.",
       "trend": "stable",
-      "summary": "L'expiration de baux fonciers pourrait menacer la détention ou la valeur de certains centres commerciaux."
+      "summary": "L'expiration de baux fonciers pourrait menacer la détention ou la valeur de certains centres commerciaux.",
+      "score": 3
     },
     {
       "title": "Financement et liquidités pour acquisitions",
@@ -273,7 +281,8 @@
       "severity": 4,
       "score_rationale": "La stratégie de croissance repose sur des acquisitions et développements, comme illustré par les achats à Cleveland et Kansas City. Le recours à la trésorerie et à l'endettement (ex. : prêt de 115 M$ à Kansas City) souligne une dépendance au financement externe. Le risque est discuté dans MD&A.",
       "trend": "stable",
-      "summary": "La capacité à financer de nouvelles acquisitions dépend des conditions de marché et de l'accès au capital, ce qui pourrait limiter la croissance."
+      "summary": "La capacité à financer de nouvelles acquisitions dépend des conditions de marché et de l'accès au capital, ce qui pourrait limiter la croissance.",
+      "score": 4
     },
     {
       "title": "Concentration géographique et touristique",
@@ -281,7 +290,8 @@
       "severity": 3,
       "score_rationale": "Les centres sont souvent situés près de destinations touristiques ou d'autoroutes. Cela les expose aux chocs liés au tourisme (ex. : pandémies, conditions météo, événements géopolitiques). Le document mentionne cette localisation comme un atout, mais elle constitue aussi une vulnérabilité.",
       "trend": "stable",
-      "summary": "Une baisse du trafic touristique ou automobile pourrait réduire l'affluence et les ventes des locataires, affectant les revenus locatifs."
+      "summary": "Une baisse du trafic touristique ou automobile pourrait réduire l'affluence et les ventes des locataires, affectant les revenus locatifs.",
+      "score": 3
     }
   ],
   "_iterative_refinement": {
@@ -294,7 +304,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -539,9 +549,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.310140+00:00",
     "fetched_at": "2026-05-21T02:17:14.310141+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.823Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.820Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/skt.json",
     "enrich_root": "v2-pipeline-enrich/skt.json",

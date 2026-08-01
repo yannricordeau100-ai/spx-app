@@ -69,8 +69,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 0,
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -97,8 +101,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 0,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -117,11 +125,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.6 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -140,11 +152,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 7.9 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,11 +179,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -186,33 +206,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.04,
-        0.03,
-        0.04,
-        0.04
+        40,
+        30,
+        40,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -241,9 +270,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 0,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 0
     }
   ],
   "ai_positioning": {
@@ -257,16 +284,16 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques de cybersécurité, notamment des attaques de pirates informatiques, qui pourraient avoir un impact significatif sur ses opérations et sa réputation. Le Comité d'audit du Conseil d'administration supervise les risques de cybersécurité avec des mises à jour trimestrielles de la direction. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de cybersécurité, notamment des attaques de pirates informatiques, qui pourraient avoir un impact significatif sur ses opérations et sa réputation. Le Comité d'audit du Conseil d'administration supervise les risques de cybersécurité avec des mises à jour trimestrielles de la direction.",
       "trend": "stable",
       "summary": "La société est vulnérable aux attaques de cybersécurité, ce qui pourrait avoir des conséquences graves sur ses opérations et sa réputation. Un CISO avec expertise certifiée supervise la stratégie de cybersécurité à l'échelle de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La société opère dans un marché très concurrentiel de la franchise hôtelière avec de nombreux acteurs présents. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché très concurrentiel de la franchise hôtelière avec de nombreux acteurs présents.",
       "trend": "up",
       "summary": "La concurrence accrue sur le marché de la franchise hôtelière pourrait avoir un impact négatif sur les résultats de la société.",
       "score": 3
@@ -275,25 +302,25 @@
       "title": "Régulation",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "La société est soumise à des réglementations et des lois qui peuvent varier selon les pays et les régions. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations et des lois qui peuvent varier selon les pays et les régions.",
       "trend": "stable",
       "summary": "Les changements réglementaires pourraient avoir un impact sur les opérations de la société, mais cela semble être un risque mineur.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Litige",
       "category": "Litige",
       "severity": 1,
-      "score_rationale": "La société n'est pas partie à des litiges importants. La direction et les conseillers juridiques ne s'attendent pas à ce que l'issue ultime de tout litige en cours ait un effet négatif significatif sur la situation financière ou les résultats d'exploitation. (score par défaut, à affiner)",
+      "score_rationale": "La société n'est pas partie à des litiges importants. La direction et les conseillers juridiques ne s'attendent pas à ce que l'issue ultime de tout litige en cours ait un effet négatif significatif sur la situation financière ou les résultats d'exploitation.",
       "trend": "down",
       "summary": "Les litiges mineurs ne semblent pas avoir un impact significatif sur les opérations de la société.",
-      "score": 3
+      "score": 1
     },
     {
       "title": "Géopolitique",
       "category": "Géopolitique",
       "severity": 3,
-      "score_rationale": "La société opère dans de nombreux pays avec une croissance internationale (130 hôtels supplémentaires au niveau international) et est donc exposée aux risques géopolitiques. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans de nombreux pays avec une croissance internationale (130 hôtels supplémentaires au niveau international) et est donc exposée aux risques géopolitiques.",
       "trend": "up",
       "summary": "Les risques géopolitiques pourraient avoir un impact sur les opérations de la société, notamment dans les pays où elle est présente.",
       "score": 3
@@ -302,19 +329,19 @@
       "title": "Réputation",
       "category": "Réputation",
       "severity": 4,
-      "score_rationale": "La réputation de la société est cruciale pour son succès en tant que franchisor, et tout incident ou scandale pourrait avoir un impact négatif sur ses opérations. (score par défaut, à affiner)",
+      "score_rationale": "La réputation de la société est cruciale pour son succès en tant que franchisor, et tout incident ou scandale pourrait avoir un impact négatif sur ses opérations.",
       "trend": "stable",
       "summary": "La société doit maintenir une bonne réputation pour attirer et conserver des franchisés et des clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Capital",
       "category": "Capital",
       "severity": 2,
-      "score_rationale": "La société a besoin de capitaux pour financer ses opérations et ses projets de développement, notamment ses investissements stratégiques dans les hôtels en propriété et les franchises. (score par défaut, à affiner)",
+      "score_rationale": "La société a besoin de capitaux pour financer ses opérations et ses projets de développement, notamment ses investissements stratégiques dans les hôtels en propriété et les franchises.",
       "trend": "stable",
       "summary": "La société semble avoir accès à des capitaux via ses flux de trésorerie d'exploitation et sa capacité d'emprunt disponible, mais les changements dans les conditions de marché pourraient avoir un impact sur sa capacité à lever des fonds.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -362,7 +389,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -510,6 +537,91 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CHH",
+    "extracted_at": "2026-06-01T03:05:55Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Franchise and Management Fees",
+        "period_type": "quarter",
+        "history": [
+          143.41,
+          145.068,
+          179.803,
+          177.086,
+          188.237,
+          193.777
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q1 2025",
+          "Q2 2024",
+          "Q2 2025",
+          "Q3 2024",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:55Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          331.949,
+          332.86,
+          435.156,
+          426.443,
+          427.964,
+          447.34
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q1 2025",
+          "Q2 2024",
+          "Q2 2025",
+          "Q3 2024",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:55Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Diluted EPS",
+        "period_type": "quarter",
+        "history": [
+          0.62,
+          0.94,
+          1.8,
+          1.75,
+          3.86,
+          3.86
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q1 2025",
+          "Q2 2024",
+          "Q2 2025",
+          "Q3 2024",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "€",
+        "_extracted_at": "2026-06-01T03:05:55Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CHH",
     "ranks": {
@@ -522,15 +634,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.238396+00:00",
     "fetched_at": "2026-05-21T02:17:14.238397+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.367Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.808Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/chh.json",
     "enrich_root": "v2-pipeline-enrich/chh.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

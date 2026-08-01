@@ -1,6 +1,6 @@
 {
   "ticker": "JBTM",
-  "name": "JBT Marel Corporation",
+  "name": "JBT Marel",
   "sector": "Industrie",
   "subsector": "Machinery & Equipment",
   "tagline": "Transforming the future of food with advanced processing solutions",
@@ -44,7 +44,7 @@
       "is_short_history": false,
       "_validation": "Unité corrigée de Mds $ à M $ (valeur de 3,798.2M $ confirmée en source)",
       "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -72,7 +72,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Format de valeur normalisé (35.1 au lieu de 35.1%), unité maintenue en %, confirmé en source (Gross profit margin 35.1% vs 36.5%)",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -100,7 +100,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée de Mds $ à M $ (valeur de 600.4M $ confirmée en source), +103.5% confirmé (305.4M augmentation)",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -120,11 +120,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.8 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -143,11 +147,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.05 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -166,11 +174,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.19 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -189,33 +201,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.88 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "-86.2%",
       "history": [
-        0.07,
-        0.48,
-        1.23,
-        0.17
+        70,
+        480,
+        1230,
+        170
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -229,7 +250,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.4,
         0.4,
@@ -242,7 +263,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -257,7 +278,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0208,
@@ -270,7 +291,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -285,7 +306,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -298,7 +319,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -313,7 +334,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.07,
@@ -326,7 +347,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -353,9 +374,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Unité corrigée de Mds $ à M $, signal détaillé basé sur MD&A breakdown de la croissance",
-      "_source_month": "janvier 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Unité corrigée de Mds $ à M $, signal détaillé basé sur MD&A breakdown de la croissance"
     }
   ],
   "ai_positioning": {
@@ -371,7 +390,8 @@
       "severity": 4,
       "score_rationale": "La perte de contrats importants et la volatilité de la demande dans les industries des biens d'équipement pourraient avoir un impact négatif sur les résultats financiers de l'entreprise, comme mentionné dans l'Item 1A. La société est exposée à des risques liés à la fluctuation de la demande et à la concurrence.",
       "trend": "stable",
-      "summary": "La perte de contrats importants et les variations de la demande pourraient affecter négativement les résultats financiers de l'entreprise."
+      "summary": "La perte de contrats importants et les variations de la demande pourraient affecter négativement les résultats financiers de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Cyberattaques et interruptions informatiques",
@@ -379,7 +399,8 @@
       "severity": 5,
       "score_rationale": "Les cyberattaques pourraient désactiver l'infrastructure informatique de l'entreprise et créer une incapacité significative à opérer, comme mentionné dans l'Item 1A. Cela pourrait avoir un impact existentiel sur l'entreprise.",
       "trend": "up",
-      "summary": "Les cyberattaques pourraient avoir un impact dévastateur sur les opérations de l'entreprise."
+      "summary": "Les cyberattaques pourraient avoir un impact dévastateur sur les opérations de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Faiblesses internes et contrôles",
@@ -387,7 +408,8 @@
       "severity": 4,
       "score_rationale": "Les faiblesses internes, telles que les problèmes de contrôle interne, pourraient entraîner des erreurs de reporting financier et des pertes financières, comme mentionné dans l'Item 1A.",
       "trend": "new",
-      "summary": "Les faiblesses internes pourraient affecter la fiabilité des états financiers de l'entreprise."
+      "summary": "Les faiblesses internes pourraient affecter la fiabilité des états financiers de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et sanctions",
@@ -395,7 +417,8 @@
       "severity": 4,
       "score_rationale": "Les opérations de l'entreprise et les sanctions internationales pourraient avoir un impact négatif sur les résultats financiers de l'entreprise, comme mentionné dans l'Item 1A.",
       "trend": "up",
-      "summary": "Les risques géopolitiques et les sanctions pourraient affecter les opérations de l'entreprise."
+      "summary": "Les risques géopolitiques et les sanctions pourraient affecter les opérations de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Pertes de personnel clé",
@@ -403,7 +426,8 @@
       "severity": 3,
       "score_rationale": "La perte de personnel clé pourrait affecter la capacité de l'entreprise à maintenir ses opérations et à atteindre ses objectifs d'intégration post-acquisition, comme mentionné dans l'Item 1A.",
       "trend": "stable",
-      "summary": "La perte de personnel clé pourrait avoir un impact négatif sur les opérations et l'intégration de l'entreprise."
+      "summary": "La perte de personnel clé pourrait avoir un impact négatif sur les opérations et l'intégration de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Risques de santé et sécurité au travail",
@@ -411,7 +435,8 @@
       "severity": 3,
       "score_rationale": "Les activités de fabrication et de maintenance de l'entreprise pourraient entraîner des risques pour la santé et la sécurité des employés, comme mentionné dans l'Item 1A.",
       "trend": "stable",
-      "summary": "Les risques de santé et sécurité pourraient affecter les opérations et la réputation de l'entreprise."
+      "summary": "Les risques de santé et sécurité pourraient affecter les opérations et la réputation de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Dépendance à la clientèle",
@@ -419,7 +444,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise dépend fortement de ses relations à long terme avec les clients pour ses revenus récurrents (environ 50% du total), et la perte de ces relations pourrait avoir un impact négatif sur les résultats financiers de l'entreprise, comme mentionné dans l'Item 1A.",
       "trend": "stable",
-      "summary": "La dépendance à la clientèle pourrait affecter les résultats financiers de l'entreprise."
+      "summary": "La dépendance à la clientèle pourrait affecter les résultats financiers de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risques de chaîne d'approvisionnement",
@@ -427,7 +453,8 @@
       "severity": 3,
       "score_rationale": "Les retards ou les interruptions dans la chaîne d'approvisionnement, incluant les augmentations de prix des matières premières et les pénuries de main-d'oeuvre qualifiée, pourraient avoir un impact négatif sur les opérations de l'entreprise, comme mentionné dans l'Item 1A.",
       "trend": "stable",
-      "summary": "Les risques de chaîne d'approvisionnement pourraient affecter les opérations et les marges de l'entreprise."
+      "summary": "Les risques de chaîne d'approvisionnement pourraient affecter les opérations et les marges de l'entreprise.",
+      "score": 3
     }
   ],
   "governance": {
@@ -533,7 +560,7 @@
   "_segments_fetched_at": "2026-05-06T19:33:38.303800+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:03:55.551583+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:04Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -560,7 +587,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:51Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:41Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Machines & équipements",
   "enrich_description": {
     "ticker": "JBTM",
@@ -669,9 +696,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.531959+00:00",
     "fetched_at": "2026-05-21T01:44:37.531960+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.621Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.333Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/jbtm.json",
     "enrich_root": "v2-pipeline-enrich/jbtm.json",

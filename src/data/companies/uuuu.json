@@ -20,24 +20,29 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "-12.5%",
       "history": [
-        0.01,
-        0.04,
-        0.08,
-        0.07
+        10,
+        40,
+        80,
+        70
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.07 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -56,11 +61,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.09 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -79,11 +88,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de -0.1 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -102,11 +115,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -0.38 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -125,11 +142,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de -0.14 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -148,55 +169,69 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.41 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.68,
-      "unit": "Mds €",
+      "value": 680,
+      "unit": "M €",
       "yoy": "",
       "history": [
         0,
         0,
         0,
-        0.68
+        680
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.68 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
-        0.06,
-        0.06,
-        0.04,
-        0.06
+        60,
+        60,
+        40,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -211,52 +246,52 @@
       "title": "Dépendance envers les approbations gouvernementales",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Le développement du projet Vara Mada dépend de l'approbation du gouvernement de Madagascar pour finaliser les conditions stipulées dans le mémorandum d'accord. Un retard ou un échec dans l'obtention de ces approbations pourrait compromettre gravement les activités de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le développement du projet Vara Mada dépend de l'approbation du gouvernement de Madagascar pour finaliser les conditions stipulées dans le mémorandum d'accord. Un retard ou un échec dans l'obtention de ces approbations pourrait compromettre gravement les activités de la société.",
       "trend": "stable",
       "summary": "La société dépend fortement de l'approbation du gouvernement de Madagascar pour le projet Vara Mada.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation minière",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les activités de la société sont soumises à des réglementations strictes de la NRC (Commission de régulation nucléaire) concernant l'extraction et le traitement des minerais radioactifs. Un changement dans ces réglementations pourrait avoir un impact négatif sur les activités de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les activités de la société sont soumises à des réglementations strictes de la NRC (Commission de régulation nucléaire) concernant l'extraction et le traitement des minerais radioactifs. Un changement dans ces réglementations pourrait avoir un impact négatif sur les activités de la société.",
       "trend": "stable",
       "summary": "La société est soumise à des réglementations strictes qui pourraient changer et impacter ses activités.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Besoins de financement importants",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La société a besoin de financements substantiels pour développer le projet Vara Mada et avancer les projets d'exploration. Un échec dans l'obtention de ces financements pourrait mettre en péril la viabilité et l'expansion de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société a besoin de financements substantiels pour développer le projet Vara Mada et avancer les projets d'exploration. Un échec dans l'obtention de ces financements pourrait mettre en péril la viabilité et l'expansion de la société.",
       "trend": "up",
       "summary": "La société a besoin de financements importants pour développer ses projets.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de volatilité des prix des matières premières",
       "category": "Marché",
       "severity": 4,
-      "score_rationale": "La rentabilité de la société dépend directement des prix du marché de l'uranium, du vanadium, des éléments de terres rares et des minéraux lourds. Les fluctuations des prix pourraient avoir un impact significatif sur les résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La rentabilité de la société dépend directement des prix du marché de l'uranium, du vanadium, des éléments de terres rares et des minéraux lourds. Les fluctuations des prix pourraient avoir un impact significatif sur les résultats financiers.",
       "trend": "stable",
       "summary": "La profitabilité de la société est directement liée aux prix de marché volatiles de l'uranium et des terres rares.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et opérationnels à Madagascar",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "La société opère dans un environnement géopolitique complexe à Madagascar. Des événements géopolitiques ou des instabilités pourraient interrompre les développements de projet et les activités de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un environnement géopolitique complexe à Madagascar. Des événements géopolitiques ou des instabilités pourraient interrompre les développements de projet et les activités de la société.",
       "trend": "stable",
       "summary": "La société opère dans des pays à risque géopolitique qui pourraient impacter ses activités.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Obligations de décommissionnement et d'assainissement environnemental",
       "category": "Environnement",
       "severity": 3,
-      "score_rationale": "La société a enregistré des passifs d'assainissement estimés à 50,5 millions USD pour le décommissionnement du moulin White Mesa et d'autres propriétés. Les coûts réels pourraient dépasser les estimations en raison des incertitudes environnementales. (score par défaut, à affiner)",
+      "score_rationale": "La société a enregistré des passifs d'assainissement estimés à 50,5 millions USD pour le décommissionnement du moulin White Mesa et d'autres propriétés. Les coûts réels pourraient dépasser les estimations en raison des incertitudes environnementales.",
       "trend": "stable",
       "summary": "Les obligations d'assainissement environnemental pourraient dépasser les estimations actuelles de 50,5 millions USD.",
       "score": 3
@@ -265,7 +300,7 @@
       "title": "Risques de litige et de conformité réglementaire",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "La société peut être impliquée dans des litiges relatifs aux droits miniers, aux contrats ou à la conformité réglementaire. Un litige pourrait avoir un impact négatif sur les activités et la réputation de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être impliquée dans des litiges relatifs aux droits miniers, aux contrats ou à la conformité réglementaire. Un litige pourrait avoir un impact négatif sur les activités et la réputation de la société.",
       "trend": "stable",
       "summary": "La société peut être impliquée dans des litiges qui pourraient impacter ses activités et sa réputation.",
       "score": 3
@@ -410,9 +445,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.324225+00:00",
     "fetched_at": "2026-05-21T02:17:14.324226+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.059Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.166Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/uuuu.json",
     "enrich_root": "v2-pipeline-enrich/uuuu.json",

@@ -21,8 +21,8 @@
       "name_fr": "Revenu mensuel moyen par animal",
       "name_en": "Monthly average revenue per pet",
       "explanation": "Revenu moyen généré par animal de compagnie par mois à partir des paiements d'abonnement",
-      "value": 1439305000,
-      "unit": "$",
+      "value": 1.439,
+      "unit": "Mds $",
       "yoy": "+11.9%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,16 @@
       "signal": "Croissance du revenu par animal",
       "description": "Revenu moyen généralisé par animal par mois, calculé comme les montants facturés pour les abonnements divisés par le nombre total de mois d'animaux d'abonnement",
       "history": [
-        188230000,
-        242667000,
-        303956000,
-        383936000,
-        502028000,
-        698991000,
-        905179000,
-        1108605000,
-        1285684000,
-        1439305000
+        0.188,
+        0.243,
+        0.304,
+        0.384,
+        0.502,
+        0.699,
+        0.905,
+        1.109,
+        1.286,
+        1.439
       ],
       "last_data_date": "2026-03-31",
       "is_wow": true,
@@ -49,7 +49,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:45.429420+00:00",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "raw -> Mds $"
     },
     {
       "short": "Total pets enrolled",
@@ -119,102 +120,126 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.44 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+300.0%",
       "history": [
-        -0.04,
-        -0.04,
-        -0.01,
-        0.02
+        -40,
+        -40,
+        -10,
+        20
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.02 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.92,
-      "unit": "Mds €",
+      "value": 920,
+      "unit": "M €",
       "yoy": "+13.6%",
       "history": [
-        0.67,
-        0.78,
-        0.81,
-        0.92
+        670,
+        780,
+        810,
+        920
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "-15.4%",
       "history": [
-        0.07,
-        0.13,
-        0.13,
-        0.11
+        70,
+        130,
+        130,
+        110
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.11 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "-12.5%",
       "history": [
-        0.07,
-        0.15,
-        0.16,
-        0.14
+        70,
+        150,
+        160,
+        140
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.14 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -258,7 +283,8 @@
       "score_rationale": "Le risque est énoncé dans le résumé des facteurs de risque matériels: pertes nettes significatives depuis la création et capacité incertaine à réaliser et maintenir la rentabilité. Le langage est alarmant et le risque est structurel. Risque existentiel pour la viabilité de l'entreprise.",
       "trend": "stable",
       "summary": "La société affiche des pertes importantes depuis sa création et pourrait ne jamais devenir rentable, menaçant sa viabilité à long terme.",
-      "_validation": "Confirmé dans Item 1A Risk Factors: 'Our significant net losses since inception, ability to achieve and maintain profitability'"
+      "_validation": "Confirmé dans Item 1A Risk Factors: 'Our significant net losses since inception, ability to achieve and maintain profitability'",
+      "score": 5
     },
     {
       "title": "Croissance des revenus non durable",
@@ -267,7 +293,8 @@
       "score_rationale": "Le risque figure dans le résumé: 'our ability to maintain our rate of revenue growth in the future'. Le langage indique l'incertitude sur la pérennité de la croissance passée. Risque central lié aux pressions concurrentielles et aux conditions de marché.",
       "trend": "stable",
       "summary": "La forte croissance passée des revenus pourrait ne pas se maintenir en raison de la concurrence, des conditions économiques ou d'une saturation du marché.",
-      "_validation": "Confirmé dans Item 1A Risk Factors summary"
+      "_validation": "Confirmé dans Item 1A Risk Factors summary",
+      "score": 5
     },
     {
       "title": "Coûts d'acquisition de membres élevés",
@@ -276,7 +303,8 @@
       "score_rationale": "Le KPI Average Pet Acquisition Cost montre une augmentation de 22.1% YoY ($235 à $288), avec un profil de dépenses massives en acquisition. Le risque de non-récupération de ces coûts par les revenus futurs est mentionné dans le résumé des risques.",
       "trend": "stable",
       "summary": "Les dépenses massives pour attirer de nouveaux animaux de compagnie pourraient ne pas être compensées par les revenus futurs, mettant sous pression la rentabilité.",
-      "_validation": "Confirmé par les KPIs: PAC en hausse de 22.1% et le résumé des risques mention les incertitudes dans 'new pet acquisition spend'"
+      "_validation": "Confirmé par les KPIs: PAC en hausse de 22.1% et le résumé des risques mention les incertitudes dans 'new pet acquisition spend'",
+      "score": 5
     },
     {
       "title": "Dépendance aux partenaires territoriaux",
@@ -285,7 +313,8 @@
       "score_rationale": "Le MD&A décrit en détail le rôle des Territory Partners comme entrepreneurs indépendants chargés de cultiver les relations vétérinaires. Le risque est opérationnel mais pas existentiel, car ils sont des contractuels indépendants dont l'efficacité peut varier.",
       "trend": "stable",
       "summary": "La société dépend fortement de partenaires indépendants pour vendre ses abonnements, ce qui crée un risque opérationnel si ces relations faiblissent.",
-      "_validation": "Confirmé dans Item 1A Risk Factors: 'Our reliance on Territory Partners, whom we engage as independent contractors'"
+      "_validation": "Confirmé dans Item 1A Risk Factors: 'Our reliance on Territory Partners, whom we engage as independent contractors'",
+      "score": 4
     },
     {
       "title": "Régulation des prix d'abonnement",
@@ -294,7 +323,8 @@
       "score_rationale": "Mentionné dans le résumé des risques concernant l'approbation réglementaire pour modifier les prix. Le texte cite les retards et les risques d'invalidation des augmentations, ce qui a un impact direct sur les marges.",
       "trend": "stable",
       "summary": "La société doit obtenir l'approbation des régulateurs pour ajuster ses prix, ce qui peut retarder les hauses nécessaires et nuire à sa rentabilité.",
-      "_validation": "Confirmé dans Item 1A Risk Factors summary mentionnant les incertitudes réglementaires"
+      "_validation": "Confirmé dans Item 1A Risk Factors summary mentionnant les incertitudes réglementaires",
+      "score": 4
     },
     {
       "title": "Cyberattaques et sécurité des données",
@@ -303,7 +333,8 @@
       "score_rationale": "Le 10-K mentionne la nécessité de maintenir des contrôles internes efficaces contre les cybermenaces. Risque standard pour une entreprise technologique dépendante des données sensibles des membres.",
       "trend": "stable",
       "summary": "Une faille de sécurité pourrait compromettre les données sensibles des membres et nuire gravement à la confiance et à la réputation de la société.",
-      "_validation": "Confirmé dans Item 1A Risk Factors mentionnant les exigences de sécurité"
+      "_validation": "Confirmé dans Item 1A Risk Factors mentionnant les exigences de sécurité",
+      "score": 4
     },
     {
       "title": "Dépendance aux modèles analytiques pour la tarification",
@@ -312,7 +343,8 @@
       "score_rationale": "Le MD&A décrit l'approche data-driven et la tarification basée sur des modèles analytiques utilisant les caractéristiques uniques de chaque animal. Les erreurs de modélisation pourraient conduire à une sous-tarification et à des pertes sur les polices.",
       "trend": "stable",
       "summary": "Si les modèles prédictifs de tarification sont inexacts ou basés sur des hypothèses erronées, la société pourrait sous-évaluer ses coûts et subir des pertes importantes sur ses polices d'assurance.",
-      "_validation": "Confirmé par la description du modèle d'affaires data-driven mentionnant la tarification basée sur les caractéristiques uniques de chaque animal"
+      "_validation": "Confirmé par la description du modèle d'affaires data-driven mentionnant la tarification basée sur les caractéristiques uniques de chaque animal",
+      "score": 4
     }
   ],
   "governance": {
@@ -346,7 +378,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -493,6 +525,148 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "TRUP",
+    "extracted_at": "2026-06-01T09:24:55Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Monthly average revenue per pet",
+        "period_type": "quarter",
+        "history": [
+          62.97,
+          63.69,
+          63.6,
+          63.89,
+          64.21,
+          64.24,
+          64.09,
+          63.58,
+          64,
+          64.63,
+          69.79,
+          70.76,
+          71.94,
+          71.72,
+          78.73,
+          79.84
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T09:24:55Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total pets enrolled",
+        "period_type": "quarter",
+        "history": [
+          943854,
+          1024226,
+          1104376,
+          1176778,
+          1267253,
+          1348145,
+          1439605,
+          1616865,
+          1679659,
+          1712177,
+          1708017,
+          1699643,
+          1688903,
+          1677570,
+          1660455,
+          1654414
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "count",
+        "_extracted_at": "2026-06-01T09:24:55Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Average pet acquisition cost",
+        "period_type": "quarter",
+        "history": [
+          279,
+          284,
+          280,
+          306,
+          301,
+          305,
+          291,
+          247,
+          241,
+          232,
+          207,
+          219,
+          227,
+          231,
+          272,
+          278
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T09:24:55Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "TRUP",
     "ranks": {
@@ -505,15 +679,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.320032+00:00",
     "fetched_at": "2026-05-21T02:17:14.320033+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.684Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.745Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/trup.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

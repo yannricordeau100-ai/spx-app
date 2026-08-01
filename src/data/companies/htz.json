@@ -84,11 +84,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 8.5 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -107,34 +111,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.75 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+100.8%",
       "history": [
-        2.08,
-        0.77,
-        -1.21,
-        0.01
+        2080,
+        770,
+        -1210,
+        10
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.01 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,11 +166,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 22.31 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,33 +193,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 19.33 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.56,
-      "unit": "Mds €",
+      "value": 560,
+      "unit": "M €",
       "yoy": "-5.1%",
       "history": [
-        0.94,
-        0.76,
-        0.59,
-        0.56
+        940,
+        760,
+        590,
+        560
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.56 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -226,13 +252,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Risk",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Risk"
     }
   ],
   "ai_positioning": {
-    "stance": "exploratory",
+    "stance": "absent",
     "summary": "HTZ mentions potential incorporation of AI solutions into business operations and acknowledges associated risks including reputational harm, competitive harm and legal liability.",
     "evidence": [
       "We may incorporate AI solutions into our business, and we may leverage AI, including generative AI, into our business operations."
@@ -246,7 +270,8 @@
       "severity": 4,
       "score_rationale": "HTZ carries significant variable-rate debt (SOFR, EURIBOR based). A 1% rate increase reduces pre-tax operating results by $48M annually. Material impact given debt-heavy capital structure.",
       "trend": "stable",
-      "summary": "Interest rate exposure on $48M+ of debt portfolio creates material financial risk. HTZ uses interest rate swaps and caps to manage exposure, but rising rates significantly impact profitability."
+      "summary": "Interest rate exposure on $48M+ of debt portfolio creates material financial risk. HTZ uses interest rate swaps and caps to manage exposure, but rising rates significantly impact profitability.",
+      "score": 4
     },
     {
       "title": "Foreign Currency Exchange Risk",
@@ -254,7 +279,8 @@
       "severity": 2,
       "score_rationale": "FX exposure to Euro, CAD, AUD, GBP on intercompany loans. 1% FX movement impacts pre-tax results by ~$4M. Lower severity due to natural hedging through local operations.",
       "trend": "stable",
-      "summary": "FX exposure managed primarily through incurring operating and financing expenses in local currencies, with estimated $4M impact from 1% FX movement on intercompany balances."
+      "summary": "FX exposure managed primarily through incurring operating and financing expenses in local currencies, with estimated $4M impact from 1% FX movement on intercompany balances.",
+      "score": 2
     },
     {
       "title": "AI Integration and Governance",
@@ -262,7 +288,8 @@
       "severity": 3,
       "score_rationale": "HTZ may incorporate AI/generative AI into operations. Risks include reputational harm, competitive disadvantage, legal liability and operational failures. Language indicates acknowledged but not yet material concern.",
       "trend": "up",
-      "summary": "HTZ acknowledges potential integration of AI solutions but risks remain exploratory. Must address governance, transparency and liability concerns as AI adoption progresses."
+      "summary": "HTZ acknowledges potential integration of AI solutions but risks remain exploratory. Must address governance, transparency and liability concerns as AI adoption progresses.",
+      "score": 3
     },
     {
       "title": "Internal Control Over Financial Reporting",
@@ -270,7 +297,8 @@
       "severity": 3,
       "score_rationale": "HTZ notes inherent limitations in internal controls including human error, circumvention risks and fraud potential. Material weakness would impact financial reporting reliability and regulatory compliance.",
       "trend": "stable",
-      "summary": "Effective internal controls are essential to financial reporting accuracy. HTZ acknowledges inherent limitations and must maintain adequate controls to prevent misstatement and fraud."
+      "summary": "Effective internal controls are essential to financial reporting accuracy. HTZ acknowledges inherent limitations and must maintain adequate controls to prevent misstatement and fraud.",
+      "score": 3
     },
     {
       "title": "Competitive Pressures",
@@ -278,7 +306,8 @@
       "severity": 4,
       "score_rationale": "Car rental market is highly competitive with major players (Avis, Budget, Enterprise) and new entrants. Pricing pressure and market consolidation are ongoing concerns.",
       "trend": "stable",
-      "summary": "HTZ operates in competitive vehicle rental market. Must maintain service quality, pricing competitiveness and customer loyalty to preserve market position."
+      "summary": "HTZ operates in competitive vehicle rental market. Must maintain service quality, pricing competitiveness and customer loyalty to preserve market position.",
+      "score": 4
     }
   ],
   "governance": {
@@ -327,7 +356,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -343,7 +372,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.219Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.553Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/htz.json",
     "enrich_root": null,

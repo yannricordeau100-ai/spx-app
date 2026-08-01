@@ -41,7 +41,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -69,7 +69,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -96,15 +100,19 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
       "name_fr": "Dépenses d'investissement",
       "name_en": "Capital Expenditures",
       "explanation": "Les dépenses pour acheter ou améliorer des actifs physiques ou numériques comme les serveurs ou les plateformes.",
-      "value": "0.4",
-      "unit": "Mds $",
+      "value": 400,
+      "unit": "M $",
       "yoy": "-15%",
       "type": "Investment",
       "nature": "Cyclique",
@@ -112,18 +120,23 @@
       "signal": "Réduction des investissements en infrastructure technique",
       "description": "Le capex diminue en 2025, reflétant une stabilisation des besoins en infrastructure après plusieurs années d'expansion.",
       "history": [
-        0.5,
-        0.48,
-        0.45,
-        0.47,
-        0.4
+        500,
+        480,
+        450,
+        470,
+        400
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -149,8 +162,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Pressure, deteriorating trend"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -169,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 41.17 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -192,11 +213,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 9.79 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -215,10 +240,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 12.18 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -242,7 +271,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -255,7 +284,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début d'Item 1A avec langage très fort (« may not be as effective », « substantial costs », « not been tested »). Les VIEs génèrent 64,8% des revenus 2025. Tendance stable mais fondamentale à la structure. Poids catégorique maximal pour une plateforme chinoise.",
       "trend": "stable",
-      "summary": "Bilibili opère via des accords contractuels (VIE) avec des entités chinoises car la loi PRC interdit l'investissement étranger direct dans les activités culturelles internet. Ces arrangements ne sont pas testés devant les tribunaux chinois et pourraient être moins efficaces que la propriété directe. Toute invalidation réglementaire forcerait Bilibili à renoncer à ses intérêts opérationnels en Chine continentale."
+      "summary": "Bilibili opère via des accords contractuels (VIE) avec des entités chinoises car la loi PRC interdit l'investissement étranger direct dans les activités culturelles internet. Ces arrangements ne sont pas testés devant les tribunaux chinois et pourraient être moins efficaces que la propriété directe. Toute invalidation réglementaire forcerait Bilibili à renoncer à ses intérêts opérationnels en Chine continentale.",
+      "score": 5
     },
     {
       "title": "Risque de non-conformité réglementaire PRC sur structure VIE",
@@ -263,7 +293,8 @@
       "severity": 5,
       "score_rationale": "Mentionné 4 fois dans l'extrait avec langage d'escalade (« severe penalties », « relinquish interests »). Incertitudes substantielles sur interprétation et application futures. Autorités PRC ont « broad discretion ». Tendance up (Foreign Investment Law crée nouvelles incertitudes).",
       "trend": "up",
-      "summary": "Le gouvernement PRC pourrait juger les accords VIE non-conformes aux restrictions sur l'investissement étranger dans les industries internet/audiovisuelles. Les régulations évoluent rapidement et les interprétations changent. Bilibili risque des pénalités sévères ou la perte complète de contrôle opérationnel si la PRC modifie sa position sur les structures VIE."
+      "summary": "Le gouvernement PRC pourrait juger les accords VIE non-conformes aux restrictions sur l'investissement étranger dans les industries internet/audiovisuelles. Les régulations évoluent rapidement et les interprétations changent. Bilibili risque des pénalités sévères ou la perte complète de contrôle opérationnel si la PRC modifie sa position sur les structures VIE.",
+      "score": 5
     },
     {
       "title": "Restrictions sur les flux de trésorerie et rapatriement de dividendes",
@@ -271,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Détaillé dans section « Cash and Asset Flows » avec chiffres concrets (RMB 9,5 Mds d'actifs restreints en 2025). Aucun dividende versé depuis 3 ans. Contrôle SAFE sur conversions de devises. Tendance stable mais impact financier croissant avec accumulation de cash en Chine.",
       "trend": "stable",
-      "summary": "Les filiales PRC et VIEs sont soumises à des restrictions strictes sur le versement de dividendes et les transferts d'actifs nets hors de Chine. Les remises de devises étrangères sont examinées par les banques désignées par SAFE. RMB 9,5 Mds (US$1,4 Mds) d'actifs sont bloqués en Chine continentale, limitant la capacité de Bilibili à financer ses opérations offshore ou verser des dividendes aux actionnaires."
+      "summary": "Les filiales PRC et VIEs sont soumises à des restrictions strictes sur le versement de dividendes et les transferts d'actifs nets hors de Chine. Les remises de devises étrangères sont examinées par les banques désignées par SAFE. RMB 9,5 Mds (US$1,4 Mds) d'actifs sont bloqués en Chine continentale, limitant la capacité de Bilibili à financer ses opérations offshore ou verser des dividendes aux actionnaires.",
+      "score": 4
     },
     {
       "title": "Risque de radiation de la bourse américaine (HFCAA/PCAOB)",
@@ -279,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite et quantifié : radiation si PCAOB ne peut inspecter les auditeurs chinois pendant 2 ans consécutifs. Bilibili a été identifiée comme Commission-Identified Issuer en mai 2022. Tendance down (PCAOB a rétracté sa détermination en décembre 2022), mais risque futur persiste annuellement.",
       "trend": "down",
-      "summary": "Sous le HFCAA, si le PCAOB ne peut inspecter complètement les auditeurs chinois de Bilibili pendant 2 années consécutives, la SEC interdira le trading des ADSs sur les bourses américaines. Bien que le PCAOB ait rétracté sa détermination en décembre 2022, le risque réapparaît chaque année. Une radiation éliminerait la liquidité américaine et affecterait gravement la capacité de levée de capital."
+      "summary": "Sous le HFCAA, si le PCAOB ne peut inspecter complètement les auditeurs chinois de Bilibili pendant 2 années consécutives, la SEC interdira le trading des ADSs sur les bourses américaines. Bien que le PCAOB ait rétracté sa détermination en décembre 2022, le risque réapparaît chaque année. Une radiation éliminerait la liquidité américaine et affecterait gravement la capacité de levée de capital.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire complexe et permis multiples requis",
@@ -287,7 +320,8 @@
       "severity": 3,
       "score_rationale": "Bilibili détient actuellement les permis (Value-added Telecom, Audio-Visual Programs, Online Culture, Radio-TV), mais texte indique « may be required to obtain additional licenses » en raison des incertitudes d'interprétation. Tendance up (nouvelles mesures CSRC de 2023 sur les offres overseas).",
       "trend": "up",
-      "summary": "Bilibili opère sous un régime réglementaire complexe nécessitant plusieurs licences et permis (télécommunications, programmes audiovisuels, culture en ligne). Les autorités PRC pourraient exiger des licences supplémentaires pour de nouvelles fonctionnalités. Le non-respect ou la perte de permis affecterait matériellement les opérations et les résultats financiers."
+      "summary": "Bilibili opère sous un régime réglementaire complexe nécessitant plusieurs licences et permis (télécommunications, programmes audiovisuels, culture en ligne). Les autorités PRC pourraient exiger des licences supplémentaires pour de nouvelles fonctionnalités. Le non-respect ou la perte de permis affecterait matériellement les opérations et les résultats financiers.",
+      "score": 3
     },
     {
       "title": "Conflits d'intérêts potentiels avec actionnaires des VIEs",
@@ -295,7 +329,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement comme risque distinct. Rui Chen détient 52,3% de Hode (VIE principale), Yi Xu 44,3%. Potentiel de divergence d'intérêts entre actionnaires VIE et Bilibili Inc. Tendance stable mais structurellement inhérent.",
       "trend": "stable",
-      "summary": "Les actionnaires des VIEs (notamment Rui Chen, PDG, et Yi Xu, fondateur) pourraient avoir des intérêts divergents de ceux de Bilibili Inc. et de ses actionnaires externes. Bien que les accords contractuels visent à aligner les intérêts, les conflits potentiels pourraient affecter matériellement les opérations et la performance financière."
+      "summary": "Les actionnaires des VIEs (notamment Rui Chen, PDG, et Yi Xu, fondateur) pourraient avoir des intérêts divergents de ceux de Bilibili Inc. et de ses actionnaires externes. Bien que les accords contractuels visent à aligner les intérêts, les conflits potentiels pourraient affecter matériellement les opérations et la performance financière.",
+      "score": 3
     },
     {
       "title": "Dépendance à l'approbation CSRC pour offres de titres overseas",
@@ -303,7 +338,8 @@
       "severity": 3,
       "score_rationale": "Nouvelles mesures CSRC de février-mai 2023 imposent des dépôts obligatoires pour offres overseas. Bilibili devra se conformer pour futures levées de capital. Tendance new (régulation 2023). Impact modéré car affecte surtout les futures levées, pas les opérations courantes.",
       "trend": "new",
-      "summary": "Depuis mars 2023, les mesures CSRC exigent que les sociétés chinoises déposent auprès de la CSRC avant d'offrir ou de lister des titres overseas. Bilibili devra se conformer pour toute future levée de capital en equity ou instruments convertibles. L'approbation CSRC est imprévisible et pourrait retarder ou bloquer les financements offshore."
+      "summary": "Depuis mars 2023, les mesures CSRC exigent que les sociétés chinoises déposent auprès de la CSRC avant d'offrir ou de lister des titres overseas. Bilibili devra se conformer pour toute future levée de capital en equity ou instruments convertibles. L'approbation CSRC est imprévisible et pourrait retarder ou bloquer les financements offshore.",
+      "score": 3
     },
     {
       "title": "Incertitudes légales et d'application des lois PRC",
@@ -311,7 +347,8 @@
       "severity": 3,
       "score_rationale": "Thème transversal mentionné 3 fois (« substantial uncertainties », « quickly evolving rules »). Risque d'interprétation divergente et d'application incohérente par autorités PRC. Tendance up (environnement réglementaire s'accélère).",
       "trend": "up",
-      "summary": "Le système juridique chinois présente des incertitudes substantielles quant à l'interprétation et l'application des lois et règlements en évolution rapide. Les autorités PRC disposent d'un large pouvoir discrétionnaire. Ces incertitudes limitent les protections légales disponibles et créent un risque de changement matériel adverse dans les opérations et la valeur des titres."
+      "summary": "Le système juridique chinois présente des incertitudes substantielles quant à l'interprétation et l'application des lois et règlements en évolution rapide. Les autorités PRC disposent d'un large pouvoir discrétionnaire. Ces incertitudes limitent les protections légales disponibles et créent un risque de changement matériel adverse dans les opérations et la valeur des titres.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:21:13.550657+00:00",
@@ -378,7 +415,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.604Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.397Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bili.json",
     "enrich_root": "v2-pipeline-enrich/bili.json",

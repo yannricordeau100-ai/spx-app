@@ -40,7 +40,10 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Merger termination reimbursement",
@@ -84,11 +87,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.44 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -107,34 +114,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -1.18 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "-86.5%",
       "history": [
-        1.02,
-        0.84,
-        0.37,
-        0.05
+        1020,
+        840,
+        370,
+        50
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.05 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.21 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,33 +196,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "-15.0%",
       "history": [
-        0.17,
-        0.25,
-        0.2,
-        0.17
+        170,
+        250,
+        200,
+        170
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -230,9 +259,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Risk Management",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Risk Management"
     }
   ],
   "ai_positioning": {
@@ -248,7 +275,8 @@
       "severity": 4,
       "score_rationale": "Risque énoncé dès le résumé exécutif comme ayant un impact matériel sur les marques et résultats. Langage fort (« material adverse effect »). Tendance stable mais structurelle au secteur luxury. Poids élevé : compétitivité directe des trois marques dépend de l'agilité créative.",
       "trend": "stable",
-      "summary": "Capri doit répondre rapidement aux changements de préférences des consommateurs en matière de mode et de canaux de distribution. L'incapacité à anticiper les tendances (ex. : shift vers durabilité, digital-first, minimalisme vs. maximalism) pourrait éroder la pertinence des collections Versace, Jimmy Choo et Michael Kors et réduire les marges brutes."
+      "summary": "Capri doit répondre rapidement aux changements de préférences des consommateurs en matière de mode et de canaux de distribution. L'incapacité à anticiper les tendances (ex. : shift vers durabilité, digital-first, minimalisme vs. maximalism) pourrait éroder la pertinence des collections Versace, Jimmy Choo et Michael Kors et réduire les marges brutes.",
+      "score": 4
     },
     {
       "title": "Concurrence intense et érosion des marges brutes",
@@ -256,7 +284,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité comme risque majeur dans le résumé. Marché luxury hautement compétitif (LVMH, Kering, Richemont, etc.). Langage d'intensité moyenne-haute. Tendance up : le document note que le marché luxury a décliné 2% en 2024 pour la première fois en 15 ans, intensifiant la concurrence. Poids catégorie élevé pour groupe multi-marques.",
       "trend": "up",
-      "summary": "Les marchés où opère Capri (Amérique du Nord, EMEA, Asie) sont hautement compétitifs. La concentration du marché (top customers prennent plus de parts) et la réduction de la base de clients luxury (50M clients perdus en 2 ans) forcent Capri à défendre ses parts de marché, risquant une compression des marges brutes et une baisse de rentabilité."
+      "summary": "Les marchés où opère Capri (Amérique du Nord, EMEA, Asie) sont hautement compétitifs. La concentration du marché (top customers prennent plus de parts) et la réduction de la base de clients luxury (50M clients perdus en 2 ans) forcent Capri à défendre ses parts de marché, risquant une compression des marges brutes et une baisse de rentabilité.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs étrangers et disruptions logistiques",
@@ -264,7 +293,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement énoncé dans le résumé (« global sourcing activities, disruptions or delays »). Langage d'intensité moyenne. Tendance up : contexte géopolitique tendu (guerre Ukraine mentionnée, tensions commerciales). Poids élevé : Capri utilise principalement des contractors étrangers pour la fabrication.",
       "trend": "up",
-      "summary": "Capri dépend fortement de contractors de fabrication tiers et d'agents indépendants à l'étranger pour sourcer ses produits finis. Les disruptions ou retards de fabrication/expédition (crises géopolitiques, catastrophes naturelles, congestion logistique) pourraient impacter la disponibilité des produits et les délais de livraison, affectant les ventes et la satisfaction client."
+      "summary": "Capri dépend fortement de contractors de fabrication tiers et d'agents indépendants à l'étranger pour sourcer ses produits finis. Les disruptions ou retards de fabrication/expédition (crises géopolitiques, catastrophes naturelles, congestion logistique) pourraient impacter la disponibilité des produits et les délais de livraison, affectant les ventes et la satisfaction client.",
+      "score": 4
     },
     {
       "title": "Tarifs douaniers et restrictions commerciales sur importations",
@@ -272,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Risque cité en ouverture du forward-looking statement (« imposition or threat of imposition of new or additional duties, tariffs »). Langage d'intensité haute. Tendance up : contexte de tensions commerciales USA-Chine, potentiels changements de politique commerciale. Poids élevé : Capri importe massivement des produits finis.",
       "trend": "up",
-      "summary": "L'imposition ou la menace de nouveaux tarifs douaniers, droits ou restrictions commerciales sur les importations de produits Capri pourrait augmenter significativement les coûts de production et réduire les marges. Cela affecterait particulièrement Michael Kors (68% du chiffre d'affaires) et les importations depuis l'Asie."
+      "summary": "L'imposition ou la menace de nouveaux tarifs douaniers, droits ou restrictions commerciales sur les importations de produits Capri pourrait augmenter significativement les coûts de production et réduire les marges. Cela affecterait particulièrement Michael Kors (68% du chiffre d'affaires) et les importations depuis l'Asie.",
+      "score": 4
     },
     {
       "title": "Réduction du canal wholesale et consolidations partenaires",
@@ -280,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement énoncé dans le résumé (« reductions in our wholesale channel and/or consolidations, liquidations »). Langage d'intensité moyenne-haute. Tendance up : consolidation du retail luxury en cours (fermetures de magasins, fusions). Poids élevé : wholesale représente une part significative de la distribution (notamment pour Michael Kors).",
       "trend": "up",
-      "summary": "Capri distribue via des partenaires wholesale (grands magasins, specialty stores). Les consolidations, liquidations ou restructurations de ces partenaires (ex. : fermetures de Nordstrom, Saks, etc.) réduisent les points de vente et l'exposition des marques. Cela force Capri à augmenter les investissements en retail direct et e-commerce pour compenser."
+      "summary": "Capri distribue via des partenaires wholesale (grands magasins, specialty stores). Les consolidations, liquidations ou restructurations de ces partenaires (ex. : fermetures de Nordstrom, Saks, etc.) réduisent les points de vente et l'exposition des marques. Cela force Capri à augmenter les investissements en retail direct et e-commerce pour compenser.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et violations de données client/propriété intellectuelle",
@@ -288,7 +320,8 @@
       "severity": 4,
       "score_rationale": "Risque dédié dans le document (Item 1C Cybersecurity). Langage d'intensité moyenne. Tendance stable mais croissante dans le secteur. Poids élevé : Capri opère e-commerce pour 3 marques et collecte données clients sensibles. Réputation et conformité RGPD/CCPA en jeu.",
       "trend": "up",
-      "summary": "Les violations de cybersécurité ou de confidentialité des données clients pourraient endommager la réputation de Capri et ses marques, entraîner des poursuites légales et des amendes réglementaires (RGPD, CCPA). Les attaques contre les systèmes e-commerce ou les données de propriété intellectuelle (designs, collections) pourraient aussi compromettre l'avantage concurrentiel."
+      "summary": "Les violations de cybersécurité ou de confidentialité des données clients pourraient endommager la réputation de Capri et ses marques, entraîner des poursuites légales et des amendes réglementaires (RGPD, CCPA). Les attaques contre les systèmes e-commerce ou les données de propriété intellectuelle (designs, collections) pourraient aussi compromettre l'avantage concurrentiel.",
+      "score": 4
     },
     {
       "title": "Protection insuffisante de la propriété intellectuelle (marques, designs)",
@@ -296,7 +329,8 @@
       "severity": 3,
       "score_rationale": "Risque énoncé dans la section Tax, Legal and Regulatory (« may be unable to protect trademarks, copyrights and other intellectual property rights »). Langage d'intensité moyenne. Tendance stable. Poids moyen-élevé : les trois marques (Versace, Jimmy Choo, Michael Kors) sont des actifs IP critiques.",
       "trend": "stable",
-      "summary": "Capri pourrait être incapable de protéger efficacement ses marques déposées, droits d'auteur et autres droits de propriété intellectuelle contre la contrefaçon ou l'imitation. Inversement, des tiers pourraient alléguer que Capri enfreint leurs droits IP, entraînant des litiges coûteux et une dilution de la valeur des marques."
+      "summary": "Capri pourrait être incapable de protéger efficacement ses marques déposées, droits d'auteur et autres droits de propriété intellectuelle contre la contrefaçon ou l'imitation. Inversement, des tiers pourraient alléguer que Capri enfreint leurs droits IP, entraînant des litiges coûteux et une dilution de la valeur des marques.",
+      "score": 3
     },
     {
       "title": "Impairment de goodwill et actifs incorporels des marques",
@@ -304,7 +338,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement énoncé (« may incur significant goodwill and/or intangible asset impairment charges »). Langage d'intensité haute (« material adverse impact »). Tendance up : marché luxury en déclin 2024, réductions de revenus Versace (-20% YoY) et Jimmy Choo (-2% YoY) signalent des pressions de valorisation. Poids très élevé : goodwill et intangibles représentent une part majeure du bilan post-acquisitions.",
       "trend": "up",
-      "summary": "Capri a acquis Versace et Jimmy Choo à des valorisations élevées. La baisse du marché luxury (déclin 2% en 2024), la réduction de la base clients et les pressions concurrentielles pourraient forcer des charges de dépréciation significatives de goodwill ou d'actifs incorporels, impactant les résultats nets et les capitaux propres."
+      "summary": "Capri a acquis Versace et Jimmy Choo à des valorisations élevées. La baisse du marché luxury (déclin 2% en 2024), la réduction de la base clients et les pressions concurrentielles pourraient forcer des charges de dépréciation significatives de goodwill ou d'actifs incorporels, impactant les résultats nets et les capitaux propres.",
+      "score": 4
     }
   ],
   "governance": {
@@ -343,7 +378,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -423,6 +458,139 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CPRI",
+    "extracted_at": "2026-06-01T03:08:04Z",
+    "n_kpis": 4,
+    "kpis": [
+      {
+        "short": "Impairment losses",
+        "period_type": "quarter",
+        "history": [
+          33,
+          12,
+          11,
+          1,
+          0,
+          20,
+          43,
+          675
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q4 2021",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q3 2024",
+          "Q3 2025"
+        ],
+        "last_data_date": "2024-12-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:08:04Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Performance",
+        "nature": "Cyclique",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          1.3,
+          1.609,
+          1.412,
+          1.512,
+          1.291,
+          1.291,
+          1.079,
+          1.261
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q4 2021",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q3 2024",
+          "Q3 2025"
+        ],
+        "last_data_date": "2024-12-28",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T03:08:04Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          195,
+          331,
+          252,
+          236,
+          100,
+          100,
+          -38
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q4 2021",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q3 2024",
+          "Q3 2025"
+        ],
+        "last_data_date": "2024-12-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:08:04Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (CPRI)"
+        ]
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          200,
+          322,
+          224,
+          225,
+          90,
+          90,
+          23,
+          -28
+        ],
+        "history_periods": [
+          "Q3 2021",
+          "Q4 2021",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q3 2024",
+          "Q3 2025"
+        ],
+        "last_data_date": "2024-12-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:08:04Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CPRI",
     "ranks": {
@@ -435,14 +603,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.244156+00:00",
     "fetched_at": "2026-05-21T02:17:14.244157+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.763Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.261Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cpri.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

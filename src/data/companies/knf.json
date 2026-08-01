@@ -1,6 +1,6 @@
 {
   "ticker": "KNF",
-  "name": "Knife River Corporation",
+  "name": "Knife River",
   "sector": "Matériaux",
   "subsector": "Construction Materials",
   "tagline": "Leading aggregates-based construction materials and contracting services provider",
@@ -21,8 +21,8 @@
       "name_fr": "Backlog de services de contracting",
       "name_en": "Contracting Services Backlog",
       "explanation": "Montant des commandes en cours de réalisation pour services de contracting",
-      "value": 1032.1,
-      "unit": "M $",
+      "value": 1.032,
+      "unit": "Mds $",
       "yoy": "+38%",
       "type": "Demand",
       "nature": "Cyclique",
@@ -30,9 +30,9 @@
       "signal": "Augmentation significative du backlog",
       "description": "Le backlog de services de contracting représente le carnet de commandes confirmées à réaliser, dont 75% estimé en 2026",
       "history": [
-        662.2,
-        745.6,
-        1032.1
+        0.662,
+        0.746,
+        1.032
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -40,9 +40,13 @@
       "is_short_history": false,
       "ttm": 1131.25,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (millions, pas milliards). Valeur 1,032.1M confirmée dans source 10-K MD&A section Backlog.",
-      "period_type": "quarter",
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue.",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -61,57 +65,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.15 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "-20.0%",
       "history": [
-        0.12,
-        0.18,
-        0.2,
-        0.16
+        120,
+        180,
+        200,
+        160
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.16 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "-9.4%",
       "history": [
-        0.19,
-        0.3,
-        0.32,
-        0.29
+        190,
+        300,
+        320,
+        290
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.29 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Pressure, deteriorating trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Pressure, deteriorating trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -130,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 2.76 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.65 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,33 +202,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.22 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "-57.1%",
       "history": [
-        0.01,
-        0.26,
-        0.28,
-        0.12
+        10,
+        260,
+        280,
+        120
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.12 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -230,9 +265,7 @@
       "is_short_history": false,
       "story_category": "Marché",
       "ttm": 1131.25,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'. Signal enrichi avec pourcentage de projets publics (89%). Description enrichie avec détail de complétude 2026 (75%).",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'. Signal enrichi avec pourcentage de projets publics (89%). Description enrichie avec détail de complétude 2026 (75%)."
     }
   ],
   "ai_positioning": {
@@ -248,7 +281,8 @@
       "severity": 4,
       "score_rationale": "Environ 80% des revenus de services de contracting proviennent de projets du secteur public. La disponibilité du financement fédéral et étatique, notamment via l'IIJA, est critique. Au 31 octobre 2025, 46% des fonds IIJA n'avaient pas encore été distribués.",
       "trend": "stable",
-      "summary": "La société est exposée aux risques liés à la disponibilité des fonds publics pour ses projets."
+      "summary": "La société est exposée aux risques liés à la disponibilité des fonds publics pour ses projets.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -256,7 +290,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un marché compétitif de matériaux de construction et services de contracting, ce qui peut entraîner des pressions sur les prix et les marges.",
       "trend": "up",
-      "summary": "La concurrence accrue peut affecter la capacité de la société à maintenir ses parts de marché et ses marges."
+      "summary": "La concurrence accrue peut affecter la capacité de la société à maintenir ses parts de marché et ses marges.",
+      "score": 3
     },
     {
       "title": "Risques liés aux acquisitions",
@@ -264,7 +299,8 @@
       "severity": 4,
       "score_rationale": "La société a réalisé cinq acquisitions en 2025 pour 611.7M $, y compris Strata Corporation en mars 2025. Ces acquisitions apportent des risques d'intégration opérationnelle et de réalisation des synergies annoncées.",
       "trend": "new",
-      "summary": "Les acquisitions peuvent apporter des opportunités de croissance, mais également des risques liés à l'intégration et à la gestion."
+      "summary": "Les acquisitions peuvent apporter des opportunités de croissance, mais également des risques liés à l'intégration et à la gestion.",
+      "score": 4
     },
     {
       "title": "Dépendance à la demande de matériaux de construction",
@@ -272,7 +308,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux fluctuations de la demande de matériaux de construction et services de contracting, affectées par les cycles économiques et les budgets d'infrastructures gouvernementales.",
       "trend": "stable",
-      "summary": "La demande de matériaux de construction peut être affectée par les cycles économiques et les tendances du marché."
+      "summary": "La demande de matériaux de construction peut être affectée par les cycles économiques et les tendances du marché.",
+      "score": 4
     },
     {
       "title": "Risques liés à la dette",
@@ -280,7 +317,8 @@
       "severity": 3,
       "score_rationale": "Les acquisitions de 611.7M $ en 2025 et autres investissements peuvent augmenter le levier financier et les obligations de service de la dette.",
       "trend": "up",
-      "summary": "La dette peut être un outil de financement utile, mais également un risque si elle n'est pas gérée correctement."
+      "summary": "La dette peut être un outil de financement utile, mais également un risque si elle n'est pas gérée correctement.",
+      "score": 3
     },
     {
       "title": "Risques liés aux changements réglementaires",
@@ -288,7 +326,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux risques liés aux changements réglementaires dans les domaines environnemental, du travail et de la sécurité, qui peuvent affecter ses opérations et ses coûts.",
       "trend": "stable",
-      "summary": "Les changements réglementaires peuvent avoir un impact significatif sur les opérations de la société et ses coûts."
+      "summary": "Les changements réglementaires peuvent avoir un impact significatif sur les opérations de la société et ses coûts.",
+      "score": 3
     },
     {
       "title": "Risques liés à la gestion des ressources humaines",
@@ -296,7 +335,8 @@
       "severity": 2,
       "score_rationale": "La société dépend de la capacité à attirer et retenir du personnel qualifié dans le secteur de la construction. Les acquisitions de 2025 ont ajouté environ 30 ans de réserves d'agrégats mais nécessitent une intégration efficace du personnel.",
       "trend": "stable",
-      "summary": "La gestion des ressources humaines est cruciale pour le succès de la société, mais peut également être un risque si elle n'est pas gérée correctement."
+      "summary": "La gestion des ressources humaines est cruciale pour le succès de la société, mais peut également être un risque si elle n'est pas gérée correctement.",
+      "score": 2
     }
   ],
   "governance": {
@@ -338,7 +378,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -396,7 +436,6 @@
       "date": "2026-04-30"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-07T09:38:35.302896+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -433,6 +472,7 @@
     ],
     "total": 3.2
   },
+  "_ai_positioning_fetched_at": "2026-05-07T09:38:35.302896+00:00",
   "_segments_fetched_at": "2026-05-07T10:01:28.264698+00:00",
   "financial_snapshot": {
     "market_cap_usd": 5193545728,
@@ -649,7 +689,10 @@
             "source": "calc-KNF_2026-02-20.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Activité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -665,9 +708,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.274476+00:00",
     "fetched_at": "2026-05-21T02:17:14.274478+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.843Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.597Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/knf.json",
     "enrich_root": "v2-pipeline-enrich/knf.json",

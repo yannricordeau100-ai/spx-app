@@ -1,6 +1,6 @@
 {
   "ticker": "AUST",
-  "name": "Austin Gold Corp.",
+  "name": "Austin Gold",
   "sector": "Matériaux",
   "subsector": "Metals & Mining",
   "tagline": "Focused on the acquisition, exploration and evaluation of mineral resource properties primarily in the western United States",
@@ -110,7 +110,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base contracting, monitor structure"
     },
     {
@@ -179,9 +179,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -262,7 +266,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début de Item 1A avec langage très intensif (« high risk, speculative venture », « no certainty »). Répété plusieurs fois dans le document. Critique pour une junior explorer sans production. Poids catégorique majeur pour le secteur minier.",
       "trend": "stable",
-      "summary": "Austin Gold Corp. est une société d'exploration sans historique opérationnel ni production. Il n'existe aucune certitude que les dépenses d'exploration sur les propriétés Kelly Creek, Stockade Mountain et Lone Mountain aboutiront à des découvertes commerciales de quantités économiques d'or. Les estimations de ressources minérales sont basées sur des interprétations géologiques et peuvent nécessiter des révisions."
+      "summary": "Austin Gold Corp. est une société d'exploration sans historique opérationnel ni production. Il n'existe aucune certitude que les dépenses d'exploration sur les propriétés Kelly Creek, Stockade Mountain et Lone Mountain aboutiront à des découvertes commerciales de quantités économiques d'or. Les estimations de ressources minérales sont basées sur des interprétations géologiques et peuvent nécessiter des révisions.",
+      "score": 5
     },
     {
       "title": "Absence de flux de trésorerie opérationnel et dépendance au financement",
@@ -270,7 +275,8 @@
       "severity": 5,
       "score_rationale": "Mentionné explicitement comme risque majeur : « no source of operating cash flow » et « no assurance that acceptable additional funding will be available ». Langage direct et répété. Critique pour la viabilité à court/moyen terme. Poids élevé pour une junior explorer.",
       "trend": "stable",
-      "summary": "La Société n'a aucune source de flux de trésorerie opérationnel et aucune assurance que des financements supplémentaires acceptables seront disponibles pour l'exploration et le développement. Le financement d'une opération minière jusqu'à la production serait coûteux et nécessiterait des capitaux importants, sans garantie d'obtention."
+      "summary": "La Société n'a aucune source de flux de trésorerie opérationnel et aucune assurance que des financements supplémentaires acceptables seront disponibles pour l'exploration et le développement. Le financement d'une opération minière jusqu'à la production serait coûteux et nécessiterait des capitaux importants, sans garantie d'obtention.",
+      "score": 5
     },
     {
       "title": "Concentration du portefeuille sur trois propriétés minières",
@@ -278,7 +284,8 @@
       "severity": 4,
       "score_rationale": "Explicitement identifié : « unless the Company acquires additional property interests, any adverse developments affecting these properties would have a material adverse effect ». Langage d'avertissement clair. Risque de concentration géographique et opérationnelle majeur.",
       "trend": "stable",
-      "summary": "Les propriétés matérielles d'Austin Gold se limitent à Kelly Creek (Nevada), Stockade Mountain (Oregon) et Lone Mountain (Nevada, considérée comme non-matérielle). Tout développement adverse affectant ces trois propriétés aurait un impact matériel sur l'ensemble de la Société et sa capacité de production future."
+      "summary": "Les propriétés matérielles d'Austin Gold se limitent à Kelly Creek (Nevada), Stockade Mountain (Oregon) et Lone Mountain (Nevada, considérée comme non-matérielle). Tout développement adverse affectant ces trois propriétés aurait un impact matériel sur l'ensemble de la Société et sa capacité de production future.",
+      "score": 4
     },
     {
       "title": "Incertitudes sur les titres de propriété des claims miniers",
@@ -286,7 +293,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique au secteur minier américain, mentionné avec détail : claims non-brevetés sur terres BLM avec titre possessoire seulement, propriétés louées avec droits de surface/minéraux contrôlés par tiers. Langage d'incertitude répété (« uncertainties », « may be contested »).",
       "trend": "stable",
-      "summary": "Les propriétés minières consistent principalement en claims non-brevetés sur terres administrées par le Bureau of Land Management (BLM) où Austin Gold n'a que le titre possessoire des droits minéraux. À Kelly Creek, une portion significative est louée à des propriétaires privés qui contrôlent les droits de surface et minéraux. Des défauts de titre pourraient compromettre les opérations."
+      "summary": "Les propriétés minières consistent principalement en claims non-brevetés sur terres administrées par le Bureau of Land Management (BLM) où Austin Gold n'a que le titre possessoire des droits minéraux. À Kelly Creek, une portion significative est louée à des propriétaires privés qui contrôlent les droits de surface et minéraux. Des défauts de titre pourraient compromettre les opérations.",
+      "score": 4
     },
     {
       "title": "Risques opérationnels et environnementaux de l'exploration minière",
@@ -294,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Détaillé dans section Industry-Related Risks avec énumération exhaustive : formations géologiques inattendues, inondations, effondrements, dégâts environnementaux. Langage spécifique au secteur (« hazards and risks normally encountered »). Poids significatif pour opérations minières.",
       "trend": "stable",
-      "summary": "Les opérations d'exploration sont soumises aux risques normaux du secteur minier : formations géologiques inhabituelles, activité sismique, effondrements, inondations, dégâts aux installations, dommages à la vie/propriété, responsabilité légale et dommages environnementaux. Ces risques pourraient résulter en destructions d'équipements et responsabilités substantielles."
+      "summary": "Les opérations d'exploration sont soumises aux risques normaux du secteur minier : formations géologiques inhabituelles, activité sismique, effondrements, inondations, dégâts aux installations, dommages à la vie/propriété, responsabilité légale et dommages environnementaux. Ces risques pourraient résulter en destructions d'équipements et responsabilités substantielles.",
+      "score": 4
     },
     {
       "title": "Dépendance aux licences, permis et conformité réglementaire",
@@ -302,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Risque réglementaire spécifique mentionné avec détail : gouvernement, prospection, développement, protection environnementale (espèces sensibles comme greater sage-grouse), patrimoine culturel, taxes minières. Langage d'incertitude : « no guarantee that licenses and permits will be granted ».",
       "trend": "stable",
-      "summary": "Les opérations d'exploration sont soumises à la législation gouvernementale sur la prospection, le développement, la production, la protection environnementale (y compris espèces sensibles comme le grand tétras des armoises), la préservation du patrimoine culturel, les taxes minières et les normes de travail. Il n'existe aucune garantie que les licences et permis seront accordés ou maintenus."
+      "summary": "Les opérations d'exploration sont soumises à la législation gouvernementale sur la prospection, le développement, la production, la protection environnementale (y compris espèces sensibles comme le grand tétras des armoises), la préservation du patrimoine culturel, les taxes minières et les normes de travail. Il n'existe aucune garantie que les licences et permis seront accordés ou maintenus.",
+      "score": 4
     },
     {
       "title": "Dépendance critique aux cadres clés de gestion",
@@ -310,7 +320,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement : Dennis Higgs (CEO), Robert Hatch (VP Exploration), Darcy Higgs (VP Business Development), Grant Bond (CFO). Langage : « Loss of any of these people, particularly to competitors, could have a material adverse effect ». Risque modéré mais identifié.",
       "trend": "stable",
-      "summary": "Le développement de la Société dépend des efforts de cadres clés : Dennis Higgs (PDG), Robert Hatch (VP Exploration), Darcy Higgs (VP Développement commercial) et Grant Bond (CFO). La perte de ces personnes, particulièrement vers des concurrents, pourrait avoir un impact matériel sur les opérations."
+      "summary": "Le développement de la Société dépend des efforts de cadres clés : Dennis Higgs (PDG), Robert Hatch (VP Exploration), Darcy Higgs (VP Développement commercial) et Grant Bond (CFO). La perte de ces personnes, particulièrement vers des concurrents, pourrait avoir un impact matériel sur les opérations.",
+      "score": 3
     },
     {
       "title": "Conformité environnementale et réglementaire extensive",
@@ -318,7 +329,8 @@
       "severity": 3,
       "score_rationale": "Risque réglementaire spécifique au secteur minier : qualité air/eau, restauration des mines, gestion déchets, santé/sécurité occupationnelle. Langage : « extensive governmental regulations » et « may require significant funds ». Poids modéré mais croissant dans le secteur.",
       "trend": "up",
-      "summary": "Les industries minières sont soumises à des réglementations gouvernementales extensives pour la protection environnementale : qualité de l'air et de l'eau, restauration des mines, gestion des déchets solides et dangereux, santé et sécurité occupationnelle. La conformité peut nécessiter des dépenses significatives et impacter la rentabilité."
+      "summary": "Les industries minières sont soumises à des réglementations gouvernementales extensives pour la protection environnementale : qualité de l'air et de l'eau, restauration des mines, gestion des déchets solides et dangereux, santé et sécurité occupationnelle. La conformité peut nécessiter des dépenses significatives et impacter la rentabilité.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:35:37.227633+00:00",
@@ -377,7 +389,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.173Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.286Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aust.json",
     "enrich_root": "v2-pipeline-enrich/aust.json",

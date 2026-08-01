@@ -1,6 +1,6 @@
 {
   "ticker": "RLI",
-  "name": "RLI Corp.",
+  "name": "RLI",
   "sector": "Finance",
   "subsector": "Assurance spécialisée",
   "tagline": "RLI Corp. is a U.S.-based specialty insurance company that underwrites select property, casualty and surety products through three major subsidiaries, achieving 30 consecutive years of underwriting profitability.",
@@ -46,7 +46,11 @@
       "_validation": "Unit verified as 'M $' (values in thousands per source: 264,189K = 264.189M). Value verified in MD&A reconciliation table.",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:14.563268+00:00",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Combined Ratio",
@@ -73,7 +77,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Verified from source: 30-year average combined ratio of 87.9% stated in MD&A Overview section.",
-      "explanation_en": "Combined Ratio — losses plus expenses divided by net earned premiums."
+      "explanation_en": "Combined Ratio, losses plus expenses divided by net earned premiums."
     },
     {
       "short": "Net Investment Income",
@@ -128,24 +132,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.403,
-      "unit": "Mds $",
+      "value": 403,
+      "unit": "M $",
       "yoy": "+16.5%",
       "history": [
-        0.064,
-        0.192,
-        0.157,
-        0.279,
-        0.583,
-        0.305,
-        0.346,
-        0.403
+        64,
+        192,
+        157,
+        279,
+        583,
+        305,
+        346,
+        403
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -154,8 +162,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,7 +244,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est en tête du 10-K, décrit comme une cause fondamentale de volatilité des résultats et des prix des titres. Le langage insiste sur l'incertitude historique et les multiples facteurs exogènes. La catégorie 'Industriel' est fortement pondérée ici.",
       "trend": "stable",
-      "summary": "Les résultats de RLI sont sensibles aux cycles du secteur assurance, à la concurrence et aux coûts imprévus des sinistres, ce qui peut affecter la rentabilité et la stabilité des revenus."
+      "summary": "Les résultats de RLI sont sensibles aux cycles du secteur assurance, à la concurrence et aux coûts imprévus des sinistres, ce qui peut affecter la rentabilité et la stabilité des revenus.",
+      "score": 4
     },
     {
       "title": "Dépendance à quelques courtiers clés",
@@ -239,7 +253,8 @@
       "severity": 4,
       "score_rationale": "49 % des primes proviennent de 10 entités. Le document souligne un risque 'matériel' en cas de perte de ces partenaires. Position centrale dans le rapport, langage fort ('adversely affect').",
       "trend": "stable",
-      "summary": "RLI dépend fortement d'un petit nombre de courtiers et partenaires pour commercialiser ses produits ; la perte de l'un d'eux pourrait gravement impacter ses affaires."
+      "summary": "RLI dépend fortement d'un petit nombre de courtiers et partenaires pour commercialiser ses produits ; la perte de l'un d'eux pourrait gravement impacter ses affaires.",
+      "score": 4
     },
     {
       "title": "Concentration géographique des risques",
@@ -247,7 +262,8 @@
       "severity": 4,
       "score_rationale": "56 % des primes provenant de 4 États, dont la Floride et la Californie, exposées aux catastrophes. Risque décrit comme 'disproportionné'. Langage préoccupé sur les impacts réglementaires ou opérationnels.",
       "trend": "stable",
-      "summary": "Une grande partie des primes est concentrée dans quelques États à risque élevé (ouragans, séismes), ce qui expose RLI à des pertes importantes en cas d'événement localisé."
+      "summary": "Une grande partie des primes est concentrée dans quelques États à risque élevé (ouragans, séismes), ce qui expose RLI à des pertes importantes en cas d'événement localisé.",
+      "score": 4
     },
     {
       "title": "Inadéquation des réserves de sinistres",
@@ -255,7 +271,8 @@
       "severity": 5,
       "score_rationale": "Le risque est détaillé longuement, avec mention d'incertitude 'inherently uncertain' et d'effets 'materially adverse'. Les réserves sont centrales à la santé financière d'une assureur, catégorie 'Crédit' très pondérée.",
       "trend": "stable",
-      "summary": "Les réserves pour sinistres sont basées sur des estimations incertaines ; si les pertes réelles dépassent ces prévisions, cela pourrait sérieusement affecter la rentabilité et la solvabilité de RLI."
+      "summary": "Les réserves pour sinistres sont basées sur des estimations incertaines ; si les pertes réelles dépassent ces prévisions, cela pourrait sérieusement affecter la rentabilité et la solvabilité de RLI.",
+      "score": 5
     },
     {
       "title": "Pertes catastrophiques imprévisibles",
@@ -263,7 +280,8 @@
       "severity": 5,
       "score_rationale": "Langage fort : 'material financial losses', 'unpredictable', 'substantial volatility'. Risque existentiel pour les assureurs. Modèles jugés imparfaits. Position élevé dans le document.",
       "trend": "stable",
-      "summary": "RLI est exposé à des événements catastrophiques comme les ouragans et séismes, dont l'impact peut être massif et imprévisible, menaçant sa stabilité financière."
+      "summary": "RLI est exposé à des événements catastrophiques comme les ouragans et séismes, dont l'impact peut être massif et imprévisible, menaçant sa stabilité financière.",
+      "score": 5
     },
     {
       "title": "Changements climatiques croissants",
@@ -271,7 +289,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien développé, avec effets multiples (sinistres, modèles, régulation, transition énergétique). Langage prudent mais inquiet ('cannot predict the cumulative impact'). Catégorie macro importante.",
       "trend": "up",
-      "summary": "L'évolution du climat pourrait augmenter la fréquence et la gravité des catastrophes, perturber les modèles de risque et réduire la demande dans certaines zones ou secteurs."
+      "summary": "L'évolution du climat pourrait augmenter la fréquence et la gravité des catastrophes, perturber les modèles de risque et réduire la demande dans certaines zones ou secteurs.",
+      "score": 4
     },
     {
       "title": "Baisse des notations financières",
@@ -279,7 +298,8 @@
       "severity": 4,
       "score_rationale": "Les notations sont décrites comme 'important' pour la position concurrentielle. Une dégradation pourrait entraîner une 'substantial loss of business'. Mention des trois agences majeures, langage préventif mais sérieux.",
       "trend": "stable",
-      "summary": "Une dégradation de la notation financière de RLI par AM Best, S&P ou Moody's pourrait nuire à sa crédibilité et entraîner une perte de clients et de partenaires."
+      "summary": "Une dégradation de la notation financière de RLI par AM Best, S&P ou Moody's pourrait nuire à sa crédibilité et entraîner une perte de clients et de partenaires.",
+      "score": 4
     },
     {
       "title": "Réglementation accrue ou évolutive",
@@ -287,7 +307,8 @@
       "severity": 4,
       "score_rationale": "Longue liste de contraintes réglementaires, avec risque de sanctions ('fines', 'suspensions'). Mention de l'IA et de la gouvernance des données. Langage répétitif et détaillé, indiquant un risque structurel.",
       "trend": "up",
-      "summary": "RLI fait face à une réglementation stricte et changeante, notamment sur les tarifs, la solvabilité et l'usage de l'IA, ce qui peut limiter sa flexibilité stratégique et augmenter ses coûts."
+      "summary": "RLI fait face à une réglementation stricte et changeante, notamment sur les tarifs, la solvabilité et l'usage de l'IA, ce qui peut limiter sa flexibilité stratégique et augmenter ses coûts.",
+      "score": 4
     }
   ],
   "governance": {
@@ -487,9 +508,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.303741+00:00",
     "fetched_at": "2026-05-21T02:17:14.303742+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.256Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.264Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rli.json",
     "enrich_root": "v2-pipeline-enrich/rli.json",

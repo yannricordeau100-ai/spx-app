@@ -1,6 +1,6 @@
 {
   "ticker": "SFNC",
-  "name": "Simmons First National Corporation",
+  "name": "Simmons First National",
   "sector": "Finance",
   "subsector": "Banques et services financiers",
   "tagline": "Regional bank holding company providing comprehensive financial services",
@@ -56,30 +56,35 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "-88.2%",
       "history": [
-        0.88,
-        0.78,
-        0.76,
-        0.09
+        880,
+        780,
+        760,
+        90
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.09 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -98,11 +103,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.4 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -121,11 +130,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -2.96 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -144,56 +157,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 24.54 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.62,
-      "unit": "Mds €",
+      "value": 620,
+      "unit": "M €",
       "yoy": "-44.1%",
       "history": [
-        1.23,
-        1.34,
-        1.11,
-        0.62
+        1230,
+        1340,
+        1110,
+        620
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.62 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.71,
-      "unit": "Mds €",
+      "value": 710,
+      "unit": "M €",
       "yoy": "+2.9%",
       "history": [
-        0.68,
-        0.61,
-        0.69,
-        0.71
+        680,
+        610,
+        690,
+        710
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.71 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -343,34 +370,34 @@
       "title": "Risques de cybersécurité et de sécurité de l'information",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le texte mentionne explicitement la sensibilisation du conseil d'administration et de la direction aux cyber-risques, ainsi que des formations pour les employés. Le conseil d'administration reçoit régulièrement des rapports du CISO et CIO. Des incidents de sécurité significatifs sont remontés à la direction. L'intensité du langage et la fréquence des mentions suggèrent une préoccupation significative. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne explicitement la sensibilisation du conseil d'administration et de la direction aux cyber-risques, ainsi que des formations pour les employés. Le conseil d'administration reçoit régulièrement des rapports du CISO et CIO. Des incidents de sécurité significatifs sont remontés à la direction. L'intensité du langage et la fréquence des mentions suggèrent une préoccupation significative.",
       "trend": "stable",
       "summary": "La société est exposée aux menaces de cybersécurité, avec mise en place de comités spécialisés, formation régulière et surveillance continue des incidents pour protéger ses systèmes et données critiques.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux estimations comptables critiques",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le document détaille plusieurs estimations critiques (créances douteuses, acquisitions, goodwill, impôts) qui nécessitent des hypothèses subjectives et sont sujettes à des variations. L'intensité du langage souligne l'incertitude inhérente aux calculs de flux actualisés et aux hypothèses de marché. Ces estimations sont cruciales pour la santé financière. (score par défaut, à affiner)",
+      "score_rationale": "Le document détaille plusieurs estimations critiques (créances douteuses, acquisitions, goodwill, impôts) qui nécessitent des hypothèses subjectives et sont sujettes à des variations. L'intensité du langage souligne l'incertitude inhérente aux calculs de flux actualisés et aux hypothèses de marché. Ces estimations sont cruciales pour la santé financière.",
       "trend": "stable",
       "summary": "Les états financiers dépendent d'estimations comptables complexes (allocations de pertes sur crédits, comptabilité d'acquisition, goodwill, impôts) qui comportent des incertitudes et pourraient différer matériellement des résultats réels en fonction des conditions de marché et économiques.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la gestion du portefeuille de titres",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La vente significative de 3,16 milliards USD de titres en 2025 a entraîné une perte réalisée de 625,6 millions USD après impôts, soulignant la volatilité et le risque de marché associé aux investissements. Le reclassement de 3,59 milliards USD de titres détenus jusqu'à échéance reflète une exposition importante aux risques de taux. La gestion du portefeuille est un élément clé pour une institution financière. (score par défaut, à affiner)",
+      "score_rationale": "La vente significative de 3,16 milliards USD de titres en 2025 a entraîné une perte réalisée de 625,6 millions USD après impôts, soulignant la volatilité et le risque de marché associé aux investissements. Le reclassement de 3,59 milliards USD de titres détenus jusqu'à échéance reflète une exposition importante aux risques de taux. La gestion du portefeuille est un élément clé pour une institution financière.",
       "trend": "up",
       "summary": "La vente d'un volume important de titres a généré une perte substantielle de 625,6 millions USD, indiquant un risque élevé lié aux fluctuations du marché et à la stratégie d'investissement de taux d'intérêt.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions et à l'intégration",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "L'entreprise utilise la méthode comptable d'acquisition (ASC 805), qui implique l'évaluation des actifs acquis à leur juste valeur et l'ajustement pour les primes/décotes basé sur les flux de trésorerie actualisés. Bien que non explicitement détaillé comme un risque majeur, ce processus est complexe et peut entraîner des incertitudes de valorisation. Ce risque est pertinent pour la croissance externe. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise utilise la méthode comptable d'acquisition (ASC 805), qui implique l'évaluation des actifs acquis à leur juste valeur et l'ajustement pour les primes/décotes basé sur les flux de trésorerie actualisés. Bien que non explicitement détaillé comme un risque majeur, ce processus est complexe et peut entraîner des incertitudes de valorisation. Ce risque est pertinent pour la croissance externe.",
       "trend": "stable",
       "summary": "Les acquisitions d'entreprises nécessitent une évaluation précise des actifs et primes/décotes de crédits, et peuvent présenter des défis d'intégration, de valorisation du goodwill et de reconnaissance des intangibles.",
       "score": 3
@@ -379,7 +406,7 @@
       "title": "Risques liés aux litiges et passifs éventuels",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Le document fait référence à la Note 21 concernant les passifs éventuels et mentionne une exposition à des litiges dans divers contextes (activités de prêt, activités de dépôt, pratiques d'emploi, accords commerciaux, responsabilités fiduciaires, programmes de conformité et anti-blanchiment). Bien que le détail soit renvoyé ailleurs, la mention indique une exposition potentielle à des coûts substantiels. Ce risque est standard pour les institutions financières. (score par défaut, à affiner)",
+      "score_rationale": "Le document fait référence à la Note 21 concernant les passifs éventuels et mentionne une exposition à des litiges dans divers contextes (activités de prêt, activités de dépôt, pratiques d'emploi, accords commerciaux, responsabilités fiduciaires, programmes de conformité et anti-blanchiment). Bien que le détail soit renvoyé ailleurs, la mention indique une exposition potentielle à des coûts substantiels. Ce risque est standard pour les institutions financières.",
       "trend": "stable",
       "summary": "La société peut être confrontée à des litiges, réclamations ou actions réglementaires impliquant des montants importants et des amendes/pénalités significatives, qui pourraient affecter les opérations et les capacités de croissance.",
       "score": 3
@@ -388,7 +415,7 @@
       "title": "Risques liés aux conditions économiques générales et au contexte réglementaire",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Le document mentionne que les décisions de rachat d'actions sont influencées par les conditions économiques générales. De plus, les estimations comptables critiques dépendent des conditions de marché et économiques. Les autorités réglementaires (FRB, CFPB, etc.) peuvent imposer des sanctions matérielles et restrictons sur les activités de croissance et M&A. Ce risque est fondamental pour le secteur bancaire. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne que les décisions de rachat d'actions sont influencées par les conditions économiques générales. De plus, les estimations comptables critiques dépendent des conditions de marché et économiques. Les autorités réglementaires (FRB, CFPB, etc.) peuvent imposer des sanctions matérielles et restrictons sur les activités de croissance et M&A. Ce risque est fondamental pour le secteur bancaire.",
       "trend": "stable",
       "summary": "Les performances de l'entreprise sont sensibles aux fluctuations de l'économie globale et aux changements réglementaires, qui peuvent affecter ses opérations, sa capacité à croître via acquisitions et ses décisions stratégiques de capital.",
       "score": 3
@@ -520,7 +547,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.698Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.576Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sfnc.json",
     "enrich_root": "v2-pipeline-enrich/sfnc.json",

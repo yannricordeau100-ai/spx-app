@@ -34,7 +34,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -54,11 +54,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 15.61 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -77,11 +81,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.15 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -100,11 +108,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 2.44 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -123,11 +135,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.28 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -146,11 +162,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 54.96 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -169,11 +189,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 23.63 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -192,37 +216,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 3.93 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
-    {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part des investissements liés à l'IA et aux data centers",
-      "name_en": "AI and Data Center Investment Mix",
-      "explanation": "Pourcentage des investissements d'EDP Renewables destinés à alimenter les data centers et les applications d'IA.",
-      "value": "60",
-      "unit": "%",
-      "yoy": "n/a",
-      "type": "Demand",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Les États-Unis, moteur de la demande liée à l'IA, représenteront environ 60% du plan d'investissement d'EDP Renewables pour 2026-2028.",
-      "description": "EDP Renewables alloue environ 60% de son plan d'investissement 2026-2028 aux marchés nord-américains, principalement pour alimenter la croissance exponentielle des data centers et de l'IA.",
-      "history": [
-        60
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Demand",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
     {
       "short": "Electricity Demand Growth",
       "name_fr": "Croissance de la demande d'électricité",
@@ -243,9 +247,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Demand",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Demand"
     }
   ],
   "ai_positioning": {
@@ -295,7 +297,8 @@
       "severity": 4,
       "score_rationale": "Mentionné en introduction du rapport avec un langage fort ('tragicamente perdus', 'not acceptable'), position centrale dans la section management, tendance stable à la hausse en intensité, catégorie critique pour les opérations sur le terrain.",
       "trend": "stable",
-      "summary": "EDP a perdu trois collaborateurs prestataires dans des accidents mortels en 2025, soulignant des lacunes dans la supervision de la sécurité des sous-traitants, malgré des progrès globaux (baisse de 56 % des SIF). Cela expose l'entreprise à des risques opérationnels et de réputation dans la gestion de ses partenaires externes."
+      "summary": "EDP a perdu trois collaborateurs prestataires dans des accidents mortels en 2025, soulignant des lacunes dans la supervision de la sécurité des sous-traitants, malgré des progrès globaux (baisse de 56 % des SIF). Cela expose l'entreprise à des risques opérationnels et de réputation dans la gestion de ses partenaires externes.",
+      "score": 4
     },
     {
       "title": "Réglementation américaine instable pour les éoliennes",
@@ -303,7 +306,8 @@
       "severity": 4,
       "score_rationale": "Présence dans la section 'Regulatory overview' avec mention de 'policy disruption' en 2025, langage d'alerte ('faced significant'), tendance à la détérioration, poids élevé car les États-Unis sont un pilier de croissance.",
       "trend": "up",
-      "summary": "Les projets éoliens aux États-Unis font face à des perturbations réglementaires dues à des actions fédérales, ordres exécutifs et directives interdépartementales, menaçant les délais de mise en service et la rentabilité des nouveaux projets dans un marché stratégique pour EDP Renewables."
+      "summary": "Les projets éoliens aux États-Unis font face à des perturbations réglementaires dues à des actions fédérales, ordres exécutifs et directives interdépartementales, menaçant les délais de mise en service et la rentabilité des nouveaux projets dans un marché stratégique pour EDP Renewables.",
+      "score": 4
     },
     {
       "title": "Dépendance aux équipements non chinois pour crédits d'impôt US",
@@ -311,7 +315,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité dans le cadre de la 'Equipment Sourcing Rule', langage normatif strict, tendance à l'aggravation avec hausse progressive du seuil, impact direct sur la chaîne d'approvisionnement.",
       "trend": "up",
-      "summary": "Pour bénéficier des crédits d'impôt américains (PTC/ITC), EDP doit utiliser au moins 40 % d'équipements provenant de sources non chinoises (FEOC), avec un seuil qui grimpera à 60 %. Cela crée une contrainte géopolitique forte sur la sourcing des turbines et composants."
+      "summary": "Pour bénéficier des crédits d'impôt américains (PTC/ITC), EDP doit utiliser au moins 40 % d'équipements provenant de sources non chinoises (FEOC), avec un seuil qui grimpera à 60 %. Cela crée une contrainte géopolitique forte sur la sourcing des turbines et composants.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur les DPPA avec les data centers",
@@ -319,7 +324,8 @@
       "severity": 3,
       "score_rationale": "Sous-entendu par la montée de la demande des data centers et les contrats à long terme, langage neutre mais contexte stratégique marqué, tendance à la hausse, poids croissant dans la stratégie commerciale.",
       "trend": "up",
-      "summary": "La forte croissance de la demande en électricité des data centers intensifie la concurrence pour les contrats d'achat d'énergie à long terme (DPPA), obligeant EDP à se positionner face à d'autres développeurs renouvelables sur des projets clés aux États-Unis et en Europe."
+      "summary": "La forte croissance de la demande en électricité des data centers intensifie la concurrence pour les contrats d'achat d'énergie à long terme (DPPA), obligeant EDP à se positionner face à d'autres développeurs renouvelables sur des projets clés aux États-Unis et en Europe.",
+      "score": 3
     },
     {
       "title": "Risques de raccordement et de congestion réseau",
@@ -327,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Évoqué dans 'Step change in Networks investment' avec mention de 'bottlenecked' et besoin de renforcement, langage technique marqué, tendance à l'aggravation, impact direct sur la mise en service des projets.",
       "trend": "up",
-      "summary": "Le raccordement des nouveaux parcs renouvelables est freiné par des réseaux de transport et de distribution saturés, notamment en Espagne et au Brésil, ce qui retarde les mises en service et augmente les coûts d'interconnexion pour EDP."
+      "summary": "Le raccordement des nouveaux parcs renouvelables est freiné par des réseaux de transport et de distribution saturés, notamment en Espagne et au Brésil, ce qui retarde les mises en service et augmente les coûts d'interconnexion pour EDP.",
+      "score": 4
     },
     {
       "title": "Curtailment des renouvelables au Brésil",
@@ -335,7 +342,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans 'Regulatory overview' avec un impact négatif identifié, langage factuel mais préoccupant, tendance stable, poids régional important.",
       "trend": "stable",
-      "summary": "Au Brésil, la réglementation actuelle expose les producteurs renouvelables à des risques de limitation de production (curtailment), affectant la rentabilité des actifs d'EDP dans un pays clé de sa présence en Amérique du Sud."
+      "summary": "Au Brésil, la réglementation actuelle expose les producteurs renouvelables à des risques de limitation de production (curtailment), affectant la rentabilité des actifs d'EDP dans un pays clé de sa présence en Amérique du Sud.",
+      "score": 3
     },
     {
       "title": "Sécurité des opérations en hauteur et électriques",
@@ -343,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité en introduction avec des indicateurs de performance, langage opérationnel fort, tendance positive mais risque persistant, priorité stratégique affirmée ('Zero SIF').",
       "trend": "down",
-      "summary": "Les activités de construction et d'exploitation sur les sites électriques et en hauteur représentent un risque industriel majeur pour EDP, malgré des progrès (baisse de 46 % de l'indice de gravité), avec un objectif zéro accident grave."
+      "summary": "Les activités de construction et d'exploitation sur les sites électriques et en hauteur représentent un risque industriel majeur pour EDP, malgré des progrès (baisse de 46 % de l'indice de gravité), avec un objectif zéro accident grave.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:31:21.896883+00:00",
@@ -499,9 +508,9 @@
     "country": "Portugal",
     "_data_freshness_date": "2026-05-21T02:17:14.254858+00:00",
     "fetched_at": "2026-05-21T02:17:14.254859+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.671Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.250Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/elcpf.json",
     "enrich_root": "v2-pipeline-enrich/elcpf.json",

@@ -44,7 +44,7 @@
         "YoY +20% validé (475.4M en FY2024)",
         "Historique cohérent: 419.1M (FY2023), 475.4M (FY2024), 570.4M (FY2025)"
       ],
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -75,7 +75,7 @@
         "YoY +51% validé (147.6M en FY2024)",
         "Historique cohérent: 112.8M (FY2023), 147.6M (FY2024), 223.2M (FY2025)"
       ],
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -106,7 +106,7 @@
         "YoY +36% validé (230.5M en FY2024)",
         "Historique cohérent: 184.0M (FY2023), 230.5M (FY2024), 313.8M (FY2025)"
       ],
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -165,9 +165,7 @@
         "Unité: 'K' pour milliers (620,000 = 620K)",
         "TTM: null (métrique trimestrielle unique, non annualisée)",
         "YoY: N/A (première mention dans ce 10-K)"
-      ],
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      ]
     },
     {
       "short": "Large Customers",
@@ -220,34 +218,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.26 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
         0,
-        0.02,
-        0.01,
-        0.01
+        20,
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -279,9 +286,7 @@
         "Valeur confirmée dans MDA Key Business and Financial Metrics: 119% pour FY2025",
         "Historique validé: 117% (FY2023), 114% (FY2024), 119% (FY2025)",
         "YoY +5 pts validé"
-      ],
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Large Customers",
@@ -314,13 +319,11 @@
         "TTM: null (métrique de dénombrement statique, non applicable)",
         "name_en amélioré: spécification 'Annual Subscription Revenue'",
         "name_fr amélioré: ajout 'ARR' pour clarté"
-      ],
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
-    "stance": "active",
+    "stance": "integrator",
     "summary": "Doximity intègre activement l'intelligence artificielle dans sa plateforme, notamment via ses AI-powered workflow tools. Ces outils IA (y compris un assistant d'écriture IA) sont des composantes clés des Workflow Solutions, mises à disposition des professionnels médicaux pour améliorer leur productivité clinique. L'IA est positionnée comme un élément stratégique renforçant la proposition de valeur auprès des médecins.",
     "evidence": [
       "Item 1 Business: 'our AI-powered workflow tools' mentionnés comme composante clé des Workflow Solutions",
@@ -343,7 +346,8 @@
         "Risque confirmé dans Risk Factors Summary comme premier risque principal",
         "Cohérent avec la trajectoire de croissance revenue (13% à 20%)",
         "Catégorie: Changé de 'Industriel' à 'Opérationnel' pour cohérence terminologique"
-      ]
+      ],
+      "score": 4
     },
     {
       "title": "Historique limité de l'entreprise",
@@ -355,7 +359,8 @@
       "_validation": [
         "Risque confirmé dans Risk Factors Summary: 'limited operating history'",
         "Pertinent: IPO en 2021, soit environ 4 ans d'historique public au moment du FY2025"
-      ]
+      ],
+      "score": 4
     },
     {
       "title": "Perte de membres ou faible engagement",
@@ -368,7 +373,8 @@
         "Risque intrinsèque au modèle platform à deux côtés",
         "Validé par l'importance stratégique des 2M+ membres et 80%+ des médecins américains",
         "Cohérent avec l'accent mis sur physician-first product design et clinical productivity"
-      ]
+      ],
+      "score": 5
     }
   ],
   "_dataset_validation_summary": {
@@ -412,12 +418,13 @@
       "date": "2026-04-23"
     }
   ],
-  "_segments_fetched_at": "2026-05-06T19:29:09.750131+00:00",
   "governance": {
-    "agm_date": "2025-08-28",
-    "fiscal_year": 2025,
-    "voting_structure": "Class A common stock entitled to one vote per share; Class B common stock entitled to ten votes per share; voting as a single class on all matters"
+    "ceo_name": "Jeff Tangney",
+    "board_size": 2,
+    "exec_comp_approval_pct": 100,
+    "voting_structure": "Each share of Class A common stock is entitled to one vote; each share of Class B common stock is entitled to 10 votes."
   },
+  "_segments_fetched_at": "2026-05-06T19:29:09.750131+00:00",
   "_risks_gov_fetched_at": "2026-05-06T20:51:51.479207+00:00",
   "enrich_events": {
     "ticker": "DOCS",
@@ -443,7 +450,7 @@
       }
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.952Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.897Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/docs.json",
     "enrich_root": "v2-pipeline-enrich/docs.json",

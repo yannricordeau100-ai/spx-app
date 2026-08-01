@@ -33,11 +33,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.09 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -56,34 +60,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.0 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+133.3%",
       "history": [
         0,
-        -0.02,
-        -0.03,
-        0.01
+        -20,
+        -30,
+        10
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.01 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -102,101 +115,125 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.08 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
       "name_fr": "Free Cash Flow",
       "name_en": "Free Cash Flow",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "",
       "history": [
-        0.02,
+        20,
         0,
         0,
-        0.07
+        70
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 0.07 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "+16.2%",
       "history": [
-        0.42,
-        0.34,
-        0.37,
-        0.43
+        420,
+        340,
+        370,
+        430
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.43 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
         0,
         0,
-        0.01,
-        0.01
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.1,
-        0.07,
-        0.05,
-        0.1
+        100,
+        70,
+        50,
+        100
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.1 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -220,7 +257,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité comme critique dans le 10-K, avec un langage fort sur la dépendance à des tiers comme Google. La position dominante de ces acteurs amplifie l'exposition. La catégorie Concurrence est fortement pondérée ici.",
       "trend": "stable",
-      "summary": "La société dépend fortement des moteurs de recherche comme Google pour attirer du trafic, ce qui la rend vulnérable à des changements de classement ou de politique."
+      "summary": "La société dépend fortement des moteurs de recherche comme Google pour attirer du trafic, ce qui la rend vulnérable à des changements de classement ou de politique.",
+      "score": 5
     },
     {
       "title": "Changements réglementaires",
@@ -228,7 +266,8 @@
       "severity": 5,
       "score_rationale": "Mentionné explicitement dans les risques principaux, avec un langage préoccupant sur l'incertitude législative. L'intensité du risque est accrue par l'exposition aux secteurs régulés comme l'assurance et la finance.",
       "trend": "up",
-      "summary": "Des évolutions dans la réglementation des services financiers ou du marketing numérique pourraient limiter les activités ou augmenter les coûts."
+      "summary": "Des évolutions dans la réglementation des services financiers ou du marketing numérique pourraient limiter les activités ou augmenter les coûts.",
+      "score": 5
     },
     {
       "title": "Cybersécurité et infrastructure",
@@ -236,7 +275,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné dans Item 1C et repris dans les facteurs de risque. Le langage indique une vigilance accrue, bien que pas encore de brèche majeure signalée. Pondération élevée de la catégorie.",
       "trend": "new",
-      "summary": "Toute faille de sécurité pourrait compromettre les données sensibles des utilisateurs et nuire à la confiance des clients."
+      "summary": "Toute faille de sécurité pourrait compromettre les données sensibles des utilisateurs et nuire à la confiance des clients.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenaires médias",
@@ -244,7 +284,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne la dépendance à des éditeurs tiers pour le trafic. Le risque est répété avec insistance, et la structure de coûts repose sur des accords de partage de revenus, ce qui augmente la vulnérabilité.",
       "trend": "stable",
-      "summary": "La disponibilité et le coût du trafic dépendent de partenariats avec des éditeurs tiers, dont les conditions peuvent changer brusquement."
+      "summary": "La disponibilité et le coût du trafic dépendent de partenariats avec des éditeurs tiers, dont les conditions peuvent changer brusquement.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -252,7 +293,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement énoncé, avec mention d'une intensité croissante de la concurrence. Le modèle économique repose sur des avantages technologiques et de données, menacés par des acteurs mieux dotés.",
       "trend": "up",
-      "summary": "La société fait face à une concurrence croissante de grands acteurs technologiques et de spécialistes du marketing digital."
+      "summary": "La société fait face à une concurrence croissante de grands acteurs technologiques et de spécialistes du marketing digital.",
+      "score": 4
     },
     {
       "title": "Conditions économiques générales",
@@ -260,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Cité comme facteur clé pouvant affecter la demande des clients. Le langage est prudent mais répété, et le secteur des services financiers est sensible aux cycles économiques.",
       "trend": "up",
-      "summary": "Une récession ou une instabilité économique pourrait réduire les budgets marketing de ses clients et nuire à la croissance."
+      "summary": "Une récession ou une instabilité économique pourrait réduire les budgets marketing de ses clients et nuire à la croissance.",
+      "score": 4
     },
     {
       "title": "Audit ou non-conformité réglementaire",
@@ -268,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite d'audits, d'enquêtes ou d'allégations de non-conformité. Le risque est renforcé par l'exposition aux secteurs régulés. Langage préventif mais sérieux.",
       "trend": "stable",
-      "summary": "Des investigations réglementaires ou des poursuites pour non-conformité pourraient entraîner des amendes ou des restrictions opérationnelles."
+      "summary": "Des investigations réglementaires ou des poursuites pour non-conformité pourraient entraîner des amendes ou des restrictions opérationnelles.",
+      "score": 4
     }
   ],
   "governance": {
@@ -407,9 +451,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.301074+00:00",
     "fetched_at": "2026-05-21T02:17:14.301075+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.011Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.025Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/qnst.json",
     "enrich_root": null,

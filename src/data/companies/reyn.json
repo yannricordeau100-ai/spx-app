@@ -33,57 +33,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.72 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "-14.3%",
       "history": [
-        0.26,
-        0.3,
-        0.35,
-        0.3
+        260,
+        300,
+        350,
+        300
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.3 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.53,
-      "unit": "Mds €",
+      "value": 530,
+      "unit": "M €",
       "yoy": "-3.6%",
       "history": [
-        0.44,
-        0.51,
-        0.55,
-        0.53
+        440,
+        510,
+        550,
+        530
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.53 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -102,11 +116,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.94 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -125,33 +143,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.68 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "+7.1%",
       "history": [
-        0.04,
-        0.12,
-        0.14,
-        0.15
+        40,
+        120,
+        140,
+        150
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.15 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -257,7 +284,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné dans ITEM 7A avec une exposition significative à la dette à taux variable (SOFR + marge). L'impact d'une hausse de 100 pb est quantifié à +6M$/an, ce qui est substantiel. La catégorie Capital est fortement pondérée ici.",
       "trend": "stable",
-      "summary": "La société est exposée à des hausses des coûts d'emprunt en cas de hausse des taux d'intérêt, malgré des couvertures partielles par swaps."
+      "summary": "La société est exposée à des hausses des coûts d'emprunt en cas de hausse des taux d'intérêt, malgré des couvertures partielles par swaps.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix des matières premières",
@@ -265,7 +293,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans ITEM 7A, exposition aux fluctuations de prix du résine, aluminium, gaz, etc. Absence de dérivés pour couvrir ces risques, ce qui amplifie le risque. Langage affirmé sur l'exposition non couverte.",
       "trend": "stable",
-      "summary": "Les variations de prix des matières premières clés (comme la résine ou l'aluminium) peuvent impacter fortement la marge, sans couverture par dérivés."
+      "summary": "Les variations de prix des matières premières clés (comme la résine ou l'aluminium) peuvent impacter fortement la marge, sans couverture par dérivés.",
+      "score": 4
     },
     {
       "title": "Estimations comptables sur les incitations commerciales",
@@ -273,7 +302,8 @@
       "severity": 3,
       "score_rationale": "Les incitations commerciales représentent 5 % du chiffre d'affaires et nécessitent des estimations complexes (volume, preuves de performance). Le montant d'accruals (33M$) est significatif. Le langage insiste sur l'incertitude des estimations.",
       "trend": "stable",
-      "summary": "Les provisions pour promotions commerciales reposent sur des estimations incertaines, pouvant affecter le chiffre d'affaires et les résultats."
+      "summary": "Les provisions pour promotions commerciales reposent sur des estimations incertaines, pouvant affecter le chiffre d'affaires et les résultats.",
+      "score": 3
     },
     {
       "title": "Impairment potentiel de l'actif incorporel",
@@ -281,7 +311,8 @@
       "severity": 3,
       "score_rationale": "Bien qu'aucun impairment n'ait été constaté en 2025, la société souligne la subjectivité des hypothèses (multiples de capitalisation, taux d'actualisation). Le test annuel est critique pour les marques et le goodwill.",
       "trend": "stable",
-      "summary": "La valeur des actifs incorporels (marques, goodwill) dépend d'estimations sensibles, dont des changements pourraient entraîner des dépréciations."
+      "summary": "La valeur des actifs incorporels (marques, goodwill) dépend d'estimations sensibles, dont des changements pourraient entraîner des dépréciations.",
+      "score": 3
     },
     {
       "title": "Obligations contractuelles à long terme",
@@ -289,7 +320,8 @@
       "severity": 3,
       "score_rationale": "Le tableau des obligations contractuelles montre 2,322Md$ de passif, dont 2,125Md$ de dette à long terme. Cela reflète une forte dépendance au financement. Mention explicite dans Item 1A.",
       "trend": "stable",
-      "summary": "Des obligations contractuelles importantes, notamment en dette, pèsent sur la structure de financement et la trésorerie future."
+      "summary": "Des obligations contractuelles importantes, notamment en dette, pèsent sur la structure de financement et la trésorerie future.",
+      "score": 3
     }
   ],
   "governance": {
@@ -468,82 +500,272 @@
   },
   "enrich_quarterly_history": {
     "ticker": "REYN",
-    "extracted_at": "2026-05-15T18:13:54Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1786431,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:18:33Z",
+    "n_kpis": 6,
     "kpis": [
       {
-        "short": "Revenu",
+        "short": "Total Revenue",
         "period_type": "quarter",
         "history": [
-          730,
-          1552,
-          2375,
-          -1394,
-          757,
-          1629,
-          2534,
-          -1364,
-          845,
-          1762,
-          2729,
-          -1519,
-          874,
-          1814,
-          2750,
-          -1682,
-          833
+          0.845,
+          0.847,
+          0.967,
+          0.845,
+          0.896,
+          0.938,
+          0.874,
+          0.922,
+          0.935,
+          0.833,
+          0.94,
+          0.935,
+          0.833,
+          0.938,
+          0.91
         ],
         "history_periods": [
-          "Q1 2020",
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
-          "Q1 2024"
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
         ],
-        "last_data_date": "2024-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2023",
-            "value": 1814,
-            "accession": "0001628280-23-028426",
-            "end": "2023-06-30"
-          },
-          {
-            "period": "Q3 2023",
-            "value": 2750,
-            "accession": "0001628280-23-037584",
-            "end": "2023-09-30"
-          },
-          {
-            "period": "Q4 2023",
-            "value": -1682,
-            "accession": "calc-0001628280-24-003623",
-            "end": "2023-12-31"
-          },
-          {
-            "period": "Q1 2024",
-            "value": 833,
-            "accession": "0001628280-24-021395",
-            "end": "2024-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:18:33Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          0.052,
+          0.08,
+          0.066,
+          0.052,
+          0.052,
+          0.048,
+          0.017,
+          0.066,
+          0.078,
+          0.017,
+          0.066,
+          0.078,
+          0.031,
+          0.073,
+          0.079
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:18:33Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          0.08,
+          0.117,
+          0.083,
+          0.08,
+          0.086,
+          0.083,
+          0.052,
+          0.12,
+          0.134,
+          0.052,
+          0.12,
+          0.138,
+          0.076,
+          0.118,
+          0.123
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:18:33Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          4.81,
+          4.912,
+          4.81,
+          4.859,
+          4.912,
+          4.865,
+          4.882,
+          4.912,
+          4.858,
+          4.865,
+          4.843,
+          4.839,
+          4.861,
+          4.896
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:18:33Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Debt",
+        "period_type": "quarter",
+        "history": [
+          2.082,
+          2.071,
+          2.082,
+          2.076,
+          2.071,
+          2.061,
+          2.056,
+          2.071,
+          1.833,
+          1.784,
+          1.735,
+          1.621,
+          1.617,
+          1.613
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:18:33Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Cash & Equivalents",
+        "period_type": "quarter",
+        "history": [
+          0.101,
+          0.033,
+          0.101,
+          0.101,
+          0.033,
+          0.05,
+          0.083,
+          0.124,
+          0.135,
+          0.101,
+          0.096,
+          0.058,
+          0.057,
+          0.053
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:18:33Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -559,9 +781,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.302698+00:00",
     "fetched_at": "2026-05-21T02:17:14.302699+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.153Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.163Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/reyn.json",
     "enrich_root": null,

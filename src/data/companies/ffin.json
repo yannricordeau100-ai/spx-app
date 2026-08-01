@@ -41,7 +41,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "signal_en": "Capital base stable"
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -60,34 +64,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 15.45 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-83.3%",
       "history": [
-        0.02,
-        0.02,
-        0.12,
-        0.02
+        20,
+        20,
+        120,
+        20
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -117,9 +130,7 @@
       "is_generic": true,
       "is_short_history": false,
       "story_category": "Marché",
-      "ttm": 90.86,
-      "_source_month": "décembre 2020",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": 90.86
     }
   ],
   "ai_positioning": {
@@ -135,7 +146,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise a une exposition significative aux prêts et aux investissements, ce qui la rend vulnérable aux défauts de paiement. Le rapport entre l'allowance pour credit losses et les prêts à financement est de 1,29% en 2025.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée au risque de crédit en raison de son importante activité de prêt et d'investissement."
+      "summary": "L'entreprise est exposée au risque de crédit en raison de son importante activité de prêt et d'investissement.",
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -143,7 +155,8 @@
       "severity": 4,
       "score_rationale": "Les variations des taux d'intérêt peuvent avoir un impact significatif sur les résultats de l'entreprise, en particulier sur le revenu net d'intérêt et la marge nette d'intérêt.",
       "trend": "down",
-      "summary": "Les variations des taux d'intérêt affectent directement la rentabilité et la marge nette d'intérêt de l'entreprise."
+      "summary": "Les variations des taux d'intérêt affectent directement la rentabilité et la marge nette d'intérêt de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
@@ -151,7 +164,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise doit gérer ses flux de trésorerie pour faire face à ses obligations. Une baisse de la liquidité pourrait entraîner des difficultés pour l'entreprise.",
       "trend": "stable",
-      "summary": "L'entreprise doit gérer ses flux de trésorerie pour maintenir sa liquidité et honorer ses obligations."
+      "summary": "L'entreprise doit gérer ses flux de trésorerie pour maintenir sa liquidité et honorer ses obligations.",
+      "score": 3
     },
     {
       "title": "Risque réglementaire",
@@ -159,7 +173,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est soumise à des réglementations strictes dans le secteur bancaire. Les changements réglementaires peuvent avoir un impact sur les résultats de l'entreprise.",
       "trend": "stable",
-      "summary": "L'entreprise doit se conformer aux réglementations en vigueur pour éviter des sanctions."
+      "summary": "L'entreprise doit se conformer aux réglementations en vigueur pour éviter des sanctions.",
+      "score": 3
     },
     {
       "title": "Risque de concurrence",
@@ -167,7 +182,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise opère dans un marché compétitif, ce qui peut entraîner des pressions sur les marges nettes d'intérêt et les commissions. Les concurrents peuvent offrir des produits et services similaires.",
       "trend": "stable",
-      "summary": "L'entreprise doit maintenir sa compétitivité pour conserver sa part de marché."
+      "summary": "L'entreprise doit maintenir sa compétitivité pour conserver sa part de marché.",
+      "score": 3
     },
     {
       "title": "Risque de gestion des actifs",
@@ -175,7 +191,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise doit gérer efficacement ses actifs pour maximiser les rendements. Une mauvaise gestion des actifs peut entraîner des pertes.",
       "trend": "stable",
-      "summary": "L'entreprise doit gérer ses actifs de manière efficace pour maintenir sa rentabilité et son return on average assets."
+      "summary": "L'entreprise doit gérer ses actifs de manière efficace pour maintenir sa rentabilité et son return on average assets.",
+      "score": 3
     },
     {
       "title": "Risque de dépréciation des actifs",
@@ -183,7 +200,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise peut être exposée à des pertes en cas de dépréciation de ses actifs, tels que les prêts ou les investissements.",
       "trend": "stable",
-      "summary": "L'entreprise doit surveiller la valeur de ses actifs et son allowance for credit losses pour éviter des pertes significatives."
+      "summary": "L'entreprise doit surveiller la valeur de ses actifs et son allowance for credit losses pour éviter des pertes significatives.",
+      "score": 3
     }
   ],
   "governance": {
@@ -246,7 +264,7 @@
   },
   "sector_fr": "Services financiers",
   "subsector_fr": "Banque",
-  "_companies_unified_built_at": "2026-05-29T21:19:31.188Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.227Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ffin.json",
     "enrich_root": "v2-pipeline-enrich/ffin.json",

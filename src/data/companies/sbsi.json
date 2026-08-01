@@ -182,18 +182,18 @@
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.069,
-      "unit": "Mds $",
+      "value": 69,
+      "unit": "M $",
       "yoy": "-21.6%",
       "history": [
-        0.074,
-        0.075,
-        0.082,
-        0.113,
-        0.105,
-        0.087,
-        0.088,
-        0.069
+        74,
+        75,
+        82,
+        113,
+        105,
+        87,
+        88,
+        69
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -202,8 +202,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -229,8 +234,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -244,7 +253,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.37,
         1.4,
@@ -257,7 +266,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -272,7 +281,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0786,
@@ -285,7 +294,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -300,7 +309,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         42.8,
@@ -313,7 +322,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -329,7 +338,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.26,
@@ -342,7 +351,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -360,7 +369,8 @@
       "severity": 3,
       "score_rationale": "La qualité des actifs et les provisions pour pertes de crédit sont gérées à travers un processus continu de monitoring, bien que des risques de crédit persisten dans un environnement économique incertain.",
       "trend": "stable",
-      "summary": "Risque de crédit présent mais maîtrisé par une gestion active des provisions et du portefeuille de prêts."
+      "summary": "Risque de crédit présent mais maîtrisé par une gestion active des provisions et du portefeuille de prêts.",
+      "score": 3
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -368,7 +378,8 @@
       "severity": 4,
       "score_rationale": "La volatilité des taux d'intérêt représente un risque significatif pour la banque, malgré l'amélioration du NIM en 2025. Le portefeuille d'investissement (notamment les MBS) est exposé aux risques de variation de taux.",
       "trend": "stable",
-      "summary": "Risque élevé en raison de la sensibilité du bilan aux mouvements de taux d'intérêt, partiellement atténué par une meilleure gestion du NIM."
+      "summary": "Risque élevé en raison de la sensibilité du bilan aux mouvements de taux d'intérêt, partiellement atténué par une meilleure gestion du NIM.",
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
@@ -376,7 +387,8 @@
       "severity": 2,
       "score_rationale": "La banque dispose de sources de financement diversifiées (dépôts, FHLB, FRDW, marchés repo) et d'une capacité de financement supplémentaire estimée à 2,45 milliards auprès du FHLB.",
       "trend": "stable",
-      "summary": "Risque de liquidité bien géré grâce à une base de dépôts stable, des lignes de crédit disponibles et l'accès aux facilités de la Réserve fédérale."
+      "summary": "Risque de liquidité bien géré grâce à une base de dépôts stable, des lignes de crédit disponibles et l'accès aux facilités de la Réserve fédérale.",
+      "score": 2
     },
     {
       "title": "Risque de concurrence",
@@ -384,7 +396,8 @@
       "severity": 3,
       "score_rationale": "La banque communautaire opère dans un environnement compétitif face aux grandes banques nationales et autres institutions financières du Texas.",
       "trend": "stable",
-      "summary": "Risque de concurrence présent mais atténué par le positionnement de banque communautaire et la fidélité clientèle locale."
+      "summary": "Risque de concurrence présent mais atténué par le positionnement de banque communautaire et la fidélité clientèle locale.",
+      "score": 3
     },
     {
       "title": "Risque de réglementation",
@@ -392,7 +405,8 @@
       "severity": 3,
       "score_rationale": "SBSI est soumise à des réglementations strictes en tant que banque holding holding de state-chartered bank. Les exigences de capital et de liquidité évoluent régulièrement.",
       "trend": "stable",
-      "summary": "Risque de réglementation géré par une conformité proactive aux exigences réglementaires fédérales et d'État."
+      "summary": "Risque de réglementation géré par une conformité proactive aux exigences réglementaires fédérales et d'État.",
+      "score": 3
     },
     {
       "title": "Risque opérationnel",
@@ -400,7 +414,8 @@
       "severity": 3,
       "score_rationale": "Comme toute institution bancaire, SBSI est exposée aux risques opérationnels liés à la fraude, aux erreurs de traitement et aux défaillances de systèmes.",
       "trend": "stable",
-      "summary": "Risque opérationnel mitigé par des contrôles internes et des mesures de sécurité, bien qu'il persiste dans un contexte de numérisation croissante."
+      "summary": "Risque opérationnel mitigé par des contrôles internes et des mesures de sécurité, bien qu'il persiste dans un contexte de numérisation croissante.",
+      "score": 3
     }
   ],
   "governance": {
@@ -594,7 +609,7 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.176Z",
   "_dividends_extracted_at": "2026-05-09T20:19:20Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2012,
@@ -610,7 +625,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:50Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:21Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
   "enrich_description": {
@@ -720,9 +735,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.307248+00:00",
     "fetched_at": "2026-05-21T02:17:14.307249+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.571Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.601Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sbsi.json",
     "enrich_root": "v2-pipeline-enrich/sbsi.json",

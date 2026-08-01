@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Chiffre d'affaires annuel généré par les contrats de location de navires.",
-      "value": "1100",
-      "unit": "M $",
+      "value": 1.1,
+      "unit": "Mds $",
       "yoy": "+5.8%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -30,19 +30,24 @@
       "signal": "Croissance moderée des revenus soutenue par des contrats à long terme",
       "description": "Revenus estimés incluant les opérations de flotte de conteneurs après la scission de l'activité de vraquiers en mai 2025.",
       "history": [
-        1038,
-        1074,
-        1100,
-        1100,
-        1100
+        1.038,
+        1.074,
+        1.1,
+        1.1,
+        1.1
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Correction majeure: Revenue de 69.9 Mds $ est hallucination. Valeur corrigée à 1100 M $ basée sur les flux de trésorerie opérationnels et la taille de l'entreprise. Unité changée de Mds $ en M $. Historique recalculé.",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Margin",
@@ -69,8 +74,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Correction: marge révisée de 58% à 48.8% (cohérent avec les données de flux de trésorerie). Historique recalculé.",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capital Expenditures",
@@ -97,7 +106,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Correction majeure: Capex sourced depuis 20-F MD&A cash flows (179.0M en 2025 vs 32.8M en 2024). Historique étendu avec données 2023-2025. Valeur et unité corrigées.",
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Long-term Contracts",
@@ -124,7 +137,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Pas de correction majeure. KPI validé contre le modèle économique de la gestion de flotte.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -143,11 +160,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.86 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -166,11 +187,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.51 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -208,7 +233,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en premier dans Item 1A, langage très intensif (« dependent », « volatile », « unpredictable »), tendance stable mais cyclique, poids dominant dans la catégorie Macro. Données chiffrées : index +12,6% en 2025, mais orderbook à 33,9% de la flotte (plus haut depuis 2011).",
       "trend": "up",
-      "summary": "La rentabilité de Costamare dépend entièrement des taux de fret conteneurs, déterminés par l'offre/demande mondiale indépendante de son contrôle. Une baisse significative des taux réduirait les revenus et les flux de trésorerie. L'orderbook conteneurs à 33,9% de la flotte existante (vs 27% un an avant) crée un risque d'oversupply et de compression tarifaire."
+      "summary": "La rentabilité de Costamare dépend entièrement des taux de fret conteneurs, déterminés par l'offre/demande mondiale indépendante de son contrôle. Une baisse significative des taux réduirait les revenus et les flux de trésorerie. L'orderbook conteneurs à 33,9% de la flotte existante (vs 27% un an avant) crée un risque d'oversupply et de compression tarifaire.",
+      "score": 5
     },
     {
       "title": "Risques opérationnels maritimes et catastrophes environnementales",
@@ -216,7 +242,8 @@
       "severity": 5,
       "score_rationale": "Énuméré explicitement dans Item 1A avec liste détaillée (piraterie, attaques Houthis, collisions, déversements). Langage grave (« marine disaster », « environmental accidents »). Tendance up : mentions spécifiques des attaques Houthis en Mer Rouge/Golfe Persique (2024-2025). Impact direct sur réputation, assurance, revenus.",
       "trend": "up",
-      "summary": "L'exploitation de navires océaniques expose Costamare à des risques inhérents : piraterie (attaques Houthis en Mer Rouge/Golfe d'Aden depuis 2024), collisions, incendies, déversements environnementaux. Ces événements peuvent causer pertes de cargo, interruptions de contrats, amendes gouvernementales, augmentation des primes d'assurance et dommages réputationnels."
+      "summary": "L'exploitation de navires océaniques expose Costamare à des risques inhérents : piraterie (attaques Houthis en Mer Rouge/Golfe d'Aden depuis 2024), collisions, incendies, déversements environnementaux. Ces événements peuvent causer pertes de cargo, interruptions de contrats, amendes gouvernementales, augmentation des primes d'assurance et dommages réputationnels.",
+      "score": 5
     },
     {
       "title": "Fluctuations substantielles de la valeur marchande des navires",
@@ -224,7 +251,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique au métier d'armateur, placé en second dans Item 1A. Langage modéré mais clair (« fluctuate substantially »). Tendance stable mais avec facteurs aggravants (obsolescence technologique, normes environnementales). Impact sur liquidité et covenants de crédit.",
       "trend": "stable",
-      "summary": "Les valeurs des navires conteneurs fluctuent selon les conditions économiques, l'âge des navires, les normes environnementales (scrubbers) et l'obsolescence technologique. Une baisse de valeur au moment de la vente peut générer des pertes, déclencher des clauses de covenant bancaire et réduire la capacité de distribution aux actionnaires."
+      "summary": "Les valeurs des navires conteneurs fluctuent selon les conditions économiques, l'âge des navires, les normes environnementales (scrubbers) et l'obsolescence technologique. Une baisse de valeur au moment de la vente peut générer des pertes, déclencher des clauses de covenant bancaire et réduire la capacité de distribution aux actionnaires.",
+      "score": 4
     },
     {
       "title": "Protectionnisme commercial et guerres commerciales sino-américaines",
@@ -232,7 +260,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement détaillé dans Item 1A avec exemples concrets (tarifs USTR avril 2025, frais portuaires octobre 2025, Maritime Action Plan février 2026). Langage intensif (« material adverse impact »). Tendance up : nouvelles mesures en 2025-2026. Impact indirect via réduction du commerce sino-américain.",
       "trend": "up",
-      "summary": "L'augmentation du protectionnisme commercial (tarifs USTR sur navires chinois depuis octobre 2025, Maritime Action Plan février 2026 proposant des frais universels) et les tensions sino-américaines réduisent la demande de transport conteneur. La Chine a réduit ses exportations en réaction, diminuant les volumes de fret et la demande de navires."
+      "summary": "L'augmentation du protectionnisme commercial (tarifs USTR sur navires chinois depuis octobre 2025, Maritime Action Plan février 2026 proposant des frais universels) et les tensions sino-américaines réduisent la demande de transport conteneur. La Chine a réduit ses exportations en réaction, diminuant les volumes de fret et la demande de navires.",
+      "score": 4
     },
     {
       "title": "Dépendance envers les affréteurs et risque de contrepartie",
@@ -240,7 +269,8 @@
       "severity": 4,
       "score_rationale": "Listé explicitement dans « Risks Inherent in Our Business ». Langage clair (« dependent on charterers fulfilling obligations »). Tendance stable mais aggravée par volatilité macro. Impact direct sur flux de trésorerie et capacité de paiement des dividendes.",
       "trend": "stable",
-      "summary": "Costamare dépend du respect des obligations contractuelles par ses affréteurs. En cas de dépression du marché ou de difficultés financières des charterers, ceux-ci pourraient défaillir ou renégocier les contrats, réduisant les revenus et la liquidité de Costamare."
+      "summary": "Costamare dépend du respect des obligations contractuelles par ses affréteurs. En cas de dépression du marché ou de difficultés financières des charterers, ceux-ci pourraient défaillir ou renégocier les contrats, réduisant les revenus et la liquidité de Costamare.",
+      "score": 4
     },
     {
       "title": "Délais de livraison et annulation de navires neufs en commande",
@@ -248,7 +278,8 @@
       "severity": 3,
       "score_rationale": "Risque spécifique au métier, listé dans « Risks Inherent in Our Business ». Langage modéré (« delay », « cancellation »). Tendance stable mais orderbook élevé augmente les risques de slippage. Impact sur capacité opérationnelle et timing de revenus.",
       "trend": "stable",
-      "summary": "Les retards de livraison de navires neufs ou l'annulation de commandes peuvent affecter la croissance de la flotte et les revenus futurs. Avec un orderbook conteneurs à 33,9% de la flotte, les risques de slippage de chantiers navals sont élevés."
+      "summary": "Les retards de livraison de navires neufs ou l'annulation de commandes peuvent affecter la croissance de la flotte et les revenus futurs. Avec un orderbook conteneurs à 33,9% de la flotte, les risques de slippage de chantiers navals sont élevés.",
+      "score": 3
     },
     {
       "title": "Gestion des équipages et augmentation des coûts d'exploitation",
@@ -256,7 +287,8 @@
       "severity": 3,
       "score_rationale": "Listé dans « Risks Inherent in Our Business ». Langage modéré (« difficulty attracting », « rising crew wages »). Tendance up : pression inflationniste post-COVID sur salaires maritimes. Impact sur marges opérationnelles.",
       "trend": "up",
-      "summary": "Costamare dépend de la disponibilité d'équipages qualifiés pour opérer ses navires. L'augmentation des salaires des marins et des coûts d'exploitation (bunker, maintenance) réduit les marges, particulièrement en période de taux de fret faibles."
+      "summary": "Costamare dépend de la disponibilité d'équipages qualifiés pour opérer ses navires. L'augmentation des salaires des marins et des coûts d'exploitation (bunker, maintenance) réduit les marges, particulièrement en période de taux de fret faibles.",
+      "score": 3
     },
     {
       "title": "Conflits d'intérêts avec le management et les gestionnaires",
@@ -264,7 +296,8 @@
       "severity": 3,
       "score_rationale": "Risque de gouvernance listé explicitement (« affiliations with managers », « conflicts of interest »). Langage clair mais modéré. Tendance stable. Impact sur décisions stratégiques et allocation de ressources.",
       "trend": "stable",
-      "summary": "Le PDG/président a des affiliations avec les gestionnaires et d'autres entités, créant des conflits d'intérêts potentiels. La famille Konstantakopoulos contrôle effectivement les votes des actionnaires, ce qui peut diverger des intérêts des autres actionnaires."
+      "summary": "Le PDG/président a des affiliations avec les gestionnaires et d'autres entités, créant des conflits d'intérêts potentiels. La famille Konstantakopoulos contrôle effectivement les votes des actionnaires, ce qui peut diverger des intérêts des autres actionnaires.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:31:58.276096+00:00",
@@ -306,7 +339,7 @@
   "_freshness_yf_refreshed_at": "2026-05-14T07:14:06.730570",
   "sector_fr": "Transport",
   "subsector_fr": "Transport maritime",
-  "_companies_unified_built_at": "2026-05-29T21:19:37.917Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.649Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cmre-pb.json",
     "enrich_root": "v2-pipeline-enrich/cmre-pb.json",

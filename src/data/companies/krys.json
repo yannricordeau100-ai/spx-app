@@ -40,8 +40,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Revenue from the VYJUVEK segment."
+      "period_type": "year",
+      "explanation_en": "Revenue from the VYJUVEK segment.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -67,7 +70,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Cumulative Revenue",
@@ -112,11 +115,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.33 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -144,9 +151,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Pipeline",
@@ -172,9 +177,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -188,55 +191,55 @@
       "title": "Négociations de prix incertaines en Europe",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Ce risque est mentionné comme en cours en Allemagne et France jusqu'en 2026-2027, avec un langage fort sur l'incertitude des remboursements. Il affecte directement la rentabilité de VYJUVEK, principal produit. La catégorie Régulation est hautement pondérée ici. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné comme en cours en Allemagne et France jusqu'en 2026-2027, avec un langage fort sur l'incertitude des remboursements. Il affecte directement la rentabilité de VYJUVEK, principal produit. La catégorie Régulation est hautement pondérée ici.",
       "trend": "stable",
       "summary": "Les discussions sur les prix de VYJUVEK en Europe traînent et pourraient retarder ou réduire les revenus.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à un seul produit commercialisé",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "VYJUVEK représente l'intégralité des revenus commerciaux (730M$ cumulés). Le 10-K souligne la fluctuation future des revenus. Langage alarmant sur la dépendance. Pondération élevée pour risque existentiel. (score par défaut, à affiner)",
+      "score_rationale": "VYJUVEK représente l'intégralité des revenus commerciaux (730M$ cumulés). Le 10-K souligne la fluctuation future des revenus. Langage alarmant sur la dépendance. Pondération élevée pour risque existentiel.",
       "trend": "stable",
       "summary": "La société dépend presque entièrement des ventes de VYJUVEK, ce qui expose fortement sa santé financière.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Complexité de fabrication et coûts CGMP",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le document mentionne des coûts importants liés aux installations CGMP, ajustements d'inventaire, et frais indirects. Le maintien de la qualité CGMP est critique. Risque opérationnel majeur pour la marge (94%). (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne des coûts importants liés aux installations CGMP, ajustements d'inventaire, et frais indirects. Le maintien de la qualité CGMP est critique. Risque opérationnel majeur pour la marge (94%).",
       "trend": "stable",
       "summary": "La fabrication à grande échelle sous normes strictes est coûteuse et sujette à des ajustements imprévus.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Échec ou retard des essais cliniques clés",
       "category": "Technologie",
       "severity": 5,
-      "score_rationale": "Plusieurs essais (IOLITE, EMERALD-1, CORAL-3) doivent livrer des résultats en 2026. Le texte insiste sur l'incertitude des délais et coûts. Échec = perte de pipeline stratégique. Langage très prudent. (score par défaut, à affiner)",
+      "score_rationale": "Plusieurs essais (IOLITE, EMERALD-1, CORAL-3) doivent livrer des résultats en 2026. Le texte insiste sur l'incertitude des délais et coûts. Échec = perte de pipeline stratégique. Langage très prudent.",
       "trend": "stable",
       "summary": "Les avancées de la société dépendent de résultats cliniques positifs à venir, qui ne sont pas garantis.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à des distributeurs spécialisés",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le modèle de distribution repose sur un réseau limité de spécialistes. Le 10-K mentionne explicitement ce point comme critique pour la livraison. Moins de contrôle sur l'accès patient. (score par défaut, à affiner)",
+      "score_rationale": "Le modèle de distribution repose sur un réseau limité de spécialistes. Le 10-K mentionne explicitement ce point comme critique pour la livraison. Moins de contrôle sur l'accès patient.",
       "trend": "stable",
       "summary": "Un nombre restreint de partenaires de distribution peut limiter la pénétration du marché ou causer des ruptures.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Estimations comptables incertaines sur revenus",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le document détaille l'incertitude sur les remises, retours et estimations de revenus variables (ASC 606). Cela affecte la prévisibilité financière. Mention répétée dans les politiques critiques. (score par défaut, à affiner)",
+      "score_rationale": "Le document détaille l'incertitude sur les remises, retours et estimations de revenus variables (ASC 606). Cela affecte la prévisibilité financière. Mention répétée dans les politiques critiques.",
       "trend": "stable",
       "summary": "Les revenus nets dépendent d'estimations complexes sujettes à révision, ce qui peut impacter les résultats publiés.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -274,7 +277,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -402,11 +405,9 @@
           10.957,
           26.539,
           40.05,
-          -23.973,
           14.255,
           28.666,
           43.251,
-          -28.127,
           15.331
         ],
         "history_periods": [
@@ -460,6 +461,12 @@
             "accession": "0001711279-26-000043",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (KRYS)"
         ]
       },
       {
@@ -538,7 +545,10 @@
             "accession": "0001711279-26-000043",
             "end": "2026-03-31"
           }
-        ]
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -554,9 +564,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.275270+00:00",
     "fetched_at": "2026-05-21T02:17:14.275271+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.899Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.665Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/krys.json",
     "enrich_root": null,

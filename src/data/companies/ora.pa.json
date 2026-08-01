@@ -13,31 +13,9 @@
     "sector": "Top 10 European Telecom",
     "subsector": "Top 5 Western European Telecom"
   },
-  "hero_kpi": "Capex",
-  "hero_kpi_rationale": "Orange est leader en déploiement de fibre en Europe avec 46 millions de connexions FTTH fin 2022. C'est un avantage structurel dans un secteur mature, reflétant l'orientation stratégique Lead the Future vers la connectivité de qualité supérieure et la différenciation par les réseaux.",
+  "hero_kpi": "EBITDAAL_H",
+  "hero_kpi_rationale": "EBITDAaL semestriel : 11 points publies de S1-2021 a S1-2026, l'indicateur de pilotage cite en tete de chaque communique d'Orange. Le S1-2026 est un record a 6 128 M€ (+5,0% en comparable) apres le creux de 2024 lie a la sortie de l'Espagne, ce qui a conduit le groupe a relever sa guidance 2026 a plus de +4%.",
   "kpis": [
-    {
-      "short": "Revenue",
-      "name_fr": "Revenu total",
-      "name_en": "Total Revenue",
-      "explanation": "Argent gagné par l'entreprise sur l'année.",
-      "value": "43.5",
-      "unit": "B €",
-      "yoy": null,
-      "type": "Revenue",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Revenu stable dans un secteur mature.",
-      "description": "Revenu consolidé en 2022, reflétant les activités en Europe, Afrique et Moyen-Orient.",
-      "history": [
-        43.5
-      ],
-      "last_data_date": "2022-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
-    },
     {
       "short": "Gross Margin",
       "name_fr": "Marge brute",
@@ -58,7 +36,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -102,10 +80,13 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de Capex (investissements) trouvée dans l'extrait fourni du rapport 2020 d'Orange. L'extrait contient princ",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Headcount",
@@ -127,15 +108,15 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Mobile Customers",
       "name_fr": "Clients mobile",
       "name_en": "Mobile Customers",
       "explanation": "Nombre d'abonnés à un forfait mobile Orange.",
-      "value": 287000000,
-      "unit": "",
+      "value": 287,
+      "unit": "M $",
       "yoy": null,
       "type": "User",
       "nature": "Structurel",
@@ -143,21 +124,22 @@
       "signal": "Base client massive, mais croissance limitée.",
       "description": "287 millions de clients mobiles en 2022, dont 241,9 millions actifs sur réseau propre.",
       "history": [
-        287000000
+        287
       ],
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Number of Mobile customers."
+      "explanation_en": "Number of Mobile customers.",
+      "_unit_rescaled": "raw -> M $"
     },
     {
       "short": "Fixed Broadband",
       "name_fr": "Clients très haut débit",
       "name_en": "Fixed Broadband Customers",
       "explanation": "Nombre d'abonnés à l'internet fixe très haut débit (FTTH).",
-      "value": 24300000,
-      "unit": "",
+      "value": 24.3,
+      "unit": "M $",
       "yoy": null,
       "type": "User",
       "nature": "Structurel",
@@ -165,12 +147,13 @@
       "signal": "Croissance du fibre en France et Europe, avantage compétitif clé.",
       "description": "24,3 millions de clients très haut débit, dont 13,7 millions en fibre optique (FTTH).",
       "history": [
-        24300000
+        24.3
       ],
       "last_data_date": "2022-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "raw -> M $"
     },
     {
       "short": "Total Assets",
@@ -189,350 +172,468 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 107.42 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "CA Groupe",
+      "name_fr": "Chiffre d'affaires Groupe",
+      "value": 40.3,
+      "unit": "Mds €",
+      "history": [
+        null,
+        null,
+        null,
+        44.1,
+        40.3
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "EBITDAaL",
+      "name_fr": "EBITDA after Leases",
+      "value": 12.109,
+      "unit": "Mds €",
+      "history": [
+        null,
+        null,
+        null,
+        11.792,
+        12.109
+      ],
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
+    },
+    {
+      "short": "Foyers raccordables FTTH",
+      "name_fr": "Foyers raccordables fibre (FTTH) mondial",
+      "value": 60.1,
+      "unit": "Mds",
+      "history": [
+        null,
+        null,
+        null,
+        55.6,
+        60.1
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "Clients mobiles",
+      "name_fr": "Clients mobiles dans le monde",
+      "value": 253,
+      "unit": "M",
+      "history": [
+        null,
+        null,
+        null,
+        248,
+        253
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "Clients fixe haut débit",
+      "name_fr": "Clients fixes haut débit",
+      "value": 22,
+      "unit": "M",
+      "history": [
+        null,
+        null,
+        null,
+        22,
+        22
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "Clients Orange Money actifs",
+      "name_fr": "Clients Orange Money actifs",
+      "value": 39.7,
+      "unit": "M",
+      "history": [
+        null,
+        null,
+        null,
+        33.9,
+        39.7
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "eCAPEX (hors Espagne)",
+      "name_fr": "eCAPEX investissements (hors Espagne)",
+      "value": 6.3,
+      "unit": "Mds €",
+      "history": [
+        null,
+        null,
+        null,
+        7.4,
+        6.3
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "DPS",
+      "name_fr": "Dividende par action",
+      "value": 0.75,
+      "unit": "€",
+      "history": [
+        null,
+        null,
+        null,
+        0.72,
+        0.75
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "ame_revenue",
+      "name_fr": "Revenu Afrique et Moyen-Orient",
+      "name_en": "Africa & Middle East Revenue",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        5.646,
+        5.834,
+        6.381,
+        6.918,
+        7.152
+      ],
+      "value": 7.152,
+      "last_data_date": "2023-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Afrique et le Moyen-Orient atteignent 7,2 Mds €, seule zone en croissance soutenue.",
+      "is_wow": true,
+      "yoy": "+3,4 %"
+    },
+    {
+      "short": "EBITDAAL_H",
+      "name_fr": "EBITDAaL semestriel",
+      "name_en": "Half-year EBITDAaL",
+      "value": 6.128,
+      "unit": "Mds €",
+      "yoy": "+8.0%",
+      "history": [
+        {
+          "q": "H1-2021",
+          "v": 5.837
+        },
+        {
+          "q": "H2-2021",
+          "v": 6.729,
+          "_derived": true
+        },
+        {
+          "q": "H1-2022",
+          "v": 5.934
+        },
+        {
+          "q": "H2-2022",
+          "v": 7.029,
+          "_derived": true
+        },
+        {
+          "q": "H1-2023",
+          "v": 5.895
+        },
+        {
+          "q": "H2-2023",
+          "v": 7.14,
+          "_derived": true
+        },
+        {
+          "q": "H1-2024",
+          "v": 5.511
+        },
+        {
+          "q": "H2-2024",
+          "v": 6.598,
+          "_derived": true
+        },
+        {
+          "q": "H1-2025",
+          "v": 5.675
+        },
+        {
+          "q": "H2-2025",
+          "v": 6.795,
+          "_derived": true
+        },
+        {
+          "q": "H1-2026",
+          "v": 6.128
+        }
+      ],
+      "period_type": "semester",
+      "type": "Profit",
+      "pv_score": 10,
+      "signal": "S1-2026 record à 6,128 Mds €, +5,0% en base comparable, le meilleur premier semestre depuis 2021",
+      "description_fr": "EBITDAaL semestriel du groupe (EBITDA après loyers). Points S2 dérivés par différence exercice moins S1.",
+      "description_en": "Half-year Group EBITDAaL (EBITDA after leases). H2 points derived as FY minus H1.",
+      "last_data_date": "2026-06-30",
+      "frequency": "semiannual"
     }
   ],
-  "stories_kpis": [],
-  "ai_positioning": {
-    "stance": "cautious",
-    "summary": "Orange adopte une approche prudente vis-à-vis de l'IA, sans initiative majeure annoncée. L'IA est évoquée comme opportunité future, mais pas encore intégrée dans les produits phares.",
-    "evidence": [
-      "Pas de mention d'IA générative ou d'API IA dans les rapports.",
-      "Stratégie Lead the Future axée sur la fibre et la cybersécurité, pas sur l'IA.",
-      "Appel aux Big Tech pour financer les réseaux, sans contrepartie IA."
-    ],
-    "source": "2022 Integrated Annual Report"
-  },
-  "_validation": [
-    "Revenue unit: Corrected 'Mds €' to 'B €' (standard notation for billions)",
-    "Capex unit: Corrected 'Mds €' to 'B €' (standard notation for billions)",
-    "Headcount value: Converted from 136 K to 136000 (full numeric value)",
-    "Headcount unit: Changed from 'K' to 'headcount' (standard unit)",
-    "Mobile Customers value: Converted from 287 m to 287000000 (full numeric value)",
-    "Mobile Customers unit: Changed from 'm' to 'headcount' (standard unit)",
-    "Fixed Broadband value: Converted from 24.3 m to 24300000 (full numeric value)",
-    "Fixed Broadband unit: Changed from 'm' to 'headcount' (standard unit)",
-    "hero_kpi: Changed from 'HPC / Cloud' to 'Fiber Infrastructure' (reflects actual strategic positioning from source)",
-    "hero_kpi_rationale: Completely rewritten to reflect fiber leadership advantage verified in source (46M FTTH deployments, Lead the Future strategy)",
-    "Fixed Broadband signal: Enhanced with 'avantage compétitif clé' to reflect strategic importance",
-    "All KPI values verified against 2022 Integrated Annual Report source document",
-    "hero_kpi orphelin 'Fiber Infrastructure' -> fallback 'Capex'"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_1",
     "no_yoy"
   ],
   "next_earnings_date": "2026-04-23",
   "_held_for_review": true,
-  "risks": [
-    {
-      "title": "Intensification de la concurrence dans les télécoms et services numériques",
-      "category": "Concurrence",
-      "severity": 4,
-      "score_rationale": "Risque implicite majeur pour opérateur télécom : document mentionne déploiement 5G compétitif (8 pays, 121 zones urbaines), services numériques diversifiés (Orange Bank, Orange Money, OCS) et expansion internationale (Afrique, 160 pays). Langage neutre mais contexte d'intensification technologique et géographique indique pression concurrentielle croissante. Tendance stable/up.",
-      "trend": "stable",
-      "summary": "Orange fait face à une concurrence accrue dans les services de télécommunications mobiles et fixes, notamment avec le déploiement du 5G par les concurrents. La diversification vers les services numériques (banque mobile, streaming, cybersécurité) expose également Orange à des compétiteurs spécialisés dans ces domaines."
-    },
-    {
-      "title": "Dépendance critique aux infrastructures réseau et continuité de service",
-      "category": "Industriel",
-      "severity": 4,
-      "score_rationale": "Risque métier fondamental : document détaille extensively la criticité opérationnelle (160 pays couverts, 10,000 lignes ajoutées mondialement, transatlantic capacity 400→600 Gbit/s, 1.8M opérations terrain France). Langage d'urgence et résilience indique vulnérabilité. Tendance up (Covid-19 a exposé dépendances). Poids catégorie élevé pour télécom.",
-      "trend": "up",
-      "summary": "Orange dépend fortement de la continuité de ses infrastructures réseau mondiales pour servir 160 pays. Les pics de demande (Covid-19 : +10,000 lignes, +200 Gbit/s transatlantique) et la nécessité de basculer en télétravail massif exposent les risques de congestion, défaillance technique et surcharge opérationnelle."
-    },
-    {
-      "title": "Menaces cybersécurité accrues sur réseaux critiques et données sensibles",
-      "category": "Cybersécurité",
-      "severity": 5,
-      "score_rationale": "Risque très élevé explicitement documenté : vague cyberattaques Covid-19, 8M données test Covid fuites, faux sites malveillants, phishing massif, déploiement urgent hotline Cyberdefense, création entité CyberSOC globale (France, Allemagne, Pays-Bas, Suède). Langage d'alerte et actions défensives massives. Tendance up (pandémie a multiplié attaques). Poids critique pour opérateur infrastructure.",
-      "trend": "up",
-      "summary": "Orange a subi une vague de cyberattaques pendant la pandémie, incluant des fuites de 8 millions de résultats de tests Covid, des sites malveillants exploitant la crise et des tentatives de phishing massives. La création d'une entité CyberSOC globale et d'une hotline d'urgence dédiée reflète l'intensification des menaces sur les réseaux critiques et données sensibles."
-    },
-    {
-      "title": "Régulation sectorielle et conformité données personnelles (RGPD)",
-      "category": "Régulation",
-      "severity": 4,
-      "score_rationale": "Risque régulation implicite : document mentionne conformité CNIL (anonymisation données Flux Vision), respect RGPD (protection données patients, confidentialité), déploiement TousAntiCovid (régulation gouvernementale stricte). Langage de conformité proactive. Tendance stable (RGPD établi depuis 2018). Poids élevé pour opérateur européen.",
-      "trend": "stable",
-      "summary": "Orange opère sous régulation RGPD stricte en Europe et doit gérer la conformité des données personnelles dans ses services (Orange Money, Orange Bank, solutions santé). Les projets gouvernementaux (TousAntiCovid, ANR EVALCovid-19) imposent des contraintes de sécurité et d'anonymisation des données de localisation et santé."
-    },
-    {
-      "title": "Dépendance aux partenaires technologiques et fournisseurs critiques",
-      "category": "Industriel",
-      "severity": 3,
-      "score_rationale": "Risque métier modéré : document mentionne partenariats critiques (GE Healthcare/STOIC, Enovacom biomedical, TheraPanacea, Inserm, NSIA pour Orange Bank). Langage collaboratif mais dépendance implicite. Tendance stable (partenariats structurels). Poids modéré mais croissant avec diversification services.",
-      "trend": "stable",
-      "summary": "Orange dépend de partenaires technologiques clés pour ses services innovants : GE Healthcare pour l'IA médicale (STOIC), Enovacom pour l'interopérabilité biomédicale, NSIA pour Orange Bank Africa. Toute défaillance ou rupture de ces partenariats pourrait impacter la continuité de services critiques."
-    },
-    {
-      "title": "Risques opérationnels liés à la transition technologique 4G→5G",
-      "category": "Technologie",
-      "severity": 3,
-      "score_rationale": "Risque technologie modéré : document détaille déploiement 5G complexe (8 pays, 121 zones, transition core network 2023, slicing réseau). Langage technique neutre mais transition majeure. Tendance up (2023 deadline critique). Poids modéré mais stratégique.",
-      "trend": "up",
-      "summary": "Orange doit gérer la transition technologique vers 5G avec déploiement dans 8 pays et transition du core network prévue en 2023. Les risques incluent les surcoûts d'infrastructure, les délais de déploiement, la compatibilité des équipements et l'obsolescence des investissements 4G."
-    },
-    {
-      "title": "Exposition géopolitique et risques pays (Afrique, Moyen-Orient, Europe de l'Est)",
-      "category": "Géopolitique",
-      "severity": 3,
-      "score_rationale": "Risque géopolitique modéré : document mentionne présence dans 160 pays, expansion Afrique (Cameroon, Senegal, Côte d'Ivoire, Maroc, Tunisie, Jordanie), Moldavie, Roumanie, Pologne. Langage neutre mais exposition géographique large. Tendance stable (stratégie long-terme). Poids modéré pour groupe multinational.",
-      "trend": "stable",
-      "summary": "Orange opère dans 160 pays avec exposition significative à l'Afrique (Orange Bank Africa, Sonatel Senegal), Europe de l'Est (Pologne, Roumanie, Moldavie) et Moyen-Orient (Jordanie, Maroc). Les risques incluent l'instabilité politique, les changements réglementaires, les restrictions de change et les conflits géopolitiques."
-    },
-    {
-      "title": "Risques de réputation liés aux données de santé et vie privée",
-      "category": "Réputation",
-      "severity": 3,
-      "score_rationale": "Risque réputation modéré : document détaille gestion données sensibles (8M tests Covid fuites, données localisation Flux Vision, TousAntiCovid, dossiers patients). Langage de responsabilité mais incidents potentiels graves. Tendance up (données santé critiques). Poids modéré mais croissant avec services santé.",
-      "trend": "up",
-      "summary": "Orange gère des données extrêmement sensibles (résultats tests Covid, localisation, dossiers patients) via ses services de santé numérique et applications gouvernementales. Tout incident de sécurité ou mauvaise gestion de ces données pourrait causer des dommages réputationnels majeurs et perte de confiance client."
-    }
-  ],
   "_risks_fetched_at": "2026-05-12T11:51:53.675045+00:00",
-  "_risks_reextracted_at": "2026-05-14T04:14:56.242482+00:00",
-  "_risks_source": "Annual 2020",
-  "profit_warning": {
-    "last_date": null,
-    "score": 3,
-    "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
-    "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  },
-  "governance": {
-    "ceo_name": "Ms. Christel  Heydemann",
-    "ceo_title": "CEO & Executive Director",
-    "officers": [
-      {
-        "name": "Ms. Christel  Heydemann",
-        "title": "CEO & Executive Director",
-        "age": 51
-      },
-      {
-        "name": "Mr. Laurent  Martinez",
-        "title": "GExecutive Vice President of Finance, Performance & Development",
-        "age": 57
-      },
-      {
-        "name": "Mr. Bruno  Zerbib",
-        "title": "Executive VP and Group Chief Technology & Innovation Officer",
-        "age": null
-      },
-      {
-        "name": "Ms. Constance  Gest",
-        "title": "Group Head of Investor Relations & Financial Communication",
-        "age": null
-      },
-      {
-        "name": "Ms. Brigitte  Bourgoin",
-        "title": "Group Chief Compliance Officer",
-        "age": 71
-      }
-    ],
-    "fiscal_year": 2025
-  },
-  "_governance_yf_fallback_at": "2026-05-14T04:39:58.595293+00:00",
-  "events": [
-    {
-      "year": 2026,
-      "month": 4,
-      "title": "Nokia Alliances With Orange And RUCKUS Test AI Network Rerating",
-      "body": "Nokia Oyj (HLSE:NOKIA) is expanding its AI driven network offering through new alliances with Orange SA and RUCKUS Networks. With Orange, Nokia plans to co develop AI powered 5G radio access network technologies using its anyRAN software an",
-      "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/nokia-alliances-orange-ruckus-test-020616780.html",
-      "date": "2026-04-26"
-    },
-    {
-      "year": 2026,
-      "month": 4,
-      "title": "Orange SA (ORANY) Q1 2026 Earnings Call Highlights: Strong Revenue Growth and Strategic ...",
-      "body": "Orange SA (ORANY) reports a 3.5% increase in group revenue and a 6.6% rise in EBITDA, driven by robust growth in Africa and the Middle East and strategic advancements in AI and business services.",
-      "source": "GuruFocus.com",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/orange-sa-orany-q1-2026-070125104.html",
-      "date": "2026-04-24"
-    },
-    {
-      "year": 2026,
-      "month": 4,
-      "title": "Orange Lifts Key Metric Outlook, Revenue Rises",
-      "body": "Higher revenue was driven by strong growth in Africa and Middle East, particularly in retail services engines.",
-      "source": "The Wall Street Journal",
-      "url": "https://www.wsj.com/business/orange-lifts-key-metric-outlook-revenue-rises-f9aac73c?siteid=yhoof2&yptr=yahoo",
-      "date": "2026-04-23"
-    },
-    {
-      "year": 2026,
-      "month": 4,
-      "title": "5 Space Stocks Already Climbing Ahead of the SpaceX IPO",
-      "body": "Rocket Lab, AST SpaceMobile, Intuitive Machines, Planet Labs, and Redwire are five space stocks positioned to benefit from the capital influx a SpaceX IPO could unlock.",
-      "source": "MarketBeat",
-      "url": "https://www.marketbeat.com/stock-ideas/5-space-stocks-already-climbing-ahead-of-the-spacex-ipo/?utm_source=yahoofinance&utm_medium=yahoofinance",
-      "date": "2026-04-14"
-    }
-  ],
   "company_description": "Orange S.A. operates as a telecommunications operator in France and internationally. The company offers mobile services, such as voice, SMS, and data; and fixed broadband and narrowband services, as well as B2B fixed solutions and network services, including voice and data services. It also sells handsets, broadband equipment, connected devices, and accessories. In addition, it provides IT and integration services comprising unified communication and collaboration services, such as LAN and telephony, consultancy, integration, and project management; hosting and infrastructure services, including cloud computing; customer relations management and other applications services; security services; and video conferencing, as well as sells related equipment. Further, the company offers national and international roaming services; online advertising services; and mobile virtual network operator, network sharing, and mobile financial services, as well as sells equipment to external distributors, brokers, and operators. It markets its products and services under the Orange brand name. The company has a strategic collaboration with Nokia and NVIDIA for the development and evaluation of AI-RAN",
   "last_data_date": "2025-12-31",
-  "hero_kpi_override": "Africa & Middle East Revenue",
-  "_hero_override_reason": "Hero spécifique métier choisi parmi KPIs spec extraits avec history 5 ans.",
-  "_hero_override_set_at": "2026-05-20T00:00:00Z",
-  "overrides_governance": {
-    "board_size": 15,
-    "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
-    "extraction_status": "heuristic_real_eu",
-    "_extracted_at": "2026-05-21T09:19:00Z",
-    "_source_file": "sec-data/cat3-european/ORA.PA/annual-text/2022.txt",
-    "voting_structure": "one_share_one_vote"
+  "description": {
+    "long_fr": "Orange est un opérateur mondial de télécommunications. Le groupe propose services mobiles, fixes, internet haut débit, services aux entreprises (Orange Business) et services financiers (Orange Bank, en cours de cession). Présent dans 26 pays auprès de ~298 millions de clients. Chiffre d'affaires 2024 : ~40.3 Mds €.",
+    "long_en": "Orange is a global telecommunications operator. The group provides mobile, fixed, broadband internet services, enterprise services (Orange Business) and financial services (Orange Bank, divestment ongoing). Present in 26 countries serving ~298 million customers. 2024 revenue: ~€40.3 bn.",
+    "long_de": "Orange ist ein globaler Telekommunikationsanbieter. Der Konzern bietet Mobilfunk-, Festnetz- und Breitband-Internetdienste, Unternehmenslösungen (Orange Business) sowie Finanzdienstleistungen (Orange Bank, derzeit im Veräußerungsprozess). Präsenz in 26 Ländern mit rund 298 Mio. Kunden. Konzernumsatz 2024: rund 40,3 Mrd. €."
   },
-  "_stories_backfill_at": "2026-05-21T10:51:45Z",
-  "_stories_backfill_source": "scaleup_residuel_cerebras_key2",
-  "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/ORA.PA/annual-text/2022.txt",
-  "_risks_source_year": 2022,
-  "_risks_verification_needed": true,
-  "hero_last_data_date_override": "2025-12-31",
-  "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00",
-  "events_fr": [
+  "i18n": {
+    "name_fr": "Orange SA",
+    "name_en": "Orange SA",
+    "name_de": "Orange SA",
+    "tagline_fr": "Premier opérateur télécom français.",
+    "tagline_en": "France's leading telecom operator.",
+    "tagline_de": "Frankreichs führender Telekommunikationsanbieter."
+  },
+  "_canonical_merged_at": "2026-06-01T12:25:25.838613+00:00",
+  "_canonical_merge_source": "unified-mass-extract-v2",
+  "_canonical_kpis_appended": 8,
+  "_blocs_extracted_by": "Sub-agent Opus FR finalization (URD AMF public + base canonique)",
+  "_cac40_purge_blocs_legacy": {
+    "date": "2026-08-01",
+    "champs": [
+      "risks",
+      "governance",
+      "ai_positioning",
+      "revenue_by_segment",
+      "revenue_by_geography",
+      "stories_kpis",
+      "profit_warning",
+      "customer_type",
+      "events",
+      "_risks_reextracted_at",
+      "_risks_source",
+      "_blocs_extracted_at",
+      "_governance_yf_fallback_at",
+      "transcript_summary"
+    ],
+    "raison": "Page blanche CAC 40. Blocs herites de sec-data/cat3-european (mai 2026), source mise en quarantaine et non fiable: gouvernance Danone sourcee sur un URD Amundi. Seront reconstruits en Phase 3 depuis data-lake/<T>/ir/."
+  },
+  "risks": [
     {
-      "year": 2026,
-      "month": 4,
-      "title": "Nokia teste la requalification IA via alliances Orange et RUCKUS",
-      "description": "Nokia etend son offre reseau IA avec Orange et RUCKUS. Codeveloppement de technologies RAN 5G IA via anyRAN.",
-      "date": "2026-04-26"
+      "category": "Cybersécurité et données",
+      "title": "Cyberattaques et compromission des systèmes et des données",
+      "description": "Les activités du groupe reposent sur la gestion de données sensibles ou personnelles de clients, salariés, fournisseurs et partenaires. Malgré les protections, l'indisponibilité, la perte, la divulgation ou l'altération de ces données restent possibles. La transformation numérique augmente l'exposition (API, portails, Cloud, solutions tierces, IA générative), tout comme l'externalisation, l'ouverture de nouveaux domaines et les tensions internationales. En cas de matérialisation, la responsabilité du groupe pourrait être engagée, son image et sa réputation fortement affectées et ses résultats dégradés.",
+      "score": 5,
+      "score_rationale": "Position : premier risque cité du chapitre, en tête des risques opérationnels (section 2.2.1), catégorie que le groupe présente par ordre d'importance décroissante. Intensité du langage : niveau de matérialité affiché « High ●●● », formulation « increased cyber attacks and the compromise of its systems and data » et « its image and reputation could be materially affected ». Tendance : présent aussi en tête du chapitre du document 2024, où il était formulé comme un risque de divulgation ou de modification des données, donc stable au niveau le plus élevé mais élargi à la menace offensive et à l'IA générative. Poids de catégorie : la cybersécurité est pondérée haut car une défaillance touche simultanément la continuité de service, la conformité et la réputation.",
+      "trend": "stable"
     },
     {
-      "year": 2026,
-      "month": 4,
-      "title": "Orange T1 2026: croissance solide du CA et avancees strategiques",
-      "description": "Orange publie une hausse de 3,5% du CA groupe et 6,6% de l'EBITDA, portee par l'Afrique, le Moyen-Orient et l'IA.",
-      "date": "2026-04-24"
+      "category": "Chaîne d'approvisionnement",
+      "title": "Concentration des fournisseurs critiques, externalisation et tensions d'approvisionnement",
+      "description": "La concentration de certains fournisseurs critiques, le recours croissant à l'externalisation et les tensions d'approvisionnement font peser un risque significatif sur les activités. La vulnérabilité est marquée sur les composants électroniques critiques (semi-conducteurs, processeurs, mémoires), dont la production est géographiquement concentrée et soumise à une forte concurrence entre secteurs. Le recours accru aux hyperscalers et l'usage intensif des grands modèles de langage amplifient cette dépendance. Un différend avec un partenaire ou une défaillance d'approvisionnement pourrait provoquer des interruptions de service, des retards de projets et des surcoûts.",
+      "score": 4,
+      "score_rationale": "Position : cité parmi les tout premiers risques opérationnels, juste après la cybersécurité et la fragmentation de l'écosystème. Intensité du langage : niveau « High ●●● » et formulation « could pose a significant risk for Orange's activities », avec « serious consequences for its operations and profitability ». Tendance : déjà classé « High » dans le document 2024 sur la dépendance aux fournisseurs, donc stable, mais l'exposé 2025 ajoute explicitement les hyperscalers, les modèles de langage et les régimes de contrôle des exportations. Poids de catégorie : risque opérationnel et industriel, pondéré moins haut que le cyber ou le réglementaire, mais rehaussé par sa dimension géopolitique.",
+      "trend": "stable"
     },
     {
-      "year": 2026,
-      "month": 4,
-      "title": "Orange releve ses perspectives, le CA progresse",
-      "description": "Hausse du CA portee par une forte croissance en Afrique et Moyen-Orient, en particulier dans les services retail.",
-      "date": "2026-04-23"
+      "category": "Géopolitique et pays",
+      "title": "Empreinte géographique étendue exposant à des risques géopolitiques, macroéconomiques, réglementaires et de réputation",
+      "description": "L'étendue de l'empreinte géographique et du périmètre d'activités expose le groupe à des décisions d'autorités contraires à ses intérêts, à une pression fiscale ou réglementaire accrue, à des mesures protectionnistes et à l'instabilité géopolitique. Les mesures protectionnistes mises en place par certains États pourraient compromettre la rentabilité attendue des décisions d'investissement.",
+      "score": 4,
+      "score_rationale": "Position : figure dans le premier tiers des risques opérationnels, avant les risques climatiques et sociaux. Intensité du langage : niveau « High ●●● » et formulation « may expose it to geopolitical, macroeconomic, regulatory and reputational risks », avec mention de mesures pouvant « jeopardize the projected profitability of investment decisions ». Tendance : présent au même niveau élevé dans le document 2024, où étaient déjà évoquées les zones géographiques instables et les mesures protectionnistes renforcées, donc stable. Poids de catégorie : pondération intermédiaire, mais rehaussée par la forte exposition du groupe à l'Afrique et au Moyen-Orient.",
+      "trend": "stable"
     },
     {
-      "year": 2026,
-      "month": 4,
-      "title": "Cinq actions spatiales en hausse avant l'IPO SpaceX",
-      "description": "Rocket Lab, AST SpaceMobile, Intuitive Machines, Planet Labs et Redwire sont positionnees pour profiter de l'IPO SpaceX.",
-      "date": "2026-04-14"
+      "category": "Continuité de service",
+      "title": "Migrations technologiques et mutualisation des infrastructures pouvant provoquer des interruptions de service à grande échelle",
+      "description": "Les migrations technologiques et la mutualisation d'infrastructures pourraient exposer le groupe à des interruptions de service de grande ampleur. La forte dépendance énergétique et le recours croissant à l'automatisation et à l'intelligence artificielle introduisent de nouveaux risques, pannes électriques ou erreurs algorithmiques, susceptibles de provoquer des interruptions à grande échelle affectant les clients, la réputation et la situation financière du groupe.",
+      "score": 4,
+      "score_rationale": "Position : cité au milieu de la liste des risques opérationnels, avant les risques de compétences et d'éthique. Intensité du langage : niveau « High ●●● » et formulation « could expose Orange to large-scale service interruptions ». Tendance : le document 2024 traitait déjà des interruptions liées aux cyberattaques, à la pénurie de ressources stratégiques ou à l'erreur humaine, au même niveau élevé, donc stable, avec un accent 2025 nouveau sur l'erreur algorithmique. Poids de catégorie : risque opérationnel de continuité, central pour un opérateur télécoms dont le service est un bien essentiel.",
+      "trend": "stable"
+    },
+    {
+      "category": "Concurrence et régulation de marché",
+      "title": "Concurrence intense et régulation du marché pesant sur les prix et les marges",
+      "description": "Une part importante du chiffre d'affaires est réalisée sur des marchés à la fois très concurrentiels et régulés, où la pression sur les prix reste forte. La concurrence s'intensifie avec les acteurs OTT, les géants de l'Internet et les offres SDWAN/Cloud. Le contexte économique tendu, encore marqué par l'inflation dans certaines zones, pourrait peser sur les revenus et les marges, et le modèle tarifaire ne permet pas d'assurer la répercussion de l'ensemble des hausses de coûts.",
+      "score": 4,
+      "score_rationale": "Position : cité dans la seconde moitié des risques opérationnels, mais avec un niveau de matérialité maximal. Intensité du langage : niveau « High ●●● » et formulation « could increase pressure on Orange prices and margins », complétée par « it is not certain that Orange will be able to pass on all the cost increases it may incur ». Tendance : déjà classé « High » en 2024 sous une formulation proche sur les marchés très concurrentiels et régulés, donc stable. Poids de catégorie : risque de marché combiné à une dimension réglementaire, ce qui rehausse sa pondération pour un opérateur historique.",
+      "trend": "stable"
+    },
+    {
+      "category": "Intelligence artificielle et conformité",
+      "title": "Adoption de l'intelligence artificielle exposant à des risques de gouvernance, de conformité et d'éthique",
+      "description": "L'adoption de l'intelligence artificielle, y compris générative, pourrait exposer le groupe à des risques de gouvernance, de conformité et d'éthique. Le nombre croissant de cas d'usage augmente l'exposition, dans un contexte où les attentes des clients, des autorités et de la société en matière d'IA responsable ne cessent de croître, notamment sur la protection des droits.",
+      "score": 4,
+      "score_rationale": "Position : cité dans la seconde moitié des risques opérationnels, immédiatement après les risques de compétences. Intensité du langage : niveau « High ●●● » d'emblée pour un risque nouvellement isolé, avec la formulation « could expose Orange to governance, compliance and ethics risks ». Tendance : nouveau, l'IA n'apparaissait pas comme facteur de risque autonome dans le document 2024, où elle n'était évoquée qu'en aggravation d'autres risques. Poids de catégorie : pondéré haut car il combine conformité réglementaire, avec l'entrée en application du règlement européen sur l'IA en août 2026 mentionnée par ailleurs dans le document, et exposition réputationnelle.",
+      "trend": "new"
+    },
+    {
+      "category": "Réglementaire et juridique",
+      "title": "Évolution des lois, des réglementations et des politiques publiques",
+      "description": "Le groupe opère sur des marchés fortement régulés. Ses activités et ses résultats pourraient être significativement affectés par des changements de lois ou de réglementations, y compris à portée extraterritoriale, ou par des changements de politique gouvernementale. Le groupe est par ailleurs soumis à des contraintes supplémentaires du fait de sa position historiquement dominante sur le marché du fixe.",
+      "score": 4,
+      "score_rationale": "Position : premier risque cité de la section 2.2.2 consacrée aux risques juridiques, donc en tête de sa catégorie. Intensité du langage : niveau « High ●●● », le plus élevé de la catégorie juridique, et formulation « could be materially affected by changes in laws or regulations ». Tendance : déjà en tête des risques juridiques et au niveau « High » dans le document 2024, avec une formulation identique, donc stable. Poids de catégorie : le réglementaire est pondéré haut, l'activité étant conditionnée par des licences, des obligations de couverture et des décisions d'autorités sectorielles et de concurrence.",
+      "trend": "stable"
+    },
+    {
+      "category": "Services financiers mobiles",
+      "title": "Services financiers mobiles en Afrique exposant à des risques sectoriels et d'interopérabilité",
+      "description": "Les services financiers mobiles en Afrique pourraient exposer le groupe à des risques propres à ce secteur et à des risques portant sur les cadres d'interopérabilité. Le document cite notamment le cadre des services financiers des pays de l'Union économique et monétaire ouest-africaine, la dépendance à des infrastructures partagées, l'intégration satellitaire et l'extension des réseaux terrestres nécessaires pour garantir la couverture et la continuité de service.",
+      "score": 3,
+      "score_rationale": "Position : cité en fin de la liste des risques opérationnels de niveau élevé, avant le passage aux risques de niveau moyen. Intensité du langage : niveau « High ●●● » mais formulation plus circonscrite, « could expose Orange to sector-specific risks and risks to interoperability frameworks », sans mention d'effet significatif sur les résultats du groupe. Tendance : déjà présent au niveau « High » dans le document 2024 sur les services financiers en Afrique, donc stable. Poids de catégorie : risque sectoriel et réglementaire ciblé sur un périmètre géographique et une activité spécifiques, ce qui limite sa pondération d'ensemble malgré la croissance rapide de la zone Afrique et Moyen-Orient.",
+      "trend": "stable"
     }
   ],
-  "_events_fr_generated_at": "2026-05-28T00:00:00Z",
-  "hero_kpi_rationale_fr": "Orange est leader du déploiement de la fibre en Europe avec 46 millions de connexions FTTH fin 2022. Avantage structurel dans un secteur mature, reflétant l'orientation Lead the Future vers la connectivité haut de gamme et la différenciation par les réseaux.",
-  "kpis_supplementary": [
-    {
-      "short": "Mobile Customers Group",
-      "name_fr": "Clients mobile Groupe",
-      "name_en": "Mobile Customers (Group)",
-      "value": 297,
-      "unit": "M",
-      "yoy": "+1%",
-      "history": [
-        260,
-        272,
-        290,
-        294,
-        297
-      ],
-      "period_type": "year"
-    },
-    {
-      "short": "Fixed Broadband Subs",
-      "name_fr": "Clients fixed broadband",
-      "name_en": "Fixed Broadband Customers",
-      "value": 24.2,
-      "unit": "M",
-      "yoy": "+1%",
-      "history": [
-        21.5,
-        22.5,
-        23.5,
-        23.9,
-        24.2
-      ],
-      "period_type": "year"
-    },
-    {
-      "short": "FTTH Connections",
-      "name_fr": "Lignes FTTH",
-      "name_en": "FTTH Connectable Households",
-      "value": 75,
-      "unit": "M",
-      "yoy": "+15%",
-      "history": [
-        40,
-        52,
-        60,
-        65,
-        75
-      ],
-      "period_type": "year"
-    },
-    {
-      "short": "France ARPO",
-      "name_fr": "ARPO France conv.",
-      "name_en": "France Convergent ARPO",
-      "value": 71.4,
-      "unit": "EUR/mo",
-      "yoy": "+1%",
-      "history": [
-        67.8,
-        69.3,
-        70.6,
-        70.7,
-        71.4
-      ],
-      "period_type": "year"
-    },
-    {
-      "short": "Europe Mobile ARPO",
-      "name_fr": "ARPO Europe mobile",
-      "name_en": "Europe Mobile ARPO",
-      "value": 11.5,
-      "unit": "EUR/mo",
-      "yoy": "+5%",
-      "history": [
-        10,
-        10.3,
-        10.7,
-        11,
-        11.5
-      ],
-      "period_type": "year"
-    },
-    {
-      "short": "Orange Money customers",
-      "name_fr": "Clients Orange Money",
-      "name_en": "Orange Money Customers (MEA)",
-      "value": 33,
-      "unit": "M",
-      "yoy": "+10%",
-      "history": [
-        20,
-        22,
-        27,
-        30,
-        33
-      ],
-      "period_type": "year"
-    }
-  ],
-  "subsector_fr": "Services de télécommunications",
+  "governance": {
+    "agm_date": "2026-05-19",
+    "fiscal_year": 2025,
+    "ceo_name": "Christel Heydemann",
+    "ceo_total_comp_m": 3.158,
+    "ceo_pay_ratio": 53.03,
+    "exec_comp_approval_pct": null,
+    "board_independence_pct": 63.6,
+    "board_size": 14,
+    "board_women_pct": 35.7,
+    "voting_structure_note": "Une seule catégorie d'actions ordinaires. Les actions détenues au nominatif depuis plus de deux ans donnent deux voix au lieu d'une. L'État français et Bpifrance Participations détiennent ensemble 22,95 % du capital mais 29,04 % des droits de vote grâce à ce mécanisme. Les fonds d'épargne salariale bénéficient du même avantage, avec 7,54 % du capital et 12,35 % des droits de vote.",
+    "top_capital": [
+      {
+        "name": "État français",
+        "pct": 13.39
+      },
+      {
+        "name": "Bpifrance Participations",
+        "pct": 9.56
+      },
+      {
+        "name": "Salariés du groupe",
+        "pct": 8.15
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "pct": 5.69
+      },
+      {
+        "name": "Actions auto-détenues",
+        "pct": 0.05
+      }
+    ],
+    "top_voting": [
+      {
+        "name": "État français",
+        "pct": 21.04
+      },
+      {
+        "name": "Salariés du groupe",
+        "pct": 13.28
+      },
+      {
+        "name": "Bpifrance Participations",
+        "pct": 8
+      },
+      {
+        "name": "BlackRock, Inc.",
+        "pct": 4.76
+      }
+    ]
+  },
+  "revenue_by_segment": {
+    "label": "Répartition du chiffre d'affaires par segment opérationnel",
+    "slices": [
+      {
+        "name": "France",
+        "value": 17.473,
+        "unit": "Mds €",
+        "pct": 43.3,
+        "share_pct": 43.3,
+        "label_en": "France"
+      },
+      {
+        "name": "Afrique et Moyen-Orient",
+        "value": 8.427,
+        "unit": "Mds €",
+        "pct": 20.9,
+        "share_pct": 20.9,
+        "label_en": "Africa & Middle East"
+      },
+      {
+        "name": "Orange Business",
+        "value": 7.325,
+        "unit": "Mds €",
+        "pct": 18.1,
+        "share_pct": 18.1,
+        "label_en": "Orange Business"
+      },
+      {
+        "name": "Europe (hors Espagne)",
+        "value": 7.263,
+        "unit": "Mds €",
+        "pct": 18,
+        "share_pct": 18,
+        "label_en": "Europe (excluding Spain)"
+      },
+      {
+        "name": "Opérateurs internationaux et services partagés",
+        "value": 1.219,
+        "unit": "Mds €",
+        "pct": 3,
+        "share_pct": 3,
+        "label_en": "International Carriers & Shared Services"
+      },
+      {
+        "name": "Totem",
+        "value": 0.728,
+        "unit": "Mds €",
+        "pct": 1.8,
+        "share_pct": 1.8,
+        "label_en": "Totem"
+      },
+      {
+        "name": "Éliminations",
+        "value": -2.039,
+        "unit": "Mds €",
+        "pct": -5,
+        "share_pct": -5,
+        "label_en": "Eliminations"
+      }
+    ],
+    "total": 40.396,
+    "unit": "Mds €"
+  },
+  "ai_positioning": {
+    "stance": "integrator",
+    "summary": "Orange n'a pas développé ses propres grands modèles d'intelligence artificielle. Le groupe se positionne comme un intégrateur qui noue des partenariats avec des fournisseurs de modèles, Mistral AI et OpenAI, pour les appliquer à ses réseaux, à sa relation client et à son offre entreprise, avec un argument de souveraineté des données et de prise en charge des langues locales en Afrique. L'adoption est également interne et chiffrée, avec un programme de formation à grande échelle et une solution maison multi-modèles. Le document reconnaît en parallèle que l'IA crée de nouveaux risques et l'identifie pour la première fois comme un facteur de risque à part entière.",
+    "evidence": [
+      "Partenariat annoncé en février 2025 avec Mistral AI, portant sur le développement des infrastructures réseau, l'optimisation de la gestion du trafic et la maintenance prédictive, ainsi que sur le renforcement de l'offre d'IA générative de confiance Live Intelligence, avec des solutions comme Codestral et une garantie de souveraineté des données pour les entreprises (URD 2025, section 1.6).",
+      "Partenariat renforcé en 2025 avec OpenAI pour exploiter ses modèles à poids ouverts (gpt-oss), afin de proposer des solutions d'IA notamment en Afrique avec la prise en charge des langues locales (URD 2025, sections 1.5 et 1.6).",
+      "Programme interne AI BoostCamp lancé en 2025 : fin janvier 2026, 60 000 salariés avaient été formés à l'IA générative et 100 000 utilisaient Dinootoo, la solution d'IA générative sécurisée multi-modèles du groupe (URD 2025, section 1.6).",
+      "L'adoption de l'IA, y compris générative, est identifiée comme facteur de risque autonome de niveau élevé au titre de la gouvernance, de la conformité et de l'éthique (URD 2025, section 2.2.1)."
+    ],
+    "source": "ORA.PA_URD_FY2025_2026-04-02.pdf"
+  },
+  "_maj_at": "2026-08-01",
+  "_maj_by": "cac40-integration",
   "enrich_events": {
     "ticker": "ORA.PA",
     "fetched_at": "2026-05-14T18:26:08.923811+00:00",
@@ -566,6 +667,29 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "ticker": "ORA.PA",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Orange est un opérateur télécom français présent en Europe et en Afrique. Le groupe fournit des services mobiles, fixes, TV et entreprises.",
+          "products": "L'offre couvre les abonnements mobiles, la fibre optique, les services TV, les solutions cloud et cybersécurité pour entreprises via Orange Business et les services financiers via Orange Bank en cours de cession.",
+          "customers": "Ses clients sont les particuliers, PME et grandes entreprises en France, Espagne, Belgique, Pologne, Roumanie et dans une vingtaine de pays africains et du Moyen-Orient.",
+          "edge": "La force d'Orange vient de sa position d'opérateur historique en France avec le réseau fibre le plus déployé et de la franchise africaine en croissance."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Orange est l'opérateur historique français et l'un des trois grands opérateurs européens avec Deutsche Telekom et Telefónica. Le groupe est leader en France sur la fibre et la 5G. La fusion en Espagne avec MásMóvil a renforcé la position concurrentielle.",
+          "tech_products": "Le déploiement fibre Orange couvre plus de 35 millions de logements raccordables en France. Orange Business propose des solutions intégrées cloud, réseau et cybersécurité aux grandes entreprises. Orange Money est leader sur les paiements mobiles en Afrique francophone.",
+          "moat": "Le réseau fibre français est un actif difficile à répliquer avec des CAPEX cumulés massifs. La marque Orange bénéficie d'une notoriété forte sur tous ses marchés. La présence africaine offre un relais de croissance différencié des marchés européens matures.",
+          "risks": "Le marché télécom européen reste mature avec des marges sous pression de la concurrence low-cost. Le mobile prépayé africain est exposé à la volatilité des changes locaux. Les CAPEX 5G et fibre pèsent sur le free cash flow."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "ORA.PA",
     "ranks": {
@@ -578,14 +702,15 @@
     "country": "France",
     "_data_freshness_date": "2026-05-21T02:17:14.294025+00:00",
     "fetched_at": "2026-05-21T02:17:14.294025+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.334Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.286Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ora.pa.json",
-    "enrich_root": "v2-pipeline-enrich/ora.pa.json",
+    "enrich_root": null,
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

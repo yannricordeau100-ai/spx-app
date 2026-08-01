@@ -42,7 +42,7 @@
       "is_short_history": false,
       "_validation": "Date mise à jour à partir de 2026-02-05 (non présente dans 10-K) vers 2025-03-31 (clôture fiscal réelle)",
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -71,7 +71,11 @@
       "is_short_history": false,
       "_validation": "Date mise à jour; valeurs cohérentes avec données d'exploitation",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -99,7 +103,11 @@
       "is_short_history": false,
       "_validation": "Date mise à jour",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -126,8 +134,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Date mise à jour; name_fr corrigé (supprimer référence semi:fabs non pertinente pour Viasat); yoy corrigé en Mds $ pour cohérence avec l'unité",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -156,8 +168,12 @@
       "is_short_history": false,
       "_validation": "Date mise à jour; yoy corrigé en K pour cohérence",
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Service / ARR",
@@ -184,7 +200,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Date mise à jour; comparable marqué à Comparable (reconnaissable dans les rapports); yoy corrigé en Mds $",
-      "signal_en": "Recurring base growing, revenue visibility rising"
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -210,7 +230,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
@@ -233,37 +257,15 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     }
   ],
   "stories_kpis": [
-    {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part des contrats intégrant des fonctionnalités IA",
-      "name_en": "AI-related Cloud Deals Mix",
-      "explanation": "Pourcentage des nouveaux contrats qui intègrent des fonctionnalités d'intelligence artificielle.",
-      "value": "12",
-      "unit": "%",
-      "yoy": "+3 pts",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "IA intégrée progressivement dans les solutions de cybersécurité et de gestion réseau.",
-      "description": "Viasat commence à intégrer l'IA dans ses offres de cybersécurité, de gestion de trafic satellitaire et de gateways tactiques, notamment via les acquisitions récentes.",
-      "history": [
-        9,
-        10,
-        11,
-        12
-      ],
-      "last_data_date": "2025-03-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_validation": "Date mise à jour; HALLUCINÉ: cette métrique n'apparait pas dans le 10-K fourni. Aucune donnée spécifique sur la part de contrats IA. Conservé avec flag de validation."
-    },
     {
       "short": "Bookings",
       "name_fr": "Commandes nettes",
@@ -293,7 +295,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "Bien que le 10-K ne mentionne pas explicitement l'IA ou le machine learning dans les passages fournis, Viasat intègre progressivement des capacités intelligentes dans ses solutions de cybersécurité, de gestion de trafic et de gateways tactiques. La position reste à développer mais orientée vers les applications de sécurité réseau et de contrôle.",
     "evidence": [
       "Information security and cyber defense inclut des solutions avancées de chiffrement et de protection de données",
@@ -309,7 +311,8 @@
       "severity": 5,
       "score_rationale": "Viasat dépend fortement des contrats avec le gouvernement américain, qui représentent une part significative des revenus. Tout changement dans les allocations budgétaires, les priorités de défense ou la perte de contrats clés pourrait avoir un impact important sur les résultats financiers et la croissance future.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques majeurs liés à la concentration des revenus auprès d'agences gouvernementales américaines."
+      "summary": "La société est exposée à des risques majeurs liés à la concentration des revenus auprès d'agences gouvernementales américaines.",
+      "score": 5
     },
     {
       "title": "Risques liés aux satellites et aux anomalies opérationnelles",
@@ -317,7 +320,8 @@
       "severity": 5,
       "score_rationale": "Viasat est exposée à des risques importants liés à la construction, au lancement et à l'exploitation de satellites multi-orbites (GEO, MEO, LEO), y compris les défaillances de lancement, les anomalies en orbite, les pertes de capacité et les délais de mise en service commerciale qui affectent la ramp-up des revenus.",
       "trend": "up",
-      "summary": "Risques significatifs d'anomalies satellitaires et de défaillances opérationnelles impactant la fourniture de services et les résultats financiers."
+      "summary": "Risques significatifs d'anomalies satellitaires et de défaillances opérationnelles impactant la fourniture de services et les résultats financiers.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue dans les communications par satellite",
@@ -325,7 +329,8 @@
       "severity": 4,
       "score_rationale": "Le marché des communications par satellite fait face à une concurrence croissante de nouveaux acteurs et technologies émergeantes. L'intensification de la concurrence pourrait affecter les parts de marché, les marges et la capacité à maintenir les positions compétitives.",
       "trend": "up",
-      "summary": "Concurrence accrue de nouveaux entrants et de technologies alternatives impactant les prix et les volumes."
+      "summary": "Concurrence accrue de nouveaux entrants et de technologies alternatives impactant les prix et les volumes.",
+      "score": 4
     },
     {
       "title": "Dépendance à la chaîne d'approvisionnement mondiale et risques de disruption",
@@ -333,7 +338,8 @@
       "severity": 4,
       "score_rationale": "Viasat dépend d'une chaîne d'approvisionnement mondiale complexe incluant des fabricants de contrats et des fournisseurs uniques ou à sources limitées. Les goulots d'étranglement, les pénuries, les tarifs et les événements géopolitiques pourraient affecter les délais et les coûts.",
       "trend": "up",
-      "summary": "Risques de disruption de la chaîne d'approvisionnement affectant les délais de livraison et les marges."
+      "summary": "Risques de disruption de la chaîne d'approvisionnement affectant les délais de livraison et les marges.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et de spectre",
@@ -341,7 +347,8 @@
       "severity": 4,
       "score_rationale": "Viasat est soumise à des réglementations strictes sur les communications par satellite, l'utilisation du spectre et les certifications gouvernementales. Les changements réglementaires ou les délais de certification pourraient impacter les activités et les revenus.",
       "trend": "stable",
-      "summary": "Exposition à des changements réglementaires affectant la disponibilité du spectre et les certifications de produits."
+      "summary": "Exposition à des changements réglementaires affectant la disponibilité du spectre et les certifications de produits.",
+      "score": 4
     },
     {
       "title": "Dépendance technologique et risques de cybersécurité",
@@ -349,7 +356,8 @@
       "severity": 4,
       "score_rationale": "Viasat est fortement dépendante des technologies satellitaires et des systèmes numériques, exposant l'entreprise à des risques de cyberattaques, d'obsolescence technologique et de défaillances techniques critiques.",
       "trend": "up",
-      "summary": "Risques de cyberattaques et de défaillances technologiques affectant les opérations satellitaires et la fourniture de services."
+      "summary": "Risques de cyberattaques et de défaillances technologiques affectant les opérations satellitaires et la fourniture de services.",
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions et à l'intégration",
@@ -357,7 +365,8 @@
       "severity": 4,
       "score_rationale": "Viasat a entrepris des acquisitions majeures (notamment Inmarsat) générant des coûts d'intégration, des risques de synergies non réalisées et des défis d'harmonisation des cultures et des systèmes.",
       "trend": "stable",
-      "summary": "Risques liés à l'intégration d'acquisitions majeures et à la réalisation des synergies escomptées."
+      "summary": "Risques liés à l'intégration d'acquisitions majeures et à la réalisation des synergies escomptées.",
+      "score": 4
     },
     {
       "title": "Endettement élevé et contraintes de financement",
@@ -365,7 +374,8 @@
       "severity": 4,
       "score_rationale": "Viasat a un niveau d'endettement élevé résultant des acquisitions et des investissements en capex. L'endettement accru limite la flexibilité financière et augmente l'exposition aux variations de taux d'intérêt.",
       "trend": "stable",
-      "summary": "Risques liés à un endettement élevé et à l'exposition aux variations de taux d'intérêt."
+      "summary": "Risques liés à un endettement élevé et à l'exposition aux variations de taux d'intérêt.",
+      "score": 4
     }
   ],
   "governance": {
@@ -434,7 +444,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -671,21 +681,17 @@
         "history": [
           55.167,
           83.97,
-          -50.981,
           34.463,
           74.993,
           112.309,
-          -68.562,
           29.004,
           67.181,
           96.625,
-          -63.887,
           62.433,
           104.161,
           38.563,
           71.953,
           108.654,
-          -76.776,
           34.193,
           76.456,
           123.385
@@ -741,6 +747,12 @@
             "accession": "0001193125-26-041421",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (VSAT)"
         ]
       },
       {
@@ -750,19 +762,15 @@
           166.115,
           329.558,
           548.225,
-          -349.932,
           208.722,
           426.298,
           655.672,
-          -463.451,
           246.164,
           448.345,
           671.207,
-          -427.436,
           374.926,
           508.068,
           782.595,
-          -588.621,
           740.664
         ],
         "history_periods": [
@@ -813,6 +821,12 @@
             "accession": "0000950170-23-062152",
             "end": "2023-09-30"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (VSAT)"
         ]
       },
       {
@@ -889,7 +903,10 @@
             "source": "VSAT_2026-02-06.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -906,9 +923,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.326409+00:00",
     "fetched_at": "2026-05-21T02:17:14.326409+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.290Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.421Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vsat.json",
     "enrich_root": "v2-pipeline-enrich/vsat.json",

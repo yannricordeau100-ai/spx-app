@@ -21,8 +21,8 @@
       "name_fr": "Carnet de commandes total",
       "name_en": "Total Contract Backlog",
       "explanation": "Valeur totale des contrats de forage signés en cours, calculée en multipliant les taux journaliers contractuels par la durée du contrat",
-      "value": 4672.3,
-      "unit": "M $",
+      "value": 4.672,
+      "unit": "Mds $",
       "yoy": "29.5",
       "type": "Demand",
       "nature": "Cyclique",
@@ -43,11 +43,15 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Backlog (carnet de commandes) non trouvé explicitement dans l'extrait fourni. Le document contient des informations sur la restructuration C",
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue.",
-      "signal_en": "Demand strengthening, end-market traction"
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Rigs",
@@ -78,8 +82,8 @@
       "name_fr": "Carnet de commandes - Navires flottants",
       "name_en": "Floaters Contract Backlog",
       "explanation": "Carnet de commandes pour les navires-foreurs et rigs semi-submersibles",
-      "value": "3030.8",
-      "unit": "M $",
+      "value": 3.031,
+      "unit": "Mds $",
       "yoy": "49.8",
       "type": "Demand",
       "nature": "Cyclique",
@@ -100,15 +104,16 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Jackups Backlog",
       "name_fr": "Carnet de commandes - Jackup",
       "name_en": "Jackups Contract Backlog",
       "explanation": "Carnet de commandes pour les rigs jackup",
-      "value": "1125.8",
-      "unit": "M $",
+      "value": 1.126,
+      "unit": "Mds $",
       "yoy": "-14.3",
       "type": "Demand",
       "nature": "Cyclique",
@@ -129,7 +134,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -152,13 +158,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.37 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:08.153756+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -177,11 +187,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.3 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -200,33 +214,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.16 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.6,
-      "unit": "Mds €",
+      "value": 600,
+      "unit": "M €",
       "yoy": "+62.2%",
       "history": [
-        0.72,
-        0.62,
-        0.37,
-        0.6
+        720,
+        620,
+        370,
+        600
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.6 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -269,7 +292,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné en premier et répété plusieurs fois. Le langage est fort (\"adversely affect\", \"material and adverse effect\"). La fusion est conditionnée à de multiples approbations et un MAE. La catégorie Concurrence est pondérée car l'échec de la fusion expose la société à une vulnérabilité stratégique.",
       "trend": "new",
-      "summary": "La fusion avec Transocean est soumise à de nombreuses conditions. Son échec pourrait entraîner des frais élevés (173 M$), une baisse du cours de l'action et une détérioration des relations commerciales."
+      "summary": "La fusion avec Transocean est soumise à de nombreuses conditions. Son échec pourrait entraîner des frais élevés (173 M$), une baisse du cours de l'action et une détérioration des relations commerciales.",
+      "score": 5
     },
     {
       "title": "Dépendance aux prix du pétrole et du gaz",
@@ -277,7 +301,8 @@
       "severity": 5,
       "score_rationale": "Mentionné comme facteur clé de performance, avec un langage répété sur l'impact direct sur la demande, les taux journaliers et l'utilisation. Le risque est structurel et récurrent, avec intensification en 2026 par les tensions géopolitiques et les politiques climatiques. Pondéré par l'importance macroéconomique.",
       "trend": "stable",
-      "summary": "La demande pour les services de forage offshore dépend fortement des prix du pétrole et du gaz, qui sont volatiles et influencés par des facteurs mondiaux hors de notre contrôle."
+      "summary": "La demande pour les services de forage offshore dépend fortement des prix du pétrole et du gaz, qui sont volatiles et influencés par des facteurs mondiaux hors de notre contrôle.",
+      "score": 5
     },
     {
       "title": "Concurrence intense sur les contrats de forage",
@@ -285,7 +310,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné comme \"highly competitive\" et \"cyclical\", avec impact direct sur les revenus. Le langage est ferme mais moins alarmiste que pour la fusion. La cyclicité du marché renforce la gravité. Catégorie fortement pondérée dans le secteur.",
       "trend": "stable",
-      "summary": "L'industrie du forage offshore est très concurrentielle et cyclique, ce qui peut entraîner des baisses de taux journaliers et des périodes d'inactivité prolongées."
+      "summary": "L'industrie du forage offshore est très concurrentielle et cyclique, ce qui peut entraîner des baisses de taux journaliers et des périodes d'inactivité prolongées.",
+      "score": 4
     },
     {
       "title": "Non-réalisation du carnet de commandes",
@@ -293,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Le carnet de commandes est présenté comme incertain, avec risque de résiliation, de force majeure ou de non-paiement. Le montant est important (4,7 Md$) et le langage insiste sur les écarts possibles. Catégorie Industriel moins pondérée qu'un risque financier ou stratégique.",
       "trend": "stable",
-      "summary": "Le carnet de commandes actuel pourrait ne pas être entièrement réalisé en raison de résiliations, de pannes ou de conditions opérationnelles défavorables."
+      "summary": "Le carnet de commandes actuel pourrait ne pas être entièrement réalisé en raison de résiliations, de pannes ou de conditions opérationnelles défavorables.",
+      "score": 4
     },
     {
       "title": "Restrictions opérationnelles pendant la fusion",
@@ -301,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Le risque est nouveau et bien documenté: la société ne peut pas modifier sa stratégie, investir ou signer de nouveaux contrats majeurs. Le langage souligne l'impact sur la gestion et les décisions stratégiques. Catégorie Industriel, mais impact stratégique élevé.",
       "trend": "new",
-      "summary": "Pendant la période de fusion, la société est contrainte d'opérer dans l'ordinaire du cours, limitant ses investissements et décisions stratégiques."
+      "summary": "Pendant la période de fusion, la société est contrainte d'opérer dans l'ordinaire du cours, limitant ses investissements et décisions stratégiques.",
+      "score": 4
     },
     {
       "title": "Perte de personnel clé ou difficultés de recrutement",
@@ -309,7 +337,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans le contexte de l'incertitude liée à la fusion. Le langage est modéré (\"could adversely affect\"). Moins central que les risques financiers ou opérationnels, mais récurrent dans les 10-K. Catégorie moins pondérée.",
       "trend": "stable",
-      "summary": "L'incertitude autour de la fusion pourrait nuire à la rétention et au recrutement de personnel clé, affectant la performance opérationnelle."
+      "summary": "L'incertitude autour de la fusion pourrait nuire à la rétention et au recrutement de personnel clé, affectant la performance opérationnelle.",
+      "score": 3
     },
     {
       "title": "Litiges liés à la fusion en cours",
@@ -317,7 +346,8 @@
       "severity": 3,
       "score_rationale": "Mention explicite de risques de litiges, de publicité négative et de distraction de la direction. Le langage est préventif mais sérieux (\"could be distracting\", \"incur significant costs\"). Catégorie Litige moyennement pondérée.",
       "trend": "new",
-      "summary": "La fusion en cours pourrait entraîner des poursuites judiciaires, distrayant la direction et générant des coûts importants."
+      "summary": "La fusion en cours pourrait entraîner des poursuites judiciaires, distrayant la direction et générant des coûts importants.",
+      "score": 3
     }
   ],
   "governance": {
@@ -369,7 +399,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -651,7 +681,10 @@
             "source": "calc-VAL_2026-02-20.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Activité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Jackups Backlog",
@@ -733,7 +766,10 @@
             "source": "calc-VAL_2026-02-20.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Activité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -749,9 +785,9 @@
     "country": "Bermuda",
     "_data_freshness_date": "2026-05-21T02:17:14.324444+00:00",
     "fetched_at": "2026-05-21T02:17:14.324445+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.079Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.188Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/val.json",
     "enrich_root": "v2-pipeline-enrich/val.json",

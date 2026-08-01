@@ -37,7 +37,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Assets Under Management — total client assets managed by the firm."
+      "explanation_en": "Assets Under Management, total client assets managed by the firm."
     },
     {
       "short": "DC AUM",
@@ -164,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 582.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -187,40 +191,18 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.9 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "Mastertrust AUM",
-      "name_fr": "Encours Mastertrust",
-      "name_en": "Mastertrust Assets Under Management",
-      "explanation": "Encours du fonds collectif de retraite Mastertrust, le plus grand fonds commercial au Royaume-Uni.",
-      "value": "30",
-      "unit": "Mds £",
-      "yoy": "+50%",
-      "type": "Capital",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Premier fonds commercial Mastertrust à atteindre 30 milliards de livres, croissance de 50% en moins de deux ans.",
-      "description": "Le Mastertrust a atteint 30 milliards de livres d'encours au 1er janvier 2025, après 20 milliards il y a moins de deux ans, marquant une croissance d'un tiers en deux ans.",
-      "history": [
-        20,
-        30
-      ],
-      "last_data_date": "2025-01-01",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "janvier 2025",
-      "_source_month_reason": "via_signal_quarter"
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "absent",
     "summary": "Aucune mention d'intelligence artificielle ou d'initiatives liées à l'IA dans les documents fournis. La société ne semble pas positionner l'IA comme un levier stratégique actuel.",
@@ -231,25 +213,12 @@
     ],
     "source": ""
   },
-  "_validation": [
-    "Correction sector: 'Information Technology' changé en 'Financial Services' (L&G est un groupe de services financiers, non technologie)",
-    "Correction subsector: 'Financial Services' changé en 'Asset Management & Pensions' (plus précis pour l'activité)",
-    "Correction tagline: reformulé pour refléter l'activité réelle de gestion de retraites et d'actifs",
-    "Correction hero_kpi_rationale: ajout de contexte sur les 5,4 millions de membres et suppression du tiret cadratin (em-dash)",
-    "Correction AUM unit: 'Mds £' changé en 'T £' (1,2 billion en notation britannique = 1,2 trillion de livres)",
-    "Correction AUM signal et description: ajout du contexte des 0,5 trillion internationaux (40%)",
-    "Correction DC AUM name_fr: 'Encours retraite individuelle' changé en 'Encours retraite par capitalisation' (traduction plus précise de Defined Contribution)",
-    "Correction Mastertrust AUM signal: ajout du taux de croissance de 50% mentionné dans le YoY",
-    "Correction Employers unit: changé de chaîne vide en 'count' (unité appropriée pour un nombre d'entités)",
-    "Correction Mastertrust Members signal: ajout du calcul de pourcentage (1,9/5,4 = 35%)",
-    "Vérification d'authenticité: Tous les KPI sont directement extraits du communiqué de presse datés du 21 janvier 2025, aucun KPI halluciné détecté",
-    "Amélioration signal et description pour tous les KPI: cohérence avec les données sources du communiqué"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -384,6 +353,29 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "ticker": "LGEN.L",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Legal & General est un groupe britannique d'assurance vie, de retraite et de gestion d'actifs. Le groupe est leader sur le marché des transferts de risque de retraite.",
+          "products": "L'offre comprend les annuités collectives bulk pour fonds de pension, les annuités individuelles, l'assurance vie et la gestion d'actifs via Legal & General Investment Management.",
+          "customers": "Ses clients sont les fonds de pension britanniques cherchant à transférer leurs engagements, les particuliers pour l'assurance vie et les investisseurs institutionnels pour LGIM.",
+          "edge": "La force de Legal & General vient de sa position de leader mondial sur le pension risk transfer, un marché en forte croissance."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Legal & General est l'un des deux leaders mondiaux du transfert de risque de retraite avec Athene. Le groupe combine une activité d'assurance avec une gestion d'actifs de plus de 1 100 milliards de livres via LGIM. La stratégie de simplification a entraîné la cession partielle de la gestion d'actifs américaine.",
+          "tech_products": "LGIM est un acteur majeur de la gestion passive et leader européen des ETFs gérés en interne. Le groupe développe des plateformes d'investissement direct via Legal & General Investments. Les solutions d'investissement alternatives incluent immobilier, infrastructure et private credit.",
+          "moat": "L'expertise actuarielle en pension risk transfer est rare et crée une barrière à l'entrée durable. La taille de LGIM offre des économies d'échelle sur les frais. La marque britannique séculaire bénéficie d'une confiance forte sur les contrats long terme.",
+          "risks": "L'évolution des taux d'intérêt affecte directement la rentabilité des annuités et la valorisation du portefeuille. La concurrence sur le pension risk transfer s'intensifie avec l'arrivée d'acteurs PE. Le portefeuille immobilier commercial expose à un risque sectoriel."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "LGEN.L",
     "ranks": {
@@ -396,14 +388,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.276370+00:00",
     "fetched_at": "2026-05-21T02:17:14.276371+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.993Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.777Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lgen.l.json",
     "enrich_root": "v2-pipeline-enrich/lgen.l.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

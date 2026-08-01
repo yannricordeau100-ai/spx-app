@@ -20,69 +20,84 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.52,
-      "unit": "Mds €",
+      "value": 520,
+      "unit": "M €",
       "yoy": "+44.4%",
       "history": [
-        0.21,
-        0.28,
-        0.36,
-        0.52
+        210,
+        280,
+        360,
+        520
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.52 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "+150.0%",
       "history": [
-        0.01,
-        0.02,
-        0.02,
-        0.05
+        10,
+        20,
+        20,
+        50
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.05 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "-66.7%",
       "history": [
-        0.01,
-        0.08,
-        0.15,
-        0.05
+        10,
+        80,
+        150,
+        50
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.05 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -99,7 +114,8 @@
       "severity": 4,
       "score_rationale": "La société a connu une croissance récente et rapide, mais cette croissance passée peut ne pas être indicative de la croissance future. La gestion inefficace de la croissance pourrait affecter negativement l'entreprise (Item 1A, Risk Factors).",
       "trend": "up",
-      "summary": "La société doit gérer efficacement sa croissance rapide pour maintenir ses perspectives futures et sa position sur le marché."
+      "summary": "La société doit gérer efficacement sa croissance rapide pour maintenir ses perspectives futures et sa position sur le marché.",
+      "score": 4
     },
     {
       "title": "Dépendance aux ventes d'œufs",
@@ -107,7 +123,8 @@
       "severity": 5,
       "score_rationale": "Les ventes d'œufs constituent la vast majority des revenus de la société. Une réduction de ces ventes aurait un effet adverse sur la situation financière (Item 1A, Risk Factors).",
       "trend": "stable",
-      "summary": "La société est fortement dépendante des ventes d'œufs de poules élevées en pâturage, ce qui la rend vulnérable aux fluctuations du marché et à la concurrence."
+      "summary": "La société est fortement dépendante des ventes d'œufs de poules élevées en pâturage, ce qui la rend vulnérable aux fluctuations du marché et à la concurrence.",
+      "score": 5
     },
     {
       "title": "Risques sanitaires et maladies aviaires",
@@ -115,7 +132,8 @@
       "severity": 4,
       "score_rationale": "Les épidémies de maladies agricoles, y compris la grippe aviaire et le syndrome de chute d'œufs, ainsi que les perceptions et réactions réglementaires/marchandes à ces épidémies, posent un risque significatif (Item 1A, Risk Factors).",
       "trend": "up",
-      "summary": "La société doit gérer les risques sanitaires et les épidémies aviaires pour protéger sa réputation, sa chaîne d'approvisionnement et son chiffre d'affaires."
+      "summary": "La société doit gérer les risques sanitaires et les épidémies aviaires pour protéger sa réputation, sa chaîne d'approvisionnement et son chiffre d'affaires.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue et entrée de nouveaux acteurs",
@@ -123,7 +141,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un marché compétitif et dynamique où la compétition s'intensifie. Elle doit maintenir et augmenter sa rentabilité face à la concurrence existante et aux nouveaux entrants (Item 1A, Risk Factors).",
       "trend": "up",
-      "summary": "La société doit innover, se différencier et renforcer sa position concurrentielle pour rester leader du marché des œufs de poules élevées en pâturage."
+      "summary": "La société doit innover, se différencier et renforcer sa position concurrentielle pour rester leader du marché des œufs de poules élevées en pâturage.",
+      "score": 3
     },
     {
       "title": "Risques réglementaires et de conformité",
@@ -131,7 +150,8 @@
       "severity": 4,
       "score_rationale": "La société est soumise à des réglementations fédérales, étatiques et locales en matière de sécurité alimentaire, de bien-être animal et d'environnement. Le non-respect pourrait entraîner des amendes, des pénalités et des impacts opérationnels (Item 1A, Risk Factors).",
       "trend": "up",
-      "summary": "La société doit se conformer strictement aux réglementations pour éviter les risques juridiques, financiers et opérationnels."
+      "summary": "La société doit se conformer strictement aux réglementations pour éviter les risques juridiques, financiers et opérationnels.",
+      "score": 4
     },
     {
       "title": "Dépendance envers le réseau de fermes familiales",
@@ -139,7 +159,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de son réseau de plus de 600 petites fermes familiales pour l'approvisionnement en œufs et beurre. La capacité à maintenir, gérer et étendre ce réseau est critique pour la continuité des opérations (Item 1A, Risk Factors).",
       "trend": "stable",
-      "summary": "La société doit maintenir des relations solides avec ses fermes partenaires et gérer efficacement les coûts croissants de recrutement et d'infrastructure des nouvelles fermes."
+      "summary": "La société doit maintenir des relations solides avec ses fermes partenaires et gérer efficacement les coûts croissants de recrutement et d'infrastructure des nouvelles fermes.",
+      "score": 4
     },
     {
       "title": "Expansion de capacité de production et d'infrastructure",
@@ -147,7 +168,8 @@
       "severity": 4,
       "score_rationale": "La capacité à développer et mettre en œuvre de manière efficace les installations de traitement, de fabrication et de production est essentielle à la croissance continue. Les retards ou défaillances pourraient compromettre les résultats opérationnels (Item 1A, Risk Factors).",
       "trend": "up",
-      "summary": "La société investit dans des installations clés (Seymour, Indiana) dont la performance et la rentabilité dépendent d'une exécution rigoureuse du projet."
+      "summary": "La société investit dans des installations clés (Seymour, Indiana) dont la performance et la rentabilité dépendent d'une exécution rigoureuse du projet.",
+      "score": 4
     }
   ],
   "governance": {
@@ -208,7 +230,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.164Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.286Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vitl.json",
     "enrich_root": null,

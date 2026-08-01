@@ -1,6 +1,6 @@
 {
   "ticker": "GNTX",
-  "name": "Gentex Corporation",
+  "name": "Gentex",
   "sector": "Technologie",
   "subsector": "Automotive and Industrial Electronics",
   "tagline": "Connected car and automotive electronics innovation leader",
@@ -40,9 +40,12 @@
       "is_short_history": false,
       "ttm": 34.43,
       "_validation": "Valeurs et unités confirmées depuis le 10-K",
-      "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "period_type": "year",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Sales",
@@ -149,7 +152,7 @@
       "is_short_history": false,
       "ttm": 14.7,
       "_validation": "Type changé de 'Cash' à 'Profitability'. Valeurs confirmées depuis le 10-K",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -203,24 +206,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.474,
-      "unit": "Mds $",
+      "value": 474,
+      "unit": "M $",
       "yoy": "+3.0%",
       "history": [
-        0.508,
-        0.489,
-        0.4,
-        0.41,
-        0.37,
-        0.496,
-        0.46,
-        0.474
+        508,
+        489,
+        400,
+        410,
+        370,
+        496,
+        460,
+        474
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -229,8 +236,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -296,7 +308,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en tête des facteurs cités, avec 89% des ventes liées à l'automobile. Le langage insiste sur la volatilité de la production, les pénuries et les fermetures d'usines. La récurrence et l'intensité du phénomène sont soulignées, avec un impact direct sur les résultats. Pondération élevée pour un secteur industriel cyclique.",
       "trend": "stable",
-      "summary": "La forte dépendance à un secteur automobile volatil expose l'entreprise à des fluctuations de production et de demande, affectant directement sa performance."
+      "summary": "La forte dépendance à un secteur automobile volatil expose l'entreprise à des fluctuations de production et de demande, affectant directement sa performance.",
+      "score": 5
     },
     {
       "title": "Perte potentielle de clients clés",
@@ -304,7 +317,8 @@
       "severity": 5,
       "score_rationale": "Trois clients (Toyota, VW, GM) représentent chacun plus de 10% du chiffre d'affaires. Le document précise qu'une perte de l'un d'eux aurait un effet matériel adverse. Position centrale dans le 10-K et langage fort justifient la gravité.",
       "trend": "stable",
-      "summary": "La dépendance à quelques grands clients accroît le risque d'impact sévère en cas de perte de contrat ou de baisse de production."
+      "summary": "La dépendance à quelques grands clients accroît le risque d'impact sévère en cas de perte de contrat ou de baisse de production.",
+      "score": 5
     },
     {
       "title": "Pressions sur les prix et marges",
@@ -312,7 +326,8 @@
       "severity": 4,
       "score_rationale": "Mention répétée de pressions tarifaires persistantes dans le texte, avec un effet négatif avéré sur les marges. Le langage est ferme. Moins existentiel qu'une perte de client, mais structurel. Lié à la pression des clients et rivaux.",
       "trend": "stable",
-      "summary": "Les pressions de prix de la part des clients et concurrents pèsent sur les marges, malgré les efforts de réduction des coûts."
+      "summary": "Les pressions de prix de la part des clients et concurrents pèsent sur les marges, malgré les efforts de réduction des coûts.",
+      "score": 4
     },
     {
       "title": "Pénuries de composants et ruptures d'approvisionnement",
@@ -320,7 +335,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné comme actuel et récurrent. Impact direct sur les livraisons et la production. Langage fort documentant les effets observés. Les ruptures de chaîne d'approvisionnement perturbent régulièrement les opérations.",
       "trend": "stable",
-      "summary": "Les pénuries de composants électroniques et contraintes logistiques perturbent régulièrement la production et les livraisons."
+      "summary": "Les pénuries de composants électroniques et contraintes logistiques perturbent régulièrement la production et les livraisons.",
+      "score": 5
     },
     {
       "title": "Évolution technologique: caméras vs rétroviseurs",
@@ -328,7 +344,8 @@
       "severity": 5,
       "score_rationale": "Le texte reconnaît que les systèmes caméra-écran peuvent remplacer les rétroviseurs, avec des réglementations évoluant en Chine, Europe, Japon. L'entreprise admet un risque concurrentiel croissant. Menace disruptive au cœur de métier.",
       "trend": "up",
-      "summary": "L'essor des systèmes de caméra et de conduite autonome menace le cœur de métier de l'entreprise, nécessitant une adaptation technologique rapide."
+      "summary": "L'essor des systèmes de caméra et de conduite autonome menace le cœur de métier de l'entreprise, nécessitant une adaptation technologique rapide.",
+      "score": 5
     },
     {
       "title": "Intégration et valorisation d'acquisitions",
@@ -336,7 +353,8 @@
       "severity": 4,
       "score_rationale": "Le risque est lié à la stratégie de croissance externe. Le texte mentionne des difficultés d'intégration, de synergie et de financement. Langage prudent. Moins existentiel que les risques opérationnels, mais important pour la trajectoire de croissance.",
       "trend": "stable",
-      "summary": "Les acquisitions stratégiques (VOXX, BioConnect) comportent des risques d'intégration, de synergie non réalisée et d'atteinte de valeur prévue."
+      "summary": "Les acquisitions stratégiques (VOXX, BioConnect) comportent des risques d'intégration, de synergie non réalisée et d'atteinte de valeur prévue.",
+      "score": 4
     },
     {
       "title": "Tarifs douaniers et tensions géopolitiques",
@@ -344,7 +362,8 @@
       "severity": 4,
       "score_rationale": "Les tarifs entre États-Unis, Chine, Mexique et Canada sont explicitement cités comme augmentant les coûts et nuisant à la compétitivité. Position importante dans le texte. Les mesures commerciales réciproques affectent directement les résultats 2025.",
       "trend": "up",
-      "summary": "Les tarifs douaniers et tensions commerciales, notamment avec la Chine, alourdissent les coûts et menacent la compétitivité internationale."
+      "summary": "Les tarifs douaniers et tensions commerciales, notamment avec la Chine, alourdissent les coûts et menacent la compétitivité internationale.",
+      "score": 4
     }
   ],
   "governance": {
@@ -376,7 +395,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -593,23 +612,18 @@
         "history": [
           911.7299,
           1311.3286,
-          -975.6134,
           468.2508,
           931.6738,
           1425.3105,
-          -906.277,
           550.7613,
           1134.2342,
           1710.0826,
-          -1095.8631,
           590.2252,
           1163.151,
           1771.6768,
-          -1211.7386,
           576.7731,
           1234.6313,
           1889.8674,
-          -1167.0028,
           675.4431
         ],
         "history_periods": [
@@ -663,6 +677,12 @@
             "accession": "0000355811-26-000026",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (GNTX)"
         ]
       },
       {
@@ -671,23 +691,18 @@
         "history": [
           56.7111,
           86.4621,
-          -53.0617,
           31.975,
           64.8324,
           98.3737,
-          -61.8723,
           34.6537,
           72.6275,
           112.8251,
-          -65.7466,
           42.182,
           86.186,
           134.4119,
-          -81.3047,
           45.9244,
           97.3956,
           150.0303,
-          -90.0906,
           51.6526
         ],
         "history_periods": [
@@ -741,6 +756,12 @@
             "accession": "0000355811-26-000026",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (GNTX)"
         ]
       }
     ]
@@ -757,9 +778,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.268971+00:00",
     "fetched_at": "2026-05-21T02:17:14.268972+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.777Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.422Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gntx.json",
     "enrich_root": "v2-pipeline-enrich/gntx.json",

@@ -1,6 +1,6 @@
 {
   "ticker": "MATW",
-  "name": "Matthews International Corporation",
+  "name": "Matthews International",
   "sector": "Industrie",
   "subsector": "Machinery & Equipment",
   "tagline": "Designing and manufacturing memorialization products, performance materials, brand solutions, and warehouse automation systems",
@@ -40,7 +40,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -69,8 +73,12 @@
       "is_short_history": false,
       "ttm": 5.2,
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Interest Rate Swaps",
@@ -97,17 +105,15 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 0.225,
-      "signal_en": "Strong growth, robust momentum",
-      "_source_month": "septembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Cross Currency Swaps",
       "name_fr": "Swaps de devises",
       "name_en": "Cross Currency Swaps Notional",
       "explanation": "Montant nominal des swaps utilisés pour couvrir les risques de change sur les investissements et opérations à l'étranger.",
-      "value": "0.126",
-      "unit": "Mds $",
+      "value": 126,
+      "unit": "M $",
       "yoy": "stable",
       "type": "Risk Management",
       "nature": "Structurel",
@@ -115,8 +121,8 @@
       "signal": "Couverture partielle des risques de change multi-devises",
       "description": "Le montant nominal des swaps de devises s'élève à 126.4 M$ au 30 septembre 2025, désignés comme couvertures d'investissements nets dans des opérations étrangères. Une appréciation de 10% du dollar américain réduirait les ventes de 31.6 M$ et le résultat opérationnel de 2.3 M$.",
       "history": [
-        0.13,
-        0.13,
+        130,
+        130,
         null,
         null,
         null
@@ -127,8 +133,7 @@
       "is_short_history": true,
       "ttm": 0.126,
       "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Total Revenue",
@@ -153,7 +158,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Net Income",
@@ -179,8 +188,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -194,7 +207,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.865,
         0.89,
@@ -207,7 +220,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -222,7 +235,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0694,
@@ -235,7 +248,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -250,7 +263,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -263,7 +276,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -278,7 +291,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -3.293083,
@@ -291,7 +304,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -309,7 +322,8 @@
       "severity": 5,
       "score_rationale": "La société est vulnérable aux attaques cybernétiques et aux violations de données. Le langage du rapport indique que les opérations pourraient être perturbées, entraînant des réclamations légales, dommages à la réputation, pertes financières et pénalités réglementaires. La conformité aux lois sur la protection des données nécessite des investissements continus en systèmes et personnel.",
       "trend": "stable",
-      "summary": "La société doit investir continuellement dans la cybersécurité et la conformité aux lois de protection des données, exposée à des risques d'interruption d'opérations et de pénalités réglementaires."
+      "summary": "La société doit investir continuellement dans la cybersécurité et la conformité aux lois de protection des données, exposée à des risques d'interruption d'opérations et de pénalités réglementaires.",
+      "score": 5
     },
     {
       "title": "Environnement réglementaire",
@@ -317,7 +331,8 @@
       "severity": 4,
       "score_rationale": "La société doit se conformer à des lois et réglementations en constante évolution au niveau fédéral, étatique et local, notamment en matière de protection de l'environnement et de confidentialité des données. Le non-respect pourrait entraîner des amendes et augmenter les coûts opérationnels.",
       "trend": "up",
-      "summary": "La société fait face à des réglementations de plus en plus strictes en environnement et données, augmentant les coûts de conformité et les risques de pénalités."
+      "summary": "La société fait face à des réglementations de plus en plus strictes en environnement et données, augmentant les coûts de conformité et les risques de pénalités.",
+      "score": 4
     },
     {
       "title": "Contrôle interne et reporting financier",
@@ -325,7 +340,8 @@
       "severity": 4,
       "score_rationale": "La société doit maintenir des contrôles internes efficaces conformément à la section 404 de la Loi Sarbanes-Oxley pour garantir l'exactitude des rapports financiers. Un défaut pourrait entraîner des restatements, perte de confiance des investisseurs et impact négatif sur le cours de l'action.",
       "trend": "stable",
-      "summary": "La société doit maintenir des contrôles internes solides pour assurer l'exactitude de ses rapports financiers et éviter les restatements."
+      "summary": "La société doit maintenir des contrôles internes solides pour assurer l'exactitude de ses rapports financiers et éviter les restatements.",
+      "score": 4
     },
     {
       "title": "Litiges et réclamations",
@@ -333,7 +349,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux litiges et réclamations liés à ses activités. Ces litiges pourraient entraîner des coûts significatifs et des pertes financières matérielles.",
       "trend": "stable",
-      "summary": "La société est vulnérable aux litiges et aux réclamations, qui pourraient affecter ses résultats financiers."
+      "summary": "La société est vulnérable aux litiges et aux réclamations, qui pourraient affecter ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Réputation et confiance",
@@ -341,7 +358,8 @@
       "severity": 3,
       "score_rationale": "La société doit protéger sa réputation auprès des clients et investisseurs. Une atteinte à la réputation liée à des violations de données, des incidents de sécurité ou des problèmes de conformité pourrait entraîner des pertes de revenus et une perte de confiance.",
       "trend": "stable",
-      "summary": "La société doit préserver sa réputation pour maintenir les relations clients et la confiance des investisseurs."
+      "summary": "La société doit préserver sa réputation pour maintenir les relations clients et la confiance des investisseurs.",
+      "score": 3
     },
     {
       "title": "Dépendance à la technologie et opérations internationales",
@@ -349,7 +367,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans plus de 18 pays et dépend fortement de la technologie pour ses opérations. Une panne technologique, une faille de sécurité ou des complications dans les opérations internationales pourrait perturber les activités et affecter les résultats financiers.",
       "trend": "up",
-      "summary": "La dépendance croissante à la technologie et l'exposition aux opérations internationales augmentent les risques de perturbation et de failles de sécurité."
+      "summary": "La dépendance croissante à la technologie et l'exposition aux opérations internationales augmentent les risques de perturbation et de failles de sécurité.",
+      "score": 4
     }
   ],
   "governance": {
@@ -407,7 +426,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -591,7 +610,7 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.153Z",
   "_dividends_extracted_at": "2026-05-09T20:19:50Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2023,
@@ -606,7 +625,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:37Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:04Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Machines & équipements",
   "enrich_description": {
     "ticker": "MATW",
@@ -715,23 +734,18 @@
         "period_type": "quarter",
         "history": [
           24.495,
-          -13.536,
           12.64,
           28.096,
           40.597,
-          -20.012,
           12.398,
           23.772,
           37.107,
-          -22.679,
           14.073,
           24.033,
           33.18,
-          -26.068,
           9.532,
           18.271,
           26.39,
-          -18.375,
           5.257,
           9.3
         ],
@@ -786,6 +800,12 @@
             "accession": "0000063296-26-000059",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (MATW)"
         ]
       }
     ]
@@ -802,9 +822,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.281402+00:00",
     "fetched_at": "2026-05-21T02:17:14.281403+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.303Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.150Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/matw.json",
     "enrich_root": "v2-pipeline-enrich/matw.json",

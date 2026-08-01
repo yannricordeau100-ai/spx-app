@@ -51,47 +51,57 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "+13.9%",
       "history": [
-        0.33,
-        0.34,
-        0.36,
-        0.41
+        330,
+        340,
+        360,
+        410
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.41 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        -0.04,
-        0.02,
-        0.02,
-        0.02
+        -40,
+        20,
+        20,
+        20
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.02 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -110,33 +120,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.02,
-        0.02,
-        0.02,
-        0.04
+        20,
+        20,
+        20,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -155,10 +174,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 2.23 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -172,7 +195,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.6,
         0.72,
@@ -185,7 +208,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -200,7 +223,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0646,
@@ -213,7 +236,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -228,7 +251,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -241,7 +264,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -257,7 +280,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -0.4,
@@ -270,13 +293,13 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
   "stories_kpis": [],
   "ai_positioning": {
-    "stance": "mention",
+    "stance": "absent",
     "summary": "La société AKR mentionne les risques associés à l'utilisation de technologies d'IA dans ses opérations et communications, notamment les risques de dommages réputationnels et de responsabilité légale ou réglementaire. Aucune indication d'utilisation stratégique de l'IA pour créer de la valeur.",
     "evidence": [
       "risks associated with our use of AI tools, which could result in reputational harm, and legal or regulatory liability"
@@ -288,25 +311,25 @@
       "title": "Risques de taux d'intérêt",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société est exposée aux risques de taux d'intérêt en raison de sa structure d'endettement, avec des emprunts indexés sur SOFR (SOFR + 1.20% à SOFR + 2.65%). Les hausses de taux d'intérêt augmentent directement les coûts de service de la dette. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques de taux d'intérêt en raison de sa structure d'endettement, avec des emprunts indexés sur SOFR (SOFR + 1.20% à SOFR + 2.65%). Les hausses de taux d'intérêt augmentent directement les coûts de service de la dette.",
       "trend": "up",
       "summary": "L'exposition aux taux d'intérêt variables augmente les coûts de service de la dette et limite la capacité de refinancement.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Endettement important",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société porte une dette totale importante de 435,5 millions de dollars, ce qui pourrait affecter sa capacité à rembourser ses dettes et sa flexibilité financière. (score par défaut, à affiner)",
+      "score_rationale": "La société porte une dette totale importante de 435,5 millions de dollars, ce qui pourrait affecter sa capacité à rembourser ses dettes et sa flexibilité financière.",
       "trend": "stable",
       "summary": "Niveau de levier élevé typique du secteur REIT mais présentant un risque de défaut en cas de dégradation économique.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépréciation des actifs immobiliers",
       "category": "Actifs",
       "severity": 3,
-      "score_rationale": "Les actifs immobiliers du portefeuille sont sujets à des charges de dépréciation, comme mentionné dans les facteurs de risque. La réévaluation de la juste valeur pourrait entraîner des pertes. (score par défaut, à affiner)",
+      "score_rationale": "Les actifs immobiliers du portefeuille sont sujets à des charges de dépréciation, comme mentionné dans les facteurs de risque. La réévaluation de la juste valeur pourrait entraîner des pertes.",
       "trend": "stable",
       "summary": "Risque de dépréciation des propriétés immobilières en cas de downturn des marchés ou de vacance locative accrue.",
       "score": 3
@@ -315,7 +338,7 @@
       "title": "Concentration du portefeuille et risques de marché",
       "category": "Marché",
       "severity": 3,
-      "score_rationale": "Le portefeuille est fortement concentré dans le commerce de détail urbain et suburbain dans des marchés spécifiques géographiquement, avec exposition aux risques du secteur retail et du commerce électronique. (score par défaut, à affiner)",
+      "score_rationale": "Le portefeuille est fortement concentré dans le commerce de détail urbain et suburbain dans des marchés spécifiques géographiquement, avec exposition aux risques du secteur retail et du commerce électronique.",
       "trend": "up",
       "summary": "La concentration sectorielle dans le retail et la concentration géographique exposent le portefeuille aux cycles économiques locaux et aux perturbations du commerce de détail.",
       "score": 3
@@ -324,16 +347,16 @@
       "title": "Risques de renouvellement de baux et de locataires",
       "category": "Opérationnel",
       "severity": 4,
-      "score_rationale": "La capacité à renouveler les baux à des conditions favorables et la dépendance vis-à-vis des locataires clés (notamment les ancres) sont essentielles au modèle économique. Le risque de non-renouvellement ou de faillite de locataires majeurs pourrait réduire significativement les revenus. (score par défaut, à affiner)",
+      "score_rationale": "La capacité à renouveler les baux à des conditions favorables et la dépendance vis-à-vis des locataires clés (notamment les ancres) sont essentielles au modèle économique. Le risque de non-renouvellement ou de faillite de locataires majeurs pourrait réduire significativement les revenus.",
       "trend": "stable",
       "summary": "La vacance d'espaces d'ancrage affecte directement et indirectement les revenus locatifs; le risque de faillite ou de retraite de locataires clés pourrait impacter les flux de trésorerie.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de liquidité et d'accès aux marchés de capitaux",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "La société dépend de l'accès aux marchés de capitaux pour le refinancement et les acquisitions. Les perturbations des marchés financiers et bancaires pourraient limiter la capacité à lever des capitaux. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de l'accès aux marchés de capitaux pour le refinancement et les acquisitions. Les perturbations des marchés financiers et bancaires pourraient limiter la capacité à lever des capitaux.",
       "trend": "stable",
       "summary": "Accès aux marchés de capitaux crucial pour le refinancement de la dette et le financement de la stratégie de croissance; les crises systémiques pourraient affecter la liquidité.",
       "score": 3
@@ -399,7 +422,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:21:28Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -426,7 +449,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:59Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:20Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_description": {
     "ticker": "AKR",
@@ -481,7 +504,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.577Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.151Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/akr.json",
     "enrich_root": "v2-pipeline-enrich/akr.json",

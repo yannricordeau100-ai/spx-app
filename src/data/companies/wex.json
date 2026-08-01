@@ -34,7 +34,6 @@
         160.266,
         56.644,
         156.323,
-        -283.95,
         135.293,
         167.193,
         266.6,
@@ -50,7 +49,10 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:57.295625+00:00",
       "explanation_en": "Adjusted Net income generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_fix_log": [
+        "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (WEX)"
+      ]
     },
     {
       "short": "Unrealized loss (gain) on financial instruments",
@@ -94,57 +96,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.66 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "-3.2%",
       "history": [
-        0.2,
-        0.27,
-        0.31,
-        0.3
+        200,
+        270,
+        310,
+        300
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.3 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.66,
-      "unit": "Mds €",
+      "value": 660,
+      "unit": "M €",
       "yoy": "-4.3%",
       "history": [
-        0.61,
-        0.65,
-        0.69,
-        0.66
+        610,
+        650,
+        690,
+        660
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.66 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,11 +179,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 14.4 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -186,33 +206,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.86 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.91,
-      "unit": "Mds €",
+      "value": 910,
+      "unit": "M €",
       "yoy": "+51.7%",
       "history": [
-        0.92,
-        0.98,
-        0.6,
-        0.91
+        920,
+        980,
+        600,
+        910
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.91 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -254,7 +283,8 @@
       "severity": 5,
       "score_rationale": "WEX mentionne explicitement que la société connaît régulièrement des cyberattaques et en attend d'autres à l'avenir. Les impacts potentiels incluent la responsabilité, les dommages à la réputation et les impacts financiers. Les mesures de sécurité sont coûteuses et ne peuvent pas garantir une protection absolue.",
       "trend": "stable",
-      "summary": "WEX est exposée à des cyberattaques continuelles qui pourraient compromettre ses systèmes d'information, notamment les données de clients, et nuire à sa réputation et sa situation financière."
+      "summary": "WEX est exposée à des cyberattaques continuelles qui pourraient compromettre ses systèmes d'information, notamment les données de clients, et nuire à sa réputation et sa situation financière.",
+      "score": 5
     },
     {
       "title": "Conformité aux lois anti-corruption",
@@ -262,7 +292,8 @@
       "severity": 4,
       "score_rationale": "WEX opère dans plusieurs juridictions étrangères et est soumise à la FCPA, à la Bribery Act 2010 du Royaume-Uni et à d'autres lois anti-corruption. Les violations pourraient entraîner des frais importants et des contrôles supplémentaires. La tendance à une plus grande scrutabilité a augmenté ces dernières années.",
       "trend": "up",
-      "summary": "L'expansion internationale de WEX augmente le risque de violations involontaires des lois anti-corruption et de violation de la FCPA/UKBA, pouvant entraîner des frais importants et des dommages réputationnels."
+      "summary": "L'expansion internationale de WEX augmente le risque de violations involontaires des lois anti-corruption et de violation de la FCPA/UKBA, pouvant entraîner des frais importants et des dommages réputationnels.",
+      "score": 4
     },
     {
       "title": "Conformité et protection des données",
@@ -270,7 +301,8 @@
       "severity": 4,
       "score_rationale": "La société doit se conformer à des réglementations strictes en matière de protection des données dans plusieurs juridictions. Ces efforts sont coûteux et chronophages dans un environnement réglementaire en évolution constante.",
       "trend": "up",
-      "summary": "WEX doit naviguer dans un environnement réglementaire complexe et en constante évolution concernant la protection des données, ce qui impacte les opérations et les finances."
+      "summary": "WEX doit naviguer dans un environnement réglementaire complexe et en constante évolution concernant la protection des données, ce qui impacte les opérations et les finances.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -278,7 +310,8 @@
       "severity": 4,
       "score_rationale": "WEX opère dans des marchés des paiements et services financiers fortement compétitifs où d'autres acteurs offrent des services similaires, menaçant la part de marché.",
       "trend": "stable",
-      "summary": "WEX doit faire face à une concurrence accrue dans les segments Mobilité, Paiements Collectifs et Avantages pour maintenir sa part de marché et attirer de nouveaux clients."
+      "summary": "WEX doit faire face à une concurrence accrue dans les segments Mobilité, Paiements Collectifs et Avantages pour maintenir sa part de marché et attirer de nouveaux clients.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie et infrastructure informatique",
@@ -286,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Les opérations de WEX reposent fortement sur des systèmes technologiques complexes. Les défaillances technologiques ou cyberattaques pourraient interrompre les services critiques et impacter les revenus.",
       "trend": "up",
-      "summary": "WEX doit investir continuellement dans la modernisation, la sécurisation et la fiabilité de son infrastructure technologique pour minimiser les risques d'interruption de service."
+      "summary": "WEX doit investir continuellement dans la modernisation, la sécurisation et la fiabilité de son infrastructure technologique pour minimiser les risques d'interruption de service.",
+      "score": 4
     }
   ],
   "governance": {
@@ -333,7 +367,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -528,19 +562,15 @@
           88.518,
           122.647,
           78.502,
-          -122.474,
           68,
           163.3,
           181.7,
-          -146.4,
           65.8,
           142.7,
           245.7,
-          -144.6,
           71.5,
           139.6,
           219.8,
-          -126.8,
           77.7
         ],
         "history_periods": [
@@ -594,6 +624,12 @@
             "accession": "0001309108-26-000017",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (WEX)"
         ]
       }
     ]
@@ -610,9 +646,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.327836+00:00",
     "fetched_at": "2026-05-21T02:17:14.327837+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.465Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.587Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wex.json",
     "enrich_root": "v2-pipeline-enrich/wex.json",

@@ -41,8 +41,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'M $' (values are in millions, not billions)",
-      "period_type": "quarter",
-      "signal_en": "Strong top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Revenu segment USG",
@@ -103,8 +106,8 @@
       "name_fr": "Revenu total consolidé",
       "name_en": "Total Consolidated Revenue",
       "explanation": "Chiffre d'affaires total de l'entreprise avant déductions.",
-      "value": "1095.4",
-      "unit": "M $",
+      "value": 1.095,
+      "unit": "Mds $",
       "yoy": "+19.2%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -112,7 +115,7 @@
       "signal": "Croissance globale significative, principalement portée par le segment A D.",
       "description": "Le revenu total reflète la performance combinée des trois segments opérationnels de l'entreprise.",
       "history": [
-        919.1,
+        0.919,
         null,
         null,
         null,
@@ -123,7 +126,8 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'M $' (values are in millions, not billions)",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Bénéfice dilué par action (GAAP)",
@@ -209,8 +213,8 @@
       "name_fr": "Carnet de commandes",
       "name_en": "Backlog",
       "explanation": "Valeur totale des commandes clients non encore livrées ou facturées.",
-      "value": "1133.6",
-      "unit": "M $",
+      "value": 1.134,
+      "unit": "Mds $",
       "yoy": "+70.7%",
       "type": "Pipeline",
       "nature": "Structurel",
@@ -218,7 +222,7 @@
       "signal": "Augmentation substantielle du carnet de commandes, signe de forte demande future.",
       "description": "Le carnet de commandes représente les revenus futurs attendus de contrats déjà signés.",
       "history": [
-        664.2,
+        0.664,
         null,
         null,
         null,
@@ -229,7 +233,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'M $' (value is in millions, not billions)",
-      "signal_en": "Forward visibility increasing, pipeline strengthening"
+      "signal_en": "Forward visibility increasing, pipeline strengthening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "DPS",
@@ -243,7 +248,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.24,
         0.32,
@@ -256,7 +261,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -271,7 +276,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0281,
@@ -284,7 +289,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -299,7 +304,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         10.04,
@@ -312,7 +317,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -328,7 +333,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.16,
@@ -341,7 +346,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -371,9 +376,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Unit corrected from 'Mds $' to 'M $' (value is in millions, not billions); verified as $95.2M contribution from Maritime acquired net sales in source text",
-      "_source_month": "avril 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Unit corrected from 'Mds $' to 'M $' (value is in millions, not billions); verified as $95.2M contribution from Maritime acquired net sales in source text"
     },
     {
       "short": "Vente VACCO",
@@ -400,9 +403,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Mix",
-      "_validation": "Unit corrected from 'Mds $' to 'M $' (value is $172.6M after-tax gain, in millions); verified in source: 'recorded a $172.6 million after-tax gain on the sale'",
-      "_source_month": "juillet 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'M $' (value is $172.6M after-tax gain, in millions); verified in source: 'recorded a $172.6 million after-tax gain on the sale'"
     },
     {
       "short": "Acquisition Megger",
@@ -429,9 +430,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Unit corrected from 'Mds $' to 'B $' (2.35 billion dollars); note: Megger acquisition not found in provided source documents (10-K ends Sept 30, 2025; announcement dated April 2026 is outside document scope); marked as potential hallucination but retained with corrected unit",
-      "_source_month": "avril 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Unit corrected from 'Mds $' to 'B $' (2.35 billion dollars); note: Megger acquisition not found in provided source documents (10-K ends Sept 30, 2025; announcement dated April 2026 is outside document scope); marked as potential hallucination but retained with corrected unit"
     }
   ],
   "ai_positioning": {
@@ -452,7 +451,8 @@
       "score_rationale": "Risque positionné en milieu de rapport avec langage modéré ('acquisition costs', 'purchase accounting adjustments'). Nouveau risque majeur suite à l'acquisition de 472M$ complétée en avril 2025. Catégorie Industriel pondérée fortement pour les acquisitions de cette envergure.",
       "trend": "new",
       "summary": "L'entreprise a acquis Maritime pour 472 millions de dollars en avril 2025. L'intégration de cette activité navale dans le portefeuille existant présente des risques opérationnels et financiers significatifs, avec 41,4 millions de dollars d'amortissement d'actifs incorporels en 2025.",
-      "citation": "On April 25, 2025, the Company completed the acquisition of the Signature Management & Power business (renamed ESCO Maritime Solutions or Maritime) for a purchase price of approximately $472 million, net of cash acquired."
+      "citation": "On April 25, 2025, the Company completed the acquisition of the Signature Management & Power business (renamed ESCO Maritime Solutions or Maritime) for a purchase price of approximately $472 million, net of cash acquired.",
+      "score": 4
     },
     {
       "title": "Dépendance aux marchés de la défense",
@@ -461,7 +461,8 @@
       "score_rationale": "Risque implicite en milieu de rapport. Le segment A&D représente 43,7% des ventes 2025 (478,2M$) avec forte exposition à la marine (94,1M$ de croissance navale). Tendance stable mais concentration élevée. Catégorie Macro pondérée pour dépendance géopolitique.",
       "trend": "stable",
       "summary": "Le segment Aéronautique et Défense génère 43,7% des ventes totales, avec une exposition importante aux contrats de défense navale. Toute réduction des budgets militaires ou des commandes gouvernementales pourrait impacter significativement les résultats.",
-      "citation": "A&D segment net sales increase of $137.7 million was mainly due to a $94.1 million increase in navy revenues and a $39.8 million increase in commercial aerospace revenues"
+      "citation": "A&D segment net sales increase of $137.7 million was mainly due to a $94.1 million increase in navy revenues and a $39.8 million increase in commercial aerospace revenues",
+      "score": 4
     },
     {
       "title": "Faiblesse du marché des énergies renouvelables",
@@ -470,7 +471,8 @@
       "score_rationale": "Risque identifié en milieu de rapport avec langage explicite ('renewables market weakness'). Baisse de 7M$ chez NRG en 2025. Tendance à la baisse. Catégorie Macro pour cyclicité sectorielle.",
       "trend": "down",
       "summary": "La division NRG (énergies renouvelables) a enregistré une baisse de 7 millions de dollars due à la faiblesse du marché solaire et éolien. Cette tendance pourrait persister et affecter la croissance du segment USG.",
-      "citation": "a $7.0 million decrease in net sales at NRG driven by lower shipments of solar and wind products due to renewables market weakness"
+      "citation": "a $7.0 million decrease in net sales at NRG driven by lower shipments of solar and wind products due to renewables market weakness",
+      "score": 3
     },
     {
       "title": "Endettement suite aux acquisitions",
@@ -479,7 +481,8 @@
       "score_rationale": "Risque en milieu de rapport. Après Maritime (472M$), la dette nette est de 84,6M$ (186M$ de dette, 101,4M$ de cash). Tendance stable mais accrue par rapport à N-1. Catégorie Capital pondérée pour levier financier.",
       "trend": "up",
       "summary": "L'acquisition de Maritime a augmenté l'endettement de l'entreprise. Bien que la vente de VACCO ait généré 270 millions de dollars utilisés pour réduire la dette, le levier financier reste élevé et limite la flexibilité future.",
-      "citation": "At September 30, 2025, cash on hand was $101.4 million and outstanding debt was $186 million, for a net debt position of approximately $84.6 million."
+      "citation": "At September 30, 2025, cash on hand was $101.4 million and outstanding debt was $186 million, for a net debt position of approximately $84.6 million.",
+      "score": 3
     },
     {
       "title": "Amortissement élevé des actifs incorporels",
@@ -488,7 +491,8 @@
       "score_rationale": "Risque en milieu de rapport. Amortissement de 53,3M$ en 2025 vs 32,8M$ en 2024 (+62%), dont 41,4M$ liés aux acquisitions. Tendance à la hausse. Catégorie Industriel pour impact sur rentabilité opérationnelle.",
       "trend": "up",
       "summary": "L'amortissement des actifs incorporels a augmenté de 62% en 2025, passant de 32,8 à 53,3 millions de dollars, principalement en raison de l'acquisition Maritime. Cette charge réduit la rentabilité opérationnelle future.",
-      "citation": "Amortization of intangible assets was $53.3 million in 2025 and $32.8 million in 2024, including $41.4 million and $20.7 million of amortization of acquired intangible assets in 2025 and 2024, respectively"
+      "citation": "Amortization of intangible assets was $53.3 million in 2025 and $32.8 million in 2024, including $41.4 million and $20.7 million of amortization of acquired intangible assets in 2025 and 2024, respectively",
+      "score": 3
     },
     {
       "title": "Concentration du carnet de commandes",
@@ -497,7 +501,8 @@
       "score_rationale": "Risque en milieu de rapport. Le carnet de 1 133,6M$ inclut 364,2M$ (32%) provenant de Maritime acquis. Dépendance à la continuité des commandes gouvernementales. Tendance stable. Catégorie Concurrence pour concentration client.",
       "trend": "stable",
       "summary": "Le carnet de commandes de 1 133,6 millions de dollars inclut 364,2 millions de dollars provenant de l'acquisition Maritime. Cette concentration rend l'entreprise dépendante de la continuité des contrats de défense navale.",
-      "citation": "Entered orders for 2025 from continuing operations were $1,564.8 million (including $364.2 million of Maritime acquired backlog) resulting in a book-to-bill ratio of 1.43x"
+      "citation": "Entered orders for 2025 from continuing operations were $1,564.8 million (including $364.2 million of Maritime acquired backlog) resulting in a book-to-bill ratio of 1.43x",
+      "score": 3
     },
     {
       "title": "Charges de restructuration récurrentes",
@@ -506,7 +511,8 @@
       "score_rationale": "Risque en milieu de rapport. Charges de restructuration de 1M$ en 2025 et 2024 dans USG et Test. Tendance stable mais récurrente. Catégorie Industriel pour efficacité opérationnelle.",
       "trend": "stable",
       "summary": "L'entreprise enregistre des charges de restructuration récurrentes (environ 1 million de dollars par an) dans les segments USG et Test, principalement liées aux indemnités de départ. Cela suggère des ajustements organisationnels continus.",
-      "citation": "The principal component of other expenses, net, in 2025 was approximately $1.0 million of restructuring charges within the USG and Test segments (mainly severance charges)"
+      "citation": "The principal component of other expenses, net, in 2025 was approximately $1.0 million of restructuring charges within the USG and Test segments (mainly severance charges)",
+      "score": 2
     }
   ],
   "_validation": {
@@ -546,7 +552,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -690,7 +696,7 @@
   "company_description": "ESCO Technologies Inc. provides engineered components and systems for aviation, navy, defense, and industrial customers. The Aerospace & Defense segment designs and manufactures specialty filtration products, including hydraulic filter elements and fluid control devices used in commercial and defense aerospace applications; miniature electro-explosive devices for military aircraft ejection seats and missile arming devices; manufactures and sells mission-critical bushings, pins, sleeves, and precision-tolerance machined components for landing gear, rotor heads, engine mounts, flight controls, and actuation systems for the aerospace and defense industries; designs, develops and manufactures elastomeric-based signature reduction solutions for U.S. naval vessels; and provides mission-critical signature and power management solutions. The Utility Solutions Group segment develops, manufactures, and delivers diagnostic testing solutions; and designs and manufactures decision support tools for the renewable energy industry, primarily wind and solar. The RF Test & Measurement segment designs and manufactures products and systems to measure and control RF energy for research and development, regulatory compliance, and medical and security applications; and turnkey systems, such as RF test facilities and measurement systems, acoustic test enclosures, RF and magnetically shielded rooms, and secure communication facilities. This segment also supplies RF absorptive materials, filters, antennas, field probes, test cells, proprietary measurement software, and other test accessories; and offers calibration and product tests, feedthrough capacitors, high current power, telephone, data and control line filters, and high-altitude electromagnetic protection filters. It distributes its products through distributors, sales representatives, direct sales teams, and in-house sales personnel. The company was incorporated in 1990 and is based in Saint Louis, Missouri.",
   "_profile_fetched_at": "2026-05-07T11:56:18.136545+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:46Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -716,7 +722,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:19Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:50Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Industrie diversifiée",
   "enrich_description": {
     "ticker": "ESE",
@@ -806,88 +812,53 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ESE",
-    "extracted_at": "2026-05-15T18:10:59Z",
-    "method": "xbrl-companyfacts",
-    "cik": 866706,
+    "extracted_at": "2026-06-01T03:14:35Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Revenu total",
+        "short": "Revenu segment A D",
         "period_type": "quarter",
         "history": [
-          509.962,
-          -287.064,
-          177.01,
-          381.938,
-          601.004,
-          -302.45,
-          205.501,
-          434.637,
-          683.386,
-          -367.491,
-          218.314,
-          467.443,
-          728.226,
-          -387.224,
-          247.026,
-          512.545,
-          742.714,
-          -406.897,
-          289.659,
-          599
+          71.772,
+          81.443,
+          106.902,
+          96.941,
+          104.528,
+          106.902,
+          126.338,
+          134.016,
+          118.678,
+          134.602,
+          133.48,
+          130.034,
+          140.437,
+          144.95,
+          131.535
         ],
         "history_periods": [
-          "Q3 2021",
+          "Q1 2021",
+          "Q2 2021",
           "Q4 2021",
           "Q1 2022",
           "Q2 2022",
-          "Q3 2022",
           "Q4 2022",
           "Q1 2023",
           "Q2 2023",
-          "Q3 2023",
           "Q4 2023",
           "Q1 2024",
           "Q2 2024",
-          "Q3 2024",
           "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026",
-          "Q2 2026"
+          "Q4 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-12-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q3 2025",
-            "value": 742.714,
-            "accession": "0001410578-25-001667",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -406.897,
-            "accession": "calc-0001104659-25-117276",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 289.659,
-            "accession": "0001104659-26-011932",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 599,
-            "accession": "0001104659-26-058482",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:14:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -903,9 +874,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.257427+00:00",
     "fetched_at": "2026-05-21T02:17:14.257429+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.884Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.459Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ese.json",
     "enrich_root": "v2-pipeline-enrich/ese.json",

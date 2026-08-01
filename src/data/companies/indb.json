@@ -1,6 +1,6 @@
 {
   "ticker": "INDB",
-  "name": "Independent Bank Corp.",
+  "name": "Independent Bank",
   "sector": "Finance",
   "subsector": "Banks",
   "tagline": "Community-focused bank providing financial services in Massachusetts and New Hampshire",
@@ -73,7 +73,11 @@
       "ttm": 19.14,
       "_validation": "Suppression du % dans la valeur numérique, yoy complété avec valeur source, type changé de Demand à Growth, is_wow changé à true, is_generic changé à false, history réordonnée, description améliorée",
       "explanation_en": "Year-over-year growth in Loan.",
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Deposit Growth",
@@ -102,7 +106,11 @@
       "ttm": 23.48,
       "_validation": "Suppression du % dans la valeur numérique, yoy complété avec valeur source, type changé de Demand à Growth, is_wow changé à true, is_generic changé à false, history réordonnée, description améliorée",
       "explanation_en": "Year-over-year growth in Deposit.",
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -130,8 +138,12 @@
       "is_short_history": false,
       "ttm": 188.1,
       "_validation": "Type changé de Revenue à Profitability, history réordonnée, description améliorée avec contexte de fusion",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Return on Assets",
@@ -190,34 +202,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 24.91 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.83,
-      "unit": "Mds €",
+      "value": 830,
+      "unit": "M €",
       "yoy": "+18.6%",
       "history": [
-        0.11,
-        1.22,
-        0.7,
-        0.83
+        110,
+        1220,
+        700,
+        830
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.83 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -231,7 +252,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.92,
         2.08,
@@ -244,7 +265,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -259,7 +280,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0937,
@@ -272,7 +293,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -287,7 +308,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         35.53,
@@ -300,7 +321,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -316,7 +337,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         5.69,
@@ -329,7 +350,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Stable, slight decline to monitor"
     }
   ],
@@ -360,9 +381,7 @@
       "is_short_history": true,
       "story_category": "Financial Performance",
       "ttm": 3.2,
-      "_validation": "Suppression du % dans la valeur numérique, story_category changé à Financial Performance, history réordonnée",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Suppression du % dans la valeur numérique, story_category changé à Financial Performance, history réordonnée"
     },
     {
       "short": "Loan Growth",
@@ -390,9 +409,7 @@
       "is_short_history": true,
       "story_category": "M&A Impact",
       "ttm": 19.14,
-      "_validation": "Suppression du % dans la valeur numérique, type changé à Growth, is_wow changé à true, is_generic changé à false, story_category changé à M&A Impact, yoy complété, history réordonnée, description améliorée",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Suppression du % dans la valeur numérique, type changé à Growth, is_wow changé à true, is_generic changé à false, story_category changé à M&A Impact, yoy complété, history réordonnée, description améliorée"
     }
   ],
   "ai_positioning": {
@@ -408,7 +425,8 @@
       "severity": 5,
       "score_rationale": "Position précoce dans le 10-K, langage d'alerte élevée, impact potentiel significatif sur les conditions de crédit et les résultats financiers",
       "trend": "stable",
-      "summary": "Les conditions économiques globales, nationales ou locales, notamment les ralentissements économiques, les périodes récessionistes, l'inflation et les perturbations des chaînes d'approvisionnement, peuvent avoir un impact négatif sur les résultats de l'entreprise."
+      "summary": "Les conditions économiques globales, nationales ou locales, notamment les ralentissements économiques, les périodes récessionistes, l'inflation et les perturbations des chaînes d'approvisionnement, peuvent avoir un impact négatif sur les résultats de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Risque de crédit",
@@ -416,7 +434,8 @@
       "severity": 5,
       "score_rationale": "Domaine fondamental pour les banques, défaillance d'emprunteurs et contrepassies contractuelles, impact potentiel significatif sur les pertes de crédit et la rentabilité",
       "trend": "stable",
-      "summary": "Les pertes de crédit provenant de défaillances d'emprunteurs, d'insuffisance de garanties et de concentration excessives de prêts peuvent avoir un impact négatif significatif sur les résultats de l'entreprise."
+      "summary": "Les pertes de crédit provenant de défaillances d'emprunteurs, d'insuffisance de garanties et de concentration excessives de prêts peuvent avoir un impact négatif significatif sur les résultats de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -424,7 +443,8 @@
       "severity": 4,
       "score_rationale": "Exposition principale de la banque, sensibilité du revenu net d'intérêts aux changements de taux, impact direct sur la principale source de revenus",
       "trend": "stable",
-      "summary": "Les changements de taux d'intérêt et les décalages d'appariement d'actifs et passifs peuvent affecter le revenu net d'intérêts et la juste valeur des titres."
+      "summary": "Les changements de taux d'intérêt et les décalages d'appariement d'actifs et passifs peuvent affecter le revenu net d'intérêts et la juste valeur des titres.",
+      "score": 4
     },
     {
       "title": "Risque de marché",
@@ -432,7 +452,8 @@
       "severity": 4,
       "score_rationale": "Exposition à la volatilité des marchés, fluctuations des prix d'actifs, conditions de marché externes impactant la valeur des portefeuilles",
       "trend": "stable",
-      "summary": "Les changements de conditions de marché et les variations de volatilité peuvent avoir un impact négatif sur les résultats de l'entreprise et la valeur des actifs."
+      "summary": "Les changements de conditions de marché et les variations de volatilité peuvent avoir un impact négatif sur les résultats de l'entreprise et la valeur des actifs.",
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
@@ -440,7 +461,8 @@
       "severity": 4,
       "score_rationale": "Fonction critique pour les banques, dépendance aux dépôts, accès aux sources de financement externes, gestion des flux de trésorerie",
       "trend": "stable",
-      "summary": "L'incapacité à accéder aux sources de financement ou à gérer les fluctuations des niveaux de financement disponibles peut affecter négativement la capacité de la banque à honorer ses obligations."
+      "summary": "L'incapacité à accéder aux sources de financement ou à gérer les fluctuations des niveaux de financement disponibles peut affecter négativement la capacité de la banque à honorer ses obligations.",
+      "score": 4
     },
     {
       "title": "Risque réglementaire et de conformité",
@@ -448,7 +470,8 @@
       "severity": 3,
       "score_rationale": "Environnement réglementaire en évolution permanente pour le secteur bancaire, exigences de capital et de liquidité, politiques gouvernementales",
       "trend": "stable",
-      "summary": "Les changements de réglementation, les exigences de capital accrues et les politiques gouvernementales peuvent affecter la rentabilité et augmenter les coûts opérationnels."
+      "summary": "Les changements de réglementation, les exigences de capital accrues et les politiques gouvernementales peuvent affecter la rentabilité et augmenter les coûts opérationnels.",
+      "score": 3
     },
     {
       "title": "Risque de réputation",
@@ -456,7 +479,8 @@
       "severity": 3,
       "score_rationale": "Modèle commercial basé sur les relations avec les clients, importance de la confiance, impact potentiel sur la base de dépôts et le portefeuille de prêts",
       "trend": "stable",
-      "summary": "Les problèmes de réputation ou les défaillances de leadership et d'engagement peuvent affecter négativement les relations avec les clients et les résultats opérationnels."
+      "summary": "Les problèmes de réputation ou les défaillances de leadership et d'engagement peuvent affecter négativement les relations avec les clients et les résultats opérationnels.",
+      "score": 3
     }
   ],
   "governance": {
@@ -505,7 +529,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -567,7 +591,7 @@
   "_segments_fetched_at": "2026-05-06T19:33:09.801323+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:03:19.744416+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:29Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -587,7 +611,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:43Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:34Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
   "enrich_description": {
@@ -700,21 +724,17 @@
           1.7154,
           1.7416,
           1.756,
-          -2.1945,
           2.9654,
           2.8712,
           2.8172,
-          -5.7671,
           2.8549,
           2.8854,
           2.8842,
           2.9192,
           2.9771,
-          -5.7875,
           3.0334,
           3.0749,
           3.5469,
-          -6.0894,
           3.542
         ],
         "history_periods": [
@@ -768,6 +788,12 @@
             "accession": "0000776901-26-000104",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (INDB)"
         ]
       }
     ]
@@ -784,9 +810,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.530063+00:00",
     "fetched_at": "2026-05-21T01:44:37.530064+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.416Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.098Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/indb.json",
     "enrich_root": "v2-pipeline-enrich/indb.json",

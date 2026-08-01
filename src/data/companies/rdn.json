@@ -41,7 +41,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -69,7 +69,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -101,8 +105,12 @@
         "diff_pct": 57.1,
         "reason": "kept_original_likely_pollution_or_unit"
       },
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -129,7 +137,11 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -155,8 +167,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Steady growth, healthy trend"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Duration",
@@ -182,7 +198,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -209,24 +229,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.583,
-      "unit": "Mds $",
+      "value": 583,
+      "unit": "M $",
       "yoy": "-3.5%",
       "history": [
-        0.606,
-        0.672,
-        0.394,
-        0.601,
-        0.743,
-        0.603,
-        0.604,
-        0.583
+        606,
+        672,
+        394,
+        601,
+        743,
+        603,
+        604,
+        583
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -235,8 +259,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -289,7 +318,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans l'analyse de marché (Item 7A) et affecte 6,1 Mds$ d'instruments. Le langage insiste sur une exposition \u0000mat\u0000rielle\u0000 aux variations de taux. La dur\u0000e moyenne est significative (3,6 ans) et en baisse vs N-1 (4,3 ans), accentuant la volatilit\u0000. Pond\u0000ration \u0000lev\u0000e pour le secteur financier.",
       "trend": "stable",
-      "summary": "Une hausse des taux d'intérêt pourrait réduire significativement la valeur de marché du portefeuille d'investissements."
+      "summary": "Une hausse des taux d'intérêt pourrait réduire significativement la valeur de marché du portefeuille d'investissements.",
+      "score": 5
     },
     {
       "title": "Risque de spread de crédit",
@@ -297,7 +327,8 @@
       "severity": 5,
       "score_rationale": "Explicitement cit\u0000 comme risque majeur (Item 7A) avec exposition \u0000mat\u0000rielle\u0000. Affecte le m\u0000me portefeuille de 6,1 Mds$. Le texte lie directement les variations de spread \u0000 des impacts sur la juste valeur. M\u0000me intensit\u0000 que le risque de taux, cat\u0000gorie critique pour les assureurs.",
       "trend": "stable",
-      "summary": "Une détérioration des spreads de crédit pourrait impacter négativement la valeur des titres détenus."
+      "summary": "Une détérioration des spreads de crédit pourrait impacter négativement la valeur des titres détenus.",
+      "score": 5
     },
     {
       "title": "Estimations critiques des provisions",
@@ -305,7 +336,8 @@
       "severity": 4,
       "score_rationale": "Section d\u0000di\u0000e aux \u0000estimations critiques\u0000, avec jugement \u0000subjectif\u0000 et \u0000incertitude\u0000. Mention d'un risque accru en cas de r\u0000cession. Impact direct sur les r\u0000sultats. Cat\u0000gorie \u0000industriel\u0000 pond\u0000r\u0000e pour une compagnie d'assurance hypoth\u0000caire.",
       "trend": "stable",
-      "summary": "Les hypothèses sur les taux de sinistralité et la gravité des sinistres peuvent s'avérer inexactes, affectant les provisions."
+      "summary": "Les hypothèses sur les taux de sinistralité et la gravité des sinistres peuvent s'avérer inexactes, affectant les provisions.",
+      "score": 4
     },
     {
       "title": "Sensibilité des revenus aux sinistres",
@@ -313,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Le texte quantifie l'impact : +1 point de gravit\u0000 des sinistres = +4 M$ de r\u0000serves ; +1 point de taux de passage au sinistre = +16 M$. Cela montre une forte sensibilit\u0000. Risque structurel pour le m\u0000tier d'assurance. Langage technique mais sans alarme nouvelle.",
       "trend": "stable",
-      "summary": "De petites variations dans les hypothèses de sinistres peuvent avoir un impact significatif sur les résultats."
+      "summary": "De petites variations dans les hypothèses de sinistres peuvent avoir un impact significatif sur les résultats.",
+      "score": 4
     },
     {
       "title": "Risque de change ou actions",
@@ -321,7 +354,8 @@
       "severity": 3,
       "score_rationale": "Mentionn\u0000 en Item 7A comme exemple de risque de march\u0000, mais sans donn\u0000es quantitatives ou exposition r\u0000v\u0000l\u0000e. Absence de d\u0000tail sur l'exposition aux actions ou devises. Cat\u0000gorie \u0000capital\u0000, mais impact probable limit\u0000.",
       "trend": "stable",
-      "summary": "Des variations défavorables des cours boursiers ou des taux de change pourraient affecter la valeur des actifs."
+      "summary": "Des variations défavorables des cours boursiers ou des taux de change pourraient affecter la valeur des actifs.",
+      "score": 3
     },
     {
       "title": "Provisions fiscales non réalisées",
@@ -329,7 +363,8 @@
       "severity": 4,
       "score_rationale": "Pr\u0000sence d'une cr\u0000ance d'imp\u0000t diff\u0000r\u0000 de 52 M$ avec une cr\u0000ance d'ajustement de 52 M$. Le texte indique un risque de non-r\u0000alisation \u0000plus probable que non\u0000. Impact direct sur le r\u0000sultat si la cr\u0000ance est annul\u0000e. Cat\u0000gorie \u0000capital\u0000, pond\u0000r\u0000e.",
       "trend": "stable",
-      "summary": "La société pourrait ne pas pouvoir utiliser certaines pertes fiscales reportables, impactant sa charge d'impôt."
+      "summary": "La société pourrait ne pas pouvoir utiliser certaines pertes fiscales reportables, impactant sa charge d'impôt.",
+      "score": 4
     }
   ],
   "governance": {
@@ -348,7 +383,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -506,6 +541,58 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "RDN",
+    "extracted_at": "2026-06-01T09:18:19Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          49.02,
+          58,
+          49.63,
+          79.95,
+          90.6,
+          86.25,
+          65.65,
+          62.93,
+          64.15,
+          62.19,
+          58.58,
+          58.55,
+          59.25,
+          55.02,
+          65.56
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:18:19Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "RDN",
     "ranks": {
@@ -518,15 +605,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.302222+00:00",
     "fetched_at": "2026-05-21T02:17:14.302223+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.098Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.119Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rdn.json",
     "enrich_root": "v2-pipeline-enrich/rdn.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

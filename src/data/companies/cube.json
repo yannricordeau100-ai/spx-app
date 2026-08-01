@@ -42,9 +42,7 @@
       "is_short_history": true,
       "ttm": 0,
       "period_type": "quarter",
-      "signal_en": "Significant decline, warning signal",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Rentable Square Feet",
@@ -71,8 +69,10 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 0,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Occupancy Rate",
@@ -99,8 +99,10 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 0,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capital Expenditures",
@@ -127,16 +129,18 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 0,
-      "_source_month": "décembre 2026",
-      "_source_month_reason": "via_last_data"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt Outstanding",
       "explanation": "Solde principal total de la dette non garantie et des emprunts hypothécaires",
-      "value": 3045.286,
-      "unit": "M $",
+      "value": 3.045,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Risk",
       "nature": "Structurel",
@@ -155,9 +159,12 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 0,
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Interest Coverage Ratio",
@@ -185,8 +192,10 @@
       "is_short_history": true,
       "ttm": 0,
       "explanation_en": "Interest Coverage ratio.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -205,33 +214,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.64 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-85.7%",
       "history": [
-        0.01,
-        0.01,
-        0.07,
-        0.01
+        10,
+        10,
+        70,
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -245,7 +263,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.45,
         1.78,
@@ -258,7 +276,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -273,7 +291,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.3885,
@@ -286,7 +304,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -301,7 +319,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         132.91,
@@ -314,7 +332,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -330,7 +348,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.29,
@@ -343,7 +361,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -373,9 +391,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "ttm": 0,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": 0
     }
   ],
   "ai_positioning": {
@@ -389,34 +405,34 @@
       "title": "Conditions macroéconomiques défavorables",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Mentionné en premier dans les facteurs de risque (Item 1A), le langage est fort (significativement et négativement affecter), et le contexte économique actuel justifie une attention particulière. Ce risque est pondéré comme majeur pour une entreprise immobilière. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné en premier dans les facteurs de risque (Item 1A), le langage est fort (significativement et négativement affecter), et le contexte économique actuel justifie une attention particulière. Ce risque est pondéré comme majeur pour une entreprise immobilière.",
       "trend": "up",
       "summary": "Les ralentissements économiques, la hausse du chômage ou les marchés de crédit tendus peuvent réduire la demande locative et augmenter les créances irrécouvrables, affectant négativement les revenus et la rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions et intégrations",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Ce risque est détaillé avec plusieurs sous-points (conditions de clôture, coûts imprévus, intégration, passifs cachés) dans l'Item 1A. L'intensité du langage (risques associés, défis d'intégration) et la fréquence des acquisitions dans le secteur justifient une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé avec plusieurs sous-points (conditions de clôture, coûts imprévus, intégration, passifs cachés) dans l'Item 1A. L'intensité du langage (risques associés, défis d'intégration) et la fréquence des acquisitions dans le secteur justifient une sévérité élevée.",
       "trend": "stable",
       "summary": "L'acquisition et l'intégration de nouvelles propriétés comportent des risques d'échec des transactions, de dépassement des coûts, de passifs cachés et de difficultés d'intégration, pouvant impacter la performance financière.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance au financement externe",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Ce risque est clairement énoncé dans l'Item 1A comme une dépendance critique (dépendons de sources externes de capital qui sont hors de notre contrôle). L'incertitude des marchés financiers et l'impact sur les acquisitions, le service de la dette et les distributions justifient une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est clairement énoncé dans l'Item 1A comme une dépendance critique (dépendons de sources externes de capital qui sont hors de notre contrôle). L'incertitude des marchés financiers et l'impact sur les acquisitions, le service de la dette et les distributions justifient une sévérité élevée.",
       "trend": "up",
       "summary": "L'entreprise dépend fortement du financement externe pour ses opérations et sa croissance. L'indisponibilité ou le coût élevé de ce capital peut entraver les acquisitions, le remboursement des dettes et le maintien du statut de REIT.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur les marchés",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Ce risque est bien développé dans l'Item 1A, mentionnant la concurrence des développeurs et opérateurs de self-stockage. L'impact potentiel sur les taux d'occupation et les prix de location est souligné. La sévérité est modérée car c'est un risque constant dans ce secteur. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est bien développé dans l'Item 1A, mentionnant la concurrence des développeurs et opérateurs de self-stockage. L'impact potentiel sur les taux d'occupation et les prix de location est souligné. La sévérité est modérée car c'est un risque constant dans ce secteur.",
       "trend": "stable",
       "summary": "La forte concurrence dans le secteur du self-stockage peut entraîner une pression sur les taux de location et d'occupation, nécessiter des améliorations coûteuses et affecter négativement les revenus et la capacité à rembourser la dette.",
       "score": 3
@@ -425,7 +441,7 @@
       "title": "Risques liés à la concentration géographique",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "L'Item 1A identifie explicitement une concentration des revenus dans quelques États (NY, FL, TX, CA). Le langage (particulièrement susceptible) indique une vulnérabilité accrue aux conditions locales défavorables, justifiant une sévérité modérée à élevée. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A identifie explicitement une concentration des revenus dans quelques États (NY, FL, TX, CA). Le langage (particulièrement susceptible) indique une vulnérabilité accrue aux conditions locales défavorables, justifiant une sévérité modérée à élevée.",
       "trend": "stable",
       "summary": "Une part importante des revenus provient de quelques marchés clés. Les conditions économiques ou immobilières défavorables dans ces régions spécifiques peuvent avoir un impact disproportionné sur les revenus et la capacité à payer les dettes.",
       "score": 3
@@ -434,7 +450,7 @@
       "title": "Couverture d'assurance insuffisante ou coûteuse",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "L'Item 1A détaille les limites de couverture pour certains risques (catastrophes naturelles, terrorisme) et les coûts croissants. L'incapacité à couvrir des pertes importantes ou à respecter les clauses des prêts est un risque significatif. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A détaille les limites de couverture pour certains risques (catastrophes naturelles, terrorisme) et les coûts croissants. L'incapacité à couvrir des pertes importantes ou à respecter les clauses des prêts est un risque significatif.",
       "trend": "up",
       "summary": "Certains risques majeurs (catastrophes naturelles, cyber) ne sont pas entièrement couverts ou le sont avec des franchises élevées. Des pertes non assurées ou dépassant les limites pourraient entraîner des pertes de capital et de flux de trésorerie.",
       "score": 3
@@ -443,7 +459,7 @@
       "title": "Risques liés aux coentreprises",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Ce risque est décrit dans l'Item 1A, soulignant la perte de contrôle, les conflits d'intérêts potentiels avec les partenaires et les risques de litiges. Bien que moins central que les risques macro, il représente une source de complexité et de risque financier. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est décrit dans l'Item 1A, soulignant la perte de contrôle, les conflits d'intérêts potentiels avec les partenaires et les risques de litiges. Bien que moins central que les risques macro, il représente une source de complexité et de risque financier.",
       "trend": "stable",
       "summary": "Les investissements via des coentreprises limitent le contrôle décisionnel et peuvent entraîner des conflits d'intérêts avec les partenaires, des impasses stratégiques ou des litiges coûteux.",
       "score": 3
@@ -501,7 +517,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -564,7 +580,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:22:05Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -591,7 +607,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:21Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:31Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "CUBE",
     "fetched_at": "2026-05-14T18:23:28.245099+00:00",
@@ -685,7 +701,10 @@
             "accession": "0001298675-25-000044",
             "end": "2024-12-31"
           }
-        ]
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -701,9 +720,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.247402+00:00",
     "fetched_at": "2026-05-21T02:17:14.247403+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.974Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.490Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cube.json",
     "enrich_root": "v2-pipeline-enrich/cube.json",

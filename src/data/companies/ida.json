@@ -50,7 +50,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:33.186048+00:00",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -195,11 +195,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.23 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -218,11 +222,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.66 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -236,7 +244,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.88,
         3.04,
@@ -249,7 +257,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -264,7 +272,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1543,
@@ -277,7 +285,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -292,7 +300,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         59.57,
@@ -305,7 +313,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -321,7 +329,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         5.11,
@@ -334,7 +342,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -363,9 +371,7 @@
       "is_short_history": true,
       "story_category": "Financial Performance",
       "ttm": 333063.49,
-      "_validation": "Unité corrigée de Mds $ à M $, type changé de Revenue à Profitability, story_category actualisée",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de Mds $ à M $, type changé de Revenue à Profitability, story_category actualisée"
     },
     {
       "short": "Customer Growth 2025",
@@ -390,9 +396,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Market Growth",
-      "_validation": "Type changé de Demand à Growth, story_category corrigé de 'Marché' à 'Market Growth'",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Type changé de Demand à Growth, story_category corrigé de 'Marché' à 'Market Growth'"
     }
   ],
   "ai_positioning": {
@@ -410,7 +414,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne à plusieurs reprises les licences fédérales pour les projets hydroélectriques (p. 36) et la nécessité d'approbations réglementaires pour la vente d'actifs (p. 39). L'intensité du langage est modérée, mais la dépendance aux licences et aux approbations est fondamentale pour l'activité.",
       "trend": "stable",
-      "summary": "L'entreprise dépend de l'obtention et du renouvellement de licences fédérales pour ses installations hydroélectriques et de l'approbation des régulateurs pour des transactions importantes, ce qui peut affecter ses opérations."
+      "summary": "L'entreprise dépend de l'obtention et du renouvellement de licences fédérales pour ses installations hydroélectriques et de l'approbation des régulateurs pour des transactions importantes, ce qui peut affecter ses opérations.",
+      "score": 4
     },
     {
       "title": "Transition énergétique et conversion des centrales",
@@ -418,7 +423,8 @@
       "severity": 4,
       "score_rationale": "Le document détaille la conversion des centrales au charbon en gaz (p. 36) et les plans futurs (p. 40). L'intensité du langage est élevée, soulignant des projets majeurs et des investissements importants. Ce risque est central pour l'avenir de l'entreprise.",
       "trend": "up",
-      "summary": "La conversion des centrales électriques du charbon vers le gaz naturel représente un défi industriel et financier majeur, avec des investissements significatifs et des risques d'exécution liés aux calendriers et aux coûts."
+      "summary": "La conversion des centrales électriques du charbon vers le gaz naturel représente un défi industriel et financier majeur, avec des investissements significatifs et des risques d'exécution liés aux calendriers et aux coûts.",
+      "score": 4
     },
     {
       "title": "Investissements importants dans les infrastructures",
@@ -426,7 +432,8 @@
       "severity": 4,
       "score_rationale": "L'estimation des dépenses d'investissement entre 6,3 et 7,2 milliards de dollars (p. 40) indique une forte intensité capitalistique. Le langage est factuel mais la magnitude des chiffres souligne l'importance du risque.",
       "trend": "up",
-      "summary": "L'entreprise prévoit des dépenses d'investissement massives pour moderniser et étendre ses infrastructures afin de répondre à la demande croissante, ce qui représente un risque financier et de gestion de projet."
+      "summary": "L'entreprise prévoit des dépenses d'investissement massives pour moderniser et étendre ses infrastructures afin de répondre à la demande croissante, ce qui représente un risque financier et de gestion de projet.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix de l'énergie et des coûts",
@@ -434,7 +441,8 @@
       "severity": 3,
       "score_rationale": "Le document mentionne les mécanismes d'ajustement des coûts de l'énergie et l'impact des variations de prix sur les revenus (p. 41). Bien que des mécanismes d'atténuation existent, la volatilité des marchés de l'énergie reste un facteur de risque.",
       "trend": "stable",
-      "summary": "Les fluctuations des prix de l'énergie et des coûts d'approvisionnement peuvent impacter la rentabilité, malgré les mécanismes de couverture et d'ajustement tarifaire mis en place."
+      "summary": "Les fluctuations des prix de l'énergie et des coûts d'approvisionnement peuvent impacter la rentabilité, malgré les mécanismes de couverture et d'ajustement tarifaire mis en place.",
+      "score": 3
     },
     {
       "title": "Croissance de la demande et besoins en capacité",
@@ -442,7 +450,8 @@
       "severity": 3,
       "score_rationale": "La croissance du nombre de clients (2,3%) et des ventes d'énergie (p. 40) est soulignée comme un moteur de revenus, mais implique aussi un besoin constant d'augmenter la capacité. Le langage est positif mais la nécessité de répondre à cette demande est un risque.",
       "trend": "up",
-      "summary": "La demande croissante d'électricité nécessite des investissements continus dans la capacité de production et de transmission, avec le risque de ne pas pouvoir satisfaire la demande future ou de subir des coûts excessifs."
+      "summary": "La demande croissante d'électricité nécessite des investissements continus dans la capacité de production et de transmission, avec le risque de ne pas pouvoir satisfaire la demande future ou de subir des coûts excessifs.",
+      "score": 3
     },
     {
       "title": "Vente d'actifs en Oregon et approbations réglementaires",
@@ -450,7 +459,8 @@
       "severity": 3,
       "score_rationale": "La vente des lignes de distribution en Oregon est conditionnée à l'approbation de plusieurs commissions (p. 39). L'incertitude liée à ces approbations constitue un risque de régulation significatif pour cette transaction.",
       "trend": "new",
-      "summary": "La finalisation de la vente des actifs de distribution en Oregon est soumise à l'approbation des régulateurs (OPUC, IPUC, FERC), créant une incertitude quant à la réalisation de cette transaction stratégique conclue en février 2026."
+      "summary": "La finalisation de la vente des actifs de distribution en Oregon est soumise à l'approbation des régulateurs (OPUC, IPUC, FERC), créant une incertitude quant à la réalisation de cette transaction stratégique conclue en février 2026.",
+      "score": 3
     },
     {
       "title": "Risques liés aux conditions météorologiques",
@@ -458,7 +468,8 @@
       "severity": 2,
       "score_rationale": "Le document mentionne l'impact des températures douces sur la consommation (p. 41) et la baisse des précipitations affectant l'irrigation. Ces variations climatiques ont un impact direct sur la demande et les revenus.",
       "trend": "stable",
-      "summary": "Les conditions météorologiques, telles que les températures et les précipitations, influencent directement la demande d'électricité et les revenus de l'entreprise, créant une volatilité saisonnière."
+      "summary": "Les conditions météorologiques, telles que les températures et les précipitations, influencent directement la demande d'électricité et les revenus de l'entreprise, créant une volatilité saisonnière.",
+      "score": 2
     }
   ],
   "governance": {
@@ -497,7 +508,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "NetIncome"
   },
   "_fit_for_site": true,
@@ -580,7 +591,7 @@
   },
   "_segments_fetched_at": "2026-05-06T19:33:00.332911+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:21Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -607,7 +618,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:40Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:32Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "IDA",
     "simple": {
@@ -729,11 +740,9 @@
           259.978,
           605.902,
           823.969,
-          -680.57,
           201.324,
           534.629,
-          825.352,
-          -381.978
+          825.352
         ],
         "history_periods": [
           "Q1 2021",
@@ -786,6 +795,12 @@
             "accession": "calc-0001057877-26-000028",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (IDA)"
         ]
       }
     ]
@@ -802,9 +817,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.529322+00:00",
     "fetched_at": "2026-05-21T01:44:37.529323+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.345Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.001Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ida.json",
     "enrich_root": "v2-pipeline-enrich/ida.json",

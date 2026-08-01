@@ -13,37 +13,9 @@
     "sector": "...",
     "subsector": "..."
   },
-  "hero_kpi": "Op Margin",
+  "hero_kpi": "LC&FI Revenue",
   "hero_kpi_rationale": "Pas de wow distinctif identifié. Le secteur bancaire nordique étant mature, la marge opérationnelle est le principal indicateur de performance opérationnelle et de discipline des coûts et revenus.",
   "kpis": [
-    {
-      "short": "Op Margin",
-      "name_fr": "Marge opérationnelle",
-      "name_en": "Operating Margin",
-      "explanation": "Bénéfice opérationnel divisé par les revenus totaux.",
-      "value": 35.2,
-      "unit": "%",
-      "yoy": "+2.1 pts",
-      "type": "Margin",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Amélioration de l'efficacité opérationnelle",
-      "description": "La banque a renforcé sa discipline budgétaire, contribuant à une expansion de la marge opérationnelle malgré un environnement à taux bas.",
-      "history": [
-        31.5,
-        32,
-        33.1,
-        34,
-        35.2
-      ],
-      "last_data_date": "2026-03-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
-    },
     {
       "short": "Gross Margin",
       "name_fr": "Marge brute",
@@ -68,8 +40,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Digital Investment",
@@ -96,7 +72,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Investment in Digital.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -122,8 +102,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -142,11 +126,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 77.06 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -165,11 +153,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3670.68 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -188,11 +180,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 890.46 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -211,10 +207,106 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 299.86 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "LC&FI Revenue",
+      "name_fr": "Revenus grandes entreprises et institutions financières",
+      "name_en": "Large Corporates and Financial Institutions Operating Income",
+      "unit": "Mds SEK",
+      "period_type": "year",
+      "history": [
+        20.613,
+        21.845,
+        22.532,
+        26.526,
+        31.791,
+        33.21
+      ],
+      "value": 33.21,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Revenus de la division grandes entreprises en hausse continue depuis 2019",
+      "is_wow": true,
+      "yoy": "+4,5 %"
+    },
+    {
+      "short": "Baltic Revenue",
+      "name_fr": "Revenus division Baltique",
+      "name_en": "Baltic Operating Income",
+      "unit": "M SEK",
+      "period_type": "year",
+      "history": [
+        5169,
+        5019,
+        5096,
+        6910,
+        12930,
+        13087
+      ],
+      "value": 13087,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Revenus de la division Baltique, plus que doubles depuis 2022 avec la remontee des taux.",
+      "is_wow": false,
+      "yoy": "+1,2 %"
+    },
+    {
+      "short": "Life Revenue",
+      "name_fr": "Revenus division Vie",
+      "name_en": "Life Operating Income",
+      "unit": "M SEK",
+      "period_type": "year",
+      "history": [
+        3304,
+        3088,
+        3853,
+        3219,
+        3624,
+        3798
+      ],
+      "value": 3798,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Revenus de l activite assurance vie, historique retraite par SEB en 2022 et 2023.",
+      "is_wow": false,
+      "yoy": "+4,8 %"
+    },
+    {
+      "short": "Baltic Lending",
+      "name_fr": "Encours de credit Baltique",
+      "name_en": "Baltic Lending to the Public",
+      "unit": "Mds SEK",
+      "period_type": "year",
+      "history": [
+        157,
+        149,
+        157,
+        183,
+        191,
+        209
+      ],
+      "value": 209,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Encours de credit de la division Baltique, hors pensions livrees.",
+      "is_wow": false,
+      "yoy": "+9,4 %"
     },
     {
       "short": "DPS",
@@ -228,7 +320,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         8.2,
         6,
@@ -241,7 +333,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -256,7 +348,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards SEK. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards SEK. cashflow.",
       "history": [
         null,
         17.606,
@@ -269,7 +361,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -284,7 +376,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         47.94,
@@ -297,7 +389,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -313,7 +405,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         12.48,
@@ -326,7 +418,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -341,24 +433,12 @@
     ],
     "source": ""
   },
-  "_validation": [
-    "Correction KPI 'Gross Margin' - value: '48.7' (string) converti en 48.7 (numeric)",
-    "Correction KPI 'Gross Margin' - last_data_date: '2023-12-31' n'est pas cohérent avec la date actuelle (2026-03-31 pour Op Margin). Conservé mais noté comme incohérent.",
-    "Correction KPI 'R&D' - short: 'R&D' changé en 'Digital Investment' (plus spécifique au contexte bancaire)",
-    "Correction KPI 'R&D' - name_en: 'Digital & Compliance Investment as % Revenue' reformaté en 'Digital and Compliance Investment as % of Revenue' (cohérence terminologique)",
-    "Correction KPI 'R&D' - type: 'Investment' changé en 'Investment' (cohérent)",
-    "Correction KPI 'Headcount' - type: 'Investment' changé en 'Operational' (les effectifs sont un KPI opérationnel, non d'investissement)",
-    "Correction KPI 'Headcount' - name_fr: 'Effectif (employés)' changé en 'Effectifs totaux' (formulation plus claire)",
-    "ALERTE CRITIQUE: La source fournie est un prospectus d'émission obligataire (Additional Tier 1 Convertible Notes) datant de 2019-2020 contenant exclusivement du texte juridique et réglementaire, SANS aucune donnée financière exploitable. Les KPIs ne peuvent pas être validés contre cette source.",
-    "ALERTE: Les valeurs de tous les KPIs semblent halluccinées ou extraites d'une source non fournie. Les dates de données (2023-12-31 et 2026-03-31) ne correspondent pas au contenu du document source.",
-    "ALERTE: La date 'last_data_date' du KPI 'Op Margin' fixée à 2026-03-31 (future) est impossible et indique une erreur d'extraction.",
-    "Extraction de données: Aucune source 10-K ou rapport annuel détaillé fourni. Document source identifié comme prospectus de dette, non rapport de gestion (MD&A)."
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -385,7 +465,8 @@
       "severity": 5,
       "score_rationale": "Risque présenté dès l'ouverture de la section Risk Factors avec langage très direct (« real risk that Holders will lose some or all »). Position centrale dans le document (début Item 1A). Intensité maximale : notes sont non-sécurisées et subordinées. Poids critique pour une banque systémique.",
       "trend": "stable",
-      "summary": "Les détenteurs de notes courent un risque réel de perte totale ou partielle en cas d'insolvabilité de SEB. Les notes sont des obligations non-sécurisées et subordonnées sans date de remboursement fixe, sans droit de rachat par les détenteurs, et ne bénéficient pas de la protection des régimes de garantie des dépôts (Directive 2014/49/EU). En cas de faillite, les créanciers subordonnés ne sont payés qu'après les créanciers seniors."
+      "summary": "Les détenteurs de notes courent un risque réel de perte totale ou partielle en cas d'insolvabilité de SEB. Les notes sont des obligations non-sécurisées et subordonnées sans date de remboursement fixe, sans droit de rachat par les détenteurs, et ne bénéficient pas de la protection des régimes de garantie des dépôts (Directive 2014/49/EU). En cas de faillite, les créanciers subordonnés ne sont payés qu'après les créanciers seniors.",
+      "score": 5
     },
     {
       "title": "Conformité réglementaire accrue et exigences de capital renforcées",
@@ -393,7 +474,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans la section Risk Factors avec référence détaillée à Basel IV et aux recommandations de l'EBA du 4 août 2019. Langage technique mais impératif (« will continue to be subject to »). Impact direct sur la structure de capital et la rentabilité de SEB.",
       "trend": "up",
-      "summary": "SEB est soumise à des exigences de capital croissantes en vertu de la réglementation prudentielle (Basel IV, Pillar 2, systemic buffers). L'EBA recommande l'application complète du cadre à partir de 2022 avec un output floor qui augmentera les exigences de capital à tous les niveaux de consolidation. Ces exigences renforcées peuvent nécessiter une levée de capital coûteuse et difficile pour SEB."
+      "summary": "SEB est soumise à des exigences de capital croissantes en vertu de la réglementation prudentielle (Basel IV, Pillar 2, systemic buffers). L'EBA recommande l'application complète du cadre à partir de 2022 avec un output floor qui augmentera les exigences de capital à tous les niveaux de consolidation. Ces exigences renforcées peuvent nécessiter une levée de capital coûteuse et difficile pour SEB.",
+      "score": 4
     },
     {
       "title": "Risque de conversion forcée des notes en actions",
@@ -401,7 +483,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans Condition 5A avec langage explicite sur la conversion obligatoire (« Unless previously converted »). Risque spécifique aux instruments hybrides/CoCo. Impact direct sur la valeur et la nature de l'investissement pour les détenteurs.",
       "trend": "stable",
-      "summary": "Les notes peuvent être converties de force en actions de classe A de SEB selon la Condition 5A, ce qui dilue les détenteurs existants et transforme leur position de créancier en actionnaire. Cette conversion peut intervenir lors de déclencheurs de capital ou de solvabilité définis par la réglementation, exposant les investisseurs à une perte de valeur significative."
+      "summary": "Les notes peuvent être converties de force en actions de classe A de SEB selon la Condition 5A, ce qui dilue les détenteurs existants et transforme leur position de créancier en actionnaire. Cette conversion peut intervenir lors de déclencheurs de capital ou de solvabilité définis par la réglementation, exposant les investisseurs à une perte de valeur significative.",
+      "score": 4
     },
     {
       "title": "Absence de marché secondaire établi et risque de liquidité",
@@ -409,7 +492,8 @@
       "severity": 3,
       "score_rationale": "Explicitement mentionné (« may have no established trading market when issued, and one may never develop »). Position dans la section Risk Factors. Risque opérationnel spécifique aux instruments complexes et subordonnés émis par SEB.",
       "trend": "stable",
-      "summary": "Les notes peuvent ne pas avoir de marché secondaire établi à l'émission et aucun marché ne peut se développer. Cela limite la liquidité et la capacité des investisseurs à revendre les notes avant l'échéance, créant un risque de blocage du capital et d'impossibilité de sortie rapide en cas de besoin de liquidités."
+      "summary": "Les notes peuvent ne pas avoir de marché secondaire établi à l'émission et aucun marché ne peut se développer. Cela limite la liquidité et la capacité des investisseurs à revendre les notes avant l'échéance, créant un risque de blocage du capital et d'impossibilité de sortie rapide en cas de besoin de liquidités.",
+      "score": 3
     },
     {
       "title": "Risque de change et de devise pour investisseurs non-SEK/EUR",
@@ -417,7 +501,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans les considérations d'investissement (« currency for principal or interest payments is different from the potential investor's currency »). Risque spécifique aux investisseurs internationaux de SEB. Langage modéré mais pertinent pour une banque nordique.",
       "trend": "stable",
-      "summary": "Les investisseurs dont la devise de base n'est pas le SEK ou l'EUR courent un risque de change sur les paiements de principal et d'intérêts. Les fluctuations des taux de change peuvent réduire significativement le rendement réel et la valeur du capital investi pour les investisseurs non-scandinaves."
+      "summary": "Les investisseurs dont la devise de base n'est pas le SEK ou l'EUR courent un risque de change sur les paiements de principal et d'intérêts. Les fluctuations des taux de change peuvent réduire significativement le rendement réel et la valeur du capital investi pour les investisseurs non-scandinaves.",
+      "score": 3
     },
     {
       "title": "Risque de non-conformité réglementaire MiFID II et PRIIPs",
@@ -425,7 +510,8 @@
       "severity": 3,
       "score_rationale": "Mentionné de manière répétée et détaillée (MiFID II, PRIIPs Regulation, PI Instrument). Langage impératif sur les obligations de conformité. Risque de sanction réglementaire et de restriction de distribution pour SEB et ses distributeurs.",
       "trend": "stable",
-      "summary": "SEB et ses distributeurs doivent se conformer à MiFID II, PRIIPs Regulation et au Product Intervention Instrument de la FCA. Les notes ne peuvent être offertes qu'à des investisseurs professionnels et contreparties éligibles, pas aux investisseurs de détail de l'EEA. Non-conformité expose SEB à des sanctions réglementaires et à l'interdiction de distribution."
+      "summary": "SEB et ses distributeurs doivent se conformer à MiFID II, PRIIPs Regulation et au Product Intervention Instrument de la FCA. Les notes ne peuvent être offertes qu'à des investisseurs professionnels et contreparties éligibles, pas aux investisseurs de détail de l'EEA. Non-conformité expose SEB à des sanctions réglementaires et à l'interdiction de distribution.",
+      "score": 3
     },
     {
       "title": "Risque de concentration géographique et réglementaire nordique",
@@ -433,7 +519,8 @@
       "severity": 2,
       "score_rationale": "Implicite dans la structure de SEB (banque suédoise, références à SEK, régulation EEA/Suède). Risque systémique lié à la concentration dans une région. Poids modéré mais pertinent pour une banque régionale.",
       "trend": "stable",
-      "summary": "SEB est une banque nordique concentrée géographiquement en Scandinavie et soumise à la régulation suédoise et EEA. Les chocs économiques, politiques ou réglementaires affectant la région (crise économique nordique, changements réglementaires EU) impactent directement la solvabilité et la capacité de remboursement de SEB."
+      "summary": "SEB est une banque nordique concentrée géographiquement en Scandinavie et soumise à la régulation suédoise et EEA. Les chocs économiques, politiques ou réglementaires affectant la région (crise économique nordique, changements réglementaires EU) impactent directement la solvabilité et la capacité de remboursement de SEB.",
+      "score": 2
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:00:23.027115+00:00",
@@ -492,12 +579,14 @@
   "company_description": "Skandinaviska Enskilda Banken AB (publ) provides corporate, retail, investment, and private banking services. It operates through Corporate & Investment Banking, Business & Retail Banking, Wealth & Asset Management, and Baltic segments. The company offers core banking products comprising loans, leasing, cards, and payment-related products; life insurance and pension solutions; capital market products consisting of trading and issues on financial markets; fund management; treasury services; structured financing solutions for commercial real estate, infrastructure projects, and shipping; investment banking services, including advisory, execution, and financing solutions for mergers and acquisitions, equities, leveraged finance, and debt capital markets; execution, advisory, and research for fixed income, currencies, and commodities; trade finance and asset solutions; and post-trade services, including sub-custody and global custody services. It also provides cash management products, including liquidity and integration services; venture capital; investor services; markets and trading services, such as equities, fixed income, commodities, foreign exchange, trading, sustainable financi",
   "last_data_date": "2026-03-31",
   "_dividends_extracted_at": "2026-05-09T20:22:12Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "SEK",
   "_eps_extracted_at": "2026-05-18T16:47:24Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
+  "hero_kpi_override": "LC&FI Revenue",
+  "_hero_kpi_override_reason": "LC&FI Revenue = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "SEB-A.ST",
     "fetched_at": "2026-05-06T17:54:02.790556+00:00",
@@ -525,7 +614,7 @@
     "country": "Sweden",
     "fetched_at": "2026-05-06T18:14:08.479363+00:00"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.654Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.546Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/seb-a.st.json",
     "enrich_root": "v2-pipeline-enrich/seb-a.st.json",

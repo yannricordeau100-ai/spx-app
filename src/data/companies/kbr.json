@@ -41,9 +41,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur corrigée de 12.8 à 16.864 B$ (source: consolidated financial statements - Total backlog 16,864 millions). YoY corrigé de 'stable' à '+1.6%' (16864 vs 16605). Unit corrigé de 'Mds $' vers 'B $' pour cohérence.",
-      "period_type": "quarter",
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue.",
-      "signal_en": "Forward visibility increasing, pipeline strengthening"
+      "period_type": "year",
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
+      "signal_en": "Forward visibility increasing, pipeline strengthening",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Revenue",
@@ -70,7 +73,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit corrigé de 'Mds $' vers 'B $'. Valeur et YoY confirmés par source.",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -126,7 +129,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "YoY corrigé de '+0.7 pts' vers '+50 bps' pour cohérence. History[2] corrigé de 14 vers 14.0. Valeur confirmée: 1150M$/7786M% = 14.8%.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -210,24 +213,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.415,
-      "unit": "Mds $",
+      "value": 415,
+      "unit": "M $",
       "yoy": "+10.7%",
       "history": [
-        0.281,
-        0.202,
-        -0.072,
-        0.018,
-        0.19,
-        -0.265,
-        0.375,
-        0.415
+        281,
+        202,
+        -72,
+        18,
+        190,
+        -265,
+        375,
+        415
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -236,8 +243,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -265,9 +277,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 231.48,
-      "_validation": "Type corrigé de 'Margin' vers 'Operating Income'. Description améliorée pour clarifier les impacts non-récurrents. Valeur et YoY confirmés par source.",
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Type corrigé de 'Margin' vers 'Operating Income'. Description améliorée pour clarifier les impacts non-récurrents. Valeur et YoY confirmés par source."
     },
     {
       "short": "STS Operating Income",
@@ -293,9 +303,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 342.86,
-      "_validation": "Type corrigé de 'Margin' vers 'Operating Income'. Valeur, YoY et history confirmés par source.",
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Type corrigé de 'Margin' vers 'Operating Income'. Valeur, YoY et history confirmés par source."
     }
   ],
   "ai_positioning": {
@@ -309,16 +317,16 @@
       "title": "Dépréciation de goodwill et actifs immatériels",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société a des actifs immatériels importants résultant de l'acquisition de LinQuest. Une dépréciation pourrait avoir un impact significatif sur les résultats financiers. La société a effectué un test de dépréciation en 2025 sans constatation de dépréciation, mais cela ne garantit pas que cela ne se produira pas à l'avenir. (score par défaut, à affiner)",
+      "score_rationale": "La société a des actifs immatériels importants résultant de l'acquisition de LinQuest. Une dépréciation pourrait avoir un impact significatif sur les résultats financiers. La société a effectué un test de dépréciation en 2025 sans constatation de dépréciation, mais cela ne garantit pas que cela ne se produira pas à l'avenir.",
       "trend": "stable",
       "summary": "La société a des actifs immatériels importants qui pourraient être dépréciés, ce qui pourrait avoir un impact significatif sur les résultats financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques fiscaux liés aux activités internationales",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est exposée à des risques fiscaux en raison de ses activités internationales (U.K. MoD, Australian Department of Defence) et de la complexité des lois fiscales. La société a des différends fiscaux en cours et pourrait être soumise à des amendes ou des pénalités. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques fiscaux en raison de ses activités internationales (U.K. MoD, Australian Department of Defence) et de la complexité des lois fiscales. La société a des différends fiscaux en cours et pourrait être soumise à des amendes ou des pénalités.",
       "trend": "up",
       "summary": "La société est exposée à des risques fiscaux qui pourraient avoir un impact sur les résultats financiers.",
       "score": 3
@@ -327,25 +335,25 @@
       "title": "Risques de change",
       "category": "Macro",
       "severity": 2,
-      "score_rationale": "La société est exposée à des risques de change en raison de ses activités internationales (Europe, U.K., Australie). La société utilise des instruments de couverture pour mitiguer ces risques, mais cela ne garantit pas que les pertes ne se produiront pas. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de change en raison de ses activités internationales (Europe, U.K., Australie). La société utilise des instruments de couverture pour mitiguer ces risques, mais cela ne garantit pas que les pertes ne se produiront pas.",
       "trend": "stable",
       "summary": "La société est exposée à des risques de change qui pourraient avoir un impact sur les résultats financiers.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques de litige et contentieux",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques de litige en raison de ses activités contractuelles complexes avec des clients gouvernementaux et des fournisseurs. La société a des litiges en cours et pourrait être soumise à des amendes ou des pénalités. Un contentieux récent a généré un règlement de 144M$ en 2025. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de litige en raison de ses activités contractuelles complexes avec des clients gouvernementaux et des fournisseurs. La société a des litiges en cours et pourrait être soumise à des amendes ou des pénalités. Un contentieux récent a généré un règlement de 144M$ en 2025.",
       "trend": "up",
       "summary": "La société est exposée à des risques de litige importants qui pourraient avoir un impact significatif sur les résultats financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de obligations de retraite",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "La société a des obligations de retraite importantes provenant de ses opérations historiques. Les hypothèses utilisées pour calculer ces obligations pourraient être incorrectes. Cela pourrait avoir un impact sur les résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société a des obligations de retraite importantes provenant de ses opérations historiques. Les hypothèses utilisées pour calculer ces obligations pourraient être incorrectes. Cela pourrait avoir un impact sur les résultats financiers.",
       "trend": "stable",
       "summary": "La société a des obligations de retraite importantes qui pourraient avoir un impact sur les résultats financiers.",
       "score": 3
@@ -354,7 +362,7 @@
       "title": "Risques de dépréciation des actifs",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société a des actifs importants qui pourraient être dépréciés en raison de changements dans les conditions de marché, l'environnement géopolitique ou les préférences technologiques. Cela pourrait avoir un impact sur les résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société a des actifs importants qui pourraient être dépréciés en raison de changements dans les conditions de marché, l'environnement géopolitique ou les préférences technologiques. Cela pourrait avoir un impact sur les résultats financiers.",
       "trend": "stable",
       "summary": "La société a des actifs importants qui pourraient être dépréciés, ce qui pourrait avoir un impact sur les résultats financiers.",
       "score": 3
@@ -363,10 +371,10 @@
       "title": "Risques de crédit client",
       "category": "Crédit",
       "severity": 2,
-      "score_rationale": "La société est exposée à des risques de crédit en raison de ses relations avec les clients gouvernementaux et les fournisseurs. Bien que les clients gouvernementaux présentent un risque de défaut faible, les retards de paiement sont possibles (comme observé lors de la fermeture gouvernementale de 2025). La société utilise des instruments de gestion du crédit pour mitiguer ces risques. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de crédit en raison de ses relations avec les clients gouvernementaux et les fournisseurs. Bien que les clients gouvernementaux présentent un risque de défaut faible, les retards de paiement sont possibles (comme observé lors de la fermeture gouvernementale de 2025). La société utilise des instruments de gestion du crédit pour mitiguer ces risques.",
       "trend": "stable",
       "summary": "La société est exposée à des risques de crédit qui pourraient avoir un impact sur les résultats financiers.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -407,7 +415,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -623,9 +631,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.272892+00:00",
     "fetched_at": "2026-05-21T02:17:14.272893+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.721Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.462Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kbr.json",
     "enrich_root": "v2-pipeline-enrich/kbr.json",

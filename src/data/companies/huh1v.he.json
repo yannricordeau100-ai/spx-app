@@ -70,8 +70,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur corrigée (417 vs 394 en 2023), history harmonisée avec les données annuelles du rapport",
-      "explanation_en": "Adjusted EBIT — operating profit excluding non-recurring items.",
-      "signal_en": "Steady growth, healthy trend"
+      "explanation_en": "Adjusted EBIT, operating profit excluding non-recurring items.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -99,7 +103,11 @@
       "is_short_history": false,
       "_validation": "History recalculée à partir de EBIT / Net Sales (les valeurs antérieures 15.1%, 14.9%, 13.2% étaient erronées)",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -126,9 +134,7 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Valeur confirmée (216 M€), historique court car uniquement 2024 disponible dans la source",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures."
     },
     {
       "short": "Net Debt",
@@ -155,8 +161,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur et history confirmées (1,216 M€ = 1.2 Mds €)",
-      "explanation_en": "Net Debt — total debt minus cash and cash equivalents.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "explanation_en": "Net Debt, total debt minus cash and cash equivalents.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Debt/EBITDA",
@@ -183,7 +193,11 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur et history confirmées à partir du rapport annuel",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "DPS",
@@ -197,7 +211,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.92,
         0.94,
@@ -210,7 +224,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -225,7 +239,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.0981,
@@ -238,7 +252,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -253,7 +267,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         35.52,
@@ -266,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -282,7 +296,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.64,
@@ -295,7 +309,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -325,9 +339,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Operational Excellence",
-      "_validation": "Valeur confirmée (76 M€), story_category changé de 'Innovation' à 'Operational Excellence' car il s'agit de réductions de coûts, non d'innovation",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée (76 M€), story_category changé de 'Innovation' à 'Operational Excellence' car il s'agit de réductions de coûts, non d'innovation"
     },
     {
       "short": "Renewable Energy",
@@ -354,9 +366,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Sustainability",
-      "_validation": "Value changé de 'increased' à 'progressed' (plus approprié), unit changé à 'qualitative' (pas de métrique quantitative disponible), is_wow changé à false (KPI halluciné sans mesure précise), story_category changé de 'Adoption' à 'Sustainability'",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value changé de 'increased' à 'progressed' (plus approprié), unit changé à 'qualitative' (pas de métrique quantitative disponible), is_wow changé à false (KPI halluciné sans mesure précise), story_category changé de 'Adoption' à 'Sustainability'"
     }
   ],
   "stories_strategic_initiatives": [
@@ -370,9 +380,7 @@
       "is_wow": true,
       "story_category": "Innovation",
       "last_data_date": "2024-12-31",
-      "_validation": "KPI ajouté: présent dans le rapport comme initiative stratégique clé, différent de la simple 'adoption' d'énergie renouvelable",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "_validation": "KPI ajouté: présent dans le rapport comme initiative stratégique clé, différent de la simple 'adoption' d'énergie renouvelable"
     }
   ],
   "ai_positioning": {
@@ -402,7 +410,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -415,7 +423,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans l'Item 1A comme un risque clé. Langage fort ('pourrait affecter la capacité d'utilisation'). Risque stable mais central dans la stratégie commerciale. Catégorie 'Concurrence' pèse fortement sur la relation client.",
       "trend": "stable",
-      "summary": "Huhtamaki dépend de quelques grands clients pour une part significative de son chiffre d'affaires. La perte d'un de ces clients pourrait impacter négativement la capacité d'utilisation de ses usines et sa rentabilité."
+      "summary": "Huhtamaki dépend de quelques grands clients pour une part significative de son chiffre d'affaires. La perte d'un de ces clients pourrait impacter négativement la capacité d'utilisation de ses usines et sa rentabilité.",
+      "score": 4
     },
     {
       "title": "Évolution réglementaire sur les emballages",
@@ -423,7 +432,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le rapport, mention répétée avec intensité ('interdictions, réglementations, incertitude'). Tendance à la hausse des contraintes réglementaires. Catégorie critique pour le secteur.",
       "trend": "up",
-      "summary": "Des réglementations croissantes sur la recyclabilité, la teneur en matière recyclée, les plastiques à usage unique et la responsabilité élargie du producteur affectent directement la conception et la commercialisation des emballages de Huhtamaki."
+      "summary": "Des réglementations croissantes sur la recyclabilité, la teneur en matière recyclée, les plastiques à usage unique et la responsabilité élargie du producteur affectent directement la conception et la commercialisation des emballages de Huhtamaki.",
+      "score": 5
     },
     {
       "title": "Protection de la propriété intellectuelle",
@@ -431,7 +441,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans le contexte R&D comme 'essentiel'. Langage affirmé, position stratégique. Tendance stable. Catégorie technologique clé pour l'innovation différenciante.",
       "trend": "stable",
-      "summary": "La protection des brevets et designs est cruciale pour préserver l'avantage concurrentiel de Huhtamaki dans le développement d'emballages durables innovants, notamment via son programme blueloop™."
+      "summary": "La protection des brevets et designs est cruciale pour préserver l'avantage concurrentiel de Huhtamaki dans le développement d'emballages durables innovants, notamment via son programme blueloop™.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et infrastructure IT",
@@ -439,7 +450,8 @@
       "severity": 4,
       "score_rationale": "Identifié comme risque opérationnel majeur pouvant impacter la continuité. Langage préventif mais préoccupé. Tendance à la hausse des menaces. Catégorie en croissance stratégique.",
       "trend": "up",
-      "summary": "Des failles dans la sécurité de l'information ou l'infrastructure IT pourraient perturber la continuité des opérations et affecter la performance opérationnelle, d'où un investissement continu dans les systèmes ERP et la cybersécurité."
+      "summary": "Des failles dans la sécurité de l'information ou l'infrastructure IT pourraient perturber la continuité des opérations et affecter la performance opérationnelle, d'où un investissement continu dans les systèmes ERP et la cybersécurité.",
+      "score": 4
     },
     {
       "title": "Disponibilité des matières premières durables",
@@ -447,7 +459,8 @@
       "severity": 4,
       "score_rationale": "Lié aux risques d'approvisionnement et à la durabilité. Mention implicite via l'investissement en solutions durables. Tendance à la hausse. Catégorie industrielle centrale.",
       "trend": "up",
-      "summary": "L'accès fiable à des fibres recyclées, des résines durables et d'autres matières premières conformes aux normes environnementales est essentiel pour maintenir l'innovation et répondre aux attentes réglementaires et clients."
+      "summary": "L'accès fiable à des fibres recyclées, des résines durables et d'autres matières premières conformes aux normes environnementales est essentiel pour maintenir l'innovation et répondre aux attentes réglementaires et clients.",
+      "score": 4
     },
     {
       "title": "Obsolescence technologique des équipements",
@@ -455,7 +468,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite sur le risque de devenir 'obsolète ou inefficace'. Langage préventif mais urgent. Tendance stable. Catégorie technologique critique pour la compétitivité.",
       "trend": "stable",
-      "summary": "Si Huhtamaki ne surveille pas et n'investit pas continuellement dans de nouvelles technologies de conversion et de fabrication, ses équipements pourraient ne plus répondre à la demande client ou aux normes de performance."
+      "summary": "Si Huhtamaki ne surveille pas et n'investit pas continuellement dans de nouvelles technologies de conversion et de fabrication, ses équipements pourraient ne plus répondre à la demande client ou aux normes de performance.",
+      "score": 4
     },
     {
       "title": "Risques liés aux interruptions d'activité",
@@ -463,7 +477,8 @@
       "severity": 4,
       "score_rationale": "Mention des risques de feu, inondation, tempête ou rupture de chaîne logistique. Langage concret et opérationnel. Tendance stable. Catégorie industrielle à fort impact.",
       "trend": "stable",
-      "summary": "Des événements tels que des incendies, des inondations ou des perturbations de la chaîne d'approvisionnement pourraient interrompre la production, d'où la mise en place de plans de continuité et de répartition géographique des capacités."
+      "summary": "Des événements tels que des incendies, des inondations ou des perturbations de la chaîne d'approvisionnement pourraient interrompre la production, d'où la mise en place de plans de continuité et de répartition géographique des capacités.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:24:53.773327+00:00",
@@ -612,10 +627,10 @@
   },
   "_profile_fetched_at": "2026-05-07T11:57:24.363719+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:51Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:45:27Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "HUH1V.HE",
     "simple": {
@@ -723,9 +738,9 @@
     "country": "Finland",
     "_data_freshness_date": "2026-05-21T01:44:37.528085+00:00",
     "fetched_at": "2026-05-21T01:44:37.528086+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.233Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.889Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/huh1v.he.json",
     "enrich_root": "v2-pipeline-enrich/huh1v.he.json",

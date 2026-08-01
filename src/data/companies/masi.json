@@ -1,6 +1,6 @@
 {
   "ticker": "MASI",
-  "name": "Masimo Corporation",
+  "name": "Masimo",
   "sector": "Technologie",
   "subsector": "Healthcare Technology",
   "tagline": "Better Care Through Innovation",
@@ -36,7 +36,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of explicit gross margin data found in the MDA Results of Operations table (FY2021: 65.2%, FY2022: 52.0%). Minimum ",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -96,7 +96,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -116,7 +116,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -135,56 +135,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.7 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.56,
-      "unit": "Mds €",
+      "value": 560,
+      "unit": "M €",
       "yoy": "-26.3%",
       "history": [
-        1.03,
-        0.97,
-        0.76,
-        0.56
+        1030,
+        970,
+        760,
+        560
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "+25.0%",
       "history": [
-        0.2,
-        0.16,
-        0.12,
-        0.15
+        200,
+        160,
+        120,
+        150
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.15 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -242,7 +256,8 @@
       "severity": 4,
       "score_rationale": "Les tarifs douaniers imposés par les États-Unis sur les produits importés de Chine, du Canada et du Mexique pourraient augmenter les coûts de matières premières et de sous-assemblages. Masimo opère aux États-Unis, au Mexique et en Malaisie avec des approvisionnements critiques provenant de Chine et d'Asie du Sud-Est. L'entreprise mitigue activement ces risques par des ajustements de chaîne d'approvisionnement et des demandes d'exemptions, mais la durée et l'ampleur des tarifs restent incertaines.",
       "trend": "up",
-      "summary": "Les tarifs douaniers actuels et potentiellement additionnels pourraient augmenter significativement les coûts et réduire la rentabilité de l'entreprise."
+      "summary": "Les tarifs douaniers actuels et potentiellement additionnels pourraient augmenter significativement les coûts et réduire la rentabilité de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -250,7 +265,8 @@
       "severity": 3,
       "score_rationale": "Le marché de la technologie médicale est très compétitif. Masimo a obtenu des gains de parts de marché significatifs par acquisitions de contrats, notamment avec des clients hospitaliers, mais reste exposée à une concurrence accrue pour maintenir sa position.",
       "trend": "stable",
-      "summary": "La concurrence accrue pourrait réduire la part de marché et la rentabilité de l'entreprise."
+      "summary": "La concurrence accrue pourrait réduire la part de marché et la rentabilité de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Cybersécurité",
@@ -258,7 +274,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise a déjà été victime d'un événement de cybersécurité entraînant des coûts et perturbations. Les solutions de connectivité et télésurveillance Masimo constituent des cibles critiques. L'entreprise doit continuer à investir substantiellement dans la cybersécurité.",
       "trend": "up",
-      "summary": "Les menaces de cybersécurité pourraient compromettre les systèmes critiques, les données clients et réduire la confiance dans les solutions Masimo."
+      "summary": "Les menaces de cybersécurité pourraient compromettre les systèmes critiques, les données clients et réduire la confiance dans les solutions Masimo.",
+      "score": 4
     },
     {
       "title": "Géopolitique",
@@ -266,7 +283,8 @@
       "severity": 3,
       "score_rationale": "Les conflits russo-ukrainiens, israélo-palestiniens et implications iraniennes pourraient impacter les opérations régionales. Masimo demeure conforme aux sanctions américaines et européennes applicables mais surveille activement ces risques.",
       "trend": "stable",
-      "summary": "Les conflits géopolitiques pourraient perturber les opérations régionales et réduire les opportunités de croissance dans certains marchés."
+      "summary": "Les conflits géopolitiques pourraient perturber les opérations régionales et réduire les opportunités de croissance dans certains marchés.",
+      "score": 3
     },
     {
       "title": "Réglementation",
@@ -274,7 +292,8 @@
       "severity": 3,
       "score_rationale": "Les changements réglementaires, notamment les tarifs douaniers, les approbations réglementaires pour les technologies de monitoring, et la conformité aux standards internationaux constituent des risques opérationnels permanents.",
       "trend": "stable",
-      "summary": "Les changements réglementaires pourraient augmenter les coûts de conformité et réduire la rentabilité."
+      "summary": "Les changements réglementaires pourraient augmenter les coûts de conformité et réduire la rentabilité.",
+      "score": 3
     },
     {
       "title": "Dépendance à la technologie",
@@ -282,7 +301,8 @@
       "severity": 3,
       "score_rationale": "Masimo dépend fortement de technologies propriétaires (SET pulse oximetry, rainbow CO-oximetry) et de plateformes d'automatisation hospitalière pour sa compétitivité. L'obsolescence technologique ou les ruptures critiques exposent l'entreprise.",
       "trend": "stable",
-      "summary": "L'interruption des systèmes technologiques ou l'obsolescence pourraient réduire la compétitivité et les revenus de l'entreprise."
+      "summary": "L'interruption des systèmes technologiques ou l'obsolescence pourraient réduire la compétitivité et les revenus de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Perturbations de la chaîne d'approvisionnement",
@@ -290,7 +310,8 @@
       "severity": 3,
       "score_rationale": "Masimo a expérimenté des défis d'installation majeurs en 2023-2024 dus aux pénuries de main-d'œuvre hospitalière et aux retards de livraison des équipementiers OEM (GE Healthcare, Philips, Hillrom). Bien que les performances 2025 soient encourageantes, les goulots subsistent.",
       "trend": "stable",
-      "summary": "Les pénuries de main-d'œuvre et les retards de livraison OEM pourraient continuer à impacter les délais d'installation et les revenus."
+      "summary": "Les pénuries de main-d'œuvre et les retards de livraison OEM pourraient continuer à impacter les délais d'installation et les revenus.",
+      "score": 3
     }
   ],
   "governance": {
@@ -348,7 +369,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Technologie de la santé",
-  "_companies_unified_built_at": "2026-05-29T21:19:33.293Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.847Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/masi.json",
     "enrich_root": "v2-pipeline-enrich/masi.json",

@@ -71,7 +71,11 @@
       "is_short_history": false,
       "ttm": 64,
       "_validation": "Remplacé yoy 'stable' par '0%' pour cohérence; value numérique confirmée",
-      "signal_en": "Recurring base stable"
+      "signal_en": "Recurring base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -100,7 +104,11 @@
       "ttm": 22.26,
       "_validation": "Corrigé yoy de '+2 pts' à '+2%' pour cohérence d'unité",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -129,7 +137,11 @@
       "ttm": 13.95,
       "_validation": "Corrigé yoy de '-1 pt' à '-1%' pour cohérence d'unité; name_en amélioré",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -159,8 +171,12 @@
       "ttm": 5.19,
       "_validation": "Valeur confirmée; unité 'K' correcte (milliers d'employés)",
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Revenue",
@@ -188,24 +204,28 @@
       "is_short_history": false,
       "ttm": 1.36,
       "_validation": "Corrigé unit de 'Mds $' à 'B $' (convention anglo-saxonne standard)",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.243,
-      "unit": "Mds $",
+      "value": 243,
+      "unit": "M $",
       "yoy": "+2.1%",
       "history": [
-        0.327,
-        0.371,
-        0.447,
-        0.504,
-        0.564,
-        0.238,
-        0.243
+        327,
+        371,
+        447,
+        504,
+        564,
+        238,
+        243
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -215,24 +235,29 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.115,
-      "unit": "Mds $",
+      "value": 115,
+      "unit": "M $",
       "yoy": "+140.6%",
       "history": [
-        0.028,
-        0.012,
-        0.008,
-        0.006,
-        -0.045,
-        0.002,
-        -0.283,
-        0.115
+        28,
+        12,
+        8,
+        6,
+        -45,
+        2,
+        -283,
+        115
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -241,8 +266,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -272,9 +302,7 @@
       "is_short_history": true,
       "story_category": "Adoption",
       "ttm": 3.23,
-      "_validation": "Corrigé value de '3+' à '3.2' (reflet de la dernière valeur history); clarification du tagline en français",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Corrigé value de '3+' à '3.2' (reflet de la dernière valeur history); clarification du tagline en français"
     },
     {
       "short": "Transactional Growth",
@@ -302,13 +330,11 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 8.05,
-      "_validation": "Texte correction mineure de l'explanation (suppression de 'à deux chiffres' non confirmée par source)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Texte correction mineure de l'explanation (suppression de 'à deux chiffres' non confirmée par source)"
     }
   ],
   "ai_positioning": {
-    "stance": "central",
+    "stance": "integrator",
     "summary": "L'IA est au coeur de la stratégie long-terme de Blackbaud. Le groupe intègre l'IA de manière disciplinée dans ses produits, sa plateforme et ses opérations internes, considérée comme fondamentale pour l'effet de levier opérationnel et la croissance durable. Agents for Good, la suite d'IA générique lancée fin 2025, en est l'illustration majeure.",
     "evidence": [
       "Plus de la moitié des clients Raiser's Edge NXT adoptent les fonctionnalités d'IA pour l'identification de donateurs",
@@ -323,61 +349,61 @@
       "title": "Dépendance à l'IA pour la croissance",
       "category": "Technologie",
       "severity": 5,
-      "score_rationale": "Position centrale dans la stratégie (fondamental), langage fort (foundational to driving operating leverage). L'ensemble de la stratégie de croissance repose sur l'adoption réussie de l'IA, avec des produits comme Agents for Good. Catégorie Technologie fortement pondérée ici. (score par défaut, à affiner)",
+      "score_rationale": "Position centrale dans la stratégie (fondamental), langage fort (foundational to driving operating leverage). L'ensemble de la stratégie de croissance repose sur l'adoption réussie de l'IA, avec des produits comme Agents for Good. Catégorie Technologie fortement pondérée ici.",
       "trend": "up",
       "summary": "La croissance future dépend fortement de l'adoption réussie des fonctionnalités IA, dont l'efficacité n'est pas garantie.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de sécurité des données",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Mention répétée de dépenses liées à un Security Incident, avec des coûts passés de 10,6M$. L'entreprise traite des données sensibles, ce qui amplifie l'impact potentiel. Présence continue dans les risques. (score par défaut, à affiner)",
+      "score_rationale": "Mention répétée de dépenses liées à un Security Incident, avec des coûts passés de 10,6M$. L'entreprise traite des données sensibles, ce qui amplifie l'impact potentiel. Présence continue dans les risques.",
       "trend": "stable",
       "summary": "Une nouvelle violation de données pourrait entraîner des pertes financières, juridiques et une perte de confiance des clients.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concentration des renouvellements en 2026",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "40% des contrats à renouveler en 2026, avec un montant 40% plus élevé qu'en 2025. L'entreprise prévient explicitement un risque de churn dollars plus élevé. Risque cyclique mais significatif. (score par défaut, à affiner)",
+      "score_rationale": "40% des contrats à renouveler en 2026, avec un montant 40% plus élevé qu'en 2025. L'entreprise prévient explicitement un risque de churn dollars plus élevé. Risque cyclique mais significatif.",
       "trend": "up",
       "summary": "Un grand volume de contrats arrive à échéance en 2026, augmentant le risque de perte de revenus si les taux de renouvellement baissent.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux conditions macroéconomiques",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Le revenu transactionnel (34%) dépend des dons, influencés par la conjoncture. Mention explicite de l'impact des macroeconomic conditions sur les comportements de don. Risque récurrent et bien documenté. (score par défaut, à affiner)",
+      "score_rationale": "Le revenu transactionnel (34%) dépend des dons, influencés par la conjoncture. Mention explicite de l'impact des macroeconomic conditions sur les comportements de don. Risque récurrent et bien documenté.",
       "trend": "stable",
       "summary": "Une baisse des dons liée à la récession ou à l'inflation pourrait réduire les revenus transactionnels.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Coûts et complexité de la transition en Inde",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Prévision de coûts de 6 à 8M$ en 2026 pour la transition vers le GCC en Inde. Mention de workforce strategy complexe avec des rôles transférés. Risque opérationnel élevé. (score par défaut, à affiner)",
+      "score_rationale": "Prévision de coûts de 6 à 8M$ en 2026 pour la transition vers le GCC en Inde. Mention de workforce strategy complexe avec des rôles transférés. Risque opérationnel élevé.",
       "trend": "new",
       "summary": "La restructuration mondiale vers l'Inde comporte des risques de perturbations opérationnelles et de coûts supérieurs aux prévisions.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Intensification de la concurrence technologique",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Bien que non explicité directement, le positionnement sur l'IA dans un secteur en croissance attire des concurrents. La nécessité constante d'innovation pour maintenir la leadership implique un risque concurrentiel élevé, implicite mais critique. (score par défaut, à affiner)",
+      "score_rationale": "Bien que non explicité directement, le positionnement sur l'IA dans un secteur en croissance attire des concurrents. La nécessité constante d'innovation pour maintenir la leadership implique un risque concurrentiel élevé, implicite mais critique.",
       "trend": "up",
       "summary": "La montée en puissance des solutions IA dans le secteur social attire de nouveaux acteurs, menaçant la position de leader.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de change",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Mention d'un impact de +2,8M$ lié aux changes en 2025. Présence dans les résultats, mais pas de langage alarmiste. Pondération modérée car déjà partiellement réalisé. (score par défaut, à affiner)",
+      "score_rationale": "Mention d'un impact de +2,8M$ lié aux changes en 2025. Présence dans les résultats, mais pas de langage alarmiste. Pondération modérée car déjà partiellement réalisé.",
       "trend": "stable",
       "summary": "Les fluctuations des devises peuvent affecter les revenus, notamment avec une présence internationale dans 100+ pays.",
       "score": 3
@@ -421,7 +447,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -555,7 +581,7 @@
       "Intégration de GenAI pour la composition de communications donor/constituent et lancement de Blackbaud AI Chat pour réponses contextuelles intra-solutions, élargissant les cas d'usage client.",
       "Stratégie multi-année d'intégration disciplinée de l'IA décrite comme « fondationnelle » pour l'effet de levier opérationnel et les résultats clients, avec IA positionnée comme différenciatif clé du portefeuille."
     ],
-    "source_note": "10-K FY2025 Blackbaud, Inc. (sections Business Description, Strategy, Product Innovation and Delivery, Operating Efficiency)",
+    "source_note": "10-K exercice 2025 Blackbaud, Inc. (sections Business Description, Strategy, Product Innovation and Delivery, Operating Efficiency)",
     "_bucket": "HIGH",
     "_subsector": "Software",
     "_sources_used": {
@@ -674,23 +700,18 @@
         "history": [
           59.401,
           90.967,
-          -54.974,
           39.952,
           78.285,
           118.736,
-          -80.06,
           40.591,
           76.737,
           114.702,
-          -78.726,
           42.802,
           81.87,
           121.238,
-          -85.324,
           33.559,
           67.154,
           104.352,
-          -66.935,
           36.916
         ],
         "history_periods": [
@@ -744,6 +765,12 @@
             "accession": "0001280058-26-000016",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (BLKB)"
         ]
       },
       {
@@ -843,9 +870,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.231552+00:00",
     "fetched_at": "2026-05-21T02:17:14.231553+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.733Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.220Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/blkb.json",
     "enrich_root": "v2-pipeline-enrich/blkb.json",

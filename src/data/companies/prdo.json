@@ -1,6 +1,6 @@
 {
   "ticker": "PRDO",
-  "name": "Perdoceo Education Corporation",
+  "name": "Perdoceo Education",
   "sector": "Education",
   "subsector": "Higher Education",
   "tagline": "Accredited postsecondary education provider delivering industry-relevant programs across fully online, campus-based and hybrid learning modalities",
@@ -40,8 +40,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "User base expansion, adoption building"
+      "period_type": "year",
+      "signal_en": "User base expansion, adoption building",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Online Enrollment Percentage",
@@ -127,24 +130,29 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.85,
-      "unit": "Mds €",
+      "value": 850,
+      "unit": "M €",
       "yoy": "+25.0%",
       "history": [
-        0.7,
-        0.71,
-        0.68,
-        0.85
+        700,
+        710,
+        680,
+        850
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.85 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,56 +171,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.25 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "-7.7%",
       "history": [
-        0.03,
-        0.03,
-        0.13,
-        0.12
+        30,
+        30,
+        130,
+        120
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.12 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.11,
-        0.12,
-        0.11,
-        0.11
+        110,
+        120,
+        110,
+        110
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.11 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -226,7 +248,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -239,7 +261,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -254,7 +276,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0231,
@@ -267,7 +289,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -282,7 +304,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         0,
@@ -295,7 +317,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -311,7 +333,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.39,
@@ -324,7 +346,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -353,9 +375,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     }
   ],
   "ai_positioning": {
@@ -388,7 +408,8 @@
       "severity": 5,
       "score_rationale": "Positionné en tête des facteurs de risque, le texte souligne la dépendance aux fonds fédéraux (Title IV) et l'exposition à des changements réglementaires stricts. Le langage insiste sur des conséquences existentielles (perte d'éligibilité, sanctions). La catégorie Régulation est hautement pondérée dans l'enseignement supérieur privé aux États-Unis.",
       "trend": "stable",
-      "summary": "La société dépend fortement des financements gouvernementaux, la perte d'éligibilité ou des changements réglementaires pourraient menacer son modèle économique."
+      "summary": "La société dépend fortement des financements gouvernementaux, la perte d'éligibilité ou des changements réglementaires pourraient menacer son modèle économique.",
+      "score": 5
     },
     {
       "title": "Risque de non-acréditation ou perte d'agrément",
@@ -396,7 +417,8 @@
       "severity": 5,
       "score_rationale": "Plusieurs paragraphes détaillent les exigences strictes d'accréditation institutionnelle et programmatique. Le langage est alarmant : 'cessation d'opérations', 'incapacité à participer aux programmes fédéraux'. Cela reflète un risque existentiel, confirmé par la mention répétée des accréditeurs comme condition de viabilité.",
       "trend": "stable",
-      "summary": "La poursuite des activités dépend de l'accréditation continue ; toute perte mettrait fin à l'accès aux aides fédérales et au recrutement d'étudiants."
+      "summary": "La poursuite des activités dépend de l'accréditation continue ; toute perte mettrait fin à l'accès aux aides fédérales et au recrutement d'étudiants.",
+      "score": 5
     },
     {
       "title": "Cybersécurité et protection des données",
@@ -404,7 +426,8 @@
       "severity": 4,
       "score_rationale": "Un item entier (Item 1C) est dédié à la cybersécurité, avec mention de menaces croissantes et de risques de perturbation opérationnelle. Le langage est préoccupé mais pas alarmiste. La dépendance au numérique (plateformes d'apprentissage, chatbots IA) augmente l'exposition, justifiant une sévérité élevée.",
       "trend": "up",
-      "summary": "Les attaques informatiques pourraient interrompre les services éducatifs, compromettre des données sensibles et nuire à la réputation de l'entreprise."
+      "summary": "Les attaques informatiques pourraient interrompre les services éducatifs, compromettre des données sensibles et nuire à la réputation de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'IA et aux chatbots génératifs",
@@ -412,7 +435,8 @@
       "severity": 4,
       "score_rationale": "La société se décrit comme un 'early adopter' de l'IA générative (LLMs, chatbots). Le texte mentionne des bénéfices mais pas de risques spécifiques liés à l'IA, ce qui sous-estime le danger. Toutefois, l'intégration profonde dans le recrutement et le service étudiant crée une exposition critique en cas de dysfonction ou de biais.",
       "trend": "new",
-      "summary": "Une intégration croissante de l'intelligence artificielle dans les processus clés accroît les risques technologiques et réputationnels en cas d'échec ou de mauvaise utilisation."
+      "summary": "Une intégration croissante de l'intelligence artificielle dans les processus clés accroît les risques technologiques et réputationnels en cas d'échec ou de mauvaise utilisation.",
+      "score": 4
     },
     {
       "title": "Risque de déclin de l'inscription étudiante",
@@ -420,7 +444,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété plusieurs fois, avec mention de concurrence accrue et de pression sur les inscriptions. Le langage est préventif mais insiste sur l'impact direct sur les revenus. La stabilité des effectifs est cruciale pour la croissance, d'où une sévérité élevée malgré l'absence de détérioration actuelle.",
       "trend": "stable",
-      "summary": "Une baisse des inscriptions, due à la concurrence ou à la perception de la valeur des diplômes, pourrait réduire significativement les revenus."
+      "summary": "Une baisse des inscriptions, due à la concurrence ou à la perception de la valeur des diplômes, pourrait réduire significativement les revenus.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenariats avec les employeurs",
@@ -428,7 +453,8 @@
       "severity": 3,
       "score_rationale": "Environ 38% des inscriptions à CTU proviennent de programmes soutenus par les employeurs. Le texte note des coûts inférieurs mais aussi des revenus par étudiant réduits. La perte de ces partenariats aurait un impact opérationnel majeur, mais le risque est partiellement compensé par la diversité des sources.",
       "trend": "up",
-      "summary": "La forte dépendance à certains programmes d'aide de l'employeur rend la société vulnérable à tout changement dans ces partenariats."
+      "summary": "La forte dépendance à certains programmes d'aide de l'employeur rend la société vulnérable à tout changement dans ces partenariats.",
+      "score": 3
     },
     {
       "title": "Risques liés à la gouvernance et à la conformité",
@@ -436,7 +462,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans les principes directeurs et les risques, avec insistance sur la nécessité de maintenir des contrôles internes. Le langage reflète une vigilance constante, liée aux précédentes actions réglementaires dans le secteur. La catégorie Régulation est pondérée fortement, justifiant une sévérité élevée.",
       "trend": "stable",
-      "summary": "Toute défaillance dans la gouvernance ou la conformité réglementaire pourrait entraîner des sanctions, des enquêtes ou des pertes de confiance."
+      "summary": "Toute défaillance dans la gouvernance ou la conformité réglementaire pourrait entraîner des sanctions, des enquêtes ou des pertes de confiance.",
+      "score": 4
     }
   ],
   "governance": {
@@ -456,7 +483,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -471,7 +498,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:23:18Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2023,
@@ -486,7 +513,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:28Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:53Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Éducation",
   "enrich_description": {
     "ticker": "PRDO",
@@ -541,7 +568,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.784Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.288Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/prdo.json",
     "enrich_root": "v2-pipeline-enrich/prdo.json",

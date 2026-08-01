@@ -1,6 +1,6 @@
 {
   "ticker": "FUN",
-  "name": "Six Flags Entertainment Corporation",
+  "name": "Six Flags Entertainment",
   "sector": "Consommation discrétionnaire",
   "subsector": "Leisure Facilities",
   "tagline": "North America's largest regional amusement park operator",
@@ -61,8 +61,8 @@
       "name_fr": "Revenus des parcs",
       "name_en": "In-park revenues",
       "explanation": "Revenus générés par les ventes de billets d'admission, de nourriture, de marchandises et de jeux dans les parcs, incluant les frais de parking et de transaction en ligne.",
-      "value": "2933.5",
-      "unit": "M $",
+      "value": 2.933,
+      "unit": "Mds $",
       "yoy": "14.9%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -83,7 +83,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Per capita spending",
@@ -138,8 +139,8 @@
       "name_fr": "Chiffre d'affaires net",
       "name_en": "Net revenues",
       "explanation": "Total des revenus nets après déduction des remises aux concessionnaires.",
-      "value": "3100.3",
-      "unit": "M $",
+      "value": 3.1,
+      "unit": "Mds $",
       "yoy": "14.4%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -160,7 +161,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Assets",
@@ -179,11 +181,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.8 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -202,33 +208,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.4 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+12.5%",
       "history": [
-        0.1,
-        0.07,
-        0.08,
-        0.09
+        100,
+        70,
+        80,
+        90
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.09 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -290,7 +305,8 @@
       "severity": 5,
       "score_rationale": "La societe a consomme la fusion le 1er juillet 2024. L'integration des deux entreprises independantes est complexe et coûteuse, requirent une attention significative du management et des ressources, avec risques de ne pas realiser les benefices anticipes.",
       "trend": "new",
-      "summary": "L'integration des operations, systemes, cultures et personnel de Former Six Flags et Former Cedar Fair presente des risques majeurs de disruption et d'echec a realiser les synergies escomptees."
+      "summary": "L'integration des operations, systemes, cultures et personnel de Former Six Flags et Former Cedar Fair presente des risques majeurs de disruption et d'echec a realiser les synergies escomptees.",
+      "score": 5
     },
     {
       "title": "Economic conditions",
@@ -298,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Les conditions economiques incertaines ou en declin impactent directement les depenses discretionnaires des clients et peuvent reduire la frequentation et les revenus.",
       "trend": "up",
-      "summary": "Les conditions economiques incertaines ou en contraction peuvent reduire les depenses discretionnaires des clients en divertissement et impacts la frequentation et les revenus de l'entreprise."
+      "summary": "Les conditions economiques incertaines ou en contraction peuvent reduire les depenses discretionnaires des clients en divertissement et impacts la frequentation et les revenus de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Extreme weather",
@@ -306,7 +323,8 @@
       "severity": 3,
       "score_rationale": "Les conditions meteorologiques extremes peuvent impacter l'assiduité et les revenus, particulierement pendant les periodes critiques d'ete quand une large portion des revenus annuels est generee.",
       "trend": "stable",
-      "summary": "Les evenements meteorologiques extremes, notamment pendant les periodes de pointe (juillet-aout), peuvent reduire significativement l'assiduité et les revenus avec une fenetre de recuperation limitee."
+      "summary": "Les evenements meteorologiques extremes, notamment pendant les periodes de pointe (juillet-aout), peuvent reduire significativement l'assiduité et les revenus avec une fenetre de recuperation limitee.",
+      "score": 3
     },
     {
       "title": "Technology platform disruptions",
@@ -314,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Les perturbations des plateformes technologiques (systemes de reservation, paiement en ligne, communications clients) peuvent impacter les ventes, la satisfaction client et les revenus.",
       "trend": "up",
-      "summary": "Les perturbations des plateformes technologiques consumer-facing et back-office peuvent reduire les ventes, impacter l'experience client et les revenus de l'entreprise."
+      "summary": "Les perturbations des plateformes technologiques consumer-facing et back-office peuvent reduire les ventes, impacter l'experience client et les revenus de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Competitive pressure",
@@ -322,7 +341,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est en competition avec d'autres alternatives de divertissement (theme parks, attractions, loisirs numeriques) pour les depenses discretionnaires limitees des clients.",
       "trend": "stable",
-      "summary": "L'entreprise fait face a une concurrence intense d'autres alternatives de divertissement dans l'industrie du loisir hors domicile pour les depenses discretionnaires des consommateurs."
+      "summary": "L'entreprise fait face a une concurrence intense d'autres alternatives de divertissement dans l'industrie du loisir hors domicile pour les depenses discretionnaires des consommateurs.",
+      "score": 4
     },
     {
       "title": "Pandemic risks",
@@ -330,7 +350,8 @@
       "severity": 5,
       "score_rationale": "Une nouvelle pandemie pourrait impacter severement l'assiduité des parcs et les revenus, comme observé lors de COVID-19, necessitant des fermetures et reduisant la demande.",
       "trend": "stable",
-      "summary": "Une pandemie ou crise sanitaire majeure pourrait reduire drastiquement l'assiduité et les revenus a travers des fermetures mandatoires ou une reduction de la demande client."
+      "summary": "Une pandemie ou crise sanitaire majeure pourrait reduire drastiquement l'assiduité et les revenus a travers des fermetures mandatoires ou une reduction de la demande client.",
+      "score": 5
     },
     {
       "title": "Goodwill and intangible assets impairment",
@@ -338,7 +359,8 @@
       "severity": 4,
       "score_rationale": "La fusion a genere un goodwill significatif. Une deterioration de la performance operationnelle ou une reduction de la valeur des actifs pourrait entrainer une charge de devaluation importante.",
       "trend": "stable",
-      "summary": "L'impairment potentiel de goodwill et des actifs incorporels generes par la fusion pourrait impacter significativement les resultats nets de l'entreprise."
+      "summary": "L'impairment potentiel de goodwill et des actifs incorporels generes par la fusion pourrait impacter significativement les resultats nets de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Labor cost inflation and wage pressures",
@@ -346,7 +368,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise fait face a des augmentations de salaires liees aux conditions de marche et aux augmentations statutaires, impactant les couts operationnels fixes avec capacite limitee a les repercuter.",
       "trend": "up",
-      "summary": "L'inflation des couts de main-d'oeuvre, les augmentations de salaires statutaires et les tensions du marche du travail augmentent les couts operationnels fixes sans augmentation proportionnelle des revenus."
+      "summary": "L'inflation des couts de main-d'oeuvre, les augmentations de salaires statutaires et les tensions du marche du travail augmentent les couts operationnels fixes sans augmentation proportionnelle des revenus.",
+      "score": 4
     },
     {
       "title": "Supply chain and tariff risks",
@@ -354,7 +377,8 @@
       "severity": 3,
       "score_rationale": "Les changements de tarifs d'importation et les politiques commerciales affectent les couts d'acquisition des attractions et equipements specialises provenant de l'etranger.",
       "trend": "up",
-      "summary": "Les perturbations de la chaine d'approvisionnement, les augmentations de tarifs et les changements de politiques commerciales peuvent augmenter les couts d'acquisition d'attractions et d'equipements."
+      "summary": "Les perturbations de la chaine d'approvisionnement, les augmentations de tarifs et les changements de politiques commerciales peuvent augmenter les couts d'acquisition d'attractions et d'equipements.",
+      "score": 3
     }
   ],
   "governance": {
@@ -505,62 +529,108 @@
   },
   "enrich_quarterly_history": {
     "ticker": "FUN",
-    "extracted_at": "2026-05-15T18:11:22Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1999001,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:17:30Z",
+    "n_kpis": 4,
     "kpis": [
       {
-        "short": "Net revenues",
+        "short": "In-park revenues",
         "period_type": "quarter",
         "history": [
-          673.231,
-          2021.616,
-          202.057,
-          1132.447,
-          2450.2,
-          -684.415,
-          225.627
+          454.551,
+          779.532,
+          83.589,
+          514.11,
+          1284.875,
+          184.315,
+          485.177,
+          664.48
         ],
         "history_periods": [
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
           "Q2 2024",
           "Q3 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-29",
+        "last_data_date": "2025-09-28",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1132.447,
-            "accession": "0001999001-25-000154",
-            "end": "2025-06-29"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 2450.2,
-            "accession": "0001999001-25-000175",
-            "end": "2025-09-28"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -684.415,
-            "accession": "calc-0001999001-26-000048",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 225.627,
-            "accession": "0001999001-26-000057",
-            "end": "2026-03-29"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:17:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Per capita spending",
+        "period_type": "quarter",
+        "history": [
+          61.84,
+          61.46,
+          59.67,
+          59.54
+        ],
+        "history_periods": [
+          "Q2 2023",
+          "Q3 2023",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2025-09-28",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T03:17:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Out-of-park revenues",
+        "period_type": "quarter",
+        "history": [
+          62.483,
+          85.995,
+          73.228,
+          102.265,
+          23.916,
+          71.908,
+          108.135
+        ],
+        "history_periods": [
+          "Q2 2023",
+          "Q3 2023",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:17:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net revenues",
+        "period_type": "quarter",
+        "history": [
+          500.982,
+          842.009,
+          571.616,
+          1348.385,
+          202.057,
+          930.39,
+          1317.753
+        ],
+        "history_periods": [
+          "Q2 2023",
+          "Q3 2023",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:17:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -576,9 +646,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.264305+00:00",
     "fetched_at": "2026-05-21T02:17:14.264307+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.505Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.088Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fun.json",
     "enrich_root": "v2-pipeline-enrich/fun.json",

@@ -41,7 +41,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -65,7 +65,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -204,7 +204,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -228,9 +232,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "octobre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     },
     {
       "short": "Federal Funds Rate",
@@ -253,9 +255,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -295,7 +295,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "EBITDA"
   },
   "_fit_for_site": true,
@@ -308,7 +308,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, avec des paiements futurs de 814,8 M$ en capital et 186,8 M$ d'intérêts. Le langage insiste sur la pression sur la trésorerie. Catégorie 'Capital' fortement pondérée.",
       "trend": "stable",
-      "summary": "La société fait face à de lourdes obligations de remboursement de dette, ce qui pourrait limiter sa flexibilité financière."
+      "summary": "La société fait face à de lourdes obligations de remboursement de dette, ce qui pourrait limiter sa flexibilité financière.",
+      "score": 5
     },
     {
       "title": "Financement de crédits environnementaux (RINs)",
@@ -316,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Présenté comme un développement majeur (accord avec Citi en juin 2025). Dépendance aux crédits RINs réglementés. Risque accru en cas de volatilité réglementaire ou de prix.",
       "trend": "stable",
-      "summary": "Le financement de crédits RINs expose la société à des risques réglementaires et de liquidité liés aux normes environnementales fédérales."
+      "summary": "Le financement de crédits RINs expose la société à des risques réglementaires et de liquidité liés aux normes environnementales fédérales.",
+      "score": 4
     },
     {
       "title": "Investissements élevés dans les renouvelables",
@@ -324,7 +326,8 @@
       "severity": 4,
       "score_rationale": "Joint-venture Hawaï de 100 M$ et projet d'hydrotreater inclus dans les capex 2025-2026. Nouveau domaine stratégique avec risques technologiques et de mise en œuvre.",
       "trend": "up",
-      "summary": "Les investissements dans les carburants renouvelables représentent une opportunité mais aussi un risque technologique et de retour sur investissement."
+      "summary": "Les investissements dans les carburants renouvelables représentent une opportunité mais aussi un risque technologique et de retour sur investissement.",
+      "score": 4
     },
     {
       "title": "Coûts importants de maintenance et arrêts planifiés",
@@ -332,7 +335,8 @@
       "severity": 4,
       "score_rationale": "250,1 M$ de capex en 2025, dont maintenance après incident au Wyoming. Budget 2026 de 190-220 M$. Impact direct sur la production et la trésorerie.",
       "trend": "stable",
-      "summary": "Les coûts élevés de maintenance et les arrêts techniques planifiés pèsent sur la rentabilité et la disponibilité des raffineries."
+      "summary": "Les coûts élevés de maintenance et les arrêts techniques planifiés pèsent sur la rentabilité et la disponibilité des raffineries.",
+      "score": 4
     },
     {
       "title": "Engagements d'achat de brut non annulables",
@@ -340,7 +344,8 @@
       "severity": 4,
       "score_rationale": "Engagements d'achat de 2,6 Md$ pour 2026. Risque majeur en cas de baisse des prix ou de demande. Positionné comme un engagement majeur en trésorerie.",
       "trend": "stable",
-      "summary": "Des contrats d'achat de brut à long terme exposent la société à la volatilité des prix et à des risques de marges réduites."
+      "summary": "Des contrats d'achat de brut à long terme exposent la société à la volatilité des prix et à des risques de marges réduites.",
+      "score": 4
     },
     {
       "title": "Risques environnementaux et conformité",
@@ -348,7 +353,8 @@
       "severity": 4,
       "score_rationale": "Mention répétée de lois environnementales strictes et d'obligations de déclassement. Risque juridique et financier important, avec des coûts à long terme.",
       "trend": "stable",
-      "summary": "La société est exposée à des réglementations environnementales strictes, pouvant entraîner des coûts élevés de conformité ou de remédiation."
+      "summary": "La société est exposée à des réglementations environnementales strictes, pouvant entraîner des coûts élevés de conformité ou de remédiation.",
+      "score": 4
     },
     {
       "title": "Programme de rachat d'actions significatif",
@@ -356,7 +362,8 @@
       "severity": 3,
       "score_rationale": "Autorisation de rachat de 250 M$ en février 2025. Bien que flexible, cela réduit la trésorerie disponible pour d'autres besoins. Moins critique que la dette.",
       "trend": "new",
-      "summary": "Le rachat d'actions peut affecter la liquidité, surtout en période de pression financière ou de volatilité du marché."
+      "summary": "Le rachat d'actions peut affecter la liquidité, surtout en période de pression financière ou de volatilité du marché.",
+      "score": 3
     }
   ],
   "governance": {
@@ -552,17 +559,14 @@
         "short": "Adjusted Net Income",
         "period_type": "quarter",
         "history": [
-          -171.185,
           -89.383,
           241.498,
-          -137.051,
           12.074,
           279.47,
           209.696,
           237.89,
           267.903,
           439.318,
-          -216.469,
           -3.751,
           14.887,
           22.373,
@@ -624,6 +628,12 @@
             "accession": "0000821483-26-000010",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (PARR)"
         ]
       },
       {
@@ -706,7 +716,10 @@
             "source": "calc-PARR_2026-02-25.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Géographie",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Refining Segment Adjusted Gross Margin",
@@ -788,7 +801,10 @@
             "source": "calc-PARR_2026-02-25.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -805,9 +821,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.294854+00:00",
     "fetched_at": "2026-05-21T02:17:14.294855+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.430Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.384Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/parr.json",
     "enrich_root": "v2-pipeline-enrich/parr.json",

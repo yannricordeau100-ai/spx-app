@@ -37,11 +37,14 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée: Mds gal > M gal (789.2M gallons, pas milliards). Type corrigé: Revenue > Production.",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Ethanol Production' (in M gal) not found with explicit annual values. The 10-K excerpt contains financial data (revenues, costs, gross ",
       "explanation_en": "Production of Ethanol over the period.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Gross Profit Agribusiness",
@@ -154,34 +157,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.71 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.94,
-      "unit": "Mds €",
+      "value": 940,
+      "unit": "M €",
       "yoy": "+6.8%",
       "history": [
-        0.91,
-        0.67,
-        0.88,
-        0.94
+        910,
+        670,
+        880,
+        940
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.94 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -208,9 +220,7 @@
       "is_short_history": true,
       "story_category": "Production",
       "ttm": 794.71,
-      "_validation": "Unité corrigée: Mds gal > M gal (789.2M gallons). Type corrigé: Revenue > Volume. Story category corrigé: Capacité > Production.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée: Mds gal > M gal (789.2M gallons). Type corrigé: Revenue > Volume. Story category corrigé: Capacité > Production."
     },
     {
       "short": "DDG Shipped",
@@ -235,9 +245,7 @@
       "is_short_history": true,
       "story_category": "Production",
       "ttm": 2.54,
-      "_validation": "Unité corrigée: Mds ton > M ton (2.13M tons). Type corrigé: Revenue > Volume. Story category corrigé: Capacité > Production.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée: Mds ton > M ton (2.13M tons). Type corrigé: Revenue > Volume. Story category corrigé: Capacité > Production."
     }
   ],
   "ai_positioning": {
@@ -251,25 +259,25 @@
       "title": "Marché volatil",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le secteur de l'agriculture est sujet à des fluctuations de prix et de volumes, ce qui impacte les résultats de l'entreprise. La société a rencontré des difficultés en 2025 en raison d'un marché surapprovisionné et de prix bas. (score par défaut, à affiner)",
+      "score_rationale": "Le secteur de l'agriculture est sujet à des fluctuations de prix et de volumes, ce qui impacte les résultats de l'entreprise. La société a rencontré des difficultés en 2025 en raison d'un marché surapprovisionné et de prix bas.",
       "trend": "stable",
       "summary": "Le marché volatil peut impacter les ventes et les marges de l'entreprise",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux matières premières",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "L'entreprise est fortement dépendante des prix et de la disponibilité des matières premières, notamment le maïs et les engrais. Une variation de ces prix impacte directement les résultats, comme en 2025 avec des coûts de maïs élevés. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est fortement dépendante des prix et de la disponibilité des matières premières, notamment le maïs et les engrais. Une variation de ces prix impacte directement les résultats, comme en 2025 avec des coûts de maïs élevés.",
       "trend": "stable",
       "summary": "La dépendance aux matières premières peut impacter les coûts et les marges de l'entreprise",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques environnementaux",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "L'entreprise est soumise à des réglementations environnementales strictes et peut être tenue responsable en cas de non-conformité. Les coûts de mise en conformité peuvent être significatifs. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est soumise à des réglementations environnementales strictes et peut être tenue responsable en cas de non-conformité. Les coûts de mise en conformité peuvent être significatifs.",
       "trend": "up",
       "summary": "Les risques environnementaux peuvent impacter la réputation et les finances de l'entreprise",
       "score": 3
@@ -278,7 +286,7 @@
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Le secteur de l'agriculture est très concurrentiel. L'entreprise doit maintenir sa part de marché face à une concurrence croissante pour préserver ses marges. (score par défaut, à affiner)",
+      "score_rationale": "Le secteur de l'agriculture est très concurrentiel. L'entreprise doit maintenir sa part de marché face à une concurrence croissante pour préserver ses marges.",
       "trend": "up",
       "summary": "La concurrence accrue peut impacter les ventes et les marges de l'entreprise",
       "score": 3
@@ -287,28 +295,28 @@
       "title": "Risques liés aux litiges",
       "category": "Litige",
       "severity": 2,
-      "score_rationale": "L'entreprise est soumise à diverses réclamations et litiges en cours d'activité normale, notamment en matière environnementale. Les coûts de défense peuvent être significatifs. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est soumise à diverses réclamations et litiges en cours d'activité normale, notamment en matière environnementale. Les coûts de défense peuvent être significatifs.",
       "trend": "stable",
       "summary": "Les risques liés aux litiges peuvent impacter les finances de l'entreprise",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Dégradation de la réputation",
       "category": "Réputation",
       "severity": 2,
-      "score_rationale": "Une dégradation de la réputation peut impacter les ventes et les marges. Les risques incluent les questions environnementales et sociales. (score par défaut, à affiner)",
+      "score_rationale": "Une dégradation de la réputation peut impacter les ventes et les marges. Les risques incluent les questions environnementales et sociales.",
       "trend": "stable",
       "summary": "La dégradation de la réputation peut impacter les ventes et les marges de l'entreprise",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques liés à la réglementation",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "L'entreprise est soumise à des réglementations strictes, notamment environnementales. La non-conformité peut impacter les finances et la réputation. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est soumise à des réglementations strictes, notamment environnementales. La non-conformité peut impacter les finances et la réputation.",
       "trend": "up",
       "summary": "Les risques liés à la réglementation peuvent impacter les finances et la réputation de l'entreprise",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -344,7 +352,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -398,7 +406,6 @@
       "date": "2026-02-18"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:57:45.541207+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -421,6 +428,7 @@
     ],
     "total": 11.01
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:57:45.541207+00:00",
   "_segments_fetched_at": "2026-05-06T19:22:58.632524+00:00",
   "enrich_events": {
     "ticker": "ANDE",
@@ -466,235 +474,43 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ANDE",
-    "extracted_at": "2026-05-15T19:48:28Z",
-    "method": "xbrl-companyfacts",
-    "cik": 821026,
-    "n_kpis": 3,
+    "extracted_at": "2026-06-01T02:57:10Z",
+    "n_kpis": 1,
     "kpis": [
-      {
-        "short": "Gross Profit Agribusiness",
-        "period_type": "quarter",
-        "history": [
-          296.756,
-          398.683,
-          -225.454,
-          119.535,
-          350.376,
-          514.141,
-          -299.888,
-          148.011,
-          369.948,
-          527.649,
-          -300.245,
-          128.32,
-          303.691,
-          480.816,
-          -218.901,
-          152.872,
-          311.288,
-          482.16,
-          -232.669,
-          160.584
-        ],
-        "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "GrossProfit",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 311.288,
-            "accession": "0000821026-25-000150",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 482.16,
-            "accession": "0000821026-25-000204",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -232.669,
-            "accession": "calc-0000821026-26-000010",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 160.584,
-            "accession": "0000821026-26-000070",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Gross Profit Renewables",
-        "period_type": "quarter",
-        "history": [
-          296.756,
-          398.683,
-          -225.454,
-          119.535,
-          350.376,
-          514.141,
-          -299.888,
-          148.011,
-          369.948,
-          527.649,
-          -300.245,
-          128.32,
-          303.691,
-          480.816,
-          -218.901,
-          152.872,
-          311.288,
-          482.16,
-          -232.669,
-          160.584
-        ],
-        "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "GrossProfit",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 311.288,
-            "accession": "0000821026-25-000150",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 482.16,
-            "accession": "0000821026-25-000204",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -232.669,
-            "accession": "calc-0000821026-26-000010",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 160.584,
-            "accession": "0000821026-26-000070",
-            "end": "2026-03-31"
-          }
-        ]
-      },
       {
         "short": "Ethanol Production",
         "period_type": "quarter",
         "history": [
-          0.1017,
-          0.0761,
-          0.0977,
-          0.1332,
-          0.1456,
-          0.1847,
-          0.1832,
-          0.2327,
-          0.3292,
-          0.3237,
-          0.3946,
-          0.3705,
-          0.3996,
-          0.3074
+          186.396,
+          196.536,
+          184.655,
+          184.845,
+          198.633,
+          190.368,
+          190.368,
+          211.792,
+          212.336
         ],
         "history_periods": [
-          "Q1 2020",
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
           "Q2 2021",
-          "Q3 2021",
-          "Q1 2022",
           "Q2 2022",
+          "Q3 2021",
           "Q3 2022",
-          "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q1 2024"
+          "Q3 2024",
+          "Q1 2025",
+          "Q3 2025"
         ],
-        "last_data_date": "2024-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Ethanol",
-        "_citations": [
-          {
-            "period": "Q1 2023",
-            "value": 0.3946,
-            "source": "ANDE_2023-05-04.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q2 2023",
-            "value": 0.3705,
-            "source": "ANDE_2023-08-03.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2023",
-            "value": 0.3996,
-            "source": "ANDE_2023-11-08.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q1 2024",
-            "value": 0.3074,
-            "source": "ANDE_2024-05-08.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M gal",
+        "_extracted_at": "2026-06-01T02:57:10Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
-    ],
-    "_segment_method": "xbrl-segment-inline"
+    ]
   },
   "enrich_ranks": {
     "ticker": "ANDE",
@@ -708,9 +524,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.221815+00:00",
     "fetched_at": "2026-05-21T02:17:14.221816+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.836Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.285Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ande.json",
     "enrich_root": "v2-pipeline-enrich/ande.json",

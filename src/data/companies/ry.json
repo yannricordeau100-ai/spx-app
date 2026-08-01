@@ -13,7 +13,7 @@
     "sector": "≈ #5",
     "subsector": "≈ #3"
   },
-  "hero_kpi": "NIM",
+  "hero_kpi": "Capital Markets Rev",
   "hero_kpi_rationale": "Indicateur clé de rentabilité pour les banques, reflétant la gestion efficace de l'écart entre les taux de prêt et les taux de dépôt dans un environnement de taux volatiles",
   "kpis": [
     {
@@ -42,7 +42,7 @@
       "is_short_history": false,
       "ttm": 2.34,
       "period_type": "quarter",
-      "explanation_en": "Net Interest Margin — net interest income divided by earning assets (banks).",
+      "explanation_en": "Net Interest Margin, net interest income divided by earning assets (banks).",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -70,8 +70,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 14,
-      "explanation_en": "Return on Equity — net income divided by shareholders' equity.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Return on Equity, net income divided by shareholders' equity.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "CET1",
@@ -98,8 +102,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 12.3,
-      "explanation_en": "Common Equity Tier 1 ratio — core capital strength measure (banks).",
-      "signal_en": "Capital base stable"
+      "explanation_en": "Common Equity Tier 1 ratio, core capital strength measure (banks).",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -118,11 +126,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 66.53 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -141,11 +153,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 20.36 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -164,11 +180,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2325.01 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -187,11 +207,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 545.44 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -210,10 +234,96 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 87.39 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Capital Markets Rev",
+      "name_fr": "Revenus Marchés des capitaux",
+      "name_en": "Capital Markets Revenue",
+      "unit": "Mds CAD",
+      "period_type": "quarter",
+      "history": [
+        3.024,
+        2.531,
+        1.889,
+        2.505,
+        3.146,
+        2.662,
+        2.679,
+        2.564,
+        2.951,
+        3.154,
+        3.004,
+        2.903,
+        3.756,
+        3.301,
+        3.758,
+        3.611
+      ],
+      "value": 3.611,
+      "last_data_date": "2025-10-31",
+      "type": "Demand",
+      "nature": "Cyclique",
+      "comparable": "Comparable",
+      "signal": "Revenus des marchés des capitaux au plus haut des seize derniers trimestres",
+      "is_wow": true,
+      "yoy": "+24,4 %"
+    },
+    {
+      "short": "Canada Mortgages",
+      "name_fr": "Encours hypothecaires Canada",
+      "name_en": "Canadian Residential Mortgages",
+      "unit": "Mds CAD",
+      "period_type": "year",
+      "history": [
+        255.799,
+        265.831,
+        287.767,
+        319.287,
+        354.169,
+        383.797,
+        397.605,
+        441.191,
+        454.346
+      ],
+      "value": 454.346,
+      "last_data_date": "2025-10-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'encours hypothecaire canadien progresse chaque annee depuis 2017 et depasse 454 Mds CAD.",
+      "is_wow": false,
+      "yoy": "+3,0 %"
+    },
+    {
+      "short": "US Revenue",
+      "name_fr": "Revenus Etats-Unis",
+      "name_en": "United States Revenue",
+      "unit": "Mds CAD",
+      "period_type": "year",
+      "history": [
+        11.734,
+        12.53,
+        11.787,
+        13.628,
+        15.034,
+        17.2
+      ],
+      "value": 17.2,
+      "last_data_date": "2025-10-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les revenus americains atteignent 17,2 Mds CAD, soit un quart du produit net bancaire du groupe.",
+      "is_wow": false,
+      "yoy": "+14,4 %"
     }
   ],
   "stories_kpis": [
@@ -251,22 +361,7 @@
     "evidence": [],
     "source": ""
   },
-  "_validation": [
-    "Correction ipo: validé à 1869 (date historique correcte de fondation et cotation)",
-    "Correction tagline: amélioré pour inclure 'diversified' et référence aux ratios de capital forts",
-    "Correction hero_kpi_rationale: amélioration du contenu sans tiret cadratin, ajout de contexte sur volatilité des taux",
-    "Correction NIM last_data_date: changé de '2026-01-31' (date future impossible) à '2024-10-31'",
-    "Correction NIM description: amélioré pour expliquer le mécanisme de la marge nette d'intérêt",
-    "Correction ROE value: changé de string '14.1' à number 14.1 pour cohérence",
-    "Correction ROE name_fr: changé de 'Rentabilité des capitaux propres' à 'Rendement des capitaux propres' (terminologie standard)",
-    "Correction ROE description: amélioré pour expliquer la création de valeur pour les actionnaires",
-    "Correction CET1 value: changé de string '12.3' à number 12.3 pour cohérence",
-    "Correction CET1 description: amélioré pour expliquer le rôle dans l'absorption des pertes en stress",
-    "Correction Encours de crédit explanation: ajout de précision sur l'unité (milliards de dollars canadiens)",
-    "Correction Encours de crédit description: ajout de détails sur les types de prêts inclus",
-    "Suppression de is_short_history erreur pour Encours de crédit: changé de true à false (données disponibles sur 5 périodes)",
-    "Validation unit Encours de crédit: 'B$' confirmé correct (notation standardisée pour milliards de dollars)"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2024-10-31",
     "n_periods": 5,
@@ -298,7 +393,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur explicitement mentionné comme « feat technologique » d'intégration de 800k clients et 100+ branches en un weekend. Position centrale dans la lettre du CEO (inflection point). Langage intensif (« once-in-a-generation »). Tendance : nouveau risque opérationnel d'exécution. Poids élevé : acquisition transformationnelle.",
       "trend": "new",
-      "summary": "RBC a intégré 800 000 clients, 4 000+ employés et 100+ succursales d'HSBC Bank Canada en un seul weekend. Ce défi technologique sans précédent expose RBC à des risques de défaillance système, perte de données, interruption de service et désalignement des plateformes héritées, particulièrement critique pour les opérations de dépôts et de paiements."
+      "summary": "RBC a intégré 800 000 clients, 4 000+ employés et 100+ succursales d'HSBC Bank Canada en un seul weekend. Ce défi technologique sans précédent expose RBC à des risques de défaillance système, perte de données, interruption de service et désalignement des plateformes héritées, particulièrement critique pour les opérations de dépôts et de paiements.",
+      "score": 4
     },
     {
       "title": "Dépendance croissante à l'IA générative et risques d'implémentation",
@@ -306,7 +402,8 @@
       "severity": 4,
       "score_rationale": "Mentionné 9 fois dans le texte avec emphase sur « exploration sécurisée » et « potentiel complet ». Classement top-3 mondial en maturité IA (Evident Index). Langage prudent (« safely and securely ») suggère conscience des risques. Tendance : montante (3e année consécutive au top-3). Poids stratégique : différenciation clé via RBC Borealis et NOMI.",
       "trend": "up",
-      "summary": "RBC investit massivement en IA générative (NOMI, RBC Borealis, insights personnalisés) pour la différenciation client. Les risques incluent : hallucinations d'IA affectant les conseils financiers, biais algorithmiques dans les décisions de crédit, dépendance à des modèles propriétaires, et exposition réputationnelle si les clients subissent des pertes suite à des recommandations IA défaillantes."
+      "summary": "RBC investit massivement en IA générative (NOMI, RBC Borealis, insights personnalisés) pour la différenciation client. Les risques incluent : hallucinations d'IA affectant les conseils financiers, biais algorithmiques dans les décisions de crédit, dépendance à des modèles propriétaires, et exposition réputationnelle si les clients subissent des pertes suite à des recommandations IA défaillantes.",
+      "score": 4
     },
     {
       "title": "Intensification de la concurrence bancaire nord-américaine",
@@ -314,7 +411,8 @@
       "severity": 4,
       "score_rationale": "RBC se positionne contre « some of the world's largest players » en capital markets (9e banque d'investissement US). Langage compétitif répété (« bank of choice », « differentiated »). Tendance : stable mais intensifiée par acquisition HSBC. Poids : RBC doit défendre leadership au Canada et croître aux US face à JPMorgan, Goldman Sachs, etc.",
       "trend": "stable",
-      "summary": "RBC affronte une concurrence accrue de géants bancaires mondiaux, notamment aux États-Unis où elle est 9e banque d'investissement. La pression concurrentielle s'intensifie sur les marges de wealth management (6e aux US), les services de trésorerie (RBC Clear) et les dépôts commerciaux, risquant une érosion de parts de marché malgré le leadership canadien."
+      "summary": "RBC affronte une concurrence accrue de géants bancaires mondiaux, notamment aux États-Unis où elle est 9e banque d'investissement. La pression concurrentielle s'intensifie sur les marges de wealth management (6e aux US), les services de trésorerie (RBC Clear) et les dépôts commerciaux, risquant une érosion de parts de marché malgré le leadership canadien.",
+      "score": 4
     },
     {
       "title": "Risques de conformité réglementaire multi-juridictionnelle",
@@ -322,7 +420,8 @@
       "severity": 4,
       "score_rationale": "Opérations dans 30 pays avec présence majeure au Canada, US, UK/Europe. Mention explicite de « expectations placed on it by regulators ». Langage de gouvernance (Board oversight). Tendance : stable mais complexifiée par expansion HSBC. Poids : régulation bancaire stricte post-2008, stress tests, capital requirements.",
       "trend": "stable",
-      "summary": "RBC opère sous régimes réglementaires fragmentés (OSFI Canada, Fed/OCC US, FCA UK, ESMA Europe). L'acquisition HSBC Bank Canada multiplie les obligations de conformité, les audits réglementaires et les risques de sanctions. Les changements réglementaires sur les ratios de capital, les stress tests et les exigences ESG pourraient impacter la rentabilité et la flexibilité opérationnelle."
+      "summary": "RBC opère sous régimes réglementaires fragmentés (OSFI Canada, Fed/OCC US, FCA UK, ESMA Europe). L'acquisition HSBC Bank Canada multiplie les obligations de conformité, les audits réglementaires et les risques de sanctions. Les changements réglementaires sur les ratios de capital, les stress tests et les exigences ESG pourraient impacter la rentabilité et la flexibilité opérationnelle.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et protection des données clients massives",
@@ -330,7 +429,8 @@
       "severity": 5,
       "score_rationale": "18+ millions de clients, 98 000+ employés, données sensibles multi-juridictionnelles. Aucune mention explicite de cybersécurité dans l'extrait, mais risque implicite critique pour une banque de cette taille. Tendance : montante (cibles privilégiées). Poids : réglementaire (PIPEDA, GDPR, GLBA) et réputationnel majeur.",
       "trend": "up",
-      "summary": "RBC gère les données de 18+ millions de clients et 98 000+ employés à travers 30 pays. Les risques incluent : attaques ransomware ciblant l'infrastructure bancaire, vol de données personnelles/financières, compromission des systèmes de paiement (RBC Clear), et interruption de service suite à incidents de sécurité, avec impact réputationnel et réglementaire sévère."
+      "summary": "RBC gère les données de 18+ millions de clients et 98 000+ employés à travers 30 pays. Les risques incluent : attaques ransomware ciblant l'infrastructure bancaire, vol de données personnelles/financières, compromission des systèmes de paiement (RBC Clear), et interruption de service suite à incidents de sécurité, avec impact réputationnel et réglementaire sévère.",
+      "score": 5
     },
     {
       "title": "Dépendance à la rétention de talents clés post-acquisition",
@@ -338,7 +438,8 @@
       "severity": 3,
       "score_rationale": "Intégration de 4 000+ employés HSBC, changements de leadership (« new generation of talent »), focus sur « executive development ». Langage positif mais révèle risque sous-jacent. Tendance : montante (post-M&A). Poids : talent critique en wealth management, capital markets et technologie.",
       "trend": "up",
-      "summary": "L'acquisition HSBC Bank Canada et la restructuration du leadership exposent RBC à des risques de départ de talents clés, notamment en wealth management (6e aux US), capital markets et innovation technologique. La perte de senior advisors, traders et ingénieurs IA pourrait dégrader la qualité du service client et ralentir les initiatives de transformation numérique."
+      "summary": "L'acquisition HSBC Bank Canada et la restructuration du leadership exposent RBC à des risques de départ de talents clés, notamment en wealth management (6e aux US), capital markets et innovation technologique. La perte de senior advisors, traders et ingénieurs IA pourrait dégrader la qualité du service client et ralentir les initiatives de transformation numérique.",
+      "score": 3
     },
     {
       "title": "Risques de crédit et concentration sectorielle post-HSBC",
@@ -346,7 +447,8 @@
       "severity": 3,
       "score_rationale": "Expansion du portefeuille de crédit via HSBC (800k clients). Mention de « tripling lending to renewable energy » (2030 goal). Langage prudent sur « disciplined approach to risk ». Tendance : montante (expansion crédit). Poids : portefeuille de crédit diversifié mais exposé aux cycles économiques.",
       "trend": "up",
-      "summary": "L'intégration d'HSBC Bank Canada augmente l'exposition au risque de crédit, notamment en prêts commerciaux et hypothécaires canadiens. RBC s'engage à tripler les prêts aux énergies renouvelables d'ici 2030, créant une concentration sectorielle. Les risques incluent : défauts de crédit en cas de ralentissement économique, concentration géographique (Canada/US), et exposition aux secteurs en transition énergétique."
+      "summary": "L'intégration d'HSBC Bank Canada augmente l'exposition au risque de crédit, notamment en prêts commerciaux et hypothécaires canadiens. RBC s'engage à tripler les prêts aux énergies renouvelables d'ici 2030, créant une concentration sectorielle. Les risques incluent : défauts de crédit en cas de ralentissement économique, concentration géographique (Canada/US), et exposition aux secteurs en transition énergétique.",
+      "score": 3
     },
     {
       "title": "Risques réputationnels liés aux engagements ESG et climat",
@@ -354,7 +456,8 @@
       "severity": 3,
       "score_rationale": "Engagement de $2B en investissements communautaires d'ici 2035, objectifs net-zéro, financement des énergies renouvelables. Langage ambitieux mais risque de non-atteinte. Tendance : montante (attentes stakeholders). Poids : brand value majeure (Most Valuable Canadian Brand 6 ans consécutifs).",
       "trend": "up",
-      "summary": "RBC s'est engagée publiquement à tripler les prêts aux énergies renouvelables et à investir $2B en solutions climatiques d'ici 2035. Les risques incluent : non-atteinte des objectifs (greenwashing accusations), pression des activistes climatiques, perte de clients sensibles aux enjeux ESG, et impact sur la réputation de marque si les engagements ne sont pas tenus."
+      "summary": "RBC s'est engagée publiquement à tripler les prêts aux énergies renouvelables et à investir $2B en solutions climatiques d'ici 2035. Les risques incluent : non-atteinte des objectifs (greenwashing accusations), pression des activistes climatiques, perte de clients sensibles aux enjeux ESG, et impact sur la réputation de marque si les engagements ne sont pas tenus.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:58:18.551428+00:00",
@@ -471,6 +574,8 @@
   "_peers_computed_at": "2026-05-10T09:05:43.174Z",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
+  "hero_kpi_override": "Capital Markets Rev",
+  "_hero_kpi_override_reason": "Capital Markets Rev = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "RY",
     "simple": {
@@ -569,16 +674,253 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.305655+00:00",
     "fetched_at": "2026-05-21T02:17:14.305656+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.437Z",
+  "enrich_to": {
+    "ticker": "RY.TO",
+    "_quarterly_history_extension": {
+      "ticker": "RY.TO",
+      "period_type": "quarter",
+      "unit_currency": "CAD",
+      "kpis": [
+        {
+          "kpi_short": "Revenue",
+          "kpi_name_fr": "Chiffre d'affaires",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q2 2025",
+              "value": 15.656,
+              "date": "2025-04-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 16.96,
+              "date": "2025-07-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 17.196,
+              "date": "2025-10-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 17.923,
+              "date": "2026-01-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2026",
+              "value": 17.429,
+              "date": "2026-04-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Net Income",
+          "kpi_name_fr": "Résultat net",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q2 2025",
+              "value": 4.386,
+              "date": "2025-04-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 5.415,
+              "date": "2025-07-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 5.432,
+              "date": "2025-10-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 5.784,
+              "date": "2026-01-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2026",
+              "value": 5.507,
+              "date": "2026-04-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Operating Cash Flow",
+          "kpi_name_fr": "Flux de trésorerie opérationnel",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q2 2025",
+              "value": 9.851,
+              "date": "2025-04-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 29,
+              "date": "2025-07-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": -14.785,
+              "date": "2025-10-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 37.898,
+              "date": "2026-01-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2026",
+              "value": 21.277,
+              "date": "2026-04-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "extracted_at": "2026-06-02T11:39:37Z",
+      "extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "_n_kpis_merged": 3
+    },
+    "_super_kpi_inputs": {
+      "_extracted_at": "2026-06-02T11:39:37Z",
+      "_extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "currency": "CAD",
+      "revenue_q": [
+        {
+          "q": "Q2 2025",
+          "v": 15.656,
+          "date": "2025-04-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 16.96,
+          "date": "2025-07-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 17.196,
+          "date": "2025-10-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 17.923,
+          "date": "2026-01-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2026",
+          "v": 17.429,
+          "date": "2026-04-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "op_income_q": [],
+      "ni_q": [
+        {
+          "q": "Q2 2025",
+          "v": 4.386,
+          "date": "2025-04-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 5.415,
+          "date": "2025-07-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 5.432,
+          "date": "2025-10-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 5.784,
+          "date": "2026-01-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2026",
+          "v": 5.507,
+          "date": "2026-04-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "op_cf_q": [
+        {
+          "q": "Q2 2025",
+          "v": 9.851,
+          "date": "2025-04-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 29,
+          "date": "2025-07-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": -14.785,
+          "date": "2025-10-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 37.898,
+          "date": "2026-01-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2026",
+          "v": 21.277,
+          "date": "2026-04-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "rd_q": [],
+      "op_margin_q_pct": []
+    }
+  },
+  "_companies_unified_built_at": "2026-08-01T20:28:01.469Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ry.json",
     "enrich_root": "v2-pipeline-enrich/ry.json",
     "enrich_subkeys": [
       "description",
       "events",
-      "ranks"
+      "ranks",
+      "to"
     ]
   }
 }

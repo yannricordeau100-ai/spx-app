@@ -38,10 +38,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Operating Margin",
@@ -65,10 +63,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Revenue",
@@ -92,10 +88,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Significant revenue decline, warning signal",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Net Income",
@@ -119,56 +113,64 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-57.1%",
       "history": [
-        0.04,
-        0.2,
-        0.07,
-        0.03
+        40,
+        200,
+        70,
+        30
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.03 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "-40.0%",
       "history": [
-        0.09,
-        0.13,
-        0.1,
-        0.06
+        90,
+        130,
+        100,
+        60
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.06 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -187,10 +189,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -209,14 +215,18 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
   "ai_positioning": {
-    "stance": "not_mentioned",
+    "stance": "absent",
     "summary": "La société ne mentionne pas d'initiatives en intelligence artificielle dans les documents 10-K/20-F fournis. Le positionnement stratégique est centré sur la conception de puces ASIC, la fabrication de machines d'extraction de cryptomonnaies et les services logiciels de technologie financière.",
     "evidence": [
       "Absence complète de mention de l'IA générative ou d'applications d'IA dans le MD&A",
@@ -279,7 +289,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début de document avec langage très intensif (« constantly evolving », « material and adverse effect », « significantly decline or be worthless »). Répété plusieurs fois. Tendance : stable mais structurelle. Poids catégorie : critique pour opérations en Chine.",
       "trend": "stable",
-      "summary": "Les lois et régulations chinoises gouvernant les opérations d'AGM évoluent constamment sans préavis. Le gouvernement chinois a récemment initié des actions réglementaires (crackdown sur les marchés de valeurs, supervision des structures VIE, cybersécurité étendue, anti-monopole) qui pourraient affecter matériellement les opérations, la capacité à lever des fonds ou la valeur des titres."
+      "summary": "Les lois et régulations chinoises gouvernant les opérations d'AGM évoluent constamment sans préavis. Le gouvernement chinois a récemment initié des actions réglementaires (crackdown sur les marchés de valeurs, supervision des structures VIE, cybersécurité étendue, anti-monopole) qui pourraient affecter matériellement les opérations, la capacité à lever des fonds ou la valeur des titres.",
+      "score": 5
     },
     {
       "title": "Approbation future requise pour cotations offshore",
@@ -287,7 +298,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur répété 3 fois dans le texte avec langage critique (« cannot predict », « significantly decline or be worthless »). Incertitude élevée sur timing et conditions. Position centrale dans les risques Chine.",
       "trend": "up",
-      "summary": "Bien que non requis actuellement, le SCNPC ou autres autorités chinoises pourraient promulguer des lois exigeant une approbation réglementaire avant futures cotations offshore. AGM ne peut prédire si/quand il complètera les procédures de dépôt CSRC ou obtiendra les approbations nécessaires, risquant l'incapacité à continuer la cotation US."
+      "summary": "Bien que non requis actuellement, le SCNPC ou autres autorités chinoises pourraient promulguer des lois exigeant une approbation réglementaire avant futures cotations offshore. AGM ne peut prédire si/quand il complètera les procédures de dépôt CSRC ou obtiendra les approbations nécessaires, risquant l'incapacité à continuer la cotation US.",
+      "score": 5
     },
     {
       "title": "Dépendance aux dividendes des filiales chinoises",
@@ -295,7 +307,8 @@
       "severity": 4,
       "score_rationale": "Risque structurel lié à la structure holding BVI. Langage modéré mais impact direct sur trésorerie (« limit our ability to pay »). Régulations chinoises limitent les dividendes aux profits accumulés selon normes chinoises.",
       "trend": "stable",
-      "summary": "AGM est une holding sans opérations matérielles et dépend des dividendes versés par ses filiales chinoises pour financer ses dépenses et rémunérer les actionnaires. Toute limitation de la capacité des filiales à verser des dividendes (restrictions réglementaires, profits insuffisants) pourrait compromettre la capacité de paiement."
+      "summary": "AGM est une holding sans opérations matérielles et dépend des dividendes versés par ses filiales chinoises pour financer ses dépenses et rémunérer les actionnaires. Toute limitation de la capacité des filiales à verser des dividendes (restrictions réglementaires, profits insuffisants) pourrait compromettre la capacité de paiement.",
+      "score": 4
     },
     {
       "title": "Risques de conformité FCPA et anti-corruption chinoise",
@@ -303,7 +316,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement mentionné dans la section Chine. Langage modéré mais exposition légale claire. Applicable à opérations en Chine et interactions avec autorités/partenaires.",
       "trend": "stable",
-      "summary": "AGM est exposée aux responsabilités légales sous le Foreign Corrupt Practices Act (FCPA) américain et les lois anti-corruption chinoises. Les violations pourraient résulter en sanctions, amendes et dommages réputationnels, particulièrement lors d'interactions avec autorités ou partenaires gouvernementaux chinois."
+      "summary": "AGM est exposée aux responsabilités légales sous le Foreign Corrupt Practices Act (FCPA) américain et les lois anti-corruption chinoises. Les violations pourraient résulter en sanctions, amendes et dommages réputationnels, particulièrement lors d'interactions avec autorités ou partenaires gouvernementaux chinois.",
+      "score": 3
     },
     {
       "title": "Protocole Bitcoin modifié par contributeurs majeurs",
@@ -311,7 +325,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique à AGM (activité crypto/Bitcoin). Langage modéré (« could negatively impact »). Position dans résumé des risques métier. Tendance : stable mais inhérent au secteur.",
       "trend": "stable",
-      "summary": "Des contributeurs majeurs au réseau Bitcoin pourraient proposer des amendements aux protocoles et logiciels qui, s'ils sont acceptés, pourraient impacter négativement les opérations et le modèle économique d'AGM basé sur les actifs numériques."
+      "summary": "Des contributeurs majeurs au réseau Bitcoin pourraient proposer des amendements aux protocoles et logiciels qui, s'ils sont acceptés, pourraient impacter négativement les opérations et le modèle économique d'AGM basé sur les actifs numériques.",
+      "score": 3
     },
     {
       "title": "Divulgation non autorisée de données client sensibles",
@@ -319,7 +334,8 @@
       "severity": 3,
       "score_rationale": "Risque métier explicite dans résumé. Langage modéré (« could harm »). Applicable si AGM collecte/traite données clients. Tendance : stable mais croissant dans secteur fintech.",
       "trend": "up",
-      "summary": "La divulgation non autorisée d'informations sensibles ou confidentielles de clients, ou la perception d'une non-conformité aux lois de confidentialité, pourrait endommager la réputation d'AGM et sa relation avec les clients, particulièrement dans un contexte réglementaire chinois strict."
+      "summary": "La divulgation non autorisée d'informations sensibles ou confidentielles de clients, ou la perception d'une non-conformité aux lois de confidentialité, pourrait endommager la réputation d'AGM et sa relation avec les clients, particulièrement dans un contexte réglementaire chinois strict.",
+      "score": 3
     },
     {
       "title": "Besoin de capital additionnel pour croissance",
@@ -327,7 +343,8 @@
       "severity": 3,
       "score_rationale": "Risque métier standard mentionné dans résumé. Langage modéré (« might require »). Applicable si croissance rapide. Tendance : stable mais contextuel à stratégie.",
       "trend": "stable",
-      "summary": "AGM pourrait avoir besoin de capital additionnel pour supporter la croissance de ses opérations. Ce capital pourrait ne pas être disponible à des conditions acceptables ou du tout, limitant la capacité d'expansion et la compétitivité."
+      "summary": "AGM pourrait avoir besoin de capital additionnel pour supporter la croissance de ses opérations. Ce capital pourrait ne pas être disponible à des conditions acceptables ou du tout, limitant la capacité d'expansion et la compétitivité.",
+      "score": 3
     },
     {
       "title": "Procédures complexes M&A pour acquisitions chinoises",
@@ -335,7 +352,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique aux acquisitions en Chine. Langage modéré (« could make it more difficult »). Applicable si stratégie de croissance externe. Position dans résumé risques Chine.",
       "trend": "stable",
-      "summary": "Les M&A Rules et autres régulations chinoises établissent des procédures complexes pour acquisitions de sociétés chinoises par investisseurs étrangers, rendant plus difficile la poursuite de la croissance par acquisitions en Chine pour AGM."
+      "summary": "Les M&A Rules et autres régulations chinoises établissent des procédures complexes pour acquisitions de sociétés chinoises par investisseurs étrangers, rendant plus difficile la poursuite de la croissance par acquisitions en Chine pour AGM.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:39:20.970922+00:00",
@@ -406,9 +424,9 @@
     "country": "Hong Kong",
     "_data_freshness_date": "2026-05-21T02:17:14.216674+00:00",
     "fetched_at": "2026-05-21T02:17:14.216675+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.455Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.914Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/agmh.json",
     "enrich_root": "v2-pipeline-enrich/agmh.json",

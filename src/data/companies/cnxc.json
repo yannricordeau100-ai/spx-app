@@ -1,6 +1,6 @@
 {
   "ticker": "CNXC",
-  "name": "Concentrix Corporation",
+  "name": "Concentrix",
   "sector": "Technologie",
   "subsector": "Services et solutions technologiques",
   "tagline": "Powers exceptional brand experiences and digital operations",
@@ -36,7 +36,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Gross margin percentages not explicitly stated as annual figures in the provided 10-K extract. The MDA section discusses gross margin fluctu",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Revenue",
@@ -56,7 +56,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Total Revenue",
@@ -76,13 +76,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 9.83 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:28.921217+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -101,34 +105,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -1.28 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.61,
-      "unit": "Mds €",
+      "value": 610,
+      "unit": "M €",
       "yoy": "+1.7%",
       "history": [
-        0.64,
-        0.66,
-        0.6,
-        0.61
+        640,
+        660,
+        600,
+        610
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.61 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Moderate growth, slightly positive"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Moderate growth, slightly positive",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -147,11 +160,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.76 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -170,33 +187,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.64 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.33,
-      "unit": "Mds €",
+      "value": 330,
+      "unit": "M €",
       "yoy": "+37.5%",
       "history": [
-        0.15,
-        0.3,
-        0.24,
-        0.33
+        150,
+        300,
+        240,
+        330
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.33 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -222,7 +248,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "integrated",
+    "stance": "absent",
     "summary": "Concentrix intègre activement l'IA générative et l'IA agentique dans ses solutions de services CX, positionnant ces technologies comme éléments clés de sa proposition de valeur. L'entreprise les mentionne explicitement dans sa description métier et reconnaît les risques et opportunités associés à leur adoption accélérée.",
     "evidence": [
       "Solutions incluant GenAI- et agentic AI-powered self-service",
@@ -239,7 +265,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en premier et décrit comme récurrent, avec un impact direct sur la valeur d'entreprise et le cours de l'action. Le langage insiste sur l'incertitude économique globale, les fluctuations de devises, les conflits géopolitiques (Ukraine, Gaza, tensions Inde-Pakistan) et la dépendance aux prévisions clients. La catégorie macro est fortement pondérée en contexte actuel.",
       "trend": "stable",
-      "summary": "Les résultats varient fortement en raison de facteurs économiques mondiaux, conflits géopolitiques, fluctuations de devises et fiabilité des prévisions clients, menaçant la rentabilité."
+      "summary": "Les résultats varient fortement en raison de facteurs économiques mondiaux, conflits géopolitiques, fluctuations de devises et fiabilité des prévisions clients, menaçant la rentabilité.",
+      "score": 4
     },
     {
       "title": "Cyberattaques et fuites de données",
@@ -247,7 +274,8 @@
       "severity": 5,
       "score_rationale": "Risque critique pour une entreprise IT opérant dans 74 pays. Mentionné dans les facteurs de risque avec conséquences graves : pertes financières, litiges, atteinte à la réputation, perturbation opérationnelle. Impact direct sur la continuité de service et la confiance client.",
       "trend": "up",
-      "summary": "Des attaques sur les systèmes informatiques internes ou ceux de nos partenaires pourraient paralyser les opérations, entraîner des sanctions réglementaires et des pertes de clients clés."
+      "summary": "Des attaques sur les systèmes informatiques internes ou ceux de nos partenaires pourraient paralyser les opérations, entraîner des sanctions réglementaires et des pertes de clients clés.",
+      "score": 5
     },
     {
       "title": "Adoption accélérée de l'IA générative",
@@ -255,7 +283,8 @@
       "severity": 5,
       "score_rationale": "L'IA générative et agentique sont positionnées comme perturbant le modèle économique traditionnel des services CX, avec remplacement potentiel de services humains et pression sur les marges. Le texte souligne les coûts élevés d'adaptation et un risque concurrentiel majeur pour un prestataire de services basé sur la main-d'œuvre.",
       "trend": "new",
-      "summary": "L'essor de l'IA générative et agentique menace les services CX traditionnels et exige des investissements massifs en R&D et en capacités technologiques pour rester compétitif."
+      "summary": "L'essor de l'IA générative et agentique menace les services CX traditionnels et exige des investissements massifs en R&D et en capacités technologiques pour rester compétitif.",
+      "score": 5
     },
     {
       "title": "Tensions géopolitiques et conflits",
@@ -263,7 +292,8 @@
       "severity": 4,
       "score_rationale": "Les conflits en Ukraine, Gaza et tensions Indo-chinoises sont explicitement cités. Le texte lie ces événements à des perturbations économiques et logistiques globales. Risque répété dans plusieurs sections. Impact direct sur les opérations dans 74 pays et la demande des clients.",
       "trend": "up",
-      "summary": "Les conflits internationaux (Ukraine, Gaza, tensions Inde-Pakistan) perturbent les chaînes d'approvisionnement, la demande client et les économies locales, affectant chiffre d'affaires et coûts."
+      "summary": "Les conflits internationaux (Ukraine, Gaza, tensions Inde-Pakistan) perturbent les chaînes d'approvisionnement, la demande client et les économies locales, affectant chiffre d'affaires et coûts.",
+      "score": 4
     },
     {
       "title": "Dépendance aux opérations mondiales",
@@ -271,7 +301,8 @@
       "severity": 4,
       "score_rationale": "Présence dans 74 pays avec concentrations en Philippines, Inde, Égypte, Brésil, Turquie. Expositions à des instabilités locales, catastrophes naturelles, fluctuations de devises (peso philippin, roupie indienne, livre égyptienne, peso colombien, dollar canadien). Environ 89% des revenus FY2025 générés hors États-Unis.",
       "trend": "stable",
-      "summary": "Le modèle de livraison mondial expose l'entreprise à des perturbations locales liées au climat, à la politique, aux infrastructures et aux fluctuations de devises dans des marchés clés."
+      "summary": "Le modèle de livraison mondial expose l'entreprise à des perturbations locales liées au climat, à la politique, aux infrastructures et aux fluctuations de devises dans des marchés clés.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue et internalisation",
@@ -279,7 +310,8 @@
       "severity": 4,
       "score_rationale": "Risque de perte de marché face à des concurrents directs ou à l'internalisation par les clients. Nouveaux entrants numériques et pression tarifaire mentionnés. Taux de roulement élevé du personnel augmente les coûts. Marché compétitif sur les termes tarifaires, capacités de livraison et qualité de service.",
       "trend": "stable",
-      "summary": "La concurrence s'intensifie avec pression tarifaire, clients qui internalisent services ou adoptent technologies automatisées, et taux de roulement élevé du personnel augmentant les coûts opérationnels."
+      "summary": "La concurrence s'intensifie avec pression tarifaire, clients qui internalisent services ou adoptent technologies automatisées, et taux de roulement élevé du personnel augmentant les coûts opérationnels.",
+      "score": 4
     },
     {
       "title": "Réglementation émergente sur l'IA",
@@ -287,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Incertitude réglementaire croissante autour de l'IA, notamment AI Act européen et ordres exécutifs américains. Impacts potentiels sur les coûts de conformité et les capacités d'innovation en solutions GenAI et agentiques. Catégorie réglementaire en forte montée.",
       "trend": "new",
-      "summary": "L'absence de cadre réglementaire clair sur l'IA générative et agentique, notamment en Europe et aux États-Unis, pourrait augmenter les coûts de conformité et limiter les innovations technologiques."
+      "summary": "L'absence de cadre réglementaire clair sur l'IA générative et agentique, notamment en Europe et aux États-Unis, pourrait augmenter les coûts de conformité et limiter les innovations technologiques.",
+      "score": 4
     }
   ],
   "governance": {
@@ -419,7 +452,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.608Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.694Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cnxc.json",
     "enrich_root": null,

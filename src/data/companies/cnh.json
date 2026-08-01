@@ -58,7 +58,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [],
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Op Margin",
@@ -100,7 +100,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [],
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -121,7 +121,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [],
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Credit Risk",
@@ -156,8 +156,8 @@
       "name_fr": "Créances en retard ou en non-perception",
       "name_en": "Past Due or Nonaccrual Receivables",
       "explanation": "Montant des créances en retard de paiement ou en statut de non-perception dans le portefeuille de financement.",
-      "value": "0.43",
-      "unit": "Mds $",
+      "value": 430,
+      "unit": "M $",
       "yoy": "+83.0%",
       "type": "Risk",
       "nature": "Conjoncturel",
@@ -165,8 +165,8 @@
       "signal": "Augmentation significative de la qualité de crédit détériorée",
       "description": "Créances en retard ou en non-perception passées de 235 millions à 430 millions de dollars entre 2024 et 2025, reflétant une dégradation des portefeuilles d'emprunteurs.",
       "history": [
-        0.23,
-        0.43
+        230,
+        430
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -176,7 +176,8 @@
       "_validation": [
         "signal: updated to reflect deterioration signal"
       ],
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Currency Risk",
@@ -217,7 +218,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.1149,
         0.302,
@@ -230,7 +231,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -245,7 +246,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.576,
@@ -258,7 +259,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -273,7 +274,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         20.85,
@@ -286,7 +287,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -302,7 +303,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.49,
@@ -315,7 +316,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -345,9 +346,7 @@
       "ttm": 23.11,
       "_validation": [
         "name_en: renamed to 'Financing Receivables at Risk' for clarity"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Past Due Receivables",
@@ -374,9 +373,7 @@
       "ttm": 0.52,
       "_validation": [
         "signal: updated to reflect deterioration"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -392,7 +389,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur situé en début d'Item 1A (p.17), langage intensif (« significantly », « cyclicality »). CNH expose explicitement sa dépendance aux cycles de construction et aux programmes gouvernementaux (Farm Bill, CAP, BNDES). Tendance stable mais structurelle. Poids catégorique élevé pour équipementier industriel.",
       "trend": "stable",
-      "summary": "Les ventes d'équipements agricoles et de construction dépendent fortement des cycles économiques, des dépenses publiques en infrastructure et des programmes de subvention gouvernementaux (Farm Bill US, Politique Agricole Commune UE, financement BNDES au Brésil). Une récession ou réduction des investissements publics impacterait directement les volumes de vente et la rentabilité."
+      "summary": "Les ventes d'équipements agricoles et de construction dépendent fortement des cycles économiques, des dépenses publiques en infrastructure et des programmes de subvention gouvernementaux (Farm Bill US, Politique Agricole Commune UE, financement BNDES au Brésil). Une récession ou réduction des investissements publics impacterait directement les volumes de vente et la rentabilité.",
+      "score": 4
     },
     {
       "title": "Transformation technologique et intégration de l'IA/autonomie",
@@ -400,7 +398,8 @@
       "severity": 4,
       "score_rationale": "Risque stratégique central dans la stratégie « Iron + Tech » (p.4-5). Langage affirmatif sur nécessité d'innovation (« companies that successfully integrate... are expected to gain competitive advantage »). CNH investit massivement (acquisitions Raven 2021, Hemisphere 2023, Augmenta 2023) mais risque de retard technologique ou d'intégration échoue. Tendance up (accélération transformation).",
       "trend": "up",
-      "summary": "L'industrie subit une transformation rapide vers la précision agricole, l'autonomie, la connectivité et l'IA. CNH doit intégrer ces technologies (GNSS, vision par machine, automatisation) dans sa gamme complète. Risque d'échec d'intégration des acquisitions (Raven, Hemisphere, Augmenta) ou de retard compétitif face à concurrents technologiquement plus avancés."
+      "summary": "L'industrie subit une transformation rapide vers la précision agricole, l'autonomie, la connectivité et l'IA. CNH doit intégrer ces technologies (GNSS, vision par machine, automatisation) dans sa gamme complète. Risque d'échec d'intégration des acquisitions (Raven, Hemisphere, Augmenta) ou de retard compétitif face à concurrents technologiquement plus avancés.",
+      "score": 4
     },
     {
       "title": "Concurrence intensifiée et consolidation du secteur",
@@ -408,7 +407,8 @@
       "severity": 4,
       "score_rationale": "Implicite mais fort dans contexte de transformation technologique (p.6-7). CNH reconnaît que « companies that successfully integrate... are expected to gain competitive advantage ». Présence de concurrents globaux (John Deere, AGCO, Kubota, Volvo, Caterpillar). Tendance up (consolidation et innovation accélèrent barrières à l'entrée). Poids catégorique critique pour équipementier.",
       "trend": "up",
-      "summary": "Concurrence accrue de fabricants globaux et de nouveaux entrants technologiques dans la précision agricole et l'électrification. CNH doit maintenir sa position de leader via innovation produit et expansion commerciale, notamment dans les marchés émergents (Asie, Afrique). Risque de perte de parts de marché si innovation ou distribution insuffisantes."
+      "summary": "Concurrence accrue de fabricants globaux et de nouveaux entrants technologiques dans la précision agricole et l'électrification. CNH doit maintenir sa position de leader via innovation produit et expansion commerciale, notamment dans les marchés émergents (Asie, Afrique). Risque de perte de parts de marché si innovation ou distribution insuffisantes.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix des matières premières et des commodités agricoles",
@@ -416,7 +416,8 @@
       "severity": 3,
       "score_rationale": "Explicitement décrit (p.6-7) : « Net farm income is primarily affected by commodity and/or livestock prices ». Langage modéré mais impact direct sur demande. Tendance stable (cyclique structurel). Poids catégorique moyen-élevé pour segment Agriculture.",
       "trend": "stable",
-      "summary": "Les revenus agricoles nets dépendent des prix des commodités (céréales, viande, sucre) et des coûts d'exploitation (carburant, engrais). Une baisse des prix agricoles réduit la capacité d'investissement des fermiers en équipements neufs. Volatilité des prix du pétrole affecte aussi la viabilité économique des biocarburants et des solutions énergétiques alternatives."
+      "summary": "Les revenus agricoles nets dépendent des prix des commodités (céréales, viande, sucre) et des coûts d'exploitation (carburant, engrais). Une baisse des prix agricoles réduit la capacité d'investissement des fermiers en équipements neufs. Volatilité des prix du pétrole affecte aussi la viabilité économique des biocarburants et des solutions énergétiques alternatives.",
+      "score": 3
     },
     {
       "title": "Risques réglementaires et normes environnementales émergentes",
@@ -424,7 +425,8 @@
       "severity": 4,
       "score_rationale": "Implicite mais critique : CNH lance équipements électriques (2023, p.5) et solutions biomethane (p.6), signalant anticipation de régulations strictes. Langage sur « sustainable practices » et « reduced tailpipe emissions ». Tendance up (durcissement normes EU, US, Chine). Poids catégorique élevé pour secteur industriel lourd.",
       "trend": "up",
-      "summary": "Durcissement des normes d'émissions (Stage V EU, Tier 4 US, futures normes électrification) oblige CNH à investir en R&D pour électrification et motorisations alternatives. Risque de coûts de conformité élevés, de délais de mise au marché et de cannibalisation des produits thermiques existants si transition mal gérée."
+      "summary": "Durcissement des normes d'émissions (Stage V EU, Tier 4 US, futures normes électrification) oblige CNH à investir en R&D pour électrification et motorisations alternatives. Risque de coûts de conformité élevés, de délais de mise au marché et de cannibalisation des produits thermiques existants si transition mal gérée.",
+      "score": 4
     },
     {
       "title": "Dépendance à la chaîne d'approvisionnement mondiale et fournisseurs critiques",
@@ -432,7 +434,8 @@
       "severity": 4,
       "score_rationale": "CNH opère dans 32 pays avec présence commerciale dans ~166 pays (p.3). Acquisitions stratégiques (Raven, Hemisphere, Augmenta, Sampierana) indiquent dépendance à intégration verticale et fournisseurs spécialisés. Langage sur « vertical integration » (p.5). Tendance up (post-COVID, géopolitique). Poids catégorique très élevé pour manufacturier global.",
       "trend": "up",
-      "summary": "CNH dépend d'une chaîne d'approvisionnement complexe et mondiale pour composants critiques (semi-conducteurs, électronique, moteurs, capteurs GNSS). Perturbations (pénuries, tensions géopolitiques, tarifs) risquent de ralentir production et livraisons. Intégration verticale via acquisitions (Sampierana pour excavateurs) réduit mais ne supprime pas ce risque."
+      "summary": "CNH dépend d'une chaîne d'approvisionnement complexe et mondiale pour composants critiques (semi-conducteurs, électronique, moteurs, capteurs GNSS). Perturbations (pénuries, tensions géopolitiques, tarifs) risquent de ralentir production et livraisons. Intégration verticale via acquisitions (Sampierana pour excavateurs) réduit mais ne supprime pas ce risque.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et protection des données connectées/autonomes",
@@ -440,7 +443,8 @@
       "severity": 3,
       "score_rationale": "Item 1C dédié à Cybersecurity (p.32, non fourni en détail). CNH déploie massivement connectivité, GNSS, IA et autonomie (p.4-5), créant surface d'attaque accrue. Langage sur « digital platforms », « connectivity » indique exposition. Tendance up (numérisation accélérée). Poids catégorique moyen-élevé pour équipementier connecté.",
       "trend": "up",
-      "summary": "Expansion des solutions numériques (plateformes digitales, GNSS, automatisation, autonomie) augmente risques de cyberattaques, vol de données clients/agricoles et interruption de services. Compromission de systèmes autonomes ou connectés pourrait causer arrêts de production, pertes de données sensibles et dommages réputationnels."
+      "summary": "Expansion des solutions numériques (plateformes digitales, GNSS, automatisation, autonomie) augmente risques de cyberattaques, vol de données clients/agricoles et interruption de services. Compromission de systèmes autonomes ou connectés pourrait causer arrêts de production, pertes de données sensibles et dommages réputationnels.",
+      "score": 3
     },
     {
       "title": "Risques de change et exposition géographique diversifiée",
@@ -448,7 +452,8 @@
       "severity": 3,
       "score_rationale": "CNH opère dans 4 régions majeures (North America, EMEA, South America, Asia Pacific, p.3-4). Langage sur « fluctuations in currency exchange rates » (p.6). Tendance stable mais volatilité accrue (géopolitique). Poids catégorique moyen pour manufacturier multi-régional. EXCLUSION PARTIELLE : risque de trésorerie générique, mais impact opérationnel spécifique à marge industrielle.",
       "trend": "stable",
-      "summary": "Exposition à fluctuations de change (EUR/USD, BRL/USD, GBP/USD) affecte compétitivité prix, marges et consolidation financière. Dépréciation de devises locales (BRL, devises émergentes) réduit revenus en USD et compétitivité exports. Couverture partielle possible mais coûteuse."
+      "summary": "Exposition à fluctuations de change (EUR/USD, BRL/USD, GBP/USD) affecte compétitivité prix, marges et consolidation financière. Dépréciation de devises locales (BRL, devises émergentes) réduit revenus en USD et compétitivité exports. Couverture partielle possible mais coûteuse.",
+      "score": 3
     }
   ],
   "governance": {
@@ -502,7 +507,7 @@
   "_risks_reextracted_at": "2026-05-14T05:37:06.099076+00:00",
   "_risks_source": "10-K FY2026",
   "_dividends_extracted_at": "2026-05-09T20:21:39Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -525,8 +530,8 @@
     "xbrl_fetched_at": "2026-05-09T20:27:32Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:19Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:29.552Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.667Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cnh.json",
     "enrich_root": "v2-pipeline-enrich/cnh.json",

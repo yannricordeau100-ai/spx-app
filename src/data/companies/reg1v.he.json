@@ -1,6 +1,6 @@
 {
   "ticker": "REG1V.HE",
-  "name": "Revenio Group Corporation",
+  "name": "Revenio Group",
   "sector": "Technologie",
   "subsector": "Healthcare Technology",
   "tagline": "Innovative eye care solutions combining imaging, cloud, and AI for enhanced diagnostic pathways",
@@ -85,7 +85,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -133,7 +133,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Steady growth, healthy trend"
     },
     {
@@ -163,47 +163,57 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "+7.1%",
       "history": [
-        0.14,
-        0.14,
-        0.14,
-        0.15
+        140,
+        140,
+        140,
+        150
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.15 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.02,
-        0.02,
-        0.01,
-        0.01
+        20,
+        20,
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -217,7 +227,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.32,
         0.34,
@@ -230,7 +240,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -245,7 +255,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.009,
@@ -258,7 +268,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -273,7 +283,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         41.54,
@@ -286,7 +296,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -302,7 +312,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.815296,
@@ -315,7 +325,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -359,7 +369,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné dans le document avec un langage fort (\"notable financial consequences\"). Il est positionné en amont des autres risques métiers. La tendance est stable, mais le risque est récurrent dans le secteur médical technologique. La catégorie est critique en raison de la nature des données (santé).",
       "trend": "stable",
-      "summary": "Une violation de cybersécurité ou une fuite de données sensibles (clients ou employés) pourrait entraîner des dommages réputationnels et des conséquences financières importantes pour Revenio, notamment en raison de la réglementation stricte sur les données de santé."
+      "summary": "Une violation de cybersécurité ou une fuite de données sensibles (clients ou employés) pourrait entraîner des dommages réputationnels et des conséquences financières importantes pour Revenio, notamment en raison de la réglementation stricte sur les données de santé.",
+      "score": 4
     },
     {
       "title": "Dépendance à la qualité des produits",
@@ -367,7 +378,8 @@
       "severity": 3,
       "score_rationale": "Le document cite les \"notable delivery or product quality issues\" comme source potentielle de dommage réputationnel. Le langage est modéré mais le risque est directement lié à l'activité cœur de métier. Tendance stable, poids moyen.",
       "trend": "stable",
-      "summary": "Des problèmes récurrents de qualité ou de livraison des dispositifs médicaux iCare (comme les tonomètres ou les dispositifs d'imagerie) pourraient nuire à la réputation de Revenio auprès des professionnels de santé et des hôpitaux."
+      "summary": "Des problèmes récurrents de qualité ou de livraison des dispositifs médicaux iCare (comme les tonomètres ou les dispositifs d'imagerie) pourraient nuire à la réputation de Revenio auprès des professionnels de santé et des hôpitaux.",
+      "score": 3
     },
     {
       "title": "Concurrence sur les solutions de diagnostic ophtalmique",
@@ -375,7 +387,8 @@
       "severity": 4,
       "score_rationale": "Bien que non explicitement nommé, le positionnement de Revenio comme fournisseur global de solutions diagnostiques implique une concurrence intense. Le secteur est technologique et innovant, avec un risque élevé de disruption. Tendance en hausse.",
       "trend": "up",
-      "summary": "Revenio fait face à une concurrence croissante de fabricants mondiaux de dispositifs médicaux ophtalmiques, ce qui exerce une pression sur l'innovation, les prix et la pénétration de marché, notamment dans les pays développés."
+      "summary": "Revenio fait face à une concurrence croissante de fabricants mondiaux de dispositifs médicaux ophtalmiques, ce qui exerce une pression sur l'innovation, les prix et la pénétration de marché, notamment dans les pays développés.",
+      "score": 4
     },
     {
       "title": "Réglementation sectorielle en santé",
@@ -383,7 +396,8 @@
       "severity": 5,
       "score_rationale": "Les changements législatifs ou politiques nationaux sont cités comme pouvant impacter l'activité. Le secteur des dispositifs médicaux est fortement régulé (CE, FDA, etc.). Langage prudent mais risque critique. Tendance stable.",
       "trend": "stable",
-      "summary": "Toute modification de la réglementation applicable aux dispositifs médicaux (homologation, normes de sécurité, remboursements) dans les près de 100 pays où Revenio est présent pourrait retarder les lancements ou réduire la demande."
+      "summary": "Toute modification de la réglementation applicable aux dispositifs médicaux (homologation, normes de sécurité, remboursements) dans les près de 100 pays où Revenio est présent pourrait retarder les lancements ou réduire la demande.",
+      "score": 5
     },
     {
       "title": "Arrêt des activités en Russie et Biélorussie",
@@ -391,7 +405,8 @@
       "severity": 3,
       "score_rationale": "L'arrêt des activités en Russie et Biélorussie est mentionné comme fait accompli. L'impact est limité (<2% des ventes), mais cela illustre une exposition géopolitique. Tendance en baisse car déjà réalisé.",
       "trend": "down",
-      "summary": "L'invasion de l'Ukraine par la Russie a conduit Revenio à cesser toutes ses opérations en Russie et en Biélorussie, illustrant la vulnérabilité aux tensions géopolitiques, même si l'impact financier a été marginal."
+      "summary": "L'invasion de l'Ukraine par la Russie a conduit Revenio à cesser toutes ses opérations en Russie et en Biélorussie, illustrant la vulnérabilité aux tensions géopolitiques, même si l'impact financier a été marginal.",
+      "score": 3
     },
     {
       "title": "Dépendance à l'innovation technologique",
@@ -399,7 +414,8 @@
       "severity": 4,
       "score_rationale": "Le secteur des diagnostics médicaux évolue rapidement. Revenio investit fortement en R&D (11,5 % du chiffre d'affaires). Le risque de retard technologique est implicite mais critique. Tendance en hausse.",
       "trend": "up",
-      "summary": "La pérennité de Revenio dépend de sa capacité à innover continuellement dans les domaines de la pression intraoculaire, de l'imagerie rétinienne et de la périmétrie, face à des concurrents technologiquement avancés."
+      "summary": "La pérennité de Revenio dépend de sa capacité à innover continuellement dans les domaines de la pression intraoculaire, de l'imagerie rétinienne et de la périmétrie, face à des concurrents technologiquement avancés.",
+      "score": 4
     },
     {
       "title": "Exposition aux pandémies mondiales",
@@ -407,7 +423,8 @@
       "severity": 3,
       "score_rationale": "Le document mentionne explicitement Covid-19 comme risque avec effet direct et indirect. Langage modéré, mais le risque est réel pour la chaîne logistique et les ventes. Tendance stable.",
       "trend": "stable",
-      "summary": "Une pandémie mondiale pourrait entraver les opérations de Revenio, notamment via la fermeture d'usines, des restrictions de déplacement des commerciaux ou une incapacité temporaire du personnel."
+      "summary": "Une pandémie mondiale pourrait entraver les opérations de Revenio, notamment via la fermeture d'usines, des restrictions de déplacement des commerciaux ou une incapacité temporaire du personnel.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:45:23.228153+00:00",
@@ -477,7 +494,7 @@
   "_dividends_source": "cat3-european annual-text FY2024 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:47:04Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Technologie de la santé",
   "enrich_events": {
     "ticker": "REG1V.HE",
@@ -515,9 +532,9 @@
     "country": "Finland",
     "_data_freshness_date": "2026-05-21T02:17:14.302414+00:00",
     "fetched_at": "2026-05-21T02:17:14.302415+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.119Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.138Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/reg1v.he.json",
     "enrich_root": "v2-pipeline-enrich/reg1v.he.json",

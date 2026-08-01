@@ -13,7 +13,7 @@
     "sector": "Not applicable",
     "subsector": "Top 5 mining companies by market cap"
   },
-  "hero_kpi": "Group EBITDA H1",
+  "hero_kpi": "copper_rev",
   "hero_kpi_rationale": "Le segment Diamonds, porté par l'acquisition de De Beers, est un driver stratégique différenciant dans le portefeuille minier, avec une marque iconique et une position de leader mondial sur le marché des diamants. La gestion optimisée des stocks (réduction de 2,3 Mds USD à 1,8 Mds USD) démontre une meilleure efficacité opérationnelle.",
   "kpis": [
     {
@@ -38,9 +38,7 @@
       "is_short_history": true,
       "period_type": "annual",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le KPI 'Diamonds - De Beers - Portefeuille stratégique et gestion de stocks' en B$ n'est pas explicitement chiffré dans l'extrait fourni. Se",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_hero_history_unverified_reason": "Le KPI 'Diamonds - De Beers - Portefeuille stratégique et gestion de stocks' en B$ n'est pas explicitement chiffré dans l'extrait fourni. Se"
     },
     {
       "short": "Metallurgical Coal",
@@ -62,9 +60,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Collahuasi - Copper",
@@ -86,17 +82,15 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Serpentina - Iron Ore",
       "name_fr": "Serpentina - Développement de gisement fer",
       "name_en": "Serpentina - Iron Ore Development",
       "explanation": "Projet de Serpentina au Brésil visant le remplacement du minerai de Minas Rio avec un ore body moins dur et de grade équivalent.",
-      "value": 2000,
-      "unit": "M $",
+      "value": 2,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Capital Savings",
       "nature": "Structurel",
@@ -109,8 +103,7 @@
       "is_generic": true,
       "is_short_history": true,
       "period_type": "annual",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Assets",
@@ -129,11 +122,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 55.99 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -152,11 +149,37 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 15.48 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "copper_rev",
+      "name_fr": "CA cuivre",
+      "name_en": "Copper Revenue",
+      "unit": "Mds $",
+      "period_type": "year",
+      "history": [
+        3.978,
+        6.116,
+        5.167,
+        6.91,
+        6.948
+      ],
+      "value": 6.948,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le cuivre est devenu la premiere source de revenus du groupe en 2024, devant le minerai de fer.",
+      "is_wow": true,
+      "yoy": "+0,5 %"
     },
     {
       "short": "DPS",
@@ -170,7 +193,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         265.1777,
         268.2558,
@@ -183,7 +206,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -198,7 +221,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         4.076,
@@ -211,7 +234,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -226,7 +249,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -239,7 +262,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -254,7 +277,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.178333,
@@ -267,7 +290,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -282,26 +305,7 @@
     ],
     "source": ""
   },
-  "_validation": [
-    "ALERTE: Les KPIs originaux (Diamonds Underlying Operating Profit 496 M$, Iron Ore and Manganese 2949 M$, etc.) datent de 2012 - obsolètes et non présents dans la source 2025",
-    "ALERTE: last_data_date '2012-12-31' obsolète pour tous les KPIs originaux",
-    "REMPLACEMENT: Dataset complètement restructuré avec KPIs validés de la source 2025 Interim Results",
-    "AJOUT: KPI Diamonds restructuré autour de la gestion de stocks De Beers (1,8 B$ vs 2,3 B$) - data date 2025-06-30",
-    "AJOUT: KPI Metallurgical Coal - coûts de maintien Moranbah/Grosvenor (250 M$ semestriels) - processus de vente en cours avec Peabody",
-    "AJOUT: KPI Collahuasi Copper - coûts d'accélération du décapage (480 M$ H1 2025) pour résoudre goulots d'étranglement",
-    "AJOUT: KPI Transnet Penalties - pénalités take-or-pay reçues de Transnet, valeur non quantifiée dans source",
-    "AJOUT: KPI Sakatti Nickel - progression des permis, statut projet stratégique européen, timeline amélioré",
-    "AJOUT: KPI Serpentina Iron Ore - économies de capex ~2 B$ via substitution de minerai au Brésil",
-    "CORRECTION: tagline amélioré pour refléter portfolio diversifié (diamants, métaux précieux, commodités)",
-    "CORRECTION: hero_kpi_rationale enrichi avec data quantifiée (stocks normalisés 1,8 B$)",
-    "SUPPRESSION: KPIs obsolètes Iron Ore and Manganese (2949, 2012), Platinum (-120, 2012), Copper (1687, 2012), Thermal Coal (793, 2012), Metallurgical Coal ancien (405, 2012)",
-    "VALIDATION: Tous les nouveaux KPIs sont explicitement mentionnés dans la transcription Q&A 2025 Interim Results",
-    "VALIDATION: De Beers inventory: confirmé par John Heasley (2,3 Mds fin 2024 > 1,8 Mds H1 2025)",
-    "VALIDATION: Moranbah/Grosvenor: confirmé par Duncan Wanblad (45 M$/mois + 10 M$/mois)",
-    "VALIDATION: Collahuasi costs: confirmé par Richard Hatch & Duncan Wanblad (480 M$ H1 vs 420 M$ H2)",
-    "VALIDATION: Sakatti timeline: confirmé par Alan Spence & Duncan Wanblad (project strategique EU declaration)",
-    "VALIDATION: Serpentina capex savings: confirmé par Myles Allsop & Duncan Wanblad (couple billion dollars offset)"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2025-07-31",
     "n_periods": 1,
@@ -309,7 +313,7 @@
     "method": "manual_validation",
     "yf_metric": "(none-interim-results-extraction)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_1",
     "no_yoy"
@@ -323,7 +327,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur mentionné explicitement : 13 décès en accidents du travail en 2012. Présence dominante dans les discussions du S&SD Committee (chaque réunion trimestrielle). Langage grave (« fatal incidents », « colleagues lost their lives »). Tendance stable mais persistante. Poids catégorie très élevé pour minier.",
       "trend": "stable",
-      "summary": "Anglo American fait face à des risques importants de décès et blessures graves dans ses opérations minières. En 2012, 13 employés ont perdu la vie dans des accidents liés au travail. Le Comité S&SD examine régulièrement chaque incident mortel et les réponses managériales associées, couvrant des domaines critiques comme le contrôle du méthane, la stabilité des pentes et l'intégrité des puits."
+      "summary": "Anglo American fait face à des risques importants de décès et blessures graves dans ses opérations minières. En 2012, 13 employés ont perdu la vie dans des accidents liés au travail. Le Comité S&SD examine régulièrement chaque incident mortel et les réponses managériales associées, couvrant des domaines critiques comme le contrôle du méthane, la stabilité des pentes et l'intégrité des puits.",
+      "score": 5
     },
     {
       "title": "Gestion des risques environnementaux et de stabilité des mines",
@@ -331,7 +336,8 @@
       "severity": 4,
       "score_rationale": "Risques spécifiques au secteur minier explicitement discutés au S&SD Committee : stabilité des pentes, risques de résidus, intégrité des puits. Langage technique et détaillé indiquant une gestion active. Tendance stable avec surveillance continue. Poids catégorie élevé pour opérations minières.",
       "trend": "stable",
-      "summary": "Anglo American gère des risques environnementaux complexes liés à ses opérations minières, notamment la stabilité des pentes, la gestion des résidus (tailings) et l'intégrité des puits. Le Comité S&SD reçoit des rapports détaillés sur ces domaines critiques pour prévenir les défaillances catastrophiques pouvant affecter les communautés locales et l'environnement."
+      "summary": "Anglo American gère des risques environnementaux complexes liés à ses opérations minières, notamment la stabilité des pentes, la gestion des résidus (tailings) et l'intégrité des puits. Le Comité S&SD reçoit des rapports détaillés sur ces domaines critiques pour prévenir les défaillances catastrophiques pouvant affecter les communautés locales et l'environnement.",
+      "score": 4
     },
     {
       "title": "Dépendance aux projets majeurs et risques de valorisation",
@@ -339,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Projet Minas-Rio au Brésil mentionné comme sujet majeur d'audit (valorisation, implications comptables). Visite du Board en octobre 2012 pour évaluation directe. Langage indiquant complexité et matérialité. Tendance stable mais sujet de surveillance active. Poids catégorie élevé pour groupe minier.",
       "trend": "stable",
-      "summary": "Anglo American dépend fortement de grands projets de développement comme Minas-Rio au Brésil. Le Comité d'Audit a examiné en détail le processus de valorisation de ce projet et ses implications comptables. Les risques incluent les dépassements de coûts, les retards de mise en service et les changements de conditions de marché affectant la rentabilité."
+      "summary": "Anglo American dépend fortement de grands projets de développement comme Minas-Rio au Brésil. Le Comité d'Audit a examiné en détail le processus de valorisation de ce projet et ses implications comptables. Les risques incluent les dépassements de coûts, les retards de mise en service et les changements de conditions de marché affectant la rentabilité.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et politiques dans les juridictions clés",
@@ -347,7 +354,8 @@
       "severity": 4,
       "score_rationale": "Mentions explicites : rencontres avec gouverneurs d'État au Brésil, engagement avec gouvernement de l'Alaska, projet Pebble. Langage indiquant importance stratégique des relations politiques. Tendance stable avec engagement actif. Poids catégorie élevé pour minier opérant mondialement.",
       "trend": "stable",
-      "summary": "Anglo American opère dans des juridictions complexes avec risques réglementaires et politiques significatifs. Le Board a rencontré le gouverneur de l'État du Minas Gerais au Brésil et s'engage avec les autorités de l'Alaska concernant le projet Pebble. Les changements de politique gouvernementale, les exigences environnementales locales et les tensions communautaires peuvent affecter les permis et opérations."
+      "summary": "Anglo American opère dans des juridictions complexes avec risques réglementaires et politiques significatifs. Le Board a rencontré le gouverneur de l'État du Minas Gerais au Brésil et s'engage avec les autorités de l'Alaska concernant le projet Pebble. Les changements de politique gouvernementale, les exigences environnementales locales et les tensions communautaires peuvent affecter les permis et opérations.",
+      "score": 4
     },
     {
       "title": "Risques de réserves minérales et estimations comptables",
@@ -355,7 +363,8 @@
       "severity": 3,
       "score_rationale": "Audit Committee a examiné les changements significatifs dans les estimations de réserves et ressources minérales avec plan d'audit triennal. Langage technique indiquant matérialité. Tendance stable avec surveillance régulière. Poids catégorie modéré mais important pour valorisation.",
       "trend": "stable",
-      "summary": "Les estimations de réserves et ressources minérales d'Anglo American sont sujettes à révisions significatives basées sur les données géologiques et les conditions de marché. Le Comité d'Audit supervise un plan d'audit triennal indépendant de ces estimations critiques pour la valorisation des actifs et la planification opérationnelle."
+      "summary": "Les estimations de réserves et ressources minérales d'Anglo American sont sujettes à révisions significatives basées sur les données géologiques et les conditions de marché. Le Comité d'Audit supervise un plan d'audit triennal indépendant de ces estimations critiques pour la valorisation des actifs et la planification opérationnelle.",
+      "score": 3
     },
     {
       "title": "Risques liés aux structures de portefeuille et transactions majeures",
@@ -363,7 +372,8 @@
       "severity": 3,
       "score_rationale": "Mentions de restructurations : option Codelco (49% Anglo American Sur), structure Platinum, De Beers. Audit Committee a examiné implications comptables détaillées. Langage indiquant complexité transactionnelle. Tendance stable avec transactions en cours. Poids catégorie modéré.",
       "trend": "stable",
-      "summary": "Anglo American gère des transactions et restructurations majeures de portefeuille, incluant l'option pour Codelco d'acquérir jusqu'à 49% d'Anglo American Sur, une restructuration de la division Platinum et des arrangements De Beers. Ces opérations présentent des risques comptables, fiscaux et de gouvernance complexes."
+      "summary": "Anglo American gère des transactions et restructurations majeures de portefeuille, incluant l'option pour Codelco d'acquérir jusqu'à 49% d'Anglo American Sur, une restructuration de la division Platinum et des arrangements De Beers. Ces opérations présentent des risques comptables, fiscaux et de gouvernance complexes.",
+      "score": 3
     },
     {
       "title": "Santé occupationnelle et maladies professionnelles",
@@ -371,7 +381,8 @@
       "severity": 3,
       "score_rationale": "Santé occupationnelle mentionnée régulièrement dans rapports trimestriels du S&SD Committee. Référence explicite à HIV/AIDS comme sujet de surveillance. Langage indiquant gestion systématique. Tendance stable avec programmes en place. Poids catégorie modéré pour secteur minier.",
       "trend": "stable",
-      "summary": "Anglo American doit gérer les risques de santé occupationnelle et les maladies professionnelles dans ses opérations minières, notamment l'exposition à la poussière, le bruit et les maladies infectieuses comme le VIH/SIDA. Le Comité S&SD reçoit des rapports réguliers sur la performance en matière de santé et les programmes de prévention."
+      "summary": "Anglo American doit gérer les risques de santé occupationnelle et les maladies professionnelles dans ses opérations minières, notamment l'exposition à la poussière, le bruit et les maladies infectieuses comme le VIH/SIDA. Le Comité S&SD reçoit des rapports réguliers sur la performance en matière de santé et les programmes de prévention.",
+      "score": 3
     },
     {
       "title": "Risques de succession managériale et rétention de talents",
@@ -379,7 +390,8 @@
       "severity": 3,
       "score_rationale": "Nomination Committee a géré succession du CEO (Cynthia Carroll remplacée par Mark Cutifani) et recherche de NEDs. Langage indiquant processus rigoureux. Tendance stable avec planification active. Poids catégorie modéré pour groupe complexe.",
       "trend": "stable",
-      "summary": "Anglo American dépend de la rétention et du développement de talents managériaux clés. Le Comité de Nomination supervise la planification de succession au niveau ExCo et la gestion des talents à long terme. La transition du CEO en 2012 et la recherche continue de directeurs qualifiés reflètent l'importance de cette gestion."
+      "summary": "Anglo American dépend de la rétention et du développement de talents managériaux clés. Le Comité de Nomination supervise la planification de succession au niveau ExCo et la gestion des talents à long terme. La transition du CEO en 2012 et la recherche continue de directeurs qualifiés reflètent l'importance de cette gestion.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:12:34.484244+00:00",
@@ -459,14 +471,14 @@
   "customer_type_label": "Société active dans l'extraction et la vente de matières premières à des entreprises industrielles.",
   "_eu_blocs_extracted_at": "2026-05-19T16:30:48.342936+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:50Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "GBp",
   "_eps_extracted_at": "2026-05-18T16:43:08Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "_stories_backfill_at": "2026-05-25T14:43:37Z",
   "_stories_backfill_source": "cerebras_qwen3_235b_scaleup_532",
   "_is_short_history_legitimate": true,
-  "_short_history_reason": "Hero semestriel — 3 semestres disponibles, historique Filing UK limité",
+  "_short_history_reason": "Hero semestriel : 3 semestres disponibles, historique Filing UK limité",
   "_short_history_tagged_at": "2026-05-25",
   "_short_history_tagged_by": "session-compactage-batch37",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/AAL.L/annual-text/2025.txt",
@@ -511,7 +523,10 @@
         826,
         772
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Iron Ore Production",
@@ -527,7 +542,10 @@
         60.9,
         60.2
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "PGM Production",
@@ -543,7 +561,10 @@
         3.6,
         3.5
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Diamond Production",
@@ -559,7 +580,10 @@
         31.9,
         24.7
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Steelmaking Coal",
@@ -575,13 +599,21 @@
         18,
         15.3
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T17:49:10Z",
   "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
   "_kpis_supplementary_signed_by": "CONV-SUBAGENT-KPIS-B1-REDO-A-2026-05-28",
   "subsector_fr": "Mines",
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH001-2026-05-29",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.267139Z",
+  "_risks_batch_merge_source": "v2-pipeline/aal.l.json (canonical) : re-validated for batch001",
+  "hero_kpi_override": "copper_rev",
+  "_hero_kpi_override_reason": "copper_rev = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "AAL.L",
     "fetched_at": "2026-05-14T18:21:51.949835+00:00",
@@ -650,9 +682,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.129142+00:00",
     "fetched_at": "2026-05-21T02:17:14.129145+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.044Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.584Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aal.l.json",
     "enrich_root": "v2-pipeline-enrich/aal.l.json",

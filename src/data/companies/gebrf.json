@@ -38,9 +38,7 @@
       "is_short_history": true,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite trouvée pour 'Sage Ranch Units'. Le document mentionne que Sage Ranch comprend '995 exceptionally located e",
-      "signal_en": "Pipeline stable, monitor conversion",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Pipeline stable, monitor conversion"
     },
     {
       "short": "Solar Capacity",
@@ -62,9 +60,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "signal_en": "Capacity stable",
-      "_source_month": "novembre 2021",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Capacity stable"
     },
     {
       "short": "Net Loss",
@@ -135,7 +131,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Solid expansion, positive trajectory"
     },
     {
@@ -158,32 +154,35 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "septembre 2011",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
         0,
         0,
-        0.01,
-        0.01
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -202,9 +201,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -252,7 +255,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le document (mention répétée dans plusieurs paragraphes), avec un langage fort (\"no assurance\", \"excluded from approval\"). La tendance est stable mais critique, car le projet Montalva dépend d'approbations finales de PREB et FOMB. La catégorie Régulation est hautement stratégique pour les projets énergétiques.",
       "trend": "stable",
-      "summary": "Le projet Montalva Solar à Porto Rico n'a pas encore obtenu l'approbation finale des autorités locales (PREB et FOMB), malgré un accord de principe. Un rejet ou un retard prolongé pourrait empêcher le développement du projet, compromettant toute la stratégie énergétique de l'entreprise."
+      "summary": "Le projet Montalva Solar à Porto Rico n'a pas encore obtenu l'approbation finale des autorités locales (PREB et FOMB), malgré un accord de principe. Un rejet ou un retard prolongé pourrait empêcher le développement du projet, compromettant toute la stratégie énergétique de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Risque de perte de site en cas de non-renouvellement",
@@ -260,7 +264,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien positionné dans le texte (paragraphe spécifique sur les baux fonciers), avec un langage préoccupant (\"no assurance\", \"prevented from proceeding\"). La tendance est stable, mais le délai de 2025 crée une pression croissante. La catégorie Industriel est clé pour les projets de développement immobilier et solaire.",
       "trend": "stable",
-      "summary": "Les options de bail sur les terrains de Montalva expirent en décembre 2025. En cas de non-renouvellement ou d'impossibilité de trouver un site alternatif, Greenbriar ne pourra pas construire son projet solaire, ce qui annulerait des années de planification et d'investissement."
+      "summary": "Les options de bail sur les terrains de Montalva expirent en décembre 2025. En cas de non-renouvellement ou d'impossibilité de trouver un site alternatif, Greenbriar ne pourra pas construire son projet solaire, ce qui annulerait des années de planification et d'investissement.",
+      "score": 4
     },
     {
       "title": "Performance incertaine du rayonnement solaire",
@@ -268,7 +273,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné avec un langage fort (\"materially different than estimates\", \"differ significantly\"). Il est stable mais fondamental, car la rentabilité du projet dépend directement de l'irradiation solaire. La catégorie Technologie est centrale pour les projets photovoltaïques.",
       "trend": "stable",
-      "summary": "La viabilité du projet Montalva repose sur des estimations de rayonnement solaire. Si les conditions météorologiques réelles s'avèrent moins favorables que prévu (nuages persistants, poussière, ombres), la production d'électricité et les revenus pourraient être largement inférieurs aux projections."
+      "summary": "La viabilité du projet Montalva repose sur des estimations de rayonnement solaire. Si les conditions météorologiques réelles s'avèrent moins favorables que prévu (nuages persistants, poussière, ombres), la production d'électricité et les revenus pourraient être largement inférieurs aux projections.",
+      "score": 4
     },
     {
       "title": "Retards et surcoûts de construction",
@@ -276,7 +282,8 @@
       "severity": 5,
       "score_rationale": "Le risque est répété plusieurs fois avec un langage fort (\"material delays\", \"cost overruns\", \"vendor non-performance\"). La tendance est stable mais critique, car les projets sont en phase de développement. La catégorie Industriel est majeure pour les projets de construction.",
       "trend": "stable",
-      "summary": "Les projets Sage Ranch et Montalva sont sujets à des retards ou surcoûts dus à des problèmes techniques, des pannes de fournisseurs, des intempéries ou des conflits fonciers. Ces imprévus peuvent grever la trésorerie et retarder la génération de revenus, menaçant la viabilité globale."
+      "summary": "Les projets Sage Ranch et Montalva sont sujets à des retards ou surcoûts dus à des problèmes techniques, des pannes de fournisseurs, des intempéries ou des conflits fonciers. Ces imprévus peuvent grever la trésorerie et retarder la génération de revenus, menaçant la viabilité globale.",
+      "score": 5
     },
     {
       "title": "Dépendance aux conditions climatiques extrêmes",
@@ -284,7 +291,8 @@
       "severity": 5,
       "score_rationale": "Le risque est bien documenté avec un langage alarmant (\"material adverse effect\", \"hurricane\", \"flooding\"). La tendance est stable, mais aggravée par le changement climatique. La catégorie Environnement est critique pour les actifs côtiers comme Montalva.",
       "trend": "stable",
-      "summary": "Les actifs de Greenbriar, notamment le projet solaire à Porto Rico, sont exposés aux ouragans, inondations et tempêtes. Un événement climatique majeur pourrait détruire l'infrastructure, interrompre la production pendant des mois et générer des coûts de reconstruction non couverts par l'assurance."
+      "summary": "Les actifs de Greenbriar, notamment le projet solaire à Porto Rico, sont exposés aux ouragans, inondations et tempêtes. Un événement climatique majeur pourrait détruire l'infrastructure, interrompre la production pendant des mois et générer des coûts de reconstruction non couverts par l'assurance.",
+      "score": 5
     },
     {
       "title": "Concurrence sur les prix d'achat d'électricité",
@@ -292,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Le risque est implicite mais clair (mention de \"pricing less than or similar to RFP contracts\"). Le langage est mesuré mais stratégique. La tendance est stable, mais la pression concurrentielle sur les tarifs solaires augmente. La catégorie Concurrence est cruciale pour la rentabilité des PPA.",
       "trend": "stable",
-      "summary": "Pour obtenir l'approbation de son contrat d'achat d'électricité, Greenbriar doit proposer des tarifs compétitifs par rapport aux autres fournisseurs solaires à Porto Rico. Une pression accrue sur les prix pourrait réduire sa marge et rendre le projet moins attractif pour les investisseurs."
+      "summary": "Pour obtenir l'approbation de son contrat d'achat d'électricité, Greenbriar doit proposer des tarifs compétitifs par rapport aux autres fournisseurs solaires à Porto Rico. Une pression accrue sur les prix pourrait réduire sa marge et rendre le projet moins attractif pour les investisseurs.",
+      "score": 4
     },
     {
       "title": "Cyberattaques sur les systèmes énergétiques",
@@ -300,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné explicitement (\"cyber-attack\" dans la liste des menaces). Le langage est factuel mais sérieux. La tendance est stable, mais le secteur énergétique est de plus en cible. La catégorie Cybersécurité est stratégique pour les infrastructures critiques.",
       "trend": "stable",
-      "summary": "Les systèmes de production et de distribution d'énergie de Greenbriar pourraient être victimes de cyberattaques, entraînant des pannes, des pertes de données ou des interruptions de service. Une attaque réussie nuirait à la réputation de l'entreprise et pourrait entraîner des pénalités contractuelles."
+      "summary": "Les systèmes de production et de distribution d'énergie de Greenbriar pourraient être victimes de cyberattaques, entraînant des pannes, des pertes de données ou des interruptions de service. Une attaque réussie nuirait à la réputation de l'entreprise et pourrait entraîner des pénalités contractuelles.",
+      "score": 4
     },
     {
       "title": "Dépendance à un partenaire clé pour Sage Ranch",
@@ -308,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien décrit (relation avec Captiva Verde Wellness Corp.). Le langage est préoccupant (\"continue to have net profits interest\"). La tendance est stable, mais le paiement des 48 mensualités est critique. La catégorie Personne-clé s'applique ici à un partenaire stratégique.",
       "trend": "stable",
-      "summary": "Greenbriar doit rembourser 5,6 millions USD à Captiva Verde sur 48 mois pour récupérer la pleine propriété du projet Sage Ranch. En cas de défaut de paiement, Captiva Verde conservera un droit sur les bénéfices, ce qui réduirait la rentabilité future du projet."
+      "summary": "Greenbriar doit rembourser 5,6 millions USD à Captiva Verde sur 48 mois pour récupérer la pleine propriété du projet Sage Ranch. En cas de défaut de paiement, Captiva Verde conservera un droit sur les bénéfices, ce qui réduirait la rentabilité future du projet.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:45:05.802509+00:00",
@@ -360,9 +371,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.266129+00:00",
     "fetched_at": "2026-05-21T02:17:14.266131+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.603Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.206Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gebrf.json",
     "enrich_root": null,

@@ -85,7 +85,11 @@
         "YoY formaté '+13%' (confirmé par source: 13% increase in volume)"
       ],
       "explanation_en": "Revenue from the Last Mile segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -117,8 +121,12 @@
         "is_generic changé à false (KPI pertinent pour l'activité)",
         "Description améliorée avec contexte du marché tiré du 10-K"
       ],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Margin",
@@ -151,16 +159,20 @@
         "is_generic changé à false",
         "Description améliorée avec raisons spécifiques de la perte"
       ],
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Revenue",
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Revenu total de l'entreprise",
-      "value": "5742",
-      "unit": "M $",
+      "value": 5.742,
+      "unit": "Mds $",
       "yoy": "+26.2%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -168,9 +180,9 @@
       "signal": "Croissance forte du revenu total portée par l'acquisition de Coyote et la croissance organique",
       "description": "Revenu total en 2025 de 5,7 milliards de dollars, en augmentation de 26,2% par rapport à 2024, porté par 1,2 milliard de courtage de camions et 141 millions de dernière mile",
       "history": [
-        3927,
-        4550,
-        5742
+        3.927,
+        4.55,
+        5.742
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -182,8 +194,9 @@
         "YoY calculé: (5742-4550)/4550 = 26.2%",
         "History complète avec données du 10-K (2023: 3927, 2024: 4550, 2025: 5742)"
       ],
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -206,7 +219,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -228,8 +245,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 4 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -251,8 +272,12 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 4 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -356,7 +381,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en première partie du 10-K, avec un langage fort sur l'impact négatif de l'inflation sur les coûts (carburant, salaires). La dépendance à la hausse des prix clients pour compenser ces coûts constitue une vulnérabilité significative, surtout en période de récession. La catégorie Macro est fortement pondérée.",
       "trend": "stable",
-      "summary": "L'inflation augmente les coûts de carburant, de main-d'œuvre et d'intérêts, et la société dépend de hausses de prix pour les compenser, ce qui n'est pas garanti en période de ralentissement économique."
+      "summary": "L'inflation augmente les coûts de carburant, de main-d'œuvre et d'intérêts, et la société dépend de hausses de prix pour les compenser, ce qui n'est pas garanti en période de ralentissement économique.",
+      "score": 4
     },
     {
       "title": "Intégration de Coyote et coûts liés",
@@ -364,7 +390,8 @@
       "severity": 5,
       "trend": "new",
       "score_rationale": "Le facteur est central dans les résultats 2024-2025, avec 49M$ de coûts en 2024 et 19M$ en 2025 liés à l'acquisition. L'augmentation des frais d'intégration, la dilution des marges et les risques d'échec d'intégration opérationnelle sont clairement exposés. Catégorie Capital fortement impactée.",
-      "summary": "L'acquisition de Coyote a généré des coûts d'intégration élevés et représente un risque existentiel si l'intégration échoue ou si les synergies escomptées ne se matérialisent pas."
+      "summary": "L'acquisition de Coyote a généré des coûts d'intégration élevés et représente un risque existentiel si l'intégration échoue ou si les synergies escomptées ne se matérialisent pas.",
+      "score": 5
     },
     {
       "title": "Dépendance aux conditions du marché du fret",
@@ -372,7 +399,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne que la contraction de la capacité dans certaines régions a fait grimper les coûts d'achat plus vite que les prix de vente, affectant directement la marge. Ce désalignement est décrit comme un phénomène actuel et récurrent, avec un langage d'urgence ('rapidly exiting capacity').",
       "trend": "up",
-      "summary": "Le resserrement du marché du fret, notamment en truck brokerage, augmente les coûts d'achat de capacité plus vite que les prix facturés aux clients, comprimant les marges."
+      "summary": "Le resserrement du marché du fret, notamment en truck brokerage, augmente les coûts d'achat de capacité plus vite que les prix facturés aux clients, comprimant les marges.",
+      "score": 4
     },
     {
       "title": "Risque de non-conformité aux covenants de dette",
@@ -380,7 +408,8 @@
       "severity": 4,
       "score_rationale": "Le 10-K mentionne explicitement que tout défaut de conformité aux covenants pourrait avoir un effet matériel négatif sur la liquidité. La modification des ratios (levier à 4.5x) après l'acquisition de Coyote montre une exposition accrue. Le renouvellement du crédit en 2026 confirme la vigilance requise.",
       "trend": "stable",
-      "summary": "La société doit respecter des covenants financiers stricts (levier, couverture des charges). Un défaut pourrait restreindre l'accès au crédit et menacer la liquidité."
+      "summary": "La société doit respecter des covenants financiers stricts (levier, couverture des charges). Un défaut pourrait restreindre l'accès au crédit et menacer la liquidité.",
+      "score": 4
     },
     {
       "title": "Perte de trésorerie opérationnelle",
@@ -388,7 +417,8 @@
       "severity": 3,
       "score_rationale": "En 2024, la trésorerie d'exploitation était négative (-12M$), bien que positive en 2025 (+51M$). Cette volatilité est liée à la perte nette et aux variations du besoin en fonds de roulement. Le risque est modéré mais réel en cas de prolongation des pertes.",
       "trend": "down",
-      "summary": "La société a connu une trésorerie d'exploitation négative en 2024, et reste vulnérable à des pertes continues ou à une détérioration du BFR."
+      "summary": "La société a connu une trésorerie d'exploitation négative en 2024, et reste vulnérable à des pertes continues ou à une détérioration du BFR.",
+      "score": 3
     },
     {
       "title": "Détérioration de la qualité des actifs",
@@ -396,7 +426,8 @@
       "severity": 3,
       "score_rationale": "Une dépréciation de 12M$ de goodwill est signalée pour l'unité ground and air express. Cela indique une sous-performance d'une unité stratégique. Bien que le montant soit modeste, cela reflète un risque de surévaluation post-acquisition ou de changement de perspective métier.",
       "trend": "new",
-      "summary": "Une dépréciation de 12 millions de dollars du goodwill sur l'unité express montre que certaines activités pourraient ne pas atteindre les prévisions, menaçant la valeur des actifs."
+      "summary": "Une dépréciation de 12 millions de dollars du goodwill sur l'unité express montre que certaines activités pourraient ne pas atteindre les prévisions, menaçant la valeur des actifs.",
+      "score": 3
     }
   ],
   "governance": {
@@ -467,6 +498,35 @@
       "date": "2026-04-30"
     }
   ],
+  "revenue_by_segment": {
+    "unit": "$B",
+    "source_date": "2025-12-31",
+    "source": "10-K 2025",
+    "slices": [
+      {
+        "label": "Truck brokerage",
+        "value": 4.225,
+        "unit": "$B",
+        "share_pct": 70.8,
+        "label_en": "Truck brokerage"
+      },
+      {
+        "label": "Last mile",
+        "value": 1.196,
+        "unit": "$B",
+        "share_pct": 20,
+        "label_en": "Last mile"
+      },
+      {
+        "label": "Managed transportation",
+        "value": 0.549,
+        "unit": "$B",
+        "share_pct": 9.2,
+        "label_en": "Managed transportation"
+      }
+    ],
+    "total": 5.97
+  },
   "revenue_by_geography": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -519,35 +579,6 @@
   },
   "company_description": "RXO, Inc. engages in truck brokerage business in the United States, Canada, Mexico, Asia, and Europe. It offers truckload freight brokering services. The company also provides asset-light managed transportation and last mile services, as well as freight forwarding services, including facilitation of ocean and air transportation, customs brokerage, and additional domestic services including middle mile. RXO, Inc. was incorporated in 2022 and is headquartered in Charlotte, North Carolina.",
   "_profile_fetched_at": "2026-05-07T12:00:38.493609+00:00",
-  "revenue_by_segment": {
-    "unit": "$B",
-    "source_date": "2025-12-31",
-    "source": "10-K 2025",
-    "slices": [
-      {
-        "label": "Truck brokerage",
-        "value": 4.225,
-        "unit": "$B",
-        "share_pct": 70.8,
-        "label_en": "Truck brokerage"
-      },
-      {
-        "label": "Last mile",
-        "value": 1.196,
-        "unit": "$B",
-        "share_pct": 20,
-        "label_en": "Last mile"
-      },
-      {
-        "label": "Managed transportation",
-        "value": 0.549,
-        "unit": "$B",
-        "share_pct": 9.2,
-        "label_en": "Managed transportation"
-      }
-    ],
-    "total": 5.97
-  },
   "enrich_description": {
     "ticker": "RXO",
     "simple": {
@@ -634,6 +665,36 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "RXO",
+    "extracted_at": "2026-06-01T09:19:59Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          1040,
+          1400,
+          1400,
+          1400
+        ],
+        "history_periods": [
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:59Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "RXO",
     "ranks": {
@@ -646,15 +707,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.305604+00:00",
     "fetched_at": "2026-05-21T02:17:14.305605+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.432Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.462Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rxo.json",
     "enrich_root": "v2-pipeline-enrich/rxo.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

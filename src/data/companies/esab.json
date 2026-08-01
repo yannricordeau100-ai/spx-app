@@ -1,6 +1,6 @@
 {
   "ticker": "ESAB",
-  "name": "ESAB Corporation",
+  "name": "ESAB",
   "sector": "Industrie",
   "subsector": "Industrial Manufacturing & Equipment",
   "tagline": "Shaping the world we imagine",
@@ -45,7 +45,7 @@
       "is_short_history": false,
       "ttm": 559.7,
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -91,9 +91,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Operating Income, profit from core business operations."
     },
     {
       "short": "Net Income from Continuing Operations",
@@ -114,9 +112,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Foreign Sales Exposure",
@@ -181,11 +177,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.77 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -204,11 +204,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.35 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -222,7 +226,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         0.15,
@@ -235,7 +239,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -250,7 +254,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0061,
@@ -263,7 +267,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -278,7 +282,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         2.71,
@@ -291,7 +295,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -307,7 +311,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.69,
@@ -320,7 +324,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -345,9 +349,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Acquisitions",
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Acquisitions"
     },
     {
       "short": "Core Adjusted EBITDA (ex-Russia)",
@@ -369,9 +371,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Risk Management",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Risk Management"
     },
     {
       "short": "Restructuring Charges",
@@ -393,13 +393,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Operations",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Operations"
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "ESAB mentionne l'intelligence artificielle comme un levier stratégique pour l'expansion des marges. La société investit dans l'IA et l'infrastructure informatique à travers son système EBXai pour améliorer l'efficacité opérationnelle. Les initiatives d'IA sont associées à l'optimisation des processus métier et à la rationalisation des coûts.",
     "evidence": [
       "Mention explicite de la stratégie de digitalisation EBXai",
@@ -416,7 +414,8 @@
       "severity": 3,
       "score_rationale": "80% des ventes en 2025 proviennent de l'étranger et sont libellées dans des devises autres que le dollar US. L'impact sur les ventes et les coûts est quantifié: variations de devises ont augmenté les ventes nettes de 0.6%, le profit brut de 0.8% et les frais généraux de 1.4%.",
       "trend": "stable",
-      "summary": "Une part importante des ventes et des coûts étant libellée en devises étrangères, les variations des taux de change peuvent affecter négativement les résultats financiers de l'entreprise."
+      "summary": "Une part importante des ventes et des coûts étant libellée en devises étrangères, les variations des taux de change peuvent affecter négativement les résultats financiers de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Augmentation des coûts des matières premières",
@@ -424,7 +423,8 @@
       "severity": 4,
       "score_rationale": "L'Item 1A identifie clairement la sensibilité aux coûts des matières premières clés comme l'acier, le fer, le cuivre et l'aluminium. L'entreprise a historiquement réussi à répercuter les hausses, mais le texte avertit que les futures augmentations pourraient impacter les bénéfices, comme observé en 2025 avec les tarifs douaniers.",
       "trend": "up",
-      "summary": "Les coûts des matériaux essentiels comme l'acier et le cuivre peuvent augmenter, affectant la rentabilité si l'entreprise ne parvient pas à répercuter ces hausses sur ses clients."
+      "summary": "Les coûts des matériaux essentiels comme l'acier et le cuivre peuvent augmenter, affectant la rentabilité si l'entreprise ne parvient pas à répercuter ces hausses sur ses clients.",
+      "score": 4
     },
     {
       "title": "Impact des acquisitions sur les résultats",
@@ -432,7 +432,8 @@
       "severity": 3,
       "score_rationale": "Les acquisitions sont une stratégie de croissance clé mentionnée explicitement dans le 10-K. Les dépenses d'intégration et d'amortissement liées aux acquisitions sont élevées (72.1M$ en 2025), impactant directement la profitabilité et la volatilité des résultats rapportés.",
       "trend": "up",
-      "summary": "La stratégie d'acquisition de l'entreprise peut entraîner une volatilité des résultats financiers et des coûts d'intégration importants."
+      "summary": "La stratégie d'acquisition de l'entreprise peut entraîner une volatilité des résultats financiers et des coûts d'intégration importants.",
+      "score": 3
     },
     {
       "title": "Volatilité liée à la Russie",
@@ -440,7 +441,8 @@
       "severity": 3,
       "score_rationale": "Le texte de l'Item 1A mentionne explicitement la présentation de mesures financières 'Core adjusted EBITDA' excluant la Russie en raison de la volatilité économique et politique. Les opérations russes ont entraîné un ajustement de 19.7M$ en 2025 à l'Adjusted EBITDA.",
       "trend": "stable",
-      "summary": "L'instabilité économique et politique en Russie crée une volatilité qui oblige l'entreprise à présenter des résultats financiers ajustés pour en atténuer l'impact."
+      "summary": "L'instabilité économique et politique en Russie crée une volatilité qui oblige l'entreprise à présenter des résultats financiers ajustés pour en atténuer l'impact.",
+      "score": 3
     },
     {
       "title": "Compression des marges brutes",
@@ -448,7 +450,8 @@
       "severity": 4,
       "score_rationale": "Le texte indique une baisse de la marge brute de 100 points de base en 2025, principalement due à l'inflation et aux augmentations de coûts liées aux tarifs douaniers. Bien que des augmentations de prix aient compensé partiellement, la marge reste sous pression, comme évoqué dans les discussions de cost mix.",
       "trend": "up",
-      "summary": "L'augmentation des coûts, notamment due aux tarifs douaniers et à l'inflation, comprime les marges brutes malgré les efforts de répercussion sur les prix clients."
+      "summary": "L'augmentation des coûts, notamment due aux tarifs douaniers et à l'inflation, comprime les marges brutes malgré les efforts de répercussion sur les prix clients.",
+      "score": 4
     },
     {
       "title": "Impact des tarifs douaniers",
@@ -456,7 +459,8 @@
       "severity": 4,
       "score_rationale": "Le 10-K mentionne explicitement que les tarifs américains ont eu une variété d'impacts sur les résultats de 2025, notamment une diminution des niveaux de ventes et une augmentation des coûts des matières premières. Cet impact dépend de l'évolution future de la politique commerciale américaine.",
       "trend": "up",
-      "summary": "Les tarifs internationaux et la politique commerciale américaine affectent directement les ventes et les coûts, créant une volatilité des résultats opérationnels."
+      "summary": "Les tarifs internationaux et la politique commerciale américaine affectent directement les ventes et les coûts, créant une volatilité des résultats opérationnels.",
+      "score": 4
     }
   ],
   "governance": {
@@ -572,7 +576,7 @@
   },
   "_segments_fetched_at": "2026-05-06T19:29:57.785323+00:00",
   "_dividends_extracted_at": "2026-05-09T20:23:02Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2022,
@@ -588,7 +592,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:58Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:50Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "ESAB",
     "simple": {
@@ -686,82 +690,84 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ESAB",
-    "extracted_at": "2026-05-15T18:10:58Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1877322,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:14:34Z",
+    "n_kpis": 2,
     "kpis": [
+      {
+        "short": "Adjusted EBITDA",
+        "period_type": "quarter",
+        "history": [
+          94.3,
+          109.3,
+          117.989,
+          132.073,
+          122.525,
+          129.137,
+          140.973,
+          127.435,
+          133.9,
+          143.498,
+          139.498
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-10-03",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:14:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "Net Income from Continuing Operations",
         "period_type": "quarter",
         "history": [
-          55.437,
-          110.686,
-          163.04,
-          -105.416,
-          31.903,
-          97.476,
-          155.046,
-          -79.14,
-          59.951,
-          142.858,
-          211.098,
-          -149.065,
-          67.363,
-          134.246,
-          189.093,
-          -163.936,
-          47.644
+          58.5,
+          58.4,
+          54.3,
+          34.129,
+          68.846,
+          60.836,
+          62.903,
+          85.53,
+          71.047,
+          72.564,
+          69.812,
+          65.34
         ],
         "history_periods": [
+          "Q1 2021",
           "Q1 2022",
-          "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-04-03",
+        "last_data_date": "2025-10-03",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 134.246,
-            "accession": "0001877322-25-000134",
-            "end": "2025-07-04"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 189.093,
-            "accession": "0001877322-25-000152",
-            "end": "2025-10-03"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -163.936,
-            "accession": "calc-0001877322-26-000007",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 47.644,
-            "accession": "0001877322-26-000033",
-            "end": "2026-04-03"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:14:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -777,9 +783,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.257240+00:00",
     "fetched_at": "2026-05-21T02:17:14.257242+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.879Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.453Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/esab.json",
     "enrich_root": "v2-pipeline-enrich/esab.json",

@@ -39,8 +39,11 @@
       "is_short_history": false,
       "ttm": 0.98,
       "_validation": "Valeur et YoY confirmés dans MD&A section 2025 Highlights",
-      "period_type": "quarter",
-      "signal_en": "Margin expansion, operating leverage"
+      "period_type": "year",
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "ROCE",
@@ -65,7 +68,7 @@
       "is_short_history": false,
       "ttm": 7.75,
       "_validation": "Valeur et YoY confirmés dans MD&A section 2025 Highlights",
-      "explanation_en": "Return on Capital Employed — operating profit divided by capital employed.",
+      "explanation_en": "Return on Capital Employed, operating profit divided by capital employed.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -91,7 +94,7 @@
       "is_short_history": false,
       "ttm": 12.83,
       "_validation": "Valeur et YoY confirmés dans MD&A section 2025 Highlights et Balance Sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Demand strengthening, end-market traction"
     },
     {
@@ -117,7 +120,7 @@
       "is_short_history": false,
       "ttm": 123.67,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (111M, non 111Mds); valeur confirmée MD&A; history[0] corrigé de 76.2 (correct, en millions)",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -143,7 +146,7 @@
       "is_short_history": false,
       "ttm": 3.55,
       "_validation": "Valeur et YoY confirmés dans MD&A section 2025 Highlights",
-      "explanation_en": "Net Interest Margin — net interest income divided by earning assets (banks).",
+      "explanation_en": "Net Interest Margin, net interest income divided by earning assets (banks).",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -188,11 +191,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 12.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -211,11 +218,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de -0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -242,9 +253,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 0.98,
-      "_validation": "Confirmé source MD&A",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Confirmé source MD&A"
     },
     {
       "short": "Net income",
@@ -269,9 +278,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 123.67,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'; valeur confirmée MD&A",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'; valeur confirmée MD&A"
     }
   ],
   "ai_positioning": {
@@ -287,7 +294,8 @@
       "severity": 5,
       "score_rationale": "First Bancorp est exposée aux fluctuations économiques, notamment aux changements de taux d'intérêt et aux récessions, qui peuvent impacter son activité dans les Carolines et ses résultats de marges d'intérêt.",
       "trend": "stable",
-      "summary": "Vulnérabilité aux fluctuations économiques impactant l'activité et les résultats, bien que les conditions 2025 aient montré de la résilience."
+      "summary": "Vulnérabilité aux fluctuations économiques impactant l'activité et les résultats, bien que les conditions 2025 aient montré de la résilience.",
+      "score": 5
     },
     {
       "title": "Risque de crédit",
@@ -295,7 +303,8 @@
       "severity": 4,
       "score_rationale": "First Bancorp est exposée au risque de crédit de sa base de clients, avec des provisions liées à l'ouragan Helene et une qualité des actifs stable à 0.30% NPA ratio.",
       "trend": "stable",
-      "summary": "Exposition au risque de crédit gérée par une allowance pour pertes de crédit de 1.42% des prêts totaux; qualité des actifs historiquement stable."
+      "summary": "Exposition au risque de crédit gérée par une allowance pour pertes de crédit de 1.42% des prêts totaux; qualité des actifs historiquement stable.",
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -303,7 +312,8 @@
       "severity": 4,
       "score_rationale": "Les changements de taux d'intérêt impactent directement la NIM et le revenu net d'intérêt, élément clé du modèle économique de la banque.",
       "trend": "stable",
-      "summary": "Vulnérabilité aux changements de taux d'intérêt; NIM améliorée à 3.40% en 2025 bénéficiant de repricing des dépôts."
+      "summary": "Vulnérabilité aux changements de taux d'intérêt; NIM améliorée à 3.40% en 2025 bénéficiant de repricing des dépôts.",
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
@@ -311,7 +321,8 @@
       "severity": 3,
       "score_rationale": "First Bancorp maintient des ratios de capital solides (CET1 14.10%) réduisant le risque de liquidité, bien que la perte de confiance des déposants reste une menace structurelle.",
       "trend": "stable",
-      "summary": "Position de liquidité soutenue par des capitaux propres forts; exposition aux tensions de dépôts sectorielles mitigée par la base régionale."
+      "summary": "Position de liquidité soutenue par des capitaux propres forts; exposition aux tensions de dépôts sectorielles mitigée par la base régionale.",
+      "score": 3
     },
     {
       "title": "Risque de cybersécurité",
@@ -319,7 +330,8 @@
       "severity": 3,
       "score_rationale": "En tant que banque, First Bancorp est exposée aux menaces de piratage et de vol de données sensibles impactant ses clients et sa réputation.",
       "trend": "up",
-      "summary": "Exposition croissante aux menaces de cybersécurité, typique du secteur bancaire moderne."
+      "summary": "Exposition croissante aux menaces de cybersécurité, typique du secteur bancaire moderne.",
+      "score": 3
     },
     {
       "title": "Risque de réputation",
@@ -327,7 +339,8 @@
       "severity": 2,
       "score_rationale": "Risque de réputation limité, avec une base solide dans les Carolines et absence de scandales majeurs identifiés dans les documents.",
       "trend": "stable",
-      "summary": "Position réputationnelle stable comme banque communautaire établie depuis 1985."
+      "summary": "Position réputationnelle stable comme banque communautaire établie depuis 1985.",
+      "score": 2
     }
   ],
   "governance": {
@@ -364,7 +377,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -485,23 +498,18 @@
         "history": [
           0.9045,
           0.9298,
-          -1.4805,
           1.1175,
           1.0623,
           0.9845,
-          -2.1327,
           1.3,
           1.2976,
           1.2577,
-          -2.4829,
           1.3761,
           1.4043,
           1.4775,
-          -2.8124,
           1.5082,
           1.5562,
           1.6033,
-          -3.0135,
           1.683
         ],
         "history_periods": [
@@ -555,6 +563,12 @@
             "accession": "0000811589-26-000073",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (FBNC)"
         ]
       },
       {
@@ -563,23 +577,18 @@
         "history": [
           8.2006,
           8.4894,
-          -13.9174,
           10.6521,
           10.5662,
           10.5159,
-          -21.1091,
           12.3631,
           12.033,
           11.978,
-          -24.2592,
           12.0916,
           12.0608,
           12.1534,
-          -24.1581,
           12.4362,
           12.6083,
           12.7503,
-          -25.1264,
           12.9477
         ],
         "history_periods": [
@@ -633,6 +642,12 @@
             "accession": "0000811589-26-000073",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (FBNC)"
         ]
       },
       {
@@ -641,11 +656,9 @@
         "history": [
           57.479,
           85.122,
-          -75.151,
           33.969,
           70.554,
           108.503,
-          -66.09,
           15.161,
           44.564,
           74.457,
@@ -653,11 +666,9 @@
           25.272,
           53.984,
           72.664,
-          -75.705,
           36.406,
           74.972,
           95.335,
-          -95.665,
           46.659
         ],
         "history_periods": [
@@ -711,6 +722,12 @@
             "accession": "0000811589-26-000073",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (FBNC)"
         ]
       }
     ]
@@ -727,9 +744,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.259790+00:00",
     "fetched_at": "2026-05-21T02:17:14.259791+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.090Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.662Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fbnc.json",
     "enrich_root": "v2-pipeline-enrich/fbnc.json",

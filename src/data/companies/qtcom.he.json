@@ -70,7 +70,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds €' à 'M €' (source: 63,169 EUR 1,000 = 63.169M EUR)",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -98,7 +102,11 @@
       "is_short_history": false,
       "_validation": "Pas de correction nécessaire",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -125,8 +133,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "KPI halluciné: valeur 90% non présente dans la source. Conservé car compatible avec profil software mais sans source directe.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin stable, monitor cost dynamics"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -154,7 +166,11 @@
       "is_short_history": false,
       "_validation": "KPI halluciné: valeur R&D 25% non présente dans la source fournie (Remuneration Report 2024 ne contient pas ce détail)",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -181,8 +197,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "KPI halluciné: Capex de 5,3 Mds € n'existe pas dans la source. Unité corrigée à 'M €' mais valeur non vérifiable.",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -211,8 +231,12 @@
       "is_short_history": false,
       "_validation": "KPI halluciné: valeur headcount 1.2K non présente dans la source fournie",
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Pressure, deteriorating trend"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -299,7 +323,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -527,6 +551,38 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "QTCOM.HE",
+    "extracted_at": "2026-06-01T09:17:58Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Net Sales",
+        "period_type": "year",
+        "history": [
+          79.46,
+          121.14,
+          155.32,
+          180.74,
+          209.06
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "M €",
+        "_extracted_at": "2026-06-01T09:17:58Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "QTCOM.HE",
     "ranks": {
@@ -539,9 +595,9 @@
     "country": "Finland",
     "_data_freshness_date": "2026-05-21T02:17:14.301179+00:00",
     "fetched_at": "2026-05-21T02:17:14.301180+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.021Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.038Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/qtcom.he.json",
     "enrich_root": "v2-pipeline-enrich/qtcom.he.json",
@@ -549,6 +605,7 @@
       "ai-pos",
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

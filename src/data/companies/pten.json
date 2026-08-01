@@ -21,8 +21,8 @@
       "name_fr": "Revenu services de forage",
       "name_en": "Drilling Services Revenue",
       "explanation": "Chiffre d'affaires généré par les opérations de forage contractuel aux États-Unis.",
-      "value": 1558,
-      "unit": "M $",
+      "value": 1.558,
+      "unit": "Mds $",
       "yoy": "-9.8%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,27 +30,31 @@
       "signal": "Revenu en baisse liée à la chute du nombre de jours de forage",
       "description": "La baisse reflète un recul d'activité dans le forage onshore aux États-Unis, en lien avec les attentes sur les prix du pétrole brut.",
       "history": [
-        1728,
-        1558
+        1.728,
+        1.558
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'M$'; valeurs converties de milliers; last_data_date corrigée à 2024-12-31 (année fiscale 2024 rapportée)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le texte fourni est un extrait de métadonnées XML/XBRL du 10-K sans les valeurs numériques explicites de 'Drilling Services Revenue'. Aucune",
       "explanation_en": "Revenue from the Drilling Services segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Completion Services Revenue",
       "name_fr": "Revenu services de complétion",
       "name_en": "Completion Services Revenue",
       "explanation": "Revenus provenant des opérations de fracturation et de complétion de puits.",
-      "value": "2892",
-      "unit": "M $",
+      "value": 2.892,
+      "unit": "Mds $",
       "yoy": "-10.5%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -58,8 +62,8 @@
       "signal": "Fort recul des revenus malgré une activité stable en heures de pompage",
       "description": "La baisse est principalement due à la pression sur les prix des services, notamment en fracturation, avec un déclin de 306 millions dans les opérations de fracturation.",
       "history": [
-        3233,
-        2892
+        3.233,
+        2.892
       ],
       "last_data_date": "2024-12-31",
       "is_wow": false,
@@ -67,7 +71,8 @@
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'M$'; valeurs converties de milliers; last_data_date corrigée à 2024-12-31",
       "explanation_en": "Revenue from the Completion Services segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Drilling Products Revenue",
@@ -159,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.57 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -182,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.28 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.42,
-      "unit": "Mds €",
+      "value": 420,
+      "unit": "M €",
       "yoy": "+75.0%",
       "history": [
-        0.14,
-        0.19,
-        0.24,
-        0.42
+        140,
+        190,
+        240,
+        420
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.42 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -222,7 +240,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.08,
         0.2,
@@ -235,7 +253,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -250,7 +268,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1132,
@@ -263,7 +281,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -278,7 +296,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -291,7 +309,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -306,7 +324,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.7,
@@ -319,7 +337,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -346,9 +364,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur arrondie de -79.407 à -79; yoy corrigé: le signal indiquait -91.2% (erreur) mais l'amélioration est +91.2% (perte réduite); history arrondie; last_data_date corrigée à 2024-12-31",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur arrondie de -79.407 à -79; yoy corrigé: le signal indiquait -91.2% (erreur) mais l'amélioration est +91.2% (perte réduite); history arrondie; last_data_date corrigée à 2024-12-31"
     },
     {
       "short": "Other Segment Revenue",
@@ -372,9 +388,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Valeur arrondie de 33.028 à 33; history arrondie (65.665 à 66); last_data_date corrigée à 2024-12-31; name_en amélioré pour clarifier que oilfield rentals a été divesti",
-      "_source_month": "avril 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur arrondie de 33.028 à 33; history arrondie (65.665 à 66); last_data_date corrigée à 2024-12-31; name_en amélioré pour clarifier que oilfield rentals a été divesti"
     }
   ],
   "ai_positioning": {
@@ -406,7 +420,8 @@
       "severity": 5,
       "score_rationale": "Position central dans le 10-K, langage fort sur l'impact 'matériel adverse', contexte aggravé en 2025 avec baisse des prix et incertitudes géopolitiques, catégorie Macro pondérée fortement.",
       "trend": "up",
-      "summary": "Les fluctuations des prix du pétrole et du gaz affectent directement la demande, la rentabilité et l'accès au capital."
+      "summary": "Les fluctuations des prix du pétrole et du gaz affectent directement la demande, la rentabilité et l'accès au capital.",
+      "score": 5
     },
     {
       "title": "Risques fiscaux et incertitudes réglementaires",
@@ -414,7 +429,8 @@
       "severity": 4,
       "score_rationale": "Mention détaillée des risques liés aux changements de législation fiscale (OECD Pillar 2), langage prudent sur l'interprétation des lois, impact potentiellement matériel sur les résultats.",
       "trend": "stable",
-      "summary": "Des changements dans les lois fiscales ou leur interprétation pourraient affecter significativement la charge fiscale."
+      "summary": "Des changements dans les lois fiscales ou leur interprétation pourraient affecter significativement la charge fiscale.",
+      "score": 4
     },
     {
       "title": "Pressions inflationnistes et coûts",
@@ -422,7 +438,8 @@
       "severity": 4,
       "score_rationale": "Langage explicite sur l'augmentation des coûts de biens, services et main-d'œuvre, combiné à l'incertitude des politiques commerciales, impact direct sur la marge.",
       "trend": "up",
-      "summary": "L'inflation et les politiques commerciales peuvent augmenter les coûts d'approvisionnement et de main-d'œuvre."
+      "summary": "L'inflation et les politiques commerciales peuvent augmenter les coûts d'approvisionnement et de main-d'œuvre.",
+      "score": 4
     },
     {
       "title": "Exposition aux politiques commerciales et tarifaires",
@@ -430,7 +447,8 @@
       "severity": 4,
       "score_rationale": "Référence répétée aux tensions commerciales et tarifs proposés, impact sur les coûts et la chaîne d'approvisionnement, contexte renforcé en 2025.",
       "trend": "up",
-      "summary": "Les changements aux politiques commerciales mondiales peuvent perturber l'approvisionnement et augmenter les coûts."
+      "summary": "Les changements aux politiques commerciales mondiales peuvent perturber l'approvisionnement et augmenter les coûts.",
+      "score": 4
     },
     {
       "title": "Risques opérationnels environnementaux",
@@ -438,7 +456,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de risques environnementaux et météorologiques, reconnaissance d'une couverture d'assurance incomplète, langage d'avertissement standard mais récurrent.",
       "trend": "stable",
-      "summary": "Les opérations sont exposées à des risques environnementaux pouvant entraîner des pertes ou des poursuites."
+      "summary": "Les opérations sont exposées à des risques environnementaux pouvant entraîner des pertes ou des poursuites.",
+      "score": 4
     },
     {
       "title": "Dépendance à la capacité d'investissement des clients",
@@ -446,7 +465,8 @@
       "severity": 5,
       "score_rationale": "Insistance sur le fait que la demande dépend de l'accès au capital des clients, combiné à des pressions sur les dépenses, impact direct sur la rentabilité, langage fort sur effet 'matériel adverse'.",
       "trend": "up",
-      "summary": "La baisse des investissements des clients dans l'exploration pétrolière réduit la demande pour les services."
+      "summary": "La baisse des investissements des clients dans l'exploration pétrolière réduit la demande pour les services.",
+      "score": 5
     }
   ],
   "governance": {
@@ -465,7 +485,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -594,7 +614,7 @@
   "_segments_fetched_at": "2026-05-06T19:40:37.650583+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:12:11.062768+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:36Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2021,
@@ -606,7 +626,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:18Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:58Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "PTEN",
     "fetched_at": "2026-05-06T17:53:16.511018+00:00",
@@ -732,7 +752,10 @@
             "accession": "0000889900-26-000033",
             "end": "2026-03-31"
           }
-        ]
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Capex Total",
@@ -744,19 +767,15 @@
           94.828,
           191.198,
           317.553,
-          -166.782,
           117.601,
           249.995,
           410.417,
-          -162.323,
           226.941,
           357.449,
           538.036,
-          -444.04,
           161.831,
           306.037,
           450.516,
-          -329.355,
           116.628
         ],
         "history_periods": [
@@ -810,6 +829,12 @@
             "accession": "0000889900-26-000033",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (PTEN)"
         ]
       }
     ]
@@ -826,9 +851,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.300318+00:00",
     "fetched_at": "2026-05-21T02:17:14.300319+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.940Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.950Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pten.json",
     "enrich_root": "v2-pipeline-enrich/pten.json",

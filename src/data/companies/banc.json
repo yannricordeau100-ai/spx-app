@@ -36,7 +36,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "NII (Net Interest Income) values not found in the provided 10-K excerpt. The document contains MDA and financial statement references but do",
-      "explanation_en": "Net Interest Income — interest earned minus interest paid (banks)."
+      "explanation_en": "Net Interest Income, interest earned minus interest paid (banks)."
     },
     {
       "short": "Net Loan Growth",
@@ -94,34 +94,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.1 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "+76.9%",
       "history": [
-        0.42,
-        -1.9,
-        0.13,
-        0.23
+        420,
+        -1900,
+        130,
+        230
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.23 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -140,11 +149,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 34.8 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -163,11 +176,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -186,10 +203,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.31 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -211,9 +232,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -231,52 +250,52 @@
       "title": "Cyberattaques et sécurité informatique",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Le risque est placé tôt dans le document et décrit comme pouvant compromettre des données sensibles, interrompre les opérations et entraîner des pertes financières, des poursuites et des dommages réputationnels. Le langage est fort (jeopardize, significant reputational damage). La mention de l'IA générative accentue la gravité. Catégorie hautement critique. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est placé tôt dans le document et décrit comme pouvant compromettre des données sensibles, interrompre les opérations et entraîner des pertes financières, des poursuites et des dommages réputationnels. Le langage est fort (jeopardize, significant reputational damage). La mention de l'IA générative accentue la gravité. Catégorie hautement critique.",
       "trend": "stable",
       "summary": "Des cyberattaques pourraient compromettre les données clients, interrompre les services et nuire gravement à la réputation de la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques liés à l'IA et nouvelles technologies",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Le risque est explicitement lié à l'IA et aux évolutions technologiques rapides. Le texte souligne des risques d'erreurs, de biais, de divulgation de données et de dépendance aux fournisseurs tiers. Positionnement moyen dans le document mais intensité du langage croissante. Catégorie importante mais moins immédiate que la cybersécurité. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est explicitement lié à l'IA et aux évolutions technologiques rapides. Le texte souligne des risques d'erreurs, de biais, de divulgation de données et de dépendance aux fournisseurs tiers. Positionnement moyen dans le document mais intensité du langage croissante. Catégorie importante mais moins immédiate que la cybersécurité.",
       "trend": "new",
       "summary": "L'utilisation de l'IA et des nouvelles technologies comporte des risques d'erreurs, de non-conformité et de dépendance à des fournisseurs externes.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Intégration d'acquisitions et projets stratégiques",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le risque est répété à plusieurs reprises (acquisition de BancEdge, projets stratégiques). Mention de coûts élevés, de pertes d'employés, de difficultés d'intégration et de détournement de l'attention managériale. Langage préoccupé (cannot be assured, adverse effect). Catégorie opérationnelle majeure pour une banque en croissance. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est répété à plusieurs reprises (acquisition de BancEdge, projets stratégiques). Mention de coûts élevés, de pertes d'employés, de difficultés d'intégration et de détournement de l'attention managériale. Langage préoccupé (cannot be assured, adverse effect). Catégorie opérationnelle majeure pour une banque en croissance.",
       "trend": "stable",
       "summary": "Les acquisitions et projets stratégiques, comme BancEdge, comportent des risques d'intégration, de coûts et de perturbation opérationnelle.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs tiers",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné dans plusieurs sections (systèmes, données, cybersécurité). Le texte insiste sur la vulnérabilité aux interruptions et aux violations via des tiers. Langage fort (exposed indirectly, compromise our data). Pondération élevée car lié à la cybersécurité et aux opérations critiques. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné dans plusieurs sections (systèmes, données, cybersécurité). Le texte insiste sur la vulnérabilité aux interruptions et aux violations via des tiers. Langage fort (exposed indirectly, compromise our data). Pondération élevée car lié à la cybersécurité et aux opérations critiques.",
       "trend": "stable",
       "summary": "La dépendance à des prestataires externes expose la société à des interruptions de service et à des violations de données.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés au traitement des paiements",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Section dédiée avec mention de sanctions, amendes, chargebacks et dépendance aux réseaux de paiement. Langage préoccupé (material adverse effect, fines, penalties, increased costs). Risque opérationnel et réglementaire élevé dans un domaine central à l'activité. (score par défaut, à affiner)",
+      "score_rationale": "Section dédiée avec mention de sanctions, amendes, chargebacks et dépendance aux réseaux de paiement. Langage préoccupé (material adverse effect, fines, penalties, increased costs). Risque opérationnel et réglementaire élevé dans un domaine central à l'activité.",
       "trend": "stable",
       "summary": "Les activités de traitement des paiements exposent la société à des risques de fraude, de sanctions et de pertes financières.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Perte de personnel clé",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "Le risque concerne spécifiquement le PDG et le CFO, avec mention d'effet détériorant sur le business. Langage modéré (detrimental effect) mais absence de plan de continuité détaillé. Catégorie moins critique que les risques opérationnels majeurs. (score par défaut, à affiner)",
+      "score_rationale": "Le risque concerne spécifiquement le PDG et le CFO, avec mention d'effet détériorant sur le business. Langage modéré (detrimental effect) mais absence de plan de continuité détaillé. Catégorie moins critique que les risques opérationnels majeurs.",
       "trend": "stable",
       "summary": "La perte inattendue de dirigeants clés pourrait nuire à la stratégie et à la performance de l'entreprise.",
       "score": 3
@@ -285,10 +304,10 @@
       "title": "Actif d'impôt différé non réalisable",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Montant élevé mentionné (656,8 millions USD) et risque de charge comptable si non réalisé. Langage prudent (cannot assure, inherently speculative). Risque financier significatif en cas de baisse de rentabilité future. Catégorie capital importante pour la santé financière. (score par défaut, à affiner)",
+      "score_rationale": "Montant élevé mentionné (656,8 millions USD) et risque de charge comptable si non réalisé. Langage prudent (cannot assure, inherently speculative). Risque financier significatif en cas de baisse de rentabilité future. Catégorie capital importante pour la santé financière.",
       "trend": "stable",
       "summary": "Un actif d'impôt différé important pourrait nécessiter une dotation si les bénéfices futurs sont insuffisants, impactant les résultats.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -505,6 +524,116 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "BANC",
+    "extracted_at": "2026-06-01T03:00:35Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "NII",
+        "period_type": "quarter",
+        "history": [
+          57.916,
+          59.847,
+          62.976,
+          73.039,
+          76.441,
+          78.299,
+          79.408,
+          80.217,
+          73.053,
+          69.632,
+          69.218
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023"
+        ],
+        "last_data_date": "2023-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:00:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          14.375,
+          19.05,
+          23.17,
+          5.751,
+          48.512,
+          26.712,
+          24.196,
+          21.519,
+          20.278,
+          17.879,
+          42.574
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023"
+        ],
+        "last_data_date": "2023-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:00:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          36.074,
+          35.244,
+          33.433,
+          38.534,
+          33.78,
+          34.25,
+          34.013
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:00:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "BANC",
     "ranks": {
@@ -517,15 +646,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.227801+00:00",
     "fetched_at": "2026-05-21T02:17:14.227802+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.368Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.843Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/banc.json",
     "enrich_root": "v2-pipeline-enrich/banc.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

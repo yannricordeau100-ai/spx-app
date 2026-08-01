@@ -40,8 +40,11 @@
       "is_short_history": false,
       "ttm": 50.26,
       "_validation": "Valeur corrigée de 47 à 50 pour l'année 2025 (source: Business section du 10-K)",
-      "period_type": "quarter",
-      "signal_en": "Top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Capex",
@@ -66,7 +69,7 @@
       "is_short_history": false,
       "ttm": 483.64,
       "_validation": "Valeur validée contre MDA: 433M$ en 2025, 295M$ en 2024",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -165,9 +168,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 50.26,
-      "_validation": "Valeur corrigée de 47 à 50 pour l'année 2025",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur corrigée de 47 à 50 pour l'année 2025"
     },
     {
       "short": "Capex",
@@ -192,9 +193,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 483.64,
-      "_validation": "Valeur validée",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur validée"
     },
     {
       "short": "Flux_cash_op",
@@ -219,9 +218,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 863.14,
-      "_validation": "Valeur validée",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur validée"
     }
   ],
   "ai_positioning": {
@@ -237,7 +234,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de crédit en raison de ses activités de hedging et de ses transactions avec des contreparties de qualité d'investissement.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de crédit en raison de ses activités de hedging et de ses transactions avec des contreparties de qualité d'investissement."
+      "summary": "La société est exposée à des risques de crédit en raison de ses activités de hedging et de ses transactions avec des contreparties de qualité d'investissement.",
+      "score": 4
     },
     {
       "title": "Risque de marché",
@@ -245,7 +243,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de marché en raison de la volatilité des prix des matières premières, notamment le maïs et le gaz naturel.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de marché en raison de la volatilité des prix des matières premières."
+      "summary": "La société est exposée à des risques de marché en raison de la volatilité des prix des matières premières.",
+      "score": 4
     },
     {
       "title": "Risque d'impairment",
@@ -253,7 +252,8 @@
       "severity": 3,
       "score_rationale": "La société a enregistré des charges d'impairment modérées au cours des deux dernières années (8M$ en 2025 vs 109M$ en 2024), suggérant une amélioration de la situation.",
       "trend": "down",
-      "summary": "La société a enregistré des charges d'impairment importantes au cours des deux dernières années."
+      "summary": "La société a enregistré des charges d'impairment importantes au cours des deux dernières années.",
+      "score": 3
     }
   ],
   "_validation": {
@@ -271,7 +271,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -441,11 +441,9 @@
           85,
           144,
           203,
-          -132,
           76,
           154,
           233,
-          -147,
           65,
           120,
           170,
@@ -453,7 +451,6 @@
           92,
           193,
           298,
-          -150,
           110
         ],
         "history_periods": [
@@ -504,6 +501,12 @@
             "accession": "0001628280-26-032703",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (INGR)"
         ]
       },
       {
@@ -512,23 +515,18 @@
         "history": [
           542,
           434,
-          -1224,
           324,
           318,
           294,
-          -700,
           216,
           257,
           335,
-          -407,
           438,
           505,
           877,
-          -823,
           837,
           861,
           915,
-          -1583,
           914
         ],
         "history_periods": [
@@ -582,6 +580,9 @@
             "accession": "0001628280-26-032703",
             "end": "2026-03-31"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (INGR)"
         ]
       }
     ]
@@ -598,9 +599,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.530209+00:00",
     "fetched_at": "2026-05-21T01:44:37.530210+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.436Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.117Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ingr.json",
     "enrich_root": "v2-pipeline-enrich/ingr.json",

@@ -1,6 +1,6 @@
 {
   "ticker": "TM",
-  "name": "Toyota Motor Corporation",
+  "name": "Toyota Motor",
   "sector": "Industrie",
   "subsector": "Automobiles",
   "tagline": "Leading the Mobility Transition with Hybrid Excellence",
@@ -198,7 +198,7 @@
       "_extracted_by": "claude-subagent-fpi-b0",
       "_extracted_at": "2026-05-21T02:30:00Z",
       "_source": "Toyota FY2025 20-F: JPY 4,795.6B",
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -290,7 +290,7 @@
       "_extracted_by": "claude-subagent-fpi-b0",
       "_extracted_at": "2026-05-21T02:30:00Z",
       "_source": "Toyota FY2025 20-F cash flow",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash generation deteriorating, monitor liquidity"
     },
     {
@@ -321,7 +321,7 @@
       "_extracted_by": "claude-subagent-fpi-b0",
       "_extracted_at": "2026-05-21T02:30:00Z",
       "_source": "Toyota FY2025 20-F",
-      "explanation_en": "Return on Equity — net income divided by shareholders' equity.",
+      "explanation_en": "Return on Equity, net income divided by shareholders' equity.",
       "signal_en": "Stable, slight decline to monitor"
     },
     {
@@ -352,7 +352,7 @@
       "_extracted_by": "claude-subagent-fpi-b0",
       "_extracted_at": "2026-05-21T02:30:00Z",
       "_source": "Toyota FY2025 20-F",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -434,11 +434,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 93601.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -457,11 +461,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 38792.88 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cap Return",
@@ -488,7 +496,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -516,7 +524,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -532,7 +540,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         null,
@@ -545,7 +553,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -630,7 +638,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -643,7 +651,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en premier dans Item 3.D, langage très intense (« highly competitive », « further intensified »), tendance à la hausse avec CASE technologies, impact direct sur volumes et marges. Catégorie centrale pour constructeur automobile.",
       "trend": "up",
-      "summary": "Toyota fait face à une concurrence accrue des constructeurs mondiaux, particulièrement dans les technologies CASE (Connected, Autonomous, Shared, Electric). Cette intensification pourrait réduire les volumes de ventes, créer une pression baissière sur les prix et affecter la rentabilité. Les facteurs de compétition incluent la qualité, la sécurité, l'autonomie énergétique et les délais d'innovation."
+      "summary": "Toyota fait face à une concurrence accrue des constructeurs mondiaux, particulièrement dans les technologies CASE (Connected, Autonomous, Shared, Electric). Cette intensification pourrait réduire les volumes de ventes, créer une pression baissière sur les prix et affecter la rentabilité. Les facteurs de compétition incluent la qualité, la sécurité, l'autonomie énergétique et les délais d'innovation.",
+      "score": 5
     },
     {
       "title": "Volatilité de la demande automobile mondiale",
@@ -651,7 +660,8 @@
       "severity": 4,
       "score_rationale": "Deuxième risque majeur détaillé, langage d'alerte modéré (« considerable volatility », « unclear »), impact direct sur volumes et prix. Tendance stable mais avec incertitude croissante post-semiconducteurs.",
       "trend": "stable",
-      "summary": "La demande automobile varie considérablement selon les conditions économiques, sociales et politiques des marchés. Toyota note que la demande pent-up post-semiconducteurs s'est résorbée et que l'évolution future reste incertaine. Les variations de demande peuvent entraîner une baisse des volumes, une pression tarifaire et affecter les résultats financiers."
+      "summary": "La demande automobile varie considérablement selon les conditions économiques, sociales et politiques des marchés. Toyota note que la demande pent-up post-semiconducteurs s'est résorbée et que l'évolution future reste incertaine. Les variations de demande peuvent entraîner une baisse des volumes, une pression tarifaire et affecter les résultats financiers.",
+      "score": 4
     },
     {
       "title": "Capacité à développer et commercialiser produits innovants",
@@ -659,7 +669,8 @@
       "severity": 5,
       "score_rationale": "Risque stratégique fondamental, langage très intense (« critical », « no assurance »), répété plusieurs fois dans le texte. Directement lié à la transformation CASE et à la survie concurrentielle. Poids élevé pour l'industrie automobile.",
       "trend": "up",
-      "summary": "Toyota doit développer rapidement des véhicules innovants, compétitifs en prix et conformes aux préférences clients (qualité, sécurité, durabilité). L'incapacité à percevoir les préférences clients ou à produire à temps des produits compétitifs pourrait réduire la part de marché et les marges. Les défis incluent l'accès aux matières premières, composants et capacités de production."
+      "summary": "Toyota doit développer rapidement des véhicules innovants, compétitifs en prix et conformes aux préférences clients (qualité, sécurité, durabilité). L'incapacité à percevoir les préférences clients ou à produire à temps des produits compétitifs pourrait réduire la part de marché et les marges. Les défis incluent l'accès aux matières premières, composants et capacités de production.",
+      "score": 5
     },
     {
       "title": "Dépendance envers fournisseurs uniques ou limités",
@@ -667,7 +678,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel majeur, langage d'alerte modéré (« may be difficult », « not within control »), mentionné avec tensions géopolitiques et sanctions. Tendance à la hausse avec fragmentation géopolitique.",
       "trend": "up",
-      "summary": "Toyota dépend de fournisseurs uniques ou limités pour certains composants et matières premières. Les tensions géopolitiques, sanctions et contrôles d'exportation peuvent affecter l'approvisionnement. Une perte de fournisseur clé ou des délais d'approvisionnement pourraient suspendre la production et augmenter les coûts."
+      "summary": "Toyota dépend de fournisseurs uniques ou limités pour certains composants et matières premières. Les tensions géopolitiques, sanctions et contrôles d'exportation peuvent affecter l'approvisionnement. Une perte de fournisseur clé ou des délais d'approvisionnement pourraient suspendre la production et augmenter les coûts.",
+      "score": 4
     },
     {
       "title": "Dommages à la réputation et image de marque",
@@ -675,7 +687,8 @@
       "severity": 4,
       "score_rationale": "Risque de réputation explicitement détaillé avec exemples concrets (Hino 2022, Daihatsu 2023, Toyota certification 2024), langage d'alerte modéré. Tendance à la hausse avec récents scandales de certification.",
       "trend": "up",
-      "summary": "Toyota doit maintenir sa réputation via la conformité réglementaire, la qualité des produits et la durabilité. Les scandales de certification chez Hino (2022), Daihatsu (2023) et Toyota Motor Corporation (2024, correction order du MLIT en juillet 2024) ont endommagé la confiance. Les défaillances perçues en matière de durabilité ou droits humains dans la chaîne d'approvisionnement pourraient affecter les ventes."
+      "summary": "Toyota doit maintenir sa réputation via la conformité réglementaire, la qualité des produits et la durabilité. Les scandales de certification chez Hino (2022), Daihatsu (2023) et Toyota Motor Corporation (2024, correction order du MLIT en juillet 2024) ont endommagé la confiance. Les défaillances perçues en matière de durabilité ou droits humains dans la chaîne d'approvisionnement pourraient affecter les ventes.",
+      "score": 4
     },
     {
       "title": "Cyberattaques et vulnérabilités des systèmes informatiques",
@@ -683,7 +696,8 @@
       "severity": 4,
       "score_rationale": "Risque détaillé en Item 16K, langage d'alerte modéré-élevé (« increasing in intensity, sophistication and frequency »), impact sur opérations critiques et véhicules. Tendance à la hausse avec menaces croissantes.",
       "trend": "up",
-      "summary": "Toyota dépend de systèmes informatiques pour la fabrication, R&D, chaîne d'approvisionnement et services véhicules. Les cyberattaques augmentent en intensité et sophistication, pouvant perturber les opérations, divulguer des données sensibles, affecter les fonctions d'assistance à la conduite et générer des litiges. Les tiers (fournisseurs cloud, logiciels) constituent également des vecteurs de risque."
+      "summary": "Toyota dépend de systèmes informatiques pour la fabrication, R&D, chaîne d'approvisionnement et services véhicules. Les cyberattaques augmentent en intensité et sophistication, pouvant perturber les opérations, divulguer des données sensibles, affecter les fonctions d'assistance à la conduite et générer des litiges. Les tiers (fournisseurs cloud, logiciels) constituent également des vecteurs de risque.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire et certifications de modèles",
@@ -691,7 +705,8 @@
       "severity": 4,
       "score_rationale": "Risque réglementaire spécifique, langage d'alerte modéré avec exemples détaillés (7 modèles depuis 2014, 8 nouveaux cas juillet 2024), impact direct sur production et réputation. Tendance à la hausse avec contrôles renforcés du MLIT.",
       "trend": "up",
-      "summary": "Toyota a découvert que 7 modèles (depuis 2014) ont été testés selon des méthodes non conformes aux standards gouvernementaux. Le MLIT a émis une correction order en juillet 2024 identifiant 8 nouveaux cas. Les non-conformités réglementaires peuvent entraîner des arrêts de production, des rappels et des pénalités réglementaires."
+      "summary": "Toyota a découvert que 7 modèles (depuis 2014) ont été testés selon des méthodes non conformes aux standards gouvernementaux. Le MLIT a émis une correction order en juillet 2024 identifiant 8 nouveaux cas. Les non-conformités réglementaires peuvent entraîner des arrêts de production, des rappels et des pénalités réglementaires.",
+      "score": 4
     },
     {
       "title": "Capacité à attirer et retenir les talents",
@@ -699,7 +714,8 @@
       "severity": 3,
       "score_rationale": "Risque mentionné dans forward-looking statements comme facteur important, langage modéré (« ability to hire or retain »), tendance stable mais pertinent pour transformation technologique. Poids moyen pour industrie automobile.",
       "trend": "stable",
-      "summary": "Toyota doit recruter et retenir des talents suffisants pour supporter sa transformation technologique (CASE, électrification). La concurrence pour les compétences en électronique, logiciels et IA s'intensifie. Une incapacité à attirer les talents pourrait ralentir l'innovation et la mise en marché de nouveaux produits."
+      "summary": "Toyota doit recruter et retenir des talents suffisants pour supporter sa transformation technologique (CASE, électrification). La concurrence pour les compétences en électronique, logiciels et IA s'intensifie. Une incapacité à attirer les talents pourrait ralentir l'innovation et la mise en marché de nouveaux produits.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:06:45.906168+00:00",
@@ -800,7 +816,7 @@
   "_dividends_extracted_at": "2026-05-09T21:01:35Z",
   "_dividends_source": "10-K FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-1 strict-table)",
   "_eps_extracted_at": "2026-05-18T16:47:47Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "TM",
     "simple": {
@@ -854,12 +870,101 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.554Z",
+  "enrich_risks": {
+    "ticker": "TM",
+    "_extracted_at": "2026-06-05T05:44:04Z",
+    "_source": "Item 1A 10-K + LLM FR",
+    "_signed_by": "mini-top50-3",
+    "risks": [
+      {
+        "title": "Intensification de la concurrence automobile mondiale",
+        "category": "Concurrence",
+        "severity": 5,
+        "trend": "up",
+        "score": 5,
+        "score_rationale": "Risque placé en premier dans Item 3.D, langage très intense (« highly competitive », « further intensified »), tendance à la hausse avec CASE technologies, impact direct sur volumes et marges. Catégorie centrale pour constructeur automobile.",
+        "description": "Toyota affronte une concurrence mondiale renforcée par les technologies CASE (Connecté, Autonome, Partagé, Électrique). Les constructeurs chinois BYD et les acteurs américains comme Tesla pressent sur les prix et les délais d'innovation. La part de marché historique sur le thermique et l'hybride n'est plus garantie en électrique. Les marges peuvent se contracter rapidement.",
+        "summary": "Toyota fait face à une concurrence accrue des constructeurs mondiaux, particulièrement dans les technologies CASE (Connected, Autonomous, Shared, Electric). Cette intensification pourrait réduire."
+      },
+      {
+        "title": "Volatilité de la demande automobile mondiale",
+        "category": "Macro",
+        "severity": 4,
+        "trend": "stable",
+        "score": 4,
+        "score_rationale": "Deuxième risque majeur détaillé, langage d'alerte modéré (« considerable volatility », « unclear »), impact direct sur volumes et prix. Tendance stable mais avec incertitude croissante post-semiconducteurs.",
+        "description": "La demande automobile mondiale dépend des cycles économiques, du crédit consommateur et du sentiment politique. Toyota note que l'effet de rattrapage post-pénurie de semi-conducteurs s'est résorbé, rendant la visibilité 2025 incertaine. Une baisse des volumes oblige souvent à des remises et campagnes promotionnelles. L'effet sur les marges peut être immédiat.",
+        "summary": "La demande automobile varie considérablement selon les conditions économiques, sociales et politiques des marchés. Toyota note que la demande pent-up post-semiconducteurs s'est résorbée et que."
+      },
+      {
+        "title": "Capacité à développer et commercialiser produits innovants",
+        "category": "Technologie",
+        "severity": 5,
+        "trend": "up",
+        "score": 5,
+        "score_rationale": "Risque stratégique fondamental, langage très intense (« critical », « no assurance »), répété plusieurs fois dans le texte. Directement lié à la transformation CASE et à la survie concurrentielle. Poids élevé pour l'industrie automobile.",
+        "description": "Toyota doit accélérer le lancement de véhicules électriques compétitifs en prix et en autonomie. Une erreur d'anticipation des préférences clients ou un retard sur les batteries solides compromettrait la trajectoire de croissance. L'accès aux matières premières (lithium, nickel, cobalt) reste tendu. Les coûts de transformation industrielle sont massifs.",
+        "summary": "Toyota doit développer rapidement des véhicules innovants, compétitifs en prix et conformes aux préférences clients (qualité, sécurité, durabilité). L'incapacité à percevoir les préférences clients."
+      },
+      {
+        "title": "Dépendance envers fournisseurs uniques ou limités",
+        "category": "Industriel",
+        "severity": 4,
+        "trend": "up",
+        "score": 4,
+        "score_rationale": "Risque opérationnel majeur, langage d'alerte modéré (« may be difficult », « not within control »), mentionné avec tensions géopolitiques et sanctions. Tendance à la hausse avec fragmentation géopolitique.",
+        "description": "Certains composants critiques (puces, capteurs, terres rares) ne sont disponibles que chez un ou deux fournisseurs mondiaux. Une perte de fournisseur ou un blocage géopolitique peut suspendre la production de plusieurs modèles. La fragmentation du commerce mondial accentue ce risque. Les stocks de sécurité augmentent les coûts mais restent indispensables.",
+        "summary": "Toyota dépend de fournisseurs uniques ou limités pour certains composants et matières premières. Les tensions géopolitiques, sanctions et contrôles d'exportation peuvent affecter."
+      },
+      {
+        "title": "Dommages à la réputation et image de marque",
+        "category": "Réputation",
+        "severity": 4,
+        "trend": "up",
+        "score": 4,
+        "score_rationale": "Risque de réputation explicitement détaillé avec exemples concrets (Hino 2022, Daihatsu 2023, Toyota certification 2024), langage d'alerte modéré. Tendance à la hausse avec récents scandales de certification.",
+        "description": "Les scandales de certification chez Hino (2022), Daihatsu (2023) et Toyota (2024, ordre du MLIT) ont entaché la réputation du groupe. La confiance des consommateurs et des régulateurs est plus difficile à reconstruire qu'à perdre. Des défaillances perçues sur l'ESG ou les droits humains dans la chaîne d'approvisionnement amplifieraient le risque. L'effet sur les ventes peut être durable.",
+        "summary": "Toyota doit maintenir sa réputation via la conformité réglementaire, la qualité des produits et la durabilité. Les scandales de certification chez Hino (2022), Daihatsu (2023) et Toyota Motor."
+      },
+      {
+        "title": "Cyberattaques et vulnérabilités des systèmes informatiques",
+        "category": "Cybersécurité",
+        "severity": 4,
+        "trend": "up",
+        "score": 4,
+        "score_rationale": "Risque détaillé en Item 16K, langage d'alerte modéré-élevé (« increasing in intensity, sophistication and frequency »), impact sur opérations critiques et véhicules. Tendance à la hausse avec menaces croissantes.",
+        "description": "Toyota dépend de systèmes IT pour la production, la R&D, la chaîne d'approvisionnement et les services connectés véhicule. Les cyberattaques peuvent paralyser les usines, comme déjà vu chez certains fournisseurs japonais. Les fonctions d'assistance à la conduite exposent à des risques de litiges en cas de compromission. Les prestataires cloud sont également un vecteur de risque.",
+        "summary": "Toyota dépend de systèmes informatiques pour la fabrication, R&D, chaîne d'approvisionnement et services véhicules. Les cyberattaques augmentent en intensité et sophistication, pouvant perturber les."
+      },
+      {
+        "title": "Conformité réglementaire et certifications de modèles",
+        "category": "Régulation",
+        "severity": 4,
+        "trend": "up",
+        "score": 4,
+        "score_rationale": "Risque réglementaire spécifique, langage d'alerte modéré avec exemples détaillés (7 modèles depuis 2014, 8 nouveaux cas juillet 2024), impact direct sur production et réputation. Tendance à la hausse avec contrôles renforcés du MLIT.",
+        "description": "Toyota a découvert que sept modèles depuis 2014 ont été testés selon des méthodes non conformes aux standards gouvernementaux japonais. Le MLIT a émis un ordre de correction en juillet 2024 identifiant huit nouveaux cas. Ces non-conformités peuvent entraîner des arrêts de production, des rappels et des amendes. La vigilance réglementaire s'accroît à l'échelle mondiale.",
+        "summary": "Toyota a découvert que 7 modèles (depuis 2014) ont été testés selon des méthodes non conformes aux standards gouvernementaux. Le MLIT a émis une correction order en juillet 2024 identifiant 8."
+      },
+      {
+        "title": "Capacité à attirer et retenir les talents",
+        "category": "Personne-clé",
+        "severity": 3,
+        "trend": "stable",
+        "score": 3,
+        "score_rationale": "Risque mentionné dans forward-looking statements comme facteur important, langage modéré (« ability to hire or retain »), tendance stable mais pertinent pour transformation technologique. Poids moyen pour industrie automobile.",
+        "description": "La transformation électrique et logicielle exige des compétences en batteries, électronique embarquée et IA. La concurrence pour ces profils est intense, notamment face aux acteurs tech américains et chinois. Une difficulté à recruter ralentirait l'exécution du plan stratégique. Le coût du travail qualifié au Japon est par ailleurs en hausse.",
+        "summary": "Toyota doit recruter et retenir des talents suffisants pour supporter sa transformation technologique (CASE, électrification). La concurrence pour les compétences en électronique, logiciels et IA."
+      }
+    ]
+  },
+  "_companies_unified_built_at": "2026-08-01T20:28:06.826Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tm.json",
     "enrich_root": "v2-pipeline-enrich/tm.json",
     "enrich_subkeys": [
-      "description"
+      "description",
+      "risks"
     ]
   }
 }

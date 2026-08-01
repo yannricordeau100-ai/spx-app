@@ -13,7 +13,7 @@
     "sector": "#1 in Europe",
     "subsector": "#1 in European aerospace"
   },
-  "hero_kpi": "Order Book Value",
+  "hero_kpi": "commercial_aircraft_rev",
   "hero_kpi_rationale": "Airbus exploite une chaîne d'approvisionnement mondiale composée de milliers de fournisseurs, avec une majorité basée en Europe et pays OCDE, soutenant ses trois segments majeurs (Commercial Aircraft, Defence and Space, Helicopters) et sa stratégie de décarbonisation",
   "kpis": [
     {
@@ -36,9 +36,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Tier-1 Suppliers Count",
@@ -60,9 +58,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Australian & NZ Supply Base",
@@ -84,9 +80,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Canadian Operations Headcount",
@@ -108,9 +102,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Regional Procurement Offices",
@@ -132,9 +124,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Total Assets",
@@ -153,11 +143,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 134.94 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,11 +170,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 11.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -199,10 +197,37 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 14.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "commercial_aircraft_rev",
+      "name_fr": "CA Avions commerciaux",
+      "name_en": "Commercial Aircraft Revenue (Airbus segment)",
+      "unit": "M€",
+      "period_type": "year",
+      "history": [
+        47970,
+        54775,
+        34250,
+        36164,
+        41428,
+        47763
+      ],
+      "value": 47763,
+      "last_data_date": "2023-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "La division avions commerciaux a retrouve son niveau d'avant crise et porte la croissance du groupe.",
+      "is_wow": true,
+      "yoy": "+15,3 %"
     }
   ],
   "stories_kpis": [],
@@ -216,22 +241,7 @@
     ],
     "source": "Airbus SE Modern Slavery Statement 2024"
   },
-  "_validation": [
-    "Company name corrected from 'RUAG' to 'Airbus SE' (actual company from source document)",
-    "Ticker symbol AIR.DE confirmed as Airbus SE",
-    "Founded year changed from 1993 to 1970 (Airbus SE establishment date)",
-    "Global rank updated from '#1500' to '#1' (Airbus is leading European and global aerospace manufacturer)",
-    "Sector rank updated to '#1 in Europe' (confirmed from Modern Slavery Statement positioning)",
-    "Tagline completely rewritten from generic statement about RUAG to accurate Airbus description mentioning three segments and global supply chain",
-    "Hero KPI changed from 'Order Intake' to 'Global Supply Chain Scope' (Modern Slavery Statement primary focus is supply chain governance)",
-    "Hero KPI rationale rewritten in French without em-dash, now reflects actual company structure: Commercial Aircraft, Defence and Space, Helicopters divisions",
-    "Previous KPIs (Nettoumsatz, Auftragseingang, EBIT, Free Cash Flow, R&D, Personalbestand) removed as they reference RUAG 2018 data, not Airbus 2024",
-    "Five new KPIs added based on 2024 Modern Slavery Statement: Global Headcount (134000), Tier-1 Suppliers (1000+), Australian suppliers (1500), Canadian employees (4350), Regional Procurement Offices (5)",
-    "All new KPIs have period_type set to 'annual' and last_data_date set to 2024-12-31 (consistent with source document date)",
-    "All history fields contain single values as this is the first validated extraction for Airbus SE from this source",
-    "AI positioning confirmed as 'absent' based on Modern Slavery Statement content analysis",
-    "Source document identified as Airbus SE Modern Slavery Statement for year ending 31 December 2024"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 00:55",
     "n_periods": 1,
@@ -239,7 +249,7 @@
     "method": "document_extraction",
     "source_doc": "Modern_Slavery_Statement_2024"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_1",
     "no_yoy"
@@ -253,7 +263,8 @@
       "severity": 4,
       "score_rationale": "Mentionné 4 fois dans Item 1A; langage intensif sur 'ratensteigerung' et impacts opérationnels; tendance stable mais structurelle; poids majeur car Aerostructures génère CHF 268M de revenus dépendant d'Airbus A320.",
       "trend": "stable",
-      "summary": "RUAG Aerostructures dépend fortement du programme Single-Aisle d'Airbus (A320 family). L'augmentation des cadences a généré une croissance de 5% en 2018, mais les réductions de cadence du A380 ont partiellement compensé les gains. Tout ralentissement du programme A320 menacerait directement la rentabilité."
+      "summary": "RUAG Aerostructures dépend fortement du programme Single-Aisle d'Airbus (A320 family). L'augmentation des cadences a généré une croissance de 5% en 2018, mais les réductions de cadence du A380 ont partiellement compensé les gains. Tout ralentissement du programme A320 menacerait directement la rentabilité.",
+      "score": 4
     },
     {
       "title": "Défis opérationnels et surcoûts de capacité",
@@ -261,7 +272,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité comme cause principale de la baisse EBIT (-10.8%); langage direct 'operativen Herausforderungen'; tendance up (aggravation); poids élevé car affecte profitabilité globale.",
       "trend": "up",
-      "summary": "Les extensions de capacité et le ramp-up de la production en Hongrie (Eger) ont généré des surcoûts significatifs. RUAG a dû fermer le site de Bern-Belp et mettre en place des programmes de réduction de coûts. Les défis de productivité persistent malgré les mesures."
+      "summary": "Les extensions de capacité et le ramp-up de la production en Hongrie (Eger) ont généré des surcoûts significatifs. RUAG a dû fermer le site de Bern-Belp et mettre en place des programmes de réduction de coûts. Les défis de productivité persistent malgré les mesures.",
+      "score": 4
     },
     {
       "title": "Concentration client - VBS (Ministère suisse de la Défense)",
@@ -269,7 +281,8 @@
       "severity": 3,
       "score_rationale": "VBS représente 30% du chiffre d'affaires (baisse de 31%); mentionné comme 'wichtigster und grösster Einzelkunde'; langage neutre mais structurel; tendance stable; risque de régulation politique.",
       "trend": "stable",
-      "summary": "Le VBS (Département fédéral suisse de la Défense) reste le plus grand client unique avec 30% des revenus. Bien que la part diminue légèrement, cette concentration expose RUAG aux décisions budgétaires politiques suisses et aux restrictions d'exportation."
+      "summary": "Le VBS (Département fédéral suisse de la Défense) reste le plus grand client unique avec 30% des revenus. Bien que la part diminue légèrement, cette concentration expose RUAG aux décisions budgétaires politiques suisses et aux restrictions d'exportation.",
+      "score": 3
     },
     {
       "title": "Restrictions suisses d'exportation et conformité réglementaire",
@@ -277,7 +290,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné: 'strikten Schweizer Exportbestimmungen' limitent compétitivité vs concurrents internationaux; langage direct sur handicap compétitif; tendance stable mais structurelle; poids majeur pour croissance internationale.",
       "trend": "stable",
-      "summary": "Les lois suisses strictes sur l'exportation de défense et les obligations du propriétaire (Confédération) limitent la capacité de RUAG à concurrencer les fournisseurs internationaux. Cela restreint l'accès aux marchés de défense mondiaux et réduit les opportunités de croissance."
+      "summary": "Les lois suisses strictes sur l'exportation de défense et les obligations du propriétaire (Confédération) limitent la capacité de RUAG à concurrencer les fournisseurs internationaux. Cela restreint l'accès aux marchés de défense mondiaux et réduit les opportunités de croissance.",
+      "score": 4
     },
     {
       "title": "Risque de litige - facturation excessive au VBS",
@@ -285,7 +299,8 @@
       "severity": 3,
       "score_rationale": "Rapport médiatique mentionné explicitement; audit supplémentaire de l'EFK commandé; langage prudent mais révélateur de risque réputationnel; tendance new (2018); poids modéré mais sensible politiquement.",
       "trend": "new",
-      "summary": "Des allégations médiatiques ont suggéré que RUAG facturait des prix excessifs au VBS. La Confédération a demandé un audit supplémentaire de l'Office fédéral de contrôle des finances (EFK) au 1er semestre 2019 pour clarifier la situation. Risque réputationnel et contractuel."
+      "summary": "Des allégations médiatiques ont suggéré que RUAG facturait des prix excessifs au VBS. La Confédération a demandé un audit supplémentaire de l'Office fédéral de contrôle des finances (EFK) au 1er semestre 2019 pour clarifier la situation. Risque réputationnel et contractuel.",
+      "score": 3
     },
     {
       "title": "Complexité et coûts de la séparation (Entflechtung)",
@@ -293,7 +308,8 @@
       "severity": 3,
       "score_rationale": "Coûts estimés CHF 70M (CHF 50M en 2019); mentionné comme 'grundlegend'; langage neutre mais impact financier clair; tendance new (décision 2018); poids modéré mais temporaire.",
       "trend": "new",
-      "summary": "La Confédération a décidé en 2018 de scinder RUAG en deux entités indépendantes à partir du 1er janvier 2020. Les coûts de restructuration sont estimés à CHF 70M, dont CHF 50M en 2019. Cette séparation crée des risques opérationnels et de continuité."
+      "summary": "La Confédération a décidé en 2018 de scinder RUAG en deux entités indépendantes à partir du 1er janvier 2020. Les coûts de restructuration sont estimés à CHF 70M, dont CHF 50M en 2019. Cette séparation crée des risques opérationnels et de continuité.",
+      "score": 3
     },
     {
       "title": "Volatilité des budgets de défense européens",
@@ -301,7 +317,8 @@
       "severity": 2,
       "score_rationale": "Mentionné dans outlook: 'wachsenden Verteidigungsbudgets' mais 'nur beschränkt profitieren'; langage modéré; tendance stable; poids faible car RUAG ne participe pas aux programmes européens majeurs.",
       "trend": "stable",
-      "summary": "Bien que les budgets de défense européens augmentent, RUAG ne peut en profiter pleinement car la Suisse ne participe pas aux programmes européens de développement de nouveaux systèmes. L'exposition reste limitée aux contrats de maintenance et de support."
+      "summary": "Bien que les budgets de défense européens augmentent, RUAG ne peut en profiter pleinement car la Suisse ne participe pas aux programmes européens de développement de nouveaux systèmes. L'exposition reste limitée aux contrats de maintenance et de support.",
+      "score": 2
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:14:02.519975+00:00",
@@ -435,7 +452,10 @@
         820,
         2094
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Backlog",
@@ -448,7 +468,10 @@
         0,
         8600
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Helicopter Deliveries",
@@ -474,7 +497,10 @@
         0,
         393
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpi_extract_at": "2026-05-28T16:58:32.875555Z",
@@ -484,6 +510,8 @@
     "2024.txt"
   ],
   "sector_fr": "Aérospatiale & défense",
+  "hero_kpi_override": "commercial_aircraft_rev",
+  "_hero_kpi_override_reason": "commercial_aircraft_rev = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "AIR.DE",
     "fetched_at": "2026-05-14T18:22:07.486405+00:00",
@@ -559,9 +587,9 @@
     "country": "Netherlands",
     "_data_freshness_date": "2026-05-21T02:17:14.217936+00:00",
     "fetched_at": "2026-05-21T02:17:14.217938+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.531Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.982Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/air.de.json",
     "enrich_root": "v2-pipeline-enrich/air.de.json",

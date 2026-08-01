@@ -41,7 +41,7 @@
       "is_short_history": false,
       "period_type": "annual",
       "_validation": "Value and unit confirmed from source: FuE-Intensität 2.4% (2023) vs 2.2% (2022). Corrected period_type from 'quarter' to 'annual'.",
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T08:58:06.750996+00:00",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seul 2 années consécutives trouvées avec valeurs explicites : 2023 (2,4%) et 2022 (2,2%). Minimum 4 années requises. Pas de données pour ann",
@@ -69,7 +69,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Value confirmed from source (approximately 1,500 employees). Corrected board female representation from 50% to 25% (Aufsichtsrat). Note: 50% applies to Vorstand (executive board), not board level overall.",
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Capex",
@@ -92,15 +92,15 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds €' to 'M €' (120 million euros, not 0.12 billion). Value not explicitly verified in provided source extract but order of magnitude consistent with company size and manufacturing capex patterns.",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Total des ventes réalisées par le groupe.",
-      "value": 0.91,
-      "unit": "Mds €",
+      "value": 910,
+      "unit": "M €",
       "yoy": "+7.1%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -108,16 +108,17 @@
       "signal": "Croissance solide dans les segments clés",
       "description": "Le chiffre d'affaires a atteint 910 millions d'euros en 2023, tiré par une forte demande dans les segments VMS et M&I.",
       "history": [
-        0.85,
-        0.91
+        850,
+        910
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Value confirmed from source description: 910 M€ which equals 0.91 Mds €. YoY calculation: (0.91-0.85)/0.85 = 7.06% ≈ 7.1% verified. Signal updated from 'croissance à deux chiffres' to 'solide' as +7.1% is single-digit growth.",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Total Assets",
@@ -136,61 +137,46 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.71 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.54,
-      "unit": "Mds €",
+      "value": 540,
+      "unit": "M €",
       "yoy": "+1.9%",
       "history": [
-        0.63,
-        0.54,
-        0.53,
-        0.54
+        630,
+        540,
+        530,
+        540
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.54 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "AI Integration",
-      "name_fr": "Intégration de l'intelligence artificielle",
-      "name_en": "AI Integration in Operations",
-      "explanation": "Déploiement et utilisation de solutions d'intelligence artificielle pour l'analyse des données et l'optimisation opérationnelle.",
-      "value": "In Progress",
-      "unit": "n/a",
-      "yoy": "n/a",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Développement de capteurs intelligents et d'analyse IA en cours",
-      "description": "RENK développe des capteurs intelligents et utilise des logiciels basés sur l'IA pour analyser les données machines. L'entreprise implémente des solutions Industrie 4.0 avec collecte de données de capteurs et Big Data Analytics pour optimiser les processus et améliorer l'efficacité opérationnelle.",
-      "history": [
-        "In Progress"
-      ],
-      "last_data_date": "2023-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_validation": "Replaced hallucinatory 'AI API Calls' KPI with value '2023' (non-numeric, fabricated metric). Now uses qualitative 'AI Integration' measure based on actual source evidence: 'intelligenten Sensoren', 'Künstlicher Intelligenz (KI) gestützter Software', 'Maschinendatenerfassungssysteme', 'Big Data Analytics'."
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "integrator",
     "summary": "RENK intègre progressivement l'intelligence artificielle dans ses solutions industrielles, notamment via des capteurs intelligents et des outils d'analyse prédictive, pour améliorer la maintenance et l'efficacité opérationnelle. L'entreprise implémente des solutions Industrie 4.0 avec collecte de données de capteurs et analyse Big Data.",
@@ -305,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur mentionné explicitement dans Item 1A (section 7) avec langage intense ('en haute mesure dépendant', 'nombre limité de fournisseurs'). Tendance stable mais impact opérationnel démontré (augmentation stocks 41,2 M€ en 2023 due aux 'stockages en chaîne d'approvisionnement'). Poids catégorie élevé : affecte directement la capacité à honorer les commandes.",
       "trend": "stable",
-      "summary": "RENK dépend fortement de la disponibilité et de la qualité des composants standards (pompes, accouplements, roulements) provenant de tiers, dont le nombre est parfois limité. Les interruptions de chaîne d'approvisionnement impactent directement la production : en 2023, les produits non finis n'ont pu être finalisés et facturés comme prévu, forçant l'accumulation de stocks de matières premières pour réduire les dépendances fournisseurs."
+      "summary": "RENK dépend fortement de la disponibilité et de la qualité des composants standards (pompes, accouplements, roulements) provenant de tiers, dont le nombre est parfois limité. Les interruptions de chaîne d'approvisionnement impactent directement la production : en 2023, les produits non finis n'ont pu être finalisés et facturés comme prévu, forçant l'accumulation de stocks de matières premières pour réduire les dépendances fournisseurs.",
+      "score": 4
     },
     {
       "title": "Risque de prix de matières premières et contrats à prix fixe",
@@ -313,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Explicitement décrit dans Item 1A (section 7) avec langage modéré mais clair ('risque que les coûts réels soient supérieurs aux hypothèses'). Historique d'augmentations significatives (inflation, ruptures chaîne). Tendance stable avec clause de transfert partielle seulement. Impact EBIT direct via marges sur contrats à prix fixe.",
       "trend": "stable",
-      "summary": "Les processus de production dépendent d'acier, aluminium et étain. Les prix de ces matières premières ont augmenté significativement par le passé. Bien que partiellement répercutés aux clients via clauses contractuelles, RENK supporte le risque que les coûts réels dépassent les estimations initiales sur les contrats à prix fixe, comprimant les marges."
+      "summary": "Les processus de production dépendent d'acier, aluminium et étain. Les prix de ces matières premières ont augmenté significativement par le passé. Bien que partiellement répercutés aux clients via clauses contractuelles, RENK supporte le risque que les coûts réels dépassent les estimations initiales sur les contrats à prix fixe, comprimant les marges.",
+      "score": 4
     },
     {
       "title": "Dépendance aux budgets de défense gouvernementaux",
@@ -321,7 +309,8 @@
       "severity": 5,
       "score_rationale": "Risque existentiel mentionné en ouverture de section 7 avec langage très intense ('maßgeblich abhängig', 'entscheidend'). Activités principales (VMS, M&I) directement liées aux décisions gouvernementales. Tendance up : 'Super-Cycle' de défense en cours mais dépendant de géopolitique volatile (Chine-Taïwan, Moyen-Orient). Poids catégorie critique : 100% du modèle économique.",
       "trend": "up",
-      "summary": "Le groupe RENK dépend essentiellement des dépenses de défense de gouvernements, agences gouvernementales et organisations internationales. Les décisions d'acquisition sont fonction de considérations politiques, conditions macroéconomiques et changements politiques. Bien que le 'Super-Cycle' de défense (USA/NATO) soutienne la croissance, les changements de gouvernement, sanctions ou politiques commerciales peuvent réduire les opportunités dans les marchés clés (UE, UK, USA)."
+      "summary": "Le groupe RENK dépend essentiellement des dépenses de défense de gouvernements, agences gouvernementales et organisations internationales. Les décisions d'acquisition sont fonction de considérations politiques, conditions macroéconomiques et changements politiques. Bien que le 'Super-Cycle' de défense (USA/NATO) soutienne la croissance, les changements de gouvernement, sanctions ou politiques commerciales peuvent réduire les opportunités dans les marchés clés (UE, UK, USA).",
+      "score": 5
     },
     {
       "title": "Régulation des exportations et contrôles militaires",
@@ -329,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique au secteur détaillé dans Item 1A (section 7) avec langage fort ('effet considérable', 'régimes restrictifs'). Applicable à tous les marchés clés (UE, Allemagne, UK, Suisse, Canada, USA). Tendance stable mais risque de renforcement ('application plus stricte'). Impact direct sur capacité à opérer dans marchés adressables.",
       "trend": "stable",
-      "summary": "En UE et Allemagne, le commerce extérieur de biens stratégiques (armes, équipements militaires, biens à double usage) est soumis à régimes de contrôle restrictifs et exigences d'autorisation. De nouvelles règles d'exportation, application plus stricte des contrôles existants, ou prescriptions de pays fournisseurs (Allemagne, France, UK, Suisse, Canada, USA) peuvent impacter significativement les opérations du groupe."
+      "summary": "En UE et Allemagne, le commerce extérieur de biens stratégiques (armes, équipements militaires, biens à double usage) est soumis à régimes de contrôle restrictifs et exigences d'autorisation. De nouvelles règles d'exportation, application plus stricte des contrôles existants, ou prescriptions de pays fournisseurs (Allemagne, France, UK, Suisse, Canada, USA) peuvent impacter significativement les opérations du groupe.",
+      "score": 4
     },
     {
       "title": "Risque de pénurie de personnel hautement qualifié",
@@ -337,7 +327,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans Item 1A (section 7) avec langage modéré ('dépendant de l'embauche et rétention'). Tendance stable : le groupe a pu recruter en 2023 et prévoit pas de 'goulots d'étranglement sensibles' en 2024. Poids catégorie moyen : critique pour exécution des commandes mais pas encore critique en 2023-2024.",
       "trend": "stable",
-      "summary": "Pour honorer ses obligations contractuelles et traiter son carnet de commandes, RENK dépend de l'embauche et la rétention de personnel hautement qualifié. Bien que le groupe ait réussi à recruter en 2023, une pénurie de talents pourrait compromettre la capacité à livrer à temps et en qualité."
+      "summary": "Pour honorer ses obligations contractuelles et traiter son carnet de commandes, RENK dépend de l'embauche et la rétention de personnel hautement qualifié. Bien que le groupe ait réussi à recruter en 2023, une pénurie de talents pourrait compromettre la capacité à livrer à temps et en qualité.",
+      "score": 3
     },
     {
       "title": "Intensité concurrentielle sur marchés clés",
@@ -345,7 +336,8 @@
       "severity": 3,
       "score_rationale": "Décrit dans Item 1A (section 7) comme 'marchés hautement compétitifs' (Allemagne, USA, Amérique du Sud, Moyen-Orient, Chine). Langage modéré mais reconnaît risques de pénétration marché, prix et innovation. Tendance stable : prévisions 2024 supposent 'environnement concurrentiel comparable'. Poids catégorie moyen : long délais de projet réduisent volatilité court terme.",
       "trend": "stable",
-      "summary": "La majorité des activités opère sur marchés hautement compétitifs caractérisés par changements de pénétration marché, concurrence prix et développement de nouveaux produits/designs. La compétitivité repose sur qualité, innovation, ponctualité de livraison et support technique global. Les longs délais de projet (VMS, M&I) créent des risques concurrentiels à long terme."
+      "summary": "La majorité des activités opère sur marchés hautement compétitifs caractérisés par changements de pénétration marché, concurrence prix et développement de nouveaux produits/designs. La compétitivité repose sur qualité, innovation, ponctualité de livraison et support technique global. Les longs délais de projet (VMS, M&I) créent des risques concurrentiels à long terme.",
+      "score": 3
     },
     {
       "title": "Risque de délais de projet et exécution technique",
@@ -353,7 +345,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans Item 1A : activités VMS et M&I caractérisées par 'longs délais de projet' ('lange Projektvorlaufzeiten'). Risques concurrentiels à long terme mentionnés. Tendance stable : prévisions 2024 supposent pas de 'commandes essentielles annulées ou retardées'. Poids catégorie moyen : affecte profitabilité mais mitigé par commandes fermes.",
       "trend": "stable",
-      "summary": "Les activités principales (VMS, M&I) impliquent des délais de projet longs avec risques concurrentiels correspondants. La capacité à respecter les calendriers de production et les spécifications techniques est critique pour honorer les engagements contractuels et le carnet de commandes."
+      "summary": "Les activités principales (VMS, M&I) impliquent des délais de projet longs avec risques concurrentiels correspondants. La capacité à respecter les calendriers de production et les spécifications techniques est critique pour honorer les engagements contractuels et le carnet de commandes.",
+      "score": 3
     },
     {
       "title": "Acquisition General Kinetics : intégration et synergies",
@@ -361,7 +354,8 @@
       "severity": 3,
       "score_rationale": "Acquisition majeure en janvier 2023 mentionnée dans section 6.3 (cashflow d'investissement -57,2 M€). Risque d'intégration implicite mais non détaillé dans Item 1A. Tendance new : acquisition récente. Poids catégorie moyen : impact sur structure de coûts et capacités technologiques.",
       "trend": "new",
-      "summary": "L'acquisition de General Kinetics en janvier 2023 représente un investissement significatif (inclus dans cashflow d'investissement). Les risques d'intégration opérationnelle, réalisation des synergies attendues et alignement culturel ne sont pas explicitement détaillés mais constituent un risque métier pour la création de valeur."
+      "summary": "L'acquisition de General Kinetics en janvier 2023 représente un investissement significatif (inclus dans cashflow d'investissement). Les risques d'intégration opérationnelle, réalisation des synergies attendues et alignement culturel ne sont pas explicitement détaillés mais constituent un risque métier pour la création de valeur.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:17:29.841223+00:00",
@@ -537,9 +531,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.301229+00:00",
     "fetched_at": "2026-05-21T02:17:14.301230+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.035Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.045Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/r3nk.de.json",
     "enrich_root": "v2-pipeline-enrich/r3nk.de.json",

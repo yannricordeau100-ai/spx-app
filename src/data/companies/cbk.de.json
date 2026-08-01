@@ -34,10 +34,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Net Interest Margin — net interest income divided by earning assets (banks).",
-      "signal_en": "Margin stable, monitor cost dynamics",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Net Interest Margin, net interest income divided by earning assets (banks).",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Op Margin",
@@ -58,9 +56,7 @@
       "is_generic": false,
       "is_short_history": true,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin stable, monitor cost dynamics",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Tech Invest",
@@ -80,9 +76,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Headcount",
@@ -108,8 +102,12 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -128,11 +126,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 12.36 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "No explicit total revenue figures (in billions of euros) found in the provided excerpt.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -151,11 +155,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 554.65 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -174,11 +182,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 54.89 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -197,10 +209,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 79.12 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -261,7 +277,8 @@
       "severity": 4,
       "score_rationale": "Risque implicite majeur : nouvelle COO (Vorspel-Rüter) nommée en 2024 avec background IT/CIO, indiquant urgence de transformation digitale. Langage soulignant « digital and customer-oriented business models » et « digitalisation » comme priorité stratégique. Tendance : montante (création poste COO dédié). Poids : critique pour compétitivité bancaire.",
       "trend": "up",
-      "summary": "Commerzbank dépend fortement de la modernisation de son infrastructure IT et de la transformation numérique pour rester compétitif face aux fintech et banques digitales. La nomination récente d'une COO avec expertise IT/CIO souligne l'enjeu critique de cette transformation, notamment pour les modèles de service client orientés plateforme."
+      "summary": "Commerzbank dépend fortement de la modernisation de son infrastructure IT et de la transformation numérique pour rester compétitif face aux fintech et banques digitales. La nomination récente d'une COO avec expertise IT/CIO souligne l'enjeu critique de cette transformation, notamment pour les modèles de service client orientés plateforme.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire bancaire et supervision prudentielle",
@@ -269,7 +286,8 @@
       "severity": 4,
       "score_rationale": "Position centrale dans Item 1A : expertise en « banking regulation and regulatory framework » mentionnée pour plusieurs membres (Tumpel-Gugerell, Czichowski). Langage intensif sur « ICAAP », « Basel 2 », « resolution of banks ». Tendance : stable mais structurelle. Poids : fondamental pour licence bancaire allemande/européenne.",
       "trend": "stable",
-      "summary": "Commerzbank opère sous supervision stricte de la BaFin et de la BCE, avec obligations complexes de capital (Bâle III/IV), ICAAP, stress-tests et résolution. Tout manquement réglementaire expose à des sanctions, restrictions de dividendes ou mesures de restructuration imposées par les autorités."
+      "summary": "Commerzbank opère sous supervision stricte de la BaFin et de la BCE, avec obligations complexes de capital (Bâle III/IV), ICAAP, stress-tests et résolution. Tout manquement réglementaire expose à des sanctions, restrictions de dividendes ou mesures de restructuration imposées par les autorités.",
+      "score": 4
     },
     {
       "title": "Concurrence intense du secteur bancaire allemand et européen",
@@ -277,7 +295,8 @@
       "severity": 4,
       "score_rationale": "Implicite dans structure : Commerzbank en consolidation post-crise (références à « consolidation programmes »). Langage sur « positioning and access strategies for new business » indique pression concurrentielle. Tendance : montante (fintech, banques digitales, consolidation). Poids : menace existentielle pour parts de marché.",
       "trend": "up",
-      "summary": "Commerzbank fait face à une concurrence accrue des grandes banques allemandes (Deutsche Bank, Sparkassen), des fintech, des néobanques et des acteurs internationaux. La perte de parts de marché en retail et corporate banking menace la rentabilité et la viabilité du modèle économique."
+      "summary": "Commerzbank fait face à une concurrence accrue des grandes banques allemandes (Deutsche Bank, Sparkassen), des fintech, des néobanques et des acteurs internationaux. La perte de parts de marché en retail et corporate banking menace la rentabilité et la viabilité du modèle économique.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et risques de fraude/attaques informatiques",
@@ -285,7 +304,8 @@
       "severity": 4,
       "score_rationale": "Implicite mais critique : présence de « Committee for Digital Transformation » et focus sur IT governance. Langage sur « digital transformation » et « customer-oriented business models » implique exposition accrue aux cybermenaces. Tendance : montante (digitalisation croissante). Poids : risque opérationnel majeur pour banque.",
       "trend": "up",
-      "summary": "Avec l'accélération de la transformation numérique et de l'open banking, Commerzbank s'expose à des risques croissants de cyberattaques, fraude en ligne, vol de données clients et interruptions de services critiques. Une violation majeure pourrait compromettre la confiance client et la conformité réglementaire."
+      "summary": "Avec l'accélération de la transformation numérique et de l'open banking, Commerzbank s'expose à des risques croissants de cyberattaques, fraude en ligne, vol de données clients et interruptions de services critiques. Une violation majeure pourrait compromettre la confiance client et la conformité réglementaire.",
+      "score": 4
     },
     {
       "title": "Gestion des risques de crédit et qualité du portefeuille",
@@ -293,7 +313,8 @@
       "severity": 3,
       "score_rationale": "Risque métier fondamental : expertise en « risk management » et « Group Risk Control » mentionnée pour Spalt (ancien CRO). Langage sur « ICAAP and Group Risk Reporting » indique focus sur provisionnement. Tendance : stable mais sensible aux cycles économiques. Poids : critique pour rentabilité.",
       "trend": "stable",
-      "summary": "Commerzbank doit gérer les risques de défaut de ses clients corporates et retail, notamment en contexte de ralentissement économique allemand/européen. Une détérioration de la qualité du crédit nécessiterait des provisions accrues et réduirait la rentabilité."
+      "summary": "Commerzbank doit gérer les risques de défaut de ses clients corporates et retail, notamment en contexte de ralentissement économique allemand/européen. Une détérioration de la qualité du crédit nécessiterait des provisions accrues et réduirait la rentabilité.",
+      "score": 3
     },
     {
       "title": "Dépendance au marché allemand et exposition géographique concentrée",
@@ -301,7 +322,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans structure : focus sur « German market » et « Central/East region » (Kotzbauer). Langage sur « Germany and Asia » indique base géographique limitée. Tendance : stable mais structurelle. Poids : risque de concentration économique.",
       "trend": "stable",
-      "summary": "Commerzbank génère la majorité de ses revenus en Allemagne et Europe centrale, la rendant vulnérable aux chocs économiques régionaux (récession allemande, crise de l'énergie, tensions géopolitiques). Diversification géographique limitée comparée aux pairs internationaux."
+      "summary": "Commerzbank génère la majorité de ses revenus en Allemagne et Europe centrale, la rendant vulnérable aux chocs économiques régionaux (récession allemande, crise de l'énergie, tensions géopolitiques). Diversification géographique limitée comparée aux pairs internationaux.",
+      "score": 3
     },
     {
       "title": "Risques de réputation et de conformité ESG/durabilité",
@@ -309,7 +331,8 @@
       "severity": 3,
       "score_rationale": "Présence forte : « Environmental, Social and Governance (ESG) Committee » mentionné 15+ fois, « Group Sustainability Board », « Principles for Responsible Banking ». Langage intensif sur « sustainable performance » et « responsible corporate governance ». Tendance : montante (régulation ESG croissante). Poids : impact sur licence sociale et accès au financement.",
       "trend": "up",
-      "summary": "Commerzbank doit démontrer son engagement ESG (financement durable, réduction carbone, gouvernance) face aux attentes réglementaires (CSRD, Taxonomie UE) et des stakeholders. Tout scandale de blanchiment, financement d'activités controversées ou défaillance ESG risque de nuire à la réputation et l'accès aux marchés."
+      "summary": "Commerzbank doit démontrer son engagement ESG (financement durable, réduction carbone, gouvernance) face aux attentes réglementaires (CSRD, Taxonomie UE) et des stakeholders. Tout scandale de blanchiment, financement d'activités controversées ou défaillance ESG risque de nuire à la réputation et l'accès aux marchés.",
+      "score": 3
     },
     {
       "title": "Risques liés à la rétention de talents et leadership",
@@ -317,7 +340,8 @@
       "severity": 2,
       "score_rationale": "Implicite : renouvellement récent du Board (COO, CHRO nommées 2023-2024). Langage sur « various management positions » et « professional career » indique dépendance à expertise clé. Tendance : stable mais attention requise. Poids : modéré (banque a profondeur managériale).",
       "trend": "stable",
-      "summary": "Commerzbank dépend de la rétention de talents clés en risk management, IT et corporate banking. La transformation en cours et la concurrence pour les talents qualifiés pourraient affecter la continuité stratégique et l'exécution des initiatives de transformation."
+      "summary": "Commerzbank dépend de la rétention de talents clés en risk management, IT et corporate banking. La transformation en cours et la concurrence pour les talents qualifiés pourraient affecter la continuité stratégique et l'exécution des initiatives de transformation.",
+      "score": 2
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:23:34.152787+00:00",
@@ -525,7 +549,10 @@
         8.2,
         8.4
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Marge",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "CET1 Ratio",
@@ -541,7 +568,10 @@
         14.6,
         14.8
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Mittelstand Loans",
@@ -557,7 +587,10 @@
         109,
         110
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "mBank Customers",
@@ -573,7 +606,10 @@
         5.7,
         5.9
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Audience",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Cost-Income",
@@ -677,9 +713,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.236229+00:00",
     "fetched_at": "2026-05-21T02:17:14.236230+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.161Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.596Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cbk.de.json",
     "enrich_root": "v2-pipeline-enrich/cbk.de.json",

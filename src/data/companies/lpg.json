@@ -40,8 +40,11 @@
       "is_short_history": false,
       "ttm": 97,
       "_validation": "Corrected value from string '97% du revenu total' to numeric 97; changed unit to %; updated yoy from 'stable' to 'up' based on historical trend; removed generic status; improved name_fr to reflect concentration metric",
-      "period_type": "quarter",
-      "explanation_en": "Revenue from the Helios Pool segment."
+      "period_type": "year",
+      "explanation_en": "Revenue from the Helios Pool segment.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Fleet Size",
@@ -70,47 +73,57 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.35,
-      "unit": "Mds €",
+      "value": 350,
+      "unit": "M €",
       "yoy": "-37.5%",
       "history": [
-        0.27,
-        0.39,
-        0.56,
-        0.35
+        270,
+        390,
+        560,
+        350
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.35 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "-71.0%",
       "history": [
-        0.07,
-        0.17,
-        0.31,
-        0.09
+        70,
+        170,
+        310,
+        90
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.09 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -129,56 +142,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.78 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.71,
-      "unit": "Mds €",
+      "value": 710,
+      "unit": "M €",
       "yoy": "-11.3%",
       "history": [
-        0.67,
-        0.82,
-        0.8,
-        0.71
+        670,
+        820,
+        800,
+        710
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.32,
-      "unit": "Mds €",
+      "value": 320,
+      "unit": "M €",
       "yoy": "+14.3%",
       "history": [
-        0.24,
-        0.15,
-        0.28,
-        0.32
+        240,
+        150,
+        280,
+        320
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.32 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -205,9 +232,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Marché",
-      "_validation": "Corrected value from string to numeric 97; changed yoy to 'up' reflecting growth trend; expanded history from single point [97] to full 3-year trend [94,95,97]; marked is_wow as true due to strategic significance; improved name_fr and description",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Corrected value from string to numeric 97; changed yoy to 'up' reflecting growth trend; expanded history from single point [97] to full 3-year trend [94,95,97]; marked is_wow as true due to strategic significance; improved name_fr and description"
     }
   ],
   "ai_positioning": {
@@ -223,7 +248,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur mentionné dès le début du forward-looking statements avec langage intensif (« decrease in the value », « reduction in charter hire rates »). Position centrale dans le modèle économique de Dorian. Tendance stable mais structurelle à l'industrie LPG.",
       "trend": "stable",
-      "summary": "La rentabilité de Dorian dépend fortement des taux de fret spot et de la demande globale de transport LPG. Une baisse de la demande, une suroffre de tonnage (notamment des Very Large Ethane Carriers) ou une réduction des taux de fret affecteraient directement les revenus et la profitabilité des navires, y compris ceux du pool Helios."
+      "summary": "La rentabilité de Dorian dépend fortement des taux de fret spot et de la demande globale de transport LPG. Une baisse de la demande, une suroffre de tonnage (notamment des Very Large Ethane Carriers) ou une réduction des taux de fret affecteraient directement les revenus et la profitabilité des navires, y compris ceux du pool Helios.",
+      "score": 5
     },
     {
       "title": "Dépendance au pool Helios et risque de contrepartie",
@@ -231,7 +257,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement identifié : « failure of its significant customers to perform their obligations and the loss or reduction in business ». 16 des 25 navires opèrent dans le pool Helios (64% de la flotte). Partenariat 50/50 avec MOL Energia crée une dépendance structurelle.",
       "trend": "stable",
-      "summary": "Dorian dépend fortement du pool Helios (joint-venture 50/50 avec MOL Energia) pour la commercialisation et l'emploi de ses navires. L'incapacité des clients majeurs du pool à honorer leurs obligations ou la perte de contrats importants pourrait réduire significativement les revenus du pool et les distributions aux participants."
+      "summary": "Dorian dépend fortement du pool Helios (joint-venture 50/50 avec MOL Energia) pour la commercialisation et l'emploi de ses navires. L'incapacité des clients majeurs du pool à honorer leurs obligations ou la perte de contrats importants pourrait réduire significativement les revenus du pool et les distributions aux participants.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et perturbations des routes maritimes",
@@ -239,7 +266,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement avec exemples concrets : conflit Ukraine-Russie, attaques en Mer Rouge, contournement du Canal de Suez. Langage d'intensité moyenne-haute (« armed conflict », « attacks on vessels »). Impact direct sur les routes commerciales et les coûts opérationnels.",
       "trend": "up",
-      "summary": "Les conflits géopolitiques (Ukraine, Moyen-Orient) et les attaques contre les navires en Mer Rouge forcent les armateurs à contourner le Canal de Suez via le Cap de Bonne-Espérance, augmentant les distances, les coûts de carburant et les délais. Ces perturbations affectent les patterns commerciaux et la demande de tonnage LPG."
+      "summary": "Les conflits géopolitiques (Ukraine, Moyen-Orient) et les attaques contre les navires en Mer Rouge forcent les armateurs à contourner le Canal de Suez via le Cap de Bonne-Espérance, augmentant les distances, les coûts de carburant et les délais. Ces perturbations affectent les patterns commerciaux et la demande de tonnage LPG.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire environnementale et décarbonation",
@@ -247,7 +275,8 @@
       "severity": 4,
       "score_rationale": "Risque croissant avec langage intensif : « potential new environmental regulations », « decarbonization », « Engine Power Limitation systems ». Mentionné à plusieurs reprises. Coûts d'implémentation importants (scrubbers, EPL, carburants alternatifs).",
       "trend": "up",
-      "summary": "Les nouvelles réglementations environnementales de l'OMI (stratégie de réduction des GES adoptée en juillet 2023) et des autorités régionales imposent des coûts opérationnels supplémentaires : installation de systèmes EPL, utilisation de carburants plus chers, réduction de vitesse. Dorian doit adapter sa flotte (16 navires équipés de scrubbers) pour rester compétitif."
+      "summary": "Les nouvelles réglementations environnementales de l'OMI (stratégie de réduction des GES adoptée en juillet 2023) et des autorités régionales imposent des coûts opérationnels supplémentaires : installation de systèmes EPL, utilisation de carburants plus chers, réduction de vitesse. Dorian doit adapter sa flotte (16 navires équipés de scrubbers) pour rester compétitif.",
+      "score": 4
     },
     {
       "title": "Vieillissement de la flotte et coûts de maintenance",
@@ -255,7 +284,8 @@
       "severity": 3,
       "score_rationale": "Risque explicite : « aging of the Company's fleet which could result in increased operating costs, impairment or loss of hire ». Flotte moyenne de 8,9 ans. Navire le plus ancien datant de 2007. Tendance stable mais risque croissant avec le temps.",
       "trend": "up",
-      "summary": "L'âge moyen de la flotte Dorian (8,9 ans) expose l'entreprise à des coûts de maintenance et de réparation croissants, des périodes de drydocking plus fréquentes et un risque d'obsolescence technologique. Les navires plus anciens peuvent perdre de la valeur de marché et générer moins de revenus de fret."
+      "summary": "L'âge moyen de la flotte Dorian (8,9 ans) expose l'entreprise à des coûts de maintenance et de réparation croissants, des périodes de drydocking plus fréquentes et un risque d'obsolescence technologique. Les navires plus anciens peuvent perdre de la valeur de marché et générer moins de revenus de fret.",
+      "score": 3
     },
     {
       "title": "Cybersécurité et défaillances des systèmes informatiques",
@@ -263,7 +293,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement mentionné dans forward-looking statements avec langage spécifique : « cybersecurity incidents », « security breaches », « misuse of artificial intelligence ». Item 1C dédié à la cybersécurité. Tendance nouvelle/croissante dans le secteur maritime.",
       "trend": "new",
-      "summary": "Dorian est exposée aux risques de cyberattaques, de défaillances de systèmes informatiques et de failles de sécurité affectant ses opérations commerciales, sa gestion de flotte ou ses données clients. Les incidents pourraient perturber les opérations, compromettre les données sensibles ou entraîner des coûts de remédiation importants."
+      "summary": "Dorian est exposée aux risques de cyberattaques, de défaillances de systèmes informatiques et de failles de sécurité affectant ses opérations commerciales, sa gestion de flotte ou ses données clients. Les incidents pourraient perturber les opérations, compromettre les données sensibles ou entraîner des coûts de remédiation importants.",
+      "score": 3
     },
     {
       "title": "Concurrence accrue et capacité à obtenir des contrats",
@@ -271,7 +302,8 @@
       "severity": 3,
       "score_rationale": "Risque identifié : « competition in the LPG shipping industry, including our ability to compete successfully for future chartering opportunities ». Marché fragmenté avec nombreux armateurs. Langage modéré mais risque structurel du secteur.",
       "trend": "stable",
-      "summary": "Dorian opère dans un marché hautement compétitif du transport LPG. La capacité à remporter des contrats d'affrètement, à participer à des opportunités de newbuilding et à maintenir des taux de fret attractifs dépend de la compétitivité de sa flotte, de ses coûts opérationnels et de sa réputation commerciale."
+      "summary": "Dorian opère dans un marché hautement compétitif du transport LPG. La capacité à remporter des contrats d'affrètement, à participer à des opportunités de newbuilding et à maintenir des taux de fret attractifs dépend de la compétitivité de sa flotte, de ses coûts opérationnels et de sa réputation commerciale.",
+      "score": 3
     },
     {
       "title": "Risques liés aux navires neufs et aux achats de secondhand",
@@ -279,7 +311,8 @@
       "severity": 3,
       "score_rationale": "Risque explicite : « future purchase prices of newbuildings and secondhand vessels and timely deliveries » et « risks associated with the purchase of second-hand vessels ». Dorian a commandé un VLGC/AC pour 2026. Risques de délai, de surcoût et de qualité.",
       "trend": "stable",
-      "summary": "Dorian a commandé un navire VLGC/AC (93 000 cbm) livrable en Q2 2026 auprès de Hanwha Ocean. Les risques incluent les délais de livraison, les surcoûts de construction, les défauts de qualité et la volatilité des prix des navires neufs et d'occasion affectant la rentabilité des investissements."
+      "summary": "Dorian a commandé un navire VLGC/AC (93 000 cbm) livrable en Q2 2026 auprès de Hanwha Ocean. Les risques incluent les délais de livraison, les surcoûts de construction, les défauts de qualité et la volatilité des prix des navires neufs et d'occasion affectant la rentabilité des investissements.",
+      "score": 3
     }
   ],
   "governance": {
@@ -328,7 +361,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -525,9 +558,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.277983+00:00",
     "fetched_at": "2026-05-21T02:17:14.277984+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.123Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.940Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lpg.json",
     "enrich_root": "v2-pipeline-enrich/lpg.json",

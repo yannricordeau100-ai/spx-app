@@ -117,34 +117,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.81 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.9,
-      "unit": "Mds €",
+      "value": 900,
+      "unit": "M €",
       "yoy": "+1185.7%",
       "history": [
-        -0.35,
-        0.11,
-        0.07,
-        0.9
+        -350,
+        110,
+        70,
+        900
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.9 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,11 +172,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 15.52 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -186,33 +199,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 7.89 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.84,
-      "unit": "Mds €",
+      "value": 840,
+      "unit": "M €",
       "yoy": "+15.1%",
       "history": [
-        0.89,
-        1,
-        0.73,
-        0.84
+        890,
+        1000,
+        730,
+        840
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.84 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -244,7 +266,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "indirect_exposure",
+    "stance": "absent",
     "summary": "Vornado mentionne l'intelligence artificielle comme un facteur potentiel affectant l'utilisation de l'espace par les locataires de bureaux. Dans le rapport 10-K 2025, la société reconnait que l'utilisation accrue de l'IA pourrait résulter en changements dans les besoins d'espace des locataires, incluant la réduction ou la reconfiguration d'espace. Cela reflète la préoccupation du secteur immobilier de bureau concernant l'impact de l'IA sur la demande d'espace physique.",
     "evidence": [
       "Increased use of artificial intelligence (AI) could result in changes in tenant space utilization, including the need to reduce or reconfigure space (Risk Factors section)"
@@ -258,7 +280,8 @@
       "severity": 5,
       "score_rationale": "78% du revenu net d'exploitation provient des propriétés de bureaux. Le télétravail, les horaires flexibles et l'IA pourraient réduire la demande d'espace physique. Les locataires priorisent les immeubles modernes, bien aménagés, près des transits, créant une forte concurrence entre propriétaires et pressant les immeubles anciens.",
       "trend": "up",
-      "summary": "Les tendances du télétravail, des horaires flexibles, de la videoconférence et l'utilisation croissante de l'IA menacent la demande d'espace de bureau et augmentent la concurrence pour attirer les locataires vers des immeubles de classe A modernes et bien aménagés"
+      "summary": "Les tendances du télétravail, des horaires flexibles, de la videoconférence et l'utilisation croissante de l'IA menacent la demande d'espace de bureau et augmentent la concurrence pour attirer les locataires vers des immeubles de classe A modernes et bien aménagés",
+      "score": 5
     },
     {
       "title": "Concentration géographique",
@@ -266,7 +289,8 @@
       "severity": 4,
       "score_rationale": "Majorité du revenu net d'exploitation provient de la région métropolitaine de New York, exposant la société aux fluctuations économiques régionales, chocs locaux et tendances immobilières spécifiques à NYC",
       "trend": "stable",
-      "summary": "La concentration géographique forte dans la région métropolitaine de New York rend la société vulnérable aux fluctuations économiques régionales et aux chocs locaux"
+      "summary": "La concentration géographique forte dans la région métropolitaine de New York rend la société vulnérable aux fluctuations économiques régionales et aux chocs locaux",
+      "score": 4
     },
     {
       "title": "Concurrence immobilière",
@@ -274,7 +298,8 @@
       "severity": 3,
       "score_rationale": "Marché immobilier hautement compétitif avec nombreux investisseurs et propriétaires. La concurrence pour attirer les locataires augmente, notamment vers les immeubles de qualité supérieure, impactant les revenus et la capacité de négociation des loyers.",
       "trend": "up",
-      "summary": "La concurrence croissante dans le marché immobilier pour attirer les locataires haut de gamme peut affecter les revenus, les loyers et les résultats opérationnels"
+      "summary": "La concurrence croissante dans le marché immobilier pour attirer les locataires haut de gamme peut affecter les revenus, les loyers et les résultats opérationnels",
+      "score": 3
     },
     {
       "title": "Risques de crédit locataire",
@@ -282,7 +307,8 @@
       "severity": 4,
       "score_rationale": "Exposition aux risques de crédit liés à la faillite ou l'insolvabilité des locataires, réduction de revenus de loyer, perturbations opérationnelles et possible dépréciation de portefeuille",
       "trend": "stable",
-      "summary": "La société est exposée aux risques de crédit liés à la faillite ou l'insolvabilité de ses locataires, pouvant impacter directement les revenus de loyer et les résultats financiers"
+      "summary": "La société est exposée aux risques de crédit liés à la faillite ou l'insolvabilité de ses locataires, pouvant impacter directement les revenus de loyer et les résultats financiers",
+      "score": 4
     },
     {
       "title": "Changement climatique et résilience immobilière",
@@ -290,7 +316,8 @@
       "severity": 4,
       "score_rationale": "Les effets du changement climatique (inondations, tempêtes, chaleur extrême) peuvent causer des dommages aux propriétés, augmenter les coûts d'assurance, de maintenance et de protection, réduisant la rentabilité",
       "trend": "up",
-      "summary": "Les effets du changement climatique et catastrophes naturelles peuvent impacter significativement les propriétés, augmentant les coûts de réparation, d'assurance et de protection"
+      "summary": "Les effets du changement climatique et catastrophes naturelles peuvent impacter significativement les propriétés, augmentant les coûts de réparation, d'assurance et de protection",
+      "score": 4
     },
     {
       "title": "Risques de sécurité urbaine",
@@ -298,7 +325,8 @@
       "severity": 3,
       "score_rationale": "Les propriétés concentrées dans les zones urbaines (NYC, Chicago, San Francisco) sont exposées à des risques de sécurité. Les incidents peuvent affecter l'attractivité, la valeur des propriétés et la rétention de locataires.",
       "trend": "stable",
-      "summary": "La concentration dans les zones urbaines expose les propriétés à des risques de sécurité pouvant affecter l'attractivité et la valeur des immeubles"
+      "summary": "La concentration dans les zones urbaines expose les propriétés à des risques de sécurité pouvant affecter l'attractivité et la valeur des immeubles",
+      "score": 3
     },
     {
       "title": "Réglementation environnementale et conformité ESG",
@@ -306,7 +334,8 @@
       "severity": 3,
       "score_rationale": "Réglementations environnementales strictes en matière d'émissions de gaz à effet de serre, efficacité énergétique et conformité ESG croissante. Les coûts de conformité et d'amélioration peuvent être significatifs pour le portefeuille immobilier existant.",
       "trend": "up",
-      "summary": "Réglementations environnementales renforcées et exigences ESG imposent des coûts de conformité et d'amélioration qui peuvent affecter la rentabilité et la valeur des propriétés"
+      "summary": "Réglementations environnementales renforcées et exigences ESG imposent des coûts de conformité et d'amélioration qui peuvent affecter la rentabilité et la valeur des propriétés",
+      "score": 3
     }
   ],
   "governance": {
@@ -376,7 +405,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -610,7 +639,6 @@
           42.007,
           107.954,
           131.252,
-          -627.712,
           20.697,
           82.603,
           150.978,
@@ -622,7 +650,6 @@
           102.368,
           861.713,
           888.828,
-          -947.954,
           -7.317
         ],
         "history_periods": [
@@ -676,6 +703,12 @@
             "accession": "0000899689-26-000026",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (VNO)"
         ]
       },
       {
@@ -684,23 +717,18 @@
         "history": [
           2.1722,
           2.129,
-          -4.177,
           0.9739,
           0.9884,
           0.8454,
-          -1.918,
           0.891,
           1.1337,
           1.0004,
-          -2.028,
           0.8927,
           0.8726,
           0.7836,
-          -1.8149,
           0.5689,
           1.2049,
           1.0099,
-          -1.9428,
           1.0813
         ],
         "history_periods": [
@@ -754,6 +782,9 @@
             "accession": "0000899689-26-000026",
             "end": "2026-03-31"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (VNO)"
         ]
       }
     ]
@@ -770,9 +801,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.325626+00:00",
     "fetched_at": "2026-05-21T02:17:14.325627+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.214Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.334Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vno.json",
     "enrich_root": "v2-pipeline-enrich/vno.json",

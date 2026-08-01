@@ -21,8 +21,8 @@
       "name_fr": "Valeur des services bruts",
       "name_en": "Gross Services Volume",
       "explanation": "Valeur totale des services transigés sur les plateformes d'Upwork",
-      "value": 4028,
-      "unit": "M $",
+      "value": 4.028,
+      "unit": "Mds $",
       "yoy": "+1%",
       "type": "Demand",
       "nature": "Cyclique",
@@ -30,17 +30,21 @@
       "signal": "Croissance stable",
       "description": "Le GSV est un indicateur clé de la croissance et de la santé de l'entreprise. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 3 dernières années.",
       "history": [
-        4028,
-        4008,
-        4142
+        4.028,
+        4.008,
+        4.142
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée: 'Mds $' -> 'M $' (GSV 4,028 millions = 4.0 milliards)",
-      "period_type": "quarter",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Marketplace revenue",
@@ -116,7 +120,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée: 'Mds $' -> 'M $'",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -186,34 +190,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.3 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.37,
-      "unit": "Mds €",
+      "value": 370,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.58,
-        0.37,
-        0.37,
-        0.37
+        580,
+        370,
+        370,
+        370
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.37 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -269,7 +282,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "integrated",
+    "stance": "absent",
     "summary": "Upwork intègre l'IA comme élément clé de sa stratégie de croissance. La société développe des capacités IA propriétaires, notamment Uma, son assistant IA, et d'autres fonctionnalités pilotées par l'IA qui améliorent la productivité des talents et des clients. L'IA est présentée comme l'un des quatre moteurs de croissance stratégiques, aux côtés de la monétisation du marketplace, l'expansion enterprise et les offres PME.",
     "evidence": [
       "Uma, proprietary AI assistant, and other AI-driven features that enhance productivity for talent and clients across the Upwork Marketplace",
@@ -287,7 +300,8 @@
       "severity": 4,
       "score_rationale": "La croissance dépend fortement de la capacité à attirer et retenir une communauté de talents et de clients. L'incapacité à maintenir ou développer la communauté de clients actifs de manière efficace pourrait avoir un impact négatif sur l'activité, les résultats opérationnels et la situation financière.",
       "trend": "stable",
-      "summary": "La société dépend fortement de sa capacité à attirer et retenir une communauté de talents et de clients actifs."
+      "summary": "La société dépend fortement de sa capacité à attirer et retenir une communauté de talents et de clients actifs.",
+      "score": 4
     },
     {
       "title": "Risques de paiement et fraude",
@@ -295,7 +309,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de paiement et de fraude qui pourraient avoir un impact négatif significatif sur l'activité et la réputation de la plateforme.",
       "trend": "up",
-      "summary": "La société fait face à des risques de paiement et de fraude qui pourraient affecter négativement son activité."
+      "summary": "La société fait face à des risques de paiement et de fraude qui pourraient affecter négativement son activité.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenaires bancaires et de paiement",
@@ -303,7 +318,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de ses partenaires bancaires et de paiement pour fournir des services. L'incapacité à maintenir ces relations à des conditions favorables pourrait avoir un impact négatif significatif sur l'activité.",
       "trend": "stable",
-      "summary": "La société dépend des partenaires bancaires et de paiement pour la fourniture de services aux clients."
+      "summary": "La société dépend des partenaires bancaires et de paiement pour la fourniture de services aux clients.",
+      "score": 4
     },
     {
       "title": "Risques de sécurité et confidentialité",
@@ -311,7 +327,8 @@
       "severity": 5,
       "score_rationale": "La société est exposée à des risques liés aux violations de sécurité, aux attaques de pirates informatiques, aux attaques par phishing, aux rançongiciels et aux incidents de confidentialité qui pourraient compromettre la perception de sécurité des plateformes.",
       "trend": "up",
-      "summary": "La société risque des violations de sécurité et des attaques de pirates informatiques affectant la protection des données clients."
+      "summary": "La société risque des violations de sécurité et des attaques de pirates informatiques affectant la protection des données clients.",
+      "score": 5
     },
     {
       "title": "Concurrence intense",
@@ -319,7 +336,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché très concurrentiel avec de nombreux concurrents offrant des services similaires. Une perte de parts de marché pourrait affecter négativement l'activité, les résultats opérationnels et la situation financière.",
       "trend": "stable",
-      "summary": "La société opère dans un marché très concurrentiel avec des concurrents offrant des services similaires."
+      "summary": "La société opère dans un marché très concurrentiel avec des concurrents offrant des services similaires.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire",
@@ -327,7 +345,8 @@
       "severity": 4,
       "score_rationale": "L'activité est soumise à des réglementations gouvernementales complexes et étendues. La non-conformité pourrait entraîner des sanctions et des restrictions opérationnelles.",
       "trend": "stable",
-      "summary": "La société est soumise à des réglementations gouvernementales étendues et à des obligations de conformité complexes."
+      "summary": "La société est soumise à des réglementations gouvernementales étendues et à des obligations de conformité complexes.",
+      "score": 4
     },
     {
       "title": "Gestion de la réputation",
@@ -335,7 +354,8 @@
       "severity": 4,
       "score_rationale": "Maintenir une bonne réputation est essentiel pour attirer et retenir clients et talents. Une atteinte à la réputation pourrait affecter la base de clients et la performance de l'entreprise.",
       "trend": "stable",
-      "summary": "La société doit maintenir une bonne réputation pour attirer et retenir des clients et des talents."
+      "summary": "La société doit maintenir une bonne réputation pour attirer et retenir des clients et des talents.",
+      "score": 4
     }
   ],
   "governance": {
@@ -417,7 +437,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -657,7 +677,10 @@
             "source": "UPWK_2025-11-04.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Marketplace revenue",
@@ -719,7 +742,10 @@
             "source": "UPWK_2025-11-04.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -735,9 +761,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.323434+00:00",
     "fetched_at": "2026-05-21T02:17:14.323435+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.997Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.100Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/upwk.json",
     "enrich_root": "v2-pipeline-enrich/upwk.json",

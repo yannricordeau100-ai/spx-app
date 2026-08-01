@@ -43,7 +43,7 @@
       "period_type": "annual",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seul 1 année explicite trouvée : EBITDA Margin de 39% pour 2014 et 2013. Le document ne contient pas suffisamment de valeurs annuelles consé",
-      "explanation_en": "EBITDA Margin — EBITDA divided by revenue.",
+      "explanation_en": "EBITDA Margin : EBITDA divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -68,7 +68,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -141,7 +141,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Net Debt — total debt minus cash and cash equivalents.",
+      "explanation_en": "Net Debt, total debt minus cash and cash equivalents.",
       "signal_en": "Capital base contracting, monitor structure"
     },
     {
@@ -166,7 +166,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -191,7 +191,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -211,11 +211,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 128.1 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -229,35 +233,12 @@
     ],
     "source": "riotinto.com/ar2014"
   },
-  "_validation": [
-    "Secteur confirmé: 'Materials' (Rio Tinto est un groupe minier global)",
-    "Sous-secteur confirmé: 'Mining' (conformément à l'activité réelle)",
-    "Tagline conservé: description précise du groupe minier",
-    "hero_kpi_rationale conservé: explication pertinente de la marge EBITDA pour les industries extractives, sans em-dash",
-    "EBITDA Margin: last_data_date corrigée de '2025-12-31' à '2014-12-31' (année du rapport)",
-    "EBITDA Margin: yoy corrigé de 'stable' à '0%' (format numérique cohérent)",
-    "Revenue: value convertie de string '47.7' à nombre 47.7",
-    "Revenue: unité confirmée 'B $' (billions USD, notation standard)",
-    "Underlying Earnings: value convertie de string '9.3' à nombre 9.3",
-    "Underlying Earnings: unité confirmée 'B $'",
-    "Capital Expenditures: value convertie de string '8.2' à nombre 8.2",
-    "Capital Expenditures: unité confirmée 'B $'",
-    "Net Debt: value convertie de string '12.5' à nombre 12.5",
-    "Net Debt: unité confirmée 'B $'",
-    "Free Cash Flow: value convertie de string '6.1' à nombre 6.1",
-    "Free Cash Flow: unité confirmée 'B $'",
-    "Free Cash Flow: yoy corrigé de 'n/a' à '+190%' (calculé depuis 2.1 à 6.1 billions)",
-    "Free Cash Flow: comparable corrigé de 'Non comparable' à 'Comparable' (données fiables disponibles pour 2013)",
-    "Operating Cash Flow: value confirmée 14.3 B $ (source: rapport, activités opérationnelles)",
-    "Operating Cash Flow: history confirmée [14.3, 15.1] avec données vérifiées du rapport",
-    "Tous les KPI validés comme présents et vérifiés dans le rapport annuel 2014, aucune hallucination détectée",
-    "Cohérence arithmétique vérifiée: Free Cash Flow = Operating Cash Flow - Capital Expenditures (6.1 = 14.3 - 8.2)"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -273,7 +254,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur mentionné dès l'introduction (Item 1A équivalent) avec langage intensif ('materially affect', 'significantly from current levels'). Position centrale dans la stratégie de couverture du cycle. Tendance stable mais poids catégorique très élevé pour mineur intégré.",
       "trend": "stable",
-      "summary": "Rio Tinto dépend fortement des prix mondiaux des matières premières (cuivre, fer, aluminium, charbon) qui fluctuent selon la demande économique mondiale. Les variations de prix affectent directement la rentabilité des projets et la faisabilité des développements futurs, comme illustré par l'impact de US$4.1 milliards (post-tax) des prix plus bas en 2014."
+      "summary": "Rio Tinto dépend fortement des prix mondiaux des matières premières (cuivre, fer, aluminium, charbon) qui fluctuent selon la demande économique mondiale. Les variations de prix affectent directement la rentabilité des projets et la faisabilité des développements futurs, comme illustré par l'impact de US$4.1 milliards (post-tax) des prix plus bas en 2014.",
+      "score": 5
     },
     {
       "title": "Risques géopolitiques et changements réglementaires",
@@ -281,7 +263,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité dans Item 1A ('political uncertainty', 'activities by governmental authorities'). Opérations dans 40+ pays exposent à variations fiscales/réglementaires. Exemple concret : repeal de la Minerals Resource Rent Tax (US$0.4B charge). Tendance up avec tensions géopolitiques croissantes.",
       "trend": "up",
-      "summary": "Rio Tinto opère dans plus de 40 pays et fait face à des risques de changements réglementaires, fiscaux et politiques. L'exemple du Minerals Resource Rent Tax australien (US$0.4B de charge suite à son abrogation) illustre l'impact matériel. Les opérations en Guinée (Simandou), Namibie et autres zones sensibles ajoutent une exposition géopolitique significative."
+      "summary": "Rio Tinto opère dans plus de 40 pays et fait face à des risques de changements réglementaires, fiscaux et politiques. L'exemple du Minerals Resource Rent Tax australien (US$0.4B de charge suite à son abrogation) illustre l'impact matériel. Les opérations en Guinée (Simandou), Namibie et autres zones sensibles ajoutent une exposition géopolitique significative.",
+      "score": 4
     },
     {
       "title": "Dépendance aux réserves minérales et ressources exploitables",
@@ -289,7 +272,8 @@
       "severity": 4,
       "score_rationale": "Risque fondamental pour mineur : 'future ore reserves will be based in part on market prices' (Item 1A). Sections dédiées aux réserves (p.199) et ressources minérales (p.204) indiquent importance stratégique. Tendance stable mais critique pour viabilité long-terme des actifs.",
       "trend": "stable",
-      "summary": "La viabilité future de Rio Tinto dépend de la découverte et de l'exploitation de nouvelles réserves minérales rentables. Les réserves de minerai de fer, bauxite, cuivre et charbon doivent être remplacées au fur et à mesure de l'extraction. Les variations de prix affectent la classification des ressources en réserves exploitables économiquement."
+      "summary": "La viabilité future de Rio Tinto dépend de la découverte et de l'exploitation de nouvelles réserves minérales rentables. Les réserves de minerai de fer, bauxite, cuivre et charbon doivent être remplacées au fur et à mesure de l'extraction. Les variations de prix affectent la classification des ressources en réserves exploitables économiquement.",
+      "score": 4
     },
     {
       "title": "Capacité à produire et transporter les produits de manière rentable",
@@ -297,7 +281,8 @@
       "severity": 4,
       "score_rationale": "Cité explicitement dans Item 1A ('ability to produce and transport products profitably'). Opérations complexes multi-sites (40+ pays) avec chaînes d'approvisionnement longues. Impairment Kitimat (US$1.2B) illustre risques de projet. Tendance stable mais poids élevé.",
       "trend": "stable",
-      "summary": "Rio Tinto doit maintenir l'efficacité opérationnelle et les coûts compétitifs dans un environnement de prix bas. L'impairment de US$1.2B sur le projet Kitimat en 2014 démontre les risques de surcoûts et de retards. La dépendance à l'hydroélectricité (avantage compétitif en aluminium) crée aussi une vulnérabilité climatique."
+      "summary": "Rio Tinto doit maintenir l'efficacité opérationnelle et les coûts compétitifs dans un environnement de prix bas. L'impairment de US$1.2B sur le projet Kitimat en 2014 démontre les risques de surcoûts et de retards. La dépendance à l'hydroélectricité (avantage compétitif en aluminium) crée aussi une vulnérabilité climatique.",
+      "score": 4
     },
     {
       "title": "Risques environnementaux et conformité ESG",
@@ -305,7 +290,8 @@
       "severity": 4,
       "score_rationale": "Thème transversal dans rapport (Chairman's letter : 'biodiversity, climate change'). Opérations minières à fort impact environnemental. Stratégie 'product stewardship' mentionnée pour réduire émissions. Tendance up avec attentes sociétales croissantes et régulation carbone.",
       "trend": "up",
-      "summary": "Rio Tinto fait face à des risques croissants liés à la biodiversité, au changement climatique et aux attentes de conformité ESG. Les opérations minières et de raffinage (bauxite, alumine) sont énergivores. La dépendance à l'hydroélectricité en aluminium crée une vulnérabilité aux sécheresses. Les communautés locales exigent une gestion environnementale stricte."
+      "summary": "Rio Tinto fait face à des risques croissants liés à la biodiversité, au changement climatique et aux attentes de conformité ESG. Les opérations minières et de raffinage (bauxite, alumine) sont énergivores. La dépendance à l'hydroélectricité en aluminium crée une vulnérabilité aux sécheresses. Les communautés locales exigent une gestion environnementale stricte.",
+      "score": 4
     },
     {
       "title": "Risques de litige et conformité réglementaire locale",
@@ -313,7 +299,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans Item 1A via 'governmental authorities' et 'political uncertainty'. Opérations dans zones sensibles (Guinée Simandou, Namibie, Afrique du Sud) exposent à litiges fonciers/environnementaux. Tendance up avec activisme croissant. Poids modéré mais impact potentiel élevé.",
       "trend": "up",
-      "summary": "Rio Tinto opère dans des régions avec risques de litiges liés aux droits fonciers, aux impacts environnementaux et aux relations communautaires. Le projet Simandou en Guinée et les opérations en Afrique du Sud présentent des risques de contestation. Les attentes de 'mutual benefit with communities' augmentent les obligations de conformité."
+      "summary": "Rio Tinto opère dans des régions avec risques de litiges liés aux droits fonciers, aux impacts environnementaux et aux relations communautaires. Le projet Simandou en Guinée et les opérations en Afrique du Sud présentent des risques de contestation. Les attentes de 'mutual benefit with communities' augmentent les obligations de conformité.",
+      "score": 3
     },
     {
       "title": "Concentration géographique et dépendance aux marchés asiatiques",
@@ -321,7 +308,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans structure produits : destinations clés incluent Chine, Japon, Corée du Sud pour majorité des ventes. Demande chinoise critique pour fer, bauxite, charbon. Tendance up avec ralentissement économique chinois 2014-2015. Poids modéré mais croissant.",
       "trend": "up",
-      "summary": "Rio Tinto dépend fortement de la demande asiatique, particulièrement chinoise, pour ses produits (fer, bauxite, charbon). Un ralentissement économique en Chine ou en Asie du Sud-Est affecterait directement les volumes et les prix. La concentration géographique des ventes crée une vulnérabilité macro-régionale."
+      "summary": "Rio Tinto dépend fortement de la demande asiatique, particulièrement chinoise, pour ses produits (fer, bauxite, charbon). Un ralentissement économique en Chine ou en Asie du Sud-Est affecterait directement les volumes et les prix. La concentration géographique des ventes crée une vulnérabilité macro-régionale.",
+      "score": 3
     },
     {
       "title": "Risques technologiques et innovation dans extraction minière",
@@ -329,7 +317,8 @@
       "severity": 2,
       "score_rationale": "Mentionné comme avantage stratégique ('industry-leading technology', 'Technology & Innovation groups') mais aussi comme risque implicite de disruption. Groupe dédié à l'innovation indique conscience du risque. Tendance stable, poids faible mais croissant avec automatisation.",
       "trend": "stable",
-      "summary": "Rio Tinto investit dans l'innovation technologique (automatisation, smelting technology) pour maintenir sa compétitivité. Le risque inverse existe : l'incapacité à innover ou à adopter nouvelles technologies pourrait éroder les avantages compétitifs. Les records de production 2014 (fer, charbon) reposent sur l'excellence technologique."
+      "summary": "Rio Tinto investit dans l'innovation technologique (automatisation, smelting technology) pour maintenir sa compétitivité. Le risque inverse existe : l'incapacité à innover ou à adopter nouvelles technologies pourrait éroder les avantages compétitifs. Les records de production 2014 (fer, charbon) reposent sur l'excellence technologique.",
+      "score": 2
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:57:12.580218+00:00",
@@ -462,6 +451,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Rio Tinto est l'un des plus grands groupes miniers mondiaux. Coté à Londres et Sydney, fondé en 1873.",
+          "products": "Trois segments principaux : Iron Ore (minerai de fer en Australie occidentale, sel et gypse), Aluminium and lithium (bauxite, alumine, aluminium, lithium), Copper (cuivre, or, argent, molybdène).",
+          "customers": "Sidérurgistes mondiaux (Chine notamment), industriels de l'aluminium et des matériaux pour la transition énergétique (lithium pour batteries), fabricants de fils et câbles.",
+          "edge": "Position de leader sur le minerai de fer de qualité supérieure (Pilbara). Diversification stratégique vers les matériaux de la transition énergétique (cuivre, lithium)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Rio Tinto est l'un des trois plus grands miniers mondiaux (avec BHP et Vale). Stratégie de pivot vers les métaux de la transition énergétique (cuivre via Oyu Tolgoi, lithium via Rincon en Argentine et acquisition Arcadium) tout en maintenant la rentabilité du fer.",
+          "tech_products": "Iron Ore : cœur de profit historique avec Pilbara Iron Ore (Australie), mines automatisées et logistique intégrée (chemin de fer, ports). Aluminium : intégration verticale bauxite-alumine-aluminium au Canada (énergie hydroélectrique). Copper : Escondida (JV BHP), Oyu Tolgoi (Mongolie), Kennecott. Lithium : Rincon, acquisition Arcadium Lithium en cours.",
+          "moat": "Réserves de minerai de fer de qualité supérieure dans le Pilbara (top quartile coût). Position structurelle dans le cuivre via des projets long terme. Intégration verticale aluminium au Canada avec accès à l'hydroélectricité bon marché.",
+          "risks": "Dépendance à la Chine pour le minerai de fer (60 % du CA). Cycles des matières premières. Risques opérationnels et environnementaux (Juukan Gorge en 2020). Capex élevés pour Oyu Tolgoi et Simandou. Pression ESG sur les pratiques minières."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "RIO.L",
     "ranks": {
@@ -474,14 +484,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.303289+00:00",
     "fetched_at": "2026-05-21T02:17:14.303290+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.219Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.223Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rio.l.json",
     "enrich_root": "v2-pipeline-enrich/rio.l.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

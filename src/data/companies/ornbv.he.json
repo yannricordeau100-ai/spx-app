@@ -39,9 +39,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Loss Prevention Colloquium Attendance",
@@ -66,9 +64,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "CESNI Committee Meetings",
@@ -93,9 +89,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "octobre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Loss Prevention Committee Meetings",
@@ -120,9 +114,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Total Revenue",
@@ -141,11 +133,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.89 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only three consecutive years (2022‑2024) of net sales are explicitly provided; fewer than the required four years.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -164,56 +162,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.01 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.31,
-      "unit": "Mds €",
+      "value": 310,
+      "unit": "M €",
       "yoy": "-6.1%",
       "history": [
-        0.21,
-        0.2,
-        0.33,
-        0.31
+        210,
+        200,
+        330,
+        310
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.31 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "-23.8%",
       "history": [
-        0.33,
-        0.11,
-        0.21,
-        0.16
+        330,
+        110,
+        210,
+        160
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.16 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -227,7 +239,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.5,
         1.5,
@@ -240,7 +252,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -255,7 +267,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.2291,
@@ -268,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -283,7 +295,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         60.43,
@@ -296,7 +308,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -312,7 +324,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.49,
@@ -325,7 +337,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -442,11 +454,11 @@
   "last_data_date": "2026-03-31",
   "_hero_kpi_original": "225",
   "_dividends_extracted_at": "2026-05-09T20:22:39Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_ai_positioning_fetched_at": "2026-05-14T05:28:15.632089+00:00",
   "_eps_extracted_at": "2026-05-18T16:46:41Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Associations & organismes",
   "subsector_fr": "Associations professionnelles",
   "enrich_description": {
@@ -502,7 +514,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.358Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.151Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ornbv.he.json",
     "enrich_root": "v2-pipeline-enrich/ornbv.he.json",

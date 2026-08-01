@@ -39,9 +39,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Corrigé: unité de 'Mds $' à 'M $' (553,5 millions non milliards); réordonné history chronologiquement; corrigé is_wow à true et is_generic à false car croissance de 28% est significative",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Net Interest income generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Interest Margin",
@@ -92,99 +95,119 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Corrigé: unité de 'Mds $' à 'B $'; value de 17,2 à 20,8 (source: 20.8 billion in assets as of December 31, 2025); history réparé et réordonné (14.6, 14.9, 20.8 basés sur balance sheet totals)",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.65,
-      "unit": "Mds €",
+      "value": 650,
+      "unit": "M €",
       "yoy": "+25.0%",
       "history": [
-        0.43,
-        0.57,
-        0.52,
-        0.65
+        430,
+        570,
+        520,
+        650
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.65 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "+16.7%",
       "history": [
-        0.11,
-        0.1,
-        0.12,
-        0.14
+        110,
+        100,
+        120,
+        140
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.14 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.95,
-      "unit": "Mds €",
+      "value": 950,
+      "unit": "M €",
       "yoy": "+171.4%",
       "history": [
-        0.23,
-        0.16,
-        0.35,
-        0.95
+        230,
+        160,
+        350,
+        950
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.95 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.4,
-      "unit": "Mds €",
+      "value": 400,
+      "unit": "M €",
       "yoy": "-16.7%",
       "history": [
-        0.21,
-        0.45,
-        0.48,
-        0.4
+        210,
+        450,
+        480,
+        400
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.4 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -203,10 +226,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 3.06 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,7 +276,8 @@
       "severity": 4,
       "score_rationale": "La société a un portefeuille de prêts important en croissance de 22,6%, avec exposition au risque de défaut de paiement des emprunteurs, amplifiée par la croissance organique de 9% et les acquisitions.",
       "trend": "up",
-      "summary": "Le risque de crédit est élevé en raison de l'augmentation du portefeuille de prêts et de la possibilité de défaut de paiement des emprunteurs."
+      "summary": "Le risque de crédit est élevé en raison de l'augmentation du portefeuille de prêts et de la possibilité de défaut de paiement des emprunteurs.",
+      "score": 4
     },
     {
       "title": "Risque de marché",
@@ -257,7 +285,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux fluctuations des taux d'intérêt et des prix des actifs. La croissance du portefeuille de titres est significative, avec exposition aux baisses de rendement dans un environnement de taux plus bas.",
       "trend": "stable",
-      "summary": "Le risque de marché est moyen en raison de l'exposition aux fluctuations des taux d'intérêt et au risque de marché."
+      "summary": "Le risque de marché est moyen en raison de l'exposition aux fluctuations des taux d'intérêt et au risque de marché.",
+      "score": 3
     },
     {
       "title": "Risque de liquidité",
@@ -265,7 +294,8 @@
       "severity": 1,
       "score_rationale": "La société bénéficie d'une position de liquidité forte avec un ratio prêts-dépôts de 78%, bien en deçà des seuils prudentiels, et accès aux financements FHLB.",
       "trend": "stable",
-      "summary": "Le risque de liquidité est très faible en raison de la position de liquidité importante et du ratio prêts-dépôts conservateur de 78%."
+      "summary": "Le risque de liquidité est très faible en raison de la position de liquidité importante et du ratio prêts-dépôts conservateur de 78%.",
+      "score": 1
     },
     {
       "title": "Risque réglementaire",
@@ -273,7 +303,8 @@
       "severity": 2,
       "score_rationale": "La société est soumise à des réglementations bancaires strictes mais maintient une position de capital solide avec un ratio Tier 1 de 14,5%.",
       "trend": "stable",
-      "summary": "Le risque réglementaire est faible à modéré en raison du ratio de capital Tier 1 solide de 14,5%."
+      "summary": "Le risque réglementaire est faible à modéré en raison du ratio de capital Tier 1 solide de 14,5%.",
+      "score": 2
     },
     {
       "title": "Risque de réputation",
@@ -281,7 +312,8 @@
       "severity": 2,
       "score_rationale": "La société bénéficie d'une longue histoire depuis 1903 avec une présence établie en Floride. Aucun problème de conformité majeur mentionné.",
       "trend": "stable",
-      "summary": "Le risque de réputation est faible en raison de l'absence de problème spécifique mentionné dans le rapport et de la présence établie de la société."
+      "summary": "Le risque de réputation est faible en raison de l'absence de problème spécifique mentionné dans le rapport et de la présence établie de la société.",
+      "score": 2
     },
     {
       "title": "Risque de concurrence",
@@ -289,7 +321,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un marché concurrentiel en Floride avec une stratégie de croissance équilibrée combinant croissance organique et acquisitions stratégiques.",
       "trend": "up",
-      "summary": "Le risque de concurrence est moyen en raison de la nécessité de maintenir une stratégie de croissance et de développement dans un marché concurrentiel."
+      "summary": "Le risque de concurrence est moyen en raison de la nécessité de maintenir une stratégie de croissance et de développement dans un marché concurrentiel.",
+      "score": 3
     },
     {
       "title": "Risque de technologie et cybersécurité",
@@ -297,7 +330,8 @@
       "severity": 2,
       "score_rationale": "La société dépend des systèmes technologiques et des solutions bancaires en ligne et mobiles, mais aucun incident de sécurité majeur n'est mentionné.",
       "trend": "stable",
-      "summary": "Le risque de technologie est faible en raison de l'absence de problème spécifique mentionné, bien que la dépendance technologique soit croissante."
+      "summary": "Le risque de technologie est faible en raison de l'absence de problème spécifique mentionné, bien que la dépendance technologique soit croissante.",
+      "score": 2
     }
   ],
   "governance": {
@@ -413,7 +447,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -635,6 +669,103 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SBCF",
+    "extracted_at": "2026-06-01T09:20:22Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Net Interest Income",
+        "period_type": "quarter",
+        "history": [
+          66.61,
+          78.315,
+          71.324,
+          76.522,
+          81.647,
+          88.284,
+          131.152,
+          126.963,
+          119.306,
+          105.078,
+          126.963,
+          119.306,
+          118.517,
+          126.864,
+          133.468
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:20:22Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          33.719,
+          31.41,
+          22.944,
+          20.588,
+          32.755,
+          29.237,
+          11.827,
+          32.755,
+          31.414,
+          26.006,
+          31.249,
+          31.414,
+          31.464,
+          42.687,
+          36.467
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:20:22Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SBCF",
     "ranks": {
@@ -647,15 +778,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.306879+00:00",
     "fetched_at": "2026-05-21T02:17:14.306880+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.550Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.575Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sbcf.json",
     "enrich_root": "v2-pipeline-enrich/sbcf.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -41,7 +41,10 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'B $' for consistency with international standards",
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Income CAGR",
@@ -101,17 +104,17 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.876,
-      "unit": "Mds $",
+      "value": 876,
+      "unit": "M $",
       "yoy": "+58.1%",
       "history": [
-        0.113,
-        0.168,
-        0.248,
-        0.327,
-        0.376,
-        0.554,
-        0.876
+        113,
+        168,
+        248,
+        327,
+        376,
+        554,
+        876
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -121,23 +124,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.197,
-      "unit": "Mds $",
+      "value": 197,
+      "unit": "M $",
       "yoy": "+66.9%",
       "history": [
-        0.011,
-        0.006,
-        0.046,
-        0.052,
-        0.079,
-        0.118,
-        0.197
+        11,
+        6,
+        46,
+        52,
+        79,
+        118,
+        197
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -146,8 +154,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 7 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -176,9 +189,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Unit corrected from 'Mds $' to 'B $'",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'B $'"
     },
     {
       "short": "Net Income CAGR",
@@ -205,9 +216,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Value corrected from '46%' to '46'; name_fr improved; type changed to 'Profitability'",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value corrected from '46%' to '46'; name_fr improved; type changed to 'Profitability'"
     },
     {
       "short": "Earthquake Premium Mix",
@@ -234,9 +243,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Diversification",
-      "_validation": "Value corrected from '28%' to '28'; story_category changed from 'Innovation' to 'Diversification'; name_fr improved",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value corrected from '28%' to '28'; story_category changed from 'Innovation' to 'Diversification'; name_fr improved"
     }
   ],
   "ai_positioning": {
@@ -267,7 +274,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -347,7 +354,8 @@
       "severity": 3,
       "score_rationale": "Item 5 détaille extensivement les restrictions des régulateurs d'assurance (Oregon, Arizona, Californie, New Jersey, Bermuda) sur les dividendes. Langage modéré mais répétitif ('no assurance', 'broad powers'). Risque structurel permanent pour holding sans opérations propres.",
       "trend": "stable",
-      "summary": "Les filiales d'assurance sont soumises à des exigences strictes de capital et surplus qui limitent les dividendes versables à la holding. Les régulateurs pourraient adopter des restrictions plus sévères, réduisant significativement les distributions."
+      "summary": "Les filiales d'assurance sont soumises à des exigences strictes de capital et surplus qui limitent les dividendes versables à la holding. Les régulateurs pourraient adopter des restrictions plus sévères, réduisant significativement les distributions.",
+      "score": 3
     },
     {
       "title": "Dépendance aux distributions des filiales",
@@ -355,7 +363,8 @@
       "severity": 3,
       "score_rationale": "Item 5 souligne que la holding 'has no business operations of its own' et dépend entièrement des dividendes de PSIC, PESIC, FIA et PSRE. Langage direct sur la vulnérabilité structurelle. Impact direct sur capacité de financement.",
       "trend": "stable",
-      "summary": "Palomar est une holding sans activités propres, dépendante des distributions de ses filiales d'assurance. Toute restriction réglementaire ou baisse de rentabilité des filiales compromet la capacité de la holding à financer ses opérations."
+      "summary": "Palomar est une holding sans activités propres, dépendante des distributions de ses filiales d'assurance. Toute restriction réglementaire ou baisse de rentabilité des filiales compromet la capacité de la holding à financer ses opérations.",
+      "score": 3
     },
     {
       "title": "Volatilité des résultats liée aux catastrophes",
@@ -363,7 +372,8 @@
       "severity": 4,
       "score_rationale": "Item 7 identifie explicitement que les pertes catastrophiques (tremblements de terre, hurricanes, inondations, sécheresses) affectent significativement les résultats. Portefeuille concentré en Earthquake (produit principal). Langage technique mais risque quantifié comme majeur.",
       "trend": "stable",
-      "summary": "Les résultats sont fortement exposés aux événements catastrophiques (tremblements de terre, hurricanes, inondations). Bien que couverts par réassurance, ces événements créent une volatilité importante des résultats d'exploitation."
+      "summary": "Les résultats sont fortement exposés aux événements catastrophiques (tremblements de terre, hurricanes, inondations). Bien que couverts par réassurance, ces événements créent une volatilité importante des résultats d'exploitation.",
+      "score": 4
     },
     {
       "title": "Risque de concentration géographique",
@@ -371,7 +381,8 @@
       "severity": 3,
       "score_rationale": "Item 7 mentionne que 'geographic location and characteristics' influencent les pertes. Produit Earthquake dominant suggère concentration Californie/zones sismiques. Pas de détail quantifié mais risque implicite majeur pour assureur spécialisé.",
       "trend": "stable",
-      "summary": "Le portefeuille est concentré géographiquement, notamment en zones à risque sismique élevé (Californie). Une accumulation de sinistres dans ces zones pourrait dépasser les capacités de réassurance."
+      "summary": "Le portefeuille est concentré géographiquement, notamment en zones à risque sismique élevé (Californie). Une accumulation de sinistres dans ces zones pourrait dépasser les capacités de réassurance.",
+      "score": 3
     },
     {
       "title": "Croissance rapide et intégration d'acquisitions",
@@ -379,7 +390,8 @@
       "severity": 2,
       "score_rationale": "Item 7 rapporte CAGR 55% sur primes (2014-2025) et acquisition FIA mentionnée. Croissance organique rapide + acquisitions créent risques opérationnels. Langage neutre mais complexité croissante implicite.",
       "trend": "up",
-      "summary": "La croissance très rapide (55% CAGR) et l'intégration d'acquisitions (FIA) augmentent les risques opérationnels et de contrôle interne. Les systèmes et processus doivent évoluer rapidement."
+      "summary": "La croissance très rapide (55% CAGR) et l'intégration d'acquisitions (FIA) augmentent les risques opérationnels et de contrôle interne. Les systèmes et processus doivent évoluer rapidement.",
+      "score": 2
     },
     {
       "title": "Saisonnalité du portefeuille Crop",
@@ -387,7 +399,8 @@
       "severity": 2,
       "score_rationale": "Item 7 précise que 'majority of Crop written premiums recognized in Q3' et que 'interim results may not be indicative of full-year performance'. Risque de volatilité trimestrielle et de prévisions imprécises.",
       "trend": "stable",
-      "summary": "Le portefeuille Crop (nouveau produit) crée une saisonnalité importante avec concentration des primes au Q3. Cela rend les résultats trimestriels peu représentatifs et complique la gestion du capital."
+      "summary": "Le portefeuille Crop (nouveau produit) crée une saisonnalité importante avec concentration des primes au Q3. Cela rend les résultats trimestriels peu représentatifs et complique la gestion du capital.",
+      "score": 2
     },
     {
       "title": "Absence de dividendes et liquidité pour actionnaires",
@@ -395,7 +408,8 @@
       "severity": 2,
       "score_rationale": "Item 5 déclare explicitement 'do not intend to declare and pay cash dividends' et avertit 'investors seeking immediate cash dividends should not purchase'. Langage direct mais risque de perception/attractivité investisseurs.",
       "trend": "stable",
-      "summary": "L'absence de dividendes prévue et la dépendance à l'appréciation du cours limitent l'attrait pour certains investisseurs. Les actionnaires ne peuvent réaliser des gains que par vente d'actions."
+      "summary": "L'absence de dividendes prévue et la dépendance à l'appréciation du cours limitent l'attrait pour certains investisseurs. Les actionnaires ne peuvent réaliser des gains que par vente d'actions.",
+      "score": 2
     },
     {
       "title": "Inflation des coûts de construction et défense",
@@ -403,7 +417,8 @@
       "severity": 2,
       "score_rationale": "Item 7 cite 'Inflation in housing and construction costs' et 'Trends in legal defense costs' comme facteurs affectant les pertes. Langage factuel mais tendance inflationniste actuelle augmente ce risque.",
       "trend": "up",
-      "summary": "L'inflation des coûts de construction et des frais de défense juridique augmente les sinistres et les LAE. Cet impact s'accélère dans l'environnement macroéconomique actuel."
+      "summary": "L'inflation des coûts de construction et des frais de défense juridique augmente les sinistres et les LAE. Cet impact s'accélère dans l'environnement macroéconomique actuel.",
+      "score": 2
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T20:42:17.012965+00:00",
@@ -541,11 +556,9 @@
           26.382,
           52.111,
           82.608,
-          -43.528,
           42.922,
           89.45,
           140.905,
-          -76.207,
           42.947
         ],
         "history_periods": [
@@ -599,6 +612,12 @@
             "accession": "0001193125-26-212569",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (PLMR)"
         ]
       },
       {
@@ -613,7 +632,6 @@
           7000,
           267000,
           307000,
-          -268000,
           7000,
           19000,
           15000,
@@ -677,6 +695,12 @@
             "accession": "0001193125-26-212569",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (PLMR)"
         ]
       }
     ]
@@ -693,9 +717,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.297417+00:00",
     "fetched_at": "2026-05-21T02:17:14.297418+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.660Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.649Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/plmr.json",
     "enrich_root": "v2-pipeline-enrich/plmr.json",

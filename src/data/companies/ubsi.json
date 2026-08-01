@@ -36,10 +36,13 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "L'extrait fourni contient uniquement des métadonnées XML/XBRL (dates, membres de contexte, références) sans valeurs numériques explicites de",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Shareholders Equity",
@@ -79,34 +82,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.24 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.46,
-      "unit": "Mds €",
+      "value": 460,
+      "unit": "M €",
       "yoy": "+24.3%",
       "history": [
-        0.38,
-        0.37,
-        0.37,
-        0.46
+        380,
+        370,
+        370,
+        460
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.46 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -125,34 +137,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 3.27 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.63,
-      "unit": "Mds €",
+      "value": 630,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        2.27,
-        1.88,
-        0.63,
-        0.63
+        2270,
+        1880,
+        630,
+        630
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.63 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -171,10 +192,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.54 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -193,10 +218,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 5.5 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -210,7 +239,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.41,
         1.44,
@@ -223,7 +252,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -238,7 +267,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2725,
@@ -251,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -266,7 +295,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         50.85,
@@ -279,7 +308,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -295,7 +324,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.8,
@@ -308,7 +337,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -350,7 +379,8 @@
       "score_rationale": "Risque placé en position centrale du rapport (section critique accounting policies), langage d'incertitude élevée ('highly uncertain', 'significant change'), impact quantifié montrant sensibilité matérielle (10% augmentation = -23,5M$ net income), catégorie crédit pondérée fortement dans le secteur bancaire.",
       "trend": "stable",
       "summary": "La provision pour pertes sur prêts repose sur des estimations complexes et subjectives des pertes attendues. Une mauvaise évaluation pourrait réduire significativement les bénéfices nets et le capital de la banque.",
-      "citation": "Determining the allowance for loan and lease losses requires management to make estimates of expected credit losses that are highly uncertain and require a high degree of judgment."
+      "citation": "Determining the allowance for loan and lease losses requires management to make estimates of expected credit losses that are highly uncertain and require a high degree of judgment.",
+      "score": 4
     },
     {
       "title": "Incertitude économique et politique commerciale",
@@ -359,7 +389,8 @@
       "score_rationale": "Risque identifié en début de rapport (Item 1A), langage atténué ('potential impact', 'no material adverse effects' actuellement), tendance nouvelle/accrue (tarifs potentiels futurs), mais impact jugé non-matériel à date de reporting.",
       "trend": "new",
       "summary": "Les changements de politique commerciale et les tarifs douaniers potentiels créent une incertitude économique. Pour l'instant, aucun impact matériel n'a été constaté sur les opérations.",
-      "citation": "While no specific tariffs have been implemented during the reporting period that materially affect United s operations, the potential for future changes in cross-border trade arrangements and import/export duties contributes to broader economic uncertainty."
+      "citation": "While no specific tariffs have been implemented during the reporting period that materially affect United s operations, the potential for future changes in cross-border trade arrangements and import/export duties contributes to broader economic uncertainty.",
+      "score": 2
     },
     {
       "title": "Risque de mesure de juste valeur et estimations",
@@ -368,7 +399,8 @@
       "score_rationale": "Risque en section critique accounting policies, langage modéré ('judgment is necessary'), 1,05% seulement en Level 3 (données non-observables), management conclut 'no material impact', tendance stable.",
       "trend": "stable",
       "summary": "Environ 9,5% des actifs sont évalués à la juste valeur, dont 1% utilise des données non-observables. Les changements d'hypothèses pourraient affecter les états financiers, mais l'impact est jugé non-matériel.",
-      "citation": "When quoted prices or observable market data are not available, management s judgment is necessary to estimate fair value. United does not believe that any changes in the unobservable inputs would have a material impact."
+      "citation": "When quoted prices or observable market data are not available, management s judgment is necessary to estimate fair value. United does not believe that any changes in the unobservable inputs would have a material impact.",
+      "score": 2
     },
     {
       "title": "Complexité fiscale et risque de redressement",
@@ -377,7 +409,8 @@
       "score_rationale": "Risque en section critical accounting policies, langage d'incertitude modérée ('inherently complex', 'may produce indicated liabilities'), impact potentiel non quantifiable ('cannot be reasonably estimated'), tendance stable.",
       "trend": "stable",
       "summary": "La provision fiscale dépend d'interprétations complexes des lois fiscales fédérales et étatiques. Les audits fiscaux pourraient révéler des passifs différents des estimations actuelles.",
-      "citation": "Because the application of tax laws is subject to varying interpretations, results of these audits may produce indicated liabilities which differ from United s estimates and provisions."
+      "citation": "Because the application of tax laws is subject to varying interpretations, results of these audits may produce indicated liabilities which differ from United s estimates and provisions.",
+      "score": 2
     },
     {
       "title": "Risque d'intégration de l'acquisition Piedmont",
@@ -386,7 +419,8 @@
       "score_rationale": "Acquisition majeure conclue janvier 2025 (2,4Md$ actifs), positionnée en début de rapport comme développement significatif, langage neutre mais intégration complexe implicite, tendance nouvelle (acquisition récente), impact sur capital et opérations.",
       "trend": "new",
       "summary": "L'acquisition de Piedmont Bancorp (2,4 milliards de dollars d'actifs) en janvier 2025 crée des risques d'intégration opérationnelle et de réalisation des synergies attendues.",
-      "citation": "On January 10, 2025, United consummated its acquisition of Atlanta-based Piedmont Bancorp, Inc. ( Piedmont ). As of January 10, 2025, Piedmont had total assets of approximately $2.4 billion."
+      "citation": "On January 10, 2025, United consummated its acquisition of Atlanta-based Piedmont Bancorp, Inc. ( Piedmont ). As of January 10, 2025, Piedmont had total assets of approximately $2.4 billion.",
+      "score": 3
     }
   ],
   "governance": {
@@ -444,7 +478,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -523,7 +557,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:19Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:59Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
   "enrich_description": {
@@ -623,39 +657,31 @@
   },
   "enrich_quarterly_history": {
     "ticker": "UBSI",
-    "extracted_at": "2026-05-15T18:14:51Z",
-    "method": "xbrl-companyfacts",
-    "cik": 729986,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:25:40Z",
+    "n_kpis": 2,
     "kpis": [
       {
-        "short": "Total Shareholders Equity",
+        "short": "Total Assets",
         "period_type": "quarter",
         "history": [
-          4.3937,
-          4.4308,
-          -8.4385,
-          4.5951,
-          4.487,
-          4.4401,
-          -9.0061,
-          4.6065,
-          4.637,
-          4.6489,
-          -9.1212,
-          4.8074,
-          4.8566,
-          4.9678,
-          -9.6387,
-          5.3144,
-          5.3645,
-          5.4457,
-          -10.6287,
-          5.4881
+          29.329,
+          29.366,
+          28.778,
+          29.048,
+          29.489,
+          30.182,
+          29.695,
+          30.029,
+          29.926,
+          30.029,
+          29.957,
+          29.863,
+          30.024,
+          32.788,
+          32.783,
+          33.407
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
           "Q4 2021",
           "Q1 2022",
           "Q2 2022",
@@ -671,40 +697,62 @@
           "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "StockholdersEquity",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 5.3645,
-            "accession": "0001193125-25-176529",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 5.4457,
-            "accession": "0001193125-25-271463",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -10.6287,
-            "accession": "calc-0001193125-26-081470",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 5.4881,
-            "accession": "0001193125-26-213783",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:25:40Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Shareholders Equity",
+        "period_type": "quarter",
+        "history": [
+          4.719,
+          4.595,
+          4.487,
+          4.44,
+          4.516,
+          4.607,
+          4.637,
+          4.807,
+          4.771,
+          4.807,
+          4.857,
+          4.968,
+          4.993,
+          5.314,
+          5.365,
+          5.446
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:25:40Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -720,9 +768,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.321574+00:00",
     "fetched_at": "2026-05-21T02:17:14.321575+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.836Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.926Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ubsi.json",
     "enrich_root": "v2-pipeline-enrich/ubsi.json",

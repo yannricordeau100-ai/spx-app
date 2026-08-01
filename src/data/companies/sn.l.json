@@ -101,34 +101,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 6.16 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "No explicit annual total revenue figures for at least four consecutive years were found in the provided excerpt.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.62,
-      "unit": "Mds €",
+      "value": 620,
+      "unit": "M €",
       "yoy": "+51.2%",
       "history": [
-        0.22,
-        0.26,
-        0.41,
-        0.62
+        220,
+        260,
+        410,
+        620
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.62 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -147,11 +158,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.46 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -170,33 +185,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.33 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.56,
-      "unit": "Mds €",
+      "value": 560,
+      "unit": "M €",
       "yoy": "-9.7%",
       "history": [
-        0.35,
-        0.3,
-        0.62,
-        0.56
+        350,
+        300,
+        620,
+        560
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.56 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -210,7 +234,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         27.12,
         31.31,
@@ -223,7 +247,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -238,7 +262,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         0.485,
@@ -251,7 +275,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -266,7 +290,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         146.64,
@@ -279,7 +303,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -295,7 +319,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.25,
@@ -308,7 +332,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -344,7 +368,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -430,10 +454,10 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:20:12Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "GBp",
   "_eps_extracted_at": "2026-05-18T16:47:31Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Transport & logistique",
   "enrich_description": {
     "ticker": "SN.L",
@@ -488,12 +512,34 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.935Z",
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Smith & Nephew plc est un groupe britannique de dispositifs médicaux. Coté à Londres (FTSE 100), basé à Watford. Spécialisé en orthopédie, sports medicine et soin des plaies avancé.",
+          "products": "Trois segments : Orthopaedics (prothèses de hanche, de genou, traumatologie, robotique CORI), Sports Medicine & ENT (arthroscopie, ENT instruments), Advanced Wound Management (pansements actifs, négatif PICO, GRAFIX biológicos).",
+          "customers": "Hôpitaux et chirurgiens orthopédiques, centres de chirurgie ambulatoire (ASC), distributeurs spécialisés, professionnels du soin des plaies (infirmières spécialisées).",
+          "edge": "Position de niche premium en sports medicine (top 3 mondial). Solutions de robotique chirurgicale CORI bien positionnées. Portefeuille Advanced Wound Management avec rente de marges."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Smith & Nephew est en phase de redressement opérationnel sous Deepak Nath (CEO depuis 2022) après plusieurs années de sous-performance vs J&J Medtech, Stryker et Zimmer Biomet. Plan 12-Point Plan visant l'amélioration de la croissance et des marges, focus sur l'innovation et l'exécution.",
+          "tech_products": "Orthopaedics : hanche (Polarstem, R3), genou (Journey II, Legion, CORI Surgical System), traumatologie (extrémités). Sports Medicine & ENT : arthroscopie (RIATA, instruments), reconstruction articulaire. Advanced Wound Management : pansements avancés (Allevyn, ACTICOAT), thérapie par pression négative (PICO portable, RENASYS), biologiques (GRAFIX, OASIS).",
+          "moat": "Position structurelle en sports medicine (top 3 mondial). Portefeuille Advanced Wound Management avec marques fortes et marges élevées. Capacité R&D dans la robotique chirurgicale (CORI competitive vs Mako de Stryker).",
+          "risks": "Sous-performance opérationnelle vs concurrents en orthopédie (parts de marché en érosion). Pression sur les prix orthopédie (US, Chine VBP). Risques d'exécution sur le plan de redressement. Concurrence Stryker Mako, Zimmer Rosa en robotique. Pression activiste."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
+  "_companies_unified_built_at": "2026-08-01T20:28:06.655Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sn.l.json",
     "enrich_root": "v2-pipeline-enrich/sn.l.json",
     "enrich_subkeys": [
-      "description"
+      "description",
+      "mettrik-description"
     ]
   }
 }

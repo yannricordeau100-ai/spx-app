@@ -114,7 +114,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -139,7 +139,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Total Employees — total number of employees at period end.",
+      "explanation_en": "Total Employees, total number of employees at period end.",
       "signal_en": "Solid expansion, positive trajectory"
     },
     {
@@ -183,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 98.16 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -206,11 +210,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 21.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,9 +244,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "period_type": "annual",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Energy Transition Orders",
@@ -262,9 +268,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "period_type": "annual",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     }
   ],
   "ai_positioning": {
@@ -320,7 +324,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement mentionné dans l'Item 1A avec un langage fort ('serious risks'), il est récurrent, et le titane est critique pour la production. La catégorie 'Industriel' est centrale pour l'activité.",
       "trend": "stable",
-      "summary": "Alfa Laval dépend de quelques fournisseurs de titane, un matériau stratégique. Une rupture d'approvisionnement ou une hausse brutale des prix pourrait gravement perturber la production et les marges."
+      "summary": "Alfa Laval dépend de quelques fournisseurs de titane, un matériau stratégique. Une rupture d'approvisionnement ou une hausse brutale des prix pourrait gravement perturber la production et les marges.",
+      "score": 5
     },
     {
       "title": "Volatilité des prix des matières premières",
@@ -328,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne la volatilité des prix de l'acier, cuivre et titane, avec un impact direct sur les coûts. Le langage est préoccupé, et le risque est actif depuis plusieurs années.",
       "trend": "stable",
-      "summary": "Les fluctuations des prix du nickel, cuivre, acier et titane représentent un risque majeur. La capacité à répercuter ces hausses est limitée par la concurrence sur certains marchés."
+      "summary": "Les fluctuations des prix du nickel, cuivre, acier et titane représentent un risque majeur. La capacité à répercuter ces hausses est limitée par la concurrence sur certains marchés.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur les marchés industriels",
@@ -336,7 +342,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement identifié dans l'Item 1A, avec un langage affirmé ('competitive markets'), il est structurel, et la catégorie est stratégique pour l'entreprise.",
       "trend": "stable",
-      "summary": "Alfa Laval opère dans des marchés très concurrentiels, ce qui limite sa capacité à augmenter les prix et exige une innovation constante pour maintenir sa part de marché."
+      "summary": "Alfa Laval opère dans des marchés très concurrentiels, ce qui limite sa capacité à augmenter les prix et exige une innovation constante pour maintenir sa part de marché.",
+      "score": 4
     },
     {
       "title": "Ruptures possibles dans la chaîne logistique",
@@ -344,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné avec un langage prudent mais préoccupé ('elevate the risk'), il est en évolution avec le contexte géopolitique, et critique pour l'activité globale.",
       "trend": "up",
-      "summary": "Malgré des plans de continuité, les tensions géopolitiques et les perturbations logistiques mondiales augmentent le risque de ruptures d'approvisionnement ou de livraison."
+      "summary": "Malgré des plans de continuité, les tensions géopolitiques et les perturbations logistiques mondiales augmentent le risque de ruptures d'approvisionnement ou de livraison.",
+      "score": 4
     },
     {
       "title": "Exigences réglementaires sectorielles strictes",
@@ -352,7 +360,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne des clients dans des secteurs régulés (marine, alimentaire, pharmaceutique), ce qui implique des normes élevées. Le risque est sous-entendu mais critique.",
       "trend": "stable",
-      "summary": "Les produits d'Alfa Laval doivent respecter des normes strictes dans des secteurs comme l'alimentaire ou le maritime. Un non-respect pourrait entraîner des rappels ou des pertes de contrats."
+      "summary": "Les produits d'Alfa Laval doivent respecter des normes strictes dans des secteurs comme l'alimentaire ou le maritime. Un non-respect pourrait entraîner des rappels ou des pertes de contrats.",
+      "score": 4
     },
     {
       "title": "Risques liés aux minéraux de conflit",
@@ -360,7 +369,8 @@
       "severity": 3,
       "score_rationale": "Le risque est documenté avec des mesures de due diligence, langage mesuré mais présent, tendance stable, et lié à la réputation ESG de l'entreprise.",
       "trend": "stable",
-      "summary": "L'utilisation potentielle de minéraux provenant de zones de conflit, comme en RDC, expose Alfa Laval à des risques réputationnels et réglementaires, malgré des politiques de conformité en place."
+      "summary": "L'utilisation potentielle de minéraux provenant de zones de conflit, comme en RDC, expose Alfa Laval à des risques réputationnels et réglementaires, malgré des politiques de conformité en place.",
+      "score": 3
     },
     {
       "title": "Cybermenaces sur les opérations industrielles",
@@ -368,7 +378,8 @@
       "severity": 3,
       "score_rationale": "Non explicitement mentionné, mais déduit du contexte industriel connecté et des risques opérationnels. Langage indirect, mais le risque est croissant dans le secteur.",
       "trend": "up",
-      "summary": "La digitalisation croissante des usines et des systèmes industriels expose Alfa Laval à des cyberattaques pouvant perturber la production ou compromettre des données sensibles."
+      "summary": "La digitalisation croissante des usines et des systèmes industriels expose Alfa Laval à des cyberattaques pouvant perturber la production ou compromettre des données sensibles.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:46:20.800940+00:00",
@@ -508,9 +519,9 @@
     "country": "Sweden",
     "_data_freshness_date": "2026-05-21T02:17:14.218837+00:00",
     "fetched_at": "2026-05-21T02:17:14.218839+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.617Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.052Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/alfa.st.json",
     "enrich_root": "v2-pipeline-enrich/alfa.st.json",

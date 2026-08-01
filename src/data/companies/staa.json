@@ -75,7 +75,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur et historique extraits du tableau d'analyse opérationnelle du MD&A (76.2% pour 2025, 76.3% pour 2024, 78.4% pour 2023); YoY calculé comme différence entre 2025 et 2024",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -139,75 +139,90 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; données non disponibles dans le 10-K fourni",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.45,
-      "unit": "Mds €",
+      "value": 450,
+      "unit": "M €",
       "yoy": "-11.8%",
       "history": [
-        0.42,
-        0.49,
-        0.51,
-        0.45
+        420,
+        490,
+        510,
+        450
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.45 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.03,
-        0.04,
-        0.04,
-        0.04
+        30,
+        40,
+        40,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "+7.1%",
       "history": [
-        0.09,
-        0.18,
-        0.14,
-        0.15
+        90,
+        180,
+        140,
+        150
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.15 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,7 +264,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans l'Item 1A avec une intensité élevée. Les activités en dehors des États-Unis représentent environ 91% des ventes totales en 2025. Les expositions de change significatives concernent le yen japonais, l'euro et le franc suisse. Un renforcement du dollar américain peut réduire les ventes consolidées exprimées en dollars.",
       "trend": "stable",
-      "summary": "Les fluctuations de change peuvent rendre les produits de la société plus chers sur les marchés étrangers, ce qui pourrait réduire les ventes. La Chine représente environ 32% des ventes consolidées et ses ventes sont libellées en dollars américains."
+      "summary": "Les fluctuations de change peuvent rendre les produits de la société plus chers sur les marchés étrangers, ce qui pourrait réduire les ventes. La Chine représente environ 32% des ventes consolidées et ses ventes sont libellées en dollars américains.",
+      "score": 4
     },
     {
       "title": "Dépendance à la Chine",
@@ -257,7 +273,8 @@
       "severity": 4,
       "score_rationale": "La Chine représente une part importante des ventes de la société (environ 32% des ventes consolidées en 2025). Les conditions macroéconomiques faibles en Chine ont entraîné une baisse significative des ventes en 2025, démontrant la vulnérabilité de la société aux fluctuations du marché chinois.",
       "trend": "stable",
-      "summary": "La société est fortement dépendante du marché chinois, ce qui pourrait avoir un impact négatif sur ses ventes en cas de problèmes économiques ou politiques dans ce pays. En 2025, les ventes en Chine ont chuté de 51.9% en raison de l'économie faible et de la faible consommation des clients."
+      "summary": "La société est fortement dépendante du marché chinois, ce qui pourrait avoir un impact négatif sur ses ventes en cas de problèmes économiques ou politiques dans ce pays. En 2025, les ventes en Chine ont chuté de 51.9% en raison de l'économie faible et de la faible consommation des clients.",
+      "score": 4
     },
     {
       "title": "Risques de contrôle interne",
@@ -265,7 +282,8 @@
       "severity": 3,
       "score_rationale": "La société a mis en place des contrôles internes pour prévenir les erreurs et les fraudes, mais il existe toujours un risque que ces contrôles soient insuffisants ou inappropriés.",
       "trend": "down",
-      "summary": "La société a mis en place des contrôles internes pour prévenir les erreurs et les fraudes, mais il existe toujours un risque que ces contrôles soient insuffisants ou inappropriés."
+      "summary": "La société a mis en place des contrôles internes pour prévenir les erreurs et les fraudes, mais il existe toujours un risque que ces contrôles soient insuffisants ou inappropriés.",
+      "score": 3
     },
     {
       "title": "Risques de régulation",
@@ -273,7 +291,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations strictes dans l'industrie des soins de santé en tant que fabricant de lentilles intraoculaires implantables. La non-conformité pourrait avoir un impact négatif sur les activités.",
       "trend": "stable",
-      "summary": "La société est soumise à des réglementations strictes dans l'industrie des soins de santé ophtalmologique, ce qui pourrait avoir un impact négatif sur ses activités en cas de non-conformité."
+      "summary": "La société est soumise à des réglementations strictes dans l'industrie des soins de santé ophtalmologique, ce qui pourrait avoir un impact négatif sur ses activités en cas de non-conformité.",
+      "score": 3
     },
     {
       "title": "Risques de litige",
@@ -281,7 +300,8 @@
       "severity": 2,
       "score_rationale": "La société pourrait être impliquée dans des litiges avec des clients, des fournisseurs ou des concurrents, ce qui pourrait avoir un impact négatif sur sa réputation et ses finances.",
       "trend": "stable",
-      "summary": "La société pourrait être impliquée dans des litiges avec des clients, des fournisseurs ou des concurrents, ce qui pourrait avoir un impact négatif sur sa réputation et ses finances."
+      "summary": "La société pourrait être impliquée dans des litiges avec des clients, des fournisseurs ou des concurrents, ce qui pourrait avoir un impact négatif sur sa réputation et ses finances.",
+      "score": 2
     }
   ],
   "governance": {
@@ -361,7 +381,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -510,244 +530,205 @@
   },
   "enrich_quarterly_history": {
     "ticker": "STAA",
-    "extracted_at": "2026-05-15T18:14:28Z",
-    "method": "xbrl-companyfacts",
-    "cik": 718937,
-    "n_kpis": 3,
+    "extracted_at": "2026-06-01T09:22:42Z",
+    "n_kpis": 4,
     "kpis": [
       {
         "short": "Net Sales",
         "period_type": "quarter",
         "history": [
-          -59.57,
           50.752,
-          113.119,
-          171.471,
-          -104.87,
+          62.367,
+          58.352,
           63.2,
-          144.301,
-          220.347,
-          -143.457,
-          165.834,
-          246.142,
+          81.101,
+          76.046,
+          73.528,
+          92.306,
+          81.101,
+          80.308,
           77.356,
-          176.361,
-          264.951,
-          -204.767,
+          99.005,
+          92.306,
+          88.59,
           42.589,
-          86.909,
-          181.641,
-          -71.697,
-          93.522
+          44.32,
+          94.732
         ],
         "history_periods": [
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
           "Q4 2022",
           "Q1 2023",
+          "Q2 2023",
           "Q3 2023",
+          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
           "Q4 2024",
-          "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-04-03",
+        "last_data_date": "2025-09-26",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 86.909,
-            "accession": "0000950170-25-103982",
-            "end": "2025-06-27"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 181.641,
-            "accession": "0001193125-25-266879",
-            "end": "2025-09-26"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -71.697,
-            "accession": "calc-0000718937-26-000004",
-            "end": "2026-01-02"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 93.522,
-            "accession": "0000718937-26-000023",
-            "end": "2026-04-03"
-          }
+        "_extracted_at": "2026-06-01T09:22:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          77.1,
+          78.9,
+          77.6,
+          77.9,
+          78.8,
+          79.5,
+          78.3,
+          76.6,
+          78.8,
+          79.3,
+          78.9,
+          79.3,
+          76.6,
+          77.3,
+          65.8,
+          74,
+          82.2
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-26",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:22:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Op Margin",
+        "period_type": "quarter",
+        "history": [
+          14.7,
+          17.1,
+          13.4,
+          19.2,
+          21,
+          18,
+          3.8,
+          9.3,
+          21,
+          7.8,
+          -2.9,
+          12,
+          9.3,
+          6.4,
+          19.5
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-26",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:22:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (STAA)"
         ]
       },
       {
         "short": "R&D",
         "period_type": "quarter",
         "history": [
-          -12.149,
           8.259,
-          16.519,
-          24.79,
-          -15.706,
+          8.26,
+          8.271,
           7.941,
-          16.577,
-          26.193,
-          -14.728,
-          22.065,
-          33.535,
+          8.636,
+          9.616,
+          10.31,
+          11.755,
+          8.636,
+          11.47,
           13.38,
-          27.434,
-          41.931,
-          -28.772,
+          14.054,
+          11.755,
+          14.497,
           13.663,
-          21.602,
-          30.811,
-          -26.021,
-          9.925
+          10.263,
+          9.209
         ],
         "history_periods": [
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
           "Q4 2022",
           "Q1 2023",
+          "Q2 2023",
           "Q3 2023",
+          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
           "Q4 2024",
-          "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-04-03",
+        "last_data_date": "2025-09-26",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 21.602,
-            "accession": "0000950170-25-103982",
-            "end": "2025-06-27"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 30.811,
-            "accession": "0001193125-25-266879",
-            "end": "2025-09-26"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -26.021,
-            "accession": "calc-0000718937-26-000004",
-            "end": "2026-01-02"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 9.925,
-            "accession": "0000718937-26-000023",
-            "end": "2026-04-03"
-          }
-        ]
-      },
-      {
-        "short": "Capex",
-        "period_type": "quarter",
-        "history": [
-          -4250000,
-          2159000,
-          5683000,
-          8956000,
-          -3153000,
-          2539000,
-          7810000,
-          14083000,
-          -6324000,
-          5915000,
-          15100000,
-          5202000,
-          11438000,
-          17669000,
-          -10915000,
-          1468000,
-          3260000,
-          4143000,
-          -3051000,
-          443000
-        ],
-        "history_periods": [
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q3 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-04-03",
-        "unit": "$",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 3260000,
-            "accession": "0000950170-25-103982",
-            "end": "2025-06-27"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 4143000,
-            "accession": "0001193125-25-266879",
-            "end": "2025-09-26"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -3051000,
-            "accession": "calc-0000718937-26-000004",
-            "end": "2026-01-02"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 443000,
-            "accession": "0000718937-26-000023",
-            "end": "2026-04-03"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:22:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -763,9 +744,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.313431+00:00",
     "fetched_at": "2026-05-21T02:17:14.313431+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.162Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.176Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/staa.json",
     "enrich_root": null,

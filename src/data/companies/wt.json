@@ -41,7 +41,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité confirmée 'B$'; valeur 144.5B$ et YoY +31.6% confirmés en source (vs 110.0B$ prior year); last_data_date corrigé de '2025-12-31' à '2024-12-31' (année fiscale 2024, rapportée en 2025)",
-      "explanation_en": "Assets Under Management — total client assets managed by the firm.",
+      "explanation_en": "Assets Under Management, total client assets managed by the firm.",
       "signal_en": "Demand strengthening, end-market traction"
     },
     {
@@ -154,8 +154,8 @@
       "name_fr": "Actifs sous gestion - Actifs numériques",
       "name_en": "Digital Assets Under Management",
       "explanation": "Actifs sous gestion dans les produits liés aux actifs numériques et à la tokenisation.",
-      "value": "0.8",
-      "unit": "Mds $",
+      "value": 800,
+      "unit": "M $",
       "yoy": "N/A",
       "type": "Demand",
       "nature": "Structurel",
@@ -163,7 +163,7 @@
       "signal": "AUM des actifs numériques à 0.8 milliard de dollars, alimenté par l'expansion du fonds monétaire tokenisé WisdomTree Treasury Money Market Digital Fund et l'adoption institutionnelle via WisdomTree Connect.",
       "description": "L'AUM des actifs numériques comprend les investissements dans des produits tels que les fonds numériques tokenisés, stablecoins, bitcoin tokenisé, ether et tokens en dollars américains. Cette catégorie démontre le potentiel de la tokenisation des actifs réels, avec des applications futures prévues en titres à revenu fixe et en actions.",
       "history": [
-        0.8,
+        800,
         null,
         null,
         null,
@@ -173,7 +173,8 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Unité confirmée 'B$'; valeur 0.8B$ confirmée en source; last_data_date corrigé de '2025-12-31' à '2024-12-31'"
+      "_validation": "Unité confirmée 'B$'; valeur 0.8B$ confirmée en source; last_data_date corrigé de '2025-12-31' à '2024-12-31'",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "New ETPs Launched",
@@ -218,11 +219,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.51 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -236,7 +241,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.12,
         0.12,
@@ -249,7 +254,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -264,7 +269,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0228,
@@ -277,7 +282,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -292,7 +297,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         43.06,
@@ -305,7 +310,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -321,7 +326,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.31,
@@ -334,7 +339,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -354,7 +359,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:20:59Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2015,
@@ -377,9 +382,9 @@
     "xbrl_fetched_at": "2026-05-09T20:27:13Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:23Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Gestion d'actifs",
-  "_companies_unified_built_at": "2026-05-29T21:19:38.411Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:07.157Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wt.json",
     "enrich_root": "v2-pipeline-enrich/wt.json",

@@ -20,47 +20,57 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "-11.1%",
       "history": [
-        0.1,
-        0.28,
-        0.18,
-        0.16
+        100,
+        280,
+        180,
+        160
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.16 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "-18.8%",
       "history": [
-        -0.07,
-        0.2,
-        0.16,
-        0.13
+        -70,
+        200,
+        160,
+        130
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.13 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -79,11 +89,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.99 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -102,11 +116,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de -7.21 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -125,11 +143,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 21.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -148,11 +170,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 11.08 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -171,10 +197,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.28 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -193,10 +223,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 1.89 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -231,7 +265,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné en premier et répété plusieurs fois. Le langage est fort (\"matériellement et négativement affecter\"). Il impacte directement les revenus d'intérêts, la valeur des actifs et le coût du financement. Catégorie Macro pondérée fortement en contexte de politique monétaire restrictive en 2024-2025.",
       "trend": "stable",
-      "summary": "Des variations des taux d'intérêt peuvent réduire les marges d'intérêt, déprécier les actifs et augmenter le coût de la dette, menaçant la rentabilité et la trésorerie."
+      "summary": "Des variations des taux d'intérêt peuvent réduire les marges d'intérêt, déprécier les actifs et augmenter le coût de la dette, menaçant la rentabilité et la trésorerie.",
+      "score": 5
     },
     {
       "title": "Détérioration des conditions macroéconomiques",
@@ -239,7 +274,8 @@
       "severity": 5,
       "score_rationale": "Positionné tôt dans le document, avec un langage alarmant (\"récession prolongée\", \"chômage élevé\", \"valeurs immobilières en baisse\"). Le risque est amplifié par la dépendance aux marchés immobiliers et aux crédits. Comparé à l'année précédente, l'accent sur l'inflation et le pouvoir d'achat renforce son intensité.",
       "trend": "up",
-      "summary": "Une récession, un chômage élevé ou une chute des prix immobiliers pourraient accroître les défauts de paiement et réduire la valeur de recouvrement des garanties."
+      "summary": "Une récession, un chômage élevé ou une chute des prix immobiliers pourraient accroître les défauts de paiement et réduire la valeur de recouvrement des garanties.",
+      "score": 5
     },
     {
       "title": "Illiquidité du marché des MBS",
@@ -247,7 +283,8 @@
       "severity": 5,
       "score_rationale": "Le risque est décrit comme pouvant entraîner une incapacité à vendre des prêts ou à se refinancer. Mention explicite d'un manque de marché secondaire de remplacement. Le lien avec les IRLC et l'obligation de financement renforce son caractère existentiel.",
       "trend": "stable",
-      "summary": "Une perturbation du marché des titres adossés à des créances hypothécaires (MBS) pourrait bloquer la vente de prêts, forcer leur détention et menacer la liquidité."
+      "summary": "Une perturbation du marché des titres adossés à des créances hypothécaires (MBS) pourrait bloquer la vente de prêts, forcer leur détention et menacer la liquidité.",
+      "score": 5
     },
     {
       "title": "Non-renouvellement des licences ou agréments",
@@ -255,7 +292,8 @@
       "severity": 4,
       "score_rationale": "Le texte insiste sur la nécessité d'approbations d'Agences (Fannie, Freddie) et de licences étatiques. La perte d'agrément pourrait suspendre les activités principales. Le risque est récurrent mais pas nouveau, avec une intensité élevée mais pas critique.",
       "trend": "stable",
-      "summary": "La perte de licences ou d'approbations fédérales empêcherait l'activité de production et de service de prêts, avec des conséquences opérationnelles majeures."
+      "summary": "La perte de licences ou d'approbations fédérales empêcherait l'activité de production et de service de prêts, avec des conséquences opérationnelles majeures.",
+      "score": 4
     },
     {
       "title": "Non-respect des exigences financières des Agences",
@@ -263,7 +301,8 @@
       "severity": 5,
       "score_rationale": "Le risque est lié à des exigences accrues de capital et de liquidité depuis 2023-2024. Le non-respect pourrait entraîner une suspension des agréments. Le langage est préoccupant (\"effet matériel négatif\", \"compétitivité réduite\"). Catégorie Régulation fortement pondérée ici.",
       "trend": "up",
-      "summary": "Le non-respect des ratios de fonds propres ou de liquidité imposés par les Agences pourrait entraîner des sanctions ou la perte d'accès au marché secondaire."
+      "summary": "Le non-respect des ratios de fonds propres ou de liquidité imposés par les Agences pourrait entraîner des sanctions ou la perte d'accès au marché secondaire.",
+      "score": 5
     },
     {
       "title": "Niveau élevé d'endettement",
@@ -271,7 +310,8 @@
       "severity": 5,
       "score_rationale": "19,1 milliards de dette à fin 2025, majoritairement sécurisée. Le document souligne les risques de défaut, de covenants restrictifs et de vulnérabilité aux chocs économiques. Le montant élevé et la dépendance aux financements courts renforcent la gravité.",
       "trend": "stable",
-      "summary": "Un endettement élevé limite la flexibilité financière, augmente le risque de défaut et réduit les liquidités disponibles pour l'investissement ou les dividendes."
+      "summary": "Un endettement élevé limite la flexibilité financière, augmente le risque de défaut et réduit les liquidités disponibles pour l'investissement ou les dividendes.",
+      "score": 5
     },
     {
       "title": "Appels de marge liés à la valeur des garanties",
@@ -279,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Mention répétée des appels de marge en cas de baisse de la valeur des actifs gagés (titres, MSRs). Risque direct sur la trésorerie et la solvabilité. Moins existentiel que d'autres car partiellement couvert par la gestion de portefeuille.",
       "trend": "stable",
-      "summary": "Une baisse de la valeur des actifs gagés peut déclencher des appels de marge, forçant la vente d'actifs à perte ou un décaissement urgent."
+      "summary": "Une baisse de la valeur des actifs gagés peut déclencher des appels de marge, forçant la vente d'actifs à perte ou un décaissement urgent.",
+      "score": 4
     },
     {
       "title": "Coûts croissants du logement et défauts",
@@ -287,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Le risque est spécifiquement lié aux primes d'assurance et aux taxes en hausse, notamment à cause des catastrophes climatiques. Bien que circonscrit géographiquement (Californie), il est présenté comme amplifiant les risques de défaut. Intensité du langage modérée mais contexte aggravé par le changement climatique.",
       "trend": "new",
-      "summary": "La hausse des coûts liés à l'assurance et aux taxes réduit l'accessibilité du logement et augmente le risque de défaut des emprunteurs."
+      "summary": "La hausse des coûts liés à l'assurance et aux taxes réduit l'accessibilité du logement et augmente le risque de défaut des emprunteurs.",
+      "score": 4
     }
   ],
   "governance": {
@@ -407,9 +449,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.297669+00:00",
     "fetched_at": "2026-05-21T02:17:14.297670+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.688Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.684Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pmt.json",
     "enrich_root": "v2-pipeline-enrich/pmt.json",

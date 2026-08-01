@@ -95,7 +95,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Explication améliorée pour clarifier l'exclusion des charges de flotte autres que dépréciation",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items."
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items."
     },
     {
       "short": "Average Rental Fleet",
@@ -182,11 +182,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 31.26 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -205,11 +209,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 28.55 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -235,9 +243,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Marché",
-      "_validation": "Valeur extraite du MDA tableau segments 2025 (8,900), value null corrigée, YoY calculé (-2.3%), history complétée avec 2024 (9,111), description améliorée avec données concentriques",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur extraite du MDA tableau segments 2025 (8,900), value null corrigée, YoY calculé (-2.3%), history complétée avec 2024 (9,111), description améliorée avec données concentriques"
     },
     {
       "short": "International Segment Revenue",
@@ -261,9 +267,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Marché",
-      "_validation": "Valeur extraite du MDA (International revenue = 11,652 - 8,900), value null corrigée à 2752, YoY calculé à -8.8%, history complétée avec 2024 (3,018), description enrichie avec contexte géographique et performance comparative",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur extraite du MDA (International revenue = 11,652 - 8,900), value null corrigée à 2752, YoY calculé à -8.8%, history complétée avec 2024 (3,018), description enrichie avec contexte géographique et performance comparative"
     }
   ],
   "ai_positioning": {
@@ -279,25 +283,25 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La concurrence dans l'industrie de la mobilité est élevée, avec les prix comme facteur primaire. Les pressions concurrentielles pourraient réduire le volume de locations et impacter les résultats d'exploitation. Mentionné dans la section RISKS RELATED TO OUR INDUSTRY AND THE BROADER ECONOMY du rapport 10-K. (score par défaut, à affiner)",
+      "score_rationale": "La concurrence dans l'industrie de la mobilité est élevée, avec les prix comme facteur primaire. Les pressions concurrentielles pourraient réduire le volume de locations et impacter les résultats d'exploitation. Mentionné dans la section RISKS RELATED TO OUR INDUSTRY AND THE BROADER ECONOMY du rapport 10-K.",
       "trend": "stable",
       "summary": "La concurrence dans l'industrie de la mobilité peut impacter les ventes et les résultats d'exploitation en raison de pressions tarifaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Coûts de flotte",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les coûts de flotte représentent le plus grand poste de dépense de l'entreprise et peuvent varier en fonction des prix d'achat et de vente des véhicules. Cela est mentionné dans la section RISKS RELATED TO OUR INDUSTRY AND THE BROADER ECONOMY du rapport 10-K. (score par défaut, à affiner)",
+      "score_rationale": "Les coûts de flotte représentent le plus grand poste de dépense de l'entreprise et peuvent varier en fonction des prix d'achat et de vente des véhicules. Cela est mentionné dans la section RISKS RELATED TO OUR INDUSTRY AND THE BROADER ECONOMY du rapport 10-K.",
       "trend": "stable",
       "summary": "Les coûts de flotte peuvent impacter significativement les résultats d'exploitation en fonction des prix d'achat et de vente des véhicules.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Rappels de sécurité",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les rappels de sécurité peuvent impacter les coûts et les revenus de l'entreprise, ainsi que la réputation de la marque. Cela est mentionné dans la section RISKS RELATED TO OUR INDUSTRY AND THE BROADER ECONOMY du rapport 10-K. (score par défaut, à affiner)",
+      "score_rationale": "Les rappels de sécurité peuvent impacter les coûts et les revenus de l'entreprise, ainsi que la réputation de la marque. Cela est mentionné dans la section RISKS RELATED TO OUR INDUSTRY AND THE BROADER ECONOMY du rapport 10-K.",
       "trend": "stable",
       "summary": "Les rappels de sécurité peuvent impacter les coûts, les revenus et la réputation de la marque.",
       "score": 3
@@ -306,34 +310,34 @@
       "title": "Fluctuations économiques",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Les fluctuations économiques peuvent impacter significativement la demande de location de véhicules et les résultats d'exploitation. Les facteurs macroéconomiques incluent les taux d'intérêt, l'inflation, les coûts de nouveaux véhicules et les valeurs des voitures d'occasion. Cela est mentionné dans la section RISKS RELATED TO OUR INDUSTRY AND THE BROADER ECONOMY du rapport 10-K. (score par défaut, à affiner)",
+      "score_rationale": "Les fluctuations économiques peuvent impacter significativement la demande de location de véhicules et les résultats d'exploitation. Les facteurs macroéconomiques incluent les taux d'intérêt, l'inflation, les coûts de nouveaux véhicules et les valeurs des voitures d'occasion. Cela est mentionné dans la section RISKS RELATED TO OUR INDUSTRY AND THE BROADER ECONOMY du rapport 10-K.",
       "trend": "stable",
       "summary": "Les fluctuations économiques peuvent impacter la demande de location de véhicules et les résultats d'exploitation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Instabilité politique",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "L'instabilité politique, incluant les conflits militaires au Moyen-Orient et en Europe de l'Est, peut impacter les coûts et les revenus de l'entreprise. Mentionné dans la section RISKS RELATED TO THE NATURE OF OUR BUSINESS du rapport 10-K. (score par défaut, à affiner)",
+      "score_rationale": "L'instabilité politique, incluant les conflits militaires au Moyen-Orient et en Europe de l'Est, peut impacter les coûts et les revenus de l'entreprise. Mentionné dans la section RISKS RELATED TO THE NATURE OF OUR BUSINESS du rapport 10-K.",
       "trend": "up",
       "summary": "L'instabilité politique et les conflits militaires peuvent impacter les coûts, les revenus et la réputation de la marque.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La réputation de l'entreprise est essentielle à son succès et peut être impactée par des événements négatifs, y compris les questions de sécurité et le service client. Cela est mentionné dans la section RISKS RELATED TO THE NATURE OF OUR BUSINESS du rapport 10-K. (score par défaut, à affiner)",
+      "score_rationale": "La réputation de l'entreprise est essentielle à son succès et peut être impactée par des événements négatifs, y compris les questions de sécurité et le service client. Cela est mentionné dans la section RISKS RELATED TO THE NATURE OF OUR BUSINESS du rapport 10-K.",
       "trend": "stable",
       "summary": "La réputation de l'entreprise est essentielle à son succès et peut être impactée par des événements négatifs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Canal de distribution",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les canaux de distribution peuvent impacter les ventes et les résultats d'exploitation de l'entreprise. La dépendance aux partenaires de licence et aux emplacements aéroportuaires crée des risques opérationnels. Cela est mentionné dans la section RISKS RELATED TO THE NATURE OF OUR BUSINESS du rapport 10-K. (score par défaut, à affiner)",
+      "score_rationale": "Les canaux de distribution peuvent impacter les ventes et les résultats d'exploitation de l'entreprise. La dépendance aux partenaires de licence et aux emplacements aéroportuaires crée des risques opérationnels. Cela est mentionné dans la section RISKS RELATED TO THE NATURE OF OUR BUSINESS du rapport 10-K.",
       "trend": "stable",
       "summary": "Les canaux de distribution peuvent impacter les ventes et les résultats d'exploitation de l'entreprise.",
       "score": 3
@@ -342,7 +346,7 @@
       "title": "Saisonnalité",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La saisonnalité peut impacter les ventes et les résultats d'exploitation de l'entreprise, avec des patterns de demande équilibrées entre commerce commercial en semaine et loisir en fin de semaine. Cela est mentionné dans la section RISKS RELATED TO THE NATURE OF OUR BUSINESS du rapport 10-K. (score par défaut, à affiner)",
+      "score_rationale": "La saisonnalité peut impacter les ventes et les résultats d'exploitation de l'entreprise, avec des patterns de demande équilibrées entre commerce commercial en semaine et loisir en fin de semaine. Cela est mentionné dans la section RISKS RELATED TO THE NATURE OF OUR BUSINESS du rapport 10-K.",
       "trend": "stable",
       "summary": "La saisonnalité peut impacter les ventes et les résultats d'exploitation de l'entreprise.",
       "score": 3
@@ -369,7 +373,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -516,6 +520,78 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CAR",
+    "extracted_at": "2026-06-01T03:04:44Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Consolidated Revenues",
+        "period_type": "quarter",
+        "history": [
+          1.372,
+          2.371,
+          3.001,
+          2.432,
+          3.244,
+          3.547,
+          2.557,
+          3.123,
+          3.564,
+          2.551,
+          3.048,
+          3.564,
+          2.551,
+          3.039,
+          3.48
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:04:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net Loss",
+        "period_type": "quarter",
+        "history": [
+          -170,
+          -113,
+          -98,
+          -139
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:04:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CAR",
     "ranks": {
@@ -528,15 +604,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.235750+00:00",
     "fetched_at": "2026-05-21T02:17:14.235751+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.111Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.541Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/car.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

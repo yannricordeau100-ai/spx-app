@@ -16,8 +16,8 @@
       "name_fr": "Revenu net",
       "name_en": "Net Sales",
       "explanation": "Total revenue generated from the sale of products and services.",
-      "value": 6552.2,
-      "unit": "M $",
+      "value": 6.552,
+      "unit": "Mds $",
       "yoy": -3.4,
       "type": "Demand",
       "nature": "Structurel",
@@ -38,10 +38,14 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seul 2 années consécutives de 'Net income' trouvées explicitement dans l'extrait (2021: 572.6M$, 2020: 116.6M$). Minimum 4 années requises. ",
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Marge brute",
@@ -106,8 +110,8 @@
       "name_fr": "Adjusted EBITDA",
       "name_en": "Adjusted EBITDA",
       "explanation": "Net income adjusted for interest, taxes, depreciation, amortization, and certain other items.",
-      "value": 1069.4,
-      "unit": "M $",
+      "value": 1.069,
+      "unit": "Mds $",
       "yoy": -10.8,
       "type": "Profitability",
       "nature": "Structurel",
@@ -128,8 +132,9 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Adjusted EBITDA margin",
@@ -203,11 +208,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 11.79 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -226,11 +235,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.95 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -245,43 +258,43 @@
       "title": "Material cybersecurity attacks",
       "category": "Cybersecurity",
       "severity": 5,
-      "score_rationale": "Cited first in Item 1A with strong language describing material impact potential. Dedicated governance with experienced CISO (25+ years), frequent reporting to audit committee, and cross-functional disclosure working group confirm critical importance. Highest severity in IT category. (score par défaut, à affiner)",
+      "score_rationale": "Cited first in Item 1A with strong language describing material impact potential. Dedicated governance with experienced CISO (25+ years), frequent reporting to audit committee, and cross-functional disclosure working group confirm critical importance. Highest severity in IT category.",
       "trend": "stable",
       "summary": "Cybersecurity attacks could severely disrupt operations, compromise data, or damage reputation. The company has dedicated leadership and governance structures in place.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Inflationary pressures",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Explicitly mentioned as affecting all cost categories across the business. Management has implemented pricing and productivity measures, but inflationary impacts persist. Ongoing cost transformation initiative targets 400M in savings by 2027. (score par défaut, à affiner)",
+      "score_rationale": "Explicitly mentioned as affecting all cost categories across the business. Management has implemented pricing and productivity measures, but inflationary impacts persist. Ongoing cost transformation initiative targets 400M in savings by 2027.",
       "trend": "stable",
       "summary": "Inflation continues to increase costs across all categories, despite management's pricing and productivity measures.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Foreign currency exchange rate volatility",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Explicitly cited as causing significant variability in consolidated results. Multi-currency operations with substantial Euro exposure. Quantified impact discussed in quantitative and qualitative disclosures about market risk. (score par défaut, à affiner)",
+      "score_rationale": "Explicitly cited as causing significant variability in consolidated results. Multi-currency operations with substantial Euro exposure. Quantified impact discussed in quantitative and qualitative disclosures about market risk.",
       "trend": "stable",
       "summary": "Movements of the US dollar against functional currencies, particularly the Euro, cause significant variability in financial results.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Organizational cybersecurity governance dependency",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "CISO reports to executive leadership (CEO, CFO, CIO) with established cross-functional incident review processes. While governance is robust, effectiveness depends on coordinated execution. Incident materiality assessment and regulatory reporting coordination required. (score par défaut, à affiner)",
+      "score_rationale": "CISO reports to executive leadership (CEO, CFO, CIO) with established cross-functional incident review processes. While governance is robust, effectiveness depends on coordinated execution. Incident materiality assessment and regulatory reporting coordination required.",
       "trend": "stable",
       "summary": "Cybersecurity program effectiveness relies on strong coordination between executive leadership, CISO, and audit committee oversight.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Debt covenant restrictions",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Item 5 mentions debt agreements limiting dividend payments and inter-company fund transfers. Refinancing completed in Q4 2025 with new 2030 and 2032 maturities improves liquidity, but covenants remain. Trend improving. (score par défaut, à affiner)",
+      "score_rationale": "Item 5 mentions debt agreements limiting dividend payments and inter-company fund transfers. Refinancing completed in Q4 2025 with new 2030 and 2032 maturities improves liquidity, but covenants remain. Trend improving.",
       "trend": "down",
       "summary": "Debt agreements limit capacity to pay dividends or transfer funds between subsidiaries, though Q4 2025 refinancing improved overall liquidity position.",
       "score": 3
@@ -290,10 +303,10 @@
       "title": "Goodwill impairment and market valuation pressure",
       "category": "Financial",
       "severity": 4,
-      "score_rationale": "Q3 2025 goodwill impairment of 785M on Distribution unit driven by sustained share price decline and market cap reduction. Non-cash but signals underlying business pressures. Company actively implementing mitigation initiatives. (score par défaut, à affiner)",
+      "score_rationale": "Q3 2025 goodwill impairment of 785M on Distribution unit driven by sustained share price decline and market cap reduction. Non-cash but signals underlying business pressures. Company actively implementing mitigation initiatives.",
       "trend": "stable",
       "summary": "Q3 2025 goodwill impairment of 785M reflects sustained decreases in share price and market capitalization, indicating ongoing operational pressures.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -356,7 +369,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": false,
@@ -374,7 +387,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Industrie diversifiée",
-  "_companies_unified_built_at": "2026-05-29T21:19:28.230Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.303Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/avtr.json",
     "enrich_root": "v2-pipeline-enrich/avtr.json",

@@ -40,13 +40,11 @@
       "is_generic": false,
       "is_short_history": true,
       "period_type": "annual",
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T08:58:26.118996+00:00",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document fourni est un procès-verbal d'assemblée générale du 23 avril 2015 de FinecoBank. Il mentionne l'approbation du bilan au 31 décem",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes."
     },
     {
       "short": "Share Capital",
@@ -68,9 +66,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "avril 2015",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Total Shares Outstanding",
@@ -92,9 +88,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "avril 2015",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "UniCredit Ownership",
@@ -116,9 +110,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "avril 2015",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Total Revenue",
@@ -137,11 +129,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.55 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -160,34 +156,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 37.3 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.87,
-      "unit": "Mds €",
+      "value": 870,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.56,
-        0.87,
-        0.87,
-        0.87
+        560,
+        870,
+        870,
+        870
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.87 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -206,10 +211,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.2 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -261,7 +270,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur situé en début de Item 1A. Langage intensif sur le recepimento des directives de la maison-mère et le pouvoir de disposition. FinecoBank est contrôlée par UniCredit avec obligation de conformité aux directives du groupe. Tendance stable mais structurelle. Poids élevé pour une filiale cotée.",
       "trend": "stable",
-      "summary": "FinecoBank doit se conformer aux directives émanées par UniCredit en tant que holding parent, avec des obligations légales et réglementaires de coordination. Le Conseil d'Administration doit assurer le recepimento des dispositions du groupe, créant une dépendance stratégique et opérationnelle vis-à-vis de la maison-mère."
+      "summary": "FinecoBank doit se conformer aux directives émanées par UniCredit en tant que holding parent, avec des obligations légales et réglementaires de coordination. Le Conseil d'Administration doit assurer le recepimento des dispositions du groupe, créant une dépendance stratégique et opérationnelle vis-à-vis de la maison-mère.",
+      "score": 4
     },
     {
       "title": "Risque de conflits d'intérêts avec la maison-mère UniCredit",
@@ -269,7 +279,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné à l'art. 136 TUB concernant les opérations avec les dirigeants et la maison-mère. Langage légal précis indiquant une préoccupation réglementaire majeure. Tendance stable mais risque structurel inhérent aux relations intra-groupe. Catégorie litige/conformité critique.",
       "trend": "stable",
-      "summary": "Les opérations de compravente et obligations entre FinecoBank et ses dirigeants ou la maison-mère UniCredit sont soumises à des restrictions légales strictes (art. 136 TUB). Le risque de conflits d'intérêts est particulièrement élevé dans les transactions intra-groupe, notamment avec Marina Natale qualifiée de Consigliere Esecutivo en raison de son rôle chez UniCredit."
+      "summary": "Les opérations de compravente et obligations entre FinecoBank et ses dirigeants ou la maison-mère UniCredit sont soumises à des restrictions légales strictes (art. 136 TUB). Le risque de conflits d'intérêts est particulièrement élevé dans les transactions intra-groupe, notamment avec Marina Natale qualifiée de Consigliere Esecutivo en raison de son rôle chez UniCredit.",
+      "score": 4
     },
     {
       "title": "Gestion des informations privilégiées et risque de market abuse",
@@ -277,7 +288,8 @@
       "severity": 4,
       "score_rationale": "Section 5 entièrement dédiée aux procédures de gestion des informations privilégiées. Langage détaillé et normatif indiquant une préoccupation réglementaire majeure. Tendance stable mais complexité croissante due au double statut (filiale cotée + contrôlée). Poids élevé pour conformité CONSOB/Borsa Italiana.",
       "trend": "stable",
-      "summary": "FinecoBank gère deux registres d'informations privilégiées (Registro Fineco et Registro UCI) avec risque de fuite ou traitement inadéquat. La procédure impose une coordination complexe entre CFO FinecoBank et CFO UniCredit pour évaluer la price sensitivity. Risque de market abuse et de sanctions réglementaires en cas de défaillance."
+      "summary": "FinecoBank gère deux registres d'informations privilégiées (Registro Fineco et Registro UCI) avec risque de fuite ou traitement inadéquat. La procédure impose une coordination complexe entre CFO FinecoBank et CFO UniCredit pour évaluer la price sensitivity. Risque de market abuse et de sanctions réglementaires en cas de défaillance.",
+      "score": 4
     },
     {
       "title": "Risque de concentration du pouvoir exécutif chez l'Amministratore Delegato",
@@ -285,7 +297,8 @@
       "severity": 3,
       "score_rationale": "Alessandro Foti cumule les fonctions d'Amministratore Delegato et Direttore Generale depuis juillet 2014. Langage neutre mais structure de gouvernance concentrée. Tendance stable. Poids modéré mais risque de succession et dépendance personnelle.",
       "trend": "stable",
-      "summary": "La concentration des pouvoirs exécutifs chez une seule personne (Alessandro Foti) crée un risque de dépendance clé. Bien que le Président (Enrico Cotta Ramusino) soit indépendant, l'absence de séparation entre CEO et COO réduit les contrepoids internes et augmente le risque de succession."
+      "summary": "La concentration des pouvoirs exécutifs chez une seule personne (Alessandro Foti) crée un risque de dépendance clé. Bien que le Président (Enrico Cotta Ramusino) soit indépendant, l'absence de séparation entre CEO et COO réduit les contrepoids internes et augmente le risque de succession.",
+      "score": 3
     },
     {
       "title": "Risque de conformité réglementaire bancaire complexe",
@@ -293,7 +306,8 @@
       "severity": 4,
       "score_rationale": "Références multiples à TUB, TUF, Circolare Banca d'Italia n. 285, Codice di Autodisciplina, Regolamento Emittenti. Langage technique et normatif intensif. Tendance stable mais cadre réglementaire en évolution. Poids très élevé pour une banca.",
       "trend": "up",
-      "summary": "FinecoBank opère sous un cadre réglementaire bancaire complexe et multi-niveaux (Banca d'Italia, CONSOB, Borsa Italiana, UE). Les obligations de conformité incluent la gestion des risques, l'adéquacité du capital, les procédures de internal dealing et la gouvernance. Risque de non-conformité avec sanctions réglementaires."
+      "summary": "FinecoBank opère sous un cadre réglementaire bancaire complexe et multi-niveaux (Banca d'Italia, CONSOB, Borsa Italiana, UE). Les obligations de conformité incluent la gestion des risques, l'adéquacité du capital, les procédures de internal dealing et la gouvernance. Risque de non-conformité avec sanctions réglementaires.",
+      "score": 4
     },
     {
       "title": "Risque de défaillance des systèmes informatiques et cybersécurité",
@@ -301,7 +315,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans la gestion des registres d'informations privilégiées et des flux informatifs. Langage modéré mais infrastructure critique pour une banca digitale. Tendance up (risque croissant). Poids modéré mais impact potentiel élevé.",
       "trend": "up",
-      "summary": "FinecoBank gère des registres sensibles (Registro Fineco, Registro UCI) et des flux informatifs complexes via systèmes informatiques. Risque de cyberattaque, de perte de données ou de défaillance des systèmes de communication (videoconférence du Conseil) pouvant compromettre la confidentialité des informations privilégiées."
+      "summary": "FinecoBank gère des registres sensibles (Registro Fineco, Registro UCI) et des flux informatifs complexes via systèmes informatiques. Risque de cyberattaque, de perte de données ou de défaillance des systèmes de communication (videoconférence du Conseil) pouvant compromettre la confidentialité des informations privilégiées.",
+      "score": 3
     },
     {
       "title": "Risque de compétition intense dans le secteur bancaire digital",
@@ -309,7 +324,8 @@
       "severity": 3,
       "score_rationale": "Non explicitement détaillé dans l'extrait mais implicite dans le modèle de banca fintech. Langage absent mais contexte de marché très compétitif. Tendance up (pression croissante). Poids modéré pour une filiale spécialisée.",
       "trend": "up",
-      "summary": "FinecoBank opère dans le segment bancaire digital/fintech où la concurrence s'intensifie (néobanques, fintechs, grandes banques digitales). Risque de perte de parts de marché, de compression des marges et de besoin d'investissements technologiques continus pour rester compétitif."
+      "summary": "FinecoBank opère dans le segment bancaire digital/fintech où la concurrence s'intensifie (néobanques, fintechs, grandes banques digitales). Risque de perte de parts de marché, de compression des marges et de besoin d'investissements technologiques continus pour rester compétitif.",
+      "score": 3
     },
     {
       "title": "Risque de dépendance technologique et obsolescence",
@@ -317,7 +333,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans le modèle de banca digitale. Langage absent mais critique pour le business model. Tendance up (évolution technologique rapide). Poids modéré mais risque stratégique.",
       "trend": "up",
-      "summary": "En tant que banca digitale, FinecoBank dépend fortement de l'infrastructure technologique, des plateformes digitales et de la cybersécurité. Risque d'obsolescence technologique, de défaillance des systèmes, de coûts d'investissement IT élevés et de dépendance envers les fournisseurs technologiques."
+      "summary": "En tant que banca digitale, FinecoBank dépend fortement de l'infrastructure technologique, des plateformes digitales et de la cybersécurité. Risque d'obsolescence technologique, de défaillance des systèmes, de coûts d'investissement IT élevés et de dépendance envers les fournisseurs technologiques.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:35:31.683523+00:00",
@@ -467,9 +484,9 @@
     "country": "Italy",
     "_data_freshness_date": "2026-05-21T02:17:14.259628+00:00",
     "fetched_at": "2026-05-21T02:17:14.259629+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.085Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.656Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fbk.mi.json",
     "enrich_root": "v2-pipeline-enrich/fbk.mi.json",

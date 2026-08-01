@@ -120,32 +120,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "",
       "history": [
-        0.01,
-        0.01,
+        10,
+        10,
         0,
-        0.01
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -164,9 +173,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -190,9 +203,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -230,7 +241,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K, langage fort (\"highly dependent\"), tendance stable, poids élevé car la technologie est au cœur du modèle économique.",
       "trend": "stable",
-      "summary": "Brenmiller dépend entièrement de son système bGen de stockage thermique par roche broyée. Tout échec technique, retard de développement ou incapacité à commercialiser cette technologie compromettrait directement sa viabilité opérationnelle et sa croissance."
+      "summary": "Brenmiller dépend entièrement de son système bGen de stockage thermique par roche broyée. Tout échec technique, retard de développement ou incapacité à commercialiser cette technologie compromettrait directement sa viabilité opérationnelle et sa croissance.",
+      "score": 5
     },
     {
       "title": "Concurrence dans le stockage d'énergie thermique",
@@ -238,7 +250,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de l'essor des énergies alternatives et des nouvelles technologies, langage préoccupé, tendance à la hausse, catégorie stratégique pour l'innovation.",
       "trend": "up",
-      "summary": "Le secteur du stockage d'énergie thermique est en évolution rapide, avec de nouveaux acteurs et technologies émergentes. Brenmiller risque de perdre des parts de marché si elle ne parvient pas à maintenir son avantage technologique."
+      "summary": "Le secteur du stockage d'énergie thermique est en évolution rapide, avec de nouveaux acteurs et technologies émergentes. Brenmiller risque de perdre des parts de marché si elle ne parvient pas à maintenir son avantage technologique.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs tiers clés",
@@ -246,7 +259,8 @@
       "severity": 4,
       "score_rationale": "Présent dans les risques principaux, langage affirmé (\"vulnerable\"), tendance stable, impact opérationnel direct sur la production.",
       "trend": "stable",
-      "summary": "L'entreprise dépend de fabricants et fournisseurs externes pour des composants critiques. Une rupture d'approvisionnement, une hausse des coûts ou un problème de qualité pourrait retarder les projets et nuire à la réputation de Brenmiller."
+      "summary": "L'entreprise dépend de fabricants et fournisseurs externes pour des composants critiques. Une rupture d'approvisionnement, une hausse des coûts ou un problème de qualité pourrait retarder les projets et nuire à la réputation de Brenmiller.",
+      "score": 4
     },
     {
       "title": "Réglementation changeante sur le stockage énergétique",
@@ -254,7 +268,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite du cadre réglementaire en évolution, langage prudent mais inquiet, tendance à la hausse, secteur sensible aux politiques publiques.",
       "trend": "up",
-      "summary": "Le stockage d'énergie intégré aux réseaux électriques est soumis à des régulations nationales variables et en constante évolution. Des changements défavorables pourraient entraver le déploiement des systèmes bGen dans de nouveaux marchés."
+      "summary": "Le stockage d'énergie intégré aux réseaux électriques est soumis à des régulations nationales variables et en constante évolution. Des changements défavorables pourraient entraver le déploiement des systèmes bGen dans de nouveaux marchés.",
+      "score": 4
     },
     {
       "title": "Protection insuffisante de la propriété intellectuelle",
@@ -262,7 +277,8 @@
       "severity": 5,
       "score_rationale": "Risque central, langage fort (\"unable to compete effectively\"), tendance stable, poids élevé car l'IP est fondamentale pour la différenciation.",
       "trend": "stable",
-      "summary": "Si Brenmiller ne parvient pas à protéger ses brevets ou à préserver ses secrets industriels, des concurrents pourraient copier sa technologie, réduisant son avantage concurrentiel et ses marges."
+      "summary": "Si Brenmiller ne parvient pas à protéger ses brevets ou à préserver ses secrets industriels, des concurrents pourraient copier sa technologie, réduisant son avantage concurrentiel et ses marges.",
+      "score": 5
     },
     {
       "title": "Dépendance aux employés clés",
@@ -270,7 +286,8 @@
       "severity": 4,
       "score_rationale": "Mention répétée dans les risques, langage préoccupé (\"highly dependent\"), tendance stable, impact direct sur l'innovation et la gestion.",
       "trend": "stable",
-      "summary": "La perte de cadres dirigeants ou d'ingénieurs spécialisés dans le stockage thermique pourrait ralentir le développement technologique et affaiblir la capacité de l'entreprise à exécuter ses projets stratégiques."
+      "summary": "La perte de cadres dirigeants ou d'ingénieurs spécialisés dans le stockage thermique pourrait ralentir le développement technologique et affaiblir la capacité de l'entreprise à exécuter ses projets stratégiques.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des systèmes énergétiques connectés",
@@ -278,7 +295,8 @@
       "severity": 4,
       "score_rationale": "Présent dans une section dédiée (Item 16.K), langage sérieux, tendance à la hausse, exposition croissante avec la digitalisation des réseaux.",
       "trend": "up",
-      "summary": "Les systèmes bGen sont intégrés à des plateformes numériques de gestion énergétique. Une cyberattaque pourrait perturber les opérations, compromettre les données clients ou endommager la réputation de l'entreprise."
+      "summary": "Les systèmes bGen sont intégrés à des plateformes numériques de gestion énergétique. Une cyberattaque pourrait perturber les opérations, compromettre les données clients ou endommager la réputation de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Transfert restreint de technologie hors d'Israël",
@@ -286,7 +304,8 @@
       "severity": 4,
       "score_rationale": "Lié aux subventions publiques israéliennes, langage contraignant, tendance stable, impact stratégique sur l'expansion internationale.",
       "trend": "stable",
-      "summary": "Les subventions reçues de l'Autorité israélienne de l'innovation limitent le transfert de savoir-faire et de technologies hors d'Israël, ce qui peut freiner la flexibilité industrielle et les partenariats mondiaux."
+      "summary": "Les subventions reçues de l'Autorité israélienne de l'innovation limitent le transfert de savoir-faire et de technologies hors d'Israël, ce qui peut freiner la flexibilité industrielle et les partenariats mondiaux.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:21:53.256386+00:00",
@@ -346,9 +365,9 @@
     "country": "Israel",
     "_data_freshness_date": "2026-05-21T02:17:14.233030+00:00",
     "fetched_at": "2026-05-21T02:17:14.233032+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.799Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.283Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bnrg.json",
     "enrich_root": null,

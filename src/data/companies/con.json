@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Total revenue of the company",
-      "value": 2163.4,
-      "unit": "M $",
+      "value": 2.163,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Revenue",
       "nature": "Cyclique",
@@ -34,14 +34,18 @@
         null,
         null,
         null,
-        2163.4
+        2.163
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period."
+      "period_type": "year",
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Occupational Health Centers",
@@ -142,7 +146,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "VPD Volume",
@@ -188,11 +192,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.86 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -211,11 +219,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,9 +255,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Acquisition",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Acquisition"
     },
     {
       "short": "Pivot Onsite Innovations Acquisition",
@@ -271,9 +281,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Acquisition",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Acquisition"
     }
   ],
   "ai_positioning": {
@@ -287,7 +295,7 @@
       "title": "Litigation and Insurance Liabilities",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "The company recorded a liability of $49.7 million for estimated losses under insurance programs, indicating moderate litigation risk exposure (score par défaut, à affiner)",
+      "score_rationale": "The company recorded a liability of $49.7 million for estimated losses under insurance programs, indicating moderate litigation risk exposure",
       "trend": "up",
       "summary": "The company faces potential litigation exposure through its business operations with increasing estimated loss reserves",
       "score": 3
@@ -296,16 +304,16 @@
       "title": "Debt Leverage",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "The company has significant debt from financing acquisitions and refinancing activities, with an incremental term loan of $102.1 million and revolving credit facility of $450.0 million (score par défaut, à affiner)",
+      "score_rationale": "The company has significant debt from financing acquisitions and refinancing activities, with an incremental term loan of $102.1 million and revolving credit facility of $450.0 million",
       "trend": "up",
       "summary": "High debt levels from recent acquisitions may limit financial flexibility and increase financial risk",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Healthcare Regulation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "The company operates in a highly regulated healthcare industry subject to compliance requirements at federal and state levels (score par défaut, à affiner)",
+      "score_rationale": "The company operates in a highly regulated healthcare industry subject to compliance requirements at federal and state levels",
       "trend": "stable",
       "summary": "Strict healthcare regulations can limit business flexibility and increase operational costs",
       "score": 3
@@ -314,7 +322,7 @@
       "title": "Market Competition",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "The company operates in a competitive occupational health services market with potential competitive threats (score par défaut, à affiner)",
+      "score_rationale": "The company operates in a competitive occupational health services market with potential competitive threats",
       "trend": "stable",
       "summary": "Competition in occupational health services market may impact market share and pricing power",
       "score": 3
@@ -323,10 +331,10 @@
       "title": "Technology Dependence",
       "category": "Technologie",
       "severity": 2,
-      "score_rationale": "The company relies on technology systems for telemedicine and operations across 47 states, creating potential vulnerability to technical failures (score par défaut, à affiner)",
+      "score_rationale": "The company relies on technology systems for telemedicine and operations across 47 states, creating potential vulnerability to technical failures",
       "trend": "stable",
       "summary": "Dependence on technology infrastructure for service delivery creates operational risks",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -357,7 +365,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": false,
@@ -414,7 +422,7 @@
   "subsector_fr": "Technologie de la santé",
   "enrich_de": {
     "ticker": "CON.DE",
-    "hero_kpi_override": "Tires Sales",
+    "hero_kpi_override": "tires_sales",
     "_hero_override_reason": "Post-spinoff Aumovio, CON = pure-play Tires + ContiTech. Tires segment = 70% du CA, plus pertinent que generic Sales.",
     "_hero_history_extension": {
       "hero_kpi_short": "Tires Sales",
@@ -439,7 +447,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Versement régulier",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+        "description": "Historique 5 ans (2021-2025). ex-div dates.",
         "history": [
           null,
           2.2,
@@ -452,7 +460,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+        "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
         "signal_en": "Shareholder returns growing, dividend policy supportive"
       },
       {
@@ -467,7 +475,7 @@
         "nature": "Récurrent",
         "comparable": "Spécifique",
         "signal": "Politique de retour aux actionnaires",
-        "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+        "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
         "history": [
           null,
           0.44,
@@ -480,7 +488,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+        "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
         "signal_en": "Cash position strengthening, balance-sheet flexibility"
       },
       {
@@ -495,7 +503,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Soutenabilité du dividende",
-        "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+        "description": "Dividendes / résultat net (2021-2025).",
         "history": [
           null,
           null,
@@ -508,7 +516,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Payout Ratio — dividends paid divided by net income."
+        "explanation_en": "Payout Ratio, dividends paid divided by net income."
       },
       {
         "short": "EPS",
@@ -523,7 +531,7 @@
         "comparable": "Comparable",
         "compare_key": "eps_diluted",
         "signal": "Capacité bénéficiaire par action",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+        "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
         "history": [
           null,
           0.33,
@@ -536,15 +544,39 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+        "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
         "signal_en": "Significant decline, warning signal"
+      },
+      {
+        "short": "tires_sales",
+        "name_fr": "CA Pneumatiques",
+        "name_en": "Tires Sales",
+        "unit": "M €",
+        "period_type": "year",
+        "history": [
+          11728,
+          10158.6,
+          11807.6,
+          14005.2,
+          13958,
+          13861,
+          13798
+        ],
+        "value": 13798,
+        "last_data_date": "2025-12-31",
+        "type": "Demand",
+        "nature": "Structurel",
+        "comparable": "Comparable",
+        "signal": "Le pneumatique devient le coeur unique du groupe apres la scission d'Aumovio",
+        "is_wow": true,
+        "yoy": "-0,5 %"
       }
     ],
     "_dividends_extracted_at": "2026-05-09T20:20:07Z",
-    "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+    "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
     "_dividends_currency": "EUR",
     "_eps_extracted_at": "2026-05-18T16:44:23Z",
-    "_eps_source": "yfinance income_stmt Diluted EPS",
+    "_eps_source": "rapport financier income_stmt Diluted EPS",
     "overrides_governance": {
       "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
       "extraction_status": "heuristic_real_eu",
@@ -616,7 +648,8 @@
         "severity": 3,
         "score_rationale": "Risque mentionné explicitement dans le filing EU 2023. Sévérité 3/5 inférée du langage utilisé.",
         "trend": "stable",
-        "summary": "Les événements climatiques extrêmes (tempêtes, incendies, inondations) peuvent endommager les infrastructures, interrompre l'activité et générer des coûts de remise en état importants."
+        "summary": "Les événements climatiques extrêmes (tempêtes, incendies, inondations) peuvent endommager les infrastructures, interrompre l'activité et générer des coûts de remise en état importants.",
+        "score": 3
       },
       {
         "title": "Risque spécifique au business model",
@@ -624,7 +657,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné explicitement dans le filing EU 2023. Sévérité 2/5 inférée du langage utilisé.",
         "trend": "stable",
-        "summary": "Un facteur financier identifié pourrait dégrader la rentabilité, la liquidité ou la solvabilité de la société."
+        "summary": "Un facteur financier identifié pourrait dégrader la rentabilité, la liquidité ou la solvabilité de la société.",
+        "score": 2
       }
     ],
     "_risks_reextracted_at": "2026-05-27",
@@ -683,7 +717,10 @@
           13.8,
           13.7
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Automotive Sales",
@@ -699,7 +736,10 @@
           19.6,
           19.4
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "ContiTech Sales",
@@ -715,7 +755,10 @@
           6.6,
           6.5
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Tires Adj EBIT Margin",
@@ -731,7 +774,10 @@
           13.2,
           13.7
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Tire Units Sold",
@@ -752,7 +798,8 @@
     ],
     "_kpis_supplementary_at": "2026-05-28T16:47:55+00:00",
     "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
-    "sector_fr": "Automobile"
+    "sector_fr": "Automobile",
+    "_hero_kpi_override_reason": "tires_sales = revenu specifique principal (agent verbatim)"
   },
   "enrich_events": {
     "ticker": "CON",
@@ -796,6 +843,40 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CON",
+    "extracted_at": "2026-06-01T03:07:34Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          467.598,
+          477.915,
+          489.638,
+          500.752,
+          550.785,
+          572.8
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:07:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CON",
     "ranks": {
@@ -808,15 +889,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.243308+00:00",
     "fetched_at": "2026-05-21T02:17:14.243309+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.694Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.177Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/con.json",
     "enrich_root": "v2-pipeline-enrich/con.json",
     "enrich_subkeys": [
       "de",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

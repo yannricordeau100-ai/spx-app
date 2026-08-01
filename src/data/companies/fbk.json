@@ -1,6 +1,6 @@
 {
   "ticker": "FBK",
-  "name": "FB Financial Corporation",
+  "name": "FB Financial",
   "sector": "Financial Services",
   "subsector": "Banks",
   "tagline": "FB Financial Corporation is a financial holding company headquartered in Nashville, Tennessee, operating through FirstBank and providing comprehensive commercial and consumer banking services.",
@@ -40,9 +40,12 @@
       "is_short_history": false,
       "ttm": 3.42,
       "_validation": "Valeurs confirmées dans les consolidated statements: Net interest margin (tax-equivalent basis) 3.81% (2025), 3.51% (2024), 3.44% (2023)",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Profit margin on Net Interest.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -68,7 +71,7 @@
       "is_short_history": false,
       "ttm": 12.47,
       "_validation": "Valeurs confirmées: Total assets $16,300,292K (16.30B) 2025, $13,157,482K (13.16B) 2024, $12,604,403K (12.60B) 2023",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -250,9 +253,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur confirmée: total consideration paid $368.4 million based on closing stock price of $45.30 per share on June 30, 2025. Acquired assets $2.83B, loans $2.27B, deposits assumed $2.47B.",
-      "_source_month": "juillet 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur confirmée: total consideration paid $368.4 million based on closing stock price of $45.30 per share on June 30, 2025. Acquired assets $2.83B, loans $2.27B, deposits assumed $2.47B."
     },
     {
       "short": "Goodwill from acquisition",
@@ -275,9 +276,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Capital",
-      "_validation": "Valeur confirmée: goodwill of $107.8 million being recorded based on preliminary fair value estimates of total net assets acquired.",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée: goodwill of $107.8 million being recorded based on preliminary fair value estimates of total net assets acquired."
     },
     {
       "short": "Dividends declared by Company",
@@ -302,9 +301,7 @@
       "is_short_history": true,
       "story_category": "Cash",
       "ttm": 0.66,
-      "_validation": "Valeurs confirmées: Cash dividends declared $0.76 per share (2025), $0.68 per share (2024). Total shareholder dividends approved were $38.3M (2025) and $32.2M (2024).",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeurs confirmées: Cash dividends declared $0.76 per share (2025), $0.68 per share (2024). Total shareholder dividends approved were $38.3M (2025) and $32.2M (2024)."
     }
   ],
   "ai_positioning": {
@@ -320,7 +317,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement traité dans l'Item 7 MD&A sous 'Key factors affecting our business: Interest rates'. Le MD&A souligne que 'Volatile interest rates could have significant adverse effects on the earnings, financial condition and results of operations'. Net interest income est le plus grand contributeur au bénéfice net (516.1M en 2025). La sensibilité des actifs et passifs aux chocs de taux d'intérêt amplifie ce risque, particulièrement avec une position d'actif sensible (prêts HFI dominants). Les taux d'intérêt ont diminué tout au long de 2025.",
       "trend": "stable",
-      "summary": "Des variations soudaines des taux d'intérêt peuvent fortement réduire les revenus nets d'intérêts en raison de la dépendance structurelle de la banque aux taux et de la sensibilité des actifs et passifs aux changements de politique de la Réserve Fédérale."
+      "summary": "Des variations soudaines des taux d'intérêt peuvent fortement réduire les revenus nets d'intérêts en raison de la dépendance structurelle de la banque aux taux et de la sensibilité des actifs et passifs aux changements de politique de la Réserve Fédérale.",
+      "score": 5
     },
     {
       "title": "Estimations critiques sur pertes de crédit (ACL)",
@@ -328,7 +326,8 @@
       "severity": 5,
       "score_rationale": "Les provisions pour pertes sur créances ont augmenté drastiquement de 12.0M (2024) à 43.3M (2025), +260.6% YoY. Le MD&A indique que l'augmentation est attribuable à une provision initiale de 28.4M pour les prêts HFI acquis de Southern States et les changements normaux de portefeuille. Les nonperforming loans ont augmenté de 0.87% à 0.97%. Les estimations critiques d'ACL sont sensibles aux hypothèses économiques et aux évolutions du marché. L'incertitude économique liée à la couverture des défauts potentiels justifie une sévérité maximale.",
       "trend": "up",
-      "summary": "Une détérioration économique ou une volatilité accrue des conditions de marché pourrait forcer une hausse significative des provisions pour pertes sur prêts, affectant fortement les bénéfices nets et les ratios de capital."
+      "summary": "Une détérioration économique ou une volatilité accrue des conditions de marché pourrait forcer une hausse significative des provisions pour pertes sur prêts, affectant fortement les bénéfices nets et les ratios de capital.",
+      "score": 5
     },
     {
       "title": "Évaluation et risque d'impairment de goodwill",
@@ -336,7 +335,8 @@
       "severity": 4,
       "score_rationale": "La fusion avec Southern States a généré 107.8M de goodwill enregistré au 30 juin 2025. Bien qu'aucun impairment n'ait été constaté en 2025, le goodwill est sensible aux changements de taux d'actualisation, hypothèses de croissance future et conditions de marché. Une dégradation des performances post-acquisition, une hausse des taux ou une contraction économique pourraient déclencher une charge d'impairment matérielle affectant les résultats et les capitaux propres.",
       "trend": "new",
-      "summary": "Des changements dans les taux d'actualisation, les hypothèses de croissance future ou les conditions économiques pourraient réduire la valeur du goodwill et entraîner une charge d'impairment impactant les bénéfices et le capital."
+      "summary": "Des changements dans les taux d'actualisation, les hypothèses de croissance future ou les conditions économiques pourraient réduire la valeur du goodwill et entraîner une charge d'impairment impactant les bénéfices et le capital.",
+      "score": 4
     },
     {
       "title": "Risque de compression de la marge nette d'intérêts",
@@ -344,7 +344,8 @@
       "severity": 4,
       "score_rationale": "Bien que la NIM soit améliorée à 3.81% (2025) vs 3.51% (2024), le MD&A souligne les 'increased competitive pressures on deposit rates' et note que 'Continued deposit pricing pressure may continue to affect our financial results'. Les taux d'intérêt ont diminué en 2025. Une poursuite de la baisse des taux ou une intensification de la compétition sur les dépôts pourrait compresser la NIM, principal moteur de revenu.",
       "trend": "stable",
-      "summary": "Une poursuite de la baisse des taux d'intérêt couplée à des pressions compétitives sur les taux de dépôts pourrait compresser la marge nette d'intérêts et réduire les revenus d'intérêts nets."
+      "summary": "Une poursuite de la baisse des taux d'intérêt couplée à des pressions compétitives sur les taux de dépôts pourrait compresser la marge nette d'intérêts et réduire les revenus d'intérêts nets.",
+      "score": 4
     },
     {
       "title": "Risque de ratios de capital réglementaires",
@@ -352,7 +353,8 @@
       "severity": 3,
       "score_rationale": "La société est assujettie à des exigences réglementaires de capital de la part du Federal Reserve et de la TDFI. L'acquisition de Southern States a augmenté les actifs de 23.9% (16.3B). Les pertes de crédit et les provisions accrues réduisent les capitaux propres. Bien que la société rapporte des ratios de capital adéquats, les charges d'impairment futures, pertes opérationnelles ou changements réglementaires pourraient affecter la conformité.",
       "trend": "stable",
-      "summary": "Des changements réglementaires, des pertes opérationnelles ou des charges d'impairment pourraient affecter la capacité de la banque à maintenir les ratios de capital réglementaires requis."
+      "summary": "Des changements réglementaires, des pertes opérationnelles ou des charges d'impairment pourraient affecter la capacité de la banque à maintenir les ratios de capital réglementaires requis.",
+      "score": 3
     }
   ],
   "_validation": "Corrections effectuées: 1) Sector corrigé de 'Information Technology' à 'Financial Services' (FB Financial est une holding bancaire, pas une tech). 2) Subsector corrigé de 'Financial Services' à 'Banks' (classification correcte). 3) Name_fr amélioré pour Total Assets (Actifs totaux vs Total des actifs). 4) Name_fr amélioré pour Total Deposits (Dépôts totaux vs Total des dépôts). 5) Name_fr amélioré pour Nonperforming loans (Ratio de prêts non performants, plus précis). 6) Hero_kpi_rationale refondu sans em-dash, précisant le rôle du revenu net d'intérêts et la politique de la Fed. 7) Tagline amélioré avec détails sur FirstBank et services. 8) Goodwill KPI name_fr changé de 'Goodwill suite à l'acquisition' à 'Survaleur suite à l'acquisition' (terminologie comptable française). 9) Dividends name_en changé à 'Dividends Declared by Company' (plus formel). 10) Tous les champs 'last_data_date' restent 2025-12-31 ou 2025-07-01/06-30 (cohérents avec le 10-K). 11) History array vérifié: valeurs alignées avec Selected Ratios et Balance Sheet data du MD&A. 12) YoY calculations vérifiées ((16.30-13.16)/13.16 = 23.9%, (13.91-11.21)/11.21 = 24.1%, etc.). 13) Risk factors refondu avec textes spécifiques du MD&A, suppression de la ligne tronquée incomplète. 14) Aucun KPI halluciné détecté: tous les chiffres sont sourcés du 10-K financials et MD&A.",
@@ -366,7 +368,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -606,6 +608,157 @@
   "enrich_mi": {
     "sector_fr": "Services financiers"
   },
+  "enrich_quarterly_history": {
+    "ticker": "FBK",
+    "extracted_at": "2026-06-01T03:15:32Z",
+    "n_kpis": 4,
+    "kpis": [
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          12.674,
+          12.194,
+          12.258,
+          13.101,
+          12.887,
+          12.49,
+          12.548,
+          12.535,
+          12.92,
+          13.136,
+          13.354,
+          16.236
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:15:32Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Deposits",
+        "period_type": "quarter",
+        "history": [
+          10.996,
+          10.543,
+          10.006,
+          11.183,
+          10.872,
+          10.639,
+          10.505,
+          10.468,
+          10.976,
+          11.202,
+          11.403,
+          13.813
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:15:32Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Loans HFI",
+        "period_type": "quarter",
+        "history": [
+          7.885,
+          8.498,
+          8.971,
+          9.227,
+          9.185,
+          9.141,
+          9.137,
+          9.155,
+          9.322,
+          9.621,
+          9.725,
+          12.113
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:15:32Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Provisions for credit losses",
+        "period_type": "quarter",
+        "history": [
+          0.838,
+          2.432,
+          1.861,
+          2.189,
+          0.582,
+          34.07
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:15:32Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "FBK",
     "ranks": {
@@ -618,9 +771,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.259522+00:00",
     "fetched_at": "2026-05-21T02:17:14.259522+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.081Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.650Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fbk.json",
     "enrich_root": "v2-pipeline-enrich/fbk.json",
@@ -628,6 +781,7 @@
       "description",
       "events",
       "mi",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -40,7 +40,7 @@
       "period_type": "annual",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de Revenue (revenu total) trouvée dans l'extrait fourni. Le document est un rapport de gouvernance d'entrep",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -90,7 +90,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Solid expansion, positive trajectory"
     },
     {
@@ -115,31 +115,38 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.95,
-      "unit": "Mds €",
+      "value": 950,
+      "unit": "M €",
       "yoy": "+2.2%",
       "history": [
-        0.76,
-        0.6,
-        0.93,
-        0.95
+        760,
+        600,
+        930,
+        950
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.95 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "No explicit annual total revenue figures found in the provided excerpt.",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,11 +165,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.34 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -181,33 +192,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.11 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.6,
-      "unit": "Mds €",
+      "value": 600,
+      "unit": "M €",
       "yoy": "-4.8%",
       "history": [
-        0.76,
-        0.55,
-        0.63,
-        0.6
+        760,
+        550,
+        630,
+        600
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.6 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -221,7 +241,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         57.7,
         82.6,
@@ -234,7 +254,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +269,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         0.1866,
@@ -262,7 +282,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +297,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         31.45,
@@ -290,7 +310,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -306,7 +326,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.811,
@@ -319,7 +339,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -348,7 +368,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -362,7 +382,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans la section 'Workforce' avec un langage fort sur la dépendance à des tiers pour le crewing. Il est central dans le modèle opérationnel maritime, récurrent dans les rapports et classé comme critique par son impact opérationnel direct.",
       "trend": "stable",
-      "summary": "ICG dépend entièrement de tiers pour le recrutement et la gestion de l'équipage de ses navires, sans lien d'emploi direct. Cette dépendance expose le groupe à des risques de rupture de service, de conformité réglementaire ou de qualité opérationnelle si les gestionnaires échouent."
+      "summary": "ICG dépend entièrement de tiers pour le recrutement et la gestion de l'équipage de ses navires, sans lien d'emploi direct. Cette dépendance expose le groupe à des risques de rupture de service, de conformité réglementaire ou de qualité opérationnelle si les gestionnaires échouent.",
+      "score": 4
     },
     {
       "title": "Conformité aux régulations maritimes strictes",
@@ -370,7 +391,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne l'industrie 'hautement régulée' et la nécessité de respecter des normes élevées. Le langage est préoccupé, le risque est structurel et récurrent, et la catégorie 'Régulation' est stratégique pour le secteur maritime.",
       "trend": "stable",
-      "summary": "ICG opère dans un secteur maritime soumis à des réglementations internationales strictes (OMI, États du pavillon, autorités portuaires). Toute non-conformité pourrait entraîner des sanctions, des interruptions de service ou des coûts accrus de mise aux normes."
+      "summary": "ICG opère dans un secteur maritime soumis à des réglementations internationales strictes (OMI, États du pavillon, autorités portuaires). Toute non-conformité pourrait entraîner des sanctions, des interruptions de service ou des coûts accrus de mise aux normes.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur les liaisons maritimes",
@@ -378,7 +400,8 @@
       "severity": 3,
       "score_rationale": "Bien que non explicité directement, la stratégie centrée sur la satisfaction client et l'innovation implique une pression concurrentielle. Le langage est modéré mais le risque est sous-jacent à la dynamique du marché et en tendance stable.",
       "trend": "stable",
-      "summary": "ICG fait face à une concurrence sur ses liaisons maritimes, notamment sur les routes Irlande-Royaume-Uni. La pression sur les prix, la qualité du service et l'innovation limite sa marge et sa part de marché."
+      "summary": "ICG fait face à une concurrence sur ses liaisons maritimes, notamment sur les routes Irlande-Royaume-Uni. La pression sur les prix, la qualité du service et l'innovation limite sa marge et sa part de marché.",
+      "score": 3
     },
     {
       "title": "Dépendance à des partenaires fournisseurs clés",
@@ -386,7 +409,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne des 'partenariats essentiels' avec des fournisseurs. Le langage est fort, le risque est opérationnellement critique, récurrent, et la catégorie 'Industriel' reflète son poids dans la chaîne de valeur.",
       "trend": "stable",
-      "summary": "ICG dépend de fournisseurs clés pour des services essentiels à ses opérations maritimes. Une défaillance ou une rupture avec un fournisseur majeur pourrait perturber ses services et augmenter les coûts."
+      "summary": "ICG dépend de fournisseurs clés pour des services essentiels à ses opérations maritimes. Une défaillance ou une rupture avec un fournisseur majeur pourrait perturber ses services et augmenter les coûts.",
+      "score": 4
     },
     {
       "title": "Risques liés à la cybersécurité des opérations critiques",
@@ -394,7 +418,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne la collaboration avec le gouvernement sur la sécurité de l'information. Le langage est prudent, le risque est émergent, mais sa gravité potentielle est élevée en cas d'attaque sur des systèmes opérationnels.",
       "trend": "up",
-      "summary": "En tant qu'opérateur d'infrastructure critique, ICG est exposé à des cybermenaces pouvant affecter ses systèmes de réservation, de navigation ou de gestion portuaire, avec des conséquences opérationnelles et réputationnelles."
+      "summary": "En tant qu'opérateur d'infrastructure critique, ICG est exposé à des cybermenaces pouvant affecter ses systèmes de réservation, de navigation ou de gestion portuaire, avec des conséquences opérationnelles et réputationnelles.",
+      "score": 3
     },
     {
       "title": "Pression sur la durabilité environnementale",
@@ -402,7 +427,8 @@
       "severity": 4,
       "score_rationale": "Le texte insiste sur l'innovation continue pour réduire les émissions. Le langage est proactif mais reflète une pression réglementaire et sociétale croissante. Risque central, en tendance à la hausse.",
       "trend": "up",
-      "summary": "ICG fait face à des exigences croissantes pour réduire son empreinte carbone (gaz à effet de serre, carburants). Le non-respect des normes environnementales ou un retard dans la décarbonation pourrait nuire à sa licence d'exploitation et à sa réputation."
+      "summary": "ICG fait face à des exigences croissantes pour réduire son empreinte carbone (gaz à effet de serre, carburants). Le non-respect des normes environnementales ou un retard dans la décarbonation pourrait nuire à sa licence d'exploitation et à sa réputation.",
+      "score": 4
     },
     {
       "title": "Dépendance à la coopération gouvernementale",
@@ -410,7 +436,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne la collaboration avec le gouvernement irlandais pour la continuité d'activité. Le risque est modéré mais stratégique, avec un langage de dépendance implicite à des décisions publiques.",
       "trend": "stable",
-      "summary": "ICG dépend de la coopération avec les autorités irlandaises pour assurer la continuité de ses services maritimes essentiels, notamment en contexte post-Brexit. Un changement de politique ou de soutien public pourrait affecter ses opérations."
+      "summary": "ICG dépend de la coopération avec les autorités irlandaises pour assurer la continuité de ses services maritimes essentiels, notamment en contexte post-Brexit. Un changement de politique ou de soutien public pourrait affecter ses opérations.",
+      "score": 3
     },
     {
       "title": "Gestion des talents et pénurie de personnel maritime",
@@ -418,7 +445,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne l'engagement de 1 300 personnes en saison, dont peu sont directes. Le risque est opérationnel, avec un langage de vigilance sur la gestion des compétences, en tendance stable.",
       "trend": "stable",
-      "summary": "ICG dépend d'une main-d'œuvre maritime qualifiée, souvent recrutée via des tiers. La pénurie potentielle de personnel compétent ou des difficultés de rétention pourraient affecter la qualité et la disponibilité des services."
+      "summary": "ICG dépend d'une main-d'œuvre maritime qualifiée, souvent recrutée via des tiers. La pénurie potentielle de personnel compétent ou des difficultés de rétention pourraient affecter la qualité et la disponibilité des services.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:44:08.136184+00:00",
@@ -588,10 +616,10 @@
   "_extracted_at": "2026-05-20T14:16:27Z",
   "_source": "sec-data/cat3-european/ICG.L/annual-text/2024.txt (Intermediate Capital Group Annual Report)",
   "_dividends_extracted_at": "2026-05-09T20:23:03Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "GBp",
   "_eps_extracted_at": "2026-05-18T16:45:30Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Transport & logistique",
   "enrich_description": {
     "ticker": "ICG.L",
@@ -700,9 +728,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T01:44:37.529173+00:00",
     "fetched_at": "2026-05-21T01:44:37.529174+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.330Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.982Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/icg.l.json",
     "enrich_root": "v2-pipeline-enrich/icg.l.json",

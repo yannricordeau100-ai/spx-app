@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires net",
       "name_en": "Net Sales",
       "explanation": "Revenu total de l'entreprise pour l'exercice.",
-      "value": "23510.9",
-      "unit": "M $",
+      "value": 23.511,
+      "unit": "Mds $",
       "yoy": "+7.8%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -35,7 +35,8 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Correction unité: Mds $ remplacée par M $ (23510.9 millions). Valeur extraite du tableau MD&A (ligne Net sales: $23,510.9 millions).",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Croissance organique des ventes",
@@ -105,34 +106,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 23.51 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.64,
-      "unit": "Mds €",
+      "value": 640,
+      "unit": "M €",
       "yoy": "-11.1%",
       "history": [
-        0.86,
-        0.77,
-        0.72,
-        0.64
+        860,
+        770,
+        720,
+        640
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.64 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -151,11 +161,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 16.49 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -174,33 +188,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.53 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.6,
-      "unit": "Mds €",
+      "value": 600,
+      "unit": "M €",
       "yoy": "-14.3%",
       "history": [
-        0.53,
-        0.52,
-        0.7,
-        0.6
+        530,
+        520,
+        700,
+        600
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.6 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -227,7 +250,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "WESCO reconnaît l'IA et les centres de données comme tendances séculaires clés. L'entreprise positionne ses activités de distribution de centres de données et de solutions d'infrastructure comme bénéficiaires des trends d'IA. Les mentions incluent data centers, AI-driven growth, et demande croissante pour infrastructure technologique.",
     "evidence": [
       "CSS data center business primarily driving growth",
@@ -244,7 +267,8 @@
       "severity": 5,
       "score_rationale": "Les conditions économiques mondiales et les perturbations des marchés financiers et des matières premières pourraient avoir un impact négatif sur l'entreprise et ses clients. Cela affecte directement le niveau d'activité des clients et la demande de produits.",
       "trend": "stable",
-      "summary": "Conditions économiques mondiales et perturbations des marchés financiers pourraient impacter les revenus et résultats opérationnels."
+      "summary": "Conditions économiques mondiales et perturbations des marchés financiers pourraient impacter les revenus et résultats opérationnels.",
+      "score": 5
     },
     {
       "title": "Risque de change",
@@ -252,7 +276,8 @@
       "severity": 4,
       "score_rationale": "Les fluctuations des taux de change pourraient avoir un impact sur les résultats financiers de l'entreprise avec opérations internationales dans environ 50 pays.",
       "trend": "up",
-      "summary": "Fluctuations des taux de change pourraient affecter les résultats de l'entreprise opérant mondialement."
+      "summary": "Fluctuations des taux de change pourraient affecter les résultats de l'entreprise opérant mondialement.",
+      "score": 4
     },
     {
       "title": "Risque réglementaire et conformité",
@@ -260,7 +285,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est soumise à des lois et réglementations globales complexes. Tout échec à se conformer pourrait avoir un impact matériel sur l'entreprise.",
       "trend": "up",
-      "summary": "Conformité à lois et réglementations globales est complexe; non-conformité pourrait avoir un impact négatif."
+      "summary": "Conformité à lois et réglementations globales est complexe; non-conformité pourrait avoir un impact négatif.",
+      "score": 4
     },
     {
       "title": "Risque lié aux acquisitions et intégrations",
@@ -268,7 +294,8 @@
       "severity": 4,
       "score_rationale": "Les acquisitions futures pourraient présenter des risques d'intégration, des problèmes de valeur et des incertitudes. WESCO poursuit une stratégie d'acquisitions comme priorité de capital allocation.",
       "trend": "new",
-      "summary": "Acquisitions futures pourraient présenter des défis d'intégration et des risques de valeur."
+      "summary": "Acquisitions futures pourraient présenter des défis d'intégration et des risques de valeur.",
+      "score": 4
     },
     {
       "title": "Risque de concurrence et expansion",
@@ -276,7 +303,8 @@
       "severity": 3,
       "score_rationale": "L'expansion dans de nouveaux marchés pourrait présenter des défis réglementaires et de distribution différents de ceux actuels, face à concurrence accrue.",
       "trend": "stable",
-      "summary": "Expansion géographique expose l'entreprise à défis réglementaires et de distribution variables."
+      "summary": "Expansion géographique expose l'entreprise à défis réglementaires et de distribution variables.",
+      "score": 3
     },
     {
       "title": "Risque de cybersécurité",
@@ -284,7 +312,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est exposée aux risques de cybersécurité avec mise en place d'une nouvelle Digital and Data Platform. Les attaques contre systèmes et données critiques pourraient interrompre opérations.",
       "trend": "up",
-      "summary": "Exposition aux risques de cybersécurité augmentée avec transformation numérique en cours."
+      "summary": "Exposition aux risques de cybersécurité augmentée avec transformation numérique en cours.",
+      "score": 3
     },
     {
       "title": "Risque de réputation",
@@ -292,7 +321,8 @@
       "severity": 3,
       "score_rationale": "Tout échec réglementaire ou opérationnel pourrait impacter négativement la réputation de l'entreprise auprès de clients, fournisseurs et parties prenantes.",
       "trend": "stable",
-      "summary": "Non-conformité réglementaire ou crises opérationnelles pourraient endommager la réputation."
+      "summary": "Non-conformité réglementaire ou crises opérationnelles pourraient endommager la réputation.",
+      "score": 3
     }
   ],
   "governance": {
@@ -564,7 +594,10 @@
             "accession": "0000929008-24-000029",
             "end": "2024-09-30"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Effectif",
@@ -646,7 +679,10 @@
             "source": "calc-WCC_2026-02-13.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Capacité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -663,9 +699,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.327507+00:00",
     "fetched_at": "2026-05-21T02:17:14.327508+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.403Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.538Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wcc.json",
     "enrich_root": null,

@@ -1,6 +1,6 @@
 {
   "ticker": "FLS",
-  "name": "Flowserve Corporation",
+  "name": "Flowserve",
   "sector": "Industrie",
   "subsector": "Fluid & Metering Technologies",
   "tagline": "World-leading manufacturer of flow control systems for critical infrastructure",
@@ -42,7 +42,7 @@
       "is_short_history": false,
       "ttm": 0,
       "period_type": "quarter",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -70,8 +70,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 0,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Cash",
@@ -98,7 +102,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "DSO",
@@ -125,7 +133,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -144,11 +156,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.73 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -167,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.71 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -190,33 +210,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.76 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.76,
-      "unit": "Mds €",
+      "value": 760,
+      "unit": "M €",
       "yoy": "+11.8%",
       "history": [
-        0.43,
-        0.55,
-        0.68,
-        0.76
+        430,
+        550,
+        680,
+        760
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.76 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,9 +274,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Liquidité",
-      "ttm": 0,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 0
     }
   ],
   "ai_positioning": {
@@ -263,7 +290,8 @@
       "severity": 4,
       "score_rationale": "La société est influencée par les dépenses en capital et les dépenses d'exploitation des industries mondiales, ce qui peut être affecté par les fluctuations économiques. Le langage utilisé dans le rapport est prudent et souligne l'incertitude liée à l'environnement macroéconomique.",
       "trend": "stable",
-      "summary": "Les fluctuations économiques peuvent impacter les dépenses en capital et les dépenses d'exploitation des industries mondiales, ce qui peut affecter les résultats de la société."
+      "summary": "Les fluctuations économiques peuvent impacter les dépenses en capital et les dépenses d'exploitation des industries mondiales, ce qui peut affecter les résultats de la société.",
+      "score": 4
     },
     {
       "title": "Réglementations environnementales",
@@ -271,7 +299,8 @@
       "severity": 3,
       "score_rationale": "Les efforts mondiaux pour limiter les émissions de dioxyde de carbone peuvent avoir un impact négatif sur les investissements dans les centrales électriques thermiques, mais offrent également des opportunités pour les produits et services de la société.",
       "trend": "up",
-      "summary": "Les réglementations environnementales peuvent impacter les investissements dans les centrales électriques thermiques, mais offrent également des opportunités pour les produits et services de la société."
+      "summary": "Les réglementations environnementales peuvent impacter les investissements dans les centrales électriques thermiques, mais offrent également des opportunités pour les produits et services de la société.",
+      "score": 3
     },
     {
       "title": "Concurrence",
@@ -279,7 +308,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché compétitif et doit maintenir sa position concurrentielle pour réussir. Le rapport souligne l'importance de la stratégie de diversification, de décarbonisation et de numérisation pour accélérer la croissance.",
       "trend": "stable",
-      "summary": "La concurrence est un facteur clé pour la société, qui doit maintenir sa position concurrentielle pour réussir dans un marché en constante évolution."
+      "summary": "La concurrence est un facteur clé pour la société, qui doit maintenir sa position concurrentielle pour réussir dans un marché en constante évolution.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'égard des marchés émergents",
@@ -287,7 +317,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux risques liés aux marchés émergents, notamment en ce qui concerne les fluctuations des taux de change et les incertitudes politiques. Le rapport souligne l'importance de la gestion des risques liés aux marchés émergents.",
       "trend": "up",
-      "summary": "La société est exposée aux risques liés aux marchés émergents, notamment en ce qui concerne les fluctuations des taux de change et les incertitudes politiques."
+      "summary": "La société est exposée aux risques liés aux marchés émergents, notamment en ce qui concerne les fluctuations des taux de change et les incertitudes politiques.",
+      "score": 3
     },
     {
       "title": "Risques liés aux taux de change",
@@ -295,7 +326,8 @@
       "severity": 3,
       "score_rationale": "Les fluctuations des taux de change peuvent impacter les résultats de la société, notamment en ce qui concerne les exportations et les importations. Le rapport souligne l'importance de la gestion des risques liés aux taux de change.",
       "trend": "stable",
-      "summary": "Les fluctuations des taux de change peuvent impacter les résultats de la société, notamment en ce qui concerne les exportations et les importations."
+      "summary": "Les fluctuations des taux de change peuvent impacter les résultats de la société, notamment en ce qui concerne les exportations et les importations.",
+      "score": 3
     },
     {
       "title": "Risques liés à la dette",
@@ -303,7 +335,8 @@
       "severity": 2,
       "score_rationale": "La société a une dette importante, notamment en ce qui concerne les billets à ordre et les prêts bancaires. Le rapport souligne l'importance de la gestion de la dette pour maintenir la stabilité financière.",
       "trend": "stable",
-      "summary": "La société a une dette importante, notamment en ce qui concerne les billets à ordre et les prêts bancaires, ce qui peut impacter la stabilité financière."
+      "summary": "La société a une dette importante, notamment en ce qui concerne les billets à ordre et les prêts bancaires, ce qui peut impacter la stabilité financière.",
+      "score": 2
     },
     {
       "title": "Risques liés à la cybersécurité",
@@ -311,7 +344,8 @@
       "severity": 2,
       "score_rationale": "La société est exposée aux risques liés à la cybersécurité, notamment en ce qui concerne la protection des données et des systèmes d'information. Le rapport ne souligne pas spécifiquement ces risques, mais il est probable que la société prenne des mesures pour les gérer.",
       "trend": "up",
-      "summary": "La société est exposée aux risques liés à la cybersécurité, notamment en ce qui concerne la protection des données et des systèmes d'information."
+      "summary": "La société est exposée aux risques liés à la cybersécurité, notamment en ce qui concerne la protection des données et des systèmes d'information.",
+      "score": 2
     }
   ],
   "governance": {
@@ -345,7 +379,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -509,9 +543,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.261955+00:00",
     "fetched_at": "2026-05-21T02:17:14.261956+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.290Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.862Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fls.json",
     "enrich_root": "v2-pipeline-enrich/fls.json",

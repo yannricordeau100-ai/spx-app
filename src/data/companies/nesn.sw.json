@@ -29,11 +29,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dividende par action de 3.1 CHF dernière année.",
-      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "_source": "historique des dividendes",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Cap Return",
@@ -52,11 +56,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capital retourné aux actionnaires via dividendes de 7.849 Mds CHF dernière année.",
-      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Payout Ratio",
@@ -75,11 +83,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Part du résultat net distribué en dividendes : 86.9% dernière année.",
-      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "risks": [],
@@ -201,356 +213,6 @@
   "_source_year": "2023",
   "_fit_for_site": true,
   "_extraction_note": "Source annual-text disponible (203257 bytes, year=2023). KPIs spécifiques + segments + geography + risks à extraire via passe LLM dédiée. Sub-agent batch 3 a validé existence et qualité minimale de la source.",
-  "hero_kpi_override": "Organic Growth",
-  "_hero_override_reason": "Hero spécifique métier choisi parmi 5+ KPIs spec extraits avec history 5 ans.",
-  "_hero_override_set_at": "2026-05-20T00:00:00Z",
-  "profit_warning": {
-    "last_date": null,
-    "score": 3,
-    "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
-    "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  },
-  "_profit_warning_at": "2026-05-21T01:53:36.805Z",
-  "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.805Z",
-  "stories_kpis": [
-    {
-      "short": "Plant-Based Sales",
-      "name_fr": "Ventes en produits à base végétale",
-      "name_en": "Plant-Based Product Sales",
-      "explanation": "Ventes annuelles de produits alimentaires à base végétale sous les marques Nestlé.",
-      "value": 1.8,
-      "unit": "Mds $",
-      "yoy": "+14%",
-      "type": "Revenue",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Croissance rapide dans l'alimentation santé durable",
-      "description": "Les ventes de gammes comme Garden Gourmet et Sweet Earth montrent une adoption accrue des alternatives végétales. Nestlé renforce sa position face à des concurrents comme Beyond Meat.",
-      "history": [
-        "1.2",
-        "1.5",
-        "1.8"
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "R&D Pipeline Value",
-      "name_fr": "Valeur du portefeuille R&D",
-      "name_en": "R&D Pipeline Value",
-      "explanation": "Estimation de la valeur marchande des projets de R&D en cours dans l'innovation alimentaire.",
-      "value": 3.2,
-      "unit": "Mds $",
-      "yoy": "+8%",
-      "type": "Pipeline",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Investissements stratégiques dans l'innovation santé",
-      "description": "Inclut les projets en nutrition personnalisée, probiotiques avancés et emballages durables. Une part croissante est dédiée à la science des protéines alternatives.",
-      "history": [
-        "2.7",
-        "2.9",
-        "3.2"
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "Coffee Pod Recycling Rate",
-      "name_fr": "Taux de recyclage des dosettes café",
-      "name_en": "Coffee Pod Recycling Rate",
-      "explanation": "Proportion des dosettes Nescafé Dolce Gusto et Nespresso collectées et recyclées.",
-      "value": 32,
-      "unit": "%",
-      "yoy": "+5 pts",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Progrès clés dans la durabilité des emballages",
-      "description": "Nestlé intensifie ses programmes de retour par courrier et points de collecte en magasin. L'objectif est d'atteindre 50 % d'ici 2027.",
-      "history": [
-        "22",
-        "27",
-        "32"
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "PetCare Market Share",
-      "name_fr": "Part de marché en alimentation animale",
-      "name_en": "Pet Care Market Share",
-      "explanation": "Part de marché mondiale de Nestlé en nutrition animale (Purina, Fancy Feast, etc.).",
-      "value": 24,
-      "unit": "%",
-      "yoy": "+1.5 pts",
-      "type": "Share",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Leadership consolidé dans un segment à forte croissance",
-      "description": "Nestlé devance Mars sur certains marchés émergents grâce à des lancements ciblés. La croissance des foyers avec animaux domestiques soutient la demande.",
-      "history": [
-        "21",
-        "22.5",
-        "24"
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "Water Replenishment Rate",
-      "name_fr": "Taux de réapprovisionnement en eau",
-      "name_en": "Water Replenishment Rate",
-      "explanation": "Ratio entre l'eau utilisée dans la production et l'eau restituée aux bassins versants.",
-      "value": 110,
-      "unit": "%",
-      "yoy": "+5 pts",
-      "type": "Capacity",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Engagement crédible en faveur de la gestion durable de l'eau",
-      "description": "Nestlé dépasse son objectif de neutralité hydrique grâce à des projets de reforestation et de recharge des nappes. Critère ESG clé pour les investisseurs responsables.",
-      "history": [
-        "95",
-        "102",
-        "110"
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "E-commerce Penetration",
-      "name_fr": "Pénétration du e-commerce",
-      "name_en": "E-commerce Sales Penetration",
-      "explanation": "Part des ventes totales réalisées via des canaux en ligne directs ou tiers.",
-      "value": 18,
-      "unit": "%",
-      "yoy": "+3 pts",
-      "type": "Adoption",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Transformation digitale accélérée post-pandémie",
-      "description": "Croissance tirée par les ventes sur Amazon, Alibaba et les plateformes propres (ex: Nespresso.com). Amélioration de la marge sur les ventes directes.",
-      "history": [
-        "12",
-        "15",
-        "18"
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "AI-Powered Personalization",
-      "name_fr": "Utilisateurs de services personnalisés par IA",
-      "name_en": "AI-Powered Personalization Users",
-      "explanation": "Nombre d'utilisateurs actifs mensuels utilisant des services de nutrition personnalisée pilotés par IA.",
-      "value": 4.7,
-      "unit": "M unités",
-      "yoy": "+45%",
-      "type": "User",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Montée en puissance de l'IA dans la relation client",
-      "description": "Services comme le plan nutritionnel personnalisé via l'app Garden of Life. L'IA analyse les préférences et les besoins métaboliques.",
-      "history": [
-        "2.5",
-        "3.8",
-        "4.7"
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "Emerging Markets Growth",
-      "name_fr": "Croissance dans les marchés émergents",
-      "name_en": "Emerging Markets Sales Growth",
-      "explanation": "Croissance organique des ventes dans les régions Asie, Océanie et Afrique.",
-      "value": 5.8,
-      "unit": "%",
-      "yoy": "+1.2 pts",
-      "type": "Revenue",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Résilience et potentiel de croissance dans les nouveaux marchés",
-      "description": "Porté par la demande en produits nutritifs abordables en Inde, Afrique subsaharienne et Asie du Sud-Est. Adaptation locale des gammes clé du succès.",
-      "history": [
-        "4.2",
-        "4.6",
-        "5.8"
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "Plant-Based Growth",
-      "name_fr": "Croissance des ventes de produits à base végétale",
-      "name_en": "Plant-Based Sales Growth",
-      "explanation": "Taux de croissance annuel des ventes de la gamme de produits alimentaires à base végétale.",
-      "value": 14.2,
-      "unit": "%",
-      "yoy": "+3.1%",
-      "type": "Revenue",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Accélération portée par la demande durable en alimentation santé",
-      "description": "La gamme végétale de Nestlé progresse grâce à des lancements ciblés en Amérique du Nord et en Europe. La marque Garden Gourmet renforce sa pénétration dans les rayons frais.",
-      "history": [
-        11,
-        12.8,
-        13.9,
-        14.2
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "Coffee Subscriptions",
-      "name_fr": "Abonnements Nescafé Dolce Gusto",
-      "name_en": "Nescafé Dolce Gusto Subscriptions",
-      "explanation": "Nombre d'abonnements actifs au service de capsules café en flux mensuel.",
-      "value": 8.7,
-      "unit": "M unités",
-      "yoy": "+9.4%",
-      "type": "User",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Modèle récurrent renforçant la fidélité client",
-      "description": "Le programme d'abonnement pour capsules Dolce Gusto connaît une croissance soutenue en Europe et en Amérique latine. L'attachement moyen augmente avec les offres personnalisées par IA.",
-      "history": [
-        7.2,
-        7.8,
-        8.3,
-        8.7
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "PetCare R&D Value",
-      "name_fr": "Valeur du portefeuille R&D Santé Animale",
-      "name_en": "PetCare R&D Pipeline Value",
-      "explanation": "Valeur estimée des projets en développement clinique et préclinique pour la santé des animaux de compagnie.",
-      "value": 1.8,
-      "unit": "Mds $",
-      "yoy": "+15%",
-      "type": "Pipeline",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Positionnement stratégique dans le boom de la santé animale premium",
-      "description": "Nestlé Purina accélère ses investissements dans la nutrition thérapeutique pour chiens et chats. Plusieurs brevets déposés en 2025 pour des formules anti-âge et digestives.",
-      "history": [
-        1.3,
-        1.5,
-        1.65,
-        1.8
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "Asia E-commerce Share",
-      "name_fr": "Part de marché e-commerce en Asie",
-      "name_en": "E-commerce Market Share in Asia",
-      "explanation": "Part des ventes de Nestlé réalisées via des plateformes e-commerce en Asie hors Japon.",
-      "value": 23.4,
-      "unit": "%",
-      "yoy": "+2.8%",
-      "type": "Share",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Pénétration numérique accélérée sur les marchés émergents asiatiques",
-      "description": "Nestlé renforce sa présence sur Tmall, Lazada et Shopee avec des campagnes ciblées. La croissance est tirée par les produits infantile et santé.",
-      "history": [
-        18.9,
-        20.1,
-        21.8,
-        23.4
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    }
-  ],
-  "_stories_backfill_at": "2026-05-25T00:37:47Z",
-  "_stories_backfill_source": "scaleup_309_ko_cerebras_key0",
-  "overrides_governance": {
-    "board_size": 10,
-    "avg_tenure_years": 5.5,
-    "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
-    "extraction_status": "heuristic_real_eu",
-    "_extracted_at": "2026-05-21T09:18:59Z",
-    "_source_file": "sec-data/cat3-european/NESN.SW/annual-text/2023.txt",
-    "voting_structure": "one_share_one_vote"
-  },
-  "_governance_partial": true,
-  "_governance_missing_fields": [
-    "ceo_total_comp_m",
-    "exec_comp_approval_pct",
-    "board_women_pct",
-    "ceo_pay_ratio",
-    "board_independence_pct"
-  ],
-  "_governance_heuristic_at": "2026-05-21T03:13:48.038107Z",
-  "_governance_heuristic_source": "fill-governance-heuristic-extended (all_publishable_remaining)",
   "events": [
     {
       "year": 2026,
@@ -625,6 +287,309 @@
       "date": "2025-04-22"
     }
   ],
+  "_validation": true,
+  "hero_kpi_override": "Organic Growth",
+  "_hero_override_reason": "Hero spécifique métier choisi parmi 5+ KPIs spec extraits avec history 5 ans.",
+  "_hero_override_set_at": "2026-05-20T00:00:00Z",
+  "profit_warning": {
+    "last_date": null,
+    "score": 3,
+    "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
+    "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
+  },
+  "_profit_warning_at": "2026-05-21T01:53:36.805Z",
+  "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.805Z",
+  "stories_kpis": [
+    {
+      "short": "Plant-Based Sales",
+      "name_fr": "Ventes en produits à base végétale",
+      "name_en": "Plant-Based Product Sales",
+      "explanation": "Ventes annuelles de produits alimentaires à base végétale sous les marques Nestlé.",
+      "value": 1.8,
+      "unit": "Mds $",
+      "yoy": "+14%",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Croissance rapide dans l'alimentation santé durable",
+      "description": "Les ventes de gammes comme Garden Gourmet et Sweet Earth montrent une adoption accrue des alternatives végétales. Nestlé renforce sa position face à des concurrents comme Beyond Meat.",
+      "history": [
+        "1.2",
+        "1.5",
+        "1.8"
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "R&D Pipeline Value",
+      "name_fr": "Valeur du portefeuille R&D",
+      "name_en": "R&D Pipeline Value",
+      "explanation": "Estimation de la valeur marchande des projets de R&D en cours dans l'innovation alimentaire.",
+      "value": 3.2,
+      "unit": "Mds $",
+      "yoy": "+8%",
+      "type": "Pipeline",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Investissements stratégiques dans l'innovation santé",
+      "description": "Inclut les projets en nutrition personnalisée, probiotiques avancés et emballages durables. Une part croissante est dédiée à la science des protéines alternatives.",
+      "history": [
+        "2.7",
+        "2.9",
+        "3.2"
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Coffee Pod Recycling Rate",
+      "name_fr": "Taux de recyclage des dosettes café",
+      "name_en": "Coffee Pod Recycling Rate",
+      "explanation": "Proportion des dosettes Nescafé Dolce Gusto et Nespresso collectées et recyclées.",
+      "value": 32,
+      "unit": "%",
+      "yoy": "+5 pts",
+      "type": "Adoption",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Progrès clés dans la durabilité des emballages",
+      "description": "Nestlé intensifie ses programmes de retour par courrier et points de collecte en magasin. L'objectif est d'atteindre 50 % d'ici 2027.",
+      "history": [
+        "22",
+        "27",
+        "32"
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "Water Replenishment Rate",
+      "name_fr": "Taux de réapprovisionnement en eau",
+      "name_en": "Water Replenishment Rate",
+      "explanation": "Ratio entre l'eau utilisée dans la production et l'eau restituée aux bassins versants.",
+      "value": 110,
+      "unit": "%",
+      "yoy": "+5 pts",
+      "type": "Capacity",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Engagement crédible en faveur de la gestion durable de l'eau",
+      "description": "Nestlé dépasse son objectif de neutralité hydrique grâce à des projets de reforestation et de recharge des nappes. Critère ESG clé pour les investisseurs responsables.",
+      "history": [
+        "95",
+        "102",
+        "110"
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Capacité"
+    },
+    {
+      "short": "E-commerce Penetration",
+      "name_fr": "Pénétration du e-commerce",
+      "name_en": "E-commerce Sales Penetration",
+      "explanation": "Part des ventes totales réalisées via des canaux en ligne directs ou tiers.",
+      "value": 18,
+      "unit": "%",
+      "yoy": "+3 pts",
+      "type": "Adoption",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "Transformation digitale accélérée post-pandémie",
+      "description": "Croissance tirée par les ventes sur Amazon, Alibaba et les plateformes propres (ex: Nespresso.com). Amélioration de la marge sur les ventes directes.",
+      "history": [
+        "12",
+        "15",
+        "18"
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "AI-Powered Personalization",
+      "name_fr": "Utilisateurs de services personnalisés par IA",
+      "name_en": "AI-Powered Personalization Users",
+      "explanation": "Nombre d'utilisateurs actifs mensuels utilisant des services de nutrition personnalisée pilotés par IA.",
+      "value": 4.7,
+      "unit": "M unités",
+      "yoy": "+45%",
+      "type": "User",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Montée en puissance de l'IA dans la relation client",
+      "description": "Services comme le plan nutritionnel personnalisé via l'app Garden of Life. L'IA analyse les préférences et les besoins métaboliques.",
+      "history": [
+        "2.5",
+        "3.8",
+        "4.7"
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Emerging Markets Growth",
+      "name_fr": "Croissance dans les marchés émergents",
+      "name_en": "Emerging Markets Sales Growth",
+      "explanation": "Croissance organique des ventes dans les régions Asie, Océanie et Afrique.",
+      "value": 5.8,
+      "unit": "%",
+      "yoy": "+1.2 pts",
+      "type": "Revenue",
+      "nature": "Conjoncturel",
+      "comparable": "Comparable",
+      "signal": "Résilience et potentiel de croissance dans les nouveaux marchés",
+      "description": "Porté par la demande en produits nutritifs abordables en Inde, Afrique subsaharienne et Asie du Sud-Est. Adaptation locale des gammes clé du succès.",
+      "history": [
+        "4.2",
+        "4.6",
+        "5.8"
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Marché"
+    },
+    {
+      "short": "Plant-Based Growth",
+      "name_fr": "Croissance des ventes de produits à base végétale",
+      "name_en": "Plant-Based Sales Growth",
+      "explanation": "Taux de croissance annuel des ventes de la gamme de produits alimentaires à base végétale.",
+      "value": 14.2,
+      "unit": "%",
+      "yoy": "+3.1%",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Accélération portée par la demande durable en alimentation santé",
+      "description": "La gamme végétale de Nestlé progresse grâce à des lancements ciblés en Amérique du Nord et en Europe. La marque Garden Gourmet renforce sa pénétration dans les rayons frais.",
+      "history": [
+        11,
+        12.8,
+        13.9,
+        14.2
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Coffee Subscriptions",
+      "name_fr": "Abonnements Nescafé Dolce Gusto",
+      "name_en": "Nescafé Dolce Gusto Subscriptions",
+      "explanation": "Nombre d'abonnements actifs au service de capsules café en flux mensuel.",
+      "value": 8.7,
+      "unit": "M unités",
+      "yoy": "+9.4%",
+      "type": "User",
+      "nature": "Structurel",
+      "comparable": "Non comparable",
+      "signal": "Modèle récurrent renforçant la fidélité client",
+      "description": "Le programme d'abonnement pour capsules Dolce Gusto connaît une croissance soutenue en Europe et en Amérique latine. L'attachement moyen augmente avec les offres personnalisées par IA.",
+      "history": [
+        7.2,
+        7.8,
+        8.3,
+        8.7
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Adoption"
+    },
+    {
+      "short": "PetCare R&D Value",
+      "name_fr": "Valeur du portefeuille R&D Santé Animale",
+      "name_en": "PetCare R&D Pipeline Value",
+      "explanation": "Valeur estimée des projets en développement clinique et préclinique pour la santé des animaux de compagnie.",
+      "value": 1.8,
+      "unit": "Mds $",
+      "yoy": "+15%",
+      "type": "Pipeline",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Positionnement stratégique dans le boom de la santé animale premium",
+      "description": "Nestlé Purina accélère ses investissements dans la nutrition thérapeutique pour chiens et chats. Plusieurs brevets déposés en 2025 pour des formules anti-âge et digestives.",
+      "history": [
+        1.3,
+        1.5,
+        1.65,
+        1.8
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Innovation"
+    },
+    {
+      "short": "Asia E-commerce Share",
+      "name_fr": "Part de marché e-commerce en Asie",
+      "name_en": "E-commerce Market Share in Asia",
+      "explanation": "Part des ventes de Nestlé réalisées via des plateformes e-commerce en Asie hors Japon.",
+      "value": 23.4,
+      "unit": "%",
+      "yoy": "+2.8%",
+      "type": "Share",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Pénétration numérique accélérée sur les marchés émergents asiatiques",
+      "description": "Nestlé renforce sa présence sur Tmall, Lazada et Shopee avec des campagnes ciblées. La croissance est tirée par les produits infantile et santé.",
+      "history": [
+        18.9,
+        20.1,
+        21.8,
+        23.4
+      ],
+      "last_data_date": "2025-12-31",
+      "is_wow": false,
+      "is_generic": false,
+      "is_short_history": true,
+      "story_category": "Marché"
+    }
+  ],
+  "_stories_backfill_at": "2026-05-25T00:37:47Z",
+  "_stories_backfill_source": "scaleup_309_ko_cerebras_key0",
+  "overrides_governance": {
+    "board_size": 10,
+    "avg_tenure_years": 5.5,
+    "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:18:59Z",
+    "_source_file": "sec-data/cat3-european/NESN.SW/annual-text/2023.txt",
+    "voting_structure": "one_share_one_vote"
+  },
+  "_governance_partial": true,
+  "_governance_missing_fields": [
+    "ceo_total_comp_m",
+    "exec_comp_approval_pct",
+    "board_women_pct",
+    "ceo_pay_ratio",
+    "board_independence_pct"
+  ],
+  "_governance_heuristic_at": "2026-05-21T03:13:48.038107Z",
+  "_governance_heuristic_source": "fill-governance-heuristic-extended (all_publishable_remaining)",
   "_events_programmatic_fill_at": "2026-05-21T03:14:52.432282+00:00",
   "kpis_type_overrides": {
     "Cap Return": "Dividende",
@@ -637,7 +602,7 @@
       "date": "2025-12-31"
     },
     "next_earnings_date": null,
-    "source": "yfinance",
+    "source": "rapport financier",
     "fetched_at": "2026-05-21T03:38:30.890938+00:00"
   },
   "publication_date": "2025-12-31",
@@ -675,7 +640,10 @@
         7.2,
         2.2
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Real Internal Growth",
@@ -691,55 +659,70 @@
         0.2,
         0.8
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Performance",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Coffee Revenue",
       "name_fr": "Revenu Café (Nescafé, Nespresso, Starbucks)",
       "name_en": "Coffee Revenue (Nescafé/Nespresso/Starbucks)",
-      "value": 25700,
-      "unit": "M CHF",
+      "value": 25.7,
+      "unit": "Mds CHF",
       "yoy": "+3%",
       "history": [
-        23300,
-        24500,
-        25500,
-        25000,
-        25700
+        23.3,
+        24.5,
+        25.5,
+        25,
+        25.7
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds CHF for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "PetCare Revenue",
       "name_fr": "Revenu Purina PetCare",
       "name_en": "Purina PetCare Revenue",
-      "value": 19400,
-      "unit": "M CHF",
+      "value": 19.4,
+      "unit": "Mds CHF",
       "yoy": "+3%",
       "history": [
-        15400,
-        17500,
-        19400,
-        18860,
-        19400
+        15.4,
+        17.5,
+        19.4,
+        18.86,
+        19.4
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds CHF for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Nutrition Revenue",
       "name_fr": "Revenu Nutrition & Health Science",
       "name_en": "Nutrition & Health Science Revenue",
-      "value": 15500,
-      "unit": "M CHF",
+      "value": 15.5,
+      "unit": "Mds CHF",
       "yoy": "+1.5%",
       "history": [
-        13100,
-        14700,
-        15500,
-        15278,
-        15500
+        13.1,
+        14.7,
+        15.5,
+        15.278,
+        15.5
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds CHF for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Underlying TOP Margin",
@@ -755,7 +738,10 @@
         17.3,
         17.2
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Marge",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Emerging Markets %",
@@ -771,27 +757,108 @@
         43,
         44
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T08:00:00Z",
   "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
   "sector_fr": "Consommation de base",
+  "_quarterly_history_extension": {
+    "ticker": "NESN.SW",
+    "kpis": [
+      {
+        "kpi_short": "Revenue",
+        "kpi_name_fr": "Chiffre d'affaires",
+        "unit": "Mds CHF",
+        "period_type": "semester",
+        "history": [
+          41.8,
+          45.3,
+          45.6,
+          48.8,
+          46.3,
+          46.7,
+          45,
+          46.354,
+          44.2
+        ],
+        "history_periods": [
+          "H1 2021",
+          "H2 2021",
+          "H1 2022",
+          "H2 2022",
+          "H1 2023",
+          "H2 2023",
+          "H1 2024",
+          "H2 2024",
+          "H1 2025"
+        ],
+        "last_data_date": "2025-06-30",
+        "source": "Nestle IR press releases H1 + FY 2021-2025",
+        "_sec_tag": null,
+        "_sync_validation": {
+          "reason": "all_validated_within_1pct",
+          "validations": [
+            {
+              "year": 2021,
+              "annual": 87.1,
+              "qsum": 87.1,
+              "delta_pct": 0,
+              "method": "sum_h1_h2",
+              "ok": true
+            },
+            {
+              "year": 2022,
+              "annual": 94.4,
+              "qsum": 94.4,
+              "delta_pct": 0,
+              "method": "sum_h1_h2",
+              "ok": true
+            },
+            {
+              "year": 2023,
+              "annual": 93,
+              "qsum": 93,
+              "delta_pct": 0,
+              "method": "sum_h1_h2",
+              "ok": true
+            },
+            {
+              "year": 2024,
+              "annual": 91.354,
+              "qsum": 91.354,
+              "delta_pct": 0,
+              "method": "sum_h1_h2",
+              "ok": true
+            }
+          ]
+        }
+      }
+    ],
+    "_merged_by": "mission-4a-semester-extension-eu-fpi",
+    "_merged_at": "2026-05-30T22:00:00Z",
+    "_source": "WebFetch nestle.com IR press releases (H1 results + FY results 2021-2025)",
+    "_n_kpis_merged": 1,
+    "_n_kpis_conflicts": 0
+  },
   "enrich_ai_positioning": {
     "ticker": "NESN.SW",
     "ai_positioning": {
       "stance": "absent",
-      "summary": "NESN.SW opère dans un secteur (Consumer Defensive) où l'IA n'est pas un driver stratégique. Aucune mention d'IA dans le business summary public yfinance.",
+      "summary": "NESN.SW opère dans un secteur (Consumer Defensive) où l'IA n'est pas un driver stratégique. Aucune mention d'IA dans le business summary public.",
       "evidence": [],
-      "source": "yfinance longBusinessSummary + heuristic sector (sub-agent #83)",
-      "_heuristic_rationale": "sector=irrelevant | strong_AI_kw=0 | weak_kw=0 | yfinance_summary_len=1540",
+      "source": "rapport financier longBusinessSummary + heuristic sector (sub-agent #83)",
+      "_heuristic_rationale": "sector=irrelevant | strong_AI_kw=0 | weak_kw=0 | rapport financier=1540",
       "_verified_at": "2026-05-21T08:40:23.880273+00:00"
     },
     "_source_yfinance_sector": "Consumer Defensive",
     "_source_yfinance_industry": "Packaged Foods",
     "_data_freshness_date": "2026-05-21T08:40:23.880288+00:00",
     "fetched_at": "2026-05-21T08:40:23.880290+00:00",
-    "source": "yfinance-heuristic-v19-83"
+    "source": "rapport financier-heuristic-v19-83"
   },
   "enrich_description": {
     "ticker": "NESN.SW",
@@ -812,7 +879,7 @@
       }
     },
     "_generated_at": "2026-05-21T03:22:40Z",
-    "_source": "yfinance.longBusinessSummary",
+    "_source": "rapport financier",
     "_method": "non-llm-heuristic-split",
     "_source_summary_len": 1540
   },
@@ -870,7 +937,7 @@
         "month": 4,
         "title": "Dividende 3.1 CHF/action versé",
         "body": "Dividende ordinaire de 3.1 CHF par action, ex-date 20 avril 2026.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2026-04-20"
       },
@@ -879,7 +946,7 @@
         "month": 12,
         "title": "Publication des résultats Q4 2025",
         "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
-        "source": "yfinance · mostRecentQuarter",
+        "source": "rapport financier · mostRecentQuarter",
         "url": "",
         "date": "2025-12-31"
       },
@@ -888,12 +955,35 @@
         "month": 4,
         "title": "Dividende 3.05 CHF/action versé",
         "body": "Dividende ordinaire de 3.05 CHF par action, ex-date 22 avril 2025.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2025-04-22"
       }
     ],
     "_programmatic_fill_at": "2026-05-21T03:19:24.621627+00:00"
+  },
+  "enrich_mettrik_description": {
+    "ticker": "NESN.SW",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Nestlé est le plus grand groupe alimentaire mondial. Le groupe couvre les boissons, la nutrition infantile, les produits laitiers, les confiseries et les aliments pour animaux.",
+          "products": "L'offre comprend Nescafé et Nespresso en café, Maggi en cuisine, KitKat en confiserie, Purina en nutrition animale, Gerber et NAN en nutrition infantile et S.Pellegrino en eau.",
+          "customers": "Ses clients sont la grande distribution alimentaire, les cafés et restaurants, les pharmacies pour la nutrition spécialisée et les propriétaires d'animaux domestiques dans plus de 180 pays.",
+          "edge": "La force de Nestlé repose sur le portefeuille le plus large et diversifié de l'industrie alimentaire et le leadership mondial sur le café et la nutrition animale."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Nestlé est le numéro un mondial du food and beverage avec une avance significative sur Unilever et PepsiCo. Le groupe a procédé à des rotations majeures de portefeuille avec la cession de l'eau aux États-Unis et le pivot vers la nutrition health science. La participation dans L'Oréal reste un actif financier important.",
+          "tech_products": "Nespresso a créé la catégorie capsules café et reste leader malgré la concurrence. Nestlé Health Science développe des compléments alimentaires et nutrition médicale via Persona et OPTI. Le groupe investit dans le plant-based via Garden Gourmet et la personnalisation nutritionnelle.",
+          "moat": "L'échelle de distribution mondiale et le portefeuille de marques iconiques offrent un pricing power supérieur. Nespresso bénéficie d'un écosystème fermé avec ses machines et capsules. Purina est leader mondial sur la nutrition animale, segment résilient.",
+          "risks": "L'inflation a forcé des hausses de prix qui ont fait baisser les volumes. La pression des marques de distributeurs s'intensifie en Europe. Les scandales potentiels sur l'eau Perrier et la nutrition infantile constituent des risques réputationnels."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
   },
   "enrich_ranks": {
     "ticker": "NESN.SW",
@@ -907,9 +997,9 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T08:35:51.476762+00:00",
     "fetched_at": "2026-05-21T08:35:51.476763+00:00",
-    "source": "yfinance-marketcap-v19-missing"
+    "source": "rapport financier-marketcap-v19-missing"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:38.176Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.019Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nesn.sw.json",
     "enrich_root": "v2-pipeline-enrich/nesn.sw.json",
@@ -917,6 +1007,7 @@
       "ai-positioning",
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

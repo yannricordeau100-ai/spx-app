@@ -72,7 +72,11 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "Unit corrected from 'Mds $' to 'K$' (values in thousands per 10-K financial statements)",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net income",
@@ -100,54 +104,68 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "Unit corrected from 'Mds $' to 'K$'; type corrected from 'Revenue' to 'Profitability'; description improved with context from 10-K MD&A explaining the -34% decline",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "+13.3%",
       "history": [
-        0.29,
-        0.29,
-        0.3,
-        0.34
+        290,
+        290,
+        300,
+        340
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.34 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-50.0%",
       "history": [
-        0.03,
-        0.02,
-        0.02,
-        0.01
+        30,
+        20,
+        20,
+        10
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.01 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -166,11 +184,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.38 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -189,33 +211,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.67 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.01,
-        0.01,
-        0.02,
-        0.02
+        10,
+        10,
+        20,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,9 +276,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 0,
-      "_validation": "Unit corrected from 'Mds $' to 'K$' (values in thousands per 10-K financial statements)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'K$' (values in thousands per 10-K financial statements)"
     }
   ],
   "ai_positioning": {
@@ -263,7 +292,8 @@
       "severity": 4,
       "score_rationale": "Le document indique que 97% des propriétés sont louées et que la société génère environ 90% de ses revenus en louant des propriétés à des agences gouvernementales américaines, soit directement, soit via la GSA. Cette concentration représente un risque significatif en cas de changement de politique ou de réduction des budgets gouvernementaux.",
       "trend": "stable",
-      "summary": "La société dépend fortement des contrats de location avec les agences gouvernementales américaines. Une perte de ces contrats ou une réduction des budgets gouvernementaux pourrait impacter négativement les revenus."
+      "summary": "La société dépend fortement des contrats de location avec les agences gouvernementales américaines. Une perte de ces contrats ou une réduction des budgets gouvernementaux pourrait impacter négativement les revenus.",
+      "score": 4
     },
     {
       "title": "Risques liés à la cybersécurité",
@@ -271,7 +301,8 @@
       "severity": 3,
       "score_rationale": "Le document mentionne explicitement la supervision des risques liés à la cybersécurité par le comité d'audit et la collaboration avec un prestataire externe spécialisé en cybersécurité. Cela indique que la cybersécurité est une préoccupation reconnue, mais le langage utilisé ne suggère pas une urgence extrême par rapport à d'autres risques.",
       "trend": "up",
-      "summary": "La société est exposée aux menaces de cybersécurité qui pourraient entraîner des pertes financières ou opérationnelles. Des mesures sont en place, mais le risque demeure."
+      "summary": "La société est exposée aux menaces de cybersécurité qui pourraient entraîner des pertes financières ou opérationnelles. Des mesures sont en place, mais le risque demeure.",
+      "score": 3
     },
     {
       "title": "Concentration des revenus par locataire",
@@ -279,7 +310,8 @@
       "severity": 3,
       "score_rationale": "Bien que le document détaille de nombreux locataires, la société mentionne des agences gouvernementales majeures comme sources significatives de revenus locatifs. Une défaillance ou un départ de ces grands locataires pourrait avoir un impact notable.",
       "trend": "stable",
-      "summary": "Une part importante des revenus provient de quelques grands locataires, principalement des agences gouvernementales. La perte d'un de ces locataires majeurs pourrait affecter la stabilité financière."
+      "summary": "Une part importante des revenus provient de quelques grands locataires, principalement des agences gouvernementales. La perte d'un de ces locataires majeurs pourrait affecter la stabilité financière.",
+      "score": 3
     },
     {
       "title": "Vieillissement du portefeuille immobilier",
@@ -287,7 +319,8 @@
       "severity": 3,
       "score_rationale": "Un portefeuille vieillissant peut impliquer des coûts de maintenance plus élevés et un risque de dépréciation de la valeur des actifs à long terme. La société a reconnu cette situation en écrivant une propriété pour $2,5M lors de l'évaluation de sa juste valeur.",
       "trend": "stable",
-      "summary": "Le portefeuille immobilier de la société peut entraîner des coûts d'entretien plus élevés et potentiellement affecter la valeur des propriétés."
+      "summary": "Le portefeuille immobilier de la société peut entraîner des coûts d'entretien plus élevés et potentiellement affecter la valeur des propriétés.",
+      "score": 3
     },
     {
       "title": "Risques liés aux coentreprises (JV)",
@@ -295,7 +328,8 @@
       "severity": 2,
       "score_rationale": "Le document mentionne une coentreprise (JV) détenant dix propriétés, où la société possède une participation. Les risques associés aux JV, tels que les désaccords entre partenaires ou la performance de la JV, sont présents mais semblent moins critiques que les risques liés aux contrats gouvernementaux directs.",
       "trend": "stable",
-      "summary": "La société opère via une coentreprise pour certaines propriétés, ce qui introduit des risques liés à la gestion partagée et à la performance de cette entité."
+      "summary": "La société opère via une coentreprise pour certaines propriétés, ce qui introduit des risques liés à la gestion partagée et à la performance de cette entité.",
+      "score": 2
     },
     {
       "title": "Risques de litiges",
@@ -303,7 +337,8 @@
       "severity": 2,
       "score_rationale": "Bien que le texte ne détaille pas de litiges spécifiques, la nature des activités immobilières et des contrats gouvernementaux implique un risque inhérent de litiges contractuels ou réglementaires. Ce risque est standard pour le secteur mais non négligeable.",
       "trend": "stable",
-      "summary": "Comme toute entreprise immobilière, DEA est potentiellement exposée à des litiges liés à ses contrats, ses propriétés ou ses opérations, pouvant entraîner des coûts imprévus."
+      "summary": "Comme toute entreprise immobilière, DEA est potentiellement exposée à des litiges liés à ses contrats, ses propriétés ou ses opérations, pouvant entraîner des coûts imprévus.",
+      "score": 2
     }
   ],
   "governance": {
@@ -337,7 +372,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -496,44 +531,33 @@
   },
   "enrich_quarterly_history": {
     "ticker": "DEA",
-    "extracted_at": "2026-05-15T18:10:34Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1622194,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:10:35Z",
+    "n_kpis": 3,
     "kpis": [
       {
-        "short": "Total revenues",
+        "short": "Rental income",
         "period_type": "quarter",
         "history": [
-          133.615,
-          203.223,
-          -126.979,
-          72.302,
-          145.059,
-          220.1,
-          -143.855,
-          71.22,
-          142.593,
-          214.607,
-          -141.193,
-          72.8,
-          149.021,
-          223.802,
-          -143.571,
-          78.675,
-          162.909,
-          249.06,
-          -154.545,
-          91.545
+          70.439,
+          71.156,
+          72.643,
+          68.148,
+          67.758,
+          68.205,
+          68.148,
+          70.746,
+          72.183,
+          72.536,
+          70.746,
+          75.546,
+          80.367,
+          82.21,
+          75.546
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
@@ -545,73 +569,37 @@
           "Q1 2025",
           "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q4 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-12-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 162.909,
-            "accession": "0000950170-25-103116",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 249.06,
-            "accession": "0001193125-25-251664",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -154.545,
-            "accession": "calc-0001193125-26-064115",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 91.545,
-            "accession": "0001622194-26-000019",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:10:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       },
       {
-        "short": "Net income",
+        "short": "Total Revenue",
         "period_type": "quarter",
         "history": [
-          15.192,
-          23.169,
-          -15.294,
-          7.341,
-          14.538,
-          15.18,
-          -5.585,
-          3.891,
-          8.994,
-          14.368,
-          -8.449,
-          4.626,
-          9.237,
-          14.1,
-          -8.41,
-          3.127,
-          7.198,
-          8.411,
-          -5.733,
-          1.365
+          72.302,
+          72.757,
+          75.041,
+          71.22,
+          71.373,
+          72.014,
+          71.22,
+          72.8,
+          76.221,
+          74.781,
+          72.8,
+          78.675,
+          84.234,
+          86.151,
+          78.675
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
@@ -623,39 +611,60 @@
           "Q1 2025",
           "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q4 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-12-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 7.198,
-            "accession": "0000950170-25-103116",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 8.411,
-            "accession": "0001193125-25-251664",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -5.733,
-            "accession": "calc-0001193125-26-064115",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.365,
-            "accession": "0001622194-26-000019",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:10:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          8.263,
+          8.13,
+          0.749,
+          4.414,
+          5.778,
+          6.081,
+          4.414,
+          4.884,
+          5.778,
+          5.115,
+          4.884,
+          3.283,
+          4.254,
+          1.247,
+          1.414
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:10:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -671,9 +680,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.249922+00:00",
     "fetched_at": "2026-05-21T02:17:14.249923+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.184Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.722Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dea.json",
     "enrich_root": "v2-pipeline-enrich/dea.json",

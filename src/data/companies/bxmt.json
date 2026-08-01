@@ -111,31 +111,36 @@
         "ttm corrected to 39.56 (Q4 2025 value from 10-K)",
         "history values adjusted to match 10-K: 63.4M (Q3 2025) and 39.6M (Q4 2025)"
       ],
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.55,
-      "unit": "Mds €",
+      "value": 550,
+      "unit": "M €",
       "yoy": "+12.2%",
       "history": [
-        0.63,
-        0.67,
-        0.49,
-        0.55
+        630,
+        670,
+        490,
+        550
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.55 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -154,11 +159,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.64 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -177,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 20.0 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -200,33 +213,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 16.16 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.45,
-      "unit": "Mds €",
+      "value": 450,
+      "unit": "M €",
       "yoy": "+40.6%",
       "history": [
-        0.29,
-        0.35,
-        0.32,
-        0.45
+        290,
+        350,
+        320,
+        450
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.45 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -261,9 +283,7 @@
         "is_generic changed from true to false - actual quarterly results from 10-K",
         "ttm corrected to 83.92 (Q4 2025 value from 10-K)",
         "history values adjusted to match 10-K: 98.9M (Q3 2025) and 83.9M (Q4 2025)"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -280,7 +300,8 @@
       "score_rationale": "Risque positionné en début de rapport (Item 1A) avec langage modéré mais contexte d'exposition majeure. Portfolio de 20 milliards USD concentré sur immobilier commercial en 3 régions. Tendance stable mais amplifiée par volatilité marché immobilier 2024-2025. Catégorie crédit poids fort pour REIT.",
       "trend": "stable",
       "summary": "BXMT finance principalement des immeubles commerciaux (bureaux, retail, hôtellerie) en Amérique du Nord, Europe et Australie. Une crise immobilière ou récession économique pourrait réduire drastiquement la valeur des actifs et la capacité des emprunteurs à rembourser.",
-      "citation": "originates, acquires, and manages senior loans and other debt or credit-oriented investments collateralized by or relating to commercial real estate in North America, Europe, and Australia"
+      "citation": "originates, acquires, and manages senior loans and other debt or credit-oriented investments collateralized by or relating to commercial real estate in North America, Europe, and Australia",
+      "score": 4
     },
     {
       "title": "Risque de crédit et défauts d'emprunteurs",
@@ -289,7 +310,8 @@
       "score_rationale": "Risque central pour REIT de financement immobilier, mentionné implicitement via CECL reserves de 1,76 USD/action et charge-offs de 562,9 millions USD en 2025. Langage intensif (562,9M charge-offs vs 384,6M en 2024). Tendance accrue avec augmentation YoY des provisions. Poids catégorie crédit critique.",
       "trend": "up",
       "summary": "BXMT a enregistré 562,9 millions USD de pertes de crédit en 2025 (vs 384,6M en 2024), reflétant des défauts d'emprunteurs. Les réserves CECL cumulées atteignent 1,76 USD par action, signalant une détérioration du portefeuille.",
-      "citation": "Charge-offs of CECL reserves (2) | 433,924 | 562,916 | 384,603"
+      "citation": "Charge-offs of CECL reserves (2) | 433,924 | 562,916 | 384,603",
+      "score": 4
     },
     {
       "title": "Dépendance envers le gestionnaire Blackstone",
@@ -298,7 +320,8 @@
       "score_rationale": "Risque structurel majeur : BXMT est entièrement gérée par BXMT Advisors (filiale Blackstone). Positionné en introduction du rapport. Langage neutre mais dépendance existentielle. Tendance stable mais inhérente au modèle. Poids modéré pour REIT externally managed.",
       "trend": "stable",
       "summary": "BXMT est entièrement gérée par BXMT Advisors, une filiale de Blackstone Inc. Tout conflit d'intérêts, changement de stratégie ou problème chez Blackstone pourrait impacter gravement les opérations et la performance.",
-      "citation": "We are externally managed by BXMT Advisors L.L.C., or our Manager, a subsidiary of Blackstone Inc."
+      "citation": "We are externally managed by BXMT Advisors L.L.C., or our Manager, a subsidiary of Blackstone Inc.",
+      "score": 3
     },
     {
       "title": "Volatilité des taux d'intérêt et refinancement",
@@ -307,7 +330,8 @@
       "score_rationale": "Risque implicite majeur : BXMT a refinancé 2,2 milliards USD de dette en 2025, réduisant spreads de +1,92% à +1,83%. Langage modéré mais exposition critique aux taux. Tendance stable mais sensibilité accrue en contexte de volatilité macro. Poids fort pour REIT financé par dette.",
       "trend": "stable",
       "summary": "BXMT finance ses investissements par emprunts sécurisés et CLO. Une hausse des taux d'intérêt augmente les coûts de financement et réduit la rentabilité. Le refinancement de 2,2 milliards USD montre l'exposition continue.",
-      "citation": "Refinanced an aggregate $2.2 billion of our corporate debt, reducing cost under our term loan facilities by 0.70%"
+      "citation": "Refinanced an aggregate $2.2 billion of our corporate debt, reducing cost under our term loan facilities by 0.70%",
+      "score": 3
     },
     {
       "title": "Risque de liquidité et accès aux marchés",
@@ -316,7 +340,8 @@
       "score_rationale": "Liquidité de 1 milliard USD seulement pour portfolio de 20 milliards USD (5%). Langage neutre mais ratio critique. Tendance stable mais dépendance aux marchés de capital (CLO, refinancement). Poids fort pour REIT. Positionnement milieu rapport.",
       "trend": "stable",
       "summary": "BXMT maintient une liquidité de 1 milliard USD pour un portfolio de 20 milliards USD. Un gel des marchés de capital ou une crise de confiance pourrait empêcher le refinancement et forcer des ventes d'actifs à perte.",
-      "citation": "Maintained substantial liquidity throughout the year, with liquidity of $1.0 billion as of December 31, 2025"
+      "citation": "Maintained substantial liquidity throughout the year, with liquidity of $1.0 billion as of December 31, 2025",
+      "score": 3
     },
     {
       "title": "Deterioration de la valeur comptable par action",
@@ -325,7 +350,8 @@
       "score_rationale": "Book value par action baisse de 21,87 USD (2024) à 20,75 USD (2025), soit -5,1% YoY. Langage factuel mais tendance négative claire. Distributable Earnings perte de 245,3M USD en 2025. Tendance accrue. Poids modéré mais signal d'alerte pour actionnaires REIT.",
       "trend": "up",
       "summary": "La valeur comptable par action a diminué de 5,1% en un an (21,87 USD a 20,75 USD). Les pertes distribuables de 245,3 millions USD en 2025 indiquent une érosion de la valeur pour les actionnaires.",
-      "citation": "Book value per share (1) | $ 20.75 | $ 21.87"
+      "citation": "Book value per share (1) | $ 20.75 | $ 21.87",
+      "score": 3
     },
     {
       "title": "Exposition aux actifs immobiliers detenus",
@@ -334,7 +360,8 @@
       "score_rationale": "BXMT détient 12 actifs immobiliers pour 1,3 milliard USD (6,5% du portfolio). Langage neutre, risque secondaire. Tendance stable (acquisition de 5 actifs en 2025). Poids modéré. Positionnement fin de rapport.",
       "trend": "stable",
       "summary": "BXMT a acquis 5 actifs immobiliers supplémentaires en 2025 pour 654,3 millions USD. La détention directe d'immeubles expose la société aux risques opérationnels, de gestion et de marche immobilier local.",
-      "citation": "Acquired or otherwise consolidated five additional owned real estate assets with an aggregate acquisition date fair value of $654.3 million"
+      "citation": "Acquired or otherwise consolidated five additional owned real estate assets with an aggregate acquisition date fair value of $654.3 million",
+      "score": 2
     }
   ],
   "governance": {
@@ -432,7 +459,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.027Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.494Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bxmt.json",
     "enrich_root": null,

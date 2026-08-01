@@ -41,7 +41,11 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Production of Gold over the period.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -67,8 +71,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -95,7 +103,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -122,7 +134,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -148,8 +164,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -175,8 +195,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -195,11 +219,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 15.08 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -218,11 +246,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.28 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -250,9 +282,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     },
     {
       "short": "Gross Margin",
@@ -278,9 +308,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "story_category": "Rentabilité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Rentabilité"
     }
   ],
   "ai_positioning": {
@@ -315,7 +343,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans la section Item 3D, avec un langage affirmé sur la pression concurrentielle liée aux coûts. La tendance est stable, mais la catégorie 'Concurrence' pèse fortement sur la compétitivité opérationnelle.",
       "trend": "stable",
-      "summary": "AngloGold Ashanti fait face à une concurrence intense des autres producteurs aurifères, notamment sur la maîtrise des coûts de production. Une performance inférieure en matière de coûts peut nuire à sa rentabilité et à sa part de marché."
+      "summary": "AngloGold Ashanti fait face à une concurrence intense des autres producteurs aurifères, notamment sur la maîtrise des coûts de production. Une performance inférieure en matière de coûts peut nuire à sa rentabilité et à sa part de marché.",
+      "score": 4
     },
     {
       "title": "Dépendance à des partenaires clés dans les JV",
@@ -323,7 +352,8 @@
       "severity": 4,
       "score_rationale": "Position centrale dans le 10-K, langage fort sur les risques opérationnels liés au manque de contrôle. Tendance stable, poids élevé dans la structure industrielle du groupe.",
       "trend": "stable",
-      "summary": "Le groupe dépend de ses co-entreprises non gérées (comme Siguiri, Cerro Vanguardia) où il n’a pas de contrôle opérationnel, ce qui expose ses résultats à des décisions prises par des partenaires externes."
+      "summary": "Le groupe dépend de ses co-entreprises non gérées (comme Siguiri, Cerro Vanguardia) où il n’a pas de contrôle opérationnel, ce qui expose ses résultats à des décisions prises par des partenaires externes.",
+      "score": 4
     },
     {
       "title": "Réglementation minière en Afrique du Sud",
@@ -331,7 +361,8 @@
       "severity": 5,
       "score_rationale": "Présent en tête des risques, langage très alarmiste sur les obligations légales. Tendance à la hausse, poids majeur en Afrique du Sud, cœur historique des opérations.",
       "trend": "up",
-      "summary": "Les opérations sud-africaines sont soumises à une réglementation stricte, notamment en matière de transformation locale (Mineral and Petroleum Resources Development Act) et de propriété, ce qui peut limiter la flexibilité opérationnelle."
+      "summary": "Les opérations sud-africaines sont soumises à une réglementation stricte, notamment en matière de transformation locale (Mineral and Petroleum Resources Development Act) et de propriété, ce qui peut limiter la flexibilité opérationnelle.",
+      "score": 5
     },
     {
       "title": "Cybersécurité des opérations minières",
@@ -339,7 +370,8 @@
       "severity": 4,
       "score_rationale": "Nouveau risque explicitement mentionné à l'Item 16K, langage préventif mais préoccupé. Tendance à la hausse, reflétant une menace croissante pour les infrastructures critiques.",
       "trend": "up",
-      "summary": "Les systèmes opérationnels et informatiques du groupe sont exposés aux cyberattaques, pouvant perturber l'extraction, la production ou compromettre des données sensibles liées aux opérations."
+      "summary": "Les systèmes opérationnels et informatiques du groupe sont exposés aux cyberattaques, pouvant perturber l'extraction, la production ou compromettre des données sensibles liées aux opérations.",
+      "score": 4
     },
     {
       "title": "Réhabilitation environnementale post-mine",
@@ -347,7 +379,8 @@
       "severity": 5,
       "score_rationale": "Position élevée dans les risques, langage fort sur les coûts futurs. Tendance stable, mais poids élevé en raison des obligations réglementaires croissantes.",
       "trend": "stable",
-      "summary": "Le groupe doit assumer des coûts importants pour la réhabilitation des sites miniers après leur fermeture, notamment en Afrique du Sud, avec des risques financiers si les provisions s'avèrent insuffisantes."
+      "summary": "Le groupe doit assumer des coûts importants pour la réhabilitation des sites miniers après leur fermeture, notamment en Afrique du Sud, avec des risques financiers si les provisions s'avèrent insuffisantes.",
+      "score": 5
     },
     {
       "title": "Disponibilité et coût de l'eau",
@@ -355,7 +388,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel clé mentionné dans les contraintes physiques, langage concret sur les pénuries. Tendance à la hausse, surtout dans les zones arides comme en Amérique du Sud.",
       "trend": "up",
-      "summary": "Dans plusieurs juridictions, notamment au Pérou et en Colombie, l'accès à l'eau est limité et concurrentiel, ce qui menace la continuité des opérations minières et augmente les coûts."
+      "summary": "Dans plusieurs juridictions, notamment au Pérou et en Colombie, l'accès à l'eau est limité et concurrentiel, ce qui menace la continuité des opérations minières et augmente les coûts.",
+      "score": 4
     },
     {
       "title": "Relations tendues avec les communautés locales",
@@ -363,7 +397,8 @@
       "severity": 4,
       "score_rationale": "Mention répétée dans les risques sociaux, langage prudent mais inquiet. Tendance stable, mais impact élevé sur les permis d'exploitation.",
       "trend": "stable",
-      "summary": "Des tensions avec les communautés hôtes, notamment en Afrique et en Amérique latine, peuvent entraîner des blocages, des retards de projet ou des atteintes à la réputation du groupe."
+      "summary": "Des tensions avec les communautés hôtes, notamment en Afrique et en Amérique latine, peuvent entraîner des blocages, des retards de projet ou des atteintes à la réputation du groupe.",
+      "score": 4
     },
     {
       "title": "Sécurité minière et accidents industriels",
@@ -371,7 +406,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur souligné dans l'Item 16H (sécurité des mines), langage fort sur les conséquences humaines et réglementaires. Tendance stable, poids critique dans le secteur.",
       "trend": "stable",
-      "summary": "Les opérations minières souterraines profondes, notamment en Afrique du Sud, présentent des risques élevés d'accidents, avec des impacts humains, financiers et réglementaires potentiels majeurs."
+      "summary": "Les opérations minières souterraines profondes, notamment en Afrique du Sud, présentent des risques élevés d'accidents, avec des impacts humains, financiers et réglementaires potentiels majeurs.",
+      "score": 5
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:17:34.038979+00:00",
@@ -471,7 +507,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.152Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.279Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/au.json",
     "enrich_root": "v2-pipeline-enrich/au.json",

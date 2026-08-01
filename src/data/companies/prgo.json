@@ -41,7 +41,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -69,7 +69,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -95,8 +99,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -122,8 +130,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -142,11 +154,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.25 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -165,11 +181,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.54 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -188,33 +208,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.64 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.53,
-      "unit": "Mds €",
+      "value": 530,
+      "unit": "M €",
       "yoy": "-5.4%",
       "history": [
-        0.6,
-        0.75,
-        0.56,
-        0.53
+        600,
+        750,
+        560,
+        530
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.53 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -242,7 +271,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -256,7 +285,8 @@
       "severity": 4,
       "score_rationale": "Le risque est discuté en détail dans le 10-K avec un accent sur la gouvernance via le CISO et le NGC, indiquant une préoccupation élevée. Le langage souligne des protocoles formels, des tests et des fournisseurs tiers, ce qui confirme l'importance du risque. Comparé à l'année précédente, la mention explicite de certifications et de protocoles renforce l'intensité. Catégorie hautement pondérée en raison de l'exposition aux données sensibles.",
       "trend": "stable",
-      "summary": "Perrigo fait face à des risques persistants liés aux cyberattaques, malgré des mesures robustes de prévention et de réponse."
+      "summary": "Perrigo fait face à des risques persistants liés aux cyberattaques, malgré des mesures robustes de prévention et de réponse.",
+      "score": 4
     },
     {
       "title": "Incertitudes macroéconomiques",
@@ -264,7 +294,8 @@
       "severity": 5,
       "score_rationale": "Positionné tôt dans les facteurs de risque, ce risque est décrit comme affectant directement les ventes, marges et flux de trésorerie. Le langage est fort (\"dynamic\", \"adverse effect\"). Mention de modifications opérationnelles actuelles, ce qui indique une pression réelle. Catégorie critique pour les biens de consommation courante à faible marge.",
       "trend": "up",
-      "summary": "L'inflation, les taux d'intérêt, les changes et les tarifs menacent la rentabilité et la demande pour les produits de base."
+      "summary": "L'inflation, les taux d'intérêt, les changes et les tarifs menacent la rentabilité et la demande pour les produits de base.",
+      "score": 5
     },
     {
       "title": "Nouveaux tarifs douaniers aux États-Unis",
@@ -272,7 +303,8 @@
       "severity": 4,
       "score_rationale": "Le document cite explicitement l'annonce de nouveaux tarifs en 2025 comme une menace directe. Bien que non quantifiée, l'impact potentiel est décrit comme négatif. Le risque est nouveau dans le texte par rapport à l'année précédente, avec un langage préoccupé. Pondération élevée en raison de l'exposition internationale.",
       "trend": "new",
-      "summary": "Les nouveaux tarifs américains sur les importations pourraient augmenter les coûts et réduire la compétitivité."
+      "summary": "Les nouveaux tarifs américains sur les importations pourraient augmenter les coûts et réduire la compétitivité.",
+      "score": 4
     },
     {
       "title": "Dépendance aux dirigeants clés",
@@ -280,7 +312,8 @@
       "severity": 3,
       "score_rationale": "Le changement récent de plusieurs postes de direction (CEO, CFO, CBO, etc.) est documenté. Bien que la gouvernance soit solide, le turnover élevé peut impacter la continuité stratégique. Le langage est neutre, mais le contexte de transition justifie une vigilance. Catégorie moyennement pondérée.",
       "trend": "new",
-      "summary": "Le renouvellement important de la direction peut affecter la mise en œuvre stratégique à court terme."
+      "summary": "Le renouvellement important de la direction peut affecter la mise en œuvre stratégique à court terme.",
+      "score": 3
     },
     {
       "title": "Changement de segmentation financière",
@@ -288,7 +321,8 @@
       "severity": 3,
       "score_rationale": "Le passage à une segmentation par catégorie est présenté comme stratégique, mais implique des risques d'ajustement opérationnel et de communication. Le langage est positif, mais le changement structurel comporte des incertitudes. Mention en \"Recent Developments\", ce qui indique une évolution active. Catégorie de risque modéré.",
       "trend": "new",
-      "summary": "La transition vers une structure de reporting par catégorie peut perturber temporairement la gestion et l'analyse interne."
+      "summary": "La transition vers une structure de reporting par catégorie peut perturber temporairement la gestion et l'analyse interne.",
+      "score": 3
     }
   ],
   "governance": {
@@ -412,7 +446,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.794Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.294Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/prgo.json",
     "enrich_root": null,

@@ -33,9 +33,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Collars - Pertes",
@@ -54,9 +52,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Options de vente Ag",
@@ -75,9 +71,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Perte FX CAD",
@@ -96,9 +90,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Impact FX 10%",
@@ -117,9 +109,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
@@ -138,56 +128,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.56 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.28,
-      "unit": "Mds €",
+      "value": 280,
+      "unit": "M €",
       "yoy": "-49.1%",
       "history": [
-        0.53,
-        0.66,
-        0.55,
-        0.28
+        530,
+        660,
+        550,
+        280
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.28 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.24,
-      "unit": "Mds €",
+      "value": 240,
+      "unit": "M €",
       "yoy": "+700.0%",
       "history": [
-        0.1,
-        0.11,
-        0.03,
-        0.24
+        100,
+        110,
+        30,
+        240
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.24 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -201,7 +205,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.037,
         0.022,
@@ -214,7 +218,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -229,7 +233,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0129,
@@ -242,7 +246,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -257,7 +261,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -270,7 +274,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -286,7 +290,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -0.0007,
@@ -299,7 +303,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -436,16 +440,16 @@
       "title": "Volatilité des prix des métaux",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le texte mentionne explicitement qu'une baisse substantielle des prix des métaux aurait un effet négatif matériel. La société détient 3,5 millions d'onces d'argent, 2 272 onces d'or, 14 028 tonnes de zinc et 8 322 tonnes de plomb exposés aux fluctuations futures, avec un impact potentiel de 18,3 millions USD pour une variation de 10%. La société utilise des instruments dérivés pour atténuer ce risque, mais ceux-ci ont enregistré une perte nette de 51,5 millions USD en 2025 sur les collars et 12,0 millions USD sur l'ensemble des contrats. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne explicitement qu'une baisse substantielle des prix des métaux aurait un effet négatif matériel. La société détient 3,5 millions d'onces d'argent, 2 272 onces d'or, 14 028 tonnes de zinc et 8 322 tonnes de plomb exposés aux fluctuations futures, avec un impact potentiel de 18,3 millions USD pour une variation de 10%. La société utilise des instruments dérivés pour atténuer ce risque, mais ceux-ci ont enregistré une perte nette de 51,5 millions USD en 2025 sur les collars et 12,0 millions USD sur l'ensemble des contrats.",
       "trend": "stable",
       "summary": "La société est exposée aux fluctuations des prix des métaux qu'elle produit (argent, or, zinc, plomb). Bien que des instruments de couverture sophistiqués soient utilisés (forwards, collars, put options), ils ne compensent pas entièrement le risque et introduisent d'autres expositions. Les pertes nettes sur ces instruments en 2025 soulignent les coûts associés à cette stratégie de couverture.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de change USD/CAD",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Le document détaille l'exposition aux fluctuations USD/CAD pour les opérations au Canada, mentionnant une perte nette de 5,7 millions USD en 2025 et un impact potentiel de 12,7 millions USD pour un changement de 10%. Des instruments de couverture sont utilisés (216 contrats à terme pour CAD 140,8 millions) mais exposent à des risques de crédit et de taux de change. (score par défaut, à affiner)",
+      "score_rationale": "Le document détaille l'exposition aux fluctuations USD/CAD pour les opérations au Canada, mentionnant une perte nette de 5,7 millions USD en 2025 et un impact potentiel de 12,7 millions USD pour un changement de 10%. Des instruments de couverture sont utilisés (216 contrats à terme pour CAD 140,8 millions) mais exposent à des risques de crédit et de taux de change.",
       "trend": "stable",
       "summary": "Les opérations au Canada (Casa Berardi, Keno Hill) exposent la société aux variations du taux de change USD/CAD, ce qui a entraîné une perte de 5,7 millions USD en 2025 et pourrait avoir un impact significatif sur les coûts opérationnels et les coûts de développement futurs.",
       "score": 3
@@ -454,7 +458,7 @@
       "title": "Risque de crédit des contreparties",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "Ce risque est mentionné explicitement pour les instruments dérivés utilisés pour la gestion des prix des métaux et des devises. Il est précisé que ce risque existe en cas de non-performance des contreparties pour les contrats où le prix du contrat dépasse le prix au comptant d'une marchandise. Avec plus de 200 contrats à terme outstanding et des collars représentant plus de 2 millions d'onces d'argent, le risque de crédit est significatif. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné explicitement pour les instruments dérivés utilisés pour la gestion des prix des métaux et des devises. Il est précisé que ce risque existe en cas de non-performance des contreparties pour les contrats où le prix du contrat dépasse le prix au comptant d'une marchandise. Avec plus de 200 contrats à terme outstanding et des collars représentant plus de 2 millions d'onces d'argent, le risque de crédit est significatif.",
       "trend": "stable",
       "summary": "Les contrats dérivés utilisés pour se couvrir contre la volatilité des prix des métaux et des devises exposent la société à un risque de non-performance de ses contreparties. Au 31 décembre 2025, la position des actifs dérivés était de 15,8 millions USD et la position des passifs dérivés était de 36,4 millions USD.",
       "score": 3
@@ -463,7 +467,7 @@
       "title": "Risque lié aux instruments dérivés",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Le texte décrit l'utilisation extensive d'instruments dérivés (contrats à terme, collars, options de vente) pour gérer les risques de prix et de change. Ces instruments ont enregistré une perte nette de 51,5 millions USD en 2025 sur les collars de métaux précieux seuls (dont 15,2 millions USD réalisés), et une perte totale de 12,0 millions USD sur les contrats de gestion des prix des métaux. (score par défaut, à affiner)",
+      "score_rationale": "Le texte décrit l'utilisation extensive d'instruments dérivés (contrats à terme, collars, options de vente) pour gérer les risques de prix et de change. Ces instruments ont enregistré une perte nette de 51,5 millions USD en 2025 sur les collars de métaux précieux seuls (dont 15,2 millions USD réalisés), et une perte totale de 12,0 millions USD sur les contrats de gestion des prix des métaux.",
       "trend": "stable",
       "summary": "L'utilisation extensive de produits dérivés pour la couverture expose la société à des pertes potentielles significatives, des risques de marché (limitation des gains via les collars) et des risques de crédit liés aux contreparties. Les pertes en 2025 démontrent l'impact matériel de ces instruments sur les résultats.",
       "score": 3
@@ -472,10 +476,10 @@
       "title": "Risque de taux d'intérêt",
       "category": "Capital",
       "severity": 2,
-      "score_rationale": "Le document mentionne une facilité de crédit à taux variable. Bien qu'aucun montant ne soit tiré au 31 décembre 2025, une augmentation de 1% des taux d'intérêt entraînerait un coût annuel supplémentaire de 2,2 millions USD. Le langage est factuel et le risque est quantifié. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne une facilité de crédit à taux variable. Bien qu'aucun montant ne soit tiré au 31 décembre 2025, une augmentation de 1% des taux d'intérêt entraînerait un coût annuel supplémentaire de 2,2 millions USD. Le langage est factuel et le risque est quantifié.",
       "trend": "stable",
       "summary": "La facilité de crédit de la société est à taux variable, ce qui signifie que des augmentations des taux d'intérêt pourraient accroître significativement les charges d'intérêt annuelles de 2,2 millions USD par augmentation de 1%.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -552,8 +556,8 @@
     "xbrl_fetched_at": "2026-05-09T20:27:08Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:22Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:32.058Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.471Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hl.json",
     "enrich_root": "v2-pipeline-enrich/hl.json",

@@ -38,17 +38,20 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "period_type": "year",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Revenues",
       "name_fr": "Revenus nets",
       "name_en": "Net Revenues",
       "explanation": "Argent gagné par la vente de produits, après retours et remises.",
-      "value": "3440",
-      "unit": "M $",
+      "value": 3.44,
+      "unit": "Mds $",
       "yoy": "+8.1%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -56,14 +59,15 @@
       "signal": "Croissance solide des ventes en 2025, tirée par la transformation produit et l'expansion de la plateforme.",
       "description": "Les revenus nets consolidés augmentent de 3181 M$ en 2024 à 3440 M$ en 2025 (+259 M$), portés par le segment RH (+8.5%) et une légère progression de Waterworks (+2.7%).",
       "history": [
-        3181,
-        3440
+        3.181,
+        3.44
       ],
       "last_data_date": "2026-01-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Income",
@@ -86,7 +90,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -111,7 +115,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -167,18 +171,18 @@
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.125,
-      "unit": "Mds $",
+      "value": 125,
+      "unit": "M $",
       "yoy": "+73.6%",
       "history": [
-        0.002,
-        0.151,
-        0.22,
-        0.272,
-        0.689,
-        0.529,
-        0.072,
-        0.125
+        2,
+        151,
+        220,
+        272,
+        689,
+        529,
+        72,
+        125
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -187,8 +191,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -214,8 +223,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -250,7 +263,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -263,7 +276,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en tête du document et décrit comme pouvant \"significativement affecter nos revenus et résultats\". Le langage est fort et récurrent, avec une position centrale dans l'analyse des résultats. La catégorie Macro est hautement pondérée.",
       "trend": "stable",
-      "summary": "Les fluctuations de la dépense des consommateurs, en particulier dans les segments ciblés, peuvent fortement impacter les ventes et la rentabilité."
+      "summary": "Les fluctuations de la dépense des consommateurs, en particulier dans les segments ciblés, peuvent fortement impacter les ventes et la rentabilité.",
+      "score": 5
     },
     {
       "title": "Pression sur la marge brute",
@@ -271,7 +285,8 @@
       "severity": 4,
       "score_rationale": "Plusieurs paragraphes détaillent les pressions sur les coûts (matières premières, logistique, tarifs douaniers). Mention explicite de hausses récentes du coût des marchandises. Risque récurrent et intensifié par la politique commerciale.",
       "trend": "up",
-      "summary": "L'augmentation des coûts des matières premières, des tarifs et de la logistique pèse sur la marge brute, malgré des efforts d'efficacité."
+      "summary": "L'augmentation des coûts des matières premières, des tarifs et de la logistique pèse sur la marge brute, malgré des efforts d'efficacité.",
+      "score": 4
     },
     {
       "title": "Dépréciations d'actifs importants",
@@ -279,7 +294,8 @@
       "severity": 4,
       "score_rationale": "Montants significatifs enregistrés (36M$ en 2025), liés à des galeries en construction et à des actifs longévifs en Allemagne. Langage indique des erreurs stratégiques ou des retards. Risque récurrent mais en baisse en 2026.",
       "trend": "down",
-      "summary": "Des dépréciations importantes sur des actifs immobilisés, notamment des galeries non rentables, affectent la rentabilité et reflètent des risques d'investissement."
+      "summary": "Des dépréciations importantes sur des actifs immobilisés, notamment des galeries non rentables, affectent la rentabilité et reflètent des risques d'investissement.",
+      "score": 4
     },
     {
       "title": "Recall de produits coûteux",
@@ -287,7 +303,8 @@
       "severity": 4,
       "score_rationale": "Coûts directs mentionnés (1,9M$ en 2025) et impact sur la confiance client. Le recall est cité comme un événement marquant en 2025. Catégorie Réputation fortement impactée.",
       "trend": "new",
-      "summary": "Un rappel de produits en 2025 a entraîné des coûts directs et pourrait nuire à la réputation de la marque si mal géré."
+      "summary": "Un rappel de produits en 2025 a entraîné des coûts directs et pourrait nuire à la réputation de la marque si mal géré.",
+      "score": 4
     },
     {
       "title": "Expansion mondiale et risque de change",
@@ -295,7 +312,8 @@
       "severity": 3,
       "score_rationale": "Mention d'une exposition croissante aux devises étrangères avec l'expansion globale. Langage prudent : \"not currently exposed to significant risk\" mais risque futur anticipé. Position modérée dans le texte.",
       "trend": "up",
-      "summary": "L'expansion internationale expose progressivement l'entreprise aux fluctuations des devises, un risque actuellement limité mais en croissance."
+      "summary": "L'expansion internationale expose progressivement l'entreprise aux fluctuations des devises, un risque actuellement limité mais en croissance.",
+      "score": 3
     },
     {
       "title": "Fluctuations trimestrielles importantes",
@@ -303,7 +321,8 @@
       "severity": 3,
       "score_rationale": "Le risque est explicitement nommé et lié à la planification des opérations (lancements, Sourcebooks). Langage descriptif mais pas alarmiste. Répétition annuelle indique une stabilité du risque.",
       "trend": "stable",
-      "summary": "Les résultats varient fortement d'un trimestre à l'autre en raison du calendrier des lancements et des coûts fixes, rendant les comparaisons difficiles."
+      "summary": "Les résultats varient fortement d'un trimestre à l'autre en raison du calendrier des lancements et des coûts fixes, rendant les comparaisons difficiles.",
+      "score": 3
     },
     {
       "title": "Coûts opérationnels en hausse",
@@ -311,7 +330,8 @@
       "severity": 3,
       "score_rationale": "Hausse des SG&A liée à l'ouverture de magasins, au marketing et à des coûts exceptionnels. Mention récurrente dans les états financiers. Moins critique que les marges mais structurel.",
       "trend": "stable",
-      "summary": "Les dépenses générales et administratives augmentent avec l'expansion, pesant sur la rentabilité, notamment en période de faible activité."
+      "summary": "Les dépenses générales et administratives augmentent avec l'expansion, pesant sur la rentabilité, notamment en période de faible activité.",
+      "score": 3
     }
   ],
   "governance": {
@@ -498,166 +518,53 @@
   },
   "enrich_quarterly_history": {
     "ticker": "RH",
-    "extracted_at": "2026-05-15T18:13:59Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1528849,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T09:18:40Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "Adjusted CapEx",
+        "short": "Gross Margin",
         "period_type": "quarter",
         "history": [
-          -24.792,
-          50.251,
-          82.138,
-          153.774,
-          -100.78,
-          29.364,
-          62.558,
-          109.675,
-          34.19,
-          81.596,
-          131.84,
-          -73.984,
-          66.261,
-          115.34,
-          179.897,
-          -130.71,
-          52.565,
-          109.565,
-          158.387,
-          -120.674
+          47.3,
+          49.3,
+          50.2,
+          52.1,
+          52.8,
+          48.4,
+          47,
+          47.5,
+          45.3,
+          43.5,
+          45.2,
+          44.5,
+          43.7,
+          45.5,
+          44.1
         ],
         "history_periods": [
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-01-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 52.565,
-            "accession": "0001558370-25-008578",
-            "end": "2025-05-03"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 109.565,
-            "accession": "0001558370-25-012015",
-            "end": "2025-08-02"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 158.387,
-            "accession": "0001104659-25-120354",
-            "end": "2025-11-01"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -120.674,
-            "accession": "calc-0001104659-26-037992",
-            "end": "2026-01-31"
-          }
-        ]
-      },
-      {
-        "short": "Adjusted Net Income",
-        "period_type": "quarter",
-        "history": [
-          38.194,
-          130.656,
-          357.402,
-          541.501,
-          -341.013,
-          200.711,
-          322.986,
-          421.746,
-          41.89,
-          118.367,
-          116.18,
-          252.205,
-          -3.625,
-          25.327,
-          58.495,
-          -7.785,
-          8.039,
-          59.747,
-          96.012,
-          -39.011
-        ],
-        "history_periods": [
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
-        ],
-        "last_data_date": "2026-01-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 8.039,
-            "accession": "0001558370-25-008578",
-            "end": "2025-05-03"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 59.747,
-            "accession": "0001558370-25-012015",
-            "end": "2025-08-02"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 96.012,
-            "accession": "0001104659-25-120354",
-            "end": "2025-11-01"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -39.011,
-            "accession": "calc-0001104659-26-037992",
-            "end": "2026-01-31"
-          }
-        ]
+        "last_data_date": "2025-11-01",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:18:40Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -673,9 +580,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.302972+00:00",
     "fetched_at": "2026-05-21T02:17:14.302973+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.188Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.190Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rh.json",
     "enrich_root": "v2-pipeline-enrich/rh.json",

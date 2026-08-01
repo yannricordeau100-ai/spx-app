@@ -176,69 +176,84 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.52,
-      "unit": "Mds €",
+      "value": 520,
+      "unit": "M €",
       "yoy": "+2.0%",
       "history": [
-        0.5,
-        0.5,
-        0.51,
-        0.52
+        500,
+        500,
+        510,
+        520
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.52 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-50.0%",
       "history": [
-        0.02,
-        0.02,
-        0.02,
-        0.01
+        20,
+        20,
+        20,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.05,
-        0.04,
-        0.06,
-        0.04
+        50,
+        40,
+        60,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -252,7 +267,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -265,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -280,7 +295,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0231,
@@ -293,7 +308,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -308,7 +323,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         0,
@@ -321,7 +336,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -337,7 +352,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.39,
@@ -350,7 +365,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -384,9 +399,7 @@
         "Source MD&A: 'the acquisition of Virsys12... for a cash purchase price of $11.4 million and contingent consideration of up to $4.0 million' et 'the acquisition of MissionCare... for a cash purchase price of $24.6 million... $4.0 million in shares... and contingent cash consideration of up to $10.0 million'",
         "Deux acquisitions confirmées dans le 10-K pour 2025",
         "last_data_date confirmée 2025-12-31"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Trésorerie et liquidités",
@@ -416,9 +429,7 @@
         "Valeur 107.0 = 57.0M$ (cash et équivalents) + 50.0M$ (credit facility available)",
         "Source MD&A: 'the Company had cash, cash equivalents, and marketable securities of $57.0 million, and the Company maintained full availability under its $50.0 million revolving credit facility, which expires in October 2026'",
         "last_data_date confirmée 2025-12-31"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      ]
     },
     {
       "short": "Impact des réductions budgétaires fédérales",
@@ -445,9 +456,7 @@
         "Source: 'the federal budget reconciliation legislation enacted on July 4, 2025 includes significant policy changes... expected to decrease access to health insurance and result in significant cuts to federal healthcare spending, particularly within the Medicaid program'",
         "Confirmation: 'these challenges and uncertainties... have caused, and may continue to cause, some delays in purchasing and non-renewals of our products and services'",
         "last_data_date confirmée 2025-12-31"
-      ],
-      "_source_month": "juillet 2025",
-      "_source_month_reason": "via_signal_quarter"
+      ]
     }
   ],
   "ai_positioning": {
@@ -473,7 +482,8 @@
       "severity": 5,
       "score_rationale": "Les conditions macroéconomiques défavorables (inflation persistante, taux d'intérêt élevés, tensions géopolitiques) et les changements réglementaires fédéraux (loi de réconciliation budgétaire du 4 juillet 2025 réduisant les dépenses de Medicaid) impactent directement les budgets et les décisions d'achat des organisations de santé, clients principaux de HealthStream.",
       "trend": "up",
-      "summary": "L'incertitude économique et les coupures budgétaires fédérales anticipées dans l'industrie de la santé causent des retards d'achat et des non-renouvellements de produits, particulièrement pour les solutions non-obligatoires."
+      "summary": "L'incertitude économique et les coupures budgétaires fédérales anticipées dans l'industrie de la santé causent des retards d'achat et des non-renouvellements de produits, particulièrement pour les solutions non-obligatoires.",
+      "score": 5
     },
     {
       "title": "Dépendance aux clients du secteur de la santé",
@@ -481,7 +491,8 @@
       "severity": 4,
       "score_rationale": "HealthStream dépend fortement de ses clients (organisations de santé) dont les budgets et décisions d'achat sont affectés par les conditions économiques, les changements réglementaires, et la dépendance accrue aux financements gouvernementaux comme Medicaid.",
       "trend": "stable",
-      "summary": "La dépendance aux organisations de santé rend HealthStream vulnérable aux changements dans leurs priorités budgétaires et leurs besoins en solutions de gestion de la main-d'œuvre."
+      "summary": "La dépendance aux organisations de santé rend HealthStream vulnérable aux changements dans leurs priorités budgétaires et leurs besoins en solutions de gestion de la main-d'œuvre.",
+      "score": 4
     },
     {
       "title": "Risque de cybersécurité et de gestion des données sensibles",
@@ -489,7 +500,8 @@
       "severity": 5,
       "score_rationale": "HealthStream traite des données sensibles de santé et élargit son usage de l'IA via hStream, augmentant l'exposition aux menaces de cybersécurité, aux fuites de données et aux violations de conformité HIPAA, avec conséquences graves pour la réputation et les résultats financiers.",
       "trend": "up",
-      "summary": "La gestion des données sensibles des professionnels de santé et l'intégration croissante de l'IA exposent HealthStream à des risques importants de cybersécurité et de protection des données personnelles."
+      "summary": "La gestion des données sensibles des professionnels de santé et l'intégration croissante de l'IA exposent HealthStream à des risques importants de cybersécurité et de protection des données personnelles.",
+      "score": 5
     },
     {
       "title": "Risque réglementaire et de conformité",
@@ -497,7 +509,8 @@
       "severity": 4,
       "score_rationale": "HealthStream opère dans un environnement hautement réglementé (HIPAA, réglementations de santé, conformité d'IA) avec des changements anticipés aux régulations fédérales et étatiques impactant ses clients et ses opérations.",
       "trend": "up",
-      "summary": "L'évolution constante du cadre réglementaire, y compris les changements fédéraux aux politiques de santé, crée des défis de conformité et d'adaptation pour HealthStream."
+      "summary": "L'évolution constante du cadre réglementaire, y compris les changements fédéraux aux politiques de santé, crée des défis de conformité et d'adaptation pour HealthStream.",
+      "score": 4
     },
     {
       "title": "Risque d'intégration et de gestion des acquisitions",
@@ -505,7 +518,8 @@
       "severity": 4,
       "score_rationale": "HealthStream a complété deux acquisitions en 2025 (Virsys12 en octobre pour 11.4 millions USD en cash plus 4.0 millions en considérations contingentes; MissionCare en décembre pour 24.6 millions USD en cash, 4.0 millions en actions et jusqu'à 10.0 millions en considérations contingentes), exposant l'entreprise aux risques d'intégration technologique, culturelle et financière.",
       "trend": "up",
-      "summary": "L'intégration des acquisitions Virsys12 et MissionCare dans la stratégie One HealthStream présente des défis opérationnels et financiers importants à gérer."
+      "summary": "L'intégration des acquisitions Virsys12 et MissionCare dans la stratégie One HealthStream présente des défis opérationnels et financiers importants à gérer.",
+      "score": 4
     }
   ],
   "governance": {
@@ -545,7 +559,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:23:21Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2018,
@@ -563,8 +577,8 @@
     "xbrl_fetched_at": "2026-05-09T20:27:29Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:25Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:38.071Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.534Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hstm.json",
     "enrich_root": "v2-pipeline-enrich/hstm.json",

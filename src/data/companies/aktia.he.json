@@ -87,7 +87,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Profit — profit from core business operations.",
+      "explanation_en": "Operating Profit, profit from core business operations.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -202,11 +202,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 11.98 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -220,7 +224,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.96,
         0.56,
@@ -233,7 +237,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -248,7 +252,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.0403,
@@ -261,7 +265,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -276,7 +280,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         40.99,
@@ -289,7 +293,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -305,7 +309,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.37,
@@ -318,7 +322,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -344,9 +348,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "IT Expenses",
@@ -369,9 +371,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -410,7 +410,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en position centrale dans le rapport, avec un langage insistant sur l'adaptation aux normes EU (SFDR, Taxonomie). La tendance est à la hausse en raison de l'intensification du cadre réglementaire. La catégorie Régulation est stratégique pour les banques.",
       "trend": "up",
-      "summary": "Aktia est exposée à une réglementation croissante liée au climat, notamment via les exigences de l'UE (SFDR, Taxonomie). Le non-respect pourrait entraîner des pénalités ou une perte de licence d'exploitation dans certains segments."
+      "summary": "Aktia est exposée à une réglementation croissante liée au climat, notamment via les exigences de l'UE (SFDR, Taxonomie). Le non-respect pourrait entraîner des pénalités ou une perte de licence d'exploitation dans certains segments.",
+      "score": 4
     },
     {
       "title": "Concurrence sur les produits verts",
@@ -418,7 +419,8 @@
       "severity": 3,
       "score_rationale": "Le document mentionne explicitement le développement de produits verts face à un marché en évolution. Le langage est mesuré, mais la tendance est à la hausse. La concurrence est un facteur clé dans la différenciation des services bancaires durables.",
       "trend": "up",
-      "summary": "Aktia fait face à une concurrence croissante dans les produits de financement durables, comme les prêts verts. Le risque réside dans la capacité à innover et à attirer des clients soucieux de durabilité."
+      "summary": "Aktia fait face à une concurrence croissante dans les produits de financement durables, comme les prêts verts. Le risque réside dans la capacité à innover et à attirer des clients soucieux de durabilité.",
+      "score": 3
     },
     {
       "title": "Dépendance aux partenaires externes pour la durabilité",
@@ -426,7 +428,8 @@
       "severity": 3,
       "score_rationale": "Aktia s'appuie sur des partenaires externes (ex. Green Carbon, ISS ESG) pour évaluer les impacts climatiques. Le langage indique une dépendance opérationnelle. La tendance est stable, mais le risque technologique est modéré.",
       "trend": "stable",
-      "summary": "Aktia dépend de fournisseurs externes pour la mesure des émissions (scope 3) et l'évaluation des risques climatiques. Une défaillance ou une hausse des coûts de ces partenaires pourrait perturber ses processus."
+      "summary": "Aktia dépend de fournisseurs externes pour la mesure des émissions (scope 3) et l'évaluation des risques climatiques. Une défaillance ou une hausse des coûts de ces partenaires pourrait perturber ses processus.",
+      "score": 3
     },
     {
       "title": "Cybersécurité liée à la réputation",
@@ -434,7 +437,8 @@
       "severity": 4,
       "score_rationale": "Le texte relie explicitement la cybersécurité à la réputation, un point critique pour une banque. Le langage est préoccupé, et le risque est en hausse. La catégorie est stratégique en raison de l'importance des données clients.",
       "trend": "up",
-      "summary": "Un incident de cybersécurité pourrait gravement nuire à la réputation d'Aktia, en particulier dans la gestion des données sensibles des clients et des investissements durables."
+      "summary": "Un incident de cybersécurité pourrait gravement nuire à la réputation d'Aktia, en particulier dans la gestion des données sensibles des clients et des investissements durables.",
+      "score": 4
     },
     {
       "title": "Risque de transition climatique dans le portefeuille",
@@ -442,7 +446,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien documenté, avec des scénarios climatiques intégrés dans l'évaluation des crédits. Le langage est technique et préventif. La tendance est à la hausse, reflétant l'importance croissante du risque industriel lié à la transition.",
       "trend": "up",
-      "summary": "Aktia est exposée aux risques de transition climatique via ses prêts aux entreprises émettrices de carbone. Une dévaluation soudaine de ces actifs pourrait impacter la qualité du portefeuille de crédit."
+      "summary": "Aktia est exposée aux risques de transition climatique via ses prêts aux entreprises émettrices de carbone. Une dévaluation soudaine de ces actifs pourrait impacter la qualité du portefeuille de crédit.",
+      "score": 4
     },
     {
       "title": "Dépendance aux engagements collectifs",
@@ -450,7 +455,8 @@
       "severity": 3,
       "score_rationale": "Aktia participe à des initiatives comme Climate Action 100+ et NZAM, ce qui implique une dépendance aux actions collectives. Le langage est engagé mais prudent. La tendance est stable, avec un poids modéré sur la stratégie.",
       "trend": "stable",
-      "summary": "Aktia s'appuie sur des coalitions d'investisseurs pour influencer les entreprises en matière de climat. Le succès de ces actions dépend de la coordination avec d'autres acteurs, ce qui constitue un risque stratégique."
+      "summary": "Aktia s'appuie sur des coalitions d'investisseurs pour influencer les entreprises en matière de climat. Le succès de ces actions dépend de la coordination avec d'autres acteurs, ce qui constitue un risque stratégique.",
+      "score": 3
     },
     {
       "title": "Risque physique du changement climatique",
@@ -458,7 +464,8 @@
       "severity": 3,
       "score_rationale": "Le document mentionne l'exposition aux risques physiques (inondations, conditions météo extrêmes) sur les actifs immobiliers. Le langage est évaluatif, la tendance est à la hausse. Le poids de la catégorie est modéré mais croissant.",
       "trend": "up",
-      "summary": "Les actifs immobiliers financés par Aktia sont exposés aux risques physiques du changement climatique, comme les inondations, pouvant entraîner une perte de valeur des garanties."
+      "summary": "Les actifs immobiliers financés par Aktia sont exposés aux risques physiques du changement climatique, comme les inondations, pouvant entraîner une perte de valeur des garanties.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:15:18.341437+00:00",
@@ -517,13 +524,13 @@
   "company_description": "Aktia Pankki Oyj, together with its subsidiaries, provides banking and financing solutions in Finland. It operates through four segments: Asset Management, Banking Business, Life Insurance, and Group Functions. The company offers banking services, including savings; fixed income, equity, and alternative investments; leisure, investment, and reverse mortgages; construction, investment, unsecured consumer, ASP, student, and green loans; secured consumer credit; and life, disability, critical illness, and group pension insurance products. It also provides investment, asset, and wealth management; business, customer funds, and currency accounts, as well as savings deposit; payment transactions; cards; online services; and financing services, such as bank guarantee, installment, leasing, and factoring. In addition, the company offers financing and liquidity management; sales assistance; and IT and product support and development. It serves individuals, corporate customers, and institutions. The company was formerly known as Aktia Savings Bank Plc, Banking Services and changed its name to Aktia Pankki Oyj in March 2008. Aktia Pankki Oyj was founded in 1825 and is headquartered in Helsink",
   "last_data_date": "2026-03-31",
   "_dividends_extracted_at": "2026-05-09T20:20:31Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:43:21Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
-  "_companies_unified_built_at": "2026-05-29T21:19:27.588Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.157Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aktia.he.json",
     "enrich_root": "v2-pipeline-enrich/aktia.he.json",

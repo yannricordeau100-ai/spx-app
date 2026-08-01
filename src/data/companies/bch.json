@@ -21,8 +21,8 @@
       "name_fr": "Capitalisation boursière de la bourse de Santiago",
       "name_en": "Santiago Stock Exchange Market Capitalization",
       "explanation": "Total market value of all listed companies on Santiago Stock Exchange",
-      "value": 159003.6,
-      "unit": "M $",
+      "value": 159.004,
+      "unit": "Mds $",
       "yoy": "Not available",
       "type": "Capital",
       "nature": "Structural",
@@ -30,21 +30,25 @@
       "signal": "Not available",
       "description": "Market capitalization of Santiago Stock Exchange as of December 31, 2024",
       "history": [
-        159003.6
+        159.004
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Annual Trading Turnover",
       "name_fr": "Volume annuel des transactions",
       "name_en": "Annual Trading Turnover",
       "explanation": "Total annual trading volume on Santiago Stock Exchange",
-      "value": "28823.0",
-      "unit": "M $",
+      "value": 28.823,
+      "unit": "Mds $",
       "yoy": "Not available",
       "type": "Cash",
       "nature": "Cyclical",
@@ -52,20 +56,21 @@
       "signal": "Not available",
       "description": "Total annual trading volume on Santiago Stock Exchange as of December 31, 2024",
       "history": [
-        28823
+        28.823
       ],
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Average Monthly Trading Turnover",
       "name_fr": "Volume mensuel moyen des transactions",
       "name_en": "Average Monthly Trading Turnover",
       "explanation": "Average monthly trading volume on Santiago Stock Exchange",
-      "value": "2401.9",
-      "unit": "M $",
+      "value": 2.402,
+      "unit": "Mds $",
       "yoy": "Not available",
       "type": "Cash",
       "nature": "Cyclical",
@@ -73,12 +78,13 @@
       "signal": "Not available",
       "description": "Average monthly trading volume on Santiago Stock Exchange as of December 31, 2024",
       "history": [
-        2401.9
+        2.402
       ],
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -97,11 +103,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2992.11 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -120,11 +130,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1185.41 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Pressure, deteriorating trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -143,11 +157,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 54104.61 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -166,11 +184,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 13259.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -189,10 +211,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 3005.41 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -312,7 +338,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -339,7 +365,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur positionné en premier dans Item 1A avec langage intensif (« may expose us to increased loan losses »). Tendance stable mais préoccupante : expansion retail CAGR 7.5% en hypothécaire, provisions en hausse de 30.6% YoY (Ch$322M à Ch$420M). Poids catégorie élevé : impact direct sur résultats et capital réglementaire.",
       "trend": "up",
-      "summary": "L'expansion du portefeuille de prêts, particulièrement en hypothécaire (CAGR 7.5%) et crédit à la consommation, expose BCH à des pertes de crédit accrues. Les clients retail sont plus cycliques que wholesale ; chômage élevé, taux d'intérêt volatiles et inflation réduisent la capacité de remboursement. Les provisions pour pertes attendues ont augmenté de 30.6% en 2024 (Ch$420.6M vs Ch$322.1M en 2023)."
+      "summary": "L'expansion du portefeuille de prêts, particulièrement en hypothécaire (CAGR 7.5%) et crédit à la consommation, expose BCH à des pertes de crédit accrues. Les clients retail sont plus cycliques que wholesale ; chômage élevé, taux d'intérêt volatiles et inflation réduisent la capacité de remboursement. Les provisions pour pertes attendues ont augmenté de 30.6% en 2024 (Ch$420.6M vs Ch$322.1M en 2023).",
+      "score": 4
     },
     {
       "title": "Réglementation bancaire stricte et changements législatifs",
@@ -347,7 +374,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement listé comme contraignant les opérations (« constrain our operations »). Langage modéré mais contexte chilien instable : deux tentatives constitutionnelles échouées, réformes prévues (pensions, santé, fiscalité). Poids catégorie très élevé pour banque régulée. Tendance up : réformes en cours.",
       "trend": "up",
-      "summary": "Les changements réglementaires et législatifs au Chili, incluant les réformes du système de retraite, de santé et fiscal, contraignent les opérations de BCH. L'incertitude politique et économique (deux tentatives constitutionnelles échouées, réformes sectorielles) affecte directement la demande de crédit et la qualité des actifs, particulièrement dans les secteurs immobilier, transport et santé."
+      "summary": "Les changements réglementaires et législatifs au Chili, incluant les réformes du système de retraite, de santé et fiscal, contraignent les opérations de BCH. L'incertitude politique et économique (deux tentatives constitutionnelles échouées, réformes sectorielles) affecte directement la demande de crédit et la qualité des actifs, particulièrement dans les secteurs immobilier, transport et santé.",
+      "score": 4
     },
     {
       "title": "Intensification de la concurrence et consolidation sectorielle",
@@ -355,7 +383,8 @@
       "severity": 3,
       "score_rationale": "Risque identifié explicitement (« Increased competition and industry consolidation »). Langage modéré, pas de détails quantitatifs fournis dans l'extrait. Tendance stable mais contexte de marché compétitif. Poids catégorie moyen pour banque de premier plan au Chili.",
       "trend": "stable",
-      "summary": "La concurrence accrue et la consolidation dans l'industrie bancaire chilienne peuvent affecter les opérations et la rentabilité de BCH. Les nouveaux développements technologiques et les changements d'environnement concurrentiel (pricing) constituent des menaces pour les marges et la part de marché."
+      "summary": "La concurrence accrue et la consolidation dans l'industrie bancaire chilienne peuvent affecter les opérations et la rentabilité de BCH. Les nouveaux développements technologiques et les changements d'environnement concurrentiel (pricing) constituent des menaces pour les marges et la part de marché.",
+      "score": 3
     },
     {
       "title": "Détection insuffisante du blanchiment de capitaux et criminalité financière",
@@ -363,7 +392,8 @@
       "severity": 3,
       "score_rationale": "Risque de conformité positionné dans Item 1A avec langage prudent (« may not be able to fully detect »). Tendance stable mais risque de réputation et légal élevé. Poids catégorie moyen : compliance critique pour banque internationale avec ADSs cotées aux USA.",
       "trend": "stable",
-      "summary": "Malgré les politiques et procédures de BCH pour détecter le blanchiment de capitaux et la criminalité financière, la détection complète et opportune n'est pas garantie. Risque de sanctions réglementaires, amendes et dommages réputationnels, particulièrement critique pour banque avec présence aux USA."
+      "summary": "Malgré les politiques et procédures de BCH pour détecter le blanchiment de capitaux et la criminalité financière, la détection complète et opportune n'est pas garantie. Risque de sanctions réglementaires, amendes et dommages réputationnels, particulièrement critique pour banque avec présence aux USA.",
+      "score": 3
     },
     {
       "title": "Événements de cybersécurité affectant réputation et résultats",
@@ -371,7 +401,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement listé avec conséquences multiples (« negatively affect reputation or results of operations and may result in litigation »). Langage intensif et direct. Tendance up : menaces cyber croissantes dans secteur financier. Poids catégorie très élevé pour banque digitalisée.",
       "trend": "up",
-      "summary": "Les événements de cybersécurité pourraient affecter négativement la réputation de BCH, ses résultats opérationnels et générer des litiges. Risque critique pour banque offrant services digitaux et détenant données sensibles de millions de clients chiliens."
+      "summary": "Les événements de cybersécurité pourraient affecter négativement la réputation de BCH, ses résultats opérationnels et générer des litiges. Risque critique pour banque offrant services digitaux et détenant données sensibles de millions de clients chiliens.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'activité économique chilienne et incertitude politique",
@@ -379,7 +410,8 @@
       "severity": 4,
       "score_rationale": "Risque systémique positionné en début de section « Risks Relating to Chile ». Langage intensif : croissance et rentabilité dépendent du niveau d'activité économique. Tendance up : incertitude politique persistante (réformes, tentatives constitutionnelles échouées). Poids catégorie très élevé : 100% exposition Chili.",
       "trend": "up",
-      "summary": "La croissance et rentabilité de BCH dépendent entièrement du niveau d'activité économique au Chili. L'incertitude politique et économique (réformes de pensions, santé, fiscalité, deux tentatives constitutionnelles échouées) affecte la demande de crédit, la qualité des actifs et les perspectives de croissance long-terme du pays."
+      "summary": "La croissance et rentabilité de BCH dépendent entièrement du niveau d'activité économique au Chili. L'incertitude politique et économique (réformes de pensions, santé, fiscalité, deux tentatives constitutionnelles échouées) affecte la demande de crédit, la qualité des actifs et les perspectives de croissance long-terme du pays.",
+      "score": 4
     },
     {
       "title": "Problèmes opérationnels, erreurs, criminalité et force majeure",
@@ -387,7 +419,8 @@
       "severity": 3,
       "score_rationale": "Risque opérationnel large positionné dans Item 1A (« Operational problems, errors, criminal events or terrorism »). Langage modéré mais impact potentiel matériel. Tendance stable mais contexte de risques systémiques (pandémies, terrorisme). Poids catégorie moyen pour institution financière.",
       "trend": "stable",
-      "summary": "Les problèmes opérationnels, erreurs, événements criminels, terrorisme ou force majeure pourraient avoir un impact matériel adverse sur les activités, la condition financière et les résultats de BCH. Incluent pandemies, catastrophes naturelles et événements géopolitiques affectant l'économie chilienne."
+      "summary": "Les problèmes opérationnels, erreurs, événements criminels, terrorisme ou force majeure pourraient avoir un impact matériel adverse sur les activités, la condition financière et les résultats de BCH. Incluent pandemies, catastrophes naturelles et événements géopolitiques affectant l'économie chilienne.",
+      "score": 3
     },
     {
       "title": "Imprécision des hypothèses, estimations et modèles comptables",
@@ -395,7 +428,8 @@
       "severity": 3,
       "score_rationale": "Risque de modélisation explicitement listé (« assumptions, estimates and modeling which, if inaccurate »). Langage direct sur impact matériel. Tendance stable mais pertinent pour provisioning forward-looking (provisions augmentées 30.6% en 2024). Poids catégorie moyen : affecte résultats et capital.",
       "trend": "stable",
-      "summary": "Les informations financières de BCH incluent des hypothèses, estimations et modèles (notamment pour provisions de pertes attendues) qui, s'ils sont inexacts, pourraient avoir un impact matériel sur les résultats et la position financière. Risque accru avec volatilité macroéconomique (taux, inflation, chômage)."
+      "summary": "Les informations financières de BCH incluent des hypothèses, estimations et modèles (notamment pour provisions de pertes attendues) qui, s'ils sont inexacts, pourraient avoir un impact matériel sur les résultats et la position financière. Risque accru avec volatilité macroéconomique (taux, inflation, chômage).",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:19:45.526599+00:00",
@@ -545,6 +579,85 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "BCH",
+    "extracted_at": "2026-06-01T03:01:11Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Market Capitalization",
+        "period_type": "year",
+        "history": [
+          184186,
+          152029,
+          172347,
+          180897,
+          159003.6
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:01:11Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Annual Trading Turnover",
+        "period_type": "year",
+        "history": [
+          40057,
+          47161,
+          43408.3,
+          29902.6,
+          28823
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:01:11Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Average Monthly Trading Turnover",
+        "period_type": "year",
+        "history": [
+          3338,
+          3930,
+          3617.4,
+          2491.9,
+          2401.9
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:01:11Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "BCH",
     "ranks": {
@@ -557,15 +670,16 @@
     "country": "Chile",
     "_data_freshness_date": "2026-05-21T02:17:14.228879+00:00",
     "fetched_at": "2026-05-21T02:17:14.228879+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.482Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.962Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bch.json",
     "enrich_root": "v2-pipeline-enrich/bch.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

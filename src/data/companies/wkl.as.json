@@ -99,11 +99,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 6.12 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only one explicit total revenue figure (€5.9bn for 2024) is present; fewer than four consecutive annual values are available.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -122,11 +128,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.31 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -145,11 +155,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.58 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -168,33 +182,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.93 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.93,
-      "unit": "Mds €",
+      "value": 930,
+      "unit": "M €",
       "yoy": "-2.1%",
       "history": [
-        1.35,
-        1.14,
-        0.95,
-        0.93
+        1350,
+        1140,
+        950,
+        930
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.93 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -404,7 +427,8 @@
       "severity": 3,
       "score_rationale": "Risque positionné en section macroéconomique du rapport annuel. Langage modéré : sensibilité aux conditions de marché. Tendance stable. Catégorie macro : poids standard.",
       "trend": "stable",
-      "summary_fr": "L'évolution du PIB européen, l'inflation et les taux d'intérêt peuvent affecter la demande pour les produits et services du groupe."
+      "summary_fr": "L'évolution du PIB européen, l'inflation et les taux d'intérêt peuvent affecter la demande pour les produits et services du groupe.",
+      "score": 3
     },
     {
       "title": "Évolution réglementaire et conformité",
@@ -412,7 +436,8 @@
       "severity": 3,
       "score_rationale": "Risque en section réglementation (haut de rapport). Langage modéré : nouveaux dispositifs (CSRD, taxonomie verte). Tendance accrue. Catégorie réglementaire : poids supérieur.",
       "trend": "up",
-      "summary_fr": "Le durcissement des cadres réglementaires européens (CSRD, taxonomie verte, sanctions) accroît les coûts de conformité et expose à des sanctions."
+      "summary_fr": "Le durcissement des cadres réglementaires européens (CSRD, taxonomie verte, sanctions) accroît les coûts de conformité et expose à des sanctions.",
+      "score": 3
     },
     {
       "title": "Risques cyber et sécurité des systèmes d'information",
@@ -420,7 +445,8 @@
       "severity": 4,
       "score_rationale": "Risque positionné en section dédiée IT/cyber. Langage explicite : pourrait entraîner des perturbations matérielles. Tendance accrue. Catégorie cyber : pondération haute.",
       "trend": "up",
-      "summary_fr": "Les cyberattaques (rançongiciels, fuites de données) peuvent perturber les opérations et entraîner des pertes financières et réputationnelles."
+      "summary_fr": "Les cyberattaques (rançongiciels, fuites de données) peuvent perturber les opérations et entraîner des pertes financières et réputationnelles.",
+      "score": 4
     }
   ],
   "_risks_source": "generic-template-mission-d-b1",
@@ -495,6 +521,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Wolters Kluwer N.V. est un fournisseur mondial d'information professionnelle, de logiciels et de services. Coté à Amsterdam, basé à Alphen aan den Rijn. Fondé en 1836.",
+          "products": "Cinq segments : Health (CCH Tagetik, UpToDate medical decision support, GenAI clinical), Tax & Accounting (CCH ProSystem, Twinfield), Financial & Corporate Compliance, Legal & Regulatory, Corporate Performance & ESG.",
+          "customers": "Cabinets d'avocats, cabinets de comptabilité et fiscalité, hôpitaux et professionnels de santé, institutions financières, entreprises et gouvernements.",
+          "edge": "Position d'incumbent sur plusieurs verticales B2B (UpToDate en clinique = standard mondial, CCH ProSystem leader US tax). Modèle SaaS récurrent élevé (>80 %)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Wolters Kluwer est un des leaders mondiaux de l'information professionnelle B2B avec une transformation digitale réussie : >80 % de revenus récurrents, >55 % en cloud digital. Stratégie d'investissement IA générative avec >150 lancements GenAI annoncés en 2023-2024.",
+          "tech_products": "Health : UpToDate (clinical decision support, standard hospitalier mondial), Sentri7, Lexicomp. Tax & Accounting : CCH Axcess (cloud accounting US), Twinfield, CCH ProSystem fx. Financial & Corporate Compliance : OneSumX, Compliance Solutions. Legal & Regulatory : Kluwer Legal, ftwilliam.com. Corporate Performance & ESG : CCH Tagetik (CPM).",
+          "moat": "Position d'incumbent UpToDate (standard mondial décision clinique). Coûts de switch très élevés sur les softwares verticaux B2B (CCH ProSystem, Tagetik). Marque historique reconnue. Capacité d'investissement IA et SaaS.",
+          "risks": "Disruption potentielle par l'IA générative sur certaines bases (UpToDate concurrencé par OpenEvidence, Glass Health). Concurrence Thomson Reuters et RELX. Maturité de certaines activités legacy. Cycle économique impactant les ventes nouvelles (corporates)."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "WKL.AS",
     "ranks": {
@@ -507,15 +554,16 @@
     "country": "Netherlands",
     "_data_freshness_date": "2026-05-21T02:17:14.328507+00:00",
     "fetched_at": "2026-05-21T02:17:14.328508+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.516Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.644Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wkl.as.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

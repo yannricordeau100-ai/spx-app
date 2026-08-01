@@ -51,7 +51,7 @@
       "is_short_history": false,
       "ttm": 194.6,
       "period_type": "quarter",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -59,8 +59,8 @@
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
       "explanation": "Ensemble de la dette de l'entreprise",
-      "value": "1230.3",
-      "unit": "M $",
+      "value": 1.23,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Risk",
       "nature": "Structurel",
@@ -68,7 +68,7 @@
       "signal": "Structure de dette diversifiée avec échéances progressives",
       "description": "Dette totale composée de 238,5 M$ de Senior Notes 4.75%, 500,0 M$ de Senior Notes 8.25%, 134,3 M$ de Kansas Notes, 112,5 M$ de Term Loan et 245,0 M$ de Revolving Credit Facility. Aucune échéance de dette jusqu'à octobre 2027.",
       "history": [
-        1230.3,
+        1.23,
         0,
         0,
         0,
@@ -79,7 +79,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 1230.3,
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -106,7 +111,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 140.6,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Share Repurchase",
@@ -132,7 +141,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 218.4
+      "ttm": 218.4,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Cash on Hand",
@@ -158,7 +171,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 97.9
+      "ttm": 97.9,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Facilities",
@@ -184,7 +201,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -211,24 +232,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.122,
-      "unit": "Mds $",
+      "value": 122,
+      "unit": "M $",
       "yoy": "+334.6%",
       "history": [
-        0.222,
-        0.22,
-        0.178,
-        0.159,
-        0.189,
-        0.054,
-        -0.052,
-        0.122
+        222,
+        220,
+        178,
+        159,
+        189,
+        54,
+        -52,
+        122
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -237,8 +262,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -334,7 +364,8 @@
       "severity": 5,
       "score_rationale": "Le document mentionne explicitement les ordres exécutifs du Président Trump du 20 janvier 2025 et le Laken Riley Act qui augmentent directement la demande pour les services de détention ICE (augmentation de 58,2% mentionnée). Cependant, cela crée aussi une volatilité future si les administrations changent. L'intensité du langage sur les politiques d'immigration est élevée et centrale pour l'activité.",
       "trend": "up",
-      "summary": "Les changements de politique gouvernementale, notamment les ordres exécutifs et les nouvelles lois, peuvent affecter directement la demande de services de détention et le volume de contrats. Les politiques d'immigration actuelles augmentent la demande ICE, mais les risques futurs demeurent."
+      "summary": "Les changements de politique gouvernementale, notamment les ordres exécutifs et les nouvelles lois, peuvent affecter directement la demande de services de détention et le volume de contrats. Les politiques d'immigration actuelles augmentent la demande ICE, mais les risques futurs demeurent.",
+      "score": 5
     },
     {
       "title": "Dépendance aux contrats gouvernementaux fédéraux",
@@ -342,7 +373,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise dépend significativement de trois agences fédérales: ICE (DHS), BOP et USMS (DOJ). La perte ou réduction de contrats avec ces agences représenterait un risque majeur pour les revenus. Les retards de paiement actuels post-shutdown en témoignent.",
       "trend": "stable",
-      "summary": "Une part importante des revenus dépend de contrats avec les agences gouvernementales fédérales (ICE, BOP, USMS). Les agences peuvent résilier les contrats sans motif, créer des retards de paiement ou réduire les volumes de détention."
+      "summary": "Une part importante des revenus dépend de contrats avec les agences gouvernementales fédérales (ICE, BOP, USMS). Les agences peuvent résilier les contrats sans motif, créer des retards de paiement ou réduire les volumes de détention.",
+      "score": 4
     },
     {
       "title": "Retards de paiement gouvernementaux et shutdown budgétaires",
@@ -350,7 +382,8 @@
       "severity": 4,
       "score_rationale": "Le document indique explicitement: 'Nous continuons d'expérimenter des retards de paiement de nos clients fédéraux suite au plus récent shutdown gouvernemental' et 'due to newly added approval requirements of certain invoices by DHS'. Cela affecte directement les flux de trésorerie opérationnels.",
       "trend": "up",
-      "summary": "Les shutdowns gouvernementaux et les exigences d'approbation accrues des factures par DHS créent des retards de paiement impactant les flux de trésorerie et la liquidité de l'entreprise."
+      "summary": "Les shutdowns gouvernementaux et les exigences d'approbation accrues des factures par DHS créent des retards de paiement impactant les flux de trésorerie et la liquidité de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Volatilité de la demande ICE",
@@ -358,7 +391,8 @@
       "severity": 4,
       "score_rationale": "Bien que la demande ICE ait augmenté de 58,2% suite aux ordres exécutifs Trump, l'historique montre une résiliation antérieure du contrat Dilley. Cette volatilité rend la planification de capacité et les décisions d'investissement complexes et risquées.",
       "trend": "up",
-      "summary": "La demande de l'agence ICE peut fluctuer considérablement en fonction des politiques d'immigration et des priorités administratives, créant une instabilité dans l'utilisation des capacités et les revenus."
+      "summary": "La demande de l'agence ICE peut fluctuer considérablement en fonction des politiques d'immigration et des priorités administratives, créant une instabilité dans l'utilisation des capacités et les revenus.",
+      "score": 4
     },
     {
       "title": "Capacité oisive et coûts d'activation",
@@ -366,7 +400,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise maintient plusieurs installations inactives. Les investissements de 75,0 M$ en 2025 visent à activer 5 installations. Si la demande anticipated ne se matérialise pas, ces installations resteraient des passifs coûteux. Les réductions de capex prévues à 35-40 M$ en 2026 indiquent une prudence.",
       "trend": "stable",
-      "summary": "La possession et l'activation d'installations auparavant oisives représentent un risque opérationnel si les contrats anticipés ne se concrétisent pas ou si la demande baisse."
+      "summary": "La possession et l'activation d'installations auparavant oisives représentent un risque opérationnel si les contrats anticipés ne se concrétisent pas ou si la demande baisse.",
+      "score": 3
     },
     {
       "title": "Risque de résiliation de contrats sans cause",
@@ -374,7 +409,8 @@
       "severity": 3,
       "score_rationale": "La documentation standard indique que les contrats de gestion 'généralement fournissent aux clients le droit de résilier nos contrats à tout moment sans motif'. Bien que standard dans l'industrie, cela crée une incertitude de base quant à la pérennité des revenus.",
       "trend": "stable",
-      "summary": "Les contrats de gestion comportent généralement des clauses de résiliation sans cause, créant une incertitude inhérente quant à la continuité des revenus de contrats."
+      "summary": "Les contrats de gestion comportent généralement des clauses de résiliation sans cause, créant une incertitude inhérente quant à la continuité des revenus de contrats.",
+      "score": 3
     },
     {
       "title": "Litiges concernant les permis et autorisations",
@@ -382,7 +418,8 @@
       "severity": 3,
       "score_rationale": "Bien que mentionné dans l'analyse des risques sous-jacente, le 10-K fourni ne détaille pas les litiges spécifiques actuels concernant les permis. Cependant, historiquement, les installations comme Leavenworth et California City ont connu des retards liés aux permis.",
       "trend": "stable",
-      "summary": "Les poursuites judiciaires concernant les permis d'exploitation et les approbations locales peuvent retarder ou empêcher l'activation d'installations, impactant les revenus."
+      "summary": "Les poursuites judiciaires concernant les permis d'exploitation et les approbations locales peuvent retarder ou empêcher l'activation d'installations, impactant les revenus.",
+      "score": 3
     }
   ],
   "governance": {
@@ -598,88 +635,31 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CXW",
-    "extracted_at": "2026-05-15T18:10:31Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1070985,
+    "extracted_at": "2026-06-01T03:09:35Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Cash on Hand",
+        "short": "Operating Cash Flow",
         "period_type": "quarter",
         "history": [
-          162.891,
-          455.544,
-          -486.931,
-          378.204,
-          115.611,
-          185.328,
-          -529.742,
-          51.463,
-          41.84,
-          103.697,
-          -75.155,
-          111.399,
-          60.186,
-          107.85,
-          -171.948,
-          74.498,
-          130.524,
-          56.551,
-          -163.644,
-          209.686
+          97.707,
+          89.828,
+          70.354,
+          44.484
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q1 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-03-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 130.524,
-            "accession": "0000950170-25-104763",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 56.551,
-            "accession": "0001193125-25-269348",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -163.644,
-            "accession": "calc-0001193125-26-060669",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 209.686,
-            "accession": "0001193125-26-211158",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:09:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -695,9 +675,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.248607+00:00",
     "fetched_at": "2026-05-21T02:17:14.248608+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.070Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.602Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cxw.json",
     "enrich_root": "v2-pipeline-enrich/cxw.json",

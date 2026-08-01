@@ -56,7 +56,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -97,34 +97,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.52 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.48,
-      "unit": "Mds €",
+      "value": 480,
+      "unit": "M €",
       "yoy": "-14.3%",
       "history": [
-        0.53,
-        0.56,
-        0.56,
-        0.48
+        530,
+        560,
+        560,
+        480
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.48 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -143,11 +152,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 5.96 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -166,11 +179,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.3 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -189,10 +206,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 3.34 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -211,10 +232,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 6.43 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -228,7 +253,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2020-2024). ex-div dates.",
       "history": [
         0.64,
         0.72,
@@ -241,7 +266,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -256,7 +281,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2020-2024) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2020-2024) en milliards USD. cashflow.",
       "history": [
         null,
         0.0745,
@@ -269,7 +294,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -284,7 +309,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2020-2024). Source yfinance.",
+      "description": "Dividendes / résultat net (2020-2024).",
       "history": [
         null,
         13.8,
@@ -297,7 +322,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -313,7 +338,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         6.75,
@@ -326,7 +351,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -351,9 +376,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -367,16 +390,16 @@
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société gère un portefeuille important de prêts non financés (18,0 milliards de dollars) et doit évaluer la solvabilité des emprunteurs. L'augmentation des provisions pour pertes sur crédits indique une vigilance accrue face aux risques de défaut. (score par défaut, à affiner)",
+      "score_rationale": "La société gère un portefeuille important de prêts non financés (18,0 milliards de dollars) et doit évaluer la solvabilité des emprunteurs. L'augmentation des provisions pour pertes sur crédits indique une vigilance accrue face aux risques de défaut.",
       "trend": "up",
       "summary": "Le risque de crédit est élevé en raison de l'augmentation des provisions pour pertes sur crédits et du ratio de provision pour pertes sur crédits par rapport aux prêts non performants.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de régulation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est soumise à des réglementations strictes dans le secteur bancaire, ce qui peut impacter son activité et ses résultats financiers. Les changements dans les réglementations peuvent également avoir un impact négatif sur la société. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations strictes dans le secteur bancaire, ce qui peut impacter son activité et ses résultats financiers. Les changements dans les réglementations peuvent également avoir un impact négatif sur la société.",
       "trend": "stable",
       "summary": "Le risque de régulation est moyen en raison des réglementations strictes dans le secteur bancaire, mais la société semble être en conformité avec les exigences actuelles.",
       "score": 3
@@ -385,25 +408,25 @@
       "title": "Risque de concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché très concurrentiel, avec de nombreuses banques et institutions financières offrant des services similaires. Cela peut rendre difficile la croissance et le maintien de parts de marché. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché très concurrentiel, avec de nombreuses banques et institutions financières offrant des services similaires. Cela peut rendre difficile la croissance et le maintien de parts de marché.",
       "trend": "up",
       "summary": "Le risque de concurrence est élevé en raison de la concurrence accrue dans le secteur bancaire et de la nécessité pour la société de se différencier et d'innover pour maintenir ses parts de marché.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de cybersécurité",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "La société stocke et traite des informations sensibles sur ses clients, ce qui la rend vulnérable aux attaques de cybersécurité. Une faille de sécurité pourrait avoir des conséquences graves pour la réputation et les activités de la société. La société met en place une formation régulière et des protocoles de gestion des tiers pour atténuer ces risques. (score par défaut, à affiner)",
+      "score_rationale": "La société stocke et traite des informations sensibles sur ses clients, ce qui la rend vulnérable aux attaques de cybersécurité. Une faille de sécurité pourrait avoir des conséquences graves pour la réputation et les activités de la société. La société met en place une formation régulière et des protocoles de gestion des tiers pour atténuer ces risques.",
       "trend": "up",
       "summary": "Le risque de cybersécurité est très élevé en raison de la vulnérabilité des systèmes informatiques et de la sensibilité des informations stockées.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de gestion des tiers",
       "category": "Opérationnel",
       "severity": 3,
-      "score_rationale": "La société utilise des tiers pour certaines de ses opérations et met en place des protocoles stricts de Third Party Risk Management (TPRM). Les défaillances des tiers peuvent avoir un impact négatif sur les activités de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société utilise des tiers pour certaines de ses opérations et met en place des protocoles stricts de Third Party Risk Management (TPRM). Les défaillances des tiers peuvent avoir un impact négatif sur les activités de la société.",
       "trend": "stable",
       "summary": "Le risque de gestion des tiers est moyen en raison de la dépendance de la société à l'égard de tiers pour certaines opérations, mais la société semble avoir des processus en place pour gérer ces risques, notamment l'évaluation des contrôles internes et des conditions financières des fournisseurs.",
       "score": 3
@@ -412,10 +435,10 @@
       "title": "Risque de fusion et d'acquisition",
       "category": "Stratégique",
       "severity": 4,
-      "score_rationale": "La société a récemment fusionné avec Synovus en juillet 2025, ce qui présente des risques significatifs d'intégration, de réorganisation et de réalisation des synergies attendues. Les fusions peuvent également présenter des risques de pertes d'emplois et de changements dans la culture d'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "La société a récemment fusionné avec Synovus en juillet 2025, ce qui présente des risques significatifs d'intégration, de réorganisation et de réalisation des synergies attendues. Les fusions peuvent également présenter des risques de pertes d'emplois et de changements dans la culture d'entreprise.",
       "trend": "new",
       "summary": "Le risque de fusion et d'acquisition est élevé en raison de la fusion récente avec Synovus en juillet 2025 et des défis potentiels d'intégration opérationnelle et organisationnelle.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -507,7 +530,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:48Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2024)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2024)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2026,
@@ -519,7 +542,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:20Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:51Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
   "enrich_description": {
@@ -629,9 +652,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.297838+00:00",
     "fetched_at": "2026-05-21T02:17:14.297839+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.704Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.705Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pnfp.json",
     "enrich_root": "v2-pipeline-enrich/pnfp.json",

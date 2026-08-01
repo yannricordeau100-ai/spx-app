@@ -186,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -212,9 +216,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "octobre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     },
     {
       "short": "US DOE Award",
@@ -236,9 +238,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "janvier 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -252,25 +252,25 @@
       "title": "Aluminum Price Fluctuations",
       "category": "Industrial",
       "severity": 4,
-      "score_rationale": "Position in MD&A, impact on revenues, explicit discussion of pricing components and volatility (score par défaut, à affiner)",
+      "score_rationale": "Position in MD&A, impact on revenues, explicit discussion of pricing components and volatility",
       "trend": "stable",
       "summary": "Fluctuations in LME base prices and regional premiums can significantly impact revenue and profitability.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Electrical Power Cost and Supply Risk",
       "category": "Industrial",
       "severity": 4,
-      "score_rationale": "Position in Risk Factors and MD&A, power represents >84% of COGS, market-based pricing exposure, transmission risks (score par défaut, à affiner)",
+      "score_rationale": "Position in Risk Factors and MD&A, power represents >84% of COGS, market-based pricing exposure, transmission risks",
       "trend": "stable",
       "summary": "Power cost fluctuations, grid stability issues, and supply disruptions could materially impact production and profitability. Annual cost sensitivity of $15.9M per $1/MWh.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Foreign Currency Risk",
       "category": "Geopolitical",
       "severity": 3,
-      "score_rationale": "Exposure to ISK, EUR, CNY, JMD through operations in Iceland, Netherlands, China, Jamaica (score par défaut, à affiner)",
+      "score_rationale": "Exposure to ISK, EUR, CNY, JMD through operations in Iceland, Netherlands, China, Jamaica",
       "trend": "stable",
       "summary": "Fluctuations in USD relative to Iceland krona, Euro, Chinese renminbi and Jamaican dollar impact labor costs, maintenance, and anode procurement.",
       "score": 3
@@ -279,7 +279,7 @@
       "title": "Regulatory and Environmental Compliance Risk",
       "category": "Regulation",
       "severity": 3,
-      "score_rationale": "Discussion of evolving environmental regulations and tariff policy changes (Section 232 changes in 2025) (score par défaut, à affiner)",
+      "score_rationale": "Discussion of evolving environmental regulations and tariff policy changes (Section 232 changes in 2025)",
       "trend": "up",
       "summary": "Changes to environmental regulations, tariff policies, and critical minerals provisions under IRA Section 45X could materially affect operations and tax benefits.",
       "score": 3
@@ -288,7 +288,7 @@
       "title": "Project Development and Execution Risk",
       "category": "Operational",
       "severity": 3,
-      "score_rationale": "New smelter project subject to numerous contingencies: detailed engineering, power agreements, definitive JV agreement, construction timeline (score par défaut, à affiner)",
+      "score_rationale": "New smelter project subject to numerous contingencies: detailed engineering, power agreements, definitive JV agreement, construction timeline",
       "trend": "new",
       "summary": "The new Inola smelter joint venture is subject to completion of engineering, negotiation of long-term power agreements with PSO, and definitive JV agreement with EGA.",
       "score": 3
@@ -297,7 +297,7 @@
       "title": "Equipment Failure and Production Disruption Risk",
       "category": "Operational",
       "severity": 3,
-      "score_rationale": "Recent Grundartangi transformer failures caused two-thirds production reduction; Jamalco equipment failure in 2023 resulted in $30.4M margin impact (score par défaut, à affiner)",
+      "score_rationale": "Recent Grundartangi transformer failures caused two-thirds production reduction; Jamalco equipment failure in 2023 resulted in $30.4M margin impact",
       "trend": "up",
       "summary": "Equipment failures can disrupt production and impact financial results. Grundartangi potline expected offline through April 2026 due to transformer failures.",
       "score": 3
@@ -307,19 +307,19 @@
       "title": "Litigation Risk",
       "category": "Litigation",
       "severity": 2,
-      "score_rationale": "Multiple ongoing legal actions noted but assessed as immaterial individually and in aggregate (score par défaut, à affiner)",
+      "score_rationale": "Multiple ongoing legal actions noted but assessed as immaterial individually and in aggregate",
       "trend": "stable",
       "summary": "The company is defendant in several legal actions but believes none will have material adverse effect individually or in aggregate.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Credit and Liquidity Risk",
       "category": "Credit",
       "severity": 2,
-      "score_rationale": "Debt obligations and contractual commitments including long-term power contracts extending through 2036 (score par défaut, à affiner)",
+      "score_rationale": "Debt obligations and contractual commitments including long-term power contracts extending through 2036",
       "trend": "stable",
       "summary": "Debt servicing and contractual obligations for power supply, alumina, labor agreements and retiree benefits could affect liquidity.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -377,7 +377,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.282Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.608Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cenx.json",
     "enrich_root": null,

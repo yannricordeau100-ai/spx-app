@@ -40,7 +40,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -48,8 +48,8 @@
       "name_fr": "Investissements (capex)",
       "name_en": "Capital Expenditures",
       "explanation": "Montant investi par DEME en 2025 pour son développement.",
-      "value": "1066.4",
-      "unit": "M €",
+      "value": 1.066,
+      "unit": "Mds €",
       "yoy": "n/a",
       "type": "Investment",
       "nature": "Structurel",
@@ -61,13 +61,14 @@
         null,
         null,
         null,
-        1066.4
+        1.066
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
     },
     {
       "short": "Net Financial Debt",
@@ -111,34 +112,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.96 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.59,
-      "unit": "Mds €",
+      "value": 590,
+      "unit": "M €",
       "yoy": "+28.3%",
       "history": [
-        0.71,
-        0.4,
-        0.46,
-        0.59
+        710,
+        400,
+        460,
+        590
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.59 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -166,9 +176,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "DEME Order Book",
@@ -194,9 +202,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -234,7 +240,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans le contexte de SIPEF, avec un langage fort sur la dépendance géographique (Indonésie, Papouasie). La tendance est stable, mais le poids sectoriel est élevé. Position centrale dans le rapport.",
       "trend": "stable",
-      "summary": "SIPEF, participation clé d'AvH, dépend fortement de ses plantations en Indonésie et Papouasie. Tout événement local (volcanisme, régulation, climat) menace directement sa production et sa rentabilité, comme vu avec l'éruption de 2023."
+      "summary": "SIPEF, participation clé d'AvH, dépend fortement de ses plantations en Indonésie et Papouasie. Tout événement local (volcanisme, régulation, climat) menace directement sa production et sa rentabilité, comme vu avec l'éruption de 2023.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans la banque privée belge et néerlandaise",
@@ -242,7 +249,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne des acquisitions récentes (Dierickx Leys, Servatus) pour renforcer la position. Langage positif mais indique une consolidation du marché. Tendance à la hausse du risque concurrentiel.",
       "trend": "up",
-      "summary": "Les banques privées du portefeuille (Delen, Van Breda) font face à une intensification de la concurrence dans les marchés belge et néerlandais, nécessitant des acquisitions pour maintenir leur croissance et leur part de marché."
+      "summary": "Les banques privées du portefeuille (Delen, Van Breda) font face à une intensification de la concurrence dans les marchés belge et néerlandais, nécessitant des acquisitions pour maintenir leur croissance et leur part de marché.",
+      "score": 3
     },
     {
       "title": "Risques opérationnels liés aux grands projets offshore",
@@ -250,7 +258,8 @@
       "severity": 5,
       "score_rationale": "DEME, pilier du groupe, opère dans des environnements complexes (éolien offshore, dragage). Le texte souligne des contrats à long terme (25 ans) et des investissements massifs, avec un langage marqué par la complexité et l'incertitude technique.",
       "trend": "stable",
-      "summary": "DEME est exposé à des risques majeurs liés à l'exécution de grands projets offshore (retards, surcoûts, conditions maritimes extrêmes), comme avec les parcs éoliens en Allemagne, Taiwan et Pologne."
+      "summary": "DEME est exposé à des risques majeurs liés à l'exécution de grands projets offshore (retards, surcoûts, conditions maritimes extrêmes), comme avec les parcs éoliens en Allemagne, Taiwan et Pologne.",
+      "score": 5
     },
     {
       "title": "Dépendance à quelques participations stratégiques",
@@ -258,7 +267,8 @@
       "severity": 5,
       "score_rationale": "Le rapport met en avant DEME, SIPEF et les banques privées comme moteurs de performance. Leur poids dans le résultat consolidé est énorme. Langage très positif mais révèle une forte concentration du risque.",
       "trend": "stable",
-      "summary": "Une grande partie du résultat d'AvH dépend de quelques participations clés (DEME, SIPEF, banques privées). Une défaillance de l'une d'elles aurait un impact disproportionné sur la performance globale du groupe."
+      "summary": "Une grande partie du résultat d'AvH dépend de quelques participations clés (DEME, SIPEF, banques privées). Une défaillance de l'une d'elles aurait un impact disproportionné sur la performance globale du groupe.",
+      "score": 5
     },
     {
       "title": "Cybersécurité dans les services financiers et technologiques",
@@ -266,7 +276,8 @@
       "severity": 4,
       "score_rationale": "Bien que non explicitement nommé, le risque est implicite dans les activités de banque privée (Delen, Van Breda) et de technologie (OMP, Agidens). Le contexte d'IA mainstream en 2026 renforce ce risque. Tendance à la hausse.",
       "trend": "up",
-      "summary": "Les participations dans les services financiers et les logiciels industriels (comme OMP) sont exposées à des cyberattaques, menaçant la confidentialité des données clients et la continuité des opérations."
+      "summary": "Les participations dans les services financiers et les logiciels industriels (comme OMP) sont exposées à des cyberattaques, menaçant la confidentialité des données clients et la continuité des opérations.",
+      "score": 4
     },
     {
       "title": "Régulation croissante des chaînes alimentaires durables",
@@ -274,7 +285,8 @@
       "severity": 4,
       "score_rationale": "Le rapport insiste sur la durabilité de l'huile de palme de SIPEF. Cela reflète une pression réglementaire et sociétale forte. Langage défensif implicite sur la légitimité du produit.",
       "trend": "up",
-      "summary": "SIPEF et d'autres participations agricoles font face à une régulation accrue sur l'origine durable des matières premières, avec des risques de restrictions commerciales ou de réputation si les normes ne sont pas respectées."
+      "summary": "SIPEF et d'autres participations agricoles font face à une régulation accrue sur l'origine durable des matières premières, avec des risques de restrictions commerciales ou de réputation si les normes ne sont pas respectées.",
+      "score": 4
     },
     {
       "title": "Dépendance aux conditions agronomiques tropicales",
@@ -282,7 +294,8 @@
       "severity": 4,
       "score_rationale": "Le rapport lie explicitement la performance de SIPEF aux conditions agronomiques (Indonésie, Papouasie). Éruption volcanique de 2023 citée comme facteur de disruption. Tendance stable mais impact élevé.",
       "trend": "stable",
-      "summary": "La production d'huile de palme de SIPEF est vulnérable aux aléas climatiques, aux maladies végétales et aux événements géologiques dans les régions tropicales où elle opère, menaçant sa croissance prévue."
+      "summary": "La production d'huile de palme de SIPEF est vulnérable aux aléas climatiques, aux maladies végétales et aux événements géologiques dans les régions tropicales où elle opère, menaçant sa croissance prévue.",
+      "score": 4
     },
     {
       "title": "Innovation et mise sur marché d'OGM végétaux",
@@ -290,7 +303,8 @@
       "severity": 4,
       "score_rationale": "Verdant Bioscience et Biotalys développent des semences OGM. Le rapport mentionne des validations réglementaires (EPA) comme étape clé. Langage prudent, tendance à la hausse.",
       "trend": "up",
-      "summary": "Les participations dans l'agro-biotechnologie (Verdant, Biotalys) dépendent de la réussite technique et de l'acceptation réglementaire de leurs semences OGM, avec des retards possibles et des résistances sociétales."
+      "summary": "Les participations dans l'agro-biotechnologie (Verdant, Biotalys) dépendent de la réussite technique et de l'acceptation réglementaire de leurs semences OGM, avec des retards possibles et des résistances sociétales.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:09:49.759541+00:00",
@@ -385,23 +399,30 @@
         206.1,
         222.7
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "DEME Revenue",
       "name_fr": "Chiffre d'affaires DEME",
       "name_en": "DEME Group Revenue",
-      "value": 3990,
-      "unit": "M €",
+      "value": 3.99,
+      "unit": "Mds €",
       "yoy": "+22.5%",
       "history": [
-        2447,
-        2475,
-        3286,
-        3258,
-        3990
+        2.447,
+        2.475,
+        3.286,
+        3.258,
+        3.99
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds € for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Delen Private Bank AuM",
@@ -417,23 +438,30 @@
         54.2,
         60.7
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Marine Engineering Order Book",
       "name_fr": "Carnet de commandes Marine Engineering",
       "name_en": "Marine Engineering Backlog",
-      "value": 7990,
-      "unit": "M €",
+      "value": 7.99,
+      "unit": "Mds €",
       "yoy": "+22%",
       "history": [
-        4500,
-        5300,
-        6900,
-        6500,
-        7990
+        4.5,
+        5.3,
+        6.9,
+        6.5,
+        7.99
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds € for 1-999 readability",
+      "type": "Activité",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T16:50:23+00:00",
@@ -505,9 +533,9 @@
     "country": "Belgium",
     "_data_freshness_date": "2026-05-21T02:17:14.132572+00:00",
     "fetched_at": "2026-05-21T02:17:14.132573+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.236Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.714Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ackb.br.json",
     "enrich_root": "v2-pipeline-enrich/ackb.br.json",

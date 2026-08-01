@@ -54,7 +54,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Revenue",
@@ -73,57 +73,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.62 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.36,
-      "unit": "Mds €",
+      "value": 360,
+      "unit": "M €",
       "yoy": "+33.3%",
       "history": [
-        0.14,
-        0.18,
-        0.27,
-        0.36
+        140,
+        180,
+        270,
+        360
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.36 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.48,
-      "unit": "Mds €",
+      "value": 480,
+      "unit": "M €",
       "yoy": "+23.1%",
       "history": [
-        0.23,
-        0.3,
-        0.39,
-        0.48
+        230,
+        300,
+        390,
+        480
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.48 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -142,11 +156,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.97 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -165,33 +183,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.2 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "+3.0%",
       "history": [
-        0.4,
-        0.35,
-        0.33,
-        0.34
+        400,
+        350,
+        330,
+        340
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.34 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -213,9 +240,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Restructuration",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Restructuration"
     }
   ],
   "ai_positioning": {
@@ -231,7 +256,8 @@
       "severity": 4,
       "score_rationale": "Les tarifs douaniers imposés par les États-Unis sur les importations en provenance de la Chine, du Canada et du Mexique pourraient avoir un impact significatif sur l'entreprise. Le contexte géopolitique actuel est incertain et volatile. La structure internationale de l'organisation et la gestion de la chaîne d'approvisionnement de l'entreprise lui permettront d'atténuer certains impacts financiers.",
       "trend": "up",
-      "summary": "Les tensions commerciales entre les États-Unis et d'autres pays pourraient affecter l'entreprise"
+      "summary": "Les tensions commerciales entre les États-Unis et d'autres pays pourraient affecter l'entreprise",
+      "score": 4
     },
     {
       "title": "Inflation et volatilité des coûts",
@@ -239,7 +265,8 @@
       "severity": 3,
       "score_rationale": "L'inflation dans les régions où l'entreprise opère pourrait augmenter les coûts de production et affecter la rentabilité. Les prix des matières premières, tels que le plomb (0,85 à 1,00 USD par livre en fiscal 2025) et le cuivre, sont volatiles et pourraient avoir un impact sur les coûts de production.",
       "trend": "stable",
-      "summary": "L'inflation pourrait augmenter les coûts de production et affecter la rentabilité de l'entreprise"
+      "summary": "L'inflation pourrait augmenter les coûts de production et affecter la rentabilité de l'entreprise",
+      "score": 3
     },
     {
       "title": "Volatilité des devises",
@@ -247,7 +274,8 @@
       "severity": 3,
       "score_rationale": "Les fluctuations des taux de change pourraient affecter les ventes et les bénéfices de l'entreprise. L'entreprise est exposée à des risques de change significatifs, en particulier avec l'euro, qui représente une exposition majeure aux variations de change.",
       "trend": "stable",
-      "summary": "Les fluctuations des taux de change pourraient affecter les ventes et les bénéfices de l'entreprise"
+      "summary": "Les fluctuations des taux de change pourraient affecter les ventes et les bénéfices de l'entreprise",
+      "score": 3
     },
     {
       "title": "Volatilité des matières premières",
@@ -255,7 +283,8 @@
       "severity": 2,
       "score_rationale": "Les pénuries et la volatilité des prix des matières premières, telles que le plomb, le cuivre, l'acier et les polymères, pourraient affecter la production et les coûts de l'entreprise. L'entreprise a mis en place des stratégies pour atténuer ces risques, notamment les ajustements de prix basés sur les indices de marché pour environ 25% de ses revenus.",
       "trend": "down",
-      "summary": "Les pénuries de matières premières pourraient affecter la production et les coûts de l'entreprise"
+      "summary": "Les pénuries de matières premières pourraient affecter la production et les coûts de l'entreprise",
+      "score": 2
     },
     {
       "title": "Concurrence",
@@ -263,7 +292,8 @@
       "severity": 2,
       "score_rationale": "L'entreprise opère dans un marché concurrentiel et doit faire face à des concurrents agressifs. Cependant, l'entreprise a une position solide sur le marché avec une présence dans plus de 100 pays et propose des solutions de haute qualité.",
       "trend": "stable",
-      "summary": "L'entreprise doit faire face à des concurrents agressifs, mais elle a une position solide sur le marché"
+      "summary": "L'entreprise doit faire face à des concurrents agressifs, mais elle a une position solide sur le marché",
+      "score": 2
     },
     {
       "title": "Risques liés à la chaîne d'approvisionnement",
@@ -271,7 +301,8 @@
       "severity": 2,
       "score_rationale": "Les perturbations de la chaîne d'approvisionnement, notamment dues au conflit Israël-Hamas qui a affecté les expéditions en mer Rouge, pourraient augmenter les coûts de fret maritime et les délais d'acheminement. L'entreprise a mis en place des stratégies pour atténuer ces risques et la stabilisation de la chaîne d'approvisionnement depuis Q2 2023 atténue l'impact.",
       "trend": "down",
-      "summary": "Les perturbations de la chaîne d'approvisionnement pourraient affecter la production et les coûts de l'entreprise"
+      "summary": "Les perturbations de la chaîne d'approvisionnement pourraient affecter la production et les coûts de l'entreprise",
+      "score": 2
     },
     {
       "title": "Risques liés aux réglementations",
@@ -279,7 +310,8 @@
       "severity": 1,
       "score_rationale": "Les changements réglementaires pourraient affecter l'entreprise, mais elle est en conformité avec les réglementations actuelles et opère de manière conforme dans plus de 100 pays.",
       "trend": "stable",
-      "summary": "Les changements réglementaires pourraient affecter l'entreprise, mais elle est en conformité avec les réglementations actuelles"
+      "summary": "Les changements réglementaires pourraient affecter l'entreprise, mais elle est en conformité avec les réglementations actuelles",
+      "score": 1
     }
   ],
   "governance": {
@@ -382,7 +414,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.778Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.078Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ens.json",
     "enrich_root": "v2-pipeline-enrich/ens.json",

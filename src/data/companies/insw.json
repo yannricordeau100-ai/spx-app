@@ -75,7 +75,7 @@
       "is_short_history": false,
       "ttm": 452.6,
       "_validation": "Corrigé: unit 'Mds $' -> 'M $', type 'Margin' -> 'Profitability'",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -172,9 +172,7 @@
       "is_generic": false,
       "is_short_history": true,
       "_validation": "Ajouté: KPI mentionné dans le 10-K reflétant le renforcement du bilan et la flexibilité financière",
-      "signal_en": "Capital base stable",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Total Assets",
@@ -193,34 +191,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.58,
-      "unit": "Mds €",
+      "value": 580,
+      "unit": "M €",
       "yoy": "-18.3%",
       "history": [
-        1.07,
-        0.74,
-        0.71,
-        0.58
+        1070,
+        740,
+        710,
+        580
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.58 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -247,9 +254,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 902.61,
-      "_validation": "Corrigé: unit 'Mds $' -> 'M $', history corrigée, is_generic false",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Corrigé: unit 'Mds $' -> 'M $', history corrigée, is_generic false"
     }
   ],
   "ai_positioning": {
@@ -265,7 +270,8 @@
       "severity": 5,
       "score_rationale": "Nature cyclique de l'industrie, exposition directe aux fluctuations du marché des taux de fret, impact significatif sur les résultats financiers",
       "trend": "stable",
-      "summary": "La nature hautement cyclique de l'industrie du transport maritime peut conduire à des changements volatiles des taux de charter et des valeurs des navires, ce qui pourrait affecter négativement les bénéfices et les flux de trésorerie de la société."
+      "summary": "La nature hautement cyclique de l'industrie du transport maritime peut conduire à des changements volatiles des taux de charter et des valeurs des navires, ce qui pourrait affecter négativement les bénéfices et les flux de trésorerie de la société.",
+      "score": 5
     },
     {
       "title": "Risques géopolitiques et sanctions",
@@ -273,7 +279,8 @@
       "severity": 5,
       "score_rationale": "Conflits en cours (Russie-Ukraine, Moyen-Orient), impact direct sur les routes commerciales et les volumes de fret, mention explicite et détaillée dans le 10-K",
       "trend": "up",
-      "summary": "Les risques géopolitiques, notamment les conflits internationaux, les sanctions commerciales et les perturbations géopolitiques, peuvent affecter les opérations de la société et ses résultats financiers par la modification des itinéraires commerciaux et des volumes de fret."
+      "summary": "Les risques géopolitiques, notamment les conflits internationaux, les sanctions commerciales et les perturbations géopolitiques, peuvent affecter les opérations de la société et ses résultats financiers par la modification des itinéraires commerciaux et des volumes de fret.",
+      "score": 5
     },
     {
       "title": "Dette importante",
@@ -281,7 +288,8 @@
       "severity": 4,
       "score_rationale": "Position de levier identifiée, impact sur la capacité de financement et le service de la dette",
       "trend": "stable",
-      "summary": "L'entreprise a une dette importante qui pourrait affecter sa capacité à financer ses opérations et à remplir ses obligations de remboursement en cas de détérioration du marché."
+      "summary": "L'entreprise a une dette importante qui pourrait affecter sa capacité à financer ses opérations et à remplir ses obligations de remboursement en cas de détérioration du marché.",
+      "score": 4
     },
     {
       "title": "Risques de crédit de contreparties",
@@ -289,7 +297,8 @@
       "severity": 4,
       "score_rationale": "Exposition à des clients majeurs, impact potentiel sur la trésorerie et les flux de revenus",
       "trend": "stable",
-      "summary": "Les risques de crédit associés aux clients et aux contreparties financières peuvent affecter la capacité de la société à percevoir ses revenus et à remplir ses obligations financières."
+      "summary": "Les risques de crédit associés aux clients et aux contreparties financières peuvent affecter la capacité de la société à percevoir ses revenus et à remplir ses obligations financières.",
+      "score": 4
     },
     {
       "title": "Réglementations environnementales et maritimes",
@@ -297,7 +306,8 @@
       "severity": 4,
       "score_rationale": "Évolution des normes IMO, coûts de conformité accrus, impact sur les marges opérationnelles",
       "trend": "up",
-      "summary": "Les réglementations environnementales croissantes, notamment les normes de carburant maritime et les exigences de décarbonation, peuvent affecter les coûts opérationnels et les résultats financiers de la société."
+      "summary": "Les réglementations environnementales croissantes, notamment les normes de carburant maritime et les exigences de décarbonation, peuvent affecter les coûts opérationnels et les résultats financiers de la société.",
+      "score": 4
     },
     {
       "title": "Dépendance au marché spot et volatilité des revenus",
@@ -305,7 +315,8 @@
       "severity": 4,
       "score_rationale": "82% des revenus TCE provenant du marché spot, exposition significative aux taux volatiles, absence de visibilité à long terme",
       "trend": "stable",
-      "summary": "L'entreprise dépend fortement du marché spot (82% des revenus TCE) pour ses revenus, ce qui la rend vulnérable aux fluctuations significatives des taux de charter et des conditions du marché maritime."
+      "summary": "L'entreprise dépend fortement du marché spot (82% des revenus TCE) pour ses revenus, ce qui la rend vulnérable aux fluctuations significatives des taux de charter et des conditions du marché maritime.",
+      "score": 4
     },
     {
       "title": "Conditions financières globales et disponibilité du crédit",
@@ -313,7 +324,8 @@
       "severity": 3,
       "score_rationale": "Impact potentiel sur le financement des opérations et les plans d'investissement en newbuilds",
       "trend": "stable",
-      "summary": "L'état des marchés financiers mondiaux peut affecter la capacité de la société à obtenir un financement supplémentaire à des termes acceptables, notamment pour le financement de ses quatre newbuilds LR1 en commande."
+      "summary": "L'état des marchés financiers mondiaux peut affecter la capacité de la société à obtenir un financement supplémentaire à des termes acceptables, notamment pour le financement de ses quatre newbuilds LR1 en commande.",
+      "score": 3
     }
   ],
   "governance": {
@@ -370,7 +382,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -567,9 +579,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.530264+00:00",
     "fetched_at": "2026-05-21T01:44:37.530265+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.441Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.124Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/insw.json",
     "enrich_root": "v2-pipeline-enrich/insw.json",

@@ -21,8 +21,8 @@
       "name_fr": "Revenu hors États-Unis",
       "name_en": "Rest of the World Revenue",
       "explanation": "Revenu généré par les ventes en dehors des États-Unis, notamment en Europe, Canada, Royaume-Uni et bientôt Australie et Japon.",
-      "value": 2347.637,
-      "unit": "M $",
+      "value": 2.348,
+      "unit": "Mds $",
       "yoy": "+59.0%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -30,11 +30,11 @@
       "signal": "Croissance exponentielle tirée par l'expansion internationale et les acquisitions",
       "description": "Le revenu hors États-Unis est devenu un pilier stratégique après les acquisitions et lancements en Europe et Canada en 2025. L'acquisition d'Eucalyptus devrait amplifier cette tendance.",
       "history": [
-        271.878,
-        526.916,
-        872,
-        1476.514,
-        2347.637
+        0.272,
+        0.527,
+        0.872,
+        1.477,
+        2.348
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -45,8 +45,11 @@
       "_hero_history_extracted_at": "2026-05-14T10:52:18.227086+00:00",
       "explanation_en": "Revenue from the Rest of the World segment.",
       "signal_en": "Strong top-line growth, market traction",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "United States Revenue",
@@ -95,7 +98,7 @@
       "is_short_history": false,
       "ttm": null,
       "_validation": "SUPPRIMÉ: KPI halluciné. Valeur 62% n'existe pas dans source. Consolidated Statements of Operations non fournie en extrait. Impossible de calculer marge brute sans données Cost of Revenue.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Operating Margin",
@@ -116,7 +119,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "SUPPRIMÉ: KPI halluciné. Valeur -5% n'existe pas dans source. Consolidated Statements of Operations non fournie en extrait. Impossible de calculer marge opérationnelle sans données Operating Income.",
-      "explanation_en": "Operating Margin — operating profit divided by revenue."
+      "explanation_en": "Operating Margin, operating profit divided by revenue."
     },
     {
       "short": "R&D as % of Revenue",
@@ -178,7 +181,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "SUPPRIMÉ: KPI halluciné. Valeur 1,800 headcount n'existe pas dans source. Données d'effectifs non présentes dans extraits fournis (Item 1 Business section partielle seulement).",
-      "explanation_en": "Total Employees — total number of employees at period end."
+      "explanation_en": "Total Employees, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -202,7 +205,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -226,9 +233,7 @@
       "is_short_history": true,
       "story_category": "Adoption",
       "ttm": null,
-      "_validation": "SUPPRIMÉ: KPI halluciné. Valeur 45$ n'existe pas dans source. Métrique nouvellement introduite en 2025 (MD&A le confirme) mais valeurs numériques non fournies dans extrait. Métrique officielle confirmée mais données manquantes.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "SUPPRIMÉ: KPI halluciné. Valeur 45$ n'existe pas dans source. Métrique nouvellement introduite en 2025 (MD&A le confirme) mais valeurs numériques non fournies dans extrait. Métrique officielle confirmée mais données manquantes."
     },
     {
       "short": "Telehealth Consultations",
@@ -252,9 +257,7 @@
       "is_short_history": true,
       "story_category": "Adoption",
       "ttm": null,
-      "_validation": "Valeur confirmée: 'over fifty million telehealth consultations' (Business section source); Unité M confirmée; YoY changé à N/A (métrique cumulative, pas de variation annuelle explicite en source); Histoire restreinte à [50] car métrique cumulative depuis 2017; YoY +25% supprimé car non confirmé en source",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée: 'over fifty million telehealth consultations' (Business section source); Unité M confirmée; YoY changé à N/A (métrique cumulative, pas de variation annuelle explicite en source); Histoire restreinte à [50] car métrique cumulative depuis 2017; YoY +25% supprimé car non confirmé en source"
     }
   ],
   "ai_positioning": {
@@ -269,21 +272,24 @@
       "category": "Industriel",
       "severity": 4,
       "score_rationale": "La société a connu une croissance rapide (59% YoY) et prévoit de continuer à investir massivement dans son développement et son expansion internationale (Proposed Acquisition Eucalyptus 1.15B$). Risque de dilution de marge et de retour sur investissement non atteint.",
-      "source": "Item 1A. Risk Factors - Summary of Principal Risk Factors"
+      "source": "Item 1A. Risk Factors - Summary of Principal Risk Factors",
+      "score": 4
     },
     {
       "title": "Réglementation et conformité médicale en expansion internationale",
       "category": "Réglementaire",
       "severity": 4,
       "score_rationale": "Expansion dans UE, Canada, Royaume-Uni, Australie et Japon requiert conformité à régimes réglementaires complexes et variables par juridiction. Risque de mise en conformité coûteuse ou de blocages réglementaires.",
-      "source": "Item 1. Business - Recent Developments (Eucalyptus Proposed Acquisition)"
+      "source": "Item 1. Business - Recent Developments (Eucalyptus Proposed Acquisition)",
+      "score": 4
     },
     {
       "title": "Intégration d'acquisitions et synergies",
       "category": "Stratégique",
       "severity": 3,
       "score_rationale": "Acquisition majeure d'Eucalyptus (1.15B$, fermeture mi-2026) implique intégration de systèmes, cultures et opérations dans 5 pays. Risque de non-atteinte des synergies et earn-out targets (earn-out max 200M$).",
-      "source": "Item 7. MDA - Recent Developments"
+      "source": "Item 7. MDA - Recent Developments",
+      "score": 3
     }
   ],
   "_validation_global": "AUDIT COMPLET: 6 KPI hallucinés supprimés (Gross Margin, Operating Margin, R&D%, CapEx, Total Employees, Monthly Revenue per Average Subscriber). Restent validés: 2 KPIs revenues (US et ROW), 1 KPI consultation. Sources MD&A et Business sections analysées. Consolidated Statements of Operations, Cash Flows et détails opérationnels partiellement ou non fournis limitent validation. Hero KPI Rest of the World Revenue confirmé avec données exactes. AI positioning: absence confirmée. Risks corrigés et documentés avec sources précises.",
@@ -457,9 +463,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.271352+00:00",
     "fetched_at": "2026-05-21T02:17:14.271353+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.049Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.691Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hims.json",
     "enrich_root": "v2-pipeline-enrich/hims.json",

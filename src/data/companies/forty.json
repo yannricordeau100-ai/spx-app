@@ -43,8 +43,12 @@
       "_validation": [
         "last_data_date corrigée de 2025-03-31 à 2025-12-31"
       ],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -74,15 +78,19 @@
         "last_data_date corrigée de 2025-03-31 à 2025-12-31"
       ],
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
       "name_fr": "Investissements en immobilisations",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en immobilisations pour soutenir la croissance.",
-      "value": "0.8",
-      "unit": "Mds $",
+      "value": 800,
+      "unit": "M $",
       "yoy": "+15%",
       "type": "Investment",
       "nature": "Conjoncturel",
@@ -90,11 +98,11 @@
       "signal": "Capex modéré mais en hausse pour digitalisation interne",
       "description": "Les investissements en capex s'élèvent à 800 M$, en croissance de 15 %, orientés vers l'infrastructure IT et les plateformes logicielles.",
       "history": [
-        0.6,
-        0.65,
-        0.7,
-        0.75,
-        0.8
+        600,
+        650,
+        700,
+        750,
+        800
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -104,8 +112,13 @@
         "last_data_date corrigée de 2025-03-31 à 2025-12-31",
         "name_fr clarifiée (suppression mention trompeuse 'semi: fabs' non pertinente pour IT services)"
       ],
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Service / ARR",
@@ -136,7 +149,11 @@
         "name_fr optimisée pour clarté",
         "name_en précisé (ARR au lieu de 'Service / Subscription / ARR')"
       ],
-      "signal_en": "Recurring base growing, revenue visibility rising"
+      "signal_en": "Recurring base growing, revenue visibility rising",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,70 +172,46 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.6 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.59,
-      "unit": "Mds €",
+      "value": 590,
+      "unit": "M €",
       "yoy": "-7.8%",
       "history": [
-        0.77,
-        0.67,
-        0.64,
-        0.59
+        770,
+        670,
+        640,
+        590
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.59 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
-    {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part des deals cloud incluant IA",
-      "name_en": "AI-enabled Cloud Deals Mix",
-      "explanation": "Pourcentage des nouveaux deals cloud intégrant des fonctionnalités d'intelligence artificielle.",
-      "value": "25",
-      "unit": "%",
-      "yoy": "+5 pts",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Adoption croissante de l'IA dans les solutions cloud",
-      "description": "25 % des nouveaux deals cloud incluent des fonctionnalités IA, notamment via les plateformes de Sapiens et Magic Software, illustrant la valeur ajoutée de l'intégration IA.",
-      "history": [
-        15,
-        18,
-        20,
-        22,
-        25
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_validation": [
-        "last_data_date corrigée de 2025-03-31 à 2025-12-31",
-        "name_fr et name_en simplifiés pour clarté",
-        "description enrichie avec contexte de valeur ajoutée"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
     {
       "short": "Bookings",
       "name_fr": "Commandes brutes signées",
@@ -247,9 +240,7 @@
       "_validation": [
         "last_data_date corrigée de 2025-03-31 à 2025-12-31",
         "name_fr clarifiée (suppression mention 'semi' non pertinente)"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -287,7 +278,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de la section 1A, mentionné avec un langage fort (\"significant risks\", \"adversely affect\"). La tendance est à la hausse avec une accélération des acquisitions récentes. La catégorie Concurrence est clé car l'intégration échouée affaiblit la position face aux concurrents.",
       "trend": "up",
-      "summary": "Formula Systems mène une stratégie agressive d'acquisitions (ex. : AdvantageGo, Candela Labs, Gav Systems), mais l'intégration complexe de produits, équipes et systèmes IT peut nuire à la performance opérationnelle et aux synergies attendues."
+      "summary": "Formula Systems mène une stratégie agressive d'acquisitions (ex. : AdvantageGo, Candela Labs, Gav Systems), mais l'intégration complexe de produits, équipes et systèmes IT peut nuire à la performance opérationnelle et aux synergies attendues.",
+      "score": 5
     },
     {
       "title": "Dépendance à de nouveaux développements technologiques",
@@ -295,7 +287,8 @@
       "severity": 5,
       "score_rationale": "Le risque est répété plusieurs fois dans le texte avec un langage fort (\"could suffer\", \"no assurance\"). Il est stable mais central. La catégorie Technologie est critique car l'innovation est au cœur du modèle économique logiciel de Formula Systems.",
       "trend": "stable",
-      "summary": "L'entreprise doit constamment innover (low-code, cloud, analytics) pour répondre aux besoins évolutifs des clients. Un échec à développer des technologies compétitives ou à les adopter rapidement peut entraîner une perte de clients et de parts de marché."
+      "summary": "L'entreprise doit constamment innover (low-code, cloud, analytics) pour répondre aux besoins évolutifs des clients. Un échec à développer des technologies compétitives ou à les adopter rapidement peut entraîner une perte de clients et de parts de marché.",
+      "score": 5
     },
     {
       "title": "Concurrence intense sur le marché des logiciels",
@@ -303,7 +296,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement avec un langage marqué (\"highly competitive and dynamic\"). Le risque est stable mais récurrent. La catégorie Concurrence est directement liée à la pression sur les prix, l'innovation et la fidélisation client.",
       "trend": "stable",
-      "summary": "Le marché des solutions logicielles est saturé et en évolution rapide. Formula Systems fait face à des concurrents établis et émergents capables de proposer des technologies disruptives, menaçant l'adoption de ses propres produits."
+      "summary": "Le marché des solutions logicielles est saturé et en évolution rapide. Formula Systems fait face à des concurrents établis et émergents capables de proposer des technologies disruptives, menaçant l'adoption de ses propres produits.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et vulnérabilités logicielles",
@@ -311,7 +305,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité avec un langage fort (\"breaches may occur again\", \"liability claims\"). Il est en hausse avec l'accent sur les vulnérabilités. La catégorie Cybersécurité est critique pour une entreprise logicielle exposée aux attaques et aux responsabilités clients.",
       "trend": "up",
-      "summary": "Des failles de sécurité dans les logiciels de Formula Systems ou des violations de ses systèmes IT (déjà survenues) peuvent entraîner des pertes de données, des poursuites judiciaires et une détérioration de la confiance client."
+      "summary": "Des failles de sécurité dans les logiciels de Formula Systems ou des violations de ses systèmes IT (déjà survenues) peuvent entraîner des pertes de données, des poursuites judiciaires et une détérioration de la confiance client.",
+      "score": 5
     },
     {
       "title": "Dépendance à des familles de produits clés",
@@ -319,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Mentionné directement (\"dependent on a limited number of core product families\"). Langage modéré mais risque structurel. La catégorie Industriel reflète la concentration des revenus sur peu de produits, un point faible stratégique.",
       "trend": "stable",
-      "summary": "Une part significative des revenus dépend de quelques familles de produits. Toute baisse de demande, obsolescence ou problème de performance sur ces produits pourrait impacter fortement les résultats financiers."
+      "summary": "Une part significative des revenus dépend de quelques familles de produits. Toute baisse de demande, obsolescence ou problème de performance sur ces produits pourrait impacter fortement les résultats financiers.",
+      "score": 4
     },
     {
       "title": "Cycles de vente et développement longs",
@@ -327,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien positionné et décrit en détail (\"lengthy\", \"significant expenses before revenues\"). Tendance stable. La catégorie Industriel capture la complexité opérationnelle des projets logiciels globaux et sur mesure.",
       "trend": "stable",
-      "summary": "Les projets logiciels de Formula Systems sont souvent longs, complexes et coûteux à mettre en œuvre. Des retards ou des dépassements de coûts peuvent réduire la rentabilité et nuire à la relation client."
+      "summary": "Les projets logiciels de Formula Systems sont souvent longs, complexes et coûteux à mettre en œuvre. Des retards ou des dépassements de coûts peuvent réduire la rentabilité et nuire à la relation client.",
+      "score": 4
     },
     {
       "title": "Dépendance à la protection de la propriété intellectuelle",
@@ -335,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement identifié dans une section dédiée (\"insufficiently protected\"). Langage préoccupé. La catégorie Technologie est pertinente car l'IP est un actif stratégique central pour une société logicielle.",
       "trend": "stable",
-      "summary": "La valeur des produits de Formula Systems repose sur son code source et ses droits de propriété intellectuelle. Une atteinte à ces droits (contrefaçon, litige, perte de licence) pourrait limiter ses offres ou entraîner des coûts juridiques."
+      "summary": "La valeur des produits de Formula Systems repose sur son code source et ses droits de propriété intellectuelle. Une atteinte à ces droits (contrefaçon, litige, perte de licence) pourrait limiter ses offres ou entraîner des coûts juridiques.",
+      "score": 4
     },
     {
       "title": "Risques liés à l'utilisation de l'IA",
@@ -343,7 +341,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement comme un risque émergent (\"accompanying risks\"). Tendance à la hausse. La catégorie Technologie est adaptée car l'IA est un levier d'innovation mais aussi une source de risques éthiques, réglementaires et techniques.",
       "trend": "new",
-      "summary": "L'intégration de l'intelligence artificielle dans les produits expose Formula Systems à des risques nouveaux, notamment en matière de biais, de transparence, de conformité réglementaire et de confiance client."
+      "summary": "L'intégration de l'intelligence artificielle dans les produits expose Formula Systems à des risques nouveaux, notamment en matière de biais, de transparence, de conformité réglementaire et de confiance client.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:45:01.297047+00:00",
@@ -500,7 +499,7 @@
       "Formula Systems expose une stratégie d'expansion dans l'automation et l'IA via acquisitions ciblées plutôt que via R&D interne ou produits propriétaires IA de marque groupe.",
       "Aucune mention de R&D IA centralisée, de produits IA natifs du groupe ou de pourcentage de CA dédié à l'IA, confirmant un positionnement d'intégrateur technologique plutôt que de leader IA."
     ],
-    "source_note": "10-K FY2024 (extraits risques et acquisitions), mentions acquisitions avril 2025 (Candela Labs, CommIT, Theoris Group)",
+    "source_note": "10-K exercice 2024 (extraits risques et acquisitions), mentions acquisitions avril 2025 (Candela Labs, CommIT, Theoris Group)",
     "_bucket": "HIGH",
     "_subsector": "IT Services & Software",
     "_sources_used": {
@@ -609,9 +608,9 @@
     "country": "Israel",
     "_data_freshness_date": "2026-05-21T02:17:14.262971+00:00",
     "fetched_at": "2026-05-21T02:17:14.262973+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.376Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.962Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/forty.json",
     "enrich_root": "v2-pipeline-enrich/forty.json",

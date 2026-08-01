@@ -44,7 +44,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet."
     },
     {
       "short": "Total Loans",
@@ -66,9 +66,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Total Deposits",
@@ -90,55 +88,63 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.87,
-      "unit": "Mds €",
+      "value": 870,
+      "unit": "M €",
       "yoy": "+26.1%",
       "history": [
-        0.51,
-        0.48,
-        0.69,
-        0.87
+        510,
+        480,
+        690,
+        870
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.87 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "+141.7%",
       "history": [
-        0.18,
-        0.13,
-        0.12,
-        0.29
+        180,
+        130,
+        120,
+        290
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.29 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -157,33 +163,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.42 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.21,
-      "unit": "Mds €",
+      "value": 210,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.19,
-        0.18,
-        0.21,
-        0.21
+        190,
+        180,
+        210,
+        210
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.21 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -202,10 +217,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 2.83 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,9 +248,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -279,7 +296,8 @@
       "severity": 5,
       "score_rationale": "Le facteur de risque est central dans le 10-K, avec une modélisation détaillée de l\u0019ACL basée sur des prévisions macroéconomiques. Le langage souligne \u0019l\u0019incertitude\u0019 et \u0019l\u0019imprécision du modèle\u0019. La pondération est élevée car le crédit est critique pour une banque communautaire. Positionné en tête des risques comptables critiques.",
       "trend": "stable",
-      "summary": "Une dégradation des conditions économiques ou des erreurs dans les prévisions peuvent sous-estimer les pertes sur prêts, menaçant la rentabilité."
+      "summary": "Une dégradation des conditions économiques ou des erreurs dans les prévisions peuvent sous-estimer les pertes sur prêts, menaçant la rentabilité.",
+      "score": 5
     },
     {
       "title": "Dépendance aux prévisions économiques",
@@ -287,7 +305,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement que \u0019l\u0019un des jugements les plus significatifs\u0019 concerne les prévisions macro. L\u0019utilisation d\u0019un scénario externe (Moody\u0019s) ajusté qualitativement montre une sensibilité élevée. Risque amplifié par la durée du cycle de prévision (6 trimestres).",
       "trend": "stable",
-      "summary": "Les estimations de pertes de crédit dépendent fortement de prévisions économiques incertaines, pouvant impacter l\u0019évaluation des risques et les provisions."
+      "summary": "Les estimations de pertes de crédit dépendent fortement de prévisions économiques incertaines, pouvant impacter l\u0019évaluation des risques et les provisions.",
+      "score": 4
     },
     {
       "title": "Risque lié aux litiges",
@@ -295,7 +314,8 @@
       "severity": 3,
       "score_rationale": "Le montant de 2,1 millions de dollars de provisions pour litiges est mentionné, ce qui indique un risque mesurable mais non majeur. Le langage est factuel, sans accent sur une menace existentielle. Catégorie \u0019Litige\u0019 de gravité modérée.",
       "trend": "stable",
-      "summary": "La société fait face à des actions en justice courantes dans le secteur bancaire, avec une provision actuelle de 2,1 M$, représentant un risque contrôlé."
+      "summary": "La société fait face à des actions en justice courantes dans le secteur bancaire, avec une provision actuelle de 2,1 M$, représentant un risque contrôlé.",
+      "score": 3
     },
     {
       "title": "Intégration post-fusion (Lakeland)",
@@ -303,7 +323,8 @@
       "severity": 4,
       "score_rationale": "La fusion avec Lakeland en 2024 est un événement majeur (876,8 M$). Le document mentionne des fermetures d\u0019agences, ce qui implique des risques d\u0019intégration opérationnelle et culturelle. Bien que non explicité comme risque direct, l\u0019ampleur de la transaction justifie une vigilance élevée.",
       "trend": "new",
-      "summary": "L\u0019intégration de Lakeland, bien qu\u0019avancée, comporte des risques opérationnels, culturels et de synergie non garantis."
+      "summary": "L\u0019intégration de Lakeland, bien qu\u0019avancée, comporte des risques opérationnels, culturels et de synergie non garantis.",
+      "score": 4
     },
     {
       "title": "Risque de taux d\u0019intérêt",
@@ -311,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Le texte indique que \u0019un environnement de hausse rapide des taux a un effet négatif sur le revenu net d\u0019intérêt\u0019. Ce risque est répété dans \u0019General\u0019, soulignant son importance. Le portefeuille orienté vers des prêts à taux ajustable augmente l\u0019exposition.",
       "trend": "stable",
-      "summary": "Les variations rapides des taux d\u0019intérêt peuvent déséquilibrer les revenus d\u0019intérêt, affectant la marge et la stabilité financière."
+      "summary": "Les variations rapides des taux d\u0019intérêt peuvent déséquilibrer les revenus d\u0019intérêt, affectant la marge et la stabilité financière.",
+      "score": 4
     },
     {
       "title": "Cyberrisques liés aux services numériques",
@@ -319,7 +341,8 @@
       "severity": 3,
       "score_rationale": "Bien que non mentionné explicitement, le développement de \u0019mobile banking, online banking et autres services digitaux\u0019 implique une exposition croissante aux cybermenaces. Par analogie sectorielle, ce risque est implicite mais non documenté directement dans les facteurs de risque.",
       "trend": "up",
-      "summary": "L\u0019expansion des services numériques accroît la vulnérabilité aux attaques informatiques, même si le risque n\u0019est pas explicitement cité."
+      "summary": "L\u0019expansion des services numériques accroît la vulnérabilité aux attaques informatiques, même si le risque n\u0019est pas explicitement cité.",
+      "score": 3
     }
   ],
   "governance": {
@@ -570,9 +593,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.296194+00:00",
     "fetched_at": "2026-05-21T02:17:14.296195+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.560Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.529Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pfs.json",
     "enrich_root": "v2-pipeline-enrich/pfs.json",

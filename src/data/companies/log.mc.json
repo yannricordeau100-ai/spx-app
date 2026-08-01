@@ -39,11 +39,15 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T08:54:24.272365+00:00",
       "explanation_en": "Revenue from the Tobacco segment.",
-      "_source_month": "septembre 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only one explicit annual value (2022) is provided: 11,025 million euros (≈11.025 B€). Fewer than four consecutive years are available, so th",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Goodwill",
@@ -64,9 +68,7 @@
       "last_data_date": "2023-09-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "septembre 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Total Revenue",
@@ -85,57 +87,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 12.99 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.31,
-      "unit": "Mds €",
+      "value": 310,
+      "unit": "M €",
       "yoy": "+14.8%",
       "history": [
-        0.17,
-        0.2,
-        0.27,
-        0.31
+        170,
+        200,
+        270,
+        310
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.31 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.32,
-      "unit": "Mds €",
+      "value": 320,
+      "unit": "M €",
       "yoy": "+10.3%",
       "history": [
-        0.24,
-        0.25,
-        0.29,
-        0.32
+        240,
+        250,
+        290,
+        320
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.32 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -149,7 +165,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2020-2024). ex-div dates.",
       "history": [
         1.2,
         1.2,
@@ -162,7 +178,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -177,7 +193,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2020-2024) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2020-2024) en milliards EUR. cashflow.",
       "history": [
         null,
         0.1633,
@@ -190,7 +206,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -205,7 +221,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2020-2024). Source yfinance.",
+      "description": "Dividendes / résultat net (2020-2024).",
       "history": [
         null,
         91.05,
@@ -218,7 +234,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -234,7 +250,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         1.32,
@@ -247,7 +263,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -305,7 +321,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur mentionné explicitement avec provisions substantielles (EUR 4,047M en 2022). Langage intensif sur les litiges fiscaux ouverts en Espagne, Italie et France. Tendance stable mais poids critique : excise duty représente la majorité des passifs fiscaux courants. Position centrale dans Item 1A.",
       "trend": "stable",
-      "summary": "Logista est exposée à des risques importants liés à la réglementation des droits d'accise sur les produits du tabac, notamment en Espagne, France et Italie. Des provisions de EUR 7,179K sont reconnues pour évaluations fiscales (années 2012-2016), et des litiges majeurs sont en cours à la Cour suprême espagnole pour EUR 13,608K concernant la TVA et les droits d'accise. Les autorités fiscales maintiennent des inspections ouvertes sur ces années."
+      "summary": "Logista est exposée à des risques importants liés à la réglementation des droits d'accise sur les produits du tabac, notamment en Espagne, France et Italie. Des provisions de EUR 7,179K sont reconnues pour évaluations fiscales (années 2012-2016), et des litiges majeurs sont en cours à la Cour suprême espagnole pour EUR 13,608K concernant la TVA et les droits d'accise. Les autorités fiscales maintiennent des inspections ouvertes sur ces années.",
+      "score": 5
     },
     {
       "title": "Risque de litiges fiscaux multi-juridictionnels prolongés",
@@ -313,7 +330,8 @@
       "severity": 4,
       "score_rationale": "Langage détaillé sur contentieux en cours (Espagne, Italie, Portugal) avec délais dépassant 1 an. Provisions actualisées annuellement (EUR 2,100K en Italie). Tendance stable mais complexité croissante avec 3-10 ans d'ouverture selon pays. Poids significatif dans provisions non-courantes.",
       "trend": "stable",
-      "summary": "Logista fait face à plusieurs litiges fiscaux complexes : en Espagne, des appels en Cour suprême pour EUR 13,608K (TVA années 2012-2015) avec résolution attendue au-delà d'1 an ; en Italie, inspection ouverte avec provision de EUR 2,100K ; en Portugal, révision des droits de timbre 2018-2021. La direction estime que les arguments sont solides mais les délais de résolution restent incertains."
+      "summary": "Logista fait face à plusieurs litiges fiscaux complexes : en Espagne, des appels en Cour suprême pour EUR 13,608K (TVA années 2012-2015) avec résolution attendue au-delà d'1 an ; en Italie, inspection ouverte avec provision de EUR 2,100K ; en Portugal, révision des droits de timbre 2018-2021. La direction estime que les arguments sont solides mais les délais de résolution restent incertains.",
+      "score": 4
     },
     {
       "title": "Transition énergétique et décarbonisation du transport routier",
@@ -321,7 +339,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement identifié avec engagement scientifique (Science Based Target). Langage modéré mais stratégique : réduction 30% émissions directes/indirectes d'ici 2030. Tendance up : nouvelles restrictions d'accès urbain attendues. Poids croissant : 90% des émissions proviennent du transport sous-traité.",
       "trend": "up",
-      "summary": "La stratégie climatique européenne vers la neutralité carbone 2050 impose à Logista une réduction de 30% des émissions directes et indirectes d'ici 2030 (baseline 2013), validée par Science Based Target. Les restrictions d'accès aux villes pour véhicules polluants se généralisent via cadre réglementaire commun. Bien que 90% des émissions proviennent du transport sous-traité, Logista doit adapter sa flotte et ses opérations logistiques."
+      "summary": "La stratégie climatique européenne vers la neutralité carbone 2050 impose à Logista une réduction de 30% des émissions directes et indirectes d'ici 2030 (baseline 2013), validée par Science Based Target. Les restrictions d'accès aux villes pour véhicules polluants se généralisent via cadre réglementaire commun. Bien que 90% des émissions proviennent du transport sous-traité, Logista doit adapter sa flotte et ses opérations logistiques.",
+      "score": 4
     },
     {
       "title": "Dépendance aux accords avec fabricants de tabac (France)",
@@ -329,7 +348,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique au métier mentionné dans contexte d'acquisition Logista France 2013. Langage technique sur passifs d'impôt différé (EUR 94,737K liés aux accords). Tendance stable mais concentration de risque : accords critiques pour marge France. Poids significatif dans structure de goodwill.",
       "trend": "stable",
-      "summary": "Logista France dépend fortement des accords commerciaux avec les fabricants de tabac, reconnus lors de l'acquisition 2013. Ces accords génèrent des passifs d'impôt différé de EUR 94,737K et structurent les marges de distribution. Toute modification réglementaire affectant les relations fabricants-distributeurs ou les conditions commerciales du tabac pourrait impacter significativement la rentabilité du segment France."
+      "summary": "Logista France dépend fortement des accords commerciaux avec les fabricants de tabac, reconnus lors de l'acquisition 2013. Ces accords génèrent des passifs d'impôt différé de EUR 94,737K et structurent les marges de distribution. Toute modification réglementaire affectant les relations fabricants-distributeurs ou les conditions commerciales du tabac pourrait impacter significativement la rentabilité du segment France.",
+      "score": 4
     },
     {
       "title": "Inflation des coûts de carburant et électricité impactant les marges",
@@ -337,7 +357,8 @@
       "severity": 4,
       "score_rationale": "Risque macroéconomique spécifique au métier de distribution/transport. Langage intensif : 'significant impact' sur prix carburants/électricité depuis 2022. Tendance up : conflit Ukraine exacerbe pressions inflationnistes. Poids élevé : transport représente >90% des émissions et coûts opérationnels majeurs.",
       "trend": "up",
-      "summary": "Depuis 2022, Logista subit une inflation significative des coûts de carburant et d'électricité, exacerbée par le conflit Russie-Ukraine et les sanctions économiques. Bien que le groupe ait atteint de bons résultats malgré ces pressions, la persistance de l'inflation et l'incertitude macroéconomique (risque d'approvisionnement gazier hivernal) menacent les marges opérationnelles, particulièrement pour les activités de transport sous-traité."
+      "summary": "Depuis 2022, Logista subit une inflation significative des coûts de carburant et d'électricité, exacerbée par le conflit Russie-Ukraine et les sanctions économiques. Bien que le groupe ait atteint de bons résultats malgré ces pressions, la persistance de l'inflation et l'incertitude macroéconomique (risque d'approvisionnement gazier hivernal) menacent les marges opérationnelles, particulièrement pour les activités de transport sous-traité.",
+      "score": 4
     },
     {
       "title": "Obligations de retraite et avantages sociaux (tabac gratuit, primes ancienneté)",
@@ -345,7 +366,8 @@
       "severity": 3,
       "score_rationale": "Provision non-courante de EUR 13,873K (2022) pour obligations salariés. Langage technique sur études actuarielles avec taux d'actualisation 2,4% (vs 0,8% en 2021). Tendance up : charge de EUR 6,778K en 2022 vs EUR 628K en 2021 due aux changements d'hypothèses actuarielles. Litige résolu (Cour suprême 2019) mais obligation persistante.",
       "trend": "up",
-      "summary": "Logista reconnaît des provisions importantes pour obligations de retraite et avantages sociaux (primes d'ancienneté, tabac gratuit pour retraités Altadis). La provision a augmenté de EUR 6,778K en 2022 suite à révision des hypothèses actuarielles (taux d'actualisation passé de 0,8% à 2,4%). La Cour suprême a confirmé en 2019 l'obligation de verser l'équivalent monétaire du tabac gratuit aux retraités post-2005, sans risque additionnel."
+      "summary": "Logista reconnaît des provisions importantes pour obligations de retraite et avantages sociaux (primes d'ancienneté, tabac gratuit pour retraités Altadis). La provision a augmenté de EUR 6,778K en 2022 suite à révision des hypothèses actuarielles (taux d'actualisation passé de 0,8% à 2,4%). La Cour suprême a confirmé en 2019 l'obligation de verser l'équivalent monétaire du tabac gratuit aux retraités post-2005, sans risque additionnel.",
+      "score": 3
     },
     {
       "title": "Risque de crédit vis-à-vis d'Imperial Brands PLC (cash pooling)",
@@ -353,7 +375,8 @@
       "severity": 3,
       "score_rationale": "Exposition explicite mentionnée via accords de transfert de trésorerie avec Imperial Brands. Langage modéré : 'counter-party risk' identifié mais groupe considère risque non significatif. Tendance stable : Imperial Brands reste solvable. Poids modéré : dépendance de trésorerie via cash-pooling intra-groupe.",
       "trend": "stable",
-      "summary": "Logista est exposée au risque de crédit d'Imperial Brands PLC via des accords de transfert de trésorerie (cash pooling). Bien que la direction considère ce risque non significatif au vu de la solvabilité d'Imperial Brands, une dégradation de la situation financière du groupe parent pourrait affecter l'accès à la liquidité et les flux de trésorerie de Logista."
+      "summary": "Logista est exposée au risque de crédit d'Imperial Brands PLC via des accords de transfert de trésorerie (cash pooling). Bien que la direction considère ce risque non significatif au vu de la solvabilité d'Imperial Brands, une dégradation de la situation financière du groupe parent pourrait affecter l'accès à la liquidité et les flux de trésorerie de Logista.",
+      "score": 3
     },
     {
       "title": "Restructurations organisationnelles et coûts de réorganisation",
@@ -361,7 +384,8 @@
       "severity": 3,
       "score_rationale": "Provisions courantes de EUR 2,814K (2022) pour restructurations. Langage factuel : EUR 4,318K de provisions ajoutées en 2022 vs EUR 329K en 2021 (x13). Tendance up : paiements d'indemnités EUR 7,880K en 2022. Poids croissant : restructurations multiples en cours (fusions intra-groupe, optimisations).",
       "trend": "up",
-      "summary": "Logista met en œuvre des plans de restructuration importants avec provisions courantes de EUR 2,814K. Les additions de provisions ont augmenté de EUR 4,318K en 2022 (vs EUR 329K en 2021), et les paiements d'indemnités se sont élevés à EUR 7,880K. Ces restructurations incluent des fusions intra-groupe (ex: Logista Regional Publicaciones) et optimisations organisationnelles, avec risques de perturbation opérationnelle et coûts additionnels."
+      "summary": "Logista met en œuvre des plans de restructuration importants avec provisions courantes de EUR 2,814K. Les additions de provisions ont augmenté de EUR 4,318K en 2022 (vs EUR 329K en 2021), et les paiements d'indemnités se sont élevés à EUR 7,880K. Ces restructurations incluent des fusions intra-groupe (ex: Logista Regional Publicaciones) et optimisations organisationnelles, avec risques de perturbation opérationnelle et coûts additionnels.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:33:31.118546+00:00",
@@ -447,10 +471,10 @@
   "company_description": "Logista Integral, S.A., through its subsidiaries, operates as a distributor and logistics operator in Spain, France, Italy, Portugal, and Poland. The company distributes a range of products and services, including tobacco products; convenience products; pharmaceutical products; electronic top-ups; books; fiscal stamps, postage stamps, and other official documents; and periodicals, collectibles, and magazines. It also provides parcel and express courier, temperature-controlled capillary transport, and long distance and full load transportation services. Logista Integral, S.A. serves clients in various sectors comprising tobacco, publications, books, e-transactions, transport, pharmaceutical, and public sectors. Logista Integral, S.A. was formerly known as Compañía de Distribución Integral Logista Holdings, S.A. and changed its name to Logista Integral, S.A. in February 2024. The company was incorporated in 2014 and is headquartered in Leganés, Spain. Logista Integral, S.A. operates as a subsidiary of Altadis S.A.",
   "last_data_date": "2025-12-31",
   "_dividends_extracted_at": "2026-05-09T20:22:21Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2024)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2024)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:45:57Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "LOG.MC",
     "fetched_at": "2026-05-14T18:25:26.318836+00:00",
@@ -505,9 +529,9 @@
     "country": "Spain",
     "_data_freshness_date": "2026-05-21T02:17:14.277762+00:00",
     "fetched_at": "2026-05-21T02:17:14.277763+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.103Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.913Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/log.mc.json",
     "enrich_root": "v2-pipeline-enrich/log.mc.json",

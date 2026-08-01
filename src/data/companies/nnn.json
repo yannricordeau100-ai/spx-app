@@ -43,7 +43,8 @@
       "ttm": 98.38,
       "_validation": [],
       "period_type": "quarter",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_audit_flag": "HISTORY_FLAT_SUSPECT"
     },
     {
       "short": "Weighted Average Lease Term",
@@ -74,7 +75,11 @@
         "Corrected unit from 'ans' to 'years' for consistency",
         "Corrected yoy from '+0.2 ans' to '+0.2 years'"
       ],
-      "signal_en": "Forward visibility increasing, pipeline strengthening"
+      "signal_en": "Forward visibility increasing, pipeline strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Number of Properties",
@@ -166,7 +171,7 @@
         "Clarified explanation to specify 'automotive service' as the top line of trade per 10-K",
         "Updated description to reflect concentration on top sector rather than generic 'specific sector'"
       ],
-      "explanation_en": "Top Line of Trade concentration — share of total attributed to the largest contributors.",
+      "explanation_en": "Top Line of Trade concentration, share of total attributed to the largest contributors.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -213,11 +218,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.38 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -236,11 +245,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.82 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -254,7 +267,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.1,
         2.16,
@@ -267,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -282,7 +295,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         0.345,
         0.3805,
@@ -295,7 +308,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -310,7 +323,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         113.9,
@@ -323,7 +336,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -339,7 +352,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.89,
@@ -352,7 +365,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Stable, slight decline to monitor"
     }
   ],
@@ -384,9 +397,7 @@
       "story_category": "Modèle d'affaires",
       "_validation": [
         "Corrected unit from 'Structure de bail' to 'Qualitative' for consistency with non-numeric KPI"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Lease Accounting Standard",
@@ -415,9 +426,7 @@
       "story_category": "Conformité",
       "_validation": [
         "Corrected unit from 'Norme comptable' to 'Qualitative' for consistency with non-numeric KPI"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -450,7 +459,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -463,7 +472,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K, langage fort ('no assurance'), impact existentiel sur la stratégie. Catégorie Capital pondérée fortement pour un REIT. Mention répétée des risques liés à la disponibilité des marchés.",
       "trend": "stable",
-      "summary": "NNN dépend fortement des marchés de capitaux pour son financement. Si ces marchés deviennent inaccessibles ou coûteux, cela pourrait compromettre ses opérations et sa croissance."
+      "summary": "NNN dépend fortement des marchés de capitaux pour son financement. Si ces marchés deviennent inaccessibles ou coûteux, cela pourrait compromettre ses opérations et sa croissance.",
+      "score": 5
     },
     {
       "title": "Risque de non-respect des covenants",
@@ -471,7 +481,8 @@
       "severity": 5,
       "score_rationale": "Langage très fort ('material adverse impact'), mention directe d'accélération de la dette. Position clé dans la section Capital Structure. Risque récurrent et critique pour la solvabilité.",
       "trend": "stable",
-      "summary": "Le non-respect des covenants financiers dans les accords de crédit pourrait entraîner une accélération de la dette et limiter l'accès aux financements."
+      "summary": "Le non-respect des covenants financiers dans les accords de crédit pourrait entraîner une accélération de la dette et limiter l'accès aux financements.",
+      "score": 5
     },
     {
       "title": "Vacance locative et insolvabilité",
@@ -479,7 +490,8 @@
       "severity": 4,
       "score_rationale": "Mention de 64 biens vacants et d'un locataire en faillite. Langage préoccupant ('material adverse effect'). Impact direct sur la trésorerie. Moins critique que les risques de capital.",
       "trend": "stable",
-      "summary": "La vacance des biens ou l'impossibilité de percevoir les loyers pourrait nuire à la liquidité et aux résultats, surtout si les biens ne sont pas reloués rapidement."
+      "summary": "La vacance des biens ou l'impossibilité de percevoir les loyers pourrait nuire à la liquidité et aux résultats, surtout si les biens ne sont pas reloués rapidement.",
+      "score": 4
     },
     {
       "title": "Concentration de risque locatif",
@@ -487,7 +499,8 @@
       "severity": 4,
       "score_rationale": "Moins de 1 % du loyer annuel lié à un locataire en faillite, mais risque de rejet de bail. Langage prudent ('right to reject'). Risque modéré mais surveillé.",
       "trend": "stable",
-      "summary": "Un locataire important est en redressement judiciaire, ce qui pourrait entraîner la perte de loyers si le bail est rejeté."
+      "summary": "Un locataire important est en redressement judiciaire, ce qui pourrait entraîner la perte de loyers si le bail est rejeté.",
+      "score": 4
     },
     {
       "title": "Exposition aux taux d'intérêt",
@@ -495,7 +508,8 @@
       "severity": 4,
       "score_rationale": "Grande partie de la dette est à taux variable (SOFR). Même avec des swaps, risque résiduel. Mention fréquente des dérivés. Impact significatif sur les coûts financiers.",
       "trend": "stable",
-      "summary": "Les hausses des taux d'intérêt pourraient augmenter le coût de la dette, surtout sur les montants non couverts par des instruments de couverture."
+      "summary": "Les hausses des taux d'intérêt pourraient augmenter le coût de la dette, surtout sur les montants non couverts par des instruments de couverture.",
+      "score": 4
     },
     {
       "title": "Échéancier de remboursement tendu",
@@ -503,7 +517,8 @@
       "severity": 4,
       "score_rationale": "350M$ à rembourser en 2026, puis 400M$ en 2027. Maturités concentrées. Langage prudent ('plans to use proceeds'). Risque de refinancement élevé.",
       "trend": "stable",
-      "summary": "Des échéances importantes de dette arrivent à échéance dans les prochaines années, nécessitant un refinancement ou des liquidités suffisantes."
+      "summary": "Des échéances importantes de dette arrivent à échéance dans les prochaines années, nécessitant un refinancement ou des liquidités suffisantes.",
+      "score": 4
     },
     {
       "title": "Engagements de construction en cours",
@@ -511,7 +526,8 @@
       "severity": 3,
       "score_rationale": "69,6M$ restant à débourser. Mention de financement futur ('anticipates satisfying'). Risque modéré, mais potentiel de surcoût ou de retard.",
       "trend": "stable",
-      "summary": "NNN a des engagements importants pour la construction de biens, ce qui représente un besoin de trésorerie futur et des risques opérationnels."
+      "summary": "NNN a des engagements importants pour la construction de biens, ce qui représente un besoin de trésorerie futur et des risques opérationnels.",
+      "score": 3
     }
   ],
   "governance": {
@@ -544,7 +560,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:20:55Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -571,7 +587,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:42Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:25Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "NNN",
     "simple": {
@@ -625,7 +641,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.974Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.031Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nnn.json",
     "enrich_root": "v2-pipeline-enrich/nnn.json",

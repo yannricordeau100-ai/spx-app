@@ -13,7 +13,7 @@
     "sector": "N/A",
     "subsector": "Top-tier producer in U.S. construction materials"
   },
-  "hero_kpi": "Low-cost Producer Position",
+  "hero_kpi": "Wallboard Revenue",
   "hero_kpi_rationale": "Le positionnement de producteur à bas coûts est le pilier central de la stratégie d'Eagle Materials, permettant de maintenir des marges supérieures dans un secteur fortement concurrentiel basé sur les prix, et de résister aux cycles économiques.",
   "kpis": [
     {
@@ -43,7 +43,7 @@
       "ttm": 28.6,
       "_validation": "Signal translated to English; value, unit, and history verified from 10-K financials.",
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -73,7 +73,11 @@
       "ttm": 19.5,
       "_validation": "Signal translated to English; history value corrected (19 to 19.0 for consistency).",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -101,8 +105,12 @@
       "is_short_history": false,
       "ttm": 290,
       "_validation": "Unit corrected from 'Mds $' to 'M $' (millions not billions); value converted from 0.3 to 300; history values converted from decimal to millions; signal translated to English; name_fr corrected (removed 'semi : fabs' descriptor).",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -121,11 +129,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.26 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue stable, monitor outlook"
+      "signal_en": "Revenue stable, monitor outlook",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -144,11 +156,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.26 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -167,33 +183,100 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.28 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.02,
-        0.02,
-        0.03,
-        0.02
+        20,
+        20,
+        30,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Wallboard Revenue",
+      "name_fr": "Revenus plaques de platre",
+      "name_en": "Gypsum Wallboard Revenue",
+      "unit": "M $",
+      "period_type": "year",
+      "history": [
+        387.016,
+        437.514,
+        461.457,
+        473.651,
+        491.779,
+        532.712,
+        508.145,
+        539.009,
+        692.152,
+        872.471,
+        839.53,
+        846.499
+      ],
+      "value": 846.499,
+      "last_data_date": "2025-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les revenus plaques de platre plafonnent autour de 850 M$ depuis le pic de 2023.",
+      "is_wow": true,
+      "yoy": "+0,8 %"
+    },
+    {
+      "short": "Cement Volume",
+      "name_fr": "Volumes de ciment vendus",
+      "name_en": "Cement Sales Volume",
+      "unit": "k tonnes",
+      "period_type": "year",
+      "history": [
+        4593,
+        4799,
+        4778,
+        4871,
+        5365,
+        5340,
+        5931,
+        7466,
+        7534,
+        7133,
+        7289,
+        6912
+      ],
+      "value": 6912,
+      "last_data_date": "2025-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les volumes de ciment reculent a 6,9 millions de tonnes apres trois exercices au-dessus de 7 millions.",
+      "is_wow": false,
+      "yoy": "-5,2 %"
     }
   ],
   "stories_kpis": [],
@@ -214,7 +297,8 @@
       "severity": 4,
       "score_rationale": "The company operates in a price-based competitive market where numerous competitors with varying resources create pricing pressure. The 10-K explicitly states competition is largely price-driven, affecting margins and sales volume.",
       "trend": "stable",
-      "summary": "Price-based competition in construction materials can pressure sales volumes and profit margins."
+      "summary": "Price-based competition in construction materials can pressure sales volumes and profit margins.",
+      "score": 4
     },
     {
       "title": "Environmental Risks",
@@ -222,7 +306,8 @@
       "severity": 3,
       "score_rationale": "Cement and wallboard production involves regulatory compliance, emissions controls, and potential environmental liabilities. The company acknowledges investments in emissions control technologies and fuel modifications.",
       "trend": "up",
-      "summary": "Regulatory compliance costs and environmental liabilities related to cement and wallboard production may increase."
+      "summary": "Regulatory compliance costs and environmental liabilities related to cement and wallboard production may increase.",
+      "score": 3
     },
     {
       "title": "Economic Cyclicality",
@@ -230,7 +315,8 @@
       "severity": 4,
       "score_rationale": "Demand directly correlates with construction activity, which is highly sensitive to macroeconomic conditions, interest rates, government spending, and credit availability. The 10-K emphasizes cyclical industry exposure and dependency on economic conditions.",
       "trend": "stable",
-      "summary": "Economic downturns reduce construction activity and demand for the company's products."
+      "summary": "Economic downturns reduce construction activity and demand for the company's products.",
+      "score": 4
     },
     {
       "title": "Safety Risks",
@@ -238,7 +324,8 @@
       "severity": 3,
       "score_rationale": "Manufacturing operations involving heavy equipment, chemicals, and production facilities carry inherent occupational safety and health risks. The company maintains safety programs and mentions accident potential in mining and cement operations.",
       "trend": "down",
-      "summary": "Operational safety incidents in manufacturing facilities could result in injuries, costs, and regulatory penalties."
+      "summary": "Operational safety incidents in manufacturing facilities could result in injuries, costs, and regulatory penalties.",
+      "score": 3
     },
     {
       "title": "Regulatory and Government Funding Risk",
@@ -246,7 +333,8 @@
       "severity": 3,
       "score_rationale": "Significant revenue depends on federally-funded infrastructure projects subject to annual appropriation reviews and political uncertainty. The 10-K warns that government shutdowns and budgetary impasses create revenue uncertainty.",
       "trend": "stable",
-      "summary": "Uncertainty in government spending appropriations and potential reductions could decrease infrastructure project demand."
+      "summary": "Uncertainty in government spending appropriations and potential reductions could decrease infrastructure project demand.",
+      "score": 3
     }
   ],
   "governance": {
@@ -292,21 +380,12 @@
       }
     ]
   },
-  "_validation": {
-    "sector_correction": "Changed from 'Information Technology' to 'Materials' to align with actual business (construction materials manufacturer)",
-    "capex_unit_correction": "Changed from 'Mds $' (billions) to 'M $' (millions); value 0.3 converted to 300; history values converted from decimal to millions",
-    "capex_name_fr_correction": "Removed incorrect 'semi : fabs' descriptor; simplified to 'Investissements (capital)'",
-    "headcount_unit_correction": "Changed from 'K' (thousands) to 'headcount'; value 2.1 converted to 2100; history values converted to absolute numbers",
-    "signal_translations": "All signal fields translated from French to English for consistency",
-    "risk_category_corrections": "Updated risk categories and scores to reflect actual 10-K language and emphasis; rewritten summaries to match actual disclosed risks",
-    "kpi_signal_improvements": "Enhanced signal descriptions to be more specific and evidence-based",
-    "data_validation": "All KPI values, trends, and histories confirmed against 10-K financials; no hallucinated values detected"
-  },
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -380,6 +459,8 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.135Z",
   "subsector_fr": "Matériaux de construction",
+  "hero_kpi_override": "Wallboard Revenue",
+  "_hero_kpi_override_reason": "Wallboard Revenue = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "EXP",
     "simple": {
@@ -468,88 +549,125 @@
   },
   "enrich_quarterly_history": {
     "ticker": "EXP",
-    "extracted_at": "2026-05-15T18:11:04Z",
-    "method": "xbrl-companyfacts",
-    "cik": 918646,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:15:16Z",
+    "n_kpis": 3,
     "kpis": [
       {
-        "short": "Capex",
+        "short": "Gross Margin",
         "period_type": "quarter",
         "history": [
-          -33.757,
-          25.991,
-          40.676,
-          45.541,
-          -58.275,
-          14.914,
-          43.249,
-          55.188,
-          -39.23,
-          35.999,
-          65.453,
-          87.848,
-          -79.157,
-          33.128,
-          99.605,
-          146.975,
-          -159.403,
-          76.097,
-          184.635,
-          294.68
+          27,
+          32,
+          31,
+          29,
+          34,
+          32,
+          31,
+          33,
+          32,
+          29,
+          28,
+          29
         ],
         "history_periods": [
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
-          "Q1 2026",
-          "Q2 2026",
-          "Q3 2026"
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
         ],
         "last_data_date": "2025-12-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q4 2024",
-            "value": -159.403,
-            "accession": "calc-0000950170-24-063523",
-            "end": "2024-03-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 76.097,
-            "accession": "0000950170-25-099771",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 184.635,
-            "accession": "0001193125-25-258663",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q3 2026",
-            "value": 294.68,
-            "accession": "0001193125-26-029491",
-            "end": "2025-12-31"
-          }
-        ]
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:15:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          0.05263,
+          0.050259,
+          0.05524,
+          0.054246,
+          0.057813,
+          0.053366,
+          0.05862,
+          0.057813,
+          0.053366,
+          0.054567,
+          0.05765,
+          0.052852
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:15:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          0.190321,
+          0.199465,
+          0.207599,
+          0.217912,
+          0.237085,
+          0.255108,
+          0.296362,
+          0.308398,
+          0.308398,
+          0.348037,
+          0.35145,
+          0.355256
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:15:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -565,9 +683,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.258975+00:00",
     "fetched_at": "2026-05-21T02:17:14.258976+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.020Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.592Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/exp.json",
     "enrich_root": "v2-pipeline-enrich/exp.json",

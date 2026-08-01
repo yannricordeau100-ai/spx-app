@@ -42,8 +42,12 @@
       "is_short_history": false,
       "ttm": 2784.2,
       "_validation": "Corrigé: unité de 'Mds $' à 'M $' (valeur en milliers selon 10-K: 2,784,156 = 2,784.2M $); YoY corrigé de +5% à +4.6% basé sur (2,784,156 - 2,661,161) / 2,661,161 = 4.61%",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "ROV Utilization",
@@ -109,8 +113,12 @@
       "is_short_history": false,
       "ttm": 304.6,
       "_validation": "Corrigé: unité de 'Mds $' à 'M $' (valeur en milliers: 304,552 = 304.6M $); YoY corrigé de +24% à +23.7% basé sur (304,552 - 246,270) / 246,270 = 23.65%",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -129,34 +137,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.78 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.35,
-      "unit": "Mds €",
+      "value": 350,
+      "unit": "M €",
       "yoy": "+133.3%",
       "history": [
-        0.03,
-        0.1,
-        0.15,
-        0.35
+        30,
+        100,
+        150,
+        350
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.35 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -175,56 +192,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.87,
-      "unit": "Mds €",
+      "value": 870,
+      "unit": "M €",
       "yoy": "+2.4%",
       "history": [
-        0.87,
-        0.85,
-        0.85,
-        0.87
+        870,
+        850,
+        850,
+        870
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.87 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.69,
-      "unit": "Mds €",
+      "value": 690,
+      "unit": "M €",
       "yoy": "+38.0%",
       "history": [
-        0.57,
-        0.46,
-        0.5,
-        0.69
+        570,
+        460,
+        500,
+        690
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.69 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -292,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Position centrale dans le 10-K : la société dépend majoritairement du secteur pétrole et gaz. Langage préoccupé sur la transition énergétique. Contexte stable vs N-1 mais pression croissante sur la décarbonation. Catégorie Macro fortement pondérée.",
       "trend": "stable",
-      "summary": "La société reste fortement exposée aux fluctuations du marché pétrolier, menacé par la transition énergétique et la demande mondiale incertaine."
+      "summary": "La société reste fortement exposée aux fluctuations du marché pétrolier, menacé par la transition énergétique et la demande mondiale incertaine.",
+      "score": 4
     },
     {
       "title": "Baisse d'activité dans les projets offshore",
@@ -300,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite d'une baisse d'activité prévue en 2026 dans le Golfe du Mexique et en Afrique de l'Ouest. Langage clair sur une 'diminution significative' des revenus. Tendance en hausse par rapport à N-1. Catégorie Industriel critique.",
       "trend": "up",
-      "summary": "Le segment Offshore Projects Group devrait voir ses revenus et son bénéfice opérationnel chuter en 2026 en raison de niveaux d'activité plus faibles."
+      "summary": "Le segment Offshore Projects Group devrait voir ses revenus et son bénéfice opérationnel chuter en 2026 en raison de niveaux d'activité plus faibles.",
+      "score": 4
     },
     {
       "title": "Réduction du nombre de forages en mer",
@@ -308,7 +341,8 @@
       "severity": 4,
       "score_rationale": "Le nombre moyen de forages flottants sous contrat a baissé de 6,2 % en 2025. C'est un indicateur clé pour les ROV. Langage factuel mais inquiétant. Tendance négative par rapport à N-1. Catégorie Concurrence impactée.",
       "trend": "down",
-      "summary": "La diminution du nombre de forages en mer affecte directement la demande pour les services de ROV, principal moteur du chiffre d'affaires."
+      "summary": "La diminution du nombre de forages en mer affecte directement la demande pour les services de ROV, principal moteur du chiffre d'affaires.",
+      "score": 4
     },
     {
       "title": "Risques liés à la transition énergétique",
@@ -316,7 +350,8 @@
       "severity": 5,
       "score_rationale": "La société mentionne explicitement les pressions croissantes liées au climat et aux émissions. Objectifs de réduction de CO2 ambitieux. Langage engagé et répété. Catégorie Régulation fortement pondérée. Risque existentiel.",
       "trend": "up",
-      "summary": "Les contraintes réglementaires et sociétales liées au changement climatique menacent le modèle économique actuel, basé sur les hydrocarbures."
+      "summary": "Les contraintes réglementaires et sociétales liées au changement climatique menacent le modèle économique actuel, basé sur les hydrocarbures.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue sur les technologies vertes",
@@ -324,7 +359,8 @@
       "severity": 4,
       "score_rationale": "La société cherche à se diversifier dans l'éolien offshore, l'hydrogène, etc., mais reconnaît une concurrence croissante. Langage prudent sur les opportunités. Tendance en hausse. Catégorie Concurrence pertinente.",
       "trend": "up",
-      "summary": "L'expansion dans les énergies renouvelables s'accompagne d'une concurrence intense, menaçant la rentabilité future dans ces nouveaux marchés."
+      "summary": "L'expansion dans les énergies renouvelables s'accompagne d'une concurrence intense, menaçant la rentabilité future dans ces nouveaux marchés.",
+      "score": 4
     },
     {
       "title": "Volatilité des marchés de défense",
@@ -332,7 +368,8 @@
       "severity": 3,
       "score_rationale": "Le segment ADTech dépend des budgets de défense américains et alliés. Mention de tensions géopolitiques comme opportunité, mais aussi risque. Langage mesuré. Catégorie Géopolitique moyennement pondérée.",
       "trend": "stable",
-      "summary": "L'activité défense, bien que prometteuse, dépend de décisions politiques et budgétaires sensibles aux tensions internationales."
+      "summary": "L'activité défense, bien que prometteuse, dépend de décisions politiques et budgétaires sensibles aux tensions internationales.",
+      "score": 3
     }
   ],
   "governance": {
@@ -605,9 +642,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.293312+00:00",
     "fetched_at": "2026-05-21T02:17:14.293314+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.257Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.207Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/oii.json",
     "enrich_root": "v2-pipeline-enrich/oii.json",

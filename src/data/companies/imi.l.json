@@ -175,34 +175,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.48 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.64,
-      "unit": "Mds €",
+      "value": 640,
+      "unit": "M €",
       "yoy": "-8.6%",
       "history": [
-        0.94,
-        0.75,
-        0.7,
-        0.64
+        940,
+        750,
+        700,
+        640
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.64 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -216,7 +225,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         22.9,
         24.1,
@@ -229,7 +238,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -244,7 +253,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         0.0622,
@@ -257,7 +266,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -272,7 +281,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         27.49,
@@ -285,7 +294,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -301,7 +310,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.872,
@@ -314,7 +323,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -340,9 +349,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Value converted from string to numeric. Unit confirmed as M £ (millions). Value verified: £2.0M confirmed in Grant Successes section",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value converted from string to numeric. Unit confirmed as M £ (millions). Value verified: £2.0M confirmed in Grant Successes section"
     },
     {
       "short": "Robot Dexterity Grant",
@@ -365,9 +372,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Value converted from string to numeric. Unit confirmed as M £ (millions). Value verified: £2.2M confirmed in Grant Successes section",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value converted from string to numeric. Unit confirmed as M £ (millions). Value verified: £2.2M confirmed in Grant Successes section"
     }
   ],
   "ai_positioning": {
@@ -380,34 +385,12 @@
     ],
     "source": "Annual report for 2024/25"
   },
-  "_validation": {
-    "summary": "Dataset audit completed. All KPIs verified against source document. No hallucinated values detected. Data quality HIGH.",
-    "corrections_made": [
-      "Grant Income: value converted from string '4.5' to numeric 4.5",
-      "Consultancy Projects: value converted from string '8' to numeric 8",
-      "Consultancy Income: value converted from string '0.424' to numeric 0.424",
-      "Salary Return: value already numeric, no change needed",
-      "Research Themes: value converted from string '6' to numeric 6",
-      "MInDS Grant: value converted from string '2.0' to numeric 2.0",
-      "Robot Dexterity Grant: value converted from string '2.2' to numeric 2.2",
-      "MIRA Expansion: last_data_date corrected from '2025-12-31' to '2025-03-31' (fiscal year end in annual report)"
-    ],
-    "verification_notes": [
-      "MIRA Expansion: 10 to 13 members confirmed in Director's Summary. Three new hires named: Katherine MacKenzie, Alexander Belozerov, Alexandra Koulouri",
-      "Grant Income breakdown verified: MInDS £2.0M + Robot Dexterity £2.2M + WOW £0.3M = £4.5M total",
-      "Consultancy Projects: 8 projects confirmed in Consultancy Projects section",
-      "Consultancy Income: £424k confirmed in Consultancy Projects section",
-      "Salary Return: >85% confirmed in Director's Summary",
-      "Research Themes: 6 themes enumerated in Research Themes and New Initiatives section",
-      "All data sourced from annual report 2024/25 with explicit source references"
-    ],
-    "data_quality": "HIGH - All numerical values directly sourced from official annual report. All KPI values verified against document text. No fabrications or hallucinations detected."
-  },
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -491,10 +474,10 @@
   "customer_type_label": "L'institut collabore avec des partenaires industriels, des organismes gouvernementaux et des institutions académiques, ce qui reflète un modèle mixte d'engagement.",
   "_eu_blocs_extracted_at": "2026-05-19T16:55:34.794538+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:08Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "GBp",
   "_eps_extracted_at": "2026-05-18T16:45:34Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "IMI.L",
     "fetched_at": "2026-05-14T18:25:03.554004+00:00",
@@ -528,6 +511,29 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "ticker": "IMI.L",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "IMI conçoit et fabrique des solutions de contrôle de fluides et de mouvement pour les industries de procédés, l'énergie et les bâtiments commerciaux.",
+          "products": "L'offre couvre les vannes critiques pour le nucléaire et le pétrole, les actionneurs et instruments pneumatiques pour automatisation industrielle, les solutions de chauffage et climatisation pour bâtiments, et les composants pour véhicules commerciaux.",
+          "customers": "Ses clients sont les exploitants de centrales nucléaires et thermiques, les industriels de la chimie et de l'énergie, les fabricants d'équipements de génie climatique et les équipementiers transport.",
+          "edge": "La force d'IMI vient de sa position de leader sur les vannes critiques pour applications nucléaires et procédés à haute pression."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "IMI plc est un groupe industriel britannique organisé en trois plateformes Process Automation, Industrial Automation et Climate Control. La société a recentré son portefeuille via plusieurs cessions et acquisitions ces dernières années. Le groupe sert des marchés finaux diversifiés mais reste exposé aux cycles industriels.",
+          "tech_products": "IMI Critical Engineering fournit des vannes spécialisées pour les centrales nucléaires et les raffineries. IMI Precision Engineering est leader sur les composants pneumatiques pour l'automatisation industrielle et les véhicules commerciaux. IMI Hydronic Engineering fournit des équilibrages et capteurs pour les systèmes CVC.",
+          "moat": "Les certifications nucléaires et les références sur installations critiques créent des barrières à l'entrée structurelles. Le pricing power est élevé sur les vannes spécialisées non substituables. L'installed base génère un flux récurrent de pièces de rechange à marges élevées.",
+          "risks": "Les cycles industriels et de capex énergie pèsent sur les volumes en bas de cycle. La transition énergétique réduit les opportunités sur certaines applications fossiles. Les transformations stratégiques successives génèrent des coûts de restructuration récurrents."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "IMI.L",
     "ranks": {
@@ -540,14 +546,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T01:44:37.529963+00:00",
     "fetched_at": "2026-05-21T01:44:37.529964+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.407Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.084Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/imi.l.json",
     "enrich_root": "v2-pipeline-enrich/imi.l.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

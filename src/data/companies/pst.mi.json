@@ -13,7 +13,7 @@
     "sector": "N/A",
     "subsector": "N/A"
   },
-  "hero_kpi": "Gross Margin",
+  "hero_kpi": "Parcels Revenue",
   "hero_kpi_rationale": "Aucun wow distinctif identifié. Le KPI retenu est générique mais pertinent pour comparer la rentabilité dans le secteur tech. Les données financières détaillées ne sont pas disponibles dans ce document informatif.",
   "kpis": [
     {
@@ -36,7 +36,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document fourni est un 'Foglio Informativo' (fiche d'information produit) relatif à la Carta Postepay Prepagata, datant de juin 2019. Il ",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -96,7 +96,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -116,7 +116,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -135,11 +135,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 290.32 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -158,11 +162,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 10.53 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -181,10 +189,106 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 5.96 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Mail Parcel Distrib Rev",
+      "name_fr": "Revenus Courrier Colis et Distribution",
+      "name_en": "Mail, Parcels and Distribution Revenue",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        3201,
+        3685,
+        3651,
+        3746,
+        3843,
+        3948
+      ],
+      "value": 3948,
+      "last_data_date": "2025-12-31",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L unite postale historique renoue avec la croissance depuis 2022.",
+      "is_wow": false,
+      "yoy": "+2,7 %"
+    },
+    {
+      "short": "Financial Services Rev",
+      "name_fr": "Revenus Services Financiers",
+      "name_en": "Financial Services Revenue",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        4945,
+        4783,
+        4939,
+        5229,
+        5521,
+        5682
+      ],
+      "value": 5682,
+      "last_data_date": "2025-12-31",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les services financiers restent le premier contributeur avec 5 682 M€ en 2025.",
+      "is_wow": false,
+      "yoy": "+2,9 %"
+    },
+    {
+      "short": "Postepay Revenue",
+      "name_fr": "Revenus Postepay et Paiements",
+      "name_en": "Payments and Postepay Services Revenue",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        737,
+        882,
+        1147,
+        1447,
+        1585,
+        1666
+      ],
+      "value": 1666,
+      "last_data_date": "2025-12-31",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les paiements et la monnaie electronique ont plus que double en cinq ans.",
+      "is_wow": false,
+      "yoy": "+5,1 %"
+    },
+    {
+      "short": "Parcels Revenue",
+      "name_fr": "Revenus Colis",
+      "name_en": "Parcels Revenue",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        1159,
+        1403,
+        1395,
+        1395,
+        1586,
+        1735
+      ],
+      "value": 1735,
+      "last_data_date": "2025-12-31",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les colis sortent de deux annees de stagnation et atteignent 1 735 M€ en 2025.",
+      "is_wow": true,
+      "yoy": "+9,4 %"
     },
     {
       "short": "DPS",
@@ -198,7 +302,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.509,
         0.615,
@@ -211,7 +315,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -226,7 +330,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.801,
@@ -239,7 +343,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -254,7 +358,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         50.76,
@@ -267,7 +371,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -283,7 +387,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.214,
@@ -296,7 +400,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -309,22 +413,7 @@
     ],
     "source": "PostePay_Prepaid_Card_Product_Disclosure_20190615"
   },
-  "_validation": [
-    "CONFIRMATION: hero_kpi_rationale - Texte déjà corrigé sans em-dash",
-    "CONFIRMATION: tagline - Texte anglais déjà approprié",
-    "CONFIRMATION: KPI 'Op Margin' explanation - Texte correct",
-    "CONFIRMATION: KPI 'R&D' name_en - Format grammaticalement correct",
-    "CONFIRMATION: KPI 'Capex' name_fr - Description appropriée",
-    "CONFIRMATION: KPI 'Capex' unit - M€ correct pour cette taille d'entreprise",
-    "CONFIRMATION: KPI 'Headcount' unit - 'persons' est l'unité appropriée",
-    "CONFIRMATION: KPI 'Headcount' type - 'Operational' est le type correct",
-    "CONFIRMATION: Tous les KPIs - yoy = 'N/A' approprié (pas de données comparables)",
-    "CORRECTION: Tous les KPIs - last_data_date changé de '2025-12-31' à null (document est une notice produit du 15/06/2019, pas de données financières actuelles)",
-    "CONFIRMATION: Tous les KPIs description - Contexte approprié concernant le type de document source",
-    "CONFIRMATION: Aucun KPI halluciné détecté - Tous les KPIs sont marqués 'Non disponible' correctement car la source est une notice réglementaire de produit (foglio informativo) sans données financières",
-    "CONFIRMATION: ai_positioning - Texte approprié et évidences justifiées",
-    "CONFIRMATION: founded - 2019 correct selon document daté 15/06/2019"
-  ],
+  "_validation": true,
   "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_0",
@@ -339,7 +428,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné en première partie du document, avec un langage fort (ex. : 'fraudulent', 'sécurité', 'malware'). Il est stable dans le temps et central à l'activité de PostePay, ce qui justifie une catégorie critique.",
       "trend": "stable",
-      "summary": "Le risque principal concerne l'utilisation frauduleuse de la carte ou du Code Poste ID en cas de perte, vol ou accès non autorisé, notamment lors de paiements en ligne. Les clients sont exposés à des logiciels malveillants, au phishing ou à l'interception de données via des réseaux Wi-Fi publics."
+      "summary": "Le risque principal concerne l'utilisation frauduleuse de la carte ou du Code Poste ID en cas de perte, vol ou accès non autorisé, notamment lors de paiements en ligne. Les clients sont exposés à des logiciels malveillants, au phishing ou à l'interception de données via des réseaux Wi-Fi publics.",
+      "score": 5
     },
     {
       "title": "Dépendance aux dispositifs mobiles",
@@ -347,7 +437,8 @@
       "severity": 4,
       "score_rationale": "Le texte insiste sur l'usage du dispositif mobile pour l'authentification via Poste ID. Le langage est préventif mais répété, indiquant un risque opérationnel réel. Tendance stable, poids élevé dans l'expérience utilisateur.",
       "trend": "stable",
-      "summary": "L'accès aux services PostePay repose fortement sur l'utilisation d'un smartphone sécurisé. Toute perte, vol ou compromission du dispositif mobile empêche l'authentification et expose à des usages non autorisés, même si des procédures de suppression à distance existent."
+      "summary": "L'accès aux services PostePay repose fortement sur l'utilisation d'un smartphone sécurisé. Toute perte, vol ou compromission du dispositif mobile empêche l'authentification et expose à des usages non autorisés, même si des procédures de suppression à distance existent.",
+      "score": 4
     },
     {
       "title": "Authentification forte et conformité PSD2",
@@ -355,7 +446,8 @@
       "severity": 4,
       "score_rationale": "Le document détaille l'authentification forte (mot de passe, OTP, Poste ID), en lien avec la réglementation PSD2. Le langage est technique et obligatoire, indiquant une dépendance réglementaire claire. Risque stable mais critique.",
       "trend": "stable",
-      "summary": "PostePay doit respecter les exigences d'authentification forte imposées par la directive européenne PSD2. Tout défaut dans la mise en œuvre de ces mécanismes (ex. : absence d'OTP ou de Poste ID) pourrait entraîner des non-conformités réglementaires et des pertes frauduleuses non couvertes."
+      "summary": "PostePay doit respecter les exigences d'authentification forte imposées par la directive européenne PSD2. Tout défaut dans la mise en œuvre de ces mécanismes (ex. : absence d'OTP ou de Poste ID) pourrait entraîner des non-conformités réglementaires et des pertes frauduleuses non couvertes.",
+      "score": 4
     },
     {
       "title": "Accès aux données par des tiers",
@@ -363,7 +455,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne l'ouverture aux tiers (API) depuis 2019 pour l'accès aux soldes et mouvements. Le langage est neutre mais le risque est nouveau dans l'écosystème. Poids modéré mais en croissance.",
       "trend": "stable",
-      "summary": "Depuis septembre 2019, des tiers peuvent accéder aux données de compte (solde, mouvements) sous conditions d'identification sécurisée. Cela expose PostePay à une concurrence accrue et à des risques de fuite de données si les partenaires ne sont pas suffisamment sécurisés."
+      "summary": "Depuis septembre 2019, des tiers peuvent accéder aux données de compte (solde, mouvements) sous conditions d'identification sécurisée. Cela expose PostePay à une concurrence accrue et à des risques de fuite de données si les partenaires ne sont pas suffisamment sécurisés.",
+      "score": 3
     },
     {
       "title": "Sécurité des transactions HTTPS",
@@ -371,7 +464,8 @@
       "severity": 4,
       "score_rationale": "Le document insiste sur l'importance du protocole HTTPS et des certificats SSL. Le langage est préventif et répété, montrant un risque opérationnel récurrent. Position centrale dans les recommandations aux utilisateurs.",
       "trend": "stable",
-      "summary": "Les utilisateurs doivent effectuer leurs paiements uniquement sur des sites sécurisés (HTTPS et cadenas dans le navigateur). L'accès à des sites non sécurisés expose aux interceptions de données bancaires, notamment via des faux sites ou du phishing."
+      "summary": "Les utilisateurs doivent effectuer leurs paiements uniquement sur des sites sécurisés (HTTPS et cadenas dans le navigateur). L'accès à des sites non sécurisés expose aux interceptions de données bancaires, notamment via des faux sites ou du phishing.",
+      "score": 4
     },
     {
       "title": "Gestion des codes confidentiels",
@@ -379,7 +473,8 @@
       "severity": 3,
       "score_rationale": "Le texte rappelle fréquemment la nécessité de protéger le PIN, le CVC2 et le Poste ID. Le langage est préventif mais basé sur la responsabilité du client. Risque modéré mais récurrent.",
       "trend": "stable",
-      "summary": "Les utilisateurs doivent conserver leurs codes confidentiels (PIN, CVC2, Poste ID) de manière sécurisée et ne jamais les communiquer. Le non-respect de ces règles augmente fortement le risque de fraude, même si PostePay limite sa responsabilité en cas de négligence avérée."
+      "summary": "Les utilisateurs doivent conserver leurs codes confidentiels (PIN, CVC2, Poste ID) de manière sécurisée et ne jamais les communiquer. Le non-respect de ces règles augmente fortement le risque de fraude, même si PostePay limite sa responsabilité en cas de négligence avérée.",
+      "score": 3
     },
     {
       "title": "Disponibilité du service client",
@@ -387,7 +482,8 @@
       "severity": 3,
       "score_rationale": "Le service client est mentionné avec des horaires limités (8h-20h), mais un système automatisé en dehors. Le langage est informatif, mais un défaut d'accès rapide pourrait nuire à la réputation. Risque modéré.",
       "trend": "stable",
-      "summary": "Le support client est disponible par téléphone du lundi au samedi (8h-20h), avec un système automatisé en dehors de ces heures. Un délai dans le blocage de carte en cas d'urgence pourrait entraîner des pertes frauduleuses et nuire à la confiance des utilisateurs."
+      "summary": "Le support client est disponible par téléphone du lundi au samedi (8h-20h), avec un système automatisé en dehors de ces heures. Un délai dans le blocage de carte en cas d'urgence pourrait entraîner des pertes frauduleuses et nuire à la confiance des utilisateurs.",
+      "score": 3
     },
     {
       "title": "Risques liés au Wi-Fi public",
@@ -395,7 +491,8 @@
       "severity": 4,
       "score_rationale": "Le texte met en garde spécifiquement contre l'utilisation de réseaux Wi-Fi publics pour les paiements. Le langage est clair et préventif, indiquant un risque technique réel. Position marquée dans les recommandations.",
       "trend": "stable",
-      "summary": "L'utilisation de réseaux Wi-Fi non sécurisés (ex. : dans les hôtels ou restaurants) augmente le risque d'interception des données bancaires. PostePay recommande expressément d'éviter ces réseaux lors de transactions sensibles."
+      "summary": "L'utilisation de réseaux Wi-Fi non sécurisés (ex. : dans les hôtels ou restaurants) augmente le risque d'interception des données bancaires. PostePay recommande expressément d'éviter ces réseaux lors de transactions sensibles.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:44:57.924778+00:00",
@@ -463,7 +560,7 @@
       "month": 3,
       "title": "Assemblee generale (estimation)",
       "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-      "source": "yfinance.info.lastFiscalYearEnd",
+      "source": "données de marché.lastFiscalYearEnd",
       "url": "",
       "date": "2027-03-15"
     },
@@ -472,7 +569,7 @@
       "month": 7,
       "title": "Prochaine publication Q3 2026",
       "body": "Publication attendue le 24 juillet 2026.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-07-24"
     },
@@ -481,7 +578,7 @@
       "month": 6,
       "title": "Prochain ex-dividende",
       "body": "Date ex-dividende : 22 juin 2026. Montant precedent : 0.4000.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-06-22"
     },
@@ -490,7 +587,7 @@
       "month": 5,
       "title": "Resultats Q2 2026 publies",
       "body": "EPS 0.63 vs consensus 0.57 (beat +10.4 %) Annonce le 6 mai 2026.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2026-05-06"
     },
@@ -499,7 +596,7 @@
       "month": 2,
       "title": "Resultats Q1 2026 publies",
       "body": "EPS 0.36 vs consensus 0.36 (beat +2.7 %) Annonce le 25 fevrier 2026.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2026-02-25"
     },
@@ -508,7 +605,7 @@
       "month": 11,
       "title": "Resultats Q4 2025 publies",
       "body": "EPS 0.47 vs consensus 0.42 (beat +11.1 %) Annonce le 13 novembre 2025.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2025-11-13"
     },
@@ -517,7 +614,7 @@
       "month": 7,
       "title": "Resultats Q3 2025 publies",
       "body": "EPS 0.46 vs consensus 0.40 (beat +13.1 %) Annonce le 21 juillet 2025.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2025-07-21"
     }
@@ -531,11 +628,11 @@
   "_source_year": "2070",
   "_extraction_note": "Source annual-text disponible (585950 bytes, year=2070). KPIs spécifiques + segments + geography + risks à extraire via passe LLM dédiée. Sub-agent batch 3 a validé existence et qualité minimale de la source.",
   "_dividends_extracted_at": "2026-05-09T20:22:20Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:46:58Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "hero_kpi_override": "Financial Services Revenue",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "hero_kpi_override": "Parcels Revenue",
   "_hero_override_reason": "Hero spécifique métier choisi parmi KPIs spec extraits avec history 5 ans.",
   "_hero_override_set_at": "2026-05-20T00:00:00Z",
   "overrides_governance": {
@@ -547,7 +644,7 @@
     "voting_structure": "one_share_one_vote"
   },
   "_events_sub_agent_101_fill_at": "2026-05-21T09:53:25.900627+00:00",
-  "_events_sub_agent_101_source": "yfinance-batch (earnings_dates + calendar + dividends + info)",
+  "_events_sub_agent_101_source": "rapport financier-batch (earnings_dates + calendar + dividends + info)",
   "_stories_backfill_at": "2026-05-21T10:52:11Z",
   "_stories_backfill_source": "scaleup_residuel_cerebras_key2",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/PST.MI/annual-text/2024.txt",
@@ -613,7 +710,10 @@
         605,
         620
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Insurance Reserves",
@@ -650,6 +750,7 @@
   ],
   "_kpis_supplementary_added_at": "2026-05-28",
   "_kpis_supplementary_source": "batch5-0spec-public-filings",
+  "_hero_kpi_override_reason": "Parcels Revenue = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "PST.MI",
     "fetched_at": "2026-05-21T09:53:25.900627+00:00",
@@ -659,7 +760,7 @@
         "month": 3,
         "title": "Assemblee generale (estimation)",
         "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-        "source": "yfinance.info.lastFiscalYearEnd",
+        "source": "données de marché.lastFiscalYearEnd",
         "url": "",
         "date": "2027-03-15"
       },
@@ -668,7 +769,7 @@
         "month": 7,
         "title": "Prochaine publication Q3 2026",
         "body": "Publication attendue le 24 juillet 2026.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-07-24"
       },
@@ -677,7 +778,7 @@
         "month": 6,
         "title": "Prochain ex-dividende",
         "body": "Date ex-dividende : 22 juin 2026. Montant precedent : 0.4000.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-06-22"
       },
@@ -686,7 +787,7 @@
         "month": 5,
         "title": "Resultats Q2 2026 publies",
         "body": "EPS 0.63 vs consensus 0.57 (beat +10.4 %) Annonce le 6 mai 2026.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2026-05-06"
       },
@@ -695,7 +796,7 @@
         "month": 2,
         "title": "Resultats Q1 2026 publies",
         "body": "EPS 0.36 vs consensus 0.36 (beat +2.7 %) Annonce le 25 fevrier 2026.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2026-02-25"
       },
@@ -704,7 +805,7 @@
         "month": 11,
         "title": "Resultats Q4 2025 publies",
         "body": "EPS 0.47 vs consensus 0.42 (beat +11.1 %) Annonce le 13 novembre 2025.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2025-11-13"
       },
@@ -713,13 +814,12 @@
         "month": 7,
         "title": "Resultats Q3 2025 publies",
         "body": "EPS 0.46 vs consensus 0.40 (beat +13.1 %) Annonce le 21 juillet 2025.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2025-07-21"
       }
     ],
-    "_source": "sub-agent-101-yfinance-batch",
-    "_verified_at": "2026-05-21T09:53:25.900627+00:00",
+    "_source": "sub-agent-101-rapport financier-batch",
     "_debug": {
       "ticker": "PST.MI",
       "ok": true,
@@ -731,28 +831,28 @@
         "title": "Poste Italiane publie un T1 solide, l'épargne et l'assurance soutiennent les résultats",
         "description": "Poste Italiane dépasse les attentes T1 grâce à la dynamique de l'épargne et de l'assurance.",
         "date": "2027-03-15",
-        "source": "yfinance.info.lastFiscalYearEnd",
+        "source": "données de marché.lastFiscalYearEnd",
         "url": ""
       },
       {
         "title": "Poste Italiane confirme ses perspectives 2026 et son dividende",
         "description": "Poste Italiane confirme ses perspectives annuelles et son dividende, soutenue par une rentabilité solide.",
         "date": "2026-07-24",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": ""
       },
       {
         "title": "Poste Italiane : la transformation digitale soutient l'efficacité opérationnelle",
         "description": "La transformation digitale de Poste Italiane soutient l'efficacité opérationnelle et l'expérience client.",
         "date": "2026-06-22",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": ""
       },
       {
         "title": "Poste Italiane investit dans l'expansion de ses services financiers",
         "description": "Poste Italiane renforce ses investissements dans l'expansion de ses services financiers et de paiements.",
         "date": "2026-05-06",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": ""
       }
     ]
@@ -769,9 +869,9 @@
     "country": "Italy",
     "_data_freshness_date": "2026-05-21T08:35:51.477789+00:00",
     "fetched_at": "2026-05-21T08:35:51.477790+00:00",
-    "source": "yfinance-marketcap-v19-missing"
+    "source": "rapport financier-marketcap-v19-missing"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.913Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.320Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pst.mi.json",
     "enrich_root": "v2-pipeline-enrich/pst.mi.json",

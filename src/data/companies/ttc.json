@@ -58,8 +58,8 @@
       "name_fr": "Chiffre d'affaires segment professionnel",
       "name_en": "Professional segment net sales",
       "explanation": "Chiffre d'affaires du segment professionnel",
-      "value": "3624.0",
-      "unit": "M $",
+      "value": 3.624,
+      "unit": "Mds $",
       "yoy": "1.9%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -67,7 +67,7 @@
       "signal": "Augmentation du chiffre d'affaires du segment professionnel",
       "description": "Le chiffre d'affaires du segment professionnel a augmenté de 1,9% en 2025 par rapport à 2024",
       "history": [
-        3556.9,
+        3.557,
         0,
         0,
         0,
@@ -78,7 +78,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 0,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Marge brute",
@@ -105,7 +110,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -124,34 +133,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.51 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.32,
-      "unit": "Mds €",
+      "value": 320,
+      "unit": "M €",
       "yoy": "-23.8%",
       "history": [
-        0.44,
-        0.33,
-        0.42,
-        0.32
+        440,
+        330,
+        420,
+        320
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.32 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -170,11 +188,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.44 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,33 +215,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "+70.0%",
       "history": [
-        0.19,
-        0.19,
-        0.2,
-        0.34
+        190,
+        190,
+        200,
+        340
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.34 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -264,7 +295,8 @@
       "severity": 4,
       "score_rationale": "Mentionné en premier dans les risques économiques et opérationnels. Le langage est fort (adversely affected, could continue to adversely affect) et couvre de nombreux facteurs macroéconomiques. Ce risque est pondéré par son impact direct sur les ventes et les bénéfices.",
       "trend": "stable",
-      "summary": "Les conditions économiques mondiales, y compris les récessions et l'inflation, peuvent réduire les dépenses des clients et impacter négativement les ventes et les bénéfices de l'entreprise."
+      "summary": "Les conditions économiques mondiales, y compris les récessions et l'inflation, peuvent réduire les dépenses des clients et impacter négativement les ventes et les bénéfices de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Perturbations de la chaîne d'approvisionnement",
@@ -272,7 +304,8 @@
       "severity": 4,
       "score_rationale": "Fortement souligné dans les risques économiques et opérationnels avec des termes comme disruption and/or shortages et adversely affected. Le risque est exacerbé par la dépendance à des fournisseurs uniques et les événements mondiaux. Il est pondéré par son impact direct sur la production et la disponibilité des produits.",
       "trend": "up",
-      "summary": "Les pénuries de matières premières, de composants et de pièces, dues à des événements mondiaux ou à des problèmes chez les fournisseurs, peuvent perturber la production et affecter l'entreprise."
+      "summary": "Les pénuries de matières premières, de composants et de pièces, dues à des événements mondiaux ou à des problèmes chez les fournisseurs, peuvent perturber la production et affecter l'entreprise.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'innovation produit",
@@ -280,7 +313,8 @@
       "severity": 3,
       "score_rationale": "Présenté comme un facteur clé de croissance (significant portion of our net sales) mais avec un risque clair d'échec (may not be able to enhance, may not receive market acceptance). L'intensité du langage est modérée.",
       "trend": "stable",
-      "summary": "L'incapacité à développer et commercialiser de nouveaux produits innovants, ou à améliorer les produits existants, pourrait entraîner une baisse de la demande et nuire aux ventes."
+      "summary": "L'incapacité à développer et commercialiser de nouveaux produits innovants, ou à améliorer les produits existants, pourrait entraîner une baisse de la demande et nuire aux ventes.",
+      "score": 3
     },
     {
       "title": "Impact du changement climatique et météo",
@@ -288,7 +322,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans les risques économiques et opérationnels avec une emphase croissante (exacerbated by global climate change, increased frequency and intensity). Le langage est fort (chronic and acute physical risks, adversely impact). Ce risque est pondéré par son impact potentiel sur les opérations et la demande.",
       "trend": "up",
-      "summary": "Les conditions météorologiques extrêmes, potentiellement aggravées par le changement climatique, peuvent perturber les opérations, la chaîne d'approvisionnement et affecter la demande pour certains produits."
+      "summary": "Les conditions météorologiques extrêmes, potentiellement aggravées par le changement climatique, peuvent perturber les opérations, la chaîne d'approvisionnement et affecter la demande pour certains produits.",
+      "score": 3
     },
     {
       "title": "Concurrence intense",
@@ -296,7 +331,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement comme intense competition dans les risques économiques et opérationnels, avec un impact direct sur business and operating results. Le langage est direct et le risque est une constante dans ce secteur.",
       "trend": "stable",
-      "summary": "La forte concurrence dans le secteur peut nuire à la part de marché de l'entreprise, à ses prix et à ses résultats d'exploitation."
+      "summary": "La forte concurrence dans le secteur peut nuire à la part de marché de l'entreprise, à ses prix et à ses résultats d'exploitation.",
+      "score": 3
     },
     {
       "title": "Risques liés aux acquisitions et alliances",
@@ -304,7 +340,8 @@
       "severity": 3,
       "score_rationale": "Identifié dans les risques stratégiques, avec une mention spécifique des activités récentes (Tornado Infrastructure Equipment). Le langage indique un risque clair (involve risk and may prove to be unsuccessful).",
       "trend": "up",
-      "summary": "La stratégie d'acquisitions, d'alliances et de partenariats comporte des risques d'échec qui pourraient impacter négativement la performance financière et opérationnelle."
+      "summary": "La stratégie d'acquisitions, d'alliances et de partenariats comporte des risques d'échec qui pourraient impacter négativement la performance financière et opérationnelle.",
+      "score": 3
     },
     {
       "title": "Risques juridiques et réglementaires",
@@ -312,7 +349,8 @@
       "severity": 3,
       "score_rationale": "Présenté dans les risques juridiques, réglementaires et de conformité, couvrant la protection de la propriété intellectuelle et la conformité réglementaire générale (subject to extensive regulation). Le langage est direct.",
       "trend": "stable",
-      "summary": "L'entreprise est soumise à des réglementations complexes et à des risques de litiges liés à la propriété intellectuelle ou à la conformité, pouvant entraîner des coûts et des perturbations."
+      "summary": "L'entreprise est soumise à des réglementations complexes et à des risques de litiges liés à la propriété intellectuelle ou à la conformité, pouvant entraîner des coûts et des perturbations.",
+      "score": 3
     }
   ],
   "governance": {
@@ -419,7 +457,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.730Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.904Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ttc.json",
     "enrich_root": "v2-pipeline-enrich/ttc.json",

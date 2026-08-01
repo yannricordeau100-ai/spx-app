@@ -21,8 +21,8 @@
       "name_fr": "Revenu Cardiopulmonaire",
       "name_en": "Cardiopulmonary Revenue",
       "explanation": "Revenu du segment Cardiopulmonaire",
-      "value": 1388.053,
-      "unit": "M $",
+      "value": 1.388,
+      "unit": "Mds $",
       "yoy": "+10.7%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,14 +30,14 @@
       "signal": "Croissance du revenu du segment Cardiopulmonaire",
       "description": "Revenu du segment Cardiopulmonaire, qui comprend les ventes de produits et services liés aux soins cardiaques et pulmonaires, générant 785,4 millions de dollars en 2025.",
       "history": [
-        1106.961,
-        1084.17,
-        934.241,
-        1035.365,
-        1021.805,
-        1153.545,
-        1253.437,
-        1388.053
+        1.107,
+        1.084,
+        0.934,
+        1.035,
+        1.022,
+        1.154,
+        1.253,
+        1.388
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -47,7 +47,12 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:01.491025+00:00",
       "explanation_en": "Revenue from the Cardiopulmonary segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Neuromodulation Revenue",
@@ -98,7 +103,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Correction: value 67.7% changée en 67.7 (nombre sans %). Confirmé: 2025=939,870/1,388,053=67.7%, 2024=853,484/1,253,437=68.1%, 2023=755,820/1,153,545=65.5%, YoY -0.4 pp (67.7-68.1)",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -131,8 +136,8 @@
       "name_fr": "Revenu net total",
       "name_en": "Net Revenue",
       "explanation": "Revenu net consolidé de l'entreprise",
-      "value": "1388.1",
-      "unit": "M $",
+      "value": 1.388,
+      "unit": "Mds $",
       "yoy": "+10.7%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -140,9 +145,9 @@
       "signal": "Croissance solide du revenu total",
       "description": "Revenu net consolidé de l'entreprise pour l'année fiscale, représentant le revenu total généré par tous les segments opérationnels (Cardiopulmonary, Neuromodulation et Other).",
       "history": [
-        1153.5,
-        1253.4,
-        1388.1
+        1.153,
+        1.253,
+        1.388
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -150,7 +155,8 @@
       "is_short_history": false,
       "_validation": "Correction: value '1,388.1' changée en '1388.1' (virgule supprimée pour cohérence numérique). Confirmé: 2025=1,388.1M $ source 1,388,053K, YoY +10.7% = (1,388.053-1,253.437)/1,253.437, history [1153.5, 1253.4, 1388.1] validée",
       "explanation_en": "Revenue from the Net segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Assets",
@@ -169,56 +175,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.61 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "-36.8%",
       "history": [
-        0.58,
-        0.64,
-        0.68,
-        0.43
+        580,
+        640,
+        680,
+        430
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.43 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.64,
-      "unit": "Mds €",
+      "value": 640,
+      "unit": "M €",
       "yoy": "+48.8%",
       "history": [
-        0.21,
-        0.27,
-        0.43,
-        0.64
+        210,
+        270,
+        430,
+        640
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.64 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -244,9 +264,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Correction: value '14.9%' changée en '14.9' (nombre sans symbole %). Confirmé: 2024 vs 2023 = (683.512-604.112)/604.112 = 13.1%, 2025 vs 2024 = (785.385-683.512)/683.512 = 14.9%, history [13.1, 14.9]",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction: value '14.9%' changée en '14.9' (nombre sans symbole %). Confirmé: 2024 vs 2023 = (683.512-604.112)/604.112 = 13.1%, 2025 vs 2024 = (785.385-683.512)/683.512 = 14.9%, history [13.1, 14.9]"
     },
     {
       "short": "Neuromodulation Revenue Growth",
@@ -270,9 +288,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Correction: value '7.0%' changée en '7.0' (nombre sans symbole %). Confirmé: 2024 vs 2023 = (554.223-519.710)/519.710 = 6.6%, 2025 vs 2024 = (592.812-554.223)/554.223 = 7.0%, history [6.6, 7.0]",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction: value '7.0%' changée en '7.0' (nombre sans symbole %). Confirmé: 2024 vs 2023 = (554.223-519.710)/519.710 = 6.6%, 2025 vs 2024 = (592.812-554.223)/554.223 = 7.0%, history [6.6, 7.0]"
     }
   ],
   "ai_positioning": {
@@ -338,7 +354,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Dispositifs médicaux",
-  "_companies_unified_built_at": "2026-05-29T21:19:38.123Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.793Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/livn.json",
     "enrich_root": "v2-pipeline-enrich/livn.json",

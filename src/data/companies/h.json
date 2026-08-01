@@ -1,6 +1,6 @@
 {
   "ticker": "H",
-  "name": "Hyatt Hotels Corporation",
+  "name": "Hyatt Hotels",
   "sector": "Consommation discrétionnaire",
   "subsector": "Hotels, Restaurants & Leisure",
   "tagline": "Global hospitality leader with industry-leading brands and a tradition of innovation",
@@ -105,13 +105,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 7.1 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:35.052618+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
@@ -130,11 +134,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.05 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,11 +161,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 14.04 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,33 +188,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.79,
-      "unit": "Mds €",
+      "value": 790,
+      "unit": "M €",
       "yoy": "-21.8%",
       "history": [
-        0.99,
-        0.88,
-        1.01,
-        0.79
+        990,
+        880,
+        1010,
+        790
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.79 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -224,13 +245,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Acquisition",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Acquisition"
     }
   ],
   "ai_positioning": {
-    "stance": "emerging_risk",
+    "stance": "integrator",
     "summary": "Hyatt reconnaît les plateformes d'IA potentielles comme nouveaux canaux de distribution et comme risque concurrentiel, mais ne met pas en œuvre d'IA significatif dans ses opérations actuelles.",
     "evidence": [
       "Le rapport 10-K mentionne les plateformes IA potentielles comme nouveaux canaux de distribution pouvant affecter la fidélité des consommateurs",
@@ -245,7 +264,8 @@
       "severity": 5,
       "score_rationale": "La nature cyclique de l'industrie hôtelière expose Hyatt aux fluctuations économiques, aux taux d'intérêt, à la confiance des consommateurs et à la croissance économique mondiale, qui affectent directement la demande de voyages et l'hébergement.",
       "trend": "stable",
-      "summary": "Les conditions économiques mondiales et la nature cyclique de l'industrie hôtelière peuvent réduire la demande de voyage et d'hébergement."
+      "summary": "Les conditions économiques mondiales et la nature cyclique de l'industrie hôtelière peuvent réduire la demande de voyage et d'hébergement.",
+      "score": 5
     },
     {
       "title": "Concurrence intense de l'industrie",
@@ -253,7 +273,8 @@
       "severity": 4,
       "score_rationale": "Hyatt opère dans une industrie hautement concurrentielle avec des nouveaux canaux de distribution, des alternatives aux hôtels traditionnels, et une consolidation croissante parmi les concurrents.",
       "trend": "up",
-      "summary": "L'industrie est hautement concurrentielle avec de nouveaux canaux de distribution incluant les plateformes IA potentielles et les alternatives aux hôtels traditionnels."
+      "summary": "L'industrie est hautement concurrentielle avec de nouveaux canaux de distribution incluant les plateformes IA potentielles et les alternatives aux hôtels traditionnels.",
+      "score": 4
     },
     {
       "title": "Risques naturels, sanitaires et géopolitiques",
@@ -261,7 +282,8 @@
       "severity": 5,
       "score_rationale": "Les catastrophes naturelles, événements climatiques, maladies contagieuses, activités terroristes et conflits peuvent réduire significativement la demande d'hébergement et affecter les opérations.",
       "trend": "stable",
-      "summary": "Les risques naturels et sanitaires ainsi que les événements géopolitiques peuvent réduire la demande de lodging et affecter les résultats opérationnels."
+      "summary": "Les risques naturels et sanitaires ainsi que les événements géopolitiques peuvent réduire la demande de lodging et affecter les résultats opérationnels.",
+      "score": 5
     },
     {
       "title": "Dépendance à la technologie et à la distribution numérique",
@@ -269,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Hyatt dépend fortement des plateformes numériques, du programme de fidélité World of Hyatt, et des intermédiaires de voyage tiers, créant des risques de défaillance technologique et de dépendance à des partenaires.",
       "trend": "up",
-      "summary": "L'incapacité à maintenir et développer les plateformes numériques et le programme de fidélité pourrait réduire la demande."
+      "summary": "L'incapacité à maintenir et développer les plateformes numériques et le programme de fidélité pourrait réduire la demande.",
+      "score": 4
     },
     {
       "title": "Risques de change et opérations internationales",
@@ -277,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Bien que 69,8% des revenus proviennent des États-Unis, 30,2% proviennent d'opérations internationales, exposant Hyatt aux risques de change, réglementations locales et instabilité politique.",
       "trend": "stable",
-      "summary": "Les opérations internationales exposent Hyatt aux risques de change et aux diverses réglementations des pays dans lesquels elle opère."
+      "summary": "Les opérations internationales exposent Hyatt aux risques de change et aux diverses réglementations des pays dans lesquels elle opère.",
+      "score": 4
     },
     {
       "title": "Risques liés à la structure de propriété et à l'intensité capitalistique",
@@ -285,7 +309,8 @@
       "severity": 4,
       "score_rationale": "L'acquisition de Playa Hotels augmente l'exposition à la propriété immobilière, qui requiert un capital significatif et augmente l'exposition aux risques de downturn économique.",
       "trend": "stable",
-      "summary": "La propriété immobilière est plus intensive en capital que la gestion ou la franchise et expose Hyatt aux baisses de profitabilité."
+      "summary": "La propriété immobilière est plus intensive en capital que la gestion ou la franchise et expose Hyatt aux baisses de profitabilité.",
+      "score": 4
     },
     {
       "title": "Dépendance à la confiance des marques et à la réputation",
@@ -293,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Le succès de Hyatt dépend fortement de la confiance des consommateurs et de la réputation de ses marques de luxury à essentials, avec risques de dommage réputationnel.",
       "trend": "stable",
-      "summary": "La fidélité des consommateurs et la réputation des marques sont essentielles pour maintenir les revenus."
+      "summary": "La fidélité des consommateurs et la réputation des marques sont essentielles pour maintenir les revenus.",
+      "score": 4
     },
     {
       "title": "Risques liés au changement climatique",
@@ -301,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Le changement climatique peut affecter les propriétés, augmenter les coûts d'exploitation, impacter la disponibilité des ressources et réduire la demande de certaines destinations.",
       "trend": "up",
-      "summary": "Le changement climatique peut affecter les coûts opérationnels, la disponibilité des ressources et la demande de certaines destinations."
+      "summary": "Le changement climatique peut affecter les coûts opérationnels, la disponibilité des ressources et la demande de certaines destinations.",
+      "score": 4
     }
   ],
   "governance": {
@@ -406,12 +433,350 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.910Z",
+  "enrich_to": {
+    "ticker": "H.TO",
+    "_quarterly_history_extension": {
+      "ticker": "H.TO",
+      "period_type": "quarter",
+      "unit_currency": "CAD",
+      "kpis": [
+        {
+          "kpi_short": "Revenue",
+          "kpi_name_fr": "Chiffre d'affaires",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 2.408,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 2.066,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 2.299,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 2.268,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 2.648,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Operating Income",
+          "kpi_name_fr": "Résultat opérationnel",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 0.624,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 0.615,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 0.68,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 0.467,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 0.646,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Net Income",
+          "kpi_name_fr": "Résultat net",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 0.358,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 0.327,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 0.421,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 0.233,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 0.391,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Operating Cash Flow",
+          "kpi_name_fr": "Flux de trésorerie opérationnel",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 0.51,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 0.605,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 0.713,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 0.867,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 0.394,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "extracted_at": "2026-06-02T11:39:37Z",
+      "extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "_n_kpis_merged": 4
+    },
+    "_super_kpi_inputs": {
+      "_extracted_at": "2026-06-02T11:39:37Z",
+      "_extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "currency": "CAD",
+      "revenue_q": [
+        {
+          "q": "Q1 2025",
+          "v": 2.408,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 2.066,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 2.299,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 2.268,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 2.648,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "op_income_q": [
+        {
+          "q": "Q1 2025",
+          "v": 0.624,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 0.615,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 0.68,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 0.467,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 0.646,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "ni_q": [
+        {
+          "q": "Q1 2025",
+          "v": 0.358,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 0.327,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 0.421,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 0.233,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 0.391,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "op_cf_q": [
+        {
+          "q": "Q1 2025",
+          "v": 0.51,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 0.605,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 0.713,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 0.867,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 0.394,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "rd_q": [],
+      "op_margin_q_pct": [
+        {
+          "q": "Q1 2025",
+          "v": 25.91,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 29.77,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 29.58,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 20.59,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 24.4,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ]
+    }
+  },
+  "_companies_unified_built_at": "2026-08-01T20:28:05.386Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/h.json",
     "enrich_root": "v2-pipeline-enrich/h.json",
     "enrich_subkeys": [
-      "description"
+      "description",
+      "to"
     ]
   }
 }

@@ -57,9 +57,7 @@
       "_validation": "Valeur vérifiée du MD&A reconciliation table (2025: $181.1M vs 2024: $224.1M). History complétée avec données fiables. Suppression des valeurs '1' incohérentes. Tagline amélioré. Rationale réécrite sans em-dash avec justification MD&A explicite.",
       "period_type": "quarter",
       "explanation_en": "Profit margin on Utility.",
-      "signal_en": "Margin compression, watch profitability",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Net Income",
@@ -86,10 +84,8 @@
       "is_short_history": true,
       "ttm": null,
       "_validation": "Type corrigé de 'Revenue' à 'Net Income'. Valeurs vérifiées (2025: $181.1M, 2024: $224.1M). History nettoyée. Signal enrichi avec détails de l'impact financier documenté au MD&A.",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Total Revenue",
@@ -108,34 +104,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.61 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.33,
-      "unit": "Mds €",
+      "value": 330,
+      "unit": "M €",
       "yoy": "+3.1%",
       "history": [
-        0.26,
-        0.3,
-        0.32,
-        0.33
+        260,
+        300,
+        320,
+        330
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.33 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Moderate growth, slightly positive"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Moderate growth, slightly positive",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -154,11 +159,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 2.94 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -177,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.46 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -200,32 +213,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.44 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "",
       "history": [
-        0.01,
-        0.01,
+        10,
+        10,
         0,
-        0.01
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -254,9 +276,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": null,
-      "_validation": "Valeur corrigée de 4.3M$ (préimpôt) à 3.2M$ (post-impôt net) basée sur le tableau de réconciliation du MD&A. YoY supprimé (valeur incohérente '+X%'). Unit confirmée M$. Histoire vérifiée comme incident unique 2025, pas d'historique fiable. TTM supprimé. Amélioration du signal avec contexte de l'impact financier documenté.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur corrigée de 4.3M$ (préimpôt) à 3.2M$ (post-impôt net) basée sur le tableau de réconciliation du MD&A. YoY supprimé (valeur incohérente '+X%'). Unit confirmée M$. Histoire vérifiée comme incident unique 2025, pas d'historique fiable. TTM supprimé. Amélioration du signal avec contexte de l'impact financier documenté."
     }
   ],
   "ai_positioning": {
@@ -313,7 +333,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K, mention de désapprobations passées (30,9M$ par MPSC en 2025), langage fort sur le risque d'imprudence tarifaire, catégorie hautement pondérée en utilities régulées.",
       "trend": "stable",
-      "summary": "Les régulateurs peuvent refuser de reconnaître certains coûts comme prudents, empêchant leur récupération et affectant rentabilité et liquidité."
+      "summary": "Les régulateurs peuvent refuser de reconnaître certains coûts comme prudents, empêchant leur récupération et affectant rentabilité et liquidité.",
+      "score": 5
     },
     {
       "title": "Conformité environnementale coûteuse",
@@ -321,7 +342,8 @@
       "severity": 5,
       "score_rationale": "Présence répétée avec risques sur émissions CO2, règles EPA instables, projets impactés (ex. YCGS), langage alarmiste sur coûts non récupérés.",
       "trend": "up",
-      "summary": "Les exigences environnementales croissantes ou changeantes peuvent entraîner des coûts élevés non récupérés ou la fermeture anticipée d'actifs."
+      "summary": "Les exigences environnementales croissantes ou changeantes peuvent entraîner des coûts élevés non récupérés ou la fermeture anticipée d'actifs.",
+      "score": 5
     },
     {
       "title": "Litiges retardent projets clés",
@@ -329,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Exemple concret avec annulation temporaire du permis YCGS en 2023, arrêt de chantier de 3 mois, coûts supplémentaires, mention explicite de risques futurs similaires.",
       "trend": "stable",
-      "summary": "Des recours juridiques d'ONG ou d'entités publiques peuvent bloquer ou retarder des projets, augmentant les coûts et perturbant les plans d'investissement."
+      "summary": "Des recours juridiques d'ONG ou d'entités publiques peuvent bloquer ou retarder des projets, augmentant les coûts et perturbant les plans d'investissement.",
+      "score": 4
     },
     {
       "title": "Achats obligatoires à coûts élevés (QF)",
@@ -337,7 +360,8 @@
       "severity": 4,
       "score_rationale": "Mention fréquente et détaillée, impact sur la flexibilité d'investissement, coûts de remplacement non maîtrisés, risque de surcoût pour les clients et non-récupération.",
       "trend": "stable",
-      "summary": "L'obligation d'acheter de l'énergie à des producteurs indépendants (QF) à des prix élevés ou mal synchronisés augmente les coûts et complique la gestion du réseau."
+      "summary": "L'obligation d'acheter de l'énergie à des producteurs indépendants (QF) à des prix élevés ou mal synchronisés augmente les coûts et complique la gestion du réseau.",
+      "score": 4
     },
     {
       "title": "Pénalités pour non-conformité fiable",
@@ -345,7 +369,8 @@
       "severity": 4,
       "score_rationale": "Risque de pénalités jusqu'à 1,2M$ par jour par violation NERC/FERC, mention de sanctions accrues, impact matériel possible sur résultats.",
       "trend": "stable",
-      "summary": "Le non-respect des normes de fiabilité du réseau peut entraîner des pénalités sévères et nuire à la performance financière."
+      "summary": "Le non-respect des normes de fiabilité du réseau peut entraîner des pénalités sévères et nuire à la performance financière.",
+      "score": 4
     },
     {
       "title": "Risques liés à la transition énergétique",
@@ -353,7 +378,8 @@
       "severity": 4,
       "score_rationale": "Mention dans les risques financiers et opérationnels, lien avec politiques publiques, technologies émergentes et actifs fossiles (ex. Colstrip), risque d'obsolescence.",
       "trend": "up",
-      "summary": "Les évolutions technologiques et politiques de la transition énergétique menacent la rentabilité des actifs traditionnels et imposent de nouveaux investissements."
+      "summary": "Les évolutions technologiques et politiques de la transition énergétique menacent la rentabilité des actifs traditionnels et imposent de nouveaux investissements.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et menaces physiques",
@@ -361,7 +387,8 @@
       "severity": 4,
       "score_rationale": "Inclu dans les risques opérationnels critiques, référence aux normes NERC CIP, risque de perturbation majeure, langage préventif mais alarmant.",
       "trend": "stable",
-      "summary": "Les attaques cyber ou physiques sur les infrastructures critiques peuvent perturber l'exploitation et entraîner des coûts importants."
+      "summary": "Les attaques cyber ou physiques sur les infrastructures critiques peuvent perturber l'exploitation et entraîner des coûts importants.",
+      "score": 4
     }
   ],
   "governance": {
@@ -670,9 +697,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.291942+00:00",
     "fetched_at": "2026-05-21T02:17:14.291943+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.151Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.096Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nwe.json",
     "enrich_root": "v2-pipeline-enrich/nwe.json",

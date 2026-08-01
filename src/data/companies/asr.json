@@ -60,7 +60,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Capex",
@@ -82,7 +82,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Assets",
@@ -104,7 +104,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet."
     },
     {
       "short": "Employees",
@@ -126,7 +126,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "Total Debt",
@@ -145,11 +145,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 35.6 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -168,10 +172,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 11.12 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -190,10 +198,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 39.51 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -207,7 +219,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         4.117,
         7.411,
@@ -220,7 +232,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -235,7 +247,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         4.509,
@@ -248,7 +260,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -263,7 +275,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         45.15,
@@ -276,7 +288,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -292,7 +304,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         332.885,
@@ -305,7 +317,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -330,9 +342,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     },
     {
       "short": "Women on Board",
@@ -354,9 +364,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     }
   ],
   "ai_positioning": {
@@ -397,7 +405,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en tte du Item 1A, avec un langage fort (matriellement ngatif, incertitude). Il est rcurrent et renforc par les donnes de trafic (61% vols vers les -U). La catgorie Gopolitique est critique pour l'activit aorportuaire.",
       "trend": "stable",
-      "summary": "Les rsultats d'ASR dpendent fortement des conditions conomiques et politiques entre les -U et le Mexique. Des mesures comme les tarifs douaniers ou les restrictions migratoires sous l'administration Trump peuvent rduire le trafic passagers, notamment vers Cancn et la Riviera Maya."
+      "summary": "Les rsultats d'ASR dpendent fortement des conditions conomiques et politiques entre les -U et le Mexique. Des mesures comme les tarifs douaniers ou les restrictions migratoires sous l'administration Trump peuvent rduire le trafic passagers, notamment vers Cancn et la Riviera Maya.",
+      "score": 5
     },
     {
       "title": "Conflits arms internes en Colombie",
@@ -405,7 +414,8 @@
       "severity": 4,
       "score_rationale": "Position marque dans le texte avec mention de zones d'opration affectes (El Carao). Langage prudent (ne sont pas typiquement impactes) mais risque rel dans certaines rgions. Tendance stable, poids modle pour l'activit colombienne.",
       "trend": "stable",
-      "summary": "Les conflits arms persistants en Colombie, notamment dans la rgion d'El Catatumbo, pourraient perturber les op rations des aorports d'ASR comme celui d'El Carao, malgr une exposition limite jusqu' prsent."
+      "summary": "Les conflits arms persistants en Colombie, notamment dans la rgion d'El Catatumbo, pourraient perturber les op rations des aorports d'ASR comme celui d'El Carao, malgr une exposition limite jusqu' prsent.",
+      "score": 4
     },
     {
       "title": "Risque de catastrophes naturelles rcurrentes",
@@ -413,7 +423,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le texte, avec exemples concrets (ouragans Irma, Maria, Fiona, sismes  Puerto Rico). Langage fort (gravement affect, impacter  nouveau). Tendance stable, mais aggrave par le changement climatique. Catgorie Environnement critique pour les infrastructures cotires.",
       "trend": "stable",
-      "summary": "Les aorports d'ASR au Mexique, en Colombie et  Puerto Rico sont exposs aux ouragans et sismes. Ces vnements peuvent endommager les infrastructures et rduire le trafic passagers, comme lors de l'ouragan Fiona en 2022  LMM."
+      "summary": "Les aorports d'ASR au Mexique, en Colombie et  Puerto Rico sont exposs aux ouragans et sismes. Ces vnements peuvent endommager les infrastructures et rduire le trafic passagers, comme lors de l'ouragan Fiona en 2022  LMM.",
+      "score": 5
     },
     {
       "title": "Dpendance au trafic passagers international",
@@ -421,7 +432,8 @@
       "severity": 5,
       "score_rationale": "Donnes chiffres dtailles (61% des passagers internationaux vers les -U). Position stratgique dans le document. Langage rptitif et tendance stable. Catgorie Industriel essentielle pour le modle conomique d'ASR.",
       "trend": "stable",
-      "summary": "ASR dpend fortement du trafic arien international, en particulier entre le Mexique et les -U. Toute perturbation conomique, politique ou sanitaire sur ces marchs peut impacter directement ses revenus de passagers."
+      "summary": "ASR dpend fortement du trafic arien international, en particulier entre le Mexique et les -U. Toute perturbation conomique, politique ou sanitaire sur ces marchs peut impacter directement ses revenus de passagers.",
+      "score": 5
     },
     {
       "title": "Scurit perue des destinations touristiques",
@@ -429,7 +441,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite dans le texte sur la perception de la scurit  Cancn et la Riviera Maya. Langage modr mais risque rel. Tendance stable, mais sensible aux crises mdiatiques. Catgorie Rputation importante pour les destinations loisirs.",
       "trend": "stable",
-      "summary": "La frquentation des aorports d'ASR dpend en partie de la perception de scurit des destinations comme Cancn. Une augmentation de la criminalit ou des alertes mdiatiques peuvent dcourager les touristes."
+      "summary": "La frquentation des aorports d'ASR dpend en partie de la perception de scurit des destinations comme Cancn. Une augmentation de la criminalit ou des alertes mdiatiques peuvent dcourager les touristes.",
+      "score": 4
     },
     {
       "title": "Cyberscurit des systmes aorportuaires",
@@ -437,7 +450,8 @@
       "severity": 3,
       "score_rationale": "Le risque est abord dans le Item 16K, avec une reconnaissance des menaces croissantes. Langage prudent mais structur. Tendance  la hausse implicite. Catgorie Cyberscurit en volution pour les infrastructures critiques.",
       "trend": "up",
-      "summary": "Les systmes informatiques des aorports d'ASR sont exposs  des cyberattaques pouvant perturber les op rations, compromettre les donnes passagers ou interrompre les services critiques, comme la gestion des vols ou les contrles d'acc s."
+      "summary": "Les systmes informatiques des aorports d'ASR sont exposs  des cyberattaques pouvant perturber les op rations, compromettre les donnes passagers ou interrompre les services critiques, comme la gestion des vols ou les contrles d'acc s.",
+      "score": 3
     },
     {
       "title": "Rglementation douanire et migratoire -U",
@@ -445,7 +459,8 @@
       "severity": 4,
       "score_rationale": "Position marque dans le texte avec lien direct sur le trafic passagers. Langage fort (matriellement ngatif). Tendance stable mais sensible aux changements politiques. Catgorie Rgulation stratgique pour les flux transfrontaliers.",
       "trend": "stable",
-      "summary": "Les politiques migratoires et douanires des -U, notamment sous l'administration Trump, peuvent restreindre la mobilit des passagers mexicains et colombiens, rduisant ainsi le trafic arien vers les aorports d'ASR."
+      "summary": "Les politiques migratoires et douanires des -U, notamment sous l'administration Trump, peuvent restreindre la mobilit des passagers mexicains et colombiens, rduisant ainsi le trafic arien vers les aorports d'ASR.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:16:26.571959+00:00",
@@ -530,10 +545,10 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:20:18Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "_eps_extracted_at": "2026-05-18T16:43:36Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "ASR",
     "fetched_at": "2026-05-14T18:22:27.723231+00:00",
@@ -576,6 +591,36 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "ASR",
+    "extracted_at": "2026-06-01T02:58:26Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          29.216091,
+          56.614103,
+          56.181821,
+          57.515881
+        ],
+        "history_periods": [
+          "Q1 2020",
+          "Q2 2020",
+          "Q3 2020",
+          "Q4 2020"
+        ],
+        "last_data_date": "2020-12-31",
+        "unit": "B MXN",
+        "_extracted_at": "2026-06-01T02:58:26Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "ASR",
     "ranks": {
@@ -588,14 +633,15 @@
     "country": "Mexico",
     "_data_freshness_date": "2026-05-21T02:17:14.224646+00:00",
     "fetched_at": "2026-05-21T02:17:14.224646+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.065Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.530Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/asr.json",
     "enrich_root": "v2-pipeline-enrich/asr.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -37,10 +37,13 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Données vérifiées et validées dans le 10-K (Business section, VPA agreement)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Robotaxi Volume' n'apparaît pas explicitement dans l'extrait fourni. Le document contient uniquement des données XBRL structurées (b",
-      "explanation_en": "Volume of Robotaxi over the period."
+      "explanation_en": "Volume of Robotaxi over the period.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Capex",
@@ -63,7 +66,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Corrigé: KPI mislabeled comme Capex, mais décrit l'émission de dettes. Renommé et repositionné en Capital. Montant vérifié dans MDA (2031 Notes section)",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "R&D Headcount",
@@ -113,7 +116,7 @@
       "is_short_history": false,
       "_validation": "Format et données validés",
       "ttm": -12.88,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -165,7 +168,7 @@
       "is_short_history": false,
       "_validation": "Corrigé: valeur précédente de 1.5K était manifestement erronée (confondion avec effectif R&D). Recalculée en fonction de la réduction de 15% mentionnée. Estimated total headcount avant restructuring: ~11.76K, après: ~10K",
       "ttm": 9.63,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -207,11 +210,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.39 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,9 +243,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Données validées dans MDA (Workforce Reduction section)",
-      "_source_month": "février 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Données validées dans MDA (Workforce Reduction section)"
     },
     {
       "short": "Annualized Savings",
@@ -261,9 +266,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Données validées dans MDA (Workforce Reduction section)",
-      "_source_month": "février 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Données validées dans MDA (Workforce Reduction section)"
     }
   ],
   "ai_positioning": {
@@ -277,43 +280,43 @@
       "title": "Risques de cybersécurité et de protection des données",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le document mentionne explicitement la cybersécurité à plusieurs reprises, soulignant la responsabilité du conseil d'administration et du comité d'audit. L'intensité du langage est élevée, décrivant des processus de gestion des risques et des menaces potentielles. Ce risque est une préoccupation constante pour les entreprises technologiques. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne explicitement la cybersécurité à plusieurs reprises, soulignant la responsabilité du conseil d'administration et du comité d'audit. L'intensité du langage est élevée, décrivant des processus de gestion des risques et des menaces potentielles. Ce risque est une préoccupation constante pour les entreprises technologiques.",
       "trend": "stable",
       "summary": "L'entreprise est exposée à des risques de cybersécurité qui pourraient compromettre ses produits, ses données confidentielles, la propriété intellectuelle, ainsi que les données des employés et des consommateurs. La gestion de ces risques est une priorité, mais des failles peuvent survenir.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux fournisseurs tiers",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le document détaille les processus de gestion des risques liés aux fournisseurs tiers, soulignant que le contrôle et la surveillance de leur posture de sécurité restent limités. L'intensité du langage indique une préoccupation significative quant à la possibilité de compromissions ou d'échecs chez ces partenaires. (score par défaut, à affiner)",
+      "score_rationale": "Le document détaille les processus de gestion des risques liés aux fournisseurs tiers, soulignant que le contrôle et la surveillance de leur posture de sécurité restent limités. L'intensité du langage indique une préoccupation significative quant à la possibilité de compromissions ou d'échecs chez ces partenaires.",
       "trend": "up",
       "summary": "La dépendance vis-à-vis des fournisseurs tiers pour l'accès aux informations confidentielles ou aux données personnelles expose l'entreprise à des risques. Bien que des mesures soient prises, le contrôle sur la sécurité de ces tiers est limité, ce qui peut entraîner des compromissions.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la technologie et à l'innovation",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "L'entreprise se positionne comme une société technologique axée sur l'innovation et les plateformes de véhicules définies par logiciel. Le succès dépend de sa capacité à développer et à commercialiser de nouvelles technologies, ce qui implique un risque inhérent à l'innovation et à l'adoption par le marché. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise se positionne comme une société technologique axée sur l'innovation et les plateformes de véhicules définies par logiciel. Le succès dépend de sa capacité à développer et à commercialiser de nouvelles technologies, ce qui implique un risque inhérent à l'innovation et à l'adoption par le marché.",
       "trend": "stable",
       "summary": "Le succès de l'entreprise repose sur son innovation technologique et le développement de nouvelles plateformes de véhicules. L'incapacité à innover ou à commercialiser efficacement ces technologies pourrait avoir un impact négatif significatif.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques financiers liés à l'endettement",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "L'émission de notes convertibles de montants importants (1.1 milliard et 975 millions USD) indique une dépendance au financement par la dette. Le remboursement et la gestion de ces instruments financiers représentent un risque financier significatif, surtout en cas de difficultés opérationnelles. (score par défaut, à affiner)",
+      "score_rationale": "L'émission de notes convertibles de montants importants (1.1 milliard et 975 millions USD) indique une dépendance au financement par la dette. Le remboursement et la gestion de ces instruments financiers représentent un risque financier significatif, surtout en cas de difficultés opérationnelles.",
       "trend": "up",
       "summary": "L'entreprise a émis des notes convertibles substantielles, ce qui implique des obligations financières importantes. La gestion de cette dette et les conditions associées peuvent représenter un risque financier majeur, notamment en cas de non-atteinte des objectifs financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la concurrence et à la dynamique du marché",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "L'entreprise opère dans un marché automobile concurrentiel, en particulier dans le segment des véhicules électriques. La mention de l'exploration de modèles de distribution alternatifs suggère une adaptation aux dynamiques changeantes du marché, impliquant des risques concurrentiels. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise opère dans un marché automobile concurrentiel, en particulier dans le segment des véhicules électriques. La mention de l'exploration de modèles de distribution alternatifs suggère une adaptation aux dynamiques changeantes du marché, impliquant des risques concurrentiels.",
       "trend": "stable",
       "summary": "Lucid opère dans un marché automobile hautement concurrentiel, particulièrement dans le segment premium des véhicules électriques. L'incapacité à maintenir l'avantage technologique ou à gérer efficacement les coûts pourrait affecter les parts de marché et la rentabilité.",
       "score": 3
@@ -358,7 +361,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -441,11 +444,9 @@
           241.77,
           445.485,
           638.002,
-          -414.613,
           198.197,
           432.512,
           592.206,
-          -339.074,
           161.241,
           343.904,
           542.722,
@@ -498,6 +499,12 @@
             "accession": "0001628280-26-030517",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (LCID)"
         ]
       },
       {
@@ -508,19 +515,15 @@
           186.076,
           386.457,
           600.218,
-          -351.239,
           229.803,
           463.277,
           694.035,
-          -450.103,
           284.627,
           571.797,
           896.168,
-          -576.139,
           251.246,
           525.085,
           850.39,
-          -415.324,
           335.67
         ],
         "history_periods": [
@@ -572,6 +575,12 @@
             "accession": "0001628280-26-030517",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (LCID)"
         ]
       }
     ]
@@ -588,9 +597,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.276008+00:00",
     "fetched_at": "2026-05-21T02:17:14.276009+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.959Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.743Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lcid.json",
     "enrich_root": null,

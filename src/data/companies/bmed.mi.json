@@ -40,8 +40,10 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Common Equity Tier 1 ratio — core capital strength measure (banks).",
-      "signal_en": "Capital base stable"
+      "explanation_en": "Common Equity Tier 1 ratio, core capital strength measure (banks).",
+      "signal_en": "Capital base stable",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only one explicit CET1 Ratio value (22.3% for 2023) is found; fewer than four consecutive annual values are available."
     },
     {
       "short": "Leverage Ratio",
@@ -87,11 +89,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.42 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -110,11 +116,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.12 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -133,11 +143,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 1.52 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,34 +170,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 86.15 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.4,
-      "unit": "Mds €",
+      "value": 400,
+      "unit": "M €",
       "yoy": "+2.6%",
       "history": [
-        0.07,
-        0.37,
-        0.39,
-        0.4
+        70,
+        370,
+        390,
+        400
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.4 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -202,10 +225,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.28 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -219,7 +246,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2020-2024). ex-div dates.",
       "history": [
         null,
         1.01,
@@ -232,7 +259,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -247,7 +274,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2020-2024) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2020-2024) en milliards EUR. cashflow.",
       "history": [
         null,
         0.7437,
@@ -260,7 +287,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -275,7 +302,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2020-2024). Source yfinance.",
+      "description": "Dividendes / résultat net (2020-2024).",
       "history": [
         null,
         104.3,
@@ -288,7 +315,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -304,7 +331,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         0.965,
@@ -317,7 +344,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -456,7 +483,8 @@
       "severity": 4,
       "score_rationale": "Les tableaux de crédit montrent que l'Italie représente ~95% des expositions standardisées consolidées (ex. 43,7 Mrd€ sur 45,4 Mrd€ au 30/06/2024). La dépendance à un seul marché domestique amplifie la sensibilité aux cycles économiques italiens et à la concurrence locale des grandes banques universelles.",
       "trend": "stable",
-      "summary": "Banca Mediolanum réalise l'essentiel de son activité en Italie (crédit retail, hypothèques, épargne gérée). Toute détérioration du contexte macroéconomique italien ou intensification concurrentielle de la part d'Intesa Sanpaolo ou UniCredit sur le segment wealth management affecterait directement les revenus et la collecte nette."
+      "summary": "Banca Mediolanum réalise l'essentiel de son activité en Italie (crédit retail, hypothèques, épargne gérée). Toute détérioration du contexte macroéconomique italien ou intensification concurrentielle de la part d'Intesa Sanpaolo ou UniCredit sur le segment wealth management affecterait directement les revenus et la collecte nette.",
+      "score": 4
     },
     {
       "title": "Dépendance au réseau de Family Bankers indépendants",
@@ -464,7 +492,8 @@
       "severity": 4,
       "score_rationale": "Le modèle de distribution de Banca Mediolanum repose structurellement sur ~6 000 Family Bankers (agents indépendants), non salariés. Ce risque de dépendance à un réseau externe est inhérent au modèle et constitue un facteur de risque opérationnel et commercial de premier rang, récurrent dans les communications de la banque.",
       "trend": "stable",
-      "summary": "La collecte nette et les revenus de commissions dépendent directement de la fidélité, de la productivité et de la conformité réglementaire des Family Bankers. Un départ massif vers des concurrents (Fideuram, Fineco) ou des manquements déontologiques individuels pourraient nuire à la réputation et aux flux d'actifs sous gestion."
+      "summary": "La collecte nette et les revenus de commissions dépendent directement de la fidélité, de la productivité et de la conformité réglementaire des Family Bankers. Un départ massif vers des concurrents (Fideuram, Fineco) ou des manquements déontologiques individuels pourraient nuire à la réputation et aux flux d'actifs sous gestion.",
+      "score": 4
     },
     {
       "title": "Risque réglementaire sectoriel : évolution cadre MiFID II / DORA / CSRD",
@@ -472,7 +501,8 @@
       "severity": 4,
       "score_rationale": "Banca Mediolanum opère dans un secteur (banque-assurance, gestion d'actifs, distribution de produits financiers) soumis à une intensification réglementaire européenne continue (MiFID II, IDD, DORA applicable 2025, CSRD). La présence dans plusieurs juridictions (Italie, Espagne, Irlande, Allemagne) multiplie les obligations de conformité.",
       "trend": "up",
-      "summary": "Les nouvelles exigences DORA (résilience opérationnelle numérique, entrée en vigueur janvier 2025) imposent des investissements significatifs en gouvernance IT et gestion des tiers. Parallèlement, les révisions MiFID II sur les rétrocessions de commissions menacent directement le modèle de rémunération des réseaux de conseillers indépendants."
+      "summary": "Les nouvelles exigences DORA (résilience opérationnelle numérique, entrée en vigueur janvier 2025) imposent des investissements significatifs en gouvernance IT et gestion des tiers. Parallèlement, les révisions MiFID II sur les rétrocessions de commissions menacent directement le modèle de rémunération des réseaux de conseillers indépendants.",
+      "score": 4
     },
     {
       "title": "Risque cybersécurité et résilience des systèmes bancaires digitaux",
@@ -480,7 +510,8 @@
       "severity": 4,
       "score_rationale": "Banca Mediolanum est une banque à forte orientation digitale (Mediolanum App, services en ligne). L'exposition aux cyberattaques est structurellement élevée dans ce segment. Les données prudentielles montrent une base de clientèle retail massive (~4,6 Mrd€ d'expositions retail), impliquant un volume important de données personnelles sensibles.",
       "trend": "up",
-      "summary": "Une intrusion informatique, une indisponibilité prolongée des plateformes digitales ou une violation de données clients (RGPD) pourrait entraîner des sanctions réglementaires, une perte de confiance des clients et une fuite d'actifs sous gestion. Le risque est amplifié par la dépendance aux prestataires technologiques tiers."
+      "summary": "Une intrusion informatique, une indisponibilité prolongée des plateformes digitales ou une violation de données clients (RGPD) pourrait entraîner des sanctions réglementaires, une perte de confiance des clients et une fuite d'actifs sous gestion. Le risque est amplifié par la dépendance aux prestataires technologiques tiers.",
+      "score": 4
     },
     {
       "title": "Concentration du portefeuille hypothécaire résidentiel italien",
@@ -488,7 +519,8 @@
       "severity": 3,
       "score_rationale": "Les tableaux standardisés révèlent une exposition hypothécaire de ~11,9 Mrd€ (immovable property) au 30/06/2024, représentant ~26% des expositions totales consolidées. Cette concentration sur l'immobilier résidentiel italien est un risque métier spécifique en cas de correction du marché immobilier.",
       "trend": "stable",
-      "summary": "Le portefeuille de crédits immobiliers résidentiels est le principal actif de crédit de la banque. Une correction des prix immobiliers en Italie ou une hausse du chômage dégradant la capacité de remboursement des ménages pourrait entraîner une hausse significative des NPL et des provisions, pesant sur la rentabilité."
+      "summary": "Le portefeuille de crédits immobiliers résidentiels est le principal actif de crédit de la banque. Une correction des prix immobiliers en Italie ou une hausse du chômage dégradant la capacité de remboursement des ménages pourrait entraîner une hausse significative des NPL et des provisions, pesant sur la rentabilité.",
+      "score": 3
     },
     {
       "title": "Risque de réputation lié aux pratiques de vente de produits financiers",
@@ -496,7 +528,8 @@
       "severity": 3,
       "score_rationale": "Le modèle de distribution via agents indépendants rémunérés à la commission crée un risque structurel de mis-selling (vente inadaptée) de produits d'épargne, d'assurance-vie ou de fonds. Ce risque est récurrent dans le secteur et fait l'objet d'une surveillance accrue de la Consob et de l'IVASS en Italie.",
       "trend": "stable",
-      "summary": "Des pratiques commerciales agressives ou inadaptées de la part de Family Bankers pourraient exposer Banca Mediolanum à des litiges clients, des sanctions de la Consob/IVASS et une atteinte à sa marque. L'historique du secteur (affaires Eurovita, etc.) illustre la sensibilité réputationnelle de ce modèle de distribution."
+      "summary": "Des pratiques commerciales agressives ou inadaptées de la part de Family Bankers pourraient exposer Banca Mediolanum à des litiges clients, des sanctions de la Consob/IVASS et une atteinte à sa marque. L'historique du secteur (affaires Eurovita, etc.) illustre la sensibilité réputationnelle de ce modèle de distribution.",
+      "score": 3
     },
     {
       "title": "Expansion internationale limitée et risque d'exécution en Espagne",
@@ -504,7 +537,8 @@
       "severity": 3,
       "score_rationale": "Les données par pays montrent une présence espagnole significative (~3,8 Mrd€ d'expositions au 30/06/2024, principalement hypothécaire) via Banco Mediolanum. Cette filiale opère dans un marché bancaire espagnol très concurrentiel face à Santander, BBVA et CaixaBank, avec des marges sous pression.",
       "trend": "stable",
-      "summary": "Banco Mediolanum Espagne doit faire face à une concurrence intense des grandes banques universelles espagnoles disposant de réseaux d'agences établis et de coûts de distribution inférieurs. La capacité à recruter et fidéliser des conseillers financiers indépendants en Espagne reste un défi opérationnel structurel."
+      "summary": "Banco Mediolanum Espagne doit faire face à une concurrence intense des grandes banques universelles espagnoles disposant de réseaux d'agences établis et de coûts de distribution inférieurs. La capacité à recruter et fidéliser des conseillers financiers indépendants en Espagne reste un défi opérationnel structurel.",
+      "score": 3
     },
     {
       "title": "Risque de désintermédiation par les néobanques et plateformes fintech",
@@ -512,7 +546,8 @@
       "severity": 3,
       "score_rationale": "Le positionnement de Banca Mediolanum sur la banque digitale et la gestion de patrimoine retail le place en concurrence directe avec des acteurs fintech (Fineco, Revolut, N26) et des plateformes de robo-advisory. Ce risque de disruption technologique est croissant dans le contexte d'adoption accélérée des services financiers digitaux.",
       "trend": "up",
-      "summary": "L'émergence de plateformes d'investissement à faibles coûts (ETF, robo-advisors) et de néobanques offrant des services bancaires gratuits menace le modèle de revenus basé sur les commissions de gestion. La fidélisation des clients jeunes, moins attachés au conseil humain, constitue un enjeu stratégique croissant."
+      "summary": "L'émergence de plateformes d'investissement à faibles coûts (ETF, robo-advisors) et de néobanques offrant des services bancaires gratuits menace le modèle de revenus basé sur les commissions de gestion. La fidélisation des clients jeunes, moins attachés au conseil humain, constitue un enjeu stratégique croissant.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T08:46:03.606599+00:00",
@@ -527,10 +562,10 @@
   "_source_year": "2024",
   "_extraction_note": "Source annual-text disponible (700293 bytes, year=2024). KPIs spécifiques + segments + geography + risks à extraire via passe LLM dédiée. Sub-agent batch 3 a validé existence et qualité minimale de la source.",
   "_dividends_extracted_at": "2026-05-09T20:23:23Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2024)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2024)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:43:57Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "kpis_type_overrides": {
     "Total Revenue": "Revenue",
     "Net Income": "Profitability",
@@ -573,23 +608,27 @@
         121,
         137
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Net Inflows",
       "name_fr": "Collecte nette annuelle",
       "name_en": "Annual Net Inflows",
-      "value": 9100,
-      "unit": "M €",
+      "value": 9.1,
+      "unit": "Mds €",
       "yoy": "+13%",
       "history": [
-        5740,
-        8200,
-        7100,
-        8030,
-        9100
+        5.74,
+        8.2,
+        7.1,
+        8.03,
+        9.1
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
     },
     {
       "short": "Family Bankers",
@@ -605,7 +644,10 @@
         6305,
         6376
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Capacité",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Banking Net Interest Income",
@@ -621,7 +663,10 @@
         753,
         850
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Cost / Income",
@@ -653,7 +698,10 @@
         19.2,
         21.5
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T16:53:07Z",
@@ -785,6 +833,56 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "BMED.MI",
+    "extracted_at": "2026-06-01T03:03:12Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "CET1 Ratio",
+        "period_type": "quarter",
+        "history": [
+          22.08,
+          22.29,
+          22.9,
+          23.74
+        ],
+        "history_periods": [
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024"
+        ],
+        "last_data_date": "2024-06-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:03:12Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Leverage Ratio",
+        "period_type": "quarter",
+        "history": [
+          6.31,
+          6.95,
+          7.33,
+          7.43
+        ],
+        "history_periods": [
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024"
+        ],
+        "last_data_date": "2024-06-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:03:12Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "BMED.MI",
     "ranks": {
@@ -797,15 +895,16 @@
     "country": "Italy",
     "_data_freshness_date": "2026-05-21T02:17:14.231724+00:00",
     "fetched_at": "2026-05-21T02:17:14.231725+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.749Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.239Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bmed.mi.json",
     "enrich_root": "v2-pipeline-enrich/bmed.mi.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

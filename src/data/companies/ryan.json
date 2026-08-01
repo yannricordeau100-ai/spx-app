@@ -34,7 +34,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Acquisitions",
@@ -72,34 +72,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.05 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.06,
-        0.06,
-        0.09,
-        0.06
+        60,
+        60,
+        90,
+        60
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.06 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -118,11 +127,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.47 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -141,11 +154,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.56 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -164,33 +181,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.53 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "-70.4%",
       "history": [
-        0.99,
-        0.84,
-        0.54,
-        0.16
+        990,
+        840,
+        540,
+        160
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.16 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -228,7 +254,8 @@
       "severity": 4,
       "score_rationale": "Positioned first in risk factors summary. Strong language used ('failure to successfully recruit and retain', 'critical to the success'). Intense competition and legal uncertainty regarding non-compete clauses increase severity.",
       "trend": "up",
-      "summary": "Ability to attract, retain, and develop qualified employees, particularly in key positions and for management succession, is critical. Intense competition and legal uncertainty regarding non-compete clauses elevate this risk."
+      "summary": "Ability to attract, retain, and develop qualified employees, particularly in key positions and for management succession, is critical. Intense competition and legal uncertainty regarding non-compete clauses elevate this risk.",
+      "score": 4
     },
     {
       "title": "Loss of relationships with insurance carriers or clients",
@@ -236,7 +263,8 @@
       "severity": 4,
       "score_rationale": "Mentioned prominently in risk factors. Strong language ('potential loss', 'failure to maintain', 'dependent upon a limited number'). Revenue concentration from top clients represents material risk.",
       "trend": "stable",
-      "summary": "Company depends heavily on relationships with insurance carriers and brokers. Loss or degradation of relationships, or over-reliance on few partners, could materially harm business and profitability."
+      "summary": "Company depends heavily on relationships with insurance carriers and brokers. Loss or degradation of relationships, or over-reliance on few partners, could materially harm business and profitability.",
+      "score": 4
     },
     {
       "title": "Errors in underwriting models and reputational impact",
@@ -244,7 +272,8 @@
       "severity": 3,
       "score_rationale": "Included in business and industry risks. Direct language ('errors in, or ineffectiveness of', 'harmed'). Impact on reputation and relationships with trading partners clearly indicated.",
       "trend": "stable",
-      "summary": "Errors or ineffectiveness in underwriting models could damage reputation and relationships with insurance carriers and brokers, potentially affecting business operations."
+      "summary": "Errors or ineffectiveness in underwriting models could damage reputation and relationships with insurance carriers and brokers, potentially affecting business operations.",
+      "score": 3
     },
     {
       "title": "Cybersecurity and data protection risks",
@@ -252,7 +281,8 @@
       "severity": 4,
       "score_rationale": "Dedicated section on risks related to intellectual property, data privacy, and cybersecurity. Strong language ('breaches in security', 'significant system or network disruption', 'cyber incidents and cyberattacks'). Material operational impact potential.",
       "trend": "up",
-      "summary": "Security breaches, system disruptions, or cyberattacks could severely disrupt operations and result in disclosure of confidential data, harming the company."
+      "summary": "Security breaches, system disruptions, or cyberattacks could severely disrupt operations and result in disclosure of confidential data, harming the company.",
+      "score": 4
     },
     {
       "title": "Economic conditions and market cyclicality",
@@ -260,7 +290,8 @@
       "severity": 3,
       "score_rationale": "Mentioned in business risks ('cyclicality of, and the economic conditions'). Moderate language but broad scope ('markets in which we operate'). Impact on insurer underwriting capacity is key factor.",
       "trend": "stable",
-      "summary": "Market cyclicality and general economic conditions can affect demand for services, insurance carrier underwriting capacity, and company financial results."
+      "summary": "Market cyclicality and general economic conditions can affect demand for services, insurance carrier underwriting capacity, and company financial results.",
+      "score": 3
     },
     {
       "title": "Regulatory and legal risks",
@@ -268,7 +299,8 @@
       "severity": 3,
       "score_rationale": "Dedicated section on legal and regulatory risks. General language covering broad spectrum ('evolving governmental regulations', 'legal proceedings', 'governmental inquiries'). Material potential impact.",
       "trend": "stable",
-      "summary": "Evolving governmental regulations, potential litigation, and government inquiries related to operations expose company to legal and regulatory risks with potential negative impact."
+      "summary": "Evolving governmental regulations, potential litigation, and government inquiries related to operations expose company to legal and regulatory risks with potential negative impact.",
+      "score": 3
     },
     {
       "title": "Acquisition integration and new product development",
@@ -276,7 +308,8 @@
       "severity": 3,
       "score_rationale": "Mentioned in business risks ('unsatisfactory evaluation of potential acquisitions or the failure to successfully integrate acquired businesses and/or introduce new products'). Language indicates execution risk ('failure to successfully').",
       "trend": "stable",
-      "summary": "Failure to properly evaluate or successfully integrate acquired companies, or launch new products and market solutions, could negatively affect growth and company performance."
+      "summary": "Failure to properly evaluate or successfully integrate acquired companies, or launch new products and market solutions, could negatively affect growth and company performance.",
+      "score": 3
     }
   ],
   "governance": {
@@ -542,9 +575,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.305709+00:00",
     "fetched_at": "2026-05-21T02:17:14.305710+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.442Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.475Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ryan.json",
     "enrich_root": "v2-pipeline-enrich/ryan.json",

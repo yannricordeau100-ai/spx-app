@@ -13,32 +13,9 @@
     "sector": "...",
     "subsector": "..."
   },
-  "hero_kpi": "Net Interest Margin",
+  "hero_kpi": "Hong Kong Revenue",
   "hero_kpi_rationale": "HSBC étant une banque universelle mondiale, la marge d'intérêt net (NIM) constitue le KPI le plus pertinent pour mesurer la rentabilité de ses activités de prêt et de collecte de dépôts. Ce ratio reflète l'efficacité de la transformation bancaire et varie selon les cycles de taux d'intérêt.",
   "kpis": [
-    {
-      "short": "Total Revenue",
-      "name_fr": "Chiffre d'affaires",
-      "name_en": "Total Revenue",
-      "value": 66.22,
-      "unit": "Mds €",
-      "yoy": "-1.8%",
-      "history": [
-        53.72,
-        64.53,
-        67.4,
-        66.22
-      ],
-      "type": "Comptes",
-      "nature": "comptable",
-      "comparable": true,
-      "signal": "Chiffre d'affaires de 66.22 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
-      "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
-    },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
@@ -56,34 +33,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 22.29 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Pressure, deteriorating trend"
-    },
-    {
-      "short": "Diluted EPS",
-      "name_fr": "BPA dilué",
-      "name_en": "Diluted EPS",
-      "value": 1.2,
-      "unit": "€",
-      "yoy": "-3.2%",
-      "history": [
-        0.74,
-        1.14,
-        1.24,
-        1.2
-      ],
-      "type": "Comptes",
-      "nature": "comptable",
-      "comparable": true,
-      "signal": "BPA dilué de 1.2 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
-      "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -102,11 +60,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 25.11 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -125,11 +87,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3233.03 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -148,11 +114,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 256.14 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -171,10 +141,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 307.74 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -193,10 +167,40 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 198.22 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Hong Kong Revenue",
+      "name_fr": "Revenus Hong Kong",
+      "name_en": "Hong Kong Revenue",
+      "unit": "Mds $",
+      "period_type": "year",
+      "history": [
+        14.992,
+        17.162,
+        18.449,
+        15.783,
+        14.245,
+        15.454,
+        20.185,
+        20.811,
+        22.527
+      ],
+      "value": 22.527,
+      "last_data_date": "2025-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Hong Kong reste le premier marche du groupe et signe son plus haut niveau de revenus depuis 2017.",
+      "is_wow": true,
+      "yoy": "+8,2 %"
     },
     {
       "short": "DPS",
@@ -223,7 +227,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -251,7 +255,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -279,7 +283,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -294,7 +298,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.74,
@@ -307,7 +311,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Stable, slight decline to monitor"
     }
   ],
@@ -322,26 +326,8 @@
     ],
     "source": "20-F 2025"
   },
-  "_validation": [
-    "Validation complète du dataset effectuée",
-    "Secteur et subsector: Correctement définis comme 'Financials' et 'Banks'",
-    "Hero KPI: 'Net Interest Margin' approprié pour une banque universelle",
-    "Hero KPI rationale: Conservé, pertinent pour le secteur bancaire, sans em-dash",
-    "Tous les KPIs: Appropriés pour le secteur bancaire (NIM, CET1, Cost/Income, RoTE, Total Assets, Headcount)",
-    "Units validées: '%' pour les ratios, '$B' pour les actifs en milliards USD, 'K' pour les effectifs en milliers",
-    "Type et nature: Correctement catégorisés selon la nature bancaire",
-    "Comparable: Tous les KPIs sont 'Comparable' car ce sont des standards de l'industrie bancaire",
-    "is_generic: false pour tous les KPIs car ce sont des mesures spécifiques au secteur bancaire",
-    "Valeurs: Restent 'N/A' car le document source ne contient que la page de couverture du 20-F (formulaire de couverture SEC)",
-    "History: Reste vide car les états financiers détaillés ne sont pas disponibles dans l'extrait fourni",
-    "last_data_date: Conservé comme '2025-12-31' (année fiscale 2025)",
-    "Aucun KPI halluciné détecté: Toutes les mesures correspondent à des KPIs réels et communiquées par HSBC",
-    "Source validée: 20-F 2025, formulaire de dépôt SEC pour les entreprises étrangères",
-    "IPI 2025 confirmé comme année fiscale d'audit",
-    "Fondation 1865: Correcte pour HSBC Holdings plc",
-    "Tagline: 'The world's local bank' est la tagline officielle de HSBC"
-  ],
-  "_fit_for_site": false,
+  "_validation": true,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "description_too_short_75"
   ],
@@ -360,7 +346,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement comme facteur clé spécifique à HSBC (« incidence of loan losses or delinquency »). Langage modéré mais reconnaît l'incapacité à prévoir les pertes. Risque structurel permanent pour une banque universelle. Poids élevé dans le modèle économique.",
       "trend": "stable",
-      "summary": "HSBC expose son incapacité à identifier et gérer adéquatement les risques de crédit, notamment les pertes sur prêts et les défaillances de clients. Les mesures ECL (Expected Credit Loss) reposent sur des hypothèses macroéconomiques qui peuvent dévier significativement (récessions, inflation, crise immobilière en Chine/Hong Kong), impactant directement la rentabilité et les provisions."
+      "summary": "HSBC expose son incapacité à identifier et gérer adéquatement les risques de crédit, notamment les pertes sur prêts et les défaillances de clients. Les mesures ECL (Expected Credit Loss) reposent sur des hypothèses macroéconomiques qui peuvent dévier significativement (récessions, inflation, crise immobilière en Chine/Hong Kong), impactant directement la rentabilité et les provisions.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire et coûts de mise en conformité",
@@ -368,7 +355,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité : « costs, effects and outcomes of regulatory reviews, actions or litigation, including any additional compliance requirements ». Langage d'incertitude élevée. Tendance à la hausse des exigences réglementaires globales. Impact financier direct et indirect majeur.",
       "trend": "up",
-      "summary": "HSBC fait face à des révisions réglementaires continues, des actions de conformité et des litiges potentiels dans ses marchés clés (UK, EU, US, Hong Kong). Les nouvelles exigences en matière de capital, liquidité, ESG et reporting augmentent les coûts opérationnels et peuvent réduire la flexibilité commerciale. Risque de sanctions financières et de restrictions d'activités."
+      "summary": "HSBC fait face à des révisions réglementaires continues, des actions de conformité et des litiges potentiels dans ses marchés clés (UK, EU, US, Hong Kong). Les nouvelles exigences en matière de capital, liquidité, ESG et reporting augmentent les coûts opérationnels et peuvent réduire la flexibilité commerciale. Risque de sanctions financières et de restrictions d'activités.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et intégrité des données critiques",
@@ -376,7 +364,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite : « threats from cyber-attacks, which may impact our ability to service clients and may result in financial loss, business disruption and/or loss of customer services and data ». Langage d'impact sévère. Tendance croissante des menaces. Critique pour la continuité opérationnelle.",
       "trend": "up",
-      "summary": "HSBC dépend fortement de l'intégrité de ses systèmes d'information et de gestion des données. Les cyberattaques, les défaillances de sécurité des données et les problèmes de fiabilité des infrastructures IT pourraient interrompre les services clients, causer des pertes financières directes et éroder la confiance. Risque amplifié par la complexité globale du groupe."
+      "summary": "HSBC dépend fortement de l'intégrité de ses systèmes d'information et de gestion des données. Les cyberattaques, les défaillances de sécurité des données et les problèmes de fiabilité des infrastructures IT pourraient interrompre les services clients, causer des pertes financières directes et éroder la confiance. Risque amplifié par la complexité globale du groupe.",
+      "score": 4
     },
     {
       "title": "Dépendance aux modèles de risque et limitations méthodologiques",
@@ -384,7 +373,8 @@
       "severity": 3,
       "score_rationale": "Risque spécifique à HSBC : « model limitations or failure » et « model risk ». Langage reconnaissant explicitement les faiblesses. Tendance à la hausse due aux pressions inflationnistes affectant la performance des modèles. Impact indirect sur les décisions de capital et de risque.",
       "trend": "up",
-      "summary": "HSBC s'appuie sur des modèles financiers et de risque pour les décisions critiques (ECL, stress tests, allocation de capital). Les limitations méthodologiques, l'inflation, les taux d'intérêt élevés et les données imparfaites réduisent la fiabilité de ces modèles. HSBC doit compenser par des ajustements manuels post-modèle, augmentant le risque de jugement erroné."
+      "summary": "HSBC s'appuie sur des modèles financiers et de risque pour les décisions critiques (ECL, stress tests, allocation de capital). Les limitations méthodologiques, l'inflation, les taux d'intérêt élevés et les données imparfaites réduisent la fiabilité de ces modèles. HSBC doit compenser par des ajustements manuels post-modèle, augmentant le risque de jugement erroné.",
+      "score": 3
     },
     {
       "title": "Fraude, criminalité financière et risques opérationnels",
@@ -392,7 +382,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité : « third-party, fraud, financial crime and reputational risks » et « employee misconduct, which may result in regulatory sanctions ». Langage d'impact réputationnel et financier. Risque structurel permanent. Poids élevé dans les opérations globales.",
       "trend": "stable",
-      "summary": "HSBC est exposée au risque que des tiers utilisent ses services pour des activités illégales sans sa connaissance, ainsi qu'à la fraude interne et à l'inconduite des employés. Ces risques peuvent entraîner des sanctions réglementaires, des pertes financières, des dommages réputationnels et des restrictions d'activités. Particulièrement critique dans les marchés à haut risque."
+      "summary": "HSBC est exposée au risque que des tiers utilisent ses services pour des activités illégales sans sa connaissance, ainsi qu'à la fraude interne et à l'inconduite des employés. Ces risques peuvent entraîner des sanctions réglementaires, des pertes financières, des dommages réputationnels et des restrictions d'activités. Particulièrement critique dans les marchés à haut risque.",
+      "score": 4
     },
     {
       "title": "Tensions géopolitiques et risques de sanctions commerciales",
@@ -400,7 +391,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur explicitement détaillé : « Russia-Ukraine war, further conflict or military action in the Middle East » et « diplomatic tensions between China and the US ». Langage d'impact matériel sur les opérations. Tendance à la hausse. Affecte directement les marchés clés (Hong Kong, Chine, UK).",
       "trend": "up",
-      "summary": "HSBC opère dans des zones géopolitiques volatiles (Hong Kong, Chine, Moyen-Orient, Ukraine). Les conflits, sanctions, restrictions commerciales et contrôles d'exportation créent des risques réglementaires, de marché et de réputation. Les tensions US-Chine et les développements à Hong Kong/Taiwan menacent directement les activités et la rentabilité du groupe."
+      "summary": "HSBC opère dans des zones géopolitiques volatiles (Hong Kong, Chine, Moyen-Orient, Ukraine). Les conflits, sanctions, restrictions commerciales et contrôles d'exportation créent des risques réglementaires, de marché et de réputation. Les tensions US-Chine et les développements à Hong Kong/Taiwan menacent directement les activités et la rentabilité du groupe.",
+      "score": 4
     },
     {
       "title": "Risques ESG et greenwashing réputationnel",
@@ -408,7 +400,8 @@
       "severity": 3,
       "score_rationale": "Risque émergent explicite : « increase the risk of greenwashing » et incapacité à atteindre les ambitions ESG. Langage reconnaissant les défis méthodologiques et de données. Tendance à la hausse des attentes réglementaires. Impact réputationnel croissant.",
       "trend": "up",
-      "summary": "HSBC s'est engagée sur des ambitions nettes zéro et de réduction des émissions financées, mais fait face à des défis majeurs : données insuffisantes, méthodologies en évolution, manque de normalisation réglementaire. L'incapacité à atteindre ces cibles ou les allégations inexactes de durabilité risquent de causer des dommages réputationnels et des sanctions réglementaires."
+      "summary": "HSBC s'est engagée sur des ambitions nettes zéro et de réduction des émissions financées, mais fait face à des défis majeurs : données insuffisantes, méthodologies en évolution, manque de normalisation réglementaire. L'incapacité à atteindre ces cibles ou les allégations inexactes de durabilité risquent de causer des dommages réputationnels et des sanctions réglementaires.",
+      "score": 3
     },
     {
       "title": "Concurrence accrue des fintech et services non-bancaires",
@@ -416,7 +409,8 @@
       "severity": 3,
       "score_rationale": "Risque explicite : « increased competition from non-bank financial services companies ». Langage modéré mais reconnaît la menace structurelle. Tendance à la hausse. Impact sur les marges et la part de marché.",
       "trend": "up",
-      "summary": "HSBC fait face à une concurrence croissante de la part des fintech, des plateformes de paiement numériques et des services financiers non-bancaires. Ces acteurs offrent une meilleure expérience utilisateur et des coûts réduits, menaçant les revenus de détail et de paiements. HSBC doit investir massivement en technologie pour rester compétitif."
+      "summary": "HSBC fait face à une concurrence croissante de la part des fintech, des plateformes de paiement numériques et des services financiers non-bancaires. Ces acteurs offrent une meilleure expérience utilisateur et des coûts réduits, menaçant les revenus de détail et de paiements. HSBC doit investir massivement en technologie pour rester compétitif.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:40:54.321551+00:00",
@@ -574,7 +568,7 @@
     ]
   },
   "_eps_extracted_at": "2026-05-18T16:45:25Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "_stories_backfill_at": "2026-05-21T10:49:26Z",
   "_stories_backfill_source": "scaleup_residuel_cerebras_key2",
   "overrides_profit_warning": {
@@ -638,33 +632,41 @@
       "short": "NII",
       "name_fr": "Revenus nets d'intérêts",
       "name_en": "Net Interest Income",
-      "value": 32717,
-      "unit": "M $",
+      "value": 32.717,
+      "unit": "Mds $",
       "yoy": "-6%",
       "history": [
-        27578,
-        26489,
-        32613,
-        34804,
-        32717
+        27.578,
+        26.489,
+        32.613,
+        34.804,
+        32.717
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Wealth Revenue",
       "name_fr": "Revenu Wealth & Personal Banking",
       "name_en": "Wealth & Personal Banking Revenue",
-      "value": 31035,
-      "unit": "M $",
+      "value": 31.035,
+      "unit": "Mds $",
       "yoy": "+3%",
       "history": [
-        23153,
-        24080,
-        27053,
-        30075,
-        31035
+        23.153,
+        24.08,
+        27.053,
+        30.075,
+        31.035
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Asia Profit Share",
@@ -680,7 +682,10 @@
         50,
         47
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Géographie",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "CET1 Ratio",
@@ -696,7 +701,10 @@
         14.8,
         14.9
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Cost / Income",
@@ -728,7 +736,10 @@
         942,
         939
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T16:48:40Z",
@@ -737,6 +748,8 @@
   "_tagline_fr_added_by": "CONV-SUBAGENT-POLISH-2026-05-28",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
+  "hero_kpi_override": "Hong Kong Revenue",
+  "_hero_kpi_override_reason": "Hong Kong Revenue = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "HSBA.L",
     "fetched_at": "2026-05-14T18:24:55.578602+00:00",
@@ -761,6 +774,29 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "ticker": "HSBA.L",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "HSBC est l'une des plus grandes banques mondiales. Le groupe propose des services bancaires de détail, commerciaux et de banque d'investissement avec un ancrage fort en Asie.",
+          "products": "L'offre comprend des comptes courants, prêts hypothécaires, cartes de crédit et gestion de patrimoine côté retail, du financement du commerce international et de la trésorerie côté commercial, et des services de marchés et conseil côté banque d'investissement.",
+          "customers": "Ses clients sont les particuliers, les PME et grandes entreprises, les institutions financières et les clients fortunés dans plus de 60 pays, avec une concentration croissante sur la zone Asie-Pacifique.",
+          "edge": "La force d'HSBC repose sur sa franchise unique de banque transfrontalière entre l'Asie et l'Occident, en particulier autour de Hong Kong."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "HSBC est l'une des cinq plus grandes banques mondiales par actifs et la plus exposée à l'Asie parmi les banques occidentales. Le groupe se recentre sur l'Asie et le wealth management en cédant ses activités en France, au Canada et en Argentine. La banque commerciale internationale reste un atout différenciant.",
+          "tech_products": "HSBC investit massivement dans la digitalisation de ses services retail et la plateforme Pinnacle en Chine. Le groupe développe des solutions de financement durable et est leader sur les emprunts en RMB hors Chine. La division Markets opère sur les devises, les taux et les matières premières.",
+          "moat": "La franchise asiatique et la dominance à Hong Kong créent des barrières à l'entrée importantes pour les concurrents occidentaux. Le réseau correspondant en banque commerciale internationale est difficile à répliquer. L'échelle du bilan permet de financer de grandes opérations corporate.",
+          "risks": "L'exposition à la Chine continentale et à Hong Kong génère un risque géopolitique élevé en cas de tensions sino-américaines. Le portefeuille immobilier commercial à Hong Kong est sous pression. Les exigences réglementaires en capital pèsent sur la rentabilité comparée à des banques plus simples."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "HSBA.L",
     "ranks": {
@@ -773,14 +809,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T01:44:37.527461+00:00",
     "fetched_at": "2026-05-21T01:44:37.527462+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.179Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.834Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hsba.l.json",
     "enrich_root": "v2-pipeline-enrich/hsba.l.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

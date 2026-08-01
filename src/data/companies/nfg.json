@@ -40,9 +40,12 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Production of Natural gas over the period.",
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Proved reserves",
@@ -87,57 +90,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.28 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.52,
-      "unit": "Mds €",
+      "value": 520,
+      "unit": "M €",
       "yoy": "+550.0%",
       "history": [
-        0.57,
-        0.48,
-        0.08,
-        0.52
+        570,
+        480,
+        80,
+        520
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.52 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.96,
-      "unit": "Mds €",
+      "value": 960,
+      "unit": "M €",
       "yoy": "+31.5%",
       "history": [
-        0.8,
-        0.76,
-        0.73,
-        0.96
+        800,
+        760,
+        730,
+        960
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.96 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.72 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,33 +200,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.83 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.05,
-        0.06,
-        0.04,
-        0.04
+        50,
+        60,
+        40,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -233,9 +263,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Acquisition",
-      "_source_month": "décembre 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Acquisition"
     }
   ],
   "ai_positioning": {
@@ -263,7 +291,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -277,7 +305,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès les premières lignes des facteurs de risque. Le langage insiste sur la dépendance critique aux marchés de capitaux pour financer les opérations et la croissance. Une perturbation pourrait paralyser les stratégies de croissance. La catégorie 'Capital' est hautement pondérée en énergie.",
       "trend": "stable",
-      "summary": "La société dépend fortement des marchés de crédit à court et long terme ; toute perturbation pourrait entraver son financement et sa croissance."
+      "summary": "La société dépend fortement des marchés de crédit à court et long terme ; toute perturbation pourrait entraver son financement et sa croissance.",
+      "score": 5
     },
     {
       "title": "Baisse des notes de crédit et coûts d'emprunt",
@@ -285,7 +314,8 @@
       "severity": 5,
       "score_rationale": "Le document souligne explicitement que toute dégradation des notations S&P, Moody's ou Fitch affecterait directement le coût de l'endettement et l'accès au papier commercial. Le risque est amplifié par une clause de 2,4 Md$ de dette soumise à une hausse de taux en cas de déclassement.",
       "tend": "stable",
-      "summary": "Une dégradation de la notation crédit augmenterait significativement les coûts d'emprunt et pourrait restreindre l'accès aux financements."
+      "summary": "Une dégradation de la notation crédit augmenterait significativement les coûts d'emprunt et pourrait restreindre l'accès aux financements.",
+      "score": 5
     },
     {
       "title": "Réglementation climatique contraignante à New York",
@@ -293,7 +323,8 @@
       "severity": 5,
       "score_rationale": "Le CLCPA et le Climate Change Superfund Act sont décrits en détail, avec des impacts concrets comme la réduction planifiée du réseau de gaz naturel. Le langage est alarmant : 'downsize and decarbonize', 'curtail use'. Ces politiques menacent directement le modèle économique du segment utilité.",
       "trend": "up",
-      "summary": "Les réglementations climatiques à New York, comme le CLCPA, pourraient réduire la demande de gaz naturel et imposer de nouveaux coûts."
+      "summary": "Les réglementations climatiques à New York, comme le CLCPA, pourraient réduire la demande de gaz naturel et imposer de nouveaux coûts.",
+      "score": 5
     },
     {
       "title": "Opposition organisée contre le gaz naturel",
@@ -301,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété plusieurs fois avec un langage fort : 'organized opposition may continue to increase'. Il est lié à des retards réglementaires, des coûts accrus et des risques juridiques. Moins existentiel que les risques financiers, mais en hausse en raison de la pression sociétale croissante.",
       "trend": "up",
-      "summary": "L'opposition croissante des groupes environnementaux et des régulateurs pourrait freiner les projets et augmenter les coûts opérationnels."
+      "summary": "L'opposition croissante des groupes environnementaux et des régulateurs pourrait freiner les projets et augmenter les coûts opérationnels.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix du gaz naturel",
@@ -309,7 +341,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien documenté, notamment pour le segment Upstream. Le texte mentionne l'impact direct sur les revenus, les flux de trésorerie et les décisions d'investissement. Bien que partiellement couvert par des couvertures, une baisse prolongée des prix aurait un effet majeur.",
       "trend": "stable",
-      "summary": "Les fluctuations des prix du gaz naturel affectent directement les revenus et la rentabilité, surtout dans les segments de production et de regroupement."
+      "summary": "Les fluctuations des prix du gaz naturel affectent directement les revenus et la rentabilité, surtout dans les segments de production et de regroupement.",
+      "score": 4
     },
     {
       "title": "Retards réglementaires sur les projets d'infrastructure",
@@ -317,7 +350,8 @@
       "severity": 4,
       "score_rationale": "Le document cite explicitement les retards d'approbation, de permis ou d'opposition de tiers comme menaces majeures. Le risque inclut des coûts supplémentaires, des dépréciations d'actifs et des retards de revenus. Le langage est répétitif et préoccupé.",
       "trend": "stable",
-      "summary": "Les retards dans l'obtention de permis ou l'opposition de tiers peuvent entraîner des coûts supplémentaires et des pertes de revenus sur les projets."
+      "summary": "Les retards dans l'obtention de permis ou l'opposition de tiers peuvent entraîner des coûts supplémentaires et des pertes de revenus sur les projets.",
+      "score": 4
     },
     {
       "title": "Acquisition de CenterPoint Ohio et flexibilité financière",
@@ -325,7 +359,8 @@
       "severity": 4,
       "score_rationale": "Mentionné comme un risque stratégique distinct, l'acquisition pourrait limiter la flexibilité financière. Bien que moins développé que d'autres risques, il est catégorisé comme stratégique et lié à la structure de capital, ce qui augmente son poids.",
       "trend": "new",
-      "summary": "L'acquisition prévue de CenterPoint Ohio pourrait restreindre la capacité de la société à investir ou à s'endetter pour d'autres projets."
+      "summary": "L'acquisition prévue de CenterPoint Ohio pourrait restreindre la capacité de la société à investir ou à s'endetter pour d'autres projets.",
+      "score": 4
     }
   ],
   "governance": {
@@ -493,9 +528,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.288245+00:00",
     "fetched_at": "2026-05-21T02:17:14.288246+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.895Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.809Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nfg.json",
     "enrich_root": null,

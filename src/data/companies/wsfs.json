@@ -1,6 +1,6 @@
 {
   "ticker": "WSFS",
-  "name": "WSFS Financial Corporation",
+  "name": "WSFS Financial",
   "sector": "Finance",
   "subsector": "Banks",
   "tagline": "We Stand for Service",
@@ -79,7 +79,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Validé contre source MD&A: value 5.09, yoy +0.68 (4.41 en 2024). Type corrigé de 'Revenue' à 'Profitability'",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -107,7 +107,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Validé contre source MD&A: value 1.36%, yoy +0.09% (1.27% en 2024)",
-      "explanation_en": "Return on Assets — net income divided by total assets.",
+      "explanation_en": "Return on Assets, net income divided by total assets.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -209,34 +209,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 21.31 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "-21.1%",
       "history": [
-        0.73,
-        0.9,
-        0.38,
-        0.3
+        730,
+        900,
+        380,
+        300
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.3 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -250,7 +259,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.51,
         0.56,
@@ -263,7 +272,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -278,7 +287,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2358,
@@ -291,7 +300,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -306,7 +315,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         16.07,
@@ -319,7 +328,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
@@ -494,7 +503,8 @@
       "severity": 3,
       "score_rationale": "Le 10-K indique que WSFS opère principalement en Delaware, Pennsylvanie et New Jersey (87 agences + 26 bureaux). L'exposition régionale concentrée limite la diversification géographique. Langage neutre mais structure opérationnelle révèle vulnérabilité à chocs régionaux. Pas d'aggravation vs N-1 mais risque structurel persistant.",
       "trend": "stable",
-      "summary": "WSFS dépend fortement de trois États du Nord-Est pour ses revenus. Une récession régionale ou migration démographique pourrait impacter significativement les dépôts et la demande de crédit."
+      "summary": "WSFS dépend fortement de trois États du Nord-Est pour ses revenus. Une récession régionale ou migration démographique pourrait impacter significativement les dépôts et la demande de crédit.",
+      "score": 3
     },
     {
       "title": "Risque de taux d'intérêt et compression de marge",
@@ -502,7 +512,8 @@
       "severity": 4,
       "score_rationale": "NIM à 3.87% vs 3.82% N-1 (amélioration modeste). Le 10-K cite 'lower loan yields due to rate cuts' comme facteur de compensation partielle. Environnement de baisse de taux (Fed cuts en 2025) crée pression structurelle. Langage explicite sur vulnérabilité aux rendements de prêts.",
       "trend": "up",
-      "summary": "Les réductions de taux de la Fed réduisent les rendements des prêts. Bien que WSFS ait amélioré sa marge via repricing des dépôts, une poursuite des baisses de taux menace la rentabilité future."
+      "summary": "Les réductions de taux de la Fed réduisent les rendements des prêts. Bien que WSFS ait amélioré sa marge via repricing des dépôts, une poursuite des baisses de taux menace la rentabilité future.",
+      "score": 4
     },
     {
       "title": "Croissance de crédit faible et risque de qualité d'actifs",
@@ -510,7 +521,8 @@
       "severity": 3,
       "score_rationale": "Croissance nette des prêts de seulement +1% ($85.8M) en 2025. Décroissance en prêts à la consommation (-$191.9M) et hypothèques commerciales (-$114.5M). Charge-off de $15.9M sur portefeuille office (Q1 2025) indique stress sectoriel. Langage factuel mais révèle faiblesse de croissance organique.",
       "trend": "stable",
-      "summary": "La croissance des prêts stagne (+1%) avec décroissance dans les segments consommation et immobilier commercial. Les charge-offs sur immeubles de bureaux signalent une exposition à un secteur en difficulté."
+      "summary": "La croissance des prêts stagne (+1%) avec décroissance dans les segments consommation et immobilier commercial. Les charge-offs sur immeubles de bureaux signalent une exposition à un secteur en difficulté.",
+      "score": 3
     },
     {
       "title": "Dépendance aux revenus non-intérêt et volatilité Wealth & Trust",
@@ -518,7 +530,8 @@
       "severity": 3,
       "score_rationale": "Wealth & Trust représente $97.4B AUM/AUA. Revenus non-intérêt +16% en 2025 mais dépendent de performance marchés et AUM. Sorties stratégiques (Powdermill, Commonwealth partnership) indiquent restructuration. Volatilité des actifs sous gestion crée risque de revenus cycliques.",
       "trend": "up",
-      "summary": "Le segment Wealth & Trust génère des revenus basés sur les actifs sous gestion, exposant WSFS à la volatilité des marchés. Les sorties de produits non-stratégiques créent une incertitude à court terme."
+      "summary": "Le segment Wealth & Trust génère des revenus basés sur les actifs sous gestion, exposant WSFS à la volatilité des marchés. Les sorties de produits non-stratégiques créent une incertitude à court terme.",
+      "score": 3
     },
     {
       "title": "Risque de liquidité et dépendance aux dépôts",
@@ -526,7 +539,8 @@
       "severity": 3,
       "score_rationale": "Dépôts clients +$612.7M (+4%) en 2025, principalement Trust. Trésorerie +$544.3M. Bien que positif, croissance modérée des dépôts vs besoins de financement. Environnement concurrentiel sur taux de dépôts. Langage neutre mais structure de financement par dépôts crée sensibilité.",
       "trend": "stable",
-      "summary": "WSFS finance ses actifs principalement par dépôts clients. Une fuite de dépôts ou hausse des taux concurrentiels pourrait forcer une augmentation des coûts de financement."
+      "summary": "WSFS finance ses actifs principalement par dépôts clients. Une fuite de dépôts ou hausse des taux concurrentiels pourrait forcer une augmentation des coûts de financement.",
+      "score": 3
     },
     {
       "title": "Risque réglementaire et capital bien-capitalisé mais contraignant",
@@ -534,7 +548,8 @@
       "severity": 2,
       "score_rationale": "CET1 à 13.92% (cible ~12%), capital total 15.67%. Bien-capitalisé mais langage sur 'maintaining capital ratios in excess of well-capitalized benchmarks' indique contrainte. Émission de $200M senior notes et rachat de $287.5M actions montrent gestion active du capital. Pas de risque immédiat mais environnement réglementaire restrictif.",
       "trend": "stable",
-      "summary": "WSFS maintient des ratios de capital solides mais doit équilibrer retours aux actionnaires et exigences réglementaires. Les changements de normes prudentielles pourraient limiter la flexibilité."
+      "summary": "WSFS maintient des ratios de capital solides mais doit équilibrer retours aux actionnaires et exigences réglementaires. Les changements de normes prudentielles pourraient limiter la flexibilité.",
+      "score": 2
     },
     {
       "title": "Risque de concentration sectorielle (immobilier commercial)",
@@ -542,7 +557,8 @@
       "severity": 3,
       "score_rationale": "Portefeuille de prêts $12.6B avec exposition immobilier commercial (hypothèques commerciales, owner-occupied). Charge-off de $15.9M sur fonds immobilier de bureaux (Q1 2025) révèle stress sectoriel. Décroissance hypothèques commerciales (-$114.5M) indique repositionnement. Langage factuel sur stress secteur.",
       "trend": "up",
-      "summary": "L'exposition au secteur immobilier commercial, particulièrement les bureaux, crée un risque concentré. Les charge-offs récents et la décroissance de ce segment reflètent des conditions difficiles."
+      "summary": "L'exposition au secteur immobilier commercial, particulièrement les bureaux, crée un risque concentré. Les charge-offs récents et la décroissance de ce segment reflètent des conditions difficiles.",
+      "score": 3
     },
     {
       "title": "Risque technologique et transformation numérique",
@@ -550,12 +566,13 @@
       "severity": 2,
       "score_rationale": "WSFS opère via 113 agences physiques + plateforme numérique (website, mobile app). Cash Connect gère 24,000 ATMs non-bancaires. Pas de mention explicite de cyber-risques ou investissements technologiques majeurs dans extraits. Langage neutre. Risque implicite de disruption numérique et cybersécurité non détaillé.",
       "trend": "stable",
-      "summary": "WSFS dépend d'infrastructures technologiques pour ses services numériques et Cash Connect. Les risques de cybersécurité et d'obsolescence technologique ne sont pas explicitement adressés dans les extraits fournis."
+      "summary": "WSFS dépend d'infrastructures technologiques pour ses services numériques et Cash Connect. Les risques de cybersécurité et d'obsolescence technologique ne sont pas explicitement adressés dans les extraits fournis.",
+      "score": 2
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T20:51:27.837664+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:34Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2012,
@@ -581,7 +598,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:44Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:21Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
   "enrich_description": {
@@ -691,9 +708,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.329950+00:00",
     "fetched_at": "2026-05-21T02:17:14.329951+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.604Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.739Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wsfs.json",
     "enrich_root": "v2-pipeline-enrich/wsfs.json",

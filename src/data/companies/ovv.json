@@ -40,8 +40,8 @@
       "name_fr": "Flux de trésorerie disponible (non-GAAP)",
       "name_en": "Non-GAAP Cash Flow",
       "explanation": "Mesure non-GAAP de la trésorerie disponible avant les dépenses d'investissement.",
-      "value": "3785",
-      "unit": "M $",
+      "value": 3.785,
+      "unit": "Mds $",
       "yoy": "N/A",
       "type": "Cash",
       "nature": "Cyclique",
@@ -52,15 +52,16 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Capital Expenditures",
       "name_fr": "Dépenses d'investissement (Capex)",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses consacrées à l'acquisition ou à l'amélioration d'actifs physiques pour l'exploration et la production.",
-      "value": "2147",
-      "unit": "M $",
+      "value": 2.147,
+      "unit": "Mds $",
       "yoy": "N/A",
       "type": "Investment",
       "nature": "Cyclique",
@@ -71,15 +72,16 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Earnings",
       "name_fr": "Bénéfice net",
       "name_en": "Net Earnings",
       "explanation": "Bénéfice net reporté après tous les frais, y compris les dépenses non-trésorerie et les impositions.",
-      "value": "1242",
-      "unit": "M $",
+      "value": 1.242,
+      "unit": "Mds $",
       "yoy": "N/A",
       "type": "Profitability",
       "nature": "Cyclique",
@@ -90,7 +92,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Income",
@@ -109,11 +112,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.24 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -132,11 +139,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 20.39 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -155,33 +166,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.42 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.01,
+        10,
         0,
-        0.04,
-        0.04
+        40,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -195,7 +215,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.468,
         0.95,
@@ -208,7 +228,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -223,7 +243,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.958,
@@ -236,7 +256,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -251,7 +271,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         6.57,
@@ -264,7 +284,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -280,7 +300,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         14.08,
@@ -293,7 +313,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -328,7 +348,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, avec une exposition directe aux prix du pétrole, du gaz naturel et des NGL. L'impact d'une variation de 10 % est quantifié (jusqu'à 41 M$ de pertes). Le langage souligne un impact significatif sur les résultats. Catégorie Macro hautement pondérée dans le secteur énergétique.",
       "trend": "stable",
-      "summary": "Des fluctuations des prix du pétrole et du gaz peuvent fortement affecter la rentabilité et la valeur des actifs de la société."
+      "summary": "Des fluctuations des prix du pétrole et du gaz peuvent fortement affecter la rentabilité et la valeur des actifs de la société.",
+      "score": 5
     },
     {
       "title": "Risque de change USD/CAD",
@@ -336,7 +357,8 @@
       "severity": 4,
       "score_rationale": "Présenté comme significatif car la société opère aux États-Unis et au Canada. Une variation de 10 % du taux de change aurait un impact de 35 M$ en perte. Mention répétée dans les résultats opérationnels et d'investissement. Position similaire à l'année précédente.",
       "trend": "stable",
-      "summary": "L'évolution du taux de change entre le dollar canadien et le dollar américain affecte les coûts et les revenus de la société."
+      "summary": "L'évolution du taux de change entre le dollar canadien et le dollar américain affecte les coûts et les revenus de la société.",
+      "score": 4
     },
     {
       "title": "Exposition aux taux d'intérêt variables",
@@ -344,7 +366,8 @@
       "severity": 3,
       "score_rationale": "Le risque est modéré : 351 M$ de dettes à taux variable, avec un impact de 4 M$ par point de variation. Nouvellement apparu en 2025 (contre 0 en 2024), ce qui augmente sa gravité perçue. Catégorie Capital moins critique que Macro.",
       "trend": "up",
-      "summary": "Une hausse des taux d'intérêt pourrait augmenter le coût de la dette flottante de la société."
+      "summary": "Une hausse des taux d'intérêt pourrait augmenter le coût de la dette flottante de la société.",
+      "score": 3
     },
     {
       "title": "Impairment lié aux réserves prouvées",
@@ -352,7 +375,8 @@
       "severity": 5,
       "score_rationale": "Mention d'un impairment non monétaire de 920 M$ en 2025, lié à la méthode du coût total et aux estimations de réserves. Le processus est décrit comme subjectif et critique par l'auditeur. Impact direct sur les résultats et la valeur comptable des actifs.",
       "trend": "stable",
-      "summary": "La valeur des actifs pétroliers et gaziers peut être réduite si les réserves prouvées ou les prix baissent."
+      "summary": "La valeur des actifs pétroliers et gaziers peut être réduite si les réserves prouvées ou les prix baissent.",
+      "score": 5
     },
     {
       "title": "Estimations subjectives des réserves",
@@ -360,7 +384,8 @@
       "severity": 4,
       "score_rationale": "Les réserves prouvées sont fondées sur des jugements techniques et des hypothèses économiques. L'auditeur identifie ce point comme un 'critical audit matter'. Le recours à des experts internes ajoute de la complexité. Risque de révision à la baisse des réserves.",
       "trend": "stable",
-      "summary": "Les estimations de réserves, essentielles pour la comptabilité, dépendent d'hypothèses incertaines et peuvent être révisées."
+      "summary": "Les estimations de réserves, essentielles pour la comptabilité, dépendent d'hypothèses incertaines et peuvent être révisées.",
+      "score": 4
     },
     {
       "title": "Utilisation de produits dérivés",
@@ -368,7 +393,8 @@
       "severity": 4,
       "score_rationale": "La société utilise des dérivés pour couvrir les risques de prix et de change, mais cela expose à des exigences de marge en espèces ou en garanties. Mention explicite de dépôts de liquidités ou de lettres de crédit. Risque de liquidité en cas de mouvements défavorables.",
       "trend": "stable",
-      "summary": "Les contrats dérivés peuvent entraîner des besoins soudains en liquidités en cas de garanties exigées."
+      "summary": "Les contrats dérivés peuvent entraîner des besoins soudains en liquidités en cas de garanties exigées.",
+      "score": 4
     }
   ],
   "governance": {
@@ -457,7 +483,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:08Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2019,
@@ -475,7 +501,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:38Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:43Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "OVV",
     "simple": {
@@ -588,7 +614,6 @@
           271,
           8,
           18,
-          -292,
           26,
           52,
           3,
@@ -654,6 +679,12 @@
             "accession": "0001193125-26-217087",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (OVV)"
         ]
       },
       {
@@ -666,7 +697,6 @@
           271,
           8,
           18,
-          -292,
           26,
           52,
           3,
@@ -732,6 +762,9 @@
             "accession": "0001193125-26-217087",
             "end": "2026-03-31"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (OVV)"
         ]
       },
       {
@@ -740,23 +773,18 @@
         "history": [
           733,
           1098,
-          -662,
           451,
           962,
           1473,
-          -1055,
           610,
           1250,
           2084,
-          -1200,
           591,
           1213,
           1751,
-          -1252,
           617,
           1138,
           1682,
-          -1290,
           605
         ],
         "history_periods": [
@@ -810,6 +838,12 @@
             "accession": "0001193125-26-217087",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (OVV)"
         ]
       },
       {
@@ -830,7 +864,6 @@
           338,
           678,
           1185,
-          -1076,
           -159,
           148,
           296,
@@ -888,6 +921,12 @@
             "accession": "0001193125-26-217087",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (OVV)"
         ]
       }
     ]
@@ -904,9 +943,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.294610+00:00",
     "fetched_at": "2026-05-21T02:17:14.294611+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.396Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.350Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ovv.json",
     "enrich_root": "v2-pipeline-enrich/ovv.json",

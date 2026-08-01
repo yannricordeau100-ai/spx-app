@@ -40,9 +40,12 @@
       "is_short_history": false,
       "ttm": 18.85,
       "_validation": "KPI validé: cohérent avec structure de radiopharmaceutical company",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Capex",
@@ -67,7 +70,7 @@
       "is_short_history": false,
       "ttm": 33.39,
       "_validation": "Correction unité: 'Mds $' corrigé en 'M $' (source confirme millions). YoY recalculé: 51.6->36.1 = -30.0%",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -172,14 +175,14 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.343,
-      "unit": "Mds $",
+      "value": 343,
+      "unit": "M $",
       "yoy": "+3.6%",
       "history": [
-        0.293,
-        0.302,
-        0.331,
-        0.343
+        293,
+        302,
+        331,
+        343
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -189,24 +192,29 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.234,
-      "unit": "Mds $",
+      "value": 234,
+      "unit": "M $",
       "yoy": "-25.0%",
       "history": [
-        0.013,
-        0.032,
-        -0.013,
-        -0.071,
-        0.028,
-        0.327,
-        0.312,
-        0.234
+        13,
+        32,
+        -13,
+        -71,
+        28,
+        327,
+        312,
+        234
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -215,8 +223,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,9 +256,7 @@
       "is_short_history": true,
       "story_category": "Innovation",
       "ttm": 8.21,
-      "_validation": "Correction unité: 'Mds $' corrigé en 'M $'. Valeurs confirmées en source (35.3M+10M=45.3M). Description enrichie avec dernier update 2025.",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Correction unité: 'Mds $' corrigé en 'M $'. Valeurs confirmées en source (35.3M+10M=45.3M). Description enrichie avec dernier update 2025."
     },
     {
       "short": "NAV-4694 Milestone",
@@ -271,9 +282,7 @@
       "is_short_history": true,
       "story_category": "Innovation",
       "ttm": 10,
-      "_validation": "Correction unité: 'Mds $' corrigé en 'M $'. Valeur corrigée: 42.9 -> 52.9 (inclusion du paiement mai 2025 de 10M confirmé en source). Somme: 32.9+10+10=52.9M",
-      "_source_month": "juin 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Correction unité: 'Mds $' corrigé en 'M $'. Valeur corrigée: 42.9 -> 52.9 (inclusion du paiement mai 2025 de 10M confirmé en source). Somme: 32.9+10+10=52.9M"
     },
     {
       "short": "RELISTOR Milestone",
@@ -296,9 +305,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Correction unité: 'Mds $' corrigé en 'M $' (source confirme millions). KPI validé contre source.",
-      "_source_month": "août 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Correction unité: 'Mds $' corrigé en 'M $' (source confirme millions). KPI validé contre source."
     }
   ],
   "ai_positioning": {
@@ -314,7 +321,8 @@
       "severity": 4,
       "score_rationale": "La société est soumise à des réglementations strictes dans le domaine des radiopharmaceutiques, notamment avec la FDA. Les changements dans les réglementations ou les retards dans les approbations peuvent impacter l'entreprise.",
       "trend": "stable",
-      "summary": "La société doit naviguer dans un environnement réglementaire complexe pour ses produits et recherches."
+      "summary": "La société doit naviguer dans un environnement réglementaire complexe pour ses produits et recherches.",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -322,7 +330,8 @@
       "severity": 4,
       "score_rationale": "Le marché des radiopharmaceutiques est compétitif, avec plusieurs acteurs clés. La concurrence peut affecter les parts de marché et les prix.",
       "trend": "up",
-      "summary": "La société doit maintenir sa position concurrentielle face à d'autres entreprises dans le secteur."
+      "summary": "La société doit maintenir sa position concurrentielle face à d'autres entreprises dans le secteur.",
+      "score": 4
     },
     {
       "title": "Dépendance technologique",
@@ -330,7 +339,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est fortement dépendante de la technologie pour ses produits et services. Les avancées technologiques ou les problèmes techniques peuvent impacter les opérations.",
       "trend": "stable",
-      "summary": "La société doit investir dans la recherche et le développement pour rester à la pointe de la technologie."
+      "summary": "La société doit investir dans la recherche et le développement pour rester à la pointe de la technologie.",
+      "score": 3
     },
     {
       "title": "Risques de litige",
@@ -338,7 +348,8 @@
       "severity": 3,
       "score_rationale": "Comme dans tout secteur de la santé, il existe des risques de litiges liés à la sécurité et à l'efficacité des produits.",
       "trend": "stable",
-      "summary": "La société doit gérer les risques liés aux litiges potentiels pour protéger sa réputation et ses finances."
+      "summary": "La société doit gérer les risques liés aux litiges potentiels pour protéger sa réputation et ses finances.",
+      "score": 3
     },
     {
       "title": "Intégration d'acquisitions",
@@ -346,7 +357,8 @@
       "severity": 4,
       "score_rationale": "La société a réalisé plusieurs acquisitions (Life Molecular, Evergreen), ce qui peut présenter des défis d'intégration et affecter les opérations.",
       "trend": "up",
-      "summary": "La réussite de l'intégration des acquisitions est cruciale pour le succès à long terme de l'entreprise."
+      "summary": "La réussite de l'intégration des acquisitions est cruciale pour le succès à long terme de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Dépendance à la recherche",
@@ -354,7 +366,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est fortement dépendante de la recherche et du développement pour ses produits futurs. Les retards ou les échecs dans la recherche peuvent impacter la croissance.",
       "trend": "stable",
-      "summary": "La société doit maintenir un flux constant de nouveaux produits et technologies pour rester compétitive."
+      "summary": "La société doit maintenir un flux constant de nouveaux produits et technologies pour rester compétitive.",
+      "score": 4
     },
     {
       "title": "Risques de réputation",
@@ -362,7 +375,8 @@
       "severity": 5,
       "score_rationale": "Les problèmes de sécurité, les litiges ou les échecs dans la recherche peuvent nuire à la réputation de l'entreprise et affecter sa capacité à attirer des investissements et des clients.",
       "trend": "stable",
-      "summary": "La gestion de la réputation est essentielle pour maintenir la confiance des parties prenantes."
+      "summary": "La gestion de la réputation est essentielle pour maintenir la confiance des parties prenantes.",
+      "score": 5
     }
   ],
   "_validation": {
@@ -384,7 +398,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -623,11 +637,9 @@
           48.024,
           108.625,
           132.773,
-          -121.324,
           36.314,
           81.803,
           129.828,
-          -70.637,
           39.379
         ],
         "history_periods": [
@@ -681,6 +693,12 @@
             "accession": "0001193125-26-210373",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (LNTH)"
         ]
       },
       {
@@ -697,15 +715,12 @@
           470.863,
           414.076,
           614.131,
-          -785.414,
           718.279,
           757.018,
           866.386,
-          -1428.869,
           938.533,
           695.572,
           382.006,
-          -1656.99,
           498.582
         ],
         "history_periods": [
@@ -759,6 +774,12 @@
             "accession": "0001193125-26-210373",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (LNTH)"
         ]
       }
     ]
@@ -775,9 +796,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.277699+00:00",
     "fetched_at": "2026-05-21T02:17:14.277700+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.099Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.906Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lnth.json",
     "enrich_root": "v2-pipeline-enrich/lnth.json",

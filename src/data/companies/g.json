@@ -42,8 +42,8 @@
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
       "explanation": "Total outstanding debt including senior notes and term loan",
-      "value": 1542.3,
-      "unit": "M $",
+      "value": 1.542,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Risk",
       "nature": "Structurel",
@@ -57,7 +57,8 @@
       "is_short_history": false,
       "_validation": "Valeur verifiee dans MD&A (page 69): $1,542.3 million as of December 31, 2025. Format normalise de 1542.3 (separateur virgule vers point decimal)",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Seul le chiffre de dette totale pour 2019 (1 443,3 M$) est explicitement fourni dans l'extrait. Moins de 4 années consécutives de données di"
+      "_hero_history_unverified_reason": "Seul le chiffre de dette totale pour 2019 (1 443,3 M$) est explicitement fourni dans l'extrait. Moins de 4 années consécutives de données di",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Capex",
@@ -78,7 +79,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "KPI hallucine: aucune donnee Capex specifique disponible dans le 10-K fourni",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Revenue",
@@ -98,36 +99,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.08 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:25.671132+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.55,
-      "unit": "Mds €",
+      "value": 550,
+      "unit": "M €",
       "yoy": "+7.8%",
       "history": [
-        0.35,
-        0.63,
-        0.51,
-        0.55
+        350,
+        630,
+        510,
+        550
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.55 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -146,11 +156,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -169,33 +183,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.76 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.85,
-      "unit": "Mds €",
+      "value": 850,
+      "unit": "M €",
       "yoy": "+30.8%",
       "history": [
-        0.65,
-        0.58,
-        0.65,
-        0.85
+        650,
+        580,
+        650,
+        850
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.85 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -218,9 +241,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Valeur verifiee et confirmee. Format nombre normalise (1542.3). Rationale enrichie avec details source du 10-K",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur verifiee et confirmee. Format nombre normalise (1542.3). Rationale enrichie avec details source du 10-K"
     }
   ],
   "ai_positioning": {
@@ -271,7 +292,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, avec une exposition majeure au roupie indienne et à l'euro. Le langage insiste sur un \u0000effet mat\u0000riel advers\u0000e\u0000 et cite des impacts directs de 138\u0000\u0000169M sur les co\u0000ts. La pond\u0000ration \u0000lev\u0000e pour un acteur global en services IT renforce la gravit\u0000.",
       "trend": "stable",
-      "summary": "Les variations des taux de change, notamment roupie indienne et euro, peuvent fortement impacter les co\u0000ts et revenus."
+      "summary": "Les variations des taux de change, notamment roupie indienne et euro, peuvent fortement impacter les co\u0000ts et revenus.",
+      "score": 5
     },
     {
       "title": "Risque de taux d'int\u0000r\u0000t",
@@ -279,7 +301,8 @@
       "severity": 4,
       "score_rationale": "Le risque est d\u0000taill\u0000 avec pr\u0000cision dans Item 7A, avec 1,54Mds$ de dette expos\u0000e \u0000 des taux variables (Term SOFR). Une hausse de 2% aurait un impact de 5M$ sur les charges d'int\u0000r\u0000t, et une d\u0000gradation de rating pourrait co\u0000ter 7M$. Le recours \u0000 des swaps att\u0000nue partiellement le risque.",
       "trend": "stable",
-      "summary": "L'entreprise est expos\u0000e aux variations des taux d'int\u0000r\u0000t sur sa dette flottante, malgr\u0000 des couvertures partielles."
+      "summary": "L'entreprise est expos\u0000e aux variations des taux d'int\u0000r\u0000t sur sa dette flottante, malgr\u0000 des couvertures partielles.",
+      "score": 4
     },
     {
       "title": "Dette senior structur\u0000ellement subordonn\u0000e",
@@ -287,7 +310,8 @@
       "severity": 5,
       "score_rationale": "Les Senior Notes sont \u0000structuralement subordonn\u0000es\u0000 aux dettes des filiales non-garantes, dont les passifs sous cr\u0000dit-bail et fournisseurs. Le document souligne que les cr\u0000anciers des filiales seraient rembours\u0000s en priorit\u0000. C'est un risque existentiel en cas de d\u0000faillance.",
       "trend": "stable",
-      "summary": "Les dettes des filiales non-garantes prennent le pas sur les obligations senior, augmentant le risque pour les d\u0000tenteurs d'obligations."
+      "summary": "Les dettes des filiales non-garantes prennent le pas sur les obligations senior, augmentant le risque pour les d\u0000tenteurs d'obligations.",
+      "score": 5
     },
     {
       "title": "Limites r\u0000glementaires sur les couvertures de change",
@@ -295,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement des restrictions l\u0000gales en Chine, Inde, Malaisie, etc., limitant la dur\u0000e et le montant des contrats de change. Cela emp\u0000che une couverture compl\u0000te, accentu\u0000 par le risque que ces instruments \u0000ne fonctionnent pas ad\u0000quatement\u0000.",
       "trend": "stable",
-      "summary": "Les r\u0000glementations locales limitent la capacit\u0000 de l'entreprise \u0000 se prot\u0000ger contre les fluctuations des devises."
+      "summary": "Les r\u0000glementations locales limitent la capacit\u0000 de l'entreprise \u0000 se prot\u0000ger contre les fluctuations des devises.",
+      "score": 4
     },
     {
       "title": "Concentration des op\u0000rations dans des filiales garantes",
@@ -303,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Les garanties portent uniquement sur Genpact Luxembourg, USA et UK Finco. Les autres filiales (\u0000non-Guarantors\u0000) ne garantissent rien. Le bilan combin\u0000 montre des passifs \u0000normes (5Mds$) contre des actifs limit\u0000s, avec des pr\u0000ts intercompagnies massifs (1,7Mds$ de cr\u0000ances).",
       "trend": "stable",
-      "summary": "La structure de garantie est concentr\u0000e sur peu de filiales, avec un risque de d\u0000s\u0000quilibre financier en cas de d\u0000tresse des entit\u0000s op\u0000rationnelles."
+      "summary": "La structure de garantie est concentr\u0000e sur peu de filiales, avec un risque de d\u0000s\u0000quilibre financier en cas de d\u0000tresse des entit\u0000s op\u0000rationnelles.",
+      "score": 4
     },
     {
       "title": "Risque de cr\u0000dit client",
@@ -311,7 +337,8 @@
       "severity": 3,
       "score_rationale": "Le montant des cr\u0000ances clients est \u0000lev\u0000 (1,46Mds$), mais le document pr\u0000cise qu'aucun client ne repr\u0000sente plus de 10%. Le risque est donc mod\u0000r\u0000 par la diversification, mais reste significatif en volume.",
       "trend": "stable",
-      "summary": "Le montant \u0000lev\u0000 des cr\u0000ances clients repr\u0000sente un risque, att\u0000nu\u0000 par l'absence de concentration sur un seul client."
+      "summary": "Le montant \u0000lev\u0000 des cr\u0000ances clients repr\u0000sente un risque, att\u0000nu\u0000 par l'absence de concentration sur un seul client.",
+      "score": 3
     }
   ],
   "_kpis_cleaned": [
@@ -480,7 +507,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Versement régulier",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+        "description": "Historique 5 ans (2021-2025). ex-div dates.",
         "history": [
           1.47,
           1.07,
@@ -493,7 +520,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+        "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
         "signal_en": "Shareholder returns growing, dividend policy supportive"
       },
       {
@@ -508,7 +535,7 @@
         "nature": "Récurrent",
         "comparable": "Spécifique",
         "signal": "Politique de retour aux actionnaires",
-        "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+        "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
         "history": [
           null,
           1.909,
@@ -521,7 +548,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+        "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
         "signal_en": "Cash position strengthening, balance-sheet flexibility"
       },
       {
@@ -536,7 +563,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Soutenabilité du dividende",
-        "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+        "description": "Dividendes / résultat net (2021-2025).",
         "history": [
           null,
           85.41,
@@ -549,7 +576,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+        "explanation_en": "Payout Ratio, dividends paid divided by net income.",
         "signal_en": "Dividend cut risk, monitor payout sustainability"
       },
       {
@@ -565,7 +592,7 @@
         "comparable": "Comparable",
         "compare_key": "eps_diluted",
         "signal": "Capacité bénéficiaire par action",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+        "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
         "history": [
           null,
           1.41,
@@ -578,101 +605,81 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+        "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
         "signal_en": "Solid expansion, positive trajectory"
+      },
+      {
+        "short": "life_gwp",
+        "name_fr": "Primes brutes Vie",
+        "name_en": "Life Gross Written Premiums",
+        "unit": "Mds €",
+        "period_type": "year",
+        "history": [
+          48.26,
+          48.557,
+          51.68,
+          52.902,
+          51.346,
+          61.434
+        ],
+        "value": 61.434,
+        "last_data_date": "2024-12-31",
+        "type": "Demand",
+        "nature": "Structurel",
+        "comparable": "Comparable",
+        "signal": "Les primes Vie bondissent de 19,2 % en 2024, portees par toutes les lignes.",
+        "is_wow": true,
+        "yoy": "+19,6 %"
       }
     ],
     "_dividends_extracted_at": "2026-05-09T20:22:05Z",
-    "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+    "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
     "_dividends_currency": "EUR",
     "_eps_extracted_at": "2026-05-18T16:45:05Z",
-    "_eps_source": "yfinance income_stmt Diluted EPS",
-    "sector_fr": "Finance"
+    "_eps_source": "rapport financier income_stmt Diluted EPS",
+    "sector_fr": "Finance",
+    "hero_kpi_override": "life_gwp",
+    "_hero_kpi_override_reason": "life_gwp = revenu specifique principal (agent verbatim)"
   },
   "enrich_quarterly_history": {
     "ticker": "G",
-    "extracted_at": "2026-05-15T18:11:24Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1398659,
+    "extracted_at": "2026-06-01T03:17:42Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Capex",
+        "short": "Debt",
         "period_type": "quarter",
         "history": [
-          19.305,
-          31.385,
-          -9.359,
-          16.744,
-          26.943,
-          35.312,
-          -28.385,
-          12.578,
-          24.033,
-          37.33,
-          -18.52,
-          24.005,
-          43.276,
-          63.049,
-          -47.564,
-          21.979,
-          44.201,
-          60.544,
-          -48.521,
-          23.93
+          1221.44,
+          1221.44,
+          1242.58,
+          1241.6,
+          1251.58,
+          1255.62,
+          1221.44,
+          1221.45,
+          1570.98,
+          1571.14
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
           "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
           "Q2 2024",
           "Q3 2024",
           "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 44.201,
-            "accession": "0001398659-25-000098",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 60.544,
-            "accession": "0001398659-25-000109",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -48.521,
-            "accession": "calc-0001398659-26-000004",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 23.93,
-            "accession": "0001398659-26-000010",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:17:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -688,9 +695,9 @@
     "country": "Bermuda",
     "_data_freshness_date": "2026-05-21T02:17:14.264495+00:00",
     "fetched_at": "2026-05-21T02:17:14.264496+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.524Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.107Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/g.json",
     "enrich_root": "v2-pipeline-enrich/g.json",

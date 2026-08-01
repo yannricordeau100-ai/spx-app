@@ -103,34 +103,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.12 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        -0.01,
-        0.02,
-        0.01,
-        0.02
+        -10,
+        20,
+        10,
+        20
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.02 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,33 +158,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.37 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.48,
-      "unit": "Mds €",
+      "value": 480,
+      "unit": "M €",
       "yoy": "-2.0%",
       "history": [
-        0.35,
-        0.39,
-        0.49,
-        0.48
+        350,
+        390,
+        490,
+        480
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.48 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -248,7 +266,8 @@
       "severity": 5,
       "score_rationale": "Le risque est placé en premier dans le document et mentionné comme pouvant entraîner des impacts financiers, des changements opérationnels majeurs ou un préjudice réputationnel. Le langage est répétitif et insiste sur l'incertitude réglementaire et les sanctions potentielles. La catégorie Régulation est hautement pondérée dans le secteur de la santé. Ce risque est stable par rapport à l'année précédente.",
       "trend": "stable",
-      "summary": "La société opère dans un secteur fortement régulé ; tout manquement aux lois sanitaires fédérales ou étatiques pourrait entraîner des sanctions, des coûts élevés ou des changements majeurs dans son modèle d'affaires."
+      "summary": "La société opère dans un secteur fortement régulé ; tout manquement aux lois sanitaires fédérales ou étatiques pourrait entraîner des sanctions, des coûts élevés ou des changements majeurs dans son modèle d'affaires.",
+      "score": 5
     },
     {
       "title": "Risques liés aux arrangements en VBC",
@@ -256,7 +275,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné comme pouvant impacter négativement la situation financière, les opérations et la trésorerie. Bien que le langage ne soit pas aussi alarmant que pour les risques réglementaires, il est cité comme un facteur clé de performance financière. La catégorie Capital est critique pour la durabilité du modèle économique. Position centrale dans le document.",
       "trend": "stable",
-      "summary": "Les accords de valeur fondée sur la qualité (VBC) comportent des incertitudes financières et opérationnelles qui pourraient nuire à la rentabilité si les objectifs ne sont pas atteints."
+      "summary": "Les accords de valeur fondée sur la qualité (VBC) comportent des incertitudes financières et opérationnelles qui pourraient nuire à la rentabilité si les objectifs ne sont pas atteints.",
+      "score": 4
     },
     {
       "title": "Réduction des remboursements par les payeurs",
@@ -264,7 +284,8 @@
       "severity": 5,
       "score_rationale": "Le texte souligne que toute baisse des taux de remboursement ou modification des conditions de paiement par les programmes gouvernementaux ou les assureurs privés pourrait réduire les revenus. Le langage est fort (« nos revenus peuvent décliner ») et le risque est répété plusieurs fois. Impact direct sur la trésorerie et la viabilité. Position élevée dans la liste.",
       "trend": "stable",
-      "summary": "Une diminution des remboursements des assureurs publics ou privés, ou une hausse des patients non assurés, pourrait réduire significativement les revenus de la société."
+      "summary": "Une diminution des remboursements des assureurs publics ou privés, ou une hausse des patients non assurés, pourrait réduire significativement les revenus de la société.",
+      "score": 5
     },
     {
       "title": "Cyberattaque ou violation de données",
@@ -272,7 +293,8 @@
       "severity": 5,
       "score_rationale": "Le risque est décrit comme pouvant compromettre des informations sensibles, entraîner des coûts de remédiation élevés, des poursuites et un préjudice réputationnel. Mention de menaces spécifiques comme le ransomware. Le secteur de la santé est une cible privilégiée. Langage alarmant et conséquences existentielles possibles. Position importante dans le document.",
       "trend": "stable",
-      "summary": "Une faille de sécurité ou une cyberattaque pourrait exposer des données patients, entraîner des sanctions et nuire gravement à la réputation et aux opérations de la société."
+      "summary": "Une faille de sécurité ou une cyberattaque pourrait exposer des données patients, entraîner des sanctions et nuire gravement à la réputation et aux opérations de la société.",
+      "score": 5
     },
     {
       "title": "Dépendance aux relations avec les groupes médicaux",
@@ -280,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Le modèle d'affaires repose sur un cadre juridique complexe avec les groupes médicaux. Toute remise en cause légale ou interprétation changeante de ce cadre pourrait forcer des changements majeurs. Le langage est préoccupé mais pas alarmiste. Risque structurel central au modèle économique. Position précoce dans le texte.",
       "trend": "stable",
-      "summary": "La société dépend d'un cadre légal complexe pour ses relations avec les groupes médicaux ; toute évolution défavorable pourrait contraindre une refonte opérationnelle."
+      "summary": "La société dépend d'un cadre légal complexe pour ses relations avec les groupes médicaux ; toute évolution défavorable pourrait contraindre une refonte opérationnelle.",
+      "score": 4
     },
     {
       "title": "Perte de personnel clé ou difficultés de recrutement",
@@ -288,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement la dépendance à l'égard de la direction et d'autres talents clés, notamment des médecins. La perte de ces personnes pourrait nuire à la stratégie de croissance. Langage préventif mais sans urgence immédiate. Catégorie Personne-clé modérément pondérée, mais critique ici en raison du modèle médical.",
       "trend": "stable",
-      "summary": "La société dépend fortement de ses dirigeants et de professionnels de santé clés ; leur départ pourrait nuire à sa croissance et à sa performance opérationnelle."
+      "summary": "La société dépend fortement de ses dirigeants et de professionnels de santé clés ; leur départ pourrait nuire à sa croissance et à sa performance opérationnelle.",
+      "score": 4
     },
     {
       "title": "Non-respect des règles de confidentialité (HIPAA)",
@@ -296,7 +320,8 @@
       "severity": 5,
       "score_rationale": "Le risque est lié à HIPAA, mentionné plusieurs fois avec un langage fort (« échec de conformité » pouvant entraîner « une incidence matérielle »). Le traitement des données de santé est central à l'activité. Le cadre juridique est en évolution rapide. Risque combiné de sanctions et de perte de confiance. Position centrale dans la section réglementaire.",
       "trend": "stable",
-      "summary": "Un défaut de conformité aux règles de confidentialité comme HIPAA pourrait entraîner des sanctions sévères, des poursuites et une perte de confiance des patients et partenaires."
+      "summary": "Un défaut de conformité aux règles de confidentialité comme HIPAA pourrait entraîner des sanctions sévères, des poursuites et une perte de confiance des patients et partenaires.",
+      "score": 5
     }
   ],
   "governance": {
@@ -466,6 +491,36 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "PRVA",
+    "extracted_at": "2026-06-01T09:17:14Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          313.8,
+          386.3,
+          320.336,
+          374.809
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q1 2023",
+          "Q1 2024",
+          "Q1 2025"
+        ],
+        "last_data_date": "2025-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:17:14Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "PRVA",
     "ranks": {
@@ -478,15 +533,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.299629+00:00",
     "fetched_at": "2026-05-21T02:17:14.299630+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.856Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.871Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/prva.json",
     "enrich_root": "v2-pipeline-enrich/prva.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

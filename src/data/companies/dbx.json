@@ -36,18 +36,21 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only one explicit annual value found: 16.79M paying users as of December 31, 2021. The document does not contain comparable annual figures f",
-      "explanation_en": "Number of Paying users."
+      "explanation_en": "Number of Paying users.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total ARR",
       "name_fr": "Revenu annuel récurrent total",
       "name_en": "Total Annual Recurring Revenue",
       "explanation": "Revenu annuel récurrent attendu du portefeuille de clients actuels",
-      "value": "2526",
-      "unit": "M $",
+      "value": 2.526,
+      "unit": "Mds $",
       "yoy": "-1.87",
       "type": "Revenue",
       "nature": "Structurel",
@@ -55,14 +58,15 @@
       "signal": "Baisse due à la réduction stratégique d'investissements dans FormSwift et environnement défavorable aux plans Teams",
       "description": "Métrique clé indicatrice de la trajectoire de performance et des revenus futurs",
       "history": [
-        2526,
-        2574
+        2.526,
+        2.574
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Registered Users",
@@ -107,36 +111,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.52 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:47.479031+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.51,
-      "unit": "Mds €",
+      "value": 510,
+      "unit": "M €",
       "yoy": "+13.3%",
       "history": [
-        0.55,
-        0.45,
-        0.45,
-        0.51
+        550,
+        450,
+        450,
+        510
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.51 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,11 +168,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -178,33 +195,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.59 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.89,
-      "unit": "Mds €",
+      "value": 890,
+      "unit": "M €",
       "yoy": "-33.1%",
       "history": [
-        0.23,
-        0.61,
-        1.33,
-        0.89
+        230,
+        610,
+        1330,
+        890
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.89 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -228,13 +254,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "Dropbox positionne l'IA comme un élément émergent de sa stratégie de produit, notamment à travers Dash, son outil de recherche universelle alimenté par l'IA. L'entreprise mentionne explicitement des initiatives basées sur l'IA pour la croissance future, bien que l'intégration reste en phase initiale.",
     "evidence": [
       "Dash: AI-powered universal search tool offered to teams at an additional cost",
@@ -249,7 +273,8 @@
       "severity": 4,
       "score_rationale": "Déclin du taux de croissance observé et croissance négative passée. Incapacité à exécuter les initiatives de nouveaux produits pour inverser cette tendance pourrait continuer à impacter les résultats d'exploitation",
       "trend": "up",
-      "summary": "Le ralentissement de la croissance de la société pourrait avoir un impact négatif sur les résultats d'exploitation et la situation financière"
+      "summary": "Le ralentissement de la croissance de la société pourrait avoir un impact négatif sur les résultats d'exploitation et la situation financière",
+      "score": 4
     },
     {
       "title": "Sécurité des données",
@@ -257,7 +282,8 @@
       "severity": 5,
       "score_rationale": "Risques de failles de sécurité, de piratage et de perte de données, qui pourraient avoir un impact significatif sur la réputation et les résultats d'exploitation",
       "trend": "up",
-      "summary": "Les menaces de sécurité sont en constante évolution et pourraient avoir un impact important sur la société"
+      "summary": "Les menaces de sécurité sont en constante évolution et pourraient avoir un impact important sur la société",
+      "score": 5
     },
     {
       "title": "Concurrence",
@@ -265,7 +291,8 @@
       "severity": 4,
       "score_rationale": "La concurrence dans le secteur des solutions de collaboration de contenu est élevée et pourrait avoir un impact négatif sur les résultats d'exploitation",
       "trend": "stable",
-      "summary": "La société doit faire face à une concurrence élevée dans son secteur d'activité"
+      "summary": "La société doit faire face à une concurrence élevée dans son secteur d'activité",
+      "score": 4
     },
     {
       "title": "Dépendance aux utilisateurs",
@@ -273,7 +300,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de la fidélité de ses utilisateurs et de leur conversion en utilisateurs payants",
       "trend": "up",
-      "summary": "La société doit maintenir une base d'utilisateurs solide pour assurer sa croissance et ses résultats d'exploitation"
+      "summary": "La société doit maintenir une base d'utilisateurs solide pour assurer sa croissance et ses résultats d'exploitation",
+      "score": 4
     },
     {
       "title": "Risques macroéconomiques",
@@ -281,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Les changements dans l'environnement macroéconomique incluant l'inflation, les fluctuations de taux de change et l'incertitude géopolitique pourraient avoir un impact négatif sur le comportement des clients et les résultats d'exploitation",
       "trend": "up",
-      "summary": "Les facteurs macroéconomiques pourraient avoir un impact significatif sur la société, particulièrement affectant la performance des plans Teams"
+      "summary": "Les facteurs macroéconomiques pourraient avoir un impact significatif sur la société, particulièrement affectant la performance des plans Teams",
+      "score": 4
     },
     {
       "title": "Intégration de l'IA",
@@ -289,7 +318,8 @@
       "severity": 3,
       "score_rationale": "L'intégration de l'IA dans les produits et les opérations pourrait créer de nouveaux risques et défis, y compris les exigences en matière de conformité et la gestion des attentes des clients",
       "trend": "new",
-      "summary": "La société doit gérer les risques et les défis liés à l'intégration de l'IA dans ses produits et opérations, notamment à travers Dash"
+      "summary": "La société doit gérer les risques et les défis liés à l'intégration de l'IA dans ses produits et opérations, notamment à travers Dash",
+      "score": 3
     }
   ],
   "governance": {
@@ -328,7 +358,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -497,9 +527,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.249520+00:00",
     "fetched_at": "2026-05-21T02:17:14.249521+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.145Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.680Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dbx.json",
     "enrich_root": null,

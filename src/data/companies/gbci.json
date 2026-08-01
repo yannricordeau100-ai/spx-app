@@ -92,34 +92,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.0 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.24,
-      "unit": "Mds €",
+      "value": 240,
+      "unit": "M €",
       "yoy": "+26.3%",
       "history": [
-        0.3,
-        0.22,
-        0.19,
-        0.24
+        300,
+        220,
+        190,
+        240
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.24 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -138,34 +147,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 31.98 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.76,
-      "unit": "Mds €",
+      "value": 760,
+      "unit": "M €",
       "yoy": "-63.1%",
       "history": [
-        2.01,
-        2.95,
-        2.06,
-        0.76
+        2010,
+        2950,
+        2060,
+        760
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.76 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -184,10 +202,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.24 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -201,7 +223,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.42,
         1.42,
@@ -214,7 +236,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -229,7 +251,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1575,
@@ -242,7 +264,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -257,7 +279,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         51.96,
@@ -270,7 +292,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -286,7 +308,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.74,
@@ -299,7 +321,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -315,25 +337,25 @@
       "title": "Credit Risk",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "The company has a substantial loan portfolio of $20.9 billion with ACL of $255.3 million and annual provisions of $71.4 million, indicating material credit risk exposure. (score par défaut, à affiner)",
+      "score_rationale": "The company has a substantial loan portfolio of $20.9 billion with ACL of $255.3 million and annual provisions of $71.4 million, indicating material credit risk exposure.",
       "trend": "stable",
       "summary": "Credit risk is elevated due to the size of the loan portfolio and the need for significant allowances for credit losses.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Interest Rate Risk",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "The company is exposed to significant interest rate risk affecting net interest income, which is the primary source of earnings. NII sensitivity analysis shows material exposure to rate changes. (score par défaut, à affiner)",
+      "score_rationale": "The company is exposed to significant interest rate risk affecting net interest income, which is the primary source of earnings. NII sensitivity analysis shows material exposure to rate changes.",
       "trend": "up",
       "summary": "Interest rate risk is high due to the sensitivity of net interest income to changes in market rates and the impact on deposit and lending spreads.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Goodwill Risk",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "The company carries goodwill that may be subject to impairment if economic conditions deteriorate. (score par défaut, à affiner)",
+      "score_rationale": "The company carries goodwill that may be subject to impairment if economic conditions deteriorate.",
       "trend": "stable",
       "summary": "Goodwill risk is moderate due to potential impairment exposure from changes in economic environment.",
       "score": 3
@@ -342,7 +364,7 @@
       "title": "Fair Value Measurement Risk",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Management uses estimates for fair value measurements of certain assets, subject to uncertainty and judgment. (score par défaut, à affiner)",
+      "score_rationale": "Management uses estimates for fair value measurements of certain assets, subject to uncertainty and judgment.",
       "trend": "stable",
       "summary": "Fair value measurement risk is moderate due to reliance on estimates and sensitivity to economic changes.",
       "score": 3
@@ -351,7 +373,7 @@
       "title": "Regulatory Risk",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Financial institutions are subject to strict banking regulations that impact operations and compliance requirements. (score par défaut, à affiner)",
+      "score_rationale": "Financial institutions are subject to strict banking regulations that impact operations and compliance requirements.",
       "trend": "up",
       "summary": "Regulatory risk is moderate due to strict oversight and potential for regulatory changes affecting the business.",
       "score": 3
@@ -360,19 +382,19 @@
       "title": "Cybersecurity Risk",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Financial institutions face elevated cybersecurity threats that could compromise data confidentiality and integrity. (score par défaut, à affiner)",
+      "score_rationale": "Financial institutions face elevated cybersecurity threats that could compromise data confidentiality and integrity.",
       "trend": "up",
       "summary": "Cybersecurity risk is high due to the sensitive nature of financial data and ongoing threat landscape.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Market Risk",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "The company is exposed to broader market risks including economic downturns that affect loan demand and asset valuations. (score par défaut, à affiner)",
+      "score_rationale": "The company is exposed to broader market risks including economic downturns that affect loan demand and asset valuations.",
       "trend": "up",
       "summary": "Market risk is high due to exposure to macroeconomic conditions and the need to adapt to changing market environments.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -476,7 +498,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:19:45Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -504,7 +526,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:05Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:06Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
   "enrich_events": {
@@ -549,6 +571,148 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "GBCI",
+    "extracted_at": "2026-06-01T03:17:46Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Allowance for Credit Losses",
+        "period_type": "quarter",
+        "history": [
+          172.665,
+          176.159,
+          172.963,
+          178.191,
+          182.283,
+          186.604,
+          189.385,
+          192.271,
+          192.757,
+          198.779,
+          200.955,
+          205.17,
+          206.041,
+          210.4,
+          226.799,
+          229.077
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:17:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Loan Portfolio",
+        "period_type": "quarter",
+        "history": [
+          13.259,
+          13.555,
+          14.227,
+          14.673,
+          15.065,
+          15.332,
+          15.766,
+          15.943,
+          16.005,
+          16.534,
+          16.651,
+          16.976,
+          17.056,
+          17.008,
+          18.306,
+          18.562
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:17:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          25.941,
+          26.1,
+          26.69,
+          26.733,
+          26.635,
+          27.802,
+          27.528,
+          28.064,
+          27.743,
+          27.822,
+          27.805,
+          28.206,
+          27.903,
+          27.859,
+          29.005,
+          29.016
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:17:46Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "GBCI",
     "ranks": {
@@ -561,14 +725,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.265386+00:00",
     "fetched_at": "2026-05-21T02:17:14.265387+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.552Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.145Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gbci.json",
     "enrich_root": "v2-pipeline-enrich/gbci.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -1,6 +1,6 @@
 {
   "ticker": "CURB",
-  "name": "Curbline Properties Corp.",
+  "name": "Curbline Properties",
   "sector": "Immobilier",
   "subsector": "Retail REITs",
   "tagline": "Convenience shopping centers operator with drive-thru capabilities",
@@ -39,11 +39,14 @@
       "is_short_history": false,
       "ttm": 205466.6,
       "_validation": "Correction unité de Mds $ à K $ (valeur 181,983 en milliers selon 10-K). Correction YoY de +34% à +51.6% (calcul: (181983-120028)/120028 = 51.6%)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 années de données explicites trouvées (2024 et 2025). Le minimum requis est 4 années consécutives. Les données antérieures à 202",
       "explanation_en": "Rental income generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Occupancy Rate",
@@ -99,47 +102,57 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.18,
-      "unit": "Mds €",
+      "value": 180,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
-        0.07,
-        0.09,
-        0.12,
-        0.18
+        70,
+        90,
+        120,
+        180
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.18 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+300.0%",
       "history": [
-        0.03,
-        0.03,
-        0.01,
-        0.04
+        30,
+        30,
+        10,
+        40
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.04 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,56 +171,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.47 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.42,
-      "unit": "Mds €",
+      "value": 420,
+      "unit": "M €",
       "yoy": "+950.0%",
       "history": [
-        0.04,
-        0.03,
-        0.04,
-        0.42
+        40,
+        30,
+        40,
+        420
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.42 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "-54.0%",
       "history": [
         0,
         0,
-        0.63,
-        0.29
+        630,
+        290
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.29 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -234,9 +261,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 205466.6,
-      "_validation": "Correction unité de Mds $ à K $. Correction YoY de +34% à +51.6%",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction unité de Mds $ à K $. Correction YoY de +34% à +51.6%"
     }
   ],
   "ai_positioning": {
@@ -252,7 +277,8 @@
       "severity": 4,
       "score_rationale": "La société est issue d'une scission de SITE Centers et conserve des liens étroits avec cette dernière, ce qui pourrait impacter sa capacité à prendre des décisions indépendantes. Le langage utilisé dans le rapport 10-K met en avant l'importance de cette relation.",
       "trend": "stable",
-      "summary": "La société dépend fortement de SITE Centers pour ses opérations et sa stratégie, ce qui pourrait limiter son autonomie."
+      "summary": "La société dépend fortement de SITE Centers pour ses opérations et sa stratégie, ce qui pourrait limiter son autonomie.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -260,7 +286,8 @@
       "severity": 3,
       "score_rationale": "Le marché des centres commerciaux de convenance est en constante évolution, avec de nouveaux acteurs et de nouvelles stratégies, ce qui pourrait impacter la position de la société. Le rapport 10-K mentionne la concurrence comme un facteur clé pour l'avenir de l'entreprise.",
       "trend": "up",
-      "summary": "La concurrence dans le secteur des centres commerciaux de convenance est en augmentation, ce qui pourrait mettre la société sous pression."
+      "summary": "La concurrence dans le secteur des centres commerciaux de convenance est en augmentation, ce qui pourrait mettre la société sous pression.",
+      "score": 3
     },
     {
       "title": "Risques liés aux taux d'intérêt",
@@ -268,7 +295,8 @@
       "severity": 4,
       "score_rationale": "La société a recours à des financements à taux d'intérêt variables, ce qui la rend vulnérable aux fluctuations des taux d'intérêt. Au 31 décembre 2025, la dette consolidée s'élève à 428 millions de dollars avec un taux moyen pondéré de 5.0%.",
       "trend": "stable",
-      "summary": "Les fluctuations des taux d'intérêt pourraient impacter la capacité de la société à rembourser ses dettes et à maintenir sa santé financière."
+      "summary": "Les fluctuations des taux d'intérêt pourraient impacter la capacité de la société à rembourser ses dettes et à maintenir sa santé financière.",
+      "score": 4
     },
     {
       "title": "Dégradation du marché locatif",
@@ -276,7 +304,8 @@
       "severity": 3,
       "score_rationale": "Le marché locatif est sujet à des fluctuations, ce qui pourrait impacter les revenus de la société. Le rapport 10-K mentionne les risques liés au marché locatif comme un facteur clé pour l'avenir de l'entreprise.",
       "trend": "stable",
-      "summary": "Une dégradation du marché locatif pourrait réduire les revenus de la société et impacter sa capacité à maintenir sa santé financière."
+      "summary": "Une dégradation du marché locatif pourrait réduire les revenus de la société et impacter sa capacité à maintenir sa santé financière.",
+      "score": 3
     },
     {
       "title": "Risques liés à la réglementation",
@@ -284,7 +313,8 @@
       "severity": 2,
       "score_rationale": "La société est soumise à des réglementations spécifiques liées au secteur immobilier, ce qui pourrait impacter ses opérations. Le rapport 10-K mentionne les risques liés à la réglementation comme un facteur à prendre en compte pour l'avenir de l'entreprise.",
       "trend": "stable",
-      "summary": "Les changements réglementaires pourraient impacter les opérations de la société et nécessiter des adaptations pour maintenir sa conformité."
+      "summary": "Les changements réglementaires pourraient impacter les opérations de la société et nécessiter des adaptations pour maintenir sa conformité.",
+      "score": 2
     },
     {
       "title": "Risques liés à la gestion",
@@ -292,7 +322,8 @@
       "severity": 2,
       "score_rationale": "La société dépend de sa direction et de ses principaux dirigeants pour prendre des décisions stratégiques, ce qui pourrait impacter sa capacité à réagir aux changements de marché. Le rapport 10-K met en avant l'importance de la gestion pour l'avenir de l'entreprise.",
       "trend": "stable",
-      "summary": "La perte de dirigeants clés ou une mauvaise gestion pourrait impacter la capacité de la société à prendre des décisions stratégiques et à maintenir sa santé financière."
+      "summary": "La perte de dirigeants clés ou une mauvaise gestion pourrait impacter la capacité de la société à prendre des décisions stratégiques et à maintenir sa santé financière.",
+      "score": 2
     },
     {
       "title": "Risques liés à la cybersécurité",
@@ -300,7 +331,8 @@
       "severity": 1,
       "score_rationale": "La société utilise des systèmes informatiques pour gérer ses opérations, ce qui la rend vulnérable aux risques liés à la cybersécurité. Cependant, le rapport 10-K ne met pas en avant ce risque comme un facteur majeur pour l'avenir de l'entreprise.",
       "trend": "stable",
-      "summary": "Les attaques informatiques pourraient impacter les opérations de la société, mais ce risque semble être considéré comme mineur dans le rapport 10-K."
+      "summary": "Les attaques informatiques pourraient impacter les opérations de la société, mais ce risque semble être considéré comme mineur dans le rapport 10-K.",
+      "score": 1
     }
   ],
   "governance": {
@@ -329,7 +361,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -487,6 +519,41 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CURB",
+    "extracted_at": "2026-06-01T03:09:05Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Rental Income",
+        "period_type": "quarter",
+        "history": [
+          24.061,
+          27.866,
+          27.944,
+          29.576,
+          38.438,
+          41.104,
+          48.466,
+          57.671
+        ],
+        "history_periods": [
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:09:05Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CURB",
     "ranks": {
@@ -499,15 +566,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.247451+00:00",
     "fetched_at": "2026-05-21T02:17:14.247452+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.983Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.496Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/curb.json",
     "enrich_root": "v2-pipeline-enrich/curb.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

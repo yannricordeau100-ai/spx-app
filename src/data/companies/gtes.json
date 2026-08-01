@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires net",
       "name_en": "Net Sales Revenue",
       "explanation": "Revenu total net de la société",
-      "value": 3443.2,
-      "unit": "M $",
+      "value": 3.443,
+      "unit": "Mds $",
       "yoy": "Non disponible",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,20 +30,19 @@
       "signal": "Revenu hautement corrélé à l'activité industrielle",
       "description": "Revenu total net de la société pour l'année fiscale 2025 (31 décembre 2025). Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 4 dernières années.",
       "history": [
-        3554.2,
-        3570.2,
-        3408.2,
-        3443.2
+        3.554,
+        3.57,
+        3.408,
+        3.443
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
       "period_type": "quarter",
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T09:41:34.704799+00:00",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Marge brute",
@@ -81,57 +80,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.44 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.25,
-      "unit": "Mds €",
+      "value": 250,
+      "unit": "M €",
       "yoy": "+31.6%",
       "history": [
-        0.22,
-        0.23,
-        0.19,
-        0.25
+        220,
+        230,
+        190,
+        250
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.25 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "+4.2%",
       "history": [
-        0.4,
-        0.47,
-        0.48,
-        0.5
+        400,
+        470,
+        480,
+        500
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.5 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Moderate growth, slightly positive"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Moderate growth, slightly positive",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -150,11 +163,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.15 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -173,33 +190,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.36 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.81,
-      "unit": "Mds €",
+      "value": 810,
+      "unit": "M €",
       "yoy": "+19.1%",
       "history": [
-        0.58,
-        0.72,
-        0.68,
-        0.81
+        580,
+        720,
+        680,
+        810
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.81 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -223,9 +249,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -241,7 +265,8 @@
       "severity": 3,
       "score_rationale": "Concentration de crédit chez certains clients, notamment deux clients qui représentent 13,7% et 8,4% du total des comptes clients au 31 décembre 2025, comparé à 13,7% et 6,1% au 28 décembre 2024. Cette concentration est due aux délais de paiement étendus communs dans l'industrie.",
       "trend": "stable",
-      "summary": "Le risque de crédit est géré par la société, mais des concentrations de crédit chez certains clients pourraient avoir un impact négatif sur les finances de l'entreprise. Gates exerce des vérifications de crédit et surveille étroitement la solvabilité des clients nouveaux et existants."
+      "summary": "Le risque de crédit est géré par la société, mais des concentrations de crédit chez certains clients pourraient avoir un impact négatif sur les finances de l'entreprise. Gates exerce des vérifications de crédit et surveille étroitement la solvabilité des clients nouveaux et existants.",
+      "score": 3
     },
     {
       "title": "Risque de défaillance des contrôles",
@@ -249,7 +274,8 @@
       "severity": 2,
       "score_rationale": "Les contrôles internes et les contrôles de divulgation sont considérés comme efficaces au 31 décembre 2025, mais il existe toujours un risque de défaillance des contrôles qui pourrait avoir un impact sur la fiabilité des états financiers.",
       "trend": "stable",
-      "summary": "La société a mis en place des contrôles internes efficaces pour garantir la fiabilité de ses états financiers. Aucun changement matériel dans les contrôles internes n'a été relevé au cours du dernier trimestre fiscal 2025."
+      "summary": "La société a mis en place des contrôles internes efficaces pour garantir la fiabilité de ses états financiers. Aucun changement matériel dans les contrôles internes n'a été relevé au cours du dernier trimestre fiscal 2025.",
+      "score": 2
     },
     {
       "title": "Risque de litige",
@@ -257,7 +283,8 @@
       "severity": 1,
       "score_rationale": "Il n'y a pas de litiges importants mentionnés dans le rapport 10-K, mais il est toujours possible que des litiges surviennent à l'avenir.",
       "trend": "stable",
-      "summary": "La société n'a pas mentionné de litiges importants dans son rapport, mais il est important de rester vigilant face à ce type de risque."
+      "summary": "La société n'a pas mentionné de litiges importants dans son rapport, mais il est important de rester vigilant face à ce type de risque.",
+      "score": 1
     },
     {
       "title": "Risque de réputation",
@@ -265,7 +292,8 @@
       "severity": 2,
       "score_rationale": "La réputation de la société pourrait être affectée par des événements négatifs, tels que des problèmes de qualité ou des litiges.",
       "trend": "stable",
-      "summary": "Gates bénéficie d'une réputation établie depuis plus de 110 ans comme marque premium pour la qualité et l'innovation technologique. Cette réputation doit être protégée par des mesures préventives contre les événements négatifs."
+      "summary": "Gates bénéficie d'une réputation établie depuis plus de 110 ans comme marque premium pour la qualité et l'innovation technologique. Cette réputation doit être protégée par des mesures préventives contre les événements négatifs.",
+      "score": 2
     },
     {
       "title": "Risque de concentration de la clientèle",
@@ -273,7 +301,8 @@
       "severity": 3,
       "score_rationale": "La concentration de la clientèle chez certains clients des activités Amérique du Nord pourrait avoir un impact négatif sur les finances de l'entreprise si ces clients décidaient de ne plus faire affaire avec la société.",
       "trend": "stable",
-      "summary": "La société dispose d'une clientèle diversifiée bien établie à travers le monde et n'a pas d'autres concentrations de crédit significatives, car son exposition est répartie sur un grand nombre de clients et de contreparties."
+      "summary": "La société dispose d'une clientèle diversifiée bien établie à travers le monde et n'a pas d'autres concentrations de crédit significatives, car son exposition est répartie sur un grand nombre de clients et de contreparties.",
+      "score": 3
     }
   ],
   "governance": {
@@ -301,7 +330,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -408,23 +437,18 @@
         "history": [
           1796.4,
           2658.8,
-          -1862.1,
           893.4,
           1800.2,
           2660.9,
-          -1800.3,
           897.7,
           1834,
           2706.9,
-          -1868.4,
           862.6,
           1748.1,
           2578.8,
-          -1781.3,
           847.6,
           1731.3,
           2587,
-          -1722.7,
           851.1
         ],
         "history_periods": [
@@ -478,6 +502,12 @@
             "accession": "0001628280-26-029351",
             "end": "2026-03-28"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (GTES)"
         ]
       }
     ]
@@ -494,9 +524,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.269767+00:00",
     "fetched_at": "2026-05-21T02:17:14.269768+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.868Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.526Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gtes.json",
     "enrich_root": null,

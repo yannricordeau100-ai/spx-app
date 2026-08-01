@@ -39,10 +39,13 @@
       "is_short_history": false,
       "ttm": 293.462,
       "_validation": "Données validées et converties depuis source 10-K table 'Changes in Coal Reserves': 12/31/2024 = 298,639 thousands = 298.639M T; 12/31/2025 = 294,486 thousands = 294.486M T; YoY = (294.486-298.639)/298.639 = -1.39% arrondi à -1.4%; unité M T correcte (millions de tonnes)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seule une valeur annuelle explicite trouvée : 623.5 MT au 31 décembre 2020. Le document ne contient pas d'historique annuel pour 4 années ou",
-      "signal_en": "Capital base contracting, monitor structure"
+      "signal_en": "Capital base contracting, monitor structure",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Diesel Fuel Purchases",
@@ -62,9 +65,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Données validées depuis source 10-K/MDA: 'We expect to purchase approximately 22.0 million gallons of diesel fuel in 2026'; valeur exacte = 22.0M gal; unité correcte (million gallons); YoY = n/a car c'est une prévision 2026, pas donnée historique 2025 réalisée; is_short_history = true (pas d'historique)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Données validées depuis source 10-K/MDA: 'We expect to purchase approximately 22.0 million gallons of diesel fuel in 2026'; valeur exacte = 22.0M gal; unité correcte (million gallons); YoY = n/a car c'est une prévision 2026, pas donnée historique 2025 réalisée; is_short_history = true (pas d'historique)"
     },
     {
       "short": "Trading Securities",
@@ -109,9 +110,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Données validées depuis source 10-K/MDA: 'we maintain a senior secured asset-based revolving credit facility, under which we may borrow up to $225.0 million'; 'No cash borrowings were outstanding under the facility as of December 31, 2025 or 2024'; valeur = 225.0M $ exacte; unité correcte; is_short_history = true (pas de data historique sur cette ligne); yoy = n/a (capacité structurelle non comparative)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Données validées depuis source 10-K/MDA: 'we maintain a senior secured asset-based revolving credit facility, under which we may borrow up to $225.0 million'; 'No cash borrowings were outstanding under the facility as of December 31, 2025 or 2024'; valeur = 225.0M $ exacte; unité correcte; is_short_history = true (pas de data historique sur cette ligne); yoy = n/a (capacité structurelle non comparative)"
     },
     {
       "short": "Total Revenue",
@@ -134,13 +133,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.13 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:46.805850+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,33 +162,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.28 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.37,
-      "unit": "Mds €",
+      "value": 370,
+      "unit": "M €",
       "yoy": "-22.9%",
       "history": [
-        0.3,
-        0.27,
-        0.48,
-        0.37
+        300,
+        270,
+        480,
+        370
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.37 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -202,7 +214,8 @@
       "severity": 4,
       "score_rationale": "Le risque de prix est élevé en raison de la fluctuation des prix du charbon et des coûts de production. La société est exposée à des risques de prix pour les fournitures telles que le diesel, l'acier et les explosifs.",
       "trend": "stable",
-      "summary": "Le risque de prix est un risque important pour la société en raison de la volatilité des prix du charbon et des coûts de production."
+      "summary": "Le risque de prix est un risque important pour la société en raison de la volatilité des prix du charbon et des coûts de production.",
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -210,7 +223,8 @@
       "severity": 2,
       "score_rationale": "La société est exposée à des risques de taux d'intérêt potentiels en raison de sa ligne de crédit à taux variable. Cependant, aucun emprunt n'était en cours à fin 2025, limitant l'exposition actuelle à zéro.",
       "trend": "stable",
-      "summary": "Le risque de taux d'intérêt est limité car la ligne de crédit de 225M$ n'est pas utilisée à la fin 2025."
+      "summary": "Le risque de taux d'intérêt est limité car la ligne de crédit de 225M$ n'est pas utilisée à la fin 2025.",
+      "score": 2
     },
     {
       "title": "Risque de change",
@@ -218,7 +232,8 @@
       "severity": 3,
       "score_rationale": "La société vend du charbon à l'international en dollars US. Les fluctuations des taux de change peuvent réduire la compétitivité face aux producteurs concurrents si leurs devises déclinaient, impactant les marges.",
       "trend": "stable",
-      "summary": "Le risque de change est modéré pour la société en raison de ses ventes internationales en dollars US, mais l'appréciation du dollar peut réduire la compétitivité face aux concurrents étrangers."
+      "summary": "Le risque de change est modéré pour la société en raison de ses ventes internationales en dollars US, mais l'appréciation du dollar peut réduire la compétitivité face aux concurrents étrangers.",
+      "score": 3
     },
     {
       "title": "Risque lié aux obligations de fermeture et de restauration des mines",
@@ -226,7 +241,8 @@
       "severity": 5,
       "score_rationale": "Risque existentiel majeur identifié comme Critical Audit Matter. Obligations de restauration (asset retirement obligations) estimées à 227 millions de dollars au 31 décembre 2025. La réglementation environnementale stricte et les coûts élevés de reclamation, basés sur des hypothèses complexes de taux d'actualisation, d'inflation et d'acreage disturbed, peuvent impacter significativement les résultats opérationnels et financiers futurs.",
       "trend": "stable",
-      "summary": "Risque majeur lié aux exigences réglementaires de fermeture et de restauration des mines, avec provisions importantes de 227M$ déjà comptabilisées et évaluées par technique de flux de trésorerie actualisé."
+      "summary": "Risque majeur lié aux exigences réglementaires de fermeture et de restauration des mines, avec provisions importantes de 227M$ déjà comptabilisées et évaluées par technique de flux de trésorerie actualisé.",
+      "score": 5
     }
   ],
   "governance": {
@@ -259,7 +275,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -314,7 +330,6 @@
       "date": "2026-04-03"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:58:53.914853+00:00",
   "revenue_by_geography": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -337,6 +352,7 @@
     ],
     "total": 2.12
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:58:53.914853+00:00",
   "_segments_fetched_at": "2026-05-06T19:22:51.100393+00:00",
   "sector_fr": "Matériaux de base",
   "subsector_fr": "Extraction de charbon",
@@ -447,9 +463,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.220926+00:00",
     "fetched_at": "2026-05-21T02:17:14.220927+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.786Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.218Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/amr.json",
     "enrich_root": "v2-pipeline-enrich/amr.json",

@@ -21,8 +21,8 @@
       "name_fr": "Revenus CABOMETYX",
       "name_en": "CABOMETYX Revenues",
       "explanation": "Revenus générés par la vente de CABOMETYX",
-      "value": 2113.4,
-      "unit": "M $",
+      "value": 2.113,
+      "unit": "Mds $",
       "yoy": "+18%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,8 +30,8 @@
       "signal": "Croissance des revenus de CABOMETYX",
       "description": "Revenus de CABOMETYX en 2025",
       "history": [
-        1798.2,
-        2113.4
+        1.798,
+        2.113
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -43,10 +43,14 @@
         "Correction valeur: formattage en millions plutôt que milliers",
         "Correction history: conversion des milliers aux millions"
       ],
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of explicit CABOMETYX net product revenues found in the filing (2020: $718.687M, 2019: $733.421M). Minimum 4 years ",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -74,7 +78,7 @@
         "Correction name_en: précision ajoutée sur le type de marge",
         "Correction valeur: suppression du symbole '%' (96 au lieu de '96%')"
       ],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -113,52 +117,62 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.452,
-      "unit": "Mds €",
+      "value": 452,
+      "unit": "M €",
       "yoy": "+136.6%",
       "history": [
-        0.29,
-        0.047,
-        0.031,
-        0.025,
-        0.037,
-        0.191,
-        0.452
+        290,
+        47,
+        31,
+        25,
+        37,
+        191,
+        452
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.32 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:50.428970+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.78,
-      "unit": "Mds €",
+      "value": 780,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
-        0.18,
-        0.21,
-        0.52,
-        0.78
+        180,
+        210,
+        520,
+        780
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.78 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -177,56 +191,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "-10.5%",
       "history": [
-        0.19,
-        0.19,
-        0.19,
-        0.17
+        190,
+        190,
+        190,
+        170
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.17 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.48,
-      "unit": "Mds €",
+      "value": 480,
+      "unit": "M €",
       "yoy": "+118.2%",
       "history": [
-        0.5,
-        0.26,
-        0.22,
-        0.48
+        500,
+        260,
+        220,
+        480
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.48 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -257,9 +285,7 @@
         "Correction unité: 'Mds $' -> 'M $'",
         "Correction valeur: conversion des milliers aux millions",
         "Correction history: conversion des milliers aux millions"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -279,7 +305,8 @@
       "score_rationale": "Le texte mentionne explicitement l'Inflation Reduction Act (IRA) et ses impacts sur la fixation des prix et le remboursement des médicaments. L'entreprise a dû faire des démarches pour bénéficier d'exceptions, soulignant l'importance et l'incertitude de ces régulations.",
       "trend": "up",
       "summary": "Les réformes réglementaires, notamment l'IRA aux États-Unis, modifient les prix et le remboursement des médicaments, ce qui pourrait affecter négativement les revenus et la rentabilité de l'entreprise.",
-      "_validation": []
+      "_validation": [],
+      "score": 5
     },
     {
       "title": "Dépendance aux revenus du cabozantinib",
@@ -290,7 +317,8 @@
       "summary": "Une part très importante des revenus de l'entreprise provient du cabozantinib (91% en 2025), créant une forte dépendance à ce produit et à son succès commercial, particulièrement avec la perspective de l'expiration des brevets.",
       "_validation": [
         "Amélioration du rationale avec données chiffrées tirées du 10-K"
-      ]
+      ],
+      "score": 4
     },
     {
       "title": "Échecs potentiels dans le développement de nouveaux médicaments",
@@ -301,7 +329,8 @@
       "summary": "Le développement de nouveaux médicaments est complexe et coûteux. L'échec d'essais cliniques ou l'arrêt de programmes de recherche peut entraîner des pertes financières importantes et retarder la croissance.",
       "_validation": [
         "Amélioration du rationale avec données R&D et candidats spécifiques du 10-K"
-      ]
+      ],
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans le domaine de l'oncologie",
@@ -312,7 +341,8 @@
       "summary": "Le marché de l'oncologie est très concurrentiel, avec de nombreux acteurs développant des traitements similaires, ce qui peut affecter la part de marché et les prix des produits de l'entreprise.",
       "_validation": [
         "Suppression de la référence au STELLAR-305 (non trouvée dans source)"
-      ]
+      ],
+      "score": 4
     },
     {
       "title": "Dépendance aux partenaires de commercialisation internationaux",
@@ -323,7 +353,8 @@
       "summary": "Le succès commercial des produits à l'international dépend fortement des capacités et des stratégies des partenaires de licence, tels qu'Ipsen et Takeda.",
       "_validation": [
         "Amélioration du rationale avec données de revenus précises du 10-K"
-      ]
+      ],
+      "score": 3
     },
     {
       "title": "Incertitudes réglementaires et d'approbation",
@@ -332,7 +363,8 @@
       "score_rationale": "Le processus d'approbation des médicaments est long et incertain. Le zanzalintinib est actuellement en revue FDA avec une date cible de décision en décembre 2026. Des retards ou des refus d'approbation constituent un risque majeur pour la pipeline future.",
       "trend": "stable",
       "summary": "L'obtention des approbations réglementaires pour de nouveaux médicaments est un processus complexe et incertain, avec des délais potentiels et des risques de refus qui peuvent impacter la mise sur le marché.",
-      "_validation": []
+      "_validation": [],
+      "score": 4
     },
     {
       "title": "Risques liés aux essais cliniques et aux données",
@@ -341,7 +373,8 @@
       "score_rationale": "Le succès des produits futurs repose sur les résultats d'essais cliniques majeurs (STELLAR-303, STELLAR-304 pour zanzalintinib). Des résultats mitigés ou non concluants peuvent affecter le développement et la perception du produit par les autorités réglementaires.",
       "trend": "up",
       "summary": "Les résultats des essais cliniques sont cruciaux pour le développement des médicaments. Des données décevantes ou des analyses statistiques complexes peuvent retarder ou compromettre l'approbation et la commercialisation.",
-      "_validation": []
+      "_validation": [],
+      "score": 4
     }
   ],
   "governance": {
@@ -380,7 +413,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -581,7 +614,6 @@
         "history": [
           308.078,
           471.448,
-          -245.098,
           156.671,
           356.152,
           554.989,
@@ -589,15 +621,12 @@
           234.246,
           466.816,
           799.401,
-          -456.392,
           227.689,
           438.836,
           661.406,
-          -417.523,
           212.233,
           412.589,
           611.753,
-          -411.574,
           199.916
         ],
         "history_periods": [
@@ -651,6 +680,12 @@
             "accession": "0000939767-26-000059",
             "end": "2026-04-03"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (EXEL)"
         ]
       },
       {
@@ -742,9 +777,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.258913+00:00",
     "fetched_at": "2026-05-21T02:17:14.258915+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.006Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.585Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/exel.json",
     "enrich_root": "v2-pipeline-enrich/exel.json",

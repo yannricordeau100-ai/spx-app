@@ -1,6 +1,6 @@
 {
   "ticker": "UTL",
-  "name": "UNITIL CORPORATION",
+  "name": "UNITIL",
   "sector": "Services aux collectivités",
   "subsector": "Electric & Natural Gas Distribution",
   "tagline": "Leading regional utility providing electricity and natural gas distribution across New England",
@@ -49,7 +49,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:28.227337+00:00",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -103,8 +103,8 @@
       "name_fr": "Actif net des installations publiques",
       "name_en": "Net Utility Plant",
       "explanation": "Valeur nette des actifs d'infrastructure utilisés pour la distribution d'électricité et de gaz.",
-      "value": "1800",
-      "unit": "M $",
+      "value": 1.8,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Capital",
       "nature": "Structurel",
@@ -116,7 +116,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_validation": "Valeur et unité corrigées: 1.8 Mds $ vers 1800 M $ (confirmé MD&A: 'investment in Net Utility Plant of $1.8 billion')"
+      "_validation": "Valeur et unité corrigées: 1.8 Mds $ vers 1800 M $ (confirmé MD&A: 'investment in Net Utility Plant of $1.8 billion')",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Electric Customers",
@@ -198,11 +199,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.13 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -268,7 +273,8 @@
       "severity": 3,
       "score_rationale": "Le risque de taux est mentionné dans le rapport comme un facteur qui peut affecter les coûts d'intérêt de la société. La variation des taux d'intérêt peut avoir un impact sur les coûts d'emprunt de la société.",
       "trend": "stable",
-      "summary": "Le risque de taux d'intérêt peut affecter les coûts d'emprunt de la société"
+      "summary": "Le risque de taux d'intérêt peut affecter les coûts d'emprunt de la société",
+      "score": 3
     },
     {
       "title": "Risque de régulation",
@@ -276,7 +282,8 @@
       "severity": 4,
       "score_rationale": "Le rapport mentionne que la société est soumise à la régulation des commissions de service public, ce qui peut avoir un impact sur les tarifs et les revenus de la société.",
       "trend": "up",
-      "summary": "La régulation peut avoir un impact sur les tarifs et les revenus de la société"
+      "summary": "La régulation peut avoir un impact sur les tarifs et les revenus de la société",
+      "score": 4
     },
     {
       "title": "Risque de crédit",
@@ -284,7 +291,8 @@
       "severity": 2,
       "score_rationale": "Le rapport mentionne que la société a des dettes à long terme, ce qui peut avoir un impact sur sa capacité à rembourser ses dettes.",
       "trend": "stable",
-      "summary": "La société a des dettes à long terme qui peuvent avoir un impact sur sa capacité à rembourser ses dettes"
+      "summary": "La société a des dettes à long terme qui peuvent avoir un impact sur sa capacité à rembourser ses dettes",
+      "score": 2
     },
     {
       "title": "Risque de marché énergétique",
@@ -292,7 +300,8 @@
       "severity": 3,
       "score_rationale": "Le rapport mentionne que la société est exposée aux fluctuations du marché de l'énergie, ce qui peut avoir un impact sur ses revenus et ses coûts.",
       "trend": "up",
-      "summary": "La société est exposée aux fluctuations du marché de l'énergie"
+      "summary": "La société est exposée aux fluctuations du marché de l'énergie",
+      "score": 3
     },
     {
       "title": "Risque de litige",
@@ -300,7 +309,8 @@
       "severity": 1,
       "score_rationale": "Le rapport ne mentionne pas de litiges importants, mais il est possible que des litiges puissent survenir à l'avenir.",
       "trend": "new",
-      "summary": "Il est possible que des litiges puissent survenir à l'avenir"
+      "summary": "Il est possible que des litiges puissent survenir à l'avenir",
+      "score": 1
     },
     {
       "title": "Risque de réputation",
@@ -308,7 +318,8 @@
       "severity": 2,
       "score_rationale": "Le rapport mentionne que la société est soumise à la régulation et aux exigences de transparence, ce qui peut avoir un impact sur sa réputation.",
       "trend": "stable",
-      "summary": "La société est soumise à la régulation et aux exigences de transparence"
+      "summary": "La société est soumise à la régulation et aux exigences de transparence",
+      "score": 2
     },
     {
       "title": "Risque de cybersécurité",
@@ -316,7 +327,8 @@
       "severity": 1,
       "score_rationale": "Le rapport ne mentionne pas de risques importants liés à la cybersécurité, mais il est possible que des risques puissent survenir à l'avenir.",
       "trend": "new",
-      "summary": "Il est possible que des risques liés à la cybersécurité puissent survenir à l'avenir"
+      "summary": "Il est possible que des risques liés à la cybersécurité puissent survenir à l'avenir",
+      "score": 1
     }
   ],
   "governance": {
@@ -365,7 +377,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "NetIncome"
   },
   "_fit_for_site": true,
@@ -418,7 +430,6 @@
       "date": "2026-05-04"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T20:18:16.159166+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -441,6 +452,7 @@
     ],
     "total": 0.54
   },
+  "_ai_positioning_fetched_at": "2026-05-06T20:18:16.159166+00:00",
   "_segments_fetched_at": "2026-05-06T19:45:22.783278+00:00",
   "enrich_description": {
     "ticker": "UTL",
@@ -550,23 +562,18 @@
         "history": [
           21.6,
           21.6,
-          -26,
           21.5,
           26.4,
           26.9,
-          -33.4,
           24.1,
           28.3,
           29.7,
-          -36.9,
           27.2,
           31.5,
           31.5,
-          -43.1,
           27.5,
           31.5,
           31.2,
-          -40,
           33.2
         ],
         "history_periods": [
@@ -620,6 +627,12 @@
             "accession": "0000755001-26-000010",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (UTL)"
         ]
       },
       {
@@ -702,7 +715,10 @@
             "source": "calc-UTL_2026-02-09.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Audience",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Electric Customers",
@@ -784,7 +800,10 @@
             "source": "calc-UTL_2026-02-09.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Audience",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -801,9 +820,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.324100+00:00",
     "fetched_at": "2026-05-21T02:17:14.324100+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.050Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.153Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/utl.json",
     "enrich_root": "v2-pipeline-enrich/utl.json",

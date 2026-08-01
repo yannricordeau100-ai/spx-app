@@ -1,6 +1,6 @@
 {
   "ticker": "PPC",
-  "name": "Pilgrim's Pride Corporation",
+  "name": "Pilgrim's Pride",
   "sector": "Consommation discrétionnaire",
   "subsector": "Food Processing",
   "tagline": "Leading poultry and prepared foods producer with vertically integrated operations across North America and Europe",
@@ -37,11 +37,14 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de CAPEX (investissements en capital) n'a été trouvée dans l'extrait fourni du 10-K. Le document contient d",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Strong growth, robust momentum",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Cash Flow from Operations",
@@ -71,8 +74,8 @@
       "name_fr": "Bénéfice net",
       "name_en": "Net Income",
       "explanation": "Profit total d'une entreprise après déduction de toutes les dépenses et impôts.",
-      "value": 1083.3,
-      "unit": "M $",
+      "value": 1.083,
+      "unit": "Mds $",
       "yoy": "-0.3%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -80,15 +83,16 @@
       "signal": "Stabilité du bénéfice net.",
       "description": "Le bénéfice net est resté stable, s'élevant à 1,083.3 millions de dollars en 2025, très proche des 1,087.2 millions de dollars de l'année précédente.",
       "history": [
-        1087.2,
-        1083.3
+        1.087,
+        1.083
       ],
       "last_data_date": "2025-12-28",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Assets",
@@ -107,11 +111,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.34 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -135,9 +143,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capital",
-      "_source_month": "avril 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capital"
     }
   ],
   "ai_positioning": {
@@ -163,7 +169,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -180,7 +186,8 @@
       "score_rationale": "Risque placé en début de section Item 1A (position forte). Langage intensif : 'business and reputation could suffer' indique impact matériel. Tendance stable mais catégorie cybersécurité = pondération élevée dans les normes de reporting. Absence de mitigation détaillée suggère exposition significative.",
       "trend": "stable",
       "summary": "PPC dépend fortement de l'informatique pour ses opérations. Une cyberattaque ou panne IT pourrait endommager gravement l'activité et la réputation de l'entreprise.",
-      "citation": "We are increasingly dependent on information technology, and our business and reputation could suffer if we are unable to protect our information technology systems against, or effectively respond to, cyber-attacks or other cyber security incidents or breaches"
+      "citation": "We are increasingly dependent on information technology, and our business and reputation could suffer if we are unable to protect our information technology systems against, or effectively respond to, cyber-attacks or other cyber security incidents or breaches",
+      "score": 4
     },
     {
       "title": "Volatilité des prix des matières premières",
@@ -189,7 +196,8 @@
       "score_rationale": "Risque détaillé en milieu de rapport (MD&A Item 7) avec données quantifiées sur corn, soybean, wheat. Langage modéré ('may impact') mais exposition concrète documentée par tableaux de prix. Tendance stable en 2025 mais historiquement volatile. Pondération macro = poids fort pour secteur agroalimentaire.",
       "trend": "stable",
       "summary": "Les prix du maïs, du soja et du blé fluctuent selon l'offre et la demande mondiales. Ces variations affectent directement les coûts de production de PPC et ses marges bénéficiaires.",
-      "citation": "During 2025, the global prices of corn, soybean, and wheat decreased modestly relative to 2024 prices, reflecting an increase in production and elevated stocks"
+      "citation": "During 2025, the global prices of corn, soybean, and wheat decreased modestly relative to 2024 prices, reflecting an increase in production and elevated stocks",
+      "score": 3
     },
     {
       "title": "Risques géopolitiques et politiques commerciales",
@@ -198,7 +206,8 @@
       "score_rationale": "Risque explicitement mentionné dans MD&A avec références à guerre Russie-Ukraine et changements tarifaires. Langage prudent ('uncertain and evolving') mais reconnaissance d'exposition. Tendance accrue : nouvelles mentions de tarifs et politiques commerciales. Pondération géopolitique = poids fort pour groupe international.",
       "trend": "up",
       "summary": "Les tensions géopolitiques (Russie-Ukraine) et les changements de politiques tarifaires affectent les marchés mondiaux des matières premières et les opérations internationales de PPC.",
-      "citation": "The Russia-Ukraine war's impact on the global feed ingredient and energy markets continues to be less pronounced than during the initial onset of the war, but there remain many risks and uncertainties that may impact global markets"
+      "citation": "The Russia-Ukraine war's impact on the global feed ingredient and energy markets continues to be less pronounced than during the initial onset of the war, but there remain many risks and uncertainties that may impact global markets",
+      "score": 3
     },
     {
       "title": "Fluctuations des taux de change étrangers",
@@ -207,7 +216,8 @@
       "score_rationale": "Risque identifié dans MD&A avec impact quantifié : livre sterling renforcée, peso mexicain affaibli. Langage factuel sans intensité dramatique. Tendance stable mais exposition documentée. Pondération macro modérée car PPC a opérations localisées (moins de 3% exports US).",
       "trend": "stable",
       "summary": "Les variations des taux de change (livre sterling, peso mexicain) affectent la valeur des ventes et résultats des filiales européennes et mexicaines de PPC.",
-      "citation": "The British pound strengthened against the U.S. dollar during 2025. The Mexican peso weakened against the U.S. dollar during 2025"
+      "citation": "The British pound strengthened against the U.S. dollar during 2025. The Mexican peso weakened against the U.S. dollar during 2025",
+      "score": 2
     },
     {
       "title": "Augmentation des coûts de main-d'oeuvre et bien-être animal",
@@ -216,7 +226,8 @@
       "score_rationale": "Risque détaillé dans MD&A avec impacts spécifiques par région (UK : 'increased labor costs and animal welfare costs'). Langage modéré mais reconnaissance d'exposition croissante. Tendance accrue : mentions répétées de coûts de rétention des producteurs. Pondération industrielle = poids fort pour secteur.",
       "trend": "up",
       "summary": "Les coûts de main-d'oeuvre et les exigences de bien-être animal augmentent, notamment au Royaume-Uni. PPC doit négocier avec les clients pour compenser ces surcoûts.",
-      "citation": "reflecting a balance between strong domestic consumption, increased domestic production, and easing input cost pressures. Supply increased in 2025 due to higher average live weights and higher slaughter numbers, but pricing remained firm due to increased labor costs and animal welfare costs"
+      "citation": "reflecting a balance between strong domestic consumption, increased domestic production, and easing input cost pressures. Supply increased in 2025 due to higher average live weights and higher slaughter numbers, but pricing remained firm due to increased labor costs and animal welfare costs",
+      "score": 3
     },
     {
       "title": "Obligations de réduction des émissions de gaz à effet de serre",
@@ -225,7 +236,8 @@
       "score_rationale": "Risque explicite lié aux obligations de sustainability-linked bonds (1 milliard USD). Cibles chiffrées : -17,7% en 2025 et -30% en 2030 vs 2019. Langage factuel mais engagement contractuel contraignant. Tendance stable mais risque de non-conformité. Pondération environnement = poids fort post-ESG.",
       "trend": "stable",
       "summary": "PPC s'est engagée contractuellement à réduire ses émissions de CO2 de 17,7% d'ici 2025 et 30% d'ici 2030. Le non-respect pourrait affecter le financement et la réputation.",
-      "citation": "we issued $1.0 billion of sustainability-linked bonds, which require us to reduce our Scope 1 and Scope 2 global greenhouse gas emissions intensity of 17.7% by 2025 and by 30.0% by 2030 from our 2019 baseline"
+      "citation": "we issued $1.0 billion of sustainability-linked bonds, which require us to reduce our Scope 1 and Scope 2 global greenhouse gas emissions intensity of 17.7% by 2025 and by 30.0% by 2030 from our 2019 baseline",
+      "score": 3
     },
     {
       "title": "Restrictions de distribution de dividendes par contrats de dette",
@@ -234,7 +246,8 @@
       "score_rationale": "Risque identifié dans Item 5 avec langage restrictif : 'restrict, but do not prohibit'. Mentions spécifiques de US Credit Facility et Europe Revolver Facility. Tendance stable mais pertinent après autorisation de 2 milliards USD de dividendes spéciaux. Pondération crédit = poids modéré.",
       "trend": "stable",
       "summary": "Les contrats de financement de PPC limitent sa capacité à verser des dividendes. Les filiales européennes ont des restrictions supplémentaires sur les distributions.",
-      "citation": "Both the U.S. Credit Facility and the indentures governing the Company s senior notes restrict, but do not prohibit, the Company from declaring dividends"
+      "citation": "Both the U.S. Credit Facility and the indentures governing the Company s senior notes restrict, but do not prohibit, the Company from declaring dividends",
+      "score": 2
     }
   ],
   "governance": {
@@ -271,7 +284,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Transformation alimentaire",
-  "_companies_unified_built_at": "2026-05-29T21:19:34.752Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.756Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ppc.json",
     "enrich_root": "v2-pipeline-enrich/ppc.json",

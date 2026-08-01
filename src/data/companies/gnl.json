@@ -102,32 +102,37 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.495,
-      "unit": "Mds €",
+      "value": 495,
+      "unit": "M €",
       "yoy": "-38.5%",
       "history": [
-        0.214,
-        0.259,
-        0.282,
-        0.306,
-        0.33,
-        0.391,
-        0.379,
-        0.515,
-        0.805,
-        0.495
+        214,
+        259,
+        282,
+        306,
+        330,
+        391,
+        379,
+        515,
+        805,
+        495
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.5 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:48.388151+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -146,11 +151,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -169,33 +178,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.58 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.18,
-      "unit": "Mds €",
+      "value": 180,
+      "unit": "M €",
       "yoy": "+12.5%",
       "history": [
-        0.1,
-        0.12,
-        0.16,
-        0.18
+        100,
+        120,
+        160,
+        180
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.18 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -218,9 +236,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Adoption",
-      "_validation": "Correction: remplacé hero_kpi erroné (Revenu IA/cloud) par Taux d'occupation qui est pertinent et sourcé. Marque is_wow comme true.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction: remplacé hero_kpi erroné (Revenu IA/cloud) par Taux d'occupation qui est pertinent et sourcé. Marque is_wow comme true."
     }
   ],
   "ai_positioning": {
@@ -236,7 +252,8 @@
       "severity": 4,
       "score_rationale": "Le risque de taux est élevé en raison de l'exposition à des taux d'intérêt variables. Une variation de 1% des taux d'intérêt sur la dette à taux variable non couverte entraînerait une variation d'environ 480,3 millions de dollars des dépenses d'intérêts annuelles. La dette à taux fixe et couverte serait affectée en juste valeur de 53,5 millions de dollars (baisse) ou 51,8 millions de dollars (hausse).",
       "trend": "stable",
-      "summary": "La société est exposée au risque de taux d'intérêt, ce qui pourrait impacter significativement ses dépenses d'intérêts et sa juste valeur de la dette."
+      "summary": "La société est exposée au risque de taux d'intérêt, ce qui pourrait impacter significativement ses dépenses d'intérêts et sa juste valeur de la dette.",
+      "score": 4
     },
     {
       "title": "Risque de change",
@@ -244,7 +261,8 @@
       "severity": 3,
       "score_rationale": "Le risque de change est présent en raison des investissements à l'étranger, notamment en Europe (26% du revenu locatif annualisé au 31 décembre 2025), au Royaume-Uni, aux Pays-Bas, en Finlande et en Allemagne, ainsi qu'au Canada. La société est exposée aux fluctuations des taux de change EUR, GBP et CAD.",
       "trend": "stable",
-      "summary": "La société est exposée au risque de change affectant ses revenus locatifs et ses obligations de service de la dette en devises étrangères."
+      "summary": "La société est exposée au risque de change affectant ses revenus locatifs et ses obligations de service de la dette en devises étrangères.",
+      "score": 3
     },
     {
       "title": "Concentration du risque de crédit",
@@ -252,7 +270,8 @@
       "severity": 4,
       "score_rationale": "La concentration du risque de crédit est élevée en raison de concentrations sectorielles: 46% Industrial Distribution, 27% Retail, 27% Office. Bien qu'aucun locataire n'excède 10% du revenu locatif annualisé, les concentrations géographiques et sectorielles pourraient entraîner des défauts de paiement en cas de difficultés économiques.",
       "trend": "stable",
-      "summary": "La société est exposée au risque de concentration de crédit secteur et géographique, ce qui pourrait impacter sa capacité à recouvrer ses créances en cas de défaut de paiement collectif."
+      "summary": "La société est exposée au risque de concentration de crédit secteur et géographique, ce qui pourrait impacter sa capacité à recouvrer ses créances en cas de défaut de paiement collectif.",
+      "score": 4
     },
     {
       "title": "Risque de refinancement",
@@ -260,7 +279,8 @@
       "severity": 4,
       "score_rationale": "Le risque de refinancement est élevé en raison de la nécessité de refinancer les prêts hypothécaires à échéance, notamment en Europe avec des paiements de capital futurs (99,9 millions de dollars prévus au titre des hypothèques étrangères de 2026 à après 2030). La capacité à refinancer à des conditions favorables dépend de la conjoncture des marchés des capitaux.",
       "trend": "stable",
-      "summary": "La société est exposée au risque de refinancement de son portefeuille de dettes hypothécaires en venant à échéance."
+      "summary": "La société est exposée au risque de refinancement de son portefeuille de dettes hypothécaires en venant à échéance.",
+      "score": 4
     }
   ],
   "_validation": [
@@ -402,9 +422,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.268863+00:00",
     "fetched_at": "2026-05-21T02:17:14.268864+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.767Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.407Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gnl.json",
     "enrich_root": "v2-pipeline-enrich/gnl.json",

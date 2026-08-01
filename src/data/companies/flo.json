@@ -45,7 +45,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Total Revenue",
@@ -64,57 +64,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.26 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "-68.0%",
       "history": [
-        0.23,
-        0.12,
-        0.25,
-        0.08
+        230,
+        120,
+        250,
+        80
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.08 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.33,
-      "unit": "Mds €",
+      "value": 330,
+      "unit": "M €",
       "yoy": "-10.8%",
       "history": [
-        0.31,
-        0.19,
-        0.37,
-        0.33
+        310,
+        190,
+        370,
+        330
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.33 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -133,11 +147,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.4 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +174,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.18 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,33 +201,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.08 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.17,
-        0.02,
-        0.01,
-        0.01
+        170,
+        20,
+        10,
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -234,34 +265,34 @@
       "title": "Risque d'impairment du goodwill de Simple Mills",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le risque est explicitement mentionn\u0002 dans le 10-K avec un langage fort (\u0002at risk of impairment in the near term\u0002). Le montant du goodwill est \u0002lev\u0002 ($367,9M). La cat\u0002gorie \u0002Capital\u0002 est hautement pond\u0002r\u0002e en gravit\u0002. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est explicitement mentionn\u0002 dans le 10-K avec un langage fort (\u0002at risk of impairment in the near term\u0002). Le montant du goodwill est \u0002lev\u0002 ($367,9M). La cat\u0002gorie \u0002Capital\u0002 est hautement pond\u0002r\u0002e en gravit\u0002.",
       "trend": "stable",
       "summary": "Le goodwill de la filiale Simple Mills pourrait \u0002tre r\u0002duit si ses performances ne suivent pas les attentes.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Exposition aux variations des prix des mati\u0002res premi\u0002res",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "La soci\u0002t\u0002 utilise des d\u0002riv\u0002s pour couvrir les prix du bl\u0002, ma\u0003s, huile de soja et gaz naturel. Le risque est r\u0002current et bien d\u0002taill\u0002, avec une strat\u0002gie de couverture active. L'intensit\u0002 du langage est mod\u0002r\u0002e mais le contexte macro\u0002conomique en fait un risque majeur. (score par défaut, à affiner)",
+      "score_rationale": "La soci\u0002t\u0002 utilise des d\u0002riv\u0002s pour couvrir les prix du bl\u0002, ma\u0003s, huile de soja et gaz naturel. Le risque est r\u0002current et bien d\u0002taill\u0002, avec une strat\u0002gie de couverture active. L'intensit\u0002 du langage est mod\u0002r\u0002e mais le contexte macro\u0002conomique en fait un risque majeur.",
       "trend": "stable",
       "summary": "Des hausses impr\u0002vues des co\u0003ts des mati\u0002res premi\u0002res pourraient impacter la rentabilit\u0002.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques li\u0002s aux instruments d\u0002riv\u0002s et de couverture",
       "category": "Cr\u0002dit",
       "severity": 4,
-      "score_rationale": "La soci\u0002t\u0002 d\u0002pend fortement des d\u0002riv\u0002s de taux et de mati\u0002res premi\u0002res. Un changement dans la qualification de couverture ou une variation de la valeur de march\u0002 pourrait impacter les r\u0002sultats. Le texte insiste sur les exigences de disclosure et les impacts sur les flux. (score par défaut, à affiner)",
+      "score_rationale": "La soci\u0002t\u0002 d\u0002pend fortement des d\u0002riv\u0002s de taux et de mati\u0002res premi\u0002res. Un changement dans la qualification de couverture ou une variation de la valeur de march\u0002 pourrait impacter les r\u0002sultats. Le texte insiste sur les exigences de disclosure et les impacts sur les flux.",
       "trend": "stable",
       "summary": "Des d\u0002faillances dans la gestion des d\u0002riv\u0002s ou des pertes de qualification de couverture pourraient affecter les r\u0002sultats.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque fiscal sur les cr\u0002dits d'imp\u0002t report\u0002s",
       "category": "R\u0002gulation",
       "severity": 3,
-      "score_rationale": "La soci\u0002t\u0002 maintient une cr\u0002ance d'imp\u0002t diff\u0002r\u0002 avec une cr\u0002ation d'une provision de 4,071M$ en 2025. Le langage refl\u0002te une incertitude mod\u0002r\u0002e sur la r\u0002alisation future des avantages fiscaux. (score par défaut, à affiner)",
+      "score_rationale": "La soci\u0002t\u0002 maintient une cr\u0002ance d'imp\u0002t diff\u0002r\u0002 avec une cr\u0002ation d'une provision de 4,071M$ en 2025. Le langage refl\u0002te une incertitude mod\u0002r\u0002e sur la r\u0002alisation future des avantages fiscaux.",
       "trend": "up",
       "summary": "La soci\u0002t\u0002 pourrait devoir augmenter sa provision fiscale si elle ne peut pas r\u0002aliser ses cr\u0002dits d'imp\u0002t diff\u0002r\u0002s.",
       "score": 3
@@ -270,7 +301,7 @@
       "title": "Auto-assurance sur les risques d'activit\u0002",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La soci\u0002t\u0002 est auto-assur\u0002e pour la responsabilit\u0002 civile, les accidents du travail et la sant\u0002 des employ\u0002s. Les r\u0002serves sont bas\u0002es sur des estimations. Un \u0002v\u0002nement majeur pourrait d\u0002passer les provisions. (score par défaut, à affiner)",
+      "score_rationale": "La soci\u0002t\u0002 est auto-assur\u0002e pour la responsabilit\u0002 civile, les accidents du travail et la sant\u0002 des employ\u0002s. Les r\u0002serves sont bas\u0002es sur des estimations. Un \u0002v\u0002nement majeur pourrait d\u0002passer les provisions.",
       "trend": "stable",
       "summary": "Des sinistres impr\u0002vus pourraient entra\u0003ner des charges importantes non anticip\u0002es.",
       "score": 3
@@ -361,7 +392,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.281Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.265Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/flo.json",
     "enrich_root": null,

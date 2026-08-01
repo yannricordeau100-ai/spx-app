@@ -111,34 +111,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 19.38 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.47,
-      "unit": "Mds €",
+      "value": 470,
+      "unit": "M €",
       "yoy": "-6.0%",
       "history": [
-        0.67,
-        0.56,
-        0.5,
-        0.47
+        670,
+        560,
+        500,
+        470
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.47 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Pressure, deteriorating trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Pressure, deteriorating trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,11 +166,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.73 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -180,33 +193,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.74 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-40.0%",
       "history": [
-        0.06,
-        0.12,
-        0.05,
-        0.03
+        60,
+        120,
+        50,
+        30
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.03 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -233,9 +255,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 1.13,
-      "_validation": "Séparation de la valeur et de l'unité (0.97 $/RIN -> 0.97 + $/RIN); Amélioration du name_en (RINs Price -> Average RINs Price); Amélioration du name_fr (Prix des RINs -> Prix moyen des RINs)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Séparation de la valeur et de l'unité (0.97 $/RIN -> 0.97 + $/RIN); Amélioration du name_en (RINs Price -> Average RINs Price); Amélioration du name_fr (Prix des RINs -> Prix moyen des RINs)"
     }
   ],
   "ai_positioning": {
@@ -267,7 +287,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité comme critique dans le 10-K : plus de 78% de la marchandise provient d'un seul fournisseur. Le langage souligne un impact 'matériel' en cas de rupture. La dépendance est structurelle et non diversifiée. Pondération élevée pour un risque industriel central.",
       "trend": "stable",
-      "summary": "Une rupture d'approvisionnement avec Core-Mark, fournisseur unique de 78% de la marchandise, pourrait gravement perturber l'activité."
+      "summary": "Une rupture d'approvisionnement avec Core-Mark, fournisseur unique de 78% de la marchandise, pourrait gravement perturber l'activité.",
+      "score": 5
     },
     {
       "title": "Endettement élevé et covenants restrictifs",
@@ -275,7 +296,8 @@
       "severity": 5,
       "score_rationale": "Le risque est développé sur plusieurs paragraphes, avec un langage fort : 'conséquences significatives', 'difficulté à honorer les obligations'. Mention de défaut potentiel, de restrictions opérationnelles et d'impact sur la trésorerie. Catégorie Capital très pondérée.",
       "trend": "stable",
-      "summary": "Un niveau d'endettement élevé limite la flexibilité financière, augmente les coûts et expose la société à des risques de défaut."
+      "summary": "Un niveau d'endettement élevé limite la flexibilité financière, augmente les coûts et expose la société à des risques de défaut.",
+      "score": 5
     },
     {
       "title": "Volatilité des prix du pétrole et du carburant",
@@ -283,7 +305,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K, décrite comme un facteur majeur d'impact sur les marges et les résultats. Langage répété sur l'imprévisibilité et l'absence de couverture. Impact direct sur le cœur de métier.",
       "trend": "stable",
-      "summary": "Les fluctuations des prix du pétrole et du carburant affectent directement les marges et la rentabilité, sans couverture significative mise en place."
+      "summary": "Les fluctuations des prix du pétrole et du carburant affectent directement les marges et la rentabilité, sans couverture significative mise en place.",
+      "score": 5
     },
     {
       "title": "Cybersécurité et protection des données",
@@ -291,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement identifié, avec mention d'impact sur la réputation, les coûts et les sanctions réglementaires. Langage sérieux mais moins central que l'endettement ou les prix. Pondération élevée pour la catégorie.",
       "trend": "stable",
-      "summary": "Une faille dans la sécurité des données clients ou fournisseurs pourrait nuire à la réputation et entraîner des coûts ou sanctions."
+      "summary": "Une faille dans la sécurité des données clients ou fournisseurs pourrait nuire à la réputation et entraîner des coûts ou sanctions.",
+      "score": 4
     },
     {
       "title": "Risque opérationnel non assuré",
@@ -299,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de risques majeurs (explosions, incendies, catastrophes naturelles) et d'une couverture d'assurance partielle. Impact potentiel sur les flux et la trésorerie. Langage préoccupé mais sans mention de cas récents.",
       "trend": "stable",
-      "summary": "Des accidents majeurs non couverts par l'assurance pourraient affecter gravement la trésorerie et les résultats opérationnels."
+      "summary": "Des accidents majeurs non couverts par l'assurance pourraient affecter gravement la trésorerie et les résultats opérationnels.",
+      "score": 4
     },
     {
       "title": "Qualité et sécurité des produits alimentaires",
@@ -307,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Risque lié à la stratégie de croissance sur la restauration. Mention de litiges, réclamations et atteinte à la marque, même sur des incidents isolés. Impact réputationnel élevé, mais moins central que les risques financiers.",
       "trend": "stable",
-      "summary": "Des problèmes de qualité ou de sécurité alimentaire, même ponctuels, pourraient nuire à la marque et entraîner des litiges coûteux."
+      "summary": "Des problèmes de qualité ou de sécurité alimentaire, même ponctuels, pourraient nuire à la marque et entraîner des litiges coûteux.",
+      "score": 4
     },
     {
       "title": "Pénuries d'approvisionnement en carburant",
@@ -315,7 +341,8 @@
       "severity": 4,
       "score_rationale": "Le risque est lié à des actifs clés (pipelines, terminaux) et à des tiers. Mention d'antécédents ('ont eu un effet matériel dans le passé'). Dépendance aux conditions météo, réglementaires et opérationnelles externes.",
       "trend": "stable",
-      "summary": "Une interruption dans la chaîne d'approvisionnement en carburant, via pipelines ou transporteurs, pourrait affecter gravement les ventes."
+      "summary": "Une interruption dans la chaîne d'approvisionnement en carburant, via pipelines ou transporteurs, pourrait affecter gravement les ventes.",
+      "score": 4
     }
   ],
   "governance": {
@@ -489,9 +516,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.286099+00:00",
     "fetched_at": "2026-05-21T02:17:14.286100+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.746Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.644Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/musa.json",
     "enrich_root": "v2-pipeline-enrich/musa.json",

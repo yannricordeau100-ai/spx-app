@@ -85,7 +85,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "Clients Served",
@@ -149,11 +149,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 36.1 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -172,11 +176,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.57 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -195,22 +203,262 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.84 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Primes brutes émises",
+      "name_fr": "Primes brutes émises Groupe",
+      "value": 20.064,
+      "unit": "Mds €",
+      "history": [
+        null,
+        null,
+        null,
+        19.371,
+        20.064
+      ],
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
+    },
+    {
+      "short": "GWP P&C",
+      "name_fr": "Primes brutes P&C (dommages)",
+      "value": 9.869,
+      "unit": "Mds €",
+      "history": [
+        null,
+        null,
+        null,
+        9.452,
+        9.869
+      ],
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
+    },
+    {
+      "short": "GWP L&H",
+      "name_fr": "Primes brutes L&H (vie & santé)",
+      "value": 10.195,
+      "unit": "Mds €",
+      "history": [
+        null,
+        null,
+        null,
+        9.919,
+        10.195
+      ],
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
+    },
+    {
+      "short": "Combined ratio P&C",
+      "name_fr": "Ratio combiné P&C",
+      "value": 86.3,
+      "unit": "%",
+      "history": [
+        null,
+        null,
+        null,
+        85,
+        86.3
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "Return on invested assets",
+      "name_fr": "Rendement des actifs investis",
+      "value": 3.5,
+      "unit": "%",
+      "history": [
+        null,
+        null,
+        null,
+        3.2,
+        3.5
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "ROE",
+      "name_fr": "Return on equity",
+      "value": 0.1,
+      "unit": "%",
+      "history": [
+        null,
+        null,
+        null,
+        18.1,
+        0.1
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "Valeur économique par action",
+      "name_fr": "Valeur économique par action",
+      "value": 48.03,
+      "unit": "€",
+      "history": [
+        null,
+        null,
+        null,
+        51.18,
+        48.03
+      ],
+      "period_type": "year"
+    },
+    {
+      "short": "CSM Nouvelles Affaires P&C",
+      "name_fr": "Contractual Service Margin Nouvelles Affaires P&C",
+      "value": 1.024,
+      "unit": "Mds €",
+      "history": [
+        null,
+        null,
+        null,
+        0.952,
+        1.024
+      ],
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
+    },
+    {
+      "short": "resultat_net_part_du_groupe",
+      "name_fr": "Resultat net part du groupe",
+      "name_en": "resultat_net_part_du_groupe",
+      "value": 4,
+      "unit": "M€",
+      "yoy": null,
+      "last_data_date": "2024",
+      "period_type": "year",
+      "history_5y": [],
+      "type": "Financial",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": false,
+      "signal_fr": "Forte chute en 2024 due à une revue poussée des hypothèses L&H ayant un impact négatif avant impôt de 0,7 Md€",
+      "score_rationale": "Forte chute en 2024 due à une revue poussée des hypothèses L&H ayant un impact négatif avant impôt de 0,7 Md€"
+    },
+    {
+      "short": "roe",
+      "name_fr": "Roe",
+      "name_en": "roe",
+      "value": 0.1,
+      "unit": "%",
+      "yoy": null,
+      "last_data_date": "2024",
+      "period_type": "year",
+      "history_5y": [],
+      "type": "Financial",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": false,
+      "signal_fr": "0,1% en 2024 sous l'effet de la revue d'hypothèses L&H, très en deçà de la cible",
+      "score_rationale": "0,1% en 2024 sous l'effet de la revue d'hypothèses L&H, très en deçà de la cible"
+    },
+    {
+      "short": "valeur_economique_totale",
+      "name_fr": "Valeur economique totale",
+      "name_en": "valeur_economique_totale",
+      "value": 8615,
+      "unit": "M€",
+      "yoy": null,
+      "last_data_date": "31 décembre 2024",
+      "period_type": "year",
+      "history_5y": [],
+      "type": "Financial",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": false,
+      "signal_fr": "Définie comme la somme des capitaux propres et de la CSM nette d'impôts. Variation à hypothèses économiques (taux et change) constantes.",
+      "score_rationale": "Définie comme la somme des capitaux propres et de la CSM nette d'impôts. Variation à hypothèses économiques (taux et change) constantes."
+    },
+    {
+      "short": "valeur_economique_par_action",
+      "name_fr": "Valeur economique par action",
+      "name_en": "valeur_economique_par_action",
+      "value": 48.03,
+      "unit": "EUR",
+      "yoy": null,
+      "last_data_date": "31 décembre 2024",
+      "period_type": "year",
+      "history_5y": [],
+      "type": "Financial",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": false,
+      "signal_fr": "",
+      "score_rationale": "Auto-mapped from block_4_financial_kpis_*."
+    },
+    {
+      "short": "ratio_solvabilite_ii",
+      "name_fr": "Ratio solvabilite ii",
+      "name_en": "ratio_solvabilite_ii",
+      "value": 210,
+      "unit": "%",
+      "yoy": null,
+      "last_data_date": "31 décembre 2024",
+      "period_type": "year",
+      "history_5y": [],
+      "type": "Financial",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": false,
+      "signal_fr": "",
+      "score_rationale": "Auto-mapped from block_4_financial_kpis_*."
+    },
+    {
+      "short": "fonds_propres",
+      "name_fr": "Fonds propres",
+      "name_en": "fonds_propres",
+      "value": 4.5,
+      "unit": "Mds €",
+      "yoy": null,
+      "last_data_date": "31 décembre 2024",
+      "period_type": "year",
+      "history_5y": [],
+      "type": "Financial",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": false,
+      "signal_fr": "",
+      "score_rationale": "Auto-mapped from block_4_financial_kpis_*."
+    },
+    {
+      "short": "dividende_par_action_2024",
+      "name_fr": "Dividende par action 2024",
+      "name_en": "dividende_par_action_2024",
+      "value": 1.8,
+      "unit": "EUR",
+      "yoy": null,
+      "last_data_date": "2024",
+      "period_type": "year",
+      "history_5y": [],
+      "type": "Financial",
+      "is_wow": false,
+      "is_generic": true,
+      "is_short_history": false,
+      "signal_fr": "",
+      "score_rationale": "Auto-mapped from block_4_financial_kpis_*."
     }
   ],
   "stories_kpis": [],
   "ai_positioning": {
     "stance": "absent",
-    "summary": "SCOR ne mentionne aucune stratégie ou initiative liée à l'intelligence artificielle dans le document de référence fourni. L'entreprise ne semble pas positionnée activement sur les technologies IA en tant que driver stratégique.",
-    "evidence": [
-      "Aucune mention de l'IA dans les sections Business, MD&A ou domaines de développement.",
-      "Pas de références à des outils, projets ou partenariats liés à l'IA.",
-      "Absence de KPI ou d'indicateurs d'adoption technologique avancée liée à l'IA."
-    ],
-    "source": "Universal Registration Document 2024"
+    "summary_fr": "Aucune mention significative de l'intelligence artificielle détectée dans le document de référence.",
+    "ai_mentions_count": 0,
+    "stance_scores": {
+      "leader": 0,
+      "integrator": 0,
+      "cautious": 0
+    },
+    "evidence": []
   },
   "_validation": [
     "Correction KPI Employees value: conversion de chaîne '3,621' en nombre entier 3621",
@@ -229,68 +477,76 @@
   "_held_for_review": true,
   "risks": [
     {
-      "title": "Concurrence accrue sur les marchés de réassurance",
-      "category": "Concurrence",
+      "category": "Réglementaire",
+      "title": "Operational risks",
+      "description": "Liquidity and funding risks 129 3.6.1. Risks related to systems or facilities 149 3.2.4.",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné dans la section 3.1 comme un facteur clé, avec un langage affirmé sur la pression concurrentielle. Il est récurrent et sa gravité est renforcée par la position stratégique de SCOR. Poids élevé dans la catégorie Concurrence.",
+      "score_rationale": "Position 1/8 dans la section facteurs de risque. Langage matérialité fort détecté. Trend stable basé sur langage du document. Catégorie Réglementaire (poids élevé).",
       "trend": "stable",
-      "summary": "La concurrence sur les marchés de réassurance reste intense, notamment sur les segments attractifs comme les solutions alternatives et les lignes spécialisées, ce qui exerce une pression sur les marges et les conditions de souscription."
+      "score": 4
     },
     {
-      "title": "Évolution réglementaire impactant la solvabilité",
-      "category": "Régulation",
-      "severity": 5,
-      "score_rationale": "Présent en tête des risques stratégiques, mentionné avec un langage fort (\"enjeu majeur\"). Tendance à la complexification réglementaire persistante. Poids élevé dans la gouvernance et la conformité.",
-      "trend": "up",
-      "summary": "Les changements réglementaires, notamment autour de Solvabilité II et des exigences de reporting ESEF/AMF, augmentent la complexité opérationnelle et peuvent impacter le ratio de solvabilité et les coûts de conformité."
-    },
-    {
-      "title": "Dépendance aux partenaires de distribution",
-      "category": "Industriel",
-      "severity": 4,
-      "score_rationale": "Identifié dans les risques opérationnels, avec un langage soulignant la dépendance stratégique. Tendance stable. Poids significatif en raison de l'impact sur l'accès au marché.",
-      "trend": "stable",
-      "summary": "SCOR dépend fortement de ses partenaires cédants et intermédiaires pour accéder aux risques. Toute perte de relation ou défaillance d'un partenaire majeur pourrait affecter significativement son portefeuille."
-    },
-    {
-      "title": "Cybersécurité et protection des données",
-      "category": "Cybersécurité",
-      "severity": 4,
-      "score_rationale": "Mentionné dans les risques opérationnels avec un langage préoccupé. Tendance à la hausse des cybermenaces. Poids élevé en raison de la sensibilité des données clients et de la dépendance aux systèmes numériques.",
-      "trend": "up",
-      "summary": "L'augmentation des cyberattaques et des violations de données représente un risque majeur pour les opérations de SCOR, pouvant entraîner des pertes financières, des interruptions de service et des atteintes à la réputation."
-    },
-    {
-      "title": "Gestion des hypothèses actuarielles en santé",
-      "category": "Technologie",
-      "severity": 5,
-      "score_rationale": "Risque central en 2024, avec un impact financier direct (perte de 700M€). Langage très fort sur la révision des hypothèses. Tendance à l'instabilité. Poids élevé dans L&H.",
-      "trend": "new",
-      "summary": "La révision des hypothèses actuarielles en assurance vie et santé, notamment liées à la mortalité post-COVID et aux taux de longévité, peut avoir un impact significatif sur les provisions et la rentabilité du portefeuille L&H."
-    },
-    {
-      "title": "Dépendance aux fournisseurs technologiques",
-      "category": "Technologie",
+      "category": "Opérationnel",
+      "title": "UNIVERSAL REGISTRATION DOCUMENT SCOR 2024",
+      "description": "RISK FACTORS AND RISK MANAGEMENT MECHANISMS Main risk factors 3 The granularity of the risks shown in the diagram reflects a more SCOR may also be exposed to emerging risks, which include new segmented view of P&C and L&H (re)insurance risks, which threats or constantly changing current risks with…",
       "severity": 3,
-      "score_rationale": "Mentionné dans les risques opérationnels, langage modéré. Tendance stable. Poids moyen en raison de la criticité croissante des plateformes de données.",
+      "score_rationale": "Position 2/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend up basé sur langage du document. Catégorie Opérationnel (poids standard).",
+      "trend": "up",
+      "score": 3
+    },
+    {
+      "category": "Concurrence",
+      "title": "BUSINESS STRATEGY RISKS",
+      "description": "Business strategy risk refers to the risks related to the company’s SCOR has set assumptions for the period 2025-2026 based on the strategic positioning. Business strategy risks directly impact the IFRS 17 framework on various performance and growth indicators.",
+      "severity": 3,
+      "score_rationale": "Position 3/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend down basé sur langage du document. Catégorie Concurrence (poids standard).",
+      "trend": "down",
+      "score": 3
+    },
+    {
+      "category": "Opérationnel",
+      "title": "EXTERNAL ENVIRONMENT RISKS",
+      "description": "External environment risk refers to the risks related to the external Macroeconomic Risks environment that may influence the company’s strategy and its Macro-economic risks refer to the uncertainties and potential ability to achieve its objectives.",
+      "severity": 3,
+      "score_rationale": "Position 4/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend stable basé sur langage du document. Catégorie Opérationnel (poids standard).",
       "trend": "stable",
-      "summary": "SCOR s'appuie sur des fournisseurs externes pour ses systèmes technologiques et analytiques. Une défaillance ou une interruption de service pourrait perturber la souscription, la gestion des sinistres ou l'analyse des risques."
+      "score": 3
     },
     {
-      "title": "Transition énergétique et risques climatiques",
-      "category": "Environnement",
-      "severity": 5,
-      "score_rationale": "Risque majeur explicitement cité, avec un langage fort sur l'impact du changement climatique. Tendance à l'aggravation. Poids élevé en raison de l'exposition aux catastrophes naturelles.",
-      "trend": "up",
-      "summary": "L'augmentation de la fréquence et de la gravité des événements climatiques extrêmes (ouragans, inondations, incendies) impacte directement les résultats de SCOR en P&C, tout en posant des défis d'assurabilité et de tarification."
+      "category": "Opérationnel",
+      "title": "managed through a variety of dedicated and transversal risk",
+      "description": "For more details on risk reporting In particular, developments in existing or emerging prudential mechanisms and the roles and responsibilities of SCOR’s main regulations (such as Solvency II, ComFrame and the regulations on governance bodies, see Section 3.7 – Internal control and risk systemic…",
+      "severity": 3,
+      "score_rationale": "Position 5/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend stable basé sur langage du document. Catégorie Opérationnel (poids standard).",
+      "trend": "stable",
+      "score": 3
     },
     {
-      "title": "Géopolitique et instabilités régionales",
-      "category": "Géopolitique",
-      "severity": 4,
-      "score_rationale": "Mentionné dans les risques opérationnels avec des exemples concrets (émeutes en Nouvelle-Calédonie). Langage factuel mais préoccupé. Tendance à la hausse. Poids significatif pour les risques homme faits.",
+      "category": "Liquidité",
+      "title": "LIQUIDITY AND FUNDING RISKS",
+      "description": "Liquidity and funding risks refer to the risks related to the other assets, consisting mainly of cash or assets that are readily company’s financial resources and corporate structure, including convertible into cash.",
+      "severity": 3,
+      "score_rationale": "Position 6/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend up basé sur langage du document. Catégorie Liquidité (poids élevé).",
       "trend": "up",
-      "summary": "Les tensions géopolitiques et les instabilités sociales, comme les émeutes ou les conflits régionaux, peuvent générer des pertes imprévues et affecter la stabilité des marchés où opère SCOR."
+      "score": 3
+    },
+    {
+      "category": "Liquidité",
+      "title": "Management of liquidity risks",
+      "description": "Timing Management of risks related to capital SCOR assesses liquidity risks arising from both short-term and long- Risks related to capital are managed via specific principles and term liquidity needs. SCOR manages these risks via different processes throughout the Group.",
+      "severity": 1,
+      "score_rationale": "Position 7/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend down basé sur langage du document. Catégorie Liquidité (poids élevé).",
+      "trend": "down",
+      "score": 1
+    },
+    {
+      "category": "Climat",
+      "title": "SUSTAINABILTY RISKS",
+      "description": "Sustainability risks refer to risks related to environmental, social, or operating in high emitting sectors, following SCOR’s commitment governance (ESG) events or conditions that, if they occur, could to Net Zero or due to a shift in its clients’ and insureds’ business cause an actual or potential…",
+      "severity": 3,
+      "score_rationale": "Position 8/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend stable basé sur langage du document. Catégorie Climat (poids élevé).",
+      "trend": "stable",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:59:51.486098+00:00",
@@ -303,36 +559,22 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "governance": {
-    "ceo_name": "Mr. Thierry  Leger",
-    "ceo_title": "CEO & Director",
-    "officers": [
-      {
-        "name": "Mr. Thierry  Leger",
-        "title": "CEO & Director",
-        "age": 59
-      },
-      {
-        "name": "Ms. Claudia  Dill M.B.A.",
-        "title": "Group Chief Operating Officer",
-        "age": 59
-      },
-      {
-        "name": "Mr. Fabian Peder Gultier Uffer",
-        "title": "Group Chief Risk Officer",
-        "age": null
-      },
-      {
-        "name": "Mr. Redmond  Murphy",
-        "title": "Deputy CEO of SCOR Life & Health",
-        "age": null
-      },
-      {
-        "name": "Ms. Claire  Le Gall-Robinson",
-        "title": "Group Secretary General & Group Chief Corporate Officer",
-        "age": 50
-      }
-    ],
-    "fiscal_year": 2025
+    "ceo_name": "Adrien Couret",
+    "ceo_name_evidence": "égier, director of Engie and Safran; assessment, a business relationship is deemed significant if • Adrien Couret, Chief Executive Officer of Aéma group and Chairman it amounts to an annual sum of more than 5% of SCOR of the Board of Dire",
+    "ceo_total_comp_m": null,
+    "ceo_total_comp_currency": null,
+    "ceo_total_comp_evidence": null,
+    "board_total_members": null,
+    "board_total_members_evidence": null,
+    "board_women_pct": null,
+    "board_women_evidence": null,
+    "board_independence_pct": null,
+    "board_independence_evidence": null,
+    "voting_structure": null,
+    "voting_structure_note": null,
+    "top_3_capital": null,
+    "top_3_voting": null,
+    "shareholders_evidence": null
   },
   "_governance_yf_fallback_at": "2026-05-14T04:44:05.451858+00:00",
   "_freshness_yf_refreshed_at": "2026-05-14T07:15:47.491110",
@@ -340,25 +582,167 @@
   "_stoxx_blocks_extracted_at": "2026-05-14T08:36:31.597787+00:00",
   "events": [
     {
-      "year": 2026,
-      "month": 5,
-      "title": "European Dividend Stocks To Enhance Your Portfolio",
-      "body": "As the European markets navigate a landscape marked by easing geopolitical tensions and strong corporate earnings, investors are keenly watching the pan-European STOXX Europe 600 Index, which recently posted modest gains. In this environmen",
-      "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/european-dividend-stocks-enhance-portfolio-103157154.html",
-      "date": "2026-05-11"
+      "date": "2024-11-12",
+      "title": "Avertissement résultats Vie suite hypothèses passées",
+      "description_fr": "Scor revoit à la baisse ses estimations de marge Vie suite à révision des hypothèses, choc bourse, plan correctif.",
+      "category": "Restructuration",
+      "impact": "majeur"
     },
     {
-      "year": 2026,
-      "month": 3,
-      "title": "SCOR SE (SCRYY) Full Year 2025 Earnings Call Highlights: Record Net Income and Strong Financial ...",
-      "body": "SCOR SE (SCRYY) reports its highest-ever net income of EUR 846 million, a robust return on equity, and a proposed dividend increase, showcasing confidence in future growth.",
-      "source": "GuruFocus.com",
-      "url": "https://finance.yahoo.com/news/scor-se-scryy-full-2025-010343616.html",
-      "date": "2026-03-05"
+      "date": "2023-12-15",
+      "title": "Plan stratégique Forward 2026",
+      "description_fr": "Scor présente le plan Forward 2026 avec accélération P&C, focus discipline technique, objectif RoE >12%, dividende croissant.",
+      "category": "Restructuration",
+      "impact": "majeur"
+    },
+    {
+      "date": "2022-04-15",
+      "title": "Nomination Thierry Léger CEO",
+      "description_fr": "Thierry Léger (ex-Swiss Re) succède à Laurent Rousseau à la direction générale après une année 2021 difficile, restauration discipline.",
+      "category": "Changement direction",
+      "impact": "majeur"
+    },
+    {
+      "date": "2021-12-09",
+      "title": "Lourde perte Q3 2021 (Allianz Trade fees, ouragans)",
+      "description_fr": "Scor enregistre une lourde perte Q3 2021 due aux catastrophes naturelles (ouragan Ida) et au Covid (mortalité US), choc -25% bourse.",
+      "category": "Restructuration",
+      "impact": "majeur"
+    },
+    {
+      "date": "2020-04-15",
+      "title": "Impacts Covid sur réassurance Vie et P&C",
+      "description_fr": "Scor essuie des sinistres Covid-19 majeurs (Vie US, business interruption), augmentation primes 2021, plan résilience.",
+      "category": "Restructuration",
+      "impact": "majeur"
     }
   ],
   "last_data_date": "2026-03-31",
+  "description": {
+    "long_fr": "SCOR est un réassureur mondial structuré en deux activités : SCOR P&C (réassurance dommages, large risques, spécialités) et SCOR L&H (réassurance vie et santé). Le groupe est le 4e réassureur mondial et sert ~4000 cédantes assureurs dans ~160 pays. Chiffre d'affaires assurance 2024 : ~16.7 Mds €.",
+    "long_en": "SCOR is a global reinsurer structured around two businesses: SCOR P&C (property and casualty reinsurance, large risks, specialties) and SCOR L&H (life and health reinsurance). The group is the world's 4th-largest reinsurer and serves ~4,000 ceding insurers in ~160 countries. 2024 insurance revenue: ~€16.7 bn.",
+    "long_de": "SCOR ist ein globaler Rückversicherer, der um zwei Geschäftsbereiche strukturiert ist: SCOR P&C (Sach‑ und Haftpflicht‑Rückversicherung, Großrisiken, Spezialitäten) und SCOR L&H (Lebens‑ und Krankenrückversicherung). Der Konzern ist der viertgrößte Rückversicherer weltweit und bedient ~4,000 Zedenten in ~160 Ländern. Versicherungsumsatz 2024: ~€16,7 Mrd."
+  },
+  "i18n": {
+    "name_fr": "SCOR SE",
+    "name_en": "SCOR SE",
+    "name_de": "SCOR SE",
+    "tagline_fr": "Quatrième réassureur mondial.",
+    "tagline_en": "World's #4 reinsurer.",
+    "tagline_de": "Viertgrößter Rückversicherer der Welt."
+  },
+  "transcript_summary": {
+    "source_type": "synthese_basee_sur_URD_2024_locale",
+    "source_path": "/Users/yann/spx-app/sec-data/cat3-european/SCR.PA/annual-text/2024.txt",
+    "has_transcript_pdf_locally": false,
+    "fiscal_year": "FY2024",
+    "bullets": [
+      {
+        "type": "kpi",
+        "text_fr": "Revenue 2024 = 16.8 Mds €, focus stratégique sur Réassurance vie + dommages."
+      },
+      {
+        "type": "kpi",
+        "text_fr": "Performance par segment dans le secteur Réassurance : trajectoire de croissance organique communiquée à l'occasion des résultats annuels 2024."
+      },
+      {
+        "type": "management_statement",
+        "text_fr": "Direction générale réaffirme la trajectoire de moyen terme (guidance EBITDA et marge opérationnelle) lors de la publication des résultats annuels FY2024."
+      },
+      {
+        "type": "management_statement",
+        "text_fr": "Politique de retour aux actionnaires confirmée (dividende et/ou rachat d'actions selon politique groupe)."
+      },
+      {
+        "type": "risk",
+        "text_fr": "Environnement macroéconomique européen incertain (inflation, taux d'intérêt, devises) mentionné comme facteur de vigilance."
+      },
+      {
+        "type": "risk",
+        "text_fr": "Pressions concurrentielles et cycles sectoriels (mentionnés dans la section facteurs de risque de l'URD 2024)."
+      },
+      {
+        "type": "strategy",
+        "text_fr": "Allocation capital : investissements ciblés sur Réassurance vie + dommages pour renforcer le positionnement long terme."
+      },
+      {
+        "type": "strategy",
+        "text_fr": "Décarbonation / ESG : objectifs réaffirmés en ligne avec le cadre réglementaire CSRD et les engagements net-zéro communiqués."
+      }
+    ],
+    "extracted_at": "2026-05-31T20:00:22.854200+00:00"
+  },
+  "revenue_by_segment": {
+    "slices": [
+      {
+        "label": "SCOR P&C",
+        "share_pct": 47,
+        "value": 7639,
+        "unit": "M€"
+      },
+      {
+        "label": "SCOR L&H",
+        "share_pct": 53,
+        "value": 8487,
+        "unit": "M€"
+      }
+    ],
+    "fiscal_year": "FY2025",
+    "currency": "EUR",
+    "_source": "unified-mass-extract"
+  },
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "investments",
+        "share_pct": 73.12,
+        "value": 13688,
+        "unit": "M€"
+      },
+      {
+        "label": "Insurance contracts issued",
+        "share_pct": 8.97,
+        "value": 1680,
+        "unit": "M€"
+      },
+      {
+        "label": "Reinsurance contracts held",
+        "share_pct": 17.9,
+        "value": 3351,
+        "unit": "M€"
+      }
+    ],
+    "fiscal_year": "FY2025",
+    "currency": "EUR",
+    "_source": "unified-mass-extract"
+  },
+  "_canonical_merged_at": "2026-06-01T12:25:25.861339+00:00",
+  "_canonical_merge_source": "unified-mass-extract-v2",
+  "_canonical_kpis_appended": 8,
+  "market_positions": {
+    "_no_tam_disclosed": true,
+    "_note_fr": "Aucun chiffre TAM consolidé global publié explicitement par SCOR dans l'extrait analysé. Estimations sectorielles tierces (Swiss Re Sigma) placent les primes mondiales de réassurance à ~500 Mds USD. SCOR ambitionne croissance 4-6% CAGR P&C 2023-2026.",
+    "leadership_claims": [
+      "Réassureur mondial de premier rang. Top 5 mondial.",
+      "Position de premier plan dans la construction et l'énergie",
+      "Plateforme L&H de premier rang post-Revios",
+      "Diversification équilibrée P&C / L&H d'égale importance",
+      "Modèle interne Solvabilité II éprouvé",
+      "Notation crédit historiquement solide (catégorie A)"
+    ]
+  },
+  "_ultra_merge_at": "2026-06-01T12:30:21.098392+00:00",
+  "_ultra_merge_changes": [
+    "market_positions",
+    "kpis(+7)"
+  ],
+  "customer_type": {
+    "primary": "B2B",
+    "label": "Réassurance vie et non-vie souscrite auprès de compagnies d assurance cédantes dans le monde entier.",
+    "_source": "Sub-agent Opus FR finalization (URD AMF public + base canonique)"
+  },
+  "_blocs_extracted_at": "2026-06-01T23:54:25.447004+00:00",
+  "_blocs_extracted_by": "Sub-agent Opus FR finalization (URD AMF public + base canonique)",
   "sector_fr": "Services financiers",
   "enrich_events": {
     "ticker": "SCR.PA",
@@ -396,9 +780,9 @@
     "country": "France",
     "_data_freshness_date": "2026-05-21T02:17:14.307824+00:00",
     "fetched_at": "2026-05-21T02:17:14.307825+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.619Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.650Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/scr.pa.json",
     "enrich_root": "v2-pipeline-enrich/scr.pa.json",

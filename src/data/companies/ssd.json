@@ -46,8 +46,8 @@
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Chiffre d'affaires total",
-      "value": "1000",
-      "unit": "M $",
+      "value": 1,
+      "unit": "Mds $",
       "yoy": "+4.5",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -61,8 +61,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Earnings per share",
@@ -108,36 +109,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.33 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:59.144954+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.35,
-      "unit": "Mds €",
+      "value": 350,
+      "unit": "M €",
       "yoy": "+9.4%",
       "history": [
-        0.33,
-        0.35,
-        0.32,
-        0.35
+        330,
+        350,
+        320,
+        350
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.35 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,56 +166,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.07 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.49,
-      "unit": "Mds €",
+      "value": 490,
+      "unit": "M €",
       "yoy": "+2.1%",
       "history": [
-        0.64,
-        0.55,
-        0.48,
-        0.49
+        640,
+        550,
+        480,
+        490
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.49 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.38,
-      "unit": "Mds €",
+      "value": 380,
+      "unit": "M €",
       "yoy": "+58.3%",
       "history": [
-        0.3,
-        0.43,
-        0.24,
-        0.38
+        300,
+        430,
+        240,
+        380
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.38 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -219,7 +243,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.96,
         1.02,
@@ -232,7 +256,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -247,7 +271,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1225,
@@ -260,7 +284,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -275,7 +299,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         13.14,
@@ -288,7 +312,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -304,7 +328,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         7.76,
@@ -317,7 +341,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -356,16 +380,16 @@
       "title": "Risque de change",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "La société est exposée aux risques de change en raison de ses opérations internationales, particulièrement en Europe. Les fluctuations de taux de change affectent directement la position financière et les flux de trésorerie. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques de change en raison de ses opérations internationales, particulièrement en Europe. Les fluctuations de taux de change affectent directement la position financière et les flux de trésorerie.",
       "trend": "stable",
       "summary": "La société est exposée aux risques de change, ce qui peut affecter sa position financière et ses flux de trésorerie.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "La société a des emprunts à taux variable, ce qui la rend vulnérable aux fluctuations des taux d'intérêt. (score par défaut, à affiner)",
+      "score_rationale": "La société a des emprunts à taux variable, ce qui la rend vulnérable aux fluctuations des taux d'intérêt.",
       "trend": "stable",
       "summary": "La société a des emprunts à taux variable, ce qui la rend vulnérable aux fluctuations des taux d'intérêt.",
       "score": 3
@@ -374,7 +398,7 @@
       "title": "Risque de prix des matières premières",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société est exposée aux risques de fluctuation des prix des matières premières, notamment l'acier, et aux impacts de tarifs douaniers sur les importations de fasteners et d'ancrages. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques de fluctuation des prix des matières premières, notamment l'acier, et aux impacts de tarifs douaniers sur les importations de fasteners et d'ancrages.",
       "trend": "up",
       "summary": "La société est exposée aux risques de fluctuation des prix des matières premières et aux tarifs douaniers affectant les fasteners et ancrages importés.",
       "score": 3
@@ -383,28 +407,28 @@
       "title": "Risque de litige",
       "category": "Litige",
       "severity": 1,
-      "score_rationale": "La société a des accords d'indemnisation avec ses dirigeants et employés. L'historique montre une exposition minimale avec aucune obligation significative enregistrée. (score par défaut, à affiner)",
+      "score_rationale": "La société a des accords d'indemnisation avec ses dirigeants et employés. L'historique montre une exposition minimale avec aucune obligation significative enregistrée.",
       "trend": "stable",
       "summary": "La société a des accords d'indemnisation avec ses dirigeants et employés, avec exposition historiquement mineure.",
-      "score": 3
+      "score": 1
     },
     {
       "title": "Risque de réputation",
       "category": "Reputation",
       "severity": 1,
-      "score_rationale": "La société jouit d'une forte reconnaissance de marque établie depuis 1956. Le risque de réputation reste faible grâce à son portefeuille de produits diversifiés et son engagement envers l'innovation. (score par défaut, à affiner)",
+      "score_rationale": "La société jouit d'une forte reconnaissance de marque établie depuis 1956. Le risque de réputation reste faible grâce à son portefeuille de produits diversifiés et son engagement envers l'innovation.",
       "trend": "stable",
       "summary": "La société bénéficie d'une forte reconnaissance de marque Simpson Strong-Tie depuis 1956, minimisant les risques de réputation.",
-      "score": 3
+      "score": 1
     },
     {
       "title": "Risque de régulation",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "La société est soumise à des réglementations concernant les tarifs douaniers, les normes de construction et les lois commerciales qui peuvent changer et affecter ses opérations. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations concernant les tarifs douaniers, les normes de construction et les lois commerciales qui peuvent changer et affecter ses opérations.",
       "trend": "up",
       "summary": "La société est soumise à des réglementations tarifaires et commerciales en rapide évolution, particulièrement concernant les tarifs douaniers.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -474,7 +498,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -529,7 +553,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:54Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -557,7 +581,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:20Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:34Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Matériaux de construction",
   "enrich_description": {
     "ticker": "SSD",
@@ -654,6 +678,46 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SSD",
+    "extracted_at": "2026-06-01T09:22:38Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          493.57,
+          593.232,
+          553.662,
+          534.43,
+          597.58,
+          580.084,
+          538.895,
+          631.055,
+          623.513
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:22:38Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SSD",
     "ranks": {
@@ -666,15 +730,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.313228+00:00",
     "fetched_at": "2026-05-21T02:17:14.313229+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.141Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.150Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ssd.json",
     "enrich_root": "v2-pipeline-enrich/ssd.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -39,7 +39,11 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Revenue",
@@ -65,8 +69,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue stable, monitor outlook"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue stable, monitor outlook",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -85,10 +93,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -107,34 +119,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.03 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.06,
-        0.04,
-        0.03,
-        0.02
+        60,
+        40,
+        30,
+        20
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.02 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -153,32 +174,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.06,
-        0.03,
-        0.03,
-        0.02
+        60,
+        30,
+        30,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -234,7 +264,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement cité dans la liste forward-looking (« dependence on Dalton and other contract manufacturers »). Langage direct indiquant une dépendance opérationnelle majeure. Absence de contrôle sur les prix de production futurs mentionnée séparément. Catégorie industrielle critique pour biotech en phase clinique.",
       "trend": "stable",
-      "summary": "Cardiol dépend fortement de Dalton Pharma Services et d'autres CMOs pour la fabrication de ses candidats produits. Toute interruption de service, défaillance de qualité ou augmentation de coûts pourrait retarder les essais cliniques et la commercialisation. L'absence de capacités de production internes expose l'entreprise à des risques de chaîne d'approvisionnement."
+      "summary": "Cardiol dépend fortement de Dalton Pharma Services et d'autres CMOs pour la fabrication de ses candidats produits. Toute interruption de service, défaillance de qualité ou augmentation de coûts pourrait retarder les essais cliniques et la commercialisation. L'absence de capacités de production internes expose l'entreprise à des risques de chaîne d'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Incertitude clinique et risque d'échec des essais",
@@ -242,7 +273,8 @@
       "severity": 5,
       "score_rationale": "Mentionné 4 fois dans la section forward-looking (« inherent uncertainty of product development », « equivocal or negative results from clinical trials »). Langage très prudent reflétant l'incertitude intrinsèque. Essai ARCHER Phase II en cours. Risque existentiel pour une biotech pré-commercialisation.",
       "trend": "stable",
-      "summary": "Le succès commercial de Cardiol repose entièrement sur l'efficacité et la sécurité de CardiolRx et autres candidats dans les essais cliniques (myocardite aiguë, péricardite récurrente, insuffisance cardiaque). Des résultats équivoques ou négatifs pourraient anéantir la valeur de l'entreprise et bloquer l'accès au marché."
+      "summary": "Le succès commercial de Cardiol repose entièrement sur l'efficacité et la sécurité de CardiolRx et autres candidats dans les essais cliniques (myocardite aiguë, péricardite récurrente, insuffisance cardiaque). Des résultats équivoques ou négatifs pourraient anéantir la valeur de l'entreprise et bloquer l'accès au marché.",
+      "score": 5
     },
     {
       "title": "Besoin continu de financement et brûlure de trésorerie",
@@ -250,7 +282,8 @@
       "severity": 5,
       "score_rationale": "Cité en premier dans les risques forward-looking (« anticipated cash needs, and the need for additional financing »). Mentionné 3 fois (« requirement for additional financing », « negative cash flow from operations », « history of losses »). Biotech pré-revenu avec historique de pertes. Risque de dilution ou impossibilité de financer.",
       "trend": "stable",
-      "summary": "Cardiol n'a pas de revenus commerciaux et brûle du cash pour financer la R&D et les essais cliniques. L'entreprise devra lever des capitaux supplémentaires, exposant les actionnaires à une dilution significative. Un marché de capital fermé pourrait paralyser les opérations."
+      "summary": "Cardiol n'a pas de revenus commerciaux et brûle du cash pour financer la R&D et les essais cliniques. L'entreprise devra lever des capitaux supplémentaires, exposant les actionnaires à une dilution significative. Un marché de capital fermé pourrait paralyser les opérations.",
+      "score": 5
     },
     {
       "title": "Propriété intellectuelle : risques de défense et de liberté d'exploitation",
@@ -258,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Explicitement listé (« ability to procure, defend, and/or enforce our intellectual property » et « freedom to operate »). Risque de tiers-parties contestant la propriété (« third-party claims relating to misappropriation »). Accord Meros avec champs d'utilisation complexes. Critique pour une biotech.",
       "trend": "stable",
-      "summary": "Cardiol dépend de brevets pour protéger CardiolRx, ses formulations et routes d'administration. Risques de contestation par des tiers, d'invalidation de brevets ou de violation involontaire de droits tiers (notamment via l'accord Meros). L'absence de liberté d'exploitation pourrait bloquer la commercialisation."
+      "summary": "Cardiol dépend de brevets pour protéger CardiolRx, ses formulations et routes d'administration. Risques de contestation par des tiers, d'invalidation de brevets ou de violation involontaire de droits tiers (notamment via l'accord Meros). L'absence de liberté d'exploitation pourrait bloquer la commercialisation.",
+      "score": 4
     },
     {
       "title": "Absence d'expérience commerciale et risque de marché",
@@ -266,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Cité explicitement (« lack of experience in commercializing any products, including selling, marketing, or distributing »). Aussi « uncertainty relating to market acceptance of our product candidates ». Biotech sans historique commercial. Risque de positionnement et d'adoption.",
       "trend": "stable",
-      "summary": "Cardiol n'a jamais commercialisé de produit pharmaceutique. L'entreprise devra construire une marque, une force de vente et des relations avec les payeurs tiers. L'acceptation du marché pour CardiolRx dans la myocardite aiguë et la péricardite reste incertaine, avec risque de faible adoption."
+      "summary": "Cardiol n'a jamais commercialisé de produit pharmaceutique. L'entreprise devra construire une marque, une force de vente et des relations avec les payeurs tiers. L'acceptation du marché pour CardiolRx dans la myocardite aiguë et la péricardite reste incertaine, avec risque de faible adoption.",
+      "score": 4
     },
     {
       "title": "Régulation des substances contrôlées et variabilité juridictionnelle",
@@ -274,7 +309,8 @@
       "severity": 3,
       "score_rationale": "Mentionné spécifiquement (« product candidates being subject to controlled substance laws which may vary from jurisdiction to jurisdiction »). Cardiol développe des cannabinoïdes (accord Meros). Risque de conformité multi-juridictionnelle élevé.",
       "trend": "stable",
-      "summary": "Les candidats produits de Cardiol (notamment ceux basés sur les cannabinoïdes via Meros) sont soumis aux lois sur les substances contrôlées (CDSA au Canada, CSA aux USA). Les variations réglementaires entre juridictions compliquent le développement clinique et la commercialisation future."
+      "summary": "Les candidats produits de Cardiol (notamment ceux basés sur les cannabinoïdes via Meros) sont soumis aux lois sur les substances contrôlées (CDSA au Canada, CSA aux USA). Les variations réglementaires entre juridictions compliquent le développement clinique et la commercialisation future.",
+      "score": 3
     },
     {
       "title": "Responsabilité produit et réclamations en dommages corporels",
@@ -282,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Cité deux fois (« claims for personal injury or death arising from the use of our products » et « product liability claims and product recalls »). Risque inhérent aux produits pharmaceutiques. Couverture d'assurance insuffisante possible.",
       "trend": "stable",
-      "summary": "Une fois commercialisés, CardiolRx et autres produits pourraient générer des réclamations en responsabilité civile pour décès ou blessures. Les rappels de produits ou les litiges pourraient endommager la réputation et générer des coûts importants non assurés."
+      "summary": "Une fois commercialisés, CardiolRx et autres produits pourraient générer des réclamations en responsabilité civile pour décès ou blessures. Les rappels de produits ou les litiges pourraient endommager la réputation et générer des coûts importants non assurés.",
+      "score": 4
     },
     {
       "title": "Concurrence intense et risque d'obsolescence technologique",
@@ -290,7 +327,8 @@
       "severity": 3,
       "score_rationale": "Mentionné (« competition in our industry » et « inability to develop new technologies and products and the obsolescence of existing technologies »). Marché cardio-vasculaire très compétitif avec acteurs établis. Risque de disruption technologique.",
       "trend": "stable",
-      "summary": "Cardiol opère dans un secteur hautement compétitif dominé par des pharmas établies. L'émergence de nouvelles thérapies (cellulaires, géniques) ou l'amélioration des traitements existants pourrait rendre CardiolRx obsolète ou non-compétitif en termes de prix/efficacité."
+      "summary": "Cardiol opère dans un secteur hautement compétitif dominé par des pharmas établies. L'émergence de nouvelles thérapies (cellulaires, géniques) ou l'amélioration des traitements existants pourrait rendre CardiolRx obsolète ou non-compétitif en termes de prix/efficacité.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:27:10.883455+00:00",
@@ -444,9 +482,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.244618+00:00",
     "fetched_at": "2026-05-21T02:17:14.244620+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.796Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.295Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/crdl.json",
     "enrich_root": null,

@@ -167,34 +167,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.54,
-      "unit": "Mds €",
+      "value": 540,
+      "unit": "M €",
       "yoy": "+42.1%",
       "history": [
-        0.33,
-        0.26,
-        0.38,
-        0.54
+        330,
+        260,
+        380,
+        540
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.54 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -230,7 +239,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné de manière récurrente dans le rapport, avec un langage fort sur les 'défis métallurgiques significatifs'. Il est central dans la stratégie de recyclage et en lien direct avec l'activité principale. La tendance est stable, mais crucial pour la croissance future.",
       "trend": "stable",
-      "summary": "Aurubis dépend de matières premières recyclées complexes (comme les cartes électroniques ou les boues galvaniques), dont la composition variable et la miniaturisation croissante rendent le traitement difficile et énergivore, impactant l'efficacité industrielle."
+      "summary": "Aurubis dépend de matières premières recyclées complexes (comme les cartes électroniques ou les boues galvaniques), dont la composition variable et la miniaturisation croissante rendent le traitement difficile et énergivore, impactant l'efficacité industrielle.",
+      "score": 4
     },
     {
       "title": "Concurrence pour les matières premières",
@@ -238,7 +248,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne l'importance de la sécurisation des flux de matières recyclées. Le langage reflète une pression croissante sur l'approvisionnement, avec une intensité modérée à élevée. Catégorie clé pour le modèle économique, tendance en hausse.",
       "trend": "up",
-      "summary": "Aurubis fait face à une concurrence accrue pour l'accès aux matières premières recyclées, notamment en raison de la demande mondiale croissante et de la raréfaction relative des flux de déchets métalliques de qualité."
+      "summary": "Aurubis fait face à une concurrence accrue pour l'accès aux matières premières recyclées, notamment en raison de la demande mondiale croissante et de la raréfaction relative des flux de déchets métalliques de qualité.",
+      "score": 4
     },
     {
       "title": "Réglementation environnementale stricte",
@@ -246,7 +257,8 @@
       "severity": 5,
       "score_rationale": "Le risque est fortement mis en avant, avec des références à REACH, aux audits ISO, et à des procédures judiciaires aux États-Unis. Position centrale dans le 10-K, langage exigeant, tendance stable mais critique.",
       "trend": "stable",
-      "summary": "Aurubis est soumis à une réglementation environnementale stricte (REACH, émissions, gestion des déchets), illustrée par des procédures aux États-Unis liées au traitement des substances dangereuses et des eaux usées."
+      "summary": "Aurubis est soumis à une réglementation environnementale stricte (REACH, émissions, gestion des déchets), illustrée par des procédures aux États-Unis liées au traitement des substances dangereuses et des eaux usées.",
+      "score": 5
     },
     {
       "title": "Limites techniques de l'efficacité énergétique",
@@ -254,7 +266,8 @@
       "severity": 4,
       "score_rationale": "Le texte décrit clairement que les gains d'efficacité énergétique deviennent marginaux malgré des investissements élevés. Langage précis et technique, position importante dans le rapport, tendance stable.",
       "trend": "stable",
-      "summary": "Malgré des investissements soutenus, les améliorations d'efficacité énergétique sont de plus en plus difficiles à réaliser en raison des limites technologiques et de la nature énergivore du traitement des matières complexes."
+      "summary": "Malgré des investissements soutenus, les améliorations d'efficacité énergétique sont de plus en plus difficiles à réaliser en raison des limites technologiques et de la nature énergivore du traitement des matières complexes.",
+      "score": 4
     },
     {
       "title": "Intégration de nouvelles capacités de recyclage",
@@ -262,7 +275,8 @@
       "severity": 3,
       "score_rationale": "Le risque est lié à l'acquisition de Metallo et à l'intégration de nouvelles technologies. Mentionné de manière modérée, mais avec une implication stratégique croissante. Tendance en hausse.",
       "trend": "up",
-      "summary": "L'intégration de nouvelles capacités de recyclage, comme celles apportées par Metallo, représente un défi opérationnel et technologique pour harmoniser les procédés et maximiser la récupération de métaux précieux."
+      "summary": "L'intégration de nouvelles capacités de recyclage, comme celles apportées par Metallo, représente un défi opérationnel et technologique pour harmoniser les procédés et maximiser la récupération de métaux précieux.",
+      "score": 3
     },
     {
       "title": "Disponibilité fluctuante des énergies renouvelables",
@@ -270,7 +284,8 @@
       "severity": 4,
       "score_rationale": "Le rapport souligne le défi majeur de la dépendance à des énergies renouvelables intermittentes face à des processus industriels exigeant une fourniture constante. Langage préoccupé, position stratégique, tendance en hausse.",
       "trend": "up",
-      "summary": "La transition énergétique est compliquée par la nécessité d'une alimentation électrique constante, alors que les énergies renouvelables (éolien, solaire) sont intermittentes, ce qui limite leur intégration directe dans les procédés industriels."
+      "summary": "La transition énergétique est compliquée par la nécessité d'une alimentation électrique constante, alors que les énergies renouvelables (éolien, solaire) sont intermittentes, ce qui limite leur intégration directe dans les procédés industriels.",
+      "score": 4
     },
     {
       "title": "Gestion des résidus et sous-produits industriels",
@@ -278,7 +293,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le modèle d'affaires, avec des mentions répétées de gestion des déchets, des émissions dans l'eau et l'air. Langage fort, indicateurs clés de performance environnementaux suivis, tendance stable.",
       "trend": "stable",
-      "summary": "Aurubis doit gérer des résidus industriels complexes (scories, boues) tout en minimisant les émissions dans l'environnement, avec des objectifs ambitieux de réduction des poussières et des métaux dans les eaux usées."
+      "summary": "Aurubis doit gérer des résidus industriels complexes (scories, boues) tout en minimisant les émissions dans l'environnement, avec des objectifs ambitieux de réduction des poussières et des métaux dans les eaux usées.",
+      "score": 5
     },
     {
       "title": "Dépendance à des procédés électriques intensifs",
@@ -286,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Le texte met en avant l'importance des fours électriques (comme à Metallo) et des turbines à vapeur. Le risque est technologique et opérationnel, avec une intensité modérée à élevée. Tendance stable.",
       "trend": "stable",
-      "summary": "Les procédés industriels d'Aurubis, notamment la fusion par arc plasma, sont fortement dépendants de l'électricité, ce qui les expose aux interruptions de fourniture et aux coûts énergétiques, malgré les efforts d'auto-production."
+      "summary": "Les procédés industriels d'Aurubis, notamment la fusion par arc plasma, sont fortement dépendants de l'électricité, ce qui les expose aux interruptions de fourniture et aux coûts énergétiques, malgré les efforts d'auto-production.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:43:13.881462+00:00",
@@ -427,9 +444,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.287379+00:00",
     "fetched_at": "2026-05-21T02:17:14.287379+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.829Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.727Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nda.de.json",
     "enrich_root": "v2-pipeline-enrich/nda.de.json",

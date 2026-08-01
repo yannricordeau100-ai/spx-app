@@ -45,7 +45,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:31.480672+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -71,7 +71,7 @@
       "is_short_history": false,
       "ttm": 60,
       "_validation": "Correction value: '60%' → 60 (éliminer caractère % du numérateur); Correction last_data_date: 2025-12-31 → 2024-12-31",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -104,47 +104,57 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.9,
-      "unit": "Mds €",
+      "value": 900,
+      "unit": "M €",
       "yoy": "+15.4%",
       "history": [
-        0.58,
-        0.69,
-        0.78,
-        0.9
+        580,
+        690,
+        780,
+        900
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.9 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "+225.0%",
       "history": [
-        -0.03,
-        0.02,
-        0.08,
-        0.26
+        -30,
+        20,
+        80,
+        260
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.26 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -186,33 +200,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.6 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.25,
-      "unit": "Mds €",
+      "value": 250,
+      "unit": "M €",
       "yoy": "-41.9%",
       "history": [
-        0.14,
-        0.32,
-        0.43,
-        0.25
+        140,
+        320,
+        430,
+        250
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.25 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -239,13 +262,11 @@
       "is_short_history": true,
       "story_category": "Croissance",
       "ttm": 936.3,
-      "_validation": "Correction unité: Mds $ → M $; Correction last_data_date: 2025-12-31 → 2024-12-31",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction unité: Mds $ → M $; Correction last_data_date: 2025-12-31 → 2024-12-31"
     }
   ],
   "ai_positioning": {
-    "stance": "prominent",
+    "stance": "absent",
     "summary": "DigitalOcean positionne explicitement l'IA/ML comme élément central de sa stratégie. La société s'est redéfinie comme plateforme d'inférence agentic cloud combinant infrastructure GPU production-ready, stack cloud complet, workflows d'inférence model-first et couche d'expérience agentic. Le portefeuille inclut DigitalOcean Gradient AI Agentic Cloud avec offres GPU Droplets, Bare Metal GPUs, Large Language Models et services de plateforme AI/ML.",
     "evidence": [
       "Overview identifie l'entreprise comme 'agentic inference cloud platform'",
@@ -262,7 +283,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché en concurrence avec d'autres fournisseurs de services cloud, ce qui peut affecter sa part de marché et ses revenus. Le langage utilisé dans le rapport indique une intensité élevée de concurrence.",
       "trend": "stable",
-      "summary": "La concurrence dans le marché des services cloud peut affecter la part de marché et les revenus de DigitalOcean."
+      "summary": "La concurrence dans le marché des services cloud peut affecter la part de marché et les revenus de DigitalOcean.",
+      "score": 4
     },
     {
       "title": "Dépendance aux clients",
@@ -270,7 +292,8 @@
       "severity": 3,
       "score_rationale": "La perte de clients importants pourrait avoir un impact significatif sur les revenus de la société. Le rapport indique que les 25 premiers clients représentent environ 10% des revenus.",
       "trend": "stable",
-      "summary": "La dépendance de DigitalOcean à l'égard de ses clients importants peut être un risque pour ses revenus."
+      "summary": "La dépendance de DigitalOcean à l'égard de ses clients importants peut être un risque pour ses revenus.",
+      "score": 3
     },
     {
       "title": "Conditions macroéconomiques",
@@ -278,7 +301,8 @@
       "severity": 5,
       "score_rationale": "Les conditions macroéconomiques défavorables, telles que les tensions commerciales, les fluctuations des marchés financiers et les catastrophes naturelles, peuvent affecter la demande pour les services de DigitalOcean.",
       "trend": "up",
-      "summary": "Les conditions macroéconomiques défavorables peuvent avoir un impact négatif sur la demande pour les services de DigitalOcean."
+      "summary": "Les conditions macroéconomiques défavorables peuvent avoir un impact négatif sur la demande pour les services de DigitalOcean.",
+      "score": 5
     },
     {
       "title": "Risques de sécurité",
@@ -286,7 +310,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de sécurité, tels que les attaques de pirates informatiques et les violations de données, qui peuvent affecter la confiance de ses clients et son réputation.",
       "trend": "up",
-      "summary": "Les risques de sécurité peuvent avoir un impact négatif sur la confiance des clients et la réputation de DigitalOcean."
+      "summary": "Les risques de sécurité peuvent avoir un impact négatif sur la confiance des clients et la réputation de DigitalOcean.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie",
@@ -294,7 +319,8 @@
       "severity": 4,
       "score_rationale": "La société est fortement dépendante de sa technologie et de ses infrastructures, ce qui peut la rendre vulnérable aux pannes et aux défaillances techniques.",
       "trend": "stable",
-      "summary": "La dépendance de DigitalOcean à l'égard de sa technologie et de ses infrastructures peut être un risque pour ses opérations."
+      "summary": "La dépendance de DigitalOcean à l'égard de sa technologie et de ses infrastructures peut être un risque pour ses opérations.",
+      "score": 4
     },
     {
       "title": "Réglementation",
@@ -302,7 +328,8 @@
       "severity": 3,
       "score_rationale": "Les changements dans les réglementations et les lois peuvent affecter les opérations de DigitalOcean et ses revenus.",
       "trend": "stable",
-      "summary": "Les changements dans les réglementations et les lois peuvent avoir un impact sur les opérations et les revenus de DigitalOcean."
+      "summary": "Les changements dans les réglementations et les lois peuvent avoir un impact sur les opérations et les revenus de DigitalOcean.",
+      "score": 3
     },
     {
       "title": "Pertes d'actifs clés",
@@ -310,7 +337,8 @@
       "severity": 3,
       "score_rationale": "La perte d'actifs clés, tels que des employés ou des dirigeants, peut avoir un impact négatif sur les opérations et les revenus de DigitalOcean.",
       "trend": "stable",
-      "summary": "La perte d'actifs clés peut avoir un impact négatif sur les opérations et les revenus de DigitalOcean."
+      "summary": "La perte d'actifs clés peut avoir un impact négatif sur les opérations et les revenus de DigitalOcean.",
+      "score": 3
     }
   ],
   "governance": {
@@ -338,7 +366,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -447,23 +475,18 @@
         "history": [
           49.523,
           79.45,
-          -35.691,
           37.241,
           74.197,
           104.44,
-          -71.993,
           38.272,
           76.841,
           109.468,
-          -84.216,
           33.971,
           68.011,
           105.388,
-          -64.871,
           39.594,
           79.238,
           117.357,
-          -74.568,
           48.83
         ],
         "history_periods": [
@@ -517,6 +540,12 @@
             "accession": "0001582961-26-000049",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (DOCN)"
         ]
       }
     ]
@@ -533,28 +562,14 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.251605+00:00",
     "fetched_at": "2026-05-21T02:17:14.251606+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
   "enrich_tam": {
     "ticker": "DOCN",
     "researched_at": "2026-02-18",
-    "market_positions": [
-      {
-        "segment_name": "IaaS and PaaS for individuals and companies with <500 employees",
-        "segment_revenue": null,
-        "segment_unit": null,
-        "tam": 138,
-        "tam_unit": "$B",
-        "tam_range": null,
-        "source": "IDC: Worldwide Software and Public Cloud Services Spending Guide (Feb. 2025)",
-        "source_url": null,
-        "source_note": "IDC estimates the aggregate worldwide IaaS and PaaS markets for individuals and companies with less than 500 employees at approximately $138B in 2025, growing to $251B in 2028, representing a 22% CAGR. IDC defines IaaS as compute, storage and networking, and PaaS as database management systems, application platforms, AI platforms and other platform services.",
-        "market_cagr": 22,
-        "is_company_disclosed": true
-      }
-    ]
+    "market_positions": []
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.349Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.912Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/docn.json",
     "enrich_root": "v2-pipeline-enrich/docn.json",

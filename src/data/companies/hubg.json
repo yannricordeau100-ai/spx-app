@@ -21,8 +21,8 @@
       "name_fr": "Revenu Intermodal et Transport",
       "name_en": "Intermodal and Transportation Solutions Revenue",
       "explanation": "Revenu généré par le segment Intermodal et Transport",
-      "value": 2243.44,
-      "unit": "M $",
+      "value": 2.243,
+      "unit": "Mds $",
       "yoy": "-10%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,11 +30,11 @@
       "signal": "Baisse du revenu due à la diminution des prix et des surcharges de carburant",
       "description": "Le revenu du segment Intermodal et Transport a baissé de 10% en 2024 par rapport à 2023, passant de 2495.7 M$ à 2243.4 M$",
       "history": [
-        2243.44,
-        2495.663,
-        2456.111,
-        2356.222,
-        2256.333
+        2.243,
+        2.496,
+        2.456,
+        2.356,
+        2.256
       ],
       "last_data_date": "2025-09-30",
       "is_wow": false,
@@ -44,15 +44,16 @@
       "_validation": "Correction unité: Mds $ -> M $; correction valeur: suppression virgule erronée; correction history: ordonnée de manière décroissante avec valeur 2024 en première position; correction ttm: aligné avec la valeur 2024",
       "period_type": "quarter",
       "explanation_en": "Revenue from the ITS segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Logistics Revenue",
       "name_fr": "Revenu Logistique",
       "name_en": "Logistics Revenue",
       "explanation": "Revenu généré par le segment Logistique",
-      "value": "1829.450",
-      "unit": "M $",
+      "value": 1.829,
+      "unit": "Mds $",
       "yoy": "0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -60,11 +61,11 @@
       "signal": "Stabilité du revenu logistique malgré les défis opérationnels",
       "description": "Le revenu du segment Logistique est resté stable en 2024 par rapport à 2023, passant de 1820.9 M$ à 1829.5 M$",
       "history": [
-        1829.45,
-        1820.856,
-        1800.111,
-        1750.222,
-        1700.333
+        1.829,
+        1.821,
+        1.8,
+        1.75,
+        1.7
       ],
       "last_data_date": "2024-12-31",
       "is_wow": false,
@@ -73,7 +74,12 @@
       "ttm": 1829.45,
       "_validation": "Correction unité: Mds $ -> M $; correction history: ordonnée de manière décroissante avec valeur 2024 en première position; correction ttm: aligné avec la valeur 2024",
       "explanation_en": "Revenue from the Logistics segment.",
-      "signal_en": "Revenue stable, monitor outlook"
+      "signal_en": "Revenue stable, monitor outlook",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -101,8 +107,12 @@
       "is_short_history": false,
       "ttm": 140.291,
       "_validation": "Correction unité: Mds $ -> M $; correction type: Margin -> Profitability; correction history: ordonnée de manière décroissante avec valeur 2024 en première position; correction ttm: aligné avec la valeur 2024",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -121,34 +131,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.95 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-41.2%",
       "history": [
-        0.17,
-        0.36,
-        0.17,
-        0.1
+        170,
+        360,
+        170,
+        100
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.1 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -167,56 +186,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.87 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.51,
-      "unit": "Mds €",
+      "value": 510,
+      "unit": "M €",
       "yoy": "-12.1%",
       "history": [
-        0.32,
-        0.45,
-        0.58,
-        0.51
+        320,
+        450,
+        580,
+        510
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.51 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-47.4%",
       "history": [
-        0.16,
-        0.29,
-        0.19,
-        0.1
+        160,
+        290,
+        190,
+        100
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.1 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -239,9 +272,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Outlook",
-      "_validation": "Suppression KPI hallucination (date future 2025-12-31); correction name_fr et name_en pour refléter qu'il s'agit de prévisions, pas de résultats réels; correction comparable: Non comparable; correction story_category: Innovation -> Outlook; suppression des données de remplissage",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Suppression KPI hallucination (date future 2025-12-31); correction name_fr et name_en pour refléter qu'il s'agit de prévisions, pas de résultats réels; correction comparable: Non comparable; correction story_category: Innovation -> Outlook; suppression des données de remplissage"
     }
   ],
   "ai_positioning": {
@@ -257,7 +288,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement des railroads pour ses opérations intermodales, ce qui la rend vulnérable aux changements de tarifs, de service ou de stratégie des railroads. (Item 1A, p. 7)",
       "trend": "stable",
-      "summary": "La société est exposée aux risques liés à la dépendance aux railroads, ce qui pourrait impacter significativement ses résultats d'exploitation dans le segment ITS."
+      "summary": "La société est exposée aux risques liés à la dépendance aux railroads, ce qui pourrait impacter significativement ses résultats d'exploitation dans le segment ITS.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -265,7 +297,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché très concurrentiel avec de nombreux acteurs qui pourraient réduire leurs prix pour gagner des parts de marché. (Item 1A, p. 8)",
       "trend": "up",
-      "summary": "La concurrence accrue pourrait entraîner une réduction des prix et des marges bénéficiaires, particulièrement dans les services de courtage en fret."
+      "summary": "La concurrence accrue pourrait entraîner une réduction des prix et des marges bénéficiaires, particulièrement dans les services de courtage en fret.",
+      "score": 4
     },
     {
       "title": "Pénurie de conducteurs qualifiés",
@@ -273,7 +306,8 @@
       "severity": 4,
       "score_rationale": "La société dépend de conducteurs qualifiés pour ses opérations, mais la pénurie persistante pourrait impacter sa capacité à fournir des services. (Item 1A, p. 7)",
       "trend": "stable",
-      "summary": "La pénurie de conducteurs pourrait entraîner des coûts accrus et des difficultés pour la société à maintenir ses niveaux de service."
+      "summary": "La pénurie de conducteurs pourrait entraîner des coûts accrus et des difficultés pour la société à maintenir ses niveaux de service.",
+      "score": 4
     },
     {
       "title": "Risques économiques et macroéconomiques",
@@ -281,7 +315,8 @@
       "severity": 5,
       "score_rationale": "La société est exposée aux risques économiques tels que les récessions, les changements de taux d'intérêt, les fluctuations des prix des matières premières et l'inflation. (Item 1A, p. 9)",
       "trend": "up",
-      "summary": "Les risques économiques, y compris l'inflation, les tarifs commerciaux et le ralentissement de la consommation, pourraient avoir un impact significatif sur les résultats d'exploitation."
+      "summary": "Les risques économiques, y compris l'inflation, les tarifs commerciaux et le ralentissement de la consommation, pourraient avoir un impact significatif sur les résultats d'exploitation.",
+      "score": 5
     },
     {
       "title": "Volatilité des prix du carburant",
@@ -289,7 +324,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques liés au carburant, tels que les fluctuations des prix et les ruptures d'approvisionnement, affectant directement les coûts d'exploitation. (Item 1A, p. 10)",
       "trend": "stable",
-      "summary": "Les fluctuations des prix du carburant impactent directement les coûts opérationnels et les résultats d'exploitation."
+      "summary": "Les fluctuations des prix du carburant impactent directement les coûts opérationnels et les résultats d'exploitation.",
+      "score": 4
     },
     {
       "title": "Événements météorologiques extrêmes",
@@ -297,7 +333,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux risques liés aux conditions météorologiques extrêmes, tels que les ouragans et les inondations, qui pourraient impacter ses opérations. (Item 1A, p. 10)",
       "trend": "up",
-      "summary": "Les événements météorologiques extrêmes pourraient entraîner des interruptions opérationnelles et des coûts supplémentaires."
+      "summary": "Les événements météorologiques extrêmes pourraient entraîner des interruptions opérationnelles et des coûts supplémentaires.",
+      "score": 3
     },
     {
       "title": "Risques réglementaires et de conformité",
@@ -305,7 +342,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux risques liés à la réglementation, tels que les changements de normes environnementales ou de sécurité routière. (Item 1A, p. 9)",
       "trend": "up",
-      "summary": "Les changements réglementaires en matière d'environnement et de sécurité pourraient impacter les coûts et les résultats d'exploitation."
+      "summary": "Les changements réglementaires en matière d'environnement et de sécurité pourraient impacter les coûts et les résultats d'exploitation.",
+      "score": 3
     }
   ],
   "governance": {
@@ -369,7 +407,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -609,7 +647,10 @@
             "source": "HUBG_2025-11-05.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Logistics Revenue",
@@ -691,7 +732,10 @@
             "source": "HUBG_2025-11-05.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -707,9 +751,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.528035+00:00",
     "fetched_at": "2026-05-21T01:44:37.528036+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.228Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.883Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hubg.json",
     "enrich_root": "v2-pipeline-enrich/hubg.json",

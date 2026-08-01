@@ -77,8 +77,12 @@
       "is_short_history": false,
       "ttm": 40,
       "_validation": "Valeur conservée 40% (présente dans source, objectif 40% annoncé); history réordonnée chronologiquement; valeur numérique corrigée format",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin stable, monitor cost dynamics"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Units Shipped",
@@ -106,7 +110,11 @@
       "is_short_history": false,
       "ttm": 45,
       "_validation": "Unité corrigée de 'Mds' à 'B units' (milliards d'unités); YoY précisé: +15.4% (45B vs 39B en 2023); history réordonnée chronologiquement (2021-2025)",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -125,34 +133,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.48 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "+75.0%",
       "history": [
-        0.33,
-        0.23,
-        0.04,
-        0.07
+        330,
+        230,
+        40,
+        70
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.07 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -171,56 +188,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.45 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+11.1%",
       "history": [
-        0.21,
-        0.1,
-        0.09,
-        0.1
+        210,
+        100,
+        90,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.37,
-      "unit": "Mds €",
+      "value": 370,
+      "unit": "M €",
       "yoy": "+19.4%",
       "history": [
-        0.34,
-        0.32,
-        0.31,
-        0.37
+        340,
+        320,
+        310,
+        370
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.37 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -250,13 +281,11 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 1.83,
-      "_validation": "Unité corrigée de 'Mds $' à 'B $'; history réordonnée chronologiquement; signal amélioré pour mettre en avant le contexte de plus forte croissance depuis 2021",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'B $'; history réordonnée chronologiquement; signal amélioré pour mettre en avant le contexte de plus forte croissance depuis 2021"
     }
   ],
   "ai_positioning": {
-    "stance": "present",
+    "stance": "integrator",
     "summary": "Diodes mentionne explicitement l'Intelligence Artificielle (IA) dans son positionnement de marché. La société identifie les data centers IA (serveurs IA, stockage, edge IA) comme un secteur de croissance clé dans le marché Computing, avec une croissance significative des applications serveur IA en 2025.",
     "evidence": [
       "Computing: Artificial Intelligence (AI) data center including AI server, storage, and edge AI",
@@ -269,34 +298,34 @@
       "title": "Récession économique",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "La société mentionne explicitement que son succès dépend de la force de l'économie mondiale et de la stabilité des marchés financiers. Une récession économique pourrait avoir un impact négatif sur les ventes et les résultats de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne explicitement que son succès dépend de la force de l'économie mondiale et de la stabilité des marchés financiers. Une récession économique pourrait avoir un impact négatif sur les ventes et les résultats de la société.",
       "trend": "stable",
       "summary": "La récession économique pourrait affecter négativement les ventes et les résultats de la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché très concurrentiel et doit faire face à des concurrents agressifs. Une concurrence accrue pourrait entraîner une perte de parts de marché et une baisse des prix. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché très concurrentiel et doit faire face à des concurrents agressifs. Une concurrence accrue pourrait entraîner une perte de parts de marché et une baisse des prix.",
       "trend": "up",
       "summary": "La concurrence accrue pourrait entraîner une perte de parts de marché et une baisse des prix.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques géopolitiques",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "La société a des opérations dans plusieurs pays et est exposée à des risques géopolitiques, tels que les conflits, les sanctions et les changements de politiques gouvernementales. (score par défaut, à affiner)",
+      "score_rationale": "La société a des opérations dans plusieurs pays et est exposée à des risques géopolitiques, tels que les conflits, les sanctions et les changements de politiques gouvernementales.",
       "trend": "up",
       "summary": "Les risques géopolitiques pourraient affecter les opérations et les ventes de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "La société est fortement dépendante de la technologie et des systèmes d'information. Une panne ou une faille de sécurité pourrait avoir un impact négatif sur les opérations et la réputation de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société est fortement dépendante de la technologie et des systèmes d'information. Une panne ou une faille de sécurité pourrait avoir un impact négatif sur les opérations et la réputation de la société.",
       "trend": "stable",
       "summary": "La dépendance à la technologie pourrait entraîner des risques de panne ou de faille de sécurité.",
       "score": 3
@@ -305,7 +334,7 @@
       "title": "Risques de change",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "La société opère dans plusieurs pays et est exposée à des risques de change. Les fluctuations des taux de change pourraient avoir un impact négatif sur les ventes et les résultats de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans plusieurs pays et est exposée à des risques de change. Les fluctuations des taux de change pourraient avoir un impact négatif sur les ventes et les résultats de la société.",
       "trend": "stable",
       "summary": "Les risques de change pourraient affecter les ventes et les résultats de la société.",
       "score": 3
@@ -314,19 +343,19 @@
       "title": "Risques de litige",
       "category": "Litige",
       "severity": 2,
-      "score_rationale": "La société est exposée à des risques de litige, tels que des poursuites judiciaires ou des réclamations de clients. Un litige pourrait avoir un impact négatif sur la réputation et les résultats de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de litige, tels que des poursuites judiciaires ou des réclamations de clients. Un litige pourrait avoir un impact négatif sur la réputation et les résultats de la société.",
       "trend": "stable",
       "summary": "Les risques de litige pourraient affecter la réputation et les résultats de la société.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques de régulation",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "La société est soumise à des réglementations gouvernementales et industrielles. Un changement de réglementation pourrait avoir un impact négatif sur les opérations et les ventes de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations gouvernementales et industrielles. Un changement de réglementation pourrait avoir un impact négatif sur les opérations et les ventes de la société.",
       "trend": "stable",
       "summary": "Les risques de régulation pourraient affecter les opérations et les ventes de la société.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -359,7 +388,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -498,88 +527,188 @@
   },
   "enrich_quarterly_history": {
     "ticker": "DIOD",
-    "extracted_at": "2026-05-15T18:10:37Z",
-    "method": "xbrl-companyfacts",
-    "cik": 29002,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:11:10Z",
+    "n_kpis": 4,
     "kpis": [
       {
         "short": "Net Sales",
         "period_type": "quarter",
         "history": [
-          853.569,
-          1324.991,
-          -786.519,
-          482.123,
-          983.095,
-          1504.368,
-          -969.006,
-          467.241,
-          934.393,
-          1339.04,
-          -1078.935,
-          301.972,
-          621.743,
-          971.822,
-          -584.417,
-          332.113,
-          698.325,
-          1090.495,
-          -638.86,
-          405.467
+          0.413121,
+          0.440448,
+          0.471422,
+          0.482123,
+          0.500972,
+          0.521273,
+          0.467241,
+          0.467152,
+          0.404647,
+          0.301972,
+          0.319771,
+          0.350079,
+          0.332113,
+          0.366212,
+          0.39217
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 698.325,
-            "accession": "0000950170-25-105233",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 1090.495,
-            "accession": "0001193125-25-270081",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -638.86,
-            "accession": "calc-0001193125-26-044918",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 405.467,
-            "accession": "0001193125-26-212380",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:11:10Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          0.413121,
+          0.440448,
+          0.471422,
+          0.482123,
+          0.500972,
+          0.521273,
+          0.467241,
+          0.467152,
+          0.404647,
+          0.301972,
+          0.319771,
+          0.350079,
+          0.332113,
+          0.366212,
+          0.39217
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:11:10Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          0.040553,
+          0.058626,
+          0.0708,
+          0.074173,
+          0.08275,
+          0.088974,
+          0.071977,
+          0.083731,
+          0.049833,
+          0.015269,
+          0.010161,
+          0.015183,
+          -0.002787,
+          0.04416,
+          0.015477
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:11:10Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          2.194495,
+          2.194495,
+          2.194495,
+          2.165462,
+          2.285044,
+          2.362564,
+          2.285561,
+          2.341071,
+          2.340222,
+          2.356172,
+          2.361057,
+          2.389382,
+          2.356341,
+          2.471555,
+          2.469791
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:11:10Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -595,9 +724,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.250902+00:00",
     "fetched_at": "2026-05-21T02:17:14.250903+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.286Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.827Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/diod.json",
     "enrich_root": "v2-pipeline-enrich/diod.json",

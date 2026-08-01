@@ -1,6 +1,6 @@
 {
   "ticker": "OGE",
-  "name": "OGE Energy Corp.",
+  "name": "OGE Energy",
   "sector": "Services aux collectivités",
   "subsector": "Électricité",
   "tagline": "Leading regional electric utility providing reliable power and energy solutions",
@@ -21,8 +21,8 @@
       "name_fr": "Revenus d'exploitation",
       "name_en": "Operating Revenues",
       "explanation": "Revenus générés par l'activité principale de la société",
-      "value": 3260.1,
-      "unit": "M $",
+      "value": 3.26,
+      "unit": "Mds $",
       "yoy": "+9.2%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,16 @@
       "signal": "Augmentation des revenus d'exploitation",
       "description": "Revenus d'exploitation de la société. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 10 dernières années.",
       "history": [
-        2259.2,
-        2261.1,
-        2270.3,
-        2231.6,
-        2122.3,
-        3653.7,
-        3375.7,
-        2674.3,
-        2985.3,
-        3260.1
+        2.259,
+        2.261,
+        2.27,
+        2.232,
+        2.122,
+        3.654,
+        3.376,
+        2.674,
+        2.985,
+        3.26
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -54,7 +54,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:03.175084+00:00",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Income",
@@ -85,7 +86,7 @@
         "YoY recalculated: (470.7 - 441.5) / 441.5 = 6.6% (was +6.5%)",
         "TTM recalculated: using prior year value 441.5 instead of erroneous 410.97"
       ],
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -175,7 +176,7 @@
         "YoY recalculated: (1137.1 - 812.8) / 812.8 = 39.9% (was +40.1%)",
         "TTM recalculated: using prior year value 812.8 instead of erroneous 1391.3"
       ],
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -195,11 +196,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 14.37 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -218,11 +223,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.66 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -241,9 +250,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -275,9 +288,7 @@
         "Unit corrected from 'Mds $' to 'M $' - values are in millions per 10-K financial statements",
         "YoY recalculated: (3260.1 - 2985.3) / 2985.3 = 9.2% (was +10.3%)",
         "TTM recalculated: using prior year value 2985.3 instead of erroneous 2604.65"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -306,7 +317,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -320,7 +331,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement supervisé par le Comité de gouvernance et présenté comme un enjeu majeur avec des comités dédiés, des évaluations régulières et un CIO impliqué au niveau exécutif. Le langage indique une vigilance élevée face à des menaces potentiellement critiques pour les infrastructures critiques. La catégorie cybersécurité est hautement pondérée pour les utilities.",
       "trend": "stable",
-      "summary": "Menaces croissantes d'attaques informatiques pouvant perturber le réseau électrique ou compromettre des données sensibles."
+      "summary": "Menaces croissantes d'attaques informatiques pouvant perturber le réseau électrique ou compromettre des données sensibles.",
+      "score": 5
     },
     {
       "title": "Dépendance aux combustibles fossiles",
@@ -328,7 +340,8 @@
       "severity": 4,
       "score_rationale": "Présent dans plusieurs centrales (charbon, gaz) mentionnées dans le tableau des capacités. La dépendance au gaz et au charbon expose la société à la volatilité des prix et aux pressions réglementaires sur les émissions. Bien que non explicitement nommé comme risque, l'exposition est implicite via la structure du parc de production.",
       "trend": "stable",
-      "summary": "Exposition aux fluctuations des prix du gaz naturel et du charbon, ainsi qu'aux réglementations environnementales."
+      "summary": "Exposition aux fluctuations des prix du gaz naturel et du charbon, ainsi qu'aux réglementations environnementales.",
+      "score": 4
     },
     {
       "title": "Réglementation tarifaire et approuvabilité",
@@ -336,7 +349,8 @@
       "severity": 5,
       "score_rationale": "Les tarifs sont soumis à l'OCC, APSC et FERC, mentionnés dans 'Overview'. Le processus de revue tarifaire (ex. décision de 2025) montre une dépendance critique aux décisions réglementaires. Le langage souligne l'importance des approbations pour la récupération des coûts, ce qui affecte directement la rentabilité.",
       "trend": "stable",
-      "summary": "Capacité à récupérer les investissements dépendante des décisions réglementaires, avec des délais et incertitudes associés."
+      "summary": "Capacité à récupérer les investissements dépendante des décisions réglementaires, avec des délais et incertitudes associés.",
+      "score": 5
     },
     {
       "title": "Risques climatiques et météo",
@@ -344,7 +358,8 @@
       "severity": 4,
       "score_rationale": "Le MDA mentionne explicitement l'impact de conditions météorologiques plus douces sur les revenus, et la forte saisonnalité liée à la demande de climatisation. Cela montre une sensibilité directe aux variations climatiques, un risque récurrent pour les utilities.",
       "trend": "stable",
-      "summary": "Revenus affectés par les variations climatiques, notamment la demande saisonnière pour la climatisation."
+      "summary": "Revenus affectés par les variations climatiques, notamment la demande saisonnière pour la climatisation.",
+      "score": 4
     },
     {
       "title": "Investissements en capital et gestion des coûts",
@@ -352,7 +367,8 @@
       "severity": 4,
       "score_rationale": "3,1 milliards de dollars d'investissements sur trois ans, avec des coûts d'amortissement et d'intérêt en hausse mentionnés comme facteurs négatifs. Le recours à l'emprunt (obligations senior 2024/2025) et la mise en service d'actifs augmentent la pression sur les coûts. Le risque est central dans le MDA.",
       "trend": "stable",
-      "summary": "Charge croissante liée aux amortissements et aux intérêts suite à de forts investissements en infrastructure."
+      "summary": "Charge croissante liée aux amortissements et aux intérêts suite à de forts investissements en infrastructure.",
+      "score": 4
     },
     {
       "title": "Réglementation fédérale sur les énergies renouvelables",
@@ -360,7 +376,8 @@
       "severity": 4,
       "score_rationale": "La mention de la loi fédérale 'One Big Beautiful Bill' modifiant les crédits d'impôt pour les renouvelables indique un risque stratégique. Le texte note que ces changements pourraient influencer les décisions d'investissement futures, avec un impact potentiel sur la planification énergétique.",
       "trend": "new",
-      "summary": "Évolution des incitations fiscales fédérales pouvant affecter la rentabilité des projets renouvelables."
+      "summary": "Évolution des incitations fiscales fédérales pouvant affecter la rentabilité des projets renouvelables.",
+      "score": 4
     },
     {
       "title": "Risques juridiques et litiges",
@@ -368,7 +385,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans 'Item 3. Legal Proceedings' comme des pertes possibles mais non probables. Le langage indique une vigilance, mais aucune perte matérielle anticipée. La catégorie litige est pondérée moyennement, et le risque est jugé mineur à ce stade.",
       "trend": "stable",
-      "summary": "Exposition à des poursuites ou réclamations, mais sans impact matériel anticipé sur la situation financière."
+      "summary": "Exposition à des poursuites ou réclamations, mais sans impact matériel anticipé sur la situation financière.",
+      "score": 3
     }
   ],
   "governance": {
@@ -447,7 +465,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.233Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.108Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/oge.json",
     "enrich_root": null,

@@ -36,9 +36,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de 'Divestitures' (produit net des cessions d'activités) trouvée dans l'extrait du 10-K fourni. Le document"
+      "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de 'Divestitures' (produit net des cessions d'activités) trouvée dans l'extrait du 10-K fourni. Le document",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -57,11 +60,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.29 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -80,11 +87,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.67 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -108,9 +119,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Risk",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Risk"
     },
     {
       "short": "Sales Program Incentives",
@@ -132,9 +141,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Revenue",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Revenue"
     },
     {
       "short": "Inventory Reserve",
@@ -156,9 +163,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Risk",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Risk"
     }
   ],
   "ai_positioning": {
@@ -172,16 +177,16 @@
       "title": "Cyberattaques",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société mentionne explicitement les risques de cyberattaques et de fuites de données, ce qui indique une prise de conscience du risque. Le langage utilisé est intense et le contexte actuel de menace cybernétique renforce la gravité du risque. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne explicitement les risques de cyberattaques et de fuites de données, ce qui indique une prise de conscience du risque. Le langage utilisé est intense et le contexte actuel de menace cybernétique renforce la gravité du risque.",
       "trend": "stable",
       "summary": "La société est exposée aux risques de cyberattaques et de fuites de données, ce qui pourrait avoir un impact négatif sur sa réputation et son activité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementations",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société doit se conformer à des réglementations strictes, notamment en matière de protection des données. Le non-respect de ces réglementations pourrait entraîner des amendes et des pertes financières. (score par défaut, à affiner)",
+      "score_rationale": "La société doit se conformer à des réglementations strictes, notamment en matière de protection des données. Le non-respect de ces réglementations pourrait entraîner des amendes et des pertes financières.",
       "trend": "up",
       "summary": "La société doit naviguer dans un environnement réglementaire complexe et en constante évolution, ce qui pourrait avoir un impact sur son activité et ses finances.",
       "score": 3
@@ -190,16 +195,16 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché compétitif, ce qui signifie qu'elle doit constamment innover et améliorer ses produits pour rester compétitive. Le langage utilisé indique une prise de conscience de la concurrence et de la nécessité de se différencier. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché compétitif, ce qui signifie qu'elle doit constamment innover et améliorer ses produits pour rester compétitive. Le langage utilisé indique une prise de conscience de la concurrence et de la nécessité de se différencier.",
       "trend": "stable",
       "summary": "La société doit faire face à une concurrence accrue sur le marché, ce qui pourrait avoir un impact sur ses ventes et son chiffre d'affaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépréciation des actifs",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société a des actifs qui pourraient se déprécier rapidement, notamment en raison de l'obsolescence technologique. Le langage utilisé indique une prise de conscience de ce risque et de la nécessité de gérer les actifs de manière efficace. (score par défaut, à affiner)",
+      "score_rationale": "La société a des actifs qui pourraient se déprécier rapidement, notamment en raison de l'obsolescence technologique. Le langage utilisé indique une prise de conscience de ce risque et de la nécessité de gérer les actifs de manière efficace.",
       "trend": "up",
       "summary": "La société doit gérer ses actifs de manière efficace pour éviter les pertes financières liées à la dépréciation.",
       "score": 3
@@ -208,10 +213,10 @@
       "title": "Risques liés aux cessions d'activités",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société a réalisé des cessions majeures en 2025 (Jack Wolfskin et 60% de Topgolf), ce qui signifie qu'elle doit gérer les risques d'intégration inverse et maintenir les valeurs des 40% restants. Le langage utilisé indique une prise de conscience de ces risques et de la nécessité de les gérer de manière efficace. (score par défaut, à affiner)",
+      "score_rationale": "La société a réalisé des cessions majeures en 2025 (Jack Wolfskin et 60% de Topgolf), ce qui signifie qu'elle doit gérer les risques d'intégration inverse et maintenir les valeurs des 40% restants. Le langage utilisé indique une prise de conscience de ces risques et de la nécessité de les gérer de manière efficace.",
       "trend": "new",
       "summary": "La société doit gérer les risques liés aux cessions d'activités, notamment en termes de transition opérationnelle et de maintien de la valeur des participations résiduelles, pour éviter les pertes financières et les problèmes opérationnels.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -243,7 +248,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -260,10 +265,89 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.096Z",
+  "enrich_quarterly_history": {
+    "ticker": "CALY",
+    "extracted_at": "2026-06-01T03:04:35Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          7.434,
+          7.508,
+          7.566,
+          8.225,
+          8.247,
+          8.263,
+          8.363,
+          8.372,
+          8.427,
+          7.077
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025"
+        ],
+        "last_data_date": "2025-03-31",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T03:04:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Debt",
+        "period_type": "quarter",
+        "history": [
+          0.985,
+          0.982,
+          0.981,
+          1.407,
+          1.403,
+          1.4,
+          1.398,
+          1.347,
+          1.344,
+          1.339
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025"
+        ],
+        "last_data_date": "2025-03-31",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T03:04:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
+  "_companies_unified_built_at": "2026-08-01T20:27:54.522Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/caly.json",
     "enrich_root": null,
-    "enrich_subkeys": []
+    "enrich_subkeys": [
+      "quarterly-history"
+    ]
   }
 }

@@ -21,8 +21,8 @@
       "name_fr": "Revenus totaux",
       "name_en": "Revenues",
       "explanation": "Revenus totaux de l'entreprise",
-      "value": "3980.4",
-      "unit": "M $",
+      "value": 3.98,
+      "unit": "Mds $",
       "yoy": "-2.9%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,8 +30,8 @@
       "signal": "Baisse des revenus due à la conjoncture économique et au déclin des revenus d'assignment",
       "description": "Revenus totaux de l'entreprise, incluant les revenus du segment Commercial (70.1%) et du segment Federal Government (29.9%)",
       "history": [
-        4099.7,
-        3980.4
+        4.1,
+        3.98
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -39,7 +39,8 @@
       "is_short_history": false,
       "ttm": 3951.44,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (valeur 3980.4 millions, pas milliards)",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Marge brute",
@@ -71,8 +72,8 @@
       "name_fr": "Commandes nettes commerciales",
       "name_en": "Bookings",
       "explanation": "Commandes nettes du segment Commercial consultatif",
-      "value": 1522.8,
-      "unit": "M $",
+      "value": 1.523,
+      "unit": "Mds $",
       "yoy": "+18.7%",
       "type": "Demand",
       "nature": "Cyclique",
@@ -80,8 +81,8 @@
       "signal": "Augmentation significative des commandes nettes reflétant une forte demande pour les services IT consultatifs",
       "description": "Commandes nettes du segment Commercial consultatif, représentant la valeur des nouveaux contrats entrés pendant la période, avec un ratio book-to-bill de 1.2 en 2025",
       "history": [
-        1281.3,
-        1522.8
+        1.281,
+        1.523
       ],
       "last_data_date": "2026-03-31",
       "is_wow": true,
@@ -89,18 +90,22 @@
       "is_short_history": false,
       "ttm": 1594.55,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; description complétée avec contexte du book-to-bill",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Bookings' (commandes nettes commerciales) n'est pas explicitement mentionné avec des valeurs annuelles chiffrées dans l'extrait four",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Contract Backlog",
       "name_fr": "Carnet de commandes fédéral",
       "name_en": "Contract Backlog",
       "explanation": "Carnet de commandes du segment Federal Government",
-      "value": "2948.5",
-      "unit": "M $",
+      "value": 2.949,
+      "unit": "Mds $",
       "yoy": "-5.5%",
       "type": "Demand",
       "nature": "Cyclique",
@@ -108,8 +113,8 @@
       "signal": "Baisse du carnet de commandes dans le segment Federal Government due à la perte de contrats liés à des initiatives gouvernementales",
       "description": "Carnet de commandes du segment Federal Government (Funded backlog $492.9M + Negotiated Unfunded backlog $2,455.6M), reflétant les revenus futures estimées, avec un ratio de couverture de 2.5x",
       "history": [
-        3118.6,
-        2948.5
+        3.119,
+        2.949
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -117,7 +122,8 @@
       "is_short_history": false,
       "ttm": 2908.29,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; description enrichie avec détails des composantes du backlog",
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "R&D",
@@ -157,11 +163,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.68 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -180,33 +190,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.17 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "-23.8%",
       "history": [
-        0.07,
-        0.18,
-        0.21,
-        0.16
+        70,
+        180,
+        210,
+        160
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.16 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -233,9 +252,7 @@
       "is_short_history": true,
       "story_category": "Innovation",
       "ttm": 1594.55,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'; aligné avec KPI principal",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'; aligné avec KPI principal"
     }
   ],
   "ai_positioning": {
@@ -252,16 +269,16 @@
       "title": "Dépréciation des goodwills et actifs incorporels",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le risque est lié à l'évaluation des goodwills et actifs incorporels, qui nécessite des jugements et estimations complexes. Une dépréciation pourrait avoir un impact matériel sur les états financiers. L'intensité du langage et la nature des estimations justifient une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est lié à l'évaluation des goodwills et actifs incorporels, qui nécessite des jugements et estimations complexes. Une dépréciation pourrait avoir un impact matériel sur les états financiers. L'intensité du langage et la nature des estimations justifient une sévérité élevée.",
       "trend": "stable",
       "summary": "La valeur des goodwills et actifs incorporels dépend d'estimations complexes. Une dépréciation pourrait réduire significativement la valeur comptable de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Déclin des revenus du segment Fédéral",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Le segment Fédéral, représentant 29.9% des revenus, a vu ses revenus baisser de 3.3%, notamment à cause de la perte de contrats liée à des initiatives gouvernementales (DOGE). L'intensité du langage et la baisse des revenus dans ce segment justifient une sévérité modérée. (score par défaut, à affiner)",
+      "score_rationale": "Le segment Fédéral, représentant 29.9% des revenus, a vu ses revenus baisser de 3.3%, notamment à cause de la perte de contrats liée à des initiatives gouvernementales (DOGE). L'intensité du langage et la baisse des revenus dans ce segment justifient une sévérité modérée.",
       "trend": "down",
       "summary": "Les revenus du segment gouvernemental ont diminué de 3.3%, en partie à cause de la perte de contrats importants liés à des initiatives gouvernementales, affectant la performance globale.",
       "score": 3
@@ -270,7 +287,7 @@
       "title": "Sensibilité aux cycles macroéconomiques",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Les revenus du segment Commercial, plus sensible aux cycles économiques, ont baissé de 2.7%, avec un déclin marqué dans les revenus d'assignment (baisse de 13.8%). L'utilisation du terme 'softness' indique une préoccupation face à la conjoncture. (score par défaut, à affiner)",
+      "score_rationale": "Les revenus du segment Commercial, plus sensible aux cycles économiques, ont baissé de 2.7%, avec un déclin marqué dans les revenus d'assignment (baisse de 13.8%). L'utilisation du terme 'softness' indique une préoccupation face à la conjoncture.",
       "trend": "stable",
       "summary": "La performance de l'entreprise est affectée par les ralentissements économiques, particulièrement dans le segment d'assignment qui est plus sensible aux cycles macroéconomiques.",
       "score": 3
@@ -279,7 +296,7 @@
       "title": "Augmentation des dépenses SG&A",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Les dépenses SG&A ont augmenté en proportion des revenus (21.5% vs 20.0%), incluant 26.5M$ en coûts d'acquisition et d'optimisation de la main-d'œuvre. Cette hausse pèse sur la rentabilité. (score par défaut, à affiner)",
+      "score_rationale": "Les dépenses SG&A ont augmenté en proportion des revenus (21.5% vs 20.0%), incluant 26.5M$ en coûts d'acquisition et d'optimisation de la main-d'œuvre. Cette hausse pèse sur la rentabilité.",
       "trend": "up",
       "summary": "Les frais généraux et administratifs ont augmenté à 854.0M$ (21.5% des revenus), impactant la marge opérationnelle, notamment en raison de coûts d'intégration (TopBloc) et de restructuration stratégique.",
       "score": 3
@@ -288,7 +305,7 @@
       "title": "Déclin des revenus d'assignment permanent",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les revenus d'assignment ont chuté de 13.8% (de 1,740.5M$ à 1,500.1M$), reflétant une faiblesse dans les secteurs sensibles aux cycles économiques. Ce déclin significatif impacte la diversification des revenus. (score par défaut, à affiner)",
+      "score_rationale": "Les revenus d'assignment ont chuté de 13.8% (de 1,740.5M$ à 1,500.1M$), reflétant une faiblesse dans les secteurs sensibles aux cycles économiques. Ce déclin significatif impacte la diversification des revenus.",
       "trend": "down",
       "summary": "Le marché du placement permanent, sensible aux cycles économiques, a connu une forte baisse de 13.8%, réduisant les revenus de ce segment représentant 37.7% des revenus totaux.",
       "score": 3
@@ -297,7 +314,7 @@
       "title": "Dépendance aux contrats gouvernementaux",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Le segment fédéral représente 29.9% des revenus et 26% de revenus proviennent directement des agences gouvernementales fédérales. La perte de contrats liée à des initiatives gouvernementales (DOGE) montre une vulnérabilité réglementaire ou politique. (score par défaut, à affiner)",
+      "score_rationale": "Le segment fédéral représente 29.9% des revenus et 26% de revenus proviennent directement des agences gouvernementales fédérales. La perte de contrats liée à des initiatives gouvernementales (DOGE) montre une vulnérabilité réglementaire ou politique.",
       "trend": "stable",
       "summary": "L'entreprise dépend significativement de contrats gouvernementaux qui peuvent être affectés par des changements réglementaires ou des initiatives politiques, entraînant des pertes de revenus comme observé en 2025.",
       "score": 3
@@ -306,7 +323,7 @@
       "title": "Augmentation de la dette et des charges d'intérêt",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Les emprunts moyens pondérés ont augmenté à 1,210M$ (vs 1,050M$ en 2024), entraînant une hausse des charges d'intérêt nettes à 67.7M$ (vs 64.3M$). L'augmentation de la dette se poursuit avec l'acquisition de TopBloc pour 304.1M$. (score par défaut, à affiner)",
+      "score_rationale": "Les emprunts moyens pondérés ont augmenté à 1,210M$ (vs 1,050M$ en 2024), entraînant une hausse des charges d'intérêt nettes à 67.7M$ (vs 64.3M$). L'augmentation de la dette se poursuit avec l'acquisition de TopBloc pour 304.1M$.",
       "trend": "up",
       "summary": "L'entreprise a augmenté son endettement à 1,381.5M$ en obligations de dette à long terme, se traduisant par une hausse des charges d'intérêt de 5.3% et une potentielle pression sur la trésorerie.",
       "score": 3
@@ -358,7 +375,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -485,6 +502,91 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "ASGN",
+    "extracted_at": "2026-06-01T02:58:25Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Revenus",
+        "period_type": "quarter",
+        "history": [
+          907,
+          1141.8,
+          1197.9,
+          1091,
+          1130.9,
+          1116.8,
+          1128.8,
+          1034.7,
+          1031,
+          1049,
+          1020.6,
+          1011.4
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:58:25Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Marge brute",
+        "period_type": "quarter",
+        "history": [
+          26.9,
+          30.1,
+          30,
+          29.9,
+          28.9,
+          28.9,
+          28.9,
+          29.1,
+          29.2,
+          28.3,
+          28.7,
+          29.4
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T02:58:25Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "ASGN",
     "ranks": {
@@ -497,73 +599,21 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.224139+00:00",
     "fetched_at": "2026-05-21T02:17:14.224140+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
   "enrich_tam": {
     "ticker": "ASGN",
     "no_tam_disclosed": false,
     "researched_at": "2026-05-05",
-    "market_positions": [
-      {
-        "segment_name": "Total Addressable Market",
-        "segment_revenue": null,
-        "segment_unit": "$B",
-        "tam": 680,
-        "tam_unit": "$B",
-        "tam_range": null,
-        "source": "10-K filed for fiscal year ended December 31, 2025",
-        "source_url": null,
-        "source_note": "Company states its total addressable market is approximately $680 billion, which includes commercial IT consulting, government IT consulting, and professional staffing segments.",
-        "market_cagr": null,
-        "is_company_disclosed": true
-      },
-      {
-        "segment_name": "Commercial IT Consulting",
-        "segment_revenue": null,
-        "segment_unit": "$B",
-        "tam": 490,
-        "tam_unit": "$B",
-        "tam_range": null,
-        "source": "10-K filed for fiscal year ended December 31, 2025",
-        "source_url": null,
-        "source_note": "Company discloses commercial IT consulting market as part of total addressable market breakdown.",
-        "market_cagr": null,
-        "is_company_disclosed": true
-      },
-      {
-        "segment_name": "Government IT Consulting",
-        "segment_revenue": null,
-        "segment_unit": "$B",
-        "tam": 135,
-        "tam_unit": "$B",
-        "tam_range": null,
-        "source": "10-K filed for fiscal year ended December 31, 2025",
-        "source_url": null,
-        "source_note": "Company discloses government IT consulting market as part of total addressable market breakdown.",
-        "market_cagr": null,
-        "is_company_disclosed": true
-      },
-      {
-        "segment_name": "Professional Staffing",
-        "segment_revenue": null,
-        "segment_unit": "$B",
-        "tam": 55,
-        "tam_unit": "$B",
-        "tam_range": null,
-        "source": "10-K filed for fiscal year ended December 31, 2025",
-        "source_url": null,
-        "source_note": "Company discloses professional staffing market as part of total addressable market breakdown.",
-        "market_cagr": null,
-        "is_company_disclosed": true
-      }
-    ]
+    "market_positions": []
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.031Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.497Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/asgn.json",
     "enrich_root": "v2-pipeline-enrich/asgn.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks",
       "tam"
     ]

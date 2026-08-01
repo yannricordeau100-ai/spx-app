@@ -21,8 +21,8 @@
       "name_fr": "Valeur nette d'entreprise",
       "name_en": "Net Asset Value",
       "explanation": "Valeur totale des actifs nets du groupe, basée sur les évaluations de marché.",
-      "value": 4513,
-      "unit": "M €",
+      "value": 4.513,
+      "unit": "Mds €",
       "yoy": "+13.6%",
       "type": "Capital",
       "nature": "Structurel",
@@ -30,11 +30,11 @@
       "signal": "Création de valeur majeure via cessions et valorisation des actifs.",
       "description": "La NAV a atteint 4 513 M€ en 2023, en hausse de 13,6%, portée par la vente d'ISRG et la revalorisation de MC, Worten et Sierra.",
       "history": [
-        3974,
-        4079,
-        4240,
-        4411,
-        4513
+        3.974,
+        4.079,
+        4.24,
+        4.411,
+        4.513
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -51,16 +51,17 @@
       ],
       "_hero_history_source": "cat3-european annual-text (Haiku Pass 3)",
       "_hero_history_extracted_at": "2026-05-14T09:42:07.227462+00:00",
-      "explanation_en": "Net Asset Value — total assets minus liabilities, often per share.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "explanation_en": "Net Asset Value, total assets minus liabilities, often per share.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
     },
     {
       "short": "Turnover",
       "name_fr": "Chiffre d'affaires consolidé",
       "name_en": "Consolidated Turnover",
       "explanation": "Revenu total généré par l'ensemble des activités du groupe.",
-      "value": 8399,
-      "unit": "M €",
+      "value": 8.399,
+      "unit": "Mds €",
       "yoy": "+9.2%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -68,8 +69,8 @@
       "signal": "Croissance solide malgré l'inflation et la concurrence.",
       "description": "Le CA consolidé s'élève à 8 399 M€ en 2023, tiré par la croissance de MC dans la grande distribution portugaise.",
       "history": [
-        7693,
-        8399
+        7.693,
+        8.399
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
@@ -77,15 +78,16 @@
       "is_short_history": false,
       "period_type": "annual",
       "_validation": "Correction value de string '8399' à integer 8399; historique 7692 -> 7693 (source Key Data 2022); period_type quarter -> annual",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
     },
     {
       "short": "EBITDA",
       "name_fr": "EBITDA consolidé",
       "name_en": "Consolidated EBITDA",
       "explanation": "Résultat brut d'exploitation, indicateur de performance opérationnelle.",
-      "value": 1000,
-      "unit": "M €",
+      "value": 1,
+      "unit": "Mds €",
       "yoy": "+7.2%",
       "type": "Margin",
       "nature": "Structurel",
@@ -93,8 +95,8 @@
       "signal": "Amélioration de la rentabilité opérationnelle sous-jacente.",
       "description": "L'EBITDA atteint 1 000 M€ en 2023, en progression de 7,2%, avec une croissance de 12% à périmètre comparable.",
       "history": [
-        933,
-        1000
+        0.933,
+        1
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
@@ -103,7 +105,8 @@
       "period_type": "annual",
       "_validation": "Correction period_type quarter -> annual; valeur 1000 M€ confirmée (source: EBITDA €1.0bn record-high); calcul YoY +7.2% aligné avec source",
       "explanation_en": "Earnings Before Interest, Taxes, Depreciation and Amortization.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
     },
     {
       "short": "Net Result",
@@ -153,7 +156,7 @@
       "is_short_history": false,
       "period_type": "annual",
       "_validation": "Correction period_type quarter -> annual; valeurs confirmées en source (FCF stable en ligne avec results)",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash position stable"
     },
     {
@@ -179,7 +182,7 @@
       "is_short_history": false,
       "period_type": "annual",
       "_validation": "Correction period_type quarter -> annual; YoY -2.6% calculé (540->526); historique confirmé source Key Data",
-      "explanation_en": "Net Debt — total debt minus cash and cash equivalents.",
+      "explanation_en": "Net Debt, total debt minus cash and cash equivalents.",
       "signal_en": "Capital base contracting, monitor structure"
     },
     {
@@ -224,11 +227,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 11.36 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -524,9 +531,9 @@
     "country": "Portugal",
     "_data_freshness_date": "2026-05-21T02:17:14.312019+00:00",
     "fetched_at": "2026-05-21T02:17:14.312020+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.032Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.021Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/son.ls.json",
     "enrich_root": "v2-pipeline-enrich/son.ls.json",

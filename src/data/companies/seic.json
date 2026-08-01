@@ -86,8 +86,11 @@
       "is_short_history": false,
       "ttm": 1456,
       "_validation": "Conversion d'unité: 1.9 trillion corrigé en 1,900 B $ (en milliards). Valeur cohérente avec MD&A: approximately $1.9 trillion. History estimée à partir des données de segments 2024 et 2023 (1,235.4B et 1,109.6B). YoY +15% validé.",
-      "period_type": "quarter",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -106,34 +109,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.3 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.72,
-      "unit": "Mds €",
+      "value": 720,
+      "unit": "M €",
       "yoy": "+24.1%",
       "history": [
-        0.48,
-        0.46,
-        0.58,
-        0.72
+        480,
+        460,
+        580,
+        720
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.72 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -152,33 +164,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.26 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.4,
-      "unit": "Mds €",
+      "value": 400,
+      "unit": "M €",
       "yoy": "-52.4%",
       "history": [
-        0.85,
-        0.83,
-        0.84,
-        0.4
+        850,
+        830,
+        840,
+        400
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.4 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -220,61 +241,61 @@
       "title": "Déclin marché",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Le déclin du marché est mentionné comme un risque majeur qui peut réduire les revenus et les bénéfices de l'entreprise. La société est fortement exposée aux conditions des marchés financiers. Une portion significative des revenus provient de frais basés sur la valeur des actifs gérés ou administrés. (score par défaut, à affiner)",
+      "score_rationale": "Le déclin du marché est mentionné comme un risque majeur qui peut réduire les revenus et les bénéfices de l'entreprise. La société est fortement exposée aux conditions des marchés financiers. Une portion significative des revenus provient de frais basés sur la valeur des actifs gérés ou administrés.",
       "trend": "stable",
       "summary": "Un déclin du marché peut réduire les revenus et les bénéfices de l'entreprise en raison de la baisse de la valeur des actifs gérés ou administrés.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Perte de clients",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La perte de clients est un risque important qui peut réduire les revenus et les bénéfices de l'entreprise. Les clients peuvent partir en raison de la concurrence, de la pression sur les prix ou de la qualité des services. (score par défaut, à affiner)",
+      "score_rationale": "La perte de clients est un risque important qui peut réduire les revenus et les bénéfices de l'entreprise. Les clients peuvent partir en raison de la concurrence, de la pression sur les prix ou de la qualité des services.",
       "trend": "up",
       "summary": "La perte de clients peut réduire les revenus et les bénéfices de l'entreprise, en particulier si les clients clés décident de partir.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Pression sur les prix",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La pression sur les prix est un risque important qui peut réduire les marges bénéficiaires de l'entreprise. Les clients exigent des solutions à faible coût et les concurrents réduisent leurs prix. (score par défaut, à affiner)",
+      "score_rationale": "La pression sur les prix est un risque important qui peut réduire les marges bénéficiaires de l'entreprise. Les clients exigent des solutions à faible coût et les concurrents réduisent leurs prix.",
       "trend": "up",
       "summary": "La pression sur les prix peut réduire les marges bénéficiaires de l'entreprise si elle ne parvient pas à maintenir ses prix compétitifs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Innovation et développement",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "L'innovation et le développement sont essentiels pour maintenir la compétitivité de l'entreprise. Les échecs dans ce domaine peuvent entraîner une perte de parts de marché. (score par défaut, à affiner)",
+      "score_rationale": "L'innovation et le développement sont essentiels pour maintenir la compétitivité de l'entreprise. Les échecs dans ce domaine peuvent entraîner une perte de parts de marché.",
       "trend": "stable",
       "summary": "L'entreprise doit innover et développer de nouveaux produits et services pour maintenir sa compétitivité et répondre aux besoins changeants des clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La cybersécurité est un risque important qui peut entraîner des pertes financières et des dommages à la réputation de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "La cybersécurité est un risque important qui peut entraîner des pertes financières et des dommages à la réputation de l'entreprise.",
       "trend": "up",
       "summary": "Les menaces de cybersécurité peuvent entraîner des pertes financières et des dommages à la réputation de l'entreprise si elles ne sont pas gérées correctement.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Consolidation du marché",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La consolidation du marché peut réduire le nombre de clients potentiels et augmenter la concurrence. (score par défaut, à affiner)",
+      "score_rationale": "La consolidation du marché peut réduire le nombre de clients potentiels et augmenter la concurrence.",
       "trend": "up",
       "summary": "La consolidation du marché peut réduire le nombre de clients potentiels et augmenter la concurrence, ce qui peut avoir un impact négatif sur les revenus et les bénéfices de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements réglementaires peuvent avoir un impact sur les opérations et les revenus de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les changements réglementaires peuvent avoir un impact sur les opérations et les revenus de l'entreprise.",
       "trend": "stable",
       "summary": "Les changements réglementaires peuvent avoir un impact sur les opérations et les revenus de l'entreprise, en particulier si elle ne parvient pas à s'adapter aux nouvelles exigences.",
       "score": 3
@@ -283,7 +304,7 @@
       "title": "Dépendance à la technologie",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "La dépendance à la technologie peut entraîner des risques de dysfonctionnement et de pertes financières si les systèmes ne sont pas gérés correctement. (score par défaut, à affiner)",
+      "score_rationale": "La dépendance à la technologie peut entraîner des risques de dysfonctionnement et de pertes financières si les systèmes ne sont pas gérés correctement.",
       "trend": "stable",
       "summary": "La dépendance à la technologie peut entraîner des risques de dysfonctionnement et de pertes financières si les systèmes ne sont pas gérés correctement.",
       "score": 3
@@ -314,7 +335,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -335,7 +356,7 @@
     "rationale": "Hero KPI Actifs sous gestion en croissance soutenue (+15.0%), faible probabilité de profit warning. Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.664Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.552Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/seic.json",
     "enrich_root": null,

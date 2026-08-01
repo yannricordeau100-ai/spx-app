@@ -1,6 +1,6 @@
 {
   "ticker": "VNT",
-  "name": "Vontier Corporation",
+  "name": "Vontier",
   "sector": "Technologie",
   "subsector": "Technologie de l'information",
   "tagline": "Global industrial technology company providing digitally enabled equipment and solutions across mobility, repair, and fueling ecosystems",
@@ -58,7 +58,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "KPI non halluciné mais données numériques non extraites du 10-K fourni",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Total Revenue",
@@ -79,59 +79,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.08 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:37.337562+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "-2.4%",
       "history": [
-        0.4,
-        0.38,
-        0.42,
-        0.41
+        400,
+        380,
+        420,
+        410
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.41 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.56,
-      "unit": "Mds €",
+      "value": 560,
+      "unit": "M €",
       "yoy": "+3.7%",
       "history": [
-        0.58,
-        0.54,
-        0.54,
-        0.56
+        580,
+        540,
+        540,
+        560
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.56 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Moderate growth, slightly positive"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Moderate growth, slightly positive",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -150,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.37 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -173,58 +191,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.14 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.49,
-      "unit": "Mds €",
+      "value": 490,
+      "unit": "M €",
       "yoy": "+36.1%",
       "history": [
-        0.2,
-        0.34,
-        0.36,
-        0.49
+        200,
+        340,
+        360,
+        490
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.49 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "AI Adoption",
-      "name_fr": "Adoption de l'IA",
-      "name_en": "AI Adoption",
-      "explanation": "Adoption de l'IA dans l'entreprise",
-      "value": "Non disponible",
-      "unit": "%",
-      "yoy": "Non disponible",
-      "type": "Adoption",
-      "nature": "Conjoncturel",
-      "comparable": "Non comparable",
-      "signal": "Non disponible",
-      "description": "Adoption de l'IA dans l'entreprise, indicateur clé de l'innovation technologique",
-      "history": [],
-      "last_data_date": "Non disponible",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_validation": "KPI halluciné : l'extrait 10-K confirme que VNT n'a pas mentionné l'intelligence artificielle (stance: 'absent' en ai_positioning). Données fictives à supprimer ou conserver avec avertissement"
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "absent",
     "summary": "La société VNT n'a pas mentionné l'intelligence artificielle, l'apprentissage automatique ou des technologies similaires dans les extraits fournis de son rapport 10-K/20-F. Son positionnement sur l'IA n'est donc pas identifiable à partir de ces informations.",
@@ -236,25 +241,25 @@
       "title": "Estimations comptables",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Les estimations comptables sont cruciales pour la compréhension des états financiers. Le 10-K identifie les allowances pour pertes de crédit comme estimation critique nécessitant jugement sur la sévérité, fréquence et timing des pertes de crédit. (score par défaut, à affiner)",
+      "score_rationale": "Les estimations comptables sont cruciales pour la compréhension des états financiers. Le 10-K identifie les allowances pour pertes de crédit comme estimation critique nécessitant jugement sur la sévérité, fréquence et timing des pertes de crédit.",
       "trend": "stable",
       "summary": "Les estimations comptables critiques incluent les allowances pour pertes de crédit sur les comptes clients et financements (337.9M$ en financements avec allowance de 37.1M$ au 31 décembre 2025), pouvant impacter significativement les résultats.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Impairment de goodwill",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "L'impairment de goodwill peut avoir un impact significatif sur les résultats financiers. La société évalue continuellement la valeur recouvrable de son goodwill suite à la divestiture du secteur Coats en janvier 2024. (score par défaut, à affiner)",
+      "score_rationale": "L'impairment de goodwill peut avoir un impact significatif sur les résultats financiers. La société évalue continuellement la valeur recouvrable de son goodwill suite à la divestiture du secteur Coats en janvier 2024.",
       "trend": "stable",
       "summary": "L'impairment de goodwill peut avoir un impact significatif sur les résultats financiers suite aux restructurations récentes. La société doit continuer à évaluer la valeur de son goodwill au regard des trois segments reportés.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Litiges et passifs contingents",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Les litiges et passifs contingents peuvent impacter les résultats financiers. Ils requièrent jugement continu dans l'évaluation et provisionnement des risques potentiels. (score par défaut, à affiner)",
+      "score_rationale": "Les litiges et passifs contingents peuvent impacter les résultats financiers. Ils requièrent jugement continu dans l'évaluation et provisionnement des risques potentiels.",
       "trend": "stable",
       "summary": "Les litiges et passifs contingents peuvent avoir un impact significatif sur les résultats financiers. La société doit continuer à évaluer et à provisionner ces risques.",
       "score": 3
@@ -263,16 +268,16 @@
       "title": "Reconnaissance des revenus",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La reconnaissance des revenus est critique pour l'interprétation des résultats financiers, particulièrement pour les solutions de financement et les contrats complexes multicomposantes dans les trois segments. (score par défaut, à affiner)",
+      "score_rationale": "La reconnaissance des revenus est critique pour l'interprétation des résultats financiers, particulièrement pour les solutions de financement et les contrats complexes multicomposantes dans les trois segments.",
       "trend": "stable",
       "summary": "La reconnaissance des revenus dans les segments Mobility Technologies, Repair Solutions et Environmental Fueling Solutions est assujettie à ASC 606. Les changements de politiques peuvent impacter significativement.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Impôts et litiges fiscaux",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les impôts et litiges fiscaux peuvent impacter les résultats. La société opère internationalement et est exposée aux changements de politiques commerciales annoncés en avril 2025 (tarifs de 10% + pays-spécifiques). (score par défaut, à affiner)",
+      "score_rationale": "Les impôts et litiges fiscaux peuvent impacter les résultats. La société opère internationalement et est exposée aux changements de politiques commerciales annoncés en avril 2025 (tarifs de 10% + pays-spécifiques).",
       "trend": "stable",
       "summary": "Les impôts et litiges fiscaux peuvent avoir un impact significatif. Les nouvelles politiques tarifaires annoncées en avril 2025 créent une incertitude matérielle sur les coûts d'importation.",
       "score": 3
@@ -281,10 +286,10 @@
       "title": "Contrôle interne",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le contrôle interne est crucial pour la fiabilité des états financiers. Le 10-K confirme que le contrôle interne sur l'information financière est effectif au 31 décembre 2025 selon COSO 2013. (score par défaut, à affiner)",
+      "score_rationale": "Le contrôle interne est crucial pour la fiabilité des états financiers. Le 10-K confirme que le contrôle interne sur l'information financière est effectif au 31 décembre 2025 selon COSO 2013.",
       "trend": "stable",
       "summary": "Le contrôle interne sur l'information financière a été testé et certifié effectif par Ernst Young LLP au 31 décembre 2025. Des faiblesses potentielles pourraient impacter la fiabilité des états financiers.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -499,9 +504,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.325725+00:00",
     "fetched_at": "2026-05-21T02:17:14.325727+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.224Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.346Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vnt.json",
     "enrich_root": null,

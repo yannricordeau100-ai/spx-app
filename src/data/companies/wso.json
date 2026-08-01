@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Total revenue from HVAC/R distribution operations",
-      "value": 7239.29,
-      "unit": "M $",
+      "value": 7.239,
+      "unit": "Mds $",
       "yoy": "-5.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,16 @@
       "signal": "Aucune information trouvée",
       "description": "Revenu total de la distribution HVAC/R. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 10 dernières années.",
       "history": [
-        4220.702,
-        4341.955,
-        4546.653,
-        4770.362,
-        5054.928,
-        6280.192,
-        7274.344,
-        7283.767,
-        7618.317,
-        7239.29
+        4.221,
+        4.342,
+        4.547,
+        4.77,
+        5.055,
+        6.28,
+        7.274,
+        7.284,
+        7.618,
+        7.239
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -49,8 +49,9 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:47.448984+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -70,7 +71,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Employees",
@@ -90,7 +91,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -109,34 +110,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 7.24 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "-7.4%",
       "history": [
-        0.6,
-        0.54,
-        0.54,
-        0.5
+        600,
+        540,
+        540,
+        500
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.5 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Pressure, deteriorating trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Pressure, deteriorating trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,56 +165,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.41 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.48,
-      "unit": "Mds €",
+      "value": 480,
+      "unit": "M €",
       "yoy": "+6.7%",
       "history": [
-        0.39,
-        0.4,
-        0.45,
-        0.48
+        390,
+        400,
+        450,
+        480
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.48 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "-18.9%",
       "history": [
-        0.15,
-        0.21,
-        0.53,
-        0.43
+        150,
+        210,
+        530,
+        430
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.43 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -218,7 +242,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         7.625,
         8.55,
@@ -231,7 +255,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -246,7 +270,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.4196,
@@ -259,7 +283,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -274,7 +298,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         60.47,
@@ -287,7 +311,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -303,7 +327,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         14.17266,
@@ -316,7 +340,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -355,64 +379,64 @@
       "title": "Supplier Concentration and Supply Chain Risks",
       "category": "Industrial",
       "severity": 4,
-      "score_rationale": "La société dépend fortement de ses 10 principaux fournisseurs (85% des achats), dont Carrier (62%) et Rheem (8%), ce qui crée une vulnérabilité majeure en cas d'interruption (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de ses 10 principaux fournisseurs (85% des achats), dont Carrier (62%) et Rheem (8%), ce qui crée une vulnérabilité majeure en cas d'interruption",
       "trend": "stable",
       "summary": "La société est vulnérable à une interruption de la chaîne d'approvisionnement ou à une rupture de relation avec ses fournisseurs clés. Toute perturbation chez Carrier ou Rheem pourrait temporairement bloquer les opérations de certaines filiales.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cybersecurity Risks",
       "category": "Cybersecurity",
       "severity": 5,
-      "score_rationale": "La société est exposée à des menaces de cybersécurité qui pourraient compromettre ses systèmes d'information critiques et nuire à sa réputation (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des menaces de cybersécurité qui pourraient compromettre ses systèmes d'information critiques et nuire à sa réputation",
       "trend": "up",
       "summary": "La société doit protéger ses systèmes d'information contre les attaques de hackers et les logiciels malveillants pour prévenir les pertes de données et les dommages à sa réputation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Increased Competition",
       "category": "Competition",
       "severity": 4,
-      "score_rationale": "La société opère dans un environnement concurrentiel fragmenté avec plus de 2 100 distributeurs, où les pressions sur les prix et la qualité sont fortes (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un environnement concurrentiel fragmenté avec plus de 2 100 distributeurs, où les pressions sur les prix et la qualité sont fortes",
       "trend": "stable",
       "summary": "La société doit maintenir sa compétitivité pour conserver sa part de marché et ses marges bénéficiaires dans un secteur hautement fragmenté.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Economic Downturn Risk",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "La société est exposée aux risques liés à la dégradation des conditions économiques qui pourraient réduire la demande pour les produits HVAC/R (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques liés à la dégradation des conditions économiques qui pourraient réduire la demande pour les produits HVAC/R",
       "trend": "up",
       "summary": "La société doit être prête à faire face à une éventuelle récession économique ou à une augmentation du chômage qui pourrait affecter sa croissance et ses bénéfices.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Natural Disaster and Geopolitical Risks",
       "category": "Geopolitical",
       "severity": 4,
-      "score_rationale": "La société est exposée aux risques liés aux catastrophes naturelles et aux tensions commerciales qui pourraient perturber ses opérations ou augmenter les coûts (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques liés aux catastrophes naturelles et aux tensions commerciales qui pourraient perturber ses opérations ou augmenter les coûts",
       "trend": "stable",
       "summary": "La société doit être préparée à faire face à des événements tels que des ouragans, des incendies ou des perturbations commerciales. L'augmentation potentielle des droits de douane affecterait les coûts d'approvisionnement au Mexique.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Information Systems Dependency Risk",
       "category": "Technology",
       "severity": 4,
-      "score_rationale": "La société dépend fortement de ses systèmes d'information pour gérer ses opérations, ses 695 sites et ses relations avec 130 000 entrepreneurs (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de ses systèmes d'information pour gérer ses opérations, ses 695 sites et ses relations avec 130 000 entrepreneurs",
       "trend": "stable",
       "summary": "La société doit protéger ses systèmes d'information contre les perturbations et les failles de sécurité pour prévenir les pertes de données et les dommages opérationnels.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Regulatory Compliance Risk",
       "category": "Regulation",
       "severity": 4,
-      "score_rationale": "La société doit se conformer aux réglementations environnementales et d'efficacité énergétique qui évoluent, notamment pour les nouveaux réfrigérants à faible PRP (score par défaut, à affiner)",
+      "score_rationale": "La société doit se conformer aux réglementations environnementales et d'efficacité énergétique qui évoluent, notamment pour les nouveaux réfrigérants à faible PRP",
       "trend": "stable",
       "summary": "La société doit se conformer aux lois et réglementations en vigueur pour éviter les amendes et les pénalités. Les normes environnementales impactent les produits manufacturés par ses fournisseurs.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -451,7 +475,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -505,7 +529,7 @@
   ],
   "_ai_positioning_fetched_at": "2026-05-06T20:20:07.121431+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:05Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -533,7 +557,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:07Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:22Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "WSO",
     "simple": {
@@ -641,9 +665,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.330119+00:00",
     "fetched_at": "2026-05-21T02:17:14.330119+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.615Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.754Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wso.json",
     "enrich_root": "v2-pipeline-enrich/wso.json",

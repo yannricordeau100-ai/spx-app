@@ -1,6 +1,6 @@
 {
   "ticker": "VSTS",
-  "name": "Vestis Corporation",
+  "name": "Vestis",
   "sector": "Technologie",
   "subsector": "Uniform Rental and Workplace Supplies",
   "tagline": "A leading provider of uniform rentals and workplace supplies across the United States and Canada",
@@ -21,8 +21,8 @@
       "name_fr": "Revenu récurrent de location",
       "name_en": "Recurring Rental Revenue",
       "explanation": "Partie du chiffre d'affaires provenant des contrats de location hebdomadaires et à long terme.",
-      "value": 2565,
-      "unit": "M $",
+      "value": 2.565,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Recurring",
       "nature": "Structurel",
@@ -30,16 +30,20 @@
       "signal": "95 % du CA provient de contrats récurrents : très forte visibilité.",
       "description": "Le revenu récurrent inclut les uniformes, les tapis, les serviettes, les linges et les fournitures de salle de bains livrés régulièrement.",
       "history": [
-        2565
+        2.565
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Recurring Rental Revenue' n'est pas explicitement chiffré dans l'extrait fourni du 10-K de Vestis Corporation. Seul le revenu total ",
-      "explanation_en": "Revenue from the Recurring Rental segment."
+      "explanation_en": "Revenue from the Recurring Rental segment.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Direct Sales Revenue",
@@ -68,8 +72,8 @@
       "name_fr": "Chiffre d'affaires total",
       "name_en": "Total Revenue",
       "explanation": "Total des revenus générés par les services de location et les ventes directes.",
-      "value": "2700",
-      "unit": "M $",
+      "value": 2.7,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Revenue",
       "nature": "Structurel",
@@ -77,13 +81,14 @@
       "signal": "CA de 2,7 Mds $ en 2025, consolidé après scission d'Aramark.",
       "description": "Chiffre d'affaires total pour l'exercice 2025, tiré principalement par les services récurrents.",
       "history": [
-        2700
+        2.7
       ],
       "last_data_date": "2025-10-03",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Margin",
@@ -105,7 +110,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Margin — operating profit divided by revenue."
+      "explanation_en": "Operating Margin, operating profit divided by revenue."
     },
     {
       "short": "Net Loss",
@@ -169,7 +174,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -188,11 +193,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.91 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -206,7 +215,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -219,7 +228,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -234,7 +243,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1345,
@@ -247,7 +256,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -262,7 +271,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -275,7 +284,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -290,7 +299,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.081642,
@@ -303,7 +312,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -319,64 +328,64 @@
       "title": "Conditions économiques défavorables",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Le risque est placé en premier dans le 10-K, avec un langage fort (materially adversely affect) et des références multiples à des impacts passés et présents. L'intensité du langage et la récurrence des facteurs macroéconomiques (inflation, guerres, pandémies) renforcent son importance. La catégorie Macro est hautement pondérée en contexte actuel. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est placé en premier dans le 10-K, avec un langage fort (materially adversely affect) et des références multiples à des impacts passés et présents. L'intensité du langage et la récurrence des facteurs macroéconomiques (inflation, guerres, pandémies) renforcent son importance. La catégorie Macro est hautement pondérée en contexte actuel.",
       "trend": "stable",
       "summary": "Les ralentissements économiques, l'inflation et les crises sanitaires ou géopolitiques peuvent réduire la demande client et augmenter nos coûts, menaçant notre rentabilité.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence accrue dans le secteur",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le risque est décrit comme affectant les prix, les marges et la part de marché, avec mention de concurrents nationaux puissants. Le langage est répété et insiste sur la pression tarifaire et la nécessité d'investir. Présent de manière stable par rapport à l'année précédente. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est décrit comme affectant les prix, les marges et la part de marché, avec mention de concurrents nationaux puissants. Le langage est répété et insiste sur la pression tarifaire et la nécessité d'investir. Présent de manière stable par rapport à l'année précédente.",
       "trend": "stable",
       "summary": "La forte concurrence, notamment sur les prix, peut nous forcer à réduire nos tarifs ou perdre des clients, ce qui pèse sur nos revenus et notre croissance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Perturbation des chaînes d'approvisionnement",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Le risque est mentionné à plusieurs reprises avec un langage alarmant (disruptions, delivery delays, lower fill rates). Il est lié à des facteurs géopolitiques (Ukraine, Moyen-Orient) et climatiques. Son intensité est renforcée par des impacts opérationnels directs et récurrents depuis le COVID-19. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné à plusieurs reprises avec un langage alarmant (disruptions, delivery delays, lower fill rates). Il est lié à des facteurs géopolitiques (Ukraine, Moyen-Orient) et climatiques. Son intensité est renforcée par des impacts opérationnels directs et récurrents depuis le COVID-19.",
       "trend": "up",
       "summary": "Les tensions géopolitiques, les pénuries et les problèmes logistiques peuvent retarder nos livraisons et augmenter nos coûts, affectant notre service client et nos marges.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Augmentation des coûts énergétiques",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Le risque est spécifiquement lié aux conflits en Ukraine et au Moyen-Orient, avec un impact direct sur les marges opérationnelles. Le langage est précis et actuel, indiquant une préoccupation réelle. La catégorie Macro est critique, mais l'impact est partiellement maîtrisable via des ajustements tarifaires. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est spécifiquement lié aux conflits en Ukraine et au Moyen-Orient, avec un impact direct sur les marges opérationnelles. Le langage est précis et actuel, indiquant une préoccupation réelle. La catégorie Macro est critique, mais l'impact est partiellement maîtrisable via des ajustements tarifaires.",
       "trend": "up",
       "summary": "La volatilité des prix du carburant et de l'énergie, exacerbée par les conflits internationaux, augmente nos coûts d'exploitation et réduit nos marges.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs internationaux",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le texte souligne la dépendance à des fournisseurs uniques et étrangers, avec des risques de rupture d'approvisionnement. Le langage insiste sur le manque de contrôle et les risques de réputation. Ce risque est renforcé par les tensions commerciales et géopolitiques actuelles. (score par défaut, à affiner)",
+      "score_rationale": "Le texte souligne la dépendance à des fournisseurs uniques et étrangers, avec des risques de rupture d'approvisionnement. Le langage insiste sur le manque de contrôle et les risques de réputation. Ce risque est renforcé par les tensions commerciales et géopolitiques actuelles.",
       "trend": "stable",
       "summary": "Notre dépendance à des fournisseurs étrangers expose notre activité à des ruptures d'approvisionnement, des surcoûts ou des atteintes à notre réputation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Insuffisance du plan de restructuration",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le plan de restructuration est récent (Q1 2026) et présenté comme critique pour la performance future. Le langage indique un risque de perturbation, de surcoût ou d'inefficacité. Son caractère nouveau et stratégique justifie une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le plan de restructuration est récent (Q1 2026) et présenté comme critique pour la performance future. Le langage indique un risque de perturbation, de surcoût ou d'inefficacité. Son caractère nouveau et stratégique justifie une sévérité élevée.",
       "trend": "new",
       "summary": "Le plan de restructuration pourrait ne pas atteindre ses objectifs d'économies, perturber l'activité ou nuire au moral des équipes, compromettant notre performance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Politique commerciale et tarifaire",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le risque est lié à des mesures récentes de tarifs douaniers et à des représailles internationales. Le langage est préoccupé, avec mention d'impacts directs sur les coûts et la compétitivité. La catégorie Régulation est moyennement pondérée, mais le contexte géopolitique actuel l'élève. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est lié à des mesures récentes de tarifs douaniers et à des représailles internationales. Le langage est préoccupé, avec mention d'impacts directs sur les coûts et la compétitivité. La catégorie Régulation est moyennement pondérée, mais le contexte géopolitique actuel l'élève.",
       "trend": "up",
       "summary": "Les nouveaux tarifs douaniers et les mesures de rétorsion peuvent augmenter nos coûts d'importation et réduire la demande à l'export, affectant nos marges et notre compétitivité.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -430,7 +439,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -487,7 +496,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:22:48Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2024,
@@ -501,7 +510,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:25Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:15Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "VSTS",
     "fetched_at": "2026-05-14T18:27:48.059182+00:00",
@@ -558,11 +567,9 @@
           48.857,
           30.659,
           29.098,
-          -77.604,
           18.564,
           28.806,
           23.743,
-          -41.365,
           41.547,
           50.34
         ],
@@ -607,6 +614,12 @@
             "accession": "0001628280-26-033871",
             "end": "2026-04-03"
           }
+        ],
+        "type": "Cash",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (VSTS)"
         ]
       }
     ]
@@ -623,9 +636,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.326675+00:00",
     "fetched_at": "2026-05-21T02:17:14.326676+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.319Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.447Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vsts.json",
     "enrich_root": "v2-pipeline-enrich/vsts.json",

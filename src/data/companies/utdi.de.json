@@ -64,7 +64,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -114,7 +114,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -139,7 +139,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -164,7 +164,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures."
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures."
     },
     {
       "short": "Consumer Contracts",
@@ -207,11 +207,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 11.98 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -238,27 +242,6 @@
       "is_short_history": false,
       "period_type": "annual",
       "story_category": "Capacité"
-    },
-    {
-      "short": "AI Cloud Services",
-      "name_fr": "Services cloud avec IA intégrée",
-      "name_en": "AI-Enabled Cloud Services",
-      "explanation": "Intégration croissante de l'IA dans les services cloud et de messagerie pour améliorer les offres auprès des clients Consumer et Business.",
-      "value": "Intégré",
-      "unit": "Qualitatif",
-      "yoy": "n/a",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "GMX et WEB.DE renforcent leur position avec des services cloud innovants et usage accru de l'IA.",
-      "description": "GMX et WEB.DE intègrent l'IA pour offrir des services cloud innovants et améliorer l'expérience utilisateur. Positionnement centré sur la sécurité et la souveraineté des données en Europe plutôt que sur l'innovation IA pure. Approche d'intégrateur IA axée sur l'amélioration des services existants (messagerie, stockage cloud, outils de productivité).",
-      "history": [],
-      "last_data_date": "2024-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "period_type": "annual",
-      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -335,7 +318,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné avec un langage fort («pioneering», «setbacks», «widespread disruption»). La tendance est stable mais critique, car OpenRAN est au cœur de la stratégie de 1&1. Cette catégorie est stratégique pour l'entreprise.",
       "trend": "stable",
-      "summary": "United Internet dépend fortement du déploiement réussi de son réseau mobile 1&1 basé sur la technologie OpenRAN, une solution pionnière en Europe. Un incident majeur de réseau en mai 2024 a révélé des sous-dimensionnements critiques, entraînant une hausse du churn client et des coûts imprévus."
+      "summary": "United Internet dépend fortement du déploiement réussi de son réseau mobile 1&1 basé sur la technologie OpenRAN, une solution pionnière en Europe. Un incident majeur de réseau en mai 2024 a révélé des sous-dimensionnements critiques, entraînant une hausse du churn client et des coûts imprévus.",
+      "score": 5
     },
     {
       "title": "Cybersécurité des services cloud souverains",
@@ -343,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Le risque est fréquemment évoqué via la demande croissante de souveraineté numérique. Le langage est affirmatif («secure and independent», «100% compliant»), la tendance est à la hausse. La catégorie est stratégique pour IONOS.",
       "trend": "up",
-      "summary": "IONOS, filiale de United Internet, cible les administrations publiques allemandes avec des services cloud souverains conformes au RGPD. Cela accroît la pression sur la sécurité des données, car toute faille compromettrait sa position face aux hyperscalers américains."
+      "summary": "IONOS, filiale de United Internet, cible les administrations publiques allemandes avec des services cloud souverains conformes au RGPD. Cela accroît la pression sur la sécurité des données, car toute faille compromettrait sa position face aux hyperscalers américains.",
+      "score": 4
     },
     {
       "title": "Migration massive de clients mobiles",
@@ -351,7 +336,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement détaillé dans l'item 1A, avec un langage d'urgence («largest migration», «highly complex»). La tendance est stable, mais le poids opérationnel est maximal.",
       "trend": "stable",
-      "summary": "La migration de 12 millions de clients de 1&1 du réseau Telefónica vers le réseau propre OpenRAN est le plus grand projet de ce type en Allemagne. Des interruptions ou erreurs pourraient nuire à la réputation et augmenter la perte de clients."
+      "summary": "La migration de 12 millions de clients de 1&1 du réseau Telefónica vers le réseau propre OpenRAN est le plus grand projet de ce type en Allemagne. Des interruptions ou erreurs pourraient nuire à la réputation et augmenter la perte de clients.",
+      "score": 5
     },
     {
       "title": "Concurrence avec les hyperscalers américains",
@@ -359,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété plusieurs fois avec un langage contrastif fort («counterweight to US hyperscalers»). La tendance est à la hausse, car la concurrence s'intensifie. Catégorie clé pour IONOS.",
       "trend": "up",
-      "summary": "IONOS fait face à une concurrence féroce de géants américains comme Amazon, Google et Microsoft. Sa stratégie repose sur la souveraineté des données européennes, mais ces acteurs dominent encore le marché cloud mondial."
+      "summary": "IONOS fait face à une concurrence féroce de géants américains comme Amazon, Google et Microsoft. Sa stratégie repose sur la souveraineté des données européennes, mais ces acteurs dominent encore le marché cloud mondial.",
+      "score": 4
     },
     {
       "title": "Retard dans l'acquisition de spectre mobile",
@@ -367,7 +354,8 @@
       "severity": 4,
       "score_rationale": "Le risque est nouveau et lié à une décision réglementaire (Agence fédérale allemande). Le langage est préoccupé («postponed for several years»). Tendance : new. Impact stratégique élevé.",
       "trend": "new",
-      "summary": "En raison d'une décision de l'Agence fédérale des réseaux allemande, l'acquisition de spectre mobile par 1&1 a été repoussée de plusieurs années, retardant potentiellement l'autonomie complète du réseau et les économies liées."
+      "summary": "En raison d'une décision de l'Agence fédérale des réseaux allemande, l'acquisition de spectre mobile par 1&1 a été repoussée de plusieurs années, retardant potentiellement l'autonomie complète du réseau et les économies liées.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenariats de roaming national",
@@ -375,7 +363,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné indirectement via le changement de fournisseur de roaming (Vodafone remplace Telefónica). Le langage est neutre mais implique un impact financier (€ -20M). Tendance : stable.",
       "trend": "stable",
-      "summary": "1&1 dépend temporairement de partenariats de roaming national, comme celui conclu avec Vodafone en août 2024. Un changement ou une rupture de ce partenariat pourrait affecter la couverture réseau et les coûts opérationnels."
+      "summary": "1&1 dépend temporairement de partenariats de roaming national, comme celui conclu avec Vodafone en août 2024. Un changement ou une rupture de ce partenariat pourrait affecter la couverture réseau et les coûts opérationnels.",
+      "score": 3
     },
     {
       "title": "Souveraineté numérique et pression réglementaire",
@@ -383,7 +372,8 @@
       "severity": 4,
       "score_rationale": "Le risque est central dans la stratégie («digital independence»), avec un langage fort et répété. Tendance à la hausse. Catégorie stratégique pour l'UE et l'Allemagne.",
       "trend": "up",
-      "summary": "United Internet positionne ses services comme essentiels à la souveraineté numérique européenne. Cela expose l'entreprise à des exigences réglementaires croissantes en matière de sécurité, de localisation des données et de conformité aux lois allemandes et européennes."
+      "summary": "United Internet positionne ses services comme essentiels à la souveraineté numérique européenne. Cela expose l'entreprise à des exigences réglementaires croissantes en matière de sécurité, de localisation des données et de conformité aux lois allemandes et européennes.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:09:09.484956+00:00",
@@ -519,9 +509,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.323905+00:00",
     "fetched_at": "2026-05-21T02:17:14.323906+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.035Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.134Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/utdi.de.json",
     "enrich_root": "v2-pipeline-enrich/utdi.de.json",

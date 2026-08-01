@@ -1,6 +1,6 @@
 {
   "ticker": "NEOG",
-  "name": "Neogen Corporation",
+  "name": "Neogen",
   "sector": "Technologie",
   "subsector": "Food Safety and Animal Safety",
   "tagline": "Neogen Corporation develops, manufactures and markets a diverse line of products and services dedicated to food and animal safety.",
@@ -43,7 +43,7 @@
       "ttm": 46.35,
       "_validation": "Valeur et YoY vérifiés contre source (50.2% FY2024 vs 47.1% FY2025 = -3.1pp). Unité correcte.",
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -72,8 +72,12 @@
       "is_short_history": false,
       "ttm": 832.05,
       "_validation": "Unité corrigée de 'Mds $' à 'M$' (valeur 894.7M confirmée en source). YoY calculé: (894.661-924.222)/924.222 = -3.2%.",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Expenses",
@@ -102,7 +106,11 @@
       "ttm": 471.28,
       "_validation": "Unité corrigée de 'Mds $' à 'M$'. Valeur 1482.4M vérifiée en source (183.8+218.2+1059.3+21.1=1482.4M). YoY: (1482.373-405.237)/405.237 = +165.8%, arrondi 164.5% acceptable. Comparable marqué 'Non comparable' car charge exceptionnelle.",
       "explanation_en": "Expenses related to Operating.",
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -131,7 +139,11 @@
       "ttm": 27.14,
       "_validation": "Unité corrigée de 'Mds $' à 'M$'. Valeur 21.1M et YoY -6.2% vérifiés en source (21.087M FY2025 vs 22.476M FY2024 = -6.2%).",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Pressure, deteriorating trend"
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Service Revenue",
@@ -160,7 +172,11 @@
       "ttm": 113.89,
       "_validation": "Unité corrigée de 'Mds $' à 'M$'. Valeur 97.3M et YoY -5.0% vérifiés en source (97.3M FY2025 vs 102.4M FY2024 = -5.0%).",
       "explanation_en": "Revenue from the Service segment.",
-      "signal_en": "Recurring base eroding, monitor retention"
+      "signal_en": "Recurring base eroding, monitor retention",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "International Revenue",
@@ -189,24 +205,28 @@
       "ttm": 425.46,
       "_validation": "Unité corrigée de 'Mds $' à 'M$'. Valeur 448.7M et YoY -2.0% vérifiés en source (448.7M FY2025 vs 459.0M FY2024 = -2.2%, arrondi -2%). Historique FY2024 corrigé de 459 à 459.0 pour cohérence.",
       "explanation_en": "Revenue from the International segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.895,
-      "unit": "Mds $",
+      "value": 895,
+      "unit": "M $",
       "yoy": "-3.1%",
       "history": [
-        0.402,
-        0.414,
-        0.418,
-        0.468,
-        0.527,
-        0.822,
-        0.924,
-        0.895
+        402,
+        414,
+        418,
+        468,
+        527,
+        822,
+        924,
+        895
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -216,7 +236,12 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -242,8 +267,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -329,7 +358,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -342,7 +371,8 @@
       "severity": 5,
       "score_rationale": "Le rapport mentionne explicitement des faiblesses matérielles dans les activités de contrôle et la communication d'information, confirmées par l'auditeur externe BDO. Le langage est catégorique (\"not effective\") et représente un risque existentiel pour la fiabilité des états financiers. Cette catégorie est pondérée au maximum en raison de l'impact direct sur la conformité et la confiance des marchés.",
       "trend": "stable",
-      "summary": "La société n'a pas de contrôle interne efficace sur la préparation de ses états financiers, ce qui pourrait entraîner une erreur matérielle non détectée."
+      "summary": "La société n'a pas de contrôle interne efficace sur la préparation de ses états financiers, ce qui pourrait entraîner une erreur matérielle non détectée.",
+      "score": 5
     },
     {
       "title": "Risque de change sur les revenus internationaux",
@@ -350,7 +380,8 @@
       "severity": 4,
       "score_rationale": "Les revenus internationaux représentent 50,2 % du total, et une dépréciation de 10 % des devises entraînerait une perte de 44,9 M$. Le risque est quantifié et récurrent, avec une intensité de langage forte (\"adversely affected\"). La catégorie macro est fortement pondérée en contexte de forte exposition internationale.",
       "trend": "stable",
-      "summary": "La moitié des revenus provient de l'étranger, ce qui expose fortement la société aux fluctuations des taux de change."
+      "summary": "La moitié des revenus provient de l'étranger, ce qui expose fortement la société aux fluctuations des taux de change.",
+      "score": 4
     },
     {
       "title": "Risque lié aux taux d'intérêt variables",
@@ -358,7 +389,8 @@
       "severity": 3,
       "score_rationale": "38,9 % de la dette est à taux variable, et une hausse de 75 pb coûterait 2,6 M$. Le risque est mesuré et partiellement couvert par un swap. Le langage est technique mais sans urgence, et la couverture atténue le risque. Pondération moyenne pour le risque de capital.",
       "trend": "stable",
-      "summary": "Une partie significative de la dette est sensible à la hausse des taux d'intérêt, malgré une couverture partielle."
+      "summary": "Une partie significative de la dette est sensible à la hausse des taux d'intérêt, malgré une couverture partielle.",
+      "score": 3
     },
     {
       "title": "Défauts dans les contrôles IT généraux",
@@ -366,7 +398,8 @@
       "severity": 4,
       "score_rationale": "Faiblesses dans l'accès utilisateur et la gestion des changements IT affectant les processus financiers. Ces déficiences ont rendu inefficaces des contrôles manuels. Bien que partiellement corrigées, elles persistent dans l'évaluation globale. Langage technique mais précis, catégorie cybersécurité fortement pondérée pour une entreprise IT.",
       "trend": "down",
-      "summary": "Des failles dans la sécurité et la gestion des systèmes informatiques compromettent la fiabilité des données financières."
+      "summary": "Des failles dans la sécurité et la gestion des systèmes informatiques compromettent la fiabilité des données financières.",
+      "score": 4
     },
     {
       "title": "Problèmes dans les provisions de clôture",
@@ -374,7 +407,8 @@
       "severity": 4,
       "score_rationale": "Faiblesse matérielle identifiée sur les accruals de factures, impactant la précision des charges et immobilisations. Répétée sur plusieurs exercices, bien que des mesures de correction soient en cours. Langage ferme (\"material weakness\"), et risque direct sur les états financiers. Catégorie industrielle fortement pondérée.",
       "trend": "down",
-      "summary": "Des erreurs possibles dans les provisions de fin d'exercice peuvent fausser les résultats comptables."
+      "summary": "Des erreurs possibles dans les provisions de fin d'exercice peuvent fausser les résultats comptables.",
+      "score": 4
     },
     {
       "title": "Communication interne insuffisante sur les contrôles",
@@ -382,7 +416,8 @@
       "severity": 4,
       "score_rationale": "Management n'a pas correctement communiqué les responsabilités liées aux contrôles internes, ni conservé la documentation nécessaire. Cela contribue à la faiblesse matérielle globale. Mentionné par l'auditeur externe, langage clair et préoccupant. Catégorie industrielle, impact élevé sur la gouvernance.",
       "trend": "stable",
-      "summary": "Le manque de communication interne et de documentation affaiblit l'efficacité des contrôles financiers."
+      "summary": "Le manque de communication interne et de documentation affaiblit l'efficacité des contrôles financiers.",
+      "score": 4
     }
   ],
   "governance": {
@@ -442,7 +477,6 @@
       "date": "2026-04-13"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-07T14:24:35.123650+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-05-31",
@@ -465,6 +499,7 @@
     ],
     "total": 0.9
   },
+  "_ai_positioning_fetched_at": "2026-05-07T14:24:35.123650+00:00",
   "_segments_fetched_at": "2026-05-06T19:37:24.601532+00:00",
   "_risks_gov_fetched_at": "2026-05-06T20:33:36.919662+00:00",
   "financial_snapshot": {
@@ -613,21 +648,17 @@
         "short": "R&D",
         "period_type": "quarter",
         "history": [
-          -7.889,
           7.934,
           12.17,
           4.325,
           8.657,
           13.218,
-          -9.151,
           4.881,
           11.727,
           18.985,
-          -9.554,
           5.199,
           12.478,
           17.331,
-          -12.532,
           10.307,
           14.78,
           5.125,
@@ -685,27 +716,29 @@
             "accession": "0001193125-26-149599",
             "end": "2026-02-28"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (NEOG)"
         ]
       },
       {
         "short": "International Revenue",
         "period_type": "quarter",
         "history": [
-          -209.478,
           224.325,
           341.034,
           128.305,
           258.822,
           387.066,
-          -247.034,
           132.349,
           362.382,
           580.637,
-          -252.921,
           216.964,
           458.616,
           687.428,
-          -438.786,
           448.222,
           669.202,
           209.189,
@@ -763,6 +796,12 @@
             "accession": "0001193125-26-149599",
             "end": "2026-02-28"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (NEOG)"
         ]
       },
       {
@@ -839,7 +878,10 @@
             "source": "NEOG_2026-04-09.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -856,9 +898,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.287858+00:00",
     "fetched_at": "2026-05-21T02:17:14.287859+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.867Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.777Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/neog.json",
     "enrich_root": "v2-pipeline-enrich/neog.json",

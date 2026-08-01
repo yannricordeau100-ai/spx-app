@@ -41,27 +41,32 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.247,
-      "unit": "Mds €",
+      "value": 247,
+      "unit": "M €",
       "yoy": "-4.3%",
       "history": [
-        0.008,
-        0.015,
-        0.009,
-        0.258,
-        0.247
+        8,
+        15,
+        9,
+        258,
+        247
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.25 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:00.152767+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -80,11 +85,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.35 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -103,11 +112,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de -0.39 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -126,56 +139,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.14 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+83.3%",
       "history": [
         0,
-        0.01,
-        0.06,
-        0.11
+        10,
+        60,
+        110
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.11 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "+46.7%",
       "history": [
-        0.21,
-        0.13,
-        0.15,
-        0.22
+        210,
+        130,
+        150,
+        220
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.22 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -238,7 +265,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès l'introduction de la section Liquidité. Le langage insiste sur la nécessité continue de lever des fonds. La société affiche une utilisation nette de trésorerie en exploitation de 482M$ en 2025. La catégorie Capital a une pondération élevée pour les biotechs.",
       "trend": "stable",
-      "summary": "La société dépend fortement de financements externes pour soutenir ses activités de R&D et son développement clinique."
+      "summary": "La société dépend fortement de financements externes pour soutenir ses activités de R&D et son développement clinique.",
+      "score": 5
     },
     {
       "title": "Poursuite du développement clinique",
@@ -246,7 +274,8 @@
       "severity": 5,
       "score_rationale": "Le texte mentionne des dépenses substantielles futures pour avancer les produits comme casdatifan et quemliclustat. Le succès dépend de l'atteinte de jalons cliniques et réglementaires. Le langage est répétitif et central dans la section Cash Requirements.",
       "trend": "stable",
-      "summary": "Le développement clinique coûteux et incertain de ses candidats-médicaments constitue un risque majeur pour la société."
+      "summary": "Le développement clinique coûteux et incertain de ses candidats-médicaments constitue un risque majeur pour la société.",
+      "score": 5
     },
     {
       "title": "Dépendance aux partenariats (Gilead)",
@@ -254,7 +283,8 @@
       "severity": 4,
       "score_rationale": "Gilead est mentionné 15 fois dans les extraits, avec des paiements de collaboration clés (232M$ en 2024). La résiliation du programme etrumadenant a eu un impact comptable majeur (ajustement de revenu de 143M$). Cela montre une forte dépendance.",
       "trend": "stable",
-      "summary": "La société dépend fortement de ses partenariats, notamment avec Gilead, pour ses revenus et son financement."
+      "summary": "La société dépend fortement de ses partenariats, notamment avec Gilead, pour ses revenus et son financement.",
+      "score": 4
     },
     {
       "title": "Paiements conditionnels futurs",
@@ -262,7 +292,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne des obligations de paiement importantes conditionnelles à des jalons de développement, réglementaires et commerciaux. Bien que l'incertitude soit élevée, l'impact potentiel est significatif. Positionné dans la section Contractual Obligations.",
       "trend": "stable",
-      "summary": "La société pourrait devoir verser des sommes importantes si ses partenaires atteignent certains jalons, ce qui pèserait sur sa trésorerie."
+      "summary": "La société pourrait devoir verser des sommes importantes si ses partenaires atteignent certains jalons, ce qui pèserait sur sa trésorerie.",
+      "score": 4
     },
     {
       "title": "Volatilité des revenus comptables",
@@ -270,7 +301,8 @@
       "severity": 4,
       "score_rationale": "Un ajustement de revenu de 143M$ a été reconnu suite à une modification de contrat avec Gilead. Une variation de 5% de l'effort estimé aurait impacté le revenu de 28M$. Le risque est discuté en détail dans Critical Accounting Judgments.",
       "trend": "up",
-      "summary": "Les revenus de la société peuvent fluctuer fortement en raison de révisions comptables liées aux partenariats et aux estimations de développement."
+      "summary": "Les revenus de la société peuvent fluctuer fortement en raison de révisions comptables liées aux partenariats et aux estimations de développement.",
+      "score": 4
     },
     {
       "title": "Coûts de R&D croissants",
@@ -278,7 +310,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite explicitement des 'dépenses R&D plus élevées' comme cause principale de la dégradation du cash-flow opérationnel (482M$ en 2025 vs 170M$ en 2024). C'est un risque récurrent et quantifié.",
       "trend": "up",
-      "summary": "L'augmentation continue des dépenses de recherche et développement pèse lourdement sur la trésorerie de l'entreprise."
+      "summary": "L'augmentation continue des dépenses de recherche et développement pèse lourdement sur la trésorerie de l'entreprise.",
+      "score": 4
     }
   ],
   "governance": {
@@ -446,166 +479,120 @@
   },
   "enrich_quarterly_history": {
     "ticker": "RCUS",
-    "extracted_at": "2026-05-15T18:13:53Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1724521,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T09:18:23Z",
+    "n_kpis": 4,
     "kpis": [
-      {
-        "short": "R&D",
-        "period_type": "quarter",
-        "history": [
-          135.158,
-          206.412,
-          -151.609,
-          61.211,
-          131.116,
-          207.8,
-          -112.127,
-          81,
-          165,
-          247,
-          -153,
-          109,
-          224,
-          347,
-          -232,
-          122,
-          261,
-          402,
-          -262,
-          122
-        ],
-        "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 261,
-            "accession": "0001724521-25-000101",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 402,
-            "accession": "0001724521-25-000116",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -262,
-            "accession": "calc-0001724521-26-000009",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 122,
-            "accession": "0001724521-26-000034",
-            "end": "2026-03-31"
-          }
-        ]
-      },
       {
         "short": "Cash",
         "period_type": "quarter",
         "history": [
-          320.482,
-          179.432,
-          -742.26,
-          548.783,
-          272.629,
-          217.647,
-          -833.059,
-          238,
-          230,
-          184,
-          -525,
-          185,
-          156,
-          201,
-          -392,
-          192,
-          248,
-          238,
-          -456,
-          201
+          0.148,
+          0.549,
+          0.273,
+          0.218,
+          0.15,
+          0.192,
+          0.248,
+          0.238
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
           "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T09:18:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          -92,
+          -90,
+          -112,
+          -93,
+          -135
+        ],
+        "history_periods": [
           "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:18:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          1.543,
+          1.543,
+          1.477,
+          1.394,
+          1.252,
+          1.156,
+          1.075,
+          0.974
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T09:18:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Debt",
+        "period_type": "quarter",
+        "history": [
+          47,
+          48,
+          48,
+          97,
+          98
+        ],
+        "history_periods": [
           "Q3 2024",
           "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 248,
-            "accession": "0001724521-25-000101",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 238,
-            "accession": "0001724521-25-000116",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -456,
-            "accession": "calc-0001724521-26-000009",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 201,
-            "accession": "0001724521-26-000034",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:18:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -621,9 +608,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.302109+00:00",
     "fetched_at": "2026-05-21T02:17:14.302109+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.088Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.104Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rcus.json",
     "enrich_root": null,

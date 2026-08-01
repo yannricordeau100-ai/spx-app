@@ -43,7 +43,7 @@
       "ttm": 1298.159,
       "_validation": "Unit corrected from 'Mds $' to 'M $'; value normalized to millions; history array corrected with accurate values from 10-K financial statements",
       "period_type": "quarter",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -72,8 +72,12 @@
       "is_short_history": false,
       "ttm": 490.91,
       "_validation": "Unit corrected from 'Mds $' to 'M $'; value normalized to millions; history corrected with accurate consolidated net income from 10-K; spike in 2025 driven by Centuri IPO proceeds and discontinued operations gains",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Customer Base",
@@ -101,7 +105,11 @@
       "is_short_history": false,
       "ttm": 2281,
       "_validation": "Unit corrected to 'K' (thousands); value corrected to 2,281K per 10-K MD&A; history revised with conservative estimates based on historical growth patterns",
-      "signal_en": "User base expansion, adoption building"
+      "signal_en": "User base expansion, adoption building",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -120,34 +128,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.94 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.48,
-      "unit": "Mds €",
+      "value": 480,
+      "unit": "M €",
       "yoy": "+17.1%",
       "history": [
-        0.43,
-        0.36,
-        0.41,
-        0.48
+        430,
+        360,
+        410,
+        480
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.48 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -166,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.43 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -189,33 +210,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.51 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.58,
-      "unit": "Mds €",
+      "value": 580,
+      "unit": "M €",
       "yoy": "+87.1%",
       "history": [
-        0.12,
-        0.11,
-        0.31,
-        0.58
+        120,
+        110,
+        310,
+        580
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.58 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -261,7 +291,8 @@
       "severity": 4,
       "score_rationale": "This risk is identified first in the Operational Risks section of the 10-K. The language used ('relies on', 'impact ability to meet', 'could reduce') indicates significant importance. It is a fundamental operational risk for a gas distribution company.",
       "trend": "stable",
-      "summary": "The company relies heavily on access to interstate pipelines for gas supply. Any interruption or reduction in capacity due to physical constraints, restrictions, cyber attacks, or force majeure events could reduce supply and impact the company's ability to meet customer requirements."
+      "summary": "The company relies heavily on access to interstate pipelines for gas supply. Any interruption or reduction in capacity due to physical constraints, restrictions, cyber attacks, or force majeure events could reduce supply and impact the company's ability to meet customer requirements.",
+      "score": 4
     },
     {
       "title": "Labor shortage and executive turnover",
@@ -269,7 +300,8 @@
       "severity": 4,
       "score_rationale": "This risk is detailed with operational implications. The company faces difficulty attracting and retaining qualified employees, including key executives. The language ('adversely affect', 'limit or delay') underscores its severity, impacting strategic execution.",
       "trend": "up",
-      "summary": "Difficulty in attracting and retaining qualified employees, particularly in specialized technical roles and executive positions, threatens the company's ability to execute strategic plans and operational objectives."
+      "summary": "Difficulty in attracting and retaining qualified employees, particularly in specialized technical roles and executive positions, threatens the company's ability to execute strategic plans and operational objectives.",
+      "score": 4
     },
     {
       "title": "Great Basin Expansion Project delays and cost overruns",
@@ -277,7 +309,8 @@
       "severity": 4,
       "score_rationale": "This risk is specifically tied to a major capital project. The 10-K discusses binding precedent agreements executed in support of the 2028 Great Basin Expansion Project. Tight labor markets and material availability could cause delays and cost increases.",
       "trend": "up",
-      "summary": "The Great Basin Expansion Project requires specialized labor and critical materials. Limited availability and fluctuating costs could result in schedule delays and budget overruns, impacting expected returns and project economics."
+      "summary": "The Great Basin Expansion Project requires specialized labor and critical materials. Limited availability and fluctuating costs could result in schedule delays and budget overruns, impacting expected returns and project economics.",
+      "score": 4
     },
     {
       "title": "Inflationary impact on operating and capital costs",
@@ -285,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Inflation impacts operating costs (labor, fuel, materials) and capital costs. The MD&A discusses economic conditions affecting businesses generally, including inflationary impacts on goods and services. This directly affects profitability and financial structure.",
       "trend": "up",
-      "summary": "Persistent inflation increases operating costs (labor, fuel, materials) and cost of capital, which could reduce margins and financial performance if rate adjustments are not implemented timely by regulatory commissions."
+      "summary": "Persistent inflation increases operating costs (labor, fuel, materials) and cost of capital, which could reduce margins and financial performance if rate adjustments are not implemented timely by regulatory commissions.",
+      "score": 4
     },
     {
       "title": "Operational hazards and infrastructure risks in gas distribution",
@@ -293,7 +327,8 @@
       "severity": 3,
       "score_rationale": "Gas distribution operations inherently involve risks such as leaks, explosions, and accidents. While partially covered by insurance, deductibles and uninsured losses can have financial impact. This is an inherent risk to the business.",
       "trend": "stable",
-      "summary": "Gas distribution operations involve inherent hazards including potential leaks, fires, and accidents that could cause service interruptions, property damage, and financial liabilities, despite insurance coverage."
+      "summary": "Gas distribution operations involve inherent hazards including potential leaks, fires, and accidents that could cause service interruptions, property damage, and financial liabilities, despite insurance coverage.",
+      "score": 3
     },
     {
       "title": "Climate change regulations and energy transition requirements",
@@ -301,7 +336,8 @@
       "severity": 3,
       "score_rationale": "The 10-K identifies climate change and energy transition as regulatory concerns. New environmental regulations targeting GHG emissions reduction and decarbonization could impact operations. The language ('could have significant impacts', 'increased compliance costs') indicates seriousness.",
       "trend": "up",
-      "summary": "New environmental regulations aimed at reducing GHG emissions and promoting energy transition could increase compliance costs, affect demand for natural gas, and impact the long-term business model."
+      "summary": "New environmental regulations aimed at reducing GHG emissions and promoting energy transition could increase compliance costs, affect demand for natural gas, and impact the long-term business model.",
+      "score": 3
     },
     {
       "title": "Weather variability and extreme climate events impact",
@@ -309,7 +345,8 @@
       "severity": 3,
       "score_rationale": "Natural gas demand is seasonal with higher consumption in winter. Warmer winters reduce revenues and cash flows. The 10-K notes the company has decoupled rate structures that mitigate some weather impacts, but extreme events can still disrupt supply and delivery.",
       "trend": "stable",
-      "summary": "Financial performance is sensitive to weather patterns, with milder winters reducing natural gas consumption. Extreme weather events can also disrupt supply chains and distribution, affecting revenues and operational stability."
+      "summary": "Financial performance is sensitive to weather patterns, with milder winters reducing natural gas consumption. Extreme weather events can also disrupt supply chains and distribution, affecting revenues and operational stability.",
+      "score": 3
     },
     {
       "title": "Cybersecurity vulnerabilities and data protection risks",
@@ -317,7 +354,8 @@
       "severity": 3,
       "score_rationale": "The 10-K identifies cyber attacks as potential causes for pipeline interruptions and recognizes vulnerability to cyber threats. Potential consequences include operational disruption, data compromise, legal claims, and reputation damage.",
       "trend": "up",
-      "summary": "The company's IT systems are vulnerable to cyberattacks that could disrupt critical operations, compromise sensitive data, result in legal liability, and damage reputation and customer trust."
+      "summary": "The company's IT systems are vulnerable to cyberattacks that could disrupt critical operations, compromise sensitive data, result in legal liability, and damage reputation and customer trust.",
+      "score": 3
     }
   ],
   "governance": {
@@ -338,7 +376,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -405,7 +443,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.316Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.758Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/swx.json",
     "enrich_root": null,

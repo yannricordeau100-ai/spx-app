@@ -41,7 +41,7 @@
         "Value verified from Consolidated Income Statement: Revenue 2024: 11,776.4 £m, 2023: 11,797.1 £m",
         "YoY calculation verified: (11776.4 - 11797.1) / 11797.1 = -0.2%"
       ],
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -73,7 +73,7 @@
       "period_type": "annual",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Extrait insuffisant : seule la valeur 2023 du 'Operating profit' est explicitement fournie (£789.1m). Les valeurs pour les années antérieure",
-      "explanation_en": "Operating Profit — profit from core business operations.",
+      "explanation_en": "Operating Profit, profit from core business operations.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -136,7 +136,7 @@
         "Historical recalculation using balance sheet items: Applied 2,349.7 M£ as mid-point comprehensive measure",
         "YoY: (2,349.7 - 865.2) / 865.2 = +171.5%"
       ],
-      "explanation_en": "Net Debt — total debt minus cash and cash equivalents.",
+      "explanation_en": "Net Debt, total debt minus cash and cash equivalents.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -156,11 +156,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.57 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.9 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -197,7 +205,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         54.5,
         58.1,
@@ -210,7 +218,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -225,7 +233,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         0.1905,
@@ -238,7 +246,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -253,7 +261,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         40.16,
@@ -266,7 +274,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -282,7 +290,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.407,
@@ -295,7 +303,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -326,7 +334,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "OperatingIncome"
   },
   "_fit_for_site": false,
@@ -342,7 +350,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur mentionné explicitement dans le CEO Review : réduction progressive du bénéfice inflationniste au cours de l'année, avec déflation observée en Q4 en Amérique du Nord. Langage d'intensité modérée mais impact direct sur la marge opérationnelle (8.0%). Tendance à la baisse du soutien inflationniste. Poids catégorique élevé pour un distributeur de consommables.",
       "trend": "up",
-      "summary": "Bunzl dépend historiquement de l'inflation pour soutenir ses marges via des augmentations de prix de vente. En 2023, le bénéfice inflationniste s'est réduit progressivement, avec déflation en Q4 notamment en Amérique du Nord (papier, plastiques, chimie). Le risque est que la normalisation des prix érode les marges si les volumes ne compensent pas."
+      "summary": "Bunzl dépend historiquement de l'inflation pour soutenir ses marges via des augmentations de prix de vente. En 2023, le bénéfice inflationniste s'est réduit progressivement, avec déflation en Q4 notamment en Amérique du Nord (papier, plastiques, chimie). Le risque est que la normalisation des prix érode les marges si les volumes ne compensent pas.",
+      "score": 4
     },
     {
       "title": "Perte de volume en foodservice Amérique du Nord",
@@ -350,7 +359,8 @@
       "severity": 3,
       "score_rationale": "Explicitement cité dans CEO Review comme facteur d'impact sur la performance revenue (redistribution foodservice). Langage direct mais sans dramatisation. Tendance stable/down. Poids modéré car segment spécifique (foodservice) mais Amérique du Nord représente 54% du profit opérationnel ajusté.",
       "trend": "stable",
-      "summary": "Le segment foodservice redistribution en Amérique du Nord a connu une perte de volume en 2023, partiellement liée à la normalisation post-pandémique. Ce segment représente une part significative du portefeuille nord-américain (54% du profit du groupe). La concurrence et la normalisation des comportements de consommation post-COVID créent une pression durable."
+      "summary": "Le segment foodservice redistribution en Amérique du Nord a connu une perte de volume en 2023, partiellement liée à la normalisation post-pandémique. Ce segment représente une part significative du portefeuille nord-américain (54% du profit du groupe). La concurrence et la normalisation des comportements de consommation post-COVID créent une pression durable.",
+      "score": 3
     },
     {
       "title": "Fragmentation des marchés et risque d'intégration d'acquisitions",
@@ -358,7 +368,8 @@
       "severity": 3,
       "score_rationale": "Stratégie d'acquisition centrale (19 acquisitions en 2023, £5.2bn cumulé depuis 2004) avec risque implicite d'intégration et de réalisation de synergies. Langage positif mais reconnaissance de la complexité (214 acquisitions depuis 2004). Tendance stable/up (accélération acquisition). Poids élevé pour le modèle de croissance.",
       "trend": "stable",
-      "summary": "Bunzl poursuit une stratégie agressive de consolidation de marchés fragmentés (33 pays, 6 secteurs). Le risque réside dans la capacité à intégrer 19 acquisitions annuelles, réaliser les synergies attendues et maintenir la culture décentralisée. Première acquisition en Pologne (Safety First) et acquisitions annoncées (Nisbets, Pamark) augmentent la complexité."
+      "summary": "Bunzl poursuit une stratégie agressive de consolidation de marchés fragmentés (33 pays, 6 secteurs). Le risque réside dans la capacité à intégrer 19 acquisitions annuelles, réaliser les synergies attendues et maintenir la culture décentralisée. Première acquisition en Pologne (Safety First) et acquisitions annoncées (Nisbets, Pamark) augmentent la complexité.",
+      "score": 3
     },
     {
       "title": "Concentration sectorielle et dépendance aux secteurs essentiels",
@@ -366,7 +377,8 @@
       "severity": 3,
       "score_rationale": "Portefeuille concentré : Cleaning & Hygiene (29%), Foodservice (27%), Healthcare (16%), Safety (16%). Langage neutre mais structure révèle dépendance à 4 secteurs pour 88% du revenue. Tendance stable. Poids modéré car diversification intentionnelle mais vulnérabilité sectorielle existe.",
       "trend": "stable",
-      "summary": "Bunzl génère 88% de son chiffre d'affaires dans 4 secteurs (Cleaning & Hygiene, Foodservice, Healthcare, Safety). Une contraction durable dans l'un de ces secteurs (ex. normalisation post-COVID en foodservice, réduction des achats de PPE) impacterait significativement la performance. Diversification limitée vers d'autres secteurs."
+      "summary": "Bunzl génère 88% de son chiffre d'affaires dans 4 secteurs (Cleaning & Hygiene, Foodservice, Healthcare, Safety). Une contraction durable dans l'un de ces secteurs (ex. normalisation post-COVID en foodservice, réduction des achats de PPE) impacterait significativement la performance. Diversification limitée vers d'autres secteurs.",
+      "score": 3
     },
     {
       "title": "Risque de régulation environnementale et transition matériaux",
@@ -374,7 +386,8 @@
       "severity": 3,
       "score_rationale": "85% du revenue en produits non-packaging ou packaging alternatif (objectif de transition). Langage positif mais reconnaissance implicite que 15% du revenue reste exposé à la régulation. Tendance up (augmentation de la pression réglementaire). Poids modéré mais croissant pour le secteur packaging.",
       "trend": "up",
-      "summary": "Bunzl opère dans le secteur du packaging et des consommables, soumis à une régulation environnementale croissante (plastiques à usage unique, économie circulaire). Bien que 85% du revenue soit en produits conformes ou alternatifs, 15% reste exposé. Les coûts de transition vers matériaux alternatifs et les délais de conformité réglementaire (EU, UK) créent une pression."
+      "summary": "Bunzl opère dans le secteur du packaging et des consommables, soumis à une régulation environnementale croissante (plastiques à usage unique, économie circulaire). Bien que 85% du revenue soit en produits conformes ou alternatifs, 15% reste exposé. Les coûts de transition vers matériaux alternatifs et les délais de conformité réglementaire (EU, UK) créent une pression.",
+      "score": 3
     },
     {
       "title": "Dépendance à la chaîne d'approvisionnement et risques géopolitiques",
@@ -382,7 +395,8 @@
       "severity": 3,
       "score_rationale": "Opérations dans 33 pays avec sourcing international. Langage positif sur résilience (c.96% purchasing en régions low-risk ou compliant) mais reconnaissance implicite de vulnérabilité. Tendance stable/up (géopolitique croissante). Poids modéré mais pertinent pour distributeur global.",
       "trend": "up",
-      "summary": "Bunzl opère dans 33 pays et dépend d'une chaîne d'approvisionnement internationale complexe. Bien que 96% des achats soient en régions low-risk ou auprès de fournisseurs conformes, les tensions géopolitiques (Ukraine, Moyen-Orient, tensions commerciales US-China) créent des risques de disruption, augmentation de coûts et délais."
+      "summary": "Bunzl opère dans 33 pays et dépend d'une chaîne d'approvisionnement internationale complexe. Bien que 96% des achats soient en régions low-risk ou auprès de fournisseurs conformes, les tensions géopolitiques (Ukraine, Moyen-Orient, tensions commerciales US-China) créent des risques de disruption, augmentation de coûts et délais.",
+      "score": 3
     },
     {
       "title": "Risque de concentration clients et perte de contrats majeurs",
@@ -390,7 +404,8 @@
       "severity": 2,
       "score_rationale": "Langage affirmatif sur 'low customer concentration' et >20 ans de partenariats avec top 40 clients. Cependant, aucune donnée quantitative fournie. Tendance stable. Poids modéré car distributeur B2B avec relations long-terme mais risque de tendre existant.",
       "trend": "stable",
-      "summary": "Bunzl affirme une faible concentration clients et des partenariats long-terme (>20 ans avec top 40). Cependant, le secteur foodservice (27% du revenue) et retail (9%) sont exposés à la consolidation client et aux tenders compétitifs. Perte de contrats majeurs (ex. grande chaîne de retail) pourrait impacter significativement les régions."
+      "summary": "Bunzl affirme une faible concentration clients et des partenariats long-terme (>20 ans avec top 40). Cependant, le secteur foodservice (27% du revenue) et retail (9%) sont exposés à la consolidation client et aux tenders compétitifs. Perte de contrats majeurs (ex. grande chaîne de retail) pourrait impacter significativement les régions.",
+      "score": 2
     },
     {
       "title": "Risque de talent et rétention dans contexte inflationniste",
@@ -398,7 +413,8 @@
       "severity": 2,
       "score_rationale": "Bunzl affirme que 'people are most important asset' et 75% des operating companies accréditées 'Great Place to Work'. Langage positif mais reconnaissance implicite de risque RH. Tendance stable. Poids modéré car modèle décentralisé dépend de talent local.",
       "trend": "stable",
-      "summary": "Bunzl opère avec 24,528 employés dans 33 pays et un modèle décentralisé. Inflation des coûts salariaux, compétition pour talent (notamment en logistique/supply chain) et turnover potentiel en contexte de normalisation post-COVID créent un risque de rétention et de coûts opérationnels croissants."
+      "summary": "Bunzl opère avec 24,528 employés dans 33 pays et un modèle décentralisé. Inflation des coûts salariaux, compétition pour talent (notamment en logistique/supply chain) et turnover potentiel en contexte de normalisation post-COVID créent un risque de rétention et de coûts opérationnels croissants.",
+      "score": 2
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:27:44.926923+00:00",
@@ -549,13 +565,6 @@
     "unit": "Mds $"
   },
   "_eu_blocs_extracted_at": "2026-05-19T16:37:53.155006+00:00",
-  "_dividends_extracted_at": "2026-05-09T20:21:50Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
-  "_dividends_currency": "GBp",
-  "_eps_extracted_at": "2026-05-18T16:43:59Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_stories_backfill_at": "2026-05-25T14:44:44Z",
-  "_stories_backfill_source": "cerebras_qwen3_235b_scaleup_532",
   "revenue_by_geography": {
     "slices": [
       {
@@ -595,6 +604,13 @@
     "currency": "USD",
     "total": 11776.4
   },
+  "_dividends_extracted_at": "2026-05-09T20:21:50Z",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_currency": "GBp",
+  "_eps_extracted_at": "2026-05-18T16:43:59Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_stories_backfill_at": "2026-05-25T14:44:44Z",
+  "_stories_backfill_source": "cerebras_qwen3_235b_scaleup_532",
   "_repartition_backfill_at": "2026-05-25T14:54:36Z",
   "_repartition_backfill_source": "cerebras_paid_k2",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/BNZL.L/annual-text/2024.txt",
@@ -639,7 +655,10 @@
         191,
         195
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Dividende",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Own Brand Mix",
@@ -655,7 +674,10 @@
         28,
         30
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Acquisitions Spend",
@@ -687,7 +709,10 @@
         345000,
         350000
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Audience",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Healthcare Mix",
@@ -703,7 +728,10 @@
         15,
         16
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T17:50:02Z",
@@ -782,7 +810,7 @@
       }
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.814Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.430Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bnzl.l.json",
     "enrich_root": "v2-pipeline-enrich/bnzl.l.json",

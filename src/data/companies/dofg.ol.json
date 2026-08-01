@@ -40,9 +40,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue.",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "EBITDA",
@@ -95,7 +98,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -122,7 +125,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "EBITDA Margin — EBITDA divided by revenue.",
+      "explanation_en": "EBITDA Margin : EBITDA divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -149,7 +152,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -183,8 +186,8 @@
       "name_fr": "Dette nette",
       "name_en": "Net Interest-Bearing Debt",
       "explanation": "Dette financière après déduction des liquidités.",
-      "value": "1143",
-      "unit": "M $",
+      "value": 1.143,
+      "unit": "Mds $",
       "yoy": "-17%",
       "type": "Capital",
       "nature": "Structurel",
@@ -192,17 +195,18 @@
       "signal": "Réduction significative de la dette nette.",
       "description": "La dette nette est passée de 1 372 M$ à 1 143 M$ grâce à la génération de cash-flow et à une augmentation de capital.",
       "history": [
-        1372,
+        1.372,
         null,
         null,
         null,
-        1143
+        1.143
       ],
       "last_data_date": "2024-09-30",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Capital base contracting, monitor structure"
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "NIBD/EBITDA",
@@ -256,9 +260,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Demand",
-      "_source_month": "septembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Demand"
     },
     {
       "short": "Utilization",
@@ -284,9 +286,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Demand",
-      "_source_month": "septembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Demand"
     }
   ],
   "ai_positioning": {
@@ -314,7 +314,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -435,6 +435,10 @@
     ],
     "total": 1132
   },
+  "revenue_by_geography": {
+    "_geography_not_disclosed": "DOF Group ASA (offshore norvégien): émetteur Oslo, pas de 10-K SEC. Annual Report NO non intégré data-lake",
+    "_source": "Aucune source 10-K SEC data-lake"
+  },
   "_segments_fetched_at": "2026-05-14T23:58:33.056137+00:00",
   "financial_snapshot": {
     "market_cap_usd": 3683746457.2197275,
@@ -462,12 +466,6 @@
     "fiscal_year_end": 1767139200
   },
   "_profile_fetched_at": "2026-05-07T11:55:55.330256+00:00",
-  "revenue_by_geography": {
-    "unit": "$M",
-    "source_date": "2024-09-30",
-    "source": "Q3 2024 Financial Report",
-    "slices": null
-  },
   "enrich_description": {
     "ticker": "DOFG.OL",
     "simple": {
@@ -575,9 +573,9 @@
     "country": "Norway",
     "_data_freshness_date": "2026-05-21T02:17:14.251741+00:00",
     "fetched_at": "2026-05-21T02:17:14.251742+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.354Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.918Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dofg.ol.json",
     "enrich_root": "v2-pipeline-enrich/dofg.ol.json",

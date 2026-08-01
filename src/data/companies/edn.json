@@ -161,11 +161,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5759.38 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,11 +188,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1192.73 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -212,9 +220,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Human Capital",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Human Capital"
     },
     {
       "short": "Women Employees",
@@ -236,9 +242,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Diversity & Inclusion",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Diversity & Inclusion"
     }
   ],
   "ai_positioning": {
@@ -284,7 +288,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de liste dans le 10-K, mentionné avec un langage fort (\"may continue to intervene\"). La tendance est stable mais critique, car l'État joue un rôle central dans la régulation tarifaire et les crédits réglementaires. Cette catégorie est centrale pour le modèle économique d'Edenor.",
       "trend": "stable",
-      "summary": "Le gouvernement argentin a historiquement intervenu dans le secteur de l'électricité, notamment sur les tarifs et les subventions. Une intervention future pourrait retarder les ajustements tarifaires ou imposer des conditions défavorables, affectant la rentabilité d'Edenor."
+      "summary": "Le gouvernement argentin a historiquement intervenu dans le secteur de l'électricité, notamment sur les tarifs et les subventions. Une intervention future pourrait retarder les ajustements tarifaires ou imposer des conditions défavorables, affectant la rentabilité d'Edenor.",
+      "score": 5
     },
     {
       "title": "Pénuries d'électricité affectant la distribution",
@@ -292,7 +297,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement avec un impact opérationnel direct. Le langage est préoccupé (\"act as a brake\", \"material penalties\"). Tendance stable, mais récurrente. Poids élevé car lié à la capacité de service et aux sanctions.",
       "trend": "stable",
-      "summary": "Les pénuries d'électricité peuvent limiter la croissance de la demande et empêcher Edenor de livrer l'énergie. Cela expose l'entreprise à des réclamations de clients et à des amendes importantes en cas d'interruption de service."
+      "summary": "Les pénuries d'électricité peuvent limiter la croissance de la demande et empêcher Edenor de livrer l'énergie. Cela expose l'entreprise à des réclamations de clients et à des amendes importantes en cas d'interruption de service.",
+      "score": 4
     },
     {
       "title": "Dépendance aux ajustements tarifaires retardés",
@@ -300,7 +306,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le rapport, langage fort (\"material adverse effect\", \"timely manner or at all\"). Tendance en hausse de préoccupation. Catégorie critique car les coûts de distribution augmentent avec l'inflation, mais les tarifs ne suivent pas.",
       "trend": "up",
-      "summary": "Edenor dépend de révisions tarifaires régulières pour couvrir ses coûts. Le report ou le refus d'ajustements tarifaires par les autorités compromet sa capacité à honorer ses obligations commerciales et financières."
+      "summary": "Edenor dépend de révisions tarifaires régulières pour couvrir ses coûts. Le report ou le refus d'ajustements tarifaires par les autorités compromet sa capacité à honorer ses obligations commerciales et financières.",
+      "score": 5
     },
     {
       "title": "Pertes d'énergie et vol d'électricité",
@@ -308,7 +315,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité comme risque matériel. Langage direct (\"adversely affected\"). Tendance stable mais persistante. Impact direct sur la marge opérationnelle et la qualité du service.",
       "trend": "stable",
-      "summary": "Les pertes techniques et non techniques, notamment le vol d'électricité, augmentent les coûts et réduisent les revenus. Edenor fait face à des amendes et à des pénalités si ces pertes dépassent les seuils réglementaires."
+      "summary": "Les pertes techniques et non techniques, notamment le vol d'électricité, augmentent les coûts et réduisent les revenus. Edenor fait face à des amendes et à des pénalités si ces pertes dépassent les seuils réglementaires.",
+      "score": 4
     },
     {
       "title": "Constructions illégales dans la zone de concession",
@@ -316,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique mentionné avec des conséquences concrètes (sécurité, distribution). Langage préoccupé. Tendance stable. Impact opérationnel et de sécurité élevé.",
       "trend": "stable",
-      "summary": "L'expansion de constructions illégales dans la zone desservie complique l'accès au réseau, augmente les risques de sécurité publique et nuit à la capacité d'Edenor à distribuer l'énergie de manière fiable."
+      "summary": "L'expansion de constructions illégales dans la zone desservie complique l'accès au réseau, augmente les risques de sécurité publique et nuit à la capacité d'Edenor à distribuer l'énergie de manière fiable.",
+      "score": 4
     },
     {
       "title": "Cyberattaques sur les systèmes informatiques",
@@ -324,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné dans les risques métier. Langage fort (\"adversely affect business, financial condition\"). Tendance en hausse avec la digitalisation. Risque croissant pour les infrastructures critiques.",
       "trend": "up",
-      "summary": "Des interruptions ou attaques sur les systèmes informatiques d'Edenor pourraient perturber la gestion du réseau, compromettre la sécurité des données et entraîner des pannes de service coûteuses."
+      "summary": "Des interruptions ou attaques sur les systèmes informatiques d'Edenor pourraient perturber la gestion du réseau, compromettre la sécurité des données et entraîner des pannes de service coûteuses.",
+      "score": 4
     },
     {
       "title": "Exclusivité menacée par l'évolution technologique",
@@ -332,7 +342,8 @@
       "severity": 3,
       "score_rationale": "Mentionné comme risque futur, langage modéré (\"may be adversely affected\"). Tendance en hausse avec la montée des énergies décentralisées. Moins immédiat mais stratégique.",
       "trend": "up",
-      "summary": "L'émergence de technologies comme les micro-réseaux ou les panneaux solaires individuels pourrait réduire la dépendance aux distributeurs centralisés comme Edenor, menaçant son monopole territorial."
+      "summary": "L'émergence de technologies comme les micro-réseaux ou les panneaux solaires individuels pourrait réduire la dépendance aux distributeurs centralisés comme Edenor, menaçant son monopole territorial.",
+      "score": 3
     },
     {
       "title": "Dépendance aux importations d'équipements",
@@ -340,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique lié à la chaîne d'approvisionnement. Langage clair (\"material adverse effect\"). Tendance stable. Critique pour le plan d'investissement et la conformité à la concession.",
       "trend": "stable",
-      "summary": "Edenor dépend de l'importation d'équipements électriques pour répondre à la demande croissante. Des restrictions aux importations ou des retards pourraient violer son contrat de concession et nuire à sa performance opérationnelle."
+      "summary": "Edenor dépend de l'importation d'équipements électriques pour répondre à la demande croissante. Des restrictions aux importations ou des retards pourraient violer son contrat de concession et nuire à sa performance opérationnelle.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:30:37.787090+00:00",
@@ -477,9 +489,9 @@
     "country": "Argentina",
     "_data_freshness_date": "2026-05-21T02:17:14.253714+00:00",
     "fetched_at": "2026-05-21T02:17:14.253715+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.565Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.133Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/edn.json",
     "enrich_root": null,

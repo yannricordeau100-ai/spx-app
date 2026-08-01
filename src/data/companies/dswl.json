@@ -45,8 +45,12 @@
       "is_short_history": false,
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:02.572593+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Headcount",
@@ -74,25 +78,29 @@
       "is_generic": true,
       "is_short_history": false,
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.068,
-      "unit": "Mds $",
+      "value": 68,
+      "unit": "M $",
       "yoy": "-1.4%",
       "history": [
-        0.061,
-        0.067,
-        0.065,
-        0.065,
-        0.086,
-        0.077,
-        0.069,
-        0.068
+        61,
+        67,
+        65,
+        65,
+        86,
+        77,
+        69,
+        68
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -102,24 +110,29 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.011,
-      "unit": "Mds $",
+      "value": 11,
+      "unit": "M $",
       "yoy": "+37.5%",
       "history": [
-        0.006,
-        0.004,
-        -0.001,
-        0.008,
-        0.008,
-        0.002,
-        0.008,
-        0.011
+        6,
+        4,
+        -1,
+        8,
+        8,
+        2,
+        8,
+        11
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -128,8 +141,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -252,7 +270,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur situé en début d'Item 3, langage très intense (« materially and adversely affect », « significantly decline or become worthless »). Dépendance critique à l'accès PCAOB en Chine continentale ; bien que situation améliorée en décembre 2022, risque récurrent annuel. Poids catégorique élevé : radiation = destruction de valeur actionnariale.",
       "trend": "stable",
-      "summary": "Deswell risque d'être identifiée comme « Commission-Identified Issuer » si le PCAOB perd accès aux cabinets d'audit en Chine continentale/Hong Kong. Cela entraînerait l'interdiction de négociation sur Nasdaq. Bien que le PCAOB ait retrouvé accès complet en décembre 2022, cette détermination est révisée annuellement, créant une incertitude persistante sur la cotation."
+      "summary": "Deswell risque d'être identifiée comme « Commission-Identified Issuer » si le PCAOB perd accès aux cabinets d'audit en Chine continentale/Hong Kong. Cela entraînerait l'interdiction de négociation sur Nasdaq. Bien que le PCAOB ait retrouvé accès complet en décembre 2022, cette détermination est révisée annuellement, créant une incertitude persistante sur la cotation.",
+      "score": 5
     },
     {
       "title": "Conformité aux Mesures de cybersécurité du CAC",
@@ -260,7 +279,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique à l'activité en Chine, situé en section clé (Item 3). Langage prudent mais explicite (« cannot assure you », « could cause disruptions »). Mesures entrées en vigueur février 2022 ; Deswell estime ne pas être concernée mais reconnaît incertitude réglementaire. Impact potentiel : perturbations opérationnelles, amendes significatives.",
       "trend": "stable",
-      "summary": "Les Mesures pour l'examen de cybersécurité (CAC, février 2022) imposent un examen pour les opérateurs d'infrastructures critiques et les processeurs de données contrôlant >1M utilisateurs. Deswell affirme ne pas être assujettie, mais les autorités chinoises pourraient interpréter différemment, entraînant inspections, perturbations opérationnelles et amendes substantielles."
+      "summary": "Les Mesures pour l'examen de cybersécurité (CAC, février 2022) imposent un examen pour les opérateurs d'infrastructures critiques et les processeurs de données contrôlant >1M utilisateurs. Deswell affirme ne pas être assujettie, mais les autorités chinoises pourraient interpréter différemment, entraînant inspections, perturbations opérationnelles et amendes substantielles.",
+      "score": 4
     },
     {
       "title": "Conformité aux Mesures de cotation en bourse étrangère (CSRC)",
@@ -268,7 +288,8 @@
       "severity": 4,
       "score_rationale": "Risque nouveau et spécifique, décrit en détail (Overseas Listing Trial Measures, mars 2023). Langage d'incertitude marqué (« cannot predict », « may be subject »). Deswell exemptée pour cotation passée mais futures levées de fonds soumises à approbation CSRC. Impact : retards, amendes, impossibilité de lever des fonds.",
       "trend": "new",
-      "summary": "Les Mesures de cotation en bourse étrangère (CSRC, mars 2023) exigent un dépôt auprès du CSRC pour les futures levées de fonds si >50% des revenus/actifs proviennent de filiales chinoises. Deswell ne peut prédire l'applicabilité ou l'obtention d'approbations, risquant amendes et blocage de financements futurs."
+      "summary": "Les Mesures de cotation en bourse étrangère (CSRC, mars 2023) exigent un dépôt auprès du CSRC pour les futures levées de fonds si >50% des revenus/actifs proviennent de filiales chinoises. Deswell ne peut prédire l'applicabilité ou l'obtention d'approbations, risquant amendes et blocage de financements futurs.",
+      "score": 4
     },
     {
       "title": "Restrictions sur les dividendes et transferts de fonds des filiales chinoises",
@@ -276,7 +297,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel structurel décrit en détail (Cash Flows section et Item 3). Langage explicite sur les contraintes légales chinoises (réserves obligatoires 10%, plafonds de conversion RMB). Historiquement aucun dividende des filiales chinoises (3 ans). Impact direct sur capacité de distribution aux actionnaires.",
       "trend": "stable",
-      "summary": "Les réglementations chinoises limitent les dividendes des filiales PRC aux profits accumulés et imposent des réserves obligatoires (10% des profits jusqu'à 50% du capital enregistré). Les contrôles de change du SAFE restreignent la conversion RMB/devises étrangères. Aucun dividende versé par les filiales chinoises depuis 3 ans, limitant la capacité de distribution."
+      "summary": "Les réglementations chinoises limitent les dividendes des filiales PRC aux profits accumulés et imposent des réserves obligatoires (10% des profits jusqu'à 50% du capital enregistré). Les contrôles de change du SAFE restreignent la conversion RMB/devises étrangères. Aucun dividende versé par les filiales chinoises depuis 3 ans, limitant la capacité de distribution.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'obtention/renouvellement de licences gouvernementales chinoises",
@@ -284,7 +306,8 @@
       "severity": 3,
       "score_rationale": "Risque opérationnel direct pour les activités manufacturières. Langage modéré mais clair (« cannot assure you », « may be required »). Deswell détient actuellement les licences nécessaires mais reconnaît possibilité de nouvelles exigences. Impact : interruption d'activité si non-conformité.",
       "trend": "stable",
-      "summary": "Deswell doit obtenir et maintenir des licences chinoises (certificats commerciaux, sécurité usine, permis de pollution). Bien que détentrice des licences actuelles, elle ne peut garantir l'obtention de futures approbations ou le maintien des existantes, risquant interruption d'exploitation."
+      "summary": "Deswell doit obtenir et maintenir des licences chinoises (certificats commerciaux, sécurité usine, permis de pollution). Bien que détentrice des licences actuelles, elle ne peut garantir l'obtention de futures approbations ou le maintien des existantes, risquant interruption d'exploitation.",
+      "score": 3
     },
     {
       "title": "Risques liés à la structure de holding étrangère en Chine",
@@ -292,7 +315,8 @@
       "severity": 4,
       "score_rationale": "Risque fondamental et systémique, situé en début d'Item 3. Langage d'avertissement fort (« unique risks », « specifically cautioned », « significant legal and operational risks »). Récentes actions réglementaires du gouvernement PRC sur les structures VIE et supervision des sociétés chinoises cotées à l'étranger. Incertitude sur impact des nouvelles régulations.",
       "trend": "up",
-      "summary": "Deswell est une holding BVI contrôlant des filiales opérationnelles en Chine continentale et Macao via des intermédiaires BVI/Samoa. Le gouvernement PRC a renforcé la supervision des structures VIE et des sociétés chinoises cotées à l'étranger. Deswell affirme ne pas être directement visée mais reconnaît incertitudes sur l'application future des nouvelles régulations."
+      "summary": "Deswell est une holding BVI contrôlant des filiales opérationnelles en Chine continentale et Macao via des intermédiaires BVI/Samoa. Le gouvernement PRC a renforcé la supervision des structures VIE et des sociétés chinoises cotées à l'étranger. Deswell affirme ne pas être directement visée mais reconnaît incertitudes sur l'application future des nouvelles régulations.",
+      "score": 4
     },
     {
       "title": "Impossibilité d'exécution des jugements américains contre Deswell",
@@ -300,7 +324,8 @@
       "severity": 3,
       "score_rationale": "Risque juridique structurel lié à l'incorporation BVI. Langage explicite (« difficult or impossible », « uncertainty as to enforceability »). Pas d'arrangement de réciprocité entre BVI/Hong Kong et États-Unis. Impact : actionnaires/créanciers ne peuvent pas faire exécuter les jugements US.",
       "trend": "stable",
-      "summary": "Deswell étant incorporée aux BVI, les jugements des tribunaux américains ne peuvent être exécutés directement aux BVI ou Hong Kong. L'exécution nécessite une action en justice séparée, entraînant délais et frais additionnels, créant une incertitude sur l'effectivité des recours légaux."
+      "summary": "Deswell étant incorporée aux BVI, les jugements des tribunaux américains ne peuvent être exécutés directement aux BVI ou Hong Kong. L'exécution nécessite une action en justice séparée, entraînant délais et frais additionnels, créant une incertitude sur l'effectivité des recours légaux.",
+      "score": 3
     },
     {
       "title": "Incertitudes réglementaires chinoises sur les activités de trading/commerce électronique",
@@ -308,7 +333,8 @@
       "severity": 3,
       "score_rationale": "Risque indirect mais pertinent : Deswell mène des activités de trading via filiales à Macao. Langage prudent (« cannot assure you ») sur l'interprétation des nouvelles régulations (anti-monopole, cybersécurité). Tendance : renforcement de la supervision réglementaire en Chine.",
       "trend": "up",
-      "summary": "Le gouvernement PRC a renforcé l'application anti-monopole et les mesures de cybersécurité. Bien que Deswell affirme ne pas être concernée (pas de monopole, <1M utilisateurs), les autorités pourraient interpréter différemment ses activités de trading/commerce électronique via Kwanasia et Jetcrown à Macao."
+      "summary": "Le gouvernement PRC a renforcé l'application anti-monopole et les mesures de cybersécurité. Bien que Deswell affirme ne pas être concernée (pas de monopole, <1M utilisateurs), les autorités pourraient interpréter différemment ses activités de trading/commerce électronique via Kwanasia et Jetcrown à Macao.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:38:25.674658+00:00",
@@ -449,7 +475,7 @@
       {
         "year": 2025,
         "month": 6,
-        "title": "Deswell Industries Full Year 2025 Earnings: EPS: US$0.70 (vs US$0.48 in FY 2024)",
+        "title": "Deswell Industries Full Year 2025 Earnings: EPS: US$0.70 (vs US$0.48 in exercice 2024)",
         "body": "Deswell Industries ( NASDAQ:DSWL ) Full Year 2025 Results Key Financial Results Revenue: US$67.6m (down 2.5% from FY...",
         "source": "Simply Wall St.",
         "url": "https://finance.yahoo.com/news/deswell-industries-full-2025-earnings-111048847.html",
@@ -469,9 +495,9 @@
     "country": "Macau",
     "_data_freshness_date": "2026-05-21T02:17:14.252471+00:00",
     "fetched_at": "2026-05-21T02:17:14.252472+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.425Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.986Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dswl.json",
     "enrich_root": "v2-pipeline-enrich/dswl.json",

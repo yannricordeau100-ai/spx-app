@@ -38,8 +38,8 @@
       "is_short_history": true,
       "period_type": "annual",
       "signal_en": "Mix stable",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni ne contient pas de valeurs numériques explicites du KPI \"Sustainable Premium Mix\" pour les années récentes, donc moins de qu"
     },
     {
       "short": "GHG Reduction Target",
@@ -184,11 +184,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 191.9 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -213,9 +217,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "period_type": "annual",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     }
   ],
   "ai_positioning": {
@@ -243,7 +245,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -312,7 +314,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement comme obligation de reporting depuis 2023 (CSRD, ESRS), avec des cibles chiffrées contraignantes (80% taxonomie EU d'ici 2026, -55% GHG d'ici 2030). Le langage est prescriptif et les délais sont précis, indiquant une pression réglementaire croissante. Tendance haussière liée à l'accélération du cadre réglementaire européen.",
       "trend": "up",
-      "summary": "Gjensidige est soumis à des obligations croissantes de reporting ESG via la directive CSRD et les normes ESRS depuis 2023. Le non-respect des cibles (ex. 80% de primes alignées taxonomie EU d'ici 2026, alors qu'on n'est qu'à ~30% fin 2023) expose l'entreprise à des risques de non-conformité réglementaire et de sanctions."
+      "summary": "Gjensidige est soumis à des obligations croissantes de reporting ESG via la directive CSRD et les normes ESRS depuis 2023. Le non-respect des cibles (ex. 80% de primes alignées taxonomie EU d'ici 2026, alors qu'on n'est qu'à ~30% fin 2023) expose l'entreprise à des risques de non-conformité réglementaire et de sanctions.",
+      "score": 3
     },
     {
       "title": "Risque climatique sur la sinistralité et les produits d'assurance",
@@ -320,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement l'intégration des risques climatiques dans le système de gestion des risques, la collaboration avec le Norwegian Computing Centre pour modéliser les conséquences climatiques sur les sinistres, et des initiatives de prévention des dommages. Le langage souligne une tendance haussière des événements météorologiques extrêmes affectant directement la sinistralité.",
       "trend": "up",
-      "summary": "L'augmentation de la fréquence et de l'intensité des événements climatiques extrêmes (inondations, tempêtes) impacte directement la sinistralité de Gjensidige, notamment sur les produits habitation, véhicules et bâtiments commerciaux. La société développe des modèles climatiques avancés combinés aux données de sinistres pour anticiper ces impacts à court, moyen et long terme."
+      "summary": "L'augmentation de la fréquence et de l'intensité des événements climatiques extrêmes (inondations, tempêtes) impacte directement la sinistralité de Gjensidige, notamment sur les produits habitation, véhicules et bâtiments commerciaux. La société développe des modèles climatiques avancés combinés aux données de sinistres pour anticiper ces impacts à court, moyen et long terme.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs et risque de chaîne d'approvisionnement durable",
@@ -328,7 +332,8 @@
       "severity": 3,
       "score_rationale": "Le document décrit un processus de screening des fournisseurs via EcoVadis et des auto-déclarations UN Global Compact, impliquant une dépendance opérationnelle à des tiers pour les processus de sinistres. La mention explicite d'audits de durabilité et de suivi trimestriel indique une exposition significative au risque fournisseur dans les processus de règlement de sinistres.",
       "trend": "stable",
-      "summary": "Gjensidige dépend de fournisseurs externes pour ses processus de gestion des sinistres (réparations, matériaux). Un fournisseur non conforme aux standards ESG ou défaillant peut perturber les opérations de règlement et exposer l'entreprise à des risques réputationnels. La société impose des auto-déclarations et des audits EcoVadis pour mitiger ce risque."
+      "summary": "Gjensidige dépend de fournisseurs externes pour ses processus de gestion des sinistres (réparations, matériaux). Un fournisseur non conforme aux standards ESG ou défaillant peut perturber les opérations de règlement et exposer l'entreprise à des risques réputationnels. La société impose des auto-déclarations et des audits EcoVadis pour mitiger ce risque.",
+      "score": 3
     },
     {
       "title": "Risque de réputation lié aux engagements ESG non tenus",
@@ -336,7 +341,8 @@
       "severity": 3,
       "score_rationale": "Gjensidige a pris des engagements publics chiffrés et contraignants (SBTi, UN PRI, TCFD, PSI) avec des cibles précises. L'écart constaté entre l'objectif 2026 (80% taxonomie) et la réalité 2023 (~30%) crée un risque de réputation si les progrès ne s'accélèrent pas. Le langage de transparence et de redevabilité amplifie l'exposition publique.",
       "trend": "up",
-      "summary": "En s'engageant publiquement auprès de multiples initiatives internationales (UN PRI, SBTi, TCFD, PSI), Gjensidige s'expose à un risque réputationnel significatif en cas de non-atteinte de ses cibles ESG. L'écart entre l'objectif de 80% de primes alignées à la taxonomie EU et les ~30% atteints fin 2023 illustre concrètement ce risque."
+      "summary": "En s'engageant publiquement auprès de multiples initiatives internationales (UN PRI, SBTi, TCFD, PSI), Gjensidige s'expose à un risque réputationnel significatif en cas de non-atteinte de ses cibles ESG. L'écart entre l'objectif de 80% de primes alignées à la taxonomie EU et les ~30% atteints fin 2023 illustre concrètement ce risque.",
+      "score": 3
     },
     {
       "title": "Risque réglementaire lié à la taxonomie EU et classification des produits",
@@ -344,7 +350,8 @@
       "severity": 4,
       "score_rationale": "La cible de 80% de primes alignées à la taxonomie EU d'ici 2026 est une obligation stratégique majeure, avec seulement ~30% atteints fin 2023. Le document positionne ce risque comme prioritaire dans la stratégie du Conseil d'Administration. L'évolution des critères de taxonomie (participation au projet pilote SBTi 2023/24) indique une incertitude réglementaire persistante.",
       "trend": "up",
-      "summary": "L'alignement des produits d'assurance non-vie aux critères de la taxonomie EU représente un défi opérationnel majeur pour Gjensidige. Avec seulement ~30% des primes éligibles alignées fin 2023 contre un objectif de 80% en 2026, l'entreprise doit transformer significativement son portefeuille de produits (habitation, véhicules, bâtiments commerciaux) sous contrainte réglementaire."
+      "summary": "L'alignement des produits d'assurance non-vie aux critères de la taxonomie EU représente un défi opérationnel majeur pour Gjensidige. Avec seulement ~30% des primes éligibles alignées fin 2023 contre un objectif de 80% en 2026, l'entreprise doit transformer significativement son portefeuille de produits (habitation, véhicules, bâtiments commerciaux) sous contrainte réglementaire.",
+      "score": 4
     },
     {
       "title": "Risque nature et biodiversité intégré dans la souscription",
@@ -352,7 +359,8 @@
       "severity": 2,
       "score_rationale": "Le document mentionne explicitement l'inclusion des risques naturels (nature risks) dans les évaluations climatiques, et la participation depuis 2024 aux groupes de travail UNEP PSI sur la nature positive. C'est un risque émergent, nouveau dans le cadre de reporting, avec un langage encore exploratoire mais une tendance clairement haussière.",
       "trend": "new",
-      "summary": "Gjensidige intègre désormais les risques liés à la biodiversité et à la nature dans ses évaluations de risques climatiques, en participant depuis 2024 aux travaux UNEP PSI sur l'assurance nature-positive. Ce risque émergent pourrait affecter la tarification et la souscription de produits couvrant des actifs exposés à la dégradation des écosystèmes (agriculture, immobilier côtier)."
+      "summary": "Gjensidige intègre désormais les risques liés à la biodiversité et à la nature dans ses évaluations de risques climatiques, en participant depuis 2024 aux travaux UNEP PSI sur l'assurance nature-positive. Ce risque émergent pourrait affecter la tarification et la souscription de produits couvrant des actifs exposés à la dégradation des écosystèmes (agriculture, immobilier côtier).",
+      "score": 2
     },
     {
       "title": "Risque de conformité aux droits humains dans la chaîne de valeur",
@@ -360,7 +368,8 @@
       "severity": 2,
       "score_rationale": "Le document cite explicitement l'intégration des principes UN sur les droits humains, des normes ILO et des lignes directrices OCDE dans les documents gouvernants, avec un suivi trimestriel des investissements et fournisseurs. La mention de mécanismes d'exclusion en cas de violation indique une exposition réelle, bien que le langage reste modéré.",
       "trend": "stable",
-      "summary": "Gjensidige est exposé à des risques de non-conformité aux standards internationaux sur les droits humains (UN Global Compact, ILO) via ses fournisseurs et ses investissements. En cas de violation identifiée, la société engage un dialogue et peut procéder à des exclusions, ce qui peut impacter ses relations fournisseurs et son portefeuille d'investissements."
+      "summary": "Gjensidige est exposé à des risques de non-conformité aux standards internationaux sur les droits humains (UN Global Compact, ILO) via ses fournisseurs et ses investissements. En cas de violation identifiée, la société engage un dialogue et peut procéder à des exclusions, ce qui peut impacter ses relations fournisseurs et son portefeuille d'investissements.",
+      "score": 2
     }
   ],
   "_risks_reextracted_at": "2026-05-14T08:44:36.480259+00:00",
@@ -393,9 +402,9 @@
     "country": "Norway",
     "_data_freshness_date": "2026-05-21T02:17:14.268010+00:00",
     "fetched_at": "2026-05-21T02:17:14.268011+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.704Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.326Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gjf.ol.json",
     "enrich_root": "v2-pipeline-enrich/gjf.ol.json",

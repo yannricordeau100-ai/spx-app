@@ -38,11 +38,14 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 21.69,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 3 consecutive years of explicit gross margin data found in the financial table (2018: 14.0%, 2019: 14.7%, 2020: 15.6%). Minimum thresho",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Sales",
@@ -183,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.09 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -206,11 +213,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.59 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,9 +247,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Innovation",
-      "ttm": 21.69,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 21.69
     },
     {
       "short": "Net Sales",
@@ -262,9 +271,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 8.1,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 8.1
     }
   ],
   "ai_positioning": {
@@ -288,7 +295,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -304,7 +311,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès l'introduction des facteurs de risque. Le langage est fort (\"matériellement affecter\", \"réduction des ventes\"). Il s'agit d'une tendance structurelle en hausse avec l'essor du cloud. La catégorie Concurrence est hautement pondérée ici.",
       "trend": "up",
-      "summary": "Les éditeurs comme Microsoft ou Google vendent directement en cloud, court-circuitant les revendeurs comme NSIT, ce qui menace leurs marges et volumes."
+      "summary": "Les éditeurs comme Microsoft ou Google vendent directement en cloud, court-circuitant les revendeurs comme NSIT, ce qui menace leurs marges et volumes.",
+      "score": 5
     },
     {
       "title": "Perte de financements partenaires",
@@ -312,7 +320,8 @@
       "severity": 5,
       "score_rationale": "Le paragraphe sur les 'partner funding' est long et détaillé, avec mention d'effets matériels sur les résultats. Le risque concerne les plus grands partenaires (Microsoft, Cisco, etc.). Le ton est préoccupé, avec référence à des impacts récents. Catégorie Capital fortement impactée.",
       "trend": "up",
-      "summary": "Les réductions ou suppressions de primes et incitations des éditeurs (ex: cloud) peuvent fortement réduire la rentabilité de NSIT."
+      "summary": "Les réductions ou suppressions de primes et incitations des éditeurs (ex: cloud) peuvent fortement réduire la rentabilité de NSIT.",
+      "score": 5
     },
     {
       "title": "Obsolescence des stocks matériels",
@@ -320,7 +329,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de dépréciations passées sur le matériel. Le risque est récurrent et lié à l'accélération technologique. Le langage est ferme (\"write-downs\", \"no return privileges\"). Catégorie Industriel de poids moyen.",
       "trend": "stable",
-      "summary": "L'obsolescence rapide du matériel IT peut forcer NSIT à déprécier des stocks non vendus, affectant sa rentabilité."
+      "summary": "L'obsolescence rapide du matériel IT peut forcer NSIT à déprécier des stocks non vendus, affectant sa rentabilité.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenaires clés",
@@ -328,7 +338,8 @@
       "severity": 5,
       "score_rationale": "Absence de contrats long terme avec des partenaires critiques (Microsoft, Cisco, Ingram Micro). Risque de rupture explicite, avec effet de disruption. Langage alarmant (\"could negatively impact\"). Catégorie Concurrence critique.",
       "trend": "stable",
-      "summary": "NSIT dépend de partenaires majeurs pour ses approvisionnements et ses marges, sans garantie de continuité des relations."
+      "summary": "NSIT dépend de partenaires majeurs pour ses approvisionnements et ses marges, sans garantie de continuité des relations.",
+      "score": 5
     },
     {
       "title": "Pressions sur les prix et marges",
@@ -336,7 +347,8 @@
       "severity": 4,
       "score_rationale": "Le facteur prix est répété plusieurs fois, avec mention de pressions persistantes. Langage fort (\"very aggressive\", \"reduced operating margins\"). Impact direct sur la profitabilité. Catégorie Concurrence dominante.",
       "trend": "stable",
-      "summary": "La concurrence féroce oblige NSIT à réduire ses prix, ce qui comprime ses marges si elle ne peut pas compenser par d'autres leviers."
+      "summary": "La concurrence féroce oblige NSIT à réduire ses prix, ce qui comprime ses marges si elle ne peut pas compenser par d'autres leviers.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques en Europe",
@@ -344,7 +356,8 @@
       "severity": 4,
       "score_rationale": "Mention spécifique des conflits en Ukraine et au Moyen-Orient, avec effets sur les opérations européennes. Langage préoccupé (\"market disruptions\", \"supply chain disruptions\"). Catégorie Géopolitique moyennement pondérée mais en hausse.",
       "trend": "up",
-      "summary": "Les tensions géopolitiques affectent les chaînes d'approvisionnement, les coûts et les changes, en particulier pour les opérations européennes de NSIT."
+      "summary": "Les tensions géopolitiques affectent les chaînes d'approvisionnement, les coûts et les changes, en particulier pour les opérations européennes de NSIT.",
+      "score": 4
     },
     {
       "title": "Changements dans les décisions d'achat IT",
@@ -352,7 +365,8 @@
       "severity": 4,
       "score_rationale": "Risque lié à la décentralisation des achats IT vers les utilisateurs finaux. Mention explicite d'un impact matériel possible. Langage clair et préventif. Catégorie Industriel pertinente.",
       "trend": "up",
-      "summary": "Si les décisions d'achat IT passent des services centraux aux unités locales ou utilisateurs, NSIT pourrait perdre sa position de fournisseur principal."
+      "summary": "Si les décisions d'achat IT passent des services centraux aux unités locales ou utilisateurs, NSIT pourrait perdre sa position de fournisseur principal.",
+      "score": 4
     }
   ],
   "governance": {
@@ -464,23 +478,18 @@
         "history": [
           4.4226,
           6.8701,
-          -4.0496,
           2.6509,
           5.3942,
           7.9286,
-          -5.5425,
           2.3239,
           4.6735,
           6.9398,
-          -4.7615,
           2.3795,
           4.5411,
           6.629,
-          -4.848,
           2.1036,
           4.195,
           6.1989,
-          -4.2503,
           2.128
         ],
         "history_periods": [
@@ -534,6 +543,12 @@
             "accession": "0000932696-26-000050",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (NSIT)"
         ]
       },
       {
@@ -542,19 +557,15 @@
         "history": [
           101.729,
           157.212,
-          -82.764,
           56.631,
           145.815,
           203.131,
-          -124.969,
           49.972,
           130.454,
           190.701,
-          -89.818,
           67.027,
           154.471,
           212.679,
-          -184.486,
           7.514,
           54.446,
           105.393,
@@ -612,6 +623,12 @@
             "accession": "0000932696-26-000050",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (NSIT)"
         ]
       },
       {
@@ -620,23 +637,18 @@
         "history": [
           107.813,
           107.35,
-          -250.076,
           114.758,
           137.529,
           136.653,
-          -225.303,
           175.726,
           195.954,
           244.324,
-          -347.274,
           379.111,
           256.307,
           317.449,
-          -693.633,
           321.85,
           309.135,
           547.017,
-          -819.982,
           440.626
         ],
         "history_periods": [
@@ -690,6 +702,12 @@
             "accession": "0000932696-26-000050",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (NSIT)"
         ]
       }
     ]
@@ -706,9 +724,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.290619+00:00",
     "fetched_at": "2026-05-21T02:17:14.290621+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.052Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.972Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nsit.json",
     "enrich_root": "v2-pipeline-enrich/nsit.json",

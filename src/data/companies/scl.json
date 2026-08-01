@@ -98,34 +98,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.33 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.15,
-        0.04,
-        0.05,
-        0.05
+        150,
+        40,
+        50,
+        50
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.05 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -144,56 +153,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.36 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.68,
-      "unit": "Mds €",
+      "value": 680,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.64,
-        0.71,
-        0.68,
-        0.68
+        640,
+        710,
+        680,
+        680
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.68 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "+30.0%",
       "history": [
-        0.17,
-        0.13,
-        0.1,
-        0.13
+        170,
+        130,
+        100,
+        130
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -207,7 +230,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.25,
         1.37,
@@ -220,7 +243,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -235,7 +258,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         0.017,
         0.0555,
@@ -248,7 +271,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -263,7 +286,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         20.78,
@@ -276,7 +299,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -292,7 +315,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         6.38,
@@ -305,7 +328,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -364,52 +387,52 @@
       "title": "Remédiation environnementale à Maywood",
       "category": "Litige",
       "severity": 5,
-      "score_rationale": "Le site de Maywood est listé sur la National Priorities List depuis 1993 et fait l'objet d'un décret de consentement signé en février 2024. Le langage indique des coûts futurs incertains et une possible responsabilité matérielle au-delà des provisions actuelles, avec un impact existentiel potentiel. La catégorie Litige est fortement pondérée ici. (score par défaut, à affiner)",
+      "score_rationale": "Le site de Maywood est listé sur la National Priorities List depuis 1993 et fait l'objet d'un décret de consentement signé en février 2024. Le langage indique des coûts futurs incertains et une possible responsabilité matérielle au-delà des provisions actuelles, avec un impact existentiel potentiel. La catégorie Litige est fortement pondérée ici.",
       "trend": "stable",
       "summary": "Le site de Maywood, NJ, est fortement contaminé et fait l'objet d'obligations de remédiation coûteuses. La responsabilité future pourrait dépasser les provisions actuelles.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Pénalités environnementales à Millsdale",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le 26 mars 2024, l'USEPA a émis un avis de violation pour non-respect des réglementations sur les émissions atmosphériques à l'usine de Millsdale. Bien que les pénalités ne soient pas quantifiées, le risque de sanctions financières ou opérationnelles est élevé. Position centrale dans le 10-K et langage préoccupant. (score par défaut, à affiner)",
+      "score_rationale": "Le 26 mars 2024, l'USEPA a émis un avis de violation pour non-respect des réglementations sur les émissions atmosphériques à l'usine de Millsdale. Bien que les pénalités ne soient pas quantifiées, le risque de sanctions financières ou opérationnelles est élevé. Position centrale dans le 10-K et langage préoccupant.",
       "trend": "new",
       "summary": "L'usine de Millsdale, IL, fait l'objet d'une violation environnementale majeure pour des émissions d'air. Des pénalités financières ou des restrictions opérationnelles sont possibles.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Contamination chimique à Elwood et Fieldsboro",
       "category": "Environnement",
       "severity": 4,
-      "score_rationale": "Découverte de contamination au-dessus des seuils réglementaires à deux sites de production. Obligation de remédiation auto-gérée. Le texte mentionne que les coûts réels pourraient différer matériellement des provisions, ce qui indique un risque financier significatif. Catégorie Environnement modérément pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Découverte de contamination au-dessus des seuils réglementaires à deux sites de production. Obligation de remédiation auto-gérée. Le texte mentionne que les coûts réels pourraient différer matériellement des provisions, ce qui indique un risque financier significatif. Catégorie Environnement modérément pondérée.",
       "trend": "stable",
       "summary": "Des niveaux de contamination chimique supérieurs aux seuils réglementaires ont été détectés à Elwood (IL) et Fieldsboro (NJ), entraînant des coûts de remédiation pouvant excéder les provisions.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Action en rescision fiscale au Brésil",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Action en rescision déposée en 2023 par le Trésor brésilien visant à annuler des crédits d'impôt PIS/COFINS. Décisions judiciaires récentes (2024) ont clarifié le délai de prescription, mais le risque de perte financière matérielle persiste. Langage prudent et position notable dans le rapport. (score par défaut, à affiner)",
+      "score_rationale": "Action en rescision déposée en 2023 par le Trésor brésilien visant à annuler des crédits d'impôt PIS/COFINS. Décisions judiciaires récentes (2024) ont clarifié le délai de prescription, mais le risque de perte financière matérielle persiste. Langage prudent et position notable dans le rapport.",
       "trend": "stable",
       "summary": "Le Trésor brésilien conteste la validité de crédits d'impôt perçus par la filiale locale. Une perte financière significative est possible selon l'issue du litige.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Responsabilité environnementale à Wilmington",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Le site de Wilmington, MA, est sur la National Priorities List depuis 2006. Un décret de consentement de 2023 impose des actions de remédiation. L'obligation de paiement est illimitée (5% des coûts sans plafond). Mention de dommages aux ressources naturelles possibles en 2022. Langage préoccupant et risque financier ouvert. (score par défaut, à affiner)",
+      "score_rationale": "Le site de Wilmington, MA, est sur la National Priorities List depuis 2006. Un décret de consentement de 2023 impose des actions de remédiation. L'obligation de paiement est illimitée (5% des coûts sans plafond). Mention de dommages aux ressources naturelles possibles en 2022. Langage préoccupant et risque financier ouvert.",
       "trend": "stable",
       "summary": "Le site de Wilmington, MA, implique une responsabilité environnementale continue avec des coûts illimités potentiels. Une réclamation pour dommages aux ressources naturelles est également en cours.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cybermenaces et sécurité des systèmes informatiques",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "Le Comité d'Audit supervise la cybersécurité, avec des rapports trimestriels. L'équipe est expérimentée et certifiée, mais aucune violation majeure n'est signalée. Le risque est bien encadré, mais la dépendance aux systèmes IT dans l'industrie chimique rend ce risque significatif. Catégorie Cybersécurité moyennement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Le Comité d'Audit supervise la cybersécurité, avec des rapports trimestriels. L'équipe est expérimentée et certifiée, mais aucune violation majeure n'est signalée. Le risque est bien encadré, mais la dépendance aux systèmes IT dans l'industrie chimique rend ce risque significatif. Catégorie Cybersécurité moyennement pondérée.",
       "trend": "stable",
       "summary": "La société dispose d'un programme de cybersécurité supervisé au niveau du conseil, mais reste exposée aux cybermenaces croissantes dans le secteur industriel.",
       "score": 3
@@ -418,7 +441,7 @@
       "title": "Non-conformité FIFRA sur biocides",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Un avis préalable de violation FIFRA a été reçu en mars 2025, avec une pénalité de 1,1 M$ payée. Bien que réglé, cela révèle une vulnérabilité réglementaire dans la distribution de biocides. Le risque est atténué par le recouvrement partiel (1 M$), mais le précédent est significatif. (score par défaut, à affiner)",
+      "score_rationale": "Un avis préalable de violation FIFRA a été reçu en mars 2025, avec une pénalité de 1,1 M$ payée. Bien que réglé, cela révèle une vulnérabilité réglementaire dans la distribution de biocides. Le risque est atténué par le recouvrement partiel (1 M$), mais le précédent est significatif.",
       "trend": "new",
       "summary": "Des violations présumées de la réglementation FIFRA sur des biocides ont entraîné une pénalité de 1,1 million de dollars, soulignant des risques réglementaires dans la chaîne de distribution.",
       "score": 3
@@ -456,7 +479,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:20:58Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -475,7 +498,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:19Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:24Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Chimie de spécialités",
   "subsector_fr": "Chimie de spécialités",
   "enrich_description": {
@@ -531,7 +554,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.609Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.528Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/scl.json",
     "enrich_root": "v2-pipeline-enrich/scl.json",

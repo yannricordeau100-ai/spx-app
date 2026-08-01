@@ -40,7 +40,10 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Revenu",
@@ -111,11 +114,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -134,79 +141,98 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.28 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.8,
-      "unit": "Mds €",
+      "value": 800,
+      "unit": "M €",
       "yoy": "-16.7%",
       "history": [
-        1.14,
-        1.18,
-        0.96,
-        0.8
+        1140,
+        1180,
+        960,
+        800
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.8 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.32,
-      "unit": "Mds €",
+      "value": 320,
+      "unit": "M €",
       "yoy": "-23.8%",
       "history": [
-        0.42,
-        0.42,
-        0.42,
-        0.32
+        420,
+        420,
+        420,
+        320
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.32 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "-22.2%",
       "history": [
-        0.3,
-        0.22,
-        0.18,
-        0.14
+        300,
+        220,
+        180,
+        140
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.14 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -248,64 +274,64 @@
       "title": "Pertes financières",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "La société a subi des pertes nettes de 278,9 millions de dollars en 2025 et 346,7 millions de dollars en 2024. Les opérations commerciales sont limitées et la rentabilité reste incertaine. (score par défaut, à affiner)",
+      "score_rationale": "La société a subi des pertes nettes de 278,9 millions de dollars en 2025 et 346,7 millions de dollars en 2024. Les opérations commerciales sont limitées et la rentabilité reste incertaine.",
       "trend": "stable",
       "summary": "La société a subi des pertes de 278,9 millions et 346,7 millions de dollars en 2025 et 2024, respectivement.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Capacité de production et fréquence de vol",
       "category": "Opérationnel",
       "severity": 5,
-      "score_rationale": "La fréquence de vol était limitée en 2024 et les opérations commerciales ont été suspendues. La société dépend du lancement réussi de nouveaux navires spatiaux. (score par défaut, à affiner)",
+      "score_rationale": "La fréquence de vol était limitée en 2024 et les opérations commerciales ont été suspendues. La société dépend du lancement réussi de nouveaux navires spatiaux.",
       "trend": "up",
       "summary": "Les opérations commerciales ont commencé en juin 2023 et ont été suspendues au milieu de 2024. Le redémarrage est prévu au quatrième trimestre 2026 avec le programme d'essais en vol.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Retard développement",
       "category": "Technologie",
       "severity": 5,
-      "score_rationale": "Les retards dans le développement des prochaines générations de navires spatiaux pourraient avoir un impact négatif sur l'entreprise et son calendrier commercial. (score par défaut, à affiner)",
+      "score_rationale": "Les retards dans le développement des prochaines générations de navires spatiaux pourraient avoir un impact négatif sur l'entreprise et son calendrier commercial.",
       "trend": "up",
       "summary": "La société attend le lancement de ses prochaines générations de navires spatiaux pour augmenter sa fréquence de vol cible à 125 missions commerciales par an.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Sécurité opérationnelle",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Les problèmes de sécurité opérationnelle pourraient avoir un impact négatif significatif sur l'entreprise, sa réputation et sa capacité à générer des revenus. (score par défaut, à affiner)",
+      "score_rationale": "Les problèmes de sécurité opérationnelle pourraient avoir un impact négatif significatif sur l'entreprise, sa réputation et sa capacité à générer des revenus.",
       "trend": "stable",
       "summary": "La société doit maintenir des normes de sécurité élevées pour ses systèmes spatiaux hautement sophistiqués et ses installations. Les perceptions négatives en matière de sécurité pourraient nuire à la réputation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Conversion réservations en revenus",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Les 675 réservations représentent 188 millions de dollars en revenus futurs attendus, mais le calendrier de conversion est incertain et les réservations peuvent être annulées. (score par défaut, à affiner)",
+      "score_rationale": "Les 675 réservations représentent 188 millions de dollars en revenus futurs attendus, mais le calendrier de conversion est incertain et les réservations peuvent être annulées.",
       "trend": "new",
       "summary": "La société a un carnet de réservations important, mais la conversion dépend du redémarrage réussi des vols commerciaux et des capacités de production future.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance fournisseurs",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société dépend de fournisseurs pour la fabrication de composants, moteurs de fusée et matériaux critiques pour ses opérations. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de fournisseurs pour la fabrication de composants, moteurs de fusée et matériaux critiques pour ses opérations.",
       "trend": "stable",
       "summary": "La société doit gérer ses relations avec les fournisseurs pour maintenir la production et l'assemblage de ses navires spatiaux de nouvelle génération.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation gouvernementale",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les changements dans la réglementation gouvernementale relative aux opérations spatiales pourraient avoir un impact négatif sur l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans la réglementation gouvernementale relative aux opérations spatiales pourraient avoir un impact négatif sur l'entreprise.",
       "trend": "new",
       "summary": "La société doit se conformer aux réglementations gouvernementales pour opérer dans l'espace aérien restreint et doit obtenir les approbations nécessaires pour ses opérations.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -374,7 +400,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -424,88 +450,74 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SPCE",
-    "extracted_at": "2026-05-15T18:14:23Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1706946,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:22:20Z",
+    "n_kpis": 2,
     "kpis": [
       {
-        "short": "Revenu",
+        "short": "Reservations",
         "period_type": "quarter",
         "history": [
-          571000,
-          3151000,
-          -430000,
-          319000,
-          676000,
-          1443000,
-          -126000,
-          392000,
-          2263000,
-          3991000,
-          154000,
-          1985000,
-          6205000,
-          6607000,
-          -7761000,
-          461000,
-          867000,
-          1232000,
-          -1016000,
-          227000
+          800,
+          800,
+          800,
+          800,
+          800,
+          800,
+          700,
+          700,
+          675,
+          675,
+          675
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "",
+        "_extracted_at": "2026-06-01T09:22:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          0.392,
+          1.985,
+          4.22,
+          6.205,
+          0.461,
+          0.406,
+          0.365
+        ],
+        "history_periods": [
+          "Q1 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "$",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 867000,
-            "accession": "0001706946-25-000131",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 1232000,
-            "accession": "0001706946-25-000150",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -1016000,
-            "accession": "calc-0001706946-26-000019",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 227000,
-            "accession": "0001706946-26-000068",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:22:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -521,9 +533,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.312323+00:00",
     "fetched_at": "2026-05-21T02:17:14.312323+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.061Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.053Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/spce.json",
     "enrich_root": null,

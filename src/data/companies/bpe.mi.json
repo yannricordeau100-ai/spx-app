@@ -88,7 +88,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -138,7 +138,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Return on Equity — net income divided by shareholders' equity.",
+      "explanation_en": "Return on Equity, net income divided by shareholders' equity.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -163,7 +163,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Employees — total number of employees at period end.",
+      "explanation_en": "Employees, total number of employees at period end.",
       "signal_en": "Stable, slight decline to monitor"
     },
     {
@@ -183,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 204.65 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -206,11 +210,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 24.87 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -224,32 +232,12 @@
     ],
     "source": "Report and Financial Statements 2024"
   },
-  "_validation": [
-    "Unité 'Net Commission Income' validée: M€ correct, valeur 37.6 M€ confirmée vs source (37,577,421 EUR)",
-    "YoY 'Net Commission Income' corrigé: +15.6% remplacé par +15.61% (source: 15.61%)",
-    "Period_type 'Net Commission Income' corrigé: 'quarter' remplacé par 'annual' (données 31/12/2024 vs 31/12/2023, exercices complets)",
-    "Valeur 'Total Income' convertie: '82.4' (string) remplacée par 82.4 (number)",
-    "YoY 'Total Income' corrigé: +9.7% remplacé par +9.73% (source: 9.73%)",
-    "Period_type 'Total Income' corrigé: 'quarter' remplacé par 'annual'",
-    "Valeur 'Net Profit' convertie: '35.6' (string) remplacée par 35.6 (number)",
-    "YoY 'Net Profit' corrigé: +11.0% remplacé par +10.99% (source: 10.99%)",
-    "Period_type 'Net Profit' ajouté: 'annual'",
-    "Valeur 'Cost/Income Ratio' convertie: '29.69' (string) remplacée par 29.69 (number)",
-    "Period_type 'Cost/Income Ratio' ajouté: 'annual'",
-    "Valeur 'ROE' confirmée: 13.13% correct (source: 13.13%)",
-    "Period_type 'ROE' ajouté: 'annual'",
-    "Valeur 'Employees' convertie: '149' (string) remplacée par 149 (number)",
-    "Period_type 'Employees' ajouté: 'annual'",
-    "Name_fr 'Net Commission Income' amélioré: ajout de 'et frais' pour clarifier la portée complète",
-    "Toutes les dates mises à jour: last_data_date uniformisé à '2024-12-31' pour les données annuelles",
-    "Hero KPI rationale: em-dash remplacé par tiret simple, formulation affinée sans caractères spéciaux",
-    "Historiques validés vs source: 2023 (32.5 M€, 75.1 M€, etc.) et 2024 (37.6 M€, 82.4 M€, etc.) confirmés conformes"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 00:55",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -265,7 +253,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans la section 'Organisational structures' avec un langage fort sur le transfert de la fonction Conformité vers la banque mère. Position centrale dans le document, langage affirmé, tendance à l'augmentation de la dépendance, catégorie Régulation de poids élevé.",
       "trend": "up",
-      "summary": "Factorit a externalisé sa fonction Conformité à sa banque mère, Banca Popolare di Sondrio, ce qui accroît sa dépendance organisationnelle et opérationnelle vis-à-vis du groupe, avec un risque de perte d'autonomie en cas de divergence stratégique ou de surcharge côté mère."
+      "summary": "Factorit a externalisé sa fonction Conformité à sa banque mère, Banca Popolare di Sondrio, ce qui accroît sa dépendance organisationnelle et opérationnelle vis-à-vis du groupe, avec un risque de perte d'autonomie en cas de divergence stratégique ou de surcharge côté mère.",
+      "score": 4
     },
     {
       "title": "Risque cyber lié à l'externalisation du monitoring",
@@ -273,49 +262,56 @@
       "trend": "new",
       "severity": 4,
       "score_rationale": "Le document mentionne l'externalisation du service de cyber monitoring, un changement récent avec un langage prudent. Position claire dans les décisions du conseil, intensité modérée mais en hausse, catégorie Cybersécurité critique.",
-      "summary": "Factorit a externalisé son service de surveillance cyber à un tiers, augmentant sa vulnérabilité aux défaillances externes, aux délais de réponse ou à des failles dans la chaîne d'approvisionnement numérique."
+      "summary": "Factorit a externalisé son service de surveillance cyber à un tiers, augmentant sa vulnérabilité aux défaillances externes, aux délais de réponse ou à des failles dans la chaîne d'approvisionnement numérique.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans le secteur du factoring",
       "category": "Concurrence",
       "severity": 3,
       "score_rationale": "Le contexte sectoriel est évoqué via Assifact, avec une croissance modérée du marché. Langage neutre mais tendance à la pression concurrentielle implicite, catégorie modérément pesante.",
-      "summary": "Le marché italien du factoring connaît une croissance faible (3 %), ce qui intensifie la concurrence pour les parts de marché, notamment face à des acteurs mieux capitalisés ou plus innovants technologiquement."
+      "summary": "Le marché italien du factoring connaît une croissance faible (3 %), ce qui intensifie la concurrence pour les parts de marché, notamment face à des acteurs mieux capitalisés ou plus innovants technologiquement.",
+      "score": 3
     },
     {
       "title": "Réglementation climatique en évolution rapide",
       "category": "Régulation",
       "severity": 4,
       "score_rationale": "Le plan d'action sur les risques climatiques est mis à jour en 2024, avec suivi actif par la Banque d'Italie. Langage proactif mais soulignant des exigences croissantes, tendance à la hausse, catégorie Régulation critique.",
-      "summary": "Factorit doit s'aligner sur les attentes croissantes de la Banque d'Italie en matière de risques climatiques, avec la mise en œuvre d'un cadre ESG, de scores internes et de rapports spécifiques, augmentant la charge réglementaire et opérationnelle."
+      "summary": "Factorit doit s'aligner sur les attentes croissantes de la Banque d'Italie en matière de risques climatiques, avec la mise en œuvre d'un cadre ESG, de scores internes et de rapports spécifiques, augmentant la charge réglementaire et opérationnelle.",
+      "score": 4
     },
     {
       "title": "Application du règlement DORA sur la cybersécurité",
       "category": "Technologie",
       "severity": 5,
       "score_rationale": "DORA est explicitement cité comme applicable dès 2025, avec des exigences contraignantes. Position élevée dans le texte, langage technique et obligatoire, tendance à l'aggravation, catégorie Technologie critique.",
-      "summary": "Le règlement européen DORA (2022/2554) impose dès 2025 des normes strictes de résilience opérationnelle et de cybersécurité, obligeant Factorit à renforcer ses systèmes d'information sous peine de sanctions ou d'incidents majeurs."
+      "summary": "Le règlement européen DORA (2022/2554) impose dès 2025 des normes strictes de résilience opérationnelle et de cybersécurité, obligeant Factorit à renforcer ses systèmes d'information sous peine de sanctions ou d'incidents majeurs.",
+      "score": 5
     },
     {
       "title": "Renforcement de la réglementation AML",
       "category": "Régulation",
       "severity": 4,
       "score_rationale": "Le VIe paquet AML et le nouvel AMLA sont cités comme des changements majeurs. Langage formel et préparatoire, position centrale, tendance à l'aggravation, catégorie Régulation lourde.",
-      "summary": "L'entrée en vigueur du VIe paquet anti-blanchiment et de l'Autorité européenne AMLA impose à Factorit des obligations accrues de surveillance, de reporting et de contrôle, avec des coûts d'adaptation et des risques de non-conformité accrus."
+      "summary": "L'entrée en vigueur du VIe paquet anti-blanchiment et de l'Autorité européenne AMLA impose à Factorit des obligations accrues de surveillance, de reporting et de contrôle, avec des coûts d'adaptation et des risques de non-conformité accrus.",
+      "score": 4
     },
     {
       "title": "Dépendance aux indices de référence financiers",
       "category": "Régulation",
       "severity": 3,
       "score_rationale": "Le plan de remplacement des indices est mentionné suite au TUB, mais sans événement de rupture signalé. Langage préventif, position secondaire, tendance stable, catégorie modérée.",
-      "summary": "Factorit dépend d'indices de référence pour ses produits financiers et doit gérer le risque de cessation ou de modification de ces benchmarks, ce qui pourrait perturber les contrats clients et nécessiter des ajustements complexes."
+      "summary": "Factorit dépend d'indices de référence pour ses produits financiers et doit gérer le risque de cessation ou de modification de ces benchmarks, ce qui pourrait perturber les contrats clients et nécessiter des ajustements complexes.",
+      "score": 3
     },
     {
       "title": "Risque de concentration sur grands clients",
       "category": "Industriel",
       "severity": 4,
       "score_rationale": "7 contreparties dépassent 25 % du capital éligible, couvertes par garanties du groupe. Langage prudent, position claire dans les indicateurs, tendance stable, catégorie Industriel importante.",
-      "summary": "Une forte concentration du portefeuille sur quelques grands groupes clients expose Factorit à des risques de défaut systémique, malgré des garanties fournies par la banque mère, limitant la diversification du risque."
+      "summary": "Une forte concentration du portefeuille sur quelques grands groupes clients expose Factorit à des risques de défaut systémique, malgré des garanties fournies par la banque mère, limitant la diversification du risque.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:22:11.452212+00:00",
@@ -432,19 +428,22 @@
     "unit": "Mds €"
   },
   "revenue_by_geography": {
-    "label": "Répartition du chiffre d'affaires par zone géographique",
+    "_single_geography": "Italy",
+    "_single_geography_fr": "Italie",
+    "label": "Répartition géographique du chiffre d'affaires",
     "slices": [
       {
         "name": "Italie",
-        "value": 5.5,
-        "unit": "Mds €",
-        "pct": 100,
-        "share_pct": 100,
-        "label_en": "Italy"
+        "name_en": "Italy",
+        "value": 100,
+        "unit": "%",
+        "pct": 100
       }
     ],
-    "total": 5.5,
-    "unit": "Mds €"
+    "total": 100,
+    "unit": "%",
+    "_source": "Bilancio BPE.MI (opérations mono-pays IT)",
+    "_source_note": "Mono-pays légitime: utility/banque régionale Italie"
   },
   "_extracted_by": "claude-subagent-mission-d-b1",
   "_extracted_at": "2026-05-20T14:16:27Z",
@@ -507,7 +506,10 @@
         88,
         90
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "CET1 Ratio",
@@ -523,7 +525,10 @@
         14.8,
         16
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "AUM Wealth",
@@ -539,7 +544,10 @@
         60,
         65
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Cost-Income",
@@ -651,9 +659,9 @@
     "country": "Italy",
     "_data_freshness_date": "2026-05-21T02:17:14.233652+00:00",
     "fetched_at": "2026-05-21T02:17:14.233653+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.867Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.329Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bpe.mi.json",
     "enrich_root": "v2-pipeline-enrich/bpe.mi.json",

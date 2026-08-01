@@ -39,7 +39,7 @@
       "is_short_history": false,
       "ttm": 140.21,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (135.9 millions, non milliards)",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -140,10 +140,13 @@
       "is_short_history": false,
       "ttm": 9.66,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (9.5 millions)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Transmission Investments' found only as net income contribution (9.5M$ in 2025, 8.9M$ in 2024), not as capital expenditure/investment a",
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Capex Solar",
@@ -208,11 +211,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.16 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -237,9 +244,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Aucune correction nécessaire",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Aucune correction nécessaire"
     },
     {
       "short": "Heating Degree Days",
@@ -262,9 +267,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Aucune correction nécessaire",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Aucune correction nécessaire"
     }
   ],
   "ai_positioning": {
@@ -280,7 +283,8 @@
       "severity": 4,
       "score_rationale": "Le rapport mentionne les approbations de la PSCW pour les augmentations de tarifs, ce qui indique une dépendance à l'égard de la réglementation gouvernementale.",
       "trend": "stable",
-      "summary": "La société est soumise à la réglementation gouvernementale, notamment en ce qui concerne les tarifs et les normes environnementales."
+      "summary": "La société est soumise à la réglementation gouvernementale, notamment en ce qui concerne les tarifs et les normes environnementales.",
+      "score": 4
     },
     {
       "title": "Environnement",
@@ -288,7 +292,8 @@
       "severity": 4,
       "score_rationale": "Le rapport mentionne les initiatives environnementales, telles que la réduction des émissions de gaz à effet de serre et la transition vers les énergies renouvelables.",
       "trend": "up",
-      "summary": "La société est confrontée à des défis environnementaux, notamment la réduction des émissions de gaz à effet de serre et la transition vers les énergies renouvelables."
+      "summary": "La société est confrontée à des défis environnementaux, notamment la réduction des émissions de gaz à effet de serre et la transition vers les énergies renouvelables.",
+      "score": 4
     },
     {
       "title": "Dépendance aux combustibles fossiles",
@@ -296,7 +301,8 @@
       "severity": 4,
       "score_rationale": "Le rapport mentionne la dépendance de la société aux combustibles fossiles, notamment le charbon et le gaz naturel.",
       "trend": "down",
-      "summary": "La société est dépendante des combustibles fossiles, ce qui peut présenter des risques en raison de la volatilité des prix et des réglementations environnementales."
+      "summary": "La société est dépendante des combustibles fossiles, ce qui peut présenter des risques en raison de la volatilité des prix et des réglementations environnementales.",
+      "score": 4
     },
     {
       "title": "Risques de crédit",
@@ -304,7 +310,8 @@
       "severity": 3,
       "score_rationale": "Le rapport mentionne les financements et les émissions d'obligations, ce qui indique un risque de crédit.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de crédit en raison de ses financements et émissions d'obligations."
+      "summary": "La société est exposée à des risques de crédit en raison de ses financements et émissions d'obligations.",
+      "score": 3
     },
     {
       "title": "Risques de marché",
@@ -312,7 +319,8 @@
       "severity": 3,
       "score_rationale": "Le rapport mentionne les ventes sur le marché et les prix de l'énergie, ce qui indique un risque de marché.",
       "trend": "up",
-      "summary": "La société est exposée à des risques de marché en raison de la volatilité des prix de l'énergie et de la concurrence sur le marché."
+      "summary": "La société est exposée à des risques de marché en raison de la volatilité des prix de l'énergie et de la concurrence sur le marché.",
+      "score": 3
     },
     {
       "title": "Risques de cybersécurité",
@@ -320,7 +328,8 @@
       "severity": 3,
       "score_rationale": "Le rapport ne mentionne pas explicitement les risques de cybersécurité, mais la société est probablement exposée à ces risques en raison de son utilisation de systèmes informatiques.",
       "trend": "up",
-      "summary": "La société est probablement exposée à des risques de cybersécurité en raison de son utilisation de systèmes informatiques."
+      "summary": "La société est probablement exposée à des risques de cybersécurité en raison de son utilisation de systèmes informatiques.",
+      "score": 3
     },
     {
       "title": "Risques géopolitiques",
@@ -328,7 +337,8 @@
       "severity": 2,
       "score_rationale": "Le rapport mentionne les tarifs douaniers et les réglementations commerciales, ce qui indique un risque géopolitique.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques géopolitiques en raison des tarifs douaniers et des réglementations commerciales."
+      "summary": "La société est exposée à des risques géopolitiques en raison des tarifs douaniers et des réglementations commerciales.",
+      "score": 2
     }
   ],
   "governance": {
@@ -366,7 +376,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -514,11 +524,9 @@
           47.556,
           107.701,
           150.298,
-          -83.484,
           44.771,
           111.622,
           164.064,
-          -83.532,
           47.653,
           111.753,
           255.622,
@@ -576,6 +584,12 @@
             "accession": "0001193125-26-205678",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (MGEE)"
         ]
       },
       {
@@ -592,11 +606,9 @@
           47.556,
           107.701,
           150.298,
-          -83.484,
           44.771,
           111.622,
           164.064,
-          -83.532,
           47.653,
           111.753,
           255.622,
@@ -654,6 +666,12 @@
             "accession": "0001193125-26-205678",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (MGEE)"
         ]
       },
       {
@@ -670,11 +688,9 @@
           47.556,
           107.701,
           150.298,
-          -83.484,
           44.771,
           111.622,
           164.064,
-          -83.532,
           47.653,
           111.753,
           255.622,
@@ -732,6 +748,12 @@
             "accession": "0001193125-26-205678",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (MGEE)"
         ]
       }
     ]
@@ -748,9 +770,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.282509+00:00",
     "fetched_at": "2026-05-21T02:17:14.282510+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.426Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.276Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mgee.json",
     "enrich_root": "v2-pipeline-enrich/mgee.json",

@@ -41,7 +41,10 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur confirmée dans le 10-K : 'as of February 27, 2026, owns and operates 219 restaurants located in 31 states'",
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Cash et équivalents",
@@ -87,57 +90,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.4 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "+150.0%",
       "history": [
         0,
-        0.02,
-        0.02,
-        0.05
+        20,
+        20,
+        50
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.05 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "+66.7%",
       "history": [
         0,
-        0.02,
-        0.03,
-        0.05
+        20,
+        30,
+        50
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.05 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,56 +173,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.02 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.49,
-      "unit": "Mds €",
+      "value": 490,
+      "unit": "M €",
       "yoy": "-2.0%",
       "history": [
-        0.53,
-        0.52,
-        0.5,
-        0.49
+        530,
+        520,
+        500,
+        490
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.49 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.02,
-        0.03,
-        0.03,
-        0.02
+        20,
+        30,
+        30,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -234,9 +265,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Valeur confirmée dans le 10-K",
-      "_source_month": "février 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur confirmée dans le 10-K"
     }
   ],
   "ai_positioning": {
@@ -250,16 +279,16 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le secteur de la restauration complète est hautement fragmenté et compétitif, avec estimations de ventes annuelles dépassant les 100 milliards de dollars. BJ's fait face à une concurrence significative pour attirer et retenir les clients. (score par défaut, à affiner)",
+      "score_rationale": "Le secteur de la restauration complète est hautement fragmenté et compétitif, avec estimations de ventes annuelles dépassant les 100 milliards de dollars. BJ's fait face à une concurrence significative pour attirer et retenir les clients.",
       "trend": "stable",
       "summary": "La concurrence dans le secteur de la restauration complète est élevée et peut affecter les ventes et la croissance de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Régulation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société doit se conformer aux réglementations gouvernementales et aux normes de sécurité alimentaire, ce qui peut être coûteux et complexe. (score par défaut, à affiner)",
+      "score_rationale": "La société doit se conformer aux réglementations gouvernementales et aux normes de sécurité alimentaire, ce qui peut être coûteux et complexe.",
       "trend": "up",
       "summary": "Les réglementations gouvernementales et les normes de sécurité alimentaire peuvent avoir un impact sur les opérations et les coûts de la société.",
       "score": 3
@@ -268,25 +297,25 @@
       "title": "Géopolitique",
       "category": "Géopolitique",
       "severity": 2,
-      "score_rationale": "Les événements géopolitiques, tels que les conflits commerciaux ou les crises économiques, peuvent affecter les coûts des matières premières et les ventes de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les événements géopolitiques, tels que les conflits commerciaux ou les crises économiques, peuvent affecter les coûts des matières premières et les ventes de la société.",
       "trend": "stable",
       "summary": "Les événements géopolitiques peuvent avoir un impact sur les coûts et les ventes de la société, mais cela est considéré comme un risque mineur.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société utilise des technologies pour gérer les commandes et les paiements, ce qui la rend vulnérable aux attaques de cybersécurité et aux violations de données client. (score par défaut, à affiner)",
+      "score_rationale": "La société utilise des technologies pour gérer les commandes et les paiements, ce qui la rend vulnérable aux attaques de cybersécurité et aux violations de données client.",
       "trend": "up",
       "summary": "La cybersécurité est un risque important pour la société, car une attaque pourrait compromettre les données des clients et nuire à la réputation de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Capital",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "La société doit gérer ses ressources financières pour financer son expansion et ses investissements, y compris les remodèles de restaurants et les initiatives de productivité. (score par défaut, à affiner)",
+      "score_rationale": "La société doit gérer ses ressources financières pour financer son expansion et ses investissements, y compris les remodèles de restaurants et les initiatives de productivité.",
       "trend": "stable",
       "summary": "La gestion des ressources financières est importante pour la société, car elle doit équilibrer ses investissements et ses coûts pour maintenir sa croissance.",
       "score": 3
@@ -295,19 +324,19 @@
       "title": "Personne-clé",
       "category": "Personne-clé",
       "severity": 2,
-      "score_rationale": "La société dépend de ses dirigeants et de ses employés clés pour son succès, ce qui peut être un risque si l'un d'eux quitte l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de ses dirigeants et de ses employés clés pour son succès, ce qui peut être un risque si l'un d'eux quitte l'entreprise.",
       "trend": "stable",
       "summary": "La perte d'un dirigeant ou d'un employé clé pourrait avoir un impact sur la société, mais cela est considéré comme un risque mineur.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Réputation",
       "category": "Réputation",
       "severity": 4,
-      "score_rationale": "La réputation de la société est importante pour attirer et retenir les clients dans un secteur hautement fragmenté, ce qui peut être affectée par des événements négatifs ou des critiques. (score par défaut, à affiner)",
+      "score_rationale": "La réputation de la société est importante pour attirer et retenir les clients dans un secteur hautement fragmenté, ce qui peut être affectée par des événements négatifs ou des critiques.",
       "trend": "up",
       "summary": "La réputation de la société est un risque important, car une atteinte à la réputation pourrait nuire aux ventes et à la croissance de la société.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -350,7 +379,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -507,88 +536,188 @@
   },
   "enrich_quarterly_history": {
     "ticker": "BJRI",
-    "extracted_at": "2026-05-15T18:09:36Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1013488,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:02:39Z",
+    "n_kpis": 4,
     "kpis": [
       {
-        "short": "Cash et équivalents",
+        "short": "Total Revenue",
         "period_type": "quarter",
         "history": [
-          -180.31,
-          90.247,
-          87.975,
-          59.815,
-          -199.51,
-          27.201,
-          37.761,
-          19.179,
-          -59.268,
-          29.298,
-          6.053,
-          11.965,
-          -23.535,
-          18.82,
-          16.185,
-          18.422,
-          19.002,
-          25.964,
-          25.431,
-          22.671
+          0.223,
+          0.29,
+          0.311,
+          0.299,
+          0.33,
+          0.311,
+          0.341,
+          0.35,
+          0.319,
+          0.337,
+          0.35,
+          0.326,
+          0.348,
+          0.366,
+          0.33
         ],
         "history_periods": [
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 19.002,
-            "accession": "0000950170-25-063508",
-            "end": "2025-04-01"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 25.964,
-            "accession": "0000950170-25-105641",
-            "end": "2025-07-01"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 25.431,
-            "accession": "0001193125-25-266346",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 22.671,
-            "accession": "0001193125-26-206922",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:02:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          -0.003,
+          0.006,
+          -0.002,
+          0.001,
+          0,
+          -0.002,
+          0.003,
+          0.012,
+          -0.002,
+          0.008,
+          0.017,
+          -0.003,
+          0.013,
+          0.022,
+          0
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:02:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          -0.008,
+          0.007,
+          -0.005,
+          -0.008,
+          0.003,
+          -0.005,
+          0.003,
+          0.01,
+          -0.005,
+          0.008,
+          0.013,
+          -0.003,
+          0.015,
+          0.021,
+          -0.001
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:02:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          1.035,
+          1.035,
+          1.035,
+          1.02,
+          1.031,
+          1.018,
+          1.044,
+          1.041,
+          1.018,
+          1.045,
+          1.041,
+          1.042,
+          1.02,
+          1.025,
+          1.022
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:02:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -604,31 +733,14 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.230540+00:00",
     "fetched_at": "2026-05-21T02:17:14.230541+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
   "enrich_tam": {
     "ticker": "BJRI",
     "researched_at": "2026-02-27",
-    "market_positions": [
-      {
-        "segment_name": "Full-service restaurant industry (domestic)",
-        "segment_revenue": null,
-        "segment_unit": "$B",
-        "tam": 100,
-        "tam_unit": "$B+",
-        "tam_range": [
-          100,
-          null
-        ],
-        "source": "10-K FY2025",
-        "source_url": null,
-        "source_note": "Company states they compete in the full-service segment of the domestic restaurant industry, described as 'a large, highly fragmented segment with estimated annual sales in the $100+ billion range.' The '+' indicates the TAM exceeds $100B but no upper bound is specified.",
-        "market_cagr": null,
-        "is_company_disclosed": true
-      }
-    ]
+    "market_positions": []
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.648Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.129Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bjri.json",
     "enrich_root": "v2-pipeline-enrich/bjri.json",

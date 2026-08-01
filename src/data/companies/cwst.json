@@ -39,17 +39,20 @@
       "is_short_history": false,
       "ttm": 224.1,
       "_validation": "YoY corrigé de -21% à +20.5% (245.0 vs 203.2); is_generic changé à false",
-      "period_type": "quarter",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Strong growth, robust momentum"
+      "period_type": "year",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Strong growth, robust momentum",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Dette",
       "name_fr": "Dette consolidée",
       "name_en": "Consolidated Funded Debt",
       "explanation": "Ensemble de la dette à long terme et à court terme",
-      "value": "1168.6",
-      "unit": "M $",
+      "value": 1.169,
+      "unit": "Mds $",
       "yoy": "Non disponible",
       "type": "Risk",
       "nature": "Structurel",
@@ -57,15 +60,14 @@
       "signal": "Levier de dette de 2.34x net du cash non-restreint",
       "description": "Consolidated funded debt per Credit Agreement definition",
       "history": [
-        1168.6
+        1.169
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
       "_validation": "name_en changé de 'Long-Term Debt' à 'Consolidated Funded Debt'; is_generic changé à false; description améliorée",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -84,57 +86,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.84 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.05,
-        0.03,
-        0.01,
-        0.01
+        50,
+        30,
+        10,
+        10
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.01 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "-18.2%",
       "history": [
-        0.1,
-        0.1,
-        0.11,
-        0.09
+        100,
+        100,
+        110,
+        90
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.09 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.3 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,33 +196,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.24 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "-68.4%",
       "history": [
-        0.07,
-        0.22,
-        0.38,
-        0.12
+        70,
+        220,
+        380,
+        120
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.12 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -227,9 +256,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "is_wow changé à true; is_generic changé à false; description améliorée avec détail de la réconciliation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "is_wow changé à true; is_generic changé à false; description améliorée avec détail de la réconciliation"
     }
   ],
   "ai_positioning": {
@@ -245,7 +272,8 @@
       "severity": 5,
       "score_rationale": "Les facteurs économiques externes peuvent impacter négativement l'entreprise, notamment la confiance des consommateurs, les perturbations de la chaîne d'approvisionnement, l'inflation et les prix du carburant.",
       "trend": "stable",
-      "summary": "Les risques macroéconomiques peuvent affecter l'entreprise, notamment la confiance des consommateurs et les perturbations de la chaîne d'approvisionnement"
+      "summary": "Les risques macroéconomiques peuvent affecter l'entreprise, notamment la confiance des consommateurs et les perturbations de la chaîne d'approvisionnement",
+      "score": 5
     },
     {
       "title": "Pénurie de main-d'œuvre qualifiée",
@@ -253,7 +281,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est confrontée à une concurrence accrue pour attirer et retenir des employés qualifiés, notamment des conducteurs de camions et des techniciens.",
       "trend": "up",
-      "summary": "La pénurie de main-d'œuvre qualifiée peut impacter négativement l'entreprise, notamment en raison de la concurrence accrue"
+      "summary": "La pénurie de main-d'œuvre qualifiée peut impacter négativement l'entreprise, notamment en raison de la concurrence accrue",
+      "score": 4
     },
     {
       "title": "Risques liés aux prix du carburant",
@@ -261,7 +290,8 @@
       "severity": 4,
       "score_rationale": "Les fluctuations des prix du carburant peuvent impacter négativement l'entreprise, notamment en raison de l'augmentation des coûts opérationnels.",
       "trend": "stable",
-      "summary": "Les risques de carburant peuvent affecter l'entreprise, notamment en raison des fluctuations des prix du carburant"
+      "summary": "Les risques de carburant peuvent affecter l'entreprise, notamment en raison des fluctuations des prix du carburant",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -269,7 +299,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est confrontée à une concurrence accrue dans l'industrie des services de gestion des déchets, notamment en raison de la présence de grandes entreprises nationales et régionales.",
       "trend": "up",
-      "summary": "La concurrence accrue peut impacter négativement l'entreprise, notamment en raison de la pression sur les prix et les parts de marché"
+      "summary": "La concurrence accrue peut impacter négativement l'entreprise, notamment en raison de la pression sur les prix et les parts de marché",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et environnementaux",
@@ -277,7 +308,8 @@
       "severity": 5,
       "score_rationale": "L'entreprise est soumise à des réglementations environnementales et sanitaires strictes, notamment en raison de la gestion des déchets et de la protection de l'environnement.",
       "trend": "stable",
-      "summary": "Les risques réglementaires peuvent affecter l'entreprise, notamment en raison des coûts de conformité et des amendes potentielles"
+      "summary": "Les risques réglementaires peuvent affecter l'entreprise, notamment en raison des coûts de conformité et des amendes potentielles",
+      "score": 5
     },
     {
       "title": "Risques d'intégration d'acquisitions",
@@ -285,7 +317,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est confrontée à des risques liés aux acquisitions, notamment en raison de la difficulté d'intégrer les entreprises acquises et de réaliser les synergies attendues.",
       "trend": "stable",
-      "summary": "Les risques d'acquisition peuvent impacter négativement l'entreprise, notamment en raison de la difficulté d'intégrer les entreprises acquises"
+      "summary": "Les risques d'acquisition peuvent impacter négativement l'entreprise, notamment en raison de la difficulté d'intégrer les entreprises acquises",
+      "score": 4
     }
   ],
   "governance": {
@@ -349,7 +382,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -418,7 +451,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.050Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.814Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cwst.json",
     "enrich_root": null,

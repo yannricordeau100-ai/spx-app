@@ -38,10 +38,13 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 16.4,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Rent Spread KPI not found in the provided 10-K extract. The document excerpt contains primarily XML metadata and structural tags without nar",
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Occupancy",
@@ -178,11 +181,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.13 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -201,11 +208,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.49 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -219,7 +230,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.86,
         0.96,
@@ -232,7 +243,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -247,7 +258,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2896,
@@ -260,7 +271,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -275,7 +286,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         82,
@@ -288,7 +299,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -304,7 +315,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.17,
@@ -317,7 +328,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -344,9 +355,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 16.4,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 16.4
     },
     {
       "short": "Occupancy",
@@ -370,9 +379,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 91.6,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 91.6
     }
   ],
   "ai_positioning": {
@@ -386,52 +393,52 @@
       "title": "Conditions économiques",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1 (score par défaut, à affiner)",
+      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1",
       "trend": "stable",
       "summary": "Les conditions économiques, notamment l'inflation et les taux d'intérêt, peuvent affecter la situation financière de l'entreprise",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Nombreux concurrents, intensité de la concurrence (score par défaut, à affiner)",
+      "score_rationale": "Nombreux concurrents, intensité de la concurrence",
       "trend": "up",
       "summary": "La concurrence dans le secteur de l'immobilier commercial peut affecter la capacité de l'entreprise à attirer et retenir des locataires",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "Niveau d'endettement, risque de défaut (score par défaut, à affiner)",
+      "score_rationale": "Niveau d'endettement, risque de défaut",
       "trend": "stable",
       "summary": "L'entreprise utilise une grande quantité d'endettement, ce qui peut augmenter son risque de défaut et affecter sa situation financière",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques de taux d'intérêt",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Taux d'intérêt variables, risque de hausse des coûts (score par défaut, à affiner)",
+      "score_rationale": "Taux d'intérêt variables, risque de hausse des coûts",
       "trend": "up",
       "summary": "Les taux d'intérêt variables peuvent augmenter les coûts de l'entreprise et affecter sa situation financière",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de liquidité",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Dépendance à l'égard des marchés de capitaux (score par défaut, à affiner)",
+      "score_rationale": "Dépendance à l'égard des marchés de capitaux",
       "trend": "stable",
       "summary": "L'entreprise dépend des marchés de capitaux pour financer ses activités, ce qui peut affecter sa liquidité et sa situation financière",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de réglementation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Risques de non-conformité, changements réglementaires (score par défaut, à affiner)",
+      "score_rationale": "Risques de non-conformité, changements réglementaires",
       "trend": "stable",
       "summary": "Les changements réglementaires ou les risques de non-conformité peuvent affecter la situation financière de l'entreprise",
       "score": 3
@@ -440,7 +447,7 @@
       "title": "Risques de litige",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Risques de litige avec les locataires ou les tiers (score par défaut, à affiner)",
+      "score_rationale": "Risques de litige avec les locataires ou les tiers",
       "trend": "stable",
       "summary": "Les litiges avec les locataires ou les tiers peuvent affecter la situation financière de l'entreprise",
       "score": 3
@@ -449,7 +456,7 @@
       "title": "Risques de réputation",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "Risques de dommage à la réputation (score par défaut, à affiner)",
+      "score_rationale": "Risques de dommage à la réputation",
       "trend": "stable",
       "summary": "Les risques de dommage à la réputation de l'entreprise peuvent affecter sa situation financière et son activité",
       "score": 3
@@ -501,7 +508,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -519,7 +526,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:19:52Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -543,8 +550,8 @@
     "xbrl_fetched_at": "2026-05-09T20:27:06Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:01Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:28.947Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.468Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/brx.json",
     "enrich_root": "v2-pipeline-enrich/brx.json",

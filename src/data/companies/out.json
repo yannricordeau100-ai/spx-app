@@ -21,8 +21,8 @@
       "name_fr": "Revenu numérique",
       "name_en": "Digital Revenues",
       "explanation": "Total revenue from digital billboard and transit displays",
-      "value": 1831.7,
-      "unit": "M $",
+      "value": 1.832,
+      "unit": "Mds $",
       "yoy": "+0.0%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -30,16 +30,16 @@
       "signal": "Strong digital expansion strategy",
       "description": "Revenu total généré par les affichages numériques (Billboard et Transit) aux États-Unis en 2025",
       "history": [
-        1513.9,
-        1520.5,
-        1606.2,
-        1782.2,
-        1236.3,
-        1463.9,
-        1772.1,
-        1820.6,
-        1830.9,
-        1831.7
+        1.514,
+        1.52,
+        1.606,
+        1.782,
+        1.236,
+        1.464,
+        1.772,
+        1.821,
+        1.831,
+        1.832
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -47,7 +47,12 @@
       "is_short_history": false,
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:07.351394+00:00",
-      "signal_en": "Revenue stable, monitor outlook"
+      "signal_en": "Revenue stable, monitor outlook",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Digital Billboard Revenue",
@@ -163,11 +168,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.31 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -186,11 +195,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.13 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -204,7 +217,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.2049,
         1.2295,
@@ -217,7 +230,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -232,7 +245,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2058,
@@ -245,7 +258,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -260,7 +273,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         157.58,
@@ -273,7 +286,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -289,7 +302,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.860621,
@@ -302,7 +315,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -325,9 +338,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Operational Restructuring",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Operational Restructuring"
     },
     {
       "short": "Digital Transit Conversions",
@@ -347,9 +358,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Digital Transformation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Digital Transformation"
     }
   ],
   "ai_positioning": {
@@ -386,7 +395,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en première partie du 10-K, avec un langage fort sur l'impact négatif potentiel sur les revenus. Il est répété dans plusieurs sections, ce qui indique une préoccupation centrale. La catégorie Macro est hautement pondérée en gravité. Le risque est stable par rapport à l'année précédente.",
       "trend": "stable",
-      "summary": "Les recettes dépendent fortement des dépenses publicitaires, sensibles aux ralentissements économiques, à l'inflation ou aux événements externes comme les pandémies."
+      "summary": "Les recettes dépendent fortement des dépenses publicitaires, sensibles aux ralentissements économiques, à l'inflation ou aux événements externes comme les pandémies.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans les médias publicitaires",
@@ -394,7 +404,8 @@
       "severity": 4,
       "score_rationale": "Le document souligne la fragmentation du secteur et la concurrence avec les médias numériques, notamment mobile, social et en ligne. Le langage indique une menace directe sur la part de marché. La catégorie est critique pour le modèle économique. Position centrale dans le 10-K, tendance stable.",
       "trend": "stable",
-      "summary": "OUTFRONT fait face à une concurrence intense venant des plateformes numériques et d'autres médias traditionnels, ce qui peut réduire ses parts de marché et ses tarifs."
+      "summary": "OUTFRONT fait face à une concurrence intense venant des plateformes numériques et d'autres médias traditionnels, ce qui peut réduire ses parts de marché et ses tarifs.",
+      "score": 4
     },
     {
       "title": "Risques liés à la transition numérique",
@@ -402,7 +413,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne des coûts élevés et des retards dans le déploiement des écrans numériques, avec des impacts sur les résultats. Le langage reflète une dépendance critique à la technologie. La catégorie Technologie est stratégique. Risque persistant, donc stable.",
       "trend": "stable",
-      "summary": "Le déploiement d'écrans numériques implique des coûts élevés, des retards possibles et des dépendances à des fournisseurs tiers, menaçant la croissance prévue."
+      "summary": "Le déploiement d'écrans numériques implique des coûts élevés, des retards possibles et des dépendances à des fournisseurs tiers, menaçant la croissance prévue.",
+      "score": 4
     },
     {
       "title": "Dépendance aux contrats publics pour le segment Transit",
@@ -410,7 +422,8 @@
       "severity": 4,
       "score_rationale": "Le renouvellement des contrats avec les municipalités est décrit comme un processus concurrentiel et incertain. Le segment Transit est stratégique. Le langage insiste sur le caractère critique du renouvellement. Mention explicite dans le 10-K, tendance stable.",
       "trend": "stable",
-      "summary": "Le segment Transit dépend de contrats avec des entités publiques dont le renouvellement n'est pas garanti, exposant l'entreprise à des pertes de revenus s'ils sont perdus."
+      "summary": "Le segment Transit dépend de contrats avec des entités publiques dont le renouvellement n'est pas garanti, exposant l'entreprise à des pertes de revenus s'ils sont perdus.",
+      "score": 4
     },
     {
       "title": "Restructuration organisationnelle et coûts associés",
@@ -418,7 +431,8 @@
       "severity": 3,
       "score_rationale": "Le plan de réduction de 6 % de la main-d'œuvre est récent (2025), avec 20,1 M$ de charges. Le langage indique un ajustement stratégique majeur. Bien que le montant soit significatif, il est ponctuel. Risque nouveau, donc classé comme 'new'.",
       "trend": "new",
-      "summary": "La restructuration de l'organisation, incluant la suppression de 120 postes, comporte des risques d'instabilité opérationnelle et de coûts imprévus."
+      "summary": "La restructuration de l'organisation, incluant la suppression de 120 postes, comporte des risques d'instabilité opérationnelle et de coûts imprévus.",
+      "score": 3
     },
     {
       "title": "Dépendance à des tiers pour la technologie et l'installation",
@@ -426,7 +440,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement des retards et hausses de prix dus à des fournisseurs externes pour les écrans numériques et les plateformes publicitaires. Langage fort sur l'impact négatif. Risque récurrent, donc stable. Catégorie Technologie hautement critique.",
       "trend": "stable",
-      "summary": "OUTFRONT dépend de fournisseurs tiers pour la fabrication, l'installation et la technologie publicitaire, ce qui expose l'entreprise à des retards et des surcoûts."
+      "summary": "OUTFRONT dépend de fournisseurs tiers pour la fabrication, l'installation et la technologie publicitaire, ce qui expose l'entreprise à des retards et des surcoûts.",
+      "score": 4
     },
     {
       "title": "Fluctuations saisonnières des revenus publicitaires",
@@ -434,7 +449,8 @@
       "severity": 3,
       "score_rationale": "Le document note clairement que les revenus sont plus faibles au premier trimestre. Bien que prévisible, cela affecte la régularité des flux. Langage descriptif, pas alarmiste. Mention dans les KPI, donc intégré. Tendance stable.",
       "trend": "stable",
-      "summary": "Les revenus varient fortement selon les saisons, avec un pic au quatrième trimestre, ce qui rend la performance annuelle moins régulière."
+      "summary": "Les revenus varient fortement selon les saisons, avec un pic au quatrième trimestre, ce qui rend la performance annuelle moins régulière.",
+      "score": 3
     }
   ],
   "governance": {
@@ -457,7 +473,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:21:45Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -481,7 +497,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:58Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:42Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "OUT",
     "simple": {
@@ -535,7 +551,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.387Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.162Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/out.json",
     "enrich_root": "v2-pipeline-enrich/out.json",

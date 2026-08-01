@@ -40,7 +40,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Loss Before Tax",
@@ -146,10 +150,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.0 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -168,10 +176,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -190,9 +202,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -262,7 +278,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental mentionné dès le résumé et développé extensivement. Langage direct : « no guarantees that subsequent development... will occur » et « may not realize profits ». Position centrale dans la stratégie (Tanbreez et Wolfsberg en phase exploration). Poids critique : absence de revenus commerciaux actuels.",
       "trend": "stable",
-      "summary": "Les projets Tanbreez (Groenland) et Wolfsberg (Autriche) sont en phase exploration-évaluation sans certitude de transformation en mines opérationnelles rentables. Même en cas de découverte économique, la rentabilité à court/moyen/long terme n'est pas garantie, exposant l'entreprise à des pertes prolongées."
+      "summary": "Les projets Tanbreez (Groenland) et Wolfsberg (Autriche) sont en phase exploration-évaluation sans certitude de transformation en mines opérationnelles rentables. Même en cas de découverte économique, la rentabilité à court/moyen/long terme n'est pas garantie, exposant l'entreprise à des pertes prolongées.",
+      "score": 5
     },
     {
       "title": "Dépendance critique aux accords commerciaux et clients tiers",
@@ -270,7 +287,8 @@
       "severity": 4,
       "score_rationale": "Explicitement identifié comme facteur de succès long terme. Langage conditionnel : « may not occur or... may not result in appreciation ». Risque de non-concrétisation ou de termes non viables commercialement. Impacte directement la viabilité post-production.",
       "trend": "stable",
-      "summary": "Le succès dépend de la capacité à négocier et conclure des accords d'enlèvement (offtake) ou de vente avec des clients tiers à des conditions commercialement viables. L'absence ou l'échec de tels accords pourrait compromettre la commercialisation des minéraux critiques extraits."
+      "summary": "Le succès dépend de la capacité à négocier et conclure des accords d'enlèvement (offtake) ou de vente avec des clients tiers à des conditions commercialement viables. L'absence ou l'échec de tels accords pourrait compromettre la commercialisation des minéraux critiques extraits.",
+      "score": 4
     },
     {
       "title": "Concurrence intense dans l'industrie minière mondiale",
@@ -278,7 +296,8 @@
       "severity": 4,
       "score_rationale": "Risque sectoriel explicite mentionné dans le résumé et développé. Langage d'intensité modérée mais clair : « domestic and global competition », « no influence or control ». Contexte de consolidation accélérée du secteur augmentant la pression concurrentielle.",
       "trend": "up",
-      "summary": "Critical Metals fait face à une concurrence mondiale intense de la part de producteurs de métaux critiques et de terres rares, notamment de concurrents disposant de ressources supérieures. La consolidation du secteur renforce cette pression et risque de réduire les parts de marché et les marges."
+      "summary": "Critical Metals fait face à une concurrence mondiale intense de la part de producteurs de métaux critiques et de terres rares, notamment de concurrents disposant de ressources supérieures. La consolidation du secteur renforce cette pression et risque de réduire les parts de marché et les marges.",
+      "score": 4
     },
     {
       "title": "Risques opérationnels et d'interruption de production minière",
@@ -286,7 +305,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel spécifique au secteur minier. Langage d'alerte : « disrupted by a variety of risks and hazards » avec impact « material adverse effect ». Applicable dès le démarrage de la production. Poids élevé pour une entreprise minière.",
       "trend": "stable",
-      "summary": "Le développement et l'exploitation des projets Tanbreez et Wolfsberg sont exposés à des risques opérationnels multiples (accidents, conditions géologiques, incidents environnementaux) pouvant interrompre la production et augmenter significativement les coûts d'exploitation."
+      "summary": "Le développement et l'exploitation des projets Tanbreez et Wolfsberg sont exposés à des risques opérationnels multiples (accidents, conditions géologiques, incidents environnementaux) pouvant interrompre la production et augmenter significativement les coûts d'exploitation.",
+      "score": 4
     },
     {
       "title": "Imprécision et volatilité des estimations de ressources minérales",
@@ -294,7 +314,8 @@
       "severity": 3,
       "score_rationale": "Risque technique spécifique aux estimations géologiques. Langage nuancé mais clair : « imprecise », « depend to some extent on interpretations ». Risque de révision à la baisse des ressources avec impact sur les plans futurs. Tendance : révisions probables avec nouvelles données.",
       "trend": "stable",
-      "summary": "Les estimations de ressources minérales sont par nature imprécises et dépendent d'interprétations géologiques pouvant s'avérer inexactes. De nouvelles données ou techniques peuvent entraîner des révisions significatives à la baisse des ressources estimées, modifiant les plans de développement."
+      "summary": "Les estimations de ressources minérales sont par nature imprécises et dépendent d'interprétations géologiques pouvant s'avérer inexactes. De nouvelles données ou techniques peuvent entraîner des révisions significatives à la baisse des ressources estimées, modifiant les plans de développement.",
+      "score": 3
     },
     {
       "title": "Défaillances de contrôle interne et risques cybersécurité",
@@ -302,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Défaillances significatives explicitement déclarées (segregation of duties, related party transactions, cybersecurity programs). Langage d'alerte : « significant deficiencies », « cannot assure you ». Risque de restatement financier et perte de confiance investisseurs. Poids accru pour jeune entreprise publique.",
       "trend": "up",
-      "summary": "L'entreprise a identifié des défaillances significatives du contrôle interne incluant la séparation des fonctions, les transactions liées et les programmes cybersécurité. Ces défaillances pourraient ne pas être corrigées rapidement et risquent de générer des restatements financiers et une perte de confiance des investisseurs."
+      "summary": "L'entreprise a identifié des défaillances significatives du contrôle interne incluant la séparation des fonctions, les transactions liées et les programmes cybersécurité. Ces défaillances pourraient ne pas être corrigées rapidement et risquent de générer des restatements financiers et une perte de confiance des investisseurs.",
+      "score": 4
     },
     {
       "title": "Conformité aux réglementations anti-corruption et blanchiment",
@@ -310,7 +332,8 @@
       "severity": 3,
       "score_rationale": "Risque réglementaire explicite pour opérations internationales (Groenland, Autriche). Langage direct : « could negatively impact our reputation and results ». Applicable à secteur minier à risque géopolitique élevé. Poids modéré mais réputation critique.",
       "trend": "stable",
-      "summary": "Critical Metals opère dans des juridictions internationales et doit se conformer aux lois anti-corruption, anti-blanchiment et similaires. Le non-respect pourrait endommager la réputation et les résultats opérationnels, particulièrement critique pour une jeune entreprise publique."
+      "summary": "Critical Metals opère dans des juridictions internationales et doit se conformer aux lois anti-corruption, anti-blanchiment et similaires. Le non-respect pourrait endommager la réputation et les résultats opérationnels, particulièrement critique pour une jeune entreprise publique.",
+      "score": 3
     },
     {
       "title": "Expérience limitée de gestion d'une entreprise publique américaine",
@@ -318,7 +341,8 @@
       "severity": 3,
       "score_rationale": "Risque de gouvernance post-SPAC explicite. Langage direct : « limited experience », « recruitment... has been delayed ». Impacte la qualité de gestion et la conformité réglementaire. Tendance : amélioration progressive mais risque actuel élevé.",
       "trend": "down",
-      "summary": "L'équipe de direction actuelle dispose d'une expérience limitée dans la gestion d'une entreprise publique américaine, et le recrutement de cadres expérimentés a été retardé par manque de capital. Cela crée des risques de gouvernance et de conformité réglementaire."
+      "summary": "L'équipe de direction actuelle dispose d'une expérience limitée dans la gestion d'une entreprise publique américaine, et le recrutement de cadres expérimentés a été retardé par manque de capital. Cela crée des risques de gouvernance et de conformité réglementaire.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:38:04.170540+00:00",
@@ -380,9 +404,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.245801+00:00",
     "fetched_at": "2026-05-21T02:17:14.245802+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.860Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.365Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/crtmf.json",
     "enrich_root": "v2-pipeline-enrich/crtmf.json",

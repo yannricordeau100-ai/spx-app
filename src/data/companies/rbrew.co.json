@@ -45,7 +45,7 @@
       "name_fr": "Chiffre d'affaires net",
       "name_en": "Net Revenue",
       "explanation": "Chiffre d'affaires total de la société après déduction des remises et retours.",
-      "value": "15723",
+      "value": 15.723,
       "unit": "M DKK",
       "yoy": "+5%",
       "type": "Revenue",
@@ -54,21 +54,22 @@
       "signal": "Croissance de 5% malgré un contexte de consommation faible",
       "description": "Revenu net de 15,723 millions DKK en 2025, en hausse de 5% par rapport à l'année précédente.",
       "history": [
-        15723
+        15.723
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Revenue from the Net segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->M DKK for 1-999 readability"
     },
     {
       "short": "EBIT",
       "name_fr": "Résultat opérationnel",
       "name_en": "Earnings Before Interest and Tax",
       "explanation": "Bénéfice dégagé par l'activité principale de l'entreprise avant intérêts et impôts.",
-      "value": "2202",
+      "value": 2.202,
       "unit": "M DKK",
       "yoy": "+12%",
       "type": "Margin",
@@ -77,14 +78,15 @@
       "signal": "EBIT en hausse de 12% grâce à l'efficacité opérationnelle",
       "description": "EBIT de 2,202 millions DKK en 2025, en progression de 12%, soutenu par l'expansion de la marge opérationnelle.",
       "history": [
-        2202
+        2.202
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Earnings Before Interest and Taxes — operating profit.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Earnings Before Interest and Taxes, operating profit.",
+      "signal_en": "Margin expansion, operating leverage",
+      "_unit_rescaled": "M->M DKK for 1-999 readability"
     },
     {
       "short": "Op Margin",
@@ -114,7 +116,7 @@
       "name_fr": "Flux de trésorerie libre",
       "name_en": "Free Cash Flow",
       "explanation": "Trésorerie générée par l'activité après investissements.",
-      "value": "1413",
+      "value": 1.413,
       "unit": "M DKK",
       "yoy": "stable",
       "type": "Cash",
@@ -123,14 +125,15 @@
       "signal": "Flux de trésorerie libre à 1,4 milliard DKK",
       "description": "Le flux de trésorerie libre s'est établi à 1,413 milliard DKK en 2025, en ligne avec les attentes.",
       "history": [
-        1413
+        1.413
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position stable"
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "M->M DKK for 1-999 readability"
     },
     {
       "short": "ROIC",
@@ -152,7 +155,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Return on Invested Capital — operating profit divided by invested capital.",
+      "explanation_en": "Return on Invested Capital, operating profit divided by invested capital.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -172,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 18.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -195,11 +202,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.81 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -226,7 +237,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -254,7 +265,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -282,7 +293,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -298,7 +309,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         30.5,
@@ -311,7 +322,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -376,7 +387,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement comme fondation du modèle commercial (« decades of partnerships »). Royal Unibrew dépend fortement de PepsiCo et autres partenaires pour 60% du chiffre d'affaires (growth categories). Langage modéré mais positif masque vulnérabilité structurelle. Tendance stable mais risque croissant en cas de renégociation.",
       "trend": "stable",
-      "summary": "Royal Unibrew repose sur des partenariats de long terme avec des marques internationales (PepsiCo, Pepsi, Faxe Kondi) qui représentent environ 60% des revenus via les catégories de croissance. Toute rupture ou renégociation défavorable des conditions de distribution/licence pourrait impacter significativement la profitabilité et la position concurrentielle, notamment en Scandinavie et Benelux."
+      "summary": "Royal Unibrew repose sur des partenariats de long terme avec des marques internationales (PepsiCo, Pepsi, Faxe Kondi) qui représentent environ 60% des revenus via les catégories de croissance. Toute rupture ou renégociation défavorable des conditions de distribution/licence pourrait impacter significativement la profitabilité et la position concurrentielle, notamment en Scandinavie et Benelux.",
+      "score": 4
     },
     {
       "title": "Intégration complexe d'acquisitions et risques opérationnels",
@@ -384,7 +396,8 @@
       "severity": 4,
       "score_rationale": "Intégrations mentionnées comme « point of attention » en 2025 (Hansa Borg 2022, fermeture Sarpsborg, migrations SAP). Langage prudent (« in line with plans ») mais révèle complexité. Tendance up : migrations SAP S/4HANA prévues 2026. Poids élevé : CAPEX 7% du chiffre d'affaires dédié aux intégrations.",
       "trend": "up",
-      "summary": "Royal Unibrew a acquis Hansa Borg en 2022 et poursuit l'intégration complexe (fermeture Sarpsborg fin 2025, migration SAP en cours). Les risques incluent : surcoûts d'intégration, pertes d'efficacité opérationnelle temporaires, perte de talents clés, et retards dans la réalisation des synergies attendues. L'upgrade SAP S/4HANA groupe en 2026 ajoute un risque IT majeur."
+      "summary": "Royal Unibrew a acquis Hansa Borg en 2022 et poursuit l'intégration complexe (fermeture Sarpsborg fin 2025, migration SAP en cours). Les risques incluent : surcoûts d'intégration, pertes d'efficacité opérationnelle temporaires, perte de talents clés, et retards dans la réalisation des synergies attendues. L'upgrade SAP S/4HANA groupe en 2026 ajoute un risque IT majeur.",
+      "score": 4
     },
     {
       "title": "Sensibilité aux conditions macroéconomiques et sentiment consommateur",
@@ -392,7 +405,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité dans guidance 2026 (« challenging consumer environment », « pressure on discretionary spending »). Langage répété et intensifié (« soft consumer sentiment » mentionné 2x). Tendance up : guidance 2026 reflète incertitude accrue. Poids catégorie élevé : impact direct sur volumes et mix produits.",
       "trend": "up",
-      "summary": "Royal Unibrew opère dans un contexte de consommateur affaibli avec réduction du pouvoir d'achat discrétionnaire en Europe du Nord et de l'Ouest. Cela crée un risque de baisse des volumes, de shift vers produits bas de gamme, et de compression des marges. La guidance 2026 (6-10% croissance EBIT) reflète cette fragilité macroéconomique persistante."
+      "summary": "Royal Unibrew opère dans un contexte de consommateur affaibli avec réduction du pouvoir d'achat discrétionnaire en Europe du Nord et de l'Ouest. Cela crée un risque de baisse des volumes, de shift vers produits bas de gamme, et de compression des marges. La guidance 2026 (6-10% croissance EBIT) reflète cette fragilité macroéconomique persistante.",
+      "score": 4
     },
     {
       "title": "Intensité concurrentielle et pression sur les prix",
@@ -400,7 +414,8 @@
       "severity": 4,
       "score_rationale": "Cité comme facteur clé influençant la profitabilité (« competitive environment »). Langage modéré mais reconnaissance explicite du risque. Tendance stable mais contexte de soft consumer sentiment amplifie la concurrence. Poids élevé : marges dépendent de capacité à maintenir prix face à concurrence.",
       "trend": "stable",
-      "summary": "Royal Unibrew fait face à une concurrence accrue de grands groupes mondiaux (Coca-Cola, Danone) et acteurs régionaux dans ses marchés clés (Scandinavie, Benelux, Italie). Le risque inclut : pression tarifaire, perte de parts de marché, nécessité d'investissements marketing croissants pour défendre les positions, et érosion des marges en cas de guerre des prix."
+      "summary": "Royal Unibrew fait face à une concurrence accrue de grands groupes mondiaux (Coca-Cola, Danone) et acteurs régionaux dans ses marchés clés (Scandinavie, Benelux, Italie). Le risque inclut : pression tarifaire, perte de parts de marché, nécessité d'investissements marketing croissants pour défendre les positions, et érosion des marges en cas de guerre des prix.",
+      "score": 4
     },
     {
       "title": "Risques de sécurité opérationnelle et conformité réglementaire",
@@ -408,7 +423,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement (« safety remains a top priority », « not where we want to be »). Langage d'urgence et engagement fort du management. Tendance up : « intensify focus » indique problème persistant. Poids modéré : impact réputationnel et légal potentiel mais pas quantifié.",
       "trend": "up",
-      "summary": "Royal Unibrew reconnaît des lacunes en matière de sécurité opérationnelle (« lost time incident frequency »). Les risques incluent : accidents du travail, amendes réglementaires, arrêts de production, responsabilité civile, et dommages réputationnels. Le management s'engage à intensifier les mesures de sécurité en 2026, suggérant une problématique non résolue."
+      "summary": "Royal Unibrew reconnaît des lacunes en matière de sécurité opérationnelle (« lost time incident frequency »). Les risques incluent : accidents du travail, amendes réglementaires, arrêts de production, responsabilité civile, et dommages réputationnels. Le management s'engage à intensifier les mesures de sécurité en 2026, suggérant une problématique non résolue.",
+      "score": 3
     },
     {
       "title": "Dépendance à l'efficacité opérationnelle et risques CAPEX",
@@ -416,7 +432,8 @@
       "severity": 3,
       "score_rationale": "Efficacité opérationnelle citée comme pilier de croissance (« operational efficiency » mentionné 5x). CAPEX 7% du chiffre d'affaires (2026) et 6.4% (2025) pour production/logistique/IT. Tendance stable mais risque de dépassement budgétaire. Poids élevé : marge EBIT dépend fortement de réalisation des gains d'efficacité.",
       "trend": "stable",
-      "summary": "Royal Unibrew investit massivement en CAPEX (>1 Md DKK annuel) pour moderniser production, logistique et IT (SAP S/4HANA). Les risques incluent : dépassements budgétaires, retards de mise en œuvre, non-réalisation des gains d'efficacité attendus, et perturbations opérationnelles pendant les migrations. Manquement menacerait les objectifs de croissance EBIT 6-8%."
+      "summary": "Royal Unibrew investit massivement en CAPEX (>1 Md DKK annuel) pour moderniser production, logistique et IT (SAP S/4HANA). Les risques incluent : dépassements budgétaires, retards de mise en œuvre, non-réalisation des gains d'efficacité attendus, et perturbations opérationnelles pendant les migrations. Manquement menacerait les objectifs de croissance EBIT 6-8%.",
+      "score": 3
     },
     {
       "title": "Volatilité des coûts de matières premières et inflation",
@@ -424,7 +441,8 @@
       "severity": 3,
       "score_rationale": "Inflation mentionnée dans guidance 2026 (« modest inflation expected »). Langage rassurant mais reconnaissance du risque. Tendance stable : management affirme capacité à compenser via efficacité. Poids modéré : impact sur COGS mais partiellement transférable aux clients.",
       "trend": "stable",
-      "summary": "Royal Unibrew est exposée à la volatilité des prix des matières premières (sucre, CO2, emballages, alcool) et de l'énergie. Bien que le management anticipe une inflation modérée en 2026, les risques incluent : hausse non anticipée des coûts, incapacité à répercuter les augmentations sur les prix de vente, et compression des marges. La dépendance à la logistique amplifie ce risque."
+      "summary": "Royal Unibrew est exposée à la volatilité des prix des matières premières (sucre, CO2, emballages, alcool) et de l'énergie. Bien que le management anticipe une inflation modérée en 2026, les risques incluent : hausse non anticipée des coûts, incapacité à répercuter les augmentations sur les prix de vente, et compression des marges. La dépendance à la logistique amplifie ce risque.",
+      "score": 3
     },
     {
       "title": "Risques environnementaux et conformité réglementaire ESG",
@@ -432,7 +450,8 @@
       "severity": 3,
       "score_rationale": "Cible CO2e 2030 (réduction 60% scope 1-3) et 2040 (net-zero) explicitement mentionnées. Langage d'engagement fort mais risque de non-atteinte. Tendance stable : roadmap en cours de définition. Poids modéré : impact réputationnel et légal croissant (régulation EU), mais pas de pénalité financière immédiate quantifiée.",
       "trend": "stable",
-      "summary": "Royal Unibrew s'est engagée sur des cibles ambitieuses de réduction CO2e (60% d'ici 2030, net-zero 2040). Les risques incluent : non-atteinte des cibles, coûts d'investissement supérieurs aux prévisions, conformité à la régulation EU croissante (CSRD, Taxonomy), et pression des stakeholders. Manquement pourrait affecter accès au financement et réputation."
+      "summary": "Royal Unibrew s'est engagée sur des cibles ambitieuses de réduction CO2e (60% d'ici 2030, net-zero 2040). Les risques incluent : non-atteinte des cibles, coûts d'investissement supérieurs aux prévisions, conformité à la régulation EU croissante (CSRD, Taxonomy), et pression des stakeholders. Manquement pourrait affecter accès au financement et réputation.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:18:36.446959+00:00",
@@ -489,7 +508,7 @@
   "_dividends_source": "cat3-european annual-text FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
   "_dividends_currency": "DKK",
   "_eps_extracted_at": "2026-05-18T16:47:03Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Boissons",
   "enrich_events": {
     "ticker": "RBREW.CO",
@@ -518,9 +537,9 @@
     "country": "Denmark",
     "_data_freshness_date": "2026-05-21T02:17:14.301833+00:00",
     "fetched_at": "2026-05-21T02:17:14.301834+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.072Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.083Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rbrew.co.json",
     "enrich_root": "v2-pipeline-enrich/rbrew.co.json",

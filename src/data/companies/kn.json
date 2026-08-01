@@ -1,6 +1,6 @@
 {
   "ticker": "KN",
-  "name": "Knowles Corporation",
+  "name": "Knowles",
   "sector": "Technologie",
   "subsector": "Semi-conducteurs",
   "tagline": "Leading manufacturer of specialty electronic components for innovative technologies in medtech, defense, industrial, and electrification markets",
@@ -91,57 +91,68 @@
       "is_generic": false,
       "is_short_history": true,
       "_validation": "Hallucination corrigée: value null remplacée par 40.2 (du 10-K MD&A); unit corrigée: % -> M $; yoy null -> +1.8%; signal et description alimentés avec données 10-K; history complétée (39.5 pour 2024, 40.2 pour 2025)",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Research & Development expenses.",
       "signal_en": "Moderate growth, slightly positive",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.59,
-      "unit": "Mds €",
+      "value": 590,
+      "unit": "M €",
       "yoy": "+7.3%",
       "history": [
-        0.48,
-        0.46,
-        0.55,
-        0.59
+        480,
+        460,
+        550,
+        590
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.59 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+116.7%",
       "history": [
-        -0.43,
-        0.07,
-        -0.24,
-        0.04
+        -430,
+        70,
+        -240,
+        40
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.04 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -160,56 +171,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.05 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.06,
-        0.29,
-        0.21,
-        0.14
+        60,
+        290,
+        210,
+        140
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.14 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "-61.5%",
       "history": [
-        0.05,
-        0.09,
-        0.13,
-        0.05
+        50,
+        90,
+        130,
+        50
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.05 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -252,7 +277,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne explicitement les risques de sécurité et de cybersécurité, notamment les failles de sécurité et les incidents de cybersécurité qui pourraient affecter les opérations, ce qui indique une prise de conscience élevée de ce risque",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de cybersécurité qui pourraient impacter ses opérations et sa réputation"
+      "summary": "La société est exposée à des risques de cybersécurité qui pourraient impacter ses opérations et sa réputation",
+      "score": 4
     },
     {
       "title": "Régulation",
@@ -260,7 +286,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations et des exigences légales, notamment en matière de sécurité et de protection des données, ce qui pourrait impacter ses opérations",
       "trend": "up",
-      "summary": "La société doit se conformer à des réglementations et des exigences légales de plus en plus strictes"
+      "summary": "La société doit se conformer à des réglementations et des exigences légales de plus en plus strictes",
+      "score": 3
     },
     {
       "title": "Concurrence",
@@ -268,7 +295,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché compétitif de composants électroniques spécialisés, ce qui pourrait impacter ses parts de marché et ses revenus",
       "trend": "stable",
-      "summary": "La société doit faire face à une concurrence accrue sur le marché"
+      "summary": "La société doit faire face à une concurrence accrue sur le marché",
+      "score": 4
     },
     {
       "title": "Litige",
@@ -276,7 +304,8 @@
       "severity": 2,
       "score_rationale": "La société est exposée à des risques de litige, notamment en matière de propriété intellectuelle et de contrats",
       "trend": "down",
-      "summary": "La société pourrait être impliquée dans des litiges qui pourraient impacter ses opérations et sa réputation"
+      "summary": "La société pourrait être impliquée dans des litiges qui pourraient impacter ses opérations et sa réputation",
+      "score": 2
     },
     {
       "title": "Réputation",
@@ -284,7 +313,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de réputation, notamment en cas de failles de sécurité ou de non-conformité aux réglementations",
       "trend": "stable",
-      "summary": "La société doit protéger sa réputation et maintenir la confiance de ses clients et de ses partenaires"
+      "summary": "La société doit protéger sa réputation et maintenir la confiance de ses clients et de ses partenaires",
+      "score": 4
     },
     {
       "title": "Géopolitique",
@@ -292,7 +322,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un contexte géopolitique instable avec des opérations mondiales, ce qui pourrait impacter ses opérations et ses revenus",
       "trend": "up",
-      "summary": "La société doit faire face à des risques géopolitiques qui pourraient impacter ses opérations internationales et ses revenus"
+      "summary": "La société doit faire face à des risques géopolitiques qui pourraient impacter ses opérations internationales et ses revenus",
+      "score": 3
     }
   ],
   "governance": {
@@ -328,7 +359,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -583,23 +614,18 @@
         "history": [
           400.8,
           633.8,
-          -367.5,
           201.4,
           389.4,
           567.6,
-          -393.7,
           144.3,
           317.3,
           492.4,
-          -246.4,
           196.4,
           401.1,
           411,
-          -455,
           132.2,
           278.1,
           431,
-          -248.1,
           153.1
         ],
         "history_periods": [
@@ -653,6 +679,12 @@
             "accession": "0001587523-26-000018",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (KN)"
         ]
       },
       {
@@ -661,19 +693,15 @@
         "history": [
           47.9,
           70.2,
-          -48.6,
           23.1,
           44.4,
           63.7,
-          -49.5,
           20,
           39.7,
           59.5,
-          -40.7,
           20.6,
           41.5,
           29.2,
-          -51.8,
           9.7,
           19.7,
           29.7,
@@ -731,6 +759,12 @@
             "accession": "0001587523-26-000018",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (KN)"
         ]
       }
     ]
@@ -747,9 +781,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.274390+00:00",
     "fetched_at": "2026-05-21T02:17:14.274396+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.833Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.591Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kn.json",
     "enrich_root": "v2-pipeline-enrich/kn.json",

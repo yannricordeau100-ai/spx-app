@@ -136,11 +136,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.27 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,56 +163,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.33,
-      "unit": "Mds €",
+      "value": 330,
+      "unit": "M €",
       "yoy": "+32.0%",
       "history": [
-        0.27,
-        0.28,
-        0.25,
-        0.33
+        270,
+        280,
+        250,
+        330
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.33 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.24,
-      "unit": "Mds €",
+      "value": 240,
+      "unit": "M €",
       "yoy": "+84.6%",
       "history": [
-        0.24,
-        0.24,
-        0.13,
-        0.24
+        240,
+        240,
+        130,
+        240
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.24 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,9 +254,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Expansion",
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Expansion"
     }
   ],
   "ai_positioning": {
@@ -284,7 +300,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné en première partie du 10-K, avec un langage fort (\"impedes our ability\", \"significant premium costs\"). Le montant bloqué à Trinité atteint 59,7M$, et des actions financières ont été prises en juillet 2025. La persistance depuis 2017 et les contrôles stricts des banques centrales renforcent la gravité. Catégorie macroéconomique hautement critique.",
       "trend": "stable",
-      "summary": "L'incapacité à convertir les devises locales en dollars américains dans des pays comme Trinité et Honduras menace le financement des importations et augmente les coûts."
+      "summary": "L'incapacité à convertir les devises locales en dollars américains dans des pays comme Trinité et Honduras menace le financement des importations et augmente les coûts.",
+      "score": 5
     },
     {
       "title": "Risque de dévaluation des monnaies locales",
@@ -292,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite explicitement l'exposition à la dévaluation face au dollar, notamment à Trinité où la banque centrale contrôle le taux. L'impact est aggravé par la détention de 59,7M$ en monnaie locale. Le risque est récurrent et lié à la gestion des changes, avec un langage préoccupé mais atténué par des mesures d'accompagnement.",
       "trend": "stable",
-      "summary": "La gestion étroite des taux de change par les banques locales expose la société à des pertes en cas de dévaluation soudaine de devises comme le dollar de Trinité."
+      "summary": "La gestion étroite des taux de change par les banques locales expose la société à des pertes en cas de dévaluation soudaine de devises comme le dollar de Trinité.",
+      "score": 4
     },
     {
       "title": "Changements fiscaux internationaux impactants",
@@ -300,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Le nouveau OBBBA de juillet 2025 introduit une taxe de 1% sur les transferts depuis l'étranger, avec des effets substantifs prévus en 2027. Le langage indique un suivi actif et une vigilance accrue. Bien que l'impact actuel soit jugé limité, le potentiel d'effet matériel est reconnu, surtout pour un modèle à faible marge.",
       "trend": "new",
-      "summary": "Les nouvelles lois fiscales américaines, notamment sur les transferts internationaux, pourraient affecter significativement la structure d'imposition future de l'entreprise."
+      "summary": "Les nouvelles lois fiscales américaines, notamment sur les transferts internationaux, pourraient affecter significativement la structure d'imposition future de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Litige fiscal sur l'impôt minimum alternatif",
@@ -308,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Un coût de 7,2M$ a été provisionné en 2023 pour un litige sur l'AMT dans un pays étranger. Le modèle à faible marge est cité comme facteur de vulnérabilité. Le risque est jugé persistant, avec une reconnaissance explicite de limitations dans les recours juridiques.",
       "trend": "stable",
-      "summary": "Des changements dans le calcul de l'impôt minimum dans un pays opérationnel ont conduit à un règlement coûteux, et le risque de mesures similaires demeure élevé."
+      "summary": "Des changements dans le calcul de l'impôt minimum dans un pays opérationnel ont conduit à un règlement coûteux, et le risque de mesures similaires demeure élevé.",
+      "score": 4
     },
     {
       "title": "Augmentation des coûts de conversion de devises",
@@ -316,7 +336,8 @@
       "severity": 3,
       "score_rationale": "Les coûts de conversion ont contribué à une hausse des charges financières (26M$ de perte nette en 2025 vs 19,5M$ en 2024). Le lien est direct dans la section Adjusted EBITDA. Le montant est significatif mais partiellement compensé par des améliorations ailleurs.",
       "trend": "up",
-      "summary": "Les difficultés de change dans plusieurs marchés entraînent des coûts croissants de conversion, affectant directement les résultats financiers."
+      "summary": "Les difficultés de change dans plusieurs marchés entraînent des coûts croissants de conversion, affectant directement les résultats financiers.",
+      "score": 3
     },
     {
       "title": "Vulnérabilité aux guerres commerciales et tarifs",
@@ -324,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Le risque est cité dès l'ouverture du Item 1A avec un langage fort (\"vulnerable to changes\"). Il concerne des facteurs systémiques comme les guerres commerciales et les transferts de fonds, critiques pour un modèle international dépendant des importations. Position centrale dans le document.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée aux tensions géopolitiques et aux politiques commerciales internationales, qui peuvent perturber les chaînes d'approvisionnement et les flux financiers."
+      "summary": "L'entreprise est exposée aux tensions géopolitiques et aux politiques commerciales internationales, qui peuvent perturber les chaînes d'approvisionnement et les flux financiers.",
+      "score": 4
     }
   ],
   "governance": {
@@ -446,9 +468,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.299897+00:00",
     "fetched_at": "2026-05-21T02:17:14.299898+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.892Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.900Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/psmt.json",
     "enrich_root": "v2-pipeline-enrich/psmt.json",

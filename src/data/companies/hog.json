@@ -39,7 +39,7 @@
       "is_short_history": false,
       "ttm": 317,
       "_validation": [],
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -155,9 +155,7 @@
       "is_short_history": true,
       "_validation": [
         "Marqué comme short_history=true car une seule observation"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "LiveWire Operating Loss",
@@ -204,11 +202,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.04 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -227,11 +229,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.05 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -256,9 +262,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": [],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": []
     },
     {
       "short": "Credit Loss Provision Benefit",
@@ -284,9 +288,7 @@
       "_validation": [
         "Clarification du name_fr: ajout de 'libération' pour meilleure compréhension",
         "Clarification de description: ajout de 'pour pertes sur créances' pour précision"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -300,34 +302,34 @@
       "title": "Tarifs douaniers",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le coût des tarifs douaniers a augmenté de 67 millions de dollars en 2025 et pourrait atteindre 105 millions de dollars en 2026. Cela affecte directement les coûts de production et les ventes de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le coût des tarifs douaniers a augmenté de 67 millions de dollars en 2025 et pourrait atteindre 105 millions de dollars en 2026. Cela affecte directement les coûts de production et les ventes de la société.",
       "trend": "up",
       "summary": "Les tarifs douaniers imposés par les États-Unis et d'autres pays ont un impact négatif sur les coûts de production et les ventes de Harley-Davidson.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Conjoncture économique",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "La conjoncture économique défavorable a entraîné une baisse de la demande pour les produits de luxe, y compris les motos Harley-Davidson. Cela affecte directement les ventes et les bénéfices de la société. (score par défaut, à affiner)",
+      "score_rationale": "La conjoncture économique défavorable a entraîné une baisse de la demande pour les produits de luxe, y compris les motos Harley-Davidson. Cela affecte directement les ventes et les bénéfices de la société.",
       "trend": "stable",
       "summary": "La conjoncture économique défavorable continue de peser sur la demande pour les produits de luxe, ce qui affecte les ventes et les bénéfices de Harley-Davidson.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Taux d'intérêt élevés",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Les taux d'intérêt élevés ont un impact négatif sur les ventes de motos et les bénéfices de la société, car les consommateurs ont du mal à financer leurs achats. (score par défaut, à affiner)",
+      "score_rationale": "Les taux d'intérêt élevés ont un impact négatif sur les ventes de motos et les bénéfices de la société, car les consommateurs ont du mal à financer leurs achats.",
       "trend": "stable",
       "summary": "Les taux d'intérêt élevés continuent de peser sur les ventes de motos et les bénéfices de Harley-Davidson, car les consommateurs ont du mal à financer leurs achats.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La concurrence dans le marché des motos est en augmentation, ce qui pourrait affecter les parts de marché et les ventes de Harley-Davidson. (score par défaut, à affiner)",
+      "score_rationale": "La concurrence dans le marché des motos est en augmentation, ce qui pourrait affecter les parts de marché et les ventes de Harley-Davidson.",
       "trend": "up",
       "summary": "La concurrence dans le marché des motos est en augmentation, ce qui pourrait affecter les parts de marché et les ventes de Harley-Davidson.",
       "score": 3
@@ -336,16 +338,16 @@
       "title": "Dépendance à la finance",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La société dépend fortement de la finance pour ses ventes, ce qui la rend vulnérable aux fluctuations des taux d'intérêt et des conditions de crédit. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de la finance pour ses ventes, ce qui la rend vulnérable aux fluctuations des taux d'intérêt et des conditions de crédit.",
       "trend": "stable",
       "summary": "La société dépend fortement de la finance pour ses ventes, ce qui la rend vulnérable aux fluctuations des taux d'intérêt et des conditions de crédit.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la cybersécurité",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "La société est exposée aux risques liés à la cybersécurité, ce qui pourrait affecter la confidentialité des données des clients et la réputation de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques liés à la cybersécurité, ce qui pourrait affecter la confidentialité des données des clients et la réputation de la société.",
       "trend": "up",
       "summary": "La société est exposée aux risques liés à la cybersécurité, ce qui pourrait affecter la confidentialité des données des clients et la réputation de la société.",
       "score": 3
@@ -354,10 +356,10 @@
       "title": "Risques liés à la réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La société est exposée aux risques liés à la réputation, ce qui pourrait affecter les ventes et les bénéfices de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques liés à la réputation, ce qui pourrait affecter les ventes et les bénéfices de la société.",
       "trend": "stable",
       "summary": "La société est exposée aux risques liés à la réputation, ce qui pourrait affecter les ventes et les bénéfices de la société.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -385,7 +387,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -576,23 +578,18 @@
         "history": [
           626.534,
           830.746,
-          -980.015,
           289.232,
           566.847,
           905.565,
-          -852.366,
           369.609,
           590.947,
           800.232,
-          -981.704,
           263.079,
           504.182,
           609.976,
-          -960.61,
           160.499,
           272.935,
           747.695,
-          -794.494,
           23.494
         ],
         "history_periods": [
@@ -646,6 +643,12 @@
             "accession": "0000793952-26-000032",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (HOG)"
         ]
       },
       {
@@ -654,23 +657,18 @@
         "history": [
           626.534,
           830.746,
-          -980.015,
           289.232,
           566.847,
           905.565,
-          -852.366,
           369.609,
           590.947,
           800.232,
-          -981.704,
           263.079,
           504.182,
           609.976,
-          -960.61,
           160.499,
           272.935,
           747.695,
-          -794.494,
           23.494
         ],
         "history_periods": [
@@ -724,6 +722,12 @@
             "accession": "0000793952-26-000032",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (HOG)"
         ]
       },
       {
@@ -811,9 +815,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.526763+00:00",
     "fetched_at": "2026-05-21T01:44:37.526764+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.110Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.752Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hog.json",
     "enrich_root": "v2-pipeline-enrich/hog.json",

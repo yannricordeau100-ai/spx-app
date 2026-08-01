@@ -73,7 +73,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -100,31 +100,36 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "+7.4%",
       "history": [
-        0.21,
-        0.26,
-        0.27,
-        0.29
+        210,
+        260,
+        270,
+        290
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.29 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -143,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.8 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -166,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.71 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -189,33 +202,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.36 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.03,
-        0.03,
-        0.01,
-        0.01
+        30,
+        30,
+        10,
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -259,7 +281,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est mentionné dès le début de la section 'Risk Factors' et est répété plusieurs fois avec un langage fort ('material adverse effect', 'negatively impact'). L'échec de la fusion aurait des conséquences financières et opérationnelles majeures, justifiant une sévérité maximale.",
       "trend": "up",
-      "summary": "L'échec ou le retard de la fusion prévue pourrait avoir des conséquences négatives importantes sur les finances, les opérations et le cours de l'action de la société, entraînant des coûts irrécupérables et une perte de confiance du marché."
+      "summary": "L'échec ou le retard de la fusion prévue pourrait avoir des conséquences négatives importantes sur les finances, les opérations et le cours de l'action de la société, entraînant des coûts irrécupérables et une perte de confiance du marché.",
+      "score": 5
     },
     {
       "title": "Impacts opérationnels des fusions",
@@ -267,7 +290,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est détaillé dans la section 'Risk Relating to the Mergers', soulignant l'incertitude pour les employés et la culture d'entreprise. La perte ou la distraction d'employés clés est explicitement mentionnée comme ayant un effet négatif matériel, justifiant une sévérité élevée.",
       "trend": "up",
-      "summary": "L'incertitude liée aux fusions peut perturber les activités clés, affecter la culture d'entreprise et entraîner une perte ou une distraction d'employés essentiels, nuisant aux performances."
+      "summary": "L'incertitude liée aux fusions peut perturber les activités clés, affecter la culture d'entreprise et entraîner une perte ou une distraction d'employés essentiels, nuisant aux performances.",
+      "score": 4
     },
     {
       "title": "Risques liés à la gestion locative et aux loyers",
@@ -275,7 +299,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est central dans la section 'Operating Risks' et est détaillé avec plusieurs sous-points (demande, capacité de paiement, régulation des loyers). L'incapacité à augmenter les loyers pour compenser les coûts est un risque majeur pour la génération de revenus, justifiant une sévérité élevée.",
       "trend": "stable",
-      "summary": "La demande locative, la capacité des résidents à payer et les réglementations sur les loyers peuvent limiter la capacité de la société à générer des revenus suffisants pour couvrir ses coûts opérationnels."
+      "summary": "La demande locative, la capacité des résidents à payer et les réglementations sur les loyers peuvent limiter la capacité de la société à générer des revenus suffisants pour couvrir ses coûts opérationnels.",
+      "score": 4
     },
     {
       "title": "Augmentation des coûts d'exploitation",
@@ -283,7 +308,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est clairement identifié dans 'Operating Risks' avec une liste détaillée des coûts potentiellement croissants (assurance, services publics, taxes, main-d'œuvre, chaîne d'approvisionnement). L'inflation est spécifiquement mentionnée comme un facteur aggravant, justifiant une sévérité élevée.",
       "trend": "up",
-      "summary": "Les coûts opérationnels tels que l'assurance, les services publics, les taxes et la main-d'œuvre peuvent augmenter, notamment en raison de l'inflation, dépassant potentiellement les revenus locatifs."
+      "summary": "Les coûts opérationnels tels que l'assurance, les services publics, les taxes et la main-d'œuvre peuvent augmenter, notamment en raison de l'inflation, dépassant potentiellement les revenus locatifs.",
+      "score": 4
     },
     {
       "title": "Concurrence sur le marché immobilier locatif",
@@ -291,7 +317,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est abordé dans la section 'Operating Risks' sous 'Competition could limit our ability to lease multifamily properties or increase or maintain rents'. La concurrence affecte directement la capacité à louer des biens et à maintenir les loyers, ce qui est un risque significatif mais moins existentiel que l'échec d'une fusion.",
       "trend": "stable",
-      "summary": "La concurrence d'autres opérateurs immobiliers et d'alternatives de logement peut limiter la capacité de la société à louer ses biens et à augmenter ou maintenir les taux de location."
+      "summary": "La concurrence d'autres opérateurs immobiliers et d'alternatives de logement peut limiter la capacité de la société à louer ses biens et à augmenter ou maintenir les taux de location.",
+      "score": 3
     },
     {
       "title": "Risques liés à l'assurance et aux pertes non assurées",
@@ -299,7 +326,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est détaillé dans 'Operating Risks' concernant l'adéquation des polices d'assurance et la solvabilité des assureurs. Les pertes potentielles non assurées ou dépassant les limites sont clairement énoncées comme pouvant affecter le capital investi et les revenus futurs.",
       "trend": "stable",
-      "summary": "Les polices d'assurance actuelles pourraient être insuffisantes ou les assureurs pourraient faire défaut, exposant la société à des pertes matérielles non couvertes en cas de sinistre majeur."
+      "summary": "Les polices d'assurance actuelles pourraient être insuffisantes ou les assureurs pourraient faire défaut, exposant la société à des pertes matérielles non couvertes en cas de sinistre majeur.",
+      "score": 3
     },
     {
       "title": "Illiquidité des actifs immobiliers",
@@ -307,7 +335,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est mentionné dans 'Operating Risks' sous 'Illiquidity of real estate limits our ability to act quickly'. L'illiquidité limite la capacité de réaction rapide aux changements économiques et peut empêcher la vente d'actifs au moment souhaité ou au prix espéré.",
       "trend": "stable",
-      "summary": "La nature illiquide de l'immobilier peut limiter la capacité de la société à réagir rapidement aux conditions changeantes du marché ou à vendre des actifs rapidement et au prix souhaité."
+      "summary": "La nature illiquide de l'immobilier peut limiter la capacité de la société à réagir rapidement aux conditions changeantes du marché ou à vendre des actifs rapidement et au prix souhaité.",
+      "score": 3
     },
     {
       "title": "Coûts de transaction élevés liés aux fusions",
@@ -315,7 +344,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est mentionné dans la section 'Risk Relating to the Mergers' sous 'We will incur substantial transaction fees and costs'. Ces coûts sont importants et potentiellement non récupérables, affectant les finances même si la fusion n'aboutit pas, justifiant une sévérité modérée.",
       "trend": "up",
-      "summary": "La société encourra des frais de transaction substantiels pour les fusions, qui devront être payés en partie, que la transaction soit finalisée ou non, impactant négativement les finances."
+      "summary": "La société encourra des frais de transaction substantiels pour les fusions, qui devront être payés en partie, que la transaction soit finalisée ou non, impactant négativement les finances.",
+      "score": 3
     }
   ],
   "governance": {
@@ -360,7 +390,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -526,9 +556,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.326053+00:00",
     "fetched_at": "2026-05-21T02:17:14.326054+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.248Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.378Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vre.json",
     "enrich_root": "v2-pipeline-enrich/vre.json",

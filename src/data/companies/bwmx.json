@@ -38,7 +38,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -63,7 +63,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "EBITDA Margin — EBITDA divided by revenue.",
+      "explanation_en": "EBITDA Margin : EBITDA divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -96,7 +96,7 @@
       "name_fr": "Flux de trésorerie libre",
       "name_en": "Free Cash Flow",
       "explanation": "Trésorerie générée par l'activité après investissements.",
-      "value": "1150",
+      "value": 1.15,
       "unit": "M MXN",
       "yoy": "+69.6%",
       "type": "Cash",
@@ -105,16 +105,17 @@
       "signal": "Génération de trésorerie très forte en 2024, malgré le poids de la dette et des intérêts.",
       "description": "Le FCF estimé pour 2024 atteint environ 1150 M MXN, reflétant une amélioration significative par rapport à 2023 (678.8 M MXN), portée par la normalisation opérationnelle post-acquisition.",
       "history": [
-        -141.1,
-        678.8,
-        1150
+        -0.141,
+        0.679,
+        1.15
       ],
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "M->M MXN for 1-999 readability"
     },
     {
       "short": "Net Debt / EBITDA",
@@ -164,8 +165,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -179,7 +184,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.791,
         1.244,
@@ -192,7 +197,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -207,7 +212,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.9749,
@@ -220,7 +225,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -235,7 +240,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         108.83,
@@ -248,7 +253,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -264,7 +269,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         19.700082,
@@ -277,7 +282,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -302,9 +307,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "avril 2022",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     },
     {
       "short": "EBITDA CAGR 2019-2022",
@@ -326,9 +329,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2022",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -367,7 +368,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans l'Item 1A, langage fort (\"dépendance directe\", \"haut turnover\"), tendance stable, poids élevé car lié au modèle économique fondamental.",
       "trend": "stable",
-      "summary": "Betterware dépend fortement de ses distributeurs indépendants pour la vente de ses produits. Le turnover élevé et la difficulté de recrutement peuvent nuire à la croissance et à la stabilité des revenus."
+      "summary": "Betterware dépend fortement de ses distributeurs indépendants pour la vente de ses produits. Le turnover élevé et la difficulté de recrutement peuvent nuire à la croissance et à la stabilité des revenus.",
+      "score": 5
     },
     {
       "title": "Perte de distributeurs haut niveau",
@@ -375,7 +377,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite dans les risques, langage préoccupé (\"impacter négativement\"), tendance stable, poids important car ces acteurs génèrent une part significative des ventes.",
       "trend": "stable",
-      "summary": "La perte de distributeurs leaders ou consultants hautement performants pourrait réduire significativement les revenus et freiner l'expansion du réseau de vente."
+      "summary": "La perte de distributeurs leaders ou consultants hautement performants pourrait réduire significativement les revenus et freiner l'expansion du réseau de vente.",
+      "score": 4
     },
     {
       "title": "Dépendance à des fabricants en Chine",
@@ -383,7 +386,8 @@
       "severity": 4,
       "score_rationale": "Position marquée dans le texte, langage d'alerte (\"pourrait nuire\"), tendance stable, poids élevé en raison des risques logistiques et géopolitiques.",
       "trend": "stable",
-      "summary": "L'entreprise dépend de plusieurs sous-traitants de fabrication situés principalement en Chine. Toute perte ou interruption de ces partenariats pourrait perturber l'approvisionnement et nuire à l'activité."
+      "summary": "L'entreprise dépend de plusieurs sous-traitants de fabrication situés principalement en Chine. Toute perte ou interruption de ces partenariats pourrait perturber l'approvisionnement et nuire à l'activité.",
+      "score": 4
     },
     {
       "title": "Réglementation des ventes directes au Mexique",
@@ -391,7 +395,8 @@
       "severity": 4,
       "score_rationale": "Présent dans les risques liés au Mexique, langage sérieux (\"peut restreindre\", \"affecter la rentabilité\"), tendance stable, poids significatif en contexte réglementaire émergent.",
       "trend": "stable",
-      "summary": "Les lois et réglementations mexicaines peuvent limiter les pratiques de vente directe, affectant ainsi le modèle commercial et la rentabilité de l'entreprise."
+      "summary": "Les lois et réglementations mexicaines peuvent limiter les pratiques de vente directe, affectant ainsi le modèle commercial et la rentabilité de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risque de requalification des distributeurs",
@@ -399,7 +404,8 @@
       "severity": 5,
       "score_rationale": "Position importante, langage fort (\"pourrait entraîner une responsabilité significative\"), tendance stable, poids très élevé en raison des conséquences financières potentielles.",
       "trend": "stable",
-      "summary": "Les distributeurs sont des indépendants, mais une requalification en tant que salariés par les autorités pourrait exposer l'entreprise à des obligations sociales importantes."
+      "summary": "Les distributeurs sont des indépendants, mais une requalification en tant que salariés par les autorités pourrait exposer l'entreprise à des obligations sociales importantes.",
+      "score": 5
     },
     {
       "title": "Cybersécurité des systèmes d'information",
@@ -407,7 +413,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite dans les risques technologiques, langage préventif mais sérieux, tendance stable, poids croissant avec la digitalisation.",
       "trend": "stable",
-      "summary": "L'entreprise dépend de technologies de l'information critiques, exposée à des risques de cyberattaques pouvant perturber les opérations et compromettre des données sensibles."
+      "summary": "L'entreprise dépend de technologies de l'information critiques, exposée à des risques de cyberattaques pouvant perturber les opérations et compromettre des données sensibles.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur le marché local",
@@ -415,7 +422,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité, langage d'alerte (\"effet matériel négatif\"), tendance stable, poids élevé en raison de la pression sur les parts de marché.",
       "trend": "stable",
-      "summary": "La concurrence au Mexique, notamment de nouveaux acteurs agressifs, pourrait réduire les parts de marché et exercer une pression sur les marges."
+      "summary": "La concurrence au Mexique, notamment de nouveaux acteurs agressifs, pourrait réduire les parts de marché et exercer une pression sur les marges.",
+      "score": 4
     },
     {
       "title": "Interruption du site de Querétaro",
@@ -423,7 +431,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel spécifique, langage fort (\"effet matériel\"), tendance stable, poids élevé pour la segmentation beauté et soins personnels.",
       "trend": "stable",
-      "summary": "Toute perturbation dans l'usine de Querétaro au Mexique pourrait gravement affecter la production, en particulier pour les produits de beauté et de soins personnels."
+      "summary": "Toute perturbation dans l'usine de Querétaro au Mexique pourrait gravement affecter la production, en particulier pour les produits de beauté et de soins personnels.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:44:45.336418+00:00",
@@ -557,10 +566,10 @@
   "company_description": "Betterware de México, S.A.P.I. de C.V. operates as a direct-to-consumer selling company in the United Staes and Mexico. It operates through two segments, Home Organization Products; and Beauty and Personal Care Products. The Home Organization Products segment provides a portfolio of products comprising kitchen and food preservation; home solutions; bedroom; bathroom; laundry and cleaning; wellness; and technology and mobility. The Beauty and Personal Care Products segment offers fragrances, color, skin care products, and toiletries. It sells its products through catalogues, as well as distributes through a network of distributors, associates, leaders, and consultants to the end customers. The company is headquartered in Zapopan, Mexico. Betterware de México, S.A.P.I. de C.V. is a subsidiary of Campalier S.A. de C.V.",
   "_profile_fetched_at": "2026-05-07T11:54:48.568611+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:39Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "_eps_extracted_at": "2026-05-18T16:44:05Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "BWMX",
     "simple": {
@@ -668,9 +677,9 @@
     "country": "Mexico",
     "_data_freshness_date": "2026-05-21T02:17:14.235001+00:00",
     "fetched_at": "2026-05-21T02:17:14.235002+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.013Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.463Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bwmx.json",
     "enrich_root": "v2-pipeline-enrich/bwmx.json",

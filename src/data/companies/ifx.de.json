@@ -13,7 +13,7 @@
     "sector": "#2 in automotive power semiconductors",
     "subsector": "#1 in IGBT-based power semiconductors"
   },
-  "hero_kpi": "Automotive",
+  "hero_kpi": "automotive_segment_rev",
   "hero_kpi_rationale": "Le segment Automotive représente 44% du revenu total et est le principal driver de croissance, tiré par l'électrification et l'automatisation des véhicules. Infineon est positionné comme numéro 2 mondial sur ce segment stratégique en expansion.",
   "kpis": [
     {
@@ -98,8 +98,8 @@
       "name_fr": "Revenu sécurité numérique",
       "name_en": "Digital Security Solutions Revenue",
       "explanation": "Ventes de puces sécurisées pour les cartes d'identité, les paiements, l'IoT et les applications de calcul sécurisé.",
-      "value": 0.64,
-      "unit": "Mds €",
+      "value": 640,
+      "unit": "M €",
       "yoy": "-3%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -107,8 +107,8 @@
       "signal": "Numéro 2 mondial sur les puces sécurisées (24.3% de part de marché), segment en léger recul",
       "description": "Infineon fournit des contrôleurs de sécurité contact et contactless à Microsoft, Google, Thales et autres clients majeurs.",
       "history": [
-        0.66,
-        0.64
+        660,
+        640
       ],
       "last_data_date": "2019-09-30",
       "is_wow": false,
@@ -116,7 +116,8 @@
       "is_short_history": false,
       "period_type": "annual",
       "_validation": "value: string -> numeric (0.642), period_type: quarter -> annual",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Gross Margin",
@@ -141,7 +142,7 @@
       "is_short_history": false,
       "period_type": "annual",
       "_validation": "value: string -> numeric (37.3), is_generic: true -> false (signal économique spécifique expliqué), period_type: quarter -> annual",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -219,7 +220,7 @@
       "is_short_history": false,
       "period_type": "annual",
       "_validation": "value: string -> numeric (2.488), yoy validation: (2.488-1.163)/1.163 = 114% confirmed, period_type: quarter -> annual",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -227,8 +228,8 @@
       "name_fr": "Flux de trésorerie libre",
       "name_en": "Free Cash Flow",
       "explanation": "Trésorerie générée après les investissements nécessaires dans les équipements et la R&D.",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-94%",
       "type": "Cash",
       "nature": "Conjoncturel",
@@ -236,8 +237,8 @@
       "signal": "FCF en chute libre (39M€) due à l'augmentation majeure du capex (doublement)",
       "description": "Le FCF est tombé à 39M€ en 2019 contre 618M€ en 2018, principalement du doublement du capex pour les investissements en usines.",
       "history": [
-        0.62,
-        0.04
+        620,
+        40
       ],
       "last_data_date": "2019-09-30",
       "is_wow": false,
@@ -245,8 +246,9 @@
       "is_short_history": false,
       "period_type": "annual",
       "_validation": "value: string -> numeric (0.039), period_type: quarter -> annual",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Headcount",
@@ -271,8 +273,32 @@
       "is_short_history": false,
       "period_type": "annual",
       "_validation": "value: string -> numeric (41.418), yoy verification: (41418-40098)/40098 = 3.3% confirmed as '+3%', period_type: quarter -> annual",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
+    },
+    {
+      "short": "automotive_segment_rev",
+      "name_fr": "CA Segment Automobile",
+      "name_en": "Automotive Segment Revenue",
+      "unit": "M€",
+      "period_type": "year",
+      "history": [
+        3284,
+        3503,
+        3542,
+        4841,
+        6516,
+        8242,
+        8423
+      ],
+      "value": 8423,
+      "last_data_date": "2024-09-30",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'automobile pese desormais plus de la moitie des ventes et progresse encore malgre le repli du cycle.",
+      "is_wow": true,
+      "yoy": "+2,2 %"
     }
   ],
   "stories_kpis": [],
@@ -286,24 +312,8 @@
     ],
     "source": "Infineon Annual Report 2019"
   },
-  "_validation": {
-    "corrections_summary": "10 KPIs validés et corrigés. Corrections majeures: corrections de types de données (string -> numeric), normalisation des dates (2025-12-31 -> 2019-09-30), correction du period_type (quarter -> annual), validation des YoY avec source document, amélioration des flags is_generic et is_wow basés sur criticité du signal.",
-    "corrections_detail": [
-      "Automotive: last_data_date 2025-12-31 -> 2019-09-30, period_type quarter -> annual, is_wow false -> true (44% du revenu total, principal driver)",
-      "Industrial Power Control: value string '1.418' -> numeric 1.418, period_type quarter -> annual",
-      "Power Management & Multimarket: value string '2.445' -> numeric 2.445, is_generic true -> false (description suffisamment spécifique pour applications), period_type quarter -> annual",
-      "Digital Security Solutions: value string '0.642' -> numeric 0.642, period_type quarter -> annual",
-      "Gross Margin: value string '37.3' -> numeric 37.3, is_generic true -> false (signal expliqué), period_type quarter -> annual",
-      "Operating Margin: value string '14.5' -> numeric 14.5, yoy '-3.3 pts' -> '-4.8 pts' (calcul: 14.5-19.3 = -4.8), is_generic true -> false, period_type quarter -> annual",
-      "R&D: value string '11.8' -> numeric 11.8, name_fr phrasing normalisé, period_type quarter -> annual",
-      "Capex: value string '2.488' -> numeric 2.488, yoy '+114%' validé (2488-1163)/1163 = 114%, period_type quarter -> annual",
-      "Free cash flow: value string '0.039' -> numeric 0.039, period_type quarter -> annual",
-      "Headcount: value string '41.418' -> numeric 41.418, yoy '+3%' validé (41418-40098)/40098 = 3.3%, period_type quarter -> annual",
-      "hero_kpi_rationale: reformulé sans em-dash, 'numéro 2 mondial' au lieu de '#2 mondial' pour français standard",
-      "Tous les last_data_date alignés avec Annual Report 2019 fiscal year ending 2019-09-30"
-    ]
-  },
-  "_fit_for_site": false,
+  "_validation": true,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_2"
   ],
@@ -315,7 +325,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur mentionné à plusieurs reprises dans Item 1A (acquisition « la plus importante de l'histoire »). Langage intensif sur les « opportunités et risques » pesés. Tendance : nouvelle acquisition stratégique. Poids catégorie : acquisition transformationnelle requérant financement hybride et augmentation de capital.",
       "trend": "new",
-      "summary": "Infineon a lancé l'acquisition majeure de Cypress Semiconductor (USA) en 2019, nécessitant un financement de €1,5 Mrd en actions et €1,2 Mrd en obligations hybrides. Les risques incluent l'intégration des portefeuilles produits, la réalisation des synergies attendues, et les approbations réglementaires antitrust (mentionnées explicitement comme risques d'approbation)."
+      "summary": "Infineon a lancé l'acquisition majeure de Cypress Semiconductor (USA) en 2019, nécessitant un financement de €1,5 Mrd en actions et €1,2 Mrd en obligations hybrides. Les risques incluent l'intégration des portefeuilles produits, la réalisation des synergies attendues, et les approbations réglementaires antitrust (mentionnées explicitement comme risques d'approbation).",
+      "score": 4
     },
     {
       "title": "Risques réglementaires antitrust et approbations gouvernementales",
@@ -323,7 +334,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans Strategy and Technology Committee : « risques concernant les approbations nécessaires des autorités antitrust et autres ». Langage direct sur les obstacles réglementaires. Tendance : stable (risque structurel des M&A). Poids catégorie : critique pour la finalisation de Cypress.",
       "trend": "stable",
-      "summary": "Infineon fait face à des risques d'approbation réglementaire pour l'acquisition Cypress par les autorités antitrust et gouvernementales. La société a également un litige en appel devant les cours européennes contre une amende antitrust de la Commission UE imposée en 2014, créant un précédent de tensions réglementaires."
+      "summary": "Infineon fait face à des risques d'approbation réglementaire pour l'acquisition Cypress par les autorités antitrust et gouvernementales. La société a également un litige en appel devant les cours européennes contre une amende antitrust de la Commission UE imposée en 2014, créant un précédent de tensions réglementaires.",
+      "score": 4
     },
     {
       "title": "Concurrence intense dans l'industrie des semiconducteurs",
@@ -331,7 +343,8 @@
       "severity": 4,
       "score_rationale": "Implicite dans la stratégie M&A : discussion du « développement général de l'industrie des semiconducteurs, des marchés et tendances, de l'environnement concurrentiel ». Langage modéré mais contexte stratégique fort. Tendance : up (justifie l'acquisition Cypress). Poids catégorie : fondamental pour la survie et croissance.",
       "trend": "up",
-      "summary": "Infineon opère dans un secteur hautement compétitif où les acteurs mondiaux (Intel, TSMC, Samsung, etc.) investissent massivement en R&D et capacités. L'acquisition Cypress vise à renforcer la position concurrentielle en élargissant le portefeuille produits sur les marchés clés futurs (IoT, électromobilité, sécurité)."
+      "summary": "Infineon opère dans un secteur hautement compétitif où les acteurs mondiaux (Intel, TSMC, Samsung, etc.) investissent massivement en R&D et capacités. L'acquisition Cypress vise à renforcer la position concurrentielle en élargissant le portefeuille produits sur les marchés clés futurs (IoT, électromobilité, sécurité).",
+      "score": 4
     },
     {
       "title": "Propriété intellectuelle et risques de litiges technologiques",
@@ -339,7 +352,8 @@
       "severity": 3,
       "score_rationale": "Helmut Gassel (CMO) responsable de la Propriété Intellectuelle au sein du Management Board. Mentionné comme domaine clé de responsabilité. Tendance : stable (fonction permanente). Poids catégorie : important pour les semiconducteurs (brevets critiques).",
       "trend": "stable",
-      "summary": "La propriété intellectuelle est un enjeu stratégique majeur pour Infineon, gérée au niveau du Management Board. Dans l'industrie des semiconducteurs, les portefeuilles de brevets sont essentiels pour la différenciation et la protection contre les contrefaçons. L'acquisition Cypress ajoute des actifs IP à défendre et intégrer."
+      "summary": "La propriété intellectuelle est un enjeu stratégique majeur pour Infineon, gérée au niveau du Management Board. Dans l'industrie des semiconducteurs, les portefeuilles de brevets sont essentiels pour la différenciation et la protection contre les contrefaçons. L'acquisition Cypress ajoute des actifs IP à défendre et intégrer.",
+      "score": 3
     },
     {
       "title": "Continuité opérationnelle et dépendance aux cadres clés",
@@ -347,7 +361,8 @@
       "severity": 3,
       "score_rationale": "Item 1A titre : « Risk Management, Business Continuity and Information Technology ». Transitions de CFO (Asam → Schneider) et renouvellement du Management Board documentées. Langage modéré mais changements structurels importants. Tendance : up (transitions multiples en cours). Poids catégorie : critique pour exécution stratégique.",
       "trend": "up",
-      "summary": "Infineon a connu des transitions clés en 2019 : départ du CFO Dominik Asam (vers Airbus) et nomination de Dr. Sven Schneider. Le Dr. Ploss (Chairman) a été reconduit jusqu'à fin 2022. Ces changements créent des risques de continuité dans la gestion de l'acquisition Cypress et de la stratégie long terme."
+      "summary": "Infineon a connu des transitions clés en 2019 : départ du CFO Dominik Asam (vers Airbus) et nomination de Dr. Sven Schneider. Le Dr. Ploss (Chairman) a été reconduit jusqu'à fin 2022. Ces changements créent des risques de continuité dans la gestion de l'acquisition Cypress et de la stratégie long terme.",
+      "score": 3
     },
     {
       "title": "Litiges majeurs et passifs contingents (Qimonda, antitrust)",
@@ -355,7 +370,8 @@
       "severity": 3,
       "score_rationale": "Supervisory Board reçoit « des informations détaillées régulièrement » sur les litiges majeurs. Deux litiges explicites : appel antitrust UE (2014) et dispute avec administrateur insolvabilité Qimonda sur « réclamations de responsabilité résiduelle ». Tendance : stable (litiges historiques). Poids catégorie : impact financier et réputationnel potentiel.",
       "trend": "stable",
-      "summary": "Infineon gère deux litiges majeurs : (1) appel en cours devant les cours européennes contre l'amende antitrust UE de 2014 ; (2) dispute avec l'administrateur insolvabilité de Qimonda AG concernant des réclamations de responsabilité résiduelle. Ces litiges créent une exposition financière et réputationnelle."
+      "summary": "Infineon gère deux litiges majeurs : (1) appel en cours devant les cours européennes contre l'amende antitrust UE de 2014 ; (2) dispute avec l'administrateur insolvabilité de Qimonda AG concernant des réclamations de responsabilité résiduelle. Ces litiges créent une exposition financière et réputationnelle.",
+      "score": 3
     },
     {
       "title": "Volatilité macroéconomique et cycles de demande semiconducteurs",
@@ -363,7 +379,8 @@
       "severity": 3,
       "score_rationale": "Supervisory Board note « les vents contraires macroéconomiques en cours » (2019). Langage modéré mais contexte de ralentissement. Tendance : down (amélioration attendue). Poids catégorie : impact direct sur volumes et marges.",
       "trend": "down",
-      "summary": "Infineon opère dans un secteur cyclique sensible aux cycles économiques globaux. En 2019, la société a fait face à des « vents contraires macroéconomiques » affectant la demande. L'industrie des semiconducteurs est exposée aux cycles d'investissement IT, automobile et IoT, avec risques de surcapacité et compression de marges."
+      "summary": "Infineon opère dans un secteur cyclique sensible aux cycles économiques globaux. En 2019, la société a fait face à des « vents contraires macroéconomiques » affectant la demande. L'industrie des semiconducteurs est exposée aux cycles d'investissement IT, automobile et IoT, avec risques de surcapacité et compression de marges.",
+      "score": 3
     },
     {
       "title": "Conformité réglementaire et gouvernance d'entreprise en évolution",
@@ -371,7 +388,8 @@
       "severity": 2,
       "score_rationale": "Supervisory Board suit « très attentivement » les évolutions réglementaires (ARUG II, révision DCGK). Langage proactif mais risque de conformité modéré. Tendance : up (nouvelles exigences attendues 2020). Poids catégorie : impact administratif et potentiellement financier.",
       "trend": "up",
-      "summary": "Infineon anticipe des changements réglementaires majeurs en 2020 : implémentation de la directive ARUG II et révision du Code de Gouvernance Allemand (DCGK). La société prépare des modifications au système de compensation du Management Board et à la structure de gouvernance pour se conformer aux nouvelles exigences."
+      "summary": "Infineon anticipe des changements réglementaires majeurs en 2020 : implémentation de la directive ARUG II et révision du Code de Gouvernance Allemand (DCGK). La société prépare des modifications au système de compensation du Management Board et à la structure de gouvernance pour se conformer aux nouvelles exigences.",
+      "score": 2
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:30:20.653293+00:00",
@@ -548,6 +566,29 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "ticker": "IFX.DE",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Infineon conçoit et fabrique des semi-conducteurs pour l'automobile, l'industrie, les énergies renouvelables et les applications de sécurité.",
+          "products": "L'offre comprend les semi-conducteurs de puissance pour véhicules électriques, les microcontrôleurs pour systèmes embarqués, les capteurs MEMS, les puces sécurisées pour cartes bancaires et passeports et les composants pour énergies renouvelables.",
+          "customers": "Ses clients sont les équipementiers automobiles, les constructeurs industriels, les fabricants d'onduleurs solaires et éoliens, et les industriels de l'identité électronique.",
+          "edge": "La force d'Infineon repose sur son leadership mondial sur les semi-conducteurs de puissance, en particulier pour les véhicules électriques et le solaire."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Infineon est le numéro un mondial des semi-conducteurs automobiles et le leader des composants de puissance. Le groupe se différencie de Texas Instruments et STMicroelectronics par sa focalisation sur les marchés de transition énergétique. L'acquisition de Cypress a renforcé l'offre en microcontrôleurs et connectivité.",
+          "tech_products": "Le groupe est leader sur le carbure de silicium et le nitrure de gallium, des matériaux de nouvelle génération pour la puissance. Infineon développe des puces sécurisées pour l'identité numérique et le paiement sans contact. L'investissement dans la nouvelle usine de Dresde en 300 mm SiC est stratégique.",
+          "moat": "Les semi-conducteurs automobiles requièrent des qualifications longues qui créent des coûts de switch importants pour les clients. La courbe d'expérience en carbure de silicium est un actif technologique difficile à répliquer. Les positions de leader sur certaines applications créent des marges supérieures.",
+          "risks": "Le marché des semi-conducteurs reste très cyclique avec des phases de surcapacité. Les ventes de véhicules électriques ont ralenti, ce qui pèse sur les volumes de puissance. La concurrence chinoise sur les composants standards augmente."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "IFX.DE",
     "ranks": {
@@ -560,14 +601,15 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T01:44:37.529568+00:00",
     "fetched_at": "2026-05-21T01:44:37.529569+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.373Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.037Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ifx.de.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

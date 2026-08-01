@@ -39,36 +39,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.35 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:52.564621+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.18,
-        0.2,
-        0.26,
-        0.26
+        180,
+        200,
+        260,
+        260
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.26 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -87,56 +96,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.23 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-20.0%",
       "history": [
-        0.05,
-        0.05,
-        0.05,
-        0.04
+        50,
+        50,
+        50,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.7,
-      "unit": "Mds €",
+      "value": 700,
+      "unit": "M €",
       "yoy": "+45.8%",
       "history": [
-        0.62,
-        0.75,
-        0.48,
-        0.7
+        620,
+        750,
+        480,
+        700
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.7 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -172,43 +195,43 @@
       "title": "Conditions macro",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Les conditions macroéconomiques peuvent avoir un impact négatif sur les revenus de la société, notamment en raison de la santé financière des licenseurs, de l'inflation, des taux d'intérêt élevés, des fluctuations des taux de change, des coûts de matériaux et de transport, des tarifs et des barrières commerciales. (score par défaut, à affiner)",
+      "score_rationale": "Les conditions macroéconomiques peuvent avoir un impact négatif sur les revenus de la société, notamment en raison de la santé financière des licenseurs, de l'inflation, des taux d'intérêt élevés, des fluctuations des taux de change, des coûts de matériaux et de transport, des tarifs et des barrières commerciales.",
       "trend": "up",
       "summary": "Les conditions macroéconomiques peuvent avoir un impact négatif sur les revenus de la société",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques de cybersécurité, notamment en raison de la vulnérabilité de ses systèmes et de ses données. Un CISO expérimenté supervise un équipe de professionnels en sécurité et le conseil d'administration exerce une surveillance directe. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de cybersécurité, notamment en raison de la vulnérabilité de ses systèmes et de ses données. Un CISO expérimenté supervise un équipe de professionnels en sécurité et le conseil d'administration exerce une surveillance directe.",
       "trend": "stable",
       "summary": "La société doit protéger ses systèmes et données contre les menaces de cybersécurité",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché concurrentiel, où les entreprises doivent se battre pour attirer et conserver les clients et pour l'adoption de technologies standardisées. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché concurrentiel, où les entreprises doivent se battre pour attirer et conserver les clients et pour l'adoption de technologies standardisées.",
       "trend": "up",
       "summary": "La concurrence peut avoir un impact négatif sur les revenus et la part de marché de la société",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques géopolitiques",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Les changements dans les relations diplomatiques et commerciales, les mesures de protection commerciale incluant les tarifs, et les exigences de licence d'importation ou d'exportation peuvent avoir un impact négatif sur les revenus de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les relations diplomatiques et commerciales, les mesures de protection commerciale incluant les tarifs, et les exigences de licence d'importation ou d'exportation peuvent avoir un impact négatif sur les revenus de la société.",
       "trend": "up",
       "summary": "Les risques géopolitiques peuvent avoir un impact négatif sur les revenus et les opérations de la société",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de litige",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "La société est impliquée dans des procédures judiciaires et des litiges, qui peuvent avoir un impact négatif sur ses revenus et sa réputation. (score par défaut, à affiner)",
+      "score_rationale": "La société est impliquée dans des procédures judiciaires et des litiges, qui peuvent avoir un impact négatif sur ses revenus et sa réputation.",
       "trend": "stable",
       "summary": "La société doit gérer les risques de litige pour protéger ses intérêts et sa réputation",
       "score": 3
@@ -217,7 +240,7 @@
       "title": "Risques de réputation",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "La société doit protéger sa réputation et maintenir la confiance de ses clients et de ses partenaires. Dolby est une marque synonyme de haute qualité dans le divertissement. (score par défaut, à affiner)",
+      "score_rationale": "La société doit protéger sa réputation et maintenir la confiance de ses clients et de ses partenaires. Dolby est une marque synonyme de haute qualité dans le divertissement.",
       "trend": "stable",
       "summary": "La réputation de la société est essentielle à son succès et à sa croissance",
       "score": 3
@@ -226,7 +249,7 @@
       "title": "Risques de régulation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements dans les réglementations et les lois peuvent avoir un impact négatif sur les opérations et les revenus de la société, notamment en ce qui concerne l'application des droits de propriété intellectuelle. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les réglementations et les lois peuvent avoir un impact négatif sur les opérations et les revenus de la société, notamment en ce qui concerne l'application des droits de propriété intellectuelle.",
       "trend": "up",
       "summary": "La société doit se conformer aux réglementations et lois en vigueur pour éviter les risques de non-conformité",
       "score": 3
@@ -275,10 +298,70 @@
   "_hero_kpi_original": "Licensing Revenue",
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
-  "_companies_unified_built_at": "2026-05-29T21:19:30.305Z",
+  "enrich_quarterly_history": {
+    "ticker": "DLB",
+    "extracted_at": "2026-06-01T03:11:19Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          0.03672,
+          0.076217,
+          0.116734,
+          0.211415,
+          0.039597,
+          0.054621,
+          0.156331,
+          0.079375,
+          0.095696,
+          0.175071,
+          0.19147,
+          0.066981,
+          0.09783,
+          0.191736,
+          0.06807,
+          0.091793,
+          0.046071,
+          0.046071
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-06-27",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:11:19Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
+  "_companies_unified_built_at": "2026-08-01T20:27:55.857Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dlb.json",
     "enrich_root": null,
-    "enrich_subkeys": []
+    "enrich_subkeys": [
+      "quarterly-history"
+    ]
   }
 }

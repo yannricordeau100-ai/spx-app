@@ -72,8 +72,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "KPI halluciné: aucune donnée de marge brute trouvée dans la source 10-K fournie. Données non vérifiables.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -100,8 +104,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Correction unité: 'Mds $' changé à 'M $' car valeur 65 en millions de dollars (pas milliards). KPI halluciné: données de capex 2025 non présentes dans la source 10-K fournie.",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Share Repurchases",
@@ -127,7 +135,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "_validation": "Correction valeur: 590.0 changé à 90.0 (montant réel dépensé en 2025 selon Item 5 du 10-K). Correction unité: 'Mds $' changé à 'M $'. Correction yoy: '590%' changé à 'N/A' (programme approuvé vs réalisé). Mise à jour signal et description basée sur données du 10-K Item 5."
+      "_validation": "Correction valeur: 590.0 changé à 90.0 (montant réel dépensé en 2025 selon Item 5 du 10-K). Correction unité: 'Mds $' changé à 'M $'. Correction yoy: '590%' changé à 'N/A' (programme approuvé vs réalisé). Mise à jour signal et description basée sur données du 10-K Item 5.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Debt Level",
@@ -154,7 +166,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Correction unité: 'Mds $' changé à 'M $'. Données validées dans le 10-K MD&A: émission de 650M$ en notes à 9,125%.",
-      "signal_en": "Capital base stable"
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -187,25 +203,29 @@
         "diff_pct": 56.2,
         "reason": "kept_original_likely_pollution_or_unit"
       },
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.119,
-      "unit": "Mds $",
+      "value": 119,
+      "unit": "M $",
       "yoy": "+8.2%",
       "history": [
-        1.067,
-        1.244,
-        1.435,
-        1.496,
-        0.979,
-        0.602,
-        0.11,
-        0.119
+        1067,
+        1244,
+        1435,
+        1496,
+        979,
+        602,
+        110,
+        119
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -215,24 +235,29 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.335,
-      "unit": "Mds $",
+      "value": 335,
+      "unit": "M $",
       "yoy": "+85.1%",
       "history": [
-        -0.172,
-        -0.142,
-        -0.196,
-        -0.129,
-        -0.022,
-        0.097,
-        0.181,
-        0.335
+        -172,
+        -142,
+        -196,
+        -129,
+        -22,
+        97,
+        181,
+        335
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -241,8 +266,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -314,7 +344,8 @@
       "severity": 5,
       "score_rationale": "Les downturns dans l'industrie pétrolière et gazière ont souvent résulté en une baisse des dépenses de nos clients et une réduction de la demande pour nos services.",
       "trend": "stable",
-      "summary": "Les downturns dans l'industrie pétrolière et gazière peuvent avoir des effets négatifs sur les résultats financiers de la société."
+      "summary": "Les downturns dans l'industrie pétrolière et gazière peuvent avoir des effets négatifs sur les résultats financiers de la société.",
+      "score": 5
     },
     {
       "title": "Risques climatiques et durabilité",
@@ -322,7 +353,8 @@
       "severity": 4,
       "score_rationale": "Les facteurs associés au changement climatique et aux questions de durabilité pourraient avoir des effets négatifs sur l'activité, la réputation, les résultats d'exploitation et la situation financière de la société.",
       "trend": "up",
-      "summary": "Les risques climatiques et les questions de durabilité peuvent avoir des impacts importants sur l'industrie énergétique et la société."
+      "summary": "Les risques climatiques et les questions de durabilité peuvent avoir des impacts importants sur l'industrie énergétique et la société.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -330,7 +362,8 @@
       "severity": 4,
       "score_rationale": "La concurrence accrue dans l'industrie des services maritimes offshore pourrait avoir des effets négatifs sur les prix de nos services.",
       "trend": "up",
-      "summary": "La concurrence accrue dans l'industrie des services maritimes offshore peut entraîner une baisse des prix et des revenus pour la société."
+      "summary": "La concurrence accrue dans l'industrie des services maritimes offshore peut entraîner une baisse des prix et des revenus pour la société.",
+      "score": 4
     },
     {
       "title": "Risques de crédit et de flux de trésorerie",
@@ -338,7 +371,8 @@
       "severity": 4,
       "score_rationale": "Nous pouvons ne pas être en mesure de générer suffisamment de flux de trésorerie pour remplir nos obligations de service de la dette.",
       "trend": "stable",
-      "summary": "Les risques de crédit peuvent avoir des effets négatifs sur la capacité de la société à rembourser ses dettes et à financer ses activités."
+      "summary": "Les risques de crédit peuvent avoir des effets négatifs sur la capacité de la société à rembourser ses dettes et à financer ses activités.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
@@ -346,7 +380,8 @@
       "severity": 4,
       "score_rationale": "Les changements dans les lois et réglementations applicables, y compris les lois et réglementations en développement, peuvent augmenter nos coûts de conformité et notre risque opérationnel.",
       "trend": "up",
-      "summary": "Les risques réglementaires peuvent avoir des impacts importants sur l'industrie énergétique et la société, en particulier en ce qui concerne les questions de durabilité et de changement climatique."
+      "summary": "Les risques réglementaires peuvent avoir des impacts importants sur l'industrie énergétique et la société, en particulier en ce qui concerne les questions de durabilité et de changement climatique.",
+      "score": 4
     },
     {
       "title": "Risques cybernétiques",
@@ -354,7 +389,8 @@
       "severity": 3,
       "score_rationale": "Les attaques de cybersécurité contre nos navires, installations ou celles de tiers peuvent entraîner des dommages potentiels ou des préjudices à notre réputation.",
       "trend": "up",
-      "summary": "Les risques cybernétiques peuvent avoir des effets négatifs sur la réputation et les activités de la société."
+      "summary": "Les risques cybernétiques peuvent avoir des effets négatifs sur la réputation et les activités de la société.",
+      "score": 3
     },
     {
       "title": "Risques géopolitiques",
@@ -362,7 +398,8 @@
       "severity": 3,
       "score_rationale": "Les événements géopolitiques, tels que les guerres, les attaques terroristes et les hostilités internationales, peuvent avoir des effets négatifs sur nos activités et nos résultats financiers.",
       "trend": "stable",
-      "summary": "Les risques géopolitiques peuvent avoir des impacts importants sur l'industrie énergétique et la société, en particulier en ce qui concerne les questions de stabilité et de sécurité."
+      "summary": "Les risques géopolitiques peuvent avoir des impacts importants sur l'industrie énergétique et la société, en particulier en ce qui concerne les questions de stabilité et de sécurité.",
+      "score": 3
     }
   ],
   "governance": {
@@ -597,15 +634,12 @@
           8.651,
           17.5,
           23.202,
-          -17.765,
           10.942,
           17.334,
           23.046,
-          -23.742,
           10.266,
           15.492,
           20.614,
-          -20.611,
           14.885
         ],
         "history_periods": [
@@ -659,6 +693,12 @@
             "accession": "0001437749-26-014662",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (TDW)"
         ]
       }
     ]
@@ -675,9 +715,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.316664+00:00",
     "fetched_at": "2026-05-21T02:17:14.316665+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.409Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.468Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tdw.json",
     "enrich_root": "v2-pipeline-enrich/tdw.json",

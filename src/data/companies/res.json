@@ -150,18 +150,18 @@
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.032,
-      "unit": "Mds $",
+      "value": 32,
+      "unit": "M $",
       "yoy": "-64.8%",
       "history": [
-        0.175,
-        -0.087,
-        -0.212,
-        0.007,
-        0.218,
-        0.195,
-        0.091,
-        0.032
+        175,
+        -87,
+        -212,
+        7,
+        218,
+        195,
+        91,
+        32
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -170,25 +170,30 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.045,
-      "unit": "Mds $",
+      "value": 45,
+      "unit": "M $",
       "yoy": "-54.1%",
       "history": [
-        0.21,
-        -0.114,
-        -0.31,
-        0.016,
-        0.288,
-        0.245,
-        0.098,
-        0.045
+        210,
+        -114,
+        -310,
+        16,
+        288,
+        245,
+        98,
+        45
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -197,8 +202,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -224,8 +234,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -326,7 +340,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné en première partie des facteurs de risque liés aux opérations, avec un langage fort : 'marché hautement compétitif', 'surcapacité persistante'. La pression sur les prix et l'utilisation des actifs est récurrente et amplifiée par les gains d'efficacité industriels. Catégorie 'Concurrence' fortement pondérée ici.",
       "trend": "stable",
-      "summary": "Le marché du pompage est saturé, ce qui intensifie la concurrence et réduit les prix et la rentabilité."
+      "summary": "Le marché du pompage est saturé, ce qui intensifie la concurrence et réduit les prix et la rentabilité.",
+      "score": 5
     },
     {
       "title": "Dépendance aux conditions pétrolières",
@@ -334,7 +349,8 @@
       "severity": 5,
       "score_rationale": "Le document lie directement la performance aux prix du pétrole et à l'activité de forage, en mentionnant une baisse de 6,3 % du nombre de rigs. Le langage est préoccupant : 'limite l'incitation bénéficiaire'. Ce risque structurel est central dans le 10-K et répété dans plusieurs sections.",
       "trend": "stable",
-      "summary": "La baisse des prix du pétrole et de l'activité de forage réduit la demande pour les services de la société."
+      "summary": "La baisse des prix du pétrole et de l'activité de forage réduit la demande pour les services de la société.",
+      "score": 5
     },
     {
       "title": "Cybermenaces et interruption opérationnelle",
@@ -342,7 +358,8 @@
       "severity": 4,
       "score_rationale": "Une section entière est dédiée aux risques numériques. Le Comité d'audit supervise activement la cybersécurité, avec des mises à jour trimestrielles et des rapports sur les incidents. L'intensité du suivi indique un risque élevé, bien que des contrôles soient en place.",
       "trend": "stable",
-      "summary": "La société fait face à des risques de cyberattaques pouvant perturber ses opérations et ses systèmes d'information."
+      "summary": "La société fait face à des risques de cyberattaques pouvant perturber ses opérations et ses systèmes d'information.",
+      "score": 4
     },
     {
       "title": "Intégration de l'acquisition Pintail",
@@ -350,7 +367,8 @@
       "severity": 4,
       "score_rationale": "L'acquisition de Pintail représente 295,8 millions USD de revenus en 2025. Des coûts liés à l'emploi post-acquisition sont signalés (20,3 millions USD). Le risque d'intégration est implicite mais significatif, avec une dilution potentielle et des synergies incertaines.",
       "trend": "new",
-      "summary": "L'intégration de Pintail comporte des risques financiers et opérationnels, notamment sur les coûts et la synergie."
+      "summary": "L'intégration de Pintail comporte des risques financiers et opérationnels, notamment sur les coûts et la synergie.",
+      "score": 4
     },
     {
       "title": "Pression sur les équipements à faibles émissions",
@@ -358,7 +376,8 @@
       "severity": 4,
       "score_rationale": "Le document note une préférence client croissante pour les équipements à faibles émissions, avec un avantage pour les actifs bifuel. La société n'offre pas encore de flottes électriques, ce qui constitue un désavantage compétitif clair face à la tendance du marché.",
       "trend": "up",
-      "summary": "L'absence de flottes de pompage électriques limite l'attractivité auprès des clients soucieux des émissions."
+      "summary": "L'absence de flottes de pompage électriques limite l'attractivité auprès des clients soucieux des émissions.",
+      "score": 4
     },
     {
       "title": "Consolidation des clients E&P",
@@ -366,7 +385,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement la consolidation E&P comme cause de perte de clients. Ce phénomène structurel réduit le nombre de clients potentiels et augmente leur pouvoir de négociation, accentuant la pression sur les marges.",
       "trend": "stable",
-      "summary": "La consolidation des compagnies pétrolières réduit le nombre de clients et augmente leur pouvoir de négociation."
+      "summary": "La consolidation des compagnies pétrolières réduit le nombre de clients et augmente leur pouvoir de négociation.",
+      "score": 4
     },
     {
       "title": "Risques juridiques et d'assurance",
@@ -374,7 +394,8 @@
       "severity": 3,
       "score_rationale": "La société est impliquée dans des litiges courants (accidents, travail, taxes), mais le langage est rassurant : 'pas d'effet matériel prévisible'. Toutefois, l'incertitude sur l'indemnisation par l'assurance maintient un niveau de risque modéré.",
       "trend": "stable",
-      "summary": "Des poursuites liées aux activités opérationnelles pourraient entraîner des coûts non couverts par l'assurance."
+      "summary": "Des poursuites liées aux activités opérationnelles pourraient entraîner des coûts non couverts par l'assurance.",
+      "score": 3
     }
   ],
   "_governance_fetched_at": "2026-05-12T13:58:30.415645+00:00",
@@ -535,166 +556,90 @@
   },
   "enrich_quarterly_history": {
     "ticker": "RES",
-    "extracted_at": "2026-05-15T18:13:54Z",
-    "method": "xbrl-companyfacts",
-    "cik": 742278,
+    "extracted_at": "2026-06-01T09:18:34Z",
     "n_kpis": 2,
     "kpis": [
+      {
+        "short": "Revenu total",
+        "period_type": "quarter",
+        "history": [
+          182.61,
+          284.624,
+          375.507,
+          459.601,
+          476.668,
+          415.858,
+          330.417,
+          377.833,
+          415.858,
+          337.652,
+          332.877,
+          420.809,
+          447.103
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:18:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
       {
         "short": "Bénéfice net",
         "period_type": "quarter",
         "history": [
-          -10388000,
-          -5122000,
-          32389000,
-          15079000,
-          62018000,
-          131358000,
-          9908000,
-          71524000,
-          136537000,
-          154854000,
-          -167802000,
-          27467000,
-          59886000,
-          78682000,
-          -74591000,
-          12030000,
-          22178000,
-          35141000,
-          -37269000,
-          855000
+          -9.662,
+          15.079,
+          46.939,
+          69.34,
+          71.524,
+          65.013,
+          18.317,
+          27.467,
+          32.419,
+          18.796,
+          12.03,
+          10.148,
+          12.963
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
+          "Q1 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "$",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 22178000,
-            "accession": "0001558370-25-009562",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 35141000,
-            "accession": "0001104659-25-104292",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -37269000,
-            "accession": "calc-0001104659-26-021480",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 855000,
-            "accession": "0001104659-26-057794",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Flux de trésorerie opérationnel",
-        "period_type": "quarter",
-        "history": [
-          54.866,
-          26.416,
-          -42.827,
-          8.248,
-          42.853,
-          40.928,
-          109.257,
-          132.523,
-          177.558,
-          299.142,
-          -214.46,
-          56.559,
-          184.487,
-          255.215,
-          -146.875,
-          39.865,
-          92.943,
-          139.468,
-          -70.945,
-          31.173
-        ],
-        "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetCashProvidedByUsedInOperatingActivities",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 92.943,
-            "accession": "0001558370-25-009562",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 139.468,
-            "accession": "0001104659-25-104292",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -70.945,
-            "accession": "calc-0001104659-26-021480",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 31.173,
-            "accession": "0001104659-26-057794",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:18:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ]
   },
@@ -710,9 +655,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.302641+00:00",
     "fetched_at": "2026-05-21T02:17:14.302642+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.139Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.157Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/res.json",
     "enrich_root": "v2-pipeline-enrich/res.json",

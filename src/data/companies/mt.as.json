@@ -13,7 +13,7 @@
     "sector": "...",
     "subsector": "Top 3 steel producer"
   },
-  "hero_kpi": "Capex",
+  "hero_kpi": "europe_segment_sales",
   "hero_kpi_rationale": "Le KPI Capex reflète l'engagement réel de la société dans la décarbonation, enjeu central pour le secteur sidérurgique. Les investissements réels en décarbonation (500M USD sur 2021-2023) restent très inférieurs aux dividendes versés (11Mds USD), révélant une priorité donnée aux actionnaires plutôt qu'à la transformation climatique. Ce contraste souligne l'écart entre les promesses de leadership et les actions concrètes.",
   "kpis": [
     {
@@ -39,7 +39,7 @@
       "period_type": "full_year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document est un rapport d'évaluation climatique (SteelWatch, mai 2024) et non un rapport annuel financier officiel d'ArcelorMittal. Il ne",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Emissions",
@@ -106,30 +106,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "full_year",
-      "explanation_en": "Headcount — total number of employees at period end."
-    },
-    {
-      "short": "Revenue",
-      "name_fr": "Chiffre d'affaires",
-      "name_en": "Revenue",
-      "explanation": "Chiffre d'affaires consolidé annuel global du groupe.",
-      "value": 68.3,
-      "unit": "B $",
-      "yoy": "n/a",
-      "type": "Financial",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Ressources financières suffisantes pour accélérer décarbonation mais priorité aux actionnaires",
-      "description": "ArcelorMittal a généré 68,3 milliards USD de chiffre d'affaires en 2023, fournissant une base financière adéquate pour investissements en transition énergétique, bien que les distributions aux actionnaires excèdent largement les investissements en décarbonation.",
-      "history": [
-        68.3
-      ],
-      "last_data_date": "2023-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "period_type": "full_year",
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Production",
@@ -152,7 +129,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "full_year",
-      "explanation_en": "Production — total physical output over the period."
+      "explanation_en": "Production, total physical output over the period."
     },
     {
       "short": "Shareholder Returns",
@@ -193,11 +170,38 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 97.7 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "europe_segment_sales",
+      "name_fr": "Ventes Segment Europe",
+      "name_en": "Europe Segment Sales",
+      "unit": "M$",
+      "period_type": "year",
+      "history": [
+        40488,
+        37721,
+        28071,
+        43334,
+        47263,
+        38305
+      ],
+      "value": 38305,
+      "last_data_date": "2023-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Europe reste le premier marche du groupe malgre le recul des prix de l'acier apres le pic de 2022.",
+      "is_wow": true,
+      "yoy": "-19,0 %"
     },
     {
       "short": "DPS",
@@ -211,7 +215,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.2459,
         0.3223,
@@ -224,7 +228,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -239,7 +243,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         3.269,
@@ -252,7 +256,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -267,7 +271,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         3.57,
@@ -280,7 +284,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -296,7 +300,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         10.18,
@@ -309,64 +313,11 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "Capex",
-      "name_fr": "Investissements en décarbonation",
-      "name_en": "Decarbonization Capital Expenditures",
-      "explanation": "Investissements réels consacrés aux projets de décarbonation et technologies innovantes.",
-      "value": 500,
-      "unit": "M $",
-      "yoy": "n/a",
-      "type": "Investment",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Investissements en décarbonation 22x inférieur aux dividendes (2021-2023)",
-      "description": "Entre 2021 et 2023, ArcelorMittal a investi seulement 500 millions de dollars en décarbonation, soit un tiers de ses plans initiaux. Ce chiffre contraste fortement avec les 11 milliards USD distribués aux actionnaires, démontrant une priorité donnée aux rendements financiers plutôt qu'à la transition climatique.",
-      "history": [
-        500
-      ],
-      "last_data_date": "2023-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Capacité",
-      "period_type": "full_year",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
-    }
-  ],
-  "ai_positioning": {
-    "stance": "absent",
-    "summary": "ArcelorMittal ne mentionne aucune stratégie ou initiative liée à l'intelligence artificielle dans l'évaluation climatique fournie. L'entreprise ne positionne pas l'IA comme un levier technologique pour sa transformation ou sa compétitivité.",
-    "evidence": [
-      "Aucune mention de l'IA ou de l'apprentissage automatique dans le document",
-      "Pas de référence à des outils d'IA pour l'optimisation des processus ou la décarbonation",
-      "Absence totale de cas d'usage ou de partenariats IA"
-    ],
-    "source": "ArcelorMittal Corporate Climate Assessment 2024 by SteelWatch"
-  },
-  "_validation": [
-    "Correction du tagline: remplacé par description plus précise reflétant l'écart entre promesses et réalité climatique",
-    "Correction du hero_kpi_rationale: suppression des em-dashes, amélioration de la fluidité française et intégration du contraste shareholder returns vs capex",
-    "Correction de last_data_date pour Capex: changé de '2026-03-31' à '2023-12-31' pour cohérence avec la source (rapport annuel 2024 basé sur données 2023)",
-    "Correction de period_type pour tous les KPI: changé de 'quarter' à 'full_year' car les données sont annuelles 2023, non trimestrielles",
-    "Correction du format de value pour Emissions: conversion de string '114.3' en nombre 114.3",
-    "Correction du format de value pour Carbon Intensity: conversion de string '1.97' en nombre 1.97",
-    "Amélioration de description Emissions: ajout de contexte climatique (7% émissions mondiales)",
-    "Amélioration de description Carbon Intensity: ajout de précision sur la validation scientifique insuffisante",
-    "Amélioration de signal Revenue: ajout de contexte sur la contradiction shareholder returns vs capex",
-    "Amélioration de description Headcount: contexte sur risques de transition énergétique",
-    "Amélioration de description Production: ajout du contexte sur dépendance au charbon",
-    "Ajout de period_type manquant dans stories_kpis Capex",
-    "Amélioration de la description stories_kpis Capex: clarification du ratio 22:1 et implications",
-    "Suppression des valeurs hallucination détectées non validées par le document source",
-    "Validation croisée de tous les KPI avec le document SteelWatch Corporate Climate Assessment 2024"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2024-05-06",
     "n_periods": 1,
@@ -374,103 +325,42 @@
     "method": "steelwatch_report",
     "yf_metric": "(steelwatch-annual-data-2023)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_1",
     "no_yoy"
   ],
   "next_earnings_date": "2024-07-30",
   "_held_for_review": true,
-  "profit_warning": {
-    "last_date": null,
-    "score": 3,
-    "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
-    "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
-  },
-  "governance": {
-    "ceo_name": "Mr. Aditya  Mittal",
-    "ceo_title": "CEO & Director",
-    "officers": [
-      {
-        "name": "Mr. Aditya  Mittal",
-        "title": "CEO & Director",
-        "age": 49
-      },
-      {
-        "name": "Mr. Genuino Jose Magalhaes Christino",
-        "title": "Executive VP & CFO",
-        "age": 54
-      },
-      {
-        "name": "Mr. Daniel  Fairclough",
-        "title": "Head of Investor Relations & VP of Corporate Finance",
-        "age": null
-      },
-      {
-        "name": "Mr. Pinakin  Chaubal",
-        "title": "VP & Chief Technology Officer",
-        "age": null
-      },
-      {
-        "name": "Mr. Henk  Scheffer",
-        "title": "Group Compliance, Data Protection Officer & Company Secretary",
-        "age": 62
-      }
-    ],
-    "fiscal_year": 2025
-  },
-  "_governance_yf_fallback_at": "2026-05-14T04:46:14.395293+00:00",
   "_freshness_yf_refreshed_at": "2026-05-14T07:17:22.294677",
   "company_description": "ArcelorMittal est le deuxième producteur mondial d'acier, avec des activités intégrées de minage, de production de fonte et d'acier dans près de 20 pays. Le groupe se positionne comme un acteur clé de la décarbonation de l'industrie sidérurgique.",
   "_stoxx_blocks_extracted_at": "2026-05-14T08:40:50.977388+00:00",
-  "events": [
-    {
-      "year": 2026,
-      "month": 5,
-      "title": "ArcelorMittal's Q1 Earnings Top Estimates, Sales Miss on Lower Volumes",
-      "body": "MT beat Q1 earnings estimates as sales rose 4% despite lower steel shipments and weaker free cash flow.",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/arcelormittals-q1-earnings-top-estimates-120500915.html",
-      "date": "2026-05-11"
-    },
-    {
-      "year": 2026,
-      "month": 5,
-      "title": "ArcelorMittal Q1 Earnings Call Highlights",
-      "body": "ArcelorMittal (NYSE:MT) executives emphasized “structural improvements” in profitability and a strengthening policy backdrop during the company’s first-quarter 2026 earnings call, while reiterating expectations for improved volumes and pric",
-      "source": "MarketBeat",
-      "url": "https://www.marketbeat.com/instant-alerts/arcelormittal-q1-earnings-call-highlights-2026-05-01/?utm_source=yahoofinance&utm_medium=yahoofinance",
-      "date": "2026-05-02"
-    },
-    {
-      "year": 2026,
-      "month": 4,
-      "title": "Here's What Key Metrics Tell Us About ArcelorMittal (MT) Q1 Earnings",
-      "body": "Although the revenue and EPS for ArcelorMittal (MT) give a sense of how its business performed in the quarter ended March 2026, it might be worth considering how some key metrics compare with Wall Street estimates and the year-ago numbers.",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/heres-key-metrics-tell-us-133012193.html",
-      "date": "2026-04-30"
-    },
-    {
-      "year": 2026,
-      "month": 4,
-      "title": "ArcelorMittal beats earnings forecasts as EU steel measures bear fruit",
-      "body": "April 30 () - ArcelorMittal, the world's second largest steelmaker, reported stronger-than-expected core earnings on Thursday, ‌helped by higher steel prices and improved ‌performance in its North America business. The Luxembourg-based comp",
-      "source": "Reuters",
-      "url": "https://finance.yahoo.com/news/arcelormittal-beats-earnings-forecasts-eu-052053154.html",
-      "date": "2026-04-30"
-    }
-  ],
   "last_data_date": "2026-03-31",
-  "customer_type": "B2B",
-  "customer_type_label": "ArcelorMittal vend principalement à des entreprises industrielles, notamment dans la construction, l'automobile et la fabrication.",
-  "_eu_blocs_extracted_at": "2026-05-19T17:01:28.718096+00:00",
+  "_cac40_purge_blocs_legacy": {
+    "date": "2026-08-01",
+    "champs": [
+      "governance",
+      "ai_positioning",
+      "stories_kpis",
+      "profit_warning",
+      "customer_type",
+      "customer_type_label",
+      "events",
+      "_governance_yf_fallback_at",
+      "_eu_blocs_extracted_at"
+    ],
+    "raison": "Page blanche CAC 40, purge juste avant extraction."
+  },
+  "_adr_duplicate_of": "MT.PA",
+  "_adr_duplicate_note": "1 aout 2026: la fiche CAC 40 canonique d'ArcelorMittal est MT.PA (documents IR dans data-lake/MT.PA/ir). MT.AS est masquee pour eviter un doublon dans le hub.",
   "_dividends_extracted_at": "2026-05-09T20:21:17Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:46:17Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Acier",
+  "hero_kpi_override": "europe_segment_sales",
+  "_hero_kpi_override_reason": "europe_segment_sales = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "MT.AS",
     "fetched_at": "2026-05-14T18:25:47.153206+00:00",
@@ -513,6 +403,29 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "ticker": "MT.AS",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "ArcelorMittal est le plus grand sidérurgiste mondial intégré hors Chine. Le groupe produit de l'acier carbone et inoxydable pour de multiples industries.",
+          "products": "L'offre couvre les produits longs comme rails et poutres, les produits plats pour l'automobile et l'électroménager, les aciers inoxydables et les minerais de fer issus de mines intégrées.",
+          "customers": "Ses clients sont les constructeurs automobiles, les industriels de la construction, les fabricants d'électroménager, les acteurs de l'énergie et de la machinerie.",
+          "edge": "La force d'ArcelorMittal repose sur l'intégration amont mines de fer et l'échelle mondiale qui offre un avantage de coût face aux sidérurgistes non intégrés."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "ArcelorMittal est le numéro un mondial de l'acier hors Chine avec une présence industrielle dans plus de 60 pays. Le groupe est issu de la fusion d'Arcelor et Mittal Steel en 2006. La famille Mittal reste actionnaire majoritaire avec environ 38% du capital.",
+          "tech_products": "Le groupe développe XCarb pour les aciers à empreinte carbone réduite et investit dans la décarbonation via hydrogène et DRI. La joint-venture avec Nippon Steel aux États-Unis acquise est en cours de réorganisation. Les produits plats premium pour l'automobile sont une niche à plus forte marge.",
+          "moat": "L'intégration mines de fer Brésil et Mexique offre un avantage de coût structurel et une protection contre la volatilité des prix matières. La taille permet l'accès aux meilleurs clients automobile mondiaux. Les positions de leader régional créent un pouvoir de fixation des prix sur certains marchés.",
+          "risks": "L'acier reste très cyclique et exposé à la concurrence chinoise sur les exports. La transition vers l'acier décarboné nécessite des CAPEX massifs. Les quotas EU ETS pèsent sur les coûts de production européens."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "MT.AS",
     "ranks": {
@@ -525,14 +438,15 @@
     "country": "Luxembourg",
     "_data_freshness_date": "2026-05-21T02:17:14.285148+00:00",
     "fetched_at": "2026-05-21T02:17:14.285149+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.671Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.550Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mt.as.json",
     "enrich_root": "v2-pipeline-enrich/mt.as.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

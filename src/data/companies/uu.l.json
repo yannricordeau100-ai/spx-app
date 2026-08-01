@@ -39,7 +39,7 @@
       "period_type": "annual",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Capex values not found in the provided extract. The document is an introductory section of the 2023/24 Annual Performance Report containing ",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -63,7 +63,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -83,57 +83,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.15 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni ne contient aucune valeur annuelle explicite du chiffre d'affaires total (en milliards d'euros) pour les années récentes, ni",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        -0.06,
-        0.2,
-        0.13,
-        0.26
+        -60,
+        200,
+        130,
+        260
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.26 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.64,
-      "unit": "Mds €",
+      "value": 640,
+      "unit": "M €",
       "yoy": "+30.6%",
       "history": [
-        0.62,
-        0.45,
-        0.49,
-        0.64
+        620,
+        450,
+        490,
+        640
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.64 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -152,11 +168,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 16.77 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -175,11 +195,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 10.79 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -198,10 +222,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.67 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -215,7 +243,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         43.33,
         44.17,
@@ -228,7 +256,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -243,7 +271,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         0.2955,
@@ -256,7 +284,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -271,7 +299,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -284,7 +312,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -300,7 +328,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         null,
@@ -313,7 +341,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -342,7 +370,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -356,7 +384,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur mentionné explicitement dans le contexte de soumission du plan AMP8 à Ofwat. Langage intensif sur l'approbation du plan et la dépendance aux décisions réglementaires. Tendance stable mais critique pour la période 2025-2030. Poids catégorique très élevé pour un opérateur d'eau régulé.",
       "trend": "stable",
-      "summary": "United Utilities dépend entièrement de l'approbation réglementaire d'Ofwat pour son plan d'investissement AMP8 (2025-2030) proposant £13 milliards d'investissements. Tout refus ou modification significative des tarifs et engagements pourrait compromettre les objectifs stratégiques et la rentabilité."
+      "summary": "United Utilities dépend entièrement de l'approbation réglementaire d'Ofwat pour son plan d'investissement AMP8 (2025-2030) proposant £13 milliards d'investissements. Tout refus ou modification significative des tarifs et engagements pourrait compromettre les objectifs stratégiques et la rentabilité.",
+      "score": 5
     },
     {
       "title": "Gestion des débordements de réseaux d'assainissement (storm overflows)",
@@ -364,7 +393,8 @@
       "severity": 5,
       "score_rationale": "Risque dominant dans le document avec mentions répétées et langage très intensif. Cité comme domaine de 'scrutin significatif' des clients et de la société. Tendance up : augmentation des débordements due aux conditions météorologiques exceptionnelles (année la plus humide depuis 1871). Poids catégorique critique pour la réputation et la conformité réglementaire.",
       "trend": "up",
-      "summary": "Les débordements de réseaux d'assainissement restent une préoccupation majeure avec augmentation des rejets en 2023/24 malgré les efforts. United Utilities s'engage à réduire les débordements d'un tiers d'ici 2025, avec une équipe dédiée 'Better Rivers' et 150+ projets prioritaires. L'échec à atteindre cet objectif risque des pénalités réglementaires et une perte de confiance publique."
+      "summary": "Les débordements de réseaux d'assainissement restent une préoccupation majeure avec augmentation des rejets en 2023/24 malgré les efforts. United Utilities s'engage à réduire les débordements d'un tiers d'ici 2025, avec une équipe dédiée 'Better Rivers' et 150+ projets prioritaires. L'échec à atteindre cet objectif risque des pénalités réglementaires et une perte de confiance publique.",
+      "score": 5
     },
     {
       "title": "Qualité de l'eau et conformité des réservoirs de stockage",
@@ -372,7 +402,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique au métier avec programme d'inspection de 8 ans complété. Langage positif mais révélant des défis antérieurs (goût, odeur, apparence). Tendance down : amélioration documentée avec prix 'Drinking Water Initiative of the Year'. Poids catégorique élevé pour la satisfaction client et la conformité réglementaire.",
       "trend": "down",
-      "summary": "United Utilities a complété un programme rigoureux d'inspection et nettoyage de tous les réservoirs de stockage (8 ans). Bien que les améliorations soient reconnues (prix DWI 2023), le risque persiste de non-conformité aux normes de qualité de l'eau potable et de réclamations clients sur le goût/odeur/apparence."
+      "summary": "United Utilities a complété un programme rigoureux d'inspection et nettoyage de tous les réservoirs de stockage (8 ans). Bien que les améliorations soient reconnues (prix DWI 2023), le risque persiste de non-conformité aux normes de qualité de l'eau potable et de réclamations clients sur le goût/odeur/apparence.",
+      "score": 4
     },
     {
       "title": "Fuites d'eau et performance des aqueducs critiques",
@@ -380,7 +411,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique avec 18 années consécutives d'atteinte des cibles. Langage positif mais révélant une dépendance à des infrastructures anciennes (Aqueduct Vyrnwy). Tendance stable : réduction de 7,1% sur 3 ans en AMP7. Poids catégorique modéré mais important pour l'efficacité opérationnelle.",
       "trend": "stable",
-      "summary": "United Utilities gère un réseau de distribution vieillissant avec risque de fuites. Bien que 18 années consécutives d'atteinte des cibles soient documentées, le programme de nettoyage/re-lining de l'Aqueduct Vyrnwy (35km complétés) révèle des défis d'infrastructure. Risque d'augmentation des fuites si les investissements de maintenance ralentissent."
+      "summary": "United Utilities gère un réseau de distribution vieillissant avec risque de fuites. Bien que 18 années consécutives d'atteinte des cibles soient documentées, le programme de nettoyage/re-lining de l'Aqueduct Vyrnwy (35km complétés) révèle des défis d'infrastructure. Risque d'augmentation des fuites si les investissements de maintenance ralentissent.",
+      "score": 3
     },
     {
       "title": "Incidents opérationnels critiques et continuité de service",
@@ -388,7 +420,8 @@
       "severity": 4,
       "score_rationale": "Risque illustré par l'incident de juin 2023 (tuyau fracturé à Fleetwood WWTW) mentionné explicitement comme cause de réduction de bonus. Langage intensif sur 'disruption significative' et 'impact adverse'. Tendance up : incident récent révélant vulnérabilités. Poids catégorique élevé pour la continuité de service et la réputation.",
       "trend": "up",
-      "summary": "L'incident de juin 2023 à la station d'épuration de Fleetwood (rupture de tuyau) a causé une disruption majeure et affecté les clients. Risque de défaillances similaires dans les infrastructures critiques, particulièrement en conditions météorologiques extrêmes (année exceptionnellement humide documentée)."
+      "summary": "L'incident de juin 2023 à la station d'épuration de Fleetwood (rupture de tuyau) a causé une disruption majeure et affecté les clients. Risque de défaillances similaires dans les infrastructures critiques, particulièrement en conditions météorologiques extrêmes (année exceptionnellement humide documentée).",
+      "score": 4
     },
     {
       "title": "Conformité environnementale et notation EA (Environmental Performance Assessment)",
@@ -396,7 +429,8 @@
       "severity": 4,
       "score_rationale": "Risque de régulation environnementale avec notation EA critique. Langage positif (attente 4-star) mais révélant volatilité (3-star en 2022, 4-star en 5 des 8 dernières années). Tendance stable mais avec critères 'de plus en plus exigeants'. Poids catégorique élevé pour la conformité réglementaire et la réputation.",
       "trend": "stable",
-      "summary": "United Utilities est évaluée annuellement par l'Environment Agency sur sa performance environnementale (notation 1-4 stars). Bien que la notation 4-star soit attendue pour 2023, la volatilité historique et l'augmentation des critères de conformité (permis de rejet, biosolides) créent un risque de dégradation de notation."
+      "summary": "United Utilities est évaluée annuellement par l'Environment Agency sur sa performance environnementale (notation 1-4 stars). Bien que la notation 4-star soit attendue pour 2023, la volatilité historique et l'augmentation des critères de conformité (permis de rejet, biosolides) créent un risque de dégradation de notation.",
+      "score": 4
     },
     {
       "title": "Confiance publique et légitimité du secteur de l'eau",
@@ -404,7 +438,8 @@
       "severity": 5,
       "score_rationale": "Risque systémique mentionné explicitement : 'water sector has continued to be subject to significant scrutiny' et 'need to restore public confidence and trust'. Langage très intensif sur la nécessité de 'legitimacy and transparency'. Tendance up : scrutin accru sur débordements et pollution. Poids catégorique critique pour la viabilité long-terme.",
       "trend": "up",
-      "summary": "Le secteur de l'eau fait face à un scrutin public accru sur les débordements et la pollution. United Utilities reconnaît explicitement le besoin de 'restaurer la confiance publique' et d'avoir des arrangements de rémunération exécutive 'légitimes et transparents'. Risque de pression réglementaire accrue, de campagnes publiques négatives et de perte de licence sociale."
+      "summary": "Le secteur de l'eau fait face à un scrutin public accru sur les débordements et la pollution. United Utilities reconnaît explicitement le besoin de 'restaurer la confiance publique' et d'avoir des arrangements de rémunération exécutive 'légitimes et transparents'. Risque de pression réglementaire accrue, de campagnes publiques négatives et de perte de licence sociale.",
+      "score": 5
     },
     {
       "title": "Inondations internes/externes et résilience aux conditions météorologiques extrêmes",
@@ -412,7 +447,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique documenté : année 2023/24 'wettest 12-month period since 1871' pour Greater Manchester/Merseyside/Cheshire. Langage intensif sur l'incapacité à atteindre les cibles d'inondation. Tendance up : conditions météorologiques extrêmes croissantes. Poids catégorique élevé pour la continuité de service et la satisfaction client.",
       "trend": "up",
-      "summary": "United Utilities n'a pas atteint ses cibles d'inondations internes/externes en 2023/24 en raison de conditions météorologiques exceptionnelles (année la plus humide depuis 1871). Risque croissant de défaillances du réseau d'assainissement et d'inondations de propriétés clients en cas de précipitations extrêmes, avec impacts financiers et réputationnels."
+      "summary": "United Utilities n'a pas atteint ses cibles d'inondations internes/externes en 2023/24 en raison de conditions météorologiques exceptionnelles (année la plus humide depuis 1871). Risque croissant de défaillances du réseau d'assainissement et d'inondations de propriétés clients en cas de précipitations extrêmes, avec impacts financiers et réputationnels.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:09:30.345899+00:00",
@@ -525,18 +561,22 @@
     "unit": "Mds £"
   },
   "revenue_by_geography": {
-    "label": "Répartition du chiffre d'affaires par zone géographique",
+    "_single_geography": "United Kingdom",
+    "_single_geography_fr": "Royaume-Uni",
+    "label": "Répartition géographique du chiffre d'affaires",
     "slices": [
       {
-        "name": "Royaume-Uni (Nord-Ouest Angleterre)",
-        "value": 2.3,
-        "unit": "Mds £",
-        "pct": 100,
-        "share_pct": 100
+        "name": "Royaume-Uni",
+        "name_en": "United Kingdom",
+        "value": 100,
+        "unit": "%",
+        "pct": 100
       }
     ],
-    "total": 2.3,
-    "unit": "Mds £"
+    "total": 100,
+    "unit": "%",
+    "_source": "Annual Report UU.L (opérations mono-pays UK)",
+    "_source_note": "Mono-pays légitime: utility/homebuilder/REIT UK-only"
   },
   "_extracted_by": "claude-subagent-mission-d-b1",
   "_extracted_at": "2026-05-20T14:16:27Z",
@@ -554,7 +594,7 @@
   },
   "_segments_fetched_at": "2026-05-15T00:02:37.244520+00:00",
   "_eps_extracted_at": "2026-05-18T16:48:06Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "hero_kpi_override": "RCV",
   "_hero_override_reason": "Yann fix 20 mai - hero original generique",
   "kpis_type_overrides": {
@@ -648,7 +688,10 @@
         14.2,
         15.4
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Water Supplied",
@@ -680,7 +723,10 @@
         3.2,
         3.2
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Audience",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Leakage",
@@ -712,23 +758,30 @@
         60,
         75
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Audience",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Capex",
       "name_fr": "Capex programme AMP",
       "name_en": "Capital Expenditure AMP7",
-      "value": 1300,
+      "value": 1.3,
       "unit": "M GBP",
       "yoy": "+13.4%",
       "history": [
-        731,
-        887,
-        994,
-        1146,
-        1300
+        0.731,
+        0.887,
+        0.994,
+        1.146,
+        1.3
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->M GBP for 1-999 readability",
+      "type": "Investissement",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_source": "sub-agent-b6-specific-sec-filings",
@@ -858,6 +911,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "United Utilities Group PLC est une utility britannique régulée d'eau et d'assainissement. Coté à Londres (FTSE 100), basé à Warrington. Sert le Nord-Ouest de l'Angleterre.",
+          "products": "Production et distribution d'eau potable, collecte et traitement des eaux usées. Production d'énergie renouvelable (digestion anaérobie, hydro, éolien, solaire). Services de développement immobilier (cession de terrains non utilisés).",
+          "customers": "Environ 3 millions de foyers et entreprises dans le Nord-Ouest de l'Angleterre. Clientèle non-domestic via opérateurs de retail.",
+          "edge": "Monopole régulé géographique sur le Nord-Ouest anglais. Opérateur de référence reconnu par Ofwat. RAB en croissance grâce aux investissements."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "United Utilities est l'un des trois acteurs cotés de l'eau au UK (avec Severn Trent et Pennon). Modèle régulé par Ofwat avec retours stables et incentives. Bonne performance opérationnelle relative dans un secteur sous scrutiny politique et médiatique.",
+          "tech_products": "Activité régulée Water and Wastewater : 122 000 km de canalisations, 570 sites de production et traitement. Programme d'investissement majeur AMP8 (2025-2030) pour décarboner, réduire les overflows sewerage et renforcer la résilience.",
+          "moat": "Monopole géographique régulé. Échelle régionale dominante. RAB en croissance forte sur AMP8. Marque opérationnelle reconnue.",
+          "risks": "Risques régulatoires (PR24 d'Ofwat puis PR29). Pression politique et médiatique sur les pollutions et déversements. Sensibilité aux taux d'intérêt sur la valorisation et financement. Inflation des coûts (CPIH-indexé sur les revenus). Risque image en cas d'incident environnemental."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "UU.L",
     "ranks": {
@@ -870,15 +944,16 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.324154+00:00",
     "fetched_at": "2026-05-21T02:17:14.324155+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.055Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.160Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/uu.l.json",
     "enrich_root": "v2-pipeline-enrich/uu.l.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

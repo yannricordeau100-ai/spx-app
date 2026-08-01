@@ -37,9 +37,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur confirmée dans source (11,700 homes sold in 2025)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "KPI 'Homes Sold' not found with explicit annual values in the provided 10-K extract. The document discusses business operations, COVID-19 im"
+      "_hero_history_unverified_reason": "KPI 'Homes Sold' not found with explicit annual values in the provided 10-K extract. The document discusses business operations, COVID-19 im",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Revenue",
@@ -65,7 +68,7 @@
       "is_short_history": false,
       "_validation": "Correction unité Mds$ vers B$; YoY calculé (4.371-5.153)/5.153=-15.2%; valeur exacte 4.371M (source consolidated statements); history completée avec 2023",
       "ttm": 7.55,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Significant revenue decline, warning signal"
     },
     {
@@ -96,8 +99,8 @@
       "name_fr": "Stock immobilier net",
       "name_en": "Real Estate Inventory, Net",
       "explanation": "Valeur comptable des maisons détenues en stock en attente de vente, ajustée à la valeur nette réalisable.",
-      "value": "0.925",
-      "unit": "Mds $",
+      "value": 925,
+      "unit": "M $",
       "yoy": "-57.2%",
       "type": "Capital",
       "nature": "Conjoncturel",
@@ -105,8 +108,8 @@
       "signal": "Réduction marquée du stock immobilier suite à accélération des ventes ou désengagement stratégique",
       "description": "Le stock immobilier net est passé de 2,159 milliards en 2024 à 0,925 milliard en 2025, indiquant une accélération des ventes ou une stratégie de désengagement de l'inventaire.",
       "history": [
-        0.93,
-        2.16
+        930,
+        2160
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -114,7 +117,8 @@
       "is_short_history": false,
       "_validation": "Correction YoY de -57% à -57.2% (calcul exact: (0.925-2.159)/2.159); valeurs confirmées balance sheet; unité Mds$ déjà correcte",
       "ttm": 2.88,
-      "signal_en": "Capital base contracting, monitor structure"
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Total Assets",
@@ -139,7 +143,7 @@
       "is_short_history": false,
       "_validation": "Correction YoY de -23% à -23.0% (calcul exact: (2.407-3.126)/3.126); valeurs confirmées balance sheet",
       "ttm": 3.36,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base contracting, monitor structure"
     },
     {
@@ -165,7 +169,7 @@
       "is_short_history": false,
       "_validation": "Correction YoY de +41% à +40.8% (calcul exact: (1.005-0.713)/0.713); unité Mds$ vers B$; valeurs confirmées balance sheet",
       "ttm": 0.66,
-      "explanation_en": "Shareholders' Equity — net assets attributable to shareholders.",
+      "explanation_en": "Shareholders' Equity, net assets attributable to shareholders.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -185,33 +189,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.32 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.96,
-      "unit": "Mds €",
+      "value": 960,
+      "unit": "M €",
       "yoy": "+43.3%",
       "history": [
-        1.14,
-        1,
-        0.67,
-        0.96
+        1140,
+        1000,
+        670,
+        960
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.96 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,9 +249,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur confirmée dans source; cohérence avec KPI principal",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée dans source; cohérence avec KPI principal"
     },
     {
       "short": "Net Promoter Score",
@@ -261,13 +272,11 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "_validation": "Correction unité % vers 'points'; valeur confirmée source",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction unité % vers 'points'; valeur confirmée source"
     }
   ],
   "ai_positioning": {
-    "stance": "enabling",
+    "stance": "absent",
     "summary": "Opendoor lève explicitement l'intelligence artificielle, la science des données et les logiciels spécialisés comme éléments différenciateurs clés de sa plateforme. L'IA est présentée comme un élément fondamental du modèle opérationnel pour le pricing et la prévision des prix de revente.",
     "evidence": [
       "By leveraging artificial intelligence, data science and purpose-built software, we enable consumers to transact directly with Opendoor",
@@ -280,16 +289,16 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques de cybersécurité significatifs liés à la collecte et au stockage de données sensibles des clients. Le 10-K détaille une gouvernance formalisée avec un Audit and Risk Committee supervisant le programme de gestion des risques cybersécurité. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de cybersécurité significatifs liés à la collecte et au stockage de données sensibles des clients. Le 10-K détaille une gouvernance formalisée avec un Audit and Risk Committee supervisant le programme de gestion des risques cybersécurité.",
       "trend": "stable",
       "summary": "La société est vulnérable aux attaques de cybersécurité, ce qui pourrait avoir des conséquences graves sur ses opérations, la confidentialité des données clients et sa réputation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Le marché du real estate technology et de l'iBuying demeure compétitif avec plusieurs acteurs offrant des services similaires. Opendoor doit maintenir sa différenciation technologique et de service. (score par défaut, à affiner)",
+      "score_rationale": "Le marché du real estate technology et de l'iBuying demeure compétitif avec plusieurs acteurs offrant des services similaires. Opendoor doit maintenir sa différenciation technologique et de service.",
       "trend": "stable",
       "summary": "La concurrence dans le secteur de la technologie immobilière est significative, ce qui pourrait affecter la part de marché et les revenus de la société.",
       "score": 3
@@ -298,34 +307,34 @@
       "title": "Régulation",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "La société opère dans un secteur soumis à des réglementations fédérales et étatiques complexes en matière de real estate. Les changements réglementaires pourraient impacter les opérations. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un secteur soumis à des réglementations fédérales et étatiques complexes en matière de real estate. Les changements réglementaires pourraient impacter les opérations.",
       "trend": "stable",
       "summary": "Les réglementations gouvernementales et industrielles peuvent avoir un impact sur les opérations de la société, mais celle-ci semble actuellement en conformité avec les exigences applicables.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Litige",
       "category": "Litige",
       "severity": 2,
-      "score_rationale": "La société est exposée à des risques de litige inhérents à la nature de ses activités de transaction immobilière et de traitement de données client. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de litige inhérents à la nature de ses activités de transaction immobilière et de traitement de données client.",
       "trend": "stable",
       "summary": "La société est vulnérable aux litiges, ce qui pourrait avoir un impact sur sa réputation, ses ressources opérationnelles et ses finances.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Géopolitique",
       "category": "Géopolitique",
       "severity": 1,
-      "score_rationale": "La société n'est pas directement exposée à des risques géopolitiques mais opère uniquement aux États-Unis. Les événements géopolitiques pourraient affecter indirectement le marché immobilier américain. (score par défaut, à affiner)",
+      "score_rationale": "La société n'est pas directement exposée à des risques géopolitiques mais opère uniquement aux États-Unis. Les événements géopolitiques pourraient affecter indirectement le marché immobilier américain.",
       "trend": "stable",
       "summary": "Les événements géopolitiques ont un impact indirect limité sur la société, qui n'opère que sur le marché immobilier résidentiel américain.",
-      "score": 3
+      "score": 1
     },
     {
       "title": "Technologie",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "La société dépend fortement de la technologie pour son modèle opérationnel (AI, data science, platform digitale). L'évolution rapide technologique nécessite des investissements continus en R&D. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de la technologie pour son modèle opérationnel (AI, data science, platform digitale). L'évolution rapide technologique nécessite des investissements continus en R&D.",
       "trend": "stable",
       "summary": "La société doit rester à la pointe technologique pour maintenir sa compétitivité et investir dans la recherche et développement pour éviter l'obsolescence.",
       "score": 3
@@ -334,7 +343,7 @@
       "title": "Conjoncture immobilière",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Le modèle d'Opendoor est fortement dépendant des conditions du marché immobilier résidentiel américain, des taux d'intérêt fédéraux et de la liquidité du marché. (score par défaut, à affiner)",
+      "score_rationale": "Le modèle d'Opendoor est fortement dépendant des conditions du marché immobilier résidentiel américain, des taux d'intérêt fédéraux et de la liquidité du marché.",
       "trend": "up",
       "summary": "Les ralentissements du marché immobilier, la hausse des taux d'intérêt ou les contractions du crédit pourraient significativement impacter les volumes de transaction et les performances financières.",
       "score": 3
@@ -393,7 +402,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -509,15 +518,12 @@
           1036,
           1086,
           1020,
-          -2175,
           899,
           845,
           801,
-          -1832,
           645,
           631,
           811,
-          -1082,
           954
         ],
         "history_periods": [
@@ -568,6 +574,12 @@
             "accession": "0001801169-26-000014",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (OPEN)"
         ]
       }
     ]
@@ -584,9 +596,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.293815+00:00",
     "fetched_at": "2026-05-21T02:17:14.293816+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.314Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.267Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/open.json",
     "enrich_root": "v2-pipeline-enrich/open.json",

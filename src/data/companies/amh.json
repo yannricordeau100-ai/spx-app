@@ -39,10 +39,13 @@
       "is_short_history": false,
       "ttm": 60288.66,
       "_validation": "YoY corrigé de +0.2% à -0.3% (60337/60531-1). Description simplifiée.",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document fourni est un extrait XML/XBRL contenant uniquement des métadonnées de structure et des références de contextes financiers (date",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Occupancy Rate",
@@ -180,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 13.24 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -203,11 +210,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.11 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -221,7 +232,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.4,
         0.72,
@@ -234,7 +245,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +260,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.4246,
@@ -262,7 +273,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +288,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         107.83,
@@ -290,7 +301,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -306,7 +317,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         0.41,
@@ -319,7 +330,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -347,9 +358,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 60288.66,
-      "_validation": "YoY corrigé de +0.2% à -0.3%.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "YoY corrigé de +0.2% à -0.3%."
     },
     {
       "short": "Joint Venture Properties",
@@ -374,9 +383,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 3899.64,
-      "_validation": "Description précisée.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Description précisée."
     }
   ],
   "ai_positioning": {
@@ -390,25 +397,25 @@
       "title": "Volatilité des taux d'intérêt et du financement",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le document mentionne explicitement la capacité à lever des capitaux et la structure du capital comme facteurs clés affectant les résultats. L'incertitude macroéconomique et l'ajustement du marché immobilier impliquent une volatilité accrue des taux. La catégorie Capital est pondérée comme un risque majeur pour les REITs. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne explicitement la capacité à lever des capitaux et la structure du capital comme facteurs clés affectant les résultats. L'incertitude macroéconomique et l'ajustement du marché immobilier impliquent une volatilité accrue des taux. La catégorie Capital est pondérée comme un risque majeur pour les REITs.",
       "trend": "up",
       "summary": "La capacité de l'entreprise à lever des fonds et sa structure de capital sont affectées par les conditions macroéconomiques, ce qui peut impacter ses opérations et sa croissance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés au développement et à la construction",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le texte détaille les coûts, délais et dépendances (main-d'œuvre, matériaux) liés au développement et à la rénovation de propriétés. Les perturbations de la chaîne d'approvisionnement et les pressions inflationnistes sont citées comme impacts potentiels. Ce risque est intrinsèque à l'activité de développement immobilier. (score par défaut, à affiner)",
+      "score_rationale": "Le texte détaille les coûts, délais et dépendances (main-d'œuvre, matériaux) liés au développement et à la rénovation de propriétés. Les perturbations de la chaîne d'approvisionnement et les pressions inflationnistes sont citées comme impacts potentiels. Ce risque est intrinsèque à l'activité de développement immobilier.",
       "trend": "up",
       "summary": "Les coûts et délais de développement, de rénovation et de construction de propriétés sont soumis à des aléas tels que la disponibilité des matériaux, la main-d'œuvre et l'inflation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fluctuations du marché locatif et de l'occupation",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Le document souligne que les revenus locatifs et les niveaux d'occupation sont affectés par des facteurs macroéconomiques et locaux. La baisse de l'occupation (de 57 486 à 56 756 propriétés) et les taux de rotation élevés indiquent une pression sur ce segment. Ce risque est central pour une entreprise de location. (score par défaut, à affiner)",
+      "score_rationale": "Le document souligne que les revenus locatifs et les niveaux d'occupation sont affectés par des facteurs macroéconomiques et locaux. La baisse de l'occupation (de 57 486 à 56 756 propriétés) et les taux de rotation élevés indiquent une pression sur ce segment. Ce risque est central pour une entreprise de location.",
       "trend": "stable",
       "summary": "Les revenus dépendent fortement des niveaux d'occupation et des taux de location, qui peuvent être affectés par la demande locale et les conditions économiques générales.",
       "score": 3
@@ -417,7 +424,7 @@
       "title": "Réglementations sur la propriété locative institutionnelle",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Le texte mentionne explicitement les nouvelles lois et réglementations qui tentent de restreindre la propriété institutionnelle de maisons unifamiliales. Ceci est une préoccupation réglementaire directe. La sévérité est modérée car l'impact n'est pas quantifié mais le risque est clairement identifié. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne explicitement les nouvelles lois et réglementations qui tentent de restreindre la propriété institutionnelle de maisons unifamiliales. Ceci est une préoccupation réglementaire directe. La sévérité est modérée car l'impact n'est pas quantifié mais le risque est clairement identifié.",
       "trend": "up",
       "summary": "De nouvelles lois pourraient limiter la propriété ou imposer des contraintes financières aux entreprises possédant un grand nombre de maisons unifamiliales à des fins locatives.",
       "score": 3
@@ -426,7 +433,7 @@
       "title": "Risques liés à la gestion immobilière et aux locataires",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "La performance dépend de la qualité des locataires et de la gestion interne via une plateforme propriétaire. Les défauts de paiement des locataires et l'efficacité de la plateforme sont des facteurs critiques. Le risque est lié à la gestion opérationnelle et à la qualité du portefeuille locatif. (score par défaut, à affiner)",
+      "score_rationale": "La performance dépend de la qualité des locataires et de la gestion interne via une plateforme propriétaire. Les défauts de paiement des locataires et l'efficacité de la plateforme sont des facteurs critiques. Le risque est lié à la gestion opérationnelle et à la qualité du portefeuille locatif.",
       "trend": "stable",
       "summary": "La qualité du crédit des locataires et l'efficacité de la plateforme de gestion interne sont cruciales pour la collecte des revenus et la rentabilité opérationnelle.",
       "score": 3
@@ -435,7 +442,7 @@
       "title": "Pressions inflationnistes et coûts opérationnels",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "L'inflation est explicitement citée comme un facteur ayant un impact sur le développement, la rénovation et la maintenance. Les dépenses opérationnelles (taxes, maintenance, assurances) sont également mentionnées comme potentiellement hors de contrôle. Ce risque macroéconomique affecte directement la marge. (score par défaut, à affiner)",
+      "score_rationale": "L'inflation est explicitement citée comme un facteur ayant un impact sur le développement, la rénovation et la maintenance. Les dépenses opérationnelles (taxes, maintenance, assurances) sont également mentionnées comme potentiellement hors de contrôle. Ce risque macroéconomique affecte directement la marge.",
       "trend": "up",
       "summary": "L'inflation peut augmenter les coûts de propriété, de maintenance et de développement, réduisant ainsi la rentabilité de l'entreprise.",
       "score": 3
@@ -474,7 +481,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -538,7 +545,7 @@
   "_ai_positioning_fetched_at": "2026-05-06T17:57:33.133867+00:00",
   "_segments_fetched_at": "2026-05-06T19:22:45.976752+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:15Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2016,
@@ -555,7 +562,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:29Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:26Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_events": {
     "ticker": "AMH",
@@ -599,6 +606,117 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "AMH",
+    "extracted_at": "2026-06-01T02:56:44Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Total Single-Family Properties",
+        "period_type": "quarter",
+        "history": [
+          57129,
+          57760,
+          57904,
+          57736,
+          58045,
+          58392,
+          58615,
+          58860,
+          58899,
+          60700,
+          60596,
+          60664
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "K",
+        "_extracted_at": "2026-06-01T02:56:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Joint Venture Properties",
+        "period_type": "quarter",
+        "history": [
+          1383,
+          1530,
+          1729,
+          1849,
+          2046,
+          2271,
+          2540,
+          3376,
+          3167,
+          3271
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "K",
+        "_extracted_at": "2026-06-01T02:56:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Properties Held for Sale",
+        "period_type": "quarter",
+        "history": [
+          855,
+          955,
+          1057,
+          903,
+          648,
+          700,
+          728,
+          648,
+          1003,
+          661,
+          904,
+          1028
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "K",
+        "_extracted_at": "2026-06-01T02:56:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "AMH",
     "ranks": {
@@ -611,14 +729,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.220665+00:00",
     "fetched_at": "2026-05-21T02:17:14.220666+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.756Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.185Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/amh.json",
     "enrich_root": "v2-pipeline-enrich/amh.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -44,7 +44,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:33.249092+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -114,30 +114,35 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.44,
-      "unit": "Mds €",
+      "value": 440,
+      "unit": "M €",
       "yoy": "+15.8%",
       "history": [
-        0.44,
-        0.39,
-        0.38,
-        0.44
+        440,
+        390,
+        380,
+        440
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.44 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,56 +161,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.04 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "-12.2%",
       "history": [
-        0.74,
-        0.6,
-        0.49,
-        0.43
+        740,
+        600,
+        490,
+        430
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.43 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "-12.5%",
       "history": [
-        0.11,
-        0.05,
-        0.08,
-        0.07
+        110,
+        50,
+        80,
+        70
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.07 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -219,7 +238,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.2,
         0.2,
@@ -232,7 +251,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -247,7 +266,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.237,
@@ -260,7 +279,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -275,7 +294,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -288,7 +307,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -304,7 +323,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -2.84,
@@ -317,33 +336,11 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
   "stories_kpis": [
-    {
-      "short": "AI Innovation",
-      "name_fr": "Innovation en IA",
-      "name_en": "AI Innovation Focus",
-      "explanation": "Company addressing AI as evolving technology and market opportunity",
-      "value": null,
-      "unit": null,
-      "yoy": null,
-      "type": "Innovation",
-      "nature": "Conjoncturel",
-      "comparable": "Non comparable",
-      "signal": "AI recognized as key consumer trend and innovation focus area",
-      "description": "Adeia's innovations address massive proliferation of entertainment content and evolving technology including artificial intelligence, positioning the company for next-generation solutions.",
-      "history": [],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
     {
       "short": "Media & Semiconductor IP",
       "name_fr": "Portefeuille IP Médias et Semiconducteurs",
@@ -362,9 +359,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Business Model",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Business Model"
     }
   ],
   "ai_positioning": {
@@ -412,7 +407,8 @@
       "severity": 5,
       "score_rationale": "Plusieurs litiges majeurs en cours (Videotron, Bell, AMD, DIRECTV) avec des enjeux financiers et stratégiques critiques. Le langage souligne que \u0002un d\u0002cision d\u0002favorable pourrait gravement nuire\u0002. Position centrale dans le 10-K, intensit\u0002 \u0002lev\u0002e, et nombre croissant de cas vs N-1.",
       "trend": "up",
-      "summary": "La soci\u0002t\u0002 est impliqu\u0002e dans de nombreux litiges pour violation de brevets et manquement contractuel, dont l\u0002issue pourrait impacter fortement ses revenus et sa position concurrentielle."
+      "summary": "La soci\u0002t\u0002 est impliqu\u0002e dans de nombreux litiges pour violation de brevets et manquement contractuel, dont l\u0002issue pourrait impacter fortement ses revenus et sa position concurrentielle.",
+      "score": 5
     },
     {
       "title": "Invalidation de brevets par IPR",
@@ -420,7 +416,8 @@
       "severity": 5,
       "score_rationale": "Risque r\u0002current et \u0002lev\u0002 : plusieurs recours d\u0002invalidation (IPR) d\u0002pos\u0002s par Disney, AMD, etc. Deux brevets d\u0002j\u0002 annul\u0002s dans le cas Videotron. Langage fort (\u0002significativement nuire\u0002), position centrale, tendance \u0002 la hausse.",
       "trend": "up",
-      "summary": "Les brevets cl\u0002s d\u0002Adeia font l\u0002objet de recours en invalidation devant le PTAB et d\u0002autres tribunaux, mena\u0003ant leur valeur et leur mon\u0002tisation."
+      "summary": "Les brevets cl\u0002s d\u0002Adeia font l\u0002objet de recours en invalidation devant le PTAB et d\u0002autres tribunaux, mena\u0003ant leur valeur et leur mon\u0002tisation.",
+      "score": 5
     },
     {
       "title": "Cyberattaques et d\u0002faillances IT",
@@ -428,7 +425,8 @@
       "severity": 4,
       "score_rationale": "Risque d\u0002crit dans un cadre de gestion mature (normes, audits, comit\u0002 de surveillance), mais pr\u0002sent\u0002 comme \u0002mat\u0002riel\u0002. Langage pr\u0002cautionneux mais sans mention d\u0002incident majeur. Cat\u0002gorie pond\u0002r\u0002e fortement.",
       "trend": "stable",
-      "summary": "Adeia est expos\u0002e aux risques de cyberattaques et de d\u0002faillance de ses syst\u0002mes informatiques, malgr\u0002 des contr\u0002les robustes et une gouvernance \u0002prouv\u0002e."
+      "summary": "Adeia est expos\u0002e aux risques de cyberattaques et de d\u0002faillance de ses syst\u0002mes informatiques, malgr\u0002 des contr\u0002les robustes et une gouvernance \u0002prouv\u0002e.",
+      "score": 4
     },
     {
       "title": "D\u0002pendance \u0002 l\u0002\u0002chec des litiges de brevets",
@@ -436,7 +434,8 @@
       "severity": 5,
       "score_rationale": "Mod\u0002le \u0002conomique fortement bas\u0002 sur la mon\u0002tisation de brevets. L\u0002\u0002chec dans les litiges (ex. : invalidation, non-reconnaissance) pourrait \u0002liminer une source majeure de revenus. Mention explicite de l\u0002impact \u0002grave\u0002 sur les r\u0002sultats.",
       "trend": "up",
-      "summary": "La rentabilit\u0002 d\u0002Adeia d\u0002pend en grande partie de la reconnaissance et de l\u0002enforcement de ses brevets, ce qui la rend vuln\u0002rable aux d\u0002cisions judiciaires contraires."
+      "summary": "La rentabilit\u0002 d\u0002Adeia d\u0002pend en grande partie de la reconnaissance et de l\u0002enforcement de ses brevets, ce qui la rend vuln\u0002rable aux d\u0002cisions judiciaires contraires.",
+      "score": 5
     },
     {
       "title": "Conflits juridiques avec de grands groupes",
@@ -444,7 +443,8 @@
       "severity": 4,
       "score_rationale": "Litiges contre Disney, AMD, Bell, DIRECTV, etc. montrent une escalade avec des acteurs puissants disposant de moyens juridiques \u0002tendus. Risque de pression concurrentielle accrue et de co\u0003ts juridiques soutenus. Position centrale, intensit\u0002 \u0002lev\u0002e.",
       "trend": "up",
-      "summary": "Adeia s\u0002oppose \u0002 de grands acteurs technologiques et m\u0002diatiques, ce qui amplifie les risques juridiques, financiers et strat\u0002giques."
+      "summary": "Adeia s\u0002oppose \u0002 de grands acteurs technologiques et m\u0002diatiques, ce qui amplifie les risques juridiques, financiers et strat\u0002giques.",
+      "score": 4
     },
     {
       "title": "Gouvernance de la cybers\u0002curit\u0002 centralis\u0002e",
@@ -452,14 +452,15 @@
       "severity": 3,
       "score_rationale": "Le VP IT a une responsabilit\u0002 principale sur les risques cyber, avec une forte expertise. Mais d\u0002pendance \u0002 une seule personne cl\u0002, malgr\u0002 un comit\u0002 de surveillance. Risque mod\u0002r\u0002 d\u0002passement en cas de d\u0002part ou de surcharge.",
       "trend": "stable",
-      "summary": "La gestion des risques cyber repose fortement sur le VP IT, une personne cl\u0002 avec une expertise solide, mais dont l\u0002absence pourrait impacter la r\u0002activit\u0002."
+      "summary": "La gestion des risques cyber repose fortement sur le VP IT, une personne cl\u0002 avec une expertise solide, mais dont l\u0002absence pourrait impacter la r\u0002activit\u0002.",
+      "score": 3
     }
   ],
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -474,7 +475,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:19:31Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2020,
@@ -492,7 +493,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:33Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:12Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Semi-conducteurs & équipements",
   "enrich_description": {
     "ticker": "ADEA",
@@ -547,7 +548,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.297Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.095Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/adea.json",
     "enrich_root": "v2-pipeline-enrich/adea.json",

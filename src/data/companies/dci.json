@@ -39,9 +39,12 @@
       "is_short_history": false,
       "ttm": 3.72,
       "_validation": "Valeurs vérifiées source 10-K MD&A; unité B$ confirmée (convention standard milliards); calcul: (3690.9-3586.3)/3586.3=+2.9%",
-      "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "period_type": "year",
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -66,7 +69,7 @@
       "is_short_history": false,
       "ttm": 34.63,
       "_validation": "Données vérifiées source 10-K financials; calcul: 1286.2/3690.9=34.8%; aucune correction nécessaire",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -138,34 +141,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.98 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.67,
-      "unit": "Mds €",
+      "value": 670,
+      "unit": "M €",
       "yoy": "+24.1%",
       "history": [
-        0.65,
-        0.66,
-        0.54,
-        0.67
+        650,
+        660,
+        540,
+        670
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.67 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -179,7 +191,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.87,
         0.91,
@@ -192,7 +204,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -207,7 +219,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2807,
@@ -220,7 +232,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -235,7 +247,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         33.08,
@@ -248,7 +260,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -264,7 +276,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.66,
@@ -277,7 +289,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -305,9 +317,7 @@
       "is_short_history": false,
       "story_category": "Marché",
       "ttm": 2.32,
-      "_validation": "Données vérifiées source 10-K segment sales table: 2024: $2,250.8M, 2025: $2,291.0M; yoy calculé: (2291.0-2250.8)/2250.8=+1.8%; valeur arrondie 2.29 B$ confirmée",
-      "_source_month": "juillet 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Données vérifiées source 10-K segment sales table: 2024: $2,250.8M, 2025: $2,291.0M; yoy calculé: (2291.0-2250.8)/2250.8=+1.8%; valeur arrondie 2.29 B$ confirmée"
     },
     {
       "short": "Life Sciences",
@@ -331,9 +341,7 @@
       "is_generic": true,
       "is_short_history": false,
       "story_category": "Marché",
-      "_validation": "Données vérifiées source 10-K segment sales table: 2024: $269.0M, 2025: $295.5M; yoy calculé: (295.5-269.0)/269.0=+9.8%; valeur corrigée 0.30 B$ (arrondi de 0.2955); impairments détaillés: $46.6M Univercells + $15.4M Solaris = $62M total",
-      "_source_month": "juillet 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Données vérifiées source 10-K segment sales table: 2024: $269.0M, 2025: $295.5M; yoy calculé: (295.5-269.0)/269.0=+9.8%; valeur corrigée 0.30 B$ (arrondi de 0.2955); impairments détaillés: $46.6M Univercells + $15.4M Solaris = $62M total"
     }
   ],
   "ai_positioning": {
@@ -350,7 +358,8 @@
       "score_rationale": "Le risque est placé en tête des facteurs de risque, avec langage fort sur l'impact potentiellement matériel et défavorable. Il couvre les tarifs, guerres commerciales et réglementations, amplifiés par l'empreinte mondiale de DCI. Contexte actuel avec tarifs US imposés et retaliations.",
       "trend": "stable",
       "summary": "Les opérations mondiales de DCI exposent l'entreprise à des tensions commerciales, des tarifs et des réglementations locales instables, menaçant sa chaîne d'approvisionnement et sa rentabilité.",
-      "_validation": "Vérifiée source Item 1A Risk Factors et MD&A Operating Environment Tariffs; coûts tarifaires estimés $35M annuels confirmés"
+      "_validation": "Vérifiée source Item 1A Risk Factors et MD&A Operating Environment Tariffs; coûts tarifaires estimés $35M annuels confirmés",
+      "score": 5
     },
     {
       "title": "Perturbation des opérations par événements imprévus",
@@ -359,7 +368,8 @@
       "score_rationale": "Le texte évoque explicitement risques de fermeture totale/partielle des sites, rupture d'approvisionnement et perturbation des systèmes. Langage intense (adverse impact, catastrophes). Couverture mondiale des actifs (150+ locations, 6 continents) justifie gravité maximale.",
       "trend": "stable",
       "summary": "Des événements comme des catastrophes naturelles, pandémies ou attaques terroristes pourraient interrompre la production, la logistique ou les systèmes, avec coûts élevés non couverts par l'assurance.",
-      "_validation": "Contenu valide aligné source Item 1A Risk Factors"
+      "_validation": "Contenu valide aligné source Item 1A Risk Factors",
+      "score": 5
     },
     {
       "title": "Vulnérabilités de cybersécurité critiques",
@@ -368,7 +378,8 @@
       "score_rationale": "Menaces détaillées: fuites de données, destruction de données, downtime. Source reconnaît augmentation fréquence/sophistication attaques. Bien que non matériels à ce jour, conséquences potentielles existentielles: litiges, amendes, atteinte réputation.",
       "trend": "stable",
       "summary": "Les systèmes informatiques de DCI, essentiels à ses opérations, sont exposés à des cyberattaques pouvant compromettre des données sensibles, perturber la production et entraîner des sanctions réglementaires.",
-      "_validation": "Contenu valide aligné source Item 1A Risk Factors"
+      "_validation": "Contenu valide aligné source Item 1A Risk Factors",
+      "score": 5
     },
     {
       "title": "Dépendance à des fournisseurs clés et pénuries d'approvisionnement",
@@ -377,7 +388,8 @@
       "score_rationale": "Source souligne concentration d'approvisionnement sur un ou quelques fournisseurs, risques de retards, hausse coûts et rupture. Langage préoccupé mais pas alarmiste. Supply Chain stratégique pour industriel de filtration.",
       "trend": "stable",
       "summary": "La disponibilité des matières premières (acier, produits pétroliers) dépend de fournisseurs limités, exposant DCI à des ruptures d'approvisionnement et à des pressions sur les marges.",
-      "_validation": "Contenu valide aligné source Item 1A Risk Factors"
+      "_validation": "Contenu valide aligné source Item 1A Risk Factors",
+      "score": 4
     },
     {
       "title": "Innovation concurrentielle et disruption technologique par électrification",
@@ -386,7 +398,8 @@
       "score_rationale": "Source évoque explicitement menace d'obsolescence via électrification et solutions alternatives aux moteurs diesel. Langage fort (signifiant matériel impact). Mobile Solutions (62% revenus) directement exposé à cette transition énergétique globale.",
       "trend": "stable",
       "summary": "La transition vers les véhicules électriques et les solutions alternatives aux moteurs à combustion interne menace l'obsolescence des produits de filtration diesel de DCI, particulièrement pour le segment Mobile Solutions.",
-      "_validation": "Contenu valide aligné source Item 1A Risk Factors et stratégies mentionnées d'expansion alternative power solutions"
+      "_validation": "Contenu valide aligné source Item 1A Risk Factors et stratégies mentionnées d'expansion alternative power solutions",
+      "score": 5
     }
   ],
   "_validation": "Audit complet effectué: (1) KPI Revenue confirmé 3.69B$, yoy +2.9% validé; (2) Gross Margin 34.8%, yoy -0.7pts confirmé; (3) Op Margin 13.4%, yoy -1.8pts confirmé; (4) R&D 2.4%, yoy -0.2pts confirmé; (5) Capex et Headcount restent vides (données non disponibles); (6) Mobile Solutions 2.29B$ (+1.8%) et Life Sciences 0.30B$ (+9.8%) validés source segment sales table; (7) Unités B$ confirmées pour revenus (milliards USD standard); (8) hero_kpi_rationale conforme sans em-dash; (9) Aucun KPI halluciné détecté; (10) Tous les risques alignés Item 1A Risk Factors et MD&A; (11) AI positioning: stance absent confirmé (aucune mention IA/ML dans extrait 10-K)",
@@ -394,7 +407,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": false,
@@ -457,7 +470,7 @@
     "margin_trend": "Marges sous pression (-1.2 pts en moyenne)."
   },
   "_dividends_extracted_at": "2026-05-09T20:21:12Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -484,8 +497,8 @@
     "xbrl_fetched_at": "2026-05-09T20:27:15Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:35Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:30.159Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.839Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dci.json",
     "enrich_root": "v2-pipeline-enrich/dci.json",

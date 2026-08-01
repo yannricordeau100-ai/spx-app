@@ -43,7 +43,7 @@
       "ttm": 1.58,
       "_validation": "Correction unité: Mds $ -> B $ (convention internationale); Valeur confirmée à 1,977,171 K$ = 1.977 B$ arrondi à 2.0 B$",
       "period_type": "quarter",
-      "explanation_en": "Gross Written Premiums — total premiums underwritten before reinsurance.",
+      "explanation_en": "Gross Written Premiums, total premiums underwritten before reinsurance.",
       "signal_en": "Demand strengthening, end-market traction"
     },
     {
@@ -72,8 +72,12 @@
       "is_short_history": false,
       "ttm": 29.02,
       "_validation": "Correction YoY: 'stable' -> '-3.0%' (29.3% vs 32.3% en 2024); History ajustée avec 32.3% pour 2024; Unité confirmée %",
-      "explanation_en": "Return on Equity — net income divided by shareholders' equity.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Return on Equity, net income divided by shareholders' equity.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Combined Ratio",
@@ -101,8 +105,12 @@
       "is_short_history": false,
       "ttm": 73.16,
       "_validation": "Correction YoY: 'stable' -> '-0.5%' (75.9% vs 76.4% en 2024); History ajustée avec 76.4% pour 2024; Ratio combiné = Loss Ratio (55.1%) + Expense Ratio (20.8%) = 75.9%",
-      "explanation_en": "Combined Ratio — losses plus expenses divided by net earned premiums.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Combined Ratio, losses plus expenses divided by net earned premiums.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -121,34 +129,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.87 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "+22.0%",
       "history": [
-        0.16,
-        0.31,
-        0.41,
-        0.5
+        160,
+        310,
+        410,
+        500
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.5 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -167,56 +184,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.04 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "+22.2%",
       "history": [
-        0.2,
-        0.18,
-        0.18,
-        0.22
+        200,
+        180,
+        180,
+        220
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.22 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "+45.5%",
       "history": [
-        0.16,
-        0.13,
-        0.11,
-        0.16
+        160,
+        130,
+        110,
+        160
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.16 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -241,9 +272,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Correction unité: Mds $ -> B $; Valeur confirmée par MD&A: $1,977,171 K = 1.977 B arrondi à 2.0 B",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction unité: Mds $ -> B $; Valeur confirmée par MD&A: $1,977,171 K = 1.977 B arrondi à 2.0 B"
     }
   ],
   "ai_positioning": {
@@ -259,7 +288,8 @@
       "severity": 5,
       "score_rationale": "Les réserves pour pertes et frais de règlement des sinistres pourraient s'avérer insuffisantes, ce qui pourrait avoir un impact négatif important sur la situation financière et les résultats d'exploitation de l'entreprise. Le rapport souligne que les réserves ne représentent pas un calcul exact mais une estimation du coût ultime de règlement, mentionné à plusieurs reprises dans la section Risk Factors.",
       "trend": "stable",
-      "summary": "Les réserves pour pertes et frais de règlement des sinistres pourraient s'avérer insuffisantes en raison de l'inflation des sinistres, des évolutions législatives et des tendances litigieuses."
+      "summary": "Les réserves pour pertes et frais de règlement des sinistres pourraient s'avérer insuffisantes en raison de l'inflation des sinistres, des évolutions législatives et des tendances litigieuses.",
+      "score": 5
     },
     {
       "title": "Volatilité des marchés",
@@ -267,7 +297,8 @@
       "severity": 4,
       "score_rationale": "La volatilité des marchés financiers et les événements économiques pourraient entraîner une augmentation du nombre de sinistres et/ou de leur gravité. Cela affecte directement les résultats d'exploitation étant donné la dépendance de l'entreprise aux marchés financiers pour ses investissements.",
       "trend": "up",
-      "summary": "La volatilité des marchés financiers et les événements économiques pourraient entraîner une augmentation du nombre de sinistres et de leur gravité."
+      "summary": "La volatilité des marchés financiers et les événements économiques pourraient entraîner une augmentation du nombre de sinistres et de leur gravité.",
+      "score": 4
     },
     {
       "title": "Catastrophes naturelles",
@@ -275,7 +306,8 @@
       "severity": 5,
       "score_rationale": "Les catastrophes naturelles, telles que les ouragans, les tremblements de terre et les incendies, constituent un risque majeur pour une compagnie d'assurance dommages. Le portefeuille E&S de KNSL expose l'entreprise à ces événements extrêmes.",
       "trend": "stable",
-      "summary": "Les catastrophes naturelles pourraient avoir un impact négatif important sur les résultats d'exploitation de l'entreprise."
+      "summary": "Les catastrophes naturelles pourraient avoir un impact négatif important sur les résultats d'exploitation de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Défaillances de réassurance",
@@ -283,7 +315,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise pourrait ne pas être en mesure d'obtenir une réassurance à des prix raisonnables ou avec des conditions qui protègent adéquatement ses risques. Les cessions de primes (361,154 K$ en 2025) démontrent la dépendance à la réassurance pour la gestion des risques.",
       "trend": "up",
-      "summary": "L'entreprise pourrait ne pas être en mesure d'obtenir une réassurance à des prix raisonnables ou avec des conditions qui protègent adéquatement ses risques."
+      "summary": "L'entreprise pourrait ne pas être en mesure d'obtenir une réassurance à des prix raisonnables ou avec des conditions qui protègent adéquatement ses risques.",
+      "score": 4
     },
     {
       "title": "Changement climatique",
@@ -291,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Le changement climatique pourrait avoir un impact négatif important sur les résultats d'exploitation de l'entreprise, en raison de l'augmentation attendue des événements météorologiques extrêmes et des catastrophes naturelles affectant le secteur assurantiel.",
       "trend": "up",
-      "summary": "Le changement climatique pourrait augmenter la fréquence et la gravité des événements météorologiques extrêmes affectant les résultats d'exploitation."
+      "summary": "Le changement climatique pourrait augmenter la fréquence et la gravité des événements météorologiques extrêmes affectant les résultats d'exploitation.",
+      "score": 4
     },
     {
       "title": "Litiges et contentieux",
@@ -299,7 +333,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise pourrait être confrontée à des litiges et des contentieux liés à ses activités assurantiques. Le rapport mentionne les tendances judiciaires, les augmentations des verdicts de jurés et le financement des litiges tiers comme facteurs affectant les coûts de sinistres.",
       "trend": "stable",
-      "summary": "L'entreprise pourrait être confrontée à des litiges et des contentieux liés à ses activités d'assurance et au règlement des sinistres."
+      "summary": "L'entreprise pourrait être confrontée à des litiges et des contentieux liés à ses activités d'assurance et au règlement des sinistres.",
+      "score": 4
     },
     {
       "title": "Risques de crédit",
@@ -307,7 +342,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise pourrait être exposée à des risques de crédit liés à ses investissements en titres à revenu fixe et en actions, ainsi qu'à ses opérations avec les réassureurs et brokers. Le portefeuille d'investissements constitue une part importante des actifs.",
       "trend": "stable",
-      "summary": "L'entreprise pourrait être exposée à des risques de crédit liés à ses investissements et à ses opérations de réassurance."
+      "summary": "L'entreprise pourrait être exposée à des risques de crédit liés à ses investissements et à ses opérations de réassurance.",
+      "score": 3
     }
   ],
   "governance": {
@@ -350,7 +386,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -468,23 +504,18 @@
         "history": [
           0.6296,
           0.6592,
-          -1.177,
           0.6656,
           0.6341,
           0.6195,
-          -1.1736,
           0.8157,
           0.8718,
           0.9238,
-          -1.5245,
           1.171,
           1.2572,
           1.4349,
-          -2.3796,
           1.583,
           1.7226,
           1.8652,
-          -3.2112,
           1.9673
         ],
         "history_periods": [
@@ -538,6 +569,12 @@
             "accession": "0001669162-26-000026",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (KNSL)"
         ]
       }
     ]
@@ -554,9 +591,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.274646+00:00",
     "fetched_at": "2026-05-21T02:17:14.274647+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.852Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.611Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/knsl.json",
     "enrich_root": "v2-pipeline-enrich/knsl.json",

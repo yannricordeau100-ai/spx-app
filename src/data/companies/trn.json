@@ -40,16 +40,19 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Pipeline contraction, future revenue at risk"
+      "period_type": "year",
+      "signal_en": "Pipeline contraction, future revenue at risk",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Revenues",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenues",
       "explanation": "Total des revenus générés par l'entreprise.",
-      "value": 2156.9,
-      "unit": "M $",
+      "value": 2.157,
+      "unit": "Mds $",
       "yoy": "-30.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -67,7 +70,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Profit",
@@ -93,7 +97,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Profit — profit from core business operations.",
+      "explanation_en": "Operating Profit, profit from core business operations.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -225,7 +229,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -263,7 +271,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à la cyclicité des industries de ses clients, ce qui peut entraîner une demande imprévisible et une volatilité. (Item 1A, p. 13)",
       "trend": "stable",
-      "summary": "La cyclicité des industries de ses clients peut avoir un impact négatif sur les ventes et les profits de la société."
+      "summary": "La cyclicité des industries de ses clients peut avoir un impact négatif sur les ventes et les profits de la société.",
+      "score": 4
     },
     {
       "title": "Pénurie de main-d'œuvre",
@@ -271,7 +280,8 @@
       "severity": 3,
       "score_rationale": "La société dépend de la main-d'œuvre qualifiée pour la fabrication et la maintenance de ses produits, et une pénurie de main-d'œuvre peut entraîner des coûts de production plus élevés et des inefficacités opérationnelles. (Item 1A, p. 13)",
       "trend": "up",
-      "summary": "La pénurie de main-d'œuvre qualifiée peut avoir un impact négatif sur la production et les profits de la société."
+      "summary": "La pénurie de main-d'œuvre qualifiée peut avoir un impact négatif sur la production et les profits de la société.",
+      "score": 3
     },
     {
       "title": "Disruption de la chaîne d'approvisionnement",
@@ -279,7 +289,8 @@
       "severity": 4,
       "score_rationale": "La société dépend de la chaîne d'approvisionnement pour obtenir les matériaux nécessaires à la production de ses produits, et une disruption de la chaîne d'approvisionnement peut entraîner des retards et des coûts plus élevés. (Item 1A, p. 14)",
       "trend": "stable",
-      "summary": "Une disruption de la chaîne d'approvisionnement peut avoir un impact négatif sur la production et les profits de la société."
+      "summary": "Une disruption de la chaîne d'approvisionnement peut avoir un impact négatif sur la production et les profits de la société.",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -287,7 +298,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans des industries très concurrentielles, et une concurrence accrue peut entraîner une pression sur les prix et une réduction des ventes. (Item 1A, p. 14)",
       "trend": "up",
-      "summary": "La concurrence accrue peut avoir un impact négatif sur les ventes et les profits de la société."
+      "summary": "La concurrence accrue peut avoir un impact négatif sur les ventes et les profits de la société.",
+      "score": 3
     },
     {
       "title": "Cybersécurité",
@@ -295,7 +307,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de cybersécurité, notamment des attaques de pirates informatiques, qui peuvent entraîner des pertes de données et des impacts négatifs sur la réputation de la société. (Item 1A, p. 15)",
       "trend": "up",
-      "summary": "Les risques de cybersécurité peuvent avoir un impact négatif sur la réputation et les profits de la société."
+      "summary": "Les risques de cybersécurité peuvent avoir un impact négatif sur la réputation et les profits de la société.",
+      "score": 4
     },
     {
       "title": "Réglementation",
@@ -303,7 +316,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations gouvernementales, et des changements dans ces réglementations peuvent avoir un impact négatif sur les opérations et les profits de la société. (Item 1A, p. 14)",
       "trend": "stable",
-      "summary": "Les changements dans les réglementations gouvernementales peuvent avoir un impact négatif sur les opérations et les profits de la société."
+      "summary": "Les changements dans les réglementations gouvernementales peuvent avoir un impact négatif sur les opérations et les profits de la société.",
+      "score": 3
     },
     {
       "title": "Dépendance à l'énergie",
@@ -311,7 +325,8 @@
       "severity": 3,
       "score_rationale": "La société dépend de l'énergie pour ses opérations, et des augmentations du coût de l'énergie peuvent avoir un impact négatif sur les coûts de production et les profits de la société. (Item 1A, p. 15)",
       "trend": "up",
-      "summary": "Les augmentations du coût de l'énergie peuvent avoir un impact négatif sur les coûts de production et les profits de la société."
+      "summary": "Les augmentations du coût de l'énergie peuvent avoir un impact négatif sur les coûts de production et les profits de la société.",
+      "score": 3
     }
   ],
   "governance": {
@@ -341,7 +356,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -392,7 +407,6 @@
       "date": "2026-04-30"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-07T09:40:25.677787+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -415,6 +429,7 @@
     ],
     "total": 2.15
   },
+  "_ai_positioning_fetched_at": "2026-05-07T09:40:25.677787+00:00",
   "_segments_fetched_at": "2026-05-07T10:48:51.728517+00:00",
   "financial_snapshot": {
     "market_cap_usd": 2882074624,
@@ -580,7 +595,7 @@
         "month": 3,
         "title": "Assemblee generale (estimation)",
         "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-        "source": "yfinance.info.lastFiscalYearEnd",
+        "source": "données de marché.lastFiscalYearEnd",
         "url": "",
         "date": "2027-03-15"
       },
@@ -589,7 +604,7 @@
         "month": 7,
         "title": "Prochaine publication Q3 2026",
         "body": "Publication attendue le 29 juillet 2026. Consensus EPS : 0.16.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-07-29"
       },
@@ -598,7 +613,7 @@
         "month": 6,
         "title": "Prochain ex-dividende",
         "body": "Date ex-dividende : 22 juin 2026. Montant precedent : 0.1192.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-06-22"
       },
@@ -607,7 +622,7 @@
         "month": 11,
         "title": "Resultats Q4 2022 publies",
         "body": "EPS 0.09 vs consensus 0.09 Annonce le 8 novembre 2022.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2022-11-08"
       },
@@ -616,7 +631,7 @@
         "month": 7,
         "title": "Resultats Q3 2022 publies",
         "body": "EPS 0.09 vs consensus 0.10 (miss -9.0 %) Annonce le 28 juillet 2022.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2022-07-28"
       },
@@ -625,7 +640,7 @@
         "month": 5,
         "title": "Resultats Q2 2022 publies",
         "body": "EPS 0.09 vs consensus 0.09 Annonce le 10 mai 2022.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2022-05-10"
       },
@@ -634,13 +649,13 @@
         "month": 3,
         "title": "Resultats Q1 2022 publies",
         "body": "EPS 0.10 vs consensus 0.10 (miss -1.5 %) Annonce le 16 mars 2022.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2022-03-16"
       }
     ],
     "_events_sub_agent_101_fill_at": "2026-05-21T09:53:25.900627+00:00",
-    "_events_sub_agent_101_source": "yfinance-batch (earnings_dates + calendar + dividends + info)",
+    "_events_sub_agent_101_source": "rapport financier-batch (earnings_dates + calendar + dividends + info)",
     "stories_kpis": [
       {
         "short": "Grid Digitalization Rate",
@@ -693,31 +708,6 @@
         "story_category": "Capacité"
       },
       {
-        "short": "Smart Grid Projects Won",
-        "name_fr": "Projets gagnés dans les réseaux intelligents",
-        "name_en": "Smart Grid Projects Won",
-        "explanation": "Nombre de nouveaux contrats ou appels d'offres remportés pour des infrastructures de réseau intelligent.",
-        "value": 14,
-        "unit": "projets",
-        "yoy": "+17%",
-        "type": "Pipeline",
-        "nature": "Conjoncturel",
-        "comparable": "Non comparable",
-        "signal": "Leadership technologique confirmé sur les marchés réglementés",
-        "description": "Ces projets incluent des systèmes de pilotage dynamique et de stockage distribué. Ils illustrent la confiance des autorités régionales dans l'expertise technique de Terna.",
-        "history": [
-          8,
-          10,
-          12,
-          14
-        ],
-        "last_data_date": "2025-09-30",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Marché"
-      },
-      {
         "short": "Grid Availability Rate",
         "name_fr": "Taux de disponibilité du réseau",
         "name_en": "Grid Availability Rate",
@@ -741,31 +731,6 @@
         "is_generic": false,
         "is_short_history": true,
         "story_category": "Adoption"
-      },
-      {
-        "short": "AI Grid Monitoring",
-        "name_fr": "Taux de Surveillance des Réseaux par IA",
-        "name_en": "AI Grid Monitoring Rate",
-        "explanation": "Pourcentage des opérations de surveillance du réseau géré par des systèmes d'IA.",
-        "value": 38,
-        "unit": "%",
-        "yoy": "+15%",
-        "type": "Adoption",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "L'IA améliore la prévention des pannes et l'efficacité opérationnelle",
-        "description": "L'utilisation croissante de l'intelligence artificielle permet une détection proactive des anomalies sur le réseau électrique. Cela renforce la fiabilité et réduit les coûts de maintenance.",
-        "history": [
-          "28",
-          "32",
-          "35",
-          "38"
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Innovation"
       }
     ],
     "_stories_backfill_at": "2026-05-21T12:07:49Z",
@@ -843,7 +808,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "La dépendance à des tiers et prestataires est notée. Source : « Systèmes et instruments de gestion des risques 73 Gestion des risques du système électrique 73 Gestion des risques du marché de l'électricité... »"
+        "summary": "La dépendance à des tiers et prestataires est notée. Source : « Systèmes et instruments de gestion des risques 73 Gestion des risques du système électrique 73 Gestion des risques du marché de l'électricité... »",
+        "score": 2
       },
       {
         "title": "Risques climatiques et événements extrêmes",
@@ -851,7 +817,8 @@
         "severity": 2,
         "score_rationale": "Risque qualifié de significatif. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le dépôt identifie des risques climatiques. Source : « Ces investissements pourraient ouvrir une nouvelle avenue commerciale pour Terna qui est indirectement liée au changement climatique. »"
+        "summary": "Le dépôt identifie des risques climatiques. Source : « Ces investissements pourraient ouvrir une nouvelle avenue commerciale pour Terna qui est indirectement liée au changement climatique. »",
+        "score": 2
       },
       {
         "title": "Pandémies et événements sanitaires",
@@ -859,7 +826,8 @@
         "severity": 2,
         "score_rationale": "Risque qualifié de significatif. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "L'exposition aux événements sanitaires est documentée. Source : «On obtient ainsi une réduction significative des dommages publics et privés, également en matière de santé publique, et résultant du risque lié aux responsabilités de Terna en cas d'accidents généraux...»"
+        "summary": "L'exposition aux événements sanitaires est documentée. Source : «On obtient ainsi une réduction significative des dommages publics et privés, également en matière de santé publique, et résultant du risque lié aux responsabilités de Terna en cas d'accidents généraux...»",
+        "score": 2
       },
       {
         "title": "Risques réglementaires et juridiques",
@@ -867,7 +835,8 @@
         "severity": 2,
         "score_rationale": "Risque qualifié de significatif. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le dépôt identifie un risque. Source : « Gouvernance des risques Terna est le seul opérateur en Italie pour le transport et la distribution d'électricité sur la base d'une concession gouvernementale qui lui confère la responsabilité de fournir un service à... »"
+        "summary": "Le dépôt identifie un risque. Source : « Gouvernance des risques Terna est le seul opérateur en Italie pour le transport et la distribution d'électricité sur la base d'une concession gouvernementale qui lui confère la responsabilité de fournir un service à... »",
+        "score": 2
       },
       {
         "title": "Risques climatiques et environnementaux",
@@ -875,7 +844,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le dépôt identifie un risque. Source : « • Lois sur l'énergie Les activités du Groupe peuvent être affectées par l'évolution des législations nationales et européennes régissant le marché de l'électricité, les infrastructures stratégiques (pour lesquelles le « Golden Power »... »"
+        "summary": "Le dépôt identifie un risque. Source : « • Lois sur l'énergie Les activités du Groupe peuvent être affectées par l'évolution des législations nationales et européennes régissant le marché de l'électricité, les infrastructures stratégiques (pour lesquelles le « Golden Power »... »",
+        "score": 2
       },
       {
         "title": "Risques financiers",
@@ -883,7 +853,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le dépôt identifie un risque. Source : « Ce dernier se voit notamment attribuer les devoirs prévus par le Code de Conduite que Terna a adopté. »"
+        "summary": "Le dépôt identifie un risque. Source : « Ce dernier se voit notamment attribuer les devoirs prévus par le Code de Conduite que Terna a adopté. »",
+        "score": 2
       },
       {
         "title": "Risques opérationnels",
@@ -891,7 +862,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le dépôt identifie un risque. Source : « Le Chief Risk Officer (CRO) - nommé en mai 2013 par le Directeur en charge de l'Audit Interne et du Système de Gestion des Risques, après avis du Comité d'Audit et des Risques - est chargé... »"
+        "summary": "Le dépôt identifie un risque. Source : « Le Chief Risk Officer (CRO) - nommé en mai 2013 par le Directeur en charge de l'Audit Interne et du Système de Gestion des Risques, après avis du Comité d'Audit et des Risques - est chargé... »",
+        "score": 2
       },
       {
         "title": "Réputation et image de marque",
@@ -899,7 +871,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "La réputation et l'image de marque sont citées. Source : «Enfin, Terna surveille en permanence les risques associés aux aspects du développement durable qui peuvent avoir un impact négatif sur sa réputation et sa valeur immatérielle, notamment par le biais d'analyses de notations réalisées par...»"
+        "summary": "La réputation et l'image de marque sont citées. Source : «Enfin, Terna surveille en permanence les risques associés aux aspects du développement durable qui peuvent avoir un impact négatif sur sa réputation et sa valeur immatérielle, notamment par le biais d'analyses de notations réalisées par...»",
+        "score": 2
       }
     ],
     "_risks_reextracted_at": "2026-05-27",
@@ -914,17 +887,21 @@
         "short": "RAB Italy",
         "name_fr": "Base de capital régulée Italie",
         "name_en": "Regulated Asset Base (Italy)",
-        "value": 22500,
-        "unit": "M €",
+        "value": 22.5,
+        "unit": "Mds €",
         "yoy": "+5%",
         "history": [
-          16800,
-          18200,
-          19500,
-          21500,
-          22500
+          16.8,
+          18.2,
+          19.5,
+          21.5,
+          22.5
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "_unit_rescaled": "M->Mds € for 1-999 readability",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "RAB Brazil",
@@ -940,23 +917,30 @@
           850,
           950
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Regulated Capex",
         "name_fr": "Investissements régulés",
         "name_en": "Regulated Network Capex",
-        "value": 3100,
-        "unit": "M €",
+        "value": 3.1,
+        "unit": "Mds €",
         "yoy": "+30%",
         "history": [
-          1200,
-          1450,
-          1900,
-          2400,
-          3100
+          1.2,
+          1.45,
+          1.9,
+          2.4,
+          3.1
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "_unit_rescaled": "M->Mds € for 1-999 readability",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Grid Length",
@@ -1038,166 +1022,53 @@
   },
   "enrich_quarterly_history": {
     "ticker": "TRN",
-    "extracted_at": "2026-05-15T18:14:46Z",
-    "method": "xbrl-companyfacts",
-    "cik": 99780,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T09:24:49Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "Revenues",
+        "short": "Railcar Backlog",
         "period_type": "quarter",
         "history": [
-          770.3,
-          1273.8,
-          -926.9,
-          472.7,
-          889.5,
-          1386.1,
-          -771,
-          641.7,
-          1364.1,
-          2185.4,
-          -1207.9,
-          809.6,
-          1651,
-          2449.8,
-          -1831.2,
-          585.4,
-          1091.6,
-          1545.7,
-          -1065.8,
-          492
+          1,
+          1.2,
+          1.2,
+          1.9,
+          2.2,
+          4.1,
+          3.7,
+          3.6,
+          3.6,
+          2.9,
+          2.7,
+          2.4,
+          1.9,
+          2,
+          1.8
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1091.6,
-            "accession": "0000099780-25-000098",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 1545.7,
-            "accession": "0000099780-25-000119",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -1065.8,
-            "accession": "calc-0000099780-26-000014",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 492,
-            "accession": "0000099780-26-000037",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Operating Profit",
-        "period_type": "quarter",
-        "history": [
-          127.6,
-          219.8,
-          -150.8,
-          54.8,
-          127.8,
-          220.5,
-          -69.1,
-          69,
-          168.1,
-          268.3,
-          -88.4,
-          115.2,
-          257.1,
-          379.5,
-          -260.3,
-          99.8,
-          195.2,
-          313.8,
-          40.4,
-          101.1
-        ],
-        "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 195.2,
-            "accession": "0000099780-25-000098",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 313.8,
-            "accession": "0000099780-25-000119",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 40.4,
-            "accession": "calc-0000099780-26-000014",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 101.1,
-            "accession": "0000099780-26-000037",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T09:24:49Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -1213,9 +1084,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.319902+00:00",
     "fetched_at": "2026-05-21T02:17:14.319903+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.646Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.724Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/trn.json",
     "enrich_root": "v2-pipeline-enrich/trn.json",

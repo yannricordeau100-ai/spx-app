@@ -42,8 +42,8 @@
       "name_fr": "Frais d'audit",
       "name_en": "Audit Fees",
       "explanation": "Frais d'audit facturés par l'auditeur externe",
-      "value": 8063940,
-      "unit": "$",
+      "value": 8.064,
+      "unit": "M $",
       "yoy": "-3.1%",
       "type": "Investment",
       "nature": "Cyclique",
@@ -51,8 +51,8 @@
       "signal": "Audit fees declined year-over-year",
       "description": "External auditor fees for fiscal years ended September 30, 2025 and 2024",
       "history": [
-        8314936,
-        8063940
+        8.315,
+        8.064
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -62,7 +62,8 @@
       "_validation": "Valeur confirmée (8,063,940 USD), YoY calculé correctement (-3.1%), last_data_date corrigé à 2025-09-30, period_type changé de quarter à annual (données annuelles), signal amélioré",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de 'Audit Fees' (frais d'audit) trouvée dans l'extrait fourni. Le document est une circulaire de procuratio",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "raw -> M $"
     },
     {
       "short": "Total Revenue",
@@ -81,11 +82,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 15.91 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -104,11 +109,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.66 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -127,11 +136,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 2.61 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -150,11 +163,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 19.52 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -173,33 +190,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.33 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.86,
-      "unit": "Mds €",
+      "value": 860,
+      "unit": "M €",
       "yoy": "-41.1%",
       "history": [
-        0.97,
-        1.57,
-        1.46,
-        0.86
+        970,
+        1570,
+        1460,
+        860
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.86 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -213,7 +239,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -226,7 +252,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -241,7 +267,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.9837,
@@ -254,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -269,7 +295,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -282,7 +308,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -297,7 +323,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         6.04,
@@ -310,7 +336,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -407,7 +433,8 @@
       "severity": 4,
       "score_rationale": "Risque métier fondamental pour CGI (services IT/conseil). Langage modéré mais contexte compétitif explicite (« clients rebalancing spend », modernization priorities). Tendance stable mais structurelle. Poids élevé : cœur du modèle commercial.",
       "trend": "stable",
-      "summary": "CGI opère dans un marché hautement concurrentiel des services IT, conseil et transformation numérique. La pression tarifaire et la commoditisation des services standards menacent les marges, particulièrement face aux géants mondiaux (Accenture, Deloitte, IBM) et aux pure-players cloud (AWS, Microsoft)."
+      "summary": "CGI opère dans un marché hautement concurrentiel des services IT, conseil et transformation numérique. La pression tarifaire et la commoditisation des services standards menacent les marges, particulièrement face aux géants mondiaux (Accenture, Deloitte, IBM) et aux pure-players cloud (AWS, Microsoft).",
+      "score": 4
     },
     {
       "title": "Pénurie critique de talents IT qualifiés",
@@ -415,7 +442,8 @@
       "severity": 5,
       "score_rationale": "Risque explicitement cité dans la lettre aux actionnaires : « 69% cite that finding skilled IT talent remains a widespread challenge ». Langage direct et chiffré. Tendance up (persistant depuis années). Poids critique : CGI dépend entièrement de ses 88% de Partners-actionnaires.",
       "trend": "up",
-      "summary": "CGI reconnaît que 69% des 1 800 cadres IT/métier interrogés identifient la pénurie de talents IT comme défi majeur. Avec 88% des collaborateurs actionnaires (« CGI Partners »), la rétention et l'attraction de talents qualifiés en AI, cloud, data et engineering sont vitales pour la croissance et la différenciation."
+      "summary": "CGI reconnaît que 69% des 1 800 cadres IT/métier interrogés identifient la pénurie de talents IT comme défi majeur. Avec 88% des collaborateurs actionnaires (« CGI Partners »), la rétention et l'attraction de talents qualifiés en AI, cloud, data et engineering sont vitales pour la croissance et la différenciation.",
+      "score": 5
     },
     {
       "title": "Dépendance à l'intégration réussie des acquisitions",
@@ -423,7 +451,8 @@
       "severity": 4,
       "score_rationale": "Cinq acquisitions complétées en FY2025, chacune « accretive in first year ». Langage optimiste mais risque implicite d'intégration. Tendance up (stratégie d'expansion par M&A). Poids élevé : croissance inorganique clé du modèle.",
       "trend": "up",
-      "summary": "CGI poursuit une stratégie agressive d'acquisitions (5 en FY2025) pour élargir sa géographie et ses offres (AI, data, cloud, engineering). Le risque réside dans l'intégration opérationnelle, la rétention des talents acquis, et la réalisation des synergies promises aux actionnaires."
+      "summary": "CGI poursuit une stratégie agressive d'acquisitions (5 en FY2025) pour élargir sa géographie et ses offres (AI, data, cloud, engineering). Le risque réside dans l'intégration opérationnelle, la rétention des talents acquis, et la réalisation des synergies promises aux actionnaires.",
+      "score": 4
     },
     {
       "title": "Risque de cybersécurité et protection des données clients",
@@ -431,7 +460,8 @@
       "severity": 4,
       "score_rationale": "Implicite dans la stratégie « simplify and secure complex systems ». Langage modéré mais contexte critique : CGI gère des systèmes sensibles pour clients gouvernementaux et financiers. Tendance up (menaces croissantes). Poids élevé : réputation et conformité réglementaire.",
       "trend": "up",
-      "summary": "CGI offre des services de modernisation et sécurisation de systèmes complexes pour clients critiques (gouvernement, finance). Une violation de données, une cyberattaque ou un incident de sécurité pourrait compromettre la confiance client, entraîner des pertes contractuelles et des litiges réglementaires majeurs."
+      "summary": "CGI offre des services de modernisation et sécurisation de systèmes complexes pour clients critiques (gouvernement, finance). Une violation de données, une cyberattaque ou un incident de sécurité pourrait compromettre la confiance client, entraîner des pertes contractuelles et des litiges réglementaires majeurs.",
+      "score": 4
     },
     {
       "title": "Dépendance à la propriété intellectuelle et alliances technologiques",
@@ -439,7 +469,8 @@
       "severity": 3,
       "score_rationale": "Mentionné : « leading with AI integrated platforms across CGI IP and alliances partner technologies ». Langage modéré. Tendance stable mais croissante (AI/IP stratégique). Poids moyen : différenciation clé mais partagée avec partenaires.",
       "trend": "stable",
-      "summary": "CGI s'appuie sur sa propriété intellectuelle (plateformes AI intégrées) et des alliances avec des partenaires technologiques majeurs. Le risque inclut l'obsolescence technologique, la dépendance aux partenaires (AWS, Microsoft, etc.) et la capacité à innover plus vite que la concurrence."
+      "summary": "CGI s'appuie sur sa propriété intellectuelle (plateformes AI intégrées) et des alliances avec des partenaires technologiques majeurs. Le risque inclut l'obsolescence technologique, la dépendance aux partenaires (AWS, Microsoft, etc.) et la capacité à innover plus vite que la concurrence.",
+      "score": 3
     },
     {
       "title": "Exposition géopolitique et réglementaire croissante",
@@ -447,7 +478,8 @@
       "severity": 3,
       "score_rationale": "Contexte mentionné : « clients adapted to shifting macroeconomic and geopolitical market conditions ». Langage modéré mais pertinent. Tendance up (géopolitique volatile). Poids moyen : CGI opère mondialement, exposée aux sanctions, restrictions export, conformité locale.",
       "trend": "up",
-      "summary": "CGI opère dans un environnement géopolitique instable (tensions US-Chine, sanctions, Brexit). Les restrictions d'exportation technologique, les exigences de conformité réglementaire locales (RGPD, données souveraines) et les tensions commerciales peuvent affecter les contrats, les marges et l'accès aux marchés."
+      "summary": "CGI opère dans un environnement géopolitique instable (tensions US-Chine, sanctions, Brexit). Les restrictions d'exportation technologique, les exigences de conformité réglementaire locales (RGPD, données souveraines) et les tensions commerciales peuvent affecter les contrats, les marges et l'accès aux marchés.",
+      "score": 3
     },
     {
       "title": "Risque de concentration client et dépendance contractuelle",
@@ -455,7 +487,8 @@
       "severity": 3,
       "score_rationale": "Non explicitement détaillé dans l'extrait, mais implicite pour un prestataire IT/conseil. Langage modéré. Tendance stable. Poids moyen : modèle de services professionnels typiquement exposé à concentration client.",
       "trend": "stable",
-      "summary": "CGI dépend de contrats à long terme avec des clients majeurs (gouvernements, grandes entreprises). La perte d'un contrat clé, la non-renouvellement ou la réduction de scope peuvent impacter significativement les revenus et la rentabilité, particulièrement dans les segments gouvernementaux."
+      "summary": "CGI dépend de contrats à long terme avec des clients majeurs (gouvernements, grandes entreprises). La perte d'un contrat clé, la non-renouvellement ou la réduction de scope peuvent impacter significativement les revenus et la rentabilité, particulièrement dans les segments gouvernementaux.",
+      "score": 3
     },
     {
       "title": "Risque de transformation AI et disruption du modèle de services",
@@ -463,7 +496,8 @@
       "severity": 4,
       "score_rationale": "Stratégie centrale : « embedding AI into end-to-end services » et « AI-driven business transformation ». Langage ambitieux mais risque implicite : l'IA pourrait réduire la demande de services traditionnels. Tendance up (disruption technologique). Poids élevé : modèle commercial en transition.",
       "trend": "up",
-      "summary": "CGI positionne l'IA comme pilier stratégique (« AI to ROI partner »), mais cette transition comporte des risques : cannibalisation des services traditionnels, besoin d'investissements R&D massifs, et risque que les clients développent en interne des capacités IA plutôt que d'externaliser."
+      "summary": "CGI positionne l'IA comme pilier stratégique (« AI to ROI partner »), mais cette transition comporte des risques : cannibalisation des services traditionnels, besoin d'investissements R&D massifs, et risque que les clients développent en interne des capacités IA plutôt que d'externaliser.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:39:17.657205+00:00",
@@ -536,11 +570,11 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:20:34Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "_ai_positioning_fetched_at": "2026-05-14T05:27:01.276614+00:00",
   "_eps_extracted_at": "2026-05-18T16:45:11Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Services informatiques",
   "enrich_description": {
     "ticker": "GIB",
@@ -649,9 +683,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.267549+00:00",
     "fetched_at": "2026-05-21T02:17:14.267550+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.679Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.291Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gib.json",
     "enrich_root": "v2-pipeline-enrich/gib.json",

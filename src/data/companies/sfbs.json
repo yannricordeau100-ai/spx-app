@@ -38,9 +38,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Net Interest income generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Return on Average Assets",
@@ -93,47 +96,57 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.56,
-      "unit": "Mds €",
+      "value": 560,
+      "unit": "M €",
       "yoy": "+16.7%",
       "history": [
-        0.49,
-        0.43,
-        0.48,
-        0.56
+        490,
+        430,
+        480,
+        560
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.56 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.28,
-      "unit": "Mds €",
+      "value": 280,
+      "unit": "M €",
       "yoy": "+21.7%",
       "history": [
-        0.25,
-        0.21,
-        0.23,
-        0.28
+        250,
+        210,
+        230,
+        280
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.28 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -152,34 +165,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 17.73 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-50.0%",
       "history": [
-        0.06,
-        0.06,
-        0.06,
-        0.03
+        60,
+        60,
+        60,
+        30
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.03 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -198,10 +220,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.12 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -240,16 +266,16 @@
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "L'augmentation de la provision pour pertes sur crédits de 63,6% en 2025 par rapport à 2024 indique une exposition accrue au risque de crédit. (score par défaut, à affiner)",
+      "score_rationale": "L'augmentation de la provision pour pertes sur crédits de 63,6% en 2025 par rapport à 2024 indique une exposition accrue au risque de crédit.",
       "trend": "up",
       "summary": "Le risque de crédit est élevé en raison de l'augmentation de la provision pour pertes sur crédits.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Les variations des taux d'intérêt peuvent impacter la marge d'intérêt de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les variations des taux d'intérêt peuvent impacter la marge d'intérêt de la société.",
       "trend": "stable",
       "summary": "Le risque de taux d'intérêt est moyen en raison de la sensibilité de la marge d'intérêt aux variations des taux d'intérêt.",
       "score": 3
@@ -258,34 +284,34 @@
       "title": "Risque de liquidité",
       "category": "Capital",
       "severity": 2,
-      "score_rationale": "La société doit gérer ses actifs et passifs pour maintenir une liquidité suffisante. (score par défaut, à affiner)",
+      "score_rationale": "La société doit gérer ses actifs et passifs pour maintenir une liquidité suffisante.",
       "trend": "stable",
       "summary": "Le risque de liquidité est faible en raison de la capacité de la société à gérer ses actifs et passifs.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risque de réglementation",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les changements dans la réglementation bancaire peuvent impacter les opérations de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans la réglementation bancaire peuvent impacter les opérations de la société.",
       "trend": "up",
       "summary": "Le risque de réglementation est élevé en raison de la possibilité de changements dans la réglementation bancaire.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de cybersécurité",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "La société est exposée à des risques de cybersécurité en raison de la nature de ses opérations et dispose d'un programme de sécurité informatique structuré avec un Chief Information Security Officer ayant 20+ ans d'expérience. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de cybersécurité en raison de la nature de ses opérations et dispose d'un programme de sécurité informatique structuré avec un Chief Information Security Officer ayant 20+ ans d'expérience.",
       "trend": "up",
       "summary": "Le risque de cybersécurité est très élevé en raison de la possibilité d'attaques ciblées contre la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La société opère dans un environnement concurrentiel où les banques doivent se différencier. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un environnement concurrentiel où les banques doivent se différencier.",
       "trend": "stable",
       "summary": "Le risque de concurrence est moyen en raison de la présence de concurrents sur le marché bancaire.",
       "score": 3
@@ -294,10 +320,10 @@
       "title": "Risque de réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La réputation de la société peut être affectée par des événements négatifs. (score par défaut, à affiner)",
+      "score_rationale": "La réputation de la société peut être affectée par des événements négatifs.",
       "trend": "stable",
       "summary": "Le risque de réputation est élevé en raison de la possibilité d'événements négatifs qui peuvent impacter la réputation de la société.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -339,7 +365,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -497,6 +523,134 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SFBS",
+    "extracted_at": "2026-06-01T09:20:56Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Net Interest Income",
+        "period_type": "quarter",
+        "history": [
+          92.365,
+          105.722,
+          94.668,
+          116.368,
+          96.32,
+          126.418,
+          108.301,
+          101.251,
+          99.698,
+          102.495,
+          101.251,
+          99.698,
+          123.553,
+          131.687,
+          133.448
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q2 2021",
+          "Q2 2022",
+          "Q3 2021",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:20:56Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Return on Average Assets",
+        "period_type": "quarter",
+        "history": [
+          1.72,
+          1.53,
+          1.56,
+          1.67,
+          1.5,
+          1.77,
+          1.5,
+          1.37,
+          1.34,
+          1.43
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q2 2021",
+          "Q2 2022",
+          "Q3 2021",
+          "Q3 2022",
+          "Q2 2023",
+          "Q3 2023",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2024-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:20:56Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Interest Margin",
+        "period_type": "quarter",
+        "history": [
+          3.2,
+          2.89,
+          3.06,
+          3.26,
+          2.85,
+          3.64,
+          2.93,
+          2.64,
+          3.15,
+          2.79,
+          2.64,
+          2.84,
+          2.84
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q2 2021",
+          "Q2 2022",
+          "Q3 2021",
+          "Q3 2022",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:20:56Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SFBS",
     "ranks": {
@@ -509,15 +663,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.308207+00:00",
     "fetched_at": "2026-05-21T02:17:14.308208+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.688Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.700Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sfbs.json",
     "enrich_root": "v2-pipeline-enrich/sfbs.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

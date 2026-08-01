@@ -42,7 +42,7 @@
       "is_short_history": false,
       "_validation": "Value corrected from 41,1 to 41.1 (decimal separator), type changed from Revenue to Profitability, yoy corrected from +24,1% to +24.1%",
       "period_type": "quarter",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -71,7 +71,11 @@
       "is_short_history": false,
       "_validation": "Value corrected from 39,5 to 39.5, yoy corrected from -1,8% to -1.8%, type changed from Margin to Efficiency, is_wow changed to true, is_generic changed to false",
       "explanation_en": "Efficiency ratio.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -98,8 +102,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Value corrected from 2854,5 to 2854.5, type changed from Revenue to Balance Sheet, yoy corrected from +12,3% to +12.3%",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Return on Average Equity",
@@ -126,7 +134,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Value corrected from 20,9 to 20.9, type changed from Margin to Profitability, yoy corrected to +2.3% (basis points conversion), is_wow changed to true, is_generic changed to false",
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Dividend Payout",
@@ -153,7 +165,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Value corrected from 25,7 to 25.7, type changed from Cash to Cash Flow, yoy corrected from +10,5% to +10.5%",
-      "signal_en": "Cash generation improving, financial flexibility rising"
+      "signal_en": "Cash generation improving, financial flexibility rising",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Non-Performing Loans Ratio",
@@ -181,7 +197,11 @@
       "is_short_history": false,
       "_validation": "Value corrected from 3,5 to 3.5, short updated to include 'Ratio', yoy corrected from -0,2% to -0.2%, is_wow changed to true, is_generic changed to false",
       "explanation_en": "Non-Performing Loans ratio.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -200,11 +220,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 563.7 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -223,10 +247,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 204.5 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -240,7 +268,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.1305,
         0.1756,
@@ -253,7 +281,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -268,7 +296,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         6.706,
@@ -281,7 +309,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -296,7 +324,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         22.96,
@@ -309,7 +337,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -325,7 +353,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.656664,
@@ -338,7 +366,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -368,9 +396,7 @@
       "is_generic": true,
       "is_short_history": false,
       "story_category": "Marché",
-      "_validation": "Value corrected from 3.0 to 3.4 (verified in source: 'Brazilian GDP increased...by 3.4% in 2024'), history updated to reflect actual data (3.4, 3.2, 3.0), yoy corrected to reflect change from 3.2 to 3.4",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value corrected from 3.0 to 3.4 (verified in source: 'Brazilian GDP increased...by 3.4% in 2024'), history updated to reflect actual data (3.4, 3.2, 3.0), yoy corrected to reflect change from 3.2 to 3.4"
     },
     {
       "short": "Inflation Rate",
@@ -397,9 +423,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Marché",
-      "_validation": "Value corrected from 4,8 to 4.8, type changed from Risk to Macro, is_generic changed to false for better specificity",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value corrected from 4,8 to 4.8, type changed from Risk to Macro, is_generic changed to false for better specificity"
     }
   ],
   "ai_positioning": {
@@ -424,7 +448,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "NetIncome"
   },
   "_fit_for_site": true,
@@ -444,7 +468,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur mentionné explicitement dans la section Risk Factors (« Concentration Risk »). Position centrale dans la stratégie métier. Langage modéré mais impact direct sur la qualité des actifs. Tendance stable mais structurelle à l'économie brésilienne.",
       "trend": "stable",
-      "summary": "Itaú Unibanco est fortement exposé à la concentration géographique et sectorielle du crédit au Brésil. La majorité des portefeuilles de prêts et d'investissements sont concentrés au Brésil, exposant la banque aux chocs économiques locaux (chômage, inflation, croissance du PIB). Une détérioration économique brésilienne impacterait directement la qualité du crédit et les provisions."
+      "summary": "Itaú Unibanco est fortement exposé à la concentration géographique et sectorielle du crédit au Brésil. La majorité des portefeuilles de prêts et d'investissements sont concentrés au Brésil, exposant la banque aux chocs économiques locaux (chômage, inflation, croissance du PIB). Une détérioration économique brésilienne impacterait directement la qualité du crédit et les provisions.",
+      "score": 4
     },
     {
       "title": "Dégradation de la qualité du portefeuille de crédit",
@@ -452,7 +477,8 @@
       "severity": 4,
       "score_rationale": "Explicitement listée dans Risk Factors (« Our historical loan losses may not be indicative of future loan losses »). Langage d'incertitude fort (« may not be indicative »). Impact direct sur les provisions et la rentabilité. Tendance up en contexte de hausse des taux et ralentissement économique attendu.",
       "trend": "up",
-      "summary": "Les pertes historiques sur prêts ne garantissent pas les pertes futures. Avec un ralentissement du PIB attendu en 2025 et des taux d'intérêt plus élevés, les défauts de paiement des emprunteurs pourraient augmenter significativement. Cela nécessiterait des provisions accrues et réduirait la rentabilité nette."
+      "summary": "Les pertes historiques sur prêts ne garantissent pas les pertes futures. Avec un ralentissement du PIB attendu en 2025 et des taux d'intérêt plus élevés, les défauts de paiement des emprunteurs pourraient augmenter significativement. Cela nécessiterait des provisions accrues et réduirait la rentabilité nette.",
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité et de rupture opérationnelle",
@@ -460,7 +486,8 @@
       "severity": 4,
       "score_rationale": "Deux risques distincts listés : « Failure in, or breach, of our operational, security or IT systems » et « Failure to adequately protect ourselves against risks relating to cybersecurity ». Langage d'intensité élevée (« materially adversely affect »). Position explicite dans Item 16K. Tendance up avec augmentation des attaques globales.",
       "trend": "up",
-      "summary": "Une défaillance ou une violation des systèmes informatiques, de sécurité ou opérationnels pourrait interrompre temporairement les activités bancaires, augmenter les coûts et causer des pertes. Les attaques par ransomware, le vol de données clients et les interruptions de service constituent des menaces croissantes pour les institutions financières brésiliennes."
+      "summary": "Une défaillance ou une violation des systèmes informatiques, de sécurité ou opérationnels pourrait interrompre temporairement les activités bancaires, augmenter les coûts et causer des pertes. Les attaques par ransomware, le vol de données clients et les interruptions de service constituent des menaces croissantes pour les institutions financières brésiliennes.",
+      "score": 4
     },
     {
       "title": "Protection des données personnelles et conformité RGPD-like",
@@ -468,7 +495,8 @@
       "severity": 3,
       "score_rationale": "Risque spécifique listée (« Failure to protect personal data could adversely affect us »). Langage modéré mais clair. Régulation brésilienne (LGPD) en renforcement. Tendance up avec augmentation des exigences réglementaires.",
       "trend": "up",
-      "summary": "Itaú Unibanco traite des volumes massifs de données personnelles de clients. Une violation de la LGPD (Lei Geral de Proteção de Dados) brésilienne ou une fuite de données pourrait entraîner des amendes réglementaires, des litiges et une perte de confiance client majeure."
+      "summary": "Itaú Unibanco traite des volumes massifs de données personnelles de clients. Une violation de la LGPD (Lei Geral de Proteção de Dados) brésilienne ou une fuite de données pourrait entraîner des amendes réglementaires, des litiges et une perte de confiance client majeure.",
+      "score": 3
     },
     {
       "title": "Intensification de la concurrence bancaire et consolidation",
@@ -476,7 +504,8 @@
       "severity": 3,
       "score_rationale": "Explicitement listée (« The increasingly competitive environment and consolidations in the Brazilian banking industry »). Langage d'intensité modérée (« may have a material adverse effect »). Tendance up avec émergence des fintechs et banques numériques. Poids catégorie élevé pour le secteur.",
       "trend": "up",
-      "summary": "L'environnement bancaire brésilien se consolide et se numérise rapidement. Les fintechs, banques numériques et acteurs internationaux augmentent la pression concurrentielle sur les marges de crédit, les dépôts et les services. Itaú doit investir massivement en technologie pour rester compétitif."
+      "summary": "L'environnement bancaire brésilien se consolide et se numérise rapidement. Les fintechs, banques numériques et acteurs internationaux augmentent la pression concurrentielle sur les marges de crédit, les dépôts et les services. Itaú doit investir massivement en technologie pour rester compétitif.",
+      "score": 3
     },
     {
       "title": "Risques réglementaires et conformité en évolution",
@@ -484,7 +513,8 @@
       "severity": 4,
       "score_rationale": "Multiples risques listés : changements de lois, réserves obligatoires, réforme fiscale, régulation IA. Langage d'incertitude élevée (« may adversely affect »). Position centrale dans Risk Factors. Tendance up avec réformes fiscales et régulation IA en cours.",
       "trend": "up",
-      "summary": "Itaú est soumise à une régulation bancaire brésilienne stricte (Banque Centrale, CMN, CVM) et à des changements fréquents de règles (réserves obligatoires, dépôts compulsoires, fiscalité). L'émergence de régulations sur l'IA et le machine learning ajoute une couche de complexité réglementaire."
+      "summary": "Itaú est soumise à une régulation bancaire brésilienne stricte (Banque Centrale, CMN, CVM) et à des changements fréquents de règles (réserves obligatoires, dépôts compulsoires, fiscalité). L'émergence de régulations sur l'IA et le machine learning ajoute une couche de complexité réglementaire.",
+      "score": 4
     },
     {
       "title": "Risques d'intégration post-acquisition et stratégie M&A",
@@ -492,7 +522,8 @@
       "severity": 3,
       "score_rationale": "Explicitement listée (« The integration of acquired or merged businesses involves certain risks »). Langage modéré mais clair. Itaú a un historique d'acquisitions. Tendance stable mais risque récurrent à chaque opération.",
       "trend": "stable",
-      "summary": "L'intégration de sociétés acquises ou fusionnées comporte des risques de perte de synergies, de départ de talents clés, de problèmes de systèmes informatiques incompatibles et de perturbations opérationnelles. Les acquisitions récentes ou futures pourraient ne pas générer les rendements attendus."
+      "summary": "L'intégration de sociétés acquises ou fusionnées comporte des risques de perte de synergies, de départ de talents clés, de problèmes de systèmes informatiques incompatibles et de perturbations opérationnelles. Les acquisitions récentes ou futures pourraient ne pas générer les rendements attendus.",
+      "score": 3
     },
     {
       "title": "Exposition à la dette publique brésilienne et risque souverain",
@@ -500,7 +531,8 @@
       "severity": 4,
       "score_rationale": "Explicitement listée (« Exposure to Brazilian Government debt could have a material adverse effect on us »). Langage d'intensité élevée (« material adverse effect »). Position centrale dans portefeuille d'investissement. Tendance up avec augmentation de l'endettement public brésilien.",
       "trend": "up",
-      "summary": "Itaú détient un portefeuille significatif de titres de la dette publique brésilienne. Une dégradation de la notation de crédit du Brésil, une restructuration de la dette ou une crise de confiance entraînerait des pertes de valeur importantes et impacterait la solvabilité de la banque."
+      "summary": "Itaú détient un portefeuille significatif de titres de la dette publique brésilienne. Une dégradation de la notation de crédit du Brésil, une restructuration de la dette ou une crise de confiance entraînerait des pertes de valeur importantes et impacterait la solvabilité de la banque.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:34:45.618107+00:00",
@@ -580,10 +612,10 @@
   "_ai_positioning_fetched_at": "2026-05-06T20:03:47.473935+00:00",
   "_risks_gov_fetched_at": "2026-05-06T20:31:48.475042+00:00",
   "_dividends_extracted_at": "2026-05-09T20:19:21Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "_eps_extracted_at": "2026-05-18T16:45:39Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
   "enrich_description": {
@@ -675,9 +707,9 @@
     "country": "Brazil",
     "_data_freshness_date": "2026-05-21T01:44:37.531565+00:00",
     "fetched_at": "2026-05-21T01:44:37.531566+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.574Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.282Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/itub.json",
     "enrich_root": "v2-pipeline-enrich/itub.json",

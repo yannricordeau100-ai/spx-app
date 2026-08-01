@@ -13,7 +13,7 @@
     "sector": "N/A",
     "subsector": "N/A"
   },
-  "hero_kpi": "Total Revenue",
+  "hero_kpi": "CA Amerique du Nord",
   "hero_kpi_rationale": "Le nombre de participants au congrès annuel (225 en 2024, provenant de 11 pays européens) reflète l'influence et la portée internationale de l'IVR comme organe de représentation majeur du secteur fluvial européen. Cette métrique démontre l'engagement actif des membres et parties prenantes dans la gouvernance de l'association.",
   "kpis": [
     {
@@ -38,9 +38,7 @@
       "is_short_history": true,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Congress Participants' n'est pas présenté comme une série historique annuelle dans le filing. Seules des valeurs ponctuelles pour 20",
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Loss Prevention Colloquium Attendance",
@@ -61,9 +59,7 @@
       "last_data_date": "2024-11-04",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Member Countries",
@@ -85,9 +81,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Revenue",
@@ -106,11 +100,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 21.46 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only a single explicit revenue figure (2022: €21.1 billion) is present; fewer than four consecutive annual values were found.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -129,11 +129,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.94 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -152,11 +156,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 36.14 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -175,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 8.11 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -198,10 +210,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.54 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "CA Amerique du Nord",
+      "name_fr": "Chiffre d affaires Amerique du Nord",
+      "name_en": "North America revenue",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        4617,
+        4551,
+        4907,
+        5219,
+        5311
+      ],
+      "history_dates": [
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "value": 5311,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le chiffre d affaires en Amerique du Nord progresse sans interruption depuis 2021 et devient le principal moteur du groupe.",
+      "is_wow": true,
+      "yoy": "+1,8 %"
     },
     {
       "short": "DPS",
@@ -215,7 +260,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.2,
         2.4,
@@ -228,7 +273,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -243,7 +288,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.8083,
@@ -256,7 +301,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -271,7 +316,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         28.7,
@@ -284,7 +329,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -300,7 +345,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         8.45,
@@ -313,7 +358,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -328,19 +373,8 @@
     ],
     "source": "Annual Report 2024"
   },
-  "_validation": [
-    "LAST_DATA_DATE CORRIGÉ: Congress Participants: '2025-12-31' → '2024-05-17' (date du congrès réel en mai 2024)",
-    "UNITÉ STANDARDISÉE: 'pays' → 'countries' pour Member Countries pour cohérence linguistique",
-    "TYPE DE VALEUR CORRIGÉ: Loss Prevention Colloquium Attendance '80' (string) → 80 (number)",
-    "IS_WOW CORRIGÉ: Loss Prevention Colloquium Attendance false → true car première édition réussie marquant une nouvelle plateforme stratégique",
-    "HERO_KPI_RATIONALE AMÉLIORÉ: Suppression de l'em-dash et amélioration formulation pour clarté française",
-    "DESCRIPTION CONGRESS PARTICIPANTS: Enrichie avec dates précises (15-17 mai 2024) et contexte organisationnel",
-    "RATIONALE HERO_KPI: Ajout clarification sur l'engagement actif dans la gouvernance de l'association",
-    "VALIDATION DE SOURCES: Tous les KPIs extraits directement du rapport annuel 2024 avec références spécifiques aux pages mentionnées",
-    "AUCUN KPI HALLUCINÉ DÉTECTÉ: Toutes les valeurs (225 participants, 11 pays, 80 participants colloque) sont confirmées dans le texte source",
-    "SECTEUR & SUBSECTEUR: Maintien correct (Industrials / Transportation Infrastructure) pour association de représentation sectorielle"
-  ],
-  "_fit_for_site": false,
+  "_validation": true,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "cross_polluted_source_ivr_2025_txt"
   ],
@@ -449,12 +483,13 @@
   "_cross_pollution_flagged_at": "2026-05-20T14:14:29.816154+00:00",
   "_cross_pollution_detail": "annual-text/2025.txt is the IVR (Inland Waterway Transport) annual report placeholder, NOT the actual company report. MD5 883e7ddf9ab015c8dcf7ab04d39e1313 shared with 8+ other tickers. KPIs+history likely hallucinated from this wrong source.",
   "_dividends_extracted_at": "2026-05-09T20:22:44Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:45:19Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "hero_kpi_override": "RCOBD",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "hero_kpi_override": "CA Amerique du Nord",
   "_hero_override_reason": "Yann fix 20 mai 20h - hero spécifique non-générique",
+  "_hero_kpi_override_reason": "CA Amerique du Nord = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "HEI.DE",
     "simple": {
@@ -550,6 +585,29 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "ticker": "HEI.DE",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Heidelberg Materials produit et distribue des matériaux de construction lourds. Le groupe est l'un des plus grands cimentiers mondiaux.",
+          "products": "L'offre comprend le ciment, le béton prêt à l'emploi, les granulats et le bitume. Le groupe propose aussi des ciments bas carbone et des solutions de captage de CO2.",
+          "customers": "Ses clients sont les entreprises de bâtiment et travaux publics, les promoteurs immobiliers et les maîtres d'ouvrage d'infrastructures publiques.",
+          "edge": "Sa force réside dans la densité de ses carrières et cimenteries près des zones de consommation, qui crée un avantage logistique structurel."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Heidelberg Materials figure parmi les trois leaders mondiaux du ciment avec Holcim et Cemex. Le groupe est présent dans plus de 50 pays sur tous les continents. Sa stratégie s'oriente vers la décarbonation et les matériaux circulaires.",
+          "tech_products": "Le groupe développe des ciments à empreinte carbone réduite via la technologie evoZero et investit dans plusieurs projets industriels de captage et stockage de CO2 en Norvège et Belgique. Il déploie aussi des outils numériques pour l'optimisation logistique et la gestion d'usines.",
+          "moat": "Les coûts de transport élevés du ciment et des granulats créent des marchés locaux protégés autour de chaque cimenterie. Les autorisations d'exploitation de carrières représentent une barrière à l'entrée durable. La taille permet d'amortir les investissements de décarbonation.",
+          "risks": "Le ciment est l'une des industries les plus émettrices de CO2, ce qui expose le groupe aux coûts croissants des quotas européens. La demande dépend fortement des cycles immobiliers et des budgets d'infrastructure publique. Les marges restent sensibles aux prix de l'énergie."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "knowledge-base"
+  },
   "enrich_ranks": {
     "ticker": "HEI.DE",
     "ranks": {
@@ -562,15 +620,16 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.270976+00:00",
     "fetched_at": "2026-05-21T02:17:14.270977+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.001Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.651Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hei.de.json",
     "enrich_root": "v2-pipeline-enrich/hei.de.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

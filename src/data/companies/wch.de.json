@@ -90,11 +90,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.49 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only two explicit annual revenue figures (2025: 5.5 B€, 2024: 5.7 B€) are present; fewer than four consecutive years required.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -113,11 +119,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.82 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -136,11 +146,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.37 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -159,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.35 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -182,10 +200,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.1 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -238,7 +260,8 @@
       "severity": 4,
       "score_rationale": "Mentionné en première partie du rapport (CEO Letter), langage fort ('fierce competition', 'overcapacities'), tendance stable, catégorie centrale pour le business model.",
       "trend": "stable",
-      "summary": "La surcapacité mondiale pour les produits chimiques standards intensifie la pression concurrentielle, notamment en Asie et aux États-Unis, réduisant les marges et la demande pour WACKER."
+      "summary": "La surcapacité mondiale pour les produits chimiques standards intensifie la pression concurrentielle, notamment en Asie et aux États-Unis, réduisant les marges et la demande pour WACKER.",
+      "score": 4
     },
     {
       "title": "Désavantages structurels en Europe",
@@ -246,7 +269,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le discours du CEO, langage alarmiste ('far too high' pour l'énergie), tendance stable, poids élevé sur la compétitivité.",
       "trend": "stable",
-      "summary": "Les coûts énergétiques élevés et la réglementation excessive en Europe nuisent à la compétitivité de WACKER face à ses concurrents américains et asiatiques."
+      "summary": "Les coûts énergétiques élevés et la réglementation excessive en Europe nuisent à la compétitivité de WACKER face à ses concurrents américains et asiatiques.",
+      "score": 5
     },
     {
       "title": "Dépendance aux marchés géopolitiques instables",
@@ -254,7 +278,8 @@
       "severity": 4,
       "score_rationale": "Évoqué à plusieurs reprises (CEO et Supervisory Board), langage marqué ('geopolitical crises', 'trade conflicts'), tendance stable, impact direct sur la demande.",
       "trend": "stable",
-      "summary": "Les tensions géopolitiques et les conflits commerciaux affectent la stabilité des chaînes d'approvisionnement et réduisent la demande dans les secteurs clients clés."
+      "summary": "Les tensions géopolitiques et les conflits commerciaux affectent la stabilité des chaînes d'approvisionnement et réduisent la demande dans les secteurs clients clés.",
+      "score": 4
     },
     {
       "title": "Réglementation excessive en Europe",
@@ -262,7 +287,8 @@
       "severity": 4,
       "score_rationale": "Cité explicitement par le CEO, langage critique ('excessive regulation'), tendance stable, impact structurel sur les coûts et l'innovation.",
       "trend": "stable",
-      "summary": "La surréglementation en Europe augmente les coûts opérationnels et ralentit l'innovation, affaiblissant la position concurrentielle de WACKER."
+      "summary": "La surréglementation en Europe augmente les coûts opérationnels et ralentit l'innovation, affaiblissant la position concurrentielle de WACKER.",
+      "score": 4
     },
     {
       "title": "Investissements stratégiques dans les biotechnologies",
@@ -270,7 +296,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans les priorités stratégiques, langage positif mais prudent ('growth opportunities'), tendance en hausse, risque lié à l'adoption et au retour sur investissement.",
       "trend": "up",
-      "summary": "Le développement de solutions biotechnologiques pour la pharma et l’alimentaire représente un pari technologique dont la rentabilité dépend de l'acceptation du marché et des régulations."
+      "summary": "Le développement de solutions biotechnologiques pour la pharma et l’alimentaire représente un pari technologique dont la rentabilité dépend de l'acceptation du marché et des régulations.",
+      "score": 3
     },
     {
       "title": "Cybersécurité liée à la digitalisation accélérée",
@@ -278,7 +305,8 @@
       "severity": 3,
       "score_rationale": "Évoqué indirectement via la digitalisation et l'IA, langage neutre mais implicite, tendance en hausse, risque croissant avec l'automatisation.",
       "trend": "up",
-      "summary": "L’accélération de la digitalisation et l’intégration de l’IA augmentent l’exposition aux cyberattaques, menaçant la continuité opérationnelle et la propriété intellectuelle."
+      "summary": "L’accélération de la digitalisation et l’intégration de l’IA augmentent l’exposition aux cyberattaques, menaçant la continuité opérationnelle et la propriété intellectuelle.",
+      "score": 3
     },
     {
       "title": "Dépendance à la qualité du polysilicium hyperpur",
@@ -286,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Position centrale dans la stratégie (CEO), langage fort ('global leader'), tendance stable, enjeu critique pour la réputation et la compétitivité.",
       "trend": "stable",
-      "summary": "La position de leader de WACKER dépend de sa capacité à maintenir la qualité supérieure de son polysilicium pour semi-conducteurs, face à des concurrents émergents."
+      "summary": "La position de leader de WACKER dépend de sa capacité à maintenir la qualité supérieure de son polysilicium pour semi-conducteurs, face à des concurrents émergents.",
+      "score": 4
     },
     {
       "title": "Réduction d'effectifs liée au projet PACE",
@@ -294,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Mentionné par le CEO comme essentiel mais risqué, langage préoccupé ('change brings uncertainty'), tendance stable, impact sur la culture et la performance.",
       "trend": "stable",
-      "summary": "La suppression de plus de 1 500 postes, notamment en Allemagne, risque d’affecter la cohésion, la connaissance interne et la capacité d’innovation de l’entreprise."
+      "summary": "La suppression de plus de 1 500 postes, notamment en Allemagne, risque d’affecter la cohésion, la connaissance interne et la capacité d’innovation de l’entreprise.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:39:57.827110+00:00",
@@ -433,7 +463,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.407Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:07.080Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wch.de.json",
     "enrich_root": null,

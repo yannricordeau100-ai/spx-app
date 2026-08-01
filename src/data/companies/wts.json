@@ -75,8 +75,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 448.1,
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -96,7 +100,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Total Revenue",
@@ -115,34 +119,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.44 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "+17.2%",
       "history": [
-        0.25,
-        0.26,
-        0.29,
-        0.34
+        250,
+        260,
+        290,
+        340
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.34 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,56 +174,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.88 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.15,
-        0.3,
-        0.2,
-        0.2
+        150,
+        300,
+        200,
+        200
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.2 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "+5.1%",
       "history": [
-        0.31,
-        0.35,
-        0.39,
-        0.41
+        310,
+        350,
+        390,
+        410
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.41 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -254,7 +281,8 @@
       "severity": 4,
       "score_rationale": "Explicitly mentioned with significant impact on product costs and gross profit. U.S. Supreme Court decision in February 2026 invalidating tariffs creates uncertainty for future trade policy and supply chain planning",
       "trend": "up",
-      "summary": "Tariffs imposed on foreign imports have increased product costs and could adversely impact gross profit margins. Recent Supreme Court decision introduces uncertainty regarding future trade policy actions"
+      "summary": "Tariffs imposed on foreign imports have increased product costs and could adversely impact gross profit margins. Recent Supreme Court decision introduces uncertainty regarding future trade policy actions",
+      "score": 4
     },
     {
       "title": "Inflation",
@@ -262,7 +290,8 @@
       "severity": 4,
       "score_rationale": "Explicitly mentioned regarding material, labor and overhead costs. Company continues to experience inflation despite management efforts to mitigate impact through pricing actions and productivity improvements",
       "trend": "stable",
-      "summary": "Ongoing inflation in material, labor and overhead costs partially offsets gains from price increases and volume growth"
+      "summary": "Ongoing inflation in material, labor and overhead costs partially offsets gains from price increases and volume growth",
+      "score": 4
     },
     {
       "title": "Foreign Exchange Risk",
@@ -270,7 +299,8 @@
       "severity": 3,
       "score_rationale": "Explicitly mentioned with favorable 14.8 million impact from USD depreciation against euro in 2025. Global operations expose company to currency fluctuations across Americas, Europe and APMEA segments",
       "trend": "stable",
-      "summary": "Company exposed to foreign exchange fluctuations across multiple geographic markets, with significant operations in Europe and APMEA"
+      "summary": "Company exposed to foreign exchange fluctuations across multiple geographic markets, with significant operations in Europe and APMEA",
+      "score": 3
     },
     {
       "title": "Geographic Market Exposure",
@@ -278,7 +308,8 @@
       "severity": 3,
       "score_rationale": "European economy remains weak with geopolitical uncertainties explicitly mentioned. Europe segment experienced lower volumes in 2025, suggesting market weakness in this geography",
       "trend": "stable",
-      "summary": "Weak European economic conditions and geopolitical uncertainties may adversely affect future financial results, particularly for Europe segment operations"
+      "summary": "Weak European economic conditions and geopolitical uncertainties may adversely affect future financial results, particularly for Europe segment operations",
+      "score": 3
     },
     {
       "title": "Dependence on Acquisitions for Growth",
@@ -286,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Company has completed 17 acquisitions since 2016 and 8 acquisitions in the last three years as core part of growth strategy. Acquisition sales represented 2.3% of 2025 reported sales growth, indicating material dependence on M&A for growth continuation",
       "trend": "up",
-      "summary": "Company relies on strategic acquisitions as key driver of growth and market expansion, with 17 acquisitions since 2016 and aggressive 2-acquisition completion in 2025 alone"
+      "summary": "Company relies on strategic acquisitions as key driver of growth and market expansion, with 17 acquisitions since 2016 and aggressive 2-acquisition completion in 2025 alone",
+      "score": 4
     },
     {
       "title": "Economic Uncertainty and Construction Market",
@@ -294,7 +326,8 @@
       "severity": 3,
       "score_rationale": "Management notes mixed new construction indicators with multi-family, single-family, office, retail and recreation expected to be down. Trade policy uncertainty may result in reduced economic activity despite positive GDP expectations",
       "trend": "stable",
-      "summary": "Trade policy uncertainty and mixed construction indicators create headwinds for new construction markets, though repair and replacement business supported by expected positive GDP"
+      "summary": "Trade policy uncertainty and mixed construction indicators create headwinds for new construction markets, though repair and replacement business supported by expected positive GDP",
+      "score": 3
     },
     {
       "title": "Integration and Execution Risk",
@@ -302,7 +335,8 @@
       "severity": 3,
       "score_rationale": "Multiple recent acquisitions (Saudi Cast and Superior Boiler in Nov 2025) must be successfully integrated. Company also pursuing restructuring actions and incremental investments while managing inflation and tariffs",
       "trend": "stable",
-      "summary": "Success depends on effective integration of recent acquisitions, execution of restructuring initiatives and maintaining productivity while managing multiple cost pressures"
+      "summary": "Success depends on effective integration of recent acquisitions, execution of restructuring initiatives and maintaining productivity while managing multiple cost pressures",
+      "score": 3
     },
     {
       "title": "Regulatory Compliance Requirements",
@@ -310,7 +344,8 @@
       "severity": 3,
       "score_rationale": "Products subject to stringent regulatory standards and code enforcement. Compliance requirements represent competitive advantage but also ongoing cost and operational obligations",
       "trend": "stable",
-      "summary": "Products must meet stringent performance criteria and plumbing codes, requiring continuous investment in quality control, testing procedures and manufacturing compliance"
+      "summary": "Products must meet stringent performance criteria and plumbing codes, requiring continuous investment in quality control, testing procedures and manufacturing compliance",
+      "score": 3
     }
   ],
   "governance": {
@@ -355,7 +390,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -528,23 +563,18 @@
         "history": [
           880.3,
           1335.3,
-          -819.7,
           463.2,
           989.8,
           1477.6,
-          -951.1,
           471.7,
           1004.5,
           1508.8,
-          -928.7,
           570.9,
           1168.2,
           1711.8,
-          -1198.7,
           558,
           1201.7,
           1813.4,
-          -1134.6,
           677.3
         ],
         "history_periods": [
@@ -598,6 +628,12 @@
             "accession": "0001104659-26-056817",
             "end": "2026-03-29"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (WTS)"
         ]
       }
     ]
@@ -614,9 +650,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.330481+00:00",
     "fetched_at": "2026-05-21T02:17:14.330482+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.640Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.787Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wts.json",
     "enrich_root": "v2-pipeline-enrich/wts.json",

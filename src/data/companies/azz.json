@@ -49,7 +49,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:27.964454+00:00",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -74,7 +74,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 1.65,
-      "explanation_en": "Sales — total sales generated over the period.",
+      "explanation_en": "Sales, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -99,7 +99,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 23.9,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -124,7 +124,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 264.6,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -149,7 +149,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 10.5,
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -174,7 +174,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 525.4,
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -194,34 +194,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.21 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.54,
-      "unit": "Mds €",
+      "value": 540,
+      "unit": "M €",
       "yoy": "-38.6%",
       "history": [
-        1.09,
-        0.98,
-        0.88,
-        0.54
+        1090,
+        980,
+        880,
+        540
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.54 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -235,7 +244,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2022-2026). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2022-2026). ex-div dates.",
       "history": [
         0.68,
         0.68,
@@ -248,7 +257,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -263,7 +272,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2022-2026) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2022-2026) en milliards USD. cashflow.",
       "history": [
         null,
         0.0227,
@@ -276,7 +285,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -291,7 +300,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2022-2026). Source yfinance.",
+      "description": "Dividendes / résultat net (2022-2026).",
       "history": [
         null,
         null,
@@ -304,7 +313,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -320,7 +329,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2022-2026). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2022-2026). income statement (Diluted EPS).",
       "history": [
         null,
         -2.47,
@@ -333,7 +342,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -396,43 +405,43 @@
       "title": "Dépendance aux résultats du JV AVAIL",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le bénéfice net de 317,3 M$ en 2026 provient principalement des gains sur la vente d'actifs par le JV AVAIL (204,5 M$). Une baisse future des revenus de ce JV impacterait directement la rentabilité globale, comme indiqué dans les résultats opérationnels. Le langage souligne une dépendance critique à cette source non récurrente. (score par défaut, à affiner)",
+      "score_rationale": "Le bénéfice net de 317,3 M$ en 2026 provient principalement des gains sur la vente d'actifs par le JV AVAIL (204,5 M$). Une baisse future des revenus de ce JV impacterait directement la rentabilité globale, comme indiqué dans les résultats opérationnels. Le langage souligne une dépendance critique à cette source non récurrente.",
       "trend": "stable",
       "summary": "La rentabilité d'AZZ dépend fortement des revenus non récurrents et des résultats du joint-venture AVAIL, ce qui crée un risque existentiel en cas de sous-performance future.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Pressions concurrentielles sur les prix",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le document mentionne explicitement des pressions concurrentielles affectant les prix de vente dans les segments Metal Coatings et Precoat Metals. Ces pressions sont récurrentes et spécifiques aux dynamiques de marché, ce qui indique un risque structurel modéré à élevé. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne explicitement des pressions concurrentielles affectant les prix de vente dans les segments Metal Coatings et Precoat Metals. Ces pressions sont récurrentes et spécifiques aux dynamiques de marché, ce qui indique un risque structurel modéré à élevé.",
       "trend": "stable",
       "summary": "Les prix de vente sont sous pression en raison de la concurrence et des fluctuations de la demande, ce qui peut réduire les marges bénéficiaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fluctuations de la demande sectorielle",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La demande est liée aux marchés de la construction, de l'industrie et des transports, dont les variations sont notées comme impactant directement les volumes (ex. baisse de 2,3% dans Precoat Metals). Le risque est répété dans l'analyse de l'activité et des perspectives. (score par défaut, à affiner)",
+      "score_rationale": "La demande est liée aux marchés de la construction, de l'industrie et des transports, dont les variations sont notées comme impactant directement les volumes (ex. baisse de 2,3% dans Precoat Metals). Le risque est répété dans l'analyse de l'activité et des perspectives.",
       "trend": "stable",
       "summary": "Les volumes de ventes dépendent de la santé économique des secteurs de la construction, de l'industrie et des transports, sujets à des cycles économiques imprévisibles.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux coûts des matières premières",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La hausse des coûts du zinc, de la main-d'œuvre et des frais généraux est citée comme facteur d'augmentation du coût des ventes (66,8 M$). Bien que non explicitement nommé comme risque, l'impact réel sur la marge brute est significatif. (score par défaut, à affiner)",
+      "score_rationale": "La hausse des coûts du zinc, de la main-d'œuvre et des frais généraux est citée comme facteur d'augmentation du coût des ventes (66,8 M$). Bien que non explicitement nommé comme risque, l'impact réel sur la marge brute est significatif.",
       "trend": "stable",
       "summary": "Les augmentations des coûts des matières premières, notamment le zinc, et des charges de main-d'œuvre peuvent comprimer les marges si non répercutées aux clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concentration de liquidités limitée",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "La trésorerie disponible est limitée, malgré une capacité de crédit substantielle. Cette réserve de liquidités immédiates pourrait poser problème en cas de choc imprévu, bien que la disponibilité du crédit atténue le risque. (score par défaut, à affiner)",
+      "score_rationale": "La trésorerie disponible est limitée, malgré une capacité de crédit substantielle. Cette réserve de liquidités immédiates pourrait poser problème en cas de choc imprévu, bien que la disponibilité du crédit atténue le risque.",
       "trend": "stable",
       "summary": "AZZ détient relativement peu de liquidités en espèces, ce qui limite sa capacité à faire face à des besoins immédiats sans recourir à son crédit.",
       "score": 3
@@ -441,7 +450,7 @@
       "title": "Risques juridiques et contentieux",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Le segment Infrastructure Solutions a enregistré 6,5 M$ de charges liées à des litiges en 2025, et 1,2 M$ en 2026. Ces montants récurrents indiquent une exposition continue aux risques juridiques, bien que moindre qu'auparavant. (score par défaut, à affiner)",
+      "score_rationale": "Le segment Infrastructure Solutions a enregistré 6,5 M$ de charges liées à des litiges en 2025, et 1,2 M$ en 2026. Ces montants récurrents indiquent une exposition continue aux risques juridiques, bien que moindre qu'auparavant.",
       "trend": "down",
       "summary": "AZZ fait face à des risques juridiques persistants, notamment liés à des contentieux passés et à des créances litigieuses.",
       "score": 3
@@ -450,7 +459,7 @@
       "title": "Intégration et performance des acquisitions",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Une acquisition de 30,1 M$ à Canton, Ohio, est mentionnée. Bien que non explicitement présentée comme un risque, l'intégration d'actifs industriels comporte des risques opérationnels et financiers, surtout dans un contexte de restructuration récente. (score par défaut, à affiner)",
+      "score_rationale": "Une acquisition de 30,1 M$ à Canton, Ohio, est mentionnée. Bien que non explicitement présentée comme un risque, l'intégration d'actifs industriels comporte des risques opérationnels et financiers, surtout dans un contexte de restructuration récente.",
       "trend": "new",
       "summary": "Les récentes acquisitions nécessitent une intégration réussie pour générer des synergies, faute de quoi elles pourraient détruire de la valeur.",
       "score": 3
@@ -485,7 +494,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "NetIncome"
   },
   "_fit_for_site": true,
@@ -537,7 +546,6 @@
       "date": "2026-04-24"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T19:54:56.233835+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2026-02-28",
@@ -560,9 +568,10 @@
     ],
     "total": 1.65
   },
+  "_ai_positioning_fetched_at": "2026-05-06T19:54:56.233835+00:00",
   "_segments_fetched_at": "2026-05-06T19:24:10.355259+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:34Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2026)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2026)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2017,
@@ -583,7 +592,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:49Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:44Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "AZZ",
     "simple": {
@@ -730,7 +739,10 @@
             "accession": "0000008947-20-000159",
             "end": "2020-05-31"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -746,9 +758,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.227394+00:00",
     "fetched_at": "2026-05-21T02:17:14.227395+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.316Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.785Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/azz.json",
     "enrich_root": "v2-pipeline-enrich/azz.json",

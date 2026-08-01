@@ -119,7 +119,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Bénéfice opérationnel",
@@ -223,11 +223,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,9 +253,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Revenu International/Offshore",
@@ -271,9 +273,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Acquisitions 2025",
@@ -293,13 +293,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Stratégie",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Stratégie"
     }
   ],
   "ai_positioning": {
-    "stance": "indirect",
+    "stance": "absent",
     "summary": "Innovex ne positionne pas explicitement l'IA comme un élément stratégique principal. Cependant, la société identifie la demande croissante d'énergie des data centers alimentée par l'IA comme un facteur de croissance future pour la demande de gaz naturel pour la génération d'électricité.",
     "evidence": [
       "We expect that the growing energy demands of data centers, driven by the prevalence of Artificial Intelligence, will continue to contribute to the consumption of natural gas for power generation."
@@ -313,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné dans le Item 1A comme affectant la liquidité, la position financière et les résultats. Le langage est direct et préoccupant, sans atténuation apparente. La société opère internationalement (48% du revenu hors NAM), ce qui renforce l'exposition. La catégorie Macro a une pondération élevée.",
       "trend": "stable",
-      "summary": "Les variations des taux de change peuvent nuire à la performance financière en raison des opérations internationales de la société."
+      "summary": "Les variations des taux de change peuvent nuire à la performance financière en raison des opérations internationales de la société.",
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -321,7 +320,8 @@
       "severity": 2,
       "score_rationale": "Identifié dans le Item 1A, lié à la facilité de crédit révisée de 200 millions avec taux variables (SOFR ou base rate). Aucun montant dû au 31 décembre 2025, ce qui atténue significativement le risque immédiat. La sévérité est réduite en raison de l'absence de dette actuelle.",
       "trend": "stable",
-      "summary": "La société dispose d'une ligne de crédit de 200 millions avec taux variables mais sans tirage actuel, limitant l'exposition aux risques de taux d'intérêt."
+      "summary": "La société dispose d'une ligne de crédit de 200 millions avec taux variables mais sans tirage actuel, limitant l'exposition aux risques de taux d'intérêt.",
+      "score": 2
     },
     {
       "title": "Dépendance aux contrôles de divulgation",
@@ -329,7 +329,8 @@
       "severity": 2,
       "score_rationale": "Le rapport confirme l'efficacité des contrôles de divulgation au 31 décembre 2025. Le langage est standard mais le jugement positif du CEO et CFO réduit le risque perçu. La mention systématique indique une vigilance continue requise mais sans signaux d'alarme.",
       "trend": "stable",
-      "summary": "Les contrôles internes sont jugés efficaces, mais leur nature imparfaite implique un risque résiduel de mauvaise information financière."
+      "summary": "Les contrôles internes sont jugés efficaces, mais leur nature imparfaite implique un risque résiduel de mauvaise information financière.",
+      "score": 2
     },
     {
       "title": "Risque lié aux changements de structure juridique",
@@ -337,7 +338,8 @@
       "severity": 3,
       "score_rationale": "Multiples amendements aux statuts (septembre 2024 et mai 2025) et accords d'actionnaires indiquent une transformation structurelle. Cependant, la stabilité de la gouvernance avec un CEO en place (Adam Anderson) et une structure capitalistique claire atténue partiellement le risque.",
       "trend": "stable",
-      "summary": "Les changements récents dans les statuts et accords d'actionnaires augmentent la complexité réglementaire mais semblent maîtrisés par la gouvernance existante."
+      "summary": "Les changements récents dans les statuts et accords d'actionnaires augmentent la complexité réglementaire mais semblent maîtrisés par la gouvernance existante.",
+      "score": 3
     },
     {
       "title": "Intégration de fusions et acquisitions",
@@ -345,7 +347,8 @@
       "severity": 5,
       "score_rationale": "Trois acquisitions majeures en moins de deux ans (mars 2024, novembre 2024, février et mai 2025). L'intégration de Citadel (69,7M) et SCF (17,7M) en 2025 pose des risques opérationnels, culturels et financiers. La charge d'intégration simultanée est élevée pour une société de cette taille. Catégorie Industriel critique pour une société en transformation.",
       "trend": "new",
-      "summary": "La série d'acquisitions récentes (87,4M en 2025 seul) expose la société à des risques d'intégration majeurs affectant les synergies anticipées et la performance."
+      "summary": "La série d'acquisitions récentes (87,4M en 2025 seul) expose la société à des risques d'intégration majeurs affectant les synergies anticipées et la performance.",
+      "score": 5
     },
     {
       "title": "Volatilité cyclique du secteur pétrolier et gazier",
@@ -353,7 +356,8 @@
       "severity": 4,
       "score_rationale": "Le secteur est intrinsèquement exposé aux cycles de forage mondiaux et aux prix des hydrocarbures. Les prévisions de Rystad Energy montrent une stabilité attendue mais avec des risques de volatilité géopolitique (OPEC+, sanctions). La dépendance du revenu à l'activité de forage est structurelle.",
       "trend": "stable",
-      "summary": "Les cycles de forage mondiaux et la volatilité des prix des hydrocarbures affectent directement le nombre de puits forés et la demande pour les produits d'Innovex."
+      "summary": "Les cycles de forage mondiaux et la volatilité des prix des hydrocarbures affectent directement le nombre de puits forés et la demande pour les produits d'Innovex.",
+      "score": 4
     },
     {
       "title": "Dilution et structure de gouvernance",
@@ -361,7 +365,8 @@
       "severity": 3,
       "score_rationale": "Jason Turowsky et Amberjack Capital Partners détiennent chacun 33,2% du capital, créant une structure de contrôle paritaire atypique. Cette concentration pourrait affecter la direction stratégique future et les décisions d'acquisition.",
       "trend": "stable",
-      "summary": "La structure de propriété concentrée entre deux acteurs dominants pose un risque de gouvernance en cas de désaccord stratégique."
+      "summary": "La structure de propriété concentrée entre deux acteurs dominants pose un risque de gouvernance en cas de désaccord stratégique.",
+      "score": 3
     }
   ],
   "governance": {
@@ -494,7 +499,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.469Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.616Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/invx.json",
     "enrich_root": null,

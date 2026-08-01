@@ -39,8 +39,11 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mille $' à 'K$', histoire réordonnée par année décroissante (2025, 2024, 2023)",
-      "period_type": "quarter",
-      "signal_en": "Margin expansion, operating leverage"
+      "period_type": "year",
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "FFO",
@@ -65,7 +68,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mille $' à 'K$', history augmentée avec valeur 2025, réordonnée par année décroissante",
-      "explanation_en": "Funds From Operations — net income plus depreciation and amortization (REITs).",
+      "explanation_en": "Funds From Operations, net income plus depreciation and amortization (REITs).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -91,7 +94,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mille $' à 'K$', type corrigé de 'Revenue' à 'Profitability', histoire réordonnée par année décroissante (2025, 2024, 2023)",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -111,34 +114,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.08 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+200.0%",
       "history": [
-        0.06,
-        0.02,
-        0.02,
-        0.06
+        60,
+        20,
+        20,
+        60
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.06 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.81 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -180,33 +196,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.43 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "+75.0%",
       "history": [
-        0.31,
-        0.16,
-        0.08,
-        0.14
+        310,
+        160,
+        80,
+        140
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.14 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -220,7 +245,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         0.2,
@@ -233,7 +258,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -248,7 +273,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0399,
@@ -261,7 +286,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -276,7 +301,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         20.98,
@@ -289,7 +314,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -305,7 +330,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.49,
@@ -318,7 +343,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -359,16 +384,16 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un secteur hautement concurrentiel où l'offre nouvelle affecte la capacité à maintenir les tarifs et taux d'occupation. L'ajout de nouvelles chambres d'hôtel compétitives peut exercer une pression sur les prix et les marges de RevPAR. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un secteur hautement concurrentiel où l'offre nouvelle affecte la capacité à maintenir les tarifs et taux d'occupation. L'ajout de nouvelles chambres d'hôtel compétitives peut exercer une pression sur les prix et les marges de RevPAR.",
       "trend": "stable",
       "summary": "La concurrence dans le secteur hôtelier peut affecter les revenus et les marges de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance des gestionnaires tiers",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "La société dépend de la performance des sociétés de gestion hôtelière tierces qui gèrent les opérations. Une mauvaise prestation de services peut avoir un impact négatif matériel sur les résultats. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de la performance des sociétés de gestion hôtelière tierces qui gèrent les opérations. Une mauvaise prestation de services peut avoir un impact négatif matériel sur les résultats.",
       "trend": "stable",
       "summary": "La société est dépendante de la qualité des services fournis par ses gestionnaires tiers.",
       "score": 3
@@ -377,16 +402,16 @@
       "title": "Coûts fixes élevés",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société a des coûts fixes importants (personnel, loyers, taxes, assurances, utilitaires, marketing). Une baisse de la demande sans réduction proportionnelle des coûts peut diminuer significativement les revenus nets et les marges. (score par défaut, à affiner)",
+      "score_rationale": "La société a des coûts fixes importants (personnel, loyers, taxes, assurances, utilitaires, marketing). Une baisse de la demande sans réduction proportionnelle des coûts peut diminuer significativement les revenus nets et les marges.",
       "trend": "stable",
       "summary": "Les coûts fixes de la société peuvent être difficiles à réduire rapidement en cas de baisse de la demande.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Saisonnalité",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Le secteur hôtelier est saisonnier, causant des fluctuations dans les revenus d'occupation, les tarifs et les flux de trésorerie d'exploitation selon la localisation et le type de propriété. (score par défaut, à affiner)",
+      "score_rationale": "Le secteur hôtelier est saisonnier, causant des fluctuations dans les revenus d'occupation, les tarifs et les flux de trésorerie d'exploitation selon la localisation et le type de propriété.",
       "trend": "stable",
       "summary": "La saisonnalité du secteur hôtelier peut affecter les revenus et les résultats de la société.",
       "score": 3
@@ -395,19 +420,19 @@
       "title": "Dépréciation des actifs immobiliers",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "La société doit évaluer régulièrement la valeur de ses 30 propriétés hôtelières (8 868 chambres). Une diminution significative de la valeur des actifs peut entraîner des pertes de dépréciation matérielles. (score par défaut, à affiner)",
+      "score_rationale": "La société doit évaluer régulièrement la valeur de ses 30 propriétés hôtelières (8 868 chambres). Une diminution significative de la valeur des actifs peut entraîner des pertes de dépréciation matérielles.",
       "trend": "up",
       "summary": "La société doit surveiller de près la valeur de ses actifs pour éviter des pertes importantes en cas de diminution de leur valeur.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques macro-économiques",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "La société est exposée aux fluctuations économiques et aux changements de conjoncture qui affectent la demande de voyages et de séjours hôteliers, impactant directement les revenus. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux fluctuations économiques et aux changements de conjoncture qui affectent la demande de voyages et de séjours hôteliers, impactant directement les revenus.",
       "trend": "up",
       "summary": "La société est exposée aux risques macro-économiques qui peuvent affecter la demande et les revenus.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -425,7 +450,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -530,7 +555,7 @@
   "_segments_fetched_at": "2026-05-06T19:47:23.512569+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:20:27.044984+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:31Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2015,
@@ -553,7 +578,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:23Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:26Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "XHR",
     "simple": {
@@ -660,8 +685,6 @@
         "short": "Net income",
         "period_type": "quarter",
         "history": [
-          -98.389,
-          -120.582,
           131.805,
           -5.324,
           22.324,
@@ -678,7 +701,6 @@
           15.585,
           70.742,
           57.004,
-          -80.243,
           19.771
         ],
         "history_periods": [
@@ -732,6 +754,12 @@
             "accession": "0001628280-26-029383",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (XHR)"
         ]
       }
     ]
@@ -748,9 +776,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.331081+00:00",
     "fetched_at": "2026-05-21T02:17:14.331081+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.689Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.852Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/xhr.json",
     "enrich_root": "v2-pipeline-enrich/xhr.json",

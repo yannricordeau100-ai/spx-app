@@ -63,7 +63,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -87,7 +87,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "EBITDA Margin — EBITDA divided by revenue.",
+      "explanation_en": "EBITDA Margin : EBITDA divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -135,7 +135,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Pressure, deteriorating trend"
     },
     {
@@ -159,7 +159,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -190,24 +190,29 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.83,
-      "unit": "Mds €",
+      "value": 830,
+      "unit": "M €",
       "yoy": "+3.7%",
       "history": [
-        0.73,
-        0.88,
-        0.8,
-        0.83
+        730,
+        880,
+        800,
+        830
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.83 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -221,7 +226,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2020-2024). ex-div dates.",
       "history": [
         0.1751,
         0.3812,
@@ -234,7 +239,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -249,7 +254,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2020-2024) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2020-2024) en milliards EUR. cashflow.",
       "history": [
         null,
         0.0999,
@@ -262,7 +267,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -277,7 +282,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2020-2024). Source yfinance.",
+      "description": "Dividendes / résultat net (2020-2024).",
       "history": [
         null,
         13.8,
@@ -290,7 +295,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -306,7 +311,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         2.76,
@@ -319,7 +324,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -505,10 +510,10 @@
   "company_description": "Laboratorios Farmaceuticos Rovi, S.A. manufactures, sells, and markets pharmaceutical products in Spain, European Union, OECD countries, and internationally. The company offers prescription products, including Ameride, Bertanel, Bluxam, Enoxaparin Rovi, Calcium Vitamine D3 Rovi, Exxiv, Prinvil, Rhodogil, Glufan, Hibor, Hirobriz Breezhaler, Neparvis, Mysimba, Orvatez, Tryptizol, Ulunar Breezhaler, and Volutsa. It also provides hospital products, such as Iomeron and Iopamiro, Multihance and Y Prohance, Sonovue, Empowercta+, Empowermr, and CT Express; catheter care under the Fibrilin brand; and Sodium Heparin Rovi. In addition, the company offers contract-manufacturing services comprising compounding, sterile filling and terminal sterilisation, inspection, installation of safety devices, labelling, packaging, serialisation and aggregation, for different injectable pharmaceutical forms, such as prefilled syringes, vials and cartridges, as well as manufacturing and packaging services for solid products. Further, it offers low-molecular-weight heparin, Okedi, and Rolcya; and develops Letrozole SIE and Risperidone QUAR. Its products are used for cardiology, osteoarticular/women's health, ",
   "last_data_date": "2025-12-31",
   "_dividends_extracted_at": "2026-05-09T20:22:49Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2024)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2024)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:47:12Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "ROVI.MC",
     "fetched_at": "2026-05-14T18:26:42.107368+00:00",
@@ -545,9 +550,9 @@
     "country": "Spain",
     "_data_freshness_date": "2026-05-21T02:17:14.304686+00:00",
     "fetched_at": "2026-05-21T02:17:14.304687+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.352Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.365Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rovi.mc.json",
     "enrich_root": "v2-pipeline-enrich/rovi.mc.json",

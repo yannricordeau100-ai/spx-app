@@ -38,9 +38,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 160.587,
-      "period_type": "quarter",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "period_type": "year",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Capex",
@@ -62,10 +65,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Gross Margin",
@@ -87,9 +88,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Long-term Debt",
@@ -110,9 +109,7 @@
       "last_data_date": "2025-09-30",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Cash Balance",
@@ -179,34 +176,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.95 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.76,
-      "unit": "Mds €",
+      "value": 760,
+      "unit": "M €",
       "yoy": "+33.3%",
       "history": [
-        0.55,
-        0.61,
-        0.57,
-        0.76
+        550,
+        610,
+        570,
+        760
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.76 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -232,9 +238,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "ttm": 160.587,
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 160.587
     }
   ],
   "ai_positioning": {
@@ -254,7 +258,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est mentionné dans la section 'Market Risk Disclosures' (ITEM 7A). L'intensité du langage souligne que les bénéfices sont affectés par les changements des valeurs de l'or et des taux de change des devises étrangères. Ce risque est pondéré par sa nature macroéconomique et son impact direct sur les revenus et la position financière.",
       "trend": "stable",
-      "summary": "Les variations des prix de l'or et des taux de change des devises étrangères peuvent affecter négativement les résultats financiers et la position de l'entreprise."
+      "summary": "Les variations des prix de l'or et des taux de change des devises étrangères peuvent affecter négativement les résultats financiers et la position de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risques liés à la reconnaissance des revenus",
@@ -262,7 +267,8 @@
       "severity": 4,
       "score_rationale": "Identifié comme un Critical Audit Matter par les auditeurs (rapport BDO USA, P.C.), indiquant une complexité et un jugement subjectif importants. La nature des ventes de marchandises et des frais de service de prêt sur gages aux États-Unis et au Mexique est jugée difficile à auditer, ce qui soulève des préoccupations potentielles.",
       "trend": "stable",
-      "summary": "La manière dont les revenus des ventes de marchandises et des services de prêt sur gages sont reconnus, en particulier aux États-Unis et au Mexique, présente des défis d'audit et des risques potentiels."
+      "summary": "La manière dont les revenus des ventes de marchandises et des services de prêt sur gages sont reconnus, en particulier aux États-Unis et au Mexique, présente des défis d'audit et des risques potentiels.",
+      "score": 4
     },
     {
       "title": "Augmentation de la dette et des charges d'intérêt",
@@ -270,7 +276,8 @@
       "severity": 4,
       "score_rationale": "La dette à long terme a plus que doublé entre 2024 et 2025 (passant de 224M à 530M). Les charges d'intérêt ont également augmenté significativement. L'entreprise a émis 292.4M de notes senior 2032 en mars 2025, augmentant considérablement son levier financier et son exposition au risque de taux d'intérêt.",
       "trend": "up",
-      "summary": "L'entreprise a considérablement augmenté son endettement en mars 2025, entraînant une hausse des charges d'intérêt futures, ce qui accroît significativement le risque financier."
+      "summary": "L'entreprise a considérablement augmenté son endettement en mars 2025, entraînant une hausse des charges d'intérêt futures, ce qui accroît significativement le risque financier.",
+      "score": 4
     },
     {
       "title": "Dépendance aux marchés américain et mexicain",
@@ -278,7 +285,8 @@
       "severity": 3,
       "score_rationale": "Les revenus des États-Unis et du Mexique représentent une part substantielle des revenus totaux (912.5M et 267.3M respectivement pour 2025). Une détérioration économique ou réglementaire dans ces marchés pourrait avoir un impact significatif.",
       "trend": "stable",
-      "summary": "Une part importante des revenus provient des États-Unis et du Mexique, rendant l'entreprise vulnérable aux conditions économiques et réglementaires de ces pays."
+      "summary": "Une part importante des revenus provient des États-Unis et du Mexique, rendant l'entreprise vulnérable aux conditions économiques et réglementaires de ces pays.",
+      "score": 3
     },
     {
       "title": "Gestion des stocks et des ventes de métaux précieux",
@@ -286,7 +294,8 @@
       "severity": 3,
       "score_rationale": "Les ventes de rebuts d'or et la gestion des stocks de bijoux sont directement liées aux fluctuations des prix de l'or (mentionné dans ITEM 7A). La capacité à vendre l'inventaire à une marge acceptable dépend de ces prix. L'inventaire brut au 30 septembre 2025 était de 252.0M avec une réserve de 3.6M.",
       "trend": "stable",
-      "summary": "La rentabilité des ventes de bijoux et de rebuts d'or est sensible aux fluctuations des prix des métaux précieux, affectant la marge bénéficiaire et la valeur de l'inventaire."
+      "summary": "La rentabilité des ventes de bijoux et de rebuts d'or est sensible aux fluctuations des prix des métaux précieux, affectant la marge bénéficiaire et la valeur de l'inventaire.",
+      "score": 3
     },
     {
       "title": "Risques liés aux investissements et aux affiliés",
@@ -294,7 +303,8 @@
       "severity": 2,
       "score_rationale": "Les investissements dans des sociétés affiliées non consolidées peuvent affecter négativement les résultats financiers globaux de l'entreprise, bien que l'impact soit actuellement limité.",
       "trend": "stable",
-      "summary": "Les performances des investissements dans des sociétés affiliées non consolidées peuvent affecter négativement les résultats financiers globaux de l'entreprise."
+      "summary": "Les performances des investissements dans des sociétés affiliées non consolidées peuvent affecter négativement les résultats financiers globaux de l'entreprise.",
+      "score": 2
     }
   ],
   "governance": {
@@ -351,7 +361,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -374,7 +384,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Commerce de détail spécialisé",
-  "_companies_unified_built_at": "2026-05-29T21:19:31.058Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.196Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ezpw.json",
     "enrich_root": "v2-pipeline-enrich/ezpw.json",

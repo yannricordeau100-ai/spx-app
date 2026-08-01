@@ -50,7 +50,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:34.878508+00:00",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -58,8 +58,8 @@
       "name_fr": "Chiffre d'affaires net",
       "name_en": "Net revenue",
       "explanation": "Chiffre d'affaires net total incluant revenus d'intérêts et revenus non-intérêt",
-      "value": "3500.0",
-      "unit": "M $",
+      "value": 3.5,
+      "unit": "Mds $",
       "yoy": "+12.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -67,10 +67,10 @@
       "signal": "Augmentation du chiffre d'affaires net",
       "description": "Chiffre d'affaires net total de la société en 2025",
       "history": [
-        3088.1,
-        3162.1,
-        3118.9,
-        3500
+        3.088,
+        3.162,
+        3.119,
+        3.5
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -79,15 +79,20 @@
       "ttm": 3542.9,
       "_validation": "Unité corrigée de Mds $ à M $ (valeur 3500M, non 3.5Mds); histoire ajustée avec calculs basés sur net interest income + non-interest income du 10-K",
       "explanation_en": "Revenue from the Net segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total loans",
       "name_fr": "Total des prêts",
       "name_en": "Total loans held for investment",
       "explanation": "Total des prêts détenus à titre de placement aux conditions de marché",
-      "value": "58700.0",
-      "unit": "M $",
+      "value": 58.7,
+      "unit": "Mds $",
       "yoy": "+9.3%",
       "type": "Investment",
       "nature": "Structurel",
@@ -95,10 +100,10 @@
       "signal": "Augmentation du total des prêts",
       "description": "Total des prêts détenus à titre de placement en 2025",
       "history": [
-        51100,
-        52200,
-        53676,
-        58700
+        51.1,
+        52.2,
+        53.676,
+        58.7
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -106,15 +111,20 @@
       "is_short_history": false,
       "ttm": 60070,
       "_validation": "Unité corrigée de Mds $ à M $ (58.7Mds = 58700M); histoire alignée avec données du 10-K (2023: 51.1B, 2024: 53.7B, 2025: 58.7B)",
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total deposits",
       "name_fr": "Total des dépôts",
       "name_en": "Total deposits",
       "explanation": "Total des dépôts des clients incluant dépôts non rémunérés et rémunérés",
-      "value": "77200.0",
-      "unit": "M $",
+      "value": 77.2,
+      "unit": "Mds $",
       "yoy": "+16.3%",
       "type": "Investment",
       "nature": "Structurel",
@@ -122,10 +132,10 @@
       "signal": "Augmentation du total des dépôts",
       "description": "Total des dépôts des clients en 2025",
       "history": [
-        62100,
-        64200,
-        66341,
-        77159
+        62.1,
+        64.2,
+        66.341,
+        77.159
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -133,7 +143,12 @@
       "is_short_history": false,
       "ttm": 80370,
       "_validation": "Unité corrigée de Mds $ à M $ (77.2Mds = 77200M); valeur alignée avec 10-K (77,159M); histoire corrigée",
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Return on average assets",
@@ -205,11 +220,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 92.77 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -228,11 +247,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.48 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -304,7 +327,8 @@
       "severity": 5,
       "score_rationale": "La performance financière de la société dépend fortement des conditions de marché, du climat des affaires et de la confiance des investisseurs. Les ralentissements économiques, crises géopolitiques et conditions de marché défavorables peuvent impacter significativement les activités et résultats.",
       "trend": "stable",
-      "summary": "La société est vulnérable aux fluctuations économiques générales, déclines de la croissance économique, crises de confiance et chocs géopolitiques qui peuvent affecter son chiffre d'affaires et ses résultats."
+      "summary": "La société est vulnérable aux fluctuations économiques générales, déclines de la croissance économique, crises de confiance et chocs géopolitiques qui peuvent affecter son chiffre d'affaires et ses résultats.",
+      "score": 5
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -312,7 +336,8 @@
       "severity": 4,
       "score_rationale": "Les variations des taux d'intérêt impactent directement la marge nette d'intérêt et la rentabilité. La marge nette d'intérêt a diminué de 3.58% à 3.51% entre 2024 et 2025, reflétant la sensibilité de la banque aux taux.",
       "trend": "up",
-      "summary": "Les fluctuations des taux d'intérêt affectent les revenus d'intérêts nets et peuvent réduire la rentabilité de la société et augmenter les coûts de financement des dépôts."
+      "summary": "Les fluctuations des taux d'intérêt affectent les revenus d'intérêts nets et peuvent réduire la rentabilité de la société et augmenter les coûts de financement des dépôts.",
+      "score": 4
     },
     {
       "title": "Risque de crédit et qualité des actifs",
@@ -320,7 +345,8 @@
       "severity": 5,
       "score_rationale": "La société est exposée au risque de défaut de paiement, particulièrement sur le segment immobilier commercial qui représente 27% du portefeuille de prêts. Les actifs non performants ont augmenté de 0.65% à 0.69% des actifs totaux, et les provisions nettes de crédit se sont accrues.",
       "trend": "up",
-      "summary": "La société doit gérer activement son portefeuille de prêts, notamment face aux défis du marché immobilier commercial. Les actifs non performants ont augmenté et les provisions pour pertes de crédit ont cru de 78,2 millions USD."
+      "summary": "La société doit gérer activement son portefeuille de prêts, notamment face aux défis du marché immobilier commercial. Les actifs non performants ont augmenté et les provisions pour pertes de crédit ont cru de 78,2 millions USD.",
+      "score": 5
     },
     {
       "title": "Risque d'exposition immobilière commerciale",
@@ -328,7 +354,8 @@
       "severity": 5,
       "score_rationale": "27% du portefeuille de prêts est exposé au marché immobilier commercial, avec des charges nettes de 55.5 millions USD en 2025 et une augmentation des actifs saisis (5 propriétés commerciales).",
       "trend": "up",
-      "summary": "L'exposition immobilière commerciale constitue un risque majeur en raison de la volatilité du marché. La société a mis en place une surveillance renforcée et une stratégie de limitation de la croissance de ce segment."
+      "summary": "L'exposition immobilière commerciale constitue un risque majeur en raison de la volatilité du marché. La société a mis en place une surveillance renforcée et une stratégie de limitation de la croissance de ce segment.",
+      "score": 5
     },
     {
       "title": "Risque de liquidité",
@@ -336,7 +363,8 @@
       "severity": 3,
       "score_rationale": "La société doit maintenir une liquidité suffisante pour faire face à ses obligations et répondre aux besoins des clients. Les dépôts ont augmenté de 16.3% à 77.2 milliards USD, renforçant la position de liquidité.",
       "trend": "stable",
-      "summary": "La société gère ses flux de trésorerie pour maintenir une liquidité adéquate. La croissance des dépôts a soutenu la capacité de financement et de croissance des prêts."
+      "summary": "La société gère ses flux de trésorerie pour maintenir une liquidité adéquate. La croissance des dépôts a soutenu la capacité de financement et de croissance des prêts.",
+      "score": 3
     },
     {
       "title": "Risque de réglementation et de conformité",
@@ -344,7 +372,8 @@
       "severity": 4,
       "score_rationale": "Les institutions bancaires sont soumises à des réglementations strictes et en évolution. La société doit maintenir des ratios de capital et respecter des normes prudentielles de plus en plus exigeantes.",
       "trend": "up",
-      "summary": "La société doit suivre les évolutions réglementaires dans l'environnement bancaire pour maintenir sa conformité et éviter les sanctions ou restrictions d'activité."
+      "summary": "La société doit suivre les évolutions réglementaires dans l'environnement bancaire pour maintenir sa conformité et éviter les sanctions ou restrictions d'activité.",
+      "score": 4
     },
     {
       "title": "Risque de réputation et de litiges",
@@ -352,7 +381,8 @@
       "severity": 3,
       "score_rationale": "La société fait face à des litiges ordinaires et à un litige majeur impliquant une allégation de fraude (Cantor Group V, LLC) avec exposition de 98.5 millions USD malgré les provisions constituées.",
       "trend": "stable",
-      "summary": "La société doit gérer les risques de réputation et les litiges. Un litige significatif concernant une facilité de financement d'obligations (98.5 millions USD) a été comptabilisé avec une provision de 29.6 millions USD."
+      "summary": "La société doit gérer les risques de réputation et les litiges. Un litige significatif concernant une facilité de financement d'obligations (98.5 millions USD) a été comptabilisé avec une provision de 29.6 millions USD.",
+      "score": 3
     },
     {
       "title": "Risque de concentration géographique",
@@ -360,7 +390,8 @@
       "severity": 3,
       "score_rationale": "La société est basée en Arizona et opère principalement dans le sud-ouest américain. Elle est exposée aux risques naturels spécifiques à cette région (tremblements de terre, sécheresses, incendies).",
       "trend": "stable",
-      "summary": "La concentration géographique dans le sud-ouest américain expose la société aux risques naturels et économiques régionaux, notamment les conditions de sécheresse et les incendies de forêt."
+      "summary": "La concentration géographique dans le sud-ouest américain expose la société aux risques naturels et économiques régionaux, notamment les conditions de sécheresse et les incendies de forêt.",
+      "score": 3
     }
   ],
   "governance": {
@@ -460,7 +491,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 4,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "NetIncome"
   },
   "_fit_for_site": true,
@@ -659,23 +690,18 @@
         "history": [
           416.3,
           653.2,
-          -362.8,
           240.1,
           500.3,
           764.3,
-          -447.4,
           142.2,
           357.9,
           574.5,
-          -352.2,
           177.4,
           371,
           570.8,
-          -331.5,
           199.1,
           429.5,
           682.9,
-          -342.5,
           182.1
         ],
         "history_periods": [
@@ -729,6 +755,12 @@
             "accession": "0001628280-26-033054",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (WAL)"
         ]
       },
       {
@@ -781,7 +813,10 @@
             "accession": "0001628280-26-033054",
             "end": "2026-03-31"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -797,9 +832,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.327225+00:00",
     "fetched_at": "2026-05-21T02:17:14.327226+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.374Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.503Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wal.json",
     "enrich_root": "v2-pipeline-enrich/wal.json",

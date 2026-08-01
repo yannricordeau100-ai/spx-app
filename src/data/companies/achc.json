@@ -41,8 +41,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur confirmée dans la source : '277 behavioral healthcare facilities'. Unité corrigée : 'Unités' (correct).",
-      "period_type": "quarter",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Nombre de lits",
@@ -254,9 +257,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur confirmée : '778 added through the opening of one wholly-owned facility and five joint venture facilities'. Unité correcte (Lits). Description améliorée avec noms des partenaires.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur confirmée : '778 added through the opening of one wholly-owned facility and five joint venture facilities'. Unité correcte (Lits). Description améliorée avec noms des partenaires."
     },
     {
       "short": "Lits ajoutés par expansion existante",
@@ -283,9 +284,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur confirmée : '311 added to existing facilities'. Unité correcte (Lits).",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur confirmée : '311 added to existing facilities'. Unité correcte (Lits)."
     }
   ],
   "ai_positioning": {
@@ -299,34 +298,34 @@
       "title": "Dette à taux variable sensible aux taux d'intérêt",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné dans la section Market Risk, avec un langage clair sur l'impact d'une hausse de 1% des taux d'intérêt réduisant le résultat avant impôts de 10,4 M$. Le montant de dette variable est significatif. Catégorie Capital fortement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné dans la section Market Risk, avec un langage clair sur l'impact d'une hausse de 1% des taux d'intérêt réduisant le résultat avant impôts de 10,4 M$. Le montant de dette variable est significatif. Catégorie Capital fortement pondérée.",
       "trend": "stable",
       "summary": "Une hausse des taux d'intérêt augmenterait significativement le coût de la dette variable, pesant sur la rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque élevé de litiges et responsabilité professionnelle",
       "category": "Litige",
       "severity": 5,
-      "score_rationale": "Le risque est central dans le 10-K, avec un ajustement négatif de 52,7 M$ en 2025. Le montant de la réserve (181,8 M$) a plus que doublé vs 2024. Langage alarmant sur la fréquence accrue des sinistres et conditions d'assurance moins favorables. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est central dans le 10-K, avec un ajustement négatif de 52,7 M$ en 2025. Le montant de la réserve (181,8 M$) a plus que doublé vs 2024. Langage alarmant sur la fréquence accrue des sinistres et conditions d'assurance moins favorables.",
       "trend": "up",
       "summary": "L'entreprise fait face à une hausse significative des coûts liés aux sinistres de responsabilité, avec un impact majeur sur les résultats.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concentration élevée des recettes sur Medicaid",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Medicaid représente 57,7% des revenus (2025), avec mention explicite de la complexité réglementaire et des ajustements rétroactifs possibles. Le risque est récurrent et amplifié par la dépendance croissante. (score par défaut, à affiner)",
+      "score_rationale": "Medicaid représente 57,7% des revenus (2025), avec mention explicite de la complexité réglementaire et des ajustements rétroactifs possibles. Le risque est récurrent et amplifié par la dépendance croissante.",
       "trend": "stable",
       "summary": "Une grande partie des revenus dépend des remboursements publics, soumis à des règles changeantes et à des ajustements tardifs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Impairment récurrent sur actifs immobilisés",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Présence d'impairments non courants sur immobilisations (10,4 M$ en 2025) liés à la fermeture de sites. Le montant est modéré mais répété, indiquant une restructuration continue. (score par défaut, à affiner)",
+      "score_rationale": "Présence d'impairments non courants sur immobilisations (10,4 M$ en 2025) liés à la fermeture de sites. Le montant est modéré mais répété, indiquant une restructuration continue.",
       "trend": "stable",
       "summary": "La fermeture de certains établissements entraîne des dépréciations d'actifs, affectant ponctuellement les résultats.",
       "score": 3
@@ -335,10 +334,10 @@
       "title": "Complexité des estimations comptables sur recettes",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Section détaillée sur les estimations de revenus, avec risque d'écarts importants dus aux ajustements de tarifs. Mention explicite d'un effet potentiellement matériel sur les résultats. (score par défaut, à affiner)",
+      "score_rationale": "Section détaillée sur les estimations de revenus, avec risque d'écarts importants dus aux ajustements de tarifs. Mention explicite d'un effet potentiellement matériel sur les résultats.",
       "trend": "stable",
       "summary": "Les revenus dépendent d'estimations complexes et incertaines, notamment sur les remboursements et ajustements rétroactifs.",
-      "score": 3
+      "score": 4
     }
   ],
   "_validation": {
@@ -408,7 +407,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -566,9 +565,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.132365+00:00",
     "fetched_at": "2026-05-21T02:17:14.132367+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.221Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.703Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/achc.json",
     "enrich_root": null,

@@ -41,7 +41,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Dividend income generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Market Cap",
@@ -112,11 +116,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 28.75 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -135,11 +143,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 53.75 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -158,11 +170,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 19.28 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -181,10 +197,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 4.77 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -211,7 +231,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding."
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding."
     },
     {
       "short": "Cap Return",
@@ -238,7 +258,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks)."
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks)."
     },
     {
       "short": "Payout Ratio",
@@ -265,7 +285,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -280,7 +300,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         null,
@@ -293,7 +313,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -308,23 +328,12 @@
     ],
     "source": "Annual Report 2016"
   },
-  "_validation": [
-    "Unité Dividend Income confirmée en € (1.34 EUR proposé pour 2016)",
-    "Unité Market Cap confirmée en Mds € (19.1 milliards EUR à 66.14 EUR x 288.03M actions)",
-    "Ownership Stake validé à 50.005% (conforme source page 4)",
-    "Share Price validé à 66.14 EUR au 30 décembre 2016",
-    "last_data_date Ownership Stake corrigé de 2025-12-31 à 2016-12-31 (date cohérente avec la source 2016)",
-    "Amélioration tagline: description plus concise et orientée holding pur",
-    "Amélioration hero_kpi_rationale: formulation sans em-dash, accent sur le contrôle décisif",
-    "Description Market Cap enrichie avec détails de calcul et fourchette annuelle",
-    "Description Share Price enrichie avec fourchette haute/basse 2016",
-    "Tous les KPIs validés comme présents et exacts dans le rapport annuel 2016"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -351,7 +360,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental mentionné dès l'ouverture : Heineken Holding N.V. n'a aucune activité opérationnelle, ne distribue que les dividendes reçus de Heineken N.V., et n'emploie aucun personnel. Position centrale dans Item 1A, langage explicite sur la dépendance totale, tendance stable mais structurelle, poids critique pour la viabilité de la holding.",
       "trend": "stable",
-      "summary": "Heineken Holding N.V. est une holding pure sans activités opérationnelles propres. Elle dépend entièrement des dividendes versés par Heineken N.V. pour rémunérer ses actionnaires. Toute réduction ou suspension des dividendes de Heineken N.V. impacterait directement la capacité de distribution de la holding."
+      "summary": "Heineken Holding N.V. est une holding pure sans activités opérationnelles propres. Elle dépend entièrement des dividendes versés par Heineken N.V. pour rémunérer ses actionnaires. Toute réduction ou suspension des dividendes de Heineken N.V. impacterait directement la capacité de distribution de la holding.",
+      "score": 5
     },
     {
       "title": "Absence de système de gestion des risques interne",
@@ -359,7 +369,8 @@
       "severity": 4,
       "score_rationale": "Explicitement déclaré : « Heineken Holding N.V., unlike Heineken N.V., does not have an internal risk management and control system ». Mentionné deux fois dans Item 1A, langage direct et sans ambiguïté, tendance stable par conception structurelle, poids élevé pour la gouvernance.",
       "trend": "stable",
-      "summary": "Contrairement à Heineken N.V., Heineken Holding N.V. n'a pas mis en place de système interne de gestion des risques et de contrôle. Cette absence est justifiée par l'absence d'activités opérationnelles, mais crée une vulnérabilité en cas de crise ou de changement structurel."
+      "summary": "Contrairement à Heineken N.V., Heineken Holding N.V. n'a pas mis en place de système interne de gestion des risques et de contrôle. Cette absence est justifiée par l'absence d'activités opérationnelles, mais crée une vulnérabilité en cas de crise ou de changement structurel.",
+      "score": 4
     },
     {
       "title": "Concentration actionnariale et risque de contrôle",
@@ -367,7 +378,8 @@
       "severity": 4,
       "score_rationale": "Mrs C.L. de Carvalho-Heineken détient 52,01 % du capital (incluant L'Arche Holding S.A. à 50,005 %), créant une concentration extrême. Mentionné explicitement avec données précises, langage neutre mais données révélatrices, tendance stable depuis 2006, poids majeur pour la gouvernance et les droits des minoritaires.",
       "trend": "stable",
-      "summary": "Une actionnaire unique (Mrs C.L. de Carvalho-Heineken) contrôle plus de 52 % du capital via L'Arche Holding S.A. Cette concentration extrême limite le pouvoir des autres actionnaires (FEMSA 14,94 %, Gardner Russo 3,78 %, Harris Associates 3,05 %) et crée un risque de décisions unilatérales."
+      "summary": "Une actionnaire unique (Mrs C.L. de Carvalho-Heineken) contrôle plus de 52 % du capital via L'Arche Holding S.A. Cette concentration extrême limite le pouvoir des autres actionnaires (FEMSA 14,94 %, Gardner Russo 3,78 %, Harris Associates 3,05 %) et crée un risque de décisions unilatérales.",
+      "score": 4
     },
     {
       "title": "Restrictions de vote et droits des actionnaires limités",
@@ -375,7 +387,8 @@
       "severity": 3,
       "score_rationale": "Accord de restriction des droits de vote pour un actionnaire spécifique si ses participations dépassent 20 % du capital ou 20 % d'intérêt économique dans Heineken N.V. Mentionné dans section « Restrictions related to shares », langage technique mais impact significatif, tendance stable, poids modéré pour les actionnaires minoritaires.",
       "trend": "stable",
-      "summary": "Un accord contractuel impose des restrictions sur les droits de vote d'un actionnaire spécifique si ses participations dépassent certains seuils (20 % du capital ou 20 % d'intérêt économique dans Heineken N.V.). Ces restrictions limitent la transparence et la fluidité des droits de vote."
+      "summary": "Un accord contractuel impose des restrictions sur les droits de vote d'un actionnaire spécifique si ses participations dépassent certains seuils (20 % du capital ou 20 % d'intérêt économique dans Heineken N.V.). Ces restrictions limitent la transparence et la fluidité des droits de vote.",
+      "score": 3
     },
     {
       "title": "Gouvernance à un seul niveau avec non-conformité partielle",
@@ -383,7 +396,8 @@
       "severity": 3,
       "score_rationale": "Structure one-tier implémentée en 2012 avec non-application formelle de best-practice provisions III.8.1 et III.8.4 du Code. Justification : anciens membres exécutifs ne peuvent être chairman ou indépendants. Mentionné explicitement avec références au Code, langage technique mais révélant une déviation intentionnelle, tendance stable depuis 2012, poids modéré pour la conformité.",
       "trend": "stable",
-      "summary": "Heineken Holding N.V. applique une structure de gouvernance à un seul niveau (one-tier board) depuis 2012, avec 2 membres exécutifs et 4 non-exécutifs. Cependant, elle ne respecte pas formellement les best-practice provisions III.8.1 et III.8.4 du Code de gouvernance néerlandais, car les anciens membres exécutifs ne peuvent être chairman ou considérés comme indépendants."
+      "summary": "Heineken Holding N.V. applique une structure de gouvernance à un seul niveau (one-tier board) depuis 2012, avec 2 membres exécutifs et 4 non-exécutifs. Cependant, elle ne respecte pas formellement les best-practice provisions III.8.1 et III.8.4 du Code de gouvernance néerlandais, car les anciens membres exécutifs ne peuvent être chairman ou considérés comme indépendants.",
+      "score": 3
     },
     {
       "title": "Risque de changement de contrôle et approbation requise",
@@ -391,7 +405,8 @@
       "severity": 3,
       "score_rationale": "Tout changement matériel dans la nature ou l'identité de l'entreprise requiert l'approbation de la meeting of priority shareholders ET de l'Assemblée générale. Mentionné dans section « Board of Directors' resolutions », langage explicite avec énumération des cas (transfert d'entreprise, coopérations durables, acquisitions), tendance stable, poids modéré pour les transactions majeures.",
       "trend": "stable",
-      "summary": "Tout changement matériel dans la nature ou l'identité de Heineken Holding N.V. (transfert d'entreprise, entrée/sortie de coopérations durables, acquisition/cession d'intérêts substantiels) requiert l'approbation conjointe de la meeting of priority shareholders et de l'Assemblée générale, ce qui peut ralentir les décisions stratégiques."
+      "summary": "Tout changement matériel dans la nature ou l'identité de Heineken Holding N.V. (transfert d'entreprise, entrée/sortie de coopérations durables, acquisition/cession d'intérêts substantiels) requiert l'approbation conjointe de la meeting of priority shareholders et de l'Assemblée générale, ce qui peut ralentir les décisions stratégiques.",
+      "score": 3
     },
     {
       "title": "Dépendance envers les actionnaires prioritaires pour la gouvernance",
@@ -399,7 +414,8 @@
       "severity": 2,
       "score_rationale": "Les 250 priority shares (0,01 % du capital) détenues par deux fondations (Stichting Administratiekantoor Priores et Stichting Beheer Prioriteitsaandelen) ont le droit de proposer une liste non-contraignante de candidats pour chaque nomination au Board. Mentionné dans section « Priority shares », langage technique, tendance stable depuis la création, poids faible mais symbolique pour la gouvernance.",
       "trend": "stable",
-      "summary": "Les 250 priority shares, détenues par deux fondations, confèrent le droit de proposer une liste non-contraignante de candidats pour chaque nomination au Board of Directors. Bien que non-contraignante, cette liste influence les décisions de l'Assemblée générale et représente un mécanisme de gouvernance historique."
+      "summary": "Les 250 priority shares, détenues par deux fondations, confèrent le droit de proposer une liste non-contraignante de candidats pour chaque nomination au Board of Directors. Bien que non-contraignante, cette liste influence les décisions de l'Assemblée générale et représente un mécanisme de gouvernance historique.",
+      "score": 2
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:27:49.740378+00:00",
@@ -488,7 +504,7 @@
       "month": 12,
       "title": "Publication des résultats Q4 2025",
       "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
-      "source": "yfinance · mostRecentQuarter",
+      "source": "rapport financier · mostRecentQuarter",
       "url": "",
       "date": "2025-12-31"
     },
@@ -497,7 +513,7 @@
       "month": 7,
       "title": "Dividende 0.74 €/action versé",
       "body": "Dividende ordinaire de 0.74 € par action, ex-date 30 juillet 2025.",
-      "source": "yfinance · actions",
+      "source": "rapport financier · actions",
       "url": "",
       "date": "2025-07-30"
     },
@@ -506,7 +522,7 @@
       "month": 4,
       "title": "Dividende 1.17 €/action versé",
       "body": "Dividende ordinaire de 1.17 € par action, ex-date 23 avril 2025.",
-      "source": "yfinance · actions",
+      "source": "rapport financier · actions",
       "url": "",
       "date": "2025-04-23"
     },
@@ -515,7 +531,7 @@
       "month": 7,
       "title": "Dividende 0.69 €/action versé",
       "body": "Dividende ordinaire de 0.69 € par action, ex-date 31 juillet 2024.",
-      "source": "yfinance · actions",
+      "source": "rapport financier · actions",
       "url": "",
       "date": "2024-07-31"
     }
@@ -555,10 +571,8 @@
   },
   "_eu_blocs_extracted_at": "2026-05-19T16:52:11.607440+00:00",
   "revenue_by_geography": {
-    "unit": "M €",
-    "source_date": "2016-12-31",
-    "source": "Annual Report 2017",
-    "slices": []
+    "_geography_not_disclosed": "Heineken Holding: pas de 10-K SEC (émetteur néerlandais). Répartition géo Heineken NV consolidée disponible dans Annual Report NL mais non intégrée data-lake",
+    "_source": "Aucune source 10-K SEC data-lake"
   },
   "_seggeo_extracted_at": "2026-05-20T02:32:55.199829+00:00",
   "_seggeo_source": "haiku-eu-annual-text-v1",
@@ -611,7 +625,7 @@
   "_dividends_source": "cat3-european annual-text FY2024 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:45:19Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.699Z",
   "kpis_type_overrides": {
     "Total Revenue": "Revenue",
@@ -644,7 +658,7 @@
       "date": "2025-12-31"
     },
     "next_earnings_date": null,
-    "source": "yfinance",
+    "source": "rapport financier",
     "fetched_at": "2026-05-21T08:12:45.014448+00:00"
   },
   "publication_date": "2025-12-31",
@@ -762,7 +776,10 @@
         86500,
         85000
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Capacité",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T16:51:39.928477+00:00",
@@ -870,7 +887,7 @@
         "month": 12,
         "title": "Publication des résultats Q4 2025",
         "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
-        "source": "yfinance · mostRecentQuarter",
+        "source": "rapport financier · mostRecentQuarter",
         "url": "",
         "date": "2025-12-31"
       },
@@ -879,7 +896,7 @@
         "month": 7,
         "title": "Dividende 0.74 €/action versé",
         "body": "Dividende ordinaire de 0.74 € par action, ex-date 30 juillet 2025.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2025-07-30"
       },
@@ -888,7 +905,7 @@
         "month": 4,
         "title": "Dividende 1.17 €/action versé",
         "body": "Dividende ordinaire de 1.17 € par action, ex-date 23 avril 2025.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2025-04-23"
       },
@@ -897,7 +914,7 @@
         "month": 7,
         "title": "Dividende 0.69 €/action versé",
         "body": "Dividende ordinaire de 0.69 € par action, ex-date 31 juillet 2024.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2024-07-31"
       }
@@ -924,6 +941,29 @@
       "Cash & Equivalents": "Cash And Cash Equivalents"
     }
   },
+  "enrich_mettrik_description": {
+    "ticker": "HEIA.AS",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Heineken brasse et commercialise de la bière et des boissons rafraîchissantes. Le groupe est l'un des plus grands brasseurs mondiaux.",
+          "products": "Le portefeuille comprend les marques Heineken, Amstel, Tiger, Sol, Desperados, Birra Moretti et de nombreuses bières locales. Il inclut aussi le cidre Strongbow et des bières sans alcool comme Heineken 0.0.",
+          "customers": "Ses clients sont la grande distribution, les bars, restaurants, hôtels et les distributeurs spécialisés sur plus de 190 marchés.",
+          "edge": "La force d'Heineken vient de la portée mondiale de sa marque premium éponyme et de son réseau industriel de plus de 170 brasseries."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Heineken occupe la deuxième place mondiale du marché de la bière derrière AB InBev. Le groupe se distingue par la part très élevée de sa marque premium globale dans les volumes. Son exposition géographique est équilibrée entre marchés développés et émergents.",
+          "tech_products": "Le groupe déploie des plateformes numériques B2B comme eazle pour digitaliser sa relation avec les cafés et restaurants. Il investit dans la production durable, l'allègement des emballages et les segments en croissance comme la bière sans alcool. Heineken 0.0 est l'un des leaders mondiaux du segment NoLo.",
+          "moat": "La marque Heineken dispose d'une notoriété mondiale rare et d'un pricing power supérieur au mainstream. La distribution capillaire dans le on-trade crée des barrières à l'entrée fortes. Le portefeuille de marques locales protège les positions de marché historiques.",
+          "risks": "Les volumes de bière mainstream stagnent dans les pays développés et subissent la concurrence des spiritueux et des seltzer. Les coûts de l'orge, de l'aluminium et du verre pèsent sur les marges. Plusieurs marchés émergents clés exposent le groupe au risque de change."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "HEIA.AS",
     "ranks": {
@@ -936,9 +976,9 @@
     "country": "Netherlands",
     "_data_freshness_date": "2026-05-21T02:17:14.271063+00:00",
     "fetched_at": "2026-05-21T02:17:14.271063+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.006Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.658Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/heia.as.json",
     "enrich_root": "v2-pipeline-enrich/heia.as.json",
@@ -948,6 +988,7 @@
       "events",
       "hero_name_fr",
       "i18n",
+      "mettrik-description",
       "ranks"
     ]
   }

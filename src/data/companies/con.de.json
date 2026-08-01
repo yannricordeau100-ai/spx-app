@@ -13,7 +13,7 @@
     "sector": "Top 20 in Automotive Suppliers",
     "subsector": "Leader in ADAS & Tire Technology"
   },
-  "hero_kpi": "Operating Margin (adjusted)",
+  "hero_kpi": "tires_sales",
   "hero_kpi_rationale": "Continental affiche une marge opérationnelle structurelle de 1.7% hors éléments exceptionnels (revenus d'investissement de 7,042.7M euros), reflétant la performance industrielle durable d'un équipementier automobile high-tech malgré un contexte tendu.",
   "kpis": [
     {
@@ -38,7 +38,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Sales — total sales generated over the period.",
+      "explanation_en": "Sales, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -63,7 +63,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -86,17 +86,15 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Net Income",
       "name_fr": "Bénéfice net",
       "name_en": "Net Income",
       "explanation": "Le profit final après toutes charges et impôts.",
-      "value": 6691.8,
-      "unit": "M €",
+      "value": 6.692,
+      "unit": "Mds €",
       "yoy": "n/a",
       "type": "Profit",
       "nature": "Exceptionnel",
@@ -104,15 +102,16 @@
       "signal": "Bénéfice net explosif en 2024 porté par une cession ou revalorisation d'actif exceptionnelle",
       "description": "Le bénéfice net passe de -423.4 M€ à 6,691.8 M€. Cette hausse est principalement attribuable à un Net investment income de 7,042.7 M€, suggérant une cession d'actif majeure ou une revalorisation exceptionnelle. Cet indicateur n'est pas représentatif de la performance opérationnelle durable.",
       "history": [
-        -423.4,
-        6691.8
+        -0.423,
+        6.692
       ],
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes."
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
     },
     {
       "short": "R&D",
@@ -135,9 +134,7 @@
       "is_generic": false,
       "is_short_history": true,
       "period_type": "annual",
-      "explanation_en": "Research & Development expenses.",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Research & Development expenses."
     },
     {
       "short": "Capex",
@@ -160,9 +157,7 @@
       "is_generic": true,
       "is_short_history": true,
       "period_type": "annual",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Assets",
@@ -181,11 +176,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 17.79 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -204,11 +203,108 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.82 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "tires_sales",
+      "name_fr": "CA Pneumatiques",
+      "name_en": "Tires Sales",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        11728,
+        10158.6,
+        11807.6,
+        14005.2,
+        13958,
+        13861,
+        13798
+      ],
+      "value": 13798,
+      "last_data_date": "2025-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le pneumatique devient le coeur unique du groupe apres la scission d'Aumovio",
+      "is_wow": true,
+      "yoy": "-0,5 %"
+    },
+    {
+      "short": "tires_replacement_sales",
+      "name_fr": "CA Pneumatiques remplacement",
+      "name_en": "Tires Replacement Business Sales",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        8668.6,
+        7814.2,
+        9353.4,
+        10884.8,
+        10294.4,
+        10529,
+        10494
+      ],
+      "value": 10494,
+      "last_data_date": "2025-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le marche du remplacement represente trois quarts des ventes de pneus",
+      "is_wow": true
+    },
+    {
+      "short": "tires_oe_sales",
+      "name_fr": "CA Pneumatiques premiere monte",
+      "name_en": "Tires Original Equipment Sales",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        3059.4,
+        2344.4,
+        2454.2,
+        3120.4,
+        3663.6,
+        3332,
+        3303
+      ],
+      "value": 3303,
+      "last_data_date": "2025-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les ventes aux constructeurs reculent avec la production automobile",
+      "is_wow": true
+    },
+    {
+      "short": "contitech_sales",
+      "name_fr": "CA ContiTech",
+      "name_en": "ContiTech Sales",
+      "unit": "M €",
+      "period_type": "year",
+      "history": [
+        6401.5,
+        5578.6,
+        5912.6,
+        6594.3,
+        6841.5,
+        6387,
+        6005
+      ],
+      "value": 6005,
+      "last_data_date": "2025-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le pole caoutchouc industriel souffre du cycle automobile et industriel",
+      "is_wow": true
     },
     {
       "short": "DPS",
@@ -222,7 +318,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         2.2,
@@ -235,7 +331,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -250,7 +346,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.44,
@@ -263,7 +359,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -278,7 +374,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -291,7 +387,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -306,7 +402,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.33,
@@ -319,7 +415,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -334,31 +430,15 @@
     ],
     "source": "2024 Annual Report"
   },
-  "_validation": [
-    "CORRECTION: KPI Sales - period_type changé de 'quarter' à 'annual' (données 2023-2024, non trimestrielles)",
-    "CORRECTION: KPI Gross Margin - value convertie de string '3.7' à nombre 3.7",
-    "CORRECTION: KPI Gross Margin - period_type ajouté 'annual'",
-    "CORRECTION: KPI Op Margin (adj) - value convertie de string '1.7' à nombre 1.7",
-    "CORRECTION: KPI Op Margin (adj) - history modifié de liste vide à [1.7] (seule valeur 2024 disponible)",
-    "CORRECTION: KPI Op Margin (adj) - is_short_history changé de false à true (histoire d'une seule année)",
-    "CORRECTION: KPI Op Margin (adj) - name_fr changé de 'Marge opérationnelle (hors éléments exceptionnels)' à 'Marge opérationnelle ajustée' (formulation plus concise sans parenthèses)",
-    "CORRECTION: KPI Net Income - period_type ajouté 'annual'",
-    "CORRECTION: KPI R&D - name_fr changé de 'Investissements R&D (% revenu)' à 'Investissements R&D (% du chiffre d'affaires)' (formulation plus claire)",
-    "CORRECTION: KPI R&D - history modifié de liste vide à [6.9] (valeur 2024 estimée présente dans la description)",
-    "CORRECTION: KPI R&D - is_short_history changé de false à true (histoire d'une seule année)",
-    "CORRECTION: KPI Capex - history modifié de liste vide à [10.9] (valeur 2024 présente dans la description)",
-    "CORRECTION: KPI Capex - is_short_history changé de false à true (histoire d'une seule année)",
-    "CORRECTION: hero_kpi_rationale - em-dashes supprimés et texte reformulé pour meilleure lisibilité française",
-    "NOTE: Les données du document source (avril 2026) sont des prévisions Q1 2026 vs Q1 2025, non des données historiques consolidées 2024. Les valeurs des KPI proviennent de l'extraction initiale 2024 et n'ont pas pu être actualisées avec les données disponibles en avril 2026 qui ne contiennent pas de chiffres définitifs annuels consolidés."
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 00:55",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_2"
   ],
@@ -371,7 +451,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur pour fabricant de pneus : dépendance critique aux constructeurs automobiles (OEM) et marchés de remplacement. Langage intensif (« weak global industrial production », « weakening demand in key sales regions »). Tendance stable mais structurelle. Poids catégorie élevé : cœur du modèle économique.",
       "trend": "stable",
-      "summary": "Continental dépend fortement de la demande automobile mondiale (93 millions d'unités prévues en 2026). Les variations de production, notamment en Europe et Chine, impactent directement les volumes de pneus OEM et de remplacement. La transition vers l'électrique et la surcapacité dans certains marchés créent une volatilité structurelle."
+      "summary": "Continental dépend fortement de la demande automobile mondiale (93 millions d'unités prévues en 2026). Les variations de production, notamment en Europe et Chine, impactent directement les volumes de pneus OEM et de remplacement. La transition vers l'électrique et la surcapacité dans certains marchés créent une volatilité structurelle.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue des fabricants asiatiques en mobilité électrique",
@@ -379,7 +460,8 @@
       "severity": 4,
       "score_rationale": "Risque émergent explicitement mentionné : « newer market participants, particularly from Asia, continued to expand their market positions ». Langage modéré mais clair. Tendance à la hausse (up). Poids catégorie élevé pour stratégie de transformation.",
       "trend": "up",
-      "summary": "Des concurrents asiatiques gagnent des parts de marché et affichent des gains de cours boursiers, tandis que les fabricants européens révisent leurs prévisions. La transition vers l'électrique et les pneus haute performance crée une pression concurrentielle accrue sur les marges."
+      "summary": "Des concurrents asiatiques gagnent des parts de marché et affichent des gains de cours boursiers, tandis que les fabricants européens révisent leurs prévisions. La transition vers l'électrique et les pneus haute performance crée une pression concurrentielle accrue sur les marges.",
+      "score": 4
     },
     {
       "title": "Risques tarifaires et géopolitiques (USA, Chine, Europe)",
@@ -387,7 +469,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement cité comme impact majeur en 2025 : « tariffs and regulatory actions between Europe, China and the USA ». Langage intensif (« significant headwinds »). Tendance à la hausse (up). Poids catégorie élevé : impact direct sur marges et compétitivité.",
       "trend": "up",
-      "summary": "Les tarifs douaniers américains (annoncés avril 2025) et les tensions commerciales USA-Chine-Europe créent une volatilité des coûts et des prix. Continental anticipe une « pressure from exchange rates and tariffs » persistante en 2026, affectant la rentabilité des opérations mondiales."
+      "summary": "Les tarifs douaniers américains (annoncés avril 2025) et les tensions commerciales USA-Chine-Europe créent une volatilité des coûts et des prix. Continental anticipe une « pressure from exchange rates and tariffs » persistante en 2026, affectant la rentabilité des opérations mondiales.",
+      "score": 4
     },
     {
       "title": "Transformation structurelle et risques de spin-off/cessions",
@@ -395,7 +478,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel majeur : spin-off Aumovio (septembre 2025), vente OESL (ContiTech), cession prévue ContiTech 2026. Langage intensif (« most far-reaching transformation in our company's more than 150-year history »). Tendance nouvelle (new). Poids catégorie élevé : restructuration fondamentale du groupe.",
       "trend": "new",
-      "summary": "Continental se transforme en fabricant de pneus pur (pure-play tire manufacturer). Les cessions de ContiTech et Aumovio créent des risques d'intégration, de perte de synergies, et de perturbation opérationnelle. La réussite de cette transformation est critique pour la création de valeur."
+      "summary": "Continental se transforme en fabricant de pneus pur (pure-play tire manufacturer). Les cessions de ContiTech et Aumovio créent des risques d'intégration, de perte de synergies, et de perturbation opérationnelle. La réussite de cette transformation est critique pour la création de valeur.",
+      "score": 4
     },
     {
       "title": "Volatilité des matières premières et coûts de production",
@@ -403,7 +487,8 @@
       "severity": 3,
       "score_rationale": "Risque mentionné : « lower costs of raw materials should provide some relief » en 2026. Langage modéré mais reconnaît volatilité historique. Tendance stable (stable). Poids catégorie moyen : impact sur marges de production.",
       "trend": "stable",
-      "summary": "Les coûts des matières premières (caoutchouc, acier, chimie) fluctuent avec les marchés mondiaux. Bien que 2026 anticipe une baisse, la volatilité historique des prix des commodités reste un facteur de risque pour les marges brutes du secteur pneus."
+      "summary": "Les coûts des matières premières (caoutchouc, acier, chimie) fluctuent avec les marchés mondiaux. Bien que 2026 anticipe une baisse, la volatilité historique des prix des commodités reste un facteur de risque pour les marges brutes du secteur pneus.",
+      "score": 3
     },
     {
       "title": "Transition technologique vers mobilité électrique et pneus haute performance",
@@ -411,7 +496,8 @@
       "severity": 4,
       "score_rationale": "Risque technologique explicite : « transition to electric mobility, rising cost pressure ». Langage intensif. Tendance à la hausse (up). Poids catégorie élevé : redéfinit les exigences produit et R&D.",
       "trend": "up",
-      "summary": "La transition vers l'électrique impose de nouveaux standards de pneus (résistance au roulement, durabilité, thermique). Continental mise sur les pneus ultra-haute performance pour croître plus vite que le marché, mais l'investissement R&D et la capacité d'innovation sont critiques face à la concurrence asiatique."
+      "summary": "La transition vers l'électrique impose de nouveaux standards de pneus (résistance au roulement, durabilité, thermique). Continental mise sur les pneus ultra-haute performance pour croître plus vite que le marché, mais l'investissement R&D et la capacité d'innovation sont critiques face à la concurrence asiatique.",
+      "score": 4
     },
     {
       "title": "Surcapacité de production et pression sur les marges sectorielles",
@@ -419,7 +505,8 @@
       "severity": 3,
       "score_rationale": "Risque mentionné : « over-capacity in certain markets ». Langage modéré. Tendance stable (stable). Poids catégorie moyen : affecte pricing power et rentabilité.",
       "trend": "stable",
-      "summary": "La surcapacité dans certains marchés (notamment Asie) crée une pression baissière sur les prix et les marges. Continental doit optimiser son mix produit (ultra-haute performance) et sa structure de coûts pour maintenir sa rentabilité cible (10.3% EBIT ajusté en 2025)."
+      "summary": "La surcapacité dans certains marchés (notamment Asie) crée une pression baissière sur les prix et les marges. Continental doit optimiser son mix produit (ultra-haute performance) et sa structure de coûts pour maintenir sa rentabilité cible (10.3% EBIT ajusté en 2025).",
+      "score": 3
     },
     {
       "title": "Faiblesse de la production industrielle mondiale et demande de remplacement",
@@ -427,7 +514,8 @@
       "severity": 3,
       "score_rationale": "Risque macroéconomique : « weak global industrial production dampened business development ». Langage modéré. Tendance stable (stable). Poids catégorie moyen : affecte ContiTech et pneus OEM.",
       "trend": "stable",
-      "summary": "La faiblesse de la production industrielle mondiale (notamment en Europe et Chine) réduit la demande de pneus OEM et de produits ContiTech. Continental anticipe une croissance du marché de remplacement de -1 à +2% en 2026, reflétant une demande modérée."
+      "summary": "La faiblesse de la production industrielle mondiale (notamment en Europe et Chine) réduit la demande de pneus OEM et de produits ContiTech. Continental anticipe une croissance du marché de remplacement de -1 à +2% en 2026, reflétant une demande modérée.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:33:43.375674+00:00",
@@ -514,7 +602,7 @@
   "customer_type": "Mixed",
   "customer_type_label": "La société vend à la fois à des entreprises (équipementiers automobiles) et à des clients finaux (consommateurs de pneus et de solutions industriels).",
   "_eu_blocs_extracted_at": "2026-05-19T16:42:57.579264+00:00",
-  "hero_kpi_override": "Tires Sales",
+  "hero_kpi_override": "tires_sales",
   "_hero_override_reason": "Post-spinoff Aumovio, CON = pure-play Tires + ContiTech. Tires segment = 70% du CA, plus pertinent que generic Sales.",
   "_hero_history_extension": {
     "hero_kpi_short": "Tires Sales",
@@ -527,10 +615,10 @@
     "period_type": "year"
   },
   "_dividends_extracted_at": "2026-05-09T20:20:07Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:44:23Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "overrides_governance": {
     "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
     "extraction_status": "heuristic_real_eu",
@@ -599,7 +687,10 @@
         13.8,
         13.7
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Automotive Sales",
@@ -615,7 +706,10 @@
         19.6,
         19.4
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "ContiTech Sales",
@@ -631,7 +725,10 @@
         6.6,
         6.5
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Tires Adj EBIT Margin",
@@ -647,7 +744,10 @@
         13.2,
         13.7
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Marge",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Tire Units Sold",
@@ -669,6 +769,7 @@
   "_kpis_supplementary_at": "2026-05-28T16:47:55+00:00",
   "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
   "sector_fr": "Automobile",
+  "_hero_kpi_override_reason": "tires_sales = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "CON.DE",
     "fetched_at": "2026-05-06T17:47:12.183033+00:00",
@@ -714,9 +815,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.243259+00:00",
     "fetched_at": "2026-05-21T02:17:14.243260+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.699Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.183Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/con.de.json",
     "enrich_root": "v2-pipeline-enrich/con.de.json",

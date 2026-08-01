@@ -46,7 +46,11 @@
       "_validation": "Valeur source confirmée: 14.7 B$ en inventaire disponible ou à rendre disponible au 31 décembre 2025. Unité cohérente avec notation internationale.",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:04.992577+00:00",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Fee-for-service and just-in-time inventory",
@@ -182,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 11.54 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -205,11 +213,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 7.35 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -232,9 +244,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Description enrichie avec progression rebranding confirmée en source.",
-      "_source_month": "décembre 2021",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Description enrichie avec progression rebranding confirmée en source."
     },
     {
       "short": "Bluegreen Acquisition",
@@ -255,9 +265,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Description mise à jour avec progression rebranding 2025 confirmée en source.",
-      "_source_month": "janvier 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Description mise à jour avec progression rebranding 2025 confirmée en source."
     }
   ],
   "ai_positioning": {
@@ -275,7 +283,8 @@
       "score_rationale": "Le document mentionne explicitement la cybersécurité comme un risque majeur géré au niveau du CTO/CISO et du comité d'audit. L'intensité du langage est modérée mais le sujet est central dans la gouvernance. Le contexte est stable par rapport à l'année précédente, mais la nature évolutive des menaces justifie une sévérité élevée.",
       "trend": "stable",
       "summary": "L'entreprise est exposée aux menaces de cybersécurité et aux violations de données, malgré des mesures de gouvernance et de gestion des risques en place. La protection des informations sensibles des clients et des systèmes est une préoccupation constante.",
-      "_validation": "Confirmé en source: gouvernance cybersécurité documentée avec CISO ayant 25+ ans d'expérience et responsabilités claires de gestion du programme de cybersécurité."
+      "_validation": "Confirmé en source: gouvernance cybersécurité documentée avec CISO ayant 25+ ans d'expérience et responsabilités claires de gestion du programme de cybersécurité.",
+      "score": 4
     },
     {
       "title": "Dépendance vis-à-vis des tiers pour la cybersécurité",
@@ -284,7 +293,8 @@
       "score_rationale": "Le document souligne l'engagement d'experts externes pour évaluer et tester les systèmes de gestion des risques de cybersécurité. Bien que cela renforce la sécurité, cela introduit une dépendance vis-à-vis de ces tiers. L'intensité du langage est neutre, mais le risque est présent.",
       "trend": "stable",
       "summary": "L'entreprise fait appel à des experts externes pour évaluer sa cybersécurité, ce qui crée une dépendance et un risque si ces tiers ne respectent pas les normes ou sont eux-mêmes compromis.",
-      "_validation": "Validé: mention des processus de test et conformité des systèmes gérés au niveau du CISO en source."
+      "_validation": "Validé: mention des processus de test et conformité des systèmes gérés au niveau du CISO en source.",
+      "score": 3
     },
     {
       "title": "Risques liés aux fournisseurs tiers",
@@ -293,7 +303,8 @@
       "score_rationale": "Le document mentionne des processus pour identifier et atténuer les risques liés aux fournisseurs tiers, y compris des évaluations de sécurité avant l'intégration. L'intensité du langage est factuelle, mais la gestion des risques tiers est cruciale. La sévérité est modérée car des processus sont en place.",
       "trend": "stable",
       "summary": "Les fournisseurs tiers peuvent présenter des risques de cybersécurité si leurs propres mesures de sécurité sont insuffisantes, ce qui pourrait affecter les systèmes et les données de l'entreprise.",
-      "_validation": "Validé: gestion des risques fournisseurs tiers incluse dans la gouvernance cybersécurité du CISO."
+      "_validation": "Validé: gestion des risques fournisseurs tiers incluse dans la gouvernance cybersécurité du CISO.",
+      "score": 3
     },
     {
       "title": "Risques liés aux litiges et procédures judiciaires",
@@ -302,7 +313,8 @@
       "score_rationale": "Le document indique que l'entreprise est sujette à des réclamations dans le cadre de procédures judiciaires découlant de ses activités normales. L'intensité du langage est standard pour ce type de risque. La sévérité est modérée car il s'agit d'un risque courant dans le secteur.",
       "trend": "stable",
       "summary": "L'entreprise peut faire face à des réclamations et procédures judiciaires résultant de ses activités commerciales normales, ce qui pourrait entraîner des coûts juridiques et des impacts financiers.",
-      "_validation": "Profil de risque standard pour le secteur leisure/timeshare. Aucune mention de contentieux matériel spécifique dans les extraits fournis."
+      "_validation": "Profil de risque standard pour le secteur leisure/timeshare. Aucune mention de contentieux matériel spécifique dans les extraits fournis.",
+      "score": 3
     }
   ],
   "_held_for_review": true,
@@ -312,8 +324,12 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
+  "governance": {
+    "ceo_name": "Mark D. Wang",
+    "board_size": 9
+  },
   "sector_fr": "Consommation discrétionnaire",
-  "_companies_unified_built_at": "2026-05-29T21:19:38.047Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.450Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hgv.json",
     "enrich_root": "v2-pipeline-enrich/hgv.json",

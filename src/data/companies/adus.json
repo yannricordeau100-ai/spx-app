@@ -1,6 +1,6 @@
 {
   "ticker": "ADUS",
-  "name": "Addus HomeCare Corporation",
+  "name": "Addus HomeCare",
   "sector": "Santé",
   "subsector": "Home Healthcare Services",
   "tagline": "Leading provider of in-home personal care, hospice, and home health services for dual-eligible beneficiaries",
@@ -73,7 +73,7 @@
       "is_short_history": false,
       "ttm": 103180,
       "_validation": "Unité corrigee de Mds $ a K$; valeurs historiques converties en K$; type change de Revenue a Profit",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -100,7 +100,7 @@
       "is_short_history": false,
       "ttm": 192720,
       "_validation": "Unité corrigee de Mds $ a K$; valeurs historiques converties en K$",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -108,8 +108,8 @@
       "name_fr": "Actifs totaux",
       "name_en": "Total assets",
       "explanation": "Actifs totaux",
-      "value": "1437.308",
-      "unit": "M $",
+      "value": 1.437,
+      "unit": "Mds $",
       "yoy": "+2%",
       "type": "Balance Sheet",
       "nature": "Structurel",
@@ -117,9 +117,9 @@
       "signal": "Stabilité",
       "description": "Actifs totaux pour l'année 2025",
       "history": [
-        1024.426,
-        1412.634,
-        1437.308
+        1.024,
+        1.413,
+        1.437
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -127,16 +127,17 @@
       "is_short_history": false,
       "ttm": 1443580,
       "_validation": "Unité corrigee de Mds $ a K$; valeurs historiques converties en K$; type change de Investment a Balance Sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Personal care segment net service revenues",
       "name_fr": "Revenus nets de services de soins personnels",
       "name_en": "Personal care segment net service revenues",
       "explanation": "Revenus nets de services de soins personnels",
-      "value": "1089.215",
-      "unit": "M $",
+      "value": 1.089,
+      "unit": "Mds $",
       "yoy": "+27%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -144,9 +145,9 @@
       "signal": "Croissance significative",
       "description": "Revenus nets de services de soins personnels pour l'année 2025",
       "history": [
-        794.718,
-        856.581,
-        1089.215
+        0.795,
+        0.857,
+        1.089
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -154,7 +155,8 @@
       "is_short_history": false,
       "ttm": 1163170,
       "_validation": "Unité corrigee de Mds $ a K$; valeurs historiques converties en K$",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Hospice segment net service revenues",
@@ -225,11 +227,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.44 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -257,9 +263,7 @@
       "is_short_history": true,
       "story_category": "Croissance",
       "ttm": 27,
-      "_validation": "Valeur normalisee en nombre sans symbole %; est_wow et is_generic corriges basees sur force du signal de croissance 27%",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur normalisee en nombre sans symbole %; est_wow et is_generic corriges basees sur force du signal de croissance 27%"
     },
     {
       "short": "Hospice segment growth",
@@ -285,9 +289,7 @@
       "is_short_history": true,
       "story_category": "Croissance",
       "ttm": 15,
-      "_validation": "Valeur normalisee en nombre sans symbole %; is_wow et is_generic corriges basees sur signal de croissance 15%; calcul historique de taux YoY",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur normalisee en nombre sans symbole %; is_wow et is_generic corriges basees sur signal de croissance 15%; calcul historique de taux YoY"
     }
   ],
   "ai_positioning": {
@@ -304,7 +306,8 @@
       "score_rationale": "Risque identifie en debut de section Item 1A (position forte), langage modere 'may not be able' sans intensite maximale, tendance stable (formulation classique), categorie personne-cle ponderee moyennement dans le secteur des services a domicile.",
       "trend": "stable",
       "summary": "ADUS pourrait avoir du mal a recruter et conserver des employes qualifies, ce qui augmenterait les couts operationnels. Dans le secteur des services de sante a domicile, la disponibilite de personnel competent est critique.",
-      "citation": "We may not be able to attract and retain qualified personnel or we may incur increased costs in doing so."
+      "citation": "We may not be able to attract and retain qualified personnel or we may incur increased costs in doing so.",
+      "score": 3
     },
     {
       "title": "Exposition aux variations des taux d'interet",
@@ -313,7 +316,8 @@
       "score_rationale": "Risque detaille en Item 7A avec donnees quantitatives (124,3 M$ en 2025 vs 223,0 M$ en 2024), langage factuel 'would have decreased', impact chiffre (1,4 M$ ou 0,08$ par action), tendance accrue (baisse de la dette mais exposition persistante), categorie credit ponderee fortement.",
       "trend": "up",
       "summary": "ADUS a 124,3 millions de dollars de dettes a taux variable. Une hausse de 100 points de base des taux reduirait le benefice net de 1,4 million de dollars. L'entreprise n'a pas de couverture de taux d'interet.",
-      "citation": "If the variable rates on this debt were 100 basis points higher than the rate applicable to the borrowing during the year ended December 31, 2025, our net income would have decreased by $1.4 million, or $0.08 per diluted share."
+      "citation": "If the variable rates on this debt were 100 basis points higher than the rate applicable to the borrowing during the year ended December 31, 2025, our net income would have decreased by $1.4 million, or $0.08 per diluted share.",
+      "score": 3
     },
     {
       "title": "Controles internes sur acquisitions recentes",
@@ -322,7 +326,8 @@
       "score_rationale": "Risque identifie en Item 9A (position milieu), langage neutre concernant exclusions reglementaires, tendance nouvelle (deux acquisitions en 2025 : Helping Hands et Gold Horses), categorie industriel ponderee moderement car acquisitions mineures (0,5% et 0,2% des revenus).",
       "trend": "new",
       "summary": "ADUS a acquis deux societes en 2025 (Helping Hands et Gold Horses) qui ont ete exclues de l'evaluation des controles internes. Ces acquisitions representent une part mineure des revenus mais creent une lacune temporaire de controle.",
-      "citation": "We excluded Helping Hands Home Care Service, Inc., a Pennsylvania corporation (Helping Hands) and Gold Horses, LLC, a Texas limited liability company (Gold Horses) from our assessment of internal control over financial reporting as of December 31, 2025 because they were acquired in purchase business combinations on August 1, 2025 and October 1, 2025, respectively."
+      "citation": "We excluded Helping Hands Home Care Service, Inc., a Pennsylvania corporation (Helping Hands) and Gold Horses, LLC, a Texas limited liability company (Gold Horses) from our assessment of internal control over financial reporting as of December 31, 2025 because they were acquired in purchase business combinations on August 1, 2025 and October 1, 2025, respectively.",
+      "score": 2
     }
   ],
   "governance": {
@@ -409,7 +414,6 @@
       "date": "2026-05-05"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:56:44.495400+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -439,6 +443,7 @@
     ],
     "total": 1.42
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:56:44.495400+00:00",
   "_segments_fetched_at": "2026-05-06T19:21:43.321261+00:00",
   "enrich_description": {
     "ticker": "ADUS",
@@ -537,251 +542,167 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ADUS",
-    "extracted_at": "2026-05-15T19:48:14Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1468328,
-    "n_kpis": 3,
+    "extracted_at": "2026-06-01T02:55:07Z",
+    "n_kpis": 4,
     "kpis": [
+      {
+        "short": "Net service revenues",
+        "period_type": "quarter",
+        "history": [
+          205.302,
+          217.893,
+          216.662,
+          226.634,
+          236.94,
+          240.495,
+          251.599,
+          259.98,
+          270.721,
+          280.746,
+          286.922,
+          289.787,
+          337.708,
+          349.443,
+          362.301
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:55:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
       {
         "short": "Net income",
         "period_type": "quarter",
         "history": [
-          20.491,
-          32.068,
-          -16.327,
+          8.894,
+          11.597,
+          11.577,
           8.47,
-          19.72,
-          31.263,
-          -13.428,
+          11.25,
+          11.543,
           12.675,
-          27.527,
-          42.938,
-          -20.624,
+          14.852,
+          15.411,
           15.83,
-          33.909,
-          54.072,
-          -30.213,
+          18.079,
+          20.163,
           21.228,
-          43.28,
-          66.128,
-          -34.726,
-          25.069
+          22.052,
+          22.848
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 43.28,
-            "accession": "0001437749-25-024871",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 66.128,
-            "accession": "0001437749-25-033041",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -34.726,
-            "accession": "calc-0001437749-26-005352",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 25.069,
-            "accession": "0001437749-26-014900",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T02:55:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
-        "short": "Total assets",
+        "short": "Personal care segment net service revenues",
         "period_type": "quarter",
         "history": [
-          0.8892,
-          0.9249,
-          -1.7441,
-          0.9872,
-          0.9645,
-          0.9459,
-          -1.9597,
-          0.9311,
-          0.9284,
-          1.0357,
-          -1.8708,
-          1.014,
-          1.1166,
-          1.1529,
-          -1.8708,
-          1.4076,
-          1.4089,
-          1.4229,
-          -2.8021,
-          1.4357
+          190.032,
+          208.003,
+          208.003,
+          258.286,
+          212.817,
+          212.817,
+          269.183,
+          215.433,
+          190.032,
+          215.433
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
+          "Q2 2023",
+          "Q2 2024",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2023",
+          "Q3 2024",
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Assets",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1.4089,
-            "accession": "0001437749-25-024871",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 1.4229,
-            "accession": "0001437749-25-033041",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -2.8021,
-            "accession": "calc-0001437749-26-005352",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.4357,
-            "accession": "0001437749-26-014900",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:55:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Hospice segment net service revenues",
         "period_type": "quarter",
         "history": [
-          0.0003,
-          0.0005,
-          0.0007,
-          0.0007,
-          0.0007,
-          0.0008,
-          0.0009,
-          0.0005,
-          0,
-          0.2004,
-          0,
-          0,
-          0.0531,
-          0.154,
-          0.0559,
-          0.056,
-          0.0573,
-          0.059,
-          0.0614,
-          0.0622,
-          0.0689,
-          0.07
+          49.082,
+          55.863,
+          55.863,
+          61.437,
+          55.863,
+          56.03,
+          62.212,
+          57.309,
+          49.082,
+          57.309
         ],
         "history_periods": [
-          "Q2 2020",
-          "Q3 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
+          "Q2 2023",
+          "Q2 2024",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2023",
+          "Q3 2024",
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Hospice",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.0614,
-            "source": "ADUS_2025-05-06.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.0622,
-            "source": "ADUS_2025-08-05.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.0689,
-            "source": "ADUS_2025-11-04.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.07,
-            "source": "calc-ADUS_2026-02-24.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:55:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
-    ],
-    "_segment_method": "xbrl-segment-inline"
+    ]
   },
   "enrich_ranks": {
     "ticker": "ADUS",
@@ -795,9 +716,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.134413+00:00",
     "fetched_at": "2026-05-21T02:17:14.134415+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.368Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.823Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/adus.json",
     "enrich_root": "v2-pipeline-enrich/adus.json",

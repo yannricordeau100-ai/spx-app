@@ -111,100 +111,118 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.76,
-      "unit": "Mds €",
+      "value": 760,
+      "unit": "M €",
       "yoy": "+11.8%",
       "history": [
-        0.4,
-        0.48,
-        0.68,
-        0.76
+        400,
+        480,
+        680,
+        760
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.76 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.84,
-      "unit": "Mds €",
+      "value": 840,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.58,
-        0.62,
-        0.84,
-        0.84
+        580,
+        620,
+        840,
+        840
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
         0,
         0,
-        0.01,
-        0.01
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "-7.7%",
       "history": [
-        0.07,
-        0.14,
-        0.13,
-        0.12
+        70,
+        140,
+        130,
+        120
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.12 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,9 +247,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -245,52 +261,52 @@
       "title": "Perte de revenus due à la concurrence des génériques",
       "category": "Concurrence",
       "severity": 5,
-      "score_rationale": "Ce risque est mentionné en premier dans la section 'Risks Related to our Commercial Activities'. L'entreprise a déjà perdu un procès contre un concurrent (Teva). Le langage utilisé souligne les impacts matériels ('materially harm'). (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné en premier dans la section 'Risks Related to our Commercial Activities'. L'entreprise a déjà perdu un procès contre un concurrent (Teva). Le langage utilisé souligne les impacts matériels ('materially harm').",
       "trend": "up",
       "summary": "L'arrivée de versions génériques du médicament Korlym, notamment celle de Teva, réduit significativement les revenus potentiels et a déjà été confirmée par des décisions de justice défavorables.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Impact de la perception publique et législation sur le mifépristone",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Ce risque est détaillé et lié à un ingrédient actif clé (mifépristone) utilisé dans Korlym. Le contexte post-Dobbs et les incertitudes réglementaires futures sur l'utilisation du mifépristone justifient une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé et lié à un ingrédient actif clé (mifépristone) utilisé dans Korlym. Le contexte post-Dobbs et les incertitudes réglementaires futures sur l'utilisation du mifépristone justifient une sévérité élevée.",
       "trend": "up",
       "summary": "La perception publique et les législations restrictives sur le mifépristone, ingrédient actif de Korlym, créent une incertitude majeure quant à la disponibilité et la vente future du médicament.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Changements réglementaires et pression sur les prix des médicaments",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Ce risque est détaillé dans la section 'Risks Related to our Commercial Activities', mentionnant spécifiquement l'Inflation Reduction Act (IRA) et ses implications sur la négociation des prix et les rabais. La sévérité est élevée en raison de l'impact direct sur les revenus. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé dans la section 'Risks Related to our Commercial Activities', mentionnant spécifiquement l'Inflation Reduction Act (IRA) et ses implications sur la négociation des prix et les rabais. La sévérité est élevée en raison de l'impact direct sur les revenus.",
       "trend": "up",
       "summary": "Les nouvelles lois et réglementations, comme l'IRA, visent à réduire les coûts des médicaments, ce qui pourrait limiter les prix, les remboursements et donc les revenus de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Échec du développement et de l'approbation de nouveaux produits",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Ce risque est clairement énoncé dans la section 'Risks Related to our Research and Development Activities'. Le processus de développement est décrit comme long, coûteux et souvent infructueux, avec une incertitude quant à l'approbation réglementaire. La réception d'une CRL pour Relacorilant le 30 décembre 2025 valide ce risque. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est clairement énoncé dans la section 'Risks Related to our Research and Development Activities'. Le processus de développement est décrit comme long, coûteux et souvent infructueux, avec une incertitude quant à l'approbation réglementaire. La réception d'une CRL pour Relacorilant le 30 décembre 2025 valide ce risque.",
       "trend": "up",
       "summary": "Le développement de nouveaux médicaments est un processus long, coûteux et incertain, sans garantie de succès clinique ou d'approbation par les autorités réglementaires. Relacorilant a reçu une CRL au lieu d'une approbation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux revenus des produits actuels",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Ce risque est le premier mentionné dans la section commerciale et est directement lié à la capacité de l'entreprise à générer des revenus suffisants. L'échec à atteindre les objectifs de revenus aurait un impact direct sur le cours de l'action. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est le premier mentionné dans la section commerciale et est directement lié à la capacité de l'entreprise à générer des revenus suffisants. L'échec à atteindre les objectifs de revenus aurait un impact direct sur le cours de l'action.",
       "trend": "stable",
       "summary": "La performance financière de l'entreprise dépend fortement des ventes de ses produits actuels, en particulier Korlym. Un échec à générer suffisamment de revenus pourrait nuire aux résultats et au cours de l'action.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la propriété intellectuelle et aux litiges",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Ce risque est abordé dans la section 'Risks Related to our Intellectual Property'. Bien que l'entreprise cherche à protéger ses brevets, le langage reconnaît que les litiges sont coûteux, longs et incertains. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est abordé dans la section 'Risks Related to our Intellectual Property'. Bien que l'entreprise cherche à protéger ses brevets, le langage reconnaît que les litiges sont coûteux, longs et incertains.",
       "trend": "stable",
       "summary": "L'entreprise pourrait avoir du mal à obtenir ou à faire respecter la protection de ses brevets, ce qui entraînerait des litiges coûteux et incertains.",
       "score": 3
@@ -299,7 +315,7 @@
       "title": "Défaillance des systèmes informatiques et cybersécurité",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "Ce risque est mentionné dans les 'General Risk Factors' et souligne la dépendance de l'entreprise à l'égard de ses systèmes informatiques. Une interruption ou une violation pourrait entraîner des responsabilités. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné dans les 'General Risk Factors' et souligne la dépendance de l'entreprise à l'égard de ses systèmes informatiques. Une interruption ou une violation pourrait entraîner des responsabilités.",
       "trend": "up",
       "summary": "Une panne ou une violation des systèmes informatiques pourrait interrompre les opérations commerciales et exposer l'entreprise à des responsabilités financières.",
       "score": 3
@@ -370,7 +386,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.724Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.714Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cort.json",
     "enrich_root": null,

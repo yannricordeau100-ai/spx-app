@@ -96,11 +96,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 51.26 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -119,11 +123,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 9.02 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -142,11 +150,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 108.79 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -165,11 +177,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 24.5 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -188,10 +204,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 11.77 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -205,7 +225,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         5.3702,
         6.1762,
@@ -218,7 +238,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -233,7 +253,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         17.851,
@@ -246,7 +266,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -261,7 +281,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         57.77,
@@ -274,7 +294,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -290,7 +310,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         12.186,
@@ -303,7 +323,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -370,7 +390,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental pour BHP : l'Item 1A renvoie à la section 11 (Risk factors) et mentionne explicitement l'impact des variations de prix de commodités (section 12.5). Langage intensif sur la volatilité des prix. Tendance stable mais structurelle. Poids catégorique majeur pour une entreprise minière diversifiée.",
       "trend": "stable",
-      "summary": "BHP génère ses revenus principalement de la vente de cuivre, minerai de fer, charbon et potasse, dont les prix sont volatiles et déterminés par les marchés mondiaux. Les fluctuations de prix impactent directement la rentabilité, les flux de trésorerie et la capacité d'investissement dans les projets de croissance (Jansen, cuivre)."
+      "summary": "BHP génère ses revenus principalement de la vente de cuivre, minerai de fer, charbon et potasse, dont les prix sont volatiles et déterminés par les marchés mondiaux. Les fluctuations de prix impactent directement la rentabilité, les flux de trésorerie et la capacité d'investissement dans les projets de croissance (Jansen, cuivre).",
+      "score": 5
     },
     {
       "title": "Risques opérationnels et de sécurité minière",
@@ -378,7 +399,8 @@
       "severity": 4,
       "score_rationale": "Section 8 (Safety) et 11 (Risk factors) dédiées. Langage fort sur les enjeux de sécurité et d'exploitation minière. Tendance stable mais critique pour la continuité opérationnelle. Poids élevé : incidents miniers peuvent arrêter production et générer passifs importants.",
       "trend": "stable",
-      "summary": "Les opérations minières de BHP (Escondida, WAIO, Jansen) exposent l'entreprise à des risques d'accidents, d'arrêts de production, de défaillances d'équipements et de gestion des installations de stockage de résidus (TSF). Les incidents peuvent causer des pertes de vies humaines, des arrêts prolongés et des coûts de remédiation majeurs."
+      "summary": "Les opérations minières de BHP (Escondida, WAIO, Jansen) exposent l'entreprise à des risques d'accidents, d'arrêts de production, de défaillances d'équipements et de gestion des installations de stockage de résidus (TSF). Les incidents peuvent causer des pertes de vies humaines, des arrêts prolongés et des coûts de remédiation majeurs.",
+      "score": 4
     },
     {
       "title": "Régulation environnementale et climatique stricte",
@@ -386,7 +408,8 @@
       "severity": 4,
       "score_rationale": "Section 9.8 (Climate Change) et 9.9 (Nature and environmental performance) très développées. Langage intensif sur les objectifs 2030 et les scénarios climatiques. Tendance up : renforcement des normes ESG et transition énergétique. Poids croissant pour l'industrie minière.",
       "trend": "up",
-      "summary": "BHP fait face à des réglementations environnementales de plus en plus strictes (émissions GES, eau, biodiversité) dans ses juridictions d'exploitation (Australie, Chili, Pérou, Canada). Les objectifs de réduction d'émissions et les scénarios climatiques imposent des investissements importants et peuvent limiter l'expansion de certains actifs (charbon thermique)."
+      "summary": "BHP fait face à des réglementations environnementales de plus en plus strictes (émissions GES, eau, biodiversité) dans ses juridictions d'exploitation (Australie, Chili, Pérou, Canada). Les objectifs de réduction d'émissions et les scénarios climatiques imposent des investissements importants et peuvent limiter l'expansion de certains actifs (charbon thermique).",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et réglementaires par juridiction",
@@ -394,7 +417,8 @@
       "severity": 4,
       "score_rationale": "Section 2.2 (Where we operate) et 9.9 (Government regulations) identifient des opérations en Chili, Pérou, Australie, Canada. Langage modéré mais contexte géopolitique tendu (Chili, Pérou). Tendance up : instabilité politique, changements réglementaires, nationalisme des ressources. Poids élevé pour portefeuille géographiquement diversifié.",
       "trend": "up",
-      "summary": "BHP opère dans des juridictions exposées à des risques politiques et réglementaires : Chili et Pérou (instabilité politique, augmentation des impôts miniers, tensions sociales), Australie (régulation stricte), Canada (approbations environnementales). Les changements de gouvernement peuvent entraîner des modifications fiscales ou des restrictions d'exploitation."
+      "summary": "BHP opère dans des juridictions exposées à des risques politiques et réglementaires : Chili et Pérou (instabilité politique, augmentation des impôts miniers, tensions sociales), Australie (régulation stricte), Canada (approbations environnementales). Les changements de gouvernement peuvent entraîner des modifications fiscales ou des restrictions d'exploitation.",
+      "score": 4
     },
     {
       "title": "Dépendance aux ressources minérales limitées et épuisement",
@@ -402,7 +426,8 @@
       "severity": 3,
       "score_rationale": "Section 6 (Our assets) et Additional information 6 (Mineral resources and reserves) détaillent les réserves par actif. Langage factuel sur les réserves déclinantes (notamment charbon). Tendance stable mais structurelle. Poids modéré : nécessite pipeline de croissance (Jansen, cuivre) pour compenser.",
       "trend": "stable",
-      "summary": "Les gisements miniers de BHP sont des ressources épuisables. L'entreprise doit continuellement explorer et développer de nouveaux projets pour maintenir la production. L'épuisement des réserves de charbon et la nécessité d'investissements majeurs en cuivre (Jansen) créent une dépendance à la réussite des projets de croissance."
+      "summary": "Les gisements miniers de BHP sont des ressources épuisables. L'entreprise doit continuellement explorer et développer de nouveaux projets pour maintenir la production. L'épuisement des réserves de charbon et la nécessité d'investissements majeurs en cuivre (Jansen) créent une dépendance à la réussite des projets de croissance.",
+      "score": 3
     },
     {
       "title": "Risques de projet majeur et dépassements de coûts",
@@ -410,7 +435,8 @@
       "severity": 4,
       "score_rationale": "Section 4 (Positioning for growth) et Additional information 5 (Major projects) mentionnent Jansen (potasse) et expansion cuivre. Langage prudent sur les risques de projet. Tendance up : Jansen est un projet de plusieurs milliards USD en phase critique. Poids élevé : dépassements impactent rentabilité et stratégie.",
       "trend": "up",
-      "summary": "BHP investit massivement dans des projets de croissance majeurs (Jansen en Saskatchewan, expansions cuivre). Ces projets complexes exposent l'entreprise à des risques de dépassement de coûts, de retards de mise en service, de défaillances techniques et de changements réglementaires qui pourraient réduire les rendements attendus."
+      "summary": "BHP investit massivement dans des projets de croissance majeurs (Jansen en Saskatchewan, expansions cuivre). Ces projets complexes exposent l'entreprise à des risques de dépassement de coûts, de retards de mise en service, de défaillances techniques et de changements réglementaires qui pourraient réduire les rendements attendus.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et continuité opérationnelle numérique",
@@ -418,7 +444,8 @@
       "severity": 3,
       "score_rationale": "Item 16K (Cybersecurity) et Additional information 9.8 (Supplemental cybersecurity disclosures) dédiés. Langage modéré mais reconnaissance explicite du risque. Tendance up : dépendance croissante aux systèmes numériques pour l'exploitation minière. Poids croissant pour l'industrie.",
       "trend": "up",
-      "summary": "BHP dépend de systèmes informatiques critiques pour l'exploitation minière, la logistique et les opérations commerciales. Les cyberattaques, les défaillances de systèmes ou les interruptions numériques pourraient arrêter la production, compromettre les données sensibles ou perturber les chaînes d'approvisionnement."
+      "summary": "BHP dépend de systèmes informatiques critiques pour l'exploitation minière, la logistique et les opérations commerciales. Les cyberattaques, les défaillances de systèmes ou les interruptions numériques pourraient arrêter la production, compromettre les données sensibles ou perturber les chaînes d'approvisionnement.",
+      "score": 3
     },
     {
       "title": "Passifs environnementaux et litige Samarco",
@@ -426,7 +453,8 @@
       "severity": 4,
       "score_rationale": "Section 10 (Samarco) et Additional information 8 (Legal proceedings) dédiées. Langage factuel mais reconnaissance d'un passif majeur. Tendance stable mais poids élevé : Samarco (joint-venture) a causé un désastre environnemental en 2015. Coûts de remédiation et risques de litige persistants.",
       "trend": "stable",
-      "summary": "BHP est impliquée dans le désastre de Samarco (2015, rupture de barrage au Brésil). L'entreprise fait face à des coûts de remédiation importants, des litiges avec les autorités brésiliennes et des risques de passifs environnementaux supplémentaires. Cet événement crée un risque réputationnel durable et des expositions légales."
+      "summary": "BHP est impliquée dans le désastre de Samarco (2015, rupture de barrage au Brésil). L'entreprise fait face à des coûts de remédiation importants, des litiges avec les autorités brésiliennes et des risques de passifs environnementaux supplémentaires. Cet événement crée un risque réputationnel durable et des expositions légales.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:20:34.904176+00:00",
@@ -442,518 +470,369 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:22:15Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "_eps_extracted_at": "2026-05-18T16:43:54Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Mines",
   "enrich_ax": {
     "governance": {
-      "top_capital": [
+      "top_disclosure": "unavailable_adr",
+      "_top_source": "unavailable"
+    },
+    "_quarterly_history_extension": {
+      "ticker": "BHP.AX",
+      "kpis": [
         {
-          "name": "Pacer Advisors, Inc.",
-          "type": "institutionnel",
-          "stake_pct": 0.04
+          "kpi_short": "Total Revenue",
+          "kpi_name_fr": "Chiffre d'affaires",
+          "unit": "Mds USD",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 65.098,
+              "date": "2022-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 53.817,
+              "date": "2023-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 55.658,
+              "date": "2024-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 51.262,
+              "date": "2025-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-06-30",
+          "source": "rapport financier income_stmt annual (USD)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "Operating Income",
+          "kpi_name_fr": "Résultat opérationnel",
+          "unit": "Mds USD",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 32.887,
+              "date": "2022-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 21.957,
+              "date": "2023-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 22.905,
+              "date": "2024-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 19.078,
+              "date": "2025-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-06-30",
+          "source": "rapport financier income_stmt annual (USD)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "Net Income",
+          "kpi_name_fr": "Résultat net",
+          "unit": "Mds USD",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 30.9,
+              "date": "2022-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 12.921,
+              "date": "2023-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 7.897,
+              "date": "2024-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 9.019,
+              "date": "2025-06-30",
+              "source": "rapport financier income_stmt annual (USD)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-06-30",
+          "source": "rapport financier income_stmt annual (USD)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "Op Cash Flow",
+          "kpi_name_fr": "Flux de trésorerie opérationnel",
+          "unit": "Mds USD",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 32.174,
+              "date": "2022-06-30",
+              "source": "rapport financier cashflow annual (USD)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 18.701,
+              "date": "2023-06-30",
+              "source": "rapport financier cashflow annual (USD)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 20.665,
+              "date": "2024-06-30",
+              "source": "rapport financier cashflow annual (USD)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 18.692,
+              "date": "2025-06-30",
+              "source": "rapport financier cashflow annual (USD)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-06-30",
+          "source": "rapport financier cashflow annual (USD)",
+          "_sec_tag": null
         }
       ],
-      "top_voting": [
+      "extracted_at": "2026-06-02T12:17:19Z",
+      "extracted_by": "CONV-DATA SA11 rapport financier annual fallback (semestrial sociétés EU/JP/HK/AU)",
+      "source": "rapport financier income_stmt + cashflow annual (USD)"
+    },
+    "_super_kpi_inputs": {
+      "revenue_q": [
         {
-          "name": "Pacer Advisors, Inc.",
-          "type": "institutionnel",
-          "stake_pct": 0.04
+          "q": "FY 2022",
+          "v": 65.098,
+          "date": "2022-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 53.817,
+          "date": "2023-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 55.658,
+          "date": "2024-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 51.262,
+          "date": "2025-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
         }
       ],
-      "voting_structure_note": "OK 1-share-1-vote",
-      "_top_source": "unavailable",
-      "_top_enriched_at": "2026-05-21T02:12:16.371871+00:00",
-      "_top_dual_class_flag": false,
-      "top_disclosure": "unavailable_adr"
+      "revenue_unit": "Mds USD",
+      "op_income_q": [
+        {
+          "q": "FY 2022",
+          "v": 32.887,
+          "date": "2022-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 21.957,
+          "date": "2023-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 22.905,
+          "date": "2024-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 19.078,
+          "date": "2025-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        }
+      ],
+      "op_income_unit": "Mds USD",
+      "ni_q": [
+        {
+          "q": "FY 2022",
+          "v": 30.9,
+          "date": "2022-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 12.921,
+          "date": "2023-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 7.897,
+          "date": "2024-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 9.019,
+          "date": "2025-06-30",
+          "source": "rapport financier income_stmt annual (USD)"
+        }
+      ],
+      "ni_unit": "Mds USD",
+      "op_cf_q": [
+        {
+          "q": "FY 2022",
+          "v": 32.174,
+          "date": "2022-06-30",
+          "source": "rapport financier cashflow annual (USD)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 18.701,
+          "date": "2023-06-30",
+          "source": "rapport financier cashflow annual (USD)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 20.665,
+          "date": "2024-06-30",
+          "source": "rapport financier cashflow annual (USD)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 18.692,
+          "date": "2025-06-30",
+          "source": "rapport financier cashflow annual (USD)"
+        }
+      ],
+      "op_cf_unit": "Mds USD",
+      "rd_q": [],
+      "rd_unit": "Mds USD",
+      "op_margin_q_pct": [
+        {
+          "q": "FY 2022",
+          "v": 50.52,
+          "date": "2022-06-30",
+          "source": "rapport financier derived (op_income/revenue)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 40.8,
+          "date": "2023-06-30",
+          "source": "rapport financier derived (op_income/revenue)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 41.15,
+          "date": "2024-06-30",
+          "source": "rapport financier derived (op_income/revenue)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 37.22,
+          "date": "2025-06-30",
+          "source": "rapport financier derived (op_income/revenue)"
+        }
+      ],
+      "_extracted_at": "2026-06-02T12:17:19Z",
+      "_source": "rapport financier annual fallback (USD) : SA11 semestrial sociétés (FY only, no H1 split available via rapport financier)"
     },
-    "events": [
+    "ticker": "BHP.AX",
+    "kpis": [
       {
-        "year": 2026,
-        "month": 5,
-        "title": "Grasberg Disruptions Weigh on FCX's Q1 Volumes: What Lies Ahead?",
-        "body": "FCX cuts 2026 copper sales outlook after Grasberg disruptions hit volumes, despite stronger copper and gold prices boosting Q1 results.",
-        "source": "Zacks",
-        "url": "https://finance.yahoo.com/markets/commodities/articles/grasberg-disruptions-weigh-fcxs-q1-135200227.html",
-        "date": "2026-05-14"
-      },
-      {
-        "year": 2026,
-        "month": 5,
-        "title": "Far-right One Nation secures landmark victory in Australian by-election",
-        "body": "Investing.com -- Australia’s political landscape underwent a significant shift on Saturday as the far-right One Nation party secured its first-ever elected seat in the lower house.",
-        "source": "Investing.com",
-        "url": "https://www.yahoo.com/news/articles/far-one-nation-secures-landmark-014928249.html",
-        "date": "2026-05-10"
-      },
-      {
-        "year": 2026,
-        "month": 5,
-        "title": "Wheaton Precious Metals Corp. Q1 2026 Earnings Call Summary",
-        "body": "Moby summary of Wheaton Precious Metals Corp.'s Q1 2026 earnings call",
-        "source": "Moby",
-        "url": "https://app.moby.co/home/research/tools/earningsCalendar/earnings-wheaton-precious-metals-corp-q1-2026-earnings-call-summary?utm_source=yahoo_finance&utm_medium=rss",
-        "date": "2026-05-08"
-      },
-      {
-        "year": 2026,
-        "month": 3,
-        "title": "Dividende 1.0385 AUD/action versé",
-        "body": "Dividende ordinaire de 1.0385 AUD par action, ex-date 5 mars 2026.",
-        "source": "yfinance · actions",
-        "url": "",
-        "date": "2026-03-05"
-      },
-      {
-        "year": 2025,
-        "month": 12,
-        "title": "Publication des résultats Q4 2025",
-        "body": "Clôture du trimestre Q4 2025 le 31 décembre 2025.",
-        "source": "yfinance · mostRecentQuarter",
-        "url": "",
-        "date": "2025-12-31"
-      },
-      {
-        "year": 2025,
-        "month": 9,
-        "title": "Dividende 0.9193 AUD/action versé",
-        "body": "Dividende ordinaire de 0.9193 AUD par action, ex-date 4 septembre 2025.",
-        "source": "yfinance · actions",
-        "url": "",
-        "date": "2025-09-04"
-      },
-      {
-        "year": 2025,
-        "month": 3,
-        "title": "Dividende 0.7909 AUD/action versé",
-        "body": "Dividende ordinaire de 0.7909 AUD par action, ex-date 6 mars 2025.",
-        "source": "yfinance · actions",
-        "url": "",
-        "date": "2025-03-06"
-      },
-      {
-        "year": 2024,
-        "month": 9,
-        "title": "Dividende 1.11 AUD/action versé",
-        "body": "Dividende ordinaire de 1.11 AUD par action, ex-date 12 septembre 2024.",
-        "source": "yfinance · actions",
-        "url": "",
-        "date": "2024-09-12"
+        "short": "Iron Ore Production",
+        "name_fr": "Production de minerai de fer",
+        "name_en": "Iron Ore Production",
+        "value": 263,
+        "unit": "Mt",
+        "history": [
+          248,
+          254,
+          253,
+          257,
+          260,
+          263
+        ],
+        "type": "Distinctif",
+        "nature": "Structurel",
+        "is_wow": true,
+        "history_periods": [
+          "FY 2020",
+          "FY 2021",
+          "FY 2022",
+          "FY 2023",
+          "FY 2024",
+          "FY 2025"
+        ],
+        "period_type": "year",
+        "last_data_date": "2025-06-30",
+        "yoy": "+1.2 %",
+        "explanation": "Tonnage total de minerai de fer produit par les sites BHP (Western Australia Iron Ore principalement, sur base humide). KPI maître de BHP, premier producteur mondial.",
+        "signal": "Record FY2025 = 263 Mt, 3e année consécutive de record",
+        "_source": "BHP 20-F SEC EDGAR (Total iron ore production Mt, FY2020-FY2025)",
+        "_extracted_at": "2026-06-02T20:53:48.059804Z",
+        "_extracted_by": "CONV-DATA SA17 BHP 20-F parser"
       }
     ],
-    "_events_programmatic_fill_at": "2026-05-21T03:13:18.594090+00:00",
-    "overrides_governance": {
-      "board_size": 10,
-      "avg_tenure_years": 5.5
-    },
-    "_governance_partial": true,
-    "_governance_missing_fields": [
-      "ceo_total_comp_m",
-      "exec_comp_approval_pct",
-      "board_women_pct",
-      "ceo_pay_ratio",
-      "board_independence_pct"
-    ],
-    "_governance_heuristic_at": "2026-05-21T03:13:26.313674Z",
-    "_governance_heuristic_source": "fill-governance-heuristic-extended (all_publishable_remaining)",
-    "kpis_type_overrides": {
-      "Free Cash Flow": "Cash Flow",
-      "CapEx": "Investment",
-      "Net Debt": "Cost"
-    },
-    "_kpis_type_overrides_source": "heuristic-fill-kpi-types.py (pattern match)",
-    "freshness_yf_v173": {
-      "publication_date": "2025-12-31",
-      "latest_filing": {
-        "date": "2025-12-31"
-      },
-      "next_earnings_date": null,
-      "source": "yfinance",
-      "fetched_at": "2026-05-21T03:38:30.890938+00:00"
-    },
-    "publication_date": "2025-12-31",
-    "latest_filing": {
-      "date": "2025-12-31"
-    },
-    "overrides_profit_warning": {
-      "status": "no_warning_12m",
-      "checked_at": "2026-05-21T08:52:40Z",
-      "source": "heuristic_no_filing_scan (sub-agent #88)"
-    },
-    "stories_kpis": [
-      {
-        "short": "Copper Growth Rate",
-        "name_fr": "Taux de croissance du cuivre",
-        "name_en": "Copper Growth Rate",
-        "explanation": "Croissance annuelle du volume de cuivre produit par BHP.",
-        "value": 8.2,
-        "unit": "%",
-        "yoy": "+1.3%",
-        "type": "Capacity",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "BHP accélère sa production de cuivre pour répondre à la demande verte",
-        "description": "Le cuivre est essentiel pour la transition énergétique et les infrastructures électriques. BHP renforce sa position stratégique dans ce marché en forte croissance.",
-        "history": [
-          6.1,
-          7,
-          7.9,
-          8.2
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Capacité"
-      },
-      {
-        "short": "Jansen Potash Project Progress",
-        "name_fr": "Avancement du projet Jansen",
-        "name_en": "Jansen Potash Project Progress",
-        "explanation": "Pourcentage d'achèvement du projet Jansen de potasse en Saskatchewan.",
-        "value": 67,
-        "unit": "%",
-        "yoy": "+15%",
-        "type": "Pipeline",
-        "nature": "Structurel",
-        "comparable": "Non comparable",
-        "signal": "Projet clé pour diversifier vers les engrais durables",
-        "description": "Le projet Jansen représente l'un des plus grands investissements de BHP dans les engrais à faible émission. Il positionne l'entreprise sur un marché agricole en croissance durable.",
-        "history": [
-          35,
-          52,
-          67
-        ],
-        "last_data_date": "2026-01-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Capacité"
-      },
-      {
-        "short": "Iron Ore Cost Position",
-        "name_fr": "Position de coût du fer",
-        "name_en": "Iron Ore Cost Position",
-        "explanation": "Rang mondial de BHP en termes de coût de production du minerai de fer.",
-        "value": 2,
-        "unit": "ème",
-        "yoy": "n/a",
-        "type": "Share",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Leader mondial à faible coût malgré le cycle",
-        "description": "BHP se classe parmi les deux producteurs de minerai de fer les plus compétitifs au monde. Cette position renforce sa résilience face aux baisses de prix.",
-        "history": [
-          2,
-          2,
-          2
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": false,
-        "story_category": "Marché"
-      },
-      {
-        "short": "Scope 3 Emissions Reduction",
-        "name_fr": "Réduction des émissions Scope 3",
-        "name_en": "Scope 3 Emissions Reduction",
-        "explanation": "Réduction des émissions de carbone associées aux produits BHP après vente.",
-        "value": 12,
-        "unit": "%",
-        "yoy": "+3%",
-        "type": "Innovation",
-        "nature": "Structurel",
-        "comparable": "Non comparable",
-        "signal": "Impact carbone mesuré au-delà de la mine",
-        "description": "BHP mesure l'empreinte carbone de ses produits tout au long de leur cycle de vie. La réduction des émissions Scope 3 montre l'efficacité de ses partenariats verts.",
-        "history": [
-          9,
-          10,
-          11,
-          12
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Innovation"
-      },
-      {
-        "short": "EV Metals Revenue Share",
-        "name_fr": "Part des métaux pour véhicules électriques",
-        "name_en": "EV Metals Revenue Share",
-        "explanation": "Part des revenus provenant des métaux utilisés dans les véhicules électriques (cuivre, nickel, cobalt).",
-        "value": 23,
-        "unit": "%",
-        "yoy": "+2%",
-        "type": "Revenue",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Montée en puissance dans la chaîne de valeur verte",
-        "description": "Les métaux critiques pour les batteries et moteurs électriques représentent une part croissante du chiffre d'affaires. Cela illustre la transformation stratégique de BHP.",
-        "history": [
-          19,
-          21,
-          22,
-          23
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Marché"
-      },
-      {
-        "short": "Nickel EV Output",
-        "name_fr": "Production de Nickel pour Véhicules Électriques",
-        "name_en": "Nickel EV Output",
-        "explanation": "Quantité de nickel produit destiné spécifiquement aux batteries de véhicules électriques.",
-        "value": 38.2,
-        "unit": "kt",
-        "yoy": "+14%",
-        "type": "Capacity",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Montée en puissance dans la chaîne de valeur verte",
-        "description": "BHP accroît sa production de nickel de haute pureté pour répondre à la demande croissante des fabricants de batteries. Ce métal est essentiel pour les cathodes des batteries lithium-ion.",
-        "history": [
-          28.5,
-          32.1,
-          35,
-          38.2
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Capacité"
-      },
-      {
-        "short": "Potash Cost Curve",
-        "name_fr": "Position sur la Courbe de Coût du Potasse",
-        "name_en": "Potash Cost Curve Position",
-        "explanation": "Classement du projet Jansen parmi les producteurs de potasse les moins coûteux au monde.",
-        "value": 15,
-        "unit": "%",
-        "yoy": "n/a",
-        "type": "Share",
-        "nature": "Structurel",
-        "comparable": "Non comparable",
-        "signal": "Avantage compétitif durable dans l'agriculture mondiale",
-        "description": "Le projet Jansen sera parmi les 15 % des producteurs de potasse les plus compétitifs en coût. Cela assure une rentabilité même en contexte de prix bas.",
-        "history": [
-          18,
-          16,
-          15
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Marché"
-      },
-      {
-        "short": "Iron Ore Autonomy",
-        "name_fr": "Taux d'Automatisation du Fer",
-        "name_en": "Iron Ore Autonomy Rate",
-        "explanation": "Proportion des opérations de transport et de forage automatisées dans les mines de fer australiennes.",
-        "value": 72,
-        "unit": "%",
-        "yoy": "+8%",
-        "type": "Innovation",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Leadership technologique dans l'extraction minière",
-        "description": "BHP déploie massivement des camions et trains autonomes sur son réseau Pilbara. Cela améliore la sécurité et réduit les coûts opérationnels.",
-        "history": [
-          58,
-          64,
-          72
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Innovation"
-      },
-      {
-        "short": "Copper Project Pipeline",
-        "name_fr": "Capacité Future des Projets Cuivre",
-        "name_en": "Copper Project Pipeline Capacity",
-        "explanation": "Capacité de production annuelle prévue provenant de projets cuivre en développement.",
-        "value": 650,
-        "unit": "kt",
-        "yoy": "+22%",
-        "type": "Pipeline",
-        "nature": "Structurel",
-        "comparable": "Non comparable",
-        "signal": "Croissance soutenue du cuivre pour la transition énergétique",
-        "description": "Les projets Oaky Creek, Spence SART et d'autres initiatives contribuent à une augmentation significative de l'offre future. Cette capacité cible répond à la demande en croissance pour le cuivre vert.",
-        "history": [
-          480,
-          530,
-          650
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Capacité"
-      },
-      {
-        "short": "Scope 1&2 Emissions",
-        "name_fr": "Émissions de Scope 1 et 2",
-        "name_en": "Scope 1 & 2 Emissions",
-        "explanation": "Total des émissions directes et indirectes de gaz à effet de serre en millions de tonnes de CO2e.",
-        "value": 14.3,
-        "unit": "M tonnes",
-        "yoy": "-6%",
-        "type": "Adoption",
-        "nature": "Cyclique",
-        "comparable": "Comparable",
-        "signal": "Progrès concrets vers la neutralité carbone",
-        "description": "BHP réduit ses émissions internes grâce à l'électrification et aux énergies renouvelables. Ces efforts renforcent sa crédibilité ESG auprès des investisseurs.",
-        "history": [
-          16.1,
-          15.2,
-          14.3
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Adoption"
-      },
-      {
-        "short": "Copper AI Yield",
-        "name_fr": "Rendement en cuivre avec IA",
-        "name_en": "Copper Yield with AI Optimization",
-        "explanation": "Taux de récupération du cuivre grâce à l'optimisation par intelligence artificielle dans les procédés miniers.",
-        "value": 89.4,
-        "unit": "%",
-        "yoy": "+3.2%",
-        "type": "Innovation",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "L'IA améliore l'efficacité d'extraction du cuivre stratégique",
-        "description": "BHP déploie des algorithmes d'apprentissage automatique pour maximiser le rendement en cuivre dans ses opérations chiliennes. Cette innovation réduit les pertes et augmente la rentabilité des gisements matures.",
-        "history": [
-          85.1,
-          86.7,
-          88,
-          89.4
-        ],
-        "last_data_date": "2025-09-30",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Innovation"
-      },
-      {
-        "short": "Potash Market Share",
-        "name_fr": "Part de marché du potasse",
-        "name_en": "Potash Market Share",
-        "explanation": "Part du volume mondial de potasse commercialisé par BHP après le lancement du projet Jansen.",
-        "value": 8.3,
-        "unit": "%",
-        "yoy": "+2.1%",
-        "type": "Share",
-        "nature": "Structurel",
-        "comparable": "Non comparable",
-        "signal": "BHP devient un acteur majeur sur le marché du potasse",
-        "description": "Avec la mise en production commerciale de Jansen en Saskatchewan, BHP accède au marché du fertilisant à haute croissance. Sa part de marché place désormais le groupe parmi les dix premiers producteurs mondiaux.",
-        "history": [
-          6.2,
-          7.1,
-          8.3
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Marché"
-      }
-    ],
-    "_stories_backfill_at": "2026-05-25T00:31:37Z",
-    "_stories_backfill_source": "scaleup_309_ko_cerebras_key1",
-    "risks_rationale_overrides": [
-      {
-        "title": "Cyclicité prix matières premières et exposition Chine",
-        "category": "Marché",
-        "score_rationale": "Ce risque est classé #1 sur 3 dans l'Item 1A, ce qui indique une priorité élevée (1). L'intensité du langage est forte avec des termes comme 'extrêmement exposé' et 'impacterait fortement' (2). Il est stable par rapport à l'année précédente, ni nouveau ni atténué (3). La catégorie 'Marché' a un weight moyen, inférieur aux risques cyber ou réglementaires (4).",
-        "_enriched_at": "2026-05-27T03:16:00.113552+00:00",
-        "_enriched_by": "CONV-CONCEPTS sub-agent #24 Cerebras Qwen-3 235B"
-      },
-      {
-        "title": "Risques opérationnels et sécurité dans les mines",
-        "category": "Industriel",
-        "score_rationale": "Ce risque est positionné en Item 1A, risk #2 sur 3 (1), indiquant une importance élevée. L'intensité du langage est forte avec des termes comme \"coût remédiation atteint $8Mds+\" (2). Le risque est stable par rapport à N-1, sans aggravation ni atténuation notable (3). La catégorie \"Industriel\" a un weight moyen, inférieur aux risques cyber ou réglementaires (4).",
-        "_enriched_at": "2026-05-27T03:16:04.238635+00:00",
-        "_enriched_by": "CONV-CONCEPTS sub-agent #24 Cerebras Qwen-3 235B"
-      }
-    ],
-    "hero_quarterly_history": {
-      "short": "Underlying EBITDA",
-      "period_type": null,
-      "history": [],
-      "skip_reason": "no_source",
-      "extracted_at": "2026-05-26T01:55:43.494139Z"
-    },
-    "_earnings_updated_at": "2026-05-26T22:58:32Z",
-    "_earnings_source": "yfinance.calendar+info",
-    "risks": [
-      {
-        "title": "Cyclicité prix matières premières et exposition Chine",
-        "category": "macro",
-        "severity": 5,
-        "score_rationale": "Position #1 dans les principal risks de l'annual report 2024 (1). Langage très intense: 'extreme exposure to commodity price volatility' avec sensibilité ±10 USD/t fer = ±2 Mds USD EBITDA (2). Risque stable mais aggravé par le ralentissement immobilier chinois 2024 qui pèse sur la demande acier (3). Catégorie macro pondérée maximale pour une pure-play mining (4).",
-        "trend": "up",
-        "summary": "Plus de 60% du minerai de fer BHP part vers la Chine : tout ralentissement immobilier ou pivot consommation chinoise menace directement la profitabilité du groupe."
-      },
-      {
-        "title": "Risques opérationnels et sécurité dans les mines",
-        "category": "operational",
-        "severity": 4,
-        "score_rationale": "Position #2-3 dans les principal risks (1). Langage très intense: 'fatalities, catastrophic tailings dam failure' avec rappel rupture Brumadinho (2). Risque stable mais coût rémédiation Samarco/Renova passé à 8.2 Mds USD en 2024 (3). Catégorie opérationnelle pondérée fortement pour mining (4).",
-        "trend": "stable",
-        "summary": "Sécurité minière (effondrements, accidents fatals), ruptures de barrages de résidus et incidents environnementaux peuvent générer des passifs multi-milliards et arrêter des sites pour des mois."
-      },
-      {
-        "title": "Transition énergétique et risque carbone",
-        "category": "regulatory",
-        "severity": 4,
-        "score_rationale": "Position #3-4 (1). Langage fort: 'carbon pricing risk', 'stranded assets risk' avec target Scope 1+2 -30% en 2030 et neutralité 2050 (2). Risque aggravé par la sortie BHP du charbon métallurgique partielle et le mécanisme Australian Safeguard reformed 2023 (3). Catégorie réglementaire pondérée fortement avec implications financières directes (4).",
-        "trend": "up",
-        "summary": "Le carbon pricing australien (Safeguard Mechanism) et la sortie progressive du charbon thermique imposent des capex de transition lourds qui rognent les marges historiques."
-      },
-      {
-        "title": "Concurrence et coûts d'approvisionnement potash/cuivre",
-        "category": "competitive",
-        "severity": 3,
-        "score_rationale": "Position 5-6 (1). Langage modéré: 'competition for tier-1 copper and potash assets' (2). Risque aggravé vs N-1 par la tentative échouée d'acquisition Anglo American 2024 (49 Mds USD walked away) (3). Catégorie concurrence pondérée moyenne (4).",
-        "trend": "up",
-        "summary": "BHP fait face à une concurrence intense pour les gisements de cuivre tier-1 (énergie transition) et le projet Jansen potash (Canada) doit livrer dans les temps face à Nutrien et Mosaic."
-      },
-      {
-        "title": "Risque géopolitique Amérique latine et nationalisations",
-        "category": "macro",
-        "severity": 3,
-        "score_rationale": "Position 7+ dans annual report (1). Langage modéré: 'political and fiscal risk in Chile, Peru' (2). Risque aggravé vs N-1 par la nouvelle constitution Chili en débat et hausse des royalties cuivre 2024 (3). Catégorie macro pondérée moyenne avec impact direct sur Escondida (cuivre, 30% production groupe) (4).",
-        "trend": "stable",
-        "summary": "Escondida (Chili) et les opérations péruviennes restent exposées aux risques politiques (royalties, eau, peuples autochtones) qui peuvent réduire la free cash flow de plusieurs centaines de millions."
-      }
-    ],
-    "_risks_reextracted_at": "2026-05-27T13:59:25Z",
-    "_risks_source_path": "Opus knowledge — BHP Group annual report 2024 + sustainability report 2024",
-    "_risks_source_year": "2024",
-    "_risks_verification_needed": true,
-    "hero_last_data_date_override": "2025-12-31",
-    "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00"
+    "hero_kpi_override": "Iron Ore Production",
+    "hero_kpi_rationale": "Production minerai de fer, KPI maitre BHP"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.590Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.384Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bhp.json",
     "enrich_root": "v2-pipeline-enrich/bhp.json",

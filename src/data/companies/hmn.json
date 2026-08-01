@@ -1,6 +1,6 @@
 {
   "ticker": "HMN",
-  "name": "Horace Mann Educators Corporation",
+  "name": "Horace Mann Educators",
   "sector": "Finance",
   "subsector": "Assurance",
   "tagline": "A leading provider of personal lines property and casualty, supplemental life, and retirement insurance to educators",
@@ -39,10 +39,13 @@
       "is_short_history": false,
       "ttm": 584.13,
       "_validation": "Valeur vérifiée dans source (Item 7 MDA): 553.2M$ en 2025 vs 452.1M$ en 2024",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of explicit annual values found in the cash flow table. Minimum 4 years required per rules. Earlier years not provi",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net cash used in investing activities",
@@ -92,36 +95,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.62 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:07.115985+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "+60.0%",
       "history": [
-        0.02,
-        0.04,
-        0.1,
-        0.16
+        20,
+        40,
+        100,
+        160
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.16 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -140,11 +152,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 2.48 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,56 +179,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 15.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.59,
-      "unit": "Mds €",
+      "value": 590,
+      "unit": "M €",
       "yoy": "+7.3%",
       "history": [
-        0.5,
-        0.55,
-        0.55,
-        0.59
+        500,
+        550,
+        550,
+        590
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.59 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.04,
-        0.03,
-        0.03,
-        0.03
+        40,
+        30,
+        30,
+        30
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.03 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -226,7 +256,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.24,
         1.28,
@@ -239,7 +269,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -254,7 +284,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0766,
@@ -267,7 +297,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -282,7 +312,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         265.66,
@@ -295,7 +325,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -311,7 +341,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         3.39,
@@ -324,7 +354,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -352,13 +382,11 @@
       "is_short_history": true,
       "story_category": "Cash",
       "ttm": 584.13,
-      "_validation": "Valeur vérifiée, is_generic corrigé à false",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur vérifiée, is_generic corrigé à false"
     }
   ],
   "ai_positioning": {
-    "stance": "acknowledged",
+    "stance": "absent",
     "summary": "La société HMN reconnaît l'existence des risques liés à l'intelligence artificielle dans son rapport 10-K/20-F, avec une section dédiée 'Artificial Intelligence Risks' identifiée au Item 1A.",
     "evidence": [
       "Section Item 1A Risk Factors contient une sous-catégorie 'Artificial Intelligence Risks'"
@@ -372,7 +400,8 @@
       "severity": 4,
       "score_rationale": "Les conditions du marché financier affectent directement la performance des investissements et les passifs de sinistres. La volatilité des marchés d'équités et de crédit impacte les revenus nets d'investissement et la valeur des comptes séparés et des produits de retraite.",
       "trend": "up",
-      "summary": "L'entreprise est exposée à la volatilité des marchés financiers, aux variations des taux d'intérêt et aux cycles économiques qui affectent la demande des produits et l'incidence des sinistres."
+      "summary": "L'entreprise est exposée à la volatilité des marchés financiers, aux variations des taux d'intérêt et aux cycles économiques qui affectent la demande des produits et l'incidence des sinistres.",
+      "score": 4
     },
     {
       "title": "Risques de taux d'intérêt",
@@ -380,7 +409,8 @@
       "severity": 4,
       "score_rationale": "Les variations des taux d'intérêt impactent directement les revenus d'investissement, les marges de spread, les réserves de prestations futures et la valeur du portefeuille d'investissements fixes. Les taux bas réduisent les revenus tandis que les taux élevés peuvent générer des retraits accélérés de polices.",
       "trend": "stable",
-      "summary": "Les changements de taux d'intérêt ont un impact matériel sur la marge de spread des produits de retraite, les revenus d'investissement et les réserves de passifs."
+      "summary": "Les changements de taux d'intérêt ont un impact matériel sur la marge de spread des produits de retraite, les revenus d'investissement et les réserves de passifs.",
+      "score": 4
     },
     {
       "title": "Risques de crédit et de contrepartie",
@@ -388,7 +418,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est exposée aux risques de défaut des émetteurs d'obligations et de prêts dans son portefeuille d'investissements. Les pertes de crédit peuvent avoir un impact négatif sur les revenus nets d'investissement.",
       "trend": "stable",
-      "summary": "Les risques de crédit liés au portefeuille d'investissements fixes et aux accords de financement FHLB constituent une exposition importante."
+      "summary": "Les risques de crédit liés au portefeuille d'investissements fixes et aux accords de financement FHLB constituent une exposition importante.",
+      "score": 3
     },
     {
       "title": "Risques réglementaires et juridiques",
@@ -396,7 +427,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est soumise à des réglementations strictes du secteur de l'assurance, incluant les exigences de capital basées sur le risque (NAIC). Les modifications réglementaires pourraient affecter les exigences de capital et la rentabilité.",
       "trend": "stable",
-      "summary": "Comme assureur réglementé, HMN doit se conformer à des normes de capital et à des réglementations d'État qui pourraient impacter les opérations et la rentabilité."
+      "summary": "Comme assureur réglementé, HMN doit se conformer à des normes de capital et à des réglementations d'État qui pourraient impacter les opérations et la rentabilité.",
+      "score": 3
     },
     {
       "title": "Risques de liquidité",
@@ -404,7 +436,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise doit maintenir une liquidité suffisante pour satisfaire les besoins opérationnels à 12 mois (paiements de sinistres, dépenses, intérêts). Les événements catastrophiques ou dégradations de notation pourraient contraindre la liquidité.",
       "trend": "stable",
-      "summary": "L'entreprise dispose de 1,1 milliard de dollars d'actifs liquides (trésorerie, titres publics, actions) et génère suffisamment de flux de trésorerie opérationnel pour couvrir les besoins à court terme."
+      "summary": "L'entreprise dispose de 1,1 milliard de dollars d'actifs liquides (trésorerie, titres publics, actions) et génère suffisamment de flux de trésorerie opérationnel pour couvrir les besoins à court terme.",
+      "score": 3
     },
     {
       "title": "Risques de géopolitique et de tarification",
@@ -412,7 +445,8 @@
       "severity": 3,
       "score_rationale": "Les tensions géopolitiques et les politiques tarifaires peuvent augmenter les coûts de sinistres, la volatilité des portefeuilles d'investissement et influencer les stratégies de tarification et de gestion du capital.",
       "trend": "stable",
-      "summary": "Les risques géopolitiques et les changements de politique tarifaire peuvent avoir un impact indirect sur les coûts d'exploitation et la performance des investissements."
+      "summary": "Les risques géopolitiques et les changements de politique tarifaire peuvent avoir un impact indirect sur les coûts d'exploitation et la performance des investissements.",
+      "score": 3
     }
   ],
   "governance": {
@@ -445,7 +479,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -545,7 +579,7 @@
   },
   "_segments_fetched_at": "2026-05-06T19:32:26.419318+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:23Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2024,
@@ -559,7 +593,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:45Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:23Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "enrich_description": {
     "ticker": "HMN",
@@ -668,9 +702,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.526653+00:00",
     "fetched_at": "2026-05-21T01:44:37.526654+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.096Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.739Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hmn.json",
     "enrich_root": "v2-pipeline-enrich/hmn.json",

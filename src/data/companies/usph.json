@@ -97,7 +97,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Corrected from null to 19.2%; calculated from consolidated financials (Gross Profit 149,693 / Net revenue 780,990); added 2024 value 18.4% (113,921/671,345) from source",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -117,11 +117,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.2 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -193,7 +197,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est en tête du document 10-K, mentionné dès l'ouverture des facteurs de risque. Le langage est fort: 'matériellement affecter', 'ne pas suffisamment compenser', 'ne pas couvrir les coûts'. La dépendance à Medicare est élevée (32,8% des revenus en 2025: 213,5M/650,4M) et en croissance. La catégorie Régulation est hautement pondérée ici.",
       "trend": "stable",
-      "summary": "Une baisse ou stagnation des tarifs de remboursement Medicare pourrait gravement impacter nos revenus et rentabilité."
+      "summary": "Une baisse ou stagnation des tarifs de remboursement Medicare pourrait gravement impacter nos revenus et rentabilité.",
+      "score": 5
     },
     {
       "title": "Audits rétrospectifs et récupérations de paiements",
@@ -201,7 +206,8 @@
       "severity": 5,
       "score_rationale": "Le texte insiste sur les ajustements rétroactifs, les récupérations, les audits post-paiement en hausse, et les obligations légales de remboursement des trop-perçus. Mention de sanctions sévères, y compris amendes et exclusion des programmes. Position centrale dans le document avec un langage préoccupant.",
       "trend": "stable",
-      "summary": "Des audits gouvernementaux peuvent entraîner des remboursements importants, des amendes ou des sanctions, affectant notre trésorerie et résultats."
+      "summary": "Des audits gouvernementaux peuvent entraîner des remboursements importants, des amendes ou des sanctions, affectant notre trésorerie et résultats.",
+      "score": 5
     },
     {
       "title": "Dépendance aux tiers payeurs privés",
@@ -209,7 +215,8 @@
       "severity": 4,
       "score_rationale": "Revenus net patient totaux 650,4M en 2025; Medicare 213,5M = 32,8%; donc revenus privés environ 436,9M = 67,2% des revenus patients. Le texte mentionne une pression croissante pour réduire les remboursements et les contrats à taux réduit. Risque de perte de patients ou de marges si les contrats ne sont pas renouvelés. Moins existentiel que Medicare mais structurel.",
       "trend": "stable",
-      "summary": "La pression des assureurs privés pour réduire les coûts menace nos marges et notre accès aux patients."
+      "summary": "La pression des assureurs privés pour réduire les coûts menace nos marges et notre accès aux patients.",
+      "score": 4
     },
     {
       "title": "Non-conformité aux obligations HIPAA/HITECH",
@@ -217,7 +224,8 @@
       "severity": 4,
       "score_rationale": "Le texte décrit des obligations strictes de sécurité et confidentialité des données patients. Mention explicite de sanctions civiles/pénales, actions collectives, et coûts de mitigation après une violation. HIPAA est un pilier réglementaire critique pour les acteurs de santé.",
       "trend": "stable",
-      "summary": "Une violation de la confidentialité des données patients pourrait entraîner des amendes, des poursuites et des coûts importants."
+      "summary": "Une violation de la confidentialité des données patients pourrait entraîner des amendes, des poursuites et des coûts importants.",
+      "score": 4
     },
     {
       "title": "Crise sanitaire ou pandémie",
@@ -225,7 +233,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement lié aux pandémies, avec des effets opérationnels directs: perte de personnel, annulation de rendez-vous. Mention d'incertitude économique et d'accès au capital. Langage prévisionnel fort ('adverse impact'), mais moins fréquent que les risques réglementaires.",
       "trend": "stable",
-      "summary": "Une crise sanitaire pourrait réduire l'activité, perturber l'emploi et nuire à la rentabilité."
+      "summary": "Une crise sanitaire pourrait réduire l'activité, perturber l'emploi et nuire à la rentabilité.",
+      "score": 4
     },
     {
       "title": "Pression sur les remboursements Medicaid",
@@ -233,7 +242,8 @@
       "severity": 3,
       "score_rationale": "Le texte souligne les pressions fédérales et étatiques pour contenir les dépenses Medicaid. Mention spécifique de l'absence d'expansion dans certains États comme le Texas. Risque de baisse des tarifs ou de couverture, similaire à Medicare mais avec une exposition moindre (revenus Medicaid non spécifiés mais inclus dans les 67% privés).",
       "trend": "stable",
-      "summary": "Les efforts de maîtrise des coûts publics pourraient réduire les revenus issus de Medicaid."
+      "summary": "Les efforts de maîtrise des coûts publics pourraient réduire les revenus issus de Medicaid.",
+      "score": 3
     },
     {
       "title": "Obligations de rachat via droits de retour",
@@ -241,7 +251,8 @@
       "severity": 4,
       "score_rationale": "Le texte décrit des put rights contractuels exigeant l'achat d'actions à un prix basé sur un multiple de bénéfices, potentiellement supérieur à la juste valeur. Mention explicite du risque de défaut si financement insuffisant. Risque financier structurel lié à la croissance par acquisition.",
       "trend": "stable",
-      "summary": "Des obligations contractuelles de rachat d'actions pourraient contraindre notre trésorerie ou entraîner un défaut."
+      "summary": "Des obligations contractuelles de rachat d'actions pourraient contraindre notre trésorerie ou entraîner un défaut.",
+      "score": 4
     },
     {
       "title": "Endettement et contraintes financières",
@@ -249,7 +260,8 @@
       "severity": 4,
       "score_rationale": "Le risque d'endettement lié à la stratégie d'acquisition active est mentionné dans les facteurs de risque. La croissance par acquisitions (49 cliniques ajoutées en 2025) crée des obligations de financement et des covenants de dette.",
       "trend": "stable",
-      "summary": "Un niveau élevé d'endettement pourrait limiter notre flexibilité financière et augmenter les risques en cas de ralentissement économique."
+      "summary": "Un niveau élevé d'endettement pourrait limiter notre flexibilité financière et augmenter les risques en cas de ralentissement économique.",
+      "score": 4
     }
   ],
   "_validation": [
@@ -276,7 +288,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -452,9 +464,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.323855+00:00",
     "fetched_at": "2026-05-21T02:17:14.323856+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.030Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.128Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/usph.json",
     "enrich_root": "v2-pipeline-enrich/usph.json",

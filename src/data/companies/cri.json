@@ -69,7 +69,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 0.88,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Marge brute",
@@ -96,7 +100,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 30.76,
-      "signal_en": "Margin stable, monitor cost dynamics"
+      "signal_en": "Margin stable, monitor cost dynamics",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -115,34 +123,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.9 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "-52.6%",
       "history": [
-        0.25,
-        0.23,
-        0.19,
-        0.09
+        250,
+        230,
+        190,
+        90
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.09 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +178,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.57 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,33 +205,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.21 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.49,
-      "unit": "Mds €",
+      "value": 490,
+      "unit": "M €",
       "yoy": "+19.5%",
       "history": [
-        0.21,
-        0.35,
-        0.41,
-        0.49
+        210,
+        350,
+        410,
+        490
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.49 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -224,7 +254,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.4,
         3,
@@ -237,7 +267,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -252,7 +282,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.4178,
@@ -265,7 +295,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -280,7 +310,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         47.95,
@@ -293,7 +323,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -309,7 +339,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         6.34,
@@ -322,7 +352,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -352,9 +382,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 0.88,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 0.88
     }
   ],
   "ai_positioning": {
@@ -368,64 +396,64 @@
       "title": "Sensibilité à la dépense des consommateurs",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Positionné en tête des risques, langage fort (sensibilité à la confiance et aux dépenses des consommateurs) et impact direct sur la demande dans le marché des vêtements pour enfants. Pondération élevée pour les risques macro dans la consommation cyclique. (score par défaut, à affiner)",
+      "score_rationale": "Positionné en tête des risques, langage fort (sensibilité à la confiance et aux dépenses des consommateurs) et impact direct sur la demande dans le marché des vêtements pour enfants. Pondération élevée pour les risques macro dans la consommation cyclique.",
       "trend": "stable",
       "summary": "La baisse de la confiance ou du pouvoir d'achat des consommateurs peut fortement réduire les ventes, surtout dans le secteur sensible des vêtements pour enfants.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Crises sanitaires mondiales",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Langage explicite (risque d'effet négatif significatif) et référence à l'impact du COVID-19. Risque systémique déjà réalisé, donc crédibilité élevée. Catégorie macro avec impact transversal. (score par défaut, à affiner)",
+      "score_rationale": "Langage explicite (risque d'effet négatif significatif) et référence à l'impact du COVID-19. Risque systémique déjà réalisé, donc crédibilité élevée. Catégorie macro avec impact transversal.",
       "trend": "stable",
       "summary": "Une pandémie ou crise sanitaire peut perturber les opérations, la chaîne d'approvisionnement et la demande, avec des conséquences graves sur les résultats.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à l'approvisionnement étranger et risques tarifaires",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Mention explicite que 75% des sources proviennent de Vietnam, Bangladesh, Cambodge et Inde. Impact réalisé: 110 millions de dollars de tarifs supplémentaires en 2025, avec 60 millions non compensés. Risque central pour la structure de coûts et les marges. (score par défaut, à affiner)",
+      "score_rationale": "Mention explicite que 75% des sources proviennent de Vietnam, Bangladesh, Cambodge et Inde. Impact réalisé: 110 millions de dollars de tarifs supplémentaires en 2025, avec 60 millions non compensés. Risque central pour la structure de coûts et les marges.",
       "trend": "up",
       "summary": "La majorité des produits (75% en 2026 estimé) étant fabriqués en Asie, les tarifs, quotas ou embargos peuvent augmenter significativement les coûts et réduire les marges.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence accrue et taille des concurrents",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Risque implicite dans la structure fragmentée du marché. Carter's détient 9% du marché, laissant 91% aux concurrents dont certains mieux dotés. Contexte de marché très concurrentiel mais position de leader mitigée ce risque. (score par défaut, à affiner)",
+      "score_rationale": "Risque implicite dans la structure fragmentée du marché. Carter's détient 9% du marché, laissant 91% aux concurrents dont certains mieux dotés. Contexte de marché très concurrentiel mais position de leader mitigée ce risque.",
       "trend": "stable",
       "summary": "Certains concurrents ont plus de ressources, ce qui leur permet de mieux faire face aux pressions du marché et de concurrencer agressivement.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cyberattaque ou fuite de données",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Langage fort (risque coûteux et divulgation non autorisée) et impact sur données clients et employés. Catégorie à haut impact dans le commerce numérique et eCommerce croissant. Mentions des systèmes clients et employés. (score par défaut, à affiner)",
+      "score_rationale": "Langage fort (risque coûteux et divulgation non autorisée) et impact sur données clients et employés. Catégorie à haut impact dans le commerce numérique et eCommerce croissant. Mentions des systèmes clients et employés.",
       "trend": "stable",
       "summary": "Une faille dans les systèmes ou ceux des partenaires pourrait exposer les données sensibles et nuire gravement à la réputation et aux finances.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Non-respect des normes ESG",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "Langage préventif mais clair (impact sur réputation, affaires, résultats). Risque croissant dans le secteur de la mode et enfance. Catégorie réputation avec effet de levier sur la confiance des consommateurs sensibles à ces enjeux. (score par défaut, à affiner)",
+      "score_rationale": "Langage préventif mais clair (impact sur réputation, affaires, résultats). Risque croissant dans le secteur de la mode et enfance. Catégorie réputation avec effet de levier sur la confiance des consommateurs sensibles à ces enjeux.",
       "trend": "up",
       "summary": "Un mauvais positionnement ou une inaction sur les enjeux environnementaux et sociaux pourrait nuire à l'image et à la performance, notamment auprès des parents conscients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Perte de clients grossistes clés",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Mention explicite de risque de perte matérielle de revenus en cas de difficultés financières d'un grand client (Walmart, Target, Amazon). Langage direct et risque quantifiable compte tenu du modèle de distribution multi-canal. (score par défaut, à affiner)",
+      "score_rationale": "Mention explicite de risque de perte matérielle de revenus en cas de difficultés financières d'un grand client (Walmart, Target, Amazon). Langage direct et risque quantifiable compte tenu du modèle de distribution multi-canal.",
       "trend": "stable",
       "summary": "La défaillance d'un ou plusieurs grands clients en gros (notamment les clients eCommerce exclusifs) pourrait entraîner une chute importante des revenus.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -456,7 +484,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -513,7 +541,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:19:14Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2013,
@@ -538,7 +566,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:03Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:27Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "CRI",
     "simple": {
@@ -636,39 +664,66 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CRI",
-    "extracted_at": "2026-05-15T18:10:20Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1060822,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:08:14Z",
+    "n_kpis": 2,
     "kpis": [
       {
-        "short": "Chiffre d'affaires",
+        "short": "Net Income",
         "period_type": "quarter",
         "history": [
-          1533.761,
-          2424.347,
-          -1259.029,
-          781.284,
-          1481.98,
-          2300.603,
-          -1351.134,
-          695.88,
-          1296.079,
-          2087.73,
-          -1134.095,
-          661.492,
-          1225.926,
-          1984.39,
-          -1027.706,
-          629.827,
-          1215.139,
-          1972.975,
-          -919.515,
-          681.113
+          0.035996,
+          0.104903,
+          0.059863,
+          0.169859,
+          0.12599,
+          0.038033,
+          0.059863,
+          0.038033,
+          0.065672
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
+          "Q1 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2022",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q1 2025",
+          "Q2 2025"
+        ],
+        "last_data_date": "2025-06-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:08:14Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          3.310473,
+          3.201797,
+          2.961281,
+          2.573887,
+          2.611567,
+          2.439715,
+          2.283327,
+          2.288471,
+          2.319806,
+          2.378613,
+          2.285518,
+          2.355517,
+          2.378385,
+          2.433167,
+          2.3318,
+          2.455552,
+          2.378385
+        ],
+        "history_periods": [
+          "Q1 2021",
           "Q4 2021",
           "Q1 2022",
           "Q2 2022",
@@ -684,40 +739,15 @@
           "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-04-04",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1215.139,
-            "accession": "0001060822-25-000136",
-            "end": "2025-06-28"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 1972.975,
-            "accession": "0001060822-25-000158",
-            "end": "2025-09-27"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -919.515,
-            "accession": "calc-0001060822-26-000016",
-            "end": "2026-01-03"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 681.113,
-            "accession": "0001060822-26-000071",
-            "end": "2026-04-04"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:08:14Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -733,9 +763,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.244830+00:00",
     "fetched_at": "2026-05-21T02:17:14.244831+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.821Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.323Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cri.json",
     "enrich_root": "v2-pipeline-enrich/cri.json",

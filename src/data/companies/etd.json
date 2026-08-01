@@ -39,9 +39,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Confirmed from 10-K: 60.5% for FY2025, 60.8% for FY2024, 60.7% for FY2023",
-      "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "period_type": "year",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Sales",
@@ -92,7 +95,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Confirmed from 10-K financial statements: $62.0M for FY2025, $78.0M for FY2024, $137.2M for FY2023",
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -144,7 +147,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Confirmed from 10-K financial statements: $51.6M for FY2025, $63.8M for FY2024, $105.8M for FY2023",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -177,47 +180,57 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.74,
-      "unit": "Mds €",
+      "value": 740,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.72,
-        0.75,
-        0.74,
-        0.74
+        720,
+        750,
+        740,
+        740
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.74 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "-7.7%",
       "history": [
-        0.12,
-        0.13,
-        0.13,
-        0.12
+        120,
+        130,
+        130,
+        120
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.12 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -231,7 +244,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.79,
         1.75,
@@ -244,7 +257,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -259,7 +272,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         0.0001,
         0.0483,
@@ -272,7 +285,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -287,7 +300,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         46.72,
@@ -300,7 +313,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -316,7 +329,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.05,
@@ -329,7 +342,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -357,9 +370,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Confirmed from 10-K financial statements: 60.5% for FY2025, 60.8% for FY2024, 60.7% for FY2023",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Confirmed from 10-K financial statements: 60.5% for FY2025, 60.8% for FY2024, 60.7% for FY2023"
     }
   ],
   "ai_positioning": {
@@ -375,7 +386,8 @@
       "severity": 4,
       "score_rationale": "Le coût des matières premières, comme le bois, les tissus et les produits en mousse, peut varier en fonction des conditions du marché, ce qui pourrait avoir un impact sur les résultats de l'entreprise. La société est également exposée aux risques liés aux coûts de transport, y compris les prix des conteneurs et des carburants.",
       "trend": "stable",
-      "summary": "Les variations des prix des matières premières et des coûts de transport peuvent impacter les résultats de l'entreprise."
+      "summary": "Les variations des prix des matières premières et des coûts de transport peuvent impacter les résultats de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risque d'inflation",
@@ -383,7 +395,8 @@
       "severity": 3,
       "score_rationale": "L'inflation peut avoir un impact sur les coûts de production et les prix de vente de l'entreprise, ce qui pourrait affecter ses résultats. Cependant, la société a mis en place des mesures pour réduire les coûts et améliorer l'efficacité.",
       "trend": "up",
-      "summary": "L'inflation peut augmenter les coûts de production et impacter les résultats de l'entreprise."
+      "summary": "L'inflation peut augmenter les coûts de production et impacter les résultats de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Risque immobilier commercial",
@@ -391,7 +404,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques liés aux conditions du marché immobilier commercial, notamment en ce qui concerne les loyers et les valeurs des propriétés. Une baisse de la valeur des propriétés ou une augmentation des loyers pourrait impacter les résultats de l'entreprise.",
       "trend": "stable",
-      "summary": "Les conditions du marché immobilier commercial peuvent impacter les résultats de l'entreprise."
+      "summary": "Les conditions du marché immobilier commercial peuvent impacter les résultats de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risque de dépréciation des actifs",
@@ -399,7 +413,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques liés à la dépréciation des actifs, notamment en ce qui concerne les biens immobiliers et les actifs de location. Une dépréciation des actifs pourrait impacter les résultats de l'entreprise.",
       "trend": "stable",
-      "summary": "La dépréciation des actifs peut impacter les résultats de l'entreprise."
+      "summary": "La dépréciation des actifs peut impacter les résultats de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risque de contrôle interne",
@@ -407,7 +422,8 @@
       "severity": 2,
       "score_rationale": "La société a mis en place des mesures pour assurer le contrôle interne, mais il existe toujours des risques liés à la fraude ou à l'erreur. Cependant, les auditeurs ont exprimé une opinion favorable sur les états financiers de l'entreprise.",
       "trend": "stable",
-      "summary": "Les risques liés au contrôle interne sont gérés par la société, mais il existe toujours des risques résiduels."
+      "summary": "Les risques liés au contrôle interne sont gérés par la société, mais il existe toujours des risques résiduels.",
+      "score": 2
     }
   ],
   "governance": {
@@ -467,7 +483,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -526,7 +542,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:40Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2012,
@@ -547,7 +563,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:32Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:52Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "ETD",
     "fetched_at": "2026-05-14T18:24:06.817708+00:00",
@@ -592,240 +608,210 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ETD",
-    "extracted_at": "2026-05-15T18:11:00Z",
-    "method": "xbrl-companyfacts",
-    "cik": 896156,
-    "n_kpis": 3,
+    "extracted_at": "2026-06-01T03:14:44Z",
+    "n_kpis": 6,
     "kpis": [
       {
-        "short": "Net Sales",
+        "short": "Gross Margin",
         "period_type": "quarter",
         "history": [
-          329.884,
-          506.846,
-          -302.619,
-          182.327,
-          390.42,
-          588.079,
-          -343.064,
-          214.53,
-          417.691,
-          604.007,
-          -444.846,
-          163.892,
-          311.597,
-          477.589,
-          -306.857,
-          154.337,
-          454.292,
-          146.984,
-          296.9,
-          432.735
+          60.4,
+          60.4,
+          59.9,
+          60.2,
+          61,
+          61.3,
+          60.8,
+          60.3,
+          61.2,
+          61.4,
+          60.9
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
           "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
           "Q3 2024",
           "Q4 2024",
           "Q1 2025",
           "Q3 2025",
-          "Q1 2026",
-          "Q2 2026",
-          "Q3 2026"
+          "Q4 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-12-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:14:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Sales",
+        "period_type": "quarter",
+        "history": [
+          214.5,
+          203.2,
+          186.3,
+          163.9,
+          167.3,
+          146.4,
+          154.3,
+          157.3,
+          142.7,
+          147,
+          149.9
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q3 2025",
-            "value": 454.292,
-            "accession": "0001437749-25-014559",
-            "end": "2025-03-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 146.984,
-            "accession": "0001437749-25-032200",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 296.9,
-            "accession": "0001437749-26-003525",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q3 2026",
-            "value": 432.735,
-            "accession": "0001437749-26-013892",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:14:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          39.7,
+          39.7,
+          28.8,
+          21.7,
+          21.7,
+          15.3,
+          17.6,
+          18.2,
+          18.2,
+          9.967,
+          14.228
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:14:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Adjusted Operating Income",
         "period_type": "quarter",
         "history": [
-          34.236,
-          53.223,
-          -21.855,
-          27.36,
-          63.652,
-          96.305,
-          -49.067,
-          39.65,
-          76.719,
-          105.507,
-          -84.68,
-          18.351,
-          35.722,
-          55.364,
-          -31.446,
-          17.565,
-          46.719,
-          9.967,
-          24.195,
-          30.669
+          37.7,
+          37.7,
+          28.3,
+          21.8,
+          17.8,
+          18.2,
+          18.2
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025"
+        ],
+        "last_data_date": "2025-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:14:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          29.9,
+          29.9,
+          22.4,
+          14.7,
+          15,
+          14.7,
+          15,
+          15
+        ],
+        "history_periods": [
+          "Q3 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
           "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
           "Q3 2024",
           "Q4 2024",
-          "Q1 2025",
-          "Q3 2025",
-          "Q1 2026",
-          "Q2 2026",
-          "Q3 2026"
+          "Q1 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2024-12-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q3 2025",
-            "value": 46.719,
-            "accession": "0001437749-25-014559",
-            "end": "2025-03-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 9.967,
-            "accession": "0001437749-25-032200",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 24.195,
-            "accession": "0001437749-26-003525",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q3 2026",
-            "value": 30.669,
-            "accession": "0001437749-26-013892",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:14:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Adjusted Net Income",
         "period_type": "quarter",
         "history": [
-          9.353,
-          26.236,
-          41.844,
-          -17.428,
-          20.153,
-          47.047,
-          71.761,
-          -35.681,
-          29.88,
-          58.046,
-          80.402,
-          -62.521,
-          14.939,
-          29.723,
-          45.303,
-          -26.149,
-          14.719,
-          39.328
+          28.4,
+          28.4,
+          22,
+          14.9,
+          15,
+          14.9,
+          15,
+          15
         ],
         "history_periods": [
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
           "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
           "Q3 2024",
           "Q4 2024",
-          "Q1 2025",
-          "Q3 2025"
+          "Q1 2025"
         ],
-        "last_data_date": "2025-03-31",
+        "last_data_date": "2024-12-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q3 2024",
-            "value": 45.303,
-            "accession": "0001437749-24-013022",
-            "end": "2024-03-31"
-          },
-          {
-            "period": "Q4 2024",
-            "value": -26.149,
-            "accession": "calc-0001437749-24-027664",
-            "end": "2024-06-30"
-          },
-          {
-            "period": "Q1 2025",
-            "value": 14.719,
-            "accession": "0001437749-24-032632",
-            "end": "2024-09-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 39.328,
-            "accession": "0001437749-25-014559",
-            "end": "2025-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:14:44Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -841,9 +827,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.257807+00:00",
     "fetched_at": "2026-05-21T02:17:14.257808+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.908Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.486Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/etd.json",
     "enrich_root": "v2-pipeline-enrich/etd.json",

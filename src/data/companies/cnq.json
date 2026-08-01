@@ -38,9 +38,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -64,7 +67,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -89,7 +92,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Steady growth, healthy trend"
     },
     {
@@ -114,7 +117,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -134,11 +137,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 44.17 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 91.83 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -180,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 16.62 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.67,
-      "unit": "Mds €",
+      "value": 670,
+      "unit": "M €",
       "yoy": "+415.4%",
       "history": [
-        0.92,
-        0.88,
-        0.13,
-        0.67
+        920,
+        880,
+        130,
+        670
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.67 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -238,7 +258,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -434,16 +454,354 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.241167+00:00",
     "fetched_at": "2026-05-21T02:17:14.241168+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.583Z",
+  "enrich_to": {
+    "ticker": "CNQ.TO",
+    "_quarterly_history_extension": {
+      "ticker": "CNQ.TO",
+      "period_type": "quarter",
+      "unit_currency": "CAD",
+      "kpis": [
+        {
+          "kpi_short": "Revenue",
+          "kpi_name_fr": "Chiffre d'affaires",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q4 2024",
+              "value": 11.064,
+              "date": "2024-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2025",
+              "value": 12.712,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 9.675,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 11.07,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 10.71,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Operating Income",
+          "kpi_name_fr": "Résultat opérationnel",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q4 2024",
+              "value": 2.59,
+              "date": "2024-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2025",
+              "value": 3.288,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 2.06,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 1.084,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 1.794,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Net Income",
+          "kpi_name_fr": "Résultat net",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q4 2024",
+              "value": 1.138,
+              "date": "2024-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2025",
+              "value": 2.458,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 2.459,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 0.6,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 5.303,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Operating Cash Flow",
+          "kpi_name_fr": "Flux de trésorerie opérationnel",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 4.284,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 3.114,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 3.94,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 3.768,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 3.282,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "extracted_at": "2026-06-02T11:39:37Z",
+      "extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "_n_kpis_merged": 4
+    },
+    "_super_kpi_inputs": {
+      "_extracted_at": "2026-06-02T11:39:37Z",
+      "_extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "currency": "CAD",
+      "revenue_q": [
+        {
+          "q": "Q4 2024",
+          "v": 11.064,
+          "date": "2024-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2025",
+          "v": 12.712,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 9.675,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 11.07,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 10.71,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "op_income_q": [
+        {
+          "q": "Q4 2024",
+          "v": 2.59,
+          "date": "2024-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2025",
+          "v": 3.288,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 2.06,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 1.084,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 1.794,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "ni_q": [
+        {
+          "q": "Q4 2024",
+          "v": 1.138,
+          "date": "2024-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2025",
+          "v": 2.458,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 2.459,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 0.6,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 5.303,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "op_cf_q": [
+        {
+          "q": "Q1 2025",
+          "v": 4.284,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 3.114,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 3.94,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 3.768,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 3.282,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "rd_q": [],
+      "op_margin_q_pct": [
+        {
+          "q": "Q4 2024",
+          "v": 23.41,
+          "date": "2024-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2025",
+          "v": 25.87,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 21.29,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 9.79,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 16.75,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ]
+    }
+  },
+  "_companies_unified_built_at": "2026-08-01T20:27:55.059Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cnq.json",
     "enrich_root": "v2-pipeline-enrich/cnq.json",
     "enrich_subkeys": [
       "description",
       "events",
-      "ranks"
+      "ranks",
+      "to"
     ]
   }
 }

@@ -39,8 +39,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 9495.06,
-      "period_type": "quarter",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Wind MWh",
@@ -97,8 +100,8 @@
       "name_fr": "Revenus d'exploitation totaux",
       "name_en": "Total Operating Revenues",
       "explanation": "Revenus d'exploitation totaux de CWEN incluant énergie et capacité, autres revenus, moins amortissement des contrats et ajustements de couverture",
-      "value": "1429",
-      "unit": "M $",
+      "value": 1.429,
+      "unit": "Mds $",
       "yoy": "+4.2%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -106,16 +109,17 @@
       "signal": "Croissance des revenus grâce aux acquisitions et à l'augmentation de la production d'énergie",
       "description": "CWEN génère ses revenus principalement par des contrats d'achat d'électricité (PPA) long terme avec des contreparties investment-grade",
       "history": [
-        1314,
-        1371,
-        1429
+        1.314,
+        1.371,
+        1.429
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "ttm": 1444.11,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Income",
@@ -140,7 +144,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 152.65,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -168,24 +172,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.169,
-      "unit": "Mds $",
+      "value": 169,
+      "unit": "M $",
       "yoy": "+92.0%",
       "history": [
-        0.054,
-        -0.011,
-        0.025,
-        0.051,
-        0.582,
-        0.079,
-        0.088,
-        0.169
+        54,
+        -11,
+        25,
+        51,
+        582,
+        79,
+        88,
+        169
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -194,8 +202,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -221,8 +234,12 @@
       "description": "Total des actifs extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -236,7 +253,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.328,
         1.428,
@@ -249,7 +266,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -264,7 +281,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.289,
@@ -277,7 +294,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -292,7 +309,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         49.66,
@@ -305,7 +322,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -321,7 +338,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.99,
@@ -334,7 +351,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -401,16 +418,16 @@
       "title": "Endettement élevé et charges d'intérêts importantes",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La société supporte des charges d'intérêt importantes (356 M$ en 2025) et dispose de moyens de financement limités, malgré des acquisitions stratégiques en cours. (score par défaut, à affiner)",
+      "score_rationale": "La société supporte des charges d'intérêt importantes (356 M$ en 2025) et dispose de moyens de financement limités, malgré des acquisitions stratégiques en cours.",
       "trend": "stable",
       "summary": "L'endettement élevé de la société pourrait limiter sa flexibilité financière et sa capacité à financer sa croissance future ou à augmenter ses dividendes.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Exposition aux fluctuations des marchés et des conditions météorologiques",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La société est exposée aux variations saisonnières, aux conditions météorologiques et aux fluctuations des prix de l'énergie qui affectent la production et les revenus. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux variations saisonnières, aux conditions météorologiques et aux fluctuations des prix de l'énergie qui affectent la production et les revenus.",
       "trend": "up",
       "summary": "Les variations de production dues aux conditions météorologiques et aux prix de l'énergie pourraient affecter négativement les revenus et la rentabilité de la société.",
       "score": 3
@@ -419,16 +436,16 @@
       "title": "Risques réglementaires et politiques",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société opère dans un environnement réglementaire complexe et est exposée aux changements de politique énergétique et aux modifications des mécanismes d'aide aux énergies renouvelables. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un environnement réglementaire complexe et est exposée aux changements de politique énergétique et aux modifications des mécanismes d'aide aux énergies renouvelables.",
       "trend": "stable",
       "summary": "Les changements réglementaires ou politiques pourraient avoir un impact négatif sur la viabilité économique des actifs et les revenus futurs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques d'actifs et de performances opérationnelles",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société est exposée à la détérioration de ses actifs, aux pannes d'équipements et aux risques opérationnels liés à la maintenance de ses installations. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à la détérioration de ses actifs, aux pannes d'équipements et aux risques opérationnels liés à la maintenance de ses installations.",
       "trend": "up",
       "summary": "Les défaillances d'équipements ou les problèmes opérationnels pourraient réduire la production d'énergie et les revenus générés par les actifs.",
       "score": 3
@@ -437,19 +454,19 @@
       "title": "Risques de gestion et d'intégration",
       "category": "Personne-clé",
       "severity": 2,
-      "score_rationale": "La société effectue de nombreuses acquisitions et projets de développement (repowering) qui requièrent une gestion et une intégration efficaces. (score par défaut, à affiner)",
+      "score_rationale": "La société effectue de nombreuses acquisitions et projets de développement (repowering) qui requièrent une gestion et une intégration efficaces.",
       "trend": "stable",
       "summary": "Les difficultés d'intégration des acquisitions ou les problèmes de gestion pourraient impacter les performances et la création de valeur attendue.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques de réputation et d'acceptabilité sociale",
       "category": "Reputation",
       "severity": 2,
-      "score_rationale": "En tant que producteur d'énergie renouvelable, la société peut faire face à des oppositions locales ou à des enjeux d'acceptabilité sociale de ses projets. (score par défaut, à affiner)",
+      "score_rationale": "En tant que producteur d'énergie renouvelable, la société peut faire face à des oppositions locales ou à des enjeux d'acceptabilité sociale de ses projets.",
       "trend": "stable",
       "summary": "Les enjeux de réputation ou d'acceptabilité sociale pourraient retarder ou bloquer de nouveaux projets de développement.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -497,7 +514,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -548,7 +565,6 @@
       "date": "2026-04-30"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-07T14:24:05.590008+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -571,6 +587,7 @@
     ],
     "total": 1.43
   },
+  "_ai_positioning_fetched_at": "2026-05-07T14:24:05.590008+00:00",
   "_segments_fetched_at": "2026-05-06T19:28:40.699145+00:00",
   "financial_snapshot": {
     "market_cap_usd": 9241324544,
@@ -617,7 +634,7 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.127Z",
   "_dividends_extracted_at": "2026-05-09T20:21:25Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2013,
@@ -634,7 +651,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:16Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:32Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Énergies renouvelables",
   "enrich_description": {
     "ticker": "CWEN",
@@ -733,84 +750,86 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CWEN",
-    "extracted_at": "2026-05-15T19:49:01Z",
-    "method": "xbrl-companyfacts",
-    "_segment_method": "xbrl-segment-inline",
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:09:29Z",
+    "n_kpis": 2,
     "kpis": [
       {
-        "short": "Renewables Storage MWh",
+        "short": "Solar MWh",
         "period_type": "quarter",
         "history": [
-          0.107,
-          0.195,
-          0.166,
-          0.141,
-          0.086,
-          0.261,
-          0.231,
-          0.047,
-          0.306,
-          0.001,
-          0.198,
-          0.027,
-          0.239,
-          0.478,
-          0.168,
-          0.013,
-          0.384,
-          0.464
+          1060,
+          1538,
+          1473,
+          866,
+          1544,
+          1822,
+          1443,
+          2613,
+          2943,
+          1738,
+          2650,
+          2930
         ],
         "history_periods": [
-          "Q1 2020",
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024"
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
         ],
-        "last_data_date": "2024-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Renewables",
-        "_citations": [
-          {
-            "period": "Q1 2024",
-            "value": 0.168,
-            "source": "CWEN_2024-05-09.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q2 2024",
-            "value": 0.013,
-            "source": "CWEN_2024-08-01.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q3 2024",
-            "value": 0.384,
-            "source": "CWEN_2024-10-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q4 2024",
-            "value": 0.464,
-            "source": "calc-CWEN_2025-02-25.htm.gz",
-            "tag": "us-gaap:Revenues"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "MWh",
+        "_extracted_at": "2026-06-01T03:09:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Wind MWh",
+        "period_type": "quarter",
+        "history": [
+          2259,
+          2878,
+          1894,
+          2744,
+          2433,
+          2085,
+          2519,
+          2947,
+          2012,
+          2743,
+          2941,
+          2221
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "MWh",
+        "_extracted_at": "2026-06-01T03:09:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ]
   },
@@ -826,9 +845,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.248377+00:00",
     "fetched_at": "2026-05-21T02:17:14.248378+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.041Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.577Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cwen.json",
     "enrich_root": "v2-pipeline-enrich/cwen.json",

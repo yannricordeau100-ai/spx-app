@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires net",
       "name_en": "Net Revenue",
       "explanation": "Revenu total de la société",
-      "value": "1965.0",
-      "unit": "M $",
+      "value": 1.965,
+      "unit": "Mds $",
       "yoy": "-2.4%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,11 +30,11 @@
       "signal": "Baisse du chiffre d'affaires de 47.9M$ due à la diminution des volumes de ventes de certaines marques (Twisted Tea, Truly Hard Seltzer, Samuel Adams) de 94.8M$, partiellement compensée par des augmentations de prix de 27.1M$ et une amélioration de la composition des produits de 19.1M$",
       "description": "Chiffre d'affaires net de la société pour l'année 2025",
       "history": [
-        1894.4,
-        1956.8,
-        2012.1,
-        2081,
-        1965
+        1.894,
+        1.957,
+        2.012,
+        2.081,
+        1.965
       ],
       "last_data_date": "2025-12-27",
       "is_wow": false,
@@ -43,7 +43,12 @@
       "ttm": 1937.6,
       "_validation": "Valeur confirmée à 1965.0 M$ (source 10-K MD&A: $1,964,994 milliers); unité corrigée de 'M $' à 'M$'; history réorganisée en ordre chronologique; signal amélioré avec détails quantifiés de volume (-94.8M$), prix (+27.1M$) et mix (+19.1M$) du 10-K",
       "explanation_en": "Revenue from the Net segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -71,8 +76,12 @@
       "is_short_history": false,
       "ttm": 48.76,
       "_validation": "Valeur confirmée à 48.5% (source 10-K MD&A: Gross margin 48.5% vs 44.4% prior year); unité correcte; signal considérablement enrichi avec détails financiers spécifiques par baril du 10-K MD&A",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -107,8 +116,12 @@
       "_validation": "Valeur confirmée à 144.9 M$ (source 10-K MD&A: Operating income $144,882 milliers); unité corrigée de 'M $' à 'M$'; history validée; signal clarifié pour distinguer croissance organique (marges +58.8M$) des éléments non récurrents 2024 (dépréciation 42.6M$ et règlement 26.0M$)",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:48.636995+00:00",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -127,34 +140,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.96 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+83.3%",
       "history": [
-        0.07,
-        0.08,
-        0.06,
-        0.11
+        70,
+        80,
+        60,
+        110
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.11 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -173,56 +195,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.19 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.05,
-        0.05,
-        0.04,
-        0.04
+        50,
+        50,
+        40,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "+4.8%",
       "history": [
-        0.18,
-        0.3,
-        0.21,
-        0.22
+        180,
+        300,
+        210,
+        220
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.22 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -269,7 +305,8 @@
       "score_rationale": "The company operates in a highly competitive alcoholic beverages market with numerous competitors, which may adversely affect market share and sales volumes",
       "trend": "stable",
       "summary": "Competition in the alcoholic beverages market is intense, potentially impacting the company's market share and sales performance",
-      "_validation": "Risque confirmé par source 10-K Item 1A; titre et wording standardisés"
+      "_validation": "Risque confirmé par source 10-K Item 1A; titre et wording standardisés",
+      "score": 4
     },
     {
       "title": "Regulatory and Legal Changes",
@@ -278,7 +315,8 @@
       "score_rationale": "Changes in government regulations and alcoholic beverage laws could adversely affect the company's operations and sales",
       "trend": "stable",
       "summary": "Changes in governmental regulations and laws governing alcoholic beverages may negatively impact the company's operations and sales",
-      "_validation": "Risque confirmé par source 10-K Item 1A; titre amélioré pour clarté réglementaire"
+      "_validation": "Risque confirmé par source 10-K Item 1A; titre amélioré pour clarté réglementaire",
+      "score": 3
     },
     {
       "title": "Product Innovation Requirements",
@@ -287,7 +325,8 @@
       "score_rationale": "The company must continue to innovate and develop new products to maintain competitiveness in a rapidly evolving market",
       "trend": "up",
       "summary": "Sustained product innovation and development are critical to maintaining competitive position in a constantly evolving market",
-      "_validation": "Catégorie confirmée comme Stratégie; titre clarifié; wording amélioré"
+      "_validation": "Catégorie confirmée comme Stratégie; titre clarifié; wording amélioré",
+      "score": 4
     },
     {
       "title": "Distribution Channel Dependency",
@@ -296,7 +335,8 @@
       "score_rationale": "The company relies on distributor partners for product sales, creating risk if these partners encounter financial or operational difficulties",
       "trend": "stable",
       "summary": "Dependence on distributor partners for product distribution creates vulnerability if distributors face operational or financial challenges",
-      "_validation": "Catégorie confirmée comme Opérationnel; titre amélioré; wording standardisé"
+      "_validation": "Catégorie confirmée comme Opérationnel; titre amélioré; wording standardisé",
+      "score": 3
     },
     {
       "title": "Brand Reputation and Product Quality",
@@ -305,7 +345,8 @@
       "score_rationale": "Company reputation could be damaged by product quality issues, recalls, or controversies, negatively impacting sales and market share",
       "trend": "stable",
       "summary": "The company's reputation could be adversely affected by product quality issues, recalls, or controversies, potentially reducing sales and market share",
-      "_validation": "Titre amélioré pour précision; wording standardisé"
+      "_validation": "Titre amélioré pour précision; wording standardisé",
+      "score": 4
     },
     {
       "title": "Geopolitical and Tariff Exposure",
@@ -314,7 +355,8 @@
       "score_rationale": "Geopolitical events such as trade wars or tariffs may adversely affect operations and sales through increased raw material costs and production expenses",
       "trend": "stable",
       "summary": "Geopolitical events and tariff policies impact raw material costs and operations. The company incurred 10.1 million dollars in tariff-related costs in 2025, integrated into cost of goods sold",
-      "_validation": "Titre amélioré pour précision; résumé enrichi avec données réelles du 10-K: impact tarifaire de 10.1M$ sur les matières premières confirmé dans MD&A section Cost of goods sold; symbole $ repositionné"
+      "_validation": "Titre amélioré pour précision; résumé enrichi avec données réelles du 10-K: impact tarifaire de 10.1M$ sur les matières premières confirmé dans MD&A section Cost of goods sold; symbole $ repositionné",
+      "score": 2
     },
     {
       "title": "Cybersecurity Threats",
@@ -323,7 +365,8 @@
       "score_rationale": "The company faces exposure to cybersecurity risks including hacking attacks and data breaches, which could harm operations and reputation",
       "trend": "up",
       "summary": "The company is exposed to cybersecurity risks including data breaches and cyberattacks, which could negatively impact operations and corporate reputation",
-      "_validation": "Risque confirmé par source 10-K Item 1C Cybersecurity; titre et wording améliorés"
+      "_validation": "Risque confirmé par source 10-K Item 1C Cybersecurity; titre et wording améliorés",
+      "score": 3
     }
   ],
   "governance": {
@@ -366,7 +409,7 @@
     "margin_trend": "Marges en expansion (+4.1 pts en moyenne sur les KPIs marge)."
   },
   "subsector_fr": "Boissons",
-  "_companies_unified_built_at": "2026-05-29T21:19:38.249Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.501Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sam.json",
     "enrich_root": "v2-pipeline-enrich/sam.json",

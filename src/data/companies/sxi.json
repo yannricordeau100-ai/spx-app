@@ -1,6 +1,6 @@
 {
   "ticker": "SXI",
-  "name": "Standex International Corporation",
+  "name": "Standex International",
   "sector": "Technologie",
   "subsector": "Diversified Industrial Manufacturer",
   "tagline": "Diversified industrial manufacturer with leading positions in products and services across commercial and industrial markets, focused on growth through strategic acquisitions.",
@@ -69,7 +69,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Aucune correction majeure. Description complétée pour refléter l'inflation matériaux.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -95,7 +95,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'. Description mise à jour avec détails des coûts d'acquisition.",
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -121,7 +121,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'. Explanation et description clarifiées.",
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue.",
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
       "signal_en": "Forward visibility increasing, pipeline strengthening"
     },
     {
@@ -206,18 +206,18 @@
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.056,
-      "unit": "Mds $",
+      "value": 56,
+      "unit": "M $",
       "yoy": "-23.3%",
       "history": [
-        0.037,
-        0.068,
-        0.02,
-        0.036,
-        0.061,
-        0.139,
-        0.073,
-        0.056
+        37,
+        68,
+        20,
+        36,
+        61,
+        139,
+        73,
+        56
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -226,8 +226,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -296,7 +301,8 @@
       "score_rationale": "Le risque est placé en début de section avec un langage fort (adversely affect, materially increase) et couvre à la fois l'inflation et la récession. Il impacte plusieurs leviers clés (demande, marges, compétitivité). La catégorie Macro est hautement pondérée.",
       "trend": "stable",
       "summary": "L'inflation et une éventuelle récession menacent les marges, la demande et la compétitivité de SXI, notamment dans les marchés cycliques.",
-      "_validation": "Aucune correction. Synthèse clarifiée."
+      "_validation": "Aucune correction. Synthèse clarifiée.",
+      "score": 5
     },
     {
       "title": "Dépendance à la facilité de crédit",
@@ -305,7 +311,8 @@
       "score_rationale": "Le risque couvre la dépendance au crédit pour le fonctionnement et les acquisitions stratégiques, fondamentale pour la croissance. Les acquisitions récentes (Amran/Narayan, McStarlite) utilisent les facilités de crédit existantes. Langage alarmiste sur les impacts potentiels en cas de restriction d'accès au crédit.",
       "trend": "stable",
       "summary": "Toute restriction ou rupture de la facilité de crédit pourrait empêcher SXI de financer ses opérations ou ses acquisitions stratégiques, avec risque de défaut d'obligations.",
-      "_validation": "Contexte actualisé pour refléter la stratégie active d'acquisitions financée par la dette."
+      "_validation": "Contexte actualisé pour refléter la stratégie active d'acquisitions financée par la dette.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue et pression sur les prix",
@@ -314,7 +321,8 @@
       "score_rationale": "Mentionné plusieurs fois avec lien direct aux marges et aux parts de marché. Langage répété sur la difficulté à maintenir les prix face aux concurrents à coûts inférieurs, notamment dans les zones à faible inflation.",
       "trend": "stable",
       "summary": "La concurrence intense, notamment de concurrents dans des zones à faible coût, limite la capacité de SXI à augmenter ses prix et à protéger ses marges.",
-      "_validation": "Aucune correction majeure."
+      "_validation": "Aucune correction majeure.",
+      "score": 4
     },
     {
       "title": "Pénuries et volatilité des matières premières",
@@ -323,7 +331,8 @@
       "score_rationale": "Risque concernant les intrants critiques (acier, aluminium, éléments rares) avec volatilité des prix et absence de couverture complète possible. Impact direct sur les profits si non compensé par les prix de vente. Position élevée dans le texte des facteurs de risque.",
       "trend": "stable",
       "summary": "Les pénuries et les hausses de prix des matières premières essentielles pourraient réduire les marges de SXI si elle ne peut répercuter les coûts augmentés sur ses clients.",
-      "_validation": "Titre et summary clarifiés pour refléter plus précisément la volatilité et l'impact sur les marges."
+      "_validation": "Titre et summary clarifiés pour refléter plus précisément la volatilité et l'impact sur les marges.",
+      "score": 4
     }
   ],
   "_validation": [
@@ -603,6 +612,235 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SXI",
+    "extracted_at": "2026-06-01T09:23:25Z",
+    "n_kpis": 5,
+    "kpis": [
+      {
+        "short": "Net Sales",
+        "period_type": "quarter",
+        "history": [
+          172.216,
+          175.61,
+          185.709,
+          189.281,
+          180.6,
+          187.789,
+          184.332,
+          184.774,
+          178.4,
+          177.267,
+          170.464,
+          189.814,
+          207.78,
+          217.431,
+          221.32
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:23:25Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          36.42,
+          37.73,
+          37.05,
+          36.13,
+          37.8,
+          38.52,
+          38.45,
+          39.32,
+          40.15,
+          38.53,
+          41.1,
+          37.65,
+          39.7,
+          41.61,
+          41.66
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:23:25Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          5.65,
+          22.828,
+          21.773,
+          24.47,
+          26.29,
+          27.806,
+          88.517,
+          26.917,
+          25.832,
+          21.842,
+          24.099,
+          25.832,
+          26.253,
+          29.634,
+          35.573
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:23:25Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Acquisition related expenses",
+        "period_type": "quarter",
+        "history": [
+          0.255,
+          0.217,
+          0.925,
+          0.419,
+          0.292,
+          0.174,
+          0.021,
+          0.501,
+          1.195,
+          0.021,
+          1.84,
+          1.195,
+          2.152,
+          0.433,
+          0.617
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:23:25Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "SG&A as % of Sales",
+        "period_type": "quarter",
+        "history": [
+          24.21,
+          24.35,
+          23.45,
+          22.35,
+          22.75,
+          23.27,
+          23.31,
+          23.59,
+          24.25,
+          23.55,
+          25.25,
+          24.06,
+          25.04,
+          25,
+          25.13
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:23:25Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SXI",
     "ranks": {
@@ -615,15 +853,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.315389+00:00",
     "fetched_at": "2026-05-21T02:17:14.315390+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.322Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.351Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sxi.json",
     "enrich_root": "v2-pipeline-enrich/sxi.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -39,9 +39,15 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T08:54:20.480999+00:00",
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only two consecutive Net Income (HGB) values (2024: 135 M€, 2023: 132 M€) are explicitly provided; fewer than the required four years.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Dividend per Share",
@@ -88,7 +94,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -135,7 +141,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -143,8 +149,8 @@
       "name_fr": "Capitalisation boursière",
       "name_en": "Market Capitalization",
       "explanation": "Valeur totale des actions en bourse basée sur le cours de clôture de fin d'année.",
-      "value": "1090",
-      "unit": "M €",
+      "value": 1.09,
+      "unit": "Mds €",
       "yoy": "-12.8%",
       "type": "Capital",
       "nature": "Cyclique",
@@ -152,14 +158,15 @@
       "signal": "Décote liée à la baisse du bénéfice IFRS",
       "description": "La capitalisation recule en raison de la chute du bénéfice IFRS et du cours de l'action.",
       "history": [
-        1250,
-        1090
+        1.25,
+        1.09
       ],
       "last_data_date": "2024-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Capital base contracting, monitor structure"
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
     },
     {
       "short": "Consolidated Net Income (IFRS)",
@@ -209,7 +216,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -237,7 +244,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position stable"
     },
     {
@@ -265,7 +272,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -281,7 +288,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         null,
@@ -294,7 +301,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -333,7 +340,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement mentionné via le positionnement face aux concurrents et l'acquisition de start:bausparkasse AG pour renforcer la compétitivité. Langage affirmé, tendance stable, poids élevé dans la stratégie.",
       "trend": "stable",
-      "summary": "La pression concurrentielle sur le marché allemand de l'épargne-logement s'intensifie, avec des acteurs comme BAWAG ou d'autres caisses de construction. Wüstenrot répond par des acquisitions et des coopérations commerciales pour maintenir sa part de marché."
+      "summary": "La pression concurrentielle sur le marché allemand de l'épargne-logement s'intensifie, avec des acteurs comme BAWAG ou d'autres caisses de construction. Wüstenrot répond par des acquisitions et des coopérations commerciales pour maintenir sa part de marché.",
+      "score": 4
     },
     {
       "title": "Dépendance à des partenaires bancaires clés",
@@ -341,7 +349,8 @@
       "severity": 4,
       "score_rationale": "Plusieurs partenariats exclusifs (Allianz, Commerzbank, ING) sont cités comme essentiels. Langage soulignant la dépendance, tendance à la hausse, catégorie stratégique.",
       "trend": "up",
-      "summary": "Wüstenrot & Württembergische dépend fortement de partenariats bancaires majeurs comme Commerzbank, Santander ou ING pour la distribution de ses produits d'épargne-logement, ce qui crée un risque d'exposition si ces accords venaient à être rompus."
+      "summary": "Wüstenrot & Württembergische dépend fortement de partenariats bancaires majeurs comme Commerzbank, Santander ou ING pour la distribution de ses produits d'épargne-logement, ce qui crée un risque d'exposition si ces accords venaient à être rompus.",
+      "score": 4
     },
     {
       "title": "Cybersécurité face aux menaces numériques croissantes",
@@ -349,7 +358,8 @@
       "severity": 5,
       "score_rationale": "Le programme 'Cybershield' est mis en avant avec des mesures concrètes (protection virale, isolement automatique). Langage fort, tendance à la hausse, priorité stratégique claire.",
       "trend": "up",
-      "summary": "Le groupe fait face à une menace croissante de cyberattaques, comme les virus, le piratage ou les logiciels malveillants. Il a lancé le programme 'Cybershield' pour renforcer sa protection numérique à l'échelle du groupe."
+      "summary": "Le groupe fait face à une menace croissante de cyberattaques, comme les virus, le piratage ou les logiciels malveillants. Il a lancé le programme 'Cybershield' pour renforcer sa protection numérique à l'échelle du groupe.",
+      "score": 5
     },
     {
       "title": "Intégration de nouvelles plateformes IT critiques",
@@ -357,7 +367,8 @@
       "severity": 4,
       "score_rationale": "Le projet b@w et la migration vers SAP sont centraux. Langage technique détaillé, tendance à la hausse, impact opérationnel élevé.",
       "trend": "up",
-      "summary": "L'intégration de la nouvelle plateforme informatique bausparen@wüstenrot (b@w), basée sur SAP, représente un défi technologique majeur, avec la migration de multiples applications et portefeuilles, dont ceux d'Aachener et start:bausparkasse AG."
+      "summary": "L'intégration de la nouvelle plateforme informatique bausparen@wüstenrot (b@w), basée sur SAP, représente un défi technologique majeur, avec la migration de multiples applications et portefeuilles, dont ceux d'Aachener et start:bausparkasse AG.",
+      "score": 4
     },
     {
       "title": "Régulation sectorielle croissante dans la finance",
@@ -365,7 +376,8 @@
       "severity": 4,
       "score_rationale": "Mention de nouvelles exigences de supervision et réglementaires comme moteur de changement organisationnel. Langage formel, tendance à la hausse.",
       "trend": "up",
-      "summary": "Le groupe doit faire face à des exigences réglementaires et de supervision de plus en plus strictes dans les secteurs de l'assurance et de l'épargne-logement, influençant sa gouvernance et sa structure de gestion des risques."
+      "summary": "Le groupe doit faire face à des exigences réglementaires et de supervision de plus en plus strictes dans les secteurs de l'assurance et de l'épargne-logement, influençant sa gouvernance et sa structure de gestion des risques.",
+      "score": 4
     },
     {
       "title": "Dépendance aux forces de vente internes et partenaires",
@@ -373,7 +385,8 @@
       "severity": 4,
       "score_rationale": "Les forces de vente liées (Wüstenrot, Württembergische) et les courtiers sont décrites comme pilier central. Langage stratégique, tendance stable.",
       "trend": "stable",
-      "summary": "Le modèle commercial repose fortement sur un réseau de vente en propre (tied agents) et des partenaires de distribution. Toute démotivation ou perte de ces acteurs pourrait impacter gravement la commercialisation des produits."
+      "summary": "Le modèle commercial repose fortement sur un réseau de vente en propre (tied agents) et des partenaires de distribution. Toute démotivation ou perte de ces acteurs pourrait impacter gravement la commercialisation des produits.",
+      "score": 4
     },
     {
       "title": "Transformation digitale et adoption des IA",
@@ -381,7 +394,8 @@
       "severity": 4,
       "score_rationale": "Création d'un centre d'excellence IA et d'un département 'Data, Processes and AI'. Langage prospectif, tendance à la hausse, poids stratégique élevé.",
       "trend": "up",
-      "summary": "La transformation numérique, notamment via l'intelligence artificielle (ex. assistant IA en service client), est une priorité. Son succès dépend de l'adoption interne, de la qualité des données et de l'agilité technologique."
+      "summary": "La transformation numérique, notamment via l'intelligence artificielle (ex. assistant IA en service client), est une priorité. Son succès dépend de l'adoption interne, de la qualité des données et de l'agilité technologique.",
+      "score": 4
     },
     {
       "title": "Pénurie de main-d'œuvre qualifiée",
@@ -389,7 +403,8 @@
       "severity": 3,
       "score_rationale": "Mention de défis liés au recrutement malgré des mesures actives (salons, Fast Track Apply). Langage préoccupé mais mesuré, tendance à la hausse.",
       "trend": "up",
-      "summary": "Le groupe fait face à une pénurie de talents qualifiés, accentuée par le vieillissement démographique. Des initiatives comme le programme de parrainage ou les salons universitaires sont déployées pour y répondre."
+      "summary": "Le groupe fait face à une pénurie de talents qualifiés, accentuée par le vieillissement démographique. Des initiatives comme le programme de parrainage ou les salons universitaires sont déployées pour y répondre.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:10:39.461952+00:00",
@@ -437,9 +452,6 @@
   "_freshness_yf_refreshed_at": "2026-05-14T07:12:46.245640",
   "company_description": "Wüstenrot & Württembergische AG, together with its subsidiaries, provides insurance products and services in Germany. It operates through Residential, Life and Health Insurance, Property/Casualty Insurance, and All Other segments. The Residential segment offers home loan savings and banking products, such as home loan savings contracts, bridge financing loans, mortgage loans, and other building loans primarily for retail customers. The Life and Health Insurance segment provides life and health insurance products, including traditional and unit-linked life and pension insurance, term life insurance, occupational disability insurance, private comprehensive health insurance and supplementary health insurance and long-term care insurance for individuals and groups. The Property/Casualty Insurance segment offers various insurance products, such as motor, liability, accident, legal expenses, residential building, household contents, transport, and technical insurance, as well as credit and suretyship insurance for retail and corporate customers. The All Other segment engages in asset management and property development activities; and provides real estate brokerage services. The company ",
   "last_data_date": "2025-12-31",
-  "_dividends_extracted_at": "2026-05-09T20:43:24Z",
-  "_dividends_source": "cat3-european annual-text FY2024 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
-  "_dividends_currency": "EUR",
   "revenue_by_segment": {
     "unit": "€B",
     "source_date": "2024-12-31",
@@ -460,23 +472,29 @@
     ]
   },
   "revenue_by_geography": {
-    "unit": "€B",
-    "source_date": "2024-12-31",
-    "source": "10-K 2024",
+    "_single_geography": "Germany",
+    "_single_geography_fr": "Allemagne",
+    "label": "Répartition géographique du chiffre d'affaires",
     "slices": [
       {
-        "label": "Germany",
-        "value": 6.31,
-        "unit": "€B",
-        "share_pct": 100,
-        "label_en": "Germany"
+        "name": "Allemagne",
+        "name_en": "Germany",
+        "value": 100,
+        "unit": "%",
+        "pct": 100
       }
     ],
-    "total": 6.31
+    "total": 100,
+    "unit": "%",
+    "_source": "Geschäftsbericht WUW.DE (opérations mono-pays DE)",
+    "_source_note": "Mono-pays légitime: banque/assurance Allemagne"
   },
+  "_dividends_extracted_at": "2026-05-09T20:43:24Z",
+  "_dividends_source": "cat3-european annual-text FY2024 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
+  "_dividends_currency": "EUR",
   "_segments_fetched_at": "2026-05-15T00:02:51.683583+00:00",
   "_eps_extracted_at": "2026-05-18T16:48:24Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "enrich_description": {
     "ticker": "WUW.DE",
@@ -543,9 +561,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.330728+00:00",
     "fetched_at": "2026-05-21T02:17:14.330729+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.656Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.807Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wuw.de.json",
     "enrich_root": "v2-pipeline-enrich/wuw.de.json",

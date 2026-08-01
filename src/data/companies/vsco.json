@@ -21,8 +21,8 @@
       "name_fr": "Ventes par pied carré moyen de surface de vente",
       "name_en": "Sales per Average Selling Square Foot",
       "explanation": "Indicateur de productivité des magasins, calculé en divisant les ventes du magasin par la surface de vente moyenne.",
-      "value": 6553000000,
-      "unit": "$",
+      "value": 6.553,
+      "unit": "Mds $",
       "yoy": "+5.2%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -30,11 +30,11 @@
       "signal": "Croissance solide de la productivité des magasins.",
       "description": "Mesure la performance des ventes par unité de surface de vente dans les magasins exploités par la société.",
       "history": [
-        6785000000,
-        6344000000,
-        6182000000,
-        6230000000,
-        6553000000
+        6.785,
+        6.344,
+        6.182,
+        6.23,
+        6.553
       ],
       "last_data_date": "2026-01-31",
       "is_wow": true,
@@ -44,7 +44,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:20.878097+00:00",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "raw -> Mds $"
     },
     {
       "short": "Sales per Average Store",
@@ -196,11 +197,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.01 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -219,11 +224,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.85 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -314,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Les tarifs douaniers constituent un risque important pour l'entreprise qui dépend fortement des importations. L'incertitude réglementaire peut affecter les marges brutes et les prix à la consommation.",
       "trend": "stable",
-      "summary": "Les tarifs douaniers constituent un risque important pour l'entreprise, car ils peuvent affecter les coûts et les marges."
+      "summary": "Les tarifs douaniers constituent un risque important pour l'entreprise, car ils peuvent affecter les coûts et les marges.",
+      "score": 4
     },
     {
       "title": "Incident de sécurité informatique",
@@ -322,7 +332,8 @@
       "severity": 3,
       "score_rationale": "Un incident de sécurité a eu lieu en 2025 affectant les systèmes informatiques et les canaux directs. L'impact immédiat a été temporaire mais démontre la vulnérabilité aux attaques cybernétiques.",
       "trend": "new",
-      "summary": "Les incidents de sécurité peuvent avoir des conséquences graves pour l'entreprise, notamment en termes de perte de données, d'interruption d'activité et de réputation."
+      "summary": "Les incidents de sécurité peuvent avoir des conséquences graves pour l'entreprise, notamment en termes de perte de données, d'interruption d'activité et de réputation.",
+      "score": 3
     },
     {
       "title": "Concurrence intense",
@@ -330,7 +341,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise opère dans un marché très concurrentiel avec de nombreux acteurs traditionnels et numériques. La différenciation et l'acquisition de clients sont des défis majeurs.",
       "trend": "up",
-      "summary": "La concurrence est un risque important pour l'entreprise, car elle peut affecter les ventes et la part de marché."
+      "summary": "La concurrence est un risque important pour l'entreprise, car elle peut affecter les ventes et la part de marché.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie",
@@ -338,7 +350,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise dépend fortement de la technologie pour ses canaux directs et ses opérations back-office, ce qui la rend vulnérable aux pannes et aux cyberattaques.",
       "trend": "stable",
-      "summary": "La dépendance à la technologie constitue un risque pour l'entreprise, car les pannes et les attaques cybernétiques peuvent avoir des conséquences graves sur les ventes."
+      "summary": "La dépendance à la technologie constitue un risque pour l'entreprise, car les pannes et les attaques cybernétiques peuvent avoir des conséquences graves sur les ventes.",
+      "score": 3
     },
     {
       "title": "Risques géopolitiques",
@@ -346,7 +359,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise opère dans plus de 70 pays avec des activités significatives en Asie et en Europe, ce qui la rend vulnérable aux risques géopolitiques, aux changements réglementaires et aux sanctions.",
       "trend": "up",
-      "summary": "Les risques géopolitiques peuvent avoir des conséquences graves pour l'entreprise, notamment en termes de perte de marchés et de perturbation des chaînes d'approvisionnement."
+      "summary": "Les risques géopolitiques peuvent avoir des conséquences graves pour l'entreprise, notamment en termes de perte de marchés et de perturbation des chaînes d'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
@@ -354,7 +368,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est soumise à de nombreuses réglementations complexes notamment en matière de protection des données, de sécurité des produits et de conformité environnementale. Les changements réglementaires peuvent augmenter les coûts.",
       "trend": "stable",
-      "summary": "Les risques réglementaires constituent un risque pour l'entreprise, car les changements réglementaires peuvent avoir un impact sur les coûts et les opérations."
+      "summary": "Les risques réglementaires constituent un risque pour l'entreprise, car les changements réglementaires peuvent avoir un impact sur les coûts et les opérations.",
+      "score": 3
     },
     {
       "title": "Risques de réputation",
@@ -362,7 +377,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est vulnérable aux risques de réputation notamment en cas d'incident de sécurité, de problème de qualité des produits, de pratiques de travail ou de scandale médiatique.",
       "trend": "up",
-      "summary": "Les risques de réputation peuvent avoir des conséquences graves pour l'engagement des clients et la valeur de marque, particulièrement dans un secteur sensible aux perceptions des consommateurs."
+      "summary": "Les risques de réputation peuvent avoir des conséquences graves pour l'engagement des clients et la valeur de marque, particulièrement dans un secteur sensible aux perceptions des consommateurs.",
+      "score": 4
     }
   ],
   "_validation": [
@@ -385,7 +401,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -540,7 +556,7 @@
       {
         "year": 2026,
         "month": 5,
-        "title": "Victoria's Secret Turnaround Looks Stronger Heading Into FY26",
+        "title": "Victoria's Secret Turnaround Looks Stronger Heading Into exercice 2026",
         "body": "VSCO's turnaround is gaining traction as comps rise, bras return to growth, and PINK rebuilds Gen Z demand.",
         "source": "Zacks",
         "url": "https://finance.yahoo.com/markets/stocks/articles/victorias-secret-turnaround-looks-stronger-150000790.html",
@@ -568,232 +584,140 @@
   },
   "enrich_quarterly_history": {
     "ticker": "VSCO",
-    "extracted_at": "2026-05-15T18:15:04Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1856437,
+    "extracted_at": "2026-06-01T09:28:26Z",
     "n_kpis": 3,
     "kpis": [
       {
-        "short": "Adjusted Operating Income",
+        "short": "Sales per Average Selling Square Foot",
         "period_type": "quarter",
         "history": [
-          428,
-          536,
-          94,
-          192,
-          234,
-          -42,
-          28,
-          54,
-          -13,
-          177,
-          26,
-          89,
-          42,
-          153,
-          20,
-          61,
-          42,
-          148
+          154,
+          172,
+          151,
+          158,
+          163,
+          136,
+          133,
+          138,
+          122,
+          125,
+          137,
+          127,
+          128,
+          145,
+          137
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-01-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 20,
-            "accession": "0001856437-25-000030",
-            "end": "2025-05-03"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 61,
-            "accession": "0001856437-25-000039",
-            "end": "2025-08-02"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 42,
-            "accession": "0001856437-25-000045",
-            "end": "2025-11-01"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 148,
-            "accession": "calc-0001856437-26-000004",
-            "end": "2026-01-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T09:28:26Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
-        "short": "Adjusted Net Income Attributable to Victoria's Secret Co.",
+        "short": "Sales per Average Store",
         "period_type": "quarter",
         "history": [
-          325,
-          400,
-          81,
-          151,
-          175,
-          -59,
-          1,
-          -1,
-          -72,
-          181,
-          -4,
-          28,
-          -28,
-          169,
-          -2,
-          14,
-          -23,
-          172
+          1064,
+          1183,
+          945,
+          1096,
+          1133,
+          945,
+          915,
+          947,
+          833,
+          856,
+          944,
+          877,
+          880,
+          1004,
+          948
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-01-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": -2,
-            "accession": "0001856437-25-000030",
-            "end": "2025-05-03"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 14,
-            "accession": "0001856437-25-000039",
-            "end": "2025-08-02"
-          },
-          {
-            "period": "Q3 2025",
-            "value": -23,
-            "accession": "0001856437-25-000045",
-            "end": "2025-11-01"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 172,
-            "accession": "calc-0001856437-26-000004",
-            "end": "2026-01-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T09:28:26Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
-        "short": "Adjusted Net Income Per Diluted Share Attributable to Victoria's Secret Co.",
+        "short": "Total Selling Square Feet",
         "period_type": "quarter",
         "history": [
-          325,
-          400,
-          81,
-          151,
-          175,
-          -59,
-          1,
-          -1,
-          -72,
-          181,
-          -4,
-          28,
-          -28,
-          169,
-          -2,
-          14,
-          -23,
-          172
+          5790,
+          5772,
+          5725,
+          5589,
+          5580,
+          5618,
+          5600,
+          5593,
+          5610,
+          5555,
+          5507,
+          5468,
+          5365,
+          5305,
+          5337
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-01-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": -2,
-            "accession": "0001856437-25-000030",
-            "end": "2025-05-03"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 14,
-            "accession": "0001856437-25-000039",
-            "end": "2025-08-02"
-          },
-          {
-            "period": "Q3 2025",
-            "value": -23,
-            "accession": "0001856437-25-000045",
-            "end": "2025-11-01"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 172,
-            "accession": "calc-0001856437-26-000004",
-            "end": "2026-01-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "K sq ft",
+        "_extracted_at": "2026-06-01T09:28:26Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -809,9 +733,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.326484+00:00",
     "fetched_at": "2026-05-21T02:17:14.326485+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.295Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.428Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vsco.json",
     "enrich_root": "v2-pipeline-enrich/vsco.json",

@@ -1,6 +1,6 @@
 {
   "ticker": "VAC",
-  "name": "Marriott Vacations Worldwide Corporation",
+  "name": "Marriott Vacations Worldwide",
   "sector": "Consommation discrétionnaire",
   "subsector": "Leisure and Tourism",
   "tagline": "Leading Global Vacation Ownership and Experience Company",
@@ -80,13 +80,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.03 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:15.323268+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
@@ -105,34 +109,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.31 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "-21.8%",
       "history": [
-        0.8,
-        0.59,
-        0.55,
-        0.43
+        800,
+        590,
+        550,
+        430
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.43 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -151,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.76 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -174,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.68 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "+105.0%",
       "history": [
-        0.52,
-        0.25,
-        0.2,
-        0.41
+        520,
+        250,
+        200,
+        410
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.41 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -214,7 +240,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.08,
         2.58,
@@ -227,7 +253,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -242,7 +268,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.8,
@@ -255,7 +281,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -270,7 +296,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -283,7 +309,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -298,7 +324,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         7.94,
@@ -311,7 +337,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -348,34 +374,34 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "La société mentionne explicitement le risque de cyber-attaques dans l'Item 1A, indiquant que cela pourrait perturber les opérations, endommager la réputation et entraîner des coûts, amendes ou poursuites. Le langage utilisé est intense, soulignant l'importance critique de ce risque. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne explicitement le risque de cyber-attaques dans l'Item 1A, indiquant que cela pourrait perturber les opérations, endommager la réputation et entraîner des coûts, amendes ou poursuites. Le langage utilisé est intense, soulignant l'importance critique de ce risque.",
       "trend": "stable",
       "summary": "La société est exposée à des risques de cyber-attaques qui pourraient perturber ses opérations et nuire à sa réputation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Litiges",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "La société mentionne des litiges en cours dans l'Item 3, indiquant que les résultats de ces procédures pourraient avoir un impact sur son activité et ses résultats financiers. La direction estime que les résultats ne nuiront pas matériellement à la position financière, mais la nature inhérente des litiges crée une incertitude. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne des litiges en cours dans l'Item 3, indiquant que les résultats de ces procédures pourraient avoir un impact sur son activité et ses résultats financiers. La direction estime que les résultats ne nuiront pas matériellement à la position financière, mais la nature inhérente des litiges crée une incertitude.",
       "trend": "stable",
       "summary": "La société est impliquée dans des litiges ordinaires qui pourraient avoir un impact sur ses résultats financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de crédit et de financement",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société offre des financements importants à ses clients pour l'achat de propriété vacances. Les défauts de paiement et les modifications des estimations de réserves pour pertes sur créances pourraient avoir un impact significatif sur les résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société offre des financements importants à ses clients pour l'achat de propriété vacances. Les défauts de paiement et les modifications des estimations de réserves pour pertes sur créances pourraient avoir un impact significatif sur les résultats financiers.",
       "trend": "stable",
       "summary": "La société est exposée à des risques de crédit liés aux financements qu'elle offre à ses clients, ce qui pourrait avoir un impact sur ses résultats financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La société opère dans un marché compétitif des vacances et de la propriété vacances. La concurrence pourrait avoir un impact sur les volumes de ventes et les marges de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché compétitif des vacances et de la propriété vacances. La concurrence pourrait avoir un impact sur les volumes de ventes et les marges de l'entreprise.",
       "trend": "stable",
       "summary": "La société opère dans un marché compétitif qui pourrait avoir un impact sur ses ventes et ses résultats financiers.",
       "score": 3
@@ -384,10 +410,10 @@
       "title": "Dépendance aux marques Marriott et autres partenaires",
       "category": "Partenaires stratégiques",
       "severity": 4,
-      "score_rationale": "La société dépend des licences exclusives de marques prestigieuses (Marriott Vacation Club, Hyatt, Ritz-Carlton, Westin, Sheraton) pour ses activités de vente et de gestion. Toute perturbation de ces relations pourrait affecter significativement l'activité. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend des licences exclusives de marques prestigieuses (Marriott Vacation Club, Hyatt, Ritz-Carlton, Westin, Sheraton) pour ses activités de vente et de gestion. Toute perturbation de ces relations pourrait affecter significativement l'activité.",
       "trend": "stable",
       "summary": "La société dépend fortement des licences de marques prestigieuses pour ses opérations de propriété vacances.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -440,7 +466,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:20:49Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -464,7 +490,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:13Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:06Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "VAC",
     "simple": {
@@ -518,7 +544,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.074Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.970Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vac.json",
     "enrich_root": "v2-pipeline-enrich/vac.json",

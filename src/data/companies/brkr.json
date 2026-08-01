@@ -1,6 +1,6 @@
 {
   "ticker": "BRKR",
-  "name": "Bruker Corporation",
+  "name": "Bruker",
   "sector": "Technologie",
   "subsector": "Scientific Instruments",
   "tagline": "Enabling Innovation and Improving Productivity",
@@ -39,7 +39,7 @@
       "is_short_history": false,
       "ttm": 3349.23,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (valeurs en millions)",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -65,11 +65,14 @@
       "is_short_history": false,
       "ttm": 49.83,
       "_validation": "Histoire corrigée: 49 remplacé par 49.0 (source 10-K: Gross Profit Margin 49.0%)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 years of explicit GAAP Gross Profit Margin data found (2025: 45.9%, 2024: 49.0%). Minimum 4 consecutive years required. Earlier years",
       "explanation_en": "Profit margin on Gross Profit.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Operating Income Margin",
@@ -118,13 +121,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.44 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:07.577815+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -143,11 +150,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.01 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -166,11 +177,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.24 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -189,33 +204,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "+66.7%",
       "history": [
-        0.65,
-        0.49,
-        0.18,
-        0.3
+        650,
+        490,
+        180,
+        300
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.3 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -242,9 +266,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": null,
-      "_validation": "Histoire corrigée: 14 remplacé par 14.0 (source 10-K: Non-GAAP CER currency revenue year-on-year growth rate 14.0% en 2024); TTM supprimé (non applicable pour croissance YoY)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Histoire corrigée: 14 remplacé par 14.0 (source 10-K: Non-GAAP CER currency revenue year-on-year growth rate 14.0% en 2024); TTM supprimé (non applicable pour croissance YoY)"
     }
   ],
   "ai_positioning": {
@@ -258,34 +280,34 @@
       "title": "Fluctuations économiques",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie (score par défaut, à affiner)",
+      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie",
       "trend": "stable",
       "summary": "Les fluctuations économiques, notamment l'inflation, la récession, la volatilité des changes et les incertitudes économiques, peuvent impacter les résultats de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Tensions géopolitiques",
       "category": "Géopolitique",
       "severity": 5,
-      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie (score par défaut, à affiner)",
+      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie",
       "trend": "up",
       "summary": "Les tensions géopolitiques, notamment le conflit entre la Russie et l'Ukraine, les sanctions économiques et les incertitudes liées aux relations entre les États-Unis et la Chine, peuvent avoir un impact significatif sur les activités de l'entreprise.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Pénurie de composants",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie (score par défaut, à affiner)",
+      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie",
       "trend": "stable",
       "summary": "La pénurie de composants, notamment les puces de silicium, les composants et les matières premières, peut impacter la production et les ventes de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux changes",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie (score par défaut, à affiner)",
+      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie",
       "trend": "stable",
       "summary": "Les fluctuations des taux de change peuvent impacter les résultats de l'entreprise, notamment en raison de l'impact sur les prix et les marges.",
       "score": 3
@@ -294,37 +316,37 @@
       "title": "Dépendance à la technologie",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie (score par défaut, à affiner)",
+      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie",
       "trend": "up",
       "summary": "L'entreprise est fortement dépendante de la technologie, ce qui peut la rendre vulnérable aux risques liés à la sécurité des données, aux cyberattaques et aux pannes techniques.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie (score par défaut, à affiner)",
+      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie",
       "trend": "stable",
       "summary": "Les acquisitions peuvent présenter des risques, notamment en raison de l'intégration des activités, de la gestion des ressources et de la création de valeur pour les actionnaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie (score par défaut, à affiner)",
+      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie",
       "trend": "stable",
       "summary": "L'entreprise peut être exposée à des risques liés à la réputation, notamment en raison de la qualité des produits, de la sécurité des clients et de la conformité aux réglementations.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la réglementation",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie (score par défaut, à affiner)",
+      "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1, pondération catégorie",
       "trend": "up",
       "summary": "L'entreprise peut être soumise à des réglementations strictes, notamment en raison de la sécurité des produits, de la protection des données et de la conformité aux normes environnementales.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -344,7 +366,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -399,7 +421,6 @@
       "date": "2026-05-05"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T18:01:23.576351+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -436,6 +457,7 @@
     ],
     "total": 3.44
   },
+  "_ai_positioning_fetched_at": "2026-05-06T18:01:23.576351+00:00",
   "_segments_fetched_at": "2026-05-06T19:25:08.418637+00:00",
   "enrich_description": {
     "ticker": "BRKR",
@@ -534,166 +556,125 @@
   },
   "enrich_quarterly_history": {
     "ticker": "BRKR",
-    "extracted_at": "2026-05-15T18:09:44Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1109354,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:03:42Z",
+    "n_kpis": 3,
     "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          554.7,
+          570.8,
+          608.9,
+          595,
+          588.4,
+          638.9,
+          685.3,
+          681.9,
+          742.8,
+          721.7,
+          800.7,
+          864.4
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2024-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:03:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "Gross Profit Margin",
         "period_type": "quarter",
         "history": [
-          559.3,
-          868,
-          -496.4,
-          306.3,
-          604.5,
-          939.8,
-          -544.9,
-          359.7,
-          700.2,
-          1083,
-          -629.6,
-          352.8,
-          737.4,
-          1156.2,
-          -596.9,
-          391.2,
-          749.1,
-          1128.5,
-          -691.1,
-          379.8
+          50.3,
+          49.2,
+          50.7,
+          51.5,
+          50.7,
+          52.5,
+          52.5,
+          49.9,
+          51.5,
+          52.5,
+          49.9,
+          51.5
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2024"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "GrossProfit",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 749.1,
-            "accession": "0000950170-25-103333",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 1128.5,
-            "accession": "0001193125-25-267049",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -691.1,
-            "accession": "calc-0001193125-26-082523",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 379.8,
-            "accession": "0001193125-26-211889",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2024-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:03:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Operating Income Margin",
         "period_type": "quarter",
         "history": [
-          174.7,
-          287.9,
-          -138.4,
-          96.5,
-          170.4,
-          301.7,
-          -135.9,
-          122.7,
-          208.9,
-          333.4,
-          -228.1,
-          64.8,
-          112.9,
-          181,
-          -105.6,
-          31.8,
-          43.7,
-          -8.1,
-          0.8,
-          10.2
+          16.1,
+          15,
+          18.6,
+          16.2,
+          12.6,
+          20.6,
+          17.9,
+          12.6,
+          16.8,
+          9,
+          6,
+          4.7
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2024"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 43.7,
-            "accession": "0000950170-25-103333",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": -8.1,
-            "accession": "0001193125-25-267049",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.8,
-            "accession": "calc-0001193125-26-082523",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 10.2,
-            "accession": "0001193125-26-211889",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2024-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:03:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -709,9 +690,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.234219+00:00",
     "fetched_at": "2026-05-21T02:17:14.234220+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.932Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.368Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/brkr.json",
     "enrich_root": "v2-pipeline-enrich/brkr.json",

@@ -22,7 +22,7 @@
       "name_en": "Equity Method Investments",
       "explanation": "Value of investments accounted for using the equity method in affiliated entities",
       "value": 2.4,
-      "unit": "B USD",
+      "unit": "Mds $",
       "yoy": "Not specified",
       "type": "Balance Sheet",
       "nature": "Investment Holdings",
@@ -75,13 +75,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 62.41 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:20.288941+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -100,11 +104,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 33.29 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -123,11 +131,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 17.11 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -146,11 +158,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 267.39 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -169,11 +185,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 31.61 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -192,10 +212,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 39.85 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -294,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur pour Trip.com : la plateforme dépend de 60 000+ partenaires écosystème (hôtels, 680+ compagnies aériennes, agences de voyage). Position centrale dans Item 3 décrivant le modèle économique. Langage modéré mais structure commerciale révèle vulnérabilité critique : perte de partenaires clés (notamment hôtels = 42% des revenus) menacerait directement les revenus de commission.",
       "trend": "stable",
-      "summary": "Trip.com agrège 1,7M listings d'hébergement et dépend de partenaires pour générer ses commissions (42% revenus = réservations hôtels, 36% = transports). Rupture de contrats avec grands hôtels/compagnies aériennes ou leur migration vers concurrents directs réduirait l'offre disponible et la compétitivité de la plateforme."
+      "summary": "Trip.com agrège 1,7M listings d'hébergement et dépend de partenaires pour générer ses commissions (42% revenus = réservations hôtels, 36% = transports). Rupture de contrats avec grands hôtels/compagnies aériennes ou leur migration vers concurrents directs réduirait l'offre disponible et la compétitivité de la plateforme.",
+      "score": 4
     },
     {
       "title": "Concurrence intense des plateformes de voyage mondiales et régionales",
@@ -302,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Risque structurel majeur : Trip.com se positionne comme 'leading global one-stop travel service provider' mais opère dans marché hautement compétitif (Booking, Expedia, Airbnb, acteurs locaux). Absence de détails sur avantages concurrentiels durables. Croissance revenue (17% 2024-2025) suggère pression concurrentielle. Langage défensif ('increasingly for travelers around the world') indique ambitions non encore réalisées.",
       "trend": "up",
-      "summary": "Trip.com fait face à concurrence mondiale (Booking.com, Expedia, Airbnb) et régionale (acteurs locaux en Asie). Perte de parts de marché, guerre tarifaire sur commissions, ou cannibalisation par distribution directe des hôtels/compagnies aériennes menaceraient marges et croissance."
+      "summary": "Trip.com fait face à concurrence mondiale (Booking.com, Expedia, Airbnb) et régionale (acteurs locaux en Asie). Perte de parts de marché, guerre tarifaire sur commissions, ou cannibalisation par distribution directe des hôtels/compagnies aériennes menaceraient marges et croissance.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et politiques en Chine et marchés internationaux",
@@ -310,7 +336,8 @@
       "severity": 5,
       "score_rationale": "Risque critique : structure VIE (Variable Interest Entity) mentionnée explicitement pour contourner restrictions PRC sur investissements étrangers dans internet/activités connexes. Item 3 souligne 'PRC laws and regulations restrict foreign investment in certain businesses'. Dépendance à arrangements contractuels fragiles avec VIEs. Changements réglementaires Chine (données, fintech, voyages) pourraient paralyser opérations. Expansion globale expose à régulations sectorielles multiples (RGPD, données, protection consommateurs).",
       "trend": "up",
-      "summary": "Trip.com opère via structure VIE contractuelle en Chine pour contourner restrictions sur investissements étrangers. Renforcement réglementaire chinois sur données, fintech, ou voyages pourrait invalider arrangements VIE ou imposer restrictions opérationnelles. Expansion internationale expose à régulations RGPD, protection données, et normes sectorielles variables par pays."
+      "summary": "Trip.com opère via structure VIE contractuelle en Chine pour contourner restrictions sur investissements étrangers. Renforcement réglementaire chinois sur données, fintech, ou voyages pourrait invalider arrangements VIE ou imposer restrictions opérationnelles. Expansion internationale expose à régulations RGPD, protection données, et normes sectorielles variables par pays.",
+      "score": 5
     },
     {
       "title": "Cybersécurité et protection données utilisateurs massives",
@@ -318,7 +345,8 @@
       "severity": 4,
       "score_rationale": "Risque métier élevé : Trip.com gère 'massive global user base' avec données sensibles (paiements, itinéraires, identité). Plateforme traite millions de transactions annuelles (90%+ via mobile). Absence de détails sur incidents passés ou mesures de sécurité dans Item 3. Conformité RGPD/données requise pour expansion Europe. Brèche de données affecterait confiance utilisateurs et revenus publicitaires/fintech.",
       "trend": "up",
-      "summary": "Trip.com collecte données massives d'utilisateurs (réservations, paiements, localisation) via plateforme mobile. Cyberattaques, vol de données de paiement, ou non-conformité RGPD/réglementations locales risquent d'exposer données sensibles, générer amendes réglementaires, et éroder confiance utilisateurs."
+      "summary": "Trip.com collecte données massives d'utilisateurs (réservations, paiements, localisation) via plateforme mobile. Cyberattaques, vol de données de paiement, ou non-conformité RGPD/réglementations locales risquent d'exposer données sensibles, générer amendes réglementaires, et éroder confiance utilisateurs.",
+      "score": 4
     },
     {
       "title": "Dépendance technologique et risques d'obsolescence plateforme",
@@ -326,7 +354,8 @@
       "severity": 3,
       "score_rationale": "Risque modéré-élevé : Trip.com se positionne sur 'advanced technology' et 'AI capabilities' accumulées. Investissements R&D importants (RMB15,1B en 2025 = 24% des revenus). Absence de détails sur propriété IP, brevets, ou avantages technologiques durables. Disruption par nouveaux modèles (IA générative, agents de voyage autonomes, métaverse) pourrait rendre plateforme obsolète. Dépendance à talent tech en contexte compétitif.",
       "trend": "up",
-      "summary": "Trip.com investit massivement en R&D (24% des revenus) pour maintenir avantage technologique (IA, contenu personnalisé). Risque d'obsolescence si concurrents développent technologies supérieures (agents IA autonomes, VR immersive) ou si disruption majeure change paradigme réservation voyage."
+      "summary": "Trip.com investit massivement en R&D (24% des revenus) pour maintenir avantage technologique (IA, contenu personnalisé). Risque d'obsolescence si concurrents développent technologies supérieures (agents IA autonomes, VR immersive) ou si disruption majeure change paradigme réservation voyage.",
+      "score": 3
     },
     {
       "title": "Volatilité demande voyage liée à crises sanitaires, économiques, géopolitiques",
@@ -334,7 +363,8 @@
       "severity": 4,
       "score_rationale": "Risque métier critique : revenus Trip.com directement corrélés à volume transactions voyage. Item 3 mentionne 'evolving environment' et croissance 'Asia-Pacific region' mais ne quantifie pas exposition à chocs exogènes. COVID-19 (2020-2022) a démontré vulnérabilité. Tensions géopolitiques (Chine-USA, Moyen-Orient), récessions économiques, ou nouvelles pandémies réduiraient voyages loisir/affaires et commissions.",
       "trend": "stable",
-      "summary": "Demande voyage est cyclique et sensible à crises sanitaires (COVID-19 a réduit voyages 2020-2022), récessions économiques, tensions géopolitiques, et instabilité régionale. Ralentissement économie Chine ou mondiale réduirait budgets voyage et commissions Trip.com."
+      "summary": "Demande voyage est cyclique et sensible à crises sanitaires (COVID-19 a réduit voyages 2020-2022), récessions économiques, tensions géopolitiques, et instabilité régionale. Ralentissement économie Chine ou mondiale réduirait budgets voyage et commissions Trip.com.",
+      "score": 4
     },
     {
       "title": "Risques de change et exposition RMB/devises étrangères",
@@ -342,7 +372,8 @@
       "severity": 3,
       "score_rationale": "Risque modéré : Trip.com génère revenus en RMB (Chine = cœur métier) mais expansion globale crée revenus en devises étrangères. Reporting en RMB avec conversion USD (taux 6.9931 au 31/12/2025). Dépréciation RMB vs USD réduirait revenus convertis et compétitivité prix international. Volatilité change affecte marges et comparabilité financière.",
       "trend": "stable",
-      "summary": "Trip.com génère majorité revenus en RMB mais se développe globalement. Fluctuations RMB/USD/autres devises affectent revenus convertis, marges de change, et compétitivité tarifaire sur marchés internationaux."
+      "summary": "Trip.com génère majorité revenus en RMB mais se développe globalement. Fluctuations RMB/USD/autres devises affectent revenus convertis, marges de change, et compétitivité tarifaire sur marchés internationaux.",
+      "score": 3
     },
     {
       "title": "Risques de litige et responsabilité civile envers utilisateurs/partenaires",
@@ -350,7 +381,8 @@
       "severity": 3,
       "score_rationale": "Risque modéré : Trip.com opère plateforme de transactions massives (millions de réservations annuelles) exposée à litiges (annulations, fraudes, qualité service, responsabilité civile). Maintient 26 centres service client globalement. Absence de détails sur sinistres passés ou provisions légales. Litiges collectifs ou régulateurs pourraient générer amendes/dommages significatifs.",
       "trend": "stable",
-      "summary": "Trip.com facilite millions de transactions annuelles exposant à litiges potentiels : annulations de réservations, fraudes utilisateurs, qualité service insuffisante, responsabilité civile pour accidents/dommages liés à voyages. Litiges collectifs ou actions régulatrices pourraient générer amendes et coûts légaux."
+      "summary": "Trip.com facilite millions de transactions annuelles exposant à litiges potentiels : annulations de réservations, fraudes utilisateurs, qualité service insuffisante, responsabilité civile pour accidents/dommages liés à voyages. Litiges collectifs ou actions régulatrices pourraient générer amendes et coûts légaux.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:31:55.430182+00:00",
@@ -412,7 +444,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.384Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.764Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tcom.json",
     "enrich_root": "v2-pipeline-enrich/tcom.json",

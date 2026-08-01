@@ -80,7 +80,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "International Revenues",
@@ -134,11 +134,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.05 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,56 +161,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.73 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.65,
-      "unit": "Mds €",
+      "value": 650,
+      "unit": "M €",
       "yoy": "-1.5%",
       "history": [
-        0.61,
-        0.64,
-        0.66,
-        0.65
+        610,
+        640,
+        660,
+        650
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.65 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.31,
-      "unit": "Mds €",
+      "value": 310,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.36,
-        0.31,
-        0.31,
-        0.31
+        360,
+        310,
+        310,
+        310
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.31 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,7 +254,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "present",
+    "stance": "integrator",
     "summary": "Ultra Clean Holdings recognizes artificial intelligence and machine learning as key long-term demand drivers for the semiconductor industry. The company explicitly mentions AI and ML applications as drivers for advanced memory devices and new process architectures that require its critical subsystems and services.",
     "evidence": [
       "Memory devices (e.g. high bandwidth memory) necessary for cloud, artificial intelligence (AI) and machine learning (ML) applications",
@@ -251,7 +269,8 @@
       "severity": 4,
       "score_rationale": "Revenues are highly concentrated with a small number of OEM customers in the semiconductor capital equipment industry, creating significant revenue volatility and customer dependency risk",
       "trend": "stable",
-      "summary": "The company's revenues are highly concentrated with a small number of OEM customers in the semiconductor capital equipment industry, which exposes the business to significant revenue fluctuations and customer concentration risk"
+      "summary": "The company's revenues are highly concentrated with a small number of OEM customers in the semiconductor capital equipment industry, which exposes the business to significant revenue fluctuations and customer concentration risk",
+      "score": 4
     },
     {
       "title": "Semiconductor Demand Cyclicality",
@@ -259,7 +278,8 @@
       "severity": 4,
       "score_rationale": "Business is highly dependent on semiconductor industry demand cycles, which are subject to volatile fluctuations in capital expenditures and technology transitions",
       "trend": "up",
-      "summary": "The company's financial performance is sensitive to semiconductor industry demand cycles. Downturns in semiconductor capital equipment spending could significantly impact revenues and profitability"
+      "summary": "The company's financial performance is sensitive to semiconductor industry demand cycles. Downturns in semiconductor capital equipment spending could significantly impact revenues and profitability",
+      "score": 4
     },
     {
       "title": "Tax Valuation Allowances",
@@ -267,7 +287,8 @@
       "severity": 3,
       "score_rationale": "The company maintains a full valuation allowance of $104.2 million on U.S. federal, state and certain foreign deferred tax assets as of December 26, 2025",
       "trend": "stable",
-      "summary": "The company has established substantial valuation allowances on deferred tax assets, indicating uncertainty about the ability to utilize tax losses and credits in the future, which could impact effective tax rates"
+      "summary": "The company has established substantial valuation allowances on deferred tax assets, indicating uncertainty about the ability to utilize tax losses and credits in the future, which could impact effective tax rates",
+      "score": 3
     },
     {
       "title": "Inventory Valuation Risk",
@@ -275,7 +296,8 @@
       "severity": 3,
       "score_rationale": "The company must estimate inventory obsolescence and net realizable value. Rapid technological changes in semiconductors could require significant inventory write-downs",
       "trend": "stable",
-      "summary": "Inventory valuation requires estimates about future demand and market conditions. If actual demand is less favorable than projections, additional inventory write-downs may be required"
+      "summary": "Inventory valuation requires estimates about future demand and market conditions. If actual demand is less favorable than projections, additional inventory write-downs may be required",
+      "score": 3
     },
     {
       "title": "Global Supply Chain and Manufacturing Operations",
@@ -283,7 +305,8 @@
       "severity": 3,
       "score_rationale": "The company maintains manufacturing and service operations across U.S., APAC and EMEA regions, exposing it to supply chain disruptions and geopolitical risks",
       "trend": "stable",
-      "summary": "The company operates manufacturing and service facilities across multiple regions (U.S., Asia Pacific, EMEA) to support local and U.S.-based customers, creating exposure to supply chain disruptions and geopolitical risks"
+      "summary": "The company operates manufacturing and service facilities across multiple regions (U.S., Asia Pacific, EMEA) to support local and U.S.-based customers, creating exposure to supply chain disruptions and geopolitical risks",
+      "score": 3
     }
   ],
   "governance": {
@@ -337,7 +360,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -411,7 +434,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.857Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.935Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/uctt.json",
     "enrich_root": null,

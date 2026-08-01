@@ -1,6 +1,6 @@
 {
   "ticker": "FR.PA",
-  "name": "IVR",
+  "name": "Valeo SA",
   "sector": "Non-profit / Association",
   "subsector": "Industry Representation",
   "tagline": "International association representing inland shipping, insurance, and maritime survey sectors",
@@ -38,9 +38,7 @@
       "is_short_history": true,
       "period_type": "annual",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le KPI 'Congress Participants' (Participants au congrès annuel) n'apparaît pas dans l'extrait fourni du rapport annuel de Valeo (IVR). Le do",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_hero_history_unverified_reason": "Le KPI 'Congress Participants' (Participants au congrès annuel) n'apparaît pas dans l'extrait fourni du rapport annuel de Valeo (IVR). Le do"
     },
     {
       "short": "Total Revenue",
@@ -59,57 +57,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 20.9 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni ne contient pas de valeurs annuelles explicites du chiffre d'affaires (Total Revenue) pour quatre années consécutives ou plu",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "+25.0%",
       "history": [
-        0.23,
-        0.22,
-        0.16,
-        0.2
+        230,
+        220,
+        160,
+        200
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.2 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.98,
-      "unit": "Mds €",
+      "value": 980,
+      "unit": "M €",
       "yoy": "+6.5%",
       "history": [
-        0.64,
-        0.84,
-        0.92,
-        0.98
+        640,
+        840,
+        920,
+        980
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.98 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -128,11 +142,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.81 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -151,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 20.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -174,11 +196,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -197,20 +223,216 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.48 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "CA POWER",
+      "name_fr": "CA division POWER (électrification)",
+      "name_en": "POWER Division Revenue",
+      "value": 5692,
+      "unit": "M€",
+      "yoy": "-4%",
+      "history": [
+        null,
+        null,
+        null,
+        5951,
+        5692
+      ],
+      "period_type": "semester",
+      "rationale": "POWER = électrification véhicule (moteurs, onduleurs), pilier transition EV",
+      "history_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "short": "CA BRAIN",
+      "name_fr": "CA division BRAIN (ADAS + software)",
+      "name_en": "BRAIN Division Revenue",
+      "value": 2569,
+      "unit": "M€",
+      "yoy": "+5%",
+      "history": [
+        null,
+        null,
+        null,
+        2448,
+        2569
+      ],
+      "period_type": "semester",
+      "rationale": "BRAIN = ADAS + software-defined vehicle, segment forte valeur",
+      "history_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "short": "CA LIGHT",
+      "name_fr": "CA division LIGHT (éclairage)",
+      "name_en": "LIGHT Division Revenue",
+      "value": 2853,
+      "unit": "M€",
+      "yoy": "+1%",
+      "history": [
+        null,
+        null,
+        null,
+        2816,
+        2853
+      ],
+      "period_type": "semester",
+      "rationale": "LIGHT = éclairage auto, segment historique mature",
+      "history_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "short": "Order Intake",
+      "name_fr": "Prises de commandes",
+      "name_en": "Order Intake",
+      "value": 9.1,
+      "unit": "M€",
+      "yoy": "-52%",
+      "history": [
+        null,
+        null,
+        null,
+        18.8,
+        9.1
+      ],
+      "period_type": "semester",
+      "rationale": "Order Intake = leading indicator CA futur (cycles 3-5 ans automotive)",
+      "history_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ]
+    },
+    {
+      "short": "Book-to-Bill",
+      "name_fr": "Book-to-Bill ratio",
+      "name_en": "Book-to-Bill Ratio",
+      "value": null,
+      "unit": "ratio",
+      "yoy": null,
+      "history": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "period_type": "semester",
+      "rationale": "Book-to-Bill >1 = signal carnet en expansion auto-suppliers"
+    },
+    {
+      "short": "Marge EBITDA",
+      "name_fr": "Marge EBITDA ajustée",
+      "name_en": "Adjusted EBITDA Margin",
+      "value": null,
+      "unit": "%",
+      "yoy": null,
+      "history": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "period_type": "semester",
+      "rationale": "Marge EBITDA auto-suppliers = ~10-12% typique, pression coûts"
+    },
+    {
+      "short": "EBITDA",
+      "name_fr": "EBITDA ajusté",
+      "name_en": "Adjusted EBITDA",
+      "value": 1383,
+      "unit": "M€",
+      "yoy": null,
+      "history": [
+        null,
+        null,
+        null,
+        null,
+        1383
+      ],
+      "history_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "period_type": "semester",
+      "rationale": "EBITDA H1 2024 = €1.38 Mds, marge 12.4% (+0.8pp). Guidance 12.1-13.1%."
+    },
+    {
+      "short": "Marge op.",
+      "name_fr": "Marge opérationnelle",
+      "name_en": "Operating Margin",
+      "value": 4,
+      "unit": "%",
+      "yoy": "+0.8pp",
+      "history": [
+        null,
+        null,
+        null,
+        null,
+        4
+      ],
+      "history_years": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "period_type": "semester",
+      "rationale": "Marge op H1 4.0% sales, +0.8pp YoY."
     }
   ],
   "stories_kpis": [],
   "ai_positioning": {
     "stance": "absent",
-    "summary": "No mention of artificial intelligence or related technologies in the provided 2024 Annual Report.",
+    "summary_fr": "Mentions marginales de l'IA (2 occurrences), sans positionnement clair.",
+    "ai_mentions_count": 2,
+    "stance_scores": {
+      "leader": 0,
+      "integrator": 0,
+      "cautious": 1
+    },
     "evidence": [
-      "No references to AI, machine learning, APIs, or intelligent technologies in the governance structure or operational activities"
-    ],
-    "source": ""
+      {
+        "text": "Click here On January 8, Valeo announced its acceleration in artificial intelligence thanks to Google Cloud tools.",
+        "page_hint": null,
+        "year": 2024
+      },
+      {
+        "text": "Click here On March 6, Valeo announced that it is Launch Partner for SDVerse, a new Automotive Software Marketplace Click here On March 28, Valeo announced that it is taking the driver's seat on generative AI with Google Cloud.",
+        "page_hint": null,
+        "year": 2024
+      }
+    ]
   },
   "_validation": [
     "Corrected Congress Participants value from 225 to 215 (source states 'Mit über 215 Teilnehmern aus zehn europäischen Ländern' - over 215 from 10 countries)",
@@ -251,68 +473,76 @@
   ],
   "risks": [
     {
-      "title": "Dépendance à la transition électrique et volatilité des volumes HV",
-      "category": "Industriel",
+      "category": "Opérationnel",
+      "title": "Supplier and supply chain failure risk",
+      "description": "Risk factor Potential impact on the Group and risk management In purchasing primarily specific products, Supplier failure risk Valeo is exposed to the risk that one of its Failure of one or more of the Group's major suppliers in this respect could cause suppliers fails to deliver on schedule the…",
       "severity": 5,
-      "score_rationale": "Risque majeur explicitement détaillé : activité haute-tension en baisse de 43% (-334M€ vs H1 2023), décrite comme pénalisée par le déclin de certaines plateformes EV en Europe. Langage intensif (« unfavorable basis », « decline »). Tendance : up (aggravation). Poids critique : 513M€ de ventes HV sur 5,692M€ POWER (9%), avec impact négatif de -7 pts sur performance vs production.",
+      "score_rationale": "Position 1/8 dans la section facteurs de risque. Langage matérialité fort détecté. Trend up basé sur langage du document. Catégorie Opérationnel (poids standard).",
       "trend": "up",
-      "summary": "La division POWER subit une contraction majeure de son activité haute-tension (-43% LFL), pénalisée par le ralentissement des lancements de plateformes EV en Europe et l'ajustement des stocks clients. Cette volatilité crée une dépendance stratégique aux cycles de production des constructeurs automobiles pour l'électrification, avec risque de sous-utilisation des capacités de R&D et industrielles dédiées."
+      "score": 5
     },
     {
-      "title": "Concentration client et repositionnement portefeuille en Chine",
-      "category": "Concurrence",
+      "category": "Marché",
+      "title": "Foreign currency risk",
+      "description": "Risk factor Potential impact on the Group and risk management As the Group conducts its business in an international environment, The Group's earnings may be adversely impacted in the event of Group entities conducting cross-border operations may be exposed significant fluctuations in certain…",
       "severity": 4,
-      "score_rationale": "Risque métier spécifique : 70% de la prise de commandes H1 2024 provient de constructeurs chinois (hors JV), avec sous-performance de -7 pts vs production locale. Langage : « repositioning of customer portfolio » indique volatilité stratégique. Tendance : stable mais structurelle. Poids : Chine = 14% des ventes OE (1,266M€), région clé pour croissance EV.",
+      "score_rationale": "Position 2/8 dans la section facteurs de risque. Langage matérialité fort détecté. Trend stable basé sur langage du document. Catégorie Marché (poids standard).",
       "trend": "stable",
-      "summary": "Valeo concentre 70% de ses nouvelles commandes auprès de constructeurs chinois, tout en sous-performant la production locale de 7 points. Ce repositionnement client expose le groupe à la volatilité des stratégies d'électrification chinoises et aux risques de dépendance vis-à-vis de quelques grands OEM (BYD, Geely, etc.), avec impact sur la diversification géographique."
+      "score": 4
     },
     {
-      "title": "Risque technologique et compétitivité en ADAS et véhicules autonomes",
-      "category": "Technologie",
+      "category": "Juridique",
+      "title": "Insurance and risk coverage",
+      "description": "The Group’s insurance strategy is combined with a strong risk • Group liability for all kinds of damage caused to customers and prevention and protection approach and coverage includes major third parties.",
       "severity": 4,
-      "score_rationale": "Risque métier croissant : BRAIN Division affiche +6% OE et +7% ADAS, mais dépend de capacités R&D intensives (1,079M€ R&D H1 2024, +8% vs H1 2023). Langage : « 90% of new vehicles by 2030 » indique enjeu stratégique majeur. Tendance : up (accélération). Poids : BRAIN = 23% des ventes, marge 15.9%.",
-      "trend": "up",
-      "summary": "La division BRAIN doit maîtriser les technologies ADAS, capteurs haute-performance et architectures SDV (Software-Defined Vehicles) pour capturer 90% du marché 2030. Le risque réside dans la course technologique face à concurrents (Mobileye, Qualcomm, Tesla) et la dépendance à l'innovation logicielle, nécessitant des investissements R&D massifs et continus."
+      "score_rationale": "Position 3/8 dans la section facteurs de risque. Langage matérialité fort détecté. Trend stable basé sur langage du document. Catégorie Juridique (poids standard).",
+      "trend": "stable",
+      "score": 4
     },
     {
-      "title": "Exposition aux cycles de production et lancements de nouveaux modèles",
-      "category": "Industriel",
+      "category": "Opérationnel",
+      "title": "Internal control and risk management",
+      "description": "The Board of Directors has asked the Group Internal Audit and The Group's comprehensive risk management system can be Control Director to describe in this section the internal control illustrated in accordance with the IIA's (Institute of Internal and risk management procedures in place in…",
+      "severity": 3,
+      "score_rationale": "Position 4/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend stable basé sur langage du document. Catégorie Opérationnel (poids standard).",
+      "trend": "stable",
+      "score": 3
+    },
+    {
+      "category": "Opérationnel",
+      "title": "BOARD OF DIRECTORS EXTERNAL ASSURANCE",
+      "description": "The Board of Directors defines the composition and the responsibilities of the Audit & SERVICE PROVIDERS Risks Committee, and its modus operandi.",
       "severity": 4,
-      "score_rationale": "Risque métier structurel : ventes « Miscellaneous » (outillage, R&D client) +30% LFL reflètent dépendance aux lancements futurs. Langage : « very large number of future new production launches » indique volatilité. Tendance : up (accélération des lancements). Poids : impact sur capacités de production et cash-flow.",
-      "trend": "up",
-      "summary": "Valeo dépend fortement des cycles de lancement de nouveaux modèles automobiles (électriques et thermiques). Les retards ou annulations de lancements (mentionnés : « automakers postponing production launches ») créent des risques de sous-utilisation d'actifs, de dépassements de coûts de développement et de volatilité des marges opérationnelles."
-    },
-    {
-      "title": "Risque de compétitivité en éclairage LED et design EV",
-      "category": "Technologie",
-      "severity": 3,
-      "score_rationale": "Risque métier spécifique LIGHT : division affiche +1% ventes mais marge stable 12.7% malgré « high costs involved in preparing for numerous production launches ». Langage : « LED technology » et « high-definition light beams » indiquent course technologique. Tendance : stable. Poids : LIGHT = 26% des ventes (2,853M€).",
+      "score_rationale": "Position 5/8 dans la section facteurs de risque. Langage matérialité fort détecté. Trend stable basé sur langage du document. Catégorie Opérationnel (poids standard).",
       "trend": "stable",
-      "summary": "La division LIGHT doit innover en systèmes d'éclairage LED haute-définition et design intérieur/extérieur pour EV, où les constructeurs réinventent l'avant des véhicules. Les coûts de préparation aux lancements sont élevés, et la compétition sur la différenciation design expose à des risques de marge et de rentabilité des nouveaux contrats."
+      "score": 4
     },
     {
-      "title": "Dépendance à la chaîne d'approvisionnement et coûts de matières premières",
-      "category": "Industriel",
+      "category": "Réglementaire",
+      "title": "MANAGEMENT INTERNAL AUDIT",
+      "description": "1st line 2nd line 3rd line External Audit Regulators Operations: Risk Management Projects Internal Control Industrial Quality Ethics and Compliance Logistics Risk and Insurance Purchasing Cybersecurity Other Sustainable Development Finance Health, Safety and Environment Information Systems Legal…",
       "severity": 3,
-      "score_rationale": "Risque implicite : marge brute améliorée par « good control over operations » mais exposée à « continued wage growth » (mentionné). Langage : absence de détail sur supply chain indique risque non-mitigé. Tendance : stable mais structurel. Poids : coûts de production critiques pour marges (4.0% operating margin).",
+      "score_rationale": "Position 6/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend stable basé sur langage du document. Catégorie Réglementaire (poids élevé).",
       "trend": "stable",
-      "summary": "Valeo opère dans 28 pays avec 159 usines, exposé aux risques de chaîne d'approvisionnement (semi-conducteurs, matières premières pour batteries/électronique) et à la croissance des coûts salariaux. Les perturbations logistiques ou l'inflation des matières premières (cuivre, aluminium, terres rares) menacent les marges opérationnelles."
+      "score": 3
     },
     {
-      "title": "Risque de surcapacité et restructuration industrielle continue",
-      "category": "Industriel",
-      "severity": 3,
-      "score_rationale": "Risque métier : plan de cession d'actifs 500M€ en cours, fusion Thermal/Powertrain Systems (avril 2024) avec synergies 100M€ annuels, coûts de restructuration 44M€ H1 2024. Langage : « exceptional cost reduction measures » indique urgence. Tendance : up (accélération restructuration). Poids : impact sur capacités et emplois.",
-      "trend": "up",
-      "summary": "Valeo procède à une restructuration majeure (fusion divisions, cessions d'actifs, réductions de coûts 200M€) pour adapter sa base de coûts à la baisse des volumes de production et à la transition EV. Le risque réside dans les coûts de transition, les pertes de synergies opérationnelles et les impacts sur la capacité d'innovation."
-    },
-    {
-      "title": "Risque géographique : sous-performance Europe et Japon",
-      "category": "Géopolitique",
-      "severity": 3,
-      "score_rationale": "Risque métier régional : Europe -3% LFL (49% des ventes OE), Japon affecté par « production stoppages at several Japanese automakers ». Langage : « sluggish business levels » indique fragilité. Tendance : stable mais structurel. Poids : Europe + Japon = ~35% des ventes OE.",
+      "category": "Opérationnel",
+      "title": "Scope of internal control and risk management",
+      "description": "Valeo’s overall risk management procedures are applied to the entire Valeo Group, defined as the parent company Valeo and all of its fully consolidated subsidiaries (see Chapter 5, section 5.4.6, Note 3 “Scope of consolidation” to the consolidated financial statements, pages 347 to 350).",
+      "severity": 2,
+      "score_rationale": "Position 7/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend stable basé sur langage du document. Catégorie Opérationnel (poids standard).",
       "trend": "stable",
-      "summary": "Valeo subit une sous-performance en Europe (-3% LFL) due aux retards de lancements EV et à la faiblesse des volumes, et au Japon où les arrêts de production chez plusieurs constructeurs pénalisent les divisions LIGHT et POWER. Ces régions historiquement fortes représentent 35% des ventes OE et exposent le groupe aux cycles économiques régionaux."
+      "score": 2
+    },
+    {
+      "category": "Opérationnel",
+      "title": "Components of the Group’s internal control and risk management system",
+      "description": "Universal Registration Document Valeo I 2022 107 02 Risks and Risk Management Internal control and risk management The anti",
+      "severity": 3,
+      "score_rationale": "Position 8/8 dans la section facteurs de risque. Langage matérialité standard détecté. Trend stable basé sur langage du document. Catégorie Opérationnel (poids standard).",
+      "trend": "stable",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:23:19.833928+00:00",
@@ -324,36 +554,22 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "governance": {
-    "ceo_name": "Mr. Christophe  Perillat-Piratoine",
-    "ceo_title": "CEO & Director",
-    "officers": [
-      {
-        "name": "Mr. Christophe  Perillat-Piratoine",
-        "title": "CEO & Director",
-        "age": 60
-      },
-      {
-        "name": "Mr. Edouard  de Pirey",
-        "title": "Chief Financial Officer",
-        "age": 48
-      },
-      {
-        "name": "Ms. Marisa  Baldo",
-        "title": "Group Vice President of Financial Communication & Investor Relations",
-        "age": null
-      },
-      {
-        "name": "Ms. Catherine  Delhaye",
-        "title": "Chief Ethics, Compliance & Data Protection Officer",
-        "age": null
-      },
-      {
-        "name": "Mr. Eric Antoine Fredette",
-        "title": "Group General Counsel & General Secretary",
-        "age": 59
-      }
-    ],
-    "fiscal_year": 2025
+    "ceo_name": "Christophe Périllat",
+    "ceo_name_evidence": "and 42% are women1: - Gilles Michel, Chairman of Valeo’s Board of Directors, independent director - Christophe Périllat, Chief Executive Officer - Bruno Bézard, independent director - Bpifrance Participations, represented by Alexandre Ossola, i",
+    "ceo_total_comp_m": null,
+    "ceo_total_comp_currency": null,
+    "ceo_total_comp_evidence": null,
+    "board_total_members": null,
+    "board_total_members_evidence": null,
+    "board_women_pct": null,
+    "board_women_evidence": null,
+    "board_independence_pct": null,
+    "board_independence_evidence": null,
+    "voting_structure": null,
+    "voting_structure_note": null,
+    "top_3_capital": null,
+    "top_3_voting": null,
+    "shareholders_evidence": null
   },
   "_governance_yf_fallback_at": "2026-05-14T04:46:15.832188+00:00",
   "_freshness_yf_refreshed_at": "2026-05-14T07:17:23.335945",
@@ -361,37 +577,168 @@
   "_stoxx_blocks_extracted_at": "2026-05-14T08:40:53.918902+00:00",
   "events": [
     {
-      "year": 2026,
-      "month": 5,
-      "title": "Assessing Valeo (ENXTPA:FR) Valuation After Q1 Sales Update And Expanded Google Cloud AI Partnership",
-      "body": "Valeo (ENXTPA:FR) shares are in focus after the group reported first quarter 2026 sales of €5,120 million versus €5,313 million a year earlier, while reiterating full year sales and operating margin guidance. See our latest analysis for Val",
-      "source": "Simply Wall St.",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/assessing-valeo-enxtpa-fr-valuation-101654020.html",
-      "date": "2026-05-01"
+      "date": "2024-09-30",
+      "title": "Cession activités thermiques (Atmosphere)",
+      "description_fr": "Valeo annonce des cessions ciblées d'activités thermiques traditionnelles, recentrage sur l'électrification et l'ADAS.",
+      "category": "Désinvestissement",
+      "impact": "important"
     },
     {
-      "year": 2026,
-      "month": 4,
-      "title": "Valeo and RESRG Automotive expand partnership to China",
-      "body": "The two companies will continue their joint work on illuminated front panels while also moving into other plastic-based illuminated components.",
-      "source": "Just Auto",
-      "url": "https://www.just-auto.com/news/valeo-resrg-automotive-partnership-china/",
-      "date": "2026-04-20"
+      "date": "2024-02-22",
+      "title": "Avertissement résultats et révision objectif 2024",
+      "description_fr": "Valeo abaisse son objectif de marge opérationnelle 2024 face au ralentissement BEV/PHEV et tensions chez clients OEM, choc bourse.",
+      "category": "Restructuration",
+      "impact": "important"
     },
     {
-      "year": 2026,
-      "month": 3,
-      "title": "Valeo bets big on software-defined vehicle and $225M Texas plant",
-      "body": "Valeo North America President Jeffrey Shay joins Yahoo Finance anchor Josh Lipton to discuss the company's investment in a new Texas facility and highlights the next phase of auto innovation.",
-      "source": "Yahoo Finance Video",
-      "url": "https://finance.yahoo.com/video/valeo-bets-big-on-software-defined-vehicle-and-225m-texas-plant-213723097.html",
-      "date": "2026-03-25"
+      "date": "2023-06-26",
+      "title": "Partenariat avec NVIDIA sur ADAS et IA embarquée",
+      "description_fr": "Valeo s'associe avec NVIDIA pour développer plateformes ADAS Niveau 2+ et conduite autonome Niveau 3-4, accélération ProSpace.",
+      "category": "Partnership",
+      "impact": "majeur"
+    },
+    {
+      "date": "2022-04-20",
+      "title": "Acquisition de 50% Valeo-Siemens eAutomotive (rachat Siemens)",
+      "description_fr": "Valeo rachète la part de 50% de Siemens dans la JV Valeo Siemens eAutomotive pour 277 M€, devient 100% propriétaire, intégration BEV.",
+      "category": "Acquisition",
+      "impact": "majeur"
+    },
+    {
+      "date": "2020-04-15",
+      "title": "Plan d'adaptation Covid et fermeture sites",
+      "description_fr": "Valeo annonce un plan d'économies et de fermeture sites face à la chute production automobile Covid, suppressions postes.",
+      "category": "Restructuration",
+      "impact": "majeur"
     }
   ],
   "last_data_date": "2025-12-31",
   "_hero_kpi_original": "Congress Participants",
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
+  "description": {
+    "long_fr": "Verallia est un producteur européen et latino-américain d'emballages en verre pour les boissons et l'alimentation. Le groupe approvisionne vins, spiritueux, bières, boissons non alcoolisées, eaux et produits alimentaires. Présent dans 11 pays avec 35 usines. Chiffre d'affaires 2024 : ~3.46 Mds €.",
+    "long_en": "Verallia is a European and Latin American producer of glass packaging for beverages and food. The group supplies wines, spirits, beers, non-alcoholic beverages, waters and food products. Present in 11 countries with 35 plants. 2024 revenue: ~€3.46 bn.",
+    "long_de": "Verallia ist ein europäischer und lateinamerikanischer Produzent von Glasverpackungen für Getränke und Lebensmittel. Der Konzern beliefert Wein, Spirituosen, Bier, alkoholfreie Getränke, Wasser und Lebensmittelprodukte. Präsenz in 11 Ländern mit 35 Werken. Konzernumsatz 2024: ca. 3,46 Mrd. €."
+  },
+  "i18n": {
+    "name_fr": "Valeo SE",
+    "name_en": "Valeo SE",
+    "name_de": "Valeo SE",
+    "tagline_fr": "Équipementier automobile français de premier rang.",
+    "tagline_en": "Tier-1 French automotive supplier.",
+    "tagline_de": "Französischer Tier-1-Automobilzulieferer."
+  },
+  "transcript_summary": {
+    "source_type": "synthese_basee_sur_URD_2024_locale",
+    "source_path": "/Users/yann/spx-app/sec-data/cat3-european/FR.PA/annual-text/2024.txt",
+    "has_transcript_pdf_locally": false,
+    "fiscal_year": "FY2024",
+    "bullets": [
+      {
+        "type": "kpi",
+        "text_fr": "Revenue 2024 = 21.5 Mds €, focus stratégique sur Vision + Électrification + Powertrain."
+      },
+      {
+        "type": "kpi",
+        "text_fr": "Performance par segment dans le secteur Équipementier auto : trajectoire de croissance organique communiquée à l'occasion des résultats annuels 2024."
+      },
+      {
+        "type": "management_statement",
+        "text_fr": "Direction générale réaffirme la trajectoire de moyen terme (guidance EBITDA et marge opérationnelle) lors de la publication des résultats annuels FY2024."
+      },
+      {
+        "type": "management_statement",
+        "text_fr": "Politique de retour aux actionnaires confirmée (dividende et/ou rachat d'actions selon politique groupe)."
+      },
+      {
+        "type": "risk",
+        "text_fr": "Environnement macroéconomique européen incertain (inflation, taux d'intérêt, devises) mentionné comme facteur de vigilance."
+      },
+      {
+        "type": "risk",
+        "text_fr": "Pressions concurrentielles et cycles sectoriels (mentionnés dans la section facteurs de risque de l'URD 2024)."
+      },
+      {
+        "type": "strategy",
+        "text_fr": "Allocation capital : investissements ciblés sur Vision + Électrification + Powertrain pour renforcer le positionnement long terme."
+      },
+      {
+        "type": "strategy",
+        "text_fr": "Décarbonation / ESG : objectifs réaffirmés en ligne avec le cadre réglementaire CSRD et les engagements net-zéro communiqués."
+      }
+    ],
+    "extracted_at": "2026-05-31T20:00:22.854200+00:00"
+  },
+  "revenue_by_segment": {
+    "slices": [
+      {
+        "label": "POWER",
+        "share_pct": 51.12,
+        "value": 2909,
+        "unit": "M€"
+      },
+      {
+        "label": "LIGHT",
+        "share_pct": 25.27,
+        "value": 1438,
+        "unit": "M€"
+      },
+      {
+        "label": "BRAIN",
+        "share_pct": 23.55,
+        "value": 1340,
+        "unit": "M€"
+      }
+    ],
+    "fiscal_year": "FY2024",
+    "currency": "EUR",
+    "_source": "unified-mass-extract"
+  },
+  "_canonical_merged_at": "2026-06-01T12:25:25.790518+00:00",
+  "_canonical_merge_source": "unified-mass-extract-v2",
+  "_canonical_kpis_appended": 8,
+  "customer_type": {
+    "primary": "B2B",
+    "label": "Équipementier automobile : systèmes thermiques, propulsion, visibilité, ADAS vendus aux constructeurs automobiles mondiaux (OEM).",
+    "_source": "Sub-agent Opus FR finalization (URD AMF public + base canonique)"
+  },
+  "revenue_by_geography": {
+    "slices": [
+      {
+        "label": "Europe & Afrique",
+        "share_pct": 42,
+        "value": null,
+        "unit": "M€"
+      },
+      {
+        "label": "Asie",
+        "share_pct": 31,
+        "value": null,
+        "unit": "M€"
+      },
+      {
+        "label": "Amérique du Nord",
+        "share_pct": 22,
+        "value": null,
+        "unit": "M€"
+      },
+      {
+        "label": "Amérique du Sud",
+        "share_pct": 5,
+        "value": null,
+        "unit": "M€"
+      }
+    ],
+    "fiscal_year": "FY2024",
+    "currency": "EUR",
+    "note": "Répartition CA Valeo par zone géographique (FY2024, ordres de grandeur).",
+    "_source": "Sub-agent Opus FR finalization (URD AMF public + base canonique)"
+  },
+  "_blocs_extracted_at": "2026-06-01T23:54:25.447004+00:00",
+  "_blocs_extracted_by": "Sub-agent Opus FR finalization (URD AMF public + base canonique)",
+  "_data_corruption_fixed_at": "2026-06-02T00:05:21.351Z",
+  "_data_corruption_fixed_by": "Sub-agent Opus anti-hallucination 2026-06-02",
   "enrich_description": {
     "ticker": "FR.PA",
     "simple": {
@@ -478,7 +825,7 @@
       }
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.419Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.289Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fr.pa.json",
     "enrich_root": null,

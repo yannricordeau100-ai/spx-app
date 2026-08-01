@@ -38,7 +38,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "History values corrected to decimal format (3918->3.918, 3675->3.675)",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -63,7 +63,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "No changes needed",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -112,7 +112,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit corrected from 'K' to 'employees' (6.212K means 6212 employees); value standardized to 6212",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -206,11 +206,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.91 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -224,7 +228,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.49,
         0.8,
@@ -237,7 +241,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -252,7 +256,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.181,
@@ -265,7 +269,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -280,7 +284,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -293,7 +297,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -308,7 +312,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.02,
@@ -321,7 +325,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -348,9 +352,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "_validation": "No changes needed - value validated against source (CEO interview: 12,4 Millionen Nutzer)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "No changes needed - value validated against source (CEO interview: 12,4 Millionen Nutzer)"
     },
     {
       "short": "Program Rights Ownership",
@@ -371,9 +373,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "HALLUCINATED KPI REMOVED: value '12.4 M' and history [6.2, 12.4] were duplicated from Joyn Users and not present in source. Converted to qualitative descriptor. No numeric metrics found in 10-K for program ownership ratio.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "HALLUCINATED KPI REMOVED: value '12.4 M' and history [6.2, 12.4] were duplicated from Joyn Users and not present in source. Converted to qualitative descriptor. No numeric metrics found in 10-K for program ownership ratio."
     }
   ],
   "ai_positioning": {
@@ -399,7 +399,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement cité comme indicateur clé dans le segment Entertainment, avec un langage fort sur l'impact sur la performance. Il est récurrent et central dans l'évaluation des risques métier. La catégorie Concurrence est stratégique pour l'activité cœur.",
       "trend": "stable",
-      "summary": "La performance commerciale de ProSiebenSat.1 dépend fortement des parts de marché d'audience. Une baisse d'audience pourrait réduire les revenus publicitaires, notamment face à la montée des plateformes numériques concurrentes."
+      "summary": "La performance commerciale de ProSiebenSat.1 dépend fortement des parts de marché d'audience. Une baisse d'audience pourrait réduire les revenus publicitaires, notamment face à la montée des plateformes numériques concurrentes.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue des plateformes numériques",
@@ -407,7 +408,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le contexte médiatique actuel, langage alarmiste implicite sur la disruption numérique, tendance clairement à la hausse. Ce risque structurel pèse directement sur le modèle économique traditionnel de diffusion.",
       "trend": "up",
-      "summary": "ProSiebenSat.1 fait face à une concurrence croissante de géants du streaming (Netflix, Amazon, YouTube), qui captent l'attention des consommateurs et menacent ses revenus publicitaires et d'abonnement."
+      "summary": "ProSiebenSat.1 fait face à une concurrence croissante de géants du streaming (Netflix, Amazon, YouTube), qui captent l'attention des consommateurs et menacent ses revenus publicitaires et d'abonnement.",
+      "score": 5
     },
     {
       "title": "Régulation croissante des contenus médias",
@@ -415,7 +417,8 @@
       "severity": 4,
       "score_rationale": "Mention implicite via les obligations ESG et la conformité aux lois allemandes (ex. loi sur les chaînes publiques). Le langage reflète une vigilance accrue. La tendance est à la hausse avec les nouvelles normes européennes.",
       "trend": "up",
-      "summary": "L'entreprise est soumise à une réglementation stricte concernant la diffusion de contenus (publicité, protection des mineurs, diversité), avec des risques de sanctions ou de restrictions si les normes ne sont pas respectées."
+      "summary": "L'entreprise est soumise à une réglementation stricte concernant la diffusion de contenus (publicité, protection des mineurs, diversité), avec des risques de sanctions ou de restrictions si les normes ne sont pas respectées.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des plateformes numériques",
@@ -423,7 +426,8 @@
       "severity": 4,
       "score_rationale": "Bien que non explicité directement, le développement de Joyn et des services numériques implique un risque élevé de cyberattaques. Le silence partiel dans le texte renforce l'importance implicite. Catégorie critique pour les plateformes digitales.",
       "trend": "up",
-      "summary": "L'expansion de la plateforme Joyn augmente l'exposition aux cybermenaces, telles que les violations de données ou les interruptions de service, pouvant nuire à la réputation et à la fidélité des utilisateurs."
+      "summary": "L'expansion de la plateforme Joyn augmente l'exposition aux cybermenaces, telles que les violations de données ou les interruptions de service, pouvant nuire à la réputation et à la fidélité des utilisateurs.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs de contenus exclusifs",
@@ -431,7 +435,8 @@
       "severity": 4,
       "score_rationale": "Le risque est implicite dans la gestion du programme et des droits d'auteur. La perte de contenus phares (sport, séries) aurait un fort impact. Langage prudent mais en cohérence avec les enjeux du secteur.",
       "trend": "stable",
-      "summary": "ProSiebenSat.1 dépend de contrats avec des fournisseurs pour des contenus exclusifs (ex. droits sportifs). La non-renouvellement ou la hausse des coûts pourrait affaiblir son offre face aux concurrents."
+      "summary": "ProSiebenSat.1 dépend de contrats avec des fournisseurs pour des contenus exclusifs (ex. droits sportifs). La non-renouvellement ou la hausse des coûts pourrait affaiblir son offre face aux concurrents.",
+      "score": 4
     },
     {
       "title": "Risques liés à la transition numérique",
@@ -439,7 +444,8 @@
       "severity": 4,
       "score_rationale": "Le passage au numérique (Joyn, streaming) est stratégique mais risqué. Le texte mentionne des investissements et des objectifs ESG liés, avec un langage orienté vers la transformation. Tendance clairement ascendante.",
       "trend": "up",
-      "summary": "La réussite de la stratégie repose sur la transition vers le streaming, mais des retards technologiques, des coûts élevés ou une adoption insuffisante par les utilisateurs pourraient compromettre la croissance."
+      "summary": "La réussite de la stratégie repose sur la transition vers le streaming, mais des retards technologiques, des coûts élevés ou une adoption insuffisante par les utilisateurs pourraient compromettre la croissance.",
+      "score": 4
     },
     {
       "title": "Pression sur la diversité et l'accessibilité des contenus",
@@ -447,7 +453,8 @@
       "severity": 3,
       "score_rationale": "Objectifs ESG clairement définis (sous-titres, DGS, etc.), avec des indicateurs mesurables. Langage positif mais reflète une pression sociétale croissante. Catégorie Réputation pertinente.",
       "trend": "up",
-      "summary": "L'entreprise fait face à des attentes croissantes en matière d'accessibilité (personnes sourdes, malvoyantes) et de diversité. Un défaut d'investissement pourrait nuire à son image et à sa légitimité sociale."
+      "summary": "L'entreprise fait face à des attentes croissantes en matière d'accessibilité (personnes sourdes, malvoyantes) et de diversité. Un défaut d'investissement pourrait nuire à son image et à sa légitimité sociale.",
+      "score": 3
     },
     {
       "title": "Risques liés à la chaîne d'approvisionnement ESG",
@@ -455,7 +462,8 @@
       "severity": 3,
       "score_rationale": "Mention explicite du Lieferkettensorgfaltspflichtengesetz (loi de diligence). Évaluation systématique des risques ESG en amont. Tendance à la hausse, mais impact opérationnel encore modéré.",
       "trend": "new",
-      "summary": "ProSiebenSat.1 doit assurer la conformité éthique et environnementale de ses fournisseurs, notamment dans la production de contenus, sous peine de sanctions ou de dommages réputationnels."
+      "summary": "ProSiebenSat.1 doit assurer la conformité éthique et environnementale de ses fournisseurs, notamment dans la production de contenus, sous peine de sanctions ou de dommages réputationnels.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:14:14.505565+00:00",
@@ -513,12 +521,12 @@
   "company_description": "ProSiebenSat.1 Media SE operates as a media company in Germany, Austria, Switzerland, the United States, and internationally. It operates through three segments: Entertainment, Dating & Video, and Commerce & Ventures. The Entertainment segment operates free TV channels and digital platforms, such as SAT.1, ProSieben, Kabel Eins, sixx, SAT.1 Gold, ProSieben MAXX, and Kabel Eins Doku, as well as PULS4, PULS24, ATV I, ATV II, and PLUS 8. This segment is involved in operating commercial websites; production and distribution programming portfolio, including entertainment, reality, and factual formats, as well as TV series, TV films, and digital content; and operates Studio71 which creates and sells digital offerings for influencers. Its Dating & Video segment engages in online matchmaking services for online dating and entertainment under Parship, ElitePartner, eharmony, LOVOO help singles brand names. This segment provides video-based social entertainment applications, such as MeetMe, Skout, Tagged, and GROWLr content for users. The Commerce & Ventures segment bundles investments in digital commerce companies, offering a flexible investment model using media-for-revenue and media-for-e",
   "last_data_date": "2026-03-31",
   "_dividends_extracted_at": "2026-05-09T20:23:11Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:46:57Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Médias & divertissement",
-  "_companies_unified_built_at": "2026-05-29T21:19:34.888Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.313Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/psm.de.json",
     "enrich_root": "v2-pipeline-enrich/psm.de.json",

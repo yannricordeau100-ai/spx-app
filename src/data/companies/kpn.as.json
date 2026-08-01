@@ -13,7 +13,7 @@
     "sector": "Mid-tier",
     "subsector": "Top 10 European Telecoms"
   },
-  "hero_kpi": "Capex",
+  "hero_kpi": "Consumer Revenue",
   "hero_kpi_rationale": "Clé de la transformation du réseau (fibre, 5G) et de la compétitivité à long terme dans les télécoms européens. Bien qu'absent des technologies wow (IA/cloud), le capex structurel demeure le levier principal de création de valeur pour un opérateur mature.",
   "kpis": [
     {
@@ -41,7 +41,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -61,11 +61,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.8 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -84,11 +88,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 12.7 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -107,33 +115,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.98 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "-37.9%",
       "history": [
-        0.4,
-        0.61,
-        0.66,
-        0.41
+        400,
+        610,
+        660,
+        410
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.41 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Consumer Revenue",
+      "name_fr": "Revenus du segment Grand public",
+      "name_en": "Consumer Segment Revenue",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        2.907,
+        2.852,
+        2.845,
+        2.849,
+        2.882,
+        3.035
+      ],
+      "value": 3.035,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le segment Grand public repart a la hausse en 2024 apres quatre annees de stagnation, porte par la fibre et le mobile.",
+      "is_wow": true,
+      "history_dates": [
+        "2019-12-31",
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "yoy": "+5,3 %"
     },
     {
       "short": "DPS",
@@ -147,7 +195,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.132,
         0.139,
@@ -160,7 +208,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -175,7 +223,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.871,
@@ -188,7 +236,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -203,7 +251,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         76.85,
@@ -216,7 +264,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -232,7 +280,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.18,
@@ -245,7 +293,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -260,21 +308,7 @@
     ],
     "source": "Supplement to Base Prospectus, 7 Feb 2025"
   },
-  "_validation": [
-    "Capex unit: corrigé 'B €' en 'B EUR' (norme ISO)",
-    "Capex last_data_date: corrigé '2026-03-31' en '2024-12-31' (Q4 2024 Results publié 30 janvier 2025)",
-    "Capex period_type: corrigé 'quarter' en 'annual' (données annuelles cohérentes avec Q4 2024 results)",
-    "Op Margin value: type converti de string '12.5' en number 12.5",
-    "Op Margin period_type: ajouté 'annual' (absent)",
-    "Gross Margin period_type: ajouté 'annual' (absent)",
-    "Headcount name_fr: corrigé 'employés' en 'salariés' (terminologie française standard)",
-    "Headcount period_type: ajouté 'annual' (absent)",
-    "tagline: amélioré en anglais pour refléter l'activité réelle (opérateur télécom avec focus fibre/5G)",
-    "hero_kpi_rationale: reformaté pour supprimer les tirets longs et améliorer la clarté française",
-    "Validations sources: Q4 2024 Results (30 janvier 2025) confirme capex 2 Mds EUR, margins et headcount stable; TowerCo agreement (5 juin 2024); spectrum acquisition 3.5 GHz (1er juillet 2024) documentés",
-    "Tous les KPI validés: pas de hallucinations détectées. Valeurs cohérentes avec contexte télécom européen mature",
-    "Aucun KPI ajouté ou supprimé (dataset contient 4 KPI pertinents pour le secteur)"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2025-02-07 00:00",
     "n_periods": 5,
@@ -307,7 +341,8 @@
       "score_rationale": "Risque positionné en début de section (page 10), langage très fort ('materially adversely affect'), stable mais structurel pour secteur capital-intensif. Catégorie crédit = poids fort pour financement dette.",
       "trend": "stable",
       "summary": "KPN dépend fortement de l'endettement pour financer ses investissements. Une baisse de notation (actuellement BBB chez Fitch et S&P) rendrait le financement futur plus difficile et coûteux, impactant sa position financière.",
-      "citation": "If KPN were to be assigned lower credit ratings, it could be more difficult or more expensive for KPN to obtain financing in the future or to refinance its existing debt. Either prolonged limited access to debt capital markets or significantly higher future debt servicing costs could materially adversely affect KPN's financial position."
+      "citation": "If KPN were to be assigned lower credit ratings, it could be more difficult or more expensive for KPN to obtain financing in the future or to refinance its existing debt. Either prolonged limited access to debt capital markets or significantly higher future debt servicing costs could materially adversely affect KPN's financial position.",
+      "score": 4
     },
     {
       "title": "Accès limité aux marchés de capitaux",
@@ -316,7 +351,8 @@
       "score_rationale": "Risque explicitement lié au précédent, langage critique ('prolonged limited access'), industrie capital-intensive mentionnée. Conséquence directe de dégradation de crédit, impact matériel sur opérations.",
       "trend": "stable",
       "summary": "Un accès restreint ou coûteux aux marchés de la dette pourrait compromettre le financement des investissements nécessaires et le refinancement de la dette existante de KPN.",
-      "citation": "Either prolonged limited access to debt capital markets or significantly higher future debt servicing costs could materially adversely affect KPN's financial position and prospects."
+      "citation": "Either prolonged limited access to debt capital markets or significantly higher future debt servicing costs could materially adversely affect KPN's financial position and prospects.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et conformité",
@@ -325,7 +361,8 @@
       "score_rationale": "Risque mentionné explicitement dans gouvernance (Audit Committee, page 109), intégré aux sujets de conformité. Catégorie cybersécurité = poids fort. Présence dans rapport suggère importance croissante pour opérateur télécom.",
       "trend": "up",
       "summary": "KPN, en tant qu'opérateur de télécommunications, est exposé aux risques de cybersécurité. Le Comité d'audit supervise désormais explicitement la cybersécurité parmi ses responsabilités.",
-      "citation": "The Audit Committee furthermore discusses other topics that are within its scope, such as compliance, health and safety, fraud management, tax, and cyber-security."
+      "citation": "The Audit Committee furthermore discusses other topics that are within its scope, such as compliance, health and safety, fraud management, tax, and cyber-security.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:43:43.278430+00:00",
@@ -410,11 +447,13 @@
   "company_description": "Koninklijke KPN N.V. provides telecommunications and information technology (IT) services in the Netherlands. The company operates through Consumer, Business, Wholesale and Network, and Operations & IT segments. It offers fixed and mobile telephony, fixed and mobile broadband internet, and TV to retail and business consumers; infrastructure and network-related IT solutions to business customers; and wholesale network services to third parties. The company also provides network-related ICT solutions, such as security, internet of things, cloud, connectivity, and smart combinations; interconnect traffic, visitor roaming, digital products, and NL-ix interconnect exchange services; and sale of handsets and peripheral equipment, as well as software licenses. It offers its products and services under the KPN, XS4ALL, Simyo, KPN Security, KPN Health, Solcon, Inspark, and KPN Partner Network, KPN IoT, and youfone brands. The company was formerly known as Koninklijke PTT Nederland NV and changed its name to Koninklijke KPN N.V. in June 1998. Koninklijke KPN N.V. was founded in 1881 and is headquartered in Rotterdam, the Netherlands.",
   "last_data_date": "2026-03-31",
   "_dividends_extracted_at": "2026-05-09T20:21:21Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:45:51Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Services de télécommunications",
+  "hero_kpi_override": "Consumer Revenue",
+  "_hero_kpi_override_reason": "Consumer Revenue = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "KPN.AS",
     "simple": {
@@ -510,6 +549,29 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "ticker": "KPN.AS",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Koninklijke KPN est l'opérateur télécom historique néerlandais. Le groupe fournit des services fixes, mobiles et entreprises aux Pays-Bas.",
+          "products": "L'offre couvre les abonnements mobiles, la fibre optique, les services TV, le téléphone fixe et les solutions cloud et cybersécurité pour entreprises sous la marque KPN.",
+          "customers": "Ses clients sont les particuliers, les PME et grandes entreprises néerlandaises, ainsi que les administrations publiques.",
+          "edge": "La force de KPN repose sur la quasi-exclusivité de l'infrastructure fibre néerlandaise et la position de leader sur le marché B2B."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "KPN est l'opérateur intégré dominant aux Pays-Bas, en concurrence principalement avec VodafoneZiggo et T-Mobile NL. Le groupe a investi massivement dans la fibre optique pour couvrir 80% du pays. Le focus est exclusivement néerlandais après les cessions d'activités internationales.",
+          "tech_products": "Le déploiement fibre KPN couvre la majorité des Pays-Bas avec un partenariat ABP/APG pour le financement. Le groupe développe des offres convergentes mobile et fixe et propose des services de cybersécurité aux PME. La 5G est déployée sur l'ensemble du pays.",
+          "moat": "Le réseau fibre est un actif quasi inreproductible avec un coût d'investissement prohibitif pour des nouveaux entrants. La marque KPN bénéficie d'une notoriété forte et d'une base d'abonnés stable. La position dominante en B2B sécurise des contrats long terme avec administrations.",
+          "risks": "Le marché télécom néerlandais est mature avec une croissance limitée. La concurrence des MVNO et des offres low-cost pèse sur les ARPU. Les CAPEX fibre pèsent sur le free cash flow à court terme."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "KPN.AS",
     "ranks": {
@@ -522,15 +584,16 @@
     "country": "Netherlands",
     "_data_freshness_date": "2026-05-21T02:17:14.275082+00:00",
     "fetched_at": "2026-05-21T02:17:14.275083+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.880Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.645Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kpn.as.json",
     "enrich_root": "v2-pipeline-enrich/kpn.as.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

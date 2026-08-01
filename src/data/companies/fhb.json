@@ -71,7 +71,11 @@
       "is_short_history": false,
       "_validation": "Corrected unit from 'Mille $' to 'K$'; added 2025 value to history; standardized yoy format",
       "explanation_en": "Noninterest income generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -98,8 +102,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Corrected unit from 'Mille $' to 'K$'; changed type from 'Revenue' to 'Profitability'; added 2025 value to history; standardized yoy format",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Efficiency Ratio",
@@ -127,7 +135,11 @@
       "is_short_history": false,
       "_validation": "Corrected value from '56,43%' to '56.43' (numeric only); corrected history array with proper chronological order and realistic values from source; standardized yoy format",
       "explanation_en": "Efficiency ratio.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Return on Average Total Assets",
@@ -154,7 +166,11 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Corrected value from '1,16%' to '1.16' (numeric only); corrected history from anomalous 0/95/96 pattern to realistic values from source (1.16, 0.96, 0.95); standardized yoy format",
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -173,11 +189,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 23.96 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -196,11 +216,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -219,10 +243,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.48 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -248,9 +276,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Market",
-      "_validation": "Corrected unit from 'Mille $' to 'K$'; added 2025 value to history; standardized yoy format; translated story_category from 'Marché' to 'Market'",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Corrected unit from 'Mille $' to 'K$'; added 2025 value to history; standardized yoy format; translated story_category from 'Marché' to 'Market'"
     },
     {
       "short": "Noninterest Income",
@@ -274,13 +300,11 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Operations",
-      "_validation": "Corrected unit from 'Mille $' to 'K$'; added 2025 value to history; standardized yoy format; changed story_category from 'Innovation' to 'Operations' as noninterest income growth reflects operational performance rather than innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Corrected unit from 'Mille $' to 'K$'; added 2025 value to history; standardized yoy format; changed story_category from 'Innovation' to 'Operations' as noninterest income growth reflects operational performance rather than innovation"
     }
   ],
   "ai_positioning": {
-    "stance": "minimal",
+    "stance": "absent",
     "summary": "First Hawaiian mentions AI and machine learning development in forward-looking statements within risks but provides no substantive discussion of AI implementation, products, or strategy. References are limited to development and commercialization considerations.",
     "evidence": [
       "MD&A risk factors mention 'the development and use of AI' as a forward-looking consideration but without specific initiatives or investments disclosed"
@@ -294,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Significant portion of loan portfolio concentrated in Hawaii, Guam and Saipan markets, creating exposure to regional economic downturn, natural disasters, and geopolitical instability affecting these locations.",
       "trend": "stable",
-      "summary": "Bank operates primarily in Hawaii and US Pacific territories, exposing it to concentrated economic and natural disaster risks in these regions."
+      "summary": "Bank operates primarily in Hawaii and US Pacific territories, exposing it to concentrated economic and natural disaster risks in these regions.",
+      "score": 4
     },
     {
       "title": "Credit Risk",
@@ -302,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Provision for credit losses increased 84% from $14.8M (2024) to $27.2M (2025), indicating deteriorating credit quality. Non-accrual loans doubled from 0.14% to 0.29% of total loans.",
       "trend": "up",
-      "summary": "Bank faces elevated credit risk with significant increase in loan loss provisions and rising non-performing loans."
+      "summary": "Bank faces elevated credit risk with significant increase in loan loss provisions and rising non-performing loans.",
+      "score": 4
     },
     {
       "title": "Interest Rate Risk",
@@ -310,7 +336,8 @@
       "severity": 3,
       "score_rationale": "Net interest income and margin are sensitive to interest rate environment changes. While NII grew 6.5%, net interest margin improved to 3.15% from 2.95%, but future rate cuts could compress margins.",
       "trend": "stable",
-      "summary": "Interest rate fluctuations directly impact net interest income generation and investment security valuations."
+      "summary": "Interest rate fluctuations directly impact net interest income generation and investment security valuations.",
+      "score": 3
     },
     {
       "title": "Competitive Pressure",
@@ -318,7 +345,8 @@
       "severity": 3,
       "score_rationale": "Bank operates in competitive financial services market with larger national institutions and regional competitors offering similar products and services.",
       "trend": "stable",
-      "summary": "Intense competition from larger banks and fintech providers could erode market share and pressure pricing."
+      "summary": "Intense competition from larger banks and fintech providers could erode market share and pressure pricing.",
+      "score": 3
     },
     {
       "title": "Regulatory Compliance",
@@ -326,7 +354,8 @@
       "severity": 3,
       "score_rationale": "Subject to extensive federal and state bank regulations, PATRIOT Act, Bank Secrecy Act, Gramm-Leach-Bliley requirements, and capital ratio standards. Non-compliance risks fines, sanctions, and reputational harm.",
       "trend": "stable",
-      "summary": "Bank must maintain compliance with multiple regulatory regimes affecting operations, capital, and information security."
+      "summary": "Bank must maintain compliance with multiple regulatory regimes affecting operations, capital, and information security.",
+      "score": 3
     },
     {
       "title": "Liquidity Management",
@@ -334,7 +363,8 @@
       "severity": 2,
       "score_rationale": "Bank must maintain adequate liquidity to meet deposit withdrawals and operational needs. Capital ratios remain strong (CET1: 13.17%, Tier 1 Leverage: 9.27%) but market volatility could increase funding pressure.",
       "trend": "stable",
-      "summary": "Bank requires careful management of liquidity and funding sources to ensure operational stability."
+      "summary": "Bank requires careful management of liquidity and funding sources to ensure operational stability.",
+      "score": 2
     },
     {
       "title": "Cybersecurity and Data Protection",
@@ -342,7 +372,8 @@
       "severity": 3,
       "score_rationale": "Bank faces ongoing cybersecurity threats, data breach risks, and regulatory requirements under Gramm-Leach-Bliley Act and other privacy laws. Failure could result in significant financial and reputational damage.",
       "trend": "up",
-      "summary": "Increasing cybersecurity threats and expanding regulatory requirements create operational and reputational risk."
+      "summary": "Increasing cybersecurity threats and expanding regulatory requirements create operational and reputational risk.",
+      "score": 3
     },
     {
       "title": "Economic Downturn Risk",
@@ -350,7 +381,8 @@
       "severity": 3,
       "score_rationale": "Hawaii economy exposed to US and international economic conditions (particularly Japan). Housing affordability challenges, out-migration, and tariff impacts create cyclical economic risk.",
       "trend": "stable",
-      "summary": "Regional and national economic deterioration would negatively impact loan demand and credit quality."
+      "summary": "Regional and national economic deterioration would negatively impact loan demand and credit quality.",
+      "score": 3
     }
   ],
   "governance": {
@@ -579,7 +611,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -767,88 +799,86 @@
   },
   "enrich_quarterly_history": {
     "ticker": "FHB",
-    "extracted_at": "2026-05-15T18:11:12Z",
-    "method": "xbrl-companyfacts",
-    "cik": 36377,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:16:17Z",
+    "n_kpis": 2,
     "kpis": [
       {
-        "short": "Return on Average Total Assets",
+        "short": "Net Interest Income",
         "period_type": "quarter",
         "history": [
-          24.2463,
-          25.5483,
-          -48.2998,
-          25.0427,
-          25.3775,
-          24.8703,
-          -50.7133,
-          24.8842,
-          24.5116,
-          24.9125,
-          -49.3818,
-          24.2792,
-          23.9918,
-          23.7803,
-          -48.2231,
-          23.745,
-          23.8371,
-          24.0987,
-          -47.7256,
-          24.2645
+          132.593,
+          133.872,
+          107.368,
+          279.019,
+          167.247,
+          104.237,
+          157.148,
+          156.707,
+          129.882,
+          130.245,
+          131.79
         ],
         "history_periods": [
-          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:16:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          25.04272,
+          24.99241,
+          25.04272,
+          24.884207,
+          24.577223,
+          24.884207,
+          24.884207,
+          24.884207,
+          24.577223,
+          24.884207,
+          24.884207,
+          24.577223,
+          23.744958
+        ],
+        "history_periods": [
           "Q3 2021",
           "Q4 2021",
           "Q1 2022",
           "Q2 2022",
-          "Q3 2022",
           "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
           "Q4 2023",
-          "Q1 2024",
           "Q2 2024",
           "Q3 2024",
           "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q1 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2024-12-31",
         "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Assets",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 23.8371,
-            "accession": "0001558370-25-010092",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 24.0987,
-            "accession": "0001104659-25-105580",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -47.7256,
-            "accession": "calc-0001104659-26-021544",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 24.2645,
-            "accession": "0001104659-26-054867",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:16:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -864,9 +894,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.261137+00:00",
     "fetched_at": "2026-05-21T02:17:14.261138+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.207Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.781Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fhb.json",
     "enrich_root": "v2-pipeline-enrich/fhb.json",

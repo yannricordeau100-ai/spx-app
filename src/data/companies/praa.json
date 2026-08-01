@@ -71,7 +71,11 @@
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'K$'; YoY calculé (+2.8% = (72,581-70,601)/70,601); Type corrigé de 'Revenue' à 'Profitability'; is_generic changé à false; Histoire complétée avec 2023",
       "explanation_en": "Adjusted Net income generated over the period.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "ERC",
@@ -98,7 +102,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'K$'; Type corrigé de 'Revenue' à 'Asset Quality'; Histoire complétée avec 2023 (6,398,576)",
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Adjusted EBITDA",
@@ -125,8 +133,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'K$'; YoY calculé (+15.6% = (1,315,474-1,137,552)/1,137,552); Type corrigé de 'Revenue' à 'Profitability'; is_generic changé à false; Histoire complétée avec 2023",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Adjusted Cash Efficiency Ratio",
@@ -154,7 +166,11 @@
       "is_short_history": false,
       "_validation": "KPI renommé de 'Cash Efficiency Ratio' à 'Adjusted Cash Efficiency Ratio' (présent dans source); YoY calculé (+4.3% = (61.3-58.8)/58.8); Type corrigé de 'Margin' à 'Efficiency'; is_generic changé à false; Histoire complétée avec 2023; name_fr amélioré",
       "explanation_en": "Adjusted Cash Efficiency ratio.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Return on Average Tangible Equity",
@@ -181,7 +197,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "YoY calculé (-474.7% = (-35.6-9.5)/9.5); Type corrigé de 'Margin' à 'Profitability'; is_generic changé à false; Signal révisé pour refléter la perte exceptionnelle de 2025 (dépréciations de fonds de commerce et perte); Histoire complétée avec 2023",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -208,7 +228,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -234,8 +258,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -325,7 +353,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -338,7 +366,8 @@
       "severity": 5,
       "score_rationale": "Le risque est abordé en détail dans le 10-K, avec un langage fort sur les menaces prévisibles et les impacts potentiels. Intégré au cadre de gestion des risques d'entreprise et régulièrement rapporté au comité de risque du conseil. Catégorie hautement critique dans le secteur financier spécialisé.",
       "trend": "stable",
-      "summary": "Une violation de cybersécurité pourrait compromettre les données sensibles, nuire à la réputation et entraîner des pertes financières importantes."
+      "summary": "Une violation de cybersécurité pourrait compromettre les données sensibles, nuire à la réputation et entraîner des pertes financières importantes.",
+      "score": 5
     },
     {
       "title": "Litiges et poursuites réglementaires",
@@ -346,7 +375,8 @@
       "severity": 4,
       "score_rationale": "Mention répétée de litiges liés à la récupération de créances, y compris des actions collectives. Risque récurrent dans les activités quotidiennes, avec un potentiel d'impact financier et réputationnel élevé. Présent chaque année sans atténuation notable.",
       "trend": "stable",
-      "summary": "L'entreprise fait face à des poursuites fréquentes liées à ses pratiques de recouvrement, pouvant entraîner des amendes ou des restrictions opérationnelles."
+      "summary": "L'entreprise fait face à des poursuites fréquentes liées à ses pratiques de recouvrement, pouvant entraîner des amendes ou des restrictions opérationnelles.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs tiers",
@@ -354,7 +384,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne l'évaluation des fournisseurs tiers dans le cadre de la cybersécurité, mais aussi leur rôle critique dans les opérations. Une défaillance d'un tiers pourrait perturber les systèmes ou entraîner des violations de données.",
       "trend": "stable",
-      "summary": "Les opérations dépendent de tiers pour des fonctions essentielles, ce qui expose l'entreprise à des risques opérationnels et de sécurité."
+      "summary": "Les opérations dépendent de tiers pour des fonctions essentielles, ce qui expose l'entreprise à des risques opérationnels et de sécurité.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire complexe",
@@ -362,7 +393,8 @@
       "severity": 4,
       "score_rationale": "Le 10-K mentionne un environnement réglementaire morcelé en Europe et complexe aux États-Unis. Le risque est élevé en raison du nombre de juridictions et de la nature sensible des activités de recouvrement.",
       "trend": "stable",
-      "summary": "Les différences réglementaires entre les marchés augmentent la complexité de la conformité et le risque de sanctions."
+      "summary": "Les différences réglementaires entre les marchés augmentent la complexité de la conformité et le risque de sanctions.",
+      "score": 4
     },
     {
       "title": "Fluctuations des prix d'achat des portefeuilles",
@@ -370,7 +402,8 @@
       "severity": 4,
       "score_rationale": "Le document note une hausse des multiples de prix d'achat (PPMs) due à des conditions de marché favorables. Cela menace la rentabilité future si la concurrence ou l'offre évolue.",
       "trend": "up",
-      "summary": "L'augmentation des prix d'achat des créances non performantes pourrait réduire les rendements futurs."
+      "summary": "L'augmentation des prix d'achat des créances non performantes pourrait réduire les rendements futurs.",
+      "score": 4
     },
     {
       "title": "Performance boursière en baisse",
@@ -378,7 +411,8 @@
       "severity": 3,
       "score_rationale": "Le graphique montre une chute de 55% de la valeur boursière entre 2020 et 2025, bien que ce ne soit pas un risque opérationnel direct. Cela affecte la perception du marché et la capacité à lever des fonds.",
       "trend": "down",
-      "summary": "La dépréciation importante de l'action nuit à la confiance des investisseurs et à la flexibilité financière."
+      "summary": "La dépréciation importante de l'action nuit à la confiance des investisseurs et à la flexibilité financière.",
+      "score": 3
     },
     {
       "title": "Réorganisation opérationnelle aux États-Unis",
@@ -386,7 +420,8 @@
       "severity": 4,
       "score_rationale": "La réduction de 40 % des effectifs en centre d'appels aux États-Unis est un changement majeur. Bien qu'accompagnée d'une hausse des recouvrements, elle comporte des risques d'exécution et de perte de compétences.",
       "trend": "new",
-      "summary": "La transformation du modèle opérationnel américain comporte des risques d'instabilité et de baisse de performance si mal gérée."
+      "summary": "La transformation du modèle opérationnel américain comporte des risques d'instabilité et de baisse de performance si mal gérée.",
+      "score": 4
     }
   ],
   "governance": {
@@ -628,244 +663,50 @@
   },
   "enrich_quarterly_history": {
     "ticker": "PRAA",
-    "extracted_at": "2026-05-15T18:13:44Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1185348,
-    "n_kpis": 3,
+    "extracted_at": "2026-06-01T09:16:51Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "Adjusted Net Income",
+        "short": "Portfolio Income",
         "period_type": "quarter",
         "history": [
-          77.049,
-          119.541,
-          -66.386,
-          58.406,
-          148.882,
-          39.972,
-          76.456,
-          101.188,
-          -100.469,
-          -62.433,
-          -74.695,
-          3.475,
-          24.991,
-          52.145,
-          -10.01,
-          3.659,
-          46.033,
-          -361.67,
-          6.836,
-          28.21
+          231.672,
+          219.137,
+          212.905,
+          207.532,
+          194.009,
+          185.853,
+          188.242,
+          184.29,
+          189.96,
+          202.056,
+          209.29,
+          216.122,
+          240.958,
+          250.934,
+          258.549
         ],
         "history_periods": [
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
+          "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
+          "Q2 2023",
           "Q3 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 46.033,
-            "accession": "0001185348-25-000022",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": -361.67,
-            "accession": "0001185348-25-000043",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 6.836,
-            "accession": "calc-0001185348-26-000006",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 28.21,
-            "accession": "0001185348-26-000021",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Adjusted Cash Efficiency Ratio",
-        "period_type": "quarter",
-        "history": [
-          115.741,
-          92.779,
-          -279.902,
-          92.798,
-          56.545,
-          79.089,
-          67.974,
-          57.991,
-          -121.678,
-          111.375,
-          105.172,
-          108.1,
-          118.865,
-          141.135,
-          -262.162,
-          128.654,
-          131.592,
-          107.454,
-          -263.291,
-          124.778
-        ],
-        "history_periods": [
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q3 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 131.592,
-            "accession": "0001185348-25-000022",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 107.454,
-            "accession": "0001185348-25-000043",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -263.291,
-            "accession": "calc-0001185348-26-000006",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 124.778,
-            "accession": "0001185348-26-000021",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Return on Average Tangible Equity",
-        "period_type": "quarter",
-        "history": [
-          1.163,
-          1.2391,
-          -2.1338,
-          1.3765,
-          1.3902,
-          1.3055,
-          1.2068,
-          1.1314,
-          -2.4161,
-          1.1655,
-          1.1156,
-          1.1293,
-          1.1455,
-          1.2189,
-          -2.3586,
-          1.2191,
-          1.3369,
-          0.9285,
-          -2.5047,
-          1.0023
-        ],
-        "history_periods": [
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q3 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "StockholdersEquity",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1.3369,
-            "accession": "0001185348-25-000022",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.9285,
-            "accession": "0001185348-25-000043",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -2.5047,
-            "accession": "calc-0001185348-26-000006",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.0023,
-            "accession": "0001185348-26-000021",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:16:51Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -881,9 +722,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.298661+00:00",
     "fetched_at": "2026-05-21T02:17:14.298662+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.779Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.792Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/praa.json",
     "enrich_root": "v2-pipeline-enrich/praa.json",

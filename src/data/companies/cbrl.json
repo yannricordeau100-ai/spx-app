@@ -113,11 +113,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.48 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -136,11 +140,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.16 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -159,33 +167,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.18 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+300.0%",
       "history": [
-        0.05,
-        0.03,
-        0.01,
-        0.04
+        50,
+        30,
+        10,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -208,9 +225,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur et unité confirmées: 2.4M (millions de dollars); last_data_date corrigée de 2025-08-01 à 2025-09-12 (date du 10-K); Description enrichie avec mitigation strategies et outlook 2026 basés sur Item 7 MD&A (Trade Policy and Tariffs section)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur et unité confirmées: 2.4M (millions de dollars); last_data_date corrigée de 2025-08-01 à 2025-09-12 (date du 10-K); Description enrichie avec mitigation strategies et outlook 2026 basés sur Item 7 MD&A (Trade Policy and Tariffs section)"
     }
   ],
   "ai_positioning": {
@@ -227,7 +242,8 @@
       "severity": 4,
       "score_rationale": "La société est consciente des menaces de cybersécurité persistantes et a développé un programme structuré de gestion des risques fondé sur le NIST CSF, mais reconnaît que des incidents peuvent toujours survenir et causer du tort matériel",
       "trend": "stable",
-      "summary": "La société est vulnérable aux menaces de cybersécurité, mais a mis en place des mesures pour les prévenir et les gérer basées sur le NIST Cybersecurity Framework"
+      "summary": "La société est vulnérable aux menaces de cybersécurité, mais a mis en place des mesures pour les prévenir et les gérer basées sur le NIST Cybersecurity Framework",
+      "score": 4
     },
     {
       "title": "Régulation",
@@ -235,7 +251,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations, notamment en matière de protection des données, de paiement par carte de crédit et de conformité aux normes de l'industrie alimentaire",
       "trend": "stable",
-      "summary": "La société doit se conformer à des réglementations pour éviter des amendes et des pertes de réputation"
+      "summary": "La société doit se conformer à des réglementations pour éviter des amendes et des pertes de réputation",
+      "score": 3
     },
     {
       "title": "Concurrence",
@@ -243,7 +260,8 @@
       "severity": 4,
       "score_rationale": "Le secteur de la restauration est très concurrentiel avec plusieurs segments chevauchants (famille, casual, quick service). CBRL opère principalement en restauration full-service et doit maintenir sa position face à des compétiteurs nationaux et régionaux",
       "trend": "up",
-      "summary": "La société doit innover et améliorer son offre pour rester compétitive dans un marché en constante évolution avec nombreux segments concurrents"
+      "summary": "La société doit innover et améliorer son offre pour rester compétitive dans un marché en constante évolution avec nombreux segments concurrents",
+      "score": 4
     },
     {
       "title": "Litige",
@@ -251,7 +269,8 @@
       "severity": 2,
       "score_rationale": "La société est partie à des procédures judiciaires et réglementaires, mais celles-ci ne devraient pas avoir un impact significatif sur ses résultats",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de litige, mais ceux-ci sont considérés comme mineurs"
+      "summary": "La société est exposée à des risques de litige, mais ceux-ci sont considérés comme mineurs",
+      "score": 2
     },
     {
       "title": "Personne-clé",
@@ -259,7 +278,8 @@
       "severity": 3,
       "score_rationale": "La société dépend de ses dirigeants et de ses employés clés pour son succès et la mise en œuvre de sa stratégie multi-année",
       "trend": "stable",
-      "summary": "La société doit retenir et attirer des talents pour maintenir sa position sur le marché et exécuter son plan stratégique"
+      "summary": "La société doit retenir et attirer des talents pour maintenir sa position sur le marché et exécuter son plan stratégique",
+      "score": 3
     },
     {
       "title": "Conditions macroéconomiques et inflation",
@@ -268,7 +288,8 @@
       "score_rationale": "La société identifie des défis macroéconomiques significatifs incluant volatilité de l'inflation, taux d'intérêt élevés, endettement consommateur accru et économies réduites. Ces conditions affectent directement le revenu discrétionnaire et les habitudes de consommation dans le secteur cyclique de la restauration",
       "trend": "up",
       "summary": "Les conditions macroéconomiques adverses affectent le revenu discrétionnaire des consommateurs et leurs habitudes de dîner et d'achat",
-      "_validation": "Risque validé basé sur Item 7 MD&A Strategic Priorities section et Item 1A Risk Factors (Restaurant and Retail Industries); severity augmentée de 3 à 4 basée sur impact direct sur chiffre d'affaires"
+      "_validation": "Risque validé basé sur Item 7 MD&A Strategic Priorities section et Item 1A Risk Factors (Restaurant and Retail Industries); severity augmentée de 3 à 4 basée sur impact direct sur chiffre d'affaires",
+      "score": 4
     },
     {
       "title": "Conditions météorologiques et changement climatique",
@@ -277,7 +298,8 @@
       "score_rationale": "Les événements météorologiques graves (tempêtes, inondations, sécheresses) peuvent impacter les opérations, la chaîne d'approvisionnement et les visites clients. Le changement climatique augmente l'incidence de ces perturbations",
       "trend": "up",
       "summary": "Le changement climatique et les conditions météorologiques imprévisibles augmentent l'incidence de perturbations potentielles sur les magasins et la chaîne d'approvisionnement",
-      "_validation": "Risque validé basé sur Item 7 MD&A (Restaurant and Retail Industries section) - détails explicites sur impact des événements météorologiques sévères et changement climatique"
+      "_validation": "Risque validé basé sur Item 7 MD&A (Restaurant and Retail Industries section) - détails explicites sur impact des événements météorologiques sévères et changement climatique",
+      "score": 3
     },
     {
       "title": "Tarifs douaniers et politique commerciale",
@@ -286,7 +308,8 @@
       "score_rationale": "La société a enregistré un impact de 2.4M$ au Q4 2025 lié aux nouveaux tarifs douaniers. Toute modification supplémentaire des tarifs ou de la politique commerciale pourrait matériellement affecter les résultats opérationnels et la condition financière",
       "trend": "up",
       "summary": "L'incertitude persistante concernant les tarifs douaniers et la politique commerciale introduit une volatilité additionnelle et un risque aux opérations et peut affecter la demande des consommateurs",
-      "_validation": "Risque ajouté basé sur Item 7 MD&A (Trade Policy and Tariffs section); impact quantifié à 2.4M$ avec mention explicite des risques futurs"
+      "_validation": "Risque ajouté basé sur Item 7 MD&A (Trade Policy and Tariffs section); impact quantifié à 2.4M$ avec mention explicite des risques futurs",
+      "score": 3
     }
   ],
   "governance": {
@@ -370,7 +393,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.912Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.563Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cbrl.json",
     "enrich_root": null,

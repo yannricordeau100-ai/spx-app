@@ -39,9 +39,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 4.97,
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Profit margin on Net Interest.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Return on Average Equity",
@@ -117,7 +120,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 25.31,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -143,7 +146,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 428.79,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -168,23 +171,23 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 2050,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.066,
-      "unit": "Mds $",
+      "value": 66,
+      "unit": "M $",
       "yoy": "+1.5%",
       "history": [
-        0.028,
-        0.034,
-        0.059,
-        0.065,
-        0.065,
-        0.066
+        28,
+        34,
+        59,
+        65,
+        65,
+        66
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -194,7 +197,12 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -220,8 +228,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,9 +257,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "avril 2026",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -261,73 +271,73 @@
       "title": "Risque de taux d'intérêt",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Position centrale dans le 10-K, langage fort (\"adversely affect\", \"material impact\"). Le risque est répété et détaillé, avec un impact direct sur les revenus nets d'intérêts. Catégorie Macro hautement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Position centrale dans le 10-K, langage fort (\"adversely affect\", \"material impact\"). Le risque est répété et détaillé, avec un impact direct sur les revenus nets d'intérêts. Catégorie Macro hautement pondérée.",
       "trend": "stable",
       "summary": "Des variations des taux d'intérêt peuvent réduire notre marge d'intérêt et affecter la qualité de notre portefeuille de prêts.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Détérioration économique générale",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Mentionné comme pouvant entraîner des pertes, une hausse des crédits non performants et une baisse de la demande. Langage alarmant (\"significant or sustained downturn\"). Risque systémique majeur. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné comme pouvant entraîner des pertes, une hausse des crédits non performants et une baisse de la demande. Langage alarmant (\"significant or sustained downturn\"). Risque systémique majeur.",
       "trend": "stable",
       "summary": "Une récession ou une croissance faible pourrait augmenter les défauts de paiement et réduire la demande de produits bancaires.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Inflation persistante",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Impact clair sur les coûts (recrutement) et la demande client. Moins central que les autres risques macro, mais mention explicite de l'impact sur la rentabilité. (score par défaut, à affiner)",
+      "score_rationale": "Impact clair sur les coûts (recrutement) et la demande client. Moins central que les autres risques macro, mais mention explicite de l'impact sur la rentabilité.",
       "trend": "stable",
       "summary": "L'inflation augmente nos coûts opérationnels et peut réduire le pouvoir d'achat de nos clients, affectant leurs emprunts.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépréciation du portefeuille titres",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Risque de pertes sur titres disponibles à la vente, avec processus d'évaluation complexe et subjectif. Mention de pertes futures possibles, langage prudent mais sérieux. (score par défaut, à affiner)",
+      "score_rationale": "Risque de pertes sur titres disponibles à la vente, avec processus d'évaluation complexe et subjectif. Mention de pertes futures possibles, langage prudent mais sérieux.",
       "trend": "stable",
       "summary": "La valeur de nos investissements peut chuter en cas de changement des taux ou de difficultés des émetteurs, entraînant des pertes comptables.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Contagion financière systémique",
       "category": "Concurrence",
       "severity": 5,
-      "score_rationale": "Exposition aux défaillances d'autres institutions via contreparties. Langage fort (\"market-wide liquidity problems\", \"losses or defaults\"). Risque systémique élevé, bien que indirect. (score par défaut, à affiner)",
+      "score_rationale": "Exposition aux défaillances d'autres institutions via contreparties. Langage fort (\"market-wide liquidity problems\", \"losses or defaults\"). Risque systémique élevé, bien que indirect.",
       "trend": "stable",
       "summary": "La faiblesse d'autres acteurs financiers pourrait nuire à notre liquidité, notre réputation et entraîner des pertes par contagion.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Politiques gouvernementales imprévisibles",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Impact des décisions de la Réserve fédérale et du gouvernement sur la monnaie et le crédit. Incertitude sur les changements réglementaires (CFPB, tarifs). Langage soulignant l'imprévisibilité. (score par défaut, à affiner)",
+      "score_rationale": "Impact des décisions de la Réserve fédérale et du gouvernement sur la monnaie et le crédit. Incertitude sur les changements réglementaires (CFPB, tarifs). Langage soulignant l'imprévisibilité.",
       "trend": "stable",
       "summary": "Les changements de politique monétaire ou fiscale peuvent affecter notre activité et celle de nos clients de manière imprévisible.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Tensions commerciales et tarifaires",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Impact sur les échanges, les marges clients et la stabilité financière. Mention de réponses tarifaires étrangères. Risque lié à l'administration Trump, mais toujours pertinent. (score par défaut, à affiner)",
+      "score_rationale": "Impact sur les échanges, les marges clients et la stabilité financière. Mention de réponses tarifaires étrangères. Risque lié à l'administration Trump, mais toujours pertinent.",
       "trend": "stable",
       "summary": "Les guerres commerciales et les tarifs peuvent nuire à nos clients exportateurs et affecter leur capacité à rembourser leurs dettes.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation accrue ou changeante",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Secteur très régulé, coût élevé de conformité. Risque de sanctions, de restrictions ou de changements dans l'interprétation des lois. Langage répété et préoccupé. (score par défaut, à affiner)",
+      "score_rationale": "Secteur très régulé, coût élevé de conformité. Risque de sanctions, de restrictions ou de changements dans l'interprétation des lois. Langage répété et préoccupé.",
       "trend": "stable",
       "summary": "Des changements réglementaires ou une application plus stricte peuvent augmenter nos coûts et limiter nos activités.",
-      "score": 3
+      "score": 5
     }
   ],
   "governance": {
@@ -369,7 +379,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -427,7 +437,6 @@
       "date": "2026-05-01"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:59:45.948569+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-06-30",
@@ -450,6 +459,7 @@
     ],
     "total": 1.31
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:59:45.948569+00:00",
   "_segments_fetched_at": "2026-05-06T19:24:02.369793+00:00",
   "financial_snapshot": {
     "market_cap_usd": 5007554560,
@@ -589,20 +599,16 @@
           1.237,
           1.2875,
           1.3457,
-          -2.4692,
           1.5856,
           1.701,
           1.7876,
           1.8441,
-          -3.4155,
           1.9762,
           2.0782,
           2.1963,
-          -3.9601,
           2.4057,
           2.522,
           2.6039,
-          -4.8509,
           2.7931,
           2.9301,
           3.0652
@@ -658,6 +664,12 @@
             "accession": "0001299709-26-000035",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (AX)"
         ]
       }
     ]
@@ -674,9 +686,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.226719+00:00",
     "fetched_at": "2026-05-21T02:17:14.226720+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.262Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.730Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ax.json",
     "enrich_root": "v2-pipeline-enrich/ax.json",

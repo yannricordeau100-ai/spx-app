@@ -99,9 +99,7 @@
         "is_short_history changé: false vers true (une seule période)",
         "Confirmé dans source: 'a 106 per cent return in terms of share price growth plus distributed dividends'"
       ],
-      "signal_en": "User base stable",
-      "_source_month": "décembre 2016",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "User base stable"
     },
     {
       "short": "Dividend Paid",
@@ -127,9 +125,7 @@
         "Unité confirmée: 'B NOK' (0.7 billion NOK validé dans source)",
         "is_short_history changé: false vers true (une seule période)"
       ],
-      "signal_en": "Cash position stable",
-      "_source_month": "décembre 2016",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Gross Assets",
@@ -155,9 +151,7 @@
         "Unité confirmée: 'B NOK' (43.1 billion NOK validé dans source)",
         "is_short_history changé: false vers true (une seule période)"
       ],
-      "signal_en": "Capital base stable",
-      "_source_month": "décembre 2016",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Aker BP Share Price Growth",
@@ -185,9 +179,7 @@
         "Confirmé dans source: 'The share price rose 180 per cent in 2016'"
       ],
       "explanation_en": "Year-over-year growth in Aker BP Share Price.",
-      "signal_en": "User base stable",
-      "_source_month": "décembre 2016",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "User base stable"
     },
     {
       "short": "Total Assets",
@@ -206,11 +198,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 44.81 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -229,11 +225,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 9.74 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -260,7 +260,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -276,7 +276,8 @@
       "severity": 3,
       "score_rationale": "Risque mentionné dans Item 1A avec intensité modérée. Aker BP dépend de deux fournisseurs hautement compétitifs (Aker Solutions et Subsea 7) pour les projets subsea majeurs. La pression concurrentielle sur ces fournisseurs pour innover et livrer crée une vulnérabilité opérationnelle. Tendance stable mais structurelle à l'activité.",
       "trend": "stable",
-      "summary": "Aker BP s'appuie fortement sur deux fournisseurs principaux pour les solutions subsea critiques. Bien que la concurrence entre ces deux acteurs soit intense, une défaillance ou sous-performance d'un fournisseur clé pourrait impacter les délais de projet et la rentabilité, notamment sur les grands contrats comme Kaombo en Angola."
+      "summary": "Aker BP s'appuie fortement sur deux fournisseurs principaux pour les solutions subsea critiques. Bien que la concurrence entre ces deux acteurs soit intense, une défaillance ou sous-performance d'un fournisseur clé pourrait impacter les délais de projet et la rentabilité, notamment sur les grands contrats comme Kaombo en Angola.",
+      "score": 3
     },
     {
       "title": "Exposition aux cycles de prix du pétrole et activité offshore",
@@ -284,7 +285,8 @@
       "severity": 4,
       "score_rationale": "Risque fondamental pour Aker BP (48% des actifs industriels en E&P). Le texte mentionne explicitement les 'challenging market conditions' et les 'reduced activity levels' en 2016. Langage d'intensité élevée sur les ajustements difficiles ('tough rounds of adjustments'). Tendance à la baisse mais structurelle au secteur.",
       "trend": "down",
-      "summary": "Aker BP opère dans un secteur hautement cyclique. Le downturn pétrolier 2015-2016 a forcé des réductions de capacité et des ajustements de compétitivité. Les niveaux d'activité réduits et la pression sur les marges subsea affectent directement la rentabilité et les flux de dividendes."
+      "summary": "Aker BP opère dans un secteur hautement cyclique. Le downturn pétrolier 2015-2016 a forcé des réductions de capacité et des ajustements de compétitivité. Les niveaux d'activité réduits et la pression sur les marges subsea affectent directement la rentabilité et les flux de dividendes.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et environnementaux en Norvège",
@@ -292,7 +294,8 @@
       "severity": 3,
       "score_rationale": "Item 1A souligne que Aker BP applique 'the highest health, safety and environmental standards' et que les émissions CO2 sont 20% sous la moyenne norvégienne. Cet accent sur la conformité HSE indique une exposition réglementaire significative. Tendance stable avec poids croissant des normes environnementales.",
       "trend": "up",
-      "summary": "Aker BP opère sur le plateau continental norvégien, soumis à une régulation HSE stricte et à des normes environnementales croissantes. Bien que la compagnie soit bien positionnée (émissions 20% sous la moyenne), l'évolution des standards environnementaux et les exigences de transition énergétique représentent un risque réglementaire croissant."
+      "summary": "Aker BP opère sur le plateau continental norvégien, soumis à une régulation HSE stricte et à des normes environnementales croissantes. Bien que la compagnie soit bien positionnée (émissions 20% sous la moyenne), l'évolution des standards environnementaux et les exigences de transition énergétique représentent un risque réglementaire croissant.",
+      "score": 3
     },
     {
       "title": "Concentration du portefeuille clients et dépendance aux majors",
@@ -300,7 +303,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne explicitement la coopération 'productive and trustful' avec des clients majeurs (Statoil, Petrobras, Total) comme source de résultats. Cette dépendance aux grands clients est implicite mais significative. Tendance stable mais structurelle au modèle d'affaires.",
       "trend": "stable",
-      "summary": "Aker BP dépend fortement de contrats avec les majors pétroliers (Statoil, Petrobras, Total). Une perte de contrat majeur ou une réduction d'investissement de ces clients impacterait significativement l'activité et les revenus, particulièrement dans le contexte de réduction d'activité offshore."
+      "summary": "Aker BP dépend fortement de contrats avec les majors pétroliers (Statoil, Petrobras, Total). Une perte de contrat majeur ou une réduction d'investissement de ces clients impacterait significativement l'activité et les revenus, particulièrement dans le contexte de réduction d'activité offshore.",
+      "score": 3
     },
     {
       "title": "Risques opérationnels et sécurité dans les opérations offshore",
@@ -308,7 +312,8 @@
       "severity": 4,
       "score_rationale": "Item 1A mentionne explicitement le crash d'hélicoptère d'avril 2016 (perte de 4 collègues Aker Solutions) comme événement majeur. Le texte souligne que 'the single and most important priority is to make sure that our employees are safe at work'. Langage d'intensité très élevée. Tendance stable mais risque permanent.",
       "trend": "stable",
-      "summary": "Les opérations offshore d'Aker BP comportent des risques de sécurité importants. Le crash d'hélicoptère d'avril 2016 illustre les dangers inhérents. Les incidents de sécurité peuvent entraîner des arrêts opérationnels, des coûts de conformité accrus et des impacts réputationnels majeurs."
+      "summary": "Les opérations offshore d'Aker BP comportent des risques de sécurité importants. Le crash d'hélicoptère d'avril 2016 illustre les dangers inhérents. Les incidents de sécurité peuvent entraîner des arrêts opérationnels, des coûts de conformité accrus et des impacts réputationnels majeurs.",
+      "score": 4
     },
     {
       "title": "Intégration et synergies de la fusion Aker BP (Det norske + BP Norway)",
@@ -316,7 +321,8 @@
       "severity": 3,
       "score_rationale": "Aker a investi NOK 2.6 milliards en 2016 pour acquérir des parts de BP dans la fusion Det norske/BP Norway. Le texte indique que Aker détient 40% (BP 30%). Risque d'intégration opérationnelle et de réalisation des synergies attendues. Tendance nouvelle (fusion récente).",
       "trend": "new",
-      "summary": "La fusion entre Det norske oljeselskap et BP Norway pour former Aker BP est récente. Aker détient 40% du capital. Les risques incluent la réalisation des synergies opérationnelles, l'intégration des systèmes et cultures, et la gestion des divergences stratégiques entre actionnaires majeurs."
+      "summary": "La fusion entre Det norske oljeselskap et BP Norway pour former Aker BP est récente. Aker détient 40% du capital. Les risques incluent la réalisation des synergies opérationnelles, l'intégration des systèmes et cultures, et la gestion des divergences stratégiques entre actionnaires majeurs.",
+      "score": 3
     },
     {
       "title": "Volatilité des valeurs d'investissement dans le portefeuille oil services",
@@ -324,7 +330,8 @@
       "severity": 3,
       "score_rationale": "Le texte note que les prix des actions Aker Solutions (+37%), Akastor (+35%) et Kvaerner (+47%) en 2016 'are still far below their respective historical peaks'. Cela indique une volatilité significative et une exposition à la dépréciation. Tendance à la hausse mais depuis des niveaux bas.",
       "trend": "up",
-      "summary": "Les investissements d'Aker dans les services pétroliers (Aker Solutions 34.8%, Akastor 36.7%, Kvaerner 28.7%) sont exposés à une volatilité importante. Bien que les prix aient rebondi en 2016, ils restent loin des pics historiques, reflétant l'incertitude du secteur et le risque de nouvelles dépréciations."
+      "summary": "Les investissements d'Aker dans les services pétroliers (Aker Solutions 34.8%, Akastor 36.7%, Kvaerner 28.7%) sont exposés à une volatilité importante. Bien que les prix aient rebondi en 2016, ils restent loin des pics historiques, reflétant l'incertitude du secteur et le risque de nouvelles dépréciations.",
+      "score": 3
     },
     {
       "title": "Risques de liquidité et de refinancement des investissements",
@@ -332,7 +339,8 @@
       "severity": 2,
       "score_rationale": "Bien que le texte mentionne que les sociétés de services ont 'maintained strong balance sheets throughout the downturn', il note aussi que Kvaerner avait 'sizeable cash holdings' et 'no interest-bearing liabilities'. Cela suggère une gestion prudente mais une exposition potentielle si les conditions se dégradent. Tendance stable.",
       "trend": "stable",
-      "summary": "Aker BP et ses investissements dans le secteur des services pétroliers pourraient faire face à des défis de refinancement si les conditions de marché se dégradent. Bien que les bilans soient actuellement solides, la prolongation du downturn pétrolier pourrait créer des pressions de liquidité."
+      "summary": "Aker BP et ses investissements dans le secteur des services pétroliers pourraient faire face à des défis de refinancement si les conditions de marché se dégradent. Bien que les bilans soient actuellement solides, la prolongation du downturn pétrolier pourrait créer des pressions de liquidité.",
+      "score": 2
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:14:46.795345+00:00",
@@ -473,9 +481,9 @@
     "country": "Norway",
     "_data_freshness_date": "2026-05-21T02:17:14.218612+00:00",
     "fetched_at": "2026-05-21T02:17:14.218613+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.582Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.033Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/akrbp.ol.json",
     "enrich_root": "v2-pipeline-enrich/akrbp.ol.json",

@@ -36,12 +36,13 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le texte fourni est un extrait XML/XBRL brut contenant uniquement des métadonnées de structure et des références de périodes, sans aucune va",
       "signal_en": "Stable, slight decline to monitor",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Capex",
@@ -63,10 +64,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Leasing Costs",
@@ -89,9 +88,7 @@
       "is_generic": true,
       "is_short_history": true,
       "explanation_en": "Costs related to Leasing.",
-      "signal_en": "Strong growth, robust momentum",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Strong growth, robust momentum"
     },
     {
       "short": "Operating Cash Flow",
@@ -113,41 +110,44 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
-      "signal_en": "Cash generation improving, financial flexibility rising",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
+      "signal_en": "Cash generation improving, financial flexibility rising"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.994,
-      "unit": "Mds €",
+      "value": 994,
+      "unit": "M €",
       "yoy": "+16.0%",
       "history": [
-        0.259,
-        0.466,
-        0.475,
-        0.658,
-        0.74,
-        0.755,
-        0.762,
-        0.803,
-        0.857,
-        0.994
+        259,
+        466,
+        475,
+        658,
+        740,
+        755,
+        762,
+        803,
+        857,
+        994
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.99 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:45.250366+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -166,11 +166,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.89 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -189,11 +193,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.39 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -207,7 +215,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.93,
         1.27,
@@ -220,7 +228,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -235,7 +243,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1923,
@@ -248,7 +256,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -263,7 +271,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         115.28,
@@ -276,7 +284,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -292,7 +300,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.11,
@@ -305,7 +313,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -330,9 +338,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Second Gen Rent Growth",
@@ -354,9 +360,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Leasing Volume",
@@ -378,9 +382,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -394,52 +396,52 @@
       "title": "Concentration géographique et sectorielle",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Le portefeuille est concentré dans quelques marchés Sun Belt avec dépendance forte envers Austin (36,1% du NOI) et secteurs spécifiques. Les risques d'un ralentissement localisé ou sectoriel sont significatifs. (score par défaut, à affiner)",
+      "score_rationale": "Le portefeuille est concentré dans quelques marchés Sun Belt avec dépendance forte envers Austin (36,1% du NOI) et secteurs spécifiques. Les risques d'un ralentissement localisé ou sectoriel sont significatifs.",
       "trend": "stable",
       "summary": "Une partie importante des revenus provient de quelques zones géographiques et secteurs d'activité, ce qui amplifie l'impact d'un ralentissement local ou sectoriel.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Déclin économique et insolvabilité des locataires",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "En période de récession, la demande locative diminue, les impayés augmentent et la viabilité des locataires est menacée. Impact direct sur les revenus et la trésorerie. (score par défaut, à affiner)",
+      "score_rationale": "En période de récession, la demande locative diminue, les impayés augmentent et la viabilité des locataires est menacée. Impact direct sur les revenus et la trésorerie.",
       "trend": "stable",
       "summary": "Un ralentissement économique pourrait réduire la demande locative, augmenter les impayés et menacer la viabilité des locataires, affectant gravement les revenus et la trésorerie.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de baisse de la demande en bureaux",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le télétravail, les espaces de co-working et la réduction des surfaces constituent des menaces directes au modèle économique des bureaux traditionnels. (score par défaut, à affiner)",
+      "score_rationale": "Le télétravail, les espaces de co-working et la réduction des surfaces constituent des menaces directes au modèle économique des bureaux traditionnels.",
       "trend": "up",
       "summary": "Les changements dans les habitudes de travail (télétravail, espaces partagés) pourraient réduire la demande pour les bureaux traditionnels, affectant l'occupation et les loyers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Perte non assurée ou sous-assurance",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Les événements extrêmes (ouragans, inondations, pandémies) peuvent entraîner des pertes importantes avec franchises élevées (2-5%) et certains risques non assurables. (score par défaut, à affiner)",
+      "score_rationale": "Les événements extrêmes (ouragans, inondations, pandémies) peuvent entraîner des pertes importantes avec franchises élevées (2-5%) et certains risques non assurables.",
       "trend": "stable",
       "summary": "Des événements extrêmes (ouragans, pandémies) pourraient entraîner des pertes importantes non couvertes par l'assurance, menaçant la valeur des actifs et la trésorerie.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Impacts du changement climatique",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Les événements météorologiques extrêmes et l'élévation du niveau de la mer menacent les actifs immobiliers avec des effets directs et indirects (coûts, réglementation). (score par défaut, à affiner)",
+      "score_rationale": "Les événements météorologiques extrêmes et l'élévation du niveau de la mer menacent les actifs immobiliers avec des effets directs et indirects (coûts, réglementation).",
       "trend": "up",
       "summary": "Les événements météorologiques extrêmes et l'élévation du niveau de la mer pourraient endommager les biens ou réduire leur attractivité, augmentant les coûts et les risques opérationnels.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de non-conformité environnementale",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les obligations réglementaires strictes de dépollution et les risques de poursuites sont réels, particulièrement sur des sites urbains anciens. (score par défaut, à affiner)",
+      "score_rationale": "Les obligations réglementaires strictes de dépollution et les risques de poursuites sont réels, particulièrement sur des sites urbains anciens.",
       "trend": "stable",
       "summary": "La découverte de contaminants sur des sites anciens pourrait entraîner des coûts importants de dépollution et des poursuites, même sans responsabilité directe.",
       "score": 3
@@ -448,7 +450,7 @@
       "title": "Cyberattaques et sécurité des données",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "Les risques informatiques existants pour la gestion des propriétés et des données locatives constituent une menace opérationnelle. (score par défaut, à affiner)",
+      "score_rationale": "Les risques informatiques existants pour la gestion des propriétés et des données locatives constituent une menace opérationnelle.",
       "trend": "stable",
       "summary": "Des attaques informatiques pourraient compromettre les systèmes de gestion des biens ou les données des locataires, entraînant des perturbations ou des pertes financières.",
       "score": 3
@@ -506,7 +508,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -643,7 +645,7 @@
   "_segments_fetched_at": "2026-05-06T19:28:26.753233+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T19:57:35.018849+00:00",
   "_dividends_extracted_at": "2026-05-09T20:23:13Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -669,7 +671,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:28Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:31Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_description": {
     "ticker": "CUZ",
@@ -778,9 +780,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.247718+00:00",
     "fetched_at": "2026-05-21T02:17:14.247719+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.988Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.503Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cuz.json",
     "enrich_root": "v2-pipeline-enrich/cuz.json",

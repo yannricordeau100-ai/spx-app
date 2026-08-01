@@ -64,9 +64,7 @@
       "is_short_history": true,
       "ttm": null,
       "_validation": "HALLUCINATION DÉTECTÉE: valeur 3.9%, historique [3.6, 3.7, 3.7, 3.9] et YoY +0.2 pts non présents dans les extraits 20-F fournis. MD&A et états financiers consolidés incomplets. Données supprimées, marquées comme hallucination.",
-      "explanation_en": "Net Interest Margin — net interest income divided by earning assets (banks).",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Net Interest Margin, net interest income divided by earning assets (banks)."
     },
     {
       "short": "ROE",
@@ -88,9 +86,7 @@
       "is_short_history": true,
       "ttm": null,
       "_validation": "HALLUCINATION DÉTECTÉE: valeur 16.5%, historique [14.2, 14.8, 15.0, 16.5] et YoY +1.5 pts non présents dans les extraits 20-F fournis. États financiers consolidés incomplets dans source. Données supprimées.",
-      "explanation_en": "Return on Equity — net income divided by shareholders' equity.",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Return on Equity, net income divided by shareholders' equity."
     },
     {
       "short": "CET1",
@@ -112,9 +108,7 @@
       "is_short_history": true,
       "ttm": null,
       "_validation": "HALLUCINATION DÉTECTÉE: valeur 15.8%, historique [14.5, 15.0, 15.2, 15.8] et YoY +0.6 pts non présents dans les extraits 20-F fournis. Données bancaires réglementaires non disponibles. Supprimées.",
-      "explanation_en": "Common Equity Tier 1 ratio — core capital strength measure (banks).",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Common Equity Tier 1 ratio, core capital strength measure (banks)."
     },
     {
       "short": "GNPA",
@@ -135,9 +129,7 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": null,
-      "_validation": "HALLUCINATION DÉTECTÉE: valeur 1.2%, historique [1.4, 1.3, 1.3, 1.2] et YoY -0.1 pts non présents dans les extraits 20-F fournis. Données sur la qualité des crédits non disponibles. Supprimées.",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "HALLUCINATION DÉTECTÉE: valeur 1.2%, historique [1.4, 1.3, 1.3, 1.2] et YoY -0.1 pts non présents dans les extraits 20-F fournis. Données sur la qualité des crédits non disponibles. Supprimées."
     },
     {
       "short": "Cost-Income",
@@ -158,9 +150,7 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": null,
-      "_validation": "HALLUCINATION DÉTECTÉE: valeur 44.5%, historique [46.8, 46.0, 45.7, 44.5] et YoY -1.2 pts non présents dans les extraits 20-F fournis. MD&A complet non fourni. Supprimées.",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "HALLUCINATION DÉTECTÉE: valeur 44.5%, historique [46.8, 46.0, 45.7, 44.5] et YoY -1.2 pts non présents dans les extraits 20-F fournis. MD&A complet non fourni. Supprimées."
     },
     {
       "short": "Total Assets",
@@ -179,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 48187.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -202,11 +196,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 7326.11 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -220,7 +218,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.2625,
         0.594,
@@ -233,7 +231,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -248,7 +246,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         36.2392,
@@ -261,7 +259,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -276,7 +274,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         9.39,
@@ -289,7 +287,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -305,7 +303,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         104.07,
@@ -318,7 +316,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -348,9 +346,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 187.88,
-      "_validation": "Vérification réussie: historique court justifié par la fusion du 1er juillet 2023 (Transaction Effective Date confirmée dans 20-F Item 5, Exchange Rates section). KPI validé.",
-      "_source_month": "juillet 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Vérification réussie: historique court justifié par la fusion du 1er juillet 2023 (Transaction Effective Date confirmée dans 20-F Item 5, Exchange Rates section). KPI validé."
     }
   ],
   "ai_positioning": {
@@ -386,7 +382,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 4,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -399,7 +395,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de l'agenda du 10-K, mentionné avec un langage fort (\"anticipated benefits\", \"complex integration\"). Il s'agit d'un risque nouveau et central après la fusion de juillet 2023, affectant plusieurs domaines métiers clés.",
       "trend": "new",
-      "summary": "La fusion avec HDFC Limited en juillet 2023 crée des défis d'intégration opérationnelle, technologique et culturelle. Le succès dépend de la synergie entre les activités bancaires et d'assurance, et de la gestion des systèmes informatiques et des processus communs."
+      "summary": "La fusion avec HDFC Limited en juillet 2023 crée des défis d'intégration opérationnelle, technologique et culturelle. Le succès dépend de la synergie entre les activités bancaires et d'assurance, et de la gestion des systèmes informatiques et des processus communs.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue dans les services financiers",
@@ -407,7 +404,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans les facteurs de risque avec un langage d'intensité modérée à forte (\"changes in competition\", \"pricing environment\"). Le risque est stable mais critique dans un marché indien en expansion.",
       "trend": "stable",
-      "summary": "HDFC Bank fait face à une pression croissante de la part des banques publiques, des néobanques et des fintechs, notamment sur les crédits à la consommation, les dépôts et les services numériques, ce qui peut réduire les marges et la part de marché."
+      "summary": "HDFC Bank fait face à une pression croissante de la part des banques publiques, des néobanques et des fintechs, notamment sur les crédits à la consommation, les dépôts et les services numériques, ce qui peut réduire les marges et la part de marché.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et menaces numériques",
@@ -415,7 +413,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité dans le MD&A et dans les facteurs de risque avec un langage fort (\"cybersecurity threats\", \"adequacy of IT systems\"). Il est en hausse en raison de l'expansion numérique et de la dépendance aux plateformes technologiques.",
       "trend": "up",
-      "summary": "L'augmentation des services digitaux expose HDFC Bank à des cyberattaques, des violations de données et des interruptions de service. Des incidents pourraient nuire à la réputation et entraîner des pertes financières ou des sanctions réglementaires."
+      "summary": "L'augmentation des services digitaux expose HDFC Bank à des cyberattaques, des violations de données et des interruptions de service. Des incidents pourraient nuire à la réputation et entraîner des pertes financières ou des sanctions réglementaires.",
+      "score": 5
     },
     {
       "title": "Dépendance aux systèmes technologiques",
@@ -423,7 +422,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans les facteurs de risque avec un langage d'intensité élevée (\"adequacy of our information technology\"). Il est stable mais amplifié par la transformation numérique accélérée.",
       "trend": "stable",
-      "summary": "HDFC Bank dépend fortement de ses systèmes informatiques et de télécommunications. Toute défaillance, panne ou inadéquation technologique pourrait perturber les opérations, affecter la satisfaction client et impacter les revenus."
+      "summary": "HDFC Bank dépend fortement de ses systèmes informatiques et de télécommunications. Toute défaillance, panne ou inadéquation technologique pourrait perturber les opérations, affecter la satisfaction client et impacter les revenus.",
+      "score": 4
     },
     {
       "title": "Régulation croissante du secteur financier indien",
@@ -431,7 +431,8 @@
       "severity": 5,
       "score_rationale": "Le risque est fréquemment mentionné, avec un langage fort (\"changes in banking regulations\", \"compliance\"). Il est en hausse en raison de l'expansion d'activités réglementées comme l'assurance et la gestion d'actifs.",
       "trend": "up",
-      "summary": "HDFC Bank est soumis à une surveillance accrue de la Réserve Bank of India (RBI) et d'autres autorités, notamment sur les normes de capital, la gouvernance et la protection des données. Toute non-conformité peut entraîner des amendes ou des restrictions opérationnelles."
+      "summary": "HDFC Bank est soumis à une surveillance accrue de la Réserve Bank of India (RBI) et d'autres autorités, notamment sur les normes de capital, la gouvernance et la protection des données. Toute non-conformité peut entraîner des amendes ou des restrictions opérationnelles.",
+      "score": 5
     },
     {
       "title": "Dépendance à la marque HDFC post-fusion",
@@ -439,7 +440,8 @@
       "severity": 4,
       "score_rationale": "Le risque est implicite dans les mentions de \"negative publicity\" et de dépendance à la réputation du groupe HDFC. Langage modéré mais contexte sensible après la fusion.",
       "trend": "new",
-      "summary": "La réputation d'HDFC Bank est étroitement liée à celle de l'ancien HDFC Limited. Tout incident réputationnel dans les activités d'assurance, de crédit ou de gestion d'actifs pourrait affecter la confiance des clients et des investisseurs."
+      "summary": "La réputation d'HDFC Bank est étroitement liée à celle de l'ancien HDFC Limited. Tout incident réputationnel dans les activités d'assurance, de crédit ou de gestion d'actifs pourrait affecter la confiance des clients et des investisseurs.",
+      "score": 4
     },
     {
       "title": "Gouvernance et dépendance aux personnes-clés",
@@ -447,7 +449,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné de manière générique dans les facteurs de risque (\"management\", \"strategy implementation\"). Langage modéré, mais renforcé par la transition post-fusion.",
       "trend": "stable",
-      "summary": "Le succès d'HDFC Bank dépend en partie de la direction actuelle et de sa capacité à gérer la croissance et l'intégration. Le départ de cadres dirigeants pourrait perturber la stratégie et l'exécution opérationnelle."
+      "summary": "Le succès d'HDFC Bank dépend en partie de la direction actuelle et de sa capacité à gérer la croissance et l'intégration. Le départ de cadres dirigeants pourrait perturber la stratégie et l'exécution opérationnelle.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:43:06.645944+00:00",
@@ -493,7 +496,7 @@
   "_governance_yf_fallback_at": "2026-05-14T04:37:52.701328+00:00",
   "_freshness_yf_refreshed_at": "2026-05-14T07:11:20.652984",
   "_dividends_extracted_at": "2026-05-09T20:20:26Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2015,
@@ -516,7 +519,7 @@
   },
   "_ai_positioning_fetched_at": "2026-05-14T05:26:54.207367+00:00",
   "_eps_extracted_at": "2026-05-18T16:45:19Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Banque",
   "sector_fr": "Finance",
   "enrich_description": {
@@ -572,7 +575,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.992Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.432Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hdb.json",
     "enrich_root": "v2-pipeline-enrich/hdb.json",

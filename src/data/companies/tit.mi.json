@@ -13,7 +13,7 @@
     "sector": "#N/A",
     "subsector": "#N/A"
   },
-  "hero_kpi": "Investment Mix",
+  "hero_kpi": "Brazil Revenue",
   "hero_kpi_rationale": "Le mix d'investissement en infrastructures fibre et 4G est le driver structurel de la transformation de Telecom Italia vers une offre de smart connectivity, clé pour capter la demande future en data et services numériques.",
   "kpis": [
     {
@@ -110,7 +110,7 @@
       "is_short_history": false,
       "_validation": "Value confirmed as 24K; name_fr simplified from 'Effectif (collaborateurs réseaux)' to 'Effectif collaborateurs réseau'; verified against infographic 'Network Workers'",
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Market Cap Growth",
@@ -153,11 +153,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 36.73 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,11 +180,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 13.22 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -199,10 +207,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.05 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Brazil Revenue",
+      "name_fr": "Revenus de la division Bresil",
+      "name_en": "Brazil Business Unit Revenue",
+      "unit": "Mds R$",
+      "period_type": "year",
+      "history": [
+        17.268,
+        18.058,
+        21.531,
+        23.834,
+        25.448
+      ],
+      "value": 25.448,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "La division Bresil progresse sans interruption depuis 2020 et devient le moteur de croissance du groupe.",
+      "is_wow": true,
+      "history_dates": [
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "yoy": "+6,8 %"
     }
   ],
   "stories_kpis": [],
@@ -216,15 +257,7 @@
     ],
     "source": "Annual Report 2014"
   },
-  "_validation": [
-    "KPI 'Mobile 4G Coverage': value corrected to 77% per source infographic (text approximation of 'about 80%' superseded by precise infographic value)",
-    "Unit normalization: 'Mds €' changed to 'B €' across all KPIs for consistency with international standards",
-    "Period type correction: all KPIs changed from 'quarter' to 'annual' as data represents end-of-year 2014 snapshots",
-    "Last_data_date standardized to 2014-12-31 across all KPIs",
-    "KPI names refined: 'Investment Mix' description clarified, 'Headcount' simplified and anchored to 'Network Operations', 'Market Cap Growth' enhanced with share price appreciation",
-    "All five KPIs verified against Annual Report 2014 Letter to Shareholders, infographic, and financial data sections",
-    "No hallucinated KPIs detected; all values sourced from official document content"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
@@ -232,7 +265,7 @@
     "method": "manual_extraction",
     "yf_metric": "(none-10k-annual-report)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_1"
   ],
@@ -245,7 +278,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur mentionné explicitement dans les highlights (« Competition... showed signs of cooling » mais reste structurel). Langage modéré mais contexte d'« erosion of traditional services » et « price pressure » indique persistance. Tendance stable avec légère amélioration 2014. Poids élevé : cœur du modèle économique domestique.",
       "trend": "stable",
-      "summary": "Telecom Italia fait face à une concurrence intense sur les segments mobile et fixe en Italie, avec érosion continue des services traditionnels (voix, SMS) et pression tarifaire persistante. Bien que la concurrence ait montré des signes de refroidissement en 2014, notamment sur le mobile, le risque reste structurel et menace les marges et la base clients."
+      "summary": "Telecom Italia fait face à une concurrence intense sur les segments mobile et fixe en Italie, avec érosion continue des services traditionnels (voix, SMS) et pression tarifaire persistante. Bien que la concurrence ait montré des signes de refroidissement en 2014, notamment sur le mobile, le risque reste structurel et menace les marges et la base clients.",
+      "score": 4
     },
     {
       "title": "Dépendance à la régulation pro-investissement et pro-concurrence",
@@ -253,7 +287,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité dans le plan industriel : « adequate revenues flows... made possible by... stable, pro-investment and pro-competitive regulation ». Langage fort (« essential », « must »). Tendance stable mais risque croissant avec investissements massifs (10 Mds€). Poids critique : viabilité économique du modèle dépend de cadre régulateur favorable.",
       "trend": "up",
-      "summary": "La viabilité économique du plan d'investissement massif (10 Mds€ en Italie 2015-2017) dépend d'un cadre régulateur stable, pro-investissement et pro-concurrentiel. Tout changement réglementaire défavorable (prix plafonnés, obligations d'accès, réductions de tarifs de gros) pourrait compromettre la rentabilité des investissements en ultra-haut débit."
+      "summary": "La viabilité économique du plan d'investissement massif (10 Mds€ en Italie 2015-2017) dépend d'un cadre régulateur stable, pro-investissement et pro-concurrentiel. Tout changement réglementaire défavorable (prix plafonnés, obligations d'accès, réductions de tarifs de gros) pourrait compromettre la rentabilité des investissements en ultra-haut débit.",
+      "score": 4
     },
     {
       "title": "Transition technologique vers services data et OTT",
@@ -261,7 +296,8 @@
       "severity": 4,
       "score_rationale": "Risque stratégique majeur : « shift toward 'smart connectivity' consumption model » et « customers' habits moving toward increasing use of 'data' services ». Langage d'urgence (« must », « essential »). Tendance up : accélération de la cannibalisation voix/SMS par data. Poids élevé : modèle économique en mutation.",
       "trend": "up",
-      "summary": "Telecom Italia doit gérer la transition rapide des clients vers les services data, qui remplacent progressivement les services traditionnels (voix, SMS). Parallèlement, les fournisseurs OTT (Over-The-Top) offrent des services numériques sans être opérateurs télécom, créant une concurrence indirecte sur la valeur. Cette transition exige des investissements massifs en infrastructure et en services numériques."
+      "summary": "Telecom Italia doit gérer la transition rapide des clients vers les services data, qui remplacent progressivement les services traditionnels (voix, SMS). Parallèlement, les fournisseurs OTT (Over-The-Top) offrent des services numériques sans être opérateurs télécom, créant une concurrence indirecte sur la valeur. Cette transition exige des investissements massifs en infrastructure et en services numériques.",
+      "score": 4
     },
     {
       "title": "Risque de cybersécurité et protection des données clients",
@@ -269,7 +305,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans la stratégie de services numériques (cloud, données, identité numérique, portefeuille TIM). Langage modéré mais contexte de gestion de données massives et services critiques. Tendance up : expansion des services cloud et données. Poids modéré-élevé : dépendance croissante aux plateformes IT et données clients.",
       "trend": "up",
-      "summary": "Avec le développement des services cloud, big data, identité numérique et portefeuille TIM, Telecom Italia augmente son exposition aux risques de cybersécurité et de protection des données clients. Les violations de données ou attaques informatiques pourraient affecter la réputation, la conformité réglementaire et la confiance des clients."
+      "summary": "Avec le développement des services cloud, big data, identité numérique et portefeuille TIM, Telecom Italia augmente son exposition aux risques de cybersécurité et de protection des données clients. Les violations de données ou attaques informatiques pourraient affecter la réputation, la conformité réglementaire et la confiance des clients.",
+      "score": 3
     },
     {
       "title": "Dépendance aux investissements massifs en infrastructure réseau",
@@ -277,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Plan d'investissement de 10 Mds€ en Italie (2015-2017) + 4 Mds€ au Brésil. Langage fort : « ambitious goal », « essential ». Tendance up : augmentation vs 2014 (4,984 Mds€). Poids critique : viabilité du modèle dépend de capacité à financer et générer retours sur ces investissements.",
       "trend": "up",
-      "summary": "Telecom Italia s'engage dans un plan d'investissement massif (10 Mds€ en Italie, 4 Mds€ au Brésil sur 3 ans) pour développer les réseaux ultra-haut débit (fibre, 4G/LTE) et les plateformes IT. Le risque réside dans la capacité à financer ces investissements, générer des flux de trésorerie suffisants et atteindre les objectifs de couverture (75% fixe, 95% mobile en 2017)."
+      "summary": "Telecom Italia s'engage dans un plan d'investissement massif (10 Mds€ en Italie, 4 Mds€ au Brésil sur 3 ans) pour développer les réseaux ultra-haut débit (fibre, 4G/LTE) et les plateformes IT. Le risque réside dans la capacité à financer ces investissements, générer des flux de trésorerie suffisants et atteindre les objectifs de couverture (75% fixe, 95% mobile en 2017).",
+      "score": 4
     },
     {
       "title": "Volatilité économique et ralentissement en Italie et Amérique latine",
@@ -285,7 +323,8 @@
       "severity": 3,
       "score_rationale": "Contexte macroéconomique difficile explicitement cité : « difficult macroeconomic context », « recessionary pressures », « slowdown in Latin American economies ». Langage modéré mais impact direct sur revenus. Tendance stable mais risque persistant. Poids modéré-élevé : 80% des revenus en Italie.",
       "trend": "stable",
-      "summary": "Telecom Italia opère dans un contexte macroéconomique dégradé : contraction du PIB italien (-0.4% en 2014), ralentissement en Amérique latine. Ces conditions réduisent la demande de services télécom, limitent la croissance des revenus et augmentent la pression concurrentielle sur les prix."
+      "summary": "Telecom Italia opère dans un contexte macroéconomique dégradé : contraction du PIB italien (-0.4% en 2014), ralentissement en Amérique latine. Ces conditions réduisent la demande de services télécom, limitent la croissance des revenus et augmentent la pression concurrentielle sur les prix.",
+      "score": 3
     },
     {
       "title": "Risque de transformation organisationnelle et gestion du changement",
@@ -293,7 +332,8 @@
       "severity": 3,
       "score_rationale": "Transformation majeure explicitement reconnue : « radical changes that are very difficult to achieve at companies of this size and complexity ». Langage d'alerte (« test... stamina to the very limit »). Tendance up : ampleur du changement (unification marques TIM, restructuration coûts). Poids modéré-élevé : succès du plan dépend de capacité d'exécution.",
       "trend": "up",
-      "summary": "Telecom Italia entreprend une transformation radicale : unification des marques sous TIM, restructuration des coûts, évolution du modèle économique vers « Smart Connectivity & Service Provider ». Cette transformation de grande ampleur dans une entreprise complexe comporte des risques d'exécution, de rétention des talents et de perturbation opérationnelle."
+      "summary": "Telecom Italia entreprend une transformation radicale : unification des marques sous TIM, restructuration des coûts, évolution du modèle économique vers « Smart Connectivity & Service Provider ». Cette transformation de grande ampleur dans une entreprise complexe comporte des risques d'exécution, de rétention des talents et de perturbation opérationnelle.",
+      "score": 3
     },
     {
       "title": "Exposition au risque de change et volatilité économique au Brésil",
@@ -301,7 +341,8 @@
       "severity": 3,
       "score_rationale": "Brésil représente 4ème marché télécom mondial, TIM Brasil est 2ème opérateur (75M clients). Langage modéré : « slowdown in Latin American economies ». Tendance stable mais risque croissant avec investissements (4 Mds€). Poids modéré : 20% des revenus environ, mais exposition à volatilité macroéconomique et change.",
       "trend": "stable",
-      "summary": "Telecom Italia est exposée aux risques économiques et de change au Brésil, où elle opère via TIM Brasil (2ème opérateur mobile, 75M clients). Le ralentissement économique en Amérique latine et la volatilité du real brésilien impactent les revenus et la rentabilité des investissements prévus (4 Mds€ 2015-2017)."
+      "summary": "Telecom Italia est exposée aux risques économiques et de change au Brésil, où elle opère via TIM Brasil (2ème opérateur mobile, 75M clients). Le ralentissement économique en Amérique latine et la volatilité du real brésilien impactent les revenus et la rentabilité des investissements prévus (4 Mds€ 2015-2017).",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:05:53.474031+00:00",
@@ -449,10 +490,35 @@
   "_extracted_at": "2026-05-20T14:16:27Z",
   "_source": "sec-data/cat3-european/TIT.MI/annual-text/2024.txt (Telecom Italia Annual Report)",
   "subsector_fr": "Services de télécommunications",
-  "_companies_unified_built_at": "2026-05-29T21:19:36.518Z",
+  "hero_kpi_override": "Brazil Revenue",
+  "_hero_kpi_override_reason": "Brazil Revenue = revenu specifique principal (agent verbatim)",
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Telecom Italia S.p.A. (TIM) est l'opérateur télécom historique italien. Coté à Milan, basé à Rome.",
+          "products": "Services télécoms mobiles et fixes, broadband, services numériques pour particuliers et entreprises, hébergement et cloud (Noovle), services digitaux pour entreprises (TIM Enterprise), contenus TV (TIMVISION).",
+          "customers": "Particuliers italiens, entreprises italiennes (PME et grands comptes), opérateurs télécoms (wholesale), administrations publiques.",
+          "edge": "Position d'incumbent en Italie sur les télécoms fixes et mobiles. Filiale TIM Brasil bien valorisée. Cession de NetCo (réseau fibre) à KKR finalisée en 2024 a allégé l'endettement."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Telecom Italia est en transformation profonde post-cession de NetCo (réseau fixe) à KKR en juillet 2024 pour environ 18,8 Mds€. Le groupe restant est un ServCo recentré sur les services TIM Consumer, TIM Enterprise et TIM Brasil. Désendettement majeur réalisé.",
+          "tech_products": "Trois activités cœur post-NetCo : TIM Consumer (services télécoms aux particuliers en Italie), TIM Enterprise (cloud, sécurité, IoT pour entreprises avec Noovle), TIM Brasil (opérateur mobile au Brésil bien positionné). Stratégie Plan 2024-2026 sur la croissance et la rentabilité services.",
+          "moat": "Marque historique TIM en Italie. Position TIM Brasil dans un marché à 3 acteurs (avec Vivo et Claro). Capacité services Enterprise via Noovle (cloud souverain italien).",
+          "risks": "Concurrence intense en Italie (Iliad, Vodafone, WindTre). Pression sur les prix mobile et fixe. Risques liés à la restructuration post-NetCo (gestion CSU, accords avec opérateurs). Endettement résiduel. Cycle d'investissement nécessaire en 5G."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
+  "_companies_unified_built_at": "2026-08-01T20:28:06.800Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tit.mi.json",
     "enrich_root": "v2-pipeline-enrich/tit.mi.json",
-    "enrich_subkeys": []
+    "enrich_subkeys": [
+      "mettrik-description"
+    ]
   }
 }

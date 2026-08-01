@@ -1,6 +1,6 @@
 {
   "ticker": "NAVI",
-  "name": "Navient Corporation",
+  "name": "Navient",
   "sector": "Financial Services",
   "subsector": "Education Loan Management",
   "tagline": "Leading education loan management and servicing provider specializing in federal and private education loans",
@@ -61,29 +61,34 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.271,
-      "unit": "Mds €",
+      "value": 271,
+      "unit": "M €",
       "yoy": "-15.6%",
       "history": [
-        0.359,
-        0.391,
-        0.388,
-        0.507,
-        0.332,
-        0.321,
-        0.271
+        359,
+        391,
+        388,
+        507,
+        332,
+        321,
+        271
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.61 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:25.142504+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
@@ -102,11 +107,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.08 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -125,11 +134,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -0.81 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -148,11 +161,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 48.68 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -171,33 +188,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 45.17 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.64,
-      "unit": "Mds €",
+      "value": 640,
+      "unit": "M €",
       "yoy": "-11.1%",
       "history": [
-        1.53,
-        0.84,
-        0.72,
-        0.64
+        1530,
+        840,
+        720,
+        640
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.64 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -211,7 +237,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.64,
         0.64,
@@ -224,7 +250,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -239,7 +265,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.491,
@@ -252,7 +278,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -267,7 +293,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -280,7 +306,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -295,7 +321,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.49,
@@ -308,7 +334,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -361,7 +387,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès les premières pages et répété dans plusieurs sections. Le langage souligne sa nature critique : 'a significant portion of our earnings' dépend du Floor Income. La catégorie Capital est hautement pondérée. Le risque est stable vs N-1.",
       "trend": "stable",
-      "summary": "Une grande partie des bénéfices provient du revenu de plancher sur les prêts à taux fixe, qui diminue si les taux d'intérêt montent."
+      "summary": "Une grande partie des bénéfices provient du revenu de plancher sur les prêts à taux fixe, qui diminue si les taux d'intérêt montent.",
+      "score": 5
     },
     {
       "title": "Exposition aux taux d'intérêt",
@@ -369,7 +396,8 @@
       "severity": 5,
       "score_rationale": "Présenté comme un risque majeur dans Item 7A, avec une exposition directe aux variations des taux SOFR/Treasuries. L'entreprise détient des actifs à taux fixe financés par dettes à taux variable. Le langage est technique et alarmant. Catégorie Capital = pondération élevée. Stable vs N-1.",
       "trend": "stable",
-      "summary": "Des hausses de taux d'intérêt réduisent le revenu de plancher et augmentent le coût de la dette, pesant sur la rentabilité."
+      "summary": "Des hausses de taux d'intérêt réduisent le revenu de plancher et augmentent le coût de la dette, pesant sur la rentabilité.",
+      "score": 5
     },
     {
       "title": "Concentration du portefeuille sur prêts éducationnels fédéraux",
@@ -377,7 +405,8 @@
       "severity": 4,
       "score_rationale": "Le portefeuille est dominé par des prêts FFELP, un programme fermé en 2010. Le risque est cité explicitement dans Item 1A. Langage : 'limited growth opportunities'. Moins existentiel que le risque de taux, mais structurel. Stable vs N-1.",
       "trend": "stable",
-      "summary": "L'entreprise dépend de prêts d'un programme terminé, limitant la croissance future et augmentant le risque de décroissance organique."
+      "summary": "L'entreprise dépend de prêts d'un programme terminé, limitant la croissance future et augmentant le risque de décroissance organique.",
+      "score": 4
     },
     {
       "title": "Risques liés aux contrats de revenu de plancher",
@@ -385,7 +414,8 @@
       "severity": 4,
       "score_rationale": "Les Floor Income Contracts sont marqués comme non couverts selon ASC 815, donc les variations de juste valeur impactent directement le résultat. Mentionné dans les notes et Item 1A. Langage : 'volatility in earnings'. Catégorie Capital = forte pondération. Stable vs N-1.",
       "trend": "stable",
-      "summary": "Les contrats verrouillant le revenu de plancher créent une volatilité comptable car leur juste valeur est reprise chaque trimestre dans les résultats."
+      "summary": "Les contrats verrouillant le revenu de plancher créent une volatilité comptable car leur juste valeur est reprise chaque trimestre dans les résultats.",
+      "score": 4
     },
     {
       "title": "Réglementation fédérale et risque politique",
@@ -393,7 +423,8 @@
       "severity": 4,
       "score_rationale": "Le secteur est hautement régulé (ED, HEA, HCERA). Le texte mentionne des changements passés (réforme 2010) et le risque de futurs ajustements. Langage : 'subject to extensive regulation'. Catégorie Régulation = pondération élevée. L'intensité est élevée, stable vs N-1.",
       "trend": "stable",
-      "summary": "Des changements réglementaires ou politiques pourraient affecter les garanties, les paiements ou la structure des prêts existants."
+      "summary": "Des changements réglementaires ou politiques pourraient affecter les garanties, les paiements ou la structure des prêts existants.",
+      "score": 4
     },
     {
       "title": "Risques de crédit sur prêts privés",
@@ -401,7 +432,8 @@
       "severity": 3,
       "score_rationale": "Les prêts privés n'ont pas de garantie fédérale. Le risque est mentionné dans Item 1A mais avec un ton mitigé : 'low default rates expected'. Catégorie Crédit = pondération moyenne. Le langage est moins alarmant que pour d'autres risques.",
       "trend": "stable",
-      "summary": "Les prêts privés supportent l'intégralité du risque de défaut, mais le profil des emprunteurs est solide, limitant le risque."
+      "summary": "Les prêts privés supportent l'intégralité du risque de défaut, mais le profil des emprunteurs est solide, limitant le risque.",
+      "score": 3
     },
     {
       "title": "Cybersécurité et protection des données",
@@ -409,7 +441,8 @@
       "severity": 3,
       "score_rationale": "Abordé dans Item 1C, avec reconnaissance des menaces persistantes. Langage : 'could result in financial loss or reputational damage'. Catégorie Cybersécurité = pondération moyenne. Mention plus récente, mais pas de langage alarmant. Stable vs N-1.",
       "trend": "stable",
-      "summary": "En tant que société de services financiers, elle est exposée aux cyberattaques pouvant compromettre des données sensibles ou perturber les opérations."
+      "summary": "En tant que société de services financiers, elle est exposée aux cyberattaques pouvant compromettre des données sensibles ou perturber les opérations.",
+      "score": 3
     }
   ],
   "governance": {
@@ -480,7 +513,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:20:32Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -494,7 +527,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:32Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:18Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Services financiers",
   "enrich_description": {
     "ticker": "NAVI",
@@ -603,9 +636,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.286946+00:00",
     "fetched_at": "2026-05-21T02:17:14.286946+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.786Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.695Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/navi.json",
     "enrich_root": "v2-pipeline-enrich/navi.json",

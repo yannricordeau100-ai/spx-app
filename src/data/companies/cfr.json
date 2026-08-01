@@ -89,36 +89,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.24 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:03.952720+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.65,
-      "unit": "Mds €",
+      "value": 650,
+      "unit": "M €",
       "yoy": "+12.1%",
       "history": [
-        0.58,
-        0.6,
-        0.58,
-        0.65
+        580,
+        600,
+        580,
+        650
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.65 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -137,11 +146,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 9.92 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -160,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 53.04 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -183,10 +200,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 8.86 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -222,16 +243,16 @@
       "title": "Risque de taux d'intérêt",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La société est exposée au risque de taux d'intérêt, ce qui impacte son revenu net d'intérêts. Les simulations montrent qu'une fluctuation de 100 points de base entraînerait une variation de 1,5% du revenu net d'intérêts, et 200 points de base une variation de 3,0%. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de taux d'intérêt, ce qui impacte son revenu net d'intérêts. Les simulations montrent qu'une fluctuation de 100 points de base entraînerait une variation de 1,5% du revenu net d'intérêts, et 200 points de base une variation de 3,0%.",
       "trend": "stable",
       "summary": "La société est exposée au risque de taux d'intérêt, ce qui peut impacter son revenu net d'intérêts à travers les risques de repricing, d'option et de base.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "La société est exposée au risque de liquidité, ce qui peut impacter sa capacité à répondre aux demandes de retrait de fonds et à gérer ses passifs à court terme. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de liquidité, ce qui peut impacter sa capacité à répondre aux demandes de retrait de fonds et à gérer ses passifs à court terme.",
       "trend": "stable",
       "summary": "La société est exposée au risque de liquidité, ce qui peut impacter sa capacité à répondre aux demandes de retrait de fonds.",
       "score": 3
@@ -240,25 +261,25 @@
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société est exposée au risque de crédit sur son portefeuille de prêts de 21,9 milliards de dollars. Les provisions pour pertes de crédit atteignent 281,5 millions de dollars sur les prêts et 51,3 millions sur les engagements non financés. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de crédit sur son portefeuille de prêts de 21,9 milliards de dollars. Les provisions pour pertes de crédit atteignent 281,5 millions de dollars sur les prêts et 51,3 millions sur les engagements non financés.",
       "trend": "stable",
       "summary": "La société est exposée au risque de crédit, ce qui peut impacter la qualité de ses actifs et son revenu net d'intérêts.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de marché",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "La société est exposée au risque de marché, ce qui peut impacter la valeur de ses actifs et son revenu net d'intérêts. Les fluctuations des taux d'intérêt et des prix des actions peuvent avoir un impact significatif. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de marché, ce qui peut impacter la valeur de ses actifs et son revenu net d'intérêts. Les fluctuations des taux d'intérêt et des prix des actions peuvent avoir un impact significatif.",
       "trend": "stable",
       "summary": "La société est exposée au risque de marché, ce qui peut impacter la valeur de ses actifs et son revenu net d'intérêts.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de réglementation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est exposée au risque de réglementation, notamment concernant la protection des données, la confidentialité et les interdictions fédérales sur les intérêts des dépôts à vue, qui peuvent impacter ses activités. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de réglementation, notamment concernant la protection des données, la confidentialité et les interdictions fédérales sur les intérêts des dépôts à vue, qui peuvent impacter ses activités.",
       "trend": "stable",
       "summary": "La société est exposée au risque de réglementation, ce qui peut impacter ses activités et son revenu net d'intérêts.",
       "score": 3
@@ -267,7 +288,7 @@
       "title": "Risque opérationnel",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société est exposée au risque opérationnel liée à la gestion des données clients, la protection des informations sensibles et la conformité aux lois sur la confidentialité. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque opérationnel liée à la gestion des données clients, la protection des informations sensibles et la conformité aux lois sur la confidentialité.",
       "trend": "stable",
       "summary": "La société est exposée au risque opérationnel, ce qui peut impacter ses activités et sa réputation.",
       "score": 3
@@ -492,6 +513,58 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CFR",
+    "extracted_at": "2026-06-01T03:05:42Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Net Interest Income",
+        "period_type": "quarter",
+        "history": [
+          240.881,
+          257.156,
+          246.122,
+          249.071,
+          288.208,
+          355.547,
+          399.82,
+          385.266,
+          385.426,
+          390.051,
+          396.712,
+          404.331,
+          416.22,
+          429.604,
+          441.618
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CFR",
     "ranks": {
@@ -504,7 +577,7 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.237897+00:00",
     "fetched_at": "2026-05-21T02:17:14.237898+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
   "enrich_sw": {
     "ticker": "CFR.SW",
@@ -521,7 +594,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Versement régulier",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+        "description": "Historique 5 ans (2021-2025). ex-div dates.",
         "history": [
           2,
           3.25,
@@ -534,7 +607,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+        "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
         "signal_en": "Shareholder returns growing, dividend policy supportive"
       },
       {
@@ -549,7 +622,7 @@
         "nature": "Récurrent",
         "comparable": "Spécifique",
         "signal": "Politique de retour aux actionnaires",
-        "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. Source yfinance cashflow.",
+        "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. cashflow.",
         "history": [
           null,
           1.041,
@@ -562,7 +635,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+        "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
         "signal_en": "Cash position eroding, monitor liquidity"
       },
       {
@@ -577,7 +650,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Soutenabilité du dividende",
-        "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+        "description": "Dividendes / résultat net (2021-2025).",
         "history": [
           null,
           50.19,
@@ -590,7 +663,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+        "explanation_en": "Payout Ratio, dividends paid divided by net income.",
         "signal_en": "Dividend cut risk, monitor payout sustainability"
       },
       {
@@ -606,7 +679,7 @@
         "comparable": "Comparable",
         "compare_key": "eps_diluted",
         "signal": "Capacité bénéficiaire par action",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+        "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
         "history": [
           null,
           3.611,
@@ -619,24 +692,52 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+        "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
         "signal_en": "Solid expansion, positive trajectory"
+      },
+      {
+        "short": "jewellery_maisons_sales",
+        "name_fr": "Ventes Maisons de Joaillerie",
+        "name_en": "Jewellery Maisons Sales",
+        "unit": "M€",
+        "period_type": "year",
+        "history": [
+          5927,
+          6452,
+          7083,
+          7217,
+          7459,
+          11083,
+          13427,
+          14242
+        ],
+        "value": 14242,
+        "last_data_date": "2024-03-31",
+        "type": "Demand",
+        "nature": "Structurel",
+        "comparable": "Comparable",
+        "signal": "Cartier, Van Cleef & Arpels et Buccellati ont presque double leurs ventes depuis l'exercice 2020.",
+        "is_wow": true,
+        "yoy": "+6,1 %"
       }
     ],
     "_dividends_extracted_at": "2026-05-09T20:22:34Z",
-    "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+    "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
     "_dividends_currency": "CHF",
     "_eps_extracted_at": "2026-05-18T16:44:13Z",
-    "_eps_source": "yfinance income_stmt Diluted EPS",
-    "subsector_fr": "Produits de luxe"
+    "_eps_source": "rapport financier income_stmt Diluted EPS",
+    "subsector_fr": "Produits de luxe",
+    "hero_kpi_override": "jewellery_maisons_sales",
+    "_hero_kpi_override_reason": "jewellery_maisons_sales = revenu specifique principal (agent verbatim)"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.313Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.752Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cfr.json",
     "enrich_root": "v2-pipeline-enrich/cfr.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks",
       "sw"
     ]

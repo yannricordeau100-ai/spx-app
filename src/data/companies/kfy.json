@@ -55,7 +55,11 @@
         "factor": 1000000000
       },
       "explanation_en": "Profit margin on Net Income.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Adjusted EBITDA",
@@ -75,7 +79,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items."
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items."
     },
     {
       "short": "Fee Revenue from Multi-Solution Clients",
@@ -194,7 +198,7 @@
   ],
   "stories_kpis": [],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "Korn Ferry mentionne l'utilisation d'outils d'IA et d'apprentissage automatique dans son contexte opérationnel, notamment dans la plateforme RPO pour l'amélioration de l'efficacité et de la qualité du recrutement. Cependant, l'entreprise ne positionne pas l'IA comme un moteur stratégique de croissance ou une offre client distincte.",
     "evidence": [
       "Advanced technology and AI-driven tools are used to enhance the platform to drive scale, efficiency, and quality in RPO services",
@@ -209,7 +213,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise a investi dans des outils de sécurité reconnus au niveau de l'industrie, avec une équipe de sécurité mondiale dirigée par un cadre expérimenté ayant plus de 20 ans d'expérience en cybersécurité. Cependant, opérant avec 10 milliards de points de données sensibles, elle reste exposée à des risques cybernétiques importants.",
       "trend": "stable",
-      "summary": "L'entreprise dispose de mesures de sécurité robustes incluant tests de pénétration externes, évaluations de vulnérabilités et audits externes, mais la menace cybernétique est persistante."
+      "summary": "L'entreprise dispose de mesures de sécurité robustes incluant tests de pénétration externes, évaluations de vulnérabilités et audits externes, mais la menace cybernétique est persistante.",
+      "score": 4
     },
     {
       "title": "Régulation et conformité",
@@ -217,7 +222,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise opère dans un environnement réglementaire complexe couvrant la protection des données, la confidentialité et les lois sur la protection des données dans plus de 160 pays. L'évolution des exigences réglementaires pourrait augmenter les coûts de conformité.",
       "trend": "up",
-      "summary": "L'entreprise doit se conformer à des réglementations de plus en plus strictes en matière de protection des données et de confidentialité, ce qui pourrait impacter la profitabilité."
+      "summary": "L'entreprise doit se conformer à des réglementations de plus en plus strictes en matière de protection des données et de confidentialité, ce qui pourrait impacter la profitabilité.",
+      "score": 3
     },
     {
       "title": "Concurrence de marché",
@@ -225,7 +231,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise opère dans un marché de conseil hautement concurrentiel avec de nombreux acteurs mondiaux. La concurrence pourrait exercer une pression sur les tarifs et les parts de marché.",
       "trend": "stable",
-      "summary": "L'intensité compétitive sur le marché du conseil pourrait affecter la capacité à maintenir les niveaux de prix et les marges."
+      "summary": "L'intensité compétitive sur le marché du conseil pourrait affecter la capacité à maintenir les niveaux de prix et les marges.",
+      "score": 4
     },
     {
       "title": "Conditions économiques et demande de services",
@@ -233,7 +240,8 @@
       "severity": 4,
       "score_rationale": "La demande pour les services de conseil et de talent est sensible aux cycles économiques. Les ralentissements économiques mondiaux, l'inflation et les tensions géopolitiques pourraient réduire les dépenses des clients.",
       "trend": "up",
-      "summary": "Les développements politiques et économiques mondiaux, y compris l'inflation et les récessions, constituent des risques significatifs pour la demande future."
+      "summary": "Les développements politiques et économiques mondiaux, y compris l'inflation et les récessions, constituent des risques significatifs pour la demande future.",
+      "score": 4
     },
     {
       "title": "Intégration d'acquisition et perturbations organisationnelles",
@@ -241,7 +249,8 @@
       "severity": 3,
       "score_rationale": "L'acquisition récente de Trilogy International crée des risques d'intégration et de perturbation organisationnelle qui pourraient affecter les performances et les relations clients.",
       "trend": "stable",
-      "summary": "L'intégration de Trilogy et les changements organisationnels résultants pourraient impacter la continuité opérationnelle et l'engagement des employés."
+      "summary": "L'intégration de Trilogy et les changements organisationnels résultants pourraient impacter la continuité opérationnelle et l'engagement des employés.",
+      "score": 3
     }
   ],
   "governance": {
@@ -441,11 +450,9 @@
           74.823,
           150.595,
           234.696,
-          -133.754,
           77.247,
           150.788,
           162.035,
-          -180.541,
           46.605,
           44.894,
           103.965,
@@ -453,7 +460,6 @@
           62.604,
           123.404,
           181.818,
-          -121.764,
           66.636,
           139.035,
           204.3
@@ -509,6 +515,12 @@
             "accession": "0000056679-26-000009",
             "end": "2026-01-31"
           }
+        ],
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (KFY)"
         ]
       }
     ]
@@ -525,9 +537,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.273288+00:00",
     "fetched_at": "2026-05-21T02:17:14.273289+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.764Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.504Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kfy.json",
     "enrich_root": null,

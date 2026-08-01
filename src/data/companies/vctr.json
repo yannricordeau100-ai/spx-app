@@ -39,9 +39,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Données vérifiées conformes au 10-K",
-      "period_type": "quarter",
-      "explanation_en": "Assets Under Management — total client assets managed by the firm.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "period_type": "year",
+      "explanation_en": "Assets Under Management, total client assets managed by the firm.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Flows",
@@ -89,7 +92,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Données vérifiées conformes au 10-K",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -169,24 +172,24 @@
         "diff_pct": 61.2,
         "reason": "kept_original_likely_pollution_or_unit"
       },
-      "explanation_en": "Total Employees — total number of employees at period end."
+      "explanation_en": "Total Employees, total number of employees at period end."
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.33,
-      "unit": "Mds $",
+      "value": 330,
+      "unit": "M $",
       "yoy": "+14.2%",
       "history": [
-        0.064,
-        0.092,
-        0.213,
-        0.278,
-        0.276,
-        0.213,
-        0.289,
-        0.33
+        64,
+        92,
+        213,
+        278,
+        276,
+        213,
+        289,
+        330
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -195,25 +198,30 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.478,
-      "unit": "Mds $",
+      "value": 478,
+      "unit": "M $",
       "yoy": "+11.7%",
       "history": [
-        0.115,
-        0.165,
-        0.315,
-        0.374,
-        0.399,
-        0.328,
-        0.428,
-        0.478
+        115,
+        165,
+        315,
+        374,
+        399,
+        328,
+        428,
+        478
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -222,8 +230,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -237,7 +250,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.53,
         1,
@@ -250,7 +263,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -265,7 +278,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1704,
@@ -278,7 +291,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -293,7 +306,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         25.12,
@@ -306,7 +319,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -322,7 +335,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.81,
@@ -335,7 +348,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -403,7 +416,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne la cybersécurité comme un risque important, avec un plan de réponse aux incidents et une équipe de sécurité dédiée.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de cybersécurité, mais a mis en place des mesures pour les atténuer."
+      "summary": "La société est exposée à des risques de cybersécurité, mais a mis en place des mesures pour les atténuer.",
+      "score": 4
     },
     {
       "title": "Régulation",
@@ -411,7 +425,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations strictes, notamment en matière de protection des données et de sécurité financière.",
       "trend": "up",
-      "summary": "La société doit se conformer à des réglementations de plus en plus strictes, ce qui peut impacter son activité."
+      "summary": "La société doit se conformer à des réglementations de plus en plus strictes, ce qui peut impacter son activité.",
+      "score": 3
     },
     {
       "title": "Concurrence",
@@ -419,7 +434,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un secteur très concurrentiel, avec de nombreux acteurs et une pression sur les prix.",
       "trend": "up",
-      "summary": "La société doit faire face à une concurrence accrue, ce qui peut impacter son part de marché et ses revenus."
+      "summary": "La société doit faire face à une concurrence accrue, ce qui peut impacter son part de marché et ses revenus.",
+      "score": 4
     },
     {
       "title": "Litige",
@@ -427,7 +443,8 @@
       "severity": 2,
       "score_rationale": "La société peut être exposée à des litiges avec des clients ou des partenaires, ce qui peut impacter sa réputation et ses finances.",
       "trend": "stable",
-      "summary": "La société peut être impliquée dans des litiges, mais cela ne semble pas être un risque majeur pour l'instant."
+      "summary": "La société peut être impliquée dans des litiges, mais cela ne semble pas être un risque majeur pour l'instant.",
+      "score": 2
     },
     {
       "title": "Réputation",
@@ -435,7 +452,8 @@
       "severity": 4,
       "score_rationale": "La société doit maintenir une réputation positive pour attirer et conserver des clients, ce qui peut être impacté par des événements négatifs.",
       "trend": "stable",
-      "summary": "La société doit protéger sa réputation, car un événement négatif peut avoir des conséquences importantes sur son activité."
+      "summary": "La société doit protéger sa réputation, car un événement négatif peut avoir des conséquences importantes sur son activité.",
+      "score": 4
     },
     {
       "title": "Géopolitique",
@@ -443,7 +461,8 @@
       "severity": 3,
       "score_rationale": "La société opère à l'international, ce qui la expose à des risques géopolitiques, notamment en matière de stabilité politique et économique.",
       "trend": "up",
-      "summary": "La société doit prendre en compte les risques géopolitiques, car des événements politiques ou économiques peuvent impacter son activité à l'international."
+      "summary": "La société doit prendre en compte les risques géopolitiques, car des événements politiques ou économiques peuvent impacter son activité à l'international.",
+      "score": 3
     }
   ],
   "governance": {
@@ -470,7 +489,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -586,7 +605,7 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.186Z",
   "_dividends_extracted_at": "2026-05-09T20:20:21Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2017,
@@ -607,7 +626,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:38Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:08Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Gestion d'actifs",
   "enrich_description": {
     "ticker": "VCTR",
@@ -708,23 +727,18 @@
         "history": [
           134.472,
           208.647,
-          -129.932,
           71.273,
           150.478,
           223.242,
-          -169.482,
           49.273,
           105.944,
           157.951,
-          -100.011,
           55.691,
           129.942,
           211.925,
-          -108.694,
           61.975,
           120.709,
           217.25,
-          -69.872,
           112.14
         ],
         "history_periods": [
@@ -778,6 +792,12 @@
             "accession": "0001193125-26-210575",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (VCTR)"
         ]
       }
     ]
@@ -794,9 +814,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.324659+00:00",
     "fetched_at": "2026-05-21T02:17:14.324660+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.103Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.213Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vctr.json",
     "enrich_root": "v2-pipeline-enrich/vctr.json",

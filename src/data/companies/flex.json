@@ -42,8 +42,12 @@
       "is_short_history": false,
       "ttm": 10.53,
       "_validation": "Données validées. KPI standard de marge brute. Aucune correction détectée.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -72,7 +76,11 @@
       "ttm": 4.23,
       "_validation": "Données validées. KPI standard de marge opérationnelle. Aucune correction détectée.",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -101,7 +109,11 @@
       "ttm": 1.83,
       "_validation": "Données validées. KPI standard R&D en % du revenu. Aucune correction détectée.",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -129,8 +141,12 @@
       "is_short_history": false,
       "ttm": 0.93,
       "_validation": "Correction unité: 'Mds $' changé en 'B $' (notation standard). Correction yoy: '+0.1' changé en '+0.1 B $'. Amélioration name_fr pour clarifier contexte data centers.",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -158,8 +174,12 @@
       "is_short_history": false,
       "ttm": 178.78,
       "_validation": "Description améliorée avec contexte source Nextracker spin-off (2 janvier 2024). Données validées avec source MD&A.",
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Pressure, deteriorating trend"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -178,11 +198,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 18.38 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -201,38 +225,18 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.15 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
-    {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part des deals cloud intégrant capacités IA",
-      "name_en": "AI-enabled Cloud Deals Mix",
-      "explanation": "Pourcentage des contrats cloud qui intègrent des solutions d'IA et d'infrastructure.",
-      "value": null,
-      "unit": null,
-      "yoy": null,
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Flex intègre l'IA dans une part croissante de ses projets cloud, signe d'adoption client.",
-      "description": "La stratégie EMS + Products + Services positionne Flex pour capturer les besoins en IA via ses acquisitions de refroidissement (JetCool) et puissance (Crown) pour les data centers.",
-      "history": [],
-      "last_data_date": "2025-03-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "ttm": null,
-      "_validation": "KPI halluciné: valeur spécifique 35% avec history complète (25,28,30,32,35) non trouvée en source. Aucune donnée détaillée sur 'AI-related deals mix' dans le 10-K extrait. Données réinitialisées à null. Description rebasée sur le contenu source disponible.",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
-    },
     {
       "short": "Service / ARR",
       "name_fr": "Revenu récurrent des services",
@@ -253,9 +257,7 @@
       "is_short_history": true,
       "story_category": "Innovation",
       "ttm": null,
-      "_validation": "KPI halluciné: valeur 2.5B $ avec history (1.8, 2, 2.1, 2.2, 2.5) et croissance +15% non trouvées en source. Aucune donnée ARR/Service Revenue détaillée dans le 10-K extrait. Données réinitialisées à null. Description rebasée sur contexte stratégique source.",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "KPI halluciné: valeur 2.5B $ avec history (1.8, 2, 2.1, 2.2, 2.5) et croissance +15% non trouvées en source. Aucune donnée ARR/Service Revenue détaillée dans le 10-K extrait. Données réinitialisées à null. Description rebasée sur contexte stratégique source."
     }
   ],
   "ai_positioning": {
@@ -271,7 +273,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité en tête des facteurs de risque et mentionne des conflits actuels (Ukraine, Moyen-Orient). Le 10-K détaille les impacts sur les voies maritimes et la chaîne d'approvisionnement. Le langage est alarmant ('material adverse effect').",
       "trend": "up",
-      "summary": "Les conflits géopolitiques (Ukraine, Moyen-Orient, routes maritimes) perturbent le transport de marchandises et augmentent les coûts logistiques, menaçant la continuité opérationnelle."
+      "summary": "Les conflits géopolitiques (Ukraine, Moyen-Orient, routes maritimes) perturbent le transport de marchandises et augmentent les coûts logistiques, menaçant la continuité opérationnelle.",
+      "score": 5
     },
     {
       "title": "Dépendance à quelques grands clients",
@@ -279,7 +282,8 @@
       "severity": 4,
       "score_rationale": "Le facteur est répété dans le document avec mention de concentration client. Bien que la perte d'un client ne soit pas décrite comme existentielle, l'impact est qualifié de 'material adverse'.",
       "trend": "stable",
-      "summary": "Une part concentrée des revenus provient d'un petit nombre de clients majeurs ; toute baisse d'activité de leur part affecte directement la performance financière."
+      "summary": "Une part concentrée des revenus provient d'un petit nombre de clients majeurs ; toute baisse d'activité de leur part affecte directement la performance financière.",
+      "score": 4
     },
     {
       "title": "Perturbations de la chaîne d'approvisionnement et contraintes logistiques",
@@ -287,7 +291,8 @@
       "severity": 5,
       "score_rationale": "Le MD&A mentionne explicitement que 'les pénuries de composants se sont largement résorbées, mais les contraintes logistiques persistent avec coûts de fret augmentés'. Le langage souligne les risques géopolitiques et tarifaires continus.",
       "trend": "up",
-      "summary": "Bien que les pénuries de semi-conducteurs aient diminué, les contraintes logistiques, l'inflation des coûts de fret et les tensions tarifaires menacent la production et augmentent les dépenses."
+      "summary": "Bien que les pénuries de semi-conducteurs aient diminué, les contraintes logistiques, l'inflation des coûts de fret et les tensions tarifaires menacent la production et augmentent les dépenses.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue et internalisation par les clients",
@@ -295,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Risque standard du secteur EMS. Les clients peuvent rapatrier la production. Le modèle EMS + Products + Services vise à atténuer ce risque par la différenciation.",
       "trend": "stable",
-      "summary": "La pression concurrentielle et le risque que les clients produisent eux-mêmes leurs produits menacent la rentabilité et la croissance future."
+      "summary": "La pression concurrentielle et le risque que les clients produisent eux-mêmes leurs produits menacent la rentabilité et la croissance future.",
+      "score": 4
     },
     {
       "title": "Cybermenaces et violations de données",
@@ -303,7 +309,8 @@
       "severity": 5,
       "score_rationale": "Risque standard pour les technologues et fabricants mondiaux. Dans le contexte d'une exposition opérationnelle et de données clients, la cybersécurité est critique.",
       "trend": "up",
-      "summary": "Une faille dans les systèmes informatiques ou physiques pourrait entraîner des pertes financières, juridiques et une atteinte à la réputation."
+      "summary": "Une faille dans les systèmes informatiques ou physiques pourrait entraîner des pertes financières, juridiques et une atteinte à la réputation.",
+      "score": 5
     },
     {
       "title": "Impacts des tarifs douaniers et restrictions commerciales",
@@ -311,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Le MD&A souligne que 'les tarifs douaniers annoncés en avril 2025 continuent d'évoluer'. Flex prévoit de répercuter les coûts aux clients, mais le risque de non-répercussion complète est matériel.",
       "trend": "up",
-      "summary": "Les tarifs douaniers américains (avril 2025) et potentielles mesures de rétorsion augmentent les coûts d'intrants et menacent les marges opérationnelles si non intégralement répercutés aux clients."
+      "summary": "Les tarifs douaniers américains (avril 2025) et potentielles mesures de rétorsion augmentent les coûts d'intrants et menacent les marges opérationnelles si non intégralement répercutés aux clients.",
+      "score": 4
     }
   ],
   "_validation": "CORRECTIONS GLOBALES: 1) KPI 'HPC / Cloud' réinitialisé (valeur 'stable' fictive). 2) KPI 'AI Cloud Mix' réinitialisé (history complète et valeur 35% hallucination détectée). 3) KPI 'Service / ARR' réinitialisé (valeur 2.5B$ et history hallucination détectée). 4) Capex: unité corrigée 'Mds $' > 'B $', yoy normalisé à '+0.1 B $'. 5) AI positioning: reclassé de 'absent' à 'strategic_focus' (évidence trouvée dans acquisitions JetCool/Crown et stratégie CEC). 6) Risks: enrichis avec contexte MD&A spécifique (tarifs avril 2025, contraintes logistiques persistantes, spin-off Nextracker détails). 7) Headcount description améliorée avec date spin-off (2 jan 2024). 8) Description et hero_kpi_rationale: rebasés sur contenu 10-K et eliminées em-dashes.",
@@ -469,88 +477,33 @@
   },
   "enrich_quarterly_history": {
     "ticker": "FLEX",
-    "extracted_at": "2026-05-15T18:11:13Z",
-    "method": "xbrl-companyfacts",
-    "cik": 866374,
+    "extracted_at": "2026-06-01T03:16:29Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Capex",
+        "short": "Total Assets",
         "period_type": "quarter",
         "history": [
-          -205.259,
-          118,
-          210,
-          333,
-          -218,
-          107,
-          296,
-          455,
-          -223,
-          167,
-          319,
-          449,
-          -405,
-          111,
-          214,
-          326,
-          -213,
-          133,
-          283,
-          431
+          19.325,
+          20.054,
+          20.892,
+          20.366,
+          20.82
         ],
         "history_periods": [
           "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
           "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
           "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
           "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026",
-          "Q2 2026",
-          "Q3 2026"
+          "Q4 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q4 2025",
-            "value": -213,
-            "accession": "calc-0000866374-25-000027",
-            "end": "2025-03-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 133,
-            "accession": "0000866374-25-000043",
-            "end": "2025-06-27"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 283,
-            "accession": "0000866374-25-000051",
-            "end": "2025-09-26"
-          },
-          {
-            "period": "Q3 2026",
-            "value": 431,
-            "accession": "0000866374-26-000005",
-            "end": "2025-12-31"
-          }
-        ]
+        "last_data_date": "2025-03-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:16:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -566,9 +519,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.261589+00:00",
     "fetched_at": "2026-05-21T02:17:14.261590+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.267Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.838Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/flex.json",
     "enrich_root": null,

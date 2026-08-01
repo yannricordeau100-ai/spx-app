@@ -1,6 +1,6 @@
 {
   "ticker": "HXL",
-  "name": "Hexcel Corporation",
+  "name": "Hexcel",
   "sector": "Matériaux",
   "subsector": "Advanced Composites",
   "tagline": "Hexcel Corporation is a leading global manufacturer of advanced composites for aerospace, defense, and industrial applications.",
@@ -78,7 +78,11 @@
       "ttm": 0.2,
       "_validation": "Correction unité: Mds $ vers B $; correction date",
       "explanation_en": "Revenue from the Industrial Segment segment.",
-      "signal_en": "Revenue stable, monitor outlook"
+      "signal_en": "Revenue stable, monitor outlook",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -106,8 +110,12 @@
       "is_short_history": false,
       "ttm": 21.15,
       "_validation": "Correction date; KPI générique marqué mais conservé",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Margin",
@@ -135,8 +143,12 @@
       "is_short_history": false,
       "ttm": 9.27,
       "_validation": "Correction date; KPI générique",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D as % Revenue",
@@ -165,7 +177,11 @@
       "ttm": 5.58,
       "_validation": "Correction date; amélioration name_fr (parenthèses au lieu de tiret)",
       "explanation_en": "Revenue from the R&D as % segment.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capital Expenditures",
@@ -193,7 +209,11 @@
       "is_short_history": false,
       "ttm": 0.14,
       "_validation": "Suppression label erroné 'semi : fabs'; correction unité Mds vers B $; amélioration name_fr; correction date",
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Employees",
@@ -221,8 +241,12 @@
       "is_short_history": false,
       "ttm": 5.65,
       "_validation": "Correction type Investment vers Headcount; correction date; amélioration name_fr",
-      "explanation_en": "Total Employees — total number of employees at period end.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Total Employees, total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -241,11 +265,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.7 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -269,27 +297,6 @@
       "is_short_history": true,
       "story_category": "Adoption",
       "_validation": "KPI halluciner détecté: Hexcel ne mention pas d'IA selon ai_positioning.summary et la nature manufacturière de l'entreprise"
-    },
-    {
-      "short": "AI API Call Volume",
-      "name_fr": "Volume d'appels API IA",
-      "name_en": "AI API Call Volume",
-      "explanation": "Volume d'appels aux APIs IA.",
-      "value": null,
-      "unit": "Millions",
-      "yoy": null,
-      "type": "Adoption",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Utilisation accrue des services IA.",
-      "description": "KPI halluciner: Hexcel est une entreprise manufacturière de composites, sans activité d'APIs ou de services IA.",
-      "history": [],
-      "last_data_date": null,
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_validation": "KPI halluciner détecté; correction unité Milliards vers Millions pour cohérence; KPI à supprimer"
     }
   ],
   "ai_positioning": {
@@ -305,7 +312,8 @@
       "severity": 4,
       "score_rationale": "Le segment aérospatial génère plus de 85% des revenus. Les cycles de développement des avions et les budgets de défense créent une forte dépendance à ces marchés clés. Un ralentissement de la demande affecterait directement la profitabilité.",
       "trend": "stable",
-      "summary": "La performance d'Hexcel dépend fortement de la demande dans les secteurs aérospatial et défense. Des ralentissements économiques, des réductions de budgets de défense ou des perturbations dans les programmes aéronautiques pourraient impacter significativement les ventes et la rentabilité."
+      "summary": "La performance d'Hexcel dépend fortement de la demande dans les secteurs aérospatial et défense. Des ralentissements économiques, des réductions de budgets de défense ou des perturbations dans les programmes aéronautiques pourraient impacter significativement les ventes et la rentabilité.",
+      "score": 4
     },
     {
       "title": "Exposition géographique et risques géopolitiques",
@@ -313,7 +321,8 @@
       "severity": 3,
       "score_rationale": "Hexcel opère 16 installations manufacturières dans 8 pays (États-Unis, France, Allemagne, Espagne, Angleterre, Maroc). Les tensions géopolitiques, notamment en Europe, et les risques réglementaires varient par région.",
       "trend": "stable",
-      "summary": "L'entreprise opère dans plusieurs pays, ce qui l'expose à des risques politiques, réglementaires et économiques variés. Les fluctuations de devises, les changements réglementaires et l'instabilité politique dans les zones de production pourraient affecter les coûts et la continuité opérationnelle."
+      "summary": "L'entreprise opère dans plusieurs pays, ce qui l'expose à des risques politiques, réglementaires et économiques variés. Les fluctuations de devises, les changements réglementaires et l'instabilité politique dans les zones de production pourraient affecter les coûts et la continuité opérationnelle.",
+      "score": 3
     },
     {
       "title": "Stratégie de restructuration et fermetures d'usines",
@@ -321,7 +330,8 @@
       "severity": 3,
       "score_rationale": "Le document mentionne la fermeture d'une usine en Belgique et la cession d'activités en Autriche en 2025. Ces actions entraînent des coûts de restructuration et des risques opérationnels à court terme.",
       "trend": "up",
-      "summary": "Les décisions de fermer des sites manufacturiers ou de céder des actifs impliquent des coûts de restructuration, des pertes d'actifs et des perturbations temporaires de production. Ces transitions peuvent affecter l'efficacité opérationnelle et les marges."
+      "summary": "Les décisions de fermer des sites manufacturiers ou de céder des actifs impliquent des coûts de restructuration, des pertes d'actifs et des perturbations temporaires de production. Ces transitions peuvent affecter l'efficacité opérationnelle et les marges.",
+      "score": 3
     },
     {
       "title": "Complexité de la chaîne d'approvisionnement",
@@ -329,7 +339,8 @@
       "severity": 4,
       "score_rationale": "Hexcel fabrique des précurseurs de fibres de carbone et des préimprégnés, nécessitant une chaîne d'approvisionnement complexe. Les matières premières (résines, fibres, précurseurs) sont critiques et potentiellement sujettes à des perturbations.",
       "trend": "stable",
-      "summary": "Des perturbations dans l'approvisionnement en matières premières critiques, notamment les résines et les fibres de carbone, ou des problèmes logistiques pourraient affecter la production et la livraison des produits finis au secteur aérospatial."
+      "summary": "Des perturbations dans l'approvisionnement en matières premières critiques, notamment les résines et les fibres de carbone, ou des problèmes logistiques pourraient affecter la production et la livraison des produits finis au secteur aérospatial.",
+      "score": 4
     },
     {
       "title": "Programmes de rachat d'actions et allocation du capital",
@@ -337,7 +348,8 @@
       "severity": 2,
       "score_rationale": "Hexcel a mis en place des programmes de rachat d'actions importants (300M et 600M $) incluant des accords de rachat accéléré (ASR). Bien que courants, ces opérations absorbent du capital qui pourrait être réinvesti en R&D ou en équipements.",
       "trend": "stable",
-      "summary": "Les programmes de rachat d'actions, notamment via des accords accélérés, absorbent du capital et engagent des obligations futures. Cette stratégie doit être équilibrée avec les besoins en investissements d'équipement et de R&D pour maintenir la compétitivité technologique."
+      "summary": "Les programmes de rachat d'actions, notamment via des accords accélérés, absorbent du capital et engagent des obligations futures. Cette stratégie doit être équilibrée avec les besoins en investissements d'équipement et de R&D pour maintenir la compétitivité technologique.",
+      "score": 2
     },
     {
       "title": "Impératif d'innovation dans les matériaux composites avancés",
@@ -345,7 +357,8 @@
       "severity": 4,
       "score_rationale": "Hexcel investit 5% de son revenu en R&D. L'industrie des matériaux composites nécessite une innovation continue pour suivre l'évolution des spécifications aérospatiales et des nouveaux matériaux. L'incapacité à innover risque de perdre des parts de marché.",
       "trend": "stable",
-      "summary": "Le secteur aérospatial évolue rapidement avec des exigences accrues en matériaux plus légers, plus résistants et durables. Hexcel doit maintenir des investissements significatifs en R&D pour développer des solutions de prochaine génération et rester compétitif face à des concurrents comme Solvay ou Toray."
+      "summary": "Le secteur aérospatial évolue rapidement avec des exigences accrues en matériaux plus légers, plus résistants et durables. Hexcel doit maintenir des investissements significatifs en R&D pour développer des solutions de prochaine génération et rester compétitif face à des concurrents comme Solvay ou Toray.",
+      "score": 4
     }
   ],
   "_validation": {
@@ -364,7 +377,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -531,7 +544,7 @@
         "year": 2026,
         "month": 4,
         "title": "Woodward's Q2 Earnings & Revenues Beat Estimates, Increase Y/Y",
-        "body": "WWD posts 34% EPS surge and 23% sales growth in Q2, beats estimates and lifts FY26 outlook on strong Aerospace and Industrial demand.",
+        "body": "WWD posts 34% EPS surge and 23% sales growth in Q2, beats estimates and lifts exercice 2026 outlook on strong Aerospace and Industrial demand.",
         "source": "Zacks",
         "url": "https://finance.yahoo.com/markets/stocks/articles/woodwards-q2-earnings-revenues-beat-123600996.html",
         "date": "2026-04-30"
@@ -573,19 +586,15 @@
           20.9,
           37.9,
           58.3,
-          -40.8,
           18.1,
           74.8,
           94.4,
-          -79.1,
           28.7,
           51.6,
           68.4,
-          -61.7,
           26.1,
           41.4,
           55.1,
-          -49.3,
           25.2
         ],
         "history_periods": [
@@ -639,6 +648,12 @@
             "accession": "0001193125-26-170597",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (HXL)"
         ]
       },
       {
@@ -651,19 +666,15 @@
           20.9,
           37.9,
           58.3,
-          -40.8,
           18.1,
           74.8,
           94.4,
-          -79.1,
           28.7,
           51.6,
           68.4,
-          -61.7,
           26.1,
           41.4,
           55.1,
-          -49.3,
           25.2
         ],
         "history_periods": [
@@ -717,6 +728,12 @@
             "accession": "0001193125-26-170597",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (HXL)"
         ]
       }
     ]
@@ -733,9 +750,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.528735+00:00",
     "fetched_at": "2026-05-21T01:44:37.528736+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.269Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.929Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hxl.json",
     "enrich_root": null,

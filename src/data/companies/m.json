@@ -43,10 +43,13 @@
         "Corrected last_data_date from 2025-02-01 to 2026-01-31 (fiscal year end per 10-K)",
         "Corrected ttm from 171.88 to 125 (final count, not weighted)"
       ],
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Reimagine 125 Locations' n'apparaît pas explicitement dans l'extrait fourni du 10-K de Macy's. L'extrait contient principalement des",
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Comparable Sales",
@@ -104,7 +107,7 @@
         "Corrected history third value from 38 to 38.0 for consistency",
         "Corrected ttm from 37.9 to 38.0 (matches reported gross margin)"
       ],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -183,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 16.24 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -206,11 +213,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.2 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -229,10 +240,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.25 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -246,7 +261,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2022-2026). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2022-2026). ex-div dates.",
       "history": [
         0.632,
         0.66,
@@ -259,7 +274,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -274,7 +289,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2022-2026) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2022-2026) en milliards USD. cashflow.",
       "history": [
         null,
         0.774,
@@ -287,7 +302,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -302,7 +317,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2022-2026). Source yfinance.",
+      "description": "Dividendes / résultat net (2022-2026).",
       "history": [
         null,
         15.1,
@@ -315,7 +330,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -331,7 +346,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2022-2026). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2022-2026). income statement (Diluted EPS).",
       "history": [
         null,
         4.19,
@@ -344,7 +359,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -376,9 +391,7 @@
       "_validation": [
         "Corrected yoy from '+7.4' to '+7.4 pts' for consistency with other metrics",
         "Corrected ttm from 24.46 to 7.4 (matches reported comparable sales growth)"
-      ],
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Bluemercury Comp Sales",
@@ -405,9 +418,7 @@
       "_validation": [
         "Corrected yoy from '+1.6' to '+1.6 pts' for consistency",
         "Added ttm field with value 1.6 for consistency with other KPIs"
-      ],
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -439,7 +450,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès l'introduction des facteurs de risque. Le langage insiste sur l'impact 'material adverse' en cas d'échec. La stratégie structure l'ensemble des investissements futurs. Catégorie stratégique hautement pondérée.",
       "trend": "stable",
-      "summary": "L'échec d'exécution de la transformation de l'entreprise (fermetures de magasins, expérience client, supply chain) pourrait nuire gravement à la rentabilité et à la croissance."
+      "summary": "L'échec d'exécution de la transformation de l'entreprise (fermetures de magasins, expérience client, supply chain) pourrait nuire gravement à la rentabilité et à la croissance.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue, notamment numérique",
@@ -447,7 +459,8 @@
       "severity": 5,
       "score_rationale": "Mention répétée dans plusieurs sections avec un langage fort ('significant competition', 'lose competitive advantage'). La montée de l'e-commerce et de l'IA chez les concurrents est soulignée. Risque structurel pour le modèle économique.",
       "trend": "up",
-      "summary": "La pression concurrentielle, en particulier des acteurs numériques et via l'intelligence artificielle, menace la part de marché et la différenciation de l'offre."
+      "summary": "La pression concurrentielle, en particulier des acteurs numériques et via l'intelligence artificielle, menace la part de marché et la différenciation de l'offre.",
+      "score": 5
     },
     {
       "title": "Difficulté à anticiper les tendances consommateurs",
@@ -455,7 +468,8 @@
       "severity": 4,
       "score_rationale": "Position élevé dans le document, lien direct avec la demande et la marge. Langage préoccupé ('difficult to predict', 'lose market share'). Renforcé par les attentes croissantes en matière de personnalisation et durabilité.",
       "trend": "stable",
-      "summary": "L'incapacité à répondre aux évolutions des préférences (personnalisation, durabilité) peut entraîner une perte de clients et de ventes."
+      "summary": "L'incapacité à répondre aux évolutions des préférences (personnalisation, durabilité) peut entraîner une perte de clients et de ventes.",
+      "score": 4
     },
     {
       "title": "Pénuries ou excès de stocks",
@@ -463,7 +477,8 @@
       "severity": 4,
       "score_rationale": "Directement lié à la rentabilité ('negatively impacts gross margins'). Mention explicite des risques de surévaluation et sous-évaluation de la demande. Impact direct sur les résultats opérationnels.",
       "trend": "stable",
-      "summary": "Une mauvaise gestion des stocks (trop ou pas assez) affecte les marges, les ventes et l'expérience client."
+      "summary": "Une mauvaise gestion des stocks (trop ou pas assez) affecte les marges, les ventes et l'expérience client.",
+      "score": 4
     },
     {
       "title": "Dépendance aux cartes de crédit privées",
@@ -471,7 +486,8 @@
       "severity": 4,
       "score_rationale": "Revenus significatifs (3,1 % des ventes) et contrat jusqu'en 2030. Risque réglementaire récent (frais de retard). Vulnérabilité aux modes de paiement alternatifs (BNPL).",
       "trend": "stable",
-      "summary": "La baisse d'utilisation des cartes de crédit maison ou des changements réglementaires pourraient réduire une source importante de revenus."
+      "summary": "La baisse d'utilisation des cartes de crédit maison ou des changements réglementaires pourraient réduire une source importante de revenus.",
+      "score": 4
     },
     {
       "title": "Difficultés de recrutement et coûts salariaux",
@@ -479,7 +495,8 @@
       "severity": 4,
       "score_rationale": "Mention fréquente des pénuries de main-d'œuvre, salaires compétitifs et coûts croissants. Lié à la performance opérationnelle. Contexte macroéconomique tendu (taux de chômage bas).",
       "trend": "stable",
-      "summary": "La pression sur les salaires et la difficulté à recruter menacent la rentabilité et la qualité du service client."
+      "summary": "La pression sur les salaires et la difficulté à recruter menacent la rentabilité et la qualité du service client.",
+      "score": 4
     },
     {
       "title": "Risque de réputation via réseaux sociaux",
@@ -487,7 +504,8 @@
       "severity": 4,
       "score_rationale": "Langage alarmiste ('harm could be immediate', 'adverse publicity'). Risque amplifié par les réseaux sociaux. Mention d'événements graves (tireur, accidents). Position élevé dans le document.",
       "trend": "up",
-      "summary": "Un incident médiatisé ou une rumeur virale sur les réseaux sociaux pourrait endommager durablement la marque et la confiance des clients."
+      "summary": "Un incident médiatisé ou une rumeur virale sur les réseaux sociaux pourrait endommager durablement la marque et la confiance des clients.",
+      "score": 4
     }
   ],
   "governance": {
@@ -515,7 +533,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -579,7 +597,7 @@
   "_segments_fetched_at": "2026-05-06T19:35:28.352639+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:06:17.406025+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:44Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2026)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2026)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2019,
@@ -597,7 +615,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:18Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:02Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Commerce de détail",
   "enrich_events": {
     "ticker": "M",
@@ -653,9 +671,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.279236+00:00",
     "fetched_at": "2026-05-21T02:17:14.279237+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.239Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.074Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/m.json",
     "enrich_root": "v2-pipeline-enrich/m.json",

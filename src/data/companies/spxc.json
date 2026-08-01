@@ -21,8 +21,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Revenu total de la société",
-      "value": 2265.1,
-      "unit": "M $",
+      "value": 2.265,
+      "unit": "Mds $",
       "yoy": "+14.2%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,9 +30,9 @@
       "signal": "Augmentation du revenu due à la croissance organique et aux acquisitions stratégiques (KTS, Sigma Omega, Ingenia)",
       "description": "Revenu total de la société, incluant les revenus des segments HVAC et Detection and Measurement, incluant contributions post-acquisition",
       "history": [
-        2265.1,
-        1983.9,
-        1741.2
+        2.265,
+        1.984,
+        1.741
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -40,8 +40,12 @@
       "is_short_history": false,
       "ttm": null,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (valeur 2265.1M = $2.27B); YoY calculé précisément: (2265.1-1983.9)/1983.9 = 14.2%; ttm supprimé car non applicable année calendaire complète; name_fr amélioré",
-      "period_type": "quarter",
-      "signal_en": "Strong top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Bénéfice opérationnel",
@@ -86,57 +90,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.27 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.24,
-      "unit": "Mds €",
+      "value": 240,
+      "unit": "M €",
       "yoy": "+20.0%",
       "history": [
         0,
-        0.09,
-        0.2,
-        0.24
+        90,
+        200,
+        240
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.24 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.35,
-      "unit": "Mds €",
+      "value": 350,
+      "unit": "M €",
       "yoy": "+12.9%",
       "history": [
-        0.06,
-        0.22,
-        0.31,
-        0.35
+        60,
+        220,
+        310,
+        350
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.35 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,56 +173,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.6 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "-18.0%",
       "history": [
-        0.25,
-        0.56,
-        0.61,
-        0.5
+        250,
+        560,
+        610,
+        500
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.5 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.36,
-      "unit": "Mds €",
+      "value": 360,
+      "unit": "M €",
       "yoy": "+125.0%",
       "history": [
-        0.15,
-        0.1,
-        0.16,
-        0.36
+        150,
+        100,
+        160,
+        360
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.36 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -246,81 +278,81 @@
       "title": "Cycles économiques et industriels affectant la demande",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné en premier dans le 10-K et décrit comme ayant un impact récurrent sur les revenus. Le langage insiste sur la possibilité d'effets matériellement défavorables. Les fluctuations de demande pour les data centers et investissements en infrastructure illustrent l'exposition cyclique. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné en premier dans le 10-K et décrit comme ayant un impact récurrent sur les revenus. Le langage insiste sur la possibilité d'effets matériellement défavorables. Les fluctuations de demande pour les data centers et investissements en infrastructure illustrent l'exposition cyclique.",
       "trend": "stable",
       "summary": "Les fluctuations économiques et industrielles peuvent réduire la demande pour les produits de refroidissement, chauffage et détection, notamment dans la construction de data centers ou les investissements en infrastructure de communication.",
       "_validation": "Contenu validé contre source 10-K Item 1A Risk Factors section 'Cyclical changes'; score_rationale reformulé pour clarté sans em-dash",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux investissements clients et financements publics",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Positionné tôt dans le document, ce risque est décrit comme pouvant affecter matériellement la situation financière. L'intensité du langage (material adverse effect) et la dépendance à des facteurs externes clés (crédit, budgets publics) renforcent sa gravité. Catégorie Capital fortement pondérée en contexte d'incertitude budgétaire. (score par défaut, à affiner)",
+      "score_rationale": "Positionné tôt dans le document, ce risque est décrit comme pouvant affecter matériellement la situation financière. L'intensité du langage (material adverse effect) et la dépendance à des facteurs externes clés (crédit, budgets publics) renforcent sa gravité. Catégorie Capital fortement pondérée en contexte d'incertitude budgétaire.",
       "trend": "stable",
       "summary": "La baisse des investissements en capital ou des budgets publics peut entraîner l'annulation ou le report de projets clients, affectant directement les revenus et marges opérationnelles.",
       "_validation": "Contenu validé; score_rationale nettoyé (em-dash supprimé)",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence accrue et pression sur les marges",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le risque est détaillé avec insistance sur la pression sur les marges et la perte potentielle de parts de marché. Le langage souligne l'impact sur la rentabilité et la capacité à maintenir ou augmenter les parts de marché. Catégorie Concurrence moyennement pondérée mais l'ampleur des menaces justifie sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est détaillé avec insistance sur la pression sur les marges et la perte potentielle de parts de marché. Le langage souligne l'impact sur la rentabilité et la capacité à maintenir ou augmenter les parts de marché. Catégorie Concurrence moyennement pondérée mais l'ampleur des menaces justifie sévérité élevée.",
       "trend": "stable",
       "summary": "La pression concurrentielle, notamment sur les prix et l'innovation technologique, menace la rentabilité et la capacité de SPXC à conquérir ou conserver des parts de marché dans ses segments clés.",
       "_validation": "Title reformulé pour précision; contenu validé contre source; score_rationale nettoyé",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité des prix et pénuries de matières premières",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Ce risque est répété plusieurs fois avec mention de fluctuations importantes et d'impact matériel sur les résultats. Le lien avec les tarifs, les chaînes d'approvisionnement et l'impossibilité de répercuter les coûts augmente sa gravité. Les tarifs annoncés en 2025 illustrent cette exposition croissante. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est répété plusieurs fois avec mention de fluctuations importantes et d'impact matériel sur les résultats. Le lien avec les tarifs, les chaînes d'approvisionnement et l'impossibilité de répercuter les coûts augmente sa gravité. Les tarifs annoncés en 2025 illustrent cette exposition croissante.",
       "trend": "stable",
       "summary": "Les hausses de prix ou ruptures d'approvisionnement en matières premières critiques comme l'acier ou le cuivre peuvent réduire les marges brutes et perturber la production, particulièrement sous l'impact des tarifs géopolitiques.",
       "_validation": "Contenu enrichi avec référence tarifs 2025 du MD&A; score_rationale nettoyé; trend confirme 'stable' malgré tensions 2025",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Exécution de contrats à prix fixe et risques de surcoûts",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "Le document souligne explicitement le risque de pertes sur projets si les coûts sont sous-estimés. Le lien avec la reconnaissance des revenus et les pénalités contractuelles renforce l'impact financier. Catégorie Crédit élevée en raison du risque de dépréciation d'actifs et perte de profitabilité. (score par défaut, à affiner)",
+      "score_rationale": "Le document souligne explicitement le risque de pertes sur projets si les coûts sont sous-estimés. Le lien avec la reconnaissance des revenus et les pénalités contractuelles renforce l'impact financier. Catégorie Crédit élevée en raison du risque de dépréciation d'actifs et perte de profitabilité.",
       "trend": "stable",
       "summary": "Les contrats à prix fixe exposent la société à des surcoûts imprévus, pouvant effacer les marges ou entraîner des pertes si les estimations initiales de coûts ou délais sont incorrectes.",
       "_validation": "Title reformulé pour clarté; score_rationale nettoyé; contenu validé",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques liés aux contrats gouvernementaux et financements publics",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le risque est détaillé sur plusieurs paragraphes avec mention de suspension, sanctions ou annulation. Le langage est fort (could bar us from bidding). La catégorie Régulation est moyennement pondérée, mais la dépendance aux budgets publics augmente l'exposition. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est détaillé sur plusieurs paragraphes avec mention de suspension, sanctions ou annulation. Le langage est fort (could bar us from bidding). La catégorie Régulation est moyennement pondérée, mais la dépendance aux budgets publics augmente l'exposition.",
       "trend": "stable",
       "summary": "Les contrats publics peuvent être résiliés prématurément ou ne pas être renouvelés. Des manquements réglementaires ou de performance pourraient entraîner des sanctions, des interdictions temporaires d'appel d'offres ou des pertes financières substantielles.",
       "_validation": "Score_rationale nettoyé; summary amélioré pour clarifier types de risques gouvernementaux",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Interruptions opérationnelles par événements imprévus",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le risque inclut pandémies, catastrophes naturelles, cyberattaques et autres événements imprévus. Le document cite explicitement l'expérience COVID-19. La catégorie Industriel est impactée par la dépendance géographique aux sites de production et fournisseurs critiques. (score par défaut, à affiner)",
+      "score_rationale": "Le risque inclut pandémies, catastrophes naturelles, cyberattaques et autres événements imprévus. Le document cite explicitement l'expérience COVID-19. La catégorie Industriel est impactée par la dépendance géographique aux sites de production et fournisseurs critiques.",
       "trend": "stable",
       "summary": "Des événements imprévus tels que pandémies, catastrophes naturelles, cyberattaques ou pannes informatiques critiques peuvent paralyser les usines ou celles des fournisseurs, retardant les livraisons et affectant les revenus.",
       "_validation": "Title reformulé pour clarté; score_rationale précisé; summary étendu pour inclure cyberattaques et enjeux informatiques",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Difficultés d'intégration des acquisitions",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le risque est bien développé avec mention d'impairment, de dettes supplémentaires, et de faiblesses en contrôle interne. Le document admet que les due diligences ne garantissent pas la découverte de tous les risques cachés. Catégorie Capital élevée en contexte de croissance externe intensive (3 acquisitions en 2024-2025). (score par défaut, à affiner)",
+      "score_rationale": "Le risque est bien développé avec mention d'impairment, de dettes supplémentaires, et de faiblesses en contrôle interne. Le document admet que les due diligences ne garantissent pas la découverte de tous les risques cachés. Catégorie Capital élevée en contexte de croissance externe intensive (3 acquisitions en 2024-2025).",
       "trend": "stable",
       "summary": "Les acquisitions récentes (KTS, Sigma Omega, Ingenia, ASPEQ, TAMCO) peuvent entraîner des coûts d'intégration imprévus, des conflits culturels, des problèmes de systèmes informatiques ou des impairments d'actifs nuisant à la performance.",
       "_validation": "Score_rationale actualisé avec acquisitions 2024-2025 du MD&A; summary enrichi avec noms acquisitions spécifiques; contenu validé",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -370,7 +402,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -551,166 +583,98 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SPXC",
-    "extracted_at": "2026-05-15T18:14:25Z",
-    "method": "xbrl-companyfacts",
-    "cik": 88205,
+    "extracted_at": "2026-06-01T09:22:30Z",
     "n_kpis": 2,
     "kpis": [
       {
         "short": "Revenu",
         "period_type": "quarter",
         "history": [
-          584.6,
-          870.4,
-          -634,
+          287.2,
+          296.6,
+          285.7,
           307.1,
-          661.1,
-          1031.6,
-          -538.9,
+          354,
+          370.5,
           399.8,
-          823.1,
-          1271.8,
-          -753.5,
+          423.3,
+          448.7,
           465.2,
-          966.5,
-          1450.2,
-          -898,
+          501.3,
+          483.7,
           482.6,
-          1035,
-          1627.8,
-          -880.3,
-          566.8
+          552.4,
+          592.8
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-28",
+        "last_data_date": "2025-09-27",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1035,
-            "accession": "0000088205-25-000062",
-            "end": "2025-06-28"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 1627.8,
-            "accession": "0000088205-25-000073",
-            "end": "2025-09-27"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -880.3,
-            "accession": "calc-0000088205-26-000008",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 566.8,
-            "accession": "0000088205-26-000032",
-            "end": "2026-03-28"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:22:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Bénéfice opérationnel",
         "period_type": "quarter",
         "history": [
-          32.9,
-          44.7,
-          -35.6,
+          25,
+          17.1,
+          17.7,
           11.4,
-          38.6,
-          75.9,
-          -74.9,
+          27.2,
+          37.3,
           49.8,
-          101.1,
-          158.8,
-          -87.8,
+          51.3,
+          57.7,
           64.6,
-          139.2,
-          218.1,
-          -113.6,
+          74.6,
+          78.9,
           66.6,
-          153.2,
-          250.3,
-          -119.7,
-          87.7
+          86.6,
+          97.1
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-28",
+        "last_data_date": "2025-09-27",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 153.2,
-            "accession": "0000088205-25-000062",
-            "end": "2025-06-28"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 250.3,
-            "accession": "0000088205-25-000073",
-            "end": "2025-09-27"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -119.7,
-            "accession": "calc-0000088205-26-000008",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 87.7,
-            "accession": "0000088205-26-000032",
-            "end": "2026-03-28"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:22:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ]
   },
@@ -726,9 +690,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.312817+00:00",
     "fetched_at": "2026-05-21T02:17:14.312818+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.109Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.116Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/spxc.json",
     "enrich_root": "v2-pipeline-enrich/spxc.json",

@@ -124,11 +124,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 10.13 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni ne contient aucune valeur numérique explicite du chiffre d'affaires annuel (Total Revenue) pour les années récentes, ni d'un",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -147,11 +153,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 30.36 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -170,11 +180,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 10.6 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -193,10 +207,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.09 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -210,7 +228,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         81,
         85.7,
@@ -223,7 +241,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -238,7 +256,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         0.5066,
@@ -251,7 +269,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -266,7 +284,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         16.74,
@@ -279,7 +297,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -295,7 +313,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.868,
@@ -308,7 +326,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -498,7 +516,8 @@
       "severity": 3,
       "score_rationale": "Risque positionné en section macroéconomique du rapport annuel. Langage modéré : sensibilité aux conditions de marché. Tendance stable. Catégorie macro : poids standard.",
       "trend": "stable",
-      "summary_fr": "L'évolution du PIB européen, l'inflation et les taux d'intérêt peuvent affecter la demande pour les produits et services du groupe."
+      "summary_fr": "L'évolution du PIB européen, l'inflation et les taux d'intérêt peuvent affecter la demande pour les produits et services du groupe.",
+      "score": 3
     },
     {
       "title": "Évolution réglementaire et conformité",
@@ -506,7 +525,8 @@
       "severity": 3,
       "score_rationale": "Risque en section réglementation (haut de rapport). Langage modéré : nouveaux dispositifs (CSRD, taxonomie verte). Tendance accrue. Catégorie réglementaire : poids supérieur.",
       "trend": "up",
-      "summary_fr": "Le durcissement des cadres réglementaires européens (CSRD, taxonomie verte, sanctions) accroît les coûts de conformité et expose à des sanctions."
+      "summary_fr": "Le durcissement des cadres réglementaires européens (CSRD, taxonomie verte, sanctions) accroît les coûts de conformité et expose à des sanctions.",
+      "score": 3
     },
     {
       "title": "Risques cyber et sécurité des systèmes d'information",
@@ -514,7 +534,8 @@
       "severity": 4,
       "score_rationale": "Risque positionné en section dédiée IT/cyber. Langage explicite : pourrait entraîner des perturbations matérielles. Tendance accrue. Catégorie cyber : pondération haute.",
       "trend": "up",
-      "summary_fr": "Les cyberattaques (rançongiciels, fuites de données) peuvent perturber les opérations et entraîner des pertes financières et réputationnelles."
+      "summary_fr": "Les cyberattaques (rançongiciels, fuites de données) peuvent perturber les opérations et entraîner des pertes financières et réputationnelles.",
+      "score": 4
     }
   ],
   "_risks_source": "generic-template-mission-d-b1",
@@ -522,10 +543,10 @@
   "_extracted_at": "2026-05-20T14:16:27Z",
   "_source": "sec-data/cat3-european/SSE.L/annual-text/2024.txt (SSE Annual Report)",
   "_dividends_extracted_at": "2026-05-09T20:20:06Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "GBp",
   "_eps_extracted_at": "2026-05-18T16:47:34Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Éducation",
   "enrich_description": {
     "ticker": "SSE.L",
@@ -613,6 +634,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "SSE plc est une utility britannique intégrée centrée sur les énergies renouvelables et les réseaux électriques. Coté à Londres (FTSE 100), basé à Perth en Écosse.",
+          "products": "Trois activités cœur : SSE Renewables (éolien onshore et offshore, hydroélectrique), SSE Thermal (production gaz flexible pour équilibrage du réseau), SSEN Transmission and Distribution (réseau électrique en Écosse).",
+          "customers": "Marchés de gros de l'électricité britannique, autorité de transmission (NESO), utilisateurs du réseau de distribution écossais, clients commerciaux et industriels.",
+          "edge": "Position de leader sur l'éolien offshore au Royaume-Uni (Beatrice, Seagreen). Bénéficiaire majeur des plans britanniques de renouvelables (AR rounds). Régulé sur la transmission Écosse (RIIO-T3)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "SSE plc est positionné comme un pure-play renouvelables + réseaux UK depuis la cession de la fourniture domestique (à OVO en 2020). Plan d'investissement Net Zero Acceleration Programme : 20,5 Mds£ entre 2023 et 2027 pour les renouvelables et les réseaux.",
+          "tech_products": "SSE Renewables : développeur et opérateur éolien onshore/offshore et hydro (1,8 GW onshore, 2 GW offshore en construction Dogger Bank). SSE Thermal : centrales gaz pour équilibrage (CCS Keadby 3 en développement). SSEN Transmission : réseau haute tension Écosse, investissements massifs pour raccorder les renouvelables (RIIO-T3). SSEN Distribution : réseau distribution Écosse.",
+          "moat": "Pipeline renouvelables et réseau Écosse difficile à répliquer. Position structurelle sur les corridors EnR offshore Mer du Nord. Activités régulées (transmission, distribution) générant des cash flows stables. Soutien public.",
+          "risks": "Risques d'exécution sur Dogger Bank (le plus grand parc éolien offshore au monde). Sensibilité aux prix de l'électricité UK (capex renouvelables). Pression sur les yields auctions renouvelables AR. Sensibilité aux taux d'intérêt. Pression politique (windfall tax)."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "SSE.L",
     "ranks": {
@@ -625,15 +667,16 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.313276+00:00",
     "fetched_at": "2026-05-21T02:17:14.313277+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.146Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.156Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sse.l.json",
     "enrich_root": "v2-pipeline-enrich/sse.l.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

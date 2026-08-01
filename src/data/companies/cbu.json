@@ -38,11 +38,14 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 28.58,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Operating Margin (%) not explicitly stated in the provided 10-K extract. While Consolidated Statements of Income for 2025, 2024, and 2023 ar",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -66,7 +69,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 210.455,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -116,7 +119,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 3.97,
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -165,7 +168,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 3.19,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Stable, slight decline to monitor"
     },
     {
@@ -185,34 +188,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 17.3 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.46,
-      "unit": "Mds €",
+      "value": 460,
+      "unit": "M €",
       "yoy": "-37.8%",
       "history": [
-        0.79,
-        0.46,
-        0.74,
-        0.46
+        790,
+        460,
+        740,
+        460
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.46 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -238,9 +250,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Risk Management",
-      "ttm": 21.35,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 21.35
     }
   ],
   "ai_positioning": {
@@ -254,34 +264,34 @@
       "title": "Interest Rate Risk",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Le risque de taux est élevé en raison de la sensibilité directe des revenus d'intérêts aux variations de taux. Les revenus de la banque dépendent fortement de la courbe des taux d'intérêt. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de taux est élevé en raison de la sensibilité directe des revenus d'intérêts aux variations de taux. Les revenus de la banque dépendent fortement de la courbe des taux d'intérêt.",
       "trend": "stable",
       "summary": "L'entreprise est exposée au risque de taux d'intérêt, ce qui peut impacter significativement ses revenus d'intérêts.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Credit Risk",
       "category": "Credit",
       "severity": 2,
-      "score_rationale": "Le risque de crédit est faible à moyen en raison de la qualité des actifs et de la réduction des provisions pour pertes de crédit. La diversification géographique en zone rurale/semi-rurale réduit la corrélation avec les indicateurs économiques nationaux. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de crédit est faible à moyen en raison de la qualité des actifs et de la réduction des provisions pour pertes de crédit. La diversification géographique en zone rurale/semi-rurale réduit la corrélation avec les indicateurs économiques nationaux.",
       "trend": "down",
       "summary": "L'entreprise a une exposition au risque de crédit bien maîtrisée, avec une qualité d'actifs bonne et améliorée en 2025.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Liquidity Risk",
       "category": "Capital",
       "severity": 1,
-      "score_rationale": "Le risque de liquidité est faible en raison de la capacité de l'entreprise à gérer ses flux de trésorerie et sa base de dépôts stable. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de liquidité est faible en raison de la capacité de l'entreprise à gérer ses flux de trésorerie et sa base de dépôts stable.",
       "trend": "stable",
       "summary": "L'entreprise a une bonne gestion de sa liquidité, ce qui réduit significativement le risque de liquidité.",
-      "score": 3
+      "score": 1
     },
     {
       "title": "Regulatory Risk",
       "category": "Regulation",
       "severity": 3,
-      "score_rationale": "Le risque réglementaire est moyen à élevé en raison des changements potentiels dans les réglementations financières bancaires et de conformité. (score par défaut, à affiner)",
+      "score_rationale": "Le risque réglementaire est moyen à élevé en raison des changements potentiels dans les réglementations financières bancaires et de conformité.",
       "trend": "stable",
       "summary": "L'entreprise est exposée au risque réglementaire lié à la supervision bancaire fédérale et à la conformité en matière de protection des consommateurs.",
       "score": 3
@@ -290,7 +300,7 @@
       "title": "Competitive Risk",
       "category": "Competition",
       "severity": 3,
-      "score_rationale": "Le risque de concurrence est moyen en raison de la concurrence des grandes banques nationales et des fintechs dans le secteur des services financiers. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de concurrence est moyen en raison de la concurrence des grandes banques nationales et des fintechs dans le secteur des services financiers.",
       "trend": "up",
       "summary": "L'entreprise est exposée au risque de concurrence dans ses marchés locaux et face à la disruption technologique.",
       "score": 3
@@ -299,16 +309,16 @@
       "title": "Technology Risk",
       "category": "Technology",
       "severity": 2,
-      "score_rationale": "Le risque technologique est faible à moyen. L'entreprise investit dans les plateformes numériques et l'infrastructure IT de manière modérée (Capex 0,12 Mds USD). (score par défaut, à affiner)",
+      "score_rationale": "Le risque technologique est faible à moyen. L'entreprise investit dans les plateformes numériques et l'infrastructure IT de manière modérée (Capex 0,12 Mds USD).",
       "trend": "stable",
       "summary": "L'entreprise a une exposition au risque technologique gérée par des investissements continus en modernisation IT.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Macroeconomic Risk",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Le risque macroéconomique est moyen. La sensibilité aux taux d'intérêt et à l'emploi est documentée. Les scénarios downside envisagent un chômage de 7,1% à 8,4%. (score par défaut, à affiner)",
+      "score_rationale": "Le risque macroéconomique est moyen. La sensibilité aux taux d'intérêt et à l'emploi est documentée. Les scénarios downside envisagent un chômage de 7,1% à 8,4%.",
       "trend": "stable",
       "summary": "L'entreprise a une exposition aux risques macroéconomiques liés aux cycles économiques et aux taux d'intérêt.",
       "score": 3
@@ -354,7 +364,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -461,6 +471,126 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CBU",
+    "extracted_at": "2026-06-01T03:05:13Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          52.85,
+          47.944,
+          45.336,
+          47.055,
+          39.805,
+          48.691,
+          5.798,
+          48.291,
+          44.129,
+          40.872,
+          47.915,
+          43.901,
+          49.614,
+          51.331,
+          55.088
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:13Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Diluted EPS",
+        "period_type": "quarter",
+        "history": [
+          0.97,
+          0.88,
+          0.83,
+          0.86,
+          0.73,
+          0.9,
+          0.11,
+          0.89,
+          0.9,
+          0.11,
+          0.89,
+          0.9,
+          0.93,
+          0.91,
+          0.91
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T03:05:13Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Provision for Credit Losses",
+        "period_type": "quarter",
+        "history": [
+          4.338,
+          0.944,
+          6.038,
+          5.061
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q3 2021",
+          "Q2 2022",
+          "Q3 2022"
+        ],
+        "last_data_date": "2022-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:13Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CBU",
     "ranks": {
@@ -473,14 +603,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.236440+00:00",
     "fetched_at": "2026-05-21T02:17:14.236441+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.186Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.625Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cbu.json",
     "enrich_root": "v2-pipeline-enrich/cbu.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

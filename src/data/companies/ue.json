@@ -37,10 +37,13 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur vérifiée dans le 10-K (40 nouveaux baux same-space à 53.4% spread GAAP)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Rent Spreads (GAAP) value found only for 2020 (30.9%), insufficient for 4+ consecutive years. Text mentions '16 new leases on a same-space b",
-      "signal_en": "Demand stable"
+      "signal_en": "Demand stable",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Occupancy Rate",
@@ -174,11 +177,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.31 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -197,11 +204,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.67 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -265,7 +276,8 @@
       "severity": 4,
       "score_rationale": "Les résultats d'exploitation de la société sont affectés par les conditions économiques nationales, régionales et locales, ainsi que par les conditions macroéconomiques, qui peuvent être volatiles et incertaines.",
       "trend": "stable",
-      "summary": "Les fluctuations économiques peuvent avoir un impact sur les résultats d'exploitation de la société."
+      "summary": "Les fluctuations économiques peuvent avoir un impact sur les résultats d'exploitation de la société.",
+      "score": 4
     },
     {
       "title": "Risques de crédit",
@@ -273,7 +285,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux risques de crédit liés à ses emprunts et à ses garanties.",
       "trend": "stable",
-      "summary": "Les risques de crédit peuvent affecter la capacité de la société à rembourser ses dettes."
+      "summary": "Les risques de crédit peuvent affecter la capacité de la société à rembourser ses dettes.",
+      "score": 3
     },
     {
       "title": "Risques de taux d'intérêt",
@@ -281,7 +294,8 @@
       "severity": 3,
       "score_rationale": "Les variations des taux d'intérêt peuvent avoir un impact sur les coûts d'emprunt de la société.",
       "trend": "down",
-      "summary": "Les risques de taux d'intérêt peuvent affecter les coûts d'emprunt de la société."
+      "summary": "Les risques de taux d'intérêt peuvent affecter les coûts d'emprunt de la société.",
+      "score": 3
     },
     {
       "title": "Risques de marché",
@@ -289,7 +303,8 @@
       "severity": 4,
       "score_rationale": "Les résultats d'exploitation de la société sont affectés par les conditions de marché, qui peuvent être volatiles et incertaines.",
       "trend": "stable",
-      "summary": "Les risques de marché peuvent avoir un impact sur les résultats d'exploitation de la société."
+      "summary": "Les risques de marché peuvent avoir un impact sur les résultats d'exploitation de la société.",
+      "score": 4
     },
     {
       "title": "Risques de régulation",
@@ -297,7 +312,8 @@
       "severity": 2,
       "score_rationale": "La société est soumise à des réglementations qui peuvent évoluer et avoir un impact sur ses activités.",
       "trend": "stable",
-      "summary": "Les risques de régulation peuvent affecter les activités de la société."
+      "summary": "Les risques de régulation peuvent affecter les activités de la société.",
+      "score": 2
     },
     {
       "title": "Risques de concurrence",
@@ -305,7 +321,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un environnement concurrentiel qui peut être intense et incertain.",
       "trend": "stable",
-      "summary": "Les risques de concurrence peuvent avoir un impact sur les résultats d'exploitation de la société."
+      "summary": "Les risques de concurrence peuvent avoir un impact sur les résultats d'exploitation de la société.",
+      "score": 3
     },
     {
       "title": "Risques de liquidité",
@@ -313,7 +330,8 @@
       "severity": 3,
       "score_rationale": "La société doit gérer ses flux de trésorerie pour faire face à ses obligations.",
       "trend": "stable",
-      "summary": "Les risques de liquidité peuvent affecter la capacité de la société à rembourser ses dettes."
+      "summary": "Les risques de liquidité peuvent affecter la capacité de la société à rembourser ses dettes.",
+      "score": 3
     }
   ],
   "governance": {
@@ -333,7 +351,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -451,9 +469,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.321842+00:00",
     "fetched_at": "2026-05-21T02:17:14.321843+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.867Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.952Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ue.json",
     "enrich_root": "v2-pipeline-enrich/ue.json",

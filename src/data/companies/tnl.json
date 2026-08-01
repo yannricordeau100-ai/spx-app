@@ -63,57 +63,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.02 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "-43.9%",
       "history": [
-        0.36,
-        0.4,
-        0.41,
-        0.23
+        360,
+        400,
+        410,
+        230
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.23 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.58,
-      "unit": "Mds €",
+      "value": 580,
+      "unit": "M €",
       "yoy": "-22.7%",
       "history": [
-        0.68,
-        0.75,
-        0.75,
-        0.58
+        680,
+        750,
+        750,
+        580
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.58 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -132,11 +146,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 3.44 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,11 +173,16 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.76 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ],
+      "_audit_flag": "HISTORY_FLAT_SUSPECT"
     },
     {
       "short": "Total Debt",
@@ -178,33 +201,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.73 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.25,
-      "unit": "Mds €",
+      "value": 250,
+      "unit": "M €",
       "yoy": "+47.1%",
       "history": [
-        0.55,
-        0.28,
-        0.17,
-        0.25
+        550,
+        280,
+        170,
+        250
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.25 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -262,7 +294,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K avec mention explicite d'une industrie hautement compétitive. L'entreprise fait face à de nombreux concurrents, certains avec des ressources financières, marketing et opérationnelles significativement supérieures. La concurrence affecte directement les prix, les modèles économiques et la fidélité des clients.",
       "trend": "stable",
-      "summary": "La société fait face à une concurrence féroce dans le secteur du timeshare, notamment de la part d'hôtels, de locations entre particuliers et de grands groupes du tourisme, ce qui peut réduire ses marges et sa part de marché."
+      "summary": "La société fait face à une concurrence féroce dans le secteur du timeshare, notamment de la part d'hôtels, de locations entre particuliers et de grands groupes du tourisme, ce qui peut réduire ses marges et sa part de marché.",
+      "score": 5
     },
     {
       "title": "Dépendance aux tendances du voyage de loisirs et conditions macroéconomiques",
@@ -270,7 +303,8 @@
       "severity": 5,
       "score_rationale": "Largement développé dans le MD&A avec références explicites aux impacts de la santé du voyage et de l'économie globale. Les revenus sont directement dépendants de la santé du secteur du voyage, vulnérable aux crises économiques, pandémies et catastrophes naturelles mentionnées dans le texte.",
       "trend": "stable",
-      "summary": "Les revenus de l'entreprise dépendent fortement de la santé du secteur du voyage, vulnérable aux crises économiques, pandémies, catastrophes naturelles et tensions géopolitiques, pouvant réduire la demande pour ses services."
+      "summary": "Les revenus de l'entreprise dépendent fortement de la santé du secteur du voyage, vulnérable aux crises économiques, pandémies, catastrophes naturelles et tensions géopolitiques, pouvant réduire la demande pour ses services.",
+      "score": 5
     },
     {
       "title": "Risques liés aux événements climatiques extrêmes et localisation géographique des resorts",
@@ -278,7 +312,8 @@
       "severity": 5,
       "score_rationale": "Mentionné dans le contexte de la stratégie d'optimisation des resorts, avec accent sur les zones à risque climatique et les impacts sur l'assurabilité. Le plan d'optimisation identifie 17 resorts nécessitant réinvestissement ou situés dans des marchés mal alignés avec la demande. Risque quantifié et croissant pour le secteur immobilier touristique.",
       "trend": "up",
-      "summary": "Un nombre croissant de résidences gérées se trouvent en zones exposées aux incendies, inondations et tempêtes, ce qui menace leur accessibilité, augmente les coûts d'assurance et pourrait nuire à la demande future et à l'attrait des propriétés."
+      "summary": "Un nombre croissant de résidences gérées se trouvent en zones exposées aux incendies, inondations et tempêtes, ce qui menace leur accessibilité, augmente les coûts d'assurance et pourrait nuire à la demande future et à l'attrait des propriétés.",
+      "score": 5
     },
     {
       "title": "Perte de contrats d'affiliation clés pour RCI",
@@ -286,7 +321,8 @@
       "severity": 4,
       "score_rationale": "Le risque de consolidation sectorielle et montée des réseaux internes concurrents est expliqué dans le MD&A. Les réductions de membres du réseau d'échange et l'augmentation de la proportion de membres avec affiliations de club impactent directement les transactions d'échange. Impact mesurable sur les revenus du segment Travel and Membership.",
       "trend": "up",
-      "summary": "La perte ou la renégociation défavorable de contrats d'affiliation majeurs, notamment suite à des rachats dans le secteur, réduit l'offre d'échanges et affaiblit le modèle économique de RCI."
+      "summary": "La perte ou la renégociation défavorable de contrats d'affiliation majeurs, notamment suite à des rachats dans le secteur, réduit l'offre d'échanges et affaiblit le modèle économique de RCI.",
+      "score": 4
     },
     {
       "title": "Montée des réseaux d'échange internes concurrents",
@@ -294,7 +330,8 @@
       "severity": 4,
       "score_rationale": "Directement mentionné dans le MD&A avec explication du mécanisme: augmentation de la proportion d'exchange members avec club affiliations qui ont une propensité inférieure à transacter. Impact stratégique et structurel sur le modèle économique.",
       "trend": "up",
-      "summary": "Les développeurs de timeshares créent leurs propres réseaux d'échange, ce qui réduit l'attrait et l'utilisation des services externes comme RCI, affaiblissant ainsi son modèle économique et impactant les volumes de transactions."
+      "summary": "Les développeurs de timeshares créent leurs propres réseaux d'échange, ce qui réduit l'attrait et l'utilisation des services externes comme RCI, affaiblissant ainsi son modèle économique et impactant les volumes de transactions.",
+      "score": 4
     },
     {
       "title": "Difficultés dans l'intégration des acquisitions stratégiques",
@@ -302,7 +339,8 @@
       "severity": 4,
       "score_rationale": "Historique d'acquisitions significatives mentionné (acquisition de Travel + Leisure brand en 2021, spin-off de Wyndham Hotels en 2018). Les risques d'intégration, de surévaluation et de distraction managériale sont inhérents aux stratégies de croissance externe.",
       "trend": "stable",
-      "summary": "Les acquisitions comportent des risques d'intégration, de surévaluation, de dettes cachées et de distraction managériale, pouvant nuire à la performance opérationnelle et financière."
+      "summary": "Les acquisitions comportent des risques d'intégration, de surévaluation, de dettes cachées et de distraction managériale, pouvant nuire à la performance opérationnelle et financière.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenariats B2B et fournisseurs de voyages",
@@ -310,7 +348,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans le contexte du Travel Club business et des solutions B2B (Travel + Leisure For Business) pour associations et organisations. La croissance de cette ligne de business dépend de la capacité à maintenir des partenariats de qualité et l'accès à des offres de fournisseurs.",
       "trend": "stable",
-      "summary": "La croissance des clubs de voyage et des solutions B2B dépend de la qualité des partenariats avec organisations et fournisseurs de voyages, dont la rupture pourrait freiner l'expansion de ces segments."
+      "summary": "La croissance des clubs de voyage et des solutions B2B dépend de la qualité des partenariats avec organisations et fournisseurs de voyages, dont la rupture pourrait freiner l'expansion de ces segments.",
+      "score": 3
     },
     {
       "title": "Dégradation du portefeuille de contrats de financement client (VOCR)",
@@ -318,7 +357,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné dans le MD&A: augmentation des impayés au-delà des niveaux historiques, pressions sur le portefeuille de prêts. L'entreprise utilise des outils pour gérer ce risque (critères de marketing révisés, ventes de VOCR) mais la tendance de délinquences élevées persiste.",
       "trend": "up",
-      "summary": "L'augmentation des délinquences sur le portefeuille de contrats de financement client (VOCR) persiste à des niveaux supérieurs à l'historique, impactant la qualité des actifs et potentiellement les revenus futurs de financement."
+      "summary": "L'augmentation des délinquences sur le portefeuille de contrats de financement client (VOCR) persiste à des niveaux supérieurs à l'historique, impactant la qualité des actifs et potentiellement les revenus futurs de financement.",
+      "score": 4
     }
   ],
   "governance": {
@@ -470,9 +510,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.318939+00:00",
     "fetched_at": "2026-05-21T02:17:14.318939+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.587Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.658Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tnl.json",
     "enrich_root": null,

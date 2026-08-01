@@ -38,7 +38,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de Capex (investissements en capital) pour le projet Bégin-Lamarche n'est présente dans cet extrait. Le doc",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "IRR After Tax",
@@ -121,33 +121,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
         0,
-        0.01,
-        0.01,
-        0.01
+        10,
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.01 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -166,32 +175,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
       "name_fr": "Capitaux propres",
       "name_en": "Stockholders Equity",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
         0,
-        0.01,
-        0.01,
-        0.01
+        10,
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 0.01 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -216,9 +234,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Growth",
-      "_source_month": "février 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Growth"
     },
     {
       "short": "Business Development",
@@ -241,13 +257,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Partnerships",
-      "_source_month": "février 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Partnerships"
     }
   ],
   "ai_positioning": {
-    "stance": "none",
+    "stance": "absent",
     "summary": "First Phosphate ne positionne pas activement l'intelligence artificielle dans sa stratégie actuelle. L'entreprise se concentre sur l'exploration minière, le développement du projet Bégin-Lamarche et les partenariats pour la transformation du phosphate en matériaux pour batteries LFP.",
     "evidence": [
       "Aucune mention d'IA dans le 10-K/20-F",
@@ -301,7 +315,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans les déclarations prospectives avec un langage fort (\"reliance on capabilities\", \"partnerships\"). Il est central dans le modèle économique vu la rareté de la technologie PPA en Occident. La tendance est stable, la catégorie est critique pour l'industrie chimique.",
       "trend": "stable",
-      "summary": "First Phosphate dépend de partenaires comme Prayon pour l'accès à la technologie de production d'acide phosphorique purifié (PPA), une étape clé et rare dans la chaîne de valeur LFP, ce qui crée une vulnérabilité stratégique si les accords ne sont pas renouvelés ou respectés."
+      "summary": "First Phosphate dépend de partenaires comme Prayon pour l'accès à la technologie de production d'acide phosphorique purifié (PPA), une étape clé et rare dans la chaîne de valeur LFP, ce qui crée une vulnérabilité stratégique si les accords ne sont pas renouvelés ou respectés.",
+      "score": 4
     },
     {
       "title": "Concurrence pour l'accès à l'acide sulfurique",
@@ -309,7 +324,8 @@
       "severity": 3,
       "score_rationale": "Mentionné indirectement via l'entente avec Norfalco (Glencore) pour l'approvisionnement. Langage modéré mais risque concret lié à une matière première critique. Tendance à la hausse avec la croissance du marché LFP.",
       "trend": "up",
-      "summary": "L'accès à l'acide sulfurique, essentiel pour le traitement du phosphate, est concurrentiel en Amérique du Nord, et First Phosphate dépend de fournisseurs comme Glencore, ce qui expose l'entreprise à des tensions d'approvisionnement ou à des hausses de prix."
+      "summary": "L'accès à l'acide sulfurique, essentiel pour le traitement du phosphate, est concurrentiel en Amérique du Nord, et First Phosphate dépend de fournisseurs comme Glencore, ce qui expose l'entreprise à des tensions d'approvisionnement ou à des hausses de prix.",
+      "score": 3
     },
     {
       "title": "Rareté des gisements ignés de phosphate",
@@ -317,7 +333,8 @@
       "severity": 5,
       "score_rationale": "Le document souligne que seulement 5 % des gisements mondiaux sont ignés, et que First Phosphate exploite l'un des rares gisements viables. Langage fort et position centrale dans la présentation. Tendance à la hausse.",
       "trend": "up",
-      "summary": "Le phosphate igné, nécessaire pour produire de l'acide phosphorique purifié à haut rendement, est extrêmement rare (5 % des gisements mondiaux), ce qui rend First Phosphate dépendant de l'exploitation réussie de son unique gisement au Québec."
+      "summary": "Le phosphate igné, nécessaire pour produire de l'acide phosphorique purifié à haut rendement, est extrêmement rare (5 % des gisements mondiaux), ce qui rend First Phosphate dépendant de l'exploitation réussie de son unique gisement au Québec.",
+      "score": 5
     },
     {
       "title": "Dépendance réglementaire pour approbations clés",
@@ -325,7 +342,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité dans les risques prospectifs (\"receipt of all required approval and licenses\"). Langage fort et critique pour le développement du projet. Tendance stable, poids élevé dans le secteur minier.",
       "trend": "stable",
-      "summary": "Le développement des projets miniers et de transformation de First Phosphate dépend de l'obtention d'approbations environnementales, foncières et industrielles au Québec, dont les délais et conditions sont incertains et peuvent retarder ou bloquer le déploiement."
+      "summary": "Le développement des projets miniers et de transformation de First Phosphate dépend de l'obtention d'approbations environnementales, foncières et industrielles au Québec, dont les délais et conditions sont incertains et peuvent retarder ou bloquer le déploiement.",
+      "score": 4
     },
     {
       "title": "Concurrence croissante sur le marché LFP",
@@ -333,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement (\"increasing competition in the industry\"). Langage direct et renforcé par la forte croissance du marché LFP. Tendance à la hausse, catégorie stratégique.",
       "trend": "up",
-      "summary": "Avec la montée en puissance du marché des batteries LFP, First Phosphate fait face à une concurrence accrue de nouveaux entrants et de géants industriels cherchant à sécuriser des chaînes d'approvisionnement en phosphate purifié, menaçant sa position de pionnier."
+      "summary": "Avec la montée en puissance du marché des batteries LFP, First Phosphate fait face à une concurrence accrue de nouveaux entrants et de géants industriels cherchant à sécuriser des chaînes d'approvisionnement en phosphate purifié, menaçant sa position de pionnier.",
+      "score": 4
     },
     {
       "title": "Dépendance aux cadres clés et partenaires stratégiques",
@@ -341,7 +360,8 @@
       "severity": 3,
       "score_rationale": "Cité dans les risques prospectifs (\"reliance on key executives and strategic partners\"). Langage modéré mais récurrent. Tendance stable, impact limité par la structure de gouvernance.",
       "trend": "stable",
-      "summary": "La réussite du développement technologique et industriel de First Phosphate dépend fortement de l'expertise et de la continuité de ses cadres dirigeants et de ses partenaires stratégiques, comme Prayon ou GKN, dont le départ pourrait ralentir les projets."
+      "summary": "La réussite du développement technologique et industriel de First Phosphate dépend fortement de l'expertise et de la continuité de ses cadres dirigeants et de ses partenaires stratégiques, comme Prayon ou GKN, dont le départ pourrait ralentir les projets.",
+      "score": 3
     },
     {
       "title": "Vulnérabilité aux fluctuations des prix du phosphate et LFP",
@@ -349,7 +369,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné (\"future prices of phosphate and lithium iron phosphate\"). Langage fort, impact direct sur la rentabilité. Tendance à la hausse avec la volatilité du marché des minéraux critiques.",
       "trend": "up",
-      "summary": "Les revenus futurs de First Phosphate sont sensibles aux variations des prix du phosphate et des matériaux cathodiques LFP, influencés par l'offre globale, la demande des constructeurs automobiles et les politiques énergétiques mondiales."
+      "summary": "Les revenus futurs de First Phosphate sont sensibles aux variations des prix du phosphate et des matériaux cathodiques LFP, influencés par l'offre globale, la demande des constructeurs automobiles et les politiques énergétiques mondiales.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:43:34.977041+00:00",
@@ -398,7 +419,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "subsector_fr": "Mines",
-  "_companies_unified_built_at": "2026-05-29T21:19:31.409Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.283Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fphoy.json",
     "enrich_root": "v2-pipeline-enrich/fphoy.json",

@@ -1,6 +1,6 @@
 {
   "ticker": "OLN",
-  "name": "Olin Corporation",
+  "name": "Olin",
   "sector": "Matériaux",
   "subsector": "Chemicals",
   "tagline": "Leading vertically integrated global manufacturer and distributor of chemical products and ammunition",
@@ -201,7 +201,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -227,8 +231,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -242,7 +250,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.8,
         0.8,
@@ -255,7 +263,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -270,7 +278,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         1.4669,
@@ -283,7 +291,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -298,7 +306,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -311,7 +319,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -326,7 +334,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         8.94,
@@ -339,7 +347,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -368,9 +376,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "M&A",
-      "_source_month": "avril 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "M&A"
     }
   ],
   "ai_positioning": {
@@ -484,7 +490,6 @@
       "date": "2026-03-01"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-07T14:24:39.916083+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -536,6 +541,7 @@
     ],
     "total": 6.78
   },
+  "_ai_positioning_fetched_at": "2026-05-07T14:24:39.916083+00:00",
   "_segments_fetched_at": "2026-05-06T19:38:31.229763+00:00",
   "risks": [
     {
@@ -544,7 +550,8 @@
       "severity": 4,
       "score_rationale": "Passif de $156.3M identifié comme Critical Audit Matter par KPMG. Langage fort : « challenging, subjective, complex judgments » sur estimations futures. Risque d'ajustements périodiques importants selon progrès remédiation et évolutions légales/technologiques.",
       "trend": "stable",
-      "summary": "OLN porte un passif environnemental de $156.3M pour obligations futures. Les estimations reposent sur des hypothèses complexes concernant les activités de remédiation, leur durée et les changements réglementaires, créant un risque d'ajustements significatifs."
+      "summary": "OLN porte un passif environnemental de $156.3M pour obligations futures. Les estimations reposent sur des hypothèses complexes concernant les activités de remédiation, leur durée et les changements réglementaires, créant un risque d'ajustements significatifs.",
+      "score": 4
     },
     {
       "title": "Dégradation majeure de la rentabilité opérationnelle",
@@ -552,7 +559,8 @@
       "severity": 5,
       "score_rationale": "Operating income s'effondre de $712.1M (2023) → $296.5M (2024) → $5.3M (2025). Perte nette de $100.5M en 2025 vs profit de $460.2M en 2023. COGS en hausse relative (92.6% des ventes en 2025 vs 82.9% en 2023). Tendance down critique.",
       "trend": "up",
-      "summary": "La rentabilité opérationnelle s'est effondrée : operating income réduit à $5.3M en 2025 contre $712.1M en 2023. Perte nette de $100.5M. Ratio COGS/Ventes détérioré, signalant une compression des marges ou des coûts de production incontrôlés."
+      "summary": "La rentabilité opérationnelle s'est effondrée : operating income réduit à $5.3M en 2025 contre $712.1M en 2023. Perte nette de $100.5M. Ratio COGS/Ventes détérioré, signalant une compression des marges ou des coûts de production incontrôlés.",
+      "score": 5
     },
     {
       "title": "Endettement élevé et service de la dette",
@@ -560,7 +568,8 @@
       "severity": 4,
       "score_rationale": "Dette long-terme de $2.7B + $109.7M court-terme = $2.8B total. Intérêts annuels de $188.3M (2025). Avec perte opérationnelle, ratio couverture détérioré. Equity réduit de $184.5M YoY. Risque de covenant breach ou refinancement difficile.",
       "trend": "up",
-      "summary": "Endettement total de $2.8B avec charges d'intérêts de $188.3M annuels. La perte opérationnelle de 2025 détériore la capacité de service de la dette et augmente le risque de violation de covenants ou de refinancement coûteux."
+      "summary": "Endettement total de $2.8B avec charges d'intérêts de $188.3M annuels. La perte opérationnelle de 2025 détériore la capacité de service de la dette et augmente le risque de violation de covenants ou de refinancement coûteux.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix de matières premières",
@@ -568,7 +577,8 @@
       "severity": 3,
       "score_rationale": "Secteur chimique exposé aux cycles de prix. COGS en hausse absolue ($6.3B en 2025 vs $5.7B en 2023) malgré ventes stables. Pas de couverture détaillée visible. Risque de marges comprimées en environnement inflationniste.",
       "trend": "stable",
-      "summary": "OLN opère dans la chimie, secteur sensible aux prix des matières premières. L'augmentation du COGS sans croissance proportionnelle des ventes suggère une exposition non couverte aux fluctuations de coûts."
+      "summary": "OLN opère dans la chimie, secteur sensible aux prix des matières premières. L'augmentation du COGS sans croissance proportionnelle des ventes suggère une exposition non couverte aux fluctuations de coûts.",
+      "score": 3
     },
     {
       "title": "Limitations des contrôles internes inhérentes",
@@ -576,7 +586,8 @@
       "severity": 2,
       "score_rationale": "Management reconnaît explicitement : « All internal control systems...have inherent limitations » et « may not prevent or detect all misstatements ». Langage standard mais rappel que contrôles ne sont pas infaillibles, particulièrement sur estimations complexes (env. liabilities).",
       "trend": "stable",
-      "summary": "Bien que les contrôles internes soient jugés effectifs, la direction reconnaît leurs limitations inhérentes. Risque résiduel de non-détection de malversations ou erreurs, notamment sur estimations complexes."
+      "summary": "Bien que les contrôles internes soient jugés effectifs, la direction reconnaît leurs limitations inhérentes. Risque résiduel de non-détection de malversations ou erreurs, notamment sur estimations complexes.",
+      "score": 2
     },
     {
       "title": "Restructurations récurrentes et charges associées",
@@ -584,7 +595,8 @@
       "severity": 3,
       "score_rationale": "Charges de restructuration de $33.4M (2025) et $33.3M (2024), soit $66.7M sur 2 ans. Récurrence suggère ajustements structurels continus. Risque de perturbations opérationnelles et coûts cachés supplémentaires.",
       "trend": "stable",
-      "summary": "Charges de restructuration récurrentes ($33.4M en 2025, $33.3M en 2024). Cette persistance indique des ajustements structurels continus, avec risques de perturbations opérationnelles et coûts additionnels non anticipés."
+      "summary": "Charges de restructuration récurrentes ($33.4M en 2025, $33.3M en 2024). Cette persistance indique des ajustements structurels continus, avec risques de perturbations opérationnelles et coûts additionnels non anticipés.",
+      "score": 3
     },
     {
       "title": "Réduction du capital circulant et liquidité",
@@ -592,7 +604,8 @@
       "severity": 3,
       "score_rationale": "Actifs courants baissent de $2.1B à $2.0B. Cash stable mais faible ($167.6M). Receivables en baisse ($844.5M vs $1.0B), inventaires stables. Avec perte opérationnelle, risque de tension de trésorerie si opérations ne s'améliorent pas.",
       "trend": "down",
-      "summary": "Le fonds de roulement se contracte : actifs courants en baisse, cash limité à $167.6M. Avec une perte opérationnelle, la liquidité pourrait devenir tendue si la performance ne s'améliore pas rapidement."
+      "summary": "Le fonds de roulement se contracte : actifs courants en baisse, cash limité à $167.6M. Avec une perte opérationnelle, la liquidité pourrait devenir tendue si la performance ne s'améliore pas rapidement.",
+      "score": 3
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T20:37:21.178224+00:00",
@@ -672,7 +685,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:05Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:38Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Chimie",
   "enrich_description": {
     "ticker": "OLN",
@@ -847,7 +860,10 @@
             "source": "calc-OLN_2026-02-20.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Winchester segment income",
@@ -929,7 +945,10 @@
             "source": "calc-OLN_2026-02-20.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -945,9 +964,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.293523+00:00",
     "fetched_at": "2026-05-21T02:17:14.293524+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.281Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.233Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/oln.json",
     "enrich_root": "v2-pipeline-enrich/oln.json",

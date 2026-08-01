@@ -40,14 +40,12 @@
       "is_generic": false,
       "is_short_history": true,
       "period_type": "annual",
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T08:53:01.340255+00:00",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document fourni est une table des matières et des pages introductives du rapport annuel 2019 d'Orkla ASA. Bien qu'une valeur de 'Operatin",
       "explanation_en": "Revenue from the Operating segment.",
-      "signal_en": "Revenue stable, monitor outlook",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Revenue stable, monitor outlook"
     },
     {
       "short": "EBIT Adjusted",
@@ -70,9 +68,7 @@
       "is_generic": false,
       "is_short_history": true,
       "period_type": "annual",
-      "signal_en": "Profitability stable",
-      "_source_month": "décembre 2019",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Profitability stable"
     },
     {
       "short": "EBIT Adjusted Margin",
@@ -96,9 +92,7 @@
       "is_short_history": true,
       "period_type": "annual",
       "explanation_en": "Profit margin on EBIT Adjusted.",
-      "signal_en": "Margin stable, monitor cost dynamics",
-      "_source_month": "décembre 2019",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Total Employees",
@@ -121,10 +115,8 @@
       "is_generic": true,
       "is_short_history": true,
       "period_type": "annual",
-      "explanation_en": "Total Employees — total number of employees at period end.",
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "mars 2019",
-      "_source_month_reason": "via_signal_quarter"
+      "explanation_en": "Total Employees, total number of employees at period end.",
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Earnings Per Share",
@@ -148,9 +140,7 @@
       "is_short_history": true,
       "period_type": "annual",
       "explanation_en": "Market share in Earnings Per.",
-      "signal_en": "Profitability stable",
-      "_source_month": "décembre 2019",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Profitability stable"
     },
     {
       "short": "Total Assets",
@@ -169,11 +159,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 88.7 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -192,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 16.46 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -215,10 +213,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.92 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -232,7 +234,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.75,
         3,
@@ -245,7 +247,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -260,7 +262,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards NOK. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards NOK. cashflow.",
       "history": [
         null,
         3.047,
@@ -273,7 +275,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -288,7 +290,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         60.71,
@@ -301,7 +303,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -317,7 +319,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         5.04,
@@ -330,7 +332,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -359,7 +361,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -373,7 +375,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en position centrale dans le texte (paragraphe 04), avec un langage affirmé sur l'augmentation de la concurrence. La tendance est à la hausse en raison de l'émergence de nouveaux canaux de vente. La catégorie Concurrence est stratégiquement critique pour Orkla.",
       "trend": "up",
-      "summary": "Le marché alimentaire connaît une concurrence accrue, notamment due à l'essor des nouveaux canaux de vente comme l'e-commerce. Orkla cherche à croître dans ces canaux à forte croissance pour rester compétitif face aux marques de distributeurs et aux nouveaux entrants."
+      "summary": "Le marché alimentaire connaît une concurrence accrue, notamment due à l'essor des nouveaux canaux de vente comme l'e-commerce. Orkla cherche à croître dans ces canaux à forte croissance pour rester compétitif face aux marques de distributeurs et aux nouveaux entrants.",
+      "score": 4
     },
     {
       "title": "Dépendance aux systèmes informatiques et cybersécurité",
@@ -381,7 +384,8 @@
       "severity": 5,
       "score_rationale": "Le risque est clairement identifié (paragraphe 05), avec un langage fort ('risque croissant', 'attaques malveillantes'). Il est en hausse continue, et la catégorie est critique étant donné la dépendance croissante aux IT. Position élevé dans l'évaluation des risques.",
       "trend": "up",
-      "summary": "Orkla dépend fortement de ses systèmes informatiques. Une attaque de données malveillante pourrait nuire à sa réputation, ses ventes et sa production, et entraîner la perte d'actifs incorporels. Des plans de continuité et la mise à jour des infrastructures sont mis en œuvre."
+      "summary": "Orkla dépend fortement de ses systèmes informatiques. Une attaque de données malveillante pourrait nuire à sa réputation, ses ventes et sa production, et entraîner la perte d'actifs incorporels. Des plans de continuité et la mise à jour des infrastructures sont mis en œuvre.",
+      "score": 5
     },
     {
       "title": "Évolution des comportements des consommateurs",
@@ -389,7 +393,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné explicitement (paragraphe 03), avec un langage préventif ('risque si Orkla ne suit pas'). La tendance est stable mais critique. La catégorie est centrale pour l'innovation produit.",
       "trend": "stable",
-      "summary": "Orkla fait face à des changements dans les comportements et tendances des consommateurs, comme la demande accrue pour des produits végétaux ou sains. Un défaut d'adaptation pourrait affecter sa compétitivité, d'où une forte orientation vers l'innovation."
+      "summary": "Orkla fait face à des changements dans les comportements et tendances des consommateurs, comme la demande accrue pour des produits végétaux ou sains. Un défaut d'adaptation pourrait affecter sa compétitivité, d'où une forte orientation vers l'innovation.",
+      "score": 4
     },
     {
       "title": "Risques liés à la sécurité alimentaire",
@@ -397,7 +402,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement cité (paragraphe 04), avec un langage fort ('conséquences majeures'). Il est stable mais critique. La sécurité alimentaire est fondamentale pour un acteur agroalimentaire.",
       "trend": "stable",
-      "summary": "Une défaillance en matière de sécurité alimentaire pourrait avoir de graves conséquences pour les consommateurs et nuire gravement à la réputation d'Orkla. L'entreprise dispose d'une équipe centrale dédiée et mène des audits réguliers en usine et chez les fournisseurs."
+      "summary": "Une défaillance en matière de sécurité alimentaire pourrait avoir de graves conséquences pour les consommateurs et nuire gravement à la réputation d'Orkla. L'entreprise dispose d'une équipe centrale dédiée et mène des audits réguliers en usine et chez les fournisseurs.",
+      "score": 5
     },
     {
       "title": "Risques d'accidents industriels en production",
@@ -405,7 +411,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné (paragraphe 03), avec un langage sérieux ('risque inhérent', 'incidents graves'). Tendance stable. La catégorie est critique pour les opérations physiques.",
       "trend": "stable",
-      "summary": "Les environnements de production d'Orkla comportent des risques d'incendie, d'accidents du travail ou d'autres incidents graves. Des procédures strictes, des formations et des audits sont mis en place pour prévenir ces événements."
+      "summary": "Les environnements de production d'Orkla comportent des risques d'incendie, d'accidents du travail ou d'autres incidents graves. Des procédures strictes, des formations et des audits sont mis en place pour prévenir ces événements.",
+      "score": 4
     },
     {
       "title": "Pression réglementaire sur les prix en Norvège",
@@ -413,7 +420,8 @@
       "severity": 4,
       "score_rationale": "Le risque est spécifiquement lié à une enquête en cours (paragraphe 02), avec un langage préoccupé ('nouvelles régulations potentielles'). Tendance à la hausse. La régulation des prix est un risque métier direct.",
       "trend": "up",
-      "summary": "L'Autorité norvégienne de la concurrence a ouvert une enquête sur une possible discrimination tarifaire entre chaînes de distribution. Cela pourrait entraîner de nouvelles régulations affectant la politique de prix d'Orkla."
+      "summary": "L'Autorité norvégienne de la concurrence a ouvert une enquête sur une possible discrimination tarifaire entre chaînes de distribution. Cela pourrait entraîner de nouvelles régulations affectant la politique de prix d'Orkla.",
+      "score": 4
     },
     {
       "title": "Dépendance aux matières premières et durabilité",
@@ -421,7 +429,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné (paragraphe 04), avec un langage préventif sur la volatilité et la disponibilité. Tendance stable à légèrement croissante. Lié aux enjeux climatiques et de sourcing.",
       "trend": "stable",
-      "summary": "Orkla est exposé aux fluctuations des prix et à la rareté des matières premières, accentuées par le changement climatique. L'entreprise surveille ses fournisseurs, optimise l'usage des ressources et développe des alternatives."
+      "summary": "Orkla est exposé aux fluctuations des prix et à la rareté des matières premières, accentuées par le changement climatique. L'entreprise surveille ses fournisseurs, optimise l'usage des ressources et développe des alternatives.",
+      "score": 4
     },
     {
       "title": "Montée en puissance des marques de distributeurs",
@@ -429,7 +438,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement cité (paragraphe 05), dans un contexte de concentration des clients. Langage factuel mais préoccupant. Tendance stable. Directement lié à la position de marque.",
       "trend": "stable",
-      "summary": "Dans ses marchés principaux, Orkla fait face à une part croissante de marques de distributeurs dans la grande distribution, ce qui exerce une pression sur ses marges et sa visibilité en rayon."
+      "summary": "Dans ses marchés principaux, Orkla fait face à une part croissante de marques de distributeurs dans la grande distribution, ce qui exerce une pression sur ses marges et sa visibilité en rayon.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:52:09.512921+00:00",
@@ -515,12 +525,6 @@
   ],
   "company_description": "Orkla ASA operates as an industrial investment company within brands and consumer-oriented businesses worldwide. It offers decorative paints, marine coatings, protective coatings, and powder coatings; frozen pizza, condiments, bread toppings, and ready-to-eat meals; bakery, ice cream, and plant-based products; and confectionery, biscuits, and salty snacks. The company also provides branded consumer health products, such as daily nutrition and oral health, wound care, and functional personal care under the Möller's, Jordan, and Salvequick brand names; spices and spice blends, ready-to-eat sweets, breakfast mixes, and other; and cleaning and personal hygiene products, such as detergents, cleaning equipment, and personal care products. In addition, it operates a franchised pizza business; offers paintbrushes, rollers, and other painting project consumables comprising sanding equipment, tape, protective gear, and cleaning products; and health and sports nutrition products. The company was founded in 1654 and is headquartered in Oslo, Norway.",
   "last_data_date": "2025-12-31",
-  "_dividends_extracted_at": "2026-05-09T20:39:50Z",
-  "_dividends_source": "cat3-european annual-text FY2024 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
-  "_dividends_currency": "NOK",
-  "dividend_meta": {
-    "first_year": 2000
-  },
   "revenue_by_segment": {
     "unit": "NOK B",
     "source_date": "2019",
@@ -579,9 +583,15 @@
     ],
     "total": 16.8
   },
+  "_dividends_extracted_at": "2026-05-09T20:39:50Z",
+  "_dividends_source": "cat3-european annual-text FY2024 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
+  "_dividends_currency": "NOK",
+  "dividend_meta": {
+    "first_year": 2000
+  },
   "_segments_fetched_at": "2026-05-15T00:00:50.441930+00:00",
   "_eps_extracted_at": "2026-05-18T16:46:40Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "ORK.OL",
     "simple": {
@@ -689,9 +699,9 @@
     "country": "Norway",
     "_data_freshness_date": "2026-05-21T02:17:14.294268+00:00",
     "fetched_at": "2026-05-21T02:17:14.294269+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.349Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.307Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ork.ol.json",
     "enrich_root": "v2-pipeline-enrich/ork.ol.json",

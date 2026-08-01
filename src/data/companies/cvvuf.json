@@ -35,9 +35,7 @@
       "last_data_date": "2026-01-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Mineralization Strike Length",
@@ -58,9 +56,7 @@
       "last_data_date": "2014-04-30",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "avril 2014",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Cash Position",
@@ -81,9 +77,7 @@
       "last_data_date": "2014-04-30",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "avril 2014",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Revenue",
@@ -102,10 +96,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -124,32 +122,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.01,
-        0.01,
-        0.01,
-        0.02
+        10,
+        10,
+        10,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -236,9 +243,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.248121+00:00",
     "fetched_at": "2026-05-21T02:17:14.248122+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.025Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.554Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cvvuf.json",
     "enrich_root": null,

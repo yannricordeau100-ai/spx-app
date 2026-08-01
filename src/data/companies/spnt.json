@@ -36,7 +36,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Gross Margin (%) not found as explicit annual KPI in the provided 10-K extract. The document contains operational and strategic discussion b",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Headcount",
@@ -58,7 +58,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Common Equity",
@@ -101,7 +101,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet."
     },
     {
       "short": "MGA Stakes",
@@ -130,46 +130,56 @@
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.69,
-      "unit": "Mds €",
+      "value": 690,
+      "unit": "M €",
       "yoy": "+7.8%",
       "history": [
-        0.78,
-        0.79,
-        0.64,
-        0.69
+        780,
+        790,
+        640,
+        690
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.69 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.73,
-      "unit": "Mds €",
+      "value": 730,
+      "unit": "M €",
       "yoy": "+7.4%",
       "history": [
-        0.71,
-        0.97,
-        0.68,
-        0.73
+        710,
+        970,
+        680,
+        730
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.73 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -188,10 +198,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 2.47 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -251,16 +265,16 @@
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société mentionne que les marchés de réassurance sont généralement caractérisés par une baisse des tarifs en raison d'une offre excédentaire et de résultats financiers solides dans le secteur. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne que les marchés de réassurance sont généralement caractérisés par une baisse des tarifs en raison d'une offre excédentaire et de résultats financiers solides dans le secteur.",
       "trend": "up",
       "summary": "La concurrence accrue dans le secteur de la réassurance pourrait entraîner une baisse des tarifs et une pression sur les marges de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "La société a une exposition aux risques de crédit en raison de ses investissements dans des obligations et des prêts. (score par défaut, à affiner)",
+      "score_rationale": "La société a une exposition aux risques de crédit en raison de ses investissements dans des obligations et des prêts.",
       "trend": "stable",
       "summary": "Les risques de crédit pourraient avoir un impact négatif sur la société si les débiteurs ne respectent pas leurs obligations de paiement.",
       "score": 3
@@ -269,16 +283,16 @@
       "title": "Risques de marché",
       "category": "Marché",
       "severity": 4,
-      "score_rationale": "La société est exposée aux risques de marché en raison de ses investissements dans des actifs financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques de marché en raison de ses investissements dans des actifs financiers.",
       "trend": "up",
       "summary": "Les risques de marché pourraient avoir un impact négatif sur la société si les marchés financiers connaissent une baisse ou une volatilité accrue.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est soumise à des réglementations strictes dans le secteur de l'assurance et de la réassurance. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations strictes dans le secteur de l'assurance et de la réassurance.",
       "trend": "stable",
       "summary": "Les risques réglementaires pourraient avoir un impact négatif sur la société si elle ne respecte pas les exigences réglementaires.",
       "score": 3
@@ -287,7 +301,7 @@
       "title": "Risques opérationnels",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société est exposée aux risques opérationnels en raison de ses activités dans le secteur de l'assurance et de la réassurance. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques opérationnels en raison de ses activités dans le secteur de l'assurance et de la réassurance.",
       "trend": "stable",
       "summary": "Les risques opérationnels pourraient avoir un impact négatif sur la société si elle rencontre des difficultés dans ses opérations quotidiennes.",
       "score": 3
@@ -296,19 +310,19 @@
       "title": "Risques de réputation",
       "category": "Réputation",
       "severity": 4,
-      "score_rationale": "La société est exposée aux risques de réputation en raison de son image publique et de la confiance des clients. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques de réputation en raison de son image publique et de la confiance des clients.",
       "trend": "up",
       "summary": "Les risques de réputation pourraient avoir un impact négatif sur la société si elle connaît une crise de confiance ou une atteinte à son image publique.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société est exposée aux risques de cybersécurité en raison de ses systèmes informatiques et de la protection des données des clients. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques de cybersécurité en raison de ses systèmes informatiques et de la protection des données des clients.",
       "trend": "up",
       "summary": "Les risques de cybersécurité pourraient avoir un impact négatif sur la société si elle connaît une faille de sécurité ou une atteinte à la confidentialité des données des clients.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -463,88 +477,125 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SPNT",
-    "extracted_at": "2026-05-15T18:14:25Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1576018,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:22:20Z",
+    "n_kpis": 3,
     "kpis": [
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          35.8,
+          36.7,
+          18.7,
+          55.2,
+          42.2,
+          39.2,
+          46.5,
+          38.3,
+          44.2,
+          35.9,
+          42.9,
+          42.5
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:22:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "Common Equity",
         "period_type": "quarter",
         "history": [
-          2.6801,
-          2.638,
-          -5.4219,
-          2.2882,
-          2.2233,
-          2.0845,
-          -4.5213,
-          2.2366,
-          2.2548,
-          2.25,
-          -4.2275,
-          2.6026,
-          2.7041,
-          2.6949,
-          -6.0642,
-          2.0252,
-          2.1057,
-          2.2099,
-          -3.871,
-          2.3024
+          2.29,
+          2.22,
+          2.09,
+          2.24,
+          2.27,
+          2.27,
+          2.6,
+          2.27,
+          2.7,
+          2.03,
+          2.11,
+          2.21
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "StockholdersEquity",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 2.1057,
-            "accession": "0001576018-25-000033",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 2.2099,
-            "accession": "0001576018-25-000044",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -3.871,
-            "accession": "calc-0001576018-26-000032",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 2.3024,
-            "accession": "0001576018-26-000065",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:22:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          10.92,
+          10.84,
+          11,
+          11.81,
+          12.62,
+          12.59,
+          13.14,
+          12.76,
+          12.68,
+          12.28,
+          12.36,
+          12.46
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:22:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -560,9 +611,9 @@
     "country": "Bermuda",
     "_data_freshness_date": "2026-05-21T02:17:14.312663+00:00",
     "fetched_at": "2026-05-21T02:17:14.312664+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.094Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.096Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/spnt.json",
     "enrich_root": null,

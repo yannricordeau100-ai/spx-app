@@ -98,31 +98,36 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.207,
-      "unit": "Mds €",
+      "value": 207,
+      "unit": "M €",
       "yoy": "+2.5%",
       "history": [
         0,
-        0.002,
-        0.03,
-        0.056,
-        0.076,
-        0.129,
-        0.177,
-        0.202,
-        0.207
+        2,
+        30,
+        56,
+        76,
+        129,
+        177,
+        202,
+        207
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.88 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:59.513681+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=9)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -141,56 +146,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.44 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.62,
-      "unit": "Mds €",
+      "value": 620,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.29,
-        0.29,
-        0.62,
-        0.62
+        290,
+        290,
+        620,
+        620
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.62 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "+107.1%",
       "history": [
-        0.05,
-        0.22,
-        0.14,
-        0.29
+        50,
+        220,
+        140,
+        290
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.29 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -232,9 +251,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -248,64 +265,64 @@
       "title": "Dépendance aux produits",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "La société dépend fortement de la commercialisation de ses produits, notamment Cortrophin Gel et ILUVIEN, pour maintenir sa rentabilité. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de la commercialisation de ses produits, notamment Cortrophin Gel et ILUVIEN, pour maintenir sa rentabilité.",
       "trend": "stable",
       "summary": "La société est exposée à des risques liés à la commercialisation de ses produits, notamment la concurrence et les réglementations.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Réglementations",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "La société est soumise à des réglementations strictes, notamment en matière de sécurité et d'efficacité des produits, et doit se conformer aux exigences des autorités de réglementation. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations strictes, notamment en matière de sécurité et d'efficacité des produits, et doit se conformer aux exigences des autorités de réglementation.",
       "trend": "up",
       "summary": "La société doit faire face à des réglementations de plus en plus strictes, ce qui peut impacter sa capacité à commercialiser ses produits.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché compétitif, avec des entreprises concurrentes qui peuvent développer des produits similaires ou plus efficaces. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché compétitif, avec des entreprises concurrentes qui peuvent développer des produits similaires ou plus efficaces.",
       "trend": "stable",
       "summary": "La société doit faire face à une concurrence accrue, ce qui peut impacter sa part de marché et ses revenus.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société dépend de fournisseurs pour la production de ses produits, ce qui peut créer des risques liés à la disponibilité et à la qualité des matières premières. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de fournisseurs pour la production de ses produits, ce qui peut créer des risques liés à la disponibilité et à la qualité des matières premières.",
       "trend": "stable",
       "summary": "La société est exposée à des risques liés à la dépendance aux fournisseurs, notamment en cas de rupture d'approvisionnement ou de problèmes de qualité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux brevets",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "La société doit protéger ses brevets et ses droits de propriété intellectuelle, ce qui peut créer des risques liés à la contrefaçon ou à la perte de brevets. (score par défaut, à affiner)",
+      "score_rationale": "La société doit protéger ses brevets et ses droits de propriété intellectuelle, ce qui peut créer des risques liés à la contrefaçon ou à la perte de brevets.",
       "trend": "stable",
       "summary": "La société est exposée à des risques liés à la protection de ses brevets et de ses droits de propriété intellectuelle.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société utilise des technologies de l'information pour opérer, ce qui peut créer des risques liés à la cybersécurité, notamment en cas d'attaque ou de fuite de données. (score par défaut, à affiner)",
+      "score_rationale": "La société utilise des technologies de l'information pour opérer, ce qui peut créer des risques liés à la cybersécurité, notamment en cas d'attaque ou de fuite de données.",
       "trend": "up",
       "summary": "La société est exposée à des risques liés à la cybersécurité, notamment en cas d'attaque ou de fuite de données.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La société doit maintenir une réputation positive, ce qui peut créer des risques liés à la perte de confiance des clients ou des investisseurs. (score par défaut, à affiner)",
+      "score_rationale": "La société doit maintenir une réputation positive, ce qui peut créer des risques liés à la perte de confiance des clients ou des investisseurs.",
       "trend": "stable",
       "summary": "La société est exposée à des risques liés à la réputation, notamment en cas de problème de qualité ou de sécurité des produits.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -503,6 +520,97 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "ANIP",
+    "extracted_at": "2026-06-01T02:57:07Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Revolver",
+        "period_type": "quarter",
+        "history": [
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24,
+          24
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:57:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Vente site Oakville",
+        "period_type": "quarter",
+        "history": [
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75,
+          0.75
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:57:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "ANIP",
     "ranks": {
@@ -515,15 +623,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.221961+00:00",
     "fetched_at": "2026-05-21T02:17:14.221963+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.852Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.305Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/anip.json",
     "enrich_root": "v2-pipeline-enrich/anip.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

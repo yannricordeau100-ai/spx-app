@@ -45,7 +45,7 @@
       "is_short_history": false,
       "ttm": 662.5,
       "period_type": "quarter",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -70,7 +70,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 933,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -138,11 +138,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 6.57 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +165,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 16.95 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,11 +192,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.22 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -207,10 +219,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.12 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -224,7 +240,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.85,
         3.06,
@@ -237,7 +253,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -252,7 +268,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1397,
@@ -265,7 +281,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -280,7 +296,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         93.88,
@@ -293,7 +309,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -309,7 +325,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.21,
@@ -322,7 +338,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -429,7 +445,8 @@
       "score_rationale": "Risque placé en début de section RISKS avec langage très intense ('significantly affected', 'volatile and unpredictable'). Tendance accrue explicitement mentionnée ('Pressure from litigation trends...in recent years'). Catégorie industrielle pèse fort pour assureur. Impact direct sur réserves et rentabilité.",
       "trend": "up",
       "summary": "Les couts de sinistres augmentent fortement en raison de l'inflation sociale, des tendances litigieuses et des abus du systeme juridique americain. Cela affecte directement la profitabilite et les reserves techniques de l'assureur.",
-      "citation": "Pressure from litigation trends, legal system abuse, and general and social inflation in the U.S. economy in recent years...have resulted in higher claims costs."
+      "citation": "Pressure from litigation trends, legal system abuse, and general and social inflation in the U.S. economy in recent years...have resulted in higher claims costs.",
+      "score": 5
     },
     {
       "title": "Concentration geographique et reglementaire",
@@ -438,7 +455,8 @@
       "score_rationale": "Risque identifie en section RISKS avec langage modere ('affect the growth and profitability'). Mention explicite de concentration dans Michigan et Massachusetts. Tendance stable mais structurelle. Impact macro-economique et reglementaire combine.",
       "trend": "stable",
       "summary": "L'activite est concentree dans certains etats comme le Michigan et le Massachusetts, exposant l'entreprise aux conditions economiques et reglementaires locales. Une restriction reglementaire ou une recession dans ces zones affecterait significativement les resultats.",
-      "citation": "The economic conditions in geographic locations where we conduct business, especially those locations where our business is concentrated, affect the growth and profitability of our business."
+      "citation": "The economic conditions in geographic locations where we conduct business, especially those locations where our business is concentrated, affect the growth and profitability of our business.",
+      "score": 4
     },
     {
       "title": "Volatilite des marches et catastrophes naturelles",
@@ -447,7 +465,8 @@
       "score_rationale": "Risque en debut de RISKS avec langage fort ('volatile and unpredictable developments'). Catastrophes et conditions meteorologiques explicitement citees. Tendance stable mais recurrente. Impact direct sur portefeuille d'investissement et sinistralite.",
       "trend": "stable",
       "summary": "Les conditions meteorologiques extremes, catastrophes naturelles et fluctuations des marches financiers impactent directement les resultats. Les sinistres catastrophiques et les pertes d'investissement peuvent etre importants et impredictibles.",
-      "citation": "volatile and unpredictable developments, such as weather conditions, catastrophes and other disasters...fluctuations in interest rates and the value of investments"
+      "citation": "volatile and unpredictable developments, such as weather conditions, catastrophes and other disasters...fluctuations in interest rates and the value of investments",
+      "score": 4
     },
     {
       "title": "Adequation des reserves techniques",
@@ -456,7 +475,8 @@
       "score_rationale": "Risque central en section RISKS avec langage modere mais explicite ('may affect the adequacy of reserves'). Reserves basees sur estimations et projections actuarielles sujettes a revision. Tendance stable mais structurelle. Impact direct sur resultats financiers.",
       "trend": "stable",
       "summary": "Les reserves de sinistres sont estimees sur la base de projections actuarielles et d'evaluations de dossiers. Des revisions frequentes de ces estimations affectent la profitabilite rapportee et la position financiere.",
-      "citation": "Our loss and loss adjustment expense (LAE) reserves are based on estimates...We regularly reassess our estimate of loss reserves and LAE...resulting changes have and will affect our reported profitability and financial position."
+      "citation": "Our loss and loss adjustment expense (LAE) reserves are based on estimates...We regularly reassess our estimate of loss reserves and LAE...resulting changes have and will affect our reported profitability and financial position.",
+      "score": 4
     },
     {
       "title": "Concurrence intense et pressions tarifaires",
@@ -465,7 +485,8 @@
       "score_rationale": "Risque identifie en debut de RISKS avec langage modere ('significantly affected by...competition'). Mention explicite de pressions concurrentielles dans Personal Lines face aux assureurs directs. Tendance stable mais structurelle. Poids fort pour modele de distribution.",
       "trend": "stable",
       "summary": "Le marche de l'assurance personnelle est tres competitif avec des pressions des assureurs directs et des outils de comparaison tarifaire sophistiques. Cela limite la capacite a augmenter les tarifs et affecte la rentabilite.",
-      "citation": "The market for our Personal Lines business is very competitive, with continued pressure on independent agents from direct insurance writers, as well as from the increased usage of real time comparative rating tools"
+      "citation": "The market for our Personal Lines business is very competitive, with continued pressure on independent agents from direct insurance writers, as well as from the increased usage of real time comparative rating tools",
+      "score": 4
     },
     {
       "title": "Risques de portefeuille d'investissement",
@@ -474,7 +495,8 @@
       "score_rationale": "Risque en section RISKS avec langage modere ('impacted by the capital markets'). Mention de pertes realisees, defauts de credit et liquidite. Tendance stable mais sensible aux conditions economiques. Impact indirect sur solvabilite.",
       "trend": "stable",
       "summary": "Le portefeuille d'investissement est expose aux conditions des marches de capitaux, aux defauts de credit et aux fluctuations de valeur. Cela affecte la liquidite, les pertes realisees et la capacite a conserver les investissements.",
-      "citation": "Our investment portfolio and its future returns are impacted by the capital markets and current economic conditions, which affect our liquidity, realized losses and impairments, credit default levels"
+      "citation": "Our investment portfolio and its future returns are impacted by the capital markets and current economic conditions, which affect our liquidity, realized losses and impairments, credit default levels",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:05:19.154962+00:00",
@@ -485,7 +507,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:23:09Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -506,7 +528,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:27Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:45Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "enrich_description": {
     "ticker": "THG",
@@ -561,7 +583,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.499Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.788Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/thg.json",
     "enrich_root": "v2-pipeline-enrich/thg.json",

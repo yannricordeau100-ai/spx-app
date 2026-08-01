@@ -104,34 +104,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.89 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+300.0%",
       "history": [
-        0.02,
-        0.01,
-        0.01,
-        0.04
+        20,
+        10,
+        10,
+        40
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.04 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -150,11 +159,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.62 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -173,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.25 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -196,10 +213,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.03 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -225,7 +246,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "integrated",
+    "stance": "absent",
     "summary": "Tripadvisor integrates artificial intelligence and machine learning capabilities as a connective layer for traveler personalization, planning, and conversion across its platform. The company leverages first-party data from its 425,000+ experiences, millions of POIs, and user-generated content to innovate in AI-driven discovery and booking solutions for travel and experiences.",
     "evidence": [
       "Integrated AI and machine learning capabilities serving as the connective layer for ongoing enhancements to traveler personalization, planning, and conversion",
@@ -238,16 +259,16 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "The online travel industry is large, highly dynamic and competitive. Multiple well-capitalized competitors operate across experiences, accommodations, and dining booking segments. (score par défaut, à affiner)",
+      "score_rationale": "The online travel industry is large, highly dynamic and competitive. Multiple well-capitalized competitors operate across experiences, accommodations, and dining booking segments.",
       "trend": "stable",
       "summary": "Intense competition in online travel and experiences marketplace could impact growth and market share in core segments.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux données",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "Company relies heavily on first-party data, user-generated content, and clickstream behavioral data to enhance customer experience and drive AI-powered personalization. Data loss or corruption could significantly impact operations. (score par défaut, à affiner)",
+      "score_rationale": "Company relies heavily on first-party data, user-generated content, and clickstream behavioral data to enhance customer experience and drive AI-powered personalization. Data loss or corruption could significantly impact operations.",
       "trend": "up",
       "summary": "Growing dependence on first-party data and AI capabilities for competitive advantage creates risks around data integrity and security.",
       "score": 3
@@ -256,25 +277,25 @@
       "title": "Réglementation",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Company operates across multiple geographies with increasingly complex regulatory requirements for online travel, data privacy (GDPR), restaurant booking operations, and consumer protection. (score par défaut, à affiner)",
+      "score_rationale": "Company operates across multiple geographies with increasingly complex regulatory requirements for online travel, data privacy (GDPR), restaurant booking operations, and consumer protection.",
       "trend": "up",
       "summary": "Evolving regulatory landscape across global markets, particularly in Europe for TheFork operations, creates compliance and operational challenges.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Company stores sensitive customer data, payment information, and operates multi-sided marketplace platforms. Breaches could result in financial losses, regulatory fines, and reputational damage. (score par défaut, à affiner)",
+      "score_rationale": "Company stores sensitive customer data, payment information, and operates multi-sided marketplace platforms. Breaches could result in financial losses, regulatory fines, and reputational damage.",
       "trend": "up",
       "summary": "Exposure to cybersecurity risks including data breaches, payment fraud, and hacking attempts across consumer-facing platforms and marketplaces.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance aux marques",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Company operates through globally recognized brands (Tripadvisor, Viator, TheFork). Loss of brand trust or perception issues could significantly impact traveler acquisition and monetization. (score par défaut, à affiner)",
+      "score_rationale": "Company operates through globally recognized brands (Tripadvisor, Viator, TheFork). Loss of brand trust or perception issues could significantly impact traveler acquisition and monetization.",
       "trend": "stable",
       "summary": "Reliance on brand reputation and user-generated content for traveler trust and platform engagement creates vulnerability to reputational risks.",
       "score": 3
@@ -283,16 +304,16 @@
       "title": "Risques géopolitiques",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Company operates globally with significant presence in Europe (TheFork across 11 countries). Geopolitical tensions, travel restrictions, conflicts, and sanctions can directly impact travel demand and operations. (score par défaut, à affiner)",
+      "score_rationale": "Company operates globally with significant presence in Europe (TheFork across 11 countries). Geopolitical tensions, travel restrictions, conflicts, and sanctions can directly impact travel demand and operations.",
       "trend": "up",
       "summary": "Exposure to geopolitical events, travel restrictions, and regional conflicts that directly impact travel industry demand and cross-border operations.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de liquidité",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Company operates marketplace businesses with evolving profitability and requires capital investment in growth initiatives, technology, and AI capabilities development. (score par défaut, à affiner)",
+      "score_rationale": "Company operates marketplace businesses with evolving profitability and requires capital investment in growth initiatives, technology, and AI capabilities development.",
       "trend": "stable",
       "summary": "Need to maintain adequate liquidity and cash flow to fund marketplace expansion, technology investment, and working capital requirements.",
       "score": 3
@@ -350,7 +371,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.631Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.860Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/trip.json",
     "enrich_root": null,

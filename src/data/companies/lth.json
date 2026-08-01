@@ -40,8 +40,11 @@
       "is_short_history": false,
       "ttm": 3634.64,
       "_validation": "Valeur et historique confirmés dans MD&A. Unité corrigée de $ à $ (annuel). Nom amélioré pour clarifier qu'il s'agit d'une métrique par adhésion.",
-      "period_type": "quarter",
-      "signal_en": "Strong top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Total Visits",
@@ -74,8 +77,8 @@
       "name_fr": "Revenu total des centres",
       "name_en": "Total Center Revenue",
       "explanation": "Revenu total annuel généré par les centres de fitness (adhésions + services en centre)",
-      "value": 2909,
-      "unit": "M $",
+      "value": 2.909,
+      "unit": "Mds $",
       "yoy": "+14%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -83,9 +86,9 @@
       "signal": "Augmentation significative du revenu total des centres",
       "description": "Le revenu total des centres inclut les cotisations d'adhésion et les revenus des services en centre",
       "history": [
-        2154,
-        2547,
-        2909
+        2.154,
+        2.547,
+        2.909
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -94,7 +97,8 @@
       "ttm": 3012.36,
       "_validation": "Valeur 2909M confirmée dans MD&A. Historique et yoy vérifiés. Unité M$ correcte.",
       "explanation_en": "Revenue from the Total Center segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Number of Centers",
@@ -194,21 +198,25 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.374,
-      "unit": "Mds $",
+      "value": 374,
+      "unit": "M $",
       "yoy": "+139.7%",
       "history": [
-        -0.579,
-        -0.002,
-        0.076,
-        0.156,
-        0.374
+        -579,
+        -2,
+        76,
+        156,
+        374
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -217,8 +225,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 5 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -274,7 +287,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "active",
+    "stance": "integrator",
     "summary": "Life Time intègre activement l'IA dans sa stratégie digitale. L'entreprise investit dans ses capacités numériques, notamment LAIC (Life Time AI Companion), son premier assistant IA génératif de healthy way of life offrant du contenu personnalisé et des recommandations aux membres. Cette initiative soutient la relation omni-canal de Life Time avec ses membres et élargit son portée au-delà des centres physiques.",
     "evidence": [
       "Continuing to invest in our digital capabilities, including artificial intelligence such as L AI C, our first generative, artificial intelligence driven healthy way of life personal companion with personalized content and recommendations, to strengthen our relationships with our members, reach more people looking for a Healthy Way of Life and more comprehensively address their health, fitness and wellness needs so that they can engage and connect with Life Time at any time or place."
@@ -288,7 +301,8 @@
       "severity": 5,
       "score_rationale": "Le succès de l'entreprise dépend directement de sa capacité à attirer et retenir les membres et à augmenter le revenu par adhésion. Des facteurs nombreux pourraient impacter cette capacité critique incluant l'engagement des membres, la fixation des prix, le comportement des consommateurs, la concurrence, les conditions économiques et les menaces de santé.",
       "trend": "up",
-      "summary": "L'entreprise doit continuellement engager les membres existants et attirer de nouveaux membres. La dépendance aux programmes d'adhésion qualifiée à bas prix présente un risque si ces programmes expirent ou se terminent sans remplacement efficace."
+      "summary": "L'entreprise doit continuellement engager les membres existants et attirer de nouveaux membres. La dépendance aux programmes d'adhésion qualifiée à bas prix présente un risque si ces programmes expirent ou se terminent sans remplacement efficace.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue et érosion de la part de marché",
@@ -296,7 +310,8 @@
       "severity": 4,
       "score_rationale": "Les concurrents tentent de copier le modèle d'affaires ou de proposer des services similaires. Certains concurrents, notamment les organisations à but non lucratif et gouvernementales, ont des avantages de coûts. La consolidation du secteur pourrait intensifier la concurrence et limiter la capacité à attirer les membres.",
       "trend": "up",
-      "summary": "La concurrence accrue dans le secteur de la santé, du fitness et du bien-être pourrait entraîner une perte de parts de marché et de reconnaissance de la marque si Life Time ne maintient pas son avantage concurrentiel en qualité et expérience."
+      "summary": "La concurrence accrue dans le secteur de la santé, du fitness et du bien-être pourrait entraîner une perte de parts de marché et de reconnaissance de la marque si Life Time ne maintient pas son avantage concurrentiel en qualité et expérience.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs tiers",
@@ -304,7 +319,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise dépend de fournisseurs tiers pour l'équipement et certains produits et services. Toute perturbation des opérations des fournisseurs ou incapacité à identifier des fournisseurs alternatifs pourrait impacter l'exploitation des centres et l'expansion de la marque.",
       "trend": "stable",
-      "summary": "La dépendance aux fournisseurs tiers pour l'équipement et les services pourrait avoir un impact négatif sur les opérations si les fournisseurs rencontrent des difficultés ou si la transition vers de nouveaux fournisseurs s'avère coûteuse et perturbatrice."
+      "summary": "La dépendance aux fournisseurs tiers pour l'équipement et les services pourrait avoir un impact négatif sur les opérations si les fournisseurs rencontrent des difficultés ou si la transition vers de nouveaux fournisseurs s'avère coûteuse et perturbatrice.",
+      "score": 3
     },
     {
       "title": "Risques liés à la qualité et à la réputation de la marque",
@@ -312,7 +328,8 @@
       "severity": 4,
       "score_rationale": "La marque et la réputation Life Time sont parmi ses actifs les plus importants. Toute détérioration de la qualité ou de la réputation de la marque affecterait directement la capacité à attirer et retenir les membres et pourrait matériellement affecter les résultats.",
       "trend": "up",
-      "summary": "La capacité de Life Time à attirer et retenir les membres dépend de la perception externe de Life Time comme une marque de premier plan offrant des expériences premium. Toute atteinte à cette réputation pourrait matériellement affecter la part de marché et les résultats d'exploitation."
+      "summary": "La capacité de Life Time à attirer et retenir les membres dépend de la perception externe de Life Time comme une marque de premier plan offrant des expériences premium. Toute atteinte à cette réputation pourrait matériellement affecter la part de marché et les résultats d'exploitation.",
+      "score": 4
     },
     {
       "title": "Risques macroéconomiques",
@@ -320,7 +337,8 @@
       "severity": 5,
       "score_rationale": "L'entreprise est exposée aux risques macroéconomiques incluant les tarifs, l'inflation, les taux d'intérêt, les taxes et les récessions économiques, qui pourraient réduire les dépenses discrétionnaires et impacter la demande de services premium.",
       "trend": "up",
-      "summary": "Les risques macroéconomiques pourraient avoir un impact significatif sur l'activité et les résultats de Life Time, notamment en raison de l'augmentation des coûts d'exploitation, des dépenses d'investissement et d'une potentielle diminution de la demande pour les services de wellness premium."
+      "summary": "Les risques macroéconomiques pourraient avoir un impact significatif sur l'activité et les résultats de Life Time, notamment en raison de l'augmentation des coûts d'exploitation, des dépenses d'investissement et d'une potentielle diminution de la demande pour les services de wellness premium.",
+      "score": 5
     },
     {
       "title": "Risques de santé et de sécurité",
@@ -328,7 +346,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est exposée aux risques de santé publique tels que les pandémies et épidémies qui pourraient entraîner la fermeture forcée de centres et la diminution de la fréquentation des membres.",
       "trend": "stable",
-      "summary": "Les risques de santé et de sécurité, y compris les pandémies et autres menaces pour la santé, pourraient avoir un impact significatif sur la capacité à opérer les centres et à servir les membres, affectant les revenus et les résultats d'exploitation."
+      "summary": "Les risques de santé et de sécurité, y compris les pandémies et autres menaces pour la santé, pourraient avoir un impact significatif sur la capacité à opérer les centres et à servir les membres, affectant les revenus et les résultats d'exploitation.",
+      "score": 4
     },
     {
       "title": "Risques de croissance et d'expansion",
@@ -336,7 +355,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est en phase de croissance rapide avec un plan d'expansion vers 12-14 nouveaux centres par an et des nouveaux modèles (Life Time Work, Life Time Living). Cette croissance rapide présente des risques de gestion et d'intégration.",
       "trend": "up",
-      "summary": "Les risques de croissance incluent la capacité à gérer l'expansion rapide, à intégrer efficacement de nouveaux centres et modèles d'affaires, et à maintenir la qualité et la cohérence de la marque à travers le réseau en expansion."
+      "summary": "Les risques de croissance incluent la capacité à gérer l'expansion rapide, à intégrer efficacement de nouveaux centres et modèles d'affaires, et à maintenir la qualité et la cohérence de la marque à travers le réseau en expansion.",
+      "score": 4
     },
     {
       "title": "Risques de régulation",
@@ -344,7 +364,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est soumise aux changements dans les lois et réglementations, notamment concernant les taxes, le travail, et les pratiques commerciales, qui pourraient augmenter les coûts d'exploitation.",
       "trend": "stable",
-      "summary": "Les nouveaux changements réglementaires pourraient augmenter les coûts de conformité et les dépenses d'exploitation, affectant négativement la rentabilité et les résultats d'exploitation de Life Time."
+      "summary": "Les nouveaux changements réglementaires pourraient augmenter les coûts de conformité et les dépenses d'exploitation, affectant négativement la rentabilité et les résultats d'exploitation de Life Time.",
+      "score": 3
     }
   ],
   "governance": {
@@ -367,7 +388,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -721,9 +742,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.278510+00:00",
     "fetched_at": "2026-05-21T02:17:14.278511+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.172Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.993Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lth.json",
     "enrich_root": "v2-pipeline-enrich/lth.json",

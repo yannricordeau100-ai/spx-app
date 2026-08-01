@@ -38,13 +38,14 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 7.46,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 années consécutives trouvées explicitement. Le filing contient : NIM fiscal 2019 = 4.91%, NIM fiscal 2020 = 4.09%. Minimum de 4 ",
-      "explanation_en": "Net Interest Margin — net interest income divided by earning assets (banks).",
+      "explanation_en": "Net Interest Margin, net interest income divided by earning assets (banks).",
       "signal_en": "Margin expansion, operating leverage",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -69,9 +70,7 @@
       "is_short_history": true,
       "ttm": 186.7,
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "Total Gross Loans and Leases",
@@ -95,9 +94,7 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 4.66,
-      "signal_en": "Capital base expanding, balance-sheet growth",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Assets",
@@ -121,10 +118,8 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 7.17,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure"
     },
     {
       "short": "Total Deposits",
@@ -148,9 +143,7 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 5.89,
-      "signal_en": "Capital base expanding, balance-sheet growth",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Stockholders Equity",
@@ -174,54 +167,62 @@
       "is_generic": true,
       "is_short_history": true,
       "ttm": 857.5,
-      "signal_en": "Capital base expanding, balance-sheet growth",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-90.2%",
       "history": [
-        0.04,
-        0.05,
-        0.41,
-        0.04
+        40,
+        50,
+        410,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "-25.0%",
       "history": [
-        0.39,
-        0.38,
-        0.16,
-        0.12
+        390,
+        380,
+        160,
+        120
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.12 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -235,7 +236,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.2,
         0.2,
@@ -248,7 +249,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -263,7 +264,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1742,
@@ -276,7 +277,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -291,7 +292,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         3.98,
@@ -304,7 +305,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -320,7 +321,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         5.26,
@@ -333,7 +334,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -409,7 +410,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -470,7 +471,6 @@
       "date": "2026-04-23"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T18:01:57.351157+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-09-30",
@@ -500,6 +500,7 @@
     ],
     "total": 0.84
   },
+  "_ai_positioning_fetched_at": "2026-05-06T18:01:57.351157+00:00",
   "_segments_fetched_at": "2026-05-06T19:25:36.149882+00:00",
   "risks": [
     {
@@ -508,7 +509,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement dans MD&A : 'interest rate risk to the extent that its interest-earning assets mature or reprice at different times'. Langage modéré mais reconnaissance claire de l'exposition. Pertinent pour une banque avec NIM de 7.46%.",
       "trend": "stable",
-      "summary": "L'actif et le passif de la banque ne se repricient pas au même rythme, exposant le NIM aux variations de taux. Les frais de traitement des cartes et les revenus de garde sont indexés sur l'EFFR."
+      "summary": "L'actif et le passif de la banque ne se repricient pas au même rythme, exposant le NIM aux variations de taux. Les frais de traitement des cartes et les revenus de garde sont indexés sur l'EFFR.",
+      "score": 3
     },
     {
       "title": "Concentration du portefeuille de prêts commerciaux",
@@ -516,7 +518,8 @@
       "severity": 3,
       "score_rationale": "Commercial finance représente 84% du portefeuille de prêts (3,92 Mds$). Croissance rapide de 19% YoY. Absence de détails sur diversification sectorielle ou concentration client dans l'extrait fourni.",
       "trend": "up",
-      "summary": "La forte concentration dans le financement commercial (84% du portefeuille) crée une exposition sectorielle importante. La croissance rapide de 19% augmente ce risque."
+      "summary": "La forte concentration dans le financement commercial (84% du portefeuille) crée une exposition sectorielle importante. La croissance rapide de 19% augmente ce risque.",
+      "score": 3
     },
     {
       "title": "Risque de liquidité des dépôts Partner Solutions",
@@ -524,7 +527,8 @@
       "severity": 3,
       "score_rationale": "5,89 Mds$ de dépôts dont une majorité provient de Partner Solutions (cartes prépayées). Soldes négatifs importants (245,8 M$ prefunding, 3,5 M$ discount funding). Dépendance à des partenaires tiers pour la stabilité.",
       "trend": "stable",
-      "summary": "Les dépôts Partner Solutions incluent des soldes négatifs (prefunding, discount funding) et des comptes de garde externes (210,5 M$), créant une volatilité potentielle des ressources."
+      "summary": "Les dépôts Partner Solutions incluent des soldes négatifs (prefunding, discount funding) et des comptes de garde externes (210,5 M$), créant une volatilité potentielle des ressources.",
+      "score": 3
     },
     {
       "title": "Risque de crédit sur portefeuille consumer finance",
@@ -532,7 +536,8 @@
       "severity": 2,
       "score_rationale": "144,1 M$ de consumer finance reclassés en 'held for sale' en Q4 2025, suivi d'une vente partielle post-clôture. Indique une gestion active mais aussi une exposition à la qualité de crédit consumer.",
       "trend": "up",
-      "summary": "Le portefeuille consumer finance est en réduction (vente de 144,1 M$), suggérant une gestion des risques de crédit mais aussi une exposition historique à surveiller."
+      "summary": "Le portefeuille consumer finance est en réduction (vente de 144,1 M$), suggérant une gestion des risques de crédit mais aussi une exposition historique à surveiller.",
+      "score": 2
     },
     {
       "title": "Dépendance aux partenaires tiers (Partner Solutions)",
@@ -540,7 +545,8 @@
       "severity": 3,
       "score_rationale": "Partner Solutions génère une part significative des revenus non-intérêt. Dépôts de cartes prépayées dépendent de partenaires externes. Absence de détails sur concentration partenaire ou contrats de résiliation.",
       "trend": "stable",
-      "summary": "Le modèle Partner Solutions repose sur des partenaires tiers pour les cartes prépayées et les dépôts. Une perte de partenaire majeur ou une résiliation de contrat pourrait impacter les revenus."
+      "summary": "Le modèle Partner Solutions repose sur des partenaires tiers pour les cartes prépayées et les dépôts. Une perte de partenaire majeur ou une résiliation de contrat pourrait impacter les revenus.",
+      "score": 3
     },
     {
       "title": "Risque réglementaire et capital adequacy",
@@ -548,7 +554,8 @@
       "severity": 2,
       "score_rationale": "Mention que la banque reste 'well-capitalized' mais sans détails sur ratios de capital. Environnement réglementaire bancaire en évolution. Langage rassurant mais absence de chiffres spécifiques.",
       "trend": "stable",
-      "summary": "La banque doit maintenir des ratios de capital réglementaires. Tout durcissement des exigences ou changement réglementaire pourrait contraindre la croissance."
+      "summary": "La banque doit maintenir des ratios de capital réglementaires. Tout durcissement des exigences ou changement réglementaire pourrait contraindre la croissance.",
+      "score": 2
     },
     {
       "title": "Risque de concentration géographique et opérationnelle",
@@ -556,12 +563,13 @@
       "severity": 2,
       "score_rationale": "Siège social à Sioux Falls (Dakota du Sud), 6 bureaux non-succursales. Modèle 'Talent Anywhere' mentionné mais infrastructure concentrée. Pas de détails sur résilience opérationnelle.",
       "trend": "stable",
-      "summary": "L'infrastructure opérationnelle est concentrée dans le Midwest américain avec un siège unique. Les risques de catastrophe naturelle ou perturbation locale pourraient affecter les opérations."
+      "summary": "L'infrastructure opérationnelle est concentrée dans le Midwest américain avec un siège unique. Les risques de catastrophe naturelle ou perturbation locale pourraient affecter les opérations.",
+      "score": 2
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T20:29:51.788847+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:17Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -588,7 +596,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:56Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:08Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
   "enrich_events": {
@@ -645,9 +653,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.235943+00:00",
     "fetched_at": "2026-05-21T02:17:14.235944+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.130Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.568Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cash.json",
     "enrich_root": "v2-pipeline-enrich/cash.json",

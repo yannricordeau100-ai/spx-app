@@ -66,7 +66,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Adoption accelerating, user base expanding"
+      "signal_en": "Adoption accelerating, user base expanding",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cycles ART",
@@ -131,79 +135,98 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.29 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.74,
-      "unit": "Mds €",
+      "value": 740,
+      "unit": "M €",
       "yoy": "+21.3%",
       "history": [
-        0.54,
-        0.76,
-        0.61,
-        0.74
+        540,
+        760,
+        610,
+        740
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.74 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
-        0.01,
-        0.02,
-        0.02,
-        0.03
+        10,
+        20,
+        20,
+        30
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.03 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "-31.2%",
       "history": [
-        0.12,
-        0.1,
-        0.16,
-        0.11
+        120,
+        100,
+        160,
+        110
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.11 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -225,9 +248,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Market",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Market"
     },
     {
       "short": "Pénétration marché",
@@ -247,9 +268,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Market",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Market"
     }
   ],
   "ai_positioning": {
@@ -277,7 +296,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -291,7 +310,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en tant que composante clé du modèle économique dans le 10-K, avec un langage fort sur la dépendance à l'utilisation des traitements. La stabilité des revenus est directement liée aux taux d'utilisation, qui sont faibles (1,32 % en 2025). La catégorie Capital est fortement pondérée ici.",
       "trend": "stable",
-      "summary": "Les revenus dépendent fortement de l'utilisation des traitements fertilité par les membres, un facteur incertain et sensible aux comportements."
+      "summary": "Les revenus dépendent fortement de l'utilisation des traitements fertilité par les membres, un facteur incertain et sensible aux comportements.",
+      "score": 4
     },
     {
       "title": "Perte d'un grand client clé",
@@ -299,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement la non-reconduction d'un grand client et l'impact d'un accord de transition. Le langage indique un risque significatif sur la base clients. Ce risque est nouveau par rapport à l'année précédente.",
       "trend": "new",
-      "summary": "La non-reconduction d'un contrat avec un grand client peut impacter fortement les revenus et la croissance."
+      "summary": "La non-reconduction d'un contrat avec un grand client peut impacter fortement les revenus et la croissance.",
+      "score": 4
     },
     {
       "title": "Dépendance à quelques grands clients",
@@ -307,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Bien que non explicité en termes de concentration, la perte d'un grand client est mise en avant, suggérant une concentration de risque. Le langage est indirect mais l'impact potentiel est élevé, surtout avec la mention de membres exclus de l'utilisation.",
       "trend": "stable",
-      "summary": "Une part importante des revenus pourrait dépendre d'un petit nombre de clients, augmentant le risque commercial."
+      "summary": "Une part importante des revenus pourrait dépendre d'un petit nombre de clients, augmentant le risque commercial.",
+      "score": 4
     },
     {
       "title": "Concurrence croissante sur le marché des avantages fertilité",
@@ -315,7 +337,8 @@
       "severity": 3,
       "score_rationale": "Le risque est cité dans le contexte de l'acquisition de nouveaux clients. Le langage est modéré, mais le contexte montre une pression accrue. La concurrence est un facteur clé de croissance, donc pondéré.",
       "trend": "up",
-      "summary": "L'augmentation des offrants de solutions de fertilité pourrait réduire la part de marché ou forcer des baisses de prix."
+      "summary": "L'augmentation des offrants de solutions de fertilité pourrait réduire la part de marché ou forcer des baisses de prix.",
+      "score": 3
     },
     {
       "title": "Dépendance aux réseaux de prestataires spécialisés",
@@ -323,7 +346,8 @@
       "severity": 3,
       "score_rationale": "Les contrats avec les cliniques et pharmacies sont à court terme (1-2 ans), ce qui crée un risque de rupture. Le document souligne l'importance du réseau, mais sans langage alarmiste. Catégorie Industriel moyennement pondérée.",
       "trend": "stable",
-      "summary": "La qualité et la disponibilité des prestataires dans le réseau sont critiques pour la prestation des services."
+      "summary": "La qualité et la disponibilité des prestataires dans le réseau sont critiques pour la prestation des services.",
+      "score": 3
     },
     {
       "title": "Expansion risquée vers de nouvelles solutions santé",
@@ -331,7 +355,8 @@
       "severity": 3,
       "score_rationale": "Les nouvelles offres (grossesse, ménopause, etc.) sont qualifiées d'investissements stratégiques mais non rentables à ce jour. Le langage indique un risque d'échec d'adoption ou de retour sur investissement faible.",
       "trend": "new",
-      "summary": "L'élargissement vers de nouvelles prestations comporte des risques financiers si ces services ne génèrent pas de revenus significatifs."
+      "summary": "L'élargissement vers de nouvelles prestations comporte des risques financiers si ces services ne génèrent pas de revenus significatifs.",
+      "score": 3
     },
     {
       "title": "Risque de gestion des coûts de services",
@@ -339,7 +364,8 @@
       "severity": 4,
       "score_rationale": "Le coût des services inclut des éléments variables (médicaments, prestataires) et des coûts salariaux en hausse. Le document note une croissance continue des coûts liés aux équipes de soins. Langage factuel mais intensité élevée sur l'impact sur la marge.",
       "trend": "stable",
-      "summary": "La pression sur les coûts, notamment salariaux et pharmaceutiques, menace la rentabilité du modèle économique."
+      "summary": "La pression sur les coûts, notamment salariaux et pharmaceutiques, menace la rentabilité du modèle économique.",
+      "score": 4
     }
   ],
   "governance": {
@@ -493,9 +519,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.296483+00:00",
     "fetched_at": "2026-05-21T02:17:14.296484+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.574Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.551Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pgny.json",
     "enrich_root": "v2-pipeline-enrich/pgny.json",

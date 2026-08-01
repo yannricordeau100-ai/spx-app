@@ -70,7 +70,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 255.5,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -95,7 +95,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 58.13,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -115,34 +115,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.88 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+20.0%",
       "history": [
-        0.06,
-        0.09,
-        0.05,
-        0.06
+        60,
+        90,
+        50,
+        60
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.06 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +170,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.89 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,33 +197,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.03,
-        0.07,
-        0.04,
-        0.04
+        30,
+        70,
+        40,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,9 +258,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 1831.51,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 1831.51
     }
   ],
   "ai_positioning": {
@@ -252,7 +272,7 @@
       "title": "Fluctuations saisonnières et météorologiques",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Mentionné en premier dans les facteurs de risque (Item 1A). Le langage indique des 'fluctuations importantes' et un impact historique sur les résultats. Ce risque est récurrent et impacte directement les ventes et les opérations. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné en premier dans les facteurs de risque (Item 1A). Le langage indique des 'fluctuations importantes' et un impact historique sur les résultats. Ce risque est récurrent et impacte directement les ventes et les opérations.",
       "trend": "stable",
       "summary": "Les résultats de l'entreprise peuvent varier significativement d'un trimestre à l'autre en raison de facteurs incontrôlables comme la météo, affectant la demande et les opérations, particulièrement en hiver.",
       "score": 3
@@ -261,25 +281,25 @@
       "title": "Baisse des ventes dans les produits chimiques de performance",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La baisse des ventes de 16,5% dans les produits chimiques de performance est significative et mentionnée explicitement. Le langage ('shift in United States market share') suggère une perte de position concurrentielle ou un changement de marché. (score par défaut, à affiner)",
+      "score_rationale": "La baisse des ventes de 16,5% dans les produits chimiques de performance est significative et mentionnée explicitement. Le langage ('shift in United States market share') suggère une perte de position concurrentielle ou un changement de marché.",
       "trend": "down",
       "summary": "Une baisse notable des ventes dans le segment des produits chimiques de performance, due à des changements de parts de marché et à des ventes ponctuelles antérieures, impacte négativement les revenus.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Arrêt de la production et baisse des volumes de produits chimiques",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "L'arrêt de la production d'anhydride phtalique et la baisse des volumes de noir de carbone sont des événements majeurs impactant directement les revenus et les coûts. Le langage ('ceased production', 'lower volumes and prices') indique une décision stratégique avec des conséquences financières. (score par défaut, à affiner)",
+      "score_rationale": "L'arrêt de la production d'anhydride phtalique et la baisse des volumes de noir de carbone sont des événements majeurs impactant directement les revenus et les coûts. Le langage ('ceased production', 'lower volumes and prices') indique une décision stratégique avec des conséquences financières.",
       "trend": "down",
       "summary": "L'entreprise a cessé la production d'un produit chimique clé et fait face à une baisse des volumes et des prix pour d'autres produits, affectant les revenus et potentiellement les marges.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions et restructurations",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Des charges importantes liées aux restructurations et aux acquisitions sont mentionnées ('impairment and restructuring charges', 'acquisition of Brown Wood', 'Greenhill acquisition'). Ces activités impliquent des coûts et des risques d'intégration. (score par défaut, à affiner)",
+      "score_rationale": "Des charges importantes liées aux restructurations et aux acquisitions sont mentionnées ('impairment and restructuring charges', 'acquisition of Brown Wood', 'Greenhill acquisition'). Ces activités impliquent des coûts et des risques d'intégration.",
       "trend": "up",
       "summary": "Les coûts associés aux restructurations, aux programmes de réduction d'effectifs et aux acquisitions récentes (Brown Wood, Greenhill) peuvent impacter les résultats financiers et opérationnels.",
       "score": 3
@@ -288,7 +308,7 @@
       "title": "Volatilité des prix des matières premières et couverture",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les coûts des matières premières, notamment le cuivre, ont augmenté, impactant la rentabilité du segment Performance Chemicals malgré les programmes de couverture. Les 'purchase commitments' non fixes soulignent cette exposition. (score par défaut, à affiner)",
+      "score_rationale": "Les coûts des matières premières, notamment le cuivre, ont augmenté, impactant la rentabilité du segment Performance Chemicals malgré les programmes de couverture. Les 'purchase commitments' non fixes soulignent cette exposition.",
       "trend": "up",
       "summary": "La volatilité des prix des matières premières, comme le cuivre, peut augmenter les coûts de production et affecter la rentabilité, même avec des stratégies de couverture.",
       "score": 3
@@ -297,19 +317,19 @@
       "title": "Conformité aux covenants bancaires et liquidité",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Bien que l'entreprise soit actuellement en conformité, le risque de non-respect des covenants bancaires ('total net leverage ratio', 'cash interest coverage ratio') est souligné comme pouvant être affecté par des 'événements au-delà de notre contrôle'. (score par défaut, à affiner)",
+      "score_rationale": "Bien que l'entreprise soit actuellement en conformité, le risque de non-respect des covenants bancaires ('total net leverage ratio', 'cash interest coverage ratio') est souligné comme pouvant être affecté par des 'événements au-delà de notre contrôle'.",
       "trend": "stable",
       "summary": "L'entreprise doit maintenir certains ratios financiers pour respecter ses accords de crédit. Des événements imprévus pourraient rendre difficile le respect de ces covenants, affectant la liquidité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux opérations étrangères et aux devises",
       "category": "Macro",
       "severity": 2,
-      "score_rationale": "Les fluctuations des devises étrangères ont eu un impact défavorable sur les ventes dans plusieurs segments ('foreign currency changes compared to the prior year period had an unfavorable impact'). Bien que le langage ne soit pas alarmiste, il s'agit d'un risque constant pour les opérations internationales. (score par défaut, à affiner)",
+      "score_rationale": "Les fluctuations des devises étrangères ont eu un impact défavorable sur les ventes dans plusieurs segments ('foreign currency changes compared to the prior year period had an unfavorable impact'). Bien que le langage ne soit pas alarmiste, il s'agit d'un risque constant pour les opérations internationales.",
       "trend": "stable",
       "summary": "Les opérations internationales exposent l'entreprise aux fluctuations des taux de change, qui peuvent avoir un impact négatif sur les ventes et les résultats financiers.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -409,7 +429,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.876Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.736Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kop.json",
     "enrich_root": null,

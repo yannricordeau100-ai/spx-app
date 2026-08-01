@@ -1,6 +1,6 @@
 {
   "ticker": "TEX",
-  "name": "Terex Corporation",
+  "name": "Terex",
   "sector": "Industrie",
   "subsector": "Machinery",
   "tagline": "Global manufacturer of materials processing equipment, waste and recycling solutions, and aerial work platforms",
@@ -104,7 +104,7 @@
       "is_short_history": false,
       "ttm": 475,
       "_validation": "Unité vérifiée M $; history corrigée (alignement année sur année); ttm aligné avec la valeur actuelle",
-      "explanation_en": "Operating Profit — profit from core business operations.",
+      "explanation_en": "Operating Profit, profit from core business operations.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -131,7 +131,7 @@
       "is_short_history": false,
       "ttm": 325,
       "_validation": "Unité vérifiée M $; history validée; ttm aligné avec la valeur actuelle; description améliorée avec détail conversion FCF",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -180,7 +180,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "KPI conservé avec valeurs manquantes; explication corrigée avec méthodologie ROIC décrite dans le MD&A",
-      "explanation_en": "Return on Invested Capital — operating profit divided by invested capital."
+      "explanation_en": "Return on Invested Capital, operating profit divided by invested capital."
     },
     {
       "short": "Total Assets",
@@ -199,11 +199,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.14 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -222,11 +226,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.58 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -294,7 +302,8 @@
       "severity": 4,
       "score_rationale": "La société a des dettes importantes et des crédits à court terme, ce qui peut augmenter le risque de défaut de paiement.",
       "trend": "stable",
-      "summary": "La société doit gérer ses dettes et ses crédits pour éviter les défauts de paiement."
+      "summary": "La société doit gérer ses dettes et ses crédits pour éviter les défauts de paiement.",
+      "score": 4
     },
     {
       "title": "Risque de concurrence",
@@ -302,7 +311,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un marché compétitif, ce qui peut affecter ses parts de marché et ses revenus.",
       "trend": "up",
-      "summary": "La société doit innover et améliorer ses produits pour rester compétitive."
+      "summary": "La société doit innover et améliorer ses produits pour rester compétitive.",
+      "score": 3
     },
     {
       "title": "Risque de régulation",
@@ -310,7 +320,8 @@
       "severity": 2,
       "score_rationale": "Les changements dans les réglementations gouvernementales peuvent affecter les opérations de la société.",
       "trend": "new",
-      "summary": "La société doit suivre les changements dans les réglementations pour s'assurer de sa conformité."
+      "summary": "La société doit suivre les changements dans les réglementations pour s'assurer de sa conformité.",
+      "score": 2
     },
     {
       "title": "Risque de cybersécurité",
@@ -318,7 +329,8 @@
       "severity": 5,
       "score_rationale": "La société est vulnérable aux attaques cybernétiques, ce qui peut compromettre la sécurité de ses données et de ses systèmes.",
       "trend": "up",
-      "summary": "La société doit renforcer ses mesures de cybersécurité pour protéger ses actifs."
+      "summary": "La société doit renforcer ses mesures de cybersécurité pour protéger ses actifs.",
+      "score": 5
     },
     {
       "title": "Risque de géopolitique",
@@ -326,7 +338,8 @@
       "severity": 4,
       "score_rationale": "Les événements géopolitiques peuvent affecter les opérations de la société et ses chaînes d'approvisionnement.",
       "trend": "stable",
-      "summary": "La société doit suivre les événements géopolitiques pour anticiper les risques potentiels."
+      "summary": "La société doit suivre les événements géopolitiques pour anticiper les risques potentiels.",
+      "score": 4
     },
     {
       "title": "Risque de technologie",
@@ -334,7 +347,8 @@
       "severity": 3,
       "score_rationale": "La société doit investir dans les nouvelles technologies pour rester compétitive.",
       "trend": "up",
-      "summary": "La société doit innover et adopter les nouvelles technologies pour améliorer ses opérations."
+      "summary": "La société doit innover et adopter les nouvelles technologies pour améliorer ses opérations.",
+      "score": 3
     },
     {
       "title": "Risque de capital",
@@ -342,7 +356,8 @@
       "severity": 4,
       "score_rationale": "La société doit gérer son capital pour financer ses opérations et ses investissements.",
       "trend": "stable",
-      "summary": "La société doit équilibrer ses besoins de capital pour assurer sa croissance et sa stabilité."
+      "summary": "La société doit équilibrer ses besoins de capital pour assurer sa croissance et sa stabilité.",
+      "score": 4
     }
   ],
   "governance": {
@@ -388,7 +403,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -461,7 +476,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.459Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.776Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tex.json",
     "enrich_root": null,

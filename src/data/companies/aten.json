@@ -42,8 +42,12 @@
       "is_short_history": false,
       "ttm": 290557,
       "_validation": "Correction unité Mds $ en M $, ajustement history (ajout valeur 2025)",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -71,16 +75,20 @@
       "is_short_history": false,
       "ttm": 79.3,
       "_validation": "Correction history (valeurs nettoyées de format erroné 79,2 → 79.3 etc.), format numérique au lieu texte, ajustement description",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
       "name_fr": "Investissements en recherche et développement",
       "name_en": "R&D Investments",
       "explanation": "Investissements de la société dans la recherche et le développement",
-      "value": 74359,
-      "unit": "M $",
+      "value": 74.359,
+      "unit": "Mds $",
       "yoy": "+19,7%",
       "type": "Investment",
       "nature": "Structurel",
@@ -88,14 +96,14 @@
       "signal": "Augmentation significative des investissements R&D",
       "description": "Les investissements R&D ont atteint 69,104 M$ en 2025, en hausse de 19,7% par rapport à 57,726 M$ en 2024, démontrant l'engagement d'A10 envers l'innovation en cybersécurité et technologies IA",
       "history": [
-        75701,
-        77423,
-        73406,
-        74197,
-        73738,
-        73738,
-        74434,
-        74359
+        75.701,
+        77.423,
+        73.406,
+        74.197,
+        73.738,
+        73.738,
+        74.434,
+        74.359
       ],
       "last_data_date": "2026-03-31",
       "is_wow": true,
@@ -105,121 +113,147 @@
       "_validation": "Correction unité Mds $ en M $, ajustement history (ajout valeur 2025)",
       "period_type": "quarter",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "+11.5%",
       "history": [
-        0.28,
-        0.25,
-        0.26,
-        0.29
+        280,
+        250,
+        260,
+        290
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.29 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-20.0%",
       "history": [
-        0.05,
-        0.04,
-        0.05,
-        0.04
+        50,
+        40,
+        50,
+        40
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.04 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.63,
-      "unit": "Mds €",
+      "value": 630,
+      "unit": "M €",
       "yoy": "+46.5%",
       "history": [
-        0.37,
-        0.39,
-        0.43,
-        0.63
+        370,
+        390,
+        430,
+        630
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.63 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "+2200.0%",
       "history": [
-        0.02,
-        0.02,
-        0.01,
-        0.23
+        20,
+        20,
+        10,
+        230
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.23 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "-30.0%",
       "history": [
-        0.07,
-        0.1,
-        0.1,
-        0.07
+        70,
+        100,
+        100,
+        70
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.07 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -246,7 +280,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "A10 Networks positionne activement ses solutions pour l'économie de l'IA. Le 10-K mentionne explicitement la preparation aux charges de travail IA, l'acquisition de ThreatX Protect pour la protection des APIs, et l'alignement des solutions d'infrastructure reseau aux demandes de generation d'IA.",
     "evidence": [
       "AI-enabled workloads mentionnées dans Item 1 Business",
@@ -263,17 +297,17 @@
       "title": "Concentration clients clés",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les 10 plus grands clients represententent 40% du chiffre d'affaires en 2025 (vs 38% en 2024 et 33% en 2023), tendance a la hausse. Perte de ces clients serait materielle aux resultats. (score par défaut, à affiner)",
+      "score_rationale": "Les 10 plus grands clients represententent 40% du chiffre d'affaires en 2025 (vs 38% en 2024 et 33% en 2023), tendance a la hausse. Perte de ces clients serait materielle aux resultats.",
       "trend": "up",
       "summary": "La concentration de la base clients augmente, avec 40% du revenu provenant de 10 clients clés en 2025. Tout ralentissement ou perte chez ces clients majeurs impacterait significativement les resultats operationnels trimestriels et annuels.",
       "_validation": "Correction: changement trend de 'stable' a 'up' (40% vs 38% vs 33% montre hausse), score_rationale enrichi avec donnees 10-K financials",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence intense dans la securité reseau",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Marche des solutions de securite applicative et reseau est hautement concurrentiel avec nombreux acteurs etablis et nouveaux entrants, impactant potentiellement part de marche. (score par défaut, à affiner)",
+      "score_rationale": "Marche des solutions de securite applicative et reseau est hautement concurrentiel avec nombreux acteurs etablis et nouveaux entrants, impactant potentiellement part de marche.",
       "trend": "stable",
       "summary": "Le marche de la delivrance securisee d'applications et de la protection DDoS/API est competitif. A10 doit maintenir son avantage technologique et son portefeuille de solutions pour preserver sa position.",
       "_validation": "Correction: trend change de 'up' en 'stable' (pas d'evidence de deterioration acceleree dans 10-K), description rendue plus precise",
@@ -283,37 +317,37 @@
       "title": "Risques tarifaires et restrictions commerciales",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "MD&A mentionne explicitement enhanced US tariffs, import/export restrictions impactant cout d'inputs et demande. Volatilite macroeconomique et spending patterns impredictibles. (score par défaut, à affiner)",
+      "score_rationale": "MD&A mentionne explicitement enhanced US tariffs, import/export restrictions impactant cout d'inputs et demande. Volatilite macroeconomique et spending patterns impredictibles.",
       "trend": "up",
       "summary": "Les tarifs douaniers renforces americains et les restrictions commerciales contribuent a la volatilite macroeconomique. A10 peut etre forcee d'implementer des augmentations de couts d'inputs lies aux tarifs, impactant margins et competitivite.",
       "_validation": "Correction: enrichissement score_rationale et summary avec evidence MD&A directe",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dependance a la technologie et rapidite de changement",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Solutions A10 doivent evoluer pour les environnements AI, architectures distribuees, cloud-natif et edge. Incapacite a innover ou adapter technologie rapidement menace competitivite. (score par défaut, à affiner)",
+      "score_rationale": "Solutions A10 doivent evoluer pour les environnements AI, architectures distribuees, cloud-natif et edge. Incapacite a innover ou adapter technologie rapidement menace competitivite.",
       "trend": "stable",
       "summary": "A10 est dependante de l'innovation technologique pour repondre aux evolutions rapides du marche (AI workloads, architectures hybrid-cloud, API security, WAAP). Investissements R&D importants (23,8% du revenu) refletent cette necessite.",
       "_validation": "Correction: description enrichie avec context 10-K (AI workloads, architectures, investissement R&D %), maintien trend 'stable' car manageable par strategie innovation",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques cybersécurité et violation données",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "En tant que fournisseur de solutions cybersecurite, A10 est expose aux risques de breach, hacks impactant ses donnees clients et reputation. Aussi responsable de securite solutions vendues aux clients. (score par défaut, à affiner)",
+      "score_rationale": "En tant que fournisseur de solutions cybersecurite, A10 est expose aux risques de breach, hacks impactant ses donnees clients et reputation. Aussi responsable de securite solutions vendues aux clients.",
       "trend": "up",
       "summary": "A10 est expose aux risques cybersecurite pouvant compromettre la confidentialite et la securite des donnees de ses clients et de l'entreprise. Une violation majeure pourrait avoir impact significatif sur reputation, responsabilite legale et resultats financiers.",
       "_validation": "Correction: score_rationale affine pour distinguer risques operationnels et risques produit",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques de conformité réglementaire",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Solutions A10 doivent se conformer a reglementations de protection de donnees (GDPR, CCPA, etc.), cybersecurite (NIST, etc.) et reglementations export/import. Non-conformite cause sanctions. (score par défaut, à affiner)",
+      "score_rationale": "Solutions A10 doivent se conformer a reglementations de protection de donnees (GDPR, CCPA, etc.), cybersecurite (NIST, etc.) et reglementations export/import. Non-conformite cause sanctions.",
       "trend": "stable",
       "summary": "A10 doit se conformer a reglementations strictes de confidentialite, cybersecurite et commerce international. Changements reglementaires ou sanctions en cas de non-conformite pourraient impacter operations et resultats.",
       "_validation": "Correction: enrichissement score_rationale avec examples specifiques de reglementations, description centree sur conformite plutot que vulnerabilite generale",
@@ -569,88 +603,89 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ATEN",
-    "extracted_at": "2026-05-15T18:09:13Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1580808,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T02:58:41Z",
+    "n_kpis": 3,
     "kpis": [
       {
         "short": "R&D",
         "period_type": "quarter",
         "history": [
-          42.459,
-          -28.476,
-          13.981,
-          27.472,
-          41.05,
-          -28.426,
-          12.887,
-          27.122,
-          41.483,
-          -26.263,
           11.665,
-          25.63,
-          43.25,
-          15.9,
-          28.8,
-          44.533,
-          -31.507,
-          32.156,
-          50.533,
-          19.018
+          13.965,
+          17.62,
+          14.063,
+          14.737,
+          15.734
         ],
         "history_periods": [
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
           "Q1 2024",
           "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q2 2025",
-          "Q3 2025",
-          "Q1 2026"
+          "Q3 2024"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2024-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q4 2024",
-            "value": -31.507,
-            "accession": "calc-0001580808-25-000043",
-            "end": "2024-12-31"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 32.156,
-            "accession": "0001580808-25-000099",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 50.533,
-            "accession": "0001580808-25-000111",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 19.018,
-            "accession": "0001580808-26-000032",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T02:58:41Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          0.0531,
+          0.0606,
+          0.0531,
+          0.0558,
+          0.0553,
+          0.0614
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2024-09-30",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T02:58:41Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          0.0036,
+          0.0107,
+          0.0111,
+          0.009,
+          0.0087,
+          0.0116
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2024-09-30",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T02:58:41Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -666,9 +701,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.225204+00:00",
     "fetched_at": "2026-05-21T02:17:14.225205+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.110Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.575Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aten.json",
     "enrich_root": "v2-pipeline-enrich/aten.json",

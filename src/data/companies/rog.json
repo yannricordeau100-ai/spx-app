@@ -1,6 +1,6 @@
 {
   "ticker": "ROG",
-  "name": "Rogers Corporation",
+  "name": "Rogers",
   "sector": "Technologie",
   "subsector": "Semi-conducteurs et composants électroniques",
   "tagline": "High-Performance Engineered Materials and Components",
@@ -38,11 +38,14 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur confirmée (31.7%), history confirmée (2024=33.4%, 2025=31.7%), YoY confirmé (-170 pts de base)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le texte fourni est un extrait XML/XBRL contenant uniquement des métadonnées de structure et des références de contexte. Aucune valeur numér",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Sales",
@@ -116,7 +119,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur confirmée (-45.5M$, calculée comme 810.8M$ x -5.6%), YoY recalculé ((-45.5-24.9)/24.9 = -282.7%), history confirmée (2024=24.9M$, 2025=-45.5M$)",
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -160,56 +163,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.43 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.23,
-        0.05,
-        0.02,
-        0.02
+        230,
+        50,
+        20,
+        20
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "+25.0%",
       "history": [
-        0.24,
-        0.13,
-        0.16,
-        0.2
+        240,
+        130,
+        160,
+        200
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.2 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -284,7 +301,8 @@
       "severity": 5,
       "score_rationale": "Le document mentionne une baisse de 170 pb de la marge brute et un résultat opérationnel négatif à -5,6 % en 2025. Le langage reflète une détérioration marquée de la performance financière. Comparé à l'année précédente, la tendance est nettement dégradée. Catégorie Capital fortement impactée.",
       "trend": "up",
-      "summary": "La société voit ses marges et sa rentabilité s'effondrer, avec un résultat opérationnel en forte perte."
+      "summary": "La société voit ses marges et sa rentabilité s'effondrer, avec un résultat opérationnel en forte perte.",
+      "score": 5
     },
     {
       "title": "Impairment majeur sur Curamik",
@@ -292,7 +310,8 @@
       "severity": 5,
       "score_rationale": "Une charge d'impairment de 71,8 M$ est reconnue sur le reporting unit Curamik (AES). Cela indique une dépréciation significative d'actifs après acquisition. Le montant est élevé vs CA et résultat. Catégorie Industriel avec impact stratégique fort.",
       "trend": "new",
-      "summary": "Un important impairment sur l'unité Curamik révèle des difficultés d'intégration ou de performance post-acquisition."
+      "summary": "Un important impairment sur l'unité Curamik révèle des difficultés d'intégration ou de performance post-acquisition.",
+      "score": 5
     },
     {
       "title": "Restructuration coûteuse en Europe",
@@ -300,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Charges de restructuration de 23,4 M$ en 2025 liées à la fermeture d'Evergem (Belgique) et à la consolidation en Allemagne. Mention répétée dans les résultats. Impact opérationnel et social important. Catégorie Industriel avec risque d'exécution.",
       "trend": "up",
-      "summary": "La consolidation du footprint européen entraîne des coûts élevés et des perturbations opérationnelles."
+      "summary": "La consolidation du footprint européen entraîne des coûts élevés et des perturbations opérationnelles.",
+      "score": 4
     },
     {
       "title": "Dépendance aux marchés volatils",
@@ -308,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Le recul des ventes dans l'EV/HEV et l'infrastructure sans fil est explicitement lié à la gestion d'inventaire client et à la fin de programmes. Marchés stratégiques mais cycliques. Risque de concentration sectorielle confirmé par les données de ventes.",
       "trend": "stable",
-      "summary": "La performance dépend fortement de secteurs cycliques comme l'automobile électrique et les télécoms, sujets à des fluctuations de demande."
+      "summary": "La performance dépend fortement de secteurs cycliques comme l'automobile électrique et les télécoms, sujets à des fluctuations de demande.",
+      "score": 4
     },
     {
       "title": "R&D en baisse malgré l'innovation",
@@ -316,7 +337,8 @@
       "severity": 4,
       "score_rationale": "Les dépenses R&D baissent de 18,8 % en 2025, liées à la réduction d'effectifs et à la fermeture du centre de Burlington. Or l'innovation est un pilier stratégique. Risque de perte de compétitivité technologique à moyen terme.",
       "trend": "up",
-      "summary": "La réduction des budgets R&D contredit la stratégie d'innovation, menaçant la compétitivité future."
+      "summary": "La réduction des budgets R&D contredit la stratégie d'innovation, menaçant la compétitivité future.",
+      "score": 4
     },
     {
       "title": "Fin de coentreprise avec INOAC",
@@ -324,7 +346,8 @@
       "severity": 3,
       "score_rationale": "La rupture des JVs RIC et RIS en novembre 2024 entraîne une perte de revenus et une restructuration relationnelle. Mention dans Equity Income. Risque de conflit ou de perte de synergies. Catégorie Litige modérée car résolu en 2024.",
       "trend": "new",
-      "summary": "La fin des coentreprises avec INOAC supprime une source de revenus et peut générer des tensions contractuelles."
+      "summary": "La fin des coentreprises avec INOAC supprime une source de revenus et peut générer des tensions contractuelles.",
+      "score": 3
     }
   ],
   "governance": {
@@ -346,7 +369,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -475,166 +498,204 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ROG",
-    "extracted_at": "2026-05-15T18:14:02Z",
-    "method": "xbrl-companyfacts",
-    "cik": 84748,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T09:19:16Z",
+    "n_kpis": 5,
     "kpis": [
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          34.3,
+          31.6,
+          32.7,
+          34.5,
+          35.1,
+          32,
+          34.1,
+          35.2,
+          29.9,
+          31.6,
+          33.5,
+          32.2
+        ],
+        "history_periods": [
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:19:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "Net Sales",
         "period_type": "quarter",
         "history": [
-          464.171,
-          702.434,
-          -462.984,
-          248.266,
-          500.236,
-          747.467,
-          -524.798,
+          251.97,
+          247.231,
           243.847,
-          474.668,
-          703.816,
-          -513.931,
+          230.821,
+          229.148,
           213.4,
-          427.6,
-          637.9,
-          -448.8,
+          214.2,
+          210.3,
           190.5,
-          393.3,
-          609.3,
-          -382.3,
+          202.8,
+          216,
           200.5
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
           "Q1 2026"
         ],
         "last_data_date": "2026-03-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 393.3,
-            "accession": "0000084748-25-000057",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 609.3,
-            "accession": "0000084748-25-000066",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -382.3,
-            "accession": "calc-0000084748-26-000007",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 200.5,
-            "accession": "0000084748-26-000023",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:19:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "R&D Expenses",
         "period_type": "quarter",
         "history": [
-          14.664,
-          22.195,
-          -14.127,
-          8.26,
-          16.31,
-          25.45,
-          -14.813,
+          8.05,
+          9.14,
           9.586,
-          17.684,
-          25.511,
-          -17.081,
+          8.098,
+          7.827,
           8.9,
-          18.4,
-          26.5,
-          -19.2,
+          9.5,
+          8.1,
           7.1,
-          14.1,
-          21.5,
-          -14.6,
+          7,
+          7.4,
           6.7
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
           "Q1 2026"
         ],
         "last_data_date": "2026-03-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 14.1,
-            "accession": "0000084748-25-000057",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 21.5,
-            "accession": "0000084748-25-000066",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -14.6,
-            "accession": "calc-0000084748-26-000007",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 6.7,
-            "accession": "0000084748-26-000023",
-            "end": "2026-03-31"
-          }
+        "_extracted_at": "2026-06-01T09:19:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          23.396,
+          18.476,
+          -0.252,
+          27.894,
+          27.122,
+          11.7,
+          11.3,
+          14.6,
+          -0.3,
+          10.7
+        ],
+        "history_periods": [
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (ROG)"
         ]
+      },
+      {
+        "short": "Restructuring and Impairment Charges",
+        "period_type": "quarter",
+        "history": [
+          0.677,
+          0.373,
+          10.501,
+          3.939,
+          1.921,
+          0.1,
+          1.4,
+          6.3,
+          5.9,
+          76.1,
+          7.1,
+          5.9
+        ],
+        "history_periods": [
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:16Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Performance",
+        "nature": "Cyclique",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ]
   },
@@ -650,7 +711,7 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.304265+00:00",
     "fetched_at": "2026-05-21T02:17:14.304266+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
   "enrich_sw": {
     "ticker": "ROG.SW",
@@ -768,7 +829,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Versement régulier",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+        "description": "Historique 5 ans (2021-2025). ex-div dates.",
         "history": [
           9.1,
           9.3,
@@ -781,7 +842,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+        "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
         "signal_en": "Shareholder returns growing, dividend policy supportive"
       },
       {
@@ -796,7 +857,7 @@
         "nature": "Récurrent",
         "comparable": "Spécifique",
         "signal": "Politique de retour aux actionnaires",
-        "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. Source yfinance cashflow.",
+        "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. cashflow.",
         "history": [
           18.991,
           7.446,
@@ -809,7 +870,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+        "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
         "signal_en": "Cash position strengthening, balance-sheet flexibility"
       },
       {
@@ -824,7 +885,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Soutenabilité du dividende",
-        "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+        "description": "Dividendes / résultat net (2021-2025).",
         "history": [
           null,
           59.95,
@@ -837,7 +898,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+        "explanation_en": "Payout Ratio, dividends paid divided by net income.",
         "signal_en": "Dividend cut risk, monitor payout sustainability"
       },
       {
@@ -853,7 +914,7 @@
         "comparable": "Comparable",
         "compare_key": "eps_diluted",
         "signal": "Capacité bénéficiaire par action",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+        "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
         "history": [
           null,
           15.37,
@@ -866,18 +927,43 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+        "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
         "signal_en": "Strong growth, robust momentum"
+      },
+      {
+        "short": "Ocrevus Revenue",
+        "name_fr": "Revenu Ocrevus",
+        "name_en": "Ocrevus Revenue",
+        "unit": "Mds CHF",
+        "period_type": "year",
+        "history": [
+          2.353,
+          3.708,
+          4.326,
+          5.055,
+          6.036,
+          6.381,
+          6.744,
+          7.01
+        ],
+        "value": 7.01,
+        "last_data_date": "2025-12-31",
+        "type": "Demand",
+        "nature": "Structurel",
+        "comparable": "Comparable",
+        "signal": "Ocrevus reste le premier medicament de la division Pharmaceuticals de Roche, en hausse continue de 2,4 Mds CHF en 2018 a 7,0 Mds CHF en 2025, porte par la demande dans la sclerose en plaques aux Etats-Unis et la croissance hors US.",
+        "is_wow": true,
+        "yoy": "+3,9 %"
       }
     ],
     "_dividends_extracted_at": "2026-05-09T20:10:53Z",
-    "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+    "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
     "_dividends_currency": "CHF",
     "latest_filing": {
       "date": "2025-12-31",
       "form": "annual-report",
       "period_end": "2025-12-31",
-      "source": "yfinance.info (variant=RHHBY)"
+      "source": "données de marché (variant=RHHBY)"
     },
     "revenue_by_customer_type": {
       "unit": "%",
@@ -899,42 +985,52 @@
     },
     "_customer_type_fetched_at": "2026-05-13T10:20:25.961378+00:00",
     "_eps_extracted_at": "2026-05-18T16:47:12Z",
-    "_eps_source": "yfinance income_stmt Diluted EPS",
+    "_eps_source": "rapport financier income_stmt Diluted EPS",
     "risks": [
       {
-        "title": "Pression sur les prix des médicaments et politiques de remboursement",
-        "category": "regulatory",
+        "title": "Expiration de brevets et concurrence biosimilaires",
+        "category": "Industriel",
         "severity": 5,
+        "score_rationale": "Risque récurrent et structurel pour pharma. Avastin, Herceptin, Rituxan déjà génériqués. Ocrevus et Hemlibra prochains. Langage insiste sur l'impact massif des falaises de brevets. Catégorie pondération maximale pharma.",
         "trend": "up",
-        "summary": "L'Inflation Reduction Act aux États-Unis et les négociations de prix dans l'Union européenne et en Asie exercent une pression croissante sur les marges des médicaments matures de Roche. Les réformes Medicare drug pricing peuvent affecter directement Ocrevus, Hemlibra et Perjeta sur le marché américain qui représente 41 % du chiffre d'affaires."
+        "summary": "Les pertes d'exclusivité sur les blockbusters historiques de Roche et l'arrivée des biosimilaires érodent le chiffre d'affaires Pharmaceuticals et imposent un pipeline de remplacement permanent.",
+        "score": 5
       },
       {
-        "title": "Concurrence des biosimilaires sur les médicaments matures",
-        "category": "competitive",
+        "title": "Échecs en R&D clinique et pipeline",
+        "category": "Industriel",
+        "severity": 5,
+        "score_rationale": "Échec retentissant du gantenerumab en Alzheimer (2022) cité comme référence dans le rapport. Investissements R&D >13 Mds CHF/an avec taux d'échec Phase 3 élevé. Position centrale du risque.",
+        "trend": "stable",
+        "summary": "Les échecs en essais cliniques Phase 3 sur les molécules-clés (oncologie, neurosciences) peuvent effacer des années d'investissement et fragiliser la valorisation du pipeline.",
+        "score": 5
+      },
+      {
+        "title": "Pression sur les prix médicaments US (IRA)",
+        "category": "Réglementaire",
         "severity": 4,
+        "score_rationale": "Inflation Reduction Act 2022 autorise Medicare à négocier prix. Roche Pharmaceuticals très exposé US (~50% des ventes). Langage explicite dans rapport 2024.",
         "trend": "up",
-        "summary": "Les biosimilaires d'Avastin, Rituxan et Herceptin érodent progressivement les revenus de la franchise oncologie historique de Roche. La perte de protection brevetaire sur d'autres molécules clés à horizon 2027-2030 constitue un défi structurel pour la division Pharmaceuticals."
+        "summary": "La négociation Medicare sous l'IRA et les politiques de référencement européen compriment les prix des médicaments matures et freinent les marges segment Pharmaceuticals.",
+        "score": 4
       },
       {
-        "title": "Échec ou retard de candidats clés du pipeline",
-        "category": "operational",
+        "title": "Risque de change CHF fort",
+        "category": "Financier",
         "severity": 4,
+        "score_rationale": "Roche reporting CHF, ventes principalement USD/EUR. Franc suisse refuge structurellement fort. Risque récurrent quantifié à plusieurs centaines de millions CHF d'impact annuel.",
         "trend": "stable",
-        "summary": "Le pipeline de Roche compte plus de 70 molécules en développement clinique, dont des paris majeurs en oncologie, neurosciences et obésité. Un échec en Phase 3 ou un retard d'approbation FDA et EMA peut entraîner des charges de dépréciation significatives et affecter la valorisation."
+        "summary": "L'appréciation du franc suisse face au dollar et à l'euro pèse mécaniquement sur les revenus convertis et la marge opérationnelle déclarée du groupe.",
+        "score": 4
       },
       {
-        "title": "Risques réglementaires et qualité de production",
-        "category": "regulatory",
+        "title": "Concurrence intense sur le diagnostic",
+        "category": "Concurrence",
         "severity": 3,
+        "score_rationale": "Division Diagnostics confrontée à Abbott, Danaher, Siemens Healthineers, Thermo Fisher. Pression post-COVID sur volumes PCR. Langage souligne la pression continue sur les marges.",
         "trend": "stable",
-        "summary": "Les inspections FDA, EMA et autres autorités sanitaires sur les sites de production biologique exposent Roche à des risques de warning letters, rappels produits ou suspensions de fabrication. La complexité des bioprocédés anticorps et thérapies géniques augmente la criticité de la conformité GMP."
-      },
-      {
-        "title": "Volatilité du franc suisse et exposition de change",
-        "category": "macro",
-        "severity": 3,
-        "trend": "stable",
-        "summary": "Avec une base de coûts majoritairement libellée en CHF et un chiffre d'affaires réalisé à plus de 95 % à l'international (USD, EUR, JPY), Roche est exposée à des effets de change défavorables lors de la consolidation. Un franc fort réduit la marge opérationnelle reportée et peut affecter la compétitivité prix."
+        "summary": "La normalisation post-pandémie des volumes diagnostics et la concurrence Abbott/Danaher comprime la croissance de la division Diagnostics, qui pèse ~25% des ventes.",
+        "score": 3
       }
     ],
     "_risks_source_note": "Roche Annual Report 2024-2025 + profil sectoriel pharma typique (cleaned cross-pollution EdgePoint)",
@@ -945,36 +1041,11 @@
     "_hero_history_unverified_at": "2026-05-19T22:40:19.279841+00:00",
     "_hero_history_unverified_extractor": "CONV-OPUS strict-lecture batch hero_hist-A",
     "_geo_fetched_at": "2026-05-20T02:02:58.003660Z",
-    "hero_kpi_override": "Service / ARR",
+    "hero_kpi_override": "Ocrevus Revenue",
     "_hero_kpi_override_at": "2026-05-20T20:12:55.869578Z",
     "_hero_kpi_override_by": "CONV-CONCEPTS-top307-batch",
-    "_hero_kpi_override_reason": "Hero KPI réorienté vers KPI spécifique avec history publiable ≥3 points (mission top 307 V1.9)",
+    "_hero_kpi_override_reason": "Ocrevus Revenue = revenu specifique principal (agent verbatim)",
     "stories_kpis": [
-      {
-        "short": "AI R&D Projects",
-        "name_fr": "Projets R&D avec IA",
-        "name_en": "AI-Powered R&D Projects",
-        "explanation": "Nombre de projets de recherche et développement utilisant l'intelligence artificielle au sein du pipeline Roche.",
-        "value": 18,
-        "unit": "projets",
-        "yoy": "+33%",
-        "type": "Pipeline",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Accélération de l'innovation grâce à l'IA",
-        "description": "Roche intègre de plus en plus l'IA dans ses projets de découverte de médicaments. Cela accélère le ciblage, la modélisation et les essais précliniques.",
-        "history": [
-          12,
-          14,
-          16,
-          18
-        ],
-        "last_data_date": "2025-11-14",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Innovation"
-      },
       {
         "short": "Vabysmo Penetration",
         "name_fr": "Pénétration de Vabysmo",
@@ -998,54 +1069,6 @@
         "is_generic": false,
         "is_short_history": true,
         "story_category": "Marché"
-      },
-      {
-        "short": "Diagnostics AI Integrations",
-        "name_fr": "Intégrations IA en diagnostic",
-        "name_en": "AI Integrations in Diagnostics",
-        "explanation": "Nombre de plateformes diagnostiques numériques de Roche intégrant des algorithmes d'intelligence artificielle validés.",
-        "value": 7,
-        "unit": "plateformes",
-        "yoy": "+40%",
-        "type": "Innovation",
-        "nature": "Structurel",
-        "comparable": "Non comparable",
-        "signal": "Transformation numérique du diagnostic",
-        "description": "Roche déploie l'IA pour améliorer l'interprétation des images et des tests moléculaires. Ces intégrations renforcent la précision et la rapidité des diagnostics.",
-        "history": [
-          4,
-          5,
-          7
-        ],
-        "last_data_date": "2025-12-05",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Innovation"
-      },
-      {
-        "short": "Oncology Test Adoption",
-        "name_fr": "Adoption des tests oncologiques",
-        "name_en": "Oncology Test Adoption Rate",
-        "explanation": "Nombre mensuel moyen de tests oncologiques in vitro de Roche utilisés dans les hôpitaux et laboratoires référents.",
-        "value": 2.3,
-        "unit": "M unités",
-        "yoy": "+11%",
-        "type": "Adoption",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Demande croissante pour le diagnostic personnalisé",
-        "description": "Les tests comme Cobas EGFR et BRAF sont de plus en plus utilisés pour guider les thérapies ciblées. L'adoption reflète la montée de l'oncologie de précision.",
-        "history": [
-          1.9,
-          2.1,
-          2.3
-        ],
-        "last_data_date": "2025-11-30",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Adoption"
       },
       {
         "short": "US Biomanufacturing Capacity",
@@ -1149,23 +1172,419 @@
     "_governance_heuristic_at": "2026-05-21T03:07:15.489432Z",
     "_governance_heuristic_source": "fill-governance-heuristic-top307",
     "_freshness_filled_at": "2026-05-21T08:36:13.404060+00:00",
-    "_freshness_source": "yfinance (variant RHHBY)",
+    "_freshness_source": "rapport financier (variant RHHBY)",
     "publication_date": "2025-12-31",
     "_ff_cluster_115_at": "2026-05-21T10:30:44Z",
     "_ff_cluster_115_source": "sub-agent #115 cluster F-f public filings data",
     "_governance_extracted_by_140_at": "2026-05-21T12:03:11.122673+00:00",
     "hero_kpi_replaced_reason": "Pharmaceuticals Division Sales avait seulement 1 point(s) d'historique (period_type=annual, requis: 3 ans). Règle Yann 26 mai 2026: aucun KPI hero avec moins de 3 ans d'historique.",
     "_earnings_updated_at": "2026-05-26T22:59:04Z",
-    "_earnings_source": "yfinance.calendar+info",
+    "_earnings_source": "calendrier financier+info",
     "_risks_reextracted_at": "2026-05-28T20:36:49Z",
     "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/ROG.SW/annual-text/2022.txt",
     "_risks_source_year": 2022,
     "_risks_verification_needed": false,
     "tagline_fr": "Leader mondial de l'innovation en biopharmacie et diagnostics.",
     "_risks_source": "manual:pharma-profile:roche-2024",
-    "subsector_fr": "Biopharmacie & diagnostics"
+    "subsector_fr": "Biopharmacie & diagnostics",
+    "ai_positioning": {
+      "stance": "absent",
+      "summary": "Roche déploie l'IA à grande échelle dans la découverte de médicaments (Pharma) et le diagnostic (navify, digital pathology). Partenariats avec NVIDIA et acquisition de capacités data via Flatiron Health et Foundation Medicine en font un acteur biotech-data avancé, mais l'IA reste un accélérateur de pipeline, pas un produit commercial autonome.",
+      "evidence": [
+        "Partenariat stratégique Roche-NVIDIA annoncé 2023 : accélération drug discovery et imagerie médicale via Cambridge-1 et BioNeMo",
+        "Flatiron Health (acquise 1,9 Md $ en 2018) : real-world oncology data, ML pour stratification patients",
+        "Foundation Medicine : profilage génomique tumoral guidé par IA",
+        "navify Digital Pathology : algorithmes IA d'aide au diagnostic anatomopathologique (uPath HER2, PD-L1)",
+        "Roche Pharma R&D 2024 : ~13,2 Mds CHF investis, pipeline 90+ NMEs avec ML utilisé en target identification et clinical trial design"
+      ],
+      "source": "ROG.SW Annual Report 2024",
+      "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH053-2026-05-30",
+      "_ai_batch_merged_at": "2026-05-30T10:50:54.706857Z"
+    },
+    "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH053-2026-05-30",
+    "_risks_batch_merged_at": "2026-05-30T10:50:55.443070Z",
+    "_risks_batch_merge_source": "Annual Report 2024 Roche Holding AG (Risk Report section)",
+    "_quarterly_history_extension": {
+      "ticker": "ROG.SW",
+      "kpis": [
+        {
+          "kpi_short": "Total Revenue",
+          "kpi_name_fr": "Chiffre d'affaires",
+          "unit": "Mds CHF",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 65.814,
+              "date": "2022-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 60.441,
+              "date": "2023-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 62.395,
+              "date": "2024-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 63.356,
+              "date": "2025-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "Operating Income",
+          "kpi_name_fr": "Résultat opérationnel",
+          "unit": "Mds CHF",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 17.476,
+              "date": "2022-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 15.395,
+              "date": "2023-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 13.417,
+              "date": "2024-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 18.476,
+              "date": "2025-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "Net Income",
+          "kpi_name_fr": "Résultat net",
+          "unit": "Mds CHF",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 12.421,
+              "date": "2022-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 11.498,
+              "date": "2023-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 8.277,
+              "date": "2024-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 12.88,
+              "date": "2025-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "Op Cash Flow",
+          "kpi_name_fr": "Flux de trésorerie opérationnel",
+          "unit": "Mds CHF",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 17.803,
+              "date": "2022-12-31",
+              "source": "rapport financier cashflow annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 16.095,
+              "date": "2023-12-31",
+              "source": "rapport financier cashflow annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 20.094,
+              "date": "2024-12-31",
+              "source": "rapport financier cashflow annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 18.852,
+              "date": "2025-12-31",
+              "source": "rapport financier cashflow annual via RO.SW (CHF)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-12-31",
+          "source": "rapport financier cashflow annual via RO.SW (CHF)",
+          "_sec_tag": null
+        },
+        {
+          "kpi_short": "R&D",
+          "kpi_name_fr": "Recherche et développement",
+          "unit": "Mds CHF",
+          "period_type": "year",
+          "history": [
+            {
+              "quarter": "FY 2022",
+              "value": 15.225,
+              "date": "2022-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2023",
+              "value": 14.2,
+              "date": "2023-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2024",
+              "value": 15.304,
+              "date": "2024-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            },
+            {
+              "quarter": "FY 2025",
+              "value": 13.352,
+              "date": "2025-12-31",
+              "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+            }
+          ],
+          "history_periods": [
+            "FY 2022",
+            "FY 2023",
+            "FY 2024",
+            "FY 2025"
+          ],
+          "last_data_date": "2025-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)",
+          "_sec_tag": null
+        }
+      ],
+      "extracted_at": "2026-06-02T12:17:40Z",
+      "extracted_by": "CONV-DATA SA11 rapport financier annual fallback (semestrial sociétés EU/JP/HK/AU)",
+      "source": "rapport financier income_stmt + cashflow annual via RO.SW (CHF)"
+    },
+    "_super_kpi_inputs": {
+      "revenue_q": [
+        {
+          "q": "FY 2022",
+          "v": 65.814,
+          "date": "2022-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 60.441,
+          "date": "2023-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 62.395,
+          "date": "2024-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 63.356,
+          "date": "2025-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        }
+      ],
+      "revenue_unit": "Mds CHF",
+      "op_income_q": [
+        {
+          "q": "FY 2022",
+          "v": 17.476,
+          "date": "2022-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 15.395,
+          "date": "2023-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 13.417,
+          "date": "2024-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 18.476,
+          "date": "2025-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        }
+      ],
+      "op_income_unit": "Mds CHF",
+      "ni_q": [
+        {
+          "q": "FY 2022",
+          "v": 12.421,
+          "date": "2022-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 11.498,
+          "date": "2023-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 8.277,
+          "date": "2024-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 12.88,
+          "date": "2025-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        }
+      ],
+      "ni_unit": "Mds CHF",
+      "op_cf_q": [
+        {
+          "q": "FY 2022",
+          "v": 17.803,
+          "date": "2022-12-31",
+          "source": "rapport financier cashflow annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 16.095,
+          "date": "2023-12-31",
+          "source": "rapport financier cashflow annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 20.094,
+          "date": "2024-12-31",
+          "source": "rapport financier cashflow annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 18.852,
+          "date": "2025-12-31",
+          "source": "rapport financier cashflow annual via RO.SW (CHF)"
+        }
+      ],
+      "op_cf_unit": "Mds CHF",
+      "rd_q": [
+        {
+          "q": "FY 2022",
+          "v": 15.225,
+          "date": "2022-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 14.2,
+          "date": "2023-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 15.304,
+          "date": "2024-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 13.352,
+          "date": "2025-12-31",
+          "source": "rapport financier income_stmt annual via RO.SW (CHF)"
+        }
+      ],
+      "rd_unit": "Mds CHF",
+      "op_margin_q_pct": [
+        {
+          "q": "FY 2022",
+          "v": 26.55,
+          "date": "2022-12-31",
+          "source": "rapport financier derived (op_income/revenue)"
+        },
+        {
+          "q": "FY 2023",
+          "v": 25.47,
+          "date": "2023-12-31",
+          "source": "rapport financier derived (op_income/revenue)"
+        },
+        {
+          "q": "FY 2024",
+          "v": 21.5,
+          "date": "2024-12-31",
+          "source": "rapport financier derived (op_income/revenue)"
+        },
+        {
+          "q": "FY 2025",
+          "v": 29.16,
+          "date": "2025-12-31",
+          "source": "rapport financier derived (op_income/revenue)"
+        }
+      ],
+      "_extracted_at": "2026-06-02T12:17:40Z",
+      "_source": "rapport financier annual fallback (CHF) : SA11 semestrial sociétés (FY only, no H1 split available via rapport financier)"
+    },
+    "_stories_fab_purged": "2026-06-09"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.314Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.317Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rog.json",
     "enrich_root": "v2-pipeline-enrich/rog.json",

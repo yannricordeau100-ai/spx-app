@@ -40,11 +40,11 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T08:53:20.884723+00:00",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document fourni est un extrait du rapport annuel 2008 de Swatch Group contenant principalement le message du président. Bien que le texte",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -69,7 +69,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -94,7 +94,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -119,7 +119,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Solid expansion, positive trajectory"
     },
     {
@@ -144,7 +144,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -189,34 +189,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 13.38 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+300.0%",
       "history": [
-        0.01,
-        0.07,
-        0.01,
-        0.04
+        10,
+        70,
+        10,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -230,7 +239,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         3.5,
         5.5,
@@ -243,7 +252,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -258,7 +267,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. cashflow.",
       "history": [
         null,
         0.287,
@@ -271,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -286,7 +295,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         35.32,
@@ -299,8 +308,9 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "_audit_flag": "VALUE_ABERRANT_OUTLIER"
     },
     {
       "short": "EPS",
@@ -315,7 +325,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         15.56,
@@ -328,7 +338,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -359,7 +369,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -372,7 +382,8 @@
       "severity": 3,
       "score_rationale": "Mentionné en Item 1A comme position stratégique clé (« outstanding industrial position with high degree of verticalization »). Langage modéré mais reconnaissance explicite de la dépendance structurelle. Pas de tendance nouvelle mais risque structurel permanent pour l'horlogerie.",
       "trend": "stable",
-      "summary": "Swatch Group repose sur une intégration verticale élevée dans la production et les systèmes électroniques. Toute rupture dans la chaîne d'approvisionnement (composants critiques, matières premières) ou perturbation des sites de production pourrait impacter la capacité à servir ses 19 marques et segments de marché."
+      "summary": "Swatch Group repose sur une intégration verticale élevée dans la production et les systèmes électroniques. Toute rupture dans la chaîne d'approvisionnement (composants critiques, matières premières) ou perturbation des sites de production pourrait impacter la capacité à servir ses 19 marques et segments de marché.",
+      "score": 3
     },
     {
       "title": "Risques opérationnels liés aux installations de production",
@@ -380,7 +391,8 @@
       "severity": 4,
       "score_rationale": "Item 1A identifie explicitement le feu comme « principal hazard » avec plans d'urgence élaborés. Langage direct et intensité élevée. Risque reconnu comme critique nécessitant prévention active et Business Continuity Management sur 3-4 ans.",
       "trend": "stable",
-      "summary": "Les sites de production mondiaux de Swatch Group (notamment en Suisse et Asie) sont exposés à des risques d'incendie, interruptions de production et sinistres majeurs. L'entreprise met en place un système de Business Continuity Management pour les 3-4 prochaines années, indiquant une vulnérabilité reconnue."
+      "summary": "Les sites de production mondiaux de Swatch Group (notamment en Suisse et Asie) sont exposés à des risques d'incendie, interruptions de production et sinistres majeurs. L'entreprise met en place un système de Business Continuity Management pour les 3-4 prochaines années, indiquant une vulnérabilité reconnue.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire environnementale (RoHS, WEEE)",
@@ -388,7 +400,8 @@
       "severity": 3,
       "score_rationale": "Item 1A mentionne explicitement l'obligation de respecter les directives UE RoHS et WEEE, avec affirmation que « these rulings were strictly observed ». Langage de conformité stricte. Risque régulateur spécifique au secteur électronique/horloger.",
       "trend": "stable",
-      "summary": "Swatch Group doit respecter les directives européennes RoHS (Restriction of Hazardous Substances) et WEEE (Waste Electrical and Electronic Equipment) pour ses produits contenant des composants électroniques. Non-conformité entraînerait amendes et restrictions commerciales en Europe."
+      "summary": "Swatch Group doit respecter les directives européennes RoHS (Restriction of Hazardous Substances) et WEEE (Waste Electrical and Electronic Equipment) pour ses produits contenant des composants électroniques. Non-conformité entraînerait amendes et restrictions commerciales en Europe.",
+      "score": 3
     },
     {
       "title": "Gestion des déchets dangereux et batteries de montres",
@@ -396,7 +409,8 @@
       "severity": 2,
       "score_rationale": "Item 1A détaille la gestion des déchets spéciaux, batteries de montres et VOCs. Langage technique, pas d'alerte critique mais reconnaissance de responsabilité opérationnelle. Risque de réputation et conformité environnementale.",
       "trend": "stable",
-      "summary": "Swatch Group gère des déchets spécialisés (batteries de montres, composants électroniques, solvants VOC) nécessitant recyclage et traitement spécifiques. Augmentation de 24% de la consommation d'eau non-potable et émissions VOCs en hausse légère. Risque de non-conformité environnementale et impact réputationnel."
+      "summary": "Swatch Group gère des déchets spécialisés (batteries de montres, composants électroniques, solvants VOC) nécessitant recyclage et traitement spécifiques. Augmentation de 24% de la consommation d'eau non-potable et émissions VOCs en hausse légère. Risque de non-conformité environnementale et impact réputationnel.",
+      "score": 2
     },
     {
       "title": "Dépendance au talent et rétention des compétences horlogères",
@@ -404,7 +418,8 @@
       "severity": 3,
       "score_rationale": "Item 1A souligne que « performance depends largely upon competences and motivation of employees ». Swatch Group investit massivement dans 6 écoles d'horlogerie Nicolas G. Hayek et 313 apprentis en Suisse. Langage d'importance stratégique, tendance de renforcement continu.",
       "trend": "up",
-      "summary": "Swatch Group reconnaît que sa performance dépend critiquement des compétences de ses 24 000 employés. Métiers horlogers et micro-technologiques sont en danger de disparition. L'entreprise investit dans 6 écoles d'horlogerie mondiales et programmes d'apprentissage pour sécuriser le pipeline de talents spécialisés."
+      "summary": "Swatch Group reconnaît que sa performance dépend critiquement des compétences de ses 24 000 employés. Métiers horlogers et micro-technologiques sont en danger de disparition. L'entreprise investit dans 6 écoles d'horlogerie mondiales et programmes d'apprentissage pour sécuriser le pipeline de talents spécialisés.",
+      "score": 3
     },
     {
       "title": "Concentration du contrôle actionnarial et risque de gouvernance",
@@ -412,7 +427,8 @@
       "severity": 3,
       "score_rationale": "Item 1A révèle que le Hayek Pool contrôle 40,7% des votes (40,0% directement), avec Nicolas G. Hayek comme Chairman depuis 1986. Concentration extrême du pouvoir. Risque de gouvernance et succession non adressé explicitement.",
       "trend": "stable",
-      "summary": "Le Hayek Pool et entités liées contrôlent 40,7% des droits de vote, avec Nicolas G. Hayek (fondateur de facto) comme Chairman et Delegate depuis 1986. Absence de plan de succession explicite et concentration du pouvoir décisionnel crée risque de gouvernance et continuité stratégique."
+      "summary": "Le Hayek Pool et entités liées contrôlent 40,7% des droits de vote, avec Nicolas G. Hayek (fondateur de facto) comme Chairman et Delegate depuis 1986. Absence de plan de succession explicite et concentration du pouvoir décisionnel crée risque de gouvernance et continuité stratégique.",
+      "score": 3
     },
     {
       "title": "Risques de conformité sociale et conditions de travail mondiales",
@@ -420,7 +436,8 @@
       "severity": 2,
       "score_rationale": "Item 1A mentionne 70 nationalités, dialogue avec syndicats et conditions de travail. Langage de bonne pratique mais reconnaissance implicite de risques de conformité sociale dans opérations mondiales (Asie notamment).",
       "trend": "stable",
-      "summary": "Swatch Group opère avec 24 000 employés dans 70 nationalités différentes. Risques de conformité aux normes de travail, santé-sécurité et dialogue social dans contextes réglementaires variés (Chine, Malaisie, États-Unis). Audits internes et externes réguliers mentionnés."
+      "summary": "Swatch Group opère avec 24 000 employés dans 70 nationalités différentes. Risques de conformité aux normes de travail, santé-sécurité et dialogue social dans contextes réglementaires variés (Chine, Malaisie, États-Unis). Audits internes et externes réguliers mentionnés.",
+      "score": 2
     },
     {
       "title": "Intensité concurrentielle et fragmentation du marché horloger",
@@ -428,7 +445,8 @@
       "severity": 3,
       "score_rationale": "Item 1A indique présence dans « all market and price segments with 19 brands ». Langage de couverture large mais implicite reconnaissance de fragmentation concurrentielle. Risque structurel du secteur horloger face à montres connectées et disruption digitale non adressé.",
       "trend": "up",
-      "summary": "Swatch Group opère 19 marques couvrant tous les segments de prix et marchés horlogers. Fragmentation du portefeuille expose à risques concurrentiels différenciés par segment. Absence de mention de menaces technologiques (montres connectées, disruption digitale) suggère angle mort stratégique."
+      "summary": "Swatch Group opère 19 marques couvrant tous les segments de prix et marchés horlogers. Fragmentation du portefeuille expose à risques concurrentiels différenciés par segment. Absence de mention de menaces technologiques (montres connectées, disruption digitale) suggère angle mort stratégique.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:08:18.847479+00:00",
@@ -505,9 +523,6 @@
   ],
   "company_description": "The Swatch Group AG designs, manufactures, and sells finished watches, jewelry, and watch movements and components in Switzerland, rest of Europe, Greater China, Asia, America, Oceania, and Africa. The company operates through Watches & Jewelry and Electronic Systems segments. The Watches & Jewelry segment designs, produces, and commercializes watches and jewelry. The Electronic Systems segment engages in the design, production, and commercialization of electronic components, as well as sports timing activities. The company is also involved in the provision of assembly, research and development, administration, logistics and distribution, and customer services; and hard material components, microelectronics, watch cases and crowns, miniature low-frequency quartz crystals, thin wires, miniature batteries, watch dials and hands, bracelets, sports timing technology and equipment, precision parts, electronic components assembly, and surface treatment products. In addition, it engages in the patent, retail, communication, real estate, real estate management, finance, reinsurance, and art center businesses. The company offers its watch and jewelry products under the Breguet, Harry Winsto",
   "last_data_date": "2025-12-31",
-  "_dividends_extracted_at": "2026-05-09T20:22:18Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
-  "_dividends_currency": "CHF",
   "revenue_by_segment": {
     "unit": "CHF B",
     "source_date": "2008-12-31",
@@ -537,9 +552,12 @@
     ],
     "total": 6.82
   },
+  "_dividends_extracted_at": "2026-05-09T20:22:18Z",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_currency": "CHF",
   "_segments_fetched_at": "2026-05-15T00:02:29.925599+00:00",
   "_eps_extracted_at": "2026-05-18T16:48:01Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "UHR.SW",
     "simple": {
@@ -638,9 +656,9 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T02:17:14.322285+00:00",
     "fetched_at": "2026-05-21T02:17:14.322286+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.892Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.984Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/uhr.sw.json",
     "enrich_root": "v2-pipeline-enrich/uhr.sw.json",

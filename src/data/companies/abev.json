@@ -147,11 +147,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 145.09 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -170,11 +174,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.39 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -272,7 +280,8 @@
       "score_rationale": "Risque positionné en début de section opérationnelle avec langage fort ('may adversely affect financial condition'), tendance stable mais récurrence confirmée par détails sur cyberattaques et catastrophes naturelles, catégorie industrielle à poids modéré.",
       "trend": "stable",
       "summary": "Les défaillances d'équipements, pannes informatiques, accidents, grèves ou catastrophes naturelles peuvent arrêter partiellement ou temporairement la production et augmenter les coûts, impactant directement les résultats financiers.",
-      "citation": "We face operational risks that may result in partial or temporary suspension of our operations and in loss of production. Such outages may be caused by factors associated with equipment failure, information system disruptions or failures (including due to cyberattacks), accidents, fires, strikes, weather, exposure to natural disasters"
+      "citation": "We face operational risks that may result in partial or temporary suspension of our operations and in loss of production. Such outages may be caused by factors associated with equipment failure, information system disruptions or failures (including due to cyberattacks), accidents, fires, strikes, weather, exposure to natural disasters",
+      "score": 4
     },
     {
       "title": "Volatilité des taux de change et dévaluation du réal",
@@ -281,7 +290,8 @@
       "score_rationale": "Risque en position centrale avec langage très intense ('may adversely affect financial performance', 'material adverse impact'), tendance accrue (27,9% dévaluation 2024 documentée), catégorie macro à poids fort pour émetteur brésilien avec 44,4% revenus en devises étrangères.",
       "trend": "up",
       "summary": "La majorité des ventes sont en réals mais une part importante des dettes et des coûts (matières premières, emballages) sont en dollars. Les fluctuations du taux de change impactent directement les marges et la capacité à honorer les obligations en devises étrangères.",
-      "citation": "Most of our sales are in reais; however, a portion of our debt is denominated in foreign currencies, including U.S. dollars. In addition, a significant portion of our cost of sales, particularly those associated with packaging materials such as aluminum cans and polyethylene terephthalate (PET) bottles, as well as essential ingredients like sugar, hops, and malt, are denominated in or linked to the U.S. dollar."
+      "citation": "Most of our sales are in reais; however, a portion of our debt is denominated in foreign currencies, including U.S. dollars. In addition, a significant portion of our cost of sales, particularly those associated with packaging materials such as aluminum cans and polyethylene terephthalate (PET) bottles, as well as essential ingredients like sugar, hops, and malt, are denominated in or linked to the U.S. dollar.",
+      "score": 5
     },
     {
       "title": "Défaillances informatiques et violations de données",
@@ -290,7 +300,8 @@
       "score_rationale": "Risque listé explicitement avec langage modéré ('could disrupt our operations'), tendance nouvelle/accrue (mention spécifique cyberattaques dans contexte opérationnel), catégorie cybersécurité à poids très fort dans évaluation moderne.",
       "trend": "up",
       "summary": "Les pannes informatiques, défaillances de mise à jour technologique ou cyberattaques peuvent perturber les opérations et compromettre la confidentialité des données clients et commerciales.",
-      "citation": "Information technology failures, including failures to implement upgrades and new technologies effectively or those that affect the privacy and security of customer and business information, could disrupt our operations."
+      "citation": "Information technology failures, including failures to implement upgrades and new technologies effectively or those that affect the privacy and security of customer and business information, could disrupt our operations.",
+      "score": 4
     },
     {
       "title": "Non-conformité aux lois de protection des données",
@@ -299,7 +310,8 @@
       "score_rationale": "Risque listé en section régulation avec langage modéré ('can be adversely affected by penalties'), tendance stable, catégorie réglementaire à poids fort, mais impact moins existentiel que cyber.",
       "trend": "stable",
       "summary": "ABEV opère dans plusieurs pays avec des lois de protection des données différentes. Le non-respect peut entraîner des amendes et sanctions réglementaires affectant la réputation et les opérations.",
-      "citation": "We are subject to risks associated with non-compliance with any data protection laws in the countries in which we operate and can be adversely affected by any penalties or other sanctions imposed."
+      "citation": "We are subject to risks associated with non-compliance with any data protection laws in the countries in which we operate and can be adversely affected by any penalties or other sanctions imposed.",
+      "score": 3
     },
     {
       "title": "Instabilité économique et politique au Brésil",
@@ -308,7 +320,8 @@
       "score_rationale": "Risque positionné en section dédiée avec langage fort ('may adversely affect our business and the market price'), tendance stable mais contexte brésilien chroniquement volatil, catégorie géopolitique à poids fort pour groupe basé au Brésil.",
       "trend": "stable",
       "summary": "L'incertitude économique et politique au Brésil, ainsi que la perception internationale de ces conditions, affectent directement les opérations commerciales et la valeur des actions.",
-      "citation": "Economic and political uncertainty and volatility in Brazil, and the perception of these conditions in the international financial markets, may adversely affect our business and the market price of our shares and ADSs."
+      "citation": "Economic and political uncertainty and volatility in Brazil, and the perception of these conditions in the international financial markets, may adversely affect our business and the market price of our shares and ADSs.",
+      "score": 4
     },
     {
       "title": "Inflation élevée en Argentine et Amérique du Sud",
@@ -317,7 +330,8 @@
       "score_rationale": "Risque spécifique à région avec langage modéré ('may have an adverse effect'), tendance accrue (inflation argentine chronique), catégorie macro à poids modéré pour opérations régionales.",
       "trend": "up",
       "summary": "Les taux d'inflation élevés en Argentine et autres pays d'Amérique du Sud impactent les coûts de production, les marges et la capacité à maintenir la compétitivité.",
-      "citation": "Continuing high rates of inflation in Argentina may have an adverse effect on the economy and our business, financial condition and results of operations."
+      "citation": "Continuing high rates of inflation in Argentina may have an adverse effect on the economy and our business, financial condition and results of operations.",
+      "score": 3
     },
     {
       "title": "Pénurie d'eau et impacts climatiques sur la production",
@@ -326,7 +340,8 @@
       "score_rationale": "Risque en section durabilité avec langage modéré ('may negatively affect'), tendance accrue (crises hydriques régionales documentées), catégorie environnement à poids croissant, impact direct sur coûts et capacité de production.",
       "trend": "up",
       "summary": "La rareté ou mauvaise qualité de l'eau affecte directement les coûts de production et la capacité opérationnelle, particulièrement critique pour une entreprise de boissons.",
-      "citation": "Scarcity or poor quality of water may negatively affect our production costs and capacity."
+      "citation": "Scarcity or poor quality of water may negatively affect our production costs and capacity.",
+      "score": 4
     },
     {
       "title": "Risques liés aux opérations à Cuba et sanctions américaines",
@@ -335,7 +350,8 @@
       "score_rationale": "Risque spécifique avec langage modéré ('may adversely affect our reputation'), tendance stable mais contexte géopolitique tendu, catégorie géopolitique à poids fort, impact limité à coentreprise mais réputationnel.",
       "trend": "stable",
       "summary": "ABEV opère une coentreprise à Cuba où le gouvernement cubain est partenaire indirect. Les sanctions commerciales américaines larges créent des risques réputationnels et de liquidité des titres.",
-      "citation": "We operate a joint venture in Cuba, in which the Government of Cuba is our indirect joint venture partner. Cuba is still targeted by broad and comprehensive economic and trade sanctions of the United States. Our operations in Cuba may adversely affect our reputation and the liquidity and value of our securities."
+      "citation": "We operate a joint venture in Cuba, in which the Government of Cuba is our indirect joint venture partner. Cuba is still targeted by broad and comprehensive economic and trade sanctions of the United States. Our operations in Cuba may adversely affect our reputation and the liquidity and value of our securities.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:11:10.140869+00:00",
@@ -346,7 +362,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Boissons",
-  "_companies_unified_built_at": "2026-05-29T21:19:27.131Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.014Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/abev.json",
     "enrich_root": "v2-pipeline-enrich/abev.json",

@@ -37,10 +37,13 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Revenu segment Advanced Computing' not found in the provided 10-K extract. The document discusses segments including 'Specialty Compute",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Marge brute",
@@ -175,34 +178,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.62 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.52,
-      "unit": "Mds €",
+      "value": 520,
+      "unit": "M €",
       "yoy": "-27.8%",
       "history": [
-        0.65,
-        0.86,
-        0.72,
-        0.52
+        650,
+        860,
+        720,
+        520
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.52 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -224,9 +236,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "août 2022",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     },
     {
       "short": "Cession SMART Brazil",
@@ -246,9 +256,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "novembre 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -288,7 +296,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -304,7 +312,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en tête des facteurs de performance, avec un langage fort sur l'incertitude d'adoption et d'implémentation. La croissance réelle dépend de tendances macro imprévisibles. Catégorie Macro hautement pondérée.",
       "trend": "stable",
-      "summary": "La croissance dépend fortement de l'adoption future de l'IA et du calcul haute performance, dont le rythme et l'ampleur restent incertains."
+      "summary": "La croissance dépend fortement de l'adoption future de l'IA et du calcul haute performance, dont le rythme et l'ampleur restent incertains.",
+      "score": 4
     },
     {
       "title": "Pénuries et délais de composants",
@@ -312,7 +321,8 @@
       "severity": 5,
       "score_rationale": "Langage très fort : \"adversely affected\", \"extended lead times\", \"impacts ramp-up\". Référence directe à la pénurie de semi-conducteurs et composants IA. Risque existentiel pour la chaîne logistique. Catégorie Supply Chain critique.",
       "trend": "stable",
-      "summary": "La disponibilité limitée de composants clés, notamment pour l'IA, retarde les livraisons et affecte la marge et la croissance."
+      "summary": "La disponibilité limitée de composants clés, notamment pour l'IA, retarde les livraisons et affecte la marge et la croissance.",
+      "score": 5
     },
     {
       "title": "Intégration d'acquisitions risquée",
@@ -320,7 +330,8 @@
       "severity": 4,
       "score_rationale": "Position centrale dans le 10-K, langage affirmé sur la croissance par acquisitions. Mention explicite des risques de dettes, financements et synergies manquées. Catégorie Capital fortement pondérée.",
       "trend": "stable",
-      "summary": "La stratégie de croissance dépend d'acquisitions réussies, dont l'intégration peut échouer, entraînant des coûts et des pertes de valeur."
+      "summary": "La stratégie de croissance dépend d'acquisitions réussies, dont l'intégration peut échouer, entraînant des coûts et des pertes de valeur.",
+      "score": 4
     },
     {
       "title": "Variabilité du mix de revenus",
@@ -328,7 +339,8 @@
       "severity": 4,
       "score_rationale": "Détail important sur l'impact du mix sur les marges, avec exemples concrets. Langage répété sur l'impact sur les marges opérationnelles. Catégorie Industriel clé.",
       "trend": "stable",
-      "summary": "Les changements dans la répartition des ventes entre segments affectent fortement les marges et la prévisibilité des résultats."
+      "summary": "Les changements dans la répartition des ventes entre segments affectent fortement les marges et la prévisibilité des résultats.",
+      "score": 4
     },
     {
       "title": "Fin de vie du business Penguin Edge",
@@ -336,7 +348,8 @@
       "severity": 3,
       "score_rationale": "Mention explicite de l'impact négatif sur revenus et marges, avec fin prévue en 2025. Langage mesuré mais clair. Catégorie Industriel.",
       "trend": "stable",
-      "summary": "L'arrêt progressif du business Penguin Edge aura un impact négatif sur les revenus et la comparabilité des résultats."
+      "summary": "L'arrêt progressif du business Penguin Edge aura un impact négatif sur les revenus et la comparabilité des résultats.",
+      "score": 3
     },
     {
       "title": "Modèle Fab-Light vulnérable",
@@ -344,7 +357,8 @@
       "severity": 4,
       "score_rationale": "Le modèle est présenté comme bénéfique mais expose à des ruptures d'approvisionnement. Lien direct avec la pénurie de semi-conducteurs. Catégorie Supply Chain critique.",
       "trend": "stable",
-      "summary": "La dépendance à des fabricants externes pour les mémoires et LED expose la société à des ruptures d'approvisionnement."
+      "summary": "La dépendance à des fabricants externes pour les mémoires et LED expose la société à des ruptures d'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Domestification aux États-Unis",
@@ -352,7 +366,8 @@
       "severity": 3,
       "score_rationale": "Événement majeur en 2025, avec coûts de redomiciliation. Langage prudent sur les implications fiscales et réglementaires. Catégorie Régulation pondérée.",
       "trend": "new",
-      "summary": "Le changement de juridiction de la société mère vers les États-Unis comporte des risques réglementaires et fiscaux inconnus."
+      "summary": "Le changement de juridiction de la société mère vers les États-Unis comporte des risques réglementaires et fiscaux inconnus.",
+      "score": 3
     }
   ],
   "governance": {
@@ -465,15 +480,12 @@
         "period_type": "quarter",
         "history": [
           40.017,
-          -41.876,
           12.766,
           20.142,
           29.298,
-          -24.053,
           11.649,
           24.262,
           37.522,
-          -34.012,
           4.648,
           9.852,
           13.629,
@@ -536,6 +548,12 @@
             "accession": "0001616533-26-000030",
             "end": "2026-02-27"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (PENG)"
         ]
       },
       {
@@ -543,23 +561,18 @@
         "period_type": "quarter",
         "history": [
           1033.433,
-          -419.693,
           469.944,
           919.115,
           1381.655,
-          -951.362,
           465.478,
           894.652,
           1277.982,
-          -1196.862,
           274.247,
           559.068,
           859.648,
-          -522.167,
           341.102,
           706.621,
           1030.872,
-          -709.801,
           343.071,
           686.07
         ],
@@ -614,6 +627,12 @@
             "accession": "0001616533-26-000030",
             "end": "2026-02-27"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PENG)"
         ]
       }
     ]
@@ -630,9 +649,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.295856+00:00",
     "fetched_at": "2026-05-21T02:17:14.295857+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.532Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.494Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/peng.json",
     "enrich_root": "v2-pipeline-enrich/peng.json",

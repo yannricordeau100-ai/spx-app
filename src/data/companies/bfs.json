@@ -39,10 +39,13 @@
       "is_short_history": false,
       "ttm": 94.45,
       "_validation": "Verified against 10-K: confirmed 94.6% at Dec 31, 2025 and 95.2% at Dec 31, 2024",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Leasing Percentage' (taux d'occupation locatif) n'est pas explicitement mentionné avec des valeurs annuelles chiffrées dans l'extrai",
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Base Rent",
@@ -92,7 +95,7 @@
       "is_short_history": false,
       "ttm": 45.84,
       "_validation": "Unit corrected from 'Mds $' to 'M $'. Type corrected from 'Revenue' to 'Profitability'. Confirmed 49.2M in 2025 vs 67.7M in 2024 in 10-K",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -180,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.16 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -203,11 +210,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.6 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -234,9 +245,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 94.45,
-      "_validation": "Verified against 10-K: confirmed data points",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Verified against 10-K: confirmed data points"
     },
     {
       "short": "Base Rent",
@@ -261,9 +270,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 243.1,
-      "_validation": "Unit corrected from 'Mds $' to 'M $'. Confirmed in 10-K financials",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'M $'. Confirmed in 10-K financials"
     }
   ],
   "ai_positioning": {
@@ -277,17 +284,17 @@
       "title": "Déclin du marché immobilier",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "La société est exposée aux fluctuations du marché immobilier, en particulier dans la région de Washington, DC/Baltimore. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux fluctuations du marché immobilier, en particulier dans la région de Washington, DC/Baltimore.",
       "trend": "stable",
       "summary": "Le déclin du marché immobilier pourrait affecter la valeur des propriétés de la société et ses revenus locatifs.",
       "_validation": "Title refined from 'Déclin du marché' to 'Déclin du marché immobilier'",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La société opère dans un marché compétitif, avec de nombreux acteurs présents dans la région. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché compétitif, avec de nombreux acteurs présents dans la région.",
       "trend": "up",
       "summary": "La concurrence accrue pourrait entraîner une baisse des loyers et une augmentation des coûts de marketing.",
       "_validation": "No changes needed",
@@ -297,17 +304,17 @@
       "title": "Risques de crédit et de refinancement",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société a une dette importante de 189 M $ en taux variable non couverte, ce qui pourrait augmenter son risque de crédit en cas de hausse des taux ou de déclin du marché. (score par défaut, à affiner)",
+      "score_rationale": "La société a une dette importante de 189 M $ en taux variable non couverte, ce qui pourrait augmenter son risque de crédit en cas de hausse des taux ou de déclin du marché.",
       "trend": "stable",
       "summary": "Les risques de crédit pourraient affecter la capacité de la société à rembourser ses dettes et à maintenir son niveau d'investissement.",
       "_validation": "Title improved for clarity. Score rationale updated to reflect specific debt amount from 10-K",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementations gouvernementales",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les actions du gouvernement fédéral pourraient avoir un impact sur le marché immobilier et les opérations de la société dans la région Washington, DC/Baltimore. (score par défaut, à affiner)",
+      "score_rationale": "Les actions du gouvernement fédéral pourraient avoir un impact sur le marché immobilier et les opérations de la société dans la région Washington, DC/Baltimore.",
       "trend": "stable",
       "summary": "Les réglementations gouvernementales pourraient affecter la valeur des propriétés de la société et son chiffre d'affaires.",
       "_validation": "Score rationale slightly refined to reference geographic exposure",
@@ -317,17 +324,17 @@
       "title": "Pertes d'exploitation sur nouveaux projets",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société a enregistré des pertes d'exploitation importantes en 2025 (14,3 M $ pour Twinbrook Quarter Phase I et 5,1 M $ pour Hampden House), ce qui pourrait affecter sa capacité à maintenir son niveau d'investissement. (score par défaut, à affiner)",
+      "score_rationale": "La société a enregistré des pertes d'exploitation importantes en 2025 (14,3 M $ pour Twinbrook Quarter Phase I et 5,1 M $ pour Hampden House), ce qui pourrait affecter sa capacité à maintenir son niveau d'investissement.",
       "trend": "up",
       "summary": "Les pertes d'exploitation pourraient entraîner une baisse de la rentabilité et des flux de trésorerie de la société.",
       "_validation": "Title refined to specify 'nouveaux projets'. Score rationale updated with actual 10-K figures. Summary improved",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dégradation de la qualité des actifs",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société a des actifs qui pourraient se dégrader en qualité, notamment avec la baisse du taux d'occupation de 95,2% à 94,6%, ce qui pourrait affecter leur valeur et le chiffre d'affaires. (score par défaut, à affiner)",
+      "score_rationale": "La société a des actifs qui pourraient se dégrader en qualité, notamment avec la baisse du taux d'occupation de 95,2% à 94,6%, ce qui pourrait affecter leur valeur et le chiffre d'affaires.",
       "trend": "stable",
       "summary": "La dégradation de la qualité des actifs pourrait entraîner une baisse de la valeur des propriétés et une augmentation des coûts de maintenance.",
       "_validation": "Score rationale updated to reference specific occupancy decline from 10-K. Summary corrected grammatically",
@@ -337,11 +344,11 @@
       "title": "Risques de litige",
       "category": "Litige",
       "severity": 2,
-      "score_rationale": "La société est exposée à des risques de litige, en particulier en ce qui concerne les lois et réglementations immobilières. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de litige, en particulier en ce qui concerne les lois et réglementations immobilières.",
       "trend": "stable",
       "summary": "Les risques de litige pourraient entraîner des coûts importants pour la société et affecter sa réputation.",
       "_validation": "No changes needed",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -380,7 +387,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -441,7 +448,6 @@
       "date": "2025-05-08"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T18:00:51.994729+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -464,6 +470,7 @@
     ],
     "total": 0.28
   },
+  "_ai_positioning_fetched_at": "2026-05-06T18:00:51.994729+00:00",
   "_segments_fetched_at": "2026-05-06T19:24:43.080871+00:00",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_events": {
@@ -508,6 +515,172 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "BFS",
+    "extracted_at": "2026-06-01T03:01:53Z",
+    "n_kpis": 4,
+    "kpis": [
+      {
+        "short": "Leasing Percentage",
+        "period_type": "quarter",
+        "history": [
+          92.2,
+          92.5,
+          92.5,
+          92.6,
+          92.5,
+          93,
+          93.9,
+          94,
+          94.2,
+          94.6,
+          95.8,
+          95.7,
+          94,
+          93.9,
+          94.4
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q2 2021",
+          "Q2 2022",
+          "Q3 2021",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:01:53Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          12.795,
+          17.491,
+          16.119,
+          16.997,
+          16.885,
+          15.513
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q2 2021",
+          "Q2 2022",
+          "Q3 2021",
+          "Q3 2022"
+        ],
+        "last_data_date": "2022-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:01:53Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Fixed-Rate Debt",
+        "period_type": "quarter",
+        "history": [
+          79.3,
+          79.3,
+          76.2,
+          76.2,
+          89.4,
+          89.4,
+          84.7,
+          83.3,
+          81.5,
+          80.8,
+          83.9,
+          87.6,
+          87.5,
+          87.3,
+          85.7
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q2 2021",
+          "Q2 2022",
+          "Q3 2021",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:01:53Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Unhedged Debt",
+        "period_type": "quarter",
+        "history": [
+          238,
+          238,
+          280,
+          280,
+          128,
+          128,
+          194,
+          219,
+          251,
+          274,
+          236,
+          188,
+          196,
+          201,
+          230
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q2 2021",
+          "Q2 2022",
+          "Q3 2021",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:01:53Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "BFS",
     "ranks": {
@@ -520,14 +693,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.229801+00:00",
     "fetched_at": "2026-05-21T02:17:14.229802+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.566Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.049Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bfs.json",
     "enrich_root": "v2-pipeline-enrich/bfs.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -41,7 +41,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Annual Recurring Revenue — annualized value of subscription revenue.",
+      "explanation_en": "Annual Recurring Revenue, annualized value of subscription revenue.",
       "signal_en": "Recurring base growing, revenue visibility rising"
     },
     {
@@ -81,34 +81,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.52 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+166.7%",
       "history": [
-        -0.88,
-        -0.17,
-        -0.06,
-        0.04
+        -880,
+        -170,
+        -60,
+        40
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.04 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -127,11 +136,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.48 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -150,33 +163,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.29 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "-45.8%",
       "history": [
-        0.27,
-        0.22,
-        0.24,
-        0.13
+        270,
+        220,
+        240,
+        130
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -250,7 +272,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné en premier dans le résumé et dans le corps du texte, avec un langage fort comme 'significant losses' et 'may not be able to maintain profitability'. Il s'agit d'un risque récurrent depuis plusieurs exercices, ce qui augmente sa gravité. La catégorie Capital est hautement pondérée ici.",
       "trend": "stable",
-      "summary": "La société a connu des pertes importantes par le passé et pourrait ne pas maintenir sa rentabilité, menaçant sa viabilité financière."
+      "summary": "La société a connu des pertes importantes par le passé et pourrait ne pas maintenir sa rentabilité, menaçant sa viabilité financière.",
+      "score": 5
     },
     {
       "title": "Concurrence intense dans le cloud",
@@ -258,7 +281,8 @@
       "severity": 5,
       "score_rationale": "Le texte souligne une 'intense competition' et des pressions sur les prix. Le risque est répété plusieurs fois, notamment face à l'IA, et est lié à la pertinence future des produits. La catégorie Concurrence est critique dans le secteur technologique.",
       "trend": "stable",
-      "summary": "La société fait face à une concurrence accrue, notamment sur les solutions cloud et l'IA, qui pourrait réduire sa part de marché et ses marges."
+      "summary": "La société fait face à une concurrence accrue, notamment sur les solutions cloud et l'IA, qui pourrait réduire sa part de marché et ses marges.",
+      "score": 5
     },
     {
       "title": "Dépendance à l'IA avec risques juridiques",
@@ -266,7 +290,8 @@
       "severity": 4,
       "score_rationale": "L'IA est citée comme un axe stratégique majeur ('AI-based initiatives'), mais avec des avertissements clairs sur les 'legal and business risks'. Le langage reflète une incertitude élevée. La catégorie Technologie est fortement pondérée en contexte SaaS.",
       "trend": "up",
-      "summary": "L'intégration de l'IA dans les produits comporte des risques juridiques et opérationnels qui pourraient nuire à la croissance ou entraîner des responsabilités."
+      "summary": "L'intégration de l'IA dans les produits comporte des risques juridiques et opérationnels qui pourraient nuire à la croissance ou entraîner des responsabilités.",
+      "score": 4
     },
     {
       "title": "Cyberattaque ou panne de service",
@@ -274,7 +299,8 @@
       "severity": 5,
       "score_rationale": "Le texte mentionne explicitement des risques de 'cyber-attack', 'security breach' et d'interruption de service, pouvant entraîner des pénalités et une perte de réputation. Le langage est alarmant ('significant liability', 'harm our reputation').",
       "trend": "stable",
-      "summary": "Une faille de sécurité ou une panne majeure pourrait interrompre le service, nuire à la réputation et exposer l'entreprise à des poursuites."
+      "summary": "Une faille de sécurité ou une panne majeure pourrait interrompre le service, nuire à la réputation et exposer l'entreprise à des poursuites.",
+      "score": 5
     },
     {
       "title": "Dépendance aux partenaires de distribution",
@@ -282,7 +308,8 @@
       "severity": 4,
       "score_rationale": "Le texte indique une 'reliance significantly on our channel partners' et un risque 'materially and adversely affect our revenues' en cas d'échec. Cela reflète une vulnérabilité opérationnelle clé. Le risque est stable mais central.",
       "trend": "stable",
-      "summary": "La société dépend fortement de partenaires externes pour la vente, ce qui limite son contrôle sur la croissance et la fidélisation."
+      "summary": "La société dépend fortement de partenaires externes pour la vente, ce qui limite son contrôle sur la croissance et la fidélisation.",
+      "score": 4
     },
     {
       "title": "Régulation croissante des services",
@@ -290,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne des risques réglementaires aux États-Unis et à l'international, avec un impact potentiel sur les abonnements. Le langage est préventif mais ferme ('expose us to liability'). La catégorie Régulation gagne en importance.",
       "trend": "up",
-      "summary": "Les services sont soumis à une réglementation accrue, notamment sur les communications et les données, pouvant limiter l'offre ou augmenter les coûts."
+      "summary": "Les services sont soumis à une réglementation accrue, notamment sur les communications et les données, pouvant limiter l'offre ou augmenter les coûts.",
+      "score": 4
     },
     {
       "title": "Dépendance aux cadres dirigeants",
@@ -298,7 +326,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne la dépendance aux 'senior management and other highly-skilled employees' et les risques si ces personnes partent. Le langage est récurrent et lié à la capacité d'exécution. Catégorie critique pour les entreprises tech.",
       "trend": "stable",
-      "summary": "La perte de membres clés de la direction ou d'employés hautement qualifiés pourrait nuire à la stratégie et à la performance opérationnelle."
+      "summary": "La perte de membres clés de la direction ou d'employés hautement qualifiés pourrait nuire à la stratégie et à la performance opérationnelle.",
+      "score": 4
     }
   ],
   "governance": {
@@ -319,7 +348,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -481,44 +510,27 @@
   },
   "enrich_quarterly_history": {
     "ticker": "RNG",
-    "extracted_at": "2026-05-15T18:14:01Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1384905,
+    "extracted_at": "2026-06-01T09:19:05Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "R&D",
+        "short": "Net Income",
         "period_type": "quarter",
         "history": [
-          138.837,
-          222.958,
-          -114.732,
-          90.274,
-          186.792,
-          273.492,
-          -188.302,
-          85.241,
-          165.521,
-          250.965,
-          -165.876,
-          80.528,
-          160.278,
-          244.422,
-          -155.905,
-          81.983,
-          159.522,
-          239.43,
-          -163.942,
-          81.713
+          -0.1595,
+          -0.0544,
+          -0.0215,
+          -0.0421,
+          -0.0285,
+          -0.0285,
+          -0.0148,
+          -0.0079,
+          -0.0103,
+          0.0029,
+          0.0176
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
@@ -526,43 +538,17 @@
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 159.522,
-            "accession": "0001384905-25-000040",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 239.43,
-            "accession": "0001384905-25-000053",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -163.942,
-            "accession": "calc-0001384905-26-000021",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 81.713,
-            "accession": "0001384905-26-000037",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:19:05Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -578,9 +564,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.303996+00:00",
     "fetched_at": "2026-05-21T02:17:14.303997+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.283Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.291Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rng.json",
     "enrich_root": "v2-pipeline-enrich/rng.json",

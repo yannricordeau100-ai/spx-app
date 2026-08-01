@@ -44,8 +44,12 @@
       "is_short_history": false,
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:50.065481+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -72,7 +76,11 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -98,8 +106,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -125,31 +137,40 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.35,
-      "unit": "Mds €",
+      "value": 350,
+      "unit": "M €",
       "yoy": "-2.8%",
       "history": [
-        0.35,
-        0.37,
-        0.36,
-        0.35
+        350,
+        370,
+        360,
+        350
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.35 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -168,11 +189,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.62 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -191,33 +216,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.85 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.45,
-      "unit": "Mds €",
+      "value": 450,
+      "unit": "M €",
       "yoy": "+2.3%",
       "history": [
-        0.33,
-        0.41,
-        0.44,
-        0.45
+        330,
+        410,
+        440,
+        450
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.45 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -253,7 +287,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K, langage fort (\"materially affect\", \"adversely affect\"), tendance stable, poids élevé car lié au cœur de l'activité de shipping LNG.",
       "trend": "stable",
-      "summary": "Les taux de charter pour les méthaniers sont très volatils, dépendant de l'offre et de la demande mondiale. Une baisse des taux peut réduire fortement les revenus, la rentabilité et la capacité à payer des dividendes. Plusieurs navires sortent de contrats longs et seront exposés au marché spot."
+      "summary": "Les taux de charter pour les méthaniers sont très volatils, dépendant de l'offre et de la demande mondiale. Une baisse des taux peut réduire fortement les revenus, la rentabilité et la capacité à payer des dividendes. Plusieurs navires sortent de contrats longs et seront exposés au marché spot.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue dans le transport LNG",
@@ -261,7 +296,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de la concurrence dans le secteur, langage modéré mais récurrent, tendance stable, poids important car structurel au marché.",
       "trend": "stable",
-      "summary": "La concurrence s'intensifie avec l'arrivée de nouveaux acteurs, de nouvelles commandes de navires et des alternatives énergétiques. Cela exerce une pression à la baisse sur les taux de charter et la part de marché."
+      "summary": "La concurrence s'intensifie avec l'arrivée de nouveaux acteurs, de nouvelles commandes de navires et des alternatives énergétiques. Cela exerce une pression à la baisse sur les taux de charter et la part de marché.",
+      "score": 4
     },
     {
       "title": "Réglementation environnementale croissante",
@@ -269,7 +305,8 @@
       "severity": 5,
       "score_rationale": "Position élevée dans le texte, langage fort (\"significant additional expenditures\", \"new environmental regulations\"), tendance à la hausse, poids élevé en lien avec la transition énergétique.",
       "trend": "up",
-      "summary": "L'entrée en vigueur de réglementations comme le EU ETS et FuelEU Maritime impose des coûts supplémentaires pour réduire les émissions. Le non-respect peut entraîner des pénalités et des surcoûts d'exploitation."
+      "summary": "L'entrée en vigueur de réglementations comme le EU ETS et FuelEU Maritime impose des coûts supplémentaires pour réduire les émissions. Le non-respect peut entraîner des pénalités et des surcoûts d'exploitation.",
+      "score": 5
     },
     {
       "title": "Dépendance aux nouvelles technologies",
@@ -277,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Mention claire des risques technologiques, langage préoccupé (\"failure to adopt\", \"uncertainty\"), tendance à la hausse, poids croissant avec la digitalisation.",
       "trend": "up",
-      "summary": "L'adoption de l'intelligence artificielle, des systèmes numériques et des propulsion alternatives (zéro carbone) est cruciale. Un retard technologique peut nuire à l'efficacité et à la compétitivité opérationnelle."
+      "summary": "L'adoption de l'intelligence artificielle, des systèmes numériques et des propulsion alternatives (zéro carbone) est cruciale. Un retard technologique peut nuire à l'efficacité et à la compétitivité opérationnelle.",
+      "score": 4
     },
     {
       "title": "Congestion des ports et canaux",
@@ -285,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Mention spécifique, langage concret (\"impact of port or canal congestion\"), tendance stable, poids élevé en raison des perturbations opérationnelles.",
       "trend": "stable",
-      "summary": "La congestion dans des points stratégiques comme le canal de Suez ou le détroit d'Hormuz retarde les rotations, augmente les coûts et réduit la disponibilité des navires pour de nouvelles charters."
+      "summary": "La congestion dans des points stratégiques comme le canal de Suez ou le détroit d'Hormuz retarde les rotations, augmente les coûts et réduit la disponibilité des navires pour de nouvelles charters.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques sur les routes maritimes",
@@ -293,7 +332,8 @@
       "severity": 5,
       "score_rationale": "Position importante dans le texte, langage alarmant (\"vessel attacks\", \"war or emergency\"), tendance à la hausse, poids très élevé en raison des menaces actuelles.",
       "trend": "up",
-      "summary": "Les conflits au Moyen-Orient, en mer Rouge ou en mer Noire exposent les navires à des attaques, détournements ou sanctions. Cela peut forcer des détours coûteux ou l'immobilisation temporaire des navires."
+      "summary": "Les conflits au Moyen-Orient, en mer Rouge ou en mer Noire exposent les navires à des attaques, détournements ou sanctions. Cela peut forcer des détours coûteux ou l'immobilisation temporaire des navires.",
+      "score": 5
     },
     {
       "title": "Cybersécurité des systèmes d'information",
@@ -301,7 +341,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite des failles de sécurité, langage préventif mais sérieux, tendance à la hausse, poids croissant avec la digitalisation des opérations.",
       "trend": "up",
-      "summary": "Une faille dans les systèmes informatiques peut paralyser les opérations, compromettre des données sensibles ou entraîner des interruptions de service, avec des conséquences financières et réputationnelles."
+      "summary": "Une faille dans les systèmes informatiques peut paralyser les opérations, compromettre des données sensibles ou entraîner des interruptions de service, avec des conséquences financières et réputationnelles.",
+      "score": 4
     },
     {
       "title": "Pression ESG et transition énergétique",
@@ -309,7 +350,8 @@
       "severity": 5,
       "score_rationale": "Langage fort (\"increasing scrutiny\", \"climate impact\"), position élevée, tendance à la hausse, poids très élevé en raison des attentes réglementaires et sociétales.",
       "trend": "up",
-      "summary": "Les investisseurs et régulateurs exigent une réduction de l'empreinte carbone. Le groupe fait face à des risques de litiges ou de réputation s'il ne s'adapte pas assez vite à la décarbonation du secteur maritime."
+      "summary": "Les investisseurs et régulateurs exigent une réduction de l'empreinte carbone. Le groupe fait face à des risques de litiges ou de réputation s'il ne s'adapte pas assez vite à la décarbonation du secteur maritime.",
+      "score": 5
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:36:14.771112+00:00",
@@ -487,6 +529,40 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "FLNG",
+    "extracted_at": "2026-06-01T03:16:30Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Total Assets",
+        "period_type": "year",
+        "history": [
+          2.304,
+          2.573,
+          2.624,
+          2.624,
+          2.669,
+          2.624
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:16:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "FLNG",
     "ranks": {
@@ -499,15 +575,16 @@
     "country": "Bermuda",
     "_data_freshness_date": "2026-05-21T02:17:14.261769+00:00",
     "fetched_at": "2026-05-21T02:17:14.261769+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.276Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.850Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/flng.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -1,6 +1,6 @@
 {
   "ticker": "SLM",
-  "name": "SLM Corporation",
+  "name": "SLM",
   "sector": "Financial Services",
   "subsector": "Consumer Finance",
   "tagline": "Leading provider of private education loans and student finance solutions",
@@ -51,8 +51,8 @@
       "name_fr": "Portefeuille de prêts étudiants privés",
       "name_en": "Private Education Loans Outstanding",
       "explanation": "Gross outstanding balance of private education loans",
-      "value": "21660",
-      "unit": "M $",
+      "value": 21.66,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Balance Sheet",
       "nature": "Structurel",
@@ -60,7 +60,7 @@
       "signal": "Core loan portfolio provides revenue foundation and credit exposure",
       "description": "Total gross private education loans outstanding representing core business assets",
       "history": [
-        21660,
+        21.66,
         0,
         0,
         0,
@@ -71,15 +71,20 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 0,
-      "_validation": "Unit corrected from Mds $ to M $ (21,660.434M from balance sheet); name refined to include 'Outstanding'; is_short_history set to true; is_generic set to false"
+      "_validation": "Unit corrected from Mds $ to M $ (21,660.434M from balance sheet); name refined to include 'Outstanding'; is_short_history set to true; is_generic set to false",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Allowance for Credit Losses",
       "name_fr": "Provision pour pertes de crédit",
       "name_en": "Allowance for Credit Losses",
       "explanation": "Reserve for estimated lifetime expected credit losses on loans",
-      "value": "1430",
-      "unit": "M $",
+      "value": 1.43,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Risk",
       "nature": "Cyclique",
@@ -87,8 +92,8 @@
       "signal": "Credit loss reserve reflects management's assessment of portfolio quality",
       "description": "Allowance maintained for estimated lifetime expected credit losses on private education loan portfolio",
       "history": [
-        1430,
-        1436,
+        1.43,
+        1.436,
         0,
         0,
         0
@@ -98,7 +103,12 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 0,
-      "_validation": "Unit corrected from Mds $ to M $ (1,430.318M from allowance table); Value corrected to 1430 (ending balance 2025); History updated with 2024 value (1,435.920M); is_short_history set to true"
+      "_validation": "Unit corrected from Mds $ to M $ (1,430.318M from allowance table); Value corrected to 1430 (ending balance 2025); History updated with 2024 value (1,435.920M); is_short_history set to true",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -117,34 +127,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.98 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.74,
-      "unit": "Mds €",
+      "value": 740,
+      "unit": "M €",
       "yoy": "+21.3%",
       "history": [
-        0.47,
-        0.58,
-        0.61,
-        0.74
+        470,
+        580,
+        610,
+        740
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.74 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,11 +182,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 29.75 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -186,11 +209,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.86 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -209,10 +236,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 4.24 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -256,52 +287,52 @@
       "title": "Credit risk on private education loans",
       "category": "Credit",
       "severity": 5,
-      "score_rationale": "Credit risk is central to the business model. Company bears full credit exposure on private education loans. Allowance for credit losses ($1.43B) and provision expense are key indicators of credit quality. Losses emerge as larger proportion of portfolio enters full principal and interest repayment. Management implements CECL modeling with detailed assumptions on economic variables. (score par défaut, à affiner)",
+      "score_rationale": "Credit risk is central to the business model. Company bears full credit exposure on private education loans. Allowance for credit losses ($1.43B) and provision expense are key indicators of credit quality. Losses emerge as larger proportion of portfolio enters full principal and interest repayment. Management implements CECL modeling with detailed assumptions on economic variables.",
       "trend": "stable",
       "summary": "The company is exposed to losses if borrowers default on private education loans, particularly during economic downturns or periods of high unemployment among graduates.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Securitization funding dependence",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Secured borrowings through Private Education Loan term securitizations total $4.87B (83% of total borrowings at December 31, 2025). Securitization is primary funding mechanism for loan originations. Market disruptions could impair funding availability and increase borrowing costs. (score par défaut, à affiner)",
+      "score_rationale": "Secured borrowings through Private Education Loan term securitizations total $4.87B (83% of total borrowings at December 31, 2025). Securitization is primary funding mechanism for loan originations. Market disruptions could impair funding availability and increase borrowing costs.",
       "trend": "stable",
       "summary": "The company depends heavily on securitization markets to fund loan originations. Market disruptions or loss of investor appetite could constrain funding and limit business growth.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Interest rate sensitivity",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Net interest margin affected by SOFR movements and changes in funding costs relative to loan yield changes. Variable-rate loans ($4.71B of $21.66B portfolio) create direct exposure to rate movements. Rising rates impact borrower repayment behavior and credit losses. (score par défaut, à affiner)",
+      "score_rationale": "Net interest margin affected by SOFR movements and changes in funding costs relative to loan yield changes. Variable-rate loans ($4.71B of $21.66B portfolio) create direct exposure to rate movements. Rising rates impact borrower repayment behavior and credit losses.",
       "trend": "up",
       "summary": "Changes in interest rates affect funding costs, borrower repayment capacity, and net interest margin. Variable-rate exposure creates direct rate sensitivity.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Debt refinancing risk",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Short-term unsecured debt of $498M due November 2026. Company must refinance or repay significant near-term obligations. Credit market tightening could increase refinancing costs or limit refinancing options. (score par défaut, à affiner)",
+      "score_rationale": "Short-term unsecured debt of $498M due November 2026. Company must refinance or repay significant near-term obligations. Credit market tightening could increase refinancing costs or limit refinancing options.",
       "trend": "stable",
       "summary": "The company must refinance approximately $498M in unsecured debt due in November 2026. Market disruptions could increase refinancing costs or limit access to capital.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Portfolio concentration risk",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Private education loans represent core business with portfolio of $21.66B. Limited revenue diversification outside private student lending. Strategic initiatives to develop new products are nascent. Portfolio concentrated in single market segment. (score par défaut, à affiner)",
+      "score_rationale": "Private education loans represent core business with portfolio of $21.66B. Limited revenue diversification outside private student lending. Strategic initiatives to develop new products are nascent. Portfolio concentrated in single market segment.",
       "trend": "stable",
       "summary": "Business is heavily concentrated in private education lending with limited diversification across products or customer segments, creating vulnerability to sector-specific risks.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Unfunded loan commitment reserve risk",
       "category": "Credit",
       "severity": 3,
-      "score_rationale": "Company maintains reserve for unfunded loan commitments and contingent liabilities. Future loan disbursements under approved but undrawn commitments could increase credit exposure. CECL modeling of unfunded commitments involves estimation uncertainty. (score par défaut, à affiner)",
+      "score_rationale": "Company maintains reserve for unfunded loan commitments and contingent liabilities. Future loan disbursements under approved but undrawn commitments could increase credit exposure. CECL modeling of unfunded commitments involves estimation uncertainty.",
       "trend": "stable",
       "summary": "The company maintains reserves for future loan disbursements and unfunded commitments. Rapid disbursements could increase credit losses if economic conditions deteriorate.",
       "score": 3
@@ -310,10 +341,10 @@
       "title": "Economic sensitivity and labor market dependence",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Portfolio credit quality depends on graduate employment and wage growth. CECL models incorporate unemployment assumptions and economic forecasts. H.R.1 federal student loan reforms (effective July 2026) create demand opportunity but execution uncertainty on origination expansion. (score par défaut, à affiner)",
+      "score_rationale": "Portfolio credit quality depends on graduate employment and wage growth. CECL models incorporate unemployment assumptions and economic forecasts. H.R.1 federal student loan reforms (effective July 2026) create demand opportunity but execution uncertainty on origination expansion.",
       "trend": "stable",
       "summary": "Loan portfolio performance is closely tied to economic conditions, graduate employment rates, and wage growth. Federal policy changes create both opportunities and uncertainties.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -354,7 +385,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -441,6 +472,113 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SLM",
+    "extracted_at": "2026-06-01T09:21:30Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Net Interest Income",
+        "period_type": "quarter",
+        "history": [
+          338.784,
+          357.518,
+          362.808,
+          369.51,
+          375.032,
+          386.631,
+          384.628,
+          405.068,
+          372.172,
+          359.403,
+          387.016,
+          376.82,
+          359.403,
+          374.97,
+          376.82,
+          372.977,
+          375.411
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025",
+          "Q1 2026",
+          "Q2 2026",
+          "Q4 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:21:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          140.201,
+          72.84,
+          128.812,
+          342.073,
+          75.172,
+          128.812,
+          265.065,
+          29.365,
+          118.518,
+          251.993,
+          45.694,
+          289.931,
+          251.993,
+          45.694,
+          304.54,
+          71.272,
+          135.85,
+          307.954
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025",
+          "Q1 2026",
+          "Q2 2026",
+          "Q4 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:21:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SLM",
     "ranks": {
@@ -453,14 +591,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.310493+00:00",
     "fetched_at": "2026-05-21T02:17:14.310494+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.872Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.866Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/slm.json",
     "enrich_root": "v2-pipeline-enrich/slm.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

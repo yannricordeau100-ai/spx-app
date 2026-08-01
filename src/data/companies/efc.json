@@ -36,55 +36,66 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.31,
-      "unit": "Mds €",
+      "value": 310,
+      "unit": "M €",
       "yoy": "+10.7%",
       "history": [
-        0.04,
-        0.26,
-        0.28,
-        0.31
+        40,
+        260,
+        280,
+        310
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.31 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        -0.07,
-        0.08,
-        0.15,
-        0.15
+        -70,
+        80,
+        150,
+        150
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.15 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -103,11 +114,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 1.19 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -126,11 +141,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de -0.93 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,11 +168,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 19.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -172,33 +195,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 16.96 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "+5.3%",
       "history": [
-        0.22,
-        0.23,
-        0.19,
-        0.2
+        220,
+        230,
+        190,
+        200
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.2 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -222,9 +254,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -240,7 +270,8 @@
       "severity": 4,
       "score_rationale": "La société est soumise à des exigences réglementaires strictes en tant que REIT, notamment l'obligation de distribuer au moins 90% de son revenu imposable annuel. Le non-respect peut entraîner des pertes du statut REIT et une imposition fédérale, d'état et locale.",
       "trend": "stable",
-      "summary": "La société doit respecter les règles de la REIT pour éviter les pénalités fiscales et les pertes financières."
+      "summary": "La société doit respecter les règles de la REIT pour éviter les pénalités fiscales et les pertes financières.",
+      "score": 4
     },
     {
       "title": "Risque de crédit",
@@ -248,7 +279,8 @@
       "severity": 5,
       "score_rationale": "La société investit dans des actifs à risque, notamment des prêts hypothécaires non-agency, des obligations d'emprunt garanties (CLO), des prêts commerciaux et des titres non-investment grade. Ces actifs sont sensibles aux défaillances de paiement et aux fluctuations du marché du crédit.",
       "trend": "up",
-      "summary": "La société est exposée à des risques de crédit importants en raison de ses investissements dans des actifs à risque et des portefeuilles de prêts non performants."
+      "summary": "La société est exposée à des risques de crédit importants en raison de ses investissements dans des actifs à risque et des portefeuilles de prêts non performants.",
+      "score": 5
     },
     {
       "title": "Risque de marché",
@@ -256,7 +288,8 @@
       "severity": 4,
       "score_rationale": "La société est sensible aux fluctuations des taux d'intérêt, des spreads de crédit, des prix des actifs immobiliers et de la volatilité générale du marché. Ces facteurs affectent directement la valeur du portefeuille d'investissement et la capacité de distribution des dividendes.",
       "trend": "stable",
-      "summary": "La société doit gérer les risques liés aux fluctuations du marché pour maintenir la valeur du portefeuille et la performance financière."
+      "summary": "La société doit gérer les risques liés aux fluctuations du marché pour maintenir la valeur du portefeuille et la performance financière.",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -264,7 +297,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un marché compétitif d'investissement alternatif et de gestion d'actifs, où d'autres gestionnaires de fonds et REITs ciblent les mêmes classes d'actifs et opportunités d'investissement.",
       "trend": "stable",
-      "summary": "La société doit maintenir sa compétitivité et sa performance relative pour attirer les investisseurs et les capitaux dans un marché fragmenté."
+      "summary": "La société doit maintenir sa compétitivité et sa performance relative pour attirer les investisseurs et les capitaux dans un marché fragmenté.",
+      "score": 3
     },
     {
       "title": "Géopolitique",
@@ -272,7 +306,8 @@
       "severity": 2,
       "score_rationale": "La société peut être affectée par les événements géopolitiques, notamment les changements de politique monétaire, les modifications de la politique du logement et les crises de crédit internationales qui influencent les marchés financiers.",
       "trend": "stable",
-      "summary": "La société doit surveiller les événements géopolitiques pour anticiper les impacts sur les politiques financières et les conditions de marché."
+      "summary": "La société doit surveiller les événements géopolitiques pour anticiper les impacts sur les politiques financières et les conditions de marché.",
+      "score": 2
     },
     {
       "title": "Cybersécurité",
@@ -280,7 +315,8 @@
       "severity": 3,
       "score_rationale": "Bien que la société s'appuie sur les processus de cybersécurité d'Ellington et de Longbridge intégrés à leurs programmes de gestion des risques, les attaques cybernétiques pourraient compromettre les données clients, les informations financières et les systèmes d'exploitation critiques.",
       "trend": "up",
-      "summary": "La société doit maintenir des défenses cybersécurité robustes pour protéger les données des clients et la continuité des opérations."
+      "summary": "La société doit maintenir des défenses cybersécurité robustes pour protéger les données des clients et la continuité des opérations.",
+      "score": 3
     },
     {
       "title": "Dépendance vis-à-vis du gestionnaire",
@@ -288,7 +324,8 @@
       "severity": 3,
       "score_rationale": "La société est gérée par Ellington Management, une filiale d'Ellington. Le gestionnaire ne dispose pas d'employés propres et dépend entièrement des employés d'Ellington pour la stratégie d'investissement, la gestion des risques et les opérations quotidiennes.",
       "trend": "stable",
-      "summary": "La société dépend fortement de la compétence d'Ellington et de la qualité de sa gestion pour maintenir la performance et les rendements."
+      "summary": "La société dépend fortement de la compétence d'Ellington et de la qualité de sa gestion pour maintenir la performance et les rendements.",
+      "score": 3
     }
   ],
   "governance": {
@@ -340,7 +377,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -510,9 +547,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.254080+00:00",
     "fetched_at": "2026-05-21T02:17:14.254081+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.603Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.170Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/efc.json",
     "enrich_root": "v2-pipeline-enrich/efc.json",

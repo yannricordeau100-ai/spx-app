@@ -114,7 +114,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -163,7 +163,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Total Employees — total number of employees at period end.",
+      "explanation_en": "Total Employees, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -183,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 38.12 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -206,11 +210,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.27 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -237,7 +245,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -265,7 +273,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -293,7 +301,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -309,7 +317,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -0.152,
@@ -322,7 +330,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -388,7 +396,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur pour fabricant de moteurs d'avion (Civil Aerospace 45% du revenu). Chair et CEO mentionnent explicitement 'supply chain challenges' et 'supply chain optimisation' comme enjeux stratégiques clés. Langage d'intensité modérée mais positionnement central dans transformation.",
       "trend": "stable",
-      "summary": "Rolls-Royce dépend fortement de fournisseurs pour composants critiques de moteurs civils et militaires. Les perturbations de chaîne d'approvisionnement post-pandémie et tensions géopolitiques (Russie-Ukraine) menacent la capacité de production et les délais de livraison, particulièrement pour Civil Aerospace et Defence."
+      "summary": "Rolls-Royce dépend fortement de fournisseurs pour composants critiques de moteurs civils et militaires. Les perturbations de chaîne d'approvisionnement post-pandémie et tensions géopolitiques (Russie-Ukraine) menacent la capacité de production et les délais de livraison, particulièrement pour Civil Aerospace et Defence.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et instabilité régionale",
@@ -396,7 +405,8 @@
       "severity": 4,
       "score_rationale": "Chair statement souligne explicitement 'geopolitical uncertainty' et énumère trois crises (Russie-Ukraine, Israël-Gaza, élections 2024). Langage d'alerte élevée ('deeply distressing', 'threatening important trade routes'). Impacte Defence (26% revenu) et opérations globales (48 pays).",
       "trend": "up",
-      "summary": "Conflits géopolitiques croissants (Russie-Ukraine, Moyen-Orient) et élections majeures en 2024 créent incertitude pour contrats de défense, accès aux marchés et chaînes d'approvisionnement. Rolls-Royce opère dans 48 pays avec exposition significative aux tensions régionales affectant clients gouvernementaux."
+      "summary": "Conflits géopolitiques croissants (Russie-Ukraine, Moyen-Orient) et élections majeures en 2024 créent incertitude pour contrats de défense, accès aux marchés et chaînes d'approvisionnement. Rolls-Royce opère dans 48 pays avec exposition significative aux tensions régionales affectant clients gouvernementaux.",
+      "score": 4
     },
     {
       "title": "Compétition intense dans moteurs aéronautiques civils",
@@ -404,7 +414,8 @@
       "severity": 4,
       "score_rationale": "Civil Aerospace génère 47.7% du revenu (£7,348m) avec marges 11.6%. CEO mentionne 'competitive performance benchmarked against our peers' comme objectif clé. Langage stratégique indique besoin de surpasser concurrents (GE, Pratt & Whitney). Transformation entière vise à 'perform as well or better than our best competitors'.",
       "trend": "stable",
-      "summary": "Rolls-Royce fait face à concurrence féroce de GE Aviation et Pratt & Whitney sur moteurs large-body et régionaux. Besoin de maintenir leadership technologique, réduire coûts et améliorer fiabilité pour conserver parts de marché dans Civil Aerospace hautement compétitif."
+      "summary": "Rolls-Royce fait face à concurrence féroce de GE Aviation et Pratt & Whitney sur moteurs large-body et régionaux. Besoin de maintenir leadership technologique, réduire coûts et améliorer fiabilité pour conserver parts de marché dans Civil Aerospace hautement compétitif.",
+      "score": 4
     },
     {
       "title": "Technologie et innovation en propulsion durable",
@@ -412,7 +423,8 @@
       "severity": 4,
       "score_rationale": "CEO et Chair soulignent 'lower carbon solutions' comme 'fundamental role' dans succès long-terme. New Markets (moteurs électriques, SMR) représentent R&D 46% mais perte £160m. Engagement net-zero 2050 et transition énergétique sont piliers stratégiques avec nouveau comité Board (Safety, Energy Transition & Tech).",
       "trend": "up",
-      "summary": "Rolls-Royce doit développer moteurs durables (électriques, hydrogène) et petits réacteurs modulaires (SMR) pour répondre régulations environnementales et demande clients. New Markets affiche pertes significatives (£160m) malgré R&D £1.4bn, indiquant risque de retard technologique ou d'investissements non rentables."
+      "summary": "Rolls-Royce doit développer moteurs durables (électriques, hydrogène) et petits réacteurs modulaires (SMR) pour répondre régulations environnementales et demande clients. New Markets affiche pertes significatives (£160m) malgré R&D £1.4bn, indiquant risque de retard technologique ou d'investissements non rentables.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire aéronautique et défense",
@@ -420,7 +432,8 @@
       "severity": 4,
       "score_rationale": "Rolls-Royce opère sous régulations strictes EASA, FAA, ITAR et contrôles d'exportation défense. Chair mentionne 'zero tolerance of business misconduct' et 'ethics assurance processes'. Nouveau Group Director Engineering, Technology & Safety créé en 2023 indique renforcement conformité. Risque de sanctions commerciales élevé.",
       "trend": "up",
-      "summary": "Rolls-Royce doit respecter certifications aéronautiques complexes (EASA, FAA), contrôles d'exportation défense (ITAR, UK FCDO) et régulations environnementales croissantes. Non-conformité peut entraîner suspension de certifications, amendes ou perte de contrats gouvernementaux critiques."
+      "summary": "Rolls-Royce doit respecter certifications aéronautiques complexes (EASA, FAA), contrôles d'exportation défense (ITAR, UK FCDO) et régulations environnementales croissantes. Non-conformité peut entraîner suspension de certifications, amendes ou perte de contrats gouvernementaux critiques.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et protection propriété intellectuelle",
@@ -428,7 +441,8 @@
       "severity": 3,
       "score_rationale": "Bien que non explicitement détaillé dans extrait, Rolls-Royce détient IP critique en propulsion aéronautique/défense. Opérations dans 48 pays avec données sensibles ITAR/défense. Absence de mention spécifique en Item 1A suggère risque modéré mais présent pour groupe technologique de défense.",
       "trend": "stable",
-      "summary": "Rolls-Royce possède propriété intellectuelle hautement sensible en moteurs militaires et civils. Risques de cyberattaques, vol de données techniques et espionnage industriel menacent avantage compétitif, particulièrement pour contrats défense et technologies SMR/électriques."
+      "summary": "Rolls-Royce possède propriété intellectuelle hautement sensible en moteurs militaires et civils. Risques de cyberattaques, vol de données techniques et espionnage industriel menacent avantage compétitif, particulièrement pour contrats défense et technologies SMR/électriques.",
+      "score": 3
     },
     {
       "title": "Exécution transformation organisationnelle et talent",
@@ -436,7 +450,8 @@
       "severity": 4,
       "score_rationale": "Transformation majeure en cours ('at pace, with rigour and intensity') avec changements Board importants (3 départs, 3 arrivées en 2023). CEO Tufan Erginbilgic nouveau (2022), CFO changé août 2023. Chair souligne 'impact of change on organisation' et monitoring culture. Risque d'attrition talent et résistance au changement élevé.",
       "trend": "up",
-      "summary": "Rolls-Royce exécute transformation stratégique majeure sous nouveau leadership (CEO 2022, CFO 2023). Risques incluent attrition de talents clés, résistance organisationnelle au changement, et dépendance à exécution rapide de 41,400 employés. Board monitoring culture indique préoccupations internes."
+      "summary": "Rolls-Royce exécute transformation stratégique majeure sous nouveau leadership (CEO 2022, CFO 2023). Risques incluent attrition de talents clés, résistance organisationnelle au changement, et dépendance à exécution rapide de 41,400 employés. Board monitoring culture indique préoccupations internes.",
+      "score": 4
     },
     {
       "title": "Rentabilité et cash flow des nouveaux marchés",
@@ -444,7 +459,8 @@
       "severity": 3,
       "score_rationale": "New Markets affiche perte opérationnelle £160m (2023) vs £132m (2022), avec R&D 46% du budget groupe. SMR et électrique sont stratégiques mais non rentables. CEO cible 'sustainable cash flows delivering more than 100% conversion' mais New Markets risquent de diluer retours court-terme.",
       "trend": "up",
-      "summary": "Investissements massifs en SMR (Rolls-Royce SMR) et propulsion électrique (Rolls-Royce Electrical) génèrent pertes croissantes. Risque que ces marchés émergents ne deviennent pas rentables à temps ou ne captent pas parts de marché attendues, impactant allocation capital et retours actionnaires."
+      "summary": "Investissements massifs en SMR (Rolls-Royce SMR) et propulsion électrique (Rolls-Royce Electrical) génèrent pertes croissantes. Risque que ces marchés émergents ne deviennent pas rentables à temps ou ne captent pas parts de marché attendues, impactant allocation capital et retours actionnaires.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:21:16.014161+00:00",
@@ -649,7 +665,7 @@
     ]
   },
   "_eps_extracted_at": "2026-05-18T16:47:13Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.878Z",
   "overrides_governance": {
     "voting_structure_note": "OK 1-share-1-vote",
@@ -680,7 +696,7 @@
       "date": "2025-12-31"
     },
     "next_earnings_date": "2026-07-30",
-    "source": "yfinance",
+    "source": "rapport financier",
     "fetched_at": "2026-05-21T03:38:30.890938+00:00"
   },
   "publication_date": "2025-12-31",
@@ -788,7 +804,10 @@
         10.2,
         11
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Power Systems Order Intake",
@@ -804,7 +823,10 @@
         5.5,
         6
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Installed Engine Base",
@@ -844,7 +866,7 @@
       }
     },
     "_generated_at": "2026-05-21T03:23:07Z",
-    "_source": "yfinance.longBusinessSummary",
+    "_source": "rapport financier",
     "_method": "non-llm-heuristic-split",
     "_source_summary_len": 878
   },
@@ -908,6 +930,27 @@
       "Gross R&D Expenditure": "Gross R&D Expenditure"
     }
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Rolls-Royce Holdings est un groupe britannique d'ingénierie de propulsion et d'énergie. Coté à Londres, basé à Londres, fondé en 1884.",
+          "products": "Trois segments : Civil Aerospace (moteurs Trent pour gros porteurs Airbus A330/A350, Boeing 787), Defence (moteurs militaires, réacteurs nucléaires de sous-marins, propulsion navale), Power Systems (moteurs mtu pour datacenters, marine, rail).",
+          "customers": "Compagnies aériennes (via Airbus, Boeing : long-haul), forces armées (Royaume-Uni, USA notamment), opérateurs de datacenters, marine, ferroviaire, industrie.",
+          "edge": "Position duopolistique avec GE Aerospace sur les moteurs wide-body. Modèle Total Care (services après-vente long terme) capturant la rente sur 25+ ans par moteur. Activité Defence et Power Systems en croissance."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Rolls-Royce est en pleine transformation sous Tufan Erginbilgic (CEO depuis 2023), avec un plan stratégique ambitieux ciblant 2,5-2,8 Mds£ d'EBIT en 2027. Sortie réussie de la crise Covid grâce à la reprise du trafic long-courrier, transformation des marges via discipline pricing et coûts.",
+          "tech_products": "Civil Aerospace : moteurs Trent (XWB, 1000, 7000) avec modèle de service Total Care (revenu par heure de vol). Defence : moteurs avions militaires (Eurofighter, F-35 LiftFan), nucléaire naval (programme AUKUS de sous-marins). Power Systems : motorisations mtu pour datacenters (boom IA), marine, génération. Programme SMR (small modular reactors) nucléaire civil.",
+          "moat": "Duopole avec GE Aerospace sur les moteurs widebody. Base installée massive générant des revenus de services long terme. Capacité technique unique en propulsion nucléaire navale. Expertise SMR émergente.",
+          "risks": "Dépendance au cycle aéronautique long-haul et à la reprise post-Covid. Risques d'exécution sur le plan de transformation. Concentration clients (Airbus, Boeing). Volatilité du dollar US sur les ventes. Concurrence sur les SMR (Westinghouse, NuScale)."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "RR.L",
     "ranks": {
@@ -920,9 +963,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.304822+00:00",
     "fetched_at": "2026-05-21T02:17:14.304823+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.364Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.379Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rr.l.json",
     "enrich_root": "v2-pipeline-enrich/rr.l.json",
@@ -930,6 +973,7 @@
       "description",
       "events",
       "i18n",
+      "mettrik-description",
       "ranks"
     ]
   }

@@ -57,11 +57,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.54 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -80,11 +84,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.78 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -115,7 +123,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -197,10 +205,33 @@
   "last_data_date": "2025-12-31",
   "subsector_fr": "Machines & équipements industriels",
   "sector_fr": "Industrie manufacturière",
-  "_companies_unified_built_at": "2026-05-29T21:19:37.444Z",
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "The Weir Group PLC est un groupe britannique d'ingénierie spécialisé dans les équipements pour l'industrie minière. Coté à Londres (FTSE 100), basé à Glasgow.",
+          "products": "Deux segments : Minerals (pompes à boues, hydrocyclones, valves, et solutions sous les marques Warman, Cavex, Enduron, Linatex, Motion Metrics IA), ESCO (godets, dents et abrasifs pour engins miniers).",
+          "customers": "Mineurs (or, cuivre, fer, charbon thermique réduit, lithium) dans le monde entier. Vente d'équipements neufs et pièces de rechange (aftermarket dominant).",
+          "edge": "Position de leader sur les pompes à boues (Warman = standard de l'industrie minière). Modèle aftermarket récurrent représentant ~75 % du CA. Pure-play mining après cession activités O&G."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "The Weir Group est devenu un pure-play mining après la cession de Oil & Gas (2021) et Flow Control. Positionnement stratégique sur les minéraux critiques pour la transition énergétique (cuivre, lithium, nickel). Acquisition de Motion Metrics (2022) pour la digitalisation des opérations minières.",
+          "tech_products": "Minerals : pompes à boues Warman (cœur de profit), valves, hydrocyclones, screening (Enduron), digital (Motion Metrics IA pour optimisation crusher et pelles). ESCO : ground engaging tools (godets, dents) pour pelles minières. Modèle d'aftermarket : ~75 % du CA (pièces consommables).",
+          "moat": "Position de leader incontesté sur les pompes Warman dans la mine. Modèle aftermarket récurrent avec coûts de switch élevés (qualification et fiabilité). Empreinte commerciale et service mondiale proche des sites miniers. R&D pour la transition vers minéraux critiques.",
+          "risks": "Cyclicité du capex minier. Sensibilité aux prix des métaux et au cycle de la Chine. Concurrence Metso, FLSmidth sur certains segments. Tensions géopolitiques (Russie résiduelle, exposition Amérique latine). Risques d'exécution sur la digitalisation."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
+  "_companies_unified_built_at": "2026-08-01T20:28:07.107Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/weir.l.json",
     "enrich_root": "v2-pipeline-enrich/weir.l.json",
-    "enrich_subkeys": []
+    "enrich_subkeys": [
+      "mettrik-description"
+    ]
   }
 }

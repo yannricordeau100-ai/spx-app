@@ -36,7 +36,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Gross profit margin found explicitly in the 'Results of Operations' section as percentage of net sales for fiscal years 2021, 2022, and 2023",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -76,82 +76,101 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.11 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:59.306586+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.08,
-        0.09,
-        0.08,
-        0.08
+        80,
+        90,
+        80,
+        80
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.08 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.6,
-      "unit": "Mds €",
+      "value": 600,
+      "unit": "M €",
       "yoy": "+15.4%",
       "history": [
-        0.45,
-        0.43,
-        0.52,
-        0.6
+        450,
+        430,
+        520,
+        600
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.6 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.05,
-        0.01,
-        0.05,
-        0.1
+        50,
+        10,
+        50,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -170,9 +189,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -189,7 +212,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en première partie du Item 1A, avec un impact direct sur la marge brute. Environ 28% des achats de noix et fruits secs proviennent de l'étranger. Le langage souligne l'impact significatif potentiel sur les coûts. La dépendance aux noix, cacao et fruits secs expose fortement la société aux volatilités des commodités. Pondération élevée pour un risque macro.",
       "trend": "stable",
-      "summary": "La société est exposée aux variations de prix des matières premières agricoles, notamment les noix, cacao et fruits secs, qui représentent une part majeure de ses coûts."
+      "summary": "La société est exposée aux variations de prix des matières premières agricoles, notamment les noix, cacao et fruits secs, qui représentent une part majeure de ses coûts.",
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -197,7 +221,8 @@
       "severity": 3,
       "score_rationale": "Le risque est explicitement quantifié: une hausse hypothétique de 10% des taux impacterait le résultat net de 0,3 million de dollars. Absence de couverture sur les dettes à taux variable. Position centrale dans le 10-K, mais impact modéré. Catégorie Capital de moyenne pondération.",
       "trend": "stable",
-      "summary": "L'entreprise n'a pas couvert ses expositions aux taux variables sur ses facilités de crédit, ce qui la rend sensible à une hausse des taux d'intérêt."
+      "summary": "L'entreprise n'a pas couvert ses expositions aux taux variables sur ses facilités de crédit, ce qui la rend sensible à une hausse des taux d'intérêt.",
+      "score": 3
     },
     {
       "title": "Coûts liés aux devises étrangères",
@@ -205,7 +230,8 @@
       "severity": 3,
       "score_rationale": "Bien que les achats soient en USD, le coût sous-jacent varie avec le taux de change USD vs monnaies locales (ex: euro). Mentionné dans le contexte des achats internationaux (28%). Langage prudent mais pas alarmiste. Risque indirect mais réel sur la compétitivité des coûts.",
       "trend": "stable",
-      "summary": "Même si les paiements sont en dollars, la valeur relative du dollar peut affecter le coût d'achat des matières premières à l'international."
+      "summary": "Même si les paiements sont en dollars, la valeur relative du dollar peut affecter le coût d'achat des matières premières à l'international.",
+      "score": 3
     },
     {
       "title": "Obligations du plan de retraite SERP",
@@ -213,7 +239,8 @@
       "severity": 4,
       "score_rationale": "L'obligation de prestation projetée atteint 28,7 millions de dollars (Note 15). Le taux d'actualisation est une hypothèse critique soumise à jugement. Sujet de Matter of Critical Audit, ce qui souligne son importance. Impact potentiel élevé sur les états financiers si hypothèses revues.",
       "trend": "stable",
-      "summary": "Le plan de retraite non financé (SERP) représente une obligation importante sensible aux hypothèses actuarielles, notamment le taux d'actualisation."
+      "summary": "Le plan de retraite non financé (SERP) représente une obligation importante sensible aux hypothèses actuarielles, notamment le taux d'actualisation.",
+      "score": 4
     },
     {
       "title": "Dépendance aux approvisionnements étrangers",
@@ -221,7 +248,8 @@
       "severity": 4,
       "score_rationale": "28% des achats de noix proviennent de l'étranger, créant une vulnérabilité logistique et commerciale. Risque indirect de rupture ou de hausse des coûts liée à des facteurs géopolitiques ou climatiques. Mentionné dans le contexte des prix des matières premières, mais sous-entend une exposition opérationnelle majeure.",
       "trend": "stable",
-      "summary": "Une part significative des matières premières est importée, ce qui expose la société à des perturbations dans les chaînes d'approvisionnement internationales."
+      "summary": "Une part significative des matières premières est importée, ce qui expose la société à des perturbations dans les chaînes d'approvisionnement internationales.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix du cacao",
@@ -229,7 +257,8 @@
       "severity": 4,
       "score_rationale": "Le cacao est un ingrédient significatif pour la gamme de barres de la société. Les prix ont atteint des records en décembre 2024 et restent bien au-dessus des niveaux historiques. Trois années consécutives de déficit d'approvisionnement ont créé une tension structurelle des prix. Risque élevé d'impact sur les marges et la compétitivité si les prix ne baissent pas rapidement.",
       "trend": "stable",
-      "summary": "Les prix du cacao ont atteint des niveaux historiques records, impactant directement les coûts de production des barres de la société."
+      "summary": "Les prix du cacao ont atteint des niveaux historiques records, impactant directement les coûts de production des barres de la société.",
+      "score": 4
     },
     {
       "title": "Impacts tarifaires sur les importations",
@@ -237,7 +266,8 @@
       "severity": 4,
       "score_rationale": "Environ 2% des coûts de matériaux (pepitas et pignons) sont soumis à 55% de droits tarifaires importés de Chine. Les noix de cajou importées du Vietnam (majorité) sont soumises à 20% de droits. L'incertitude sur les droits rend la planification difficile. Impact potentiel matériel si les droits sont maintenus ou augmentés.",
       "trend": "stable",
-      "summary": "Les tarifs américains sur les importations de matières premières clés (cajous du Vietnam, pepitas/pignons de Chine) augmentent les coûts et créent une incertitude de planification."
+      "summary": "Les tarifs américains sur les importations de matières premières clés (cajous du Vietnam, pepitas/pignons de Chine) augmentent les coûts et créent une incertitude de planification.",
+      "score": 4
     },
     {
       "title": "Baisse de la demande de produits de marque",
@@ -245,7 +275,8 @@
       "severity": 4,
       "score_rationale": "Baisse du volume des ventes pour les noix, mélange de fruits secs et barres. Les consommateurs réduisent leurs achats de produits de marque due à une demande économique incertaine et à des prix élevés au détail. Déclin observé à la fois pour la société et dans l'industrie de la malbouffe. Risque structurel significatif sur le chiffre d'affaires.",
       "trend": "stable",
-      "summary": "Les consommateurs réduisent leurs achats de noix de marque, mélange de fruits secs et barres à cause de prix élevés au détail et d'incertitude économique."
+      "summary": "Les consommateurs réduisent leurs achats de noix de marque, mélange de fruits secs et barres à cause de prix élevés au détail et d'incertitude économique.",
+      "score": 4
     }
   ],
   "governance": {
@@ -295,7 +326,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "subsector_fr": "Transformation alimentaire",
-  "_companies_unified_built_at": "2026-05-29T21:19:32.617Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.674Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/jbss.json",
     "enrich_root": "v2-pipeline-enrich/jbss.json",

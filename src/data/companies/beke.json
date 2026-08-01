@@ -39,7 +39,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Gross Transaction Value — total value transacted on the platform.",
+      "explanation_en": "Gross Transaction Value, total value transacted on the platform.",
       "signal_en": "Demand softening, monitor end-markets"
     },
     {
@@ -65,7 +65,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -73,7 +73,7 @@
       "name_fr": "Bénéfice net",
       "name_en": "Net Income",
       "explanation": "Bénéfice net de la société après tous les frais et impôts",
-      "value": 2991,
+      "value": 2.991,
       "unit": "M RMB",
       "yoy": "-26.6%",
       "type": "Profitability",
@@ -82,17 +82,18 @@
       "signal": "Indicateur clé de la profitabilité",
       "description": "Le bénéfice net de BEKE a diminué de 26,6% en 2025 à RMB 2 991 millions, soit US$ 428 millions, reflétant les pressions du marché immobilier chinois",
       "history": [
-        5890,
-        4078,
-        2991
+        5.89,
+        4.078,
+        2.991
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "M->M RMB for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -111,11 +112,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 94.58 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -134,11 +139,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 2.83 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,11 +166,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 116.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -180,11 +193,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 18.78 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -203,10 +220,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 7.77 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -233,9 +254,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Adoption",
-      "period_type": "annual",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     }
   ],
   "ai_positioning": {
@@ -300,7 +319,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début d'Item 1A avec langage très fort (« severe penalties », « materially and adversely affect », « may decline significantly in value or become worthless »). Répété plusieurs fois. Structure VIE représente 42,7% de la trésorerie et détient IP critique (domaines, brevets, licences). Risque systémique majeur pour la continuité opérationnelle.",
       "trend": "stable",
-      "summary": "Le gouvernement chinois pourrait invalider la structure contractuelle VIE si jugée non-conforme aux lois PRC. Cela entraînerait la déconsolidation des VIEs, l'arrêt des services Beike/Lianjia, et la perte de contrôle sur les licences de télécommunications et les domaines clés (ke.com). Les investisseurs ne détiendraient plus d'intérêt économique direct."
+      "summary": "Le gouvernement chinois pourrait invalider la structure contractuelle VIE si jugée non-conforme aux lois PRC. Cela entraînerait la déconsolidation des VIEs, l'arrêt des services Beike/Lianjia, et la perte de contrôle sur les licences de télécommunications et les domaines clés (ke.com). Les investisseurs ne détiendraient plus d'intérêt économique direct.",
+      "score": 5
     },
     {
       "title": "Conformité cybersécurité et révision CAC obligatoire",
@@ -308,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné comme risque nouveau post-2021 (Data Security Law, Personal Information Protection Law, Cybersecurity Review Measures de décembre 2021). Langage d'incertitude forte (« cannot assure you », « failure may subject us to penalties »). Affecte directement la capacité à opérer la plateforme.",
       "trend": "up",
-      "summary": "Les autorités chinoises (CAC) imposent une révision cybersécurité obligatoire pour les sociétés cotées à l'étranger. KE Holdings traite massivement de données (agents, clients, transactions immobilières). L'absence de clearance ou non-conformité aux règles détaillées pourrait entraîner des pénalités et restrictions opérationnelles."
+      "summary": "Les autorités chinoises (CAC) imposent une révision cybersécurité obligatoire pour les sociétés cotées à l'étranger. KE Holdings traite massivement de données (agents, clients, transactions immobilières). L'absence de clearance ou non-conformité aux règles détaillées pourrait entraîner des pénalités et restrictions opérationnelles.",
+      "score": 4
     },
     {
       "title": "Dépendance aux licences et permis réglementaires multiples",
@@ -316,7 +337,8 @@
       "severity": 4,
       "score_rationale": "Énumération exhaustive de 11+ licences requises (brokerage, télécommunications, construction, paiement, micro-crédit, garantie, assurance, factoring, immobilier). Langage : « may be subject to additional licensing requirements as interpretation and implementation are evolving ». Risque de perte de licence = arrêt d'activité.",
       "trend": "up",
-      "summary": "KE Holdings dépend de multiples licences et permis (télécommunications, paiement, garantie financière, immobilier, construction). L'évolution rapide de l'interprétation réglementaire ou le non-renouvellement pourrait entraîner des pénalités financières significatives et l'interruption de services clés."
+      "summary": "KE Holdings dépend de multiples licences et permis (télécommunications, paiement, garantie financière, immobilier, construction). L'évolution rapide de l'interprétation réglementaire ou le non-renouvellement pourrait entraîner des pénalités financières significatives et l'interruption de services clés.",
+      "score": 4
     },
     {
       "title": "Conformité aux mesures CSRC pour offres futures et refinancement",
@@ -324,7 +346,8 @@
       "severity": 3,
       "score_rationale": "Risque nouveau (mesures CSRC février 2023, effectives mars 2023). KE Holdings exemptée pour listing historique NYSE/HK mais soumise pour futurs refinancements. Langage : « cannot assure you that we will be able to complete such filing in a timely manner ». Incertitude sur interprétation/implémentation.",
       "trend": "new",
-      "summary": "Les nouvelles mesures CSRC (Overseas Listing Trial Measures) exigent un dépôt auprès du régulateur chinois dans les 3 jours suivant toute demande de refinancement ou offre secondaire. Non-conformité = pénalités administratives. KE Holdings doit naviguer cette incertitude réglementaire pour toute levée de fonds future."
+      "summary": "Les nouvelles mesures CSRC (Overseas Listing Trial Measures) exigent un dépôt auprès du régulateur chinois dans les 3 jours suivant toute demande de refinancement ou offre secondaire. Non-conformité = pénalités administratives. KE Holdings doit naviguer cette incertitude réglementaire pour toute levée de fonds future.",
+      "score": 3
     },
     {
       "title": "Risque anti-monopole et application renforcée des lois concurrence",
@@ -332,7 +355,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement comme domaine de renforcement réglementaire récent. Langage : « cannot assure you that our business operations comply with such regulations », « may be subject to fines and other penalties ». Secteur immobilier/services aux agents = secteur sensible à la consolidation.",
       "trend": "up",
-      "summary": "Les autorités anti-monopole chinoises ont renforcé l'application des lois de concurrence. KE Holdings, leader du courtage immobilier et des services aux agents, pourrait faire l'objet d'enquêtes si ses pratiques (commissions, exclusivité, intégration verticale) sont jugées anti-concurrentielles. Risque de démantèlement partiel ou amendes substantielles."
+      "summary": "Les autorités anti-monopole chinoises ont renforcé l'application des lois de concurrence. KE Holdings, leader du courtage immobilier et des services aux agents, pourrait faire l'objet d'enquêtes si ses pratiques (commissions, exclusivité, intégration verticale) sont jugées anti-concurrentielles. Risque de démantèlement partiel ou amendes substantielles.",
+      "score": 4
     },
     {
       "title": "Intégrité et dépendance aux agents et marques de courtage tiers",
@@ -340,7 +364,8 @@
       "severity": 3,
       "score_rationale": "Explicitement cité dans forward-looking statements (« dependence on the integrity of brokerage brands, stores and agents on our platform »). Plateforme dépend de réseau d'agents indépendants. Risque de fraude, départ massif ou perte de confiance.",
       "trend": "stable",
-      "summary": "KE Holdings opère une plateforme de courtage dépendante de milliers d'agents et de marques de courtage tiers (Lianjia, etc.). Tout scandale de fraude, mauvaise conduite d'agents ou perte de confiance dans l'intégrité du réseau pourrait réduire drastiquement les transactions et la réputation de la plateforme."
+      "summary": "KE Holdings opère une plateforme de courtage dépendante de milliers d'agents et de marques de courtage tiers (Lianjia, etc.). Tout scandale de fraude, mauvaise conduite d'agents ou perte de confiance dans l'intégrité du réseau pourrait réduire drastiquement les transactions et la réputation de la plateforme.",
+      "score": 3
     },
     {
       "title": "Risques géopolitiques et contrôle gouvernemental discrétionnaire",
@@ -348,7 +373,8 @@
       "severity": 4,
       "score_rationale": "Langage fort et répété : « PRC government's authority », « could significantly limit or completely hinder », « could result in a material adverse change ». Gouvernement chinois peut intervenir à tout moment selon lois/régulations. Incertitude systémique sur continuité opérationnelle.",
       "trend": "up",
-      "summary": "Le gouvernement chinois dispose d'un pouvoir discrétionnaire large pour intervenir dans les opérations de KE Holdings (secteur immobilier sensible, données massives, plateforme de services). Tout changement de politique industrielle, restrictions sur le secteur immobilier ou mesures de contrôle des capitaux pourrait matériellement affecter les opérations et la valeur des titres."
+      "summary": "Le gouvernement chinois dispose d'un pouvoir discrétionnaire large pour intervenir dans les opérations de KE Holdings (secteur immobilier sensible, données massives, plateforme de services). Tout changement de politique industrielle, restrictions sur le secteur immobilier ou mesures de contrôle des capitaux pourrait matériellement affecter les opérations et la valeur des titres.",
+      "score": 4
     },
     {
       "title": "Développement services rénovation et location immobilière non testé",
@@ -356,7 +382,8 @@
       "severity": 2,
       "score_rationale": "Mentionné dans forward-looking statements (« ability to develop home renovation and furnishing services », « ability to develop home rental services ») mais sans détails de risque spécifique. Tendance : expansion dans nouveaux segments avec incertitude commerciale.",
       "trend": "stable",
-      "summary": "KE Holdings cherche à développer des services complémentaires (rénovation, ameublement, location immobilière) au-delà du courtage. Ces nouveaux segments comportent des risques de marché, de compétition accrue et de conformité réglementaire spécifique non encore maîtrisés."
+      "summary": "KE Holdings cherche à développer des services complémentaires (rénovation, ameublement, location immobilière) au-delà du courtage. Ces nouveaux segments comportent des risques de marché, de compétition accrue et de conformité réglementaire spécifique non encore maîtrisés.",
+      "score": 2
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:23:46.198938+00:00",
@@ -592,9 +619,9 @@
     "country": "China",
     "_data_freshness_date": "2026-05-21T02:17:14.229395+00:00",
     "fetched_at": "2026-05-21T02:17:14.229396+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.532Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.008Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/beke.json",
     "enrich_root": "v2-pipeline-enrich/beke.json",

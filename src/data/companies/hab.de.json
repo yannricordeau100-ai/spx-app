@@ -38,11 +38,14 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 3 années consécutives trouvées explicitement dans le tableau 'Financial Indicators' (2022-2024). Le minimum requis est 4 années. D",
-      "explanation_en": "Funds From Operations — net income plus depreciation and amortization (REITs).",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "explanation_en": "Funds From Operations, net income plus depreciation and amortization (REITs).",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Rental Income",
@@ -189,7 +192,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Dividend Yield — annual dividend divided by share price.",
+      "explanation_en": "Dividend Yield, annual dividend divided by share price.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -229,7 +232,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         0.47,
@@ -242,7 +245,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -257,7 +260,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.0382,
@@ -270,7 +273,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position stable"
     },
     {
@@ -285,7 +288,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         287.15,
@@ -298,7 +301,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -314,7 +317,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.16,
@@ -327,7 +330,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -358,7 +361,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -370,7 +373,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement mentionné dans le document via le renouvellement anticipé du mandat de Sarah Verheyen, avec un langage fort (« risque qu'elle soit débauchée »). Il s'agit d'un risque récurrent et en hausse, central dans la gouvernance.",
       "trend": "up",
-      "summary": "Hamborner dépend fortement de Sarah Verheyen, membre du Management Board, dont le renouvellement anticipé du mandat a été motivé par le risque de débauchage, soulignant une vulnérabilité stratégique liée à une personne-clé."
+      "summary": "Hamborner dépend fortement de Sarah Verheyen, membre du Management Board, dont le renouvellement anticipé du mandat a été motivé par le risque de débauchage, soulignant une vulnérabilité stratégique liée à une personne-clé.",
+      "score": 5
     },
     {
       "title": "Retard de numérisation sectorielle",
@@ -378,7 +382,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne que le secteur immobilier accuse un retard important en matière de digitalisation (« beaucoup de rattrapage à faire »), avec un langage alarmiste et une position centrale dans le rapport. Risque stable mais intensifié.",
       "trend": "stable",
-      "summary": "Le secteur de l'immobilier, y compris Hamborner, est en retard sur la transformation numérique par rapport à d'autres industries, ce qui menace sa compétitivité et son efficacité opérationnelle."
+      "summary": "Le secteur de l'immobilier, y compris Hamborner, est en retard sur la transformation numérique par rapport à d'autres industries, ce qui menace sa compétitivité et son efficacité opérationnelle.",
+      "score": 4
     },
     {
       "title": "Conformité aux normes CSRD",
@@ -386,7 +391,8 @@
       "severity": 5,
       "score_rationale": "Le CSRD est cité comme exigence majeure, avec besoin de données massives et de processus bout-en-bout. Langage impératif, position centrale, tendance à la hausse. Poids élevé dans les priorités.",
       "trend": "up",
-      "summary": "Hamborner doit se conformer aux exigences strictes de la CSRD, qui imposent la collecte, la structuration et la traçabilité de vastes ensembles de données ESG, avec des coûts et des défis organisationnels significatifs."
+      "summary": "Hamborner doit se conformer aux exigences strictes de la CSRD, qui imposent la collecte, la structuration et la traçabilité de vastes ensembles de données ESG, avec des coûts et des défis organisationnels significatifs.",
+      "score": 5
     },
     {
       "title": "Compétition sur la digitalisation",
@@ -394,7 +400,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne la pression concurrentielle liée aux initiatives de digitalisation des acteurs du marché. Langage explicite, position dans la section transformation, tendance à la hausse.",
       "trend": "up",
-      "summary": "Les concurrents immobiliers accélèrent leur digitalisation, ce qui exerce une pression sur Hamborner pour innover rapidement afin de maintenir sa position sur le marché."
+      "summary": "Les concurrents immobiliers accélèrent leur digitalisation, ce qui exerce une pression sur Hamborner pour innover rapidement afin de maintenir sa position sur le marché.",
+      "score": 4
     },
     {
       "title": "Insuffisance des compétences numériques internes",
@@ -402,7 +409,8 @@
       "severity": 4,
       "score_rationale": "Le texte évoque le besoin de formation et de développement professionnel face aux nouvelles technologies. Langage préoccupé, intégré dans les facteurs internes de transformation. Risque en hausse.",
       "trend": "up",
-      "summary": "L'absence de compétences suffisantes en IA, data management et outils digitaux au sein des équipes constitue un frein majeur à la transformation technologique d'Hamborner."
+      "summary": "L'absence de compétences suffisantes en IA, data management et outils digitaux au sein des équipes constitue un frein majeur à la transformation technologique d'Hamborner.",
+      "score": 4
     },
     {
       "title": "Sécurité des données et cybersécurité",
@@ -410,7 +418,8 @@
       "severity": 4,
       "score_rationale": "Le risque est abordé directement par la responsable IT, avec mention d'une « haute norme de sécurité » maintenue activement. Langage sérieux, position stratégique, tendance stable.",
       "trend": "stable",
-      "summary": "En raison de la digitalisation croissante, Hamborner fait face à des risques accrus de cyberattaques et de fuites de données, nécessitant des investissements continus en sécurité IT et conformité RGPD."
+      "summary": "En raison de la digitalisation croissante, Hamborner fait face à des risques accrus de cyberattaques et de fuites de données, nécessitant des investissements continus en sécurité IT et conformité RGPD.",
+      "score": 4
     },
     {
       "title": "Intégration des critères ESG dans la gestion immobilière",
@@ -418,7 +427,8 @@
       "severity": 5,
       "score_rationale": "Les critères ESG sont centraux dans le reporting, liés à la réglementation (CSRD, Taxonomie UE) et à la stratégie. Langage prioritaire, tendance fortement à la hausse.",
       "trend": "up",
-      "summary": "Hamborner doit intégrer des exigences ESG strictes (intensité énergétique, décarbonation, accessibilité) dans la gestion de son portefeuille, avec des impacts opérationnels, techniques et financiers majeurs."
+      "summary": "Hamborner doit intégrer des exigences ESG strictes (intensité énergétique, décarbonation, accessibilité) dans la gestion de son portefeuille, avec des impacts opérationnels, techniques et financiers majeurs.",
+      "score": 5
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:06:35.531716+00:00",
@@ -498,10 +508,10 @@
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.142Z",
   "_dividends_extracted_at": "2026-05-09T20:21:47Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:45:15Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_ai_pos": {
     "stance": "absent",
@@ -528,9 +538,9 @@
     "country": "",
     "_data_freshness_date": "2026-05-21T02:17:14.270333+00:00",
     "fetched_at": "2026-05-21T02:17:14.270334+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.915Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.583Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hab.de.json",
     "enrich_root": "v2-pipeline-enrich/hab.de.json",

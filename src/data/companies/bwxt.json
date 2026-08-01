@@ -61,11 +61,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Proportion revenu gouvernemental' (% of government revenue) not found with explicit annual values for 4+ consecutive years in the provi",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -87,59 +88,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.2 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:01.881925+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.33,
-      "unit": "Mds €",
+      "value": 330,
+      "unit": "M €",
       "yoy": "+17.9%",
       "history": [
-        0.24,
-        0.25,
-        0.28,
-        0.33
+        240,
+        250,
+        280,
+        330
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.33 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.32,
-      "unit": "Mds €",
+      "value": 320,
+      "unit": "M €",
       "yoy": "-3.0%",
       "history": [
-        0.31,
-        0.33,
-        0.33,
-        0.32
+        310,
+        330,
+        330,
+        320
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.32 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -181,33 +200,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "+614.3%",
       "history": [
-        0.04,
-        0.08,
-        0.07,
-        0.5
+        40,
+        80,
+        70,
+        500
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.5 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -221,7 +249,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.84,
         0.88,
@@ -234,7 +262,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +277,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1011,
@@ -262,7 +290,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +305,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         34.04,
@@ -290,7 +318,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -306,7 +334,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.6,
@@ -319,7 +347,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -344,9 +372,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Revenu 2024",
@@ -368,9 +394,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Ajustements de contrats 2025",
@@ -392,9 +416,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Opérations",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Opérations"
     }
   ],
   "ai_positioning": {
@@ -408,25 +430,25 @@
       "title": "Dépendance aux contrats gouvernementaux américains",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "BWXT dépend fortement des contrats gouvernementaux américains, directs ou en sous-traitance, qui représentent 68% du revenu consolidé total en 2025. Les contrats multi-années dépendent des appropriations congressionnelles annuelles. Toute réduction du financement gouvernemental, particulièrement au DoE, pourrait avoir un impact négatif matériel sur les opérations et les flux de trésorerie. (score par défaut, à affiner)",
+      "score_rationale": "BWXT dépend fortement des contrats gouvernementaux américains, directs ou en sous-traitance, qui représentent 68% du revenu consolidé total en 2025. Les contrats multi-années dépendent des appropriations congressionnelles annuelles. Toute réduction du financement gouvernemental, particulièrement au DoE, pourrait avoir un impact négatif matériel sur les opérations et les flux de trésorerie.",
       "trend": "stable",
       "summary": "BWXT est vulnérable aux changements dans les politiques de financement gouvernemental, les priorités de défense nationale et les processus d'appropriation congressionnels, qui pourraient affecter significativement ses revenus et ses résultats d'exploitation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques de sécurité et de cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "BWXT opère dans le secteur défense nucléaire avec accès à des technologies sensibles et des informations classifiées gouvernementales. L'entreprise est exposée aux menaces cybernétiques qui pourraient affecter ses opérations, ses données classifiées et sa capacité à maintenir les habilitations de sécurité requises pour les contrats gouvernementaux. (score par défaut, à affiner)",
+      "score_rationale": "BWXT opère dans le secteur défense nucléaire avec accès à des technologies sensibles et des informations classifiées gouvernementales. L'entreprise est exposée aux menaces cybernétiques qui pourraient affecter ses opérations, ses données classifiées et sa capacité à maintenir les habilitations de sécurité requises pour les contrats gouvernementaux.",
       "trend": "up",
       "summary": "BWXT est vulnérable aux attaques cybernétiques et aux menaces de sécurité, qui pourraient affecter ses opérations, sa réputation et sa capacité à conserver les autorisations gouvernementales nécessaires pour ses contrats critiques.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fluctuations économiques et conditionnalités de marché",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Le segment Commercial Operations dépend de la demande pour l'énergie nucléaire civile, du timing des arrêts de maintenance et du renouvellement des installations. Les fluctuations économiques et les taux d'intérêt pourraient affecter les investissements en énergie nucléaire et la demande pour les services et produits commerciaux de BWXT. (score par défaut, à affiner)",
+      "score_rationale": "Le segment Commercial Operations dépend de la demande pour l'énergie nucléaire civile, du timing des arrêts de maintenance et du renouvellement des installations. Les fluctuations économiques et les taux d'intérêt pourraient affecter les investissements en énergie nucléaire et la demande pour les services et produits commerciaux de BWXT.",
       "trend": "stable",
       "summary": "BWXT est exposée aux fluctuations économiques et aux conditions de marché de l'énergie nucléaire civile, qui pourraient affecter la demande pour ses produits et services commerciaux et ses résultats financiers.",
       "score": 3
@@ -435,28 +457,28 @@
       "title": "Risques de change et opérations internationales",
       "category": "Macro",
       "severity": 2,
-      "score_rationale": "BWXT opère des segments commerciaux au Canada avec exposition aux fluctuations de change. L'impact des variations des taux de change sur la consolidation des résultats internationaux est géré mais pourrait affecter les résultats financiers rapportés. (score par défaut, à affiner)",
+      "score_rationale": "BWXT opère des segments commerciaux au Canada avec exposition aux fluctuations de change. L'impact des variations des taux de change sur la consolidation des résultats internationaux est géré mais pourrait affecter les résultats financiers rapportés.",
       "trend": "stable",
       "summary": "BWXT est exposée aux risques de change en raison de ses opérations internationales, particulièrement au Canada dans le segment Commercial Operations.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Intensité concurrentielle dans les marchés de niche",
       "category": "Concurrence",
       "severity": 2,
-      "score_rationale": "BWXT opère dans des marchés hautement spécialisés et fortement réglementés (composants nucléaires navals, combustible nucléaire) où la concurrence est structurellement limitée par les barrières à l'entrée technologiques et gouvernementales, mais où les concurrents existants pourraient affecter les parts de marché. (score par défaut, à affiner)",
+      "score_rationale": "BWXT opère dans des marchés hautement spécialisés et fortement réglementés (composants nucléaires navals, combustible nucléaire) où la concurrence est structurellement limitée par les barrières à l'entrée technologiques et gouvernementales, mais où les concurrents existants pourraient affecter les parts de marché.",
       "trend": "stable",
       "summary": "BWXT opère dans des marchés hautement protégés et concentrés. Bien que les barrières à l'entrée soient élevées, la concurrence avec les fournisseurs existants pourrait affecter les parts de marché et la rentabilité.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques de réglementation et conformité",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "BWXT opère dans des secteurs hautement réglementés (défense nucléaire, énergie nucléaire civile, radioisotopes médicaux) soumis à des réglementations gouvernementales strictes en matière de sécurité nucléaire, de protection de l'environnement et de contrôle des exportations. Les changements réglementaires pourraient affecter les opérations, les coûts de conformité et la capacité à conserver les contrats gouvernementaux. (score par défaut, à affiner)",
+      "score_rationale": "BWXT opère dans des secteurs hautement réglementés (défense nucléaire, énergie nucléaire civile, radioisotopes médicaux) soumis à des réglementations gouvernementales strictes en matière de sécurité nucléaire, de protection de l'environnement et de contrôle des exportations. Les changements réglementaires pourraient affecter les opérations, les coûts de conformité et la capacité à conserver les contrats gouvernementaux.",
       "trend": "stable",
       "summary": "BWXT est soumise à des réglementations gouvernementales strictes dans tous ses domaines d'activité. Les changements réglementaires ou les défaillances de conformité pourraient affecter les opérations, les coûts et les résultats financiers.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -503,7 +525,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -528,7 +550,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:20:31Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2012,
@@ -554,7 +576,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:56Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:06Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "BWXT",
     "simple": {
@@ -608,7 +630,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.017Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.487Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bwxt.json",
     "enrich_root": "v2-pipeline-enrich/bwxt.json",

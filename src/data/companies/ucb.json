@@ -97,7 +97,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Corrigé: unité M $ (non Mds $), type 'Profit' (non Revenue), history reformatée (3 années: 2023, 2024, 2025)",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -174,53 +174,63 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Corrigé: unité M $ (non Mds $), type 'Balance Sheet' (non Investment), value corrigée à 28,003.0",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "-52.0%",
       "history": [
-        0.87,
-        0.32,
-        0.25,
-        0.12
+        870,
+        320,
+        250,
+        120
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.12 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.4,
-      "unit": "Mds €",
+      "value": 400,
+      "unit": "M €",
       "yoy": "-23.1%",
       "history": [
-        0.51,
-        1,
-        0.52,
-        0.4
+        510,
+        1000,
+        520,
+        400
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.4 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -234,7 +244,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.78,
         0.86,
@@ -247,7 +257,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -262,7 +272,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0938,
@@ -275,7 +285,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -290,7 +300,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         34.84,
@@ -303,7 +313,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -319,7 +329,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.52,
@@ -332,7 +342,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -401,7 +411,8 @@
       "severity": 5,
       "score_rationale": "Le risque est répété dans tout le texte avec un langage fort mentionnant les menaces persistantes. Il est central dans la gouvernance et fait l'objet de mesures proactives (exercices, audits). La catégorie Cybersécurité est hautement pondérée en secteur financier.",
       "trend": "stable",
-      "summary": "La société est exposée à des cyberattaques pouvant compromettre la confidentialité, l'intégrité ou la disponibilité de ses systèmes et données."
+      "summary": "La société est exposée à des cyberattaques pouvant compromettre la confidentialité, l'intégrité ou la disponibilité de ses systèmes et données.",
+      "score": 5
     },
     {
       "title": "Risques liés aux fournisseurs externes",
@@ -409,7 +420,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement la dépendance à des tiers et les risques associés à la sécurité des données partagées. Des exigences contractuelles et des audits sont mis en place, reflétant une vigilance accrue.",
       "trend": "stable",
-      "summary": "L'utilisation de prestataires externes expose la société à des failles de sécurité informatique si ceux-ci ne sont pas suffisamment contrôlés."
+      "summary": "L'utilisation de prestataires externes expose la société à des failles de sécurité informatique si ceux-ci ne sont pas suffisamment contrôlés.",
+      "score": 4
     },
     {
       "title": "Non-conformité réglementaire après incident",
@@ -417,7 +429,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite des obligations de notification aux autorités (SEC, FBI, etc.). Le risque de non-respect des délais ou procédures est implicite et sérieux dans le secteur bancaire.",
       "trend": "stable",
-      "summary": "Un incident de cybersécurité mal géré pourrait entraîner des sanctions réglementaires si les obligations de déclaration ne sont pas respectées."
+      "summary": "Un incident de cybersécurité mal géré pourrait entraîner des sanctions réglementaires si les obligations de déclaration ne sont pas respectées.",
+      "score": 4
     },
     {
       "title": "Perte de confiance des clients",
@@ -425,7 +438,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne la prévention de la perte de confiance du public comme objectif clé de la réponse aux incidents. Cela indique un risque réel pour la réputation.",
       "trend": "stable",
-      "summary": "Un incident de sécurité majeur pourrait nuire à la réputation de l'entreprise et affaiblir la fidélité de la clientèle."
+      "summary": "Un incident de sécurité majeur pourrait nuire à la réputation de l'entreprise et affaiblir la fidélité de la clientèle.",
+      "score": 4
     },
     {
       "title": "Insuffisance des contrôles internes",
@@ -433,7 +447,8 @@
       "severity": 3,
       "score_rationale": "Bien que des contrôles soient décrits, le texte admet que des incidents se produisent régulièrement. L'efficacité des processus reste donc un risque modéré.",
       "trend": "stable",
-      "summary": "Malgré les mesures en place, des défaillances dans les contrôles internes pourraient compromettre la réponse à des incidents de cybersécurité."
+      "summary": "Malgré les mesures en place, des défaillances dans les contrôles internes pourraient compromettre la réponse à des incidents de cybersécurité.",
+      "score": 3
     }
   ],
   "governance": {
@@ -636,7 +651,7 @@
   "_segments_fetched_at": "2026-05-06T19:44:49.333721+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:17:25.861450+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:03Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -660,7 +675,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:46Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:59Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Banques régionales",
   "sector_fr": "Finance",
   "enrich_br": {
@@ -673,11 +688,11 @@
       "date": "2025-12-31",
       "form": "annual-report",
       "period_end": "2025-12-31",
-      "source": "yfinance.info"
+      "source": "données de marché"
     },
     "next_earnings_date": "2026-07-30",
     "_freshness_filled_at": "2026-05-21T08:34:57.927284+00:00",
-    "_freshness_source": "yfinance",
+    "_freshness_source": "rapport financier",
     "overrides_governance": {
       "board_size": 15,
       "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
@@ -692,7 +707,7 @@
         "month": 3,
         "title": "Assemblee generale (estimation)",
         "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-        "source": "yfinance.info.lastFiscalYearEnd",
+        "source": "données de marché.lastFiscalYearEnd",
         "url": "",
         "date": "2027-03-15"
       },
@@ -701,7 +716,7 @@
         "month": 7,
         "title": "Prochaine publication Q3 2026",
         "body": "Publication attendue le 30 juillet 2026.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-07-30"
       },
@@ -710,7 +725,7 @@
         "month": 5,
         "title": "Dernier ex-dividende",
         "body": "Date ex-dividende : 4 mai 2026. Montant precedent : 1.4500.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-05-04"
       },
@@ -719,7 +734,7 @@
         "month": 4,
         "title": "Ex-dividende paye",
         "body": "Ex-dividende du 25 avril 2025 : 1.3900.",
-        "source": "yfinance.dividends",
+        "source": "historique des dividendes",
         "url": "",
         "date": "2025-04-25"
       },
@@ -728,7 +743,7 @@
         "month": 4,
         "title": "Ex-dividende paye",
         "body": "Ex-dividende du 26 avril 2024 : 1.3600.",
-        "source": "yfinance.dividends",
+        "source": "historique des dividendes",
         "url": "",
         "date": "2024-04-26"
       },
@@ -737,7 +752,7 @@
         "month": 4,
         "title": "Ex-dividende paye",
         "body": "Ex-dividende du 28 avril 2023 : 1.3300.",
-        "source": "yfinance.dividends",
+        "source": "historique des dividendes",
         "url": "",
         "date": "2023-04-28"
       },
@@ -746,7 +761,7 @@
         "month": 7,
         "title": "Resultats Q3 2021 publies",
         "body": "EPS 0.82 vs consensus 2.78 (miss -70.5 %) Annonce le 28 juillet 2021.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2021-07-28"
       },
@@ -755,13 +770,13 @@
         "month": 10,
         "title": "Resultats Q4 2018 publies",
         "body": "EPS 1.40 vs consensus 1.40 Annonce le 30 octobre 2018.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2018-10-30"
       }
     ],
     "_events_sub_agent_101_fill_at": "2026-05-21T09:53:25.900627+00:00",
-    "_events_sub_agent_101_source": "yfinance-batch (earnings_dates + calendar + dividends + info)",
+    "_events_sub_agent_101_source": "rapport financier-batch (earnings_dates + calendar + dividends + info)",
     "risks": [
       {
         "title": "Risques opérationnels",
@@ -769,7 +784,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le filing identifie un risque. Source : « RCP 4.5 Deemed not material according to UCB Deemed not material according to UCB Financial scenario financial risk ranking financial risk ranking quantification in 2050 RCP 8.5 Deemed not material... »"
+        "summary": "Le filing identifie un risque. Source : « RCP 4.5 Deemed not material according to UCB Deemed not material according to UCB Financial scenario financial risk ranking financial risk ranking quantification in 2050 RCP 8.5 Deemed not material... »",
+        "score": 2
       },
       {
         "title": "Risques climatiques et événements extrêmes",
@@ -777,7 +793,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le filing identifie des risques climatiques. Source : « Transition from air to sea Technology 9 UCB’s Air to Ocean program will shipping risk/ help to reduce transition risks opportunity related to a high logistics carbon footprint. »"
+        "summary": "Le filing identifie des risques climatiques. Source : « Transition from air to sea Technology 9 UCB’s Air to Ocean program will shipping risk/ help to reduce transition risks opportunity related to a high logistics carbon footprint. »",
+        "score": 2
       },
       {
         "title": "Risques climatiques et environnementaux",
@@ -785,7 +802,8 @@
         "severity": 2,
         "score_rationale": "Risque qualifié de significatif. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le filing identifie un risque. Source : « UCB’s Task Force on Climate-Related Financial Disclosures Statement February 22nd, 2023 18 STEPS Categorized as a “Slight to Moderate” financial risk according to UCB enterprise scenario risk... »"
+        "summary": "Le filing identifie un risque. Source : « UCB’s Task Force on Climate-Related Financial Disclosures Statement February 22nd, 2023 18 STEPS Categorized as a “Slight to Moderate” financial risk according to UCB enterprise scenario risk... »",
+        "score": 2
       },
       {
         "title": "Risques réglementaires et juridiques",
@@ -793,7 +811,8 @@
         "severity": 3,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité moyenne (3/5).",
         "trend": "stable",
-        "summary": "Le filing identifie un risque. Source : « 4. Fast transition to low- Policy risk 7 UCB is in a long-cycle business: the carbon processes and pharmaceutical industry is less agile technologies than others because of regulatory constraints.... »"
+        "summary": "Le filing identifie un risque. Source : « 4. Fast transition to low- Policy risk 7 UCB is in a long-cycle business: the carbon processes and pharmaceutical industry is less agile technologies than others because of regulatory constraints.... »",
+        "score": 3
       },
       {
         "title": "Dépendance aux tiers et prestataires",
@@ -801,7 +820,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "La dépendance à des tiers et prestataires est notée. Source : « Key transition risk Risk Increased costs due to carbon pricing schemes Timeframe Short (2025) and medium-term (2030) All locations that are relevant to carbon pricing and where UCB or UCB’s Locations... »"
+        "summary": "La dépendance à des tiers et prestataires est notée. Source : « Key transition risk Risk Increased costs due to carbon pricing schemes Timeframe Short (2025) and medium-term (2030) All locations that are relevant to carbon pricing and where UCB or UCB’s Locations... »",
+        "score": 2
       },
       {
         "title": "Pression concurrentielle",
@@ -809,7 +829,8 @@
         "severity": 3,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité moyenne (3/5).",
         "trend": "stable",
-        "summary": "La pression concurrentielle est explicite. Source : « Shift in market Market risk/ 5 UCB may face a decrease in expectations: decreased revenues due to a market share opportunity revenues due to an loss because of increased increased demand for low-... »"
+        "summary": "La pression concurrentielle est explicite. Source : « Shift in market Market risk/ 5 UCB may face a decrease in expectations: decreased revenues due to a market share opportunity revenues due to an loss because of increased increased demand for low-... »",
+        "score": 3
       },
       {
         "title": "Chaîne d'approvisionnement et fournisseurs",
@@ -817,7 +838,8 @@
         "severity": 2,
         "score_rationale": "Risque qualifié de significatif. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "La chaîne d'approvisionnement présente des vulnérabilités. Source : « UCB may face increased operational Water scarcity could have significant costs due to infrastructural damage, impact at site level, including higher potential increase in insurance costs, operational... »"
+        "summary": "La chaîne d'approvisionnement présente des vulnérabilités. Source : « UCB may face increased operational Water scarcity could have significant costs due to infrastructural damage, impact at site level, including higher potential increase in insurance costs, operational... »",
+        "score": 2
       },
       {
         "title": "Réputation et image de marque",
@@ -825,7 +847,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "La réputation et l'image de marque sont citées. Source : « The impact ratings may be evaluated across three categories: financial, reputational, and affecting patient value. »"
+        "summary": "La réputation et l'image de marque sont citées. Source : « The impact ratings may be evaluated across three categories: financial, reputational, and affecting patient value. »",
+        "score": 2
       }
     ],
     "_risks_reextracted_at": "2026-05-27",
@@ -881,17 +904,21 @@
         "short": "Cimzia Net Sales",
         "name_fr": "Ventes nettes Cimzia",
         "name_en": "Cimzia (certolizumab) Net Sales",
-        "value": 2200,
+        "value": 2.2,
         "unit": "M EUR",
         "yoy": "-3.1%",
         "history": [
-          1864,
-          2118,
-          2271,
-          2270,
-          2200
+          1.864,
+          2.118,
+          2.271,
+          2.27,
+          2.2
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "_unit_rescaled": "M->M EUR for 1-999 readability",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Vimpat Net Sales",
@@ -907,23 +934,30 @@
           200,
           60
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Keppra/Briviact Net Sales",
         "name_fr": "Ventes Keppra/Briviact",
         "name_en": "Keppra & Briviact Combined Net Sales",
-        "value": 1320,
+        "value": 1.32,
         "unit": "M EUR",
         "yoy": "+5.6%",
         "history": [
-          1100,
-          1140,
-          1180,
-          1250,
-          1320
+          1.1,
+          1.14,
+          1.18,
+          1.25,
+          1.32
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "_unit_rescaled": "M->M EUR for 1-999 readability",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Bimzelx Net Sales",
@@ -939,7 +973,10 @@
           224,
           575
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "R&D Pipeline Late-Stage Assets",
@@ -955,7 +992,10 @@
           12,
           13
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_kpis_supplementary_source": "sub-agent-b6-specific-sec-filings",
@@ -1057,6 +1097,145 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "UCB",
+    "extracted_at": "2026-06-01T09:25:39Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Net Interest Revenue",
+        "period_type": "quarter",
+        "history": [
+          132.064,
+          138.376,
+          141.039,
+          163.792,
+          178.903,
+          199.774,
+          211.47,
+          200.286,
+          202.556,
+          199.149,
+          208.7,
+          209.186,
+          212.021,
+          225.531,
+          233.629
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:25:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Noninterest Income",
+        "period_type": "quarter",
+        "history": [
+          44.705,
+          35.841,
+          40.095,
+          38.973,
+          33.458,
+          31.922,
+          30.209,
+          36.387,
+          31.977,
+          39.587,
+          36.556,
+          8.091,
+          35.656,
+          34.708,
+          43.219
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:25:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          73.706,
+          70.26,
+          73.816,
+          48.019,
+          66.842,
+          81.161,
+          62.3,
+          63.288,
+          47.866,
+          62.631,
+          66.615,
+          47.347,
+          71.413,
+          78.733,
+          91.494
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:25:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "UCB",
     "ranks": {
@@ -1069,9 +1248,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.321727+00:00",
     "fetched_at": "2026-05-21T02:17:14.321728+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.842Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.933Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ucb.json",
     "enrich_root": "v2-pipeline-enrich/ucb.json",
@@ -1079,6 +1258,7 @@
       "br",
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

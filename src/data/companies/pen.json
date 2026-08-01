@@ -44,7 +44,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -109,34 +109,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.4 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.18,
-      "unit": "Mds €",
+      "value": 180,
+      "unit": "M €",
       "yoy": "+1700.0%",
       "history": [
         0,
-        0.09,
-        0.01,
-        0.18
+        90,
+        10,
+        180
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.18 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,56 +164,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.83 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.24,
-        0.23,
-        0.22,
-        0.22
+        240,
+        230,
+        220,
+        220
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.22 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "-40.6%",
       "history": [
-        0.07,
-        0.17,
-        0.32,
-        0.19
+        70,
+        170,
+        320,
+        190
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.19 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,9 +252,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Croissance",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Croissance"
     }
   ],
   "ai_positioning": {
@@ -258,7 +279,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est en tête du 10-K et décrit des impacts matériels sur les employés, clients, partenaires et gestion. Le langage est fort (\"matériellement et négativement affecté\"). Il s'agit d'un risque existentiel car la société cesse d'exister. Pondération élevée pour les risques de fusion-acquisition.",
       "trend": "new",
-      "summary": "L'incertitude entourant la fusion proposée peut nuire aux relations avec les employés, clients et partenaires, et distraire la direction."
+      "summary": "L'incertitude entourant la fusion proposée peut nuire aux relations avec les employés, clients et partenaires, et distraire la direction.",
+      "score": 5
     },
     {
       "title": "Échec de la fusion avec Boston Scientific",
@@ -266,7 +288,8 @@
       "severity": 5,
       "score_rationale": "Le risque d'échec de la fusion est explicitement lié à une chute du cours de l'action, des frais de rupture de 525 M$, et une détérioration de la réputation. Mention répétée et langage alarmant. Catégorie Capital fortement impactée.",
       "trend": "new",
-      "summary": "Si la fusion échoue, la société pourrait payer une forte pénalité, subir une baisse de son cours boursier et des retombées négatives."
+      "summary": "Si la fusion échoue, la société pourrait payer une forte pénalité, subir une baisse de son cours boursier et des retombées négatives.",
+      "score": 5
     },
     {
       "title": "Restrictions opérationnelles avant la fusion",
@@ -274,7 +297,8 @@
       "severity": 4,
       "score_rationale": "Le texte précise que la société ne peut pas agir librement (contrats, dettes, dépenses). Cela limite sa réactivité face à la concurrence. Position importante dans le 10-K, langage contraignant.",
       "trend": "new",
-      "summary": "Jusqu'à la clôture de la fusion, la société est limitée dans ses décisions stratégiques et opérationnelles."
+      "summary": "Jusqu'à la clôture de la fusion, la société est limitée dans ses décisions stratégiques et opérationnelles.",
+      "score": 4
     },
     {
       "title": "Obsolescence des produits face à la technologie",
@@ -282,7 +306,8 @@
       "severity": 4,
       "score_rationale": "Risque récurrent dans les sections produits, avec mention de cycles de vie courts et de concurrence technologique. Langage préoccupé sur les retards de lancement. Catégorie Technologie à fort impact dans le secteur médical.",
       "trend": "stable",
-      "summary": "Les avancées rapides en technologie médicale pourraient rendre obsolètes nos produits existants si nous ne nous adaptons pas."
+      "summary": "Les avancées rapides en technologie médicale pourraient rendre obsolètes nos produits existants si nous ne nous adaptons pas.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans les dispositifs médicaux",
@@ -290,7 +315,8 @@
       "severity": 4,
       "score_rationale": "Plusieurs paragraphes détaillent la concurrence avec Medtronic, Stryker, etc. Mise en avant des désavantages en ressources et notoriété. Langage comparatif fort soulignant les risques de perte de parts de marché.",
       "trend": "stable",
-      "summary": "Nous faisons face à des concurrents plus gros et mieux financés, ce qui menace notre position sur le marché."
+      "summary": "Nous faisons face à des concurrents plus gros et mieux financés, ce qui menace notre position sur le marché.",
+      "score": 4
     },
     {
       "title": "Pressions sur les marges et la fixation des prix",
@@ -298,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien développé avec des menaces sur les marges, l'augmentation des coûts de matériaux et la concurrence sur les prix. Mention d'impacts matériels sur les résultats. Catégorie Capital critique.",
       "trend": "stable",
-      "summary": "La pression concurrentielle et la hausse des coûts pourraient réduire nos marges si nous ne pouvons ajuster nos prix."
+      "summary": "La pression concurrentielle et la hausse des coûts pourraient réduire nos marges si nous ne pouvons ajuster nos prix.",
+      "score": 4
     },
     {
       "title": "Litiges liés à la fusion",
@@ -306,7 +333,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné comme courant dans les fusions, avec un impact potentiel sur le calendrier. Langage prudent mais pas alarmiste. Catégorie Litige modérément pondérée.",
       "trend": "new",
-      "summary": "Des poursuites judiciaires pourraient retarder ou bloquer la fusion, entraînant des coûts et des délais supplémentaires."
+      "summary": "Des poursuites judiciaires pourraient retarder ou bloquer la fusion, entraînant des coûts et des délais supplémentaires.",
+      "score": 3
     }
   ],
   "governance": {
@@ -388,7 +416,6 @@
       "date": "2026-04-15"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T20:10:45.333853+00:00",
   "revenue_by_geography": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -411,6 +438,7 @@
     ],
     "total": 1.4
   },
+  "_ai_positioning_fetched_at": "2026-05-06T20:10:45.333853+00:00",
   "_segments_fetched_at": "2026-05-06T19:39:18.218527+00:00",
   "subsector_fr": "Technologie de la santé",
   "enrich_description": {
@@ -520,9 +548,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.295792+00:00",
     "fetched_at": "2026-05-21T02:17:14.295793+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.527Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.487Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pen.json",
     "enrich_root": "v2-pipeline-enrich/pen.json",

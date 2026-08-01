@@ -60,8 +60,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Chiffre d'affaires total généré par les activités de la société.",
-      "value": "2405.3",
-      "unit": "M $",
+      "value": 2.405,
+      "unit": "Mds $",
       "yoy": "+17.9%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -69,8 +69,8 @@
       "signal": "Croissance à deux chiffres soutenue",
       "description": "Porté par l'augmentation des inscriptions et la stabilité du modèle de financement par élève.",
       "history": [
-        2040.1,
-        2405.3
+        2.04,
+        2.405
       ],
       "last_data_date": "2025-06-30",
       "is_wow": false,
@@ -78,8 +78,9 @@
       "is_short_history": false,
       "ttm": 2510,
       "_validation": "Unité corrigée de 'Mds $' en 'M$' (2405.3 million). Valeur extraite du MD&A: revenues increased to $2,405.3 million from $2,040.1 million (+17.9%). History et TTM convertis en millions de dollars.",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Income",
@@ -104,7 +105,7 @@
       "is_short_history": false,
       "ttm": 399.95,
       "_validation": "Valeur confirmée dans MD&A: operating income increased to $360.1 million from $249.6 million (+44.3%). Unité et valeurs cohérentes avec source.",
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -154,10 +155,8 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Valeur confirmée dans source. History contient un seul point de donnée, is_short_history ajusté à true.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin stable, monitor cost dynamics",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Schools Served",
@@ -179,25 +178,23 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Valeur confirmée dans MD&A: 89 schools General Education + 56 schools Career Learning = 145 total. YoY renseigné comme 'n/a' car pas de donnée historique. is_short_history ajusté à true (un seul point).",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée dans MD&A: 89 schools General Education + 56 schools Career Learning = 145 total. YoY renseigné comme 'n/a' car pas de donnée historique. is_short_history ajusté à true (un seul point)."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.918,
-      "unit": "Mds $",
+      "value": 918,
+      "unit": "M $",
       "yoy": "+3.3%",
       "history": [
-        0.708,
-        0.848,
-        0.92,
-        0.948,
-        0.873,
-        0.889,
-        0.918
+        708,
+        848,
+        920,
+        948,
+        873,
+        889,
+        918
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -207,24 +204,29 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.288,
-      "unit": "Mds $",
+      "value": 288,
+      "unit": "M $",
       "yoy": "+41.2%",
       "history": [
-        0.028,
-        0.037,
-        0.025,
-        0.071,
-        0.107,
-        0.127,
-        0.204,
-        0.288
+        28,
+        37,
+        25,
+        71,
+        107,
+        127,
+        204,
+        288
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -233,8 +235,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -261,9 +268,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 245.95,
-      "_validation": "Valeur confirmée dans MD&A. History standardisée en valeurs cohérentes.",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée dans MD&A. History standardisée en valeurs cohérentes."
     },
     {
       "short": "Revenue",
@@ -288,9 +293,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 2510,
-      "_validation": "Unité corrigée de 'Mds $' en 'M$'. Valeur extraite du MD&A et confirmée. History et TTM convertis en millions de dollars.",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' en 'M$'. Valeur extraite du MD&A et confirmée. History et TTM convertis en millions de dollars."
     }
   ],
   "ai_positioning": {
@@ -306,7 +309,8 @@
       "severity": 5,
       "score_rationale": "Le financement public représente la majorité des revenus de l'entreprise. Une réduction des montants de financement par élève ou du nombre d'élèves pourrait avoir un impact significatif sur l'activité.",
       "trend": "stable",
-      "summary": "La perte ou réduction du financement public pourrait avoir un impact négatif significatif sur l'activité et les résultats financiers de l'entreprise."
+      "summary": "La perte ou réduction du financement public pourrait avoir un impact négatif significatif sur l'activité et les résultats financiers de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Non-conformité réglementaire",
@@ -314,7 +318,8 @@
       "severity": 5,
       "score_rationale": "La non-conformité aux réglementations pourrait entraîner des pertes de financement, des révocations de charte et des obligations de remboursement des fonds reçus.",
       "trend": "stable",
-      "summary": "La non-conformité réglementaire ou les problèmes de conformité pourraient avoir des conséquences graves pour l'entreprise, notamment la perte de financement et la révocation des chartes."
+      "summary": "La non-conformité réglementaire ou les problèmes de conformité pourraient avoir des conséquences graves pour l'entreprise, notamment la perte de financement et la révocation des chartes.",
+      "score": 5
     },
     {
       "title": "Opposition aux écoles à charte publiques",
@@ -322,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Les opposants aux écoles à charte publiques pourraient réussir à contester l'établissement et l'expansion de ces écoles par voie judiciaire, limitant les opportunités de croissance.",
       "trend": "stable",
-      "summary": "Les défis légaux contre les écoles à charte publiques pourraient limiter l'expansion des écoles partenaires de Stride."
+      "summary": "Les défis légaux contre les écoles à charte publiques pourraient limiter l'expansion des écoles partenaires de Stride.",
+      "score": 4
     },
     {
       "title": "Risques liés au renouvellement des contrats",
@@ -330,7 +336,8 @@
       "severity": 4,
       "score_rationale": "L'incapacité à renouveler des contrats school-as-a-service pourrait entraîner une perte de revenus significative, car la durée moyenne des contrats est supérieure à cinq ans.",
       "trend": "stable",
-      "summary": "Le non-renouvellement des contrats avec les écoles partenaires pourrait affecter négativement les revenus futurs de l'entreprise."
+      "summary": "Le non-renouvellement des contrats avec les écoles partenaires pourrait affecter négativement les revenus futurs de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -338,7 +345,8 @@
       "severity": 4,
       "score_rationale": "L'augmentation de la concurrence dans le secteur de l'éducation en ligne et du e-learning pourrait entraîner une perte de parts de marché et une pression sur les prix.",
       "trend": "up",
-      "summary": "L'intensification de la concurrence pourrait affecter la capacité de Stride à maintenir et à augmenter ses inscriptions et ses revenus."
+      "summary": "L'intensification de la concurrence pourrait affecter la capacité de Stride à maintenir et à augmenter ses inscriptions et ses revenus.",
+      "score": 4
     },
     {
       "title": "Risques cybernétiques et de sécurité des données",
@@ -346,7 +354,8 @@
       "severity": 4,
       "score_rationale": "Les incidents de cybersécurité pourraient compromettre les données sensibles des étudiants, entraîner des interruptions de service et affecter la réputation et la conformité réglementaire.",
       "trend": "up",
-      "summary": "Les risques cybernétiques et les violations de données représentent une menace croissante pour les opérations et la réputation de l'entreprise."
+      "summary": "Les risques cybernétiques et les violations de données représentent une menace croissante pour les opérations et la réputation de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie et à l'infrastructure IT",
@@ -354,7 +363,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise dépend fortement de sa plateforme technologique et de son infrastructure IT. Les défaillances techniques ou les interruptions de service pourraient affecter les opérations et la relation avec les clients.",
       "trend": "stable",
-      "summary": "Les problèmes techniques ou les défaillances de l'infrastructure IT pourraient interrompre les services éducatifs et affecter les relations client."
+      "summary": "Les problèmes techniques ou les défaillances de l'infrastructure IT pourraient interrompre les services éducatifs et affecter les relations client.",
+      "score": 4
     },
     {
       "title": "Risques liés à la performance académique et à la conformité",
@@ -362,7 +372,8 @@
       "severity": 4,
       "score_rationale": "La performance académique insuffisante ou la non-conformité pourraient entraîner la non-accréditation, la révocation de charte ou la perte de contrats.",
       "trend": "stable",
-      "summary": "Les défaillances académiques ou les problèmes de conformité pourraient compromettre les accréditations et les contrats école."
+      "summary": "Les défaillances académiques ou les problèmes de conformité pourraient compromettre les accréditations et les contrats école.",
+      "score": 4
     },
     {
       "title": "Risques liés aux litiges",
@@ -370,7 +381,8 @@
       "severity": 3,
       "score_rationale": "Les litiges avec les écoles partenaires, les employés ou les régulateurs pourraient entraîner des dépenses légales importantes et affecter la réputation.",
       "trend": "stable",
-      "summary": "Les litiges pourraient avoir des conséquences négatives sur les opérations, la réputation et les finances de l'entreprise."
+      "summary": "Les litiges pourraient avoir des conséquences négatives sur les opérations, la réputation et les finances de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Risques liés à la réputation",
@@ -378,7 +390,8 @@
       "severity": 3,
       "score_rationale": "Les problèmes de réputation liés à la qualité éducative, aux incidents de sécurité ou aux scandales pourraient affecter la confiance des clients et le recrutement d'étudiants.",
       "trend": "stable",
-      "summary": "Les problèmes de réputation pourraient affecter la confiance des parents, des écoles et des autorités réglementaires."
+      "summary": "Les problèmes de réputation pourraient affecter la confiance des parents, des écoles et des autorités réglementaires.",
+      "score": 3
     },
     {
       "title": "Risques liés aux employés clés et à la rétention des talents",
@@ -386,7 +399,8 @@
       "severity": 3,
       "score_rationale": "La perte d'employés clés en leadership, développement produit ou service client pourrait affecter l'exécution stratégique et la qualité des services.",
       "trend": "stable",
-      "summary": "La perte de talents clés pourrait affecter la capacité de l'entreprise à innover et à exécuter sa stratégie de croissance."
+      "summary": "La perte de talents clés pourrait affecter la capacité de l'entreprise à innover et à exécuter sa stratégie de croissance.",
+      "score": 3
     }
   ],
   "governance": {
@@ -617,9 +631,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.278327+00:00",
     "fetched_at": "2026-05-21T02:17:14.278328+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.147Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.968Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lrn.json",
     "enrich_root": "v2-pipeline-enrich/lrn.json",

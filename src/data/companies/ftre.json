@@ -16,8 +16,8 @@
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenues",
       "explanation": "Montant total des revenus générés par la vente de biens et services.",
-      "value": "2723.4",
-      "unit": "M $",
+      "value": 2.723,
+      "unit": "Mds $",
       "yoy": "+1.0%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -25,27 +25,32 @@
       "signal": "Croissance modeste mais constante du chiffre d'affaires.",
       "description": "Le chiffre d'affaires a augmenté de 1,0% pour l'année se terminant le 31 décembre 2025, grâce à une croissance organique de 0,8% et à un effet de change favorable de 0,2%.",
       "history": [
-        2837,
-        2842.5,
-        2696.4,
-        2723.4
+        2.837,
+        2.842,
+        2.696,
+        2.723
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit verified as 'M $' (millions of dollars); values confirmed in source MD&A: $2,723.4 (2025) vs $2,696.4 (2024); no corrections needed",
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T09:40:25.070275+00:00",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Direct Costs",
       "name_fr": "Coûts directs",
       "name_en": "Direct Costs",
       "explanation": "Coûts directement attribuables à la prestation des services.",
-      "value": "2219.6",
-      "unit": "M $",
+      "value": 2.22,
+      "unit": "Mds $",
       "yoy": "+2.7%",
       "type": "Cost",
       "nature": "Structurel",
@@ -53,8 +58,8 @@
       "signal": "Augmentation des coûts directs plus rapide que celle des revenus.",
       "description": "Les coûts directs ont augmenté de 2,7% en 2025 par rapport à 2024, représentant 81,5% des revenus, contre 80,2% l'année précédente.",
       "history": [
-        2162.2,
-        2219.6
+        2.162,
+        2.22
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -62,7 +67,8 @@
       "is_short_history": false,
       "_validation": "Unit verified as 'M $' (millions of dollars); values confirmed in source MD&A: $2,219.6 (2025) vs $2,162.2 (2024); no corrections needed",
       "explanation_en": "Costs related to Direct.",
-      "signal_en": "Cost pressure, investment phase"
+      "signal_en": "Cost pressure, investment phase",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "SG&A",
@@ -157,9 +163,7 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Unit corrected from 'K' to 'Persons'; value converted from '14.3' to '14300' for absolute number expression; confirmed in source document as 'approximately 14,300 employees'; is_short_history set to true due to single data point",
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -178,11 +182,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.72 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -201,11 +209,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.12 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,9 +243,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "_validation": "Unit verified as '%' (percentage); values confirmed in source MD&A; no corrections needed",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit verified as '%' (percentage); values confirmed in source MD&A; no corrections needed"
     },
     {
       "short": "Restructuring and Other Charges",
@@ -257,9 +267,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "_validation": "Unit verified as 'M $' (millions of dollars); values confirmed in source MD&A: $44.1 (2025) vs $50.1 (2024); description enhanced with reference to facility asset impairments",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit verified as 'M $' (millions of dollars); values confirmed in source MD&A: $44.1 (2025) vs $50.1 (2024); description enhanced with reference to facility asset impairments"
     }
   ],
   "ai_positioning": {
@@ -277,7 +285,8 @@
       "score_rationale": "La société a une dette importante d'un montant nominal agrégé de 1 640,0 millions de dollars contractée lors de la formation de la Spin, ce qui pourrait peser sur ses résultats financiers. De plus, le coût de la dette est élevé, avec un taux d'intérêt de 7,5% pour les notes senior sécurisées.",
       "trend": "stable",
       "summary": "La dette élevée de la société pourrait impacter négativement ses résultats financiers et sa capacité à investir dans son activité.",
-      "_validation": "score_rationale updated to specify '$1,640.0 million' aggregate principal amount at Spin formation as confirmed in source MD&A section on Liquidity; references 7.50% Senior Secured Notes due 2030"
+      "_validation": "score_rationale updated to specify '$1,640.0 million' aggregate principal amount at Spin formation as confirmed in source MD&A section on Liquidity; references 7.50% Senior Secured Notes due 2030",
+      "score": 4
     },
     {
       "title": "Dépendance aux contrats",
@@ -286,7 +295,8 @@
       "score_rationale": "La société est fortement dépendante de ses contrats avec les clients, qui peuvent être résiliés ou modifiés à tout moment. Cela pourrait avoir un impact négatif sur les revenus de la société.",
       "trend": "stable",
       "summary": "La dépendance de la société aux contrats avec les clients la rend vulnérable aux risques de résiliation ou de modification de ces contrats.",
-      "_validation": "No changes required; risk accurately reflects typical CRO business model and is consistent with industry practices"
+      "_validation": "No changes required; risk accurately reflects typical CRO business model and is consistent with industry practices",
+      "score": 4
     },
     {
       "title": "Risques de change",
@@ -295,7 +305,8 @@
       "score_rationale": "La société opère dans de nombreux pays et est exposée aux risques de change, ce qui pourrait impacter ses résultats financiers. Les fluctuations des taux de change ont entraîné une perte de change de 26,9 millions de dollars en 2025 par rapport à 10,6 millions en 2024, principalement dues aux fluctuations du dollar américain par rapport à la livre sterling et à l'euro.",
       "trend": "up",
       "summary": "Les risques de change pourraient avoir un impact négatif sur les résultats financiers de la société en raison de ses activités internationales.",
-      "_validation": "score_rationale enhanced with specific financial impact: foreign exchange loss of $26.9M (2025) vs $10.6M (2024) confirmed in source MD&A 'Foreign Exchange (Loss) Gain' section, attributed to USD fluctuations against GBP and EUR"
+      "_validation": "score_rationale enhanced with specific financial impact: foreign exchange loss of $26.9M (2025) vs $10.6M (2024) confirmed in source MD&A 'Foreign Exchange (Loss) Gain' section, attributed to USD fluctuations against GBP and EUR",
+      "score": 3
     },
     {
       "title": "Concurrence accrue",
@@ -304,7 +315,8 @@
       "score_rationale": "Le marché des services de recherche clinique est très concurrentiel, et la société doit faire face à une concurrence accrue de la part d'autres sociétés. Cela pourrait impacter les prix et les volumes de vente de la société.",
       "trend": "up",
       "summary": "La concurrence accrue sur le marché des services de recherche clinique pourrait affecter la capacité de l'entreprise à maintenir ses marges et ses volumes de ventes.",
-      "_validation": "No changes required; risk appropriately reflects competitive dynamics in global CRO market; trend confirmed as 'up' by organic revenue growth of only 0.8% and revenue pressure from mix of complex studies"
+      "_validation": "No changes required; risk appropriately reflects competitive dynamics in global CRO market; trend confirmed as 'up' by organic revenue growth of only 0.8% and revenue pressure from mix of complex studies",
+      "score": 3
     }
   ],
   "_held_for_review": true,
@@ -314,7 +326,7 @@
     "rationale": "Hero KPI Revenues en croissance modérée (+1.0%). Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:38.033Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.308Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ftre.json",
     "enrich_root": null,

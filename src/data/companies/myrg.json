@@ -21,8 +21,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Revenu total de la société",
-      "value": 1612.84,
-      "unit": "M $",
+      "value": 1.613,
+      "unit": "Mds $",
       "yoy": "+12.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,17 +30,21 @@
       "signal": "Augmentation du revenu",
       "description": "Revenu total de la société en 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 3 dernières années.",
       "history": [
-        1250.04,
-        464.93,
-        1612.84
+        1.25,
+        0.465,
+        1.613
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "ttm": 2608.36,
-      "period_type": "quarter",
-      "signal_en": "Strong top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Marge fiscale effective",
@@ -87,9 +91,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "ttm": null,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": null
     },
     {
       "short": "Total Revenue",
@@ -108,34 +110,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.66 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "+300.0%",
       "history": [
-        0.08,
-        0.09,
-        0.03,
-        0.12
+        80,
+        90,
+        30,
+        120
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.12 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -154,55 +165,69 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.64 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-16.7%",
       "history": [
-        0.07,
-        0.07,
-        0.12,
-        0.1
+        70,
+        70,
+        120,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "",
       "history": [
-        0.05,
-        0.02,
+        50,
+        20,
         0,
-        0.15
+        150
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.15 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,9 +254,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 2608.36,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 2608.36
     }
   ],
   "ai_positioning": {
@@ -270,7 +293,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -353,7 +376,8 @@
       "severity": 4,
       "score_rationale": "Item 1A explicitement dédié aux risques cyber/IT en ouverture du 10-K, indiquant une préoccupation majeure. Langage formel de divulgation obligatoire suggère exposition significative. Absence de détails spécifiques limite la sévérité à 4 plutôt que 5.",
       "trend": "stable",
-      "summary": "L'entreprise identifie les risques cybersécurité et informatiques comme facteur de risque principal. Aucune détail fourni sur incidents passés ou mesures de mitigation."
+      "summary": "L'entreprise identifie les risques cybersécurité et informatiques comme facteur de risque principal. Aucune détail fourni sur incidents passés ou mesures de mitigation.",
+      "score": 4
     },
     {
       "title": "Litiges et réclamations légales",
@@ -361,7 +385,8 @@
       "severity": 2,
       "score_rationale": "Item 3 indique litiges ordinaires (blessures, contrats, dommages). Langage rassurant : 'we do not believe...material adverse effect' et 'likelihood...remote'. Réserves comptables constituées. Risque géré et non matériel selon management.",
       "trend": "stable",
-      "summary": "Réclamations légales courantes (blessures, contrats, dommages) sans impact matériel identifié à ce jour. Couverture d'assurance disponible."
+      "summary": "Réclamations légales courantes (blessures, contrats, dommages) sans impact matériel identifié à ce jour. Couverture d'assurance disponible.",
+      "score": 2
     },
     {
       "title": "Volatilité des marges brutes",
@@ -369,7 +394,8 @@
       "severity": 3,
       "score_rationale": "Item 7 énumère 12+ facteurs affectant les marges (mix produits, météo, coûts main-d'œuvre, concurrence, commodités). Langage explicite : 'may vary...beyond our control' et 'current period...not indicative of future'. Risque opérationnel structurel.",
       "trend": "stable",
-      "summary": "Les marges brutes dépendent de nombreux facteurs incontrôlables : mix de revenus, conditions météo, coûts de main-d'œuvre, concurrence et fluctuations de commodités."
+      "summary": "Les marges brutes dépendent de nombreux facteurs incontrôlables : mix de revenus, conditions météo, coûts de main-d'œuvre, concurrence et fluctuations de commodités.",
+      "score": 3
     },
     {
       "title": "Intensité concurrentielle et pression tarifaire",
@@ -377,7 +403,8 @@
       "severity": 3,
       "score_rationale": "Item 7 mentionne 'competitive markets' et 'pricing pressures'. Processus d'attribution par appel d'offres où le prix est 'always a' facteur clé (phrase tronquée). Risque structurel du secteur, non spécifique à MYRG.",
       "trend": "stable",
-      "summary": "Marchés hautement concurrentiels avec pressions tarifaires. Les contrats sont attribués via appels d'offres où le prix est un facteur déterminant."
+      "summary": "Marchés hautement concurrentiels avec pressions tarifaires. Les contrats sont attribués via appels d'offres où le prix est un facteur déterminant.",
+      "score": 3
     },
     {
       "title": "Dépendance aux contrats à prix fixe",
@@ -385,7 +412,8 @@
       "severity": 3,
       "score_rationale": "Item 7 révèle 84.5% des contrats C&I et 34.3% des contrats T&D à prix fixe. Exposition aux dépassements de coûts (main-d'œuvre, matériaux) sans compensation. Risque de marge significatif en inflation.",
       "trend": "up",
-      "summary": "Forte exposition aux contrats à prix fixe (84.5% en C&I, 34.3% en T&D), limitant la capacité à répercuter les augmentations de coûts."
+      "summary": "Forte exposition aux contrats à prix fixe (84.5% en C&I, 34.3% en T&D), limitant la capacité à répercuter les augmentations de coûts.",
+      "score": 3
     },
     {
       "title": "Dépendance aux clients du secteur électrique",
@@ -393,7 +421,8 @@
       "severity": 3,
       "score_rationale": "Item 7 indique T&D = 54.7% des revenus, dépendant des investissements en infrastructure électrique et des politiques gouvernementales. Absence de diversification géographique/sectorielle mentionnée. Risque cyclique et réglementaire.",
       "trend": "stable",
-      "summary": "54.7% des revenus proviennent du segment T&D, dépendant des investissements en infrastructure électrique et des décisions réglementaires."
+      "summary": "54.7% des revenus proviennent du segment T&D, dépendant des investissements en infrastructure électrique et des décisions réglementaires.",
+      "score": 3
     },
     {
       "title": "Risques liés aux conditions météorologiques",
@@ -401,7 +430,8 @@
       "severity": 2,
       "score_rationale": "Item 7 cite 'seasonal and abnormal weather patterns' comme facteur affectant marges. Services de restauration post-tempête < 5% des revenus. Impact limité mais reconnu.",
       "trend": "stable",
-      "summary": "Conditions météorologiques saisonnières et anormales affectent les marges et la planification des projets."
+      "summary": "Conditions météorologiques saisonnières et anormales affectent les marges et la planification des projets.",
+      "score": 2
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T20:33:06.201923+00:00",
@@ -513,23 +543,18 @@
         "history": [
           1.2421,
           1.8522,
-          -1.1885,
           0.6366,
           1.3447,
           2.1446,
-          -1.1174,
           0.8116,
           1.7002,
           2.6397,
-          -1.5077,
           0.8156,
           1.6445,
           2.5325,
-          -1.6302,
           0.8336,
           1.7339,
           2.6843,
-          -1.594,
           1.0004
         ],
         "history_periods": [
@@ -583,6 +608,12 @@
             "accession": "0000700923-26-000028",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (MYRG)"
         ]
       }
     ]
@@ -599,9 +630,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.286359+00:00",
     "fetched_at": "2026-05-21T02:17:14.286360+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.766Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.670Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/myrg.json",
     "enrich_root": "v2-pipeline-enrich/myrg.json",

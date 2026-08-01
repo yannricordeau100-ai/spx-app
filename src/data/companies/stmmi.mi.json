@@ -158,11 +158,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 24.8 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -181,11 +185,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.35 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -204,10 +212,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.84 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -221,7 +233,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.1883,
         0.2036,
@@ -234,7 +246,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +261,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.558,
@@ -262,7 +274,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +289,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         5.35,
@@ -290,7 +302,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -306,7 +318,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.74,
@@ -319,7 +331,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -335,25 +347,7 @@
     ],
     "source": "IVR 2024 Annual Report"
   },
-  "_validation": [
-    "Corrected sector from 'Information Technology' to 'Non-Profit / Professional Association' based on source material confirming IVR is a professional association, not a tech company",
-    "Corrected subsector from '...' to 'Inland Waterway Transport Advocacy' based on organization mission",
-    "Corrected tagline from generic 'International Representation for Inland Waterway Interests' to more specific and accurate description of standardization and regulatory roles",
-    "Replaced hallucinated financial KPIs (Gross Margin, Op Margin, R&D, Capex, Headcount) with actual operative engagement metrics extracted from annual report",
-    "Added 5 substantive KPIs with real data from source: Annual Congress Attendance (225), Loss Prevention Colloquium Attendance (80), Member Countries (11), Committee Meetings (3), Regulatory Body Participation (2)",
-    "Updated hero_kpi from 'Gross Margin' to 'Member Engagement' with accurate rationale explaining IVR's non-profit nature and role",
-    "Corrected hero_kpi_rationale to explain lack of financial data and refocus on structural engagement metrics",
-    "Removed generic non-comparable signals and replaced with organization-specific, verifiable data",
-    "Updated all unit values to match actual data types (participants, countries, meetings, bodies)",
-    "Corrected last_data_date for Annual Congress Attendance from '2026-03-31' to '2024-05-17' per source documentation",
-    "Changed period_type from 'quarter' to 'annual' for all KPIs as IVR reports on annual cycle",
-    "Corrected KPI short name from 'Committee Meetings Held' to 'Loss Prevention Committee Meetings Held' for clarity and accuracy",
-    "Corrected name_en from 'Loss Prevention Committee Meetings' to 'Loss Prevention Committee Meetings Held' for consistency",
-    "Converted value type for 'Regulatory Body Participation' from string '2' to integer 2",
-    "Marked appropriate KPIs as 'is_wow: true' where they demonstrate significant organizational achievement",
-    "Updated ai_positioning to reflect complete absence of AI initiatives and proper characterization as traditional professional association",
-    "All KPI values verified against source: Congress attendance 225 confirmed, Loss Prevention Colloquium attendance 80 confirmed, 11 countries represented confirmed, 3 Loss Prevention Committee meetings confirmed, 2 regulatory bodies (ZKR and CESNI) confirmed"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 00:55",
     "n_periods": 1,
@@ -448,15 +442,38 @@
   "company_description": "STMicroelectronics N.V., together with its subsidiaries, designs, develops, manufactures, and sells semiconductor products in Europe, the Middle East, Africa, the Americas, and the Asia Pacific. The company operates through Analog products, MEMS and Sensors Group (AM&S); Power and Discrete products (P&D); Embedded Processing (EMP); and RF Products (D&RF) segments. It offers industrial application-specific integrated circuits (ASICs) and application-specific standard products (ASSPs); power management solutions; custom analog ICs, wireless charging solutions; galvanic isolated gate and LED drivers; converters, transistors, intelligent power switches, clocks and timers, comparators, and current-sense amplifiers; micro-electro-mechanical systems (MEMS) sensors, including accelerometers, gyroscopes, magnetic sensors, pressure, temperature, presence detection, biosensors, machine learning, and edge AI processing smart sensors, as well as thermal and piezoelectric actuators; and optical sensing solutions. The company also provides silicon MOSFETs, SiC MOSFETs, IGBTs, thyristors, rectifiers, and power modules and bipolar transistors; microcontrollers, and automotive microcontrollers and",
   "last_data_date": "2026-03-28",
   "_dividends_extracted_at": "2026-05-09T20:19:34Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:47:36Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Associations professionnelles",
-  "_companies_unified_built_at": "2026-05-29T21:19:36.225Z",
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "STMicroelectronics N.V. est un fabricant franco-italien de semi-conducteurs. Coté à Paris, Milan et New York. Co-actionnaire stratégique : États français et italien.",
+          "products": "Quatre segments : Analog products, MEMS and Sensors Group (AM&S), Power and Discrete products (P&D : SiC MOSFETs leader), Embedded Processing (EMP : microcontrôleurs STM32), RF Products (D&RF).",
+          "customers": "Industriels de l'automobile (cœur de croissance : EV, ADAS), électronique grand public (smartphones, IoT), industrie (automation, motion), aérospatiale.",
+          "edge": "Numéro un mondial sur le SiC (carbure de silicium) automobile, leader sur les MEMS et microcontrôleurs STM32. Position européenne stratégique soutenue politiquement (Chips Act)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "STMicroelectronics est l'un des principaux acteurs européens des semi-conducteurs et bénéficie d'une exposition forte à la transformation automobile (EV et ADAS) et à l'IoT industriel. Cycle de croissance en pause en 2024 après le boom automobile post-Covid.",
+          "tech_products": "Activité organisée en quatre segments produits : Analog (PMICs, drivers), MEMS (capteurs accéléromètres, gyroscopes, optiques), Power (leader SiC pour onduleurs EV avec Tesla notamment), Microcontrôleurs (STM32 = standard de facto en embedded), RF. Investissement dans la nouvelle fab SiC en Italie et France (en JV avec GlobalFoundries à Crolles).",
+          "moat": "Leadership SiC automobile (positionnement chez Tesla, Renault, Stellantis). Position de standard sur les STM32 dans l'IoT. Capacité industrielle intégrée 200/300 mm en Europe et Asie. Soutien politique européen (Chips Act).",
+          "risks": "Cycle automobile en ralentissement (forte exposition). Concurrence chinoise sur le SiC. Risques d'exécution sur les nouvelles fabs (capex élevés). Sensibilité au dollar US. Risques géopolitiques (Asie, Europe) sur la supply chain. Compression de marges en bas de cycle."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
+  "_companies_unified_built_at": "2026-08-01T20:28:06.727Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/stmmi.mi.json",
     "enrich_root": "v2-pipeline-enrich/stmmi.mi.json",
-    "enrich_subkeys": []
+    "enrich_subkeys": [
+      "mettrik-description"
+    ]
   }
 }

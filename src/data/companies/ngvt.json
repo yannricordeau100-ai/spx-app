@@ -1,6 +1,6 @@
 {
   "ticker": "NGVT",
-  "name": "Ingevity Corporation",
+  "name": "Ingevity",
   "sector": "Matériaux",
   "subsector": "Specialty Chemicals & Materials",
   "tagline": "Purify, protect, and enhance the world around us",
@@ -36,9 +36,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le KPI 'Savings and Impact' (Économies et impact) n'a pas été trouvé dans l'extrait du 10-K fourni. Le document contient des informations fi"
+      "_hero_history_unverified_reason": "Le KPI 'Savings and Impact' (Économies et impact) n'a pas été trouvé dans l'extrait du 10-K fourni. Le document contient des informations fi",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Long Lived Asset Impairment Charge",
@@ -124,13 +127,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.17 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:43.398147+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,11 +156,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.65 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -172,33 +183,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.24 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "+14.3%",
       "history": [
-        0.08,
-        0.1,
-        0.07,
-        0.08
+        80,
+        100,
+        70,
+        80
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.08 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -222,9 +242,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Restructuring & Optimization",
-      "_source_month": "novembre 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Restructuring & Optimization"
     }
   ],
   "ai_positioning": {
@@ -249,7 +267,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -269,7 +287,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné en premier dans les opérations critiques, avec un langage fort sur les interruptions possibles, coûts élevés et impacts directs sur la production. La dépendance à des tiers pour des services essentiels comme l'eau, l'énergie ou le traitement des eaux usées à Covington et Warrington est récurrente et aggravée par des responsabilités financières partagées. La catégorie Industriel a une pondération élevée en cas de défaillance. Ce risque est stable par rapport à l'année précédente.",
       "trend": "stable",
-      "summary": "La société dépend de tiers pour des services essentiels comme l'énergie et le traitement des eaux. Une défaillance de ces partenaires pourrait interrompre la production et entraîner des coûts importants."
+      "summary": "La société dépend de tiers pour des services essentiels comme l'énergie et le traitement des eaux. Une défaillance de ces partenaires pourrait interrompre la production et entraîner des coûts importants.",
+      "score": 5
     },
     {
       "title": "Perturbation des chaînes d'approvisionnement",
@@ -277,7 +296,8 @@
       "severity": 4,
       "score_rationale": "Le facteur est bien développé avec des exemples précis (lignine, TOFA) et des menaces récurrentes comme les grèves portuaires ou les hausses de coûts. Le langage indique un risque fréquent et tangible. Bien que la catégorie Supply Chain soit moins pondérée qu'un risque existentiel, l'impact opérationnel direct justifie une sévérité élevée. Mentionné de façon similaire à l'exercice précédent.",
       "trend": "stable",
-      "summary": "L'accès à certaines matières premières est limité. Des interruptions dans la chaîne d'approvisionnement ou des hausses de prix pourraient nuire à la production et à la rentabilité."
+      "summary": "L'accès à certaines matières premières est limité. Des interruptions dans la chaîne d'approvisionnement ou des hausses de prix pourraient nuire à la production et à la rentabilité.",
+      "score": 4
     },
     {
       "title": "Risque sur produits fabriqués en un seul site",
@@ -285,7 +305,8 @@
       "severity": 5,
       "score_rationale": "Le document souligne explicitement que certains produits clés (miel extrudé, caprolactone, etc.) ne sont fabriqués que dans un seul site. La perte d'un site entraînerait une interruption totale pour ces produits. Le langage est alarmant ('only made at a single site', 'limited ability to shift'). Ce risque est critique car il combine concentration géographique et absence de redondance. Il est stable par rapport à N-1.",
       "trend": "stable",
-      "summary": "Plusieurs produits essentiels sont fabriqués sur un seul site. Une perturbation dans l'une de ces usines pourrait interrompre complètement l'approvisionnement."
+      "summary": "Plusieurs produits essentiels sont fabriqués sur un seul site. Une perturbation dans l'une de ces usines pourrait interrompre complètement l'approvisionnement.",
+      "score": 5
     },
     {
       "title": "Concurrence technologique dans les véhicules",
@@ -293,7 +314,8 @@
       "severity": 5,
       "score_rationale": "Le passage sur les véhicules électriques et les réservoirs scellés est détaillé et met en lumière une menace existentielle pour le segment Performance Materials. Le texte indique clairement que la baisse des moteurs thermiques réduit la demande pour le carbone actif. Le langage est préoccupant ('reduce demand', 'financial results could be negatively impacted'). La transition technologique est accélérée par la réglementation. Ce risque est en hausse par rapport à N-1.",
       "trend": "up",
-      "summary": "L'essor des véhicules électriques et des technologies alternatives menace la demande pour les produits de carbone actif, essentiels à la société."
+      "summary": "L'essor des véhicules électriques et des technologies alternatives menace la demande pour les produits de carbone actif, essentiels à la société.",
+      "score": 5
     },
     {
       "title": "Risques liés aux opérations internationales",
@@ -301,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Le risque couvre de nombreux facteurs (taux de change, géopolitique, taxes, pandémies) et représente 43 % des ventes. Le langage est précautionneux mais répété, avec des menaces concrètes comme les guerres en Ukraine et au Moyen-Orient. La catégorie Géopolitique est moyennement pondérée, mais l'ampleur du risque justifie une sévérité élevée. Mention similaire à l'année précédente.",
       "trend": "stable",
-      "summary": "La société est exposée aux fluctuations des devises, aux tensions géopolitiques et aux barrières commerciales, qui peuvent affecter ses ventes à l'international."
+      "summary": "La société est exposée aux fluctuations des devises, aux tensions géopolitiques et aux barrières commerciales, qui peuvent affecter ses ventes à l'international.",
+      "score": 4
     },
     {
       "title": "Tensions et grèves syndicales",
@@ -309,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne plusieurs accords collectifs en cours de renégociation, notamment à Covington. Bien que les relations soient décrites comme positives, le risque de grève ou de perturbation est explicite. Le langage est prudent mais réel ('no guarantee', 'work stoppages'). La catégorie Personne-clé est moyennement pondérée, mais l'impact opérationnel potentiel est élevé. Ce risque est stable par rapport à N-1.",
       "trend": "stable",
-      "summary": "Des négociations salariales en cours pourraient entraîner des grèves ou des perturbations dans les usines, affectant la production."
+      "summary": "Des négociations salariales en cours pourraient entraîner des grèves ou des perturbations dans les usines, affectant la production.",
+      "score": 4
     },
     {
       "title": "Dépendance aux dépenses publiques pour les routes",
@@ -317,7 +341,8 @@
       "severity": 4,
       "score_rationale": "Le segment pavement technologies dépend fortement des budgets gouvernementaux pour les infrastructures. Le texte souligne les retards de financement, les coupes budgétaires et les changements politiques comme menaces. Le langage est répété et insiste sur la dépendance indirecte mais significative. La catégorie Macro est pondérée moyennement, mais l'exposition sectorielle est forte. Ce risque est stable par rapport à N-1.",
       "trend": "stable",
-      "summary": "La demande pour les produits de rénovation routière dépend des budgets publics, qui peuvent être réduits ou reportés selon les priorités politiques."
+      "summary": "La demande pour les produits de rénovation routière dépend des budgets publics, qui peuvent être réduits ou reportés selon les priorités politiques.",
+      "score": 4
     }
   ],
   "governance": {
@@ -497,9 +522,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.288541+00:00",
     "fetched_at": "2026-05-21T02:17:14.288542+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.909Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.830Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ngvt.json",
     "enrich_root": null,

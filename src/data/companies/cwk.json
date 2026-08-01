@@ -46,7 +46,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:25.844708+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -71,7 +71,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 80.96,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -96,7 +96,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 677.43,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -116,34 +116,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 10.29 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.46,
-      "unit": "Mds €",
+      "value": 460,
+      "unit": "M €",
       "yoy": "+21.1%",
       "history": [
-        0.54,
-        0.24,
-        0.38,
-        0.46
+        540,
+        240,
+        380,
+        460
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.46 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -162,11 +171,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.68 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -185,33 +198,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.78,
-      "unit": "Mds €",
+      "value": 780,
+      "unit": "M €",
       "yoy": "-1.3%",
       "history": [
-        0.64,
-        0.77,
-        0.79,
-        0.78
+        640,
+        770,
+        790,
+        780
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.78 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -238,13 +260,11 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 10.55,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 10.55
     }
   ],
   "ai_positioning": {
-    "stance": "emerging_risk",
+    "stance": "integrator",
     "summary": "La société CWK reconnaît les risques émergents liés à l'adoption et la gouvernance de l'IA, mais ne détaille pas une stratégie d'IA distincte dans ses opérations actuelles. L'IA est mentionnée comme un risque potentiel en termes de déploiement, gouvernance des données et algorithmes, ainsi que de concurrence accrue.",
     "evidence": [
       "Risques détaillés aux pages 13-14 du 10-K concernant l'adoption et la gouvernance de l'IA",
@@ -260,7 +280,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est mentionné dès le début du 10-K et qualifié de 'significantly impacted'. L'intensité du langage est élevée, soulignant l'impact potentiel sur l'activité, les résultats et la situation financière. Le contexte de 2025 montre des défis persistants (inflation, taux d'intérêt, financement client).",
       "trend": "up",
-      "summary": "L'activité de l'entreprise est fortement liée à la santé de l'immobilier commercial mondial, qui est sensible aux conditions macroéconomiques. L'inflation, les taux d'intérêt et les difficultés de financement des clients peuvent réduire la demande de services et les revenus."
+      "summary": "L'activité de l'entreprise est fortement liée à la santé de l'immobilier commercial mondial, qui est sensible aux conditions macroéconomiques. L'inflation, les taux d'intérêt et les difficultés de financement des clients peuvent réduire la demande de services et les revenus.",
+      "score": 5
     },
     {
       "title": "Risques liés à l'adoption et à la gouvernance de l'IA",
@@ -268,7 +289,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est détaillé sur plusieurs pages du 10-K avec un langage fort ('emerging risks', 'adversely affect'). Il est nouveau par rapport aux risques macroéconomiques traditionnels et son importance est soulignée par les investissements et les implications potentielles sur la compétitivité et la réputation.",
       "trend": "up",
-      "summary": "L'utilisation croissante de l'IA présente des risques liés à son déploiement, sa gouvernance, la qualité des données et des algorithmes, ainsi qu'à la concurrence. Des erreurs ou une mauvaise utilisation pourraient nuire à la réputation et aux résultats."
+      "summary": "L'utilisation croissante de l'IA présente des risques liés à son déploiement, sa gouvernance, la qualité des données et des algorithmes, ainsi qu'à la concurrence. Des erreurs ou une mauvaise utilisation pourraient nuire à la réputation et aux résultats.",
+      "score": 4
     },
     {
       "title": "Dépendance au recrutement et à la rétention des talents",
@@ -276,7 +298,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est clairement identifié comme crucial pour la génération de revenus. Le langage est fort ('materially adversely affect', 'significant competition'). La concurrence accrue et les incitations financières sont des facteurs aggravants.",
       "trend": "stable",
-      "summary": "Le succès de l'entreprise dépend de sa capacité à attirer et retenir les 53000 collaborateurs, notamment les conseillers clés et les cadres supérieurs. La forte concurrence pour ces talents, combinée à des incitations financières coûteuses, peut impacter négativement l'activité."
+      "summary": "Le succès de l'entreprise dépend de sa capacité à attirer et retenir les 53000 collaborateurs, notamment les conseillers clés et les cadres supérieurs. La forte concurrence pour ces talents, combinée à des incitations financières coûteuses, peut impacter négativement l'activité.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et réglementaires internationaux",
@@ -284,7 +307,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est décrit sur plusieurs paragraphes du 10-K avec une liste étendue de facteurs potentiels (instabilité politique, conflits, complexité réglementaire). L'impact sur l'activité, la situation financière et les résultats est qualifié de 'materially affect'.",
       "trend": "stable",
-      "summary": "Opérant dans 60 pays, l'entreprise est exposée aux instabilités politiques, aux conflits, aux variations des politiques gouvernementales et à la complexité des réglementations locales, ce qui peut affecter ses opérations et sa rentabilité."
+      "summary": "Opérant dans 60 pays, l'entreprise est exposée aux instabilités politiques, aux conflits, aux variations des politiques gouvernementales et à la complexité des réglementations locales, ce qui peut affecter ses opérations et sa rentabilité.",
+      "score": 4
     },
     {
       "title": "Volatilité des devises étrangères",
@@ -292,7 +316,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est mentionné spécifiquement avec une quantification de l'exposition. L'impact sur les résultats est qualifié de 'fluctuations' et 'adverse', et l'incertitude sur l'impact futur est soulignée.",
       "trend": "stable",
-      "summary": "Une part significative des revenus étant générée en devises étrangères (segments EMEA et APAC représentant 27% des revenus 2025), l'entreprise est exposée aux fluctuations des taux de change, ce qui peut affecter ses résultats financiers lorsqu'ils sont convertis en dollars américains."
+      "summary": "Une part significative des revenus étant générée en devises étrangères (segments EMEA et APAC représentant 27% des revenus 2025), l'entreprise est exposée aux fluctuations des taux de change, ce qui peut affecter ses résultats financiers lorsqu'ils sont convertis en dollars américains.",
+      "score": 3
     },
     {
       "title": "Risques liés à la polarisation sociopolitique",
@@ -300,7 +325,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est nouveau et peut affecter les opérations d'une entreprise globale. Il mentionne des impacts potentiels sur la réputation, l'attraction de clients, la gestion des équipes et la stabilité économique.",
       "trend": "up",
-      "summary": "La polarisation politique croissante peut nuire à la réputation de l'entreprise, affecter sa capacité à attirer des clients et du personnel, et potentiellement perturber les opérations ou créer de l'instabilité économique."
+      "summary": "La polarisation politique croissante peut nuire à la réputation de l'entreprise, affecter sa capacité à attirer des clients et du personnel, et potentiellement perturber les opérations ou créer de l'instabilité économique.",
+      "score": 3
     },
     {
       "title": "Risques de corruption et de conformité internationale",
@@ -308,7 +334,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est clairement énoncé avec des exemples de lois (FCPA, sanctions). L'absence de succès dans la prévention peut entraîner des amendes matérielles et des sanctions, impactant les finances et la réputation.",
       "trend": "stable",
-      "summary": "L'entreprise doit se conformer à diverses lois internationales anti-corruption et de sanctions. Des violations, même involontaires, peuvent entraîner des amendes importantes et nuire à sa réputation."
+      "summary": "L'entreprise doit se conformer à diverses lois internationales anti-corruption et de sanctions. Des violations, même involontaires, peuvent entraîner des amendes importantes et nuire à sa réputation.",
+      "score": 3
     }
   ],
   "governance": {
@@ -364,7 +391,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -386,7 +413,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "sector_fr": "Services immobiliers",
-  "_companies_unified_built_at": "2026-05-29T21:19:30.045Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.808Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cwk.json",
     "enrich_root": "v2-pipeline-enrich/cwk.json",

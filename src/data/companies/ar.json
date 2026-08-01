@@ -1,6 +1,6 @@
 {
   "ticker": "AR",
-  "name": "Antero Resources Corporation",
+  "name": "Antero Resources",
   "sector": "Énergie",
   "subsector": "Oil & Gas Exploration & Production",
   "tagline": "Antero Resources Corporation is an energy company engaged in the acquisition, development, production, and marketing of natural gas, natural gas liquids (NGLs), and oil.",
@@ -40,11 +40,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de 'Proved Reserves' (réserves prouvées totales) en Tcfe n'a été trouvée dans l'extrait fourni du 10-K d'An",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Natural Gas Reserves",
@@ -69,9 +70,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "NGL Reserves",
@@ -96,9 +95,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Oil Reserves",
@@ -123,9 +120,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Leasehold Acreage",
@@ -150,9 +145,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Horizontal Well Locations",
@@ -177,9 +170,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Upper Devonian Shale Acreage",
@@ -204,9 +195,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
@@ -225,11 +214,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 13.25 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -244,34 +237,34 @@
       "title": "Volatilité prix",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "La société est exposée à la volatilité des prix des matières premières, ce qui peut avoir un impact significatif sur ses revenus et ses flux de trésorerie. Les prix des matières premières sont influencés par de nombreux facteurs hors du contrôle de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à la volatilité des prix des matières premières, ce qui peut avoir un impact significatif sur ses revenus et ses flux de trésorerie. Les prix des matières premières sont influencés par de nombreux facteurs hors du contrôle de la société.",
       "trend": "stable",
       "summary": "La volatilité des prix des matières premières peut avoir un impact négatif sur les revenus et les flux de trésorerie de la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques géopolitiques",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Les événements géopolitiques, tels que les conflits et les sanctions commerciales, peuvent avoir un impact sur les prix des matières premières et les opérations de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les événements géopolitiques, tels que les conflits et les sanctions commerciales, peuvent avoir un impact sur les prix des matières premières et les opérations de la société.",
       "trend": "up",
       "summary": "Les risques géopolitiques peuvent avoir un impact négatif sur les opérations et les revenus de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Inflation et coûts",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "L'inflation et les hausses de coûts peuvent avoir un impact négatif sur les marges bénéficiaires de la société. (score par défaut, à affiner)",
+      "score_rationale": "L'inflation et les hausses de coûts peuvent avoir un impact négatif sur les marges bénéficiaires de la société.",
       "trend": "stable",
       "summary": "L'inflation et les hausses de coûts peuvent réduire les marges bénéficiaires de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "La société est exposée aux risques de crédit liés à ses opérations et à ses partenaires commerciaux. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques de crédit liés à ses opérations et à ses partenaires commerciaux.",
       "trend": "stable",
       "summary": "Les risques de crédit peuvent avoir un impact négatif sur la solvabilité de la société.",
       "score": 3
@@ -280,7 +273,7 @@
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements réglementaires peuvent avoir un impact sur les opérations et les revenus de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les changements réglementaires peuvent avoir un impact sur les opérations et les revenus de la société.",
       "trend": "stable",
       "summary": "Les risques réglementaires peuvent avoir un impact négatif sur les opérations et les revenus de la société.",
       "score": 3
@@ -289,7 +282,7 @@
       "title": "Risques opérationnels",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les accidents et les défaillances opérationnelles peuvent avoir un impact négatif sur les opérations et les revenus de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les accidents et les défaillances opérationnelles peuvent avoir un impact négatif sur les opérations et les revenus de la société.",
       "trend": "stable",
       "summary": "Les risques opérationnels peuvent avoir un impact négatif sur les opérations et les revenus de la société.",
       "score": 3
@@ -298,16 +291,16 @@
       "title": "Risques de liquidité",
       "category": "Capital",
       "severity": 2,
-      "score_rationale": "La société peut être exposée aux risques de liquidité liés à ses opérations et à ses financements. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être exposée aux risques de liquidité liés à ses opérations et à ses financements.",
       "trend": "stable",
       "summary": "Les risques de liquidité peuvent avoir un impact négatif sur la solvabilité de la société.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
     "agm_date": "2026-06-03",
     "fiscal_year": 2025,
-    "ceo_name": "Kennedy",
+    "ceo_name": "Michael N. Kennedy",
     "ceo_total_comp_m": null,
     "ceo_pay_ratio": null,
     "exec_comp_approval_pct": null,
@@ -336,7 +329,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -434,6 +427,49 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "AR",
+    "extracted_at": "2026-06-01T02:57:53Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Leasehold Acreage",
+        "period_type": "quarter",
+        "history": [
+          501,
+          503,
+          504,
+          512,
+          516,
+          515,
+          517,
+          519,
+          519,
+          526,
+          526,
+          528
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "K acres",
+        "_extracted_at": "2026-06-01T02:57:53Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "AR",
     "ranks": {
@@ -446,14 +482,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.222948+00:00",
     "fetched_at": "2026-05-21T02:17:14.222949+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.935Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.397Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ar.json",
     "enrich_root": "v2-pipeline-enrich/ar.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

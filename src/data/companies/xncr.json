@@ -196,8 +196,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -223,8 +227,12 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability stable"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability stable",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -290,7 +298,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de sa plateforme XmAb, et tout problème technique pourrait avoir un impact significatif sur son activité. (Item 1A)",
       "trend": "stable",
-      "summary": "Le succès de Xencor dépend de sa capacité à utiliser et étendre la plateforme XmAb pour construire un pipeline robuste de candidats-produits"
+      "summary": "Le succès de Xencor dépend de sa capacité à utiliser et étendre la plateforme XmAb pour construire un pipeline robuste de candidats-produits",
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
@@ -298,7 +307,8 @@
       "severity": 5,
       "score_rationale": "La société est soumise à une réglementation stricte des agences comme la FDA, et tout non-respect pourrait avoir des conséquences graves. (Item 1A)",
       "trend": "up",
-      "summary": "Xencor doit respecter les réglementations strictes du secteur biopharmaceutique pour l'approbation et la commercialisation de ses candidats-produits"
+      "summary": "Xencor doit respecter les réglementations strictes du secteur biopharmaceutique pour l'approbation et la commercialisation de ses candidats-produits",
+      "score": 5
     },
     {
       "title": "Besoins de financement",
@@ -306,7 +316,8 @@
       "severity": 4,
       "score_rationale": "La société a besoin de financements pour poursuivre ses activités R&D, et tout problème de financement pourrait impacter significativement son activité. (Item 1A)",
       "trend": "stable",
-      "summary": "Xencor a engagé des pertes significatives depuis sa création et aura besoin de financement continu pour ses activités de recherche et développement"
+      "summary": "Xencor a engagé des pertes significatives depuis sa création et aura besoin de financement continu pour ses activités de recherche et développement",
+      "score": 4
     },
     {
       "title": "Environnement concurrentiel intensif",
@@ -314,7 +325,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un secteur biopharmaceutique très concurrentiel avec de nombreux acteurs innovants. (Item 1A)",
       "trend": "up",
-      "summary": "Xencor opère dans un secteur biopharmaceutique hautement concurrentiel avec d'autres entreprises développant des anticorps engineerés"
+      "summary": "Xencor opère dans un secteur biopharmaceutique hautement concurrentiel avec d'autres entreprises développant des anticorps engineerés",
+      "score": 4
     },
     {
       "title": "Risques essais cliniques",
@@ -322,7 +334,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques liés aux essais cliniques, tels que les retards, les échecs ou les résultats inattendus. (Item 1A)",
       "trend": "up",
-      "summary": "Xencor est exposée aux risques inhérents aux essais cliniques incluant les retards, les échecs potentiels ou les résultats de sécurité inattendus"
+      "summary": "Xencor est exposée aux risques inhérents aux essais cliniques incluant les retards, les échecs potentiels ou les résultats de sécurité inattendus",
+      "score": 4
     }
   ],
   "governance": {
@@ -366,7 +379,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -546,23 +559,18 @@
         "history": [
           90.908,
           141.519,
-          -81.331,
           47.756,
           94.839,
           148.111,
-          -91.143,
           64.379,
           124.439,
           189.378,
-          -124.598,
           56.873,
           118.404,
           176.63,
-          -124.221,
           58.578,
           120.243,
           174.61,
-          -113.997,
           64.669
         ],
         "history_periods": [
@@ -616,6 +624,12 @@
             "accession": "0001326732-26-000043",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (XNCR)"
         ]
       },
       {
@@ -682,7 +696,10 @@
             "source": "XNCR_2025-08-06.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "License Revenue",
@@ -730,7 +747,10 @@
             "source": "XNCR_2025-08-06.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Royalties",
@@ -829,9 +849,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.331128+00:00",
     "fetched_at": "2026-05-21T02:17:14.331129+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.693Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.858Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/xncr.json",
     "enrich_root": "v2-pipeline-enrich/xncr.json",

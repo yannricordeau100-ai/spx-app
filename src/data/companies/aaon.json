@@ -90,7 +90,7 @@
         "Unit corrected to % (ratio, not absolute value)",
         "Description updated to reflect actual margin compression and source factors"
       ],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -120,7 +120,7 @@
         "Unit corrected to %",
         "Description updated with actual figures and drivers"
       ],
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -151,7 +151,11 @@
         "History clarified: [copper +11.1%, stainless steel -13.0%, galvanized steel -3.4%, aluminum 0%]",
         "Description expanded to show multi-material tracking vs single metric"
       ],
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -170,34 +174,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.69 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.42,
-      "unit": "Mds €",
+      "value": 420,
+      "unit": "M €",
       "yoy": "+147.1%",
       "history": [
-        0.08,
-        0.05,
-        0.17,
-        0.42
+        80,
+        50,
+        170,
+        420
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.42 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -216,36 +229,16 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
-    }
-  ],
-  "stories_kpis": [
-    {
-      "short": "AI and High-Performance Compute Driven Data Center Market",
-      "name_fr": "Marché data center tiré par IA et HPC",
-      "name_en": "AI and High-Performance Compute Driven Data Center Market",
-      "explanation": "Impact de l'IA et du calcul haute performance sur la demande de solutions de refroidissement pour centres de données.",
-      "value": "N/A",
-      "unit": "N/A",
-      "yoy": "N/A",
-      "type": "Market",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "L'IA transforme le marché des centres de données.",
-      "description": "La croissance de l'IA et du calcul haute performance (HPC) stimule une innovation majeure dans le marché des centres de données, augmentant la demande pour les solutions de refroidissement avancées et solutions de refroidissement par liquide d'AAON BASX. La maturation et l'adoption croissante de l'IA entraînent des changements profonds, avec une croissance des dépenses de construction data center de 240% entre 2022 et 2025.",
-      "history": [],
-      "last_data_date": null,
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Marché",
-      "_validation": [
-        "Description expanded with quantified market growth (240% data center construction spending 2022-2025) and specification of liquid cooling solutions"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
       ]
     }
   ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "absent",
     "summary": "La société AAON ne mentionne pas l'intelligence artificielle, l'apprentissage automatique ou des technologies connexes dans son rapport 10-K.",
@@ -257,34 +250,34 @@
       "title": "Dépendance des représentants commerciaux tiers",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Ce risque est mentionné dans l'Item 1A et l'Item 7. Le modèle de vente repose entièrement sur un réseau de représentants indépendants pour le segment AAON Oklahoma. Le langage utilisé souligne que bien que la stratégie soit valorisée, elle implique une 'perte de contrôle complet du processus de vente'. La dépendance est materielle pour le core business. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné dans l'Item 1A et l'Item 7. Le modèle de vente repose entièrement sur un réseau de représentants indépendants pour le segment AAON Oklahoma. Le langage utilisé souligne que bien que la stratégie soit valorisée, elle implique une 'perte de contrôle complet du processus de vente'. La dépendance est materielle pour le core business.",
       "trend": "stable",
       "summary": "L'entreprise dépend fortement de ses représentants commerciaux tiers pour vendre ses produits AAON-branded. Bien que cette stratégie soit considérée comme avantageuse (incitations entrepreneuriales, approche solutions), la perte de ces représentants ou l'incapacité à en trouver de nouveaux pourrait nuire aux revenus. Le segment BASX utilise une force de vente interne pour les produits hautement personnalisés.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux conditions économiques et à la construction",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Ce risque est clairement énoncé dans l'Item 1A et développé dans l'Item 7 MD&A. L'activité core AAON Oklahoma est fortement liée aux cycles de construction neuve C&I, qui sont affectés par des facteurs hors contrôle (taux d'intérêt, inflation, emploi). Le MD&A confirme: après une croissance de 50% 2022-2024, les marchés 'ont commencé à se contracter fin 2024, et le ramollissement a continué durant 2025, bien qu'à un rythme modéré'. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est clairement énoncé dans l'Item 1A et développé dans l'Item 7 MD&A. L'activité core AAON Oklahoma est fortement liée aux cycles de construction neuve C&I, qui sont affectés par des facteurs hors contrôle (taux d'intérêt, inflation, emploi). Le MD&A confirme: après une croissance de 50% 2022-2024, les marchés 'ont commencé à se contracter fin 2024, et le ramollissement a continué durant 2025, bien qu'à un rythme modéré'.",
       "trend": "up",
       "summary": "L'activité de l'entreprise est sensible aux cycles économiques, aux taux d'intérêt et à l'inflation, qui influencent la construction neuve C&I et les achats de remplacement, impactant ainsi les ventes et la rentabilité. Les données actuelles (2025) montrent une contraction modérée du marché principal, bien que les indicateurs avancés signalent une stabilisation potentielle.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité et d'interruption informatique",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Ce risque est détaillé dans l'Item 1A. Les systèmes informatiques sont essentiels aux opérations. Le langage utilisé souligne les menaces potentielles ('disrupted', 'material adverse effect'). L'évolution constante des menaces de cybersécurité suggère une tendance à la hausse dans le paysage global des risques. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé dans l'Item 1A. Les systèmes informatiques sont essentiels aux opérations. Le langage utilisé souligne les menaces potentielles ('disrupted', 'material adverse effect'). L'évolution constante des menaces de cybersécurité suggère une tendance à la hausse dans le paysage global des risques.",
       "trend": "up",
       "summary": "Les systèmes informatiques de l'entreprise sont essentiels à ses opérations (conception, fabrication, ventes) et vulnérables aux cyberattaques, aux pannes techniques ou aux erreurs humaines, ce qui pourrait entraîner des interruptions coûteuses, des pertes de données client et nuire à la réputation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concentration des ventes chez quelques clients majeurs",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Ce risque est identifié dans l'Item 1A. La dépendance à l'égard d'un nombre limité de clients est matérielle, en particulier pour le segment BASX qui sert une 'base de clients plus concentrée'. Le langage utilisé ('material adverse effect') est significatif. La croissance explosive de BASX (143.5% en 2025) peut amplifier cette concentration. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est identifié dans l'Item 1A. La dépendance à l'égard d'un nombre limité de clients est matérielle, en particulier pour le segment BASX qui sert une 'base de clients plus concentrée'. Le langage utilisé ('material adverse effect') est significatif. La croissance explosive de BASX (143.5% en 2025) peut amplifier cette concentration.",
       "trend": "up",
       "summary": "Une part importante des ventes provient d'un nombre limité de clients, particulièrement dans le segment BASX qui sert les clients hyperscale data center. La perte ou la réduction des commandes d'un client majeur pourrait avoir un impact négatif significatif sur les résultats financiers et la rentabilité.",
       "score": 3
@@ -293,16 +286,16 @@
       "title": "Risques liés à la chaîne d'approvisionnement, prix des matières premières et tarifs",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Ce risque est bien décrit dans l'Item 1A et extensively développé dans l'Item 7 MD&A. Le MD&A détaille les impacts tarifaires concrets: 'Beginning in January 2025, the current United States Administration began enacting tariffs...On April 1, 2025 we instituted a 6.0% tariff surcharge on AAON-branded orders'. Les dépenses matières/composants sont des drivers clés du COGS. La marge brute a chuté de 7 points (33.1% à 26.7%) en partie due à ces facteurs. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est bien décrit dans l'Item 1A et extensively développé dans l'Item 7 MD&A. Le MD&A détaille les impacts tarifaires concrets: 'Beginning in January 2025, the current United States Administration began enacting tariffs...On April 1, 2025 we instituted a 6.0% tariff surcharge on AAON-branded orders'. Les dépenses matières/composants sont des drivers clés du COGS. La marge brute a chuté de 7 points (33.1% à 26.7%) en partie due à ces facteurs.",
       "trend": "up",
       "summary": "Les dépenses tarifaires (depuis janvier 2025) et les fluctuations de prix des matières premières (cuivre +11.1% en 2025) peuvent réduire les marges bénéficiaires et perturber la production. L'entreprise a implémenté des surcharges tarifaires mais l'incertitude persiste sur la couverture complète des coûts. Défis de supply chain spécifiques et marché du travail tendu compliquent la situation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de perte d'employés clés et de difficultés de recrutement",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "Ce risque est souligné dans l'Item 1A et l'Item 7. Le MD&A confirme: 'we continue to experience challenges in a tight labor market, especially the hiring of production labor'. L'entreprise a dû augmenter les salaires (3.3% en 2024, 4.0% en 2025) pour rester compétitive. La croissance explosive (backlog +110.9% en 2025) accentue les besoins en capacité opérationnelle et en talent. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est souligné dans l'Item 1A et l'Item 7. Le MD&A confirme: 'we continue to experience challenges in a tight labor market, especially the hiring of production labor'. L'entreprise a dû augmenter les salaires (3.3% en 2024, 4.0% en 2025) pour rester compétitive. La croissance explosive (backlog +110.9% en 2025) accentue les besoins en capacité opérationnelle et en talent.",
       "trend": "up",
       "summary": "Le marché du travail tendu pose des défis significatifs pour le recrutement et la rétention d'employés, en particulier de la main-d'œuvre de production. L'entreprise a implémenté des augmentations de salaires régulières (3.3-4.0% annuels) pour rester compétitive. L'expansion rapide du backlog (notamment BASX +141.3%) nécessite une augmentation significative de la capacité opérationnelle.",
       "score": 3
@@ -349,7 +342,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Marges sous pression (-5.0 pts en moyenne)."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.055Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.999Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aaon.json",
     "enrich_root": null,

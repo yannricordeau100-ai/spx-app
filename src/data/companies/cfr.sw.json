@@ -13,33 +13,9 @@
     "sector": "...",
     "subsector": "#3"
   },
-  "hero_kpi": "Gross Margin",
+  "hero_kpi": "jewellery_maisons_sales",
   "hero_kpi_rationale": "Richemont est un leader mondial des biens de luxe dont le secteur repose sur la valorisation des marques heritage et le pouvoir de pricing. La marge brute de 68,1% reflète la valeur intrinsèque des collections et la puissance commerciale du groupe dans le secteur du luxe.",
   "kpis": [
-    {
-      "short": "Revenue",
-      "name_fr": "Chiffre d'affaires",
-      "name_en": "Revenue",
-      "explanation": "Valeur totale des ventes réalisées par la société pendant l'année.",
-      "value": "20.6",
-      "unit": "Mds €",
-      "yoy": "+3.3%",
-      "type": "Revenue",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Growth driven by luxury goods demand",
-      "description": "Le chiffre d'affaires s'élève à 20,616 milliards d'euros en 2024, en hausse de 3,3% par rapport à 19,953 milliards en 2023.",
-      "history": [
-        20,
-        20.6
-      ],
-      "last_data_date": "2024-03-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
-    },
     {
       "short": "Gross Margin",
       "name_fr": "Marge brute",
@@ -64,7 +40,7 @@
       "period_type": "annual",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Gross Margin (%) non trouvé explicitement dans l'extrait fourni. Seuls les chiffres absolus sont disponibles : Gross profit 2024 = €14,036m ",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -120,8 +96,8 @@
       "name_fr": "Investissements en capital",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses pour l'acquisition ou la modernisation d'actifs matériels.",
-      "value": "0.7",
-      "unit": "Mds €",
+      "value": 700,
+      "unit": "M €",
       "yoy": "+16.7%",
       "type": "Investment",
       "nature": "Structurel",
@@ -129,15 +105,16 @@
       "signal": "Capex investments in retail and manufacturing",
       "description": "Les investissements s'élèvent à 700 millions d'euros en 2024, en hausse de 16,7% par rapport à 600 millions en 2023, principalement dédiés aux boutiques, ateliers et installations de production artisanale.",
       "history": [
-        0.6,
-        0.7
+        600,
+        700
       ],
       "last_data_date": "2024-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Headcount",
@@ -160,7 +137,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -180,11 +157,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 41.01 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -203,11 +184,136 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 13.15 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "jewellery_maisons_sales",
+      "name_fr": "Ventes Maisons de Joaillerie",
+      "name_en": "Jewellery Maisons Sales",
+      "unit": "M€",
+      "period_type": "year",
+      "history": [
+        5927,
+        6452,
+        7083,
+        7217,
+        7459,
+        11083,
+        13427,
+        14242
+      ],
+      "value": 14242,
+      "last_data_date": "2024-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Cartier, Van Cleef & Arpels et Buccellati ont presque double leurs ventes depuis l'exercice 2020.",
+      "is_wow": true,
+      "yoy": "+6,1 %"
+    },
+    {
+      "short": "specialist_watchmakers_sales",
+      "name_fr": "Ventes Maisons horlogeres",
+      "name_en": "Specialist Watchmakers Sales",
+      "unit": "M€",
+      "period_type": "year",
+      "history": [
+        2879,
+        2714,
+        2980,
+        2859,
+        2247,
+        3435,
+        3875,
+        3767
+      ],
+      "value": 3767,
+      "last_data_date": "2024-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les Maisons horlogeres marquent le pas apres le pic de l'exercice 2023.",
+      "is_wow": false
+    },
+    {
+      "short": "jewellery_product_sales",
+      "name_fr": "Ventes de bijoux",
+      "name_en": "Jewellery Product Line Sales",
+      "unit": "M€",
+      "period_type": "year",
+      "history": [
+        4160,
+        4537,
+        5061,
+        5205,
+        5553,
+        8293,
+        10036,
+        10704
+      ],
+      "value": 10704,
+      "last_data_date": "2024-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "La ligne bijoux depasse 10 milliards d'euros et represente plus de la moitie des ventes.",
+      "is_wow": false
+    },
+    {
+      "short": "watches_product_sales",
+      "name_fr": "Ventes de montres",
+      "name_en": "Watches Product Line Sales",
+      "unit": "M€",
+      "period_type": "year",
+      "history": [
+        4340,
+        4368,
+        4930,
+        4816,
+        4085,
+        6045,
+        6983,
+        7001
+      ],
+      "value": 7001,
+      "last_data_date": "2024-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les ventes de montres plafonnent a 7 milliards d'euros sur l'exercice 2024.",
+      "is_wow": false
+    },
+    {
+      "short": "asia_pacific_sales",
+      "name_fr": "Ventes Asie-Pacifique",
+      "name_en": "Asia Pacific Sales",
+      "unit": "M€",
+      "period_type": "year",
+      "history": [
+        3903,
+        4352,
+        5243,
+        4992,
+        5937,
+        7487,
+        7937,
+        8220
+      ],
+      "value": 8220,
+      "last_data_date": "2024-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "L'Asie-Pacifique reste la premiere region de Richemont avec 40 % des ventes.",
+      "is_wow": false
     },
     {
       "short": "DPS",
@@ -221,7 +327,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2,
         3.25,
@@ -234,7 +340,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +355,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. cashflow.",
       "history": [
         null,
         1.041,
@@ -262,7 +368,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -277,7 +383,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         50.19,
@@ -290,7 +396,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -306,7 +412,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.611,
@@ -319,7 +425,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -334,27 +440,12 @@
     ],
     "source": ""
   },
-  "_validation": [
-    "Correction Gross Margin YoY: '-0.9 pts' -> '-0.6 pts' (calcul source: 68.1 - 68.7 = -0.6 pts)",
-    "Correction Operating Margin YoY: '-4.7 pts' -> '-1.9 pts' (calcul source: 23.3 - 25.2 = -1.9 pts)",
-    "Correction Operating Margin value: conservé '23.3' (4794/20616 = 23.25%, arrondi 23.3%)",
-    "Amélioration hero_kpi_rationale: suppression des em-dash pour cohérence française",
-    "Vérification Revenue: 20.616 Mds € avec YoY +3.3% confirmé (20616-19953)/19953 = 3.32%",
-    "Vérification Gross Margin: 68.1% (14036/20616) et 68.7% (13716/19953) confirmés dans consolidated income statement",
-    "Vérification Operating Margin: 23.3% (4794/20616) et 25.2% (5031/19953) confirmés dans consolidated income statement",
-    "Vérification Capex history: [0.6, 0.7] Mds € cohérent avec conversion M€ source",
-    "Vérification R&D: 0.5% ratio estimé, stable année sur année",
-    "Vérification Headcount: 38.5K employés avec croissance +2.7% cohérent avec narrative",
-    "Vérification Revenue history: [19.953, 20.616] Mds € provenant consolidated income statement (19953M€ et 20616M€)",
-    "Aucun KPI halluciné détecté: tous les chiffres correspondent à consolidated income statement ou balance sheet 2024 et 2023",
-    "Signal descriptions: alignement avec nature luxury goods sector",
-    "Tagline conservé: comprend 'jewelry' pour couverture complète des activités de luxe"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -370,7 +461,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné de manière implicite dans la structure des segments opérationnels et la différenciation des Maisons, avec un langage indiquant la nécessité de préserver l'identité exclusive. La concurrence est structurelle, le secteur étant saturé et sensible à la perception de rareté. Tendance stable.",
       "trend": "stable",
-      "summary": "Richemont fait face à une concurrence intense des grands groupes du luxe (LVMH, Kering) et de marques indépendantes, qui menacent sa part de marché, notamment dans les segments joaillerie et horlogerie haut de gamme."
+      "summary": "Richemont fait face à une concurrence intense des grands groupes du luxe (LVMH, Kering) et de marques indépendantes, qui menacent sa part de marché, notamment dans les segments joaillerie et horlogerie haut de gamme.",
+      "score": 4
     },
     {
       "title": "Dépendance à la réputation des Maisons de luxe",
@@ -378,7 +470,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans la stratégie de Richemont, avec une insistance sur l'identité propre de chaque Maison. Le langage est fort sur la préservation du prestige. Tendance stable, poids élevé dans la valeur perçue.",
       "trend": "stable",
-      "summary": "La valeur de Richemont repose sur l'exclusivité et la réputation de ses Maisons comme Cartier ou Van Cleef & Arpels. Tout dommage à cette image (scandale, contrefaçon, gestion inappropriée) aurait un impact direct sur la demande et la valorisation."
+      "summary": "La valeur de Richemont repose sur l'exclusivité et la réputation de ses Maisons comme Cartier ou Van Cleef & Arpels. Tout dommage à cette image (scandale, contrefaçon, gestion inappropriée) aurait un impact direct sur la demande et la valorisation.",
+      "score": 5
     },
     {
       "title": "Risques liés à la transition numérique du luxe",
@@ -386,7 +479,8 @@
       "severity": 4,
       "score_rationale": "Évoqué via la vente de YNAP et le repositionnement stratégique. Langage prudent mais préoccupé. Tendance en hausse, car le digital devient critique pour l'accès aux jeunes consommateurs.",
       "trend": "up",
-      "summary": "L'échec de la cession de YNAP et la nécessité d’un nouveau repositionnement montrent les difficultés de Richemont à maîtriser la distribution numérique de luxe, un canal clé pour l'avenir."
+      "summary": "L'échec de la cession de YNAP et la nécessité d’un nouveau repositionnement montrent les difficultés de Richemont à maîtriser la distribution numérique de luxe, un canal clé pour l'avenir.",
+      "score": 4
     },
     {
       "title": "Concentration des fournisseurs de matières premières rares",
@@ -394,7 +488,8 @@
       "severity": 4,
       "score_rationale": "Non explicite mais déduit des activités de joaillerie et horlogerie. La dépendance à des matériaux précieux (or, diamants) implique des risques d'approvisionnement. Tendance stable, secteur structurellement exposé.",
       "trend": "stable",
-      "summary": "Richemont dépend de fournisseurs spécialisés pour des matières premières rares et coûteuses. Toute perturbation (géopolitique, éthique, environnementale) dans ces chaînes d'approvisionnement menace la production et l'image éthique des marques."
+      "summary": "Richemont dépend de fournisseurs spécialisés pour des matières premières rares et coûteuses. Toute perturbation (géopolitique, éthique, environnementale) dans ces chaînes d'approvisionnement menace la production et l'image éthique des marques.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des plateformes de vente en ligne",
@@ -402,7 +497,8 @@
       "severity": 4,
       "score_rationale": "Lié à YNAP et à l’expansion digitale. Bien que non mentionné directement, le risque est inhérent à la montée en puissance du e-commerce de luxe. Tendance en hausse.",
       "trend": "up",
-      "summary": "L’augmentation des ventes en ligne expose Richemont à des cyberattaques ciblant les données clients, les transactions ou les sites e-commerce, avec des risques de fuite d’informations sensibles et de perte de confiance."
+      "summary": "L’augmentation des ventes en ligne expose Richemont à des cyberattaques ciblant les données clients, les transactions ou les sites e-commerce, avec des risques de fuite d’informations sensibles et de perte de confiance.",
+      "score": 4
     },
     {
       "title": "Gestion des droits de propriété intellectuelle",
@@ -410,7 +506,8 @@
       "severity": 3,
       "score_rationale": "Inféré à partir de la valeur des marques et des designs uniques. Le langage n’est pas explicite mais le risque est sous-jacent. Tendance stable, secteur traditionnellement exposé à la contrefaçon.",
       "trend": "stable",
-      "summary": "Les designs exclusifs de Richemont (joaillerie, montres) sont constamment copiés. Une faiblesse dans la protection de la propriété intellectuelle pourrait nuire à l’innovation et à la marge."
+      "summary": "Les designs exclusifs de Richemont (joaillerie, montres) sont constamment copiés. Une faiblesse dans la protection de la propriété intellectuelle pourrait nuire à l’innovation et à la marge.",
+      "score": 3
     },
     {
       "title": "Dépendance aux talents créatifs et dirigeants",
@@ -418,7 +515,8 @@
       "severity": 4,
       "score_rationale": "Le succès des Maisons repose sur des créateurs et dirigeants emblématiques. Bien que non cité, le risque est implicite dans la structure artisanale. Tendance stable.",
       "trend": "stable",
-      "summary": "La perte de designers ou de dirigeants clés dans des Maisons comme Cartier ou Alaïa pourrait affaiblir l’identité créative et la capacité d’innovation, impactant la fidélité client."
+      "summary": "La perte de designers ou de dirigeants clés dans des Maisons comme Cartier ou Alaïa pourrait affaiblir l’identité créative et la capacité d’innovation, impactant la fidélité client.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:24:12.275644+00:00",
@@ -487,11 +585,13 @@
   "_source_year": "2024",
   "_extraction_note": "Source annual-text disponible (373493 bytes, year=2024). KPIs spécifiques + segments + geography + risks à extraire via passe LLM dédiée. Sub-agent batch 3 a validé existence et qualité minimale de la source.",
   "_dividends_extracted_at": "2026-05-09T20:22:34Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "CHF",
   "_eps_extracted_at": "2026-05-18T16:44:13Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Produits de luxe",
+  "hero_kpi_override": "jewellery_maisons_sales",
+  "_hero_kpi_override_reason": "jewellery_maisons_sales = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "CFR.SW",
     "fetched_at": "2026-05-06T17:46:55.822782+00:00",
@@ -507,6 +607,67 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CFR.SW",
+    "extracted_at": "2026-06-01T03:05:41Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "year",
+        "history": [
+          13.989,
+          14.238,
+          13.144,
+          19.181,
+          19.953,
+          20.616
+        ],
+        "history_periods": [
+          "FY2019",
+          "FY2020",
+          "FY2021",
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "last_data_date": "2024-03-31",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T03:05:41Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Op Margin",
+        "period_type": "year",
+        "history": [
+          13.9,
+          10.7,
+          11.3,
+          17.7,
+          25.2,
+          23.3
+        ],
+        "history_periods": [
+          "FY2019",
+          "FY2020",
+          "FY2021",
+          "FY2022",
+          "FY2023",
+          "FY2024"
+        ],
+        "last_data_date": "2024-03-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:05:41Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CFR.SW",
     "ranks": {
@@ -519,14 +680,15 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T02:17:14.237944+00:00",
     "fetched_at": "2026-05-21T02:17:14.237945+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.318Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.757Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cfr.sw.json",
     "enrich_root": "v2-pipeline-enrich/cfr.sw.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

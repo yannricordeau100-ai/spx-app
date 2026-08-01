@@ -21,8 +21,8 @@
       "name_fr": "Revenus d'exploitation",
       "name_en": "Operating revenues",
       "explanation": "Revenus générés par les activités d'exploitation",
-      "value": 1243,
-      "unit": "M $",
+      "value": 1.243,
+      "unit": "Mds $",
       "yoy": "+26.7%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,17 +30,21 @@
       "signal": "Augmentation des revenus d'exploitation",
       "description": "Revenus d'exploitation de DTM",
       "history": [
-        922,
-        981,
-        1243
+        0.922,
+        0.981,
+        1.243
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "ttm": 1351.19,
-      "period_type": "quarter",
-      "signal_en": "Strong top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -65,7 +69,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 457.37,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -135,11 +139,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.24 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,11 +166,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.08 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -181,33 +193,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.37 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "-28.6%",
       "history": [
-        0.06,
-        0.06,
-        0.07,
-        0.05
+        60,
+        60,
+        70,
+        50
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.05 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -234,9 +255,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 1351.19,
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "ttm": 1351.19
     }
   ],
   "ai_positioning": {
@@ -252,7 +271,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est décrit avec un langage d'impact élevé: 'could materially adversely affect our business, financial condition and results of operations'. Il touche le cœur du modèle économique de DTM. La dépendance aux volumes de gaz naturel dans les zones d'exploitation, l'impact potentiel de la concurrence des énergies renouvelables et les contraintes réglementaires renforcent sa gravité. Catégorie Industriel fortement impactée.",
       "trend": "stable",
-      "summary": "Une baisse de l'offre ou de la demande de gaz naturel dans les zones desservies réduirait les flux et les revenus d'exploitation."
+      "summary": "Une baisse de l'offre ou de la demande de gaz naturel dans les zones desservies réduirait les flux et les revenus d'exploitation.",
+      "score": 5
     },
     {
       "title": "Dépendance à un client clé",
@@ -260,7 +280,8 @@
       "severity": 4,
       "score_rationale": "Risque structurel de concentration client. Bien que non quantifié précisément dans l'extrait fourni, les pratiques du secteur midstream exposent les entreprises à une concentration de revenus significative. Impact potentiel sur la stabilité des flux de trésorerie, mais atténué par la diversification client et les contrats long terme documentés.",
       "trend": "stable",
-      "summary": "Une concentration excessive sur un petit nombre de clients importants pourrait affecter la stabilité des revenus en cas de perte de volume ou de non-renouvellement de contrats."
+      "summary": "Une concentration excessive sur un petit nombre de clients importants pourrait affecter la stabilité des revenus en cas de perte de volume ou de non-renouvellement de contrats.",
+      "score": 4
     },
     {
       "title": "Non-renouvellement des contrats à long terme",
@@ -268,7 +289,8 @@
       "severity": 4,
       "score_rationale": "Le document souligne que les contrats fermes assurent la stabilité des revenus. Le risque de non-renouvellement est implicite dans le modèle économique et pourrait 'adversely affect the stability of our cash flows'. Langage modéré à fort, mais moins critique qu'un risque existentiel direct.",
       "trend": "stable",
-      "summary": "L'incapacité à renouveler les contrats fermes pourrait exposer la société aux fluctuations des prix du gaz et réduire la stabilité des flux de trésorerie contractuels."
+      "summary": "L'incapacité à renouveler les contrats fermes pourrait exposer la société aux fluctuations des prix du gaz et réduire la stabilité des flux de trésorerie contractuels.",
+      "score": 4
     },
     {
       "title": "Dépendance aux interconnexions tierces",
@@ -276,7 +298,8 @@
       "severity": 4,
       "score_rationale": "La structure du réseau gazier exige des interconnexions avec des tiers. Le document implique que l'indisponibilité d'actifs critiques tiers pourrait 'could materially adversely affect'. La perte de contrôle sur des actifs d'interconnexion critiques augmente la gravité. Catégorie Industriel pertinente pour l'infrastructure opérationnelle.",
       "trend": "stable",
-      "summary": "L'indisponibilité de pipelines ou installations tiers interconnectés pourrait restreindre l'acheminement du gaz et réduire les revenus."
+      "summary": "L'indisponibilité de pipelines ou installations tiers interconnectés pourrait restreindre l'acheminement du gaz et réduire les revenus.",
+      "score": 4
     },
     {
       "title": "Risques opérationnels majeurs (accidents, intempéries, cybersécurité)",
@@ -284,7 +307,8 @@
       "severity": 5,
       "score_rationale": "Infrastructure d'énergie critique exposée à des risques opérationnels multiples: ruptures de pipeline, explosions, intempéries extrêmes, cyberattaques. Langage très fort implicite dans la nature de l'industrie: risque potentiel de 'loss of human life, substantial financial losses'. Risque existentiel pour les opérations et l'intégrité des actifs physiques. Catégorie Industriel car couvre l'ensemble des actifs physiques.",
       "trend": "stable",
-      "summary": "Des événements comme des ruptures de pipeline, intempéries, accidents ou cyberattaques pourraient interrompre les opérations et causer des pertes majeures."
+      "summary": "Des événements comme des ruptures de pipeline, intempéries, accidents ou cyberattaques pourraient interrompre les opérations et causer des pertes majeures.",
+      "score": 5
     },
     {
       "title": "Risques liés aux coentreprises et investissements en fonds propres",
@@ -292,7 +316,8 @@
       "severity": 4,
       "score_rationale": "DTM détient des participations en equity method dans des investissements en pipeline (Millennium, NEXUS). Le texte mentionne l'exposition aux risques de crédit des partenaires, le manque de contrôle, et les désaccords possibles. Impact opérationnel et financier significatif, mais pas existentiel au niveau du groupe.",
       "trend": "stable",
-      "summary": "Les coentreprises et investissements en fonds propres limitent la flexibilité opérationnelle et exposent la société aux risques financiers de ses partenaires."
+      "summary": "Les coentreprises et investissements en fonds propres limitent la flexibilité opérationnelle et exposent la société aux risques financiers de ses partenaires.",
+      "score": 4
     },
     {
       "title": "Opposition environnementale et politique aux développements de projets",
@@ -300,7 +325,8 @@
       "severity": 4,
       "score_rationale": "Le risque d'opposition par des groupes environnementaux ou locaux est inhérent à l'industrie du gaz naturel. L'industrie fait face à des retards réglementaires et des contestations possibles qui pourraient 'prevent, disrupt or delay' les développements. Impact sur la croissance future des projets, donc gravité élevée. Catégorie Réputation car lié à la perception publique et aux enjeux climatiques.",
       "trend": "stable",
-      "summary": "Les protections environnementales, recours juridiques ou opposition publique à la production gazière pourraient retarder ou bloquer les développements futurs."
+      "summary": "Les protections environnementales, recours juridiques ou opposition publique à la production gazière pourraient retarder ou bloquer les développements futurs.",
+      "score": 4
     }
   ],
   "governance": {
@@ -352,7 +378,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -406,7 +432,6 @@
       "date": "2026-04-29"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T19:58:43.919938+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -429,6 +454,7 @@
     ],
     "total": 1.24
   },
+  "_ai_positioning_fetched_at": "2026-05-06T19:58:43.919938+00:00",
   "_segments_fetched_at": "2026-05-06T19:29:20.272074+00:00",
   "enrich_events": {
     "ticker": "DTM",
@@ -474,45 +500,34 @@
   },
   "enrich_quarterly_history": {
     "ticker": "DTM",
-    "extracted_at": "2026-05-15T20:15:07Z",
-    "method": "xbrl-companyfacts",
-    "_segment_method": "xbrl-segment-inline",
+    "extracted_at": "2026-06-01T03:12:17Z",
     "n_kpis": 2,
     "kpis": [
       {
-        "short": "Pipeline Op. Rev.",
+        "short": "Op. Rev.",
         "period_type": "quarter",
         "history": [
-          0.057,
-          0.072,
-          0.075,
-          0.075,
-          0.077,
-          0.08,
-          0.077,
-          0.083,
-          0.087,
-          0.092,
-          0.085,
-          0.09,
-          0.096,
-          0.106,
-          0.107,
-          0.109,
-          0.112,
-          0.115,
-          0.169,
-          0.176,
-          0.169,
-          0.173
+          197,
+          208,
+          212,
+          215,
+          227,
+          235,
+          220,
+          220,
+          224,
+          235,
+          240,
+          244,
+          248,
+          303,
+          309,
+          314
         ],
         "history_periods": [
-          "Q2 2020",
-          "Q3 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
@@ -520,81 +535,43 @@
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Pipeline",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.169,
-            "source": "DTM_2025-04-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.176,
-            "source": "DTM_2025-07-31.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.169,
-            "source": "DTM_2025-10-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.173,
-            "source": "calc-DTM_2026-02-19.htm.gz",
-            "tag": "us-gaap:Revenues"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:12:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       },
       {
-        "short": "Gathering Op. Rev.",
+        "short": "Net Income",
         "period_type": "quarter",
         "history": [
-          0.117,
-          0.131,
-          0.122,
-          0.133,
-          0.135,
-          0.144,
-          0.138,
-          0.144,
-          0.148,
-          0.151,
-          0.135,
-          0.134,
-          0.138,
-          0.138,
-          0.133,
-          0.135,
-          0.136,
-          0.134,
-          0.134,
-          0.133,
-          0.145,
-          0.144
+          78,
+          68,
+          74,
+          81,
+          91,
+          113,
+          81,
+          81,
+          91,
+          113,
+          97,
+          96,
+          91,
+          108,
+          107,
+          115
         ],
         "history_periods": [
-          "Q2 2020",
-          "Q3 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
@@ -602,46 +579,20 @@
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Gathering",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.134,
-            "source": "DTM_2025-04-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.133,
-            "source": "DTM_2025-07-31.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.145,
-            "source": "DTM_2025-10-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.144,
-            "source": "calc-DTM_2026-02-19.htm.gz",
-            "tag": "us-gaap:Revenues"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:12:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -657,9 +608,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.252850+00:00",
     "fetched_at": "2026-05-21T02:17:14.252851+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.459Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.024Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dtm.json",
     "enrich_root": "v2-pipeline-enrich/dtm.json",

@@ -1,6 +1,6 @@
 {
   "ticker": "VYX",
-  "name": "NCR Voyix Corporation",
+  "name": "NCR Voyix",
   "sector": "Technologie",
   "subsector": "Software and IT Services",
   "tagline": "Leading platform-powered unified commerce solutions for retail and restaurant industries",
@@ -80,7 +80,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -105,7 +105,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -148,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.69 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -171,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -194,33 +202,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.33 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "-68.1%",
       "history": [
-        0.22,
-        0.26,
-        0.72,
-        0.23
+        220,
+        260,
+        720,
+        230
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.23 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -270,7 +287,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "mentioned",
+    "stance": "cautious",
     "summary": "NCR Voyix mentionne l'intelligence artificielle dans le contexte des tendances macroéconomiques et des demandes des clients. L'entreprise note que les pénuries mondiales de puces microélectroniques sont en partie dues à l'adoption de l'IA. Cependant, aucun développement ou produit spécifique liés à l'IA n'est détaillé dans le rapport 10-K.",
     "evidence": [
       "Global shortages of microchips and other technology components, primarily driven by the adoption of artificial intelligence"
@@ -284,7 +301,8 @@
       "severity": 4,
       "score_rationale": "Incident documented explicitly in Item 1A. April 2023 ransomware attack caused data center outage impacting Aloha cloud-based services and Counterpoint. Cumulative costs of $47M incurred with $37M recovered through insurance. Recent and material financial impact.",
       "trend": "stable",
-      "summary": "NCR Voyix suffered a cyber ransomware incident in April 2023 affecting specific cloud-based services. The company fully restored functionality and built new infrastructure. Total costs reached $47M with partial recovery from insurance, representing a material operational and financial impact."
+      "summary": "NCR Voyix suffered a cyber ransomware incident in April 2023 affecting specific cloud-based services. The company fully restored functionality and built new infrastructure. Total costs reached $47M with partial recovery from insurance, representing a material operational and financial impact.",
+      "score": 4
     },
     {
       "title": "Decline in Product Revenue (Hardware and Software Licenses)",
@@ -292,7 +310,8 @@
       "severity": 3,
       "score_rationale": "All other revenue (non-recurring) declined 15% in 2025 and 23% in 2024, reflecting the strategic decline of legacy hardware and license-based revenue streams as the company transitions to SaaS and recurring revenue models.",
       "trend": "down",
-      "summary": "Product revenue from hardware and software licenses is declining as part of the company's strategic transition to SaaS and recurring revenue models. All other revenue fell from 49.1% of total revenue in 2023 to 37.6% in 2025, a structural shift that continues to impact total revenue growth."
+      "summary": "Product revenue from hardware and software licenses is declining as part of the company's strategic transition to SaaS and recurring revenue models. All other revenue fell from 49.1% of total revenue in 2023 to 37.6% in 2025, a structural shift that continues to impact total revenue growth.",
+      "score": 3
     },
     {
       "title": "Concentration Risk on Recurring Revenue",
@@ -300,7 +319,8 @@
       "severity": 3,
       "score_rationale": "Recurring revenue increased from 50.9% in 2023 to 62.4% in 2025, while all other revenue contracted from 49.1% to 37.6%. This structural shift increases exposure to disruptions in recurring revenue streams and customer retention.",
       "trend": "up",
-      "summary": "The company increasingly depends on recurring revenue from contracts and subscriptions, which now represents 62.4% of total revenue. Any disruption to these recurring revenue streams or decline in customer retention would have a significant impact on financial stability."
+      "summary": "The company increasingly depends on recurring revenue from contracts and subscriptions, which now represents 62.4% of total revenue. Any disruption to these recurring revenue streams or decline in customer retention would have a significant impact on financial stability.",
+      "score": 3
     },
     {
       "title": "Transformation and Restructuring Costs",
@@ -308,7 +328,8 @@
       "severity": 3,
       "score_rationale": "Material transformation and restructuring costs are explicitly mentioned as EBITDA adjustments and items affecting results. These represent significant near-term financial burdens as the company executes its strategic transformation to SaaS and platform-based models.",
       "trend": "stable",
-      "summary": "The company is incurring substantial costs related to its transformation and restructuring initiatives, including the transition from hardware to ODM model and shift to SaaS solutions. These near-term costs impact profitability despite long-term strategic benefits."
+      "summary": "The company is incurring substantial costs related to its transformation and restructuring initiatives, including the transition from hardware to ODM model and shift to SaaS solutions. These near-term costs impact profitability despite long-term strategic benefits.",
+      "score": 3
     },
     {
       "title": "Foreign Currency Exposure",
@@ -316,7 +337,8 @@
       "severity": 2,
       "score_rationale": "The company operates globally with exposure to multiple currencies. Historical impacts from foreign currency devaluation are reflected in EBITDA adjustments, indicating structural exposure to exchange rate fluctuations, particularly in developing markets.",
       "trend": "stable",
-      "summary": "As a multinational corporation with significant international operations, NCR Voyix faces ongoing exposure to foreign currency fluctuations and devaluation risks, particularly in certain geographic markets, which can negatively impact reported financial results."
+      "summary": "As a multinational corporation with significant international operations, NCR Voyix faces ongoing exposure to foreign currency fluctuations and devaluation risks, particularly in certain geographic markets, which can negatively impact reported financial results.",
+      "score": 2
     },
     {
       "title": "Regulatory Compliance and Payment Processing Risks",
@@ -324,7 +346,8 @@
       "severity": 3,
       "score_rationale": "The company's payments business is subject to complex regulatory requirements from payment networks, card brands, and financial regulations. Non-compliance could result in fines, penalties, revocation of registration, or loss of sponsor bank relationships, any of which could materially harm operations.",
       "trend": "stable",
-      "summary": "NCR Voyix's payments-related business requires sponsorship by banks and registration with card brands. Changes in payment network regulations, card brand rules, or PCI DSS standards could require significant development investments or restrict service offerings, impacting revenue and profitability."
+      "summary": "NCR Voyix's payments-related business requires sponsorship by banks and registration with card brands. Changes in payment network regulations, card brand rules, or PCI DSS standards could require significant development investments or restrict service offerings, impacting revenue and profitability.",
+      "score": 3
     }
   ],
   "governance": {
@@ -363,7 +386,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -649,7 +672,10 @@
             "source": "calc-VYX_2026-02-26.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -665,9 +691,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.326897+00:00",
     "fetched_at": "2026-05-21T02:17:14.326898+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.347Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.474Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vyx.json",
     "enrich_root": "v2-pipeline-enrich/vyx.json",

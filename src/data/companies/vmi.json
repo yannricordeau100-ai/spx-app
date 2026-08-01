@@ -39,11 +39,14 @@
       "is_short_history": false,
       "ttm": 1.55,
       "_validation": "Unité corrigée de 'Mds $' à 'B $'; date corrigée de '2025-12-27' à '2024-12-27' (fiscal 2025 clôt le 27 décembre 2025, correspond à l'année 2024 du calendrier)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Utility Revenue' not found in the provided 10-K extract. The document shows segment reporting for 'Infrastructure' and 'Agriculture' se",
       "explanation_en": "Revenue from the Utility segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -68,7 +71,7 @@
       "is_short_history": false,
       "ttm": 30.13,
       "_validation": "Date corrigée de '2025-12-27' à '2024-12-27'",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -94,7 +97,7 @@
       "is_short_history": false,
       "ttm": 9.55,
       "_validation": "Date corrigée de '2025-12-27' à '2024-12-27'",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -217,11 +220,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.37 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -310,7 +317,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès l'introduction des facteurs de risque. Le langage insiste sur des impacts passés et futurs substantiels et matériels. Il concerne plusieurs segments clés (Utilities, Agriculture, Wireless) et représente une volatilité structurelle des revenus. Pondéré au maximum pour sa récurrence et son ampleur.",
       "trend": "stable",
-      "summary": "La demande pour nos produits fluctue fortement selon les cycles économiques des secteurs clients comme l'agriculture, les utilities et les télécoms, affectant directement nos ventes et marges."
+      "summary": "La demande pour nos produits fluctue fortement selon les cycles économiques des secteurs clients comme l'agriculture, les utilities et les télécoms, affectant directement nos ventes et marges.",
+      "score": 5
     },
     {
       "title": "Volatilité des prix des matières premières",
@@ -318,7 +326,8 @@
       "severity": 5,
       "score_rationale": "Le risque est détaillé sur plusieurs paragraphes, avec des données chiffrées précises (ex. : 50% du coût des ventes en acier). Le langage souligne des impacts directs sur les marges brutes et la rentabilité, notamment en raison des délais de répercussion des coûts. Catégorie 'Capital' fortement pondérée.",
       "trend": "stable",
-      "summary": "Les variations de prix de l'acier, de l'aluminium, du gaz et du carburant affectent fortement nos coûts de production, avec un risque de non-récupération sur les prix de vente, surtout en cas de hausse rapide."
+      "summary": "Les variations de prix de l'acier, de l'aluminium, du gaz et du carburant affectent fortement nos coûts de production, avec un risque de non-récupération sur les prix de vente, surtout en cas de hausse rapide.",
+      "score": 5
     },
     {
       "title": "Dépendance au financement public et aux subventions",
@@ -326,7 +335,8 @@
       "severity": 4,
       "score_rationale": "Le risque est lié à des programmes gouvernementaux comme l'IIJA et l'IRA, décrits comme moteurs de demande à long terme. L'incertitude sur le calendrier et la répartition des fonds est soulignée. Le langage est préoccupé mais pas alarmiste. Catégorie 'Régulation' moyennement pondérée.",
       "trend": "stable",
-      "summary": "Nos ventes dans les infrastructures dépendent fortement des budgets publics et des politiques d'investissement, dont le rythme et la mise en œuvre sont incertains."
+      "summary": "Nos ventes dans les infrastructures dépendent fortement des budgets publics et des politiques d'investissement, dont le rythme et la mise en œuvre sont incertains.",
+      "score": 4
     },
     {
       "title": "Risques liés aux changes internationaux",
@@ -334,7 +344,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné mais moins détaillé que les trois risques précédents. Les impacts sont contextuels et dépendent de l'exposition géographique. Catégorie 'Macro' moyennement pondérée.",
       "trend": "stable",
-      "summary": "Les fluctuations des taux de change affectent nos résultats financiers et notre compétitivité sur les marchés internationaux, notamment en Amérique du Sud et en EMEA."
+      "summary": "Les fluctuations des taux de change affectent nos résultats financiers et notre compétitivité sur les marchés internationaux, notamment en Amérique du Sud et en EMEA.",
+      "score": 3
     }
   ],
   "_validation": [
@@ -350,7 +361,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -496,15 +507,12 @@
           1.0625,
           2.1088,
           3.1591,
-          -2.1557,
           0.9778,
           2.0176,
           3.0377,
-          -1.9581,
           0.9693,
           2.0199,
           3.0658,
-          -1.9509,
           1.0292
         ],
         "history_periods": [
@@ -558,6 +566,12 @@
             "accession": "0000102729-26-000020",
             "end": "2026-03-28"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (VMI)"
         ]
       },
       {
@@ -626,7 +640,10 @@
             "source": "VMI_2026-04-28.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Agriculture Net Sales",
@@ -702,7 +719,10 @@
             "source": "VMI_2026-04-28.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -719,9 +739,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.325504+00:00",
     "fetched_at": "2026-05-21T02:17:14.325505+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.203Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.320Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vmi.json",
     "enrich_root": null,

@@ -47,9 +47,7 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:09.938044+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Revenue pressure, demand softening"
     },
     {
       "short": "Total Assets",
@@ -68,11 +66,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.47 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -91,11 +93,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.25 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -110,16 +116,16 @@
       "title": "Brunswick Manufacturer Dependency",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "The company is heavily dependent on Brunswick for new boat sales, representing approximately 18% of revenue in fiscal 2025. Disruption of this relationship could significantly impact business operations. (score par défaut, à affiner)",
+      "score_rationale": "The company is heavily dependent on Brunswick for new boat sales, representing approximately 18% of revenue in fiscal 2025. Disruption of this relationship could significantly impact business operations.",
       "trend": "stable",
       "summary": "Strong reliance on Brunswick as a key supplier makes the company vulnerable to changes in the manufacturing relationship or supply disruptions.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Increased Market Competition",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "The recreational boating market is highly competitive with numerous market participants. Intensifying competition could result in price pressures and margin compression. (score par défaut, à affiner)",
+      "score_rationale": "The recreational boating market is highly competitive with numerous market participants. Intensifying competition could result in price pressures and margin compression.",
       "trend": "up",
       "summary": "Growing competition in the recreational boating market may negatively impact sales volumes and profit margins.",
       "score": 3
@@ -128,25 +134,25 @@
       "title": "Acquisition Integration Risks",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "The company has completed multiple acquisitions in recent years, including IGY Marinas, Cruisers Yachts, and other strategic purchases. Integration challenges, asset impairment, and goodwill write-downs pose financial risks. (score par défaut, à affiner)",
+      "score_rationale": "The company has completed multiple acquisitions in recent years, including IGY Marinas, Cruisers Yachts, and other strategic purchases. Integration challenges, asset impairment, and goodwill write-downs pose financial risks.",
       "trend": "up",
       "summary": "Multiple recent acquisitions carry integration risks including operational complexity, potential asset impairment, and overpayment exposure.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Economic Cycle Dependency",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "The company's business is highly dependent on economic conditions and consumer discretionary spending. Economic recession would significantly impact recreational boat sales. (score par défaut, à affiner)",
+      "score_rationale": "The company's business is highly dependent on economic conditions and consumer discretionary spending. Economic recession would significantly impact recreational boat sales.",
       "trend": "stable",
       "summary": "Business performance is strongly tied to overall economic health and consumer confidence, creating vulnerability to economic downturns.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Regulatory and Environmental Compliance",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "The company operates under marine and environmental regulations. Non-compliance could result in penalties and operational restrictions. (score par défaut, à affiner)",
+      "score_rationale": "The company operates under marine and environmental regulations. Non-compliance could result in penalties and operational restrictions.",
       "trend": "stable",
       "summary": "Exposure to governmental and environmental regulations carries compliance costs and potential financial penalties.",
       "score": 3
@@ -155,7 +161,7 @@
       "title": "Cybersecurity and Data Protection Risks",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "The company operates digital platforms (Boatyard, Boatzon, Boatzon marketplace) and customer-facing systems. Cybersecurity breaches could compromise customer data and disrupt operations. (score par défaut, à affiner)",
+      "score_rationale": "The company operates digital platforms (Boatyard, Boatzon, Boatzon marketplace) and customer-facing systems. Cybersecurity breaches could compromise customer data and disrupt operations.",
       "trend": "up",
       "summary": "Digital platform operations expose the company to cybersecurity threats, data breaches, and operational disruptions.",
       "score": 3
@@ -164,10 +170,10 @@
       "title": "Reputation and Service Quality Risks",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "As the market leader in recreational boating retail, the company faces elevated reputational risks from product quality issues, customer service failures, or litigation. (score par défaut, à affiner)",
+      "score_rationale": "As the market leader in recreational boating retail, the company faces elevated reputational risks from product quality issues, customer service failures, or litigation.",
       "trend": "stable",
       "summary": "High market visibility and customer-centric positioning create significant reputational risks that could impact brand value and sales.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -211,7 +217,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -233,7 +239,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Commerce de détail spécialisé",
-  "_companies_unified_built_at": "2026-05-29T21:19:32.273Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.935Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hzo.json",
     "enrich_root": "v2-pipeline-enrich/hzo.json",

@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires net",
       "name_en": "Net Revenue",
       "explanation": "Chiffre d'affaires total de l'entreprise",
-      "value": 2970.8,
-      "unit": "M $",
+      "value": 2.971,
+      "unit": "Mds $",
       "yoy": "+1.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,14 +30,14 @@
       "signal": "Croissance modérée du chiffre d'affaires",
       "description": "Chiffre d'affaires net de l'entreprise pour l'année 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 8 dernières années.",
       "history": [
-        1336.432,
-        1511.629,
-        1653.225,
-        1968.65,
-        2669.844,
-        2778.6,
-        2941.3,
-        2970.8
+        1.336,
+        1.512,
+        1.653,
+        1.969,
+        2.67,
+        2.779,
+        2.941,
+        2.971
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -49,7 +49,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:38.957399+00:00",
       "explanation_en": "Revenue from the Net segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Profit",
@@ -77,8 +78,12 @@
       "is_short_history": false,
       "ttm": 739.97,
       "_validation": "Unit corrigée de 'Mds $' à 'M $' (valeur 1009.3M conforme aux données source)",
-      "explanation_en": "Gross Profit — revenue minus cost of goods sold.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Profit, revenue minus cost of goods sold.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Cash from Operations",
@@ -106,7 +111,11 @@
       "is_short_history": false,
       "ttm": 254.8,
       "_validation": "Unit corrigée de 'Mds $' à 'M $', YoY calculé (371.4 vs 340.0 = +9.2%), première valeur history corrigée de 340 à 340.0",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Dividends",
@@ -134,7 +143,11 @@
       "is_short_history": false,
       "ttm": 59.9,
       "_validation": "Unit corrigée de 'Mds $' à 'M $', YoY corrigé de '+6%' à '+3.4%' (87.6 vs 84.7), name_en améliora 'Dividends Paid'",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Acquisitions",
@@ -162,7 +175,11 @@
       "is_short_history": false,
       "ttm": 48.01,
       "_validation": "Unit corrigée de 'Mds $' à 'M $', YoY calculé (51.5 vs 88.6 = -42.0%), name_en amélioré 'Acquisition Investments'",
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -181,56 +198,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.07 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.99,
-      "unit": "Mds €",
+      "value": 990,
+      "unit": "M €",
       "yoy": "+1.0%",
       "history": [
-        0.95,
-        0.95,
-        0.98,
-        0.99
+        950,
+        950,
+        980,
+        990
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.99 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.32,
-      "unit": "Mds €",
+      "value": 320,
+      "unit": "M €",
       "yoy": "-3.0%",
       "history": [
-        0.23,
-        0.39,
-        0.33,
-        0.32
+        230,
+        390,
+        330,
+        320
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.32 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -256,9 +287,7 @@
       "is_generic": true,
       "is_short_history": false,
       "story_category": "Marché",
-      "_validation": "History completée avec données 2024-2023 (5.9%, 4.1%), is_short_history ajusté à false",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "History completée avec données 2024-2023 (5.9%, 4.1%), is_short_history ajusté à false"
     },
     {
       "short": "Gross Margin Expansion",
@@ -281,9 +310,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "History completée avec donnée 2024 (6.9%), données antérieures non disponibles dans source",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "History completée avec donnée 2024 (6.9%), données antérieures non disponibles dans source"
     }
   ],
   "ai_positioning": {
@@ -299,7 +326,8 @@
       "severity": 4,
       "score_rationale": "La société met en place des processus pour évaluer et gérer les risques liés à la cybersécurité, mais cela reste un risque important dans le contexte des systèmes d'information critiques.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés à la cybersécurité, notamment des attaques contre ses systèmes d'information. Un comité dédié évalue les risques cybernétiques et s'aligne sur les standards CIS et NIST."
+      "summary": "La société est exposée à des risques liés à la cybersécurité, notamment des attaques contre ses systèmes d'information. Un comité dédié évalue les risques cybernétiques et s'aligne sur les standards CIS et NIST.",
+      "score": 4
     },
     {
       "title": "Litiges",
@@ -307,7 +335,8 @@
       "severity": 3,
       "score_rationale": "La société est impliquée dans des litiges et des procédures judiciaires, ce qui peut avoir un impact sur ses résultats financiers.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés à des litiges et des procédures judiciaires, notamment des poursuites pour des questions de salaire et d'heure de travail."
+      "summary": "La société est exposée à des risques liés à des litiges et des procédures judiciaires, notamment des poursuites pour des questions de salaire et d'heure de travail.",
+      "score": 3
     },
     {
       "title": "Concurrence",
@@ -315,7 +344,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché concurrentiel, ce qui peut avoir un impact sur ses parts de marché et ses résultats financiers.",
       "trend": "up",
-      "summary": "La société est exposée à des risques liés à la concurrence, notamment la perte de parts de marché et la pression sur les prix."
+      "summary": "La société est exposée à des risques liés à la concurrence, notamment la perte de parts de marché et la pression sur les prix.",
+      "score": 4
     },
     {
       "title": "Économie",
@@ -323,7 +353,8 @@
       "severity": 5,
       "score_rationale": "La société est fortement exposée aux risques économiques. La demande de services de construction dépend de facteurs macroéconomiques critiques : taux d'intérêt, inflation, confiance des consommateurs, niveaux de stocks immobiliers et accessibilité du financement hypothécaire.",
       "trend": "up",
-      "summary": "La société est exposée à des risques liés à l'économie, notamment les fluctuations des taux d'intérêt, l'inflation et la confiance des consommateurs, ce qui peut avoir un impact sur la demande pour ses produits et services."
+      "summary": "La société est exposée à des risques liés à l'économie, notamment les fluctuations des taux d'intérêt, l'inflation et la confiance des consommateurs, ce qui peut avoir un impact sur la demande pour ses produits et services.",
+      "score": 5
     },
     {
       "title": "Réglementation",
@@ -331,7 +362,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations et des lois, ce qui peut avoir un impact sur ses opérations et ses résultats financiers.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés à la réglementation, notamment les changements dans les lois et les réglementations, ce qui peut avoir un impact sur ses opérations et ses résultats financiers."
+      "summary": "La société est exposée à des risques liés à la réglementation, notamment les changements dans les lois et les réglementations, ce qui peut avoir un impact sur ses opérations et ses résultats financiers.",
+      "score": 3
     }
   ],
   "governance": {
@@ -397,7 +429,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -589,23 +621,18 @@
         "history": [
           925.164,
           1434.927,
-          -828.507,
           587.492,
           1264.241,
           1983.355,
-          -1165.244,
           659.309,
           1351.409,
           2057.874,
-          -1289.992,
           692.9,
           1430.5,
           2191.1,
-          -1373.2,
           684.8,
           1445.1,
           2223.3,
-          -1382.4,
           660.5
         ],
         "history_periods": [
@@ -659,6 +686,12 @@
             "accession": "0001580905-26-000028",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (IBP)"
         ]
       },
       {
@@ -667,23 +700,18 @@
         "history": [
           203.911,
           191.435,
-          -269.204,
           217.434,
           69.94,
           203.402,
-          -261.149,
           218.69,
           255.226,
           339.759,
-          -427.175,
           399.9,
           380.3,
           406.2,
-          -858.8,
           298.7,
           305.2,
           333.3,
-          -615.3,
           474.3
         ],
         "history_periods": [
@@ -737,6 +765,12 @@
             "accession": "0001580905-26-000028",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (IBP)"
         ]
       },
       {
@@ -745,23 +779,18 @@
         "history": [
           20.278,
           27.898,
-          -22.043,
           10.362,
           24.512,
           35.212,
-          -24.44,
           14.949,
           28.33,
           46.902,
-          -28.581,
           21.8,
           42.6,
           66.7,
-          -42.5,
           20.2,
           35.8,
           55,
-          -40.4,
           16.6
         ],
         "history_periods": [
@@ -815,6 +844,9 @@
             "accession": "0001580905-26-000028",
             "end": "2026-03-31"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (IBP)"
         ]
       }
     ]
@@ -831,9 +863,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.528988+00:00",
     "fetched_at": "2026-05-21T01:44:37.528989+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.315Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.961Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ibp.json",
     "enrich_root": "v2-pipeline-enrich/ibp.json",

@@ -22,7 +22,7 @@
       "name_en": "Revenue per Customer Contact",
       "explanation": "Montant moyen généré par chaque client ayant passé une commande.",
       "value": 344490000,
-      "unit": "k$",
+      "unit": "K $",
       "yoy": "+15.6%",
       "type": "Demand",
       "nature": "Structurel",
@@ -170,26 +170,24 @@
       "is_generic": false,
       "is_short_history": true,
       "_validation": "name_fr amélioré; description enrichie pour spécifier les domaines exact extraits du 10-K Item 1 Business",
-      "signal_en": "User base stable",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "User base stable"
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.021,
-      "unit": "Mds $",
+      "value": 21,
+      "unit": "M $",
       "yoy": "+23.5%",
       "history": [
-        0.077,
-        0.064,
-        0.051,
-        0.033,
-        -0.103,
-        0.017,
-        0.017,
-        0.021
+        77,
+        64,
+        51,
+        33,
+        -103,
+        17,
+        17,
+        21
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -198,25 +196,30 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.025,
-      "unit": "Mds $",
+      "value": 25,
+      "unit": "M $",
       "yoy": "+25.0%",
       "history": [
-        0.089,
-        0.08,
-        0.06,
-        0.04,
-        -0.098,
-        0.028,
-        0.02,
-        0.025
+        89,
+        80,
+        60,
+        40,
+        -98,
+        28,
+        20,
+        25
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -225,8 +228,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -253,9 +261,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "_validation": "Valeur précisée de 11.0 à 11.012",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur précisée de 11.0 à 11.012"
     },
     {
       "short": "Customer Contacts",
@@ -280,9 +286,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur précisée de 48.4 à 48.415",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur précisée de 48.4 à 48.415"
     },
     {
       "short": "Revenue Mix US",
@@ -306,9 +310,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Valeur normalisée de 81% à 81",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur normalisée de 81% à 81"
     }
   ],
   "ai_positioning": {
@@ -340,7 +342,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -353,7 +355,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne la fermeture de sites en Allemagne (Eschenlohe, Putzbrunn) et l'arrêt de services clés comme le DMLS. Le langage indique un changement stratégique majeur avec des coûts d'exit, ce qui suggère un risque opérationnel élevé. Catégorie industrielle fortement pondérée.",
       "trend": "stable",
-      "summary": "La fermeture de sites de production en Allemagne perturbe les opérations locales et expose à des risques de transition."
+      "summary": "La fermeture de sites de production en Allemagne perturbe les opérations locales et expose à des risques de transition.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenaires externes",
@@ -361,7 +364,8 @@
       "severity": 4,
       "score_rationale": "Le texte indique que les services arrêtés en Allemagne seront désormais assurés via des partenaires manufacturiers. Cela accroît la dépendance à un réseau externe, avec un risque de perte de contrôle qualité et délais. Position centrale dans la stratégie révisée.",
       "trend": "up",
-      "summary": "Le recours accru à des partenaires externes pour compenser la fermeture d'usines augmente les risques d'exécution."
+      "summary": "Le recours accru à des partenaires externes pour compenser la fermeture d'usines augmente les risques d'exécution.",
+      "score": 4
     },
     {
       "title": "Concentration sur les grands clients",
@@ -369,7 +373,8 @@
       "severity": 3,
       "score_rationale": "La baisse du nombre de clients (-6,1 %) malgré une hausse du chiffre d'affaires est explicitement liée à une stratégie de commandes plus grandes. Cela augmente la dépendance à certains clients, un risque modéré mais croissant.",
       "trend": "up",
-      "summary": "La stratégie de cibler des commandes plus importantes réduit la diversité des clients et accroît le risque de concentration."
+      "summary": "La stratégie de cibler des commandes plus importantes réduit la diversité des clients et accroît le risque de concentration.",
+      "score": 3
     },
     {
       "title": "Pression sur la marge brute",
@@ -377,7 +382,8 @@
       "severity": 3,
       "score_rationale": "La marge brute est passée de 44,6 % à 44,5 % malgré une hausse du CA, car les coûts de production ont augmenté plus vite que les revenus (+6,6 % vs +6,4 %). Cela indique une pression marginale persistante.",
       "trend": "stable",
-      "summary": "Les coûts de production augmentent plus vite que les revenus, menaçant la rentabilité à long terme."
+      "summary": "Les coûts de production augmentent plus vite que les revenus, menaçant la rentabilité à long terme.",
+      "score": 3
     },
     {
       "title": "Investissements technologiques coûteux",
@@ -385,7 +391,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise prévoit des investissements substantiels en R&D et systèmes internes. Le texte insiste sur l'ampleur des dépenses futures, avec un risque d'excès d'investissement si la croissance ne suit pas.",
       "trend": "stable",
-      "summary": "Des investissements lourds en technologie et automatisation pourraient ne pas être rentabilisés si la demande ralentit."
+      "summary": "Des investissements lourds en technologie et automatisation pourraient ne pas être rentabilisés si la demande ralentit.",
+      "score": 4
     },
     {
       "title": "Exposition aux changes",
@@ -393,7 +400,8 @@
       "severity": 3,
       "score_rationale": "Le CA européen est sensible aux variations du euro et de la livre. Bien que bénéfique en 2025 (+3,5M$), cela crée une volatilité non maîtrisée. Mention répétée dans les résultats.",
       "trend": "stable",
-      "summary": "Les fluctuations des devises peuvent impacter positivement ou négativement le chiffre d'affaires européen."
+      "summary": "Les fluctuations des devises peuvent impacter positivement ou négativement le chiffre d'affaires européen.",
+      "score": 3
     },
     {
       "title": "Coûts salariaux en hausse",
@@ -401,7 +409,8 @@
       "severity": 4,
       "score_rationale": "Les coûts liés aux salariés (incitations, heures supplémentaires, santé) ont augmenté fortement en 2025. Le texte souligne une pression structurelle pour attirer les talents, un risque récurrent et élevé.",
       "trend": "up",
-      "summary": "La hausse des coûts salariaux, notamment liés aux primes et à la santé, pèse sur la structure des coûts."
+      "summary": "La hausse des coûts salariaux, notamment liés aux primes et à la santé, pèse sur la structure des coûts.",
+      "score": 4
     }
   ],
   "governance": {
@@ -471,6 +480,49 @@
       "date": "2026-05-02"
     }
   ],
+  "revenue_by_segment": {
+    "unit": "$B",
+    "source_date": "2025-12-31",
+    "source": "10-K 2025",
+    "slices": [
+      {
+        "label": "Injection Molding",
+        "value": 0.192,
+        "unit": "$B",
+        "share_pct": 36,
+        "label_en": "Injection Molding"
+      },
+      {
+        "label": "CNC Machining",
+        "value": 0.243,
+        "unit": "$B",
+        "share_pct": 45.6,
+        "label_en": "CNC Machining"
+      },
+      {
+        "label": "3D Printing",
+        "value": 0.08,
+        "unit": "$B",
+        "share_pct": 15,
+        "label_en": "3D Printing"
+      },
+      {
+        "label": "Sheet Metal",
+        "value": 0.017,
+        "unit": "$B",
+        "share_pct": 3.2,
+        "label_en": "Sheet Metal"
+      },
+      {
+        "label": "Other",
+        "value": 0.001,
+        "unit": "$B",
+        "share_pct": 0.2,
+        "label_en": "Other"
+      }
+    ],
+    "total": 0.53
+  },
   "revenue_by_geography": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -561,49 +613,6 @@
     }
   ],
   "_peers_computed_at": "2026-05-10T09:05:43.168Z",
-  "revenue_by_segment": {
-    "unit": "$B",
-    "source_date": "2025-12-31",
-    "source": "10-K 2025",
-    "slices": [
-      {
-        "label": "Injection Molding",
-        "value": 0.192,
-        "unit": "$B",
-        "share_pct": 36,
-        "label_en": "Injection Molding"
-      },
-      {
-        "label": "CNC Machining",
-        "value": 0.243,
-        "unit": "$B",
-        "share_pct": 45.6,
-        "label_en": "CNC Machining"
-      },
-      {
-        "label": "3D Printing",
-        "value": 0.08,
-        "unit": "$B",
-        "share_pct": 15,
-        "label_en": "3D Printing"
-      },
-      {
-        "label": "Sheet Metal",
-        "value": 0.017,
-        "unit": "$B",
-        "share_pct": 3.2,
-        "label_en": "Sheet Metal"
-      },
-      {
-        "label": "Other",
-        "value": 0.001,
-        "unit": "$B",
-        "share_pct": 0.2,
-        "label_en": "Other"
-      }
-    ],
-    "total": 0.53
-  },
   "subsector_fr": "Services informatiques",
   "enrich_description": {
     "ticker": "PRLB",
@@ -712,9 +721,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.299285+00:00",
     "fetched_at": "2026-05-21T02:17:14.299286+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.830Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.837Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/prlb.json",
     "enrich_root": "v2-pipeline-enrich/prlb.json",

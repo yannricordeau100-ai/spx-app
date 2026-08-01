@@ -20,24 +20,29 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-28.6%",
       "history": [
-        0.24,
-        0.21,
-        0.14,
-        0.1
+        240,
+        210,
+        140,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.1 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -56,10 +61,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -73,7 +82,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.6,
         0.6,
@@ -86,7 +95,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -101,7 +110,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         0.0154,
@@ -114,7 +123,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -129,7 +138,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         76.8,
@@ -142,7 +151,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -158,7 +167,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.78,
@@ -171,7 +180,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -209,7 +218,8 @@
       "severity": 3,
       "score_rationale": "Risque mentionné implicitement dans Item 50-52 : la gestion des risques n'est pas formellement centralisée mais distribuée par département. Langage modéré ('adequately proven') mais reconnaissance répétée de la nécessité de surveillance continue. Tendance stable mais structure organisationnelle décentralisée crée vulnérabilité potentielle.",
       "trend": "stable",
-      "summary": "La gestion des risques opérationnels de Ramada repose sur une approche décentralisée où chaque département identifie et gère ses propres risques selon des critères définis. Bien que le Conseil affirme l'adéquation du modèle, l'absence de département formel de gestion des risques et la dépendance à la conscience des managers opérationnels créent un risque de couverture inégale ou de défaillances dans la détection des risques critiques."
+      "summary": "La gestion des risques opérationnels de Ramada repose sur une approche décentralisée où chaque département identifie et gère ses propres risques selon des critères définis. Bien que le Conseil affirme l'adéquation du modèle, l'absence de département formel de gestion des risques et la dépendance à la conscience des managers opérationnels créent un risque de couverture inégale ou de défaillances dans la détection des risques critiques.",
+      "score": 3
     },
     {
       "title": "Conformité réglementaire complexe et évolutive",
@@ -217,7 +227,8 @@
       "severity": 4,
       "score_rationale": "Item 50-54 détaille l'exposition à plusieurs cadres réglementaires (Loi 140/2015, Décret-Loi 109-E/2021, CBAM). Langage d'intensité modérée-élevée ('permanent monitoring', 'continuous'). Tendance up : nouvelles obligations (CBAM, whistleblowing) ajoutées en 2023. Poids catégorie élevé pour groupe coté.",
       "trend": "up",
-      "summary": "Ramada est soumise à une régulation multi-niveaux incluant les exigences de gouvernance portugaises (rotation des auditeurs, rapports de conformité), la directive whistleblowing (Décret-Loi 109-E/2021) et les nouvelles obligations environnementales (Carbon Border Adjustment Mechanism). Le groupe doit adapter continuellement ses processus de conformité, avec risque de non-conformité ou de coûts de mise en conformité élevés."
+      "summary": "Ramada est soumise à une régulation multi-niveaux incluant les exigences de gouvernance portugaises (rotation des auditeurs, rapports de conformité), la directive whistleblowing (Décret-Loi 109-E/2021) et les nouvelles obligations environnementales (Carbon Border Adjustment Mechanism). Le groupe doit adapter continuellement ses processus de conformité, avec risque de non-conformité ou de coûts de mise en conformité élevés.",
+      "score": 4
     },
     {
       "title": "Risque de perte d'indépendance de l'auditeur externe",
@@ -225,7 +236,8 @@
       "severity": 3,
       "score_rationale": "Item 42-46 : Deloitte fournit 63% de services non-audit (210k€ sur 333k€ en 2023). Langage d'intensité modérée ('safeguarding independence is key criterion'). Tendance stable mais concentration de services auprès d'un seul auditeur. Poids catégorie élevé pour société cotée.",
       "trend": "stable",
-      "summary": "Deloitte & Associados cumule les fonctions d'auditeur externe et statutaire depuis 2021, tout en fournissant des services additionnels massifs (due diligence financière/fiscale, support CBAM, identification d'incitations financières) représentant 63% de sa rémunération. Bien que le Conseil d'audit affirme que ces services ne compromettent pas l'indépendance, cette concentration crée un risque réputationnel et de perception de conflits d'intérêts."
+      "summary": "Deloitte & Associados cumule les fonctions d'auditeur externe et statutaire depuis 2021, tout en fournissant des services additionnels massifs (due diligence financière/fiscale, support CBAM, identification d'incitations financières) représentant 63% de sa rémunération. Bien que le Conseil d'audit affirme que ces services ne compromettent pas l'indépendance, cette concentration crée un risque réputationnel et de perception de conflits d'intérêts.",
+      "score": 3
     },
     {
       "title": "Absence de politique formelle de rotation de l'auditeur externe",
@@ -233,7 +245,8 @@
       "severity": 3,
       "score_rationale": "Item 44 : Ramada reconnaît explicitement ne pas avoir de politique formelle de rotation malgré les exigences légales post-2016. Langage justificatif ('not common practice', 'never identified loss of independence') mais révèle non-conformité potentielle. Tendance stable mais risque de critique réglementaire.",
       "trend": "stable",
-      "summary": "Bien que la loi portugaise (Association des Auditeurs Statutaires, 2016) impose une rotation pour les sociétés cotées, Ramada a choisi de ne pas établir de politique formelle, s'appuyant sur le monitoring annuel de l'indépendance. Cette approche crée un risque de non-conformité réglementaire et de critique des autorités de marché (CMVM)."
+      "summary": "Bien que la loi portugaise (Association des Auditeurs Statutaires, 2016) impose une rotation pour les sociétés cotées, Ramada a choisi de ne pas établir de politique formelle, s'appuyant sur le monitoring annuel de l'indépendance. Cette approche crée un risque de non-conformité réglementaire et de critique des autorités de marché (CMVM).",
+      "score": 3
     },
     {
       "title": "Gestion des risques environnementaux et sociaux émergents",
@@ -241,7 +254,8 @@
       "severity": 3,
       "score_rationale": "Item 50, 54 : Politiques Human Rights et Community Participation adoptées mai 2023 (récentes). Langage d'intensité modérée ('increasingly decisive role', 'increasing focus'). Tendance up : nouvelles politiques et obligations CBAM. Poids catégorie croissant pour groupe industriel.",
       "trend": "up",
-      "summary": "Ramada a formalisé en 2023 ses politiques de droits humains et de participation communautaire, et doit se conformer aux obligations du mécanisme d'ajustement carbone (CBAM). Le groupe reconnaît que la gestion environnementale et la responsabilité sociale jouent un rôle 'de plus en plus décisif', créant un risque de non-conformité ou de coûts de transition élevés si les processus de mise en œuvre sont inadéquats."
+      "summary": "Ramada a formalisé en 2023 ses politiques de droits humains et de participation communautaire, et doit se conformer aux obligations du mécanisme d'ajustement carbone (CBAM). Le groupe reconnaît que la gestion environnementale et la responsabilité sociale jouent un rôle 'de plus en plus décisif', créant un risque de non-conformité ou de coûts de transition élevés si les processus de mise en œuvre sont inadéquats.",
+      "score": 3
     },
     {
       "title": "Risque de fraude et d'irrégularités non détectées",
@@ -249,7 +263,8 @@
       "severity": 2,
       "score_rationale": "Item 49 : Mécanisme de whistleblowing en place mais aucun signalement en 2023. Langage neutre ('no reports received'). Tendance stable mais absence de signalements peut indiquer sous-reporting ou culture insuffisante. Poids catégorie modéré.",
       "trend": "stable",
-      "summary": "Ramada dispose d'un canal de signalement des irrégularités (courrier confidentiel et plateforme en ligne) conforme à la recommandation IPCG II.2.4, mais n'a reçu aucun signalement en 2023. Le risque réside dans une possible sous-détection de fraudes ou d'irrégularités dues à une culture insuffisante de dénonciation ou à des barrières psychologiques à la signalisation."
+      "summary": "Ramada dispose d'un canal de signalement des irrégularités (courrier confidentiel et plateforme en ligne) conforme à la recommandation IPCG II.2.4, mais n'a reçu aucun signalement en 2023. Le risque réside dans une possible sous-détection de fraudes ou d'irrégularités dues à une culture insuffisante de dénonciation ou à des barrières psychologiques à la signalisation.",
+      "score": 2
     },
     {
       "title": "Dépendance à la continuité de l'équipe de direction",
@@ -257,7 +272,8 @@
       "severity": 2,
       "score_rationale": "Item 50-54 : Gestion des risques repose fortement sur 'operational managers' et 'management teams' sans mention de succession planning. Langage implicite de dépendance ('managers identify risk factors'). Tendance stable mais risque structurel non adressé. Poids catégorie modéré pour groupe décentralisé.",
       "trend": "stable",
-      "summary": "Le modèle de gestion des risques décentralisé de Ramada dépend fortement de la compétence et de la conscience des managers opérationnels à tous les niveaux. L'absence de mention d'un plan de succession ou de formation systématique crée un risque de dégradation de la qualité de la gestion des risques en cas de turnover managérial."
+      "summary": "Le modèle de gestion des risques décentralisé de Ramada dépend fortement de la compétence et de la conscience des managers opérationnels à tous les niveaux. L'absence de mention d'un plan de succession ou de formation systématique crée un risque de dégradation de la qualité de la gestion des risques en cas de turnover managérial.",
+      "score": 2
     },
     {
       "title": "Exposition à la volatilité des prix des matières premières",
@@ -265,7 +281,8 @@
       "severity": 3,
       "score_rationale": "Item 53 : Risque de variabilité des prix des matières premières explicitement identifié comme facteur de risque de marché. Langage factuel mais sans détail sur exposition spécifique. Tendance stable mais pertinent pour groupe industriel. Poids catégorie élevé pour activités opérationnelles.",
       "trend": "stable",
-      "summary": "Ramada identifie la volatilité des prix des matières premières comme un facteur de risque de marché significatif affectant ses opérations. Le groupe ne détaille pas ses stratégies de couverture ou son exposition spécifique, créant une incertitude sur la capacité à absorber les chocs de prix des intrants critiques."
+      "summary": "Ramada identifie la volatilité des prix des matières premières comme un facteur de risque de marché significatif affectant ses opérations. Le groupe ne détaille pas ses stratégies de couverture ou son exposition spécifique, créant une incertitude sur la capacité à absorber les chocs de prix des intrants critiques.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:55:26.410353+00:00",
@@ -294,11 +311,11 @@
   "company_description": "Ramada Investimentos e Industria, S.A., together with its subsidiaries, engages in the real estate business in Portugal. It owns and leases forested lands; and manages real estate properties and investments. The company was formerly known as F. Ramada Investimentos, SGPS, S.A. and changed its name to Ramada Investimentos e Industria, S.A. in May 2018. Ramada Investimentos e Industria, S.A. was founded in 1935 and is headquartered in Porto, Portugal.",
   "last_data_date": "2025-12-31",
   "_dividends_extracted_at": "2026-05-09T20:19:40Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:47:02Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:35.050Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.063Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ram.ls.json",
     "enrich_root": "v2-pipeline-enrich/ram.ls.json",

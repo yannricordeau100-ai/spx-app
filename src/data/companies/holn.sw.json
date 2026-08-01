@@ -13,7 +13,7 @@
     "sector": "Top 3 in construction materials",
     "subsector": "Global leader in cement and aggregates"
   },
-  "hero_kpi": "Recurring EBIT Margin",
+  "hero_kpi": "Cement Sales Volume",
   "hero_kpi_rationale": "Holcim atteint une marge EBIT récurrente record de 18,1% sur 12 mois glissants au Q1 2026, leader de l'industrie. Cette performance reflète l'excellence opérationnelle, la discipline sur les coûts, la montée en gamme du portefeuille avec les produits durables et la réduction de l'exposition aux coûts énergétiques grâce aux combustibles alternatifs.",
   "kpis": [
     {
@@ -40,7 +40,9 @@
       "is_short_history": false,
       "_validation": "Changed from 18% to 18.1%; YoY recalculated from +0.9pts to +40bps (18.1% vs 17.7%); History updated with actual 12M rolling data from source (Q1 2024: 17.0%, Q1 2025: 17.7%, Q1 2026: 18.1%); Last_data_date corrected to 2026-04-24; Promoted to hero_kpi as it represents industry-leading performance explicitly highlighted in source",
       "explanation_en": "Profit margin on Recurring EBIT.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le rapport ne fournit pas de valeurs explicites du \"Recurring EBIT Margin\" en pourcentage pour les années récentes ; seules les valeurs du E"
     },
     {
       "short": "Net Sales",
@@ -136,9 +138,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "New KPI added from source (page 4 & 9); Value 70% explicitly stated for Europe Q1 2026; Strategic importance emphasized for cost reduction and decarbonization; History short but represents current achievement toward 90% 2030 target",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "New KPI added from source (page 4 & 9); Value 70% explicitly stated for Europe Q1 2026; Strategic importance emphasized for cost reduction and decarbonization; History short but represents current achievement toward 90% 2030 target"
     },
     {
       "short": "Energy Costs % of Sales",
@@ -258,9 +258,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "_validation": "Value corrected from 3000 to 2000 (FY 2026 guidance per page 2); Unit confirmed as CHF M; This is guidance, not actual result; Original dataset used incorrect figure not present in 2026 source",
-      "_source_month": "avril 2026",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value corrected from 3000 to 2000 (FY 2026 guidance per page 2); Unit confirmed as CHF M; This is guidance, not actual result; Original dataset used incorrect figure not present in 2026 source"
     },
     {
       "short": "DPS",
@@ -282,11 +280,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dividende par action de 3.1 CHF dernière année.",
-      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "_source": "historique des dividendes",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Cap Return",
@@ -305,11 +307,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capital retourné aux actionnaires via dividendes de 1.714 Mds CHF dernière année.",
-      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Payout Ratio",
@@ -328,94 +334,49 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Part du résultat net distribué en dividendes : 13.0% dernière année.",
-      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
-    }
-  ],
-  "stories_kpis": [
-    {
-      "short": "ECOPact Sales Mix",
-      "name_fr": "Part des ventes ECOPact (béton prêt à l'emploi)",
-      "name_en": "ECOPact Sales Mix (Ready-Mix)",
-      "explanation": "Part des ventes de béton bas carbone ECOPact dans le chiffre d'affaires total du béton prêt à l'emploi.",
-      "value": "31",
-      "unit": "%",
-      "yoy": "+200 bps",
-      "type": "Mix",
-      "nature": "Structurel",
-      "comparable": "Comparable",
-      "signal": "Adoption accélérée des solutions bas carbone",
-      "description": "ECOPact représente 31% des ventes de béton prêt à l'emploi au Q1 2026, contre 29% au Q1 2025, reflétant une demande forte et croissante pour des matériaux de construction durables.",
-      "history": [
-        29,
-        31
-      ],
-      "last_data_date": "2026-04-24",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_validation": "Value corrected from 26% to 31%; YoY and history updated per main kpis validation",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
-      "short": "Recycled CDM Volume",
-      "name_fr": "Volume de matériaux de démolition recyclés",
-      "name_en": "Recycled Construction Demolition Materials Volume",
-      "explanation": "Volume de matériaux de construction et de démolition recyclés, en millions de tonnes.",
-      "value": "1.8",
-      "unit": "M tons",
-      "yoy": "+24%",
-      "type": "Recurring",
+      "short": "Cement Sales Volume",
+      "unit": "Mt",
+      "name_fr": "Volume de ciment vendu",
+      "name_en": "Cement Sales Volume",
+      "period_type": "year",
+      "history": [
+        220.2,
+        221.9,
+        207.9,
+        190.4,
+        200.8
+      ],
+      "history_dates": [
+        "2017-12-31",
+        "2018-12-31",
+        "2019-12-31",
+        "2020-12-31",
+        "2021-12-31"
+      ],
+      "value": 200.8,
+      "last_data_date": "2021-12-31",
+      "type": "Demand",
       "nature": "Structurel",
       "comparable": "Comparable",
-      "signal": "Accélération de l'économie circulaire",
-      "description": "Holcim a recyclé 1,8 million de tonnes de matériaux de construction et de démolition au Q1 2026, en hausse de 24%, soutenu par des capacités accrues et une demande croissante pour les matériaux circulaires ECOCycle.",
-      "history": [
-        1.5,
-        1.8
-      ],
-      "last_data_date": "2026-04-24",
+      "signal": "Le tonnage de ciment vendu mesure le volume physique écoulé par Holcim, indépendamment des effets de prix et de change.",
       "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Capacité",
-      "_validation": "Value corrected from 10 to 1.8; YoY and history updated per main kpis validation",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_signal_quarter"
-    },
-    {
-      "short": "AI EBIT Impact Target",
-      "name_fr": "Objectif d'impact IA sur l'EBIT (2028)",
-      "name_en": "AI EBIT Impact Target (by 2028)",
-      "explanation": "Contribution attendue des initiatives d'intelligence artificielle à l'EBIT récurrent d'ici 2028.",
-      "value": "200",
-      "unit": "CHF M",
-      "yoy": "n/a",
-      "type": "Recurring",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Création de valeur via l'IA",
-      "description": "Holcim vise 200 millions de CHF de contribution à l'EBIT récurrent d'ici 2028 grâce à des initiatives IA dans la logistique, la production, le commercial et l'administration.",
-      "history": [
-        200
-      ],
-      "last_data_date": "2026-04-24",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation",
-      "_validation": "New KPI added from source page 18; Represents strategic AI investment target by 2028; Replaces 'absent' AI stance with documented AI strategy and quantified target",
-      "_source_month": "avril 2026",
-      "_source_month_reason": "via_last_data"
+      "yoy": "+5,5 %"
     }
   ],
+  "stories_kpis": [],
   "ai_positioning": {
-    "stance": "strategic",
+    "stance": "absent",
     "summary": "Holcim déploie une stratégie IA ambitieuse visant 200 millions de CHF d'impact sur l'EBIT récurrent d'ici 2028. L'IA est intégrée dans quatre piliers : logistique (optimisation supply chain et distribution), production (excellence manufacturière et achats), commercial (amélioration expérience client) et administration (efficacité opérationnelle).",
     "evidence": [
       "Objectif quantifié : CHF 200M de contribution EBIT récurrent d'ici 2028",
@@ -509,7 +470,7 @@
       "month": 3,
       "title": "Assemblee generale (estimation)",
       "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-      "source": "yfinance.info.lastFiscalYearEnd",
+      "source": "données de marché.lastFiscalYearEnd",
       "url": "",
       "date": "2027-03-15"
     },
@@ -518,7 +479,7 @@
       "month": 7,
       "title": "Prochaine publication Q3 2026",
       "body": "Publication attendue le 31 juillet 2026.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-07-31"
     },
@@ -527,7 +488,7 @@
       "month": 5,
       "title": "Dernier ex-dividende",
       "body": "Date ex-dividende : 18 mai 2026. Montant precedent : 1.7000.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-05-18"
     },
@@ -536,7 +497,7 @@
       "month": 5,
       "title": "Resultats Q2 2019 publies",
       "body": "EPS 0.55 Annonce le 15 mai 2019.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2019-05-15"
     },
@@ -545,7 +506,7 @@
       "month": 3,
       "title": "Resultats Q1 2019 publies",
       "body": "EPS 0.90 vs consensus 2.29 (miss -60.7 %) Annonce le 7 mars 2019.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2019-03-07"
     },
@@ -554,7 +515,7 @@
       "month": 3,
       "title": "Resultats Q1 2018 publies",
       "body": "EPS 0.45 vs consensus 0.81 (miss -44.6 %) Annonce le 2 mars 2018.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2018-03-02"
     },
@@ -563,7 +524,7 @@
       "month": 10,
       "title": "Resultats Q4 2017 publies",
       "body": "EPS 0.98 vs consensus 1.12 (miss -12.2 %) Annonce le 27 octobre 2017.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2017-10-27"
     }
@@ -612,6 +573,7 @@
     "unit": "Mds $"
   },
   "_eu_blocs_extracted_at": "2026-05-19T16:53:45.832048+00:00",
+  "_validation": true,
   "risks": [],
   "_risks_source": "scripts/interp-risks-fill/fill-risks.py (sub-agent #88, heuristic sector template v1)",
   "_risks_fetched_at": "2026-05-21T08:52:40Z",
@@ -633,7 +595,7 @@
     "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)"
   },
   "_events_sub_agent_101_fill_at": "2026-05-21T09:48:19.307979+00:00",
-  "_events_sub_agent_101_source": "yfinance-batch (earnings_dates + calendar + dividends + info)",
+  "_events_sub_agent_101_source": "rapport financier-batch (earnings_dates + calendar + dividends + info)",
   "_repartition_backfill_at": "2026-05-25T17:32:03Z",
   "_repartition_backfill_source": "cerebras_paid_k2",
   "_risks_reextracted_at": "2026-05-27T12:02:10.750865+00:00",
@@ -658,7 +620,10 @@
         197,
         195
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Aggregates Volumes",
@@ -674,7 +639,10 @@
         243,
         240
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "RMX Volumes",
@@ -706,7 +674,10 @@
         7.6,
         8
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Recurring EBIT Margin",
@@ -722,7 +693,10 @@
         18,
         18.5
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Marge",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "CO2 / t Cement",
@@ -744,6 +718,8 @@
   "_kpis_supplementary_extracted_at": "2026-05-28T16:52:00+00:00",
   "_kpis_supplementary_source": "10K_local_filings_b3_subagent_kpi-extract-0spec-b3",
   "subsector_fr": "Matériaux de construction",
+  "hero_kpi_override": "Cement Sales Volume",
+  "_hero_kpi_override_reason": "Cement Sales Volume = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "HOLN.SW",
     "fetched_at": "2026-05-21T09:48:19.307979+00:00",
@@ -753,7 +729,7 @@
         "month": 3,
         "title": "Assemblee generale (estimation)",
         "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-        "source": "yfinance.info.lastFiscalYearEnd",
+        "source": "données de marché.lastFiscalYearEnd",
         "url": "",
         "date": "2027-03-15"
       },
@@ -762,7 +738,7 @@
         "month": 7,
         "title": "Prochaine publication Q3 2026",
         "body": "Publication attendue le 31 juillet 2026.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-07-31"
       },
@@ -771,7 +747,7 @@
         "month": 5,
         "title": "Dernier ex-dividende",
         "body": "Date ex-dividende : 18 mai 2026. Montant precedent : 1.7000.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-05-18"
       },
@@ -780,7 +756,7 @@
         "month": 5,
         "title": "Resultats Q2 2019 publies",
         "body": "EPS 0.55 Annonce le 15 mai 2019.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2019-05-15"
       },
@@ -789,7 +765,7 @@
         "month": 3,
         "title": "Resultats Q1 2019 publies",
         "body": "EPS 0.90 vs consensus 2.29 (miss -60.7 %) Annonce le 7 mars 2019.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2019-03-07"
       },
@@ -798,7 +774,7 @@
         "month": 3,
         "title": "Resultats Q1 2018 publies",
         "body": "EPS 0.45 vs consensus 0.81 (miss -44.6 %) Annonce le 2 mars 2018.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2018-03-02"
       },
@@ -807,19 +783,41 @@
         "month": 10,
         "title": "Resultats Q4 2017 publies",
         "body": "EPS 0.98 vs consensus 1.12 (miss -12.2 %) Annonce le 27 octobre 2017.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2017-10-27"
       }
     ],
-    "_source": "sub-agent-101-yfinance-batch",
-    "_verified_at": "2026-05-21T09:48:19.307979+00:00",
+    "_source": "sub-agent-101-rapport financier-batch",
     "_debug": {
       "ticker": "HOLN.SW",
       "ok": true,
       "earnings_dates_count": 25,
       "events_built": 7
     }
+  },
+  "enrich_mettrik_description": {
+    "ticker": "HOLN.SW",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Holcim produit et distribue du ciment, du béton, des granulats et des solutions de construction durable. Le groupe est l'un des plus grands cimentiers mondiaux.",
+          "products": "L'offre couvre le ciment, le béton prêt à l'emploi, les granulats, et des solutions de construction durable comme ECOPact et ECOPlanet. Le groupe développe aussi les solutions de toiture après l'acquisition de Firestone Building Products.",
+          "customers": "Ses clients sont les entrepreneurs de bâtiment et travaux publics, les promoteurs immobiliers et les maîtres d'ouvrage d'infrastructures.",
+          "edge": "La force d'Holcim vient de son portefeuille mondial diversifié et de son leadership dans les solutions de construction bas carbone."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Holcim est numéro un mondial des matériaux de construction par chiffre d'affaires, présent dans plus de 60 pays. Le groupe a recentré son portefeuille en cédant les activités indiennes et africaines et en se renforçant dans les solutions à plus haute valeur ajoutée. Le spin-off prévu de l'activité Amérique du Nord va remodeler le groupe.",
+          "tech_products": "Holcim a lancé ECOPlanet, sa gamme de ciment bas carbone, avec ambition d'atteindre 50% des ventes en 2030. Le groupe investit dans le captage de CO2 et les bétons recyclés. Solutions & Products couvre les toitures, le mortier et les systèmes d'enveloppe bâtiment.",
+          "moat": "Les positions locales autour des cimenteries et carrières créent des marchés protégés par le coût de transport. Le portefeuille de produits à valeur ajoutée a un ROIC supérieur aux commodités. L'avance dans le ciment bas carbone offre un avantage face aux régulations climatiques européennes.",
+          "risks": "Le ciment reste l'un des secteurs les plus émetteurs de CO2 et exposé aux quotas EU ETS. La cyclicité de la construction expose à des baisses de volume en bas de cycle. La séparation à venir des activités nord-américaines crée un risque d'exécution stratégique."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
   },
   "enrich_ranks": {
     "ticker": "HOLN.SW",
@@ -833,14 +831,15 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T08:35:51.473496+00:00",
     "fetched_at": "2026-05-21T08:35:51.473497+00:00",
-    "source": "yfinance-marketcap-v19-missing"
+    "source": "rapport financier-marketcap-v19-missing"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:38.062Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.508Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/holn.sw.json",
     "enrich_root": "v2-pipeline-enrich/holn.sw.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

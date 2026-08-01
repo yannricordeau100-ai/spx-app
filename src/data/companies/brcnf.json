@@ -1,6 +1,6 @@
 {
   "ticker": "BRCNF",
-  "name": "Burcon Nutrascience Corporation",
+  "name": "Burcon Nutrascience",
   "sector": "Santé",
   "subsector": "Biotechnologie",
   "tagline": "Developing plant-based protein technologies and ingredients",
@@ -40,7 +40,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Recurring base stable"
+      "signal_en": "Recurring base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -59,77 +63,96 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+200.0%",
       "history": [
-        0.03,
-        0.01,
-        0.01,
-        0.03
+        30,
+        10,
+        10,
+        30
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.03 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
         0,
-        0.01,
-        0.01,
-        0.02
+        10,
+        10,
+        20
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "",
       "history": [
-        0.01,
+        10,
         0,
         0,
-        0.01
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -173,7 +196,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans la section 'Risk Factors' avec un langage fort sur la dépendance à Merit Foods, dont la performance impacte directement la commercialisation. Il s'agit d'un risque structurel récurrent, central aux opérations.",
       "trend": "stable",
-      "summary": "Burcon dépend fortement de Merit Functional Foods, dans laquelle elle détient 31,6 %, pour la production commerciale de ses protéines de pois et de canola. Tout retard ou problème opérationnel chez Merit affecte directement la capacité de Burcon à générer des revenus."
+      "summary": "Burcon dépend fortement de Merit Functional Foods, dans laquelle elle détient 31,6 %, pour la production commerciale de ses protéines de pois et de canola. Tout retard ou problème opérationnel chez Merit affecte directement la capacité de Burcon à générer des revenus.",
+      "score": 4
     },
     {
       "title": "Concurrence intense sur le marché des protéines végétales",
@@ -181,7 +205,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement cité sous 'Significant Competition' avec un langage d'intensité élevée. Le secteur est en expansion rapide, ce qui accentue la pression concurrentielle. Catégorie clé pour le positionnement stratégique.",
       "trend": "stable",
-      "summary": "Burcon fait face à une concurrence accrue de la part d'entreprises développant des protéines végétales, notamment pour les applications alimentaires. Cette concurrence porte sur le prix, la qualité, la disponibilité et l'innovation technologique, ce qui peut limiter la part de marché de Burcon."
+      "summary": "Burcon fait face à une concurrence accrue de la part d'entreprises développant des protéines végétales, notamment pour les applications alimentaires. Cette concurrence porte sur le prix, la qualité, la disponibilité et l'innovation technologique, ce qui peut limiter la part de marché de Burcon.",
+      "score": 4
     },
     {
       "title": "Protection coûteuse des droits de propriété intellectuelle",
@@ -189,7 +214,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en tête de la section 'Risk Factors' et décrit comme 'expensive' et critique. Il est répété dans les hypothèses et perspectives. Poids élevé car l'IP est au cœur du modèle économique.",
       "trend": "stable",
-      "summary": "Burcon s'appuie sur un portefeuille de brevets pour protéger ses technologies d'extraction et de purification des protéines végétales. La défense de ces droits est coûteuse et sujette à des litiges, notamment dans des juridictions étrangères où la protection est incertaine."
+      "summary": "Burcon s'appuie sur un portefeuille de brevets pour protéger ses technologies d'extraction et de purification des protéines végétales. La défense de ces droits est coûteuse et sujette à des litiges, notamment dans des juridictions étrangères où la protection est incertaine.",
+      "score": 5
     },
     {
       "title": "Acceptation limitée par les consommateurs",
@@ -197,7 +223,8 @@
       "severity": 4,
       "score_rationale": "Mentionné sous 'Consumer Acceptance' avec un langage préoccupé. L'adoption dépend de facteurs comportementaux persistants. Risque structurel pour toute innovation alimentaire, donc poids élevé.",
       "trend": "stable",
-      "summary": "Le succès commercial des protéines de Burcon dépend de l'acceptation par les consommateurs et les fabricants d'aliments. Des préférences pour les protéines animales, des préoccupations sensorielles (goût, texture) ou des perceptions négatives des aliments transformés peuvent freiner l'adoption."
+      "summary": "Le succès commercial des protéines de Burcon dépend de l'acceptation par les consommateurs et les fabricants d'aliments. Des préférences pour les protéines animales, des préoccupations sensorielles (goût, texture) ou des perceptions négatives des aliments transformés peuvent freiner l'adoption.",
+      "score": 4
     },
     {
       "title": "Retards dans le développement de nouveaux produits",
@@ -205,7 +232,8 @@
       "severity": 4,
       "score_rationale": "Le document souligne explicitement la longueur des délais ('can be long') et les risques de retards. Langage modéré mais risque récurrent. Impact direct sur la monétisation des innovations.",
       "trend": "stable",
-      "summary": "Le développement et la commercialisation de nouveaux produits alimentaires basés sur les protéines de Burcon peuvent prendre plusieurs années en raison des tests, des validations techniques et des besoins d'adaptation aux formulations des clients, retardant ainsi la génération de revenus."
+      "summary": "Le développement et la commercialisation de nouveaux produits alimentaires basés sur les protéines de Burcon peuvent prendre plusieurs années en raison des tests, des validations techniques et des besoins d'adaptation aux formulations des clients, retardant ainsi la génération de revenus.",
+      "score": 4
     },
     {
       "title": "Dépendance aux approbations réglementaires",
@@ -213,7 +241,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement identifié sous 'Government Regulatory Approval'. L'absence d'approbation empêche la vente. Langage ferme, tendance stable, poids élevé pour l'accès au marché.",
       "trend": "stable",
-      "summary": "Pour commercialiser ses protéines dans divers pays, Burcon doit obtenir des approbations réglementaires (ex. GRAS aux États-Unis, autorisations en Europe). Tout retard ou refus d'approbation peut bloquer l'accès à des marchés clés."
+      "summary": "Pour commercialiser ses protéines dans divers pays, Burcon doit obtenir des approbations réglementaires (ex. GRAS aux États-Unis, autorisations en Europe). Tout retard ou refus d'approbation peut bloquer l'accès à des marchés clés.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et risque de violation de données",
@@ -221,7 +250,8 @@
       "severity": 3,
       "score_rationale": "Mentionné brièvement à la fin des risques, avec un langage modéré. Moins central que l'IP ou la production, mais en hausse comme risque sectoriel. Catégorie en croissance.",
       "trend": "stable",
-      "summary": "Comme toute entreprise technologique, Burcon est exposée aux cyberattaques pouvant compromettre des données sensibles, notamment ses secrets industriels, ses données de recherche ou ses informations commerciales confidentielles."
+      "summary": "Comme toute entreprise technologique, Burcon est exposée aux cyberattaques pouvant compromettre des données sensibles, notamment ses secrets industriels, ses données de recherche ou ses informations commerciales confidentielles.",
+      "score": 3
     },
     {
       "title": "Dépendance à des fournisseurs de matières premières",
@@ -229,7 +259,8 @@
       "severity": 4,
       "score_rationale": "Évoqué indirectement via 'availability of input materials' dans les risques. Langage modéré mais impact potentiel élevé. Répété dans les hypothèses, donc récurrent.",
       "trend": "stable",
-      "summary": "La disponibilité et la qualité des matières premières (pois, canola, tournesol) sont critiques pour la production. Des pénuries, des variations de qualité ou des hausses de prix liées au climat ou aux marchés agricoles peuvent perturber la chaîne d'approvisionnement."
+      "summary": "La disponibilité et la qualité des matières premières (pois, canola, tournesol) sont critiques pour la production. Des pénuries, des variations de qualité ou des hausses de prix liées au climat ou aux marchés agricoles peuvent perturber la chaîne d'approvisionnement.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:44:09.531206+00:00",
@@ -467,9 +498,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.234171+00:00",
     "fetched_at": "2026-05-21T02:17:14.234172+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.915Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.355Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/brcnf.json",
     "enrich_root": "v2-pipeline-enrich/brcnf.json",

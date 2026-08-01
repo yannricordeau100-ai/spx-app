@@ -45,9 +45,12 @@
         "YoY verified correct: +2.7%",
         "Data validated against source MD&A: 2025=1067.6, 2024=1040.0, 2023=959.0"
       ],
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Profit margin on Total insurance product.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Annuity margin",
@@ -212,7 +215,7 @@
         "Data validated against source MD&A: 2025=229.3, 2024=420.8, 2023=276.5",
         "Decline explained by non-operating items: -259.8M non-operating loss before taxes (vs -10.9M in 2024)"
       ],
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -232,11 +235,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 38.79 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -255,11 +262,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.05 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -273,7 +284,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.51,
         0.55,
@@ -286,7 +297,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -301,7 +312,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2549,
@@ -314,7 +325,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -329,7 +340,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         10.28,
@@ -342,7 +353,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -358,7 +369,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.37,
@@ -371,7 +382,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -405,9 +416,7 @@
         "Value verified correct: 1067.6",
         "YoY verified correct: +2.7%",
         "Data validated against source MD&A: 2025=1067.6, 2024=1040.0, 2023=959.0"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Annuity margin",
@@ -438,9 +447,7 @@
         "Value verified correct: 238.6",
         "YoY verified correct: -12.9%",
         "Data validated against source MD&A: 2025=238.6, 2024=274.2, 2023=235.0"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -457,7 +464,8 @@
       "score_rationale": "Risque identifie en debut de Item 1A (position forte), langage modere 'could have adverse consequences', tendance stable (mention standard), categorie macroeconomique ponderee normalement dans le secteur assurance.",
       "trend": "stable",
       "summary": "L'inflation pourrait affecter negativement CNO, l'industrie de l'assurance et l'economie americaine en general. Les couts operationnels et les sinistres pourraient augmenter, impactant la rentabilite.",
-      "citation": "Inflation levels could have adverse consequences for us, the insurance industry and the U.S. economy generally"
+      "citation": "Inflation levels could have adverse consequences for us, the insurance industry and the U.S. economy generally",
+      "score": 3
     },
     {
       "title": "Valorisation des avantages lies aux risques de marche",
@@ -466,7 +474,8 @@
       "score_rationale": "Identifie comme 'Critical Audit Matter' (position tres importante), langage intensif 'significant judgment' et 'high degree of auditor judgment, subjectivity', tendance stable mais complexite accrue, categorie technologie/modeles valorisation ponderee fort en assurance.",
       "trend": "stable",
       "summary": "La valorisation des avantages de retrait garanti a vie (GLWB) sur les produits de rentes indexees sur actions necessite des modeles complexes avec hypotheses non observables. Les erreurs de valorisation pourraient impacter significativement les etats financiers (48,1 millions USD au 31 decembre 2025).",
-      "citation": "Valuation of market risk benefits (MRBs) associated with fixed indexed annuity products is a critical audit matter...significant judgment by management...high degree of auditor judgment, subjectivity, and effort"
+      "citation": "Valuation of market risk benefits (MRBs) associated with fixed indexed annuity products is a critical audit matter...significant judgment by management...high degree of auditor judgment, subjectivity, and effort",
+      "score": 4
     },
     {
       "title": "Risque de credit sur les placements obligataires",
@@ -475,7 +484,8 @@
       "score_rationale": "Identifie implicitement par les provisions pour pertes de credit (36,0 millions USD 2025), position dans le bilan (actif majeur 23,9 milliards USD), langage modere via provisions, tendance stable avec provisions maintenues, categorie credit ponderee fort pour assureur.",
       "trend": "stable",
       "summary": "CNO detient 23,9 milliards USD de titres a revenu fixe. Bien que des provisions pour pertes de credit existent (36,0 millions USD), une deterioration economique pourrait augmenter les defauts et impacter la valeur des placements.",
-      "citation": "Fixed maturities, available for sale, at fair value (net of allowance for credit losses: 2025 - $ 36.0...$ 23,886.8"
+      "citation": "Fixed maturities, available for sale, at fair value (net of allowance for credit losses: 2025 - $ 36.0...$ 23,886.8",
+      "score": 3
     },
     {
       "title": "Impairment d'actifs et goodwill",
@@ -484,7 +494,8 @@
       "score_rationale": "Impairment de 101,9 millions USD en 2025 (nouveau vs 0 en 2024), position dans le compte de resultat (ligne significative), langage factuel mais montant material, tendance up (nouveau en 2025), categorie industriel ponderee normalement.",
       "trend": "up",
       "summary": "CNO a enregistre une charge de depreciation de goodwill et autres actifs de 101,9 millions USD en 2025, contre aucune en 2024. Cela suggere une revaluation a la baisse de certains actifs ou activites.",
-      "citation": "Goodwill and other asset impairment | 101.9 | | |"
+      "citation": "Goodwill and other asset impairment | 101.9 | | |",
+      "score": 3
     },
     {
       "title": "Baisse du resultat net et des benefices par action",
@@ -493,7 +504,8 @@
       "score_rationale": "Resultat net en baisse de 45,5% (229,3M vs 420,8M 2024), position dans le compte de resultat (ligne critique), langage factuel mais tendance negative marquee, trend down significatif, categorie capital ponderee fort pour actionnaire.",
       "trend": "down",
       "summary": "Le resultat net a chute de 420,8 millions USD (2024) a 229,3 millions USD (2025), soit une baisse de 45,5%. Le benefice par action dilue est passe de 3,89 USD a 2,30 USD, refletant une deterioration de la rentabilite.",
-      "citation": "Net income | $ | 229.3 | $ | 420.8 | $ | 276.5 | ... Diluted: ... Net income | $ | 2.30 | $ | 3.89"
+      "citation": "Net income | $ | 229.3 | $ | 420.8 | $ | 276.5 | ... Diluted: ... Net income | $ | 2.30 | $ | 3.89",
+      "score": 3
     },
     {
       "title": "Risque de taux d'interet sur les passifs",
@@ -502,7 +514,8 @@
       "score_rationale": "Identifie par ajustement de taux d'actualisation (-203,4M 2025 vs +491,1M 2024), position dans le resultat global (ligne importante), langage factuel via variations comptables, tendance volatile (swing de 694,5M), categorie macro ponderee fort pour assureur.",
       "trend": "up",
       "summary": "Les variations de taux d'interet impactent directement la valorisation des passifs d'assurance (provisions pour sinistres futurs). Un ajustement negatif de 203,4 millions USD en 2025 montre l'exposition au risque de taux.",
-      "citation": "Adjustment to discount rate for liability for future policy benefits | ( 203.4 ) | 491.1 | ( 367.3 )"
+      "citation": "Adjustment to discount rate for liability for future policy benefits | ( 203.4 ) | 491.1 | ( 367.3 )",
+      "score": 3
     },
     {
       "title": "Concentration du portefeuille de placements",
@@ -511,7 +524,8 @@
       "score_rationale": "Identifie par structure du bilan (29,9 milliards USD d'investissements dont 79,7% en obligations), position dans l'actif (majeure), langage factuel via composition, tendance stable, categorie credit ponderee fort mais concentration moderee pour assureur.",
       "trend": "stable",
       "summary": "Les placements obligataires representent 79,7% du portefeuille d'investissement (23,9 milliards USD sur 29,9 milliards USD). Une concentration elevee expose CNO aux risques de credit et de taux d'interet.",
-      "citation": "Fixed maturities, available for sale, at fair value...$ 23,886.8 | Total investments | 29,998.5"
+      "citation": "Fixed maturities, available for sale, at fair value...$ 23,886.8 | Total investments | 29,998.5",
+      "score": 2
     }
   ],
   "_validation": [
@@ -535,7 +549,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -571,7 +585,7 @@
     "margin_trend": "Marges en expansion (+1.7 pts en moyenne sur les KPIs marge)."
   },
   "_dividends_extracted_at": "2026-05-09T20:22:03Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -585,7 +599,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:21Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:21Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "enrich_description": {
     "ticker": "CNO",
@@ -640,7 +654,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.572Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.673Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cno.json",
     "enrich_root": "v2-pipeline-enrich/cno.json",

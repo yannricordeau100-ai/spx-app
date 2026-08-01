@@ -1,6 +1,6 @@
 {
   "ticker": "NVRI",
-  "name": "Enviri Corporation",
+  "name": "Enviri",
   "sector": "Industrie",
   "subsector": "Environmental Services & Equipment",
   "tagline": "Global provider of environmental solutions for industrial and specialty waste streams, and innovative equipment and technology for the rail sector",
@@ -34,7 +34,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Total Revenue",
@@ -53,11 +53,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.24 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -76,34 +80,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.17 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-50.0%",
       "history": [
-        0.03,
-        0.1,
-        0.08,
-        0.04
+        30,
+        100,
+        80,
+        40
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.04 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -122,11 +135,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -2.08 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -145,11 +162,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.71 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -168,33 +189,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.7 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+11.1%",
       "history": [
-        0.08,
-        0.12,
-        0.09,
-        0.1
+        80,
+        120,
+        90,
+        100
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.1 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -208,7 +238,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2012-2016). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2012-2016). ex-div dates.",
       "history": [
         0.82,
         0.82,
@@ -221,7 +251,7 @@
       "is_short_history": false,
       "last_data_date": "2016-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
@@ -250,9 +280,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "M&A",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "M&A"
     }
   ],
   "ai_positioning": {
@@ -285,7 +313,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité en lien avec une modification urgente du Credit Agreement pour éviter un défaut de paiement. Le langage indique une anticipation de non-conformité aux ratios de levier. Catégorie Capital fortement pondérée.",
       "trend": "up",
-      "summary": "La société a dû renégocier ses covenants de dette en raison de prévisions de non-conformité, menaçant sa flexibilité financière."
+      "summary": "La société a dû renégocier ses covenants de dette en raison de prévisions de non-conformité, menaçant sa flexibilité financière.",
+      "score": 5
     },
     {
       "title": "Cyberattaque ou faille système",
@@ -293,7 +322,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite dans les facteurs de risque (n°16) et gouvernance dédiée au CISO. Structure de reporting au Board renforce l'importance. Langage technique mais sans mention d'incident récent.",
       "trend": "stable",
-      "summary": "Une brèche dans l'infrastructure cybersécurité pourrait perturber les opérations ou exposer des données sensibles."
+      "summary": "Une brèche dans l'infrastructure cybersécurité pourrait perturber les opérations ou exposer des données sensibles.",
+      "score": 4
     },
     {
       "title": "Impact des tensions commerciales et tarifaires",
@@ -301,7 +331,8 @@
       "severity": 4,
       "score_rationale": "Évoqué dans l'analyse de direction avec référence à des mesures concrètes (tarifs US, quotas acier UE). Risque actif en 2025, lié aux segments industriels exposés.",
       "trend": "up",
-      "summary": "Les mesures protectionnistes aux États-Unis et en Europe menacent la compétitivité et la rentabilité des activités internationales."
+      "summary": "Les mesures protectionnistes aux États-Unis et en Europe menacent la compétitivité et la rentabilité des activités internationales.",
+      "score": 4
     },
     {
       "title": "Séparation de Clean Earth et intégration post-fusion",
@@ -309,7 +340,8 @@
       "severity": 5,
       "score_rationale": "Transaction majeure annoncée (3+ milliards) avec Veolia. Risque élevé d'échec ou de perturbation opérationnelle. Mention dans les risques prospectifs avec langage d'incertitude ('could differ materially').",
       "trend": "new",
-      "summary": "L'issue de la séparation et de la fusion avec Veolia est incertaine et pourrait nuire à la performance ou à la stratégie."
+      "summary": "L'issue de la séparation et de la fusion avec Veolia est incertaine et pourrait nuire à la performance ou à la stratégie.",
+      "score": 5
     },
     {
       "title": "Concentration clientèle et contrats long terme",
@@ -317,7 +349,8 @@
       "severity": 4,
       "score_rationale": "Identifié comme risque clé (n°8) avec mention de contrats à prix fixes complexes. Impact potentiel sur marge et flexibilité. Contexte stable mais structurel.",
       "trend": "stable",
-      "summary": "La dépendance à des clients concentrés et à des contrats longs limite la capacité à ajuster les prix ou à réagir aux coûts croissants."
+      "summary": "La dépendance à des clients concentrés et à des contrats longs limite la capacité à ajuster les prix ou à réagir aux coûts croissants.",
+      "score": 4
     },
     {
       "title": "Non-conformité réglementaire environnementale",
@@ -325,7 +358,8 @@
       "severity": 5,
       "score_rationale": "Risque n°4 dans les facteurs prospectifs, directement lié au cœur de métier (gestion des déchets). Sanctions possibles, arrêt d'exploitation. Langage fort ('inability to comply').",
       "trend": "stable",
-      "summary": "Le non-respect des lois environnementales pourrait entraîner des amendes, des fermetures ou des responsabilités civiles."
+      "summary": "Le non-respect des lois environnementales pourrait entraîner des amendes, des fermetures ou des responsabilités civiles.",
+      "score": 5
     },
     {
       "title": "Perte de personnel clé ou difficultés de rétention",
@@ -333,7 +367,8 @@
       "severity": 3,
       "score_rationale": "Mention dans les risques (n°14) liée à la gestion des talents. Moins intense que d'autres risques, mais renforcé par la restructuration en cours.",
       "trend": "up",
-      "summary": "La capacité à retenir les cadres et experts est cruciale, surtout pendant la transition stratégique actuelle."
+      "summary": "La capacité à retenir les cadres et experts est cruciale, surtout pendant la transition stratégique actuelle.",
+      "score": 3
     }
   ],
   "governance": {
@@ -382,7 +417,6 @@
     }
   ],
   "_hero_kpi_original": "Sale of Clean Earth Segment to Veolia",
-  "_ai_positioning_fetched_at": "2026-05-06T18:18:02.873622+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -462,10 +496,11 @@
     ],
     "total": 2.24
   },
+  "_ai_positioning_fetched_at": "2026-05-06T18:18:02.873622+00:00",
   "_segments_fetched_at": "2026-05-06T19:38:03.729948+00:00",
   "_risks_gov_fetched_at": "2026-05-06T20:35:55.775657+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:33Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2016)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2016)",
   "_dividends_currency": "USD",
   "enrich_description": {
     "ticker": "NVRI",
@@ -547,9 +582,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.291598+00:00",
     "fetched_at": "2026-05-21T02:17:14.291599+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.125Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.065Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nvri.json",
     "enrich_root": "v2-pipeline-enrich/nvri.json",

@@ -33,34 +33,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.41 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-20.0%",
       "history": [
-        0.01,
-        0.01,
-        0.05,
-        0.04
+        10,
+        10,
+        50,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -77,7 +86,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement la dépendance des revenus des tests Decipher Prostate et Afirma (p. 20, 21). L'incapacité à lancer ou commercialiser de nouveaux tests est citée comme un risque majeur. La catégorie 'Industriel' est pondérée car elle concerne directement la capacité de l'entreprise à générer des revenus via ses produits.",
       "trend": "stable",
-      "summary": "L'entreprise dépend fortement des ventes de ses tests actuels. L'échec du lancement ou de la commercialisation de nouveaux tests pourrait nuire à sa croissance et à ses revenus."
+      "summary": "L'entreprise dépend fortement des ventes de ses tests actuels. L'échec du lancement ou de la commercialisation de nouveaux tests pourrait nuire à sa croissance et à ses revenus.",
+      "score": 4
     },
     {
       "title": "Risques liés au remboursement par les payeurs",
@@ -85,7 +95,8 @@
       "severity": 5,
       "score_rationale": "Le remboursement par les payeurs est un risque existentiel, mentionné à plusieurs reprises avec une forte intensité linguistique (p. 21, 22). L'entreprise dépend d'un nombre limité de payeurs, et les changements de politique ou les réductions de remboursement ont un impact direct sur les revenus. La catégorie 'Régulation' est pertinente car les politiques de remboursement sont des cadres réglementaires.",
       "trend": "up",
-      "summary": "La dépendance à l'égard d'un petit nombre de payeurs et la possibilité de modifications de leurs politiques de remboursement ou de réduction des montants remboursés constituent un risque majeur pour les revenus."
+      "summary": "La dépendance à l'égard d'un petit nombre de payeurs et la possibilité de modifications de leurs politiques de remboursement ou de réduction des montants remboursés constituent un risque majeur pour les revenus.",
+      "score": 5
     },
     {
       "title": "Incapacité à maintenir la rentabilité future",
@@ -93,7 +104,8 @@
       "severity": 4,
       "score_rationale": "Le risque de ne pas pouvoir maintenir la rentabilité est clairement énoncé (p. 21). L'entreprise a connu des pertes par le passé et mentionne des facteurs clés pour la rentabilité future, soulignant une incertitude significative. La catégorie 'Capital' est appropriée car la rentabilité est essentielle à la santé financière.",
       "trend": "stable",
-      "summary": "Malgré des bénéfices récents, l'entreprise a un historique de pertes et pourrait ne pas être en mesure de maintenir sa rentabilité future, affectant potentiellement le cours de l'action."
+      "summary": "Malgré des bénéfices récents, l'entreprise a un historique de pertes et pourrait ne pas être en mesure de maintenir sa rentabilité future, affectant potentiellement le cours de l'action.",
+      "score": 4
     },
     {
       "title": "Risques liés aux fournisseurs uniques",
@@ -101,7 +113,8 @@
       "severity": 3,
       "score_rationale": "La dépendance à l'égard de fournisseurs uniques pour des réactifs et équipements essentiels est mentionnée (p. 20). L'incapacité à trouver des remplaçants pourrait impacter la génération de revenus. La catégorie 'Industriel' est utilisée car elle concerne les opérations de production.",
       "trend": "stable",
-      "summary": "L'entreprise dépend de fournisseurs uniques pour certains matériaux et équipements. La difficulté à trouver des alternatives pourrait perturber la production et les revenus."
+      "summary": "L'entreprise dépend de fournisseurs uniques pour certains matériaux et équipements. La difficulté à trouver des alternatives pourrait perturber la production et les revenus.",
+      "score": 3
     },
     {
       "title": "Conformité réglementaire et approbations de tests",
@@ -109,7 +122,8 @@
       "severity": 4,
       "score_rationale": "Le document souligne les coûts et délais associés à l'obtention d'autorisations réglementaires (FDA, autorités étrangères) pour les tests (p. 20). L'échec de ces processus ou des changements réglementaires pourraient avoir un impact matériel. La catégorie 'Régulation' est directement applicable.",
       "trend": "stable",
-      "summary": "L'obtention et le maintien des approbations réglementaires pour les tests, y compris les tests IVD, sont complexes, coûteux et peuvent entraîner des retards ou des échecs."
+      "summary": "L'obtention et le maintien des approbations réglementaires pour les tests, y compris les tests IVD, sont complexes, coûteux et peuvent entraîner des retards ou des échecs.",
+      "score": 4
     },
     {
       "title": "Risques liés à la cybersécurité et à la protection des données",
@@ -117,7 +131,8 @@
       "severity": 3,
       "score_rationale": "Les violations de sécurité, la perte de données et les perturbations des systèmes sont explicitement mentionnées comme pouvant compromettre des informations sensibles et exposer à des responsabilités (p. 20). La catégorie 'Cybersécurité' est la plus pertinente.",
       "trend": "up",
-      "summary": "Les violations de données ou les interruptions des systèmes informatiques, y compris ceux des tiers, pourraient compromettre des informations sensibles et nuire à la réputation et aux opérations."
+      "summary": "Les violations de données ou les interruptions des systèmes informatiques, y compris ceux des tiers, pourraient compromettre des informations sensibles et nuire à la réputation et aux opérations.",
+      "score": 3
     },
     {
       "title": "Dépendance à l'égard du personnel clé et de la gestion de la croissance",
@@ -125,7 +140,8 @@
       "severity": 3,
       "score_rationale": "La perte de membres de la direction ou l'incapacité à attirer/retenir du personnel qualifié sont identifiées comme des risques (p. 20). De plus, la gestion efficace de la croissance future est un défi mentionné. La catégorie 'Personne-clé' couvre le premier aspect, et la gestion de la croissance est liée à la capacité opérationnelle.",
       "trend": "stable",
-      "summary": "La perte de dirigeants clés ou l'incapacité à attirer et retenir des employés qualifiés dans un secteur concurrentiel pourraient nuire à l'entreprise. La gestion de la croissance est également un défi."
+      "summary": "La perte de dirigeants clés ou l'incapacité à attirer et retenir des employés qualifiés dans un secteur concurrentiel pourraient nuire à l'entreprise. La gestion de la croissance est également un défi.",
+      "score": 3
     }
   ],
   "governance": {
@@ -172,7 +188,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.108Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.219Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vcyt.json",
     "enrich_root": null,

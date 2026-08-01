@@ -37,10 +37,13 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le texte fourni ne contient pas les états financiers consolidés avec les valeurs explicites du 'Net cash provided by operating activities' p",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net cash used in investing activities",
@@ -70,8 +73,8 @@
       "name_fr": "Dette totale",
       "name_en": "Total debt",
       "explanation": "Dette totale de l'entreprise",
-      "value": 1226.2,
-      "unit": "M $",
+      "value": 1.226,
+      "unit": "Mds $",
       "yoy": "Not available",
       "type": "Risk",
       "nature": "Structurel",
@@ -79,13 +82,14 @@
       "signal": "Dette totale élevée",
       "description": "Indicateur de la santé financière de l'entreprise",
       "history": [
-        1226.2
+        1.226
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -108,13 +112,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.78 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:33.317800+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -133,11 +141,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.49 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +168,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.55 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,33 +195,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.24 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.36,
-      "unit": "Mds €",
+      "value": 360,
+      "unit": "M €",
       "yoy": "+227.3%",
       "history": [
-        0.04,
-        0.03,
-        0.11,
-        0.36
+        40,
+        30,
+        110,
+        360
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.36 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,7 +270,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est en tête des facteurs de risque, avec un langage fort (significantly increases) et un impact direct sur la trésorerie et la capacité d'exploitation. La mise en œuvre partielle et les recours en cours augmentent l'incertitude réglementaire. La catégorie Régulation est hautement pondérée ici.",
       "trend": "stable",
-      "summary": "Une nouvelle règle fédérale augmente fortement les exigences de garantie financière pour les actifs en mer, menaçant notre capacité à financer les démantèlements."
+      "summary": "Une nouvelle règle fédérale augmente fortement les exigences de garantie financière pour les actifs en mer, menaçant notre capacité à financer les démantèlements.",
+      "score": 5
     },
     {
       "title": "Pénurie de capacités de cautionnement",
@@ -253,7 +279,8 @@
       "severity": 5,
       "score_rationale": "Le texte souligne une réduction matérielle (materially reduced) de l'accès aux cautions en raison de faillites dans le secteur. Cela affecte directement la capacité à conclure des acquisitions ou partenariats. Le risque est amplifié par le contexte macroéconomique et la catégorie Capital est critique.",
       "trend": "stable",
-      "summary": "Le marché des cautions en offshore est fortement contracté, limitant notre accès au financement sans mise de garanties en espèces."
+      "summary": "Le marché des cautions en offshore est fortement contracté, limitant notre accès au financement sans mise de garanties en espèces.",
+      "score": 5
     },
     {
       "title": "Opérations en eaux profondes risquées",
@@ -261,7 +288,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité avec un exemple marquant (Deepwater Horizon) et mentionne des pertes pouvant dépasser l'assurance et menacer la pérennité. Langage alarmant (going concern issues), position centrale dans le document.",
       "trend": "stable",
-      "summary": "Les opérations en eaux profondes exposent à des risques majeurs de marées noires, avec des conséquences financières et opérationnelles potentiellement existentielles."
+      "summary": "Les opérations en eaux profondes exposent à des risques majeurs de marées noires, avec des conséquences financières et opérationnelles potentiellement existentielles.",
+      "score": 5
     },
     {
       "title": "Vulnérabilité aux tempêtes et courants",
@@ -269,7 +297,8 @@
       "severity": 4,
       "score_rationale": "Le risque est récurrent (périodique) et spécifiquement lié à la géographie du Golfe d'Amérique. Il impacte production et coûts. Bien que prévisible, son intensité (réparations, évacuations) justifie une sévérité élevée. Catégorie Géopolitique inclut les risques climatiques régionaux.",
       "trend": "stable",
-      "summary": "Notre localisation dans le Golfe d'Amérique nous expose aux ouragans et tempêtes, pouvant interrompre la production et augmenter les coûts."
+      "summary": "Notre localisation dans le Golfe d'Amérique nous expose aux ouragans et tempêtes, pouvant interrompre la production et augmenter les coûts.",
+      "score": 4
     },
     {
       "title": "Instabilité des politiques de forage offshore",
@@ -277,7 +306,8 @@
       "severity": 5,
       "score_rationale": "Le document décrit des revirements politiques majeurs (Biden vs Trump), des recours judiciaires et des programmes de forage incertains. Le risque est existentiel pour l'accès futur aux permis. Langage fort (material adverse effect), position détaillée.",
       "trend": "up",
-      "summary": "Les changements réglementaires et judiciaires fréquents sur les forages offshore menacent notre accès futur aux permis et à l'expansion de nos actifs."
+      "summary": "Les changements réglementaires et judiciaires fréquents sur les forages offshore menacent notre accès futur aux permis et à l'expansion de nos actifs.",
+      "score": 5
     },
     {
       "title": "Opinion biologique contestée en justice",
@@ -285,7 +315,8 @@
       "severity": 4,
       "score_rationale": "L'avis de 2025 a été jugé illégal et renvoyé, mais reste en vigueur. Deux recours sont en cours. Cela crée une incertitude réglementaire majeure pour les opérations. Bien que non existentiel, il bloque potentiellement les activités.",
       "trend": "new",
-      "summary": "Un avis fédéral crucial pour nos opérations a été déclaré illégal, plongeant nos activités dans une incertitude réglementaire et juridique."
+      "summary": "Un avis fédéral crucial pour nos opérations a été déclaré illégal, plongeant nos activités dans une incertitude réglementaire et juridique.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix des matières premières",
@@ -293,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété plusieurs fois avec des données historiques de volatilité. Bien que partiellement couvert par des dérivés, il reste une source majeure d'instabilité des revenus. Position importante dans la section revenus.",
       "trend": "stable",
-      "summary": "Nos revenus sont fortement sensibles aux fluctuations des prix du pétrole et du gaz, malgré une politique de couverture partielle."
+      "summary": "Nos revenus sont fortement sensibles aux fluctuations des prix du pétrole et du gaz, malgré une politique de couverture partielle.",
+      "score": 4
     }
   ],
   "governance": {
@@ -323,7 +355,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -476,166 +508,54 @@
   },
   "enrich_quarterly_history": {
     "ticker": "TALO",
-    "extracted_at": "2026-05-15T18:14:35Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1724965,
+    "extracted_at": "2026-06-01T09:23:37Z",
     "n_kpis": 2,
     "kpis": [
       {
         "short": "Net cash provided by operating activities",
         "period_type": "quarter",
         "history": [
-          65.354,
-          59.427,
-          -119.908,
-          78.348,
-          108.481,
-          64.49,
-          -207.174,
-          16.169,
-          17.525,
-          13.631,
-          -13.688,
-          21.001,
-          37.797,
-          45.542,
-          3.832,
-          202.95,
-          357.287,
-          332.691,
-          -530.119,
-          386.367
+          66.956,
+          113.61,
+          62.857,
+          96.426
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
+          "Q1 2021",
           "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q1 2024"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2024-03-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 357.287,
-            "accession": "0000950170-25-104296",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 332.691,
-            "accession": "0001193125-25-267455",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -530.119,
-            "accession": "calc-0001193125-26-067807",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 386.367,
-            "accession": "0001193125-26-207039",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:23:37Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Net cash used in investing activities",
         "period_type": "quarter",
         "history": [
-          65.354,
-          59.427,
-          -119.908,
-          78.348,
-          108.481,
-          64.49,
-          -207.174,
-          16.169,
-          17.525,
-          13.631,
-          -13.688,
-          21.001,
-          37.797,
-          45.542,
-          3.832,
-          202.95,
-          357.287,
-          332.691,
-          -530.119,
-          386.367
+          -72.737,
+          -59.382,
+          -106.976,
+          -937.644
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
+          "Q1 2021",
           "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q1 2024"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2024-03-31",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 357.287,
-            "accession": "0000950170-25-104296",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 332.691,
-            "accession": "0001193125-25-267455",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -530.119,
-            "accession": "calc-0001193125-26-067807",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 386.367,
-            "accession": "0001193125-26-207039",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:23:37Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -651,9 +571,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.316119+00:00",
     "fetched_at": "2026-05-21T02:17:14.316120+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.365Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.412Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/talo.json",
     "enrich_root": "v2-pipeline-enrich/talo.json",

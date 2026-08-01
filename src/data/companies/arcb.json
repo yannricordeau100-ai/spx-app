@@ -1,6 +1,6 @@
 {
   "ticker": "ARCB",
-  "name": "ArcBest Corporation",
+  "name": "ArcBest",
   "sector": "Industrie",
   "subsector": "Logistics et transport",
   "tagline": "Integrated Logistics Solutions Across Multiple Transportation Modes",
@@ -21,8 +21,8 @@
       "name_fr": "Revenus du segment Asset-Based",
       "name_en": "Asset-Based Revenues",
       "explanation": "Revenus du segment Asset-Based",
-      "value": 2734.9,
-      "unit": "M $",
+      "value": 2.735,
+      "unit": "Mds $",
       "yoy": "-0.6%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,9 +30,9 @@
       "signal": "Baisse des revenus due à la diminution des tarifs et des volumes de fret",
       "description": "Revenus du segment Asset-Based, principalement liés aux services de transport et de logistique fournis par ABF Freight System, Inc.",
       "history": [
-        2871.004,
-        2750.134,
-        2734.871
+        2.871,
+        2.75,
+        2.735
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -40,8 +40,12 @@
       "is_short_history": false,
       "ttm": 2731.076,
       "_validation": "Unité corrigée de 'Mds $' à 'M $' (valeur en milliers de dollars)",
-      "period_type": "quarter",
-      "signal_en": "Revenue pressure, demand softening"
+      "period_type": "year",
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Revenus Asset-Light",
@@ -112,34 +116,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.01 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "-64.7%",
       "history": [
-        0.3,
-        0.2,
-        0.17,
-        0.06
+        300,
+        200,
+        170,
+        60
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.06 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,56 +171,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.45 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.46,
-      "unit": "Mds €",
+      "value": 460,
+      "unit": "M €",
       "yoy": "+12.2%",
       "history": [
-        0.44,
-        0.44,
-        0.41,
-        0.46
+        440,
+        440,
+        410,
+        460
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.46 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-23.1%",
       "history": [
-        0.16,
-        0.26,
-        0.13,
-        0.1
+        160,
+        260,
+        130,
+        100
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.1 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -235,13 +262,11 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 2731.076,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'; signal enrichi avec données spécifiques du MD&A",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'; signal enrichi avec données spécifiques du MD&A"
     }
   ],
   "ai_positioning": {
-    "stance": "present_limited",
+    "stance": "absent",
     "summary": "L'IA est mentionnée à travers la suite technologique Vaux (Vaux Freight Movement System, Vaux Smart Autonomy, Vaux Vision), dont les coûts de développement réduisent les résultats d'exploitation. Cependant, l'IA ne constitue pas un élément central de la stratégie d'entreprise.",
     "evidence": [
       "Vaux suite costs: $29.1M (pre-tax) in 2025 vs $34.1M in 2024",
@@ -255,64 +280,64 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "La société dépend fortement de ses systèmes d'information et de technologie pour ses opérations logistiques, ce qui la rend vulnérable aux cyberattaques et aux perturbations des systèmes critiques. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de ses systèmes d'information et de technologie pour ses opérations logistiques, ce qui la rend vulnérable aux cyberattaques et aux perturbations des systèmes critiques.",
       "trend": "up",
       "summary": "La société est exposée à des risques de cyberattaques et de perturbations des systèmes d'information, ce qui pourrait avoir des conséquences graves sur ses activités et ses clients.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le marché des services de logistique et de transport est très compétitif, avec de nombreux acteurs créant des pressions sur les tarifs et les parts de marché. (score par défaut, à affiner)",
+      "score_rationale": "Le marché des services de logistique et de transport est très compétitif, avec de nombreux acteurs créant des pressions sur les tarifs et les parts de marché.",
       "trend": "stable",
       "summary": "La société doit faire face à une concurrence accrue sur le marché des services de logistique, ce qui pourrait affecter ses revenus et sa rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Régulation",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les changements dans les réglementations gouvernementales pourraient avoir un impact significatif sur les activités de la société, notamment concernant les émissions, les normes de sécurité et les heures de travail. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les réglementations gouvernementales pourraient avoir un impact significatif sur les activités de la société, notamment concernant les émissions, les normes de sécurité et les heures de travail.",
       "trend": "up",
       "summary": "La société doit se conformer à des réglementations gouvernementales de plus en plus strictes, ce qui pourrait entraîner des coûts et des défis supplémentaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Géopolitique",
       "category": "Géopolitique",
       "severity": 5,
-      "score_rationale": "Les événements géopolitiques, tels que les conflits, les tarifs commerciaux et les sanctions, pourraient perturber les chaînes d'approvisionnement et les activités logistiques. (score par défaut, à affiner)",
+      "score_rationale": "Les événements géopolitiques, tels que les conflits, les tarifs commerciaux et les sanctions, pourraient perturber les chaînes d'approvisionnement et les activités logistiques.",
       "trend": "up",
       "summary": "La société est exposée à des risques géopolitiques qui pourraient perturber ses activités et ses chaînes d'approvisionnement, affectant les revenus et la rentabilité.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Capital et liquidité",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La société doit gérer ses ressources financières pour financer ses investissements en flottes de véhicules et en technologie, ce qui pourrait être affecté par les conditions de marché. (score par défaut, à affiner)",
+      "score_rationale": "La société doit gérer ses ressources financières pour financer ses investissements en flottes de véhicules et en technologie, ce qui pourrait être affecté par les conditions de marché.",
       "trend": "stable",
       "summary": "La société doit maintenir une capacité d'emprunt adéquate et gérer ses investissements en capital pour soutenir sa croissance et sa rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Litige et responsabilité",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques de litiges liés aux accidents de transport, aux blessures de conducteurs et aux réclamations de responsabilité civile. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de litiges liés aux accidents de transport, aux blessures de conducteurs et aux réclamations de responsabilité civile.",
       "trend": "stable",
       "summary": "La société doit gérer les risques de litiges et de poursuites judiciaires, ce qui pourrait avoir un impact sur ses revenus et sa rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La réputation de la société auprès des clients, des partenaires et des régulateurs est cruciale pour son succès dans le secteur compétitif de la logistique. (score par défaut, à affiner)",
+      "score_rationale": "La réputation de la société auprès des clients, des partenaires et des régulateurs est cruciale pour son succès dans le secteur compétitif de la logistique.",
       "trend": "stable",
       "summary": "La société doit protéger sa réputation et maintenir la confiance de ses clients et de ses partenaires commerciaux, essentiels pour son succès.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -352,7 +377,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -499,7 +524,6 @@
           94.928,
           232.274,
           348.035,
-          -275.968,
           21.159,
           63.275,
           108.366,
@@ -565,6 +589,12 @@
             "accession": "0001104659-26-053753",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (ARCB)"
         ]
       }
     ]
@@ -581,9 +611,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.223086+00:00",
     "fetched_at": "2026-05-21T02:17:14.223087+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.954Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.409Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/arcb.json",
     "enrich_root": "v2-pipeline-enrich/arcb.json",

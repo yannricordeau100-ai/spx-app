@@ -38,8 +38,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Steady growth, healthy trend"
+      "period_type": "year",
+      "signal_en": "Steady growth, healthy trend",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Jours_Rotation_Inventaire",
@@ -154,11 +157,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 695.2 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -177,11 +184,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 107.11 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -200,10 +211,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 137.49 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,9 +244,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -262,7 +275,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -275,7 +288,8 @@
       "severity": 5,
       "score_rationale": "Risque classé en première position dans Item 1A avec formulation directe « We face intense competition ». Langage intensif (« intense », « may lose market share »). Tendance stable mais structurelle au secteur e-commerce chinois. Poids catégorie élevé : compétition existentielle face à Alibaba, Pinduoduo et nouveaux entrants.",
       "trend": "stable",
-      "summary": "JD.com opère dans un marché e-commerce hautement compétitif en Chine où il risque de perdre des parts de marché et des clients face à des concurrents mieux positionnés ou offrant des services supérieurs. La plateforme doit maintenir son avantage compétitif notamment en logistique et expérience client pour conserver sa position."
+      "summary": "JD.com opère dans un marché e-commerce hautement compétitif en Chine où il risque de perdre des parts de marché et des clients face à des concurrents mieux positionnés ou offrant des services supérieurs. La plateforme doit maintenir son avantage compétitif notamment en logistique et expérience client pour conserver sa position.",
+      "score": 5
     },
     {
       "title": "Défaillance de la gestion de l'infrastructure logistique nationale",
@@ -283,7 +297,8 @@
       "severity": 4,
       "score_rationale": "Risque métier spécifique à JD.com, positionné en Item 1A comme facteur critique. Langage modéré mais clair (« efficiently and effectively »). Tendance stable. Poids catégorie très élevé : infrastructure logistique est l'avantage compétitif clé de JD.com versus concurrents.",
       "trend": "stable",
-      "summary": "L'incapacité à gérer efficacement le réseau national de fulfillment (entrepôts, centres de distribution, livraison) pourrait dégrader les délais de livraison, augmenter les coûts opérationnels et réduire la satisfaction client. JD.com dépend fortement de cette infrastructure pour différencier son offre."
+      "summary": "L'incapacité à gérer efficacement le réseau national de fulfillment (entrepôts, centres de distribution, livraison) pourrait dégrader les délais de livraison, augmenter les coûts opérationnels et réduire la satisfaction client. JD.com dépend fortement de cette infrastructure pour différencier son offre.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires complexes du secteur e-commerce chinois",
@@ -291,7 +306,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur en Item 1A avec langage intensif (« complex and evolving », « change quickly with little advance notice »). Position élevée dans la hiérarchie des risques. Tendance up : régulation e-commerce en Chine s'intensifie depuis 2020. Poids catégorie critique : impact direct sur modèle opérationnel.",
       "trend": "up",
-      "summary": "JD.com est soumis à une régulation complexe et en évolution rapide du secteur e-commerce et des plateformes internet en Chine, avec peu de préavis. Les autorités peuvent imposer des modifications opérationnelles majeures (restrictions de prix, obligations de service, contrôle de contenu) sans délai d'adaptation."
+      "summary": "JD.com est soumis à une régulation complexe et en évolution rapide du secteur e-commerce et des plateformes internet en Chine, avec peu de préavis. Les autorités peuvent imposer des modifications opérationnelles majeures (restrictions de prix, obligations de service, contrôle de contenu) sans délai d'adaptation.",
+      "score": 5
     },
     {
       "title": "Violation de données clients et brèches cybersécurité",
@@ -299,7 +315,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement listé en Item 1A avec langage grave (« damage our reputation and brand », « substantially harm »). Position élevée. Tendance up : menaces cyber croissantes en Chine. Poids catégorie élevé : données clients massives (centaines de millions d'utilisateurs) = cible attractive.",
       "trend": "up",
-      "summary": "L'échec à protéger les informations confidentielles des clients et l'infrastructure réseau contre les brèches de sécurité pourrait endommager la réputation de la marque JD et réduire la confiance des utilisateurs. JD.com gère des données sensibles de centaines de millions de clients chinois."
+      "summary": "L'échec à protéger les informations confidentielles des clients et l'infrastructure réseau contre les brèches de sécurité pourrait endommager la réputation de la marque JD et réduire la confiance des utilisateurs. JD.com gère des données sensibles de centaines de millions de clients chinois.",
+      "score": 4
     },
     {
       "title": "Incapacité à offrir expérience client supérieure et dommage à la marque",
@@ -307,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Risque métier positionné en Item 1A avec formulation directe. Langage modéré mais clair (« superior customer experience », « reputation may be materially and adversely affected »). Tendance stable. Poids catégorie élevé : marque JD est actif clé de différenciation.",
       "trend": "stable",
-      "summary": "L'incapacité à fournir une expérience client supérieure (service, qualité produits, délais) ou tout dommage à la réputation de la marque JD pourrait réduire l'acquisition et la rétention de clients. La marque est un élément critique de compétitivité face à Alibaba et Pinduoduo."
+      "summary": "L'incapacité à fournir une expérience client supérieure (service, qualité produits, délais) ou tout dommage à la réputation de la marque JD pourrait réduire l'acquisition et la rétention de clients. La marque est un élément critique de compétitivité face à Alibaba et Pinduoduo.",
+      "score": 4
     },
     {
       "title": "Gestion inefficace des stocks et des catégories produits",
@@ -315,7 +333,8 @@
       "severity": 3,
       "score_rationale": "Risque opérationnel spécifique listé en Item 1A (« fail to manage our inventory effectively »). Langage modéré. Tendance stable. Poids catégorie moyen : impact sur trésorerie et rentabilité mais moins critique que logistique.",
       "trend": "stable",
-      "summary": "L'expansion dans de nouvelles catégories produits et l'augmentation massive du nombre de SKU exposent JD.com à des risques de surstock, d'obsolescence et de dépréciation d'inventaire. Une mauvaise gestion des stocks affecte la liquidité et la rentabilité opérationnelle."
+      "summary": "L'expansion dans de nouvelles catégories produits et l'augmentation massive du nombre de SKU exposent JD.com à des risques de surstock, d'obsolescence et de dépréciation d'inventaire. Une mauvaise gestion des stocks affecte la liquidité et la rentabilité opérationnelle.",
+      "score": 3
     },
     {
       "title": "Risques structurels liés aux entités d'intérêt variable (VIE)",
@@ -323,7 +342,8 @@
       "severity": 5,
       "score_rationale": "Risque existentiel positionné en Item 1A et détaillé en section « Risks Related to Our Corporate Structure ». Langage très grave (« severe penalties », « forced to relinquish », « material adverse change »). Tendance up : gouvernement chinois renforce contrôle VIE depuis 2021. Poids catégorie critique : structure VIE est fondation légale de JD.com.",
       "trend": "up",
-      "summary": "JD.com est une holding Cayman Islands sans participation directe dans les entités opérationnelles chinoises, qui sont contrôlées via contrats VIE. Si le gouvernement chinois invalide cette structure ou change sa régulation, JD.com pourrait être forcée de céder ses opérations ou faire face à des pénalités sévères."
+      "summary": "JD.com est une holding Cayman Islands sans participation directe dans les entités opérationnelles chinoises, qui sont contrôlées via contrats VIE. Si le gouvernement chinois invalide cette structure ou change sa régulation, JD.com pourrait être forcée de céder ses opérations ou faire face à des pénalités sévères.",
+      "score": 5
     },
     {
       "title": "Contrôle gouvernemental chinois et restrictions de transferts de fonds",
@@ -331,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Risque géopolitique majeur en Item 1A (« PRC government has significant authority », « may intervene or influence »). Langage intensif. Tendance up : gouvernement chinois renforce contrôle depuis 2020-2021. Poids catégorie élevé : impact direct sur capacité à rapatrier profits et financer opérations.",
       "trend": "up",
-      "summary": "Le gouvernement chinois peut intervenir ou influencer les opérations de JD.com à tout moment. Les fonds des filiales chinoises peuvent être bloqués ou soumis à restrictions de transfert hors de Chine, limitant la capacité à financer les opérations globales et à verser des dividendes aux actionnaires."
+      "summary": "Le gouvernement chinois peut intervenir ou influencer les opérations de JD.com à tout moment. Les fonds des filiales chinoises peuvent être bloqués ou soumis à restrictions de transfert hors de Chine, limitant la capacité à financer les opérations globales et à verser des dividendes aux actionnaires.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:43:06.928762+00:00",
@@ -525,7 +546,8 @@
         "severity": 4,
         "score_rationale": "Risque explicitement identifié en Item 1A avec impact 'medium-term' et 'long-term'. Énumération détaillée (pluies, tempêtes, inondations, élévation des mers affectant ports). Impact financier qualifié de 'significant' sur la chaîne logistique mondiale. Langage d'intensité élevée ('significantly impact', 'major brands may relocate').",
         "trend": "up",
-        "summary": "Les phénomènes météorologiques extrêmes (pluies, tempêtes, inondations) et l'élévation du niveau des mers menacent les opérations des sites et l'infrastructure portuaire. La relocalisation potentielle des sources d'approvisionnement par les grandes marques pourrait fragmenter la chaîne logistique mondiale avec impact financier significatif."
+        "summary": "Les phénomènes météorologiques extrêmes (pluies, tempêtes, inondations) et l'élévation du niveau des mers menacent les opérations des sites et l'infrastructure portuaire. La relocalisation potentielle des sources d'approvisionnement par les grandes marques pourrait fragmenter la chaîne logistique mondiale avec impact financier significatif.",
+        "score": 4
       },
       {
         "title": "Augmentation des coûts via tarification carbone",
@@ -533,7 +555,8 @@
         "severity": 3,
         "score_rationale": "Risque de transition identifié en Item 1A. Mécanismes de tarification carbone dans plusieurs pays affecteront la Scope 3 (majorité des émissions du groupe). Impact annuel non-mitigé 'Below 4% substantive threshold' mais risque medium-term confirmé. Stratégie d'atténuation : augmentation des prix unitaires aux clients.",
         "trend": "up",
-        "summary": "L'introduction de mécanismes de tarification carbone (taxes sur combustibles fossiles) augmentera les coûts des matières premières chez les fournisseurs. Le groupe envisage de répercuter les coûts résiduels sur les clients via augmentation des prix."
+        "summary": "L'introduction de mécanismes de tarification carbone (taxes sur combustibles fossiles) augmentera les coûts des matières premières chez les fournisseurs. Le groupe envisage de répercuter les coûts résiduels sur les clients via augmentation des prix.",
+        "score": 3
       },
       {
         "title": "Réglementation 'fast fashion' en France (taxe jusqu'à €10/article)",
@@ -541,7 +564,8 @@
         "severity": 3,
         "score_rationale": "Risque de transition spécifique mentionné en Item 1A avec proposition de taxe française jusqu'à €10 par article d'ici 2030. Définition de 'fast fashion' encore floue, créant incertitude réglementaire. Impact annuel non-mitigé 'Below 4% substantive threshold' mais risque de répercussion tarifaire client.",
         "trend": "new",
-        "summary": "La France propose une taxe jusqu'à €10 par article de 'fast fashion' d'ici 2030. La définition réglementaire reste imprécise, créant une incertitude sur l'applicabilité au groupe. Stratégie d'atténuation : augmentation des prix unitaires si applicable."
+        "summary": "La France propose une taxe jusqu'à €10 par article de 'fast fashion' d'ici 2030. La définition réglementaire reste imprécise, créant une incertitude sur l'applicabilité au groupe. Stratégie d'atténuation : augmentation des prix unitaires si applicable.",
+        "score": 3
       },
       {
         "title": "Obligations de reporting ESG renforcées (CSRD, ESOS, EED)",
@@ -549,7 +573,8 @@
         "severity": 2,
         "score_rationale": "Risque de conformité identifié en Item 1A avec directives imminentes (CSRD au niveau groupe, ESOS/EED en UK/Europe). Langage modéré ('enhanced reporting obligations', 'requires disclosures'). Atténuation en cours via planification ressources et projets pilotes. Impact administratif/coût plutôt que financier direct.",
         "trend": "stable",
-        "summary": "Les directives européennes (CSRD, ESOS, EED) imposent des obligations de reporting ESG renforcées au niveau groupe. Le groupe met en place des ressources dédiées et systèmes de monitoring énergétique pour se conformer."
+        "summary": "Les directives européennes (CSRD, ESOS, EED) imposent des obligations de reporting ESG renforcées au niveau groupe. Le groupe met en place des ressources dédiées et systèmes de monitoring énergétique pour se conformer.",
+        "score": 2
       },
       {
         "title": "Pénurie d'eau douce et variabilité climatique extrême",
@@ -557,7 +582,8 @@
         "severity": 3,
         "score_rationale": "Risque physique identifié en Item 1A avec impact 'medium-term' et 'long-term'. Accès à l'eau douce affectera la production dans certaines régions. Variabilité extrême des précipitations mentionnée explicitement. Impact financier potentiellement 'significant' sur la chaîne d'approvisionnement mondiale.",
         "trend": "up",
-        "summary": "L'augmentation des changements climatiques réduira l'accès à l'eau douce dans certaines régions, impactant la production. Le groupe collabore avec les fournisseurs pour explorer des options alternatives d'approvisionnement et de conservation de l'eau."
+        "summary": "L'augmentation des changements climatiques réduira l'accès à l'eau douce dans certaines régions, impactant la production. Le groupe collabore avec les fournisseurs pour explorer des options alternatives d'approvisionnement et de conservation de l'eau.",
+        "score": 3
       },
       {
         "title": "Dépendance à la chaîne d'approvisionnement Scope 3 (70% des émissions)",
@@ -565,7 +591,8 @@
         "severity": 4,
         "score_rationale": "Risque structurel majeur : 70% des émissions proviennent des activités amont (extraction, transformation, fabrication). Scope 3 représente 5,938,711 tonnes CO2e vs 51,827 tonnes pour Scope 1+2. Décarbonisation dépend de tiers (Tier 1-4) hors contrôle direct. Risque de transition élevé avec coûts potentiels importants.",
         "trend": "stable",
-        "summary": "Les émissions Scope 3 (chaîne d'approvisionnement) représentent 99,1% des émissions totales du groupe, dominées par la production amont (70%). La décarbonisation dépend fortement de partenaires externes, limitant le contrôle direct du groupe."
+        "summary": "Les émissions Scope 3 (chaîne d'approvisionnement) représentent 99,1% des émissions totales du groupe, dominées par la production amont (70%). La décarbonisation dépend fortement de partenaires externes, limitant le contrôle direct du groupe.",
+        "score": 4
       },
       {
         "title": "Risque de relocalisation des sources d'approvisionnement",
@@ -573,7 +600,8 @@
         "severity": 3,
         "score_rationale": "Risque identifié en Item 1A : 'Major brands may choose to relocate key sourcing territories for raw material sourcing and manufacture'. Conséquence directe des changements climatiques et de la variabilité des précipitations. Impact potentiellement 'significant' sur la chaîne logistique mondiale et les coûts.",
         "trend": "up",
-        "summary": "Les grandes marques clientes pourraient relocaliser leurs sources d'approvisionnement en matières premières et fabrication en réaction aux risques climatiques. Cette fragmentation de la chaîne logistique pourrait augmenter les coûts et complexifier les opérations du groupe."
+        "summary": "Les grandes marques clientes pourraient relocaliser leurs sources d'approvisionnement en matières premières et fabrication en réaction aux risques climatiques. Cette fragmentation de la chaîne logistique pourrait augmenter les coûts et complexifier les opérations du groupe.",
+        "score": 3
       }
     ],
     "_risks_gov_fetched_at": "2026-05-07T15:03:03.489279+00:00",
@@ -603,7 +631,7 @@
         "is_short_history": false,
         "last_data_date": "2024-12-31",
         "period_type": "annual",
-        "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+        "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
         "signal_en": "Shareholder returns growing, dividend policy supportive"
       },
       {
@@ -631,7 +659,7 @@
         "is_short_history": false,
         "last_data_date": "2024-12-31",
         "period_type": "annual",
-        "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+        "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
         "signal_en": "Cash position strengthening, balance-sheet flexibility"
       },
       {
@@ -659,7 +687,7 @@
         "is_short_history": false,
         "last_data_date": "2024-12-31",
         "period_type": "annual",
-        "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+        "explanation_en": "Payout Ratio, dividends paid divided by net income.",
         "signal_en": "Shareholder returns growing, dividend policy supportive"
       },
       {
@@ -675,7 +703,7 @@
         "comparable": "Comparable",
         "compare_key": "eps_diluted",
         "signal": "Capacité bénéficiaire par action",
-        "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+        "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
         "history": [
           null,
           null,
@@ -688,7 +716,7 @@
         "is_short_history": false,
         "last_data_date": "2024-12-31",
         "period_type": "annual",
-        "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+        "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
         "signal_en": "Strong growth, robust momentum"
       }
     ],
@@ -696,10 +724,10 @@
     "_dividends_source": "cat3-european annual-text FY2024 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
     "_dividends_currency": "GBP",
     "_eps_extracted_at": "2026-05-18T16:45:42Z",
-    "_eps_source": "yfinance income_stmt Diluted EPS",
+    "_eps_source": "rapport financier income_stmt Diluted EPS",
     "subsector_fr": "Commerce de détail spécialisé"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.635Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.680Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/jd.json",
     "enrich_root": "v2-pipeline-enrich/jd.json",

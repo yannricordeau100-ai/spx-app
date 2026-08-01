@@ -37,7 +37,9 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only two consecutive annual revenue values (2024 and 2023) are explicitly provided; at least four consecutive years are required."
     },
     {
       "short": "Employees",
@@ -60,7 +62,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "Revenue Australia",
@@ -169,11 +171,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 22.09 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -192,11 +198,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.57 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -327,7 +337,8 @@
       "severity": 4,
       "score_rationale": "Risque mentionné de façon récurrente et centrale dans le document (supply chain section dominante) ; langage fort ('vast and diverse', 'high-risk countries', '32% of total supplier spend in high forced-labour-risk countries') ; tendance croissante liée à la concentration géographique minière ; catégorie critique pour un équipementier industriel mondial.",
       "trend": "up",
-      "summary": "FLSmidth s'appuie sur plus de 9 000 groupes de fournisseurs répartis mondialement, dont 32 % des dépenses sont concentrées dans des pays à haut risque de travail forcé. Une défaillance fournisseur ou une rupture d'approvisionnement dans ces régions (Inde, Chine, Afrique du Sud, Chili) pourrait perturber la livraison de solutions technologiques critiques aux clients miniers et cimentiers."
+      "summary": "FLSmidth s'appuie sur plus de 9 000 groupes de fournisseurs répartis mondialement, dont 32 % des dépenses sont concentrées dans des pays à haut risque de travail forcé. Une défaillance fournisseur ou une rupture d'approvisionnement dans ces régions (Inde, Chine, Afrique du Sud, Chili) pourrait perturber la livraison de solutions technologiques critiques aux clients miniers et cimentiers.",
+      "score": 4
     },
     {
       "title": "Risque de travail forcé et esclavage moderne dans la chaîne de valeur",
@@ -335,7 +346,8 @@
       "severity": 4,
       "score_rationale": "Constitue l'objet principal du filing (Modern Slavery Statement) ; langage explicite sur le risque réputationnel ('reputational risk involved with our customers and suppliers potentially using forced labour') ; tendance stable mais sous surveillance renforcée ; poids élevé pour une entreprise opérant dans des juridictions minières à risque.",
       "trend": "stable",
-      "summary": "FLSmidth opère dans des pays classés à haut risque selon le Global Slavery Index, avec des fournisseurs et partenaires exposés aux pratiques de travail forcé, trafic humain et travail des enfants. Une association publique à de telles pratiques : même indirecte via un sous-traitant : pourrait entraîner des pertes de contrats, des sanctions réglementaires et une atteinte durable à la réputation de marque."
+      "summary": "FLSmidth opère dans des pays classés à haut risque selon le Global Slavery Index, avec des fournisseurs et partenaires exposés aux pratiques de travail forcé, trafic humain et travail des enfants. Une association publique à de telles pratiques : même indirecte via un sous-traitant : pourrait entraîner des pertes de contrats, des sanctions réglementaires et une atteinte durable à la réputation de marque.",
+      "score": 4
     },
     {
       "title": "Non-conformité aux réglementations anti-esclavage moderne (Australie, Canada)",
@@ -343,7 +355,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement adressé par deux législations nationales (Modern Slavery Act 2018 Australie ; Fighting Against Forced Labour and Child Labour in Supply Chains Act Canada) ; langage de conformité obligatoire ('reporting entity', 'approved by board') ; tendance à la hausse avec prolifération des lois ESG ; poids modéré car FLSmidth semble en conformité active.",
       "trend": "up",
-      "summary": "FLSmidth est soumis à des obligations légales de déclaration sur l'esclavage moderne en Australie (via FLSmidth Pty Ltd, ~600 employés, AUD 573M de revenus) et au Canada (FLSmidth Ltd, ~150 employés, CAD 165M). Le non-respect de ces exigences de reporting ou l'identification d'une défaillance dans les processus de diligence raisonnable exposerait la société à des sanctions légales et à une exclusion de marchés publics."
+      "summary": "FLSmidth est soumis à des obligations légales de déclaration sur l'esclavage moderne en Australie (via FLSmidth Pty Ltd, ~600 employés, AUD 573M de revenus) et au Canada (FLSmidth Ltd, ~150 employés, CAD 165M). Le non-respect de ces exigences de reporting ou l'identification d'une défaillance dans les processus de diligence raisonnable exposerait la société à des sanctions légales et à une exclusion de marchés publics.",
+      "score": 3
     },
     {
       "title": "Concentration géographique des opérations dans des pays à haut risque",
@@ -351,7 +364,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement ('wide range of countries classified as high-risk based on country classification indices') ; langage direct sur l'exposition géopolitique liée à la concentration minière ; tendance à la hausse avec l'urbanisation et la concentration des gisements ; catégorie critique pour un équipementier minier global.",
       "trend": "up",
-      "summary": "L'intensification de l'urbanisation et la concentration géographique des opportunités minières contraignent FLSmidth à opérer dans des pays classés à haut risque selon la Responsible Business Alliance. Des instabilités politiques, des conflits ou des changements réglementaires dans ces juridictions (notamment en Afrique, Amérique latine, Asie) pourraient compromettre la continuité des opérations et la sécurité des employés."
+      "summary": "L'intensification de l'urbanisation et la concentration géographique des opportunités minières contraignent FLSmidth à opérer dans des pays classés à haut risque selon la Responsible Business Alliance. Des instabilités politiques, des conflits ou des changements réglementaires dans ces juridictions (notamment en Afrique, Amérique latine, Asie) pourraient compromettre la continuité des opérations et la sécurité des employés.",
+      "score": 4
     },
     {
       "title": "Risque lié aux minerais de conflit dans la chaîne d'approvisionnement",
@@ -359,7 +373,8 @@
       "severity": 3,
       "score_rationale": "Risque spécifique à l'industrie minière, adressé via une sous-politique dédiée (Conflict Minerals Sub-policy) et un focus sur les minéraux 3TG et cobalt ; langage de surveillance active ('updated our conflict minerals policy in 2024') ; tendance stable avec mise à jour récente ; poids modéré mais spécifique au secteur minier.",
       "trend": "stable",
-      "summary": "En tant que fournisseur de solutions à l'industrie minière, FLSmidth est exposé au risque d'approvisionnement en minerais de conflit (tantale, étain, tungstène, or : 3TG : et cobalt). L'utilisation involontaire de ces minerais issus de zones de conflit pourrait entraîner des violations réglementaires (Dodd-Frank, réglementation UE sur les minerais de conflit) et des dommages réputationnels significatifs."
+      "summary": "En tant que fournisseur de solutions à l'industrie minière, FLSmidth est exposé au risque d'approvisionnement en minerais de conflit (tantale, étain, tungstène, or : 3TG : et cobalt). L'utilisation involontaire de ces minerais issus de zones de conflit pourrait entraîner des violations réglementaires (Dodd-Frank, réglementation UE sur les minerais de conflit) et des dommages réputationnels significatifs.",
+      "score": 3
     },
     {
       "title": "Insuffisance de la formation interne sur les droits humains et conformité",
@@ -367,7 +382,8 @@
       "severity": 2,
       "score_rationale": "Risque opérationnel interne identifié explicitement : taux de complétion de la formation e-learning à 74% seulement (objectif non atteint, en hausse vs 60% en 2023) ; langage modéré ('we acknowledge that more progress is needed') ; tendance à l'amélioration mais insuffisante ; poids limité mais révélateur d'une fragilité organisationnelle.",
       "trend": "up",
-      "summary": "Malgré une obligation de formation sur les droits humains pour tous les nouveaux employés, seulement 74% des employés cols blancs ont complété le module e-learning en 2024, laissant un quart du personnel potentiellement non sensibilisé aux risques d'esclavage moderne et de violations des droits humains. Cette lacune augmente le risque de non-détection d'incidents dans les opérations et la chaîne d'approvisionnement."
+      "summary": "Malgré une obligation de formation sur les droits humains pour tous les nouveaux employés, seulement 74% des employés cols blancs ont complété le module e-learning en 2024, laissant un quart du personnel potentiellement non sensibilisé aux risques d'esclavage moderne et de violations des droits humains. Cette lacune augmente le risque de non-détection d'incidents dans les opérations et la chaîne d'approvisionnement.",
+      "score": 2
     },
     {
       "title": "Fragmentation organisationnelle de la gestion des achats entre Business Lines",
@@ -375,7 +391,8 @@
       "severity": 3,
       "score_rationale": "Risque structurel explicitement décrit ('divided across different Business Lines with rather independent setups') ; langage nuancé reconnaissant la fragmentation tout en soulignant les efforts d'alignement ; tendance stable avec efforts de centralisation partielle ; poids significatif pour la cohérence des standards ESG et la résilience opérationnelle.",
       "trend": "stable",
-      "summary": "La chaîne d'approvisionnement de FLSmidth est gérée de manière fragmentée entre les Business Lines (Service, Product, PCV, Cement), avec des équipes d'achats régionales et centrales aux mandats distincts. Cette fragmentation crée des risques d'incohérence dans l'application des standards éthiques, de duplication des coûts et de vulnérabilité accrue face aux disruptions d'approvisionnement locales."
+      "summary": "La chaîne d'approvisionnement de FLSmidth est gérée de manière fragmentée entre les Business Lines (Service, Product, PCV, Cement), avec des équipes d'achats régionales et centrales aux mandats distincts. Cette fragmentation crée des risques d'incohérence dans l'application des standards éthiques, de duplication des coûts et de vulnérabilité accrue face aux disruptions d'approvisionnement locales.",
+      "score": 3
     },
     {
       "title": "Risque réputationnel lié aux pratiques ESG des clients miniers et cimentiers",
@@ -383,7 +400,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement mentionné ('reputational risk involved with our customers potentially using forced labour') ; FLSmidth a mis en place des clauses droits humains dans les contrats clients et une due diligence clients ; tendance à la hausse avec la pression réglementaire ESG croissante ; poids modéré mais stratégique pour un fournisseur B2B de premier rang.",
       "trend": "up",
-      "summary": "FLSmidth est exposé au risque d'association indirecte avec des pratiques contraires aux droits humains de ses clients dans les secteurs minier et cimentier, notamment dans des juridictions à faible gouvernance. Une telle association, même sans responsabilité directe, pourrait nuire à la réputation de FLSmidth auprès des investisseurs ESG, des régulateurs et des donneurs d'ordre institutionnels."
+      "summary": "FLSmidth est exposé au risque d'association indirecte avec des pratiques contraires aux droits humains de ses clients dans les secteurs minier et cimentier, notamment dans des juridictions à faible gouvernance. Une telle association, même sans responsabilité directe, pourrait nuire à la réputation de FLSmidth auprès des investisseurs ESG, des régulateurs et des donneurs d'ordre institutionnels.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T08:42:43.322756+00:00",
@@ -443,9 +461,9 @@
     "country": "Denmark",
     "_data_freshness_date": "2026-05-21T02:17:14.261902+00:00",
     "fetched_at": "2026-05-21T02:17:14.261902+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.294Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.868Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fls.co.json",
     "enrich_root": "v2-pipeline-enrich/fls.co.json",

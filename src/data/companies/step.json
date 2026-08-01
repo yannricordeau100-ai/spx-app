@@ -41,8 +41,11 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'B $' (standard format)",
-      "period_type": "quarter",
-      "explanation_en": "Assets Under Management — total client assets managed by the firm."
+      "period_type": "year",
+      "explanation_en": "Assets Under Management, total client assets managed by the firm.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "AUA",
@@ -69,7 +72,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'B $' (standard format)",
-      "explanation_en": "Assets Under Administration — total client assets administered."
+      "explanation_en": "Assets Under Administration, total client assets administered."
     },
     {
       "short": "Effectif",
@@ -114,11 +117,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.17 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -137,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.18 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -160,56 +171,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.59 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.38,
-      "unit": "Mds €",
+      "value": 380,
+      "unit": "M €",
       "yoy": "+40.7%",
       "history": [
-        0.13,
-        0.22,
-        0.27,
-        0.38
+        130,
+        220,
+        270,
+        380
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.38 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "+61.1%",
       "history": [
-        0.12,
-        0.13,
-        0.18,
-        0.29
+        120,
+        130,
+        180,
+        290
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.29 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -252,16 +277,16 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le rapport mentionne les risques liés à la cybersécurité et aux incidents de sécurité, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques liés à la cybersécurité et aux incidents de sécurité, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise.",
       "trend": "stable",
       "summary": "Le risque de cybersécurité est élevé en raison de la dépendance de l'entreprise à la technologie et aux données sensibles.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne les risques liés à la réglementation et aux changements dans les lois et les règlements, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques liés à la réglementation et aux changements dans les lois et les règlements, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise.",
       "trend": "up",
       "summary": "Le risque de réglementation est moyen en raison de la nécessité pour l'entreprise de se conformer aux lois et aux règlements en constante évolution.",
       "score": 3
@@ -270,16 +295,16 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le rapport mentionne les risques liés à la concurrence et à la capacité de l'entreprise à attirer et à retenir des clients, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques liés à la concurrence et à la capacité de l'entreprise à attirer et à retenir des clients, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise.",
       "trend": "stable",
       "summary": "Le risque de concurrence est élevé en raison de la présence de nombreux concurrents sur le marché des services financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Géopolitique",
       "category": "Géopolitique",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne les risques liés à la géopolitique et aux changements dans les conditions économiques et politiques, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques liés à la géopolitique et aux changements dans les conditions économiques et politiques, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise.",
       "trend": "up",
       "summary": "Le risque géopolitique est moyen en raison de la nécessité pour l'entreprise de naviguer dans un environnement économique et politique en constante évolution.",
       "score": 3
@@ -288,10 +313,10 @@
       "title": "Dépendance à la technologie",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Le rapport mentionne les risques liés à la dépendance à la technologie et aux incidents techniques, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques liés à la dépendance à la technologie et aux incidents techniques, qui pourraient avoir un impact négatif sur les opérations et la situation financière de l'entreprise.",
       "trend": "stable",
       "summary": "Le risque de dépendance à la technologie est élevé en raison de la nécessité pour l'entreprise de maintenir des systèmes informatiques fiables et sécurisés.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -337,7 +362,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -441,6 +466,47 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "STEP",
+    "extracted_at": "2026-06-01T09:22:45Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "AUM",
+        "period_type": "quarter",
+        "history": [
+          137,
+          135,
+          134,
+          143,
+          146,
+          149,
+          169,
+          176,
+          199,
+          209,
+          220
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:22:45Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "STEP",
     "ranks": {
@@ -453,14 +519,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.313979+00:00",
     "fetched_at": "2026-05-21T02:17:14.313980+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.204Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.223Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/step.json",
     "enrich_root": "v2-pipeline-enrich/step.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

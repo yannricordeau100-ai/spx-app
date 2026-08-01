@@ -99,36 +99,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.18 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:35.107959+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.77,
-      "unit": "Mds €",
+      "value": 770,
+      "unit": "M €",
       "yoy": "+28.3%",
       "history": [
-        0.66,
-        0.6,
-        0.6,
-        0.77
+        660,
+        600,
+        600,
+        770
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.77 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -147,34 +156,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.73 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.02,
-        0.04,
-        0.03,
-        0.03
+        20,
+        40,
+        30,
+        30
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.03 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -193,10 +211,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.37 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -210,7 +232,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2022-2026). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2022-2026). ex-div dates.",
       "history": [
         0.5,
         0.6,
@@ -223,7 +245,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     }
   ],
@@ -260,43 +282,43 @@
       "title": "Fluctuations économiques et volatilité des matières premières",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Les fluctuations des prix des matières premières (cuivre, laiton, zinc, aluminium) et des coûts énergétiques impactent directement la marge brute et les coûts de distribution de l'entreprise (score par défaut, à affiner)",
+      "score_rationale": "Les fluctuations des prix des matières premières (cuivre, laiton, zinc, aluminium) et des coûts énergétiques impactent directement la marge brute et les coûts de distribution de l'entreprise",
       "trend": "stable",
       "summary": "Les variations des prix des commodités et des coûts énergétiques affectent les marges opérationnelles et la compétitivité des produits de l'entreprise",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques de concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La concurrence dans les marchés de la plomberie, du chauffage et de la climatisation est élevée et peut impacter les marges et la rentabilité (score par défaut, à affiner)",
+      "score_rationale": "La concurrence dans les marchés de la plomberie, du chauffage et de la climatisation est élevée et peut impacter les marges et la rentabilité",
       "trend": "up",
       "summary": "La concurrence accrue peut entraîner une baisse des prix et des marges pour l'entreprise",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les changements dans les lois et réglementations environnementales, de santé et de sécurité peuvent augmenter les coûts opérationnels (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les lois et réglementations environnementales, de santé et de sécurité peuvent augmenter les coûts opérationnels",
       "trend": "up",
       "summary": "Les changements réglementaires peuvent entraîner des coûts supplémentaires et affecter la capacité à opérer efficacement",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Les cyberattaques et les failles de sécurité peuvent avoir un impact sur les opérations et la réputation de l'entreprise (score par défaut, à affiner)",
+      "score_rationale": "Les cyberattaques et les failles de sécurité peuvent avoir un impact sur les opérations et la réputation de l'entreprise",
       "trend": "up",
       "summary": "Les cyberattaques peuvent entraîner des pertes de données et des interruptions d'activité",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de change",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Mueller opère à l'international et les fluctuations des taux de change peuvent impacter les revenus d'exportation et la compétitivité (score par défaut, à affiner)",
+      "score_rationale": "Mueller opère à l'international et les fluctuations des taux de change peuvent impacter les revenus d'exportation et la compétitivité",
       "trend": "stable",
       "summary": "Les fluctuations des taux de change peuvent affecter la compétitivité des produits sur les marchés internationaux",
       "score": 3
@@ -305,7 +327,7 @@
       "title": "Risques de litige",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Les litiges et les procédures réglementaires peuvent générer des coûts supplémentaires et affecter les résultats (score par défaut, à affiner)",
+      "score_rationale": "Les litiges et les procédures réglementaires peuvent générer des coûts supplémentaires et affecter les résultats",
       "trend": "stable",
       "summary": "Les litiges peuvent entraîner des coûts supplémentaires et des pertes financières",
       "score": 3
@@ -314,10 +336,10 @@
       "title": "Risques de départ de personnel clé",
       "category": "Personne-clé",
       "severity": 2,
-      "score_rationale": "Le départ inattendu de personnel clé pourrait perturber les opérations et la prise de décision stratégique (score par défaut, à affiner)",
+      "score_rationale": "Le départ inattendu de personnel clé pourrait perturber les opérations et la prise de décision stratégique",
       "trend": "stable",
       "summary": "Le départ de personnel clé peut entraîner des perturbations dans les opérations",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -372,10 +394,10 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:23:26Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2026)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2026)",
   "_dividends_currency": "USD",
   "subsector_fr": "Produits de construction",
-  "_companies_unified_built_at": "2026-05-29T21:19:33.475Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.917Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mli.json",
     "enrich_root": "v2-pipeline-enrich/mli.json",

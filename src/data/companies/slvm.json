@@ -1,6 +1,6 @@
 {
   "ticker": "SLVM",
-  "name": "Sylvamo Corporation",
+  "name": "Sylvamo",
   "sector": "Basic Materials",
   "subsector": "Paper & Pulp",
   "tagline": "Leading producer of uncoated freesheet papers and market pulp across Europe, Latin America and North America",
@@ -67,7 +67,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -91,7 +91,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -139,7 +139,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -159,56 +159,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.76 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.85,
-      "unit": "Mds €",
+      "value": 850,
+      "unit": "M €",
       "yoy": "+6.2%",
       "history": [
-        1.03,
-        0.96,
-        0.8,
-        0.85
+        1030,
+        960,
+        800,
+        850
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.85 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
       "name_fr": "Capitaux propres",
       "name_en": "Stockholders Equity",
-      "value": 0.97,
-      "unit": "Mds €",
+      "value": 970,
+      "unit": "M €",
       "yoy": "+14.1%",
       "history": [
-        0.68,
-        0.9,
-        0.85,
-        0.97
+        680,
+        900,
+        850,
+        970
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 0.97 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -222,7 +236,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         0.226,
@@ -235,7 +249,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -250,7 +264,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.09,
@@ -263,7 +277,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -278,7 +292,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         8.47,
@@ -291,7 +305,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -307,7 +321,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.66,
@@ -320,7 +334,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -362,7 +376,8 @@
       "severity": 5,
       "score_rationale": "L'industrie du papier et de la pulpe est cyclique avec des fluctuations de prix et de volume liées aux conditions macroéconomiques. Les conditions difficiles en 2025 ont réduit les volumes de papier non-enduit dans les trois régions. Cela est mentionné dans le 10-K, section Item 1A et Item 1, et est considéré comme un risque important en raison de son impact sur les ventes et la rentabilité.",
       "trend": "down",
-      "summary": "La demande pour les produits de la société est cyclique et affectée par les conditions macroéconomiques difficiles actuelles."
+      "summary": "La demande pour les produits de la société est cyclique et affectée par les conditions macroéconomiques difficiles actuelles.",
+      "score": 5
     },
     {
       "title": "Inflation et augmentation des coûts",
@@ -370,7 +385,8 @@
       "severity": 4,
       "score_rationale": "L'inflation a augmenté les coûts opérationnels et de matériaux (fibre de bois, chimiques, transport, énergie). En 2025, les coûts d'entrée et les opérations ont été défavorables dans les trois régions. Cela est mentionné dans le 10-K, section Item 1A, et est considéré comme un risque important en raison de son impact sur la rentabilité.",
       "trend": "up",
-      "summary": "L'inflation a augmenté les coûts des matières premières et opérationnels, réduisant la rentabilité de la société."
+      "summary": "L'inflation a augmenté les coûts des matières premières et opérationnels, réduisant la rentabilité de la société.",
+      "score": 4
     },
     {
       "title": "Concurrence et pression sur les prix",
@@ -378,7 +394,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un environnement hautement concurrentiel avec des produits qui sont des commodités. La concurrence est basée principalement sur le prix. En 2025, les prix et le mix ont été défavorables en Europe et Amérique latine. Cela est mentionné dans le 10-K, section Item 1A, et est considéré comme un risque important.",
       "trend": "stable",
-      "summary": "La concurrence intense et la pression sur les prix pourraient réduire les marges et la rentabilité."
+      "summary": "La concurrence intense et la pression sur les prix pourraient réduire les marges et la rentabilité.",
+      "score": 4
     },
     {
       "title": "Déclin séculaire de la demande papier",
@@ -386,7 +403,8 @@
       "severity": 5,
       "score_rationale": "La demande pour les produits papier est en déclin structurel à long terme en raison de l'adoption croissante des supports numériques et des matériaux alternatifs. Cela est mentionné dans le 10-K, section Item 1, et représente un risque stratégique majeur pour la viabilité à long terme des opérations.",
       "trend": "down",
-      "summary": "Le déclin séculaire de la demande pour les produits papier menace la croissance à long terme."
+      "summary": "Le déclin séculaire de la demande pour les produits papier menace la croissance à long terme.",
+      "score": 5
     },
     {
       "title": "Risques climatiques et environnementaux",
@@ -394,7 +412,8 @@
       "severity": 5,
       "score_rationale": "Les événements climatiques extrêmes pourraient perturber les opérations, les chaînes d'approvisionnement et augmenter les coûts. En 2025, les pertes liées aux incendies de forêt au Brésil ont affecté les opérations. Cela est mentionné dans le 10-K, section Item 1A, et est considéré comme un risque important.",
       "trend": "up",
-      "summary": "Les événements climatiques extrêmes et les incendies de forêt pourraient perturber les opérations et augmenter les coûts."
+      "summary": "Les événements climatiques extrêmes et les incendies de forêt pourraient perturber les opérations et augmenter les coûts.",
+      "score": 5
     },
     {
       "title": "Risques géopolitiques et commerciaux",
@@ -402,7 +421,8 @@
       "severity": 4,
       "score_rationale": "Les événements géopolitiques, conflits commerciaux et restrictions pourraient perturber les opérations mondiales et les chaînes d'approvisionnement. Sylvamo opère dans trois régions majeures avec dépendance significative aux marchés internationaux. Cela est mentionné dans le 10-K, section Item 1A.",
       "trend": "up",
-      "summary": "Les événements géopolitiques pourraient avoir un impact important sur les opérations et la chaîne d'approvisionnement."
+      "summary": "Les événements géopolitiques pourraient avoir un impact important sur les opérations et la chaîne d'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Crise de santé publique",
@@ -410,7 +430,8 @@
       "severity": 4,
       "score_rationale": "Une crise de santé publique pourrait réduire la demande de papier (fermetures scolaires, télétravail) et perturber les opérations. Cela est mentionné dans le 10-K, section Item 1 Business, et est considéré comme un risque important en raison de son impact potentiel.",
       "trend": "stable",
-      "summary": "Une crise de santé publique pourrait réduire la demande et perturber les opérations."
+      "summary": "Une crise de santé publique pourrait réduire la demande et perturber les opérations.",
+      "score": 4
     },
     {
       "title": "Risques de régulation environnementale",
@@ -418,7 +439,8 @@
       "severity": 4,
       "score_rationale": "L'évolution des réglementations environnementales pourrait augmenter les coûts de conformité et opérationnels. Cela est mentionné dans le 10-K, section Item 1, et représente un risque important en raison de l'impact potentiel sur la rentabilité.",
       "trend": "up",
-      "summary": "Les changements dans les réglementations environnementales pourraient augmenter les coûts de conformité."
+      "summary": "Les changements dans les réglementations environnementales pourraient augmenter les coûts de conformité.",
+      "score": 4
     }
   ],
   "governance": {
@@ -451,7 +473,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -505,7 +527,7 @@
   ],
   "_ai_positioning_fetched_at": "2026-05-06T20:14:56.868571+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:29Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2022,
@@ -521,7 +543,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:38Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:30Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Matériaux de base",
   "enrich_description": {
     "ticker": "SLVM",
@@ -620,157 +642,87 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SLVM",
-    "extracted_at": "2026-05-15T18:14:18Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1856485,
+    "extracted_at": "2026-06-01T09:21:29Z",
     "n_kpis": 2,
     "kpis": [
       {
         "short": "Net sales",
         "period_type": "quarter",
         "history": [
-          2530,
-          977,
-          1733,
-          2701,
-          -1783,
-          959,
-          1860,
-          2757,
-          -1855,
-          905,
-          1838,
-          2803,
-          -1773,
-          821,
-          1615,
-          2461,
-          -1546,
-          755
+          0.977,
+          0.912,
+          0.968,
+          0.959,
+          0.919,
+          0.897,
+          0.905,
+          0.919,
+          0.965,
+          0.821,
+          0.794,
+          0.846
         ],
         "history_periods": [
-          "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 1615,
-            "accession": "0001856485-25-000024",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 2461,
-            "accession": "0001856485-25-000031",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -1546,
-            "accession": "calc-0001856485-26-000008",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 755,
-            "accession": "0001856485-26-000019",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T09:21:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Net income",
         "period_type": "quarter",
         "history": [
-          269,
           26,
-          -33,
-          24,
-          101,
+          57,
           97,
-          146,
-          204,
-          -194,
+          49,
+          58,
           43,
-          126,
-          221,
-          -88,
+          49,
+          95,
           27,
-          42,
-          99,
-          -36,
-          -3
+          15,
+          57
         ],
         "history_periods": [
-          "Q3 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 42,
-            "accession": "0001856485-25-000024",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 99,
-            "accession": "0001856485-25-000031",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -36,
-            "accession": "calc-0001856485-26-000008",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": -3,
-            "accession": "0001856485-26-000019",
-            "end": "2026-03-31"
-          }
+        "_extracted_at": "2026-06-01T09:21:29Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (SLVM)"
         ]
       }
     ]
@@ -787,9 +739,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.310580+00:00",
     "fetched_at": "2026-05-21T02:17:14.310581+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.882Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.879Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/slvm.json",
     "enrich_root": "v2-pipeline-enrich/slvm.json",

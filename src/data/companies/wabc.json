@@ -92,31 +92,36 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Significant revenue decline, warning signal"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "-10.3%",
       "history": [
-        0.26,
-        0.32,
-        0.29,
-        0.26
+        260,
+        320,
+        290,
+        260
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.26 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -135,11 +140,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 4.52 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,33 +167,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.96 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.57,
-      "unit": "Mds €",
+      "value": 570,
+      "unit": "M €",
       "yoy": "-5.0%",
       "history": [
-        0.29,
-        0.19,
-        0.6,
-        0.57
+        290,
+        190,
+        600,
+        570
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.57 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -224,16 +242,16 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le rapport mentionne une interruption ou une faille dans la sécurité des systèmes d'information, ce qui pourrait avoir des conséquences graves pour l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne une interruption ou une faille dans la sécurité des systèmes d'information, ce qui pourrait avoir des conséquences graves pour l'entreprise.",
       "trend": "stable",
       "summary": "La société est exposée à des risques de cybersécurité qui pourraient compromettre la confidentialité et l'intégrité de ses données.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Régulation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne les réglementations bancaires et les politiques de la Réserve fédérale, qui pourraient avoir un impact sur les activités de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les réglementations bancaires et les politiques de la Réserve fédérale, qui pourraient avoir un impact sur les activités de l'entreprise.",
       "trend": "up",
       "summary": "La société doit se conformer aux réglementations bancaires et aux politiques de la Réserve fédérale, ce qui pourrait limiter sa capacité à opérer.",
       "score": 3
@@ -242,7 +260,7 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne la concurrence dans le secteur bancaire, qui pourrait avoir un impact sur la part de marché de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne la concurrence dans le secteur bancaire, qui pourrait avoir un impact sur la part de marché de l'entreprise.",
       "trend": "stable",
       "summary": "La société opère dans un secteur bancaire concurrentiel, ce qui pourrait affecter sa capacité à attirer et à retenir des clients.",
       "score": 3
@@ -251,16 +269,16 @@
       "title": "Crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Le rapport mentionne les risques de crédit liés aux prêts et aux investissements, qui pourraient avoir un impact sur la solvabilité de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques de crédit liés aux prêts et aux investissements, qui pourraient avoir un impact sur la solvabilité de l'entreprise.",
       "trend": "up",
       "summary": "La société est exposée à des risques de crédit liés aux prêts et aux investissements, ce qui pourrait affecter sa capacité à recouvrer ses créances.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Géopolitique",
       "category": "Géopolitique",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne les risques géopolitiques liés aux tensions internationales et aux changements climatiques, qui pourraient avoir un impact sur les activités de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques géopolitiques liés aux tensions internationales et aux changements climatiques, qui pourraient avoir un impact sur les activités de l'entreprise.",
       "trend": "up",
       "summary": "La société est exposée à des risques géopolitiques liés aux tensions internationales et aux changements climatiques, ce qui pourrait affecter sa capacité à opérer dans certains marchés.",
       "score": 3
@@ -269,7 +287,7 @@
       "title": "Inflation",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne les risques liés à l'inflation, qui pourraient avoir un impact sur la valeur de l'argent et les coûts de production de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques liés à l'inflation, qui pourraient avoir un impact sur la valeur de l'argent et les coûts de production de l'entreprise.",
       "trend": "up",
       "summary": "La société est exposée à des risques liés à l'inflation, ce qui pourrait affecter sa capacité à maintenir ses marges bénéficiaires.",
       "score": 3
@@ -278,10 +296,10 @@
       "title": "Liquidité",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le rapport mentionne les risques de liquidité liés à la capacité de l'entreprise à honorer ses engagements financiers. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne les risques de liquidité liés à la capacité de l'entreprise à honorer ses engagements financiers.",
       "trend": "stable",
       "summary": "La société doit gérer ses liquidités pour honorer ses engagements financiers et maintenir sa solvabilité.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -546,9 +564,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.327174+00:00",
     "fetched_at": "2026-05-21T02:17:14.327175+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.364Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.497Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wabc.json",
     "enrich_root": "v2-pipeline-enrich/wabc.json",

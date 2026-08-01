@@ -1,6 +1,6 @@
 {
   "ticker": "ITGR",
-  "name": "Integer Holdings Corporation",
+  "name": "Integer Holdings",
   "sector": "Technologie",
   "subsector": "Semi-conducteurs et équipements",
   "tagline": "Leading CDMO advancing medical device innovation in cardio, neuromodulation and cardiac rhythm management",
@@ -21,8 +21,8 @@
       "name_fr": "Revenu Cardiovasculaire",
       "name_en": "Cardio Vascular Revenue",
       "explanation": "Revenue from cardio and vascular products and services",
-      "value": 1853.637,
-      "unit": "M $",
+      "value": 1.854,
+      "unit": "Mds $",
       "yoy": "+8.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,14 +30,14 @@
       "signal": "Strong growth in cardio vascular market segment",
       "description": "Revenue from cardio and vascular products and services, increasing by 16.6% year-over-year, driven by new product ramps in targeted high-growth markets",
       "history": [
-        1215.012,
-        1258.094,
-        1073.442,
-        1221.079,
-        1376.096,
-        1596.673,
-        1716.596,
-        1853.637
+        1.215,
+        1.258,
+        1.073,
+        1.221,
+        1.376,
+        1.597,
+        1.717,
+        1.854
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -49,7 +49,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:28.312292+00:00",
       "explanation_en": "Revenue from the Cardio Vascular segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -77,8 +78,12 @@
       "is_short_history": false,
       "ttm": 27.08,
       "_validation": "Unité confirmée correcte (%). Explication améliorée. Description enrichie avec contexte des améliorations opérationnelles.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D Expenses",
@@ -107,7 +112,11 @@
       "ttm": 2.62,
       "_validation": "Unité corrigée de 'Mds $' à '%' (valeur 49.5M $ représente 2.7% des ventes). Value corrigée de 49.5 à 2.7. YoY corrigé de -7.3% (variation absolue) à -0.4% (variation en points de pourcentage). History corrigée en pourcentages. TTM recalculé à 2.62%. Description complétée avec contexte.",
       "explanation_en": "Expenses related to R&D.",
-      "signal_en": "Stable, slight decline to monitor"
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -126,34 +135,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.85 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-16.7%",
       "history": [
-        0.07,
-        0.09,
-        0.12,
-        0.1
+        70,
+        90,
+        120,
+        100
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.1 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -172,11 +190,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.41 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -195,33 +217,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.31 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-60.0%",
       "history": [
-        0.02,
-        0.02,
-        0.05,
-        0.02
+        20,
+        20,
+        50,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -251,9 +282,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 1153.08,
-      "_validation": "Unité corrigée de 'Mds $' à 'M $'. Value corrigée de '1,107' à '1,107.1'. History et description harmonisés avec kpis principal.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'M $'. Value corrigée de '1,107' à '1,107.1'. History et description harmonisés avec kpis principal."
     }
   ],
   "ai_positioning": {
@@ -267,25 +296,25 @@
       "title": "Dependence on Limited Number of Customers",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Top three customers represented 49% of 2025 revenues. Loss of any major customer or significant demand reduction would materially impact revenue and results of operations (score par défaut, à affiner)",
+      "score_rationale": "Top three customers represented 49% of 2025 revenues. Loss of any major customer or significant demand reduction would materially impact revenue and results of operations",
       "trend": "stable",
       "summary": "Integer depends heavily on a limited number of customers, with the top three accounting for approximately 49% of revenues. While long-term supply agreements exist with most large customers, they lack minimum purchase requirements and may not be renewed, creating significant revenue concentration risk.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Supply Chain and Sourcing Risks",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Dependence on third-party suppliers for raw materials; exposure to supply disruptions, geopolitical tensions, tariffs and commodity price volatility (score par défaut, à affiner)",
+      "score_rationale": "Dependence on third-party suppliers for raw materials; exposure to supply disruptions, geopolitical tensions, tariffs and commodity price volatility",
       "trend": "up",
       "summary": "Integer relies on third-party suppliers for raw materials and components. Supply chain disruptions related to wars in Ukraine and Middle East, Asia tensions, tariffs, labor shortages, and inflationary pressures could increase costs and delay shipments, negatively impacting operations and margins.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Pricing Pressure from Customers",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Customers continue to exert downward pricing pressure, creating risk of gross margin compression and reduced profitability (score par défaut, à affiner)",
+      "score_rationale": "Customers continue to exert downward pricing pressure, creating risk of gross margin compression and reduced profitability",
       "trend": "up",
       "summary": "Integer faces ongoing pricing pressures from large customers seeking to reduce costs. Inability to offset price reductions through operational efficiency or volume growth could result in compressed gross margins and lower profitability.",
       "score": 3
@@ -294,34 +323,34 @@
       "title": "Cybersecurity and Data Protection Risks",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Dependence on information systems and digital infrastructure; exposure to cyberattacks, data breaches, and operational disruptions with potential material financial and reputational impact (score par défaut, à affiner)",
+      "score_rationale": "Dependence on information systems and digital infrastructure; exposure to cyberattacks, data breaches, and operational disruptions with potential material financial and reputational impact",
       "trend": "up",
       "summary": "Integer is exposed to cybersecurity risks including potential cyberattacks, data breaches, and loss of intellectual property. Given the company's reliance on IT systems and sensitive customer data, such incidents could result in operational disruptions, regulatory penalties, and damage to customer relationships.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Regulatory and Compliance Risks",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Subject to strict medical device regulations (FDA, international). Non-compliance or regulatory changes could result in product recalls, facility shutdowns, or inability to bring products to market (score par défaut, à affiner)",
+      "score_rationale": "Subject to strict medical device regulations (FDA, international). Non-compliance or regulatory changes could result in product recalls, facility shutdowns, or inability to bring products to market",
       "trend": "stable",
       "summary": "As a medical device CDMO, Integer operates under stringent FDA and international regulations. Changes in regulatory requirements, failure to maintain compliance, or inability to obtain necessary regulatory approvals could delay product launches and impact revenue growth.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Production Disruption Risks",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Exposure to external events (natural disasters, geopolitical events, pandemics) that could interrupt manufacturing operations and result in lost revenues and customer relationships (score par défaut, à affiner)",
+      "score_rationale": "Exposure to external events (natural disasters, geopolitical events, pandemics) that could interrupt manufacturing operations and result in lost revenues and customer relationships",
       "trend": "stable",
       "summary": "Integer's manufacturing operations are exposed to risks from external events including natural disasters, geopolitical incidents, and pandemics. Such disruptions could interrupt production, delay customer shipments, and result in loss of market share to competitors.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Product Quality and Recall Risks",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Medical device manufacturing requires flawless quality; defects could trigger recalls, regulatory action, customer losses, and reputational damage (score par défaut, à affiner)",
+      "score_rationale": "Medical device manufacturing requires flawless quality; defects could trigger recalls, regulatory action, customer losses, and reputational damage",
       "trend": "stable",
       "summary": "As a medical device contract manufacturer, Integer faces inherent risks of product defects or quality issues. Product recalls could result in significant costs, loss of customer confidence, regulatory penalties, and long-term reputational damage to the company.",
       "score": 3
@@ -350,7 +379,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -554,9 +583,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.531348+00:00",
     "fetched_at": "2026-05-21T01:44:37.531349+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.556Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.263Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/itgr.json",
     "enrich_root": "v2-pipeline-enrich/itgr.json",

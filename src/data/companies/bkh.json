@@ -1,6 +1,6 @@
 {
   "ticker": "BKH",
-  "name": "Black Hills Corporation",
+  "name": "Black Hills",
   "sector": "Services aux collectivités",
   "subsector": "Electric & Gas Utilities",
   "tagline": "Improving Life with Energy",
@@ -96,7 +96,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 274.13,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Solid expansion, positive trajectory"
     },
     {
@@ -148,7 +148,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 3.96,
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -168,11 +168,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.87 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -191,33 +195,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.7 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.18,
-      "unit": "Mds €",
+      "value": 180,
+      "unit": "M €",
       "yoy": "+800.0%",
       "history": [
-        0.02,
-        0.09,
-        0.02,
-        0.18
+        20,
+        90,
+        20,
+        180
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.18 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -231,7 +244,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.29,
         2.41,
@@ -244,7 +257,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -259,7 +272,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1567,
@@ -272,7 +285,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -287,7 +300,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         60.64,
@@ -300,7 +313,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -316,7 +329,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.97,
@@ -329,7 +342,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -354,9 +367,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Gas Utilities operating income 2025",
@@ -378,9 +389,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Wyoming Electric data center growth",
@@ -403,9 +412,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Stratégie",
-      "_source_month": "janvier 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Stratégie"
     },
     {
       "short": "Lange II project construction",
@@ -427,13 +434,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Stratégie",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Stratégie"
     }
   ],
   "ai_positioning": {
-    "stance": "nascent",
+    "stance": "absent",
     "summary": "Black Hills Corporation has limited explicit AI mentions in its 10-K but demonstrates indirect engagement through data center infrastructure expansion. Wyoming Electric provides power to major AI data center customers Meta and Microsoft under its LPCS Tariff, reflecting emerging opportunities in the AI infrastructure sector rather than corporate AI adoption.",
     "evidence": [
       "Wyoming Electric partnership with Meta for AI data center power provision, announced July 2024, transitioning to permanent service Q1 2026",
@@ -447,43 +452,43 @@
       "title": "Regulatory Risk",
       "category": "Regulation",
       "severity": 5,
-      "score_rationale": "Company operates under strict federal and state regulatory frameworks; unfavorable regulatory decisions could materially impact financial results and capital recovery mechanisms (score par défaut, à affiner)",
+      "score_rationale": "Company operates under strict federal and state regulatory frameworks; unfavorable regulatory decisions could materially impact financial results and capital recovery mechanisms",
       "trend": "stable",
       "summary": "Exposure to regulatory changes affecting utility operations, rate reviews, and cost recovery mechanisms across eight-state footprint",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Cybersecurity Risk",
       "category": "Cybersecurity",
       "severity": 4,
-      "score_rationale": "Critical infrastructure operator vulnerable to cyber attacks that could disrupt operations, compromise customer data, and damage reputation (score par défaut, à affiner)",
+      "score_rationale": "Critical infrastructure operator vulnerable to cyber attacks that could disrupt operations, compromise customer data, and damage reputation",
       "trend": "up",
       "summary": "Energy infrastructure increasingly targeted by cyber threats; operational disruptions could impact customer service and financial performance",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Environmental and Wildfire Risk",
       "category": "Environmental",
       "severity": 4,
-      "score_rationale": "Western utility operations exposed to increasing wildfire risks requiring significant mitigation investments; regulatory and liability exposure if mitigation inadequate (score par défaut, à affiner)",
+      "score_rationale": "Western utility operations exposed to increasing wildfire risks requiring significant mitigation investments; regulatory and liability exposure if mitigation inadequate",
       "trend": "up",
       "summary": "Established Emergency PSPS program and Wildfire Mitigation Plan; Wyoming HB0192 provides liability protections for compliant utilities; ongoing regulatory scrutiny and capital requirements",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Merger Integration Risk",
       "category": "Strategic",
       "severity": 4,
-      "score_rationale": "Pending all-stock merger with NorthWestern expected to close H2 2026 subject to multiple regulatory approvals; integration complexity and execution risks (score par défaut, à affiner)",
+      "score_rationale": "Pending all-stock merger with NorthWestern expected to close H2 2026 subject to multiple regulatory approvals; integration complexity and execution risks",
       "trend": "stable",
       "summary": "Proposed merger awaiting FERC, MPSC, NPSC, SDPUC approvals and HSR clearance; combined entity will serve 0.7M electric and 1.5M gas customers across eight states",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Labor and Supply Chain Risk",
       "category": "Operational",
       "severity": 3,
-      "score_rationale": "Dependence on qualified workforce and suppliers for capital investment programs; labor availability and commodity price volatility could impact project execution (score par défaut, à affiner)",
+      "score_rationale": "Dependence on qualified workforce and suppliers for capital investment programs; labor availability and commodity price volatility could impact project execution",
       "trend": "up",
       "summary": "Significant five-year capital investment program dependent on construction personnel availability and material supply chain resilience",
       "score": 3
@@ -492,7 +497,7 @@
       "title": "Interest Rate and Credit Risk",
       "category": "Credit",
       "severity": 3,
-      "score_rationale": "Utility capital-intensive business requires access to credit markets; rising interest rates increase debt service costs as evidenced by 18.4M$ increase in 2025 (score par défaut, à affiner)",
+      "score_rationale": "Utility capital-intensive business requires access to credit markets; rising interest rates increase debt service costs as evidenced by 18.4M$ increase in 2025",
       "trend": "up",
       "summary": "Higher interest rates impacting long-term debt and commercial paper borrowing costs; dependent on market access for infrastructure financing",
       "score": 3
@@ -501,7 +506,7 @@
       "title": "Weather and Commodity Price Risk",
       "category": "Operational",
       "severity": 3,
-      "score_rationale": "Operating results affected by weather patterns and energy commodity prices; although regulatory mechanisms provide partial offset (score par défaut, à affiner)",
+      "score_rationale": "Operating results affected by weather patterns and energy commodity prices; although regulatory mechanisms provide partial offset",
       "trend": "stable",
       "summary": "Favorable weather in 2025 benefited Gas Utilities; unfavorable weather impacts Electric Utilities; fuel and purchased power costs subject to volatility",
       "score": 3
@@ -510,7 +515,7 @@
       "title": "Reputation Risk",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "Public utility company subject to community expectations regarding service reliability, environmental stewardship, and customer rates (score par défaut, à affiner)",
+      "score_rationale": "Public utility company subject to community expectations regarding service reliability, environmental stewardship, and customer rates",
       "trend": "stable",
       "summary": "Community-focused utility with 142-year operating history; reputation dependent on operational excellence and customer service delivery",
       "score": 3
@@ -671,7 +676,7 @@
   },
   "_segments_fetched_at": "2026-05-06T19:24:49.790321+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:06Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -687,7 +692,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:52Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:54Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Services publics électricité & gaz",
   "enrich_description": {
     "ticker": "BKH",
@@ -777,322 +782,62 @@
   },
   "enrich_quarterly_history": {
     "ticker": "BKH",
-    "extracted_at": "2026-05-15T18:09:36Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1130464,
-    "n_kpis": 4,
+    "extracted_at": "2026-06-01T03:02:30Z",
+    "n_kpis": 2,
     "kpis": [
-      {
-        "short": "Electric Utilities operating income",
-        "period_type": "quarter",
-        "history": [
-          205.581,
-          295.454,
-          -229.921,
-          173.353,
-          245.742,
-          325.221,
-          -289.072,
-          174.883,
-          238.399,
-          336.17,
-          -276.752,
-          193.3,
-          264,
-          339.8,
-          -294,
-          205,
-          287.4,
-          366.1,
-          -321,
-          201.9
-        ],
-        "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 287.4,
-            "accession": "0000950170-25-100667",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 366.1,
-            "accession": "0001193125-25-268567",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -321,
-            "accession": "calc-0001193125-26-046028",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 201.9,
-            "accession": "0001193125-26-211037",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Gas Utilities operating income",
-        "period_type": "quarter",
-        "history": [
-          205.581,
-          295.454,
-          -229.921,
-          173.353,
-          245.742,
-          325.221,
-          -289.072,
-          174.883,
-          238.399,
-          336.17,
-          -276.752,
-          193.3,
-          264,
-          339.8,
-          -294,
-          205,
-          287.4,
-          366.1,
-          -321,
-          201.9
-        ],
-        "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 287.4,
-            "accession": "0000950170-25-100667",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 366.1,
-            "accession": "0001193125-25-268567",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -321,
-            "accession": "calc-0001193125-26-046028",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 201.9,
-            "accession": "0001193125-26-211037",
-            "end": "2026-03-31"
-          }
-        ]
-      },
       {
         "short": "Net income",
         "period_type": "quarter",
         "history": [
-          150.423,
-          -130.129,
-          96.316,
-          121.477,
-          165.589,
-          -146.638,
-          117.526,
-          114.084,
-          137.137,
-          182.52,
-          -171.541,
-          127.9,
-          150.6,
-          175,
-          -180.4,
-          134.3,
-          161.7,
-          186.6,
-          -191,
-          131
+          100.487,
+          121.024,
+          28.287,
+          35.846,
+          48.162,
+          37.834
         ],
         "history_periods": [
-          "Q3 2020",
-          "Q4 2020",
           "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q2 2021",
+          "Q2 2022",
+          "Q3 2021",
+          "Q3 2022"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2022-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 161.7,
-            "accession": "0000950170-25-100667",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 186.6,
-            "accession": "0001193125-25-268567",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -191,
-            "accession": "calc-0001193125-26-046028",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 131,
-            "accession": "0001193125-26-211037",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:02:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
-        "short": "Total Operating Income",
+        "short": "Diluted EPS",
         "period_type": "quarter",
         "history": [
-          205.581,
-          295.454,
-          -229.921,
-          173.353,
-          245.742,
-          325.221,
-          -289.072,
-          174.883,
-          238.399,
-          336.17,
-          -276.752,
-          193.3,
-          264,
-          339.8,
-          -294,
-          205,
-          287.4,
-          366.1,
-          -321,
-          201.9
+          1.54,
+          1.82,
+          0.4,
+          0.52,
+          0.7,
+          0.54
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
+          "Q1 2021",
           "Q1 2022",
+          "Q2 2021",
           "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2021",
+          "Q3 2022"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 287.4,
-            "accession": "0000950170-25-100667",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 366.1,
-            "accession": "0001193125-25-268567",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -321,
-            "accession": "calc-0001193125-26-046028",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 201.9,
-            "accession": "0001193125-26-211037",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2022-09-30",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T03:02:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -1108,9 +853,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.230721+00:00",
     "fetched_at": "2026-05-21T02:17:14.230722+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.674Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.150Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bkh.json",
     "enrich_root": "v2-pipeline-enrich/bkh.json",

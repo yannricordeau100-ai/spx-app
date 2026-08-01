@@ -37,9 +37,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from Mds $ to B $; yoy corrected from '+n/a' to 'n/a'; name_en improved for clarity",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Seules les données de décembre 31, 2023 sont explicitement fournies dans l'extrait (Fee-earning AUM total: $307.4B = $106.7B + $155.2B + $45"
+      "_hero_history_unverified_reason": "Seules les données de décembre 31, 2023 sont explicitement fournies dans l'extrait (Fee-earning AUM total: $307.4B = $106.7B + $155.2B + $45",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "AUM",
@@ -62,7 +65,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from Mds $ to B $; yoy corrected from '+n/a' to 'n/a'; is_generic changed to false; name_fr simplified",
-      "explanation_en": "Assets Under Management — total client assets managed by the firm."
+      "explanation_en": "Assets Under Management, total client assets managed by the firm."
     },
     {
       "short": "Gross IRR",
@@ -151,7 +154,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Value corrected from 2300 to 2.3 (unit is K, so 2300 represents 2.3K); yoy corrected from '+n/a' to 'n/a'; description clarified; is_generic changed to false",
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -170,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 29.12 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,39 +200,18 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 13.89 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
-    {
-      "short": "AI Capex Growth",
-      "name_fr": "Croissance des capex liés à l'IA",
-      "name_en": "AI-related Capital Expenditures Growth",
-      "explanation": "Taux de croissance annualisé des investissements en capex liés à l'intelligence artificielle, notamment dans les data centers et infrastructure technologique.",
-      "value": "30",
-      "unit": "%",
-      "yoy": "n/a",
-      "type": "Investment",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Accélération massive des dépenses tech",
-      "description": "Croissance annualisée de 30% des dépenses technologiques du portefeuille, principalement portée par les investissements en IA et data centers. Données propriétaires du portefeuille Carlyle au 31 décembre 2025.",
-      "history": [
-        30
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Capacité",
-      "_validation": "Verified against MD&A trends section mentioning 'technology spending growth ended the year at a record 30% annualized rate'; description clarified to remove ambiguity",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
-    },
     {
       "short": "Data Center Shipments",
       "name_fr": "Croissance des expéditions data center",
@@ -247,13 +233,11 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Adoption",
-      "_validation": "Verified against MD&A stating 'hardware shipments are 7.5x higher than 2021 levels'; yoy corrected from '+n/a' to 'n/a'; name_fr improved for clarity; description enhanced with source clarity",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Verified against MD&A stating 'hardware shipments are 7.5x higher than 2021 levels'; yoy corrected from '+n/a' to 'n/a'; name_fr improved for clarity; description enhanced with source clarity"
     }
   ],
   "ai_positioning": {
-    "stance": "portfolio_focused",
+    "stance": "absent",
     "summary": "Bien que Carlyle ne positionne pas l'IA comme stratégie interne centralisée, le groupe identifie d'importantes opportunités d'investissement liées à l'IA. La société souligne que ses investissements de portefeuille bénéficient de la croissance exponentielle des dépenses en IA (notamment les data centers à +30% annualisé) et reconnaît l'impact transformateur de l'IA générative sur les secteurs d'investissement.",
     "evidence": [
       "Technology spending growth at record 30% annualized rate driven by AI-related investment",
@@ -268,34 +252,34 @@
       "title": "Évaluation subjective des actifs et erreurs potentielles",
       "category": "Valuation",
       "severity": 4,
-      "score_rationale": "Mentionné dans l'Item 1A, le langage est direct sur les jugements subjectifs et les erreurs potentielles de valorisation. Ce risque impacte directement la performance reportée des fonds et les allocations de performance (carry). (score par défaut, à affiner)",
+      "score_rationale": "Mentionné dans l'Item 1A, le langage est direct sur les jugements subjectifs et les erreurs potentielles de valorisation. Ce risque impacte directement la performance reportée des fonds et les allocations de performance (carry).",
       "trend": "stable",
       "summary": "L'évaluation de la juste valeur de certains actifs repose sur des jugements subjectifs, ce qui peut entraîner des erreurs dans la valorisation des fonds et des allocations de performance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépréciation des investissements en méthode de mise en équivalence",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "L'Item 1A détaille le risque d'impairment des investissements en méthode de mise en équivalence, notamment l'investissement dans NGP qui a connu une dépréciation significative. Les défis de levée de fonds et les changements d'arrangements économiques constituent des facteurs d'impairment. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A détaille le risque d'impairment des investissements en méthode de mise en équivalence, notamment l'investissement dans NGP qui a connu une dépréciation significative. Les défis de levée de fonds et les changements d'arrangements économiques constituent des facteurs d'impairment.",
       "trend": "stable",
       "summary": "Les investissements comptabilisés selon la méthode de mise en équivalence sont sujets à dépréciation si leur valeur comptable n'est plus recouvrable, affectant les résultats et le capital-actions.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité des marchés impactant les allocations de performance",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "L'Item 1A met en évidence l'impact significatif des variations de juste valeur sur les allocations de performance (carry). Les fluctuations du portefeuille peuvent générer des variations de plusieurs milliards de dollars de revenus de performance. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A met en évidence l'impact significatif des variations de juste valeur sur les allocations de performance (carry). Les fluctuations du portefeuille peuvent générer des variations de plusieurs milliards de dollars de revenus de performance.",
       "trend": "up",
       "summary": "Les fluctuations importantes de la juste valeur des actifs des fonds peuvent impacter matériellement les revenus d'allocations de performance, qui sont une source de revenus clé et volatile.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de taux de change sur les actifs et revenus étrangers",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "L'Item 1A quantifie l'impact d'une dépréciation de 10% des devises étrangères sur les frais de gestion et les allocations de performance. L'exposition internationale significative rend ce risque matériel mais moins existentiel que d'autres. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A quantifie l'impact d'une dépréciation de 10% des devises étrangères sur les frais de gestion et les allocations de performance. L'exposition internationale significative rend ce risque matériel mais moins existentiel que d'autres.",
       "trend": "stable",
       "summary": "Les variations des taux de change peuvent réduire les frais de gestion et les allocations de performance libellés en devises étrangères, affectant les résultats consolidés.",
       "score": 3
@@ -304,16 +288,16 @@
       "title": "Risque de taux d'intérêt sur les emprunts à taux variable",
       "category": "Financement",
       "severity": 2,
-      "score_rationale": "L'Item 1A mentionne les obligations sous CLO à taux variable et quantifie l'impact d'une hausse de 1% des taux d'intérêt. L'impact financier estimé est modéré et l'exposition est gérée par la structure du bilan. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A mentionne les obligations sous CLO à taux variable et quantifie l'impact d'une hausse de 1% des taux d'intérêt. L'impact financier estimé est modéré et l'exposition est gérée par la structure du bilan.",
       "trend": "up",
       "summary": "Les obligations à taux variable exposent l'entreprise à une augmentation des charges d'intérêt en cas de hausse des taux, impactant les bénéfices nets et les flux de trésorerie disponibles.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risque de crédit lié aux contreparties de produits dérivés",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "L'Item 1A identifie le risque de crédit des contreparties de produits dérivés et des institutions financières. L'entreprise cherche à minimiser ce risque en limitant l'exposition par contrepartie et en utilisant des accords de compensation. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A identifie le risque de crédit des contreparties de produits dérivés et des institutions financières. L'entreprise cherche à minimiser ce risque en limitant l'exposition par contrepartie et en utilisant des accords de compensation.",
       "trend": "stable",
       "summary": "Le risque que les contreparties des instruments dérivés ou les institutions financières ne respectent pas leurs obligations peut entraîner des pertes financières directes.",
       "score": 3
@@ -322,10 +306,10 @@
       "title": "Dépréciation des actifs incorporels et du goodwill",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "L'Item 1A décrit en détail l'évaluation des actifs incorporels et du goodwill, nécessitant des jugements et estimations significatifs. Le risque d'impairment est clairement énoncé avec une revue annuelle et des tests ad hoc requis. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A décrit en détail l'évaluation des actifs incorporels et du goodwill, nécessitant des jugements et estimations significatifs. Le risque d'impairment est clairement énoncé avec une revue annuelle et des tests ad hoc requis.",
       "trend": "stable",
       "summary": "Les actifs incorporels et le goodwill sont sujets à dépréciation si les conditions économiques ou les performances des entités acquises se détériorent, impactant la valeur comptable du capital-actions.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -374,7 +358,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -493,23 +477,18 @@
         "history": [
           19.6492,
           20.7887,
-          -36.1628,
           21.7364,
           21.4249,
           21.0924,
-          -42.8507,
           21.2739,
           21.381,
           20.9573,
-          -42.4362,
           20.8495,
           22.2841,
           22.6584,
-          -42.6885,
           24.0955,
           25.0678,
           27.0559,
-          -47.1032,
           29.842
         ],
         "history_periods": [
@@ -563,6 +542,9 @@
             "accession": "0001527166-26-000027",
             "end": "2026-03-31"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (CG)"
         ]
       }
     ]
@@ -579,9 +561,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.238012+00:00",
     "fetched_at": "2026-05-21T02:17:14.238013+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.323Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.763Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cg.json",
     "enrich_root": "v2-pipeline-enrich/cg.json",

@@ -47,8 +47,12 @@
       "is_short_history": false,
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:29.368866+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -71,7 +75,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -119,7 +123,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Profit — revenue minus cost of goods sold.",
+      "explanation_en": "Gross Profit, revenue minus cost of goods sold.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -213,9 +217,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "_source_month": "décembre 2026",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Cash & Equivalents",
@@ -275,7 +277,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         0.17,
@@ -288,7 +290,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -303,7 +305,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.001,
@@ -316,7 +318,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position stable"
     },
     {
@@ -331,7 +333,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         31.12,
@@ -344,7 +346,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -359,7 +361,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.55,
@@ -372,7 +374,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -412,7 +414,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de la section 'Risks Related to Our Business', mention répétée avec un langage fort (\"malfunction\", \"cessation\", \"material adverse effect\"). La tendance est stable mais avec des investissements en cours. La catégorie Technologie est centrale pour l'activité PCB.",
       "trend": "stable",
-      "summary": "Eltek dépend de machines uniques, vieillissantes et sujettes à des pannes, dont les remplacements ou pièces peuvent être difficiles à obtenir. Une panne pourrait interrompre la production pendant plusieurs jours à mois."
+      "summary": "Eltek dépend de machines uniques, vieillissantes et sujettes à des pannes, dont les remplacements ou pièces peuvent être difficiles à obtenir. Une panne pourrait interrompre la production pendant plusieurs jours à mois.",
+      "score": 5
     },
     {
       "title": "Concentration des ventes sur quelques clients",
@@ -420,7 +423,8 @@
       "severity": 4,
       "score_rationale": "Position élevé dans le document, données chiffrées précises (jusqu'à 18,3 %), langage préoccupé (\"adverse impact\", \"no assurance\"). Tendance stable. Catégorie Concurrence car lié à la négociation commerciale et aux AVL.",
       "trend": "stable",
-      "summary": "Un petit nombre de clients représentent une part significative des revenus. La perte d'un client clé ou une baisse de cote AVL pourrait réduire fortement les commandes et impacter la rentabilité."
+      "summary": "Un petit nombre de clients représentent une part significative des revenus. La perte d'un client clé ou une baisse de cote AVL pourrait réduire fortement les commandes et impacter la rentabilité.",
+      "score": 4
     },
     {
       "title": "Dépendance à quelques fournisseurs de matières premières",
@@ -428,7 +432,8 @@
       "severity": 5,
       "score_rationale": "Présenté tôt, avec données concrètes (35 % des coûts matières auprès de 2 fournisseurs), langage fort (\"delays\", \"cancellation\", \"no alternative\"). Tendance stable. Catégorie Industriel car central au modèle de production.",
       "trend": "stable",
-      "summary": "Eltek dépend de quelques fournisseurs pour des matières premières critiques. Un retard ou une rupture d'approvisionnement pourrait interrompre la production, augmenter les coûts ou annuler des commandes."
+      "summary": "Eltek dépend de quelques fournisseurs pour des matières premières critiques. Un retard ou une rupture d'approvisionnement pourrait interrompre la production, augmenter les coûts ou annuler des commandes.",
+      "score": 5
     },
     {
       "title": "Pénurie de laminés rigides due à l'IA",
@@ -436,7 +441,8 @@
       "severity": 5,
       "score_rationale": "Nouveau risque explicitement lié à l'IA, langage très marqué (\"significant shortage\", \"highly volatile\"). Position centrale, poids élevé car impacte coût et production. Catégorie Macro car lié à une tendance sectorielle mondiale.",
       "trend": "new",
-      "summary": "La demande croissante pour l'IA entraîne une pénurie mondiale de laminés rigides et de préimprégnés, limitant l'approvisionnement d'Eltek, augmentant les prix et menaçant la rentabilité et les délais."
+      "summary": "La demande croissante pour l'IA entraîne une pénurie mondiale de laminés rigides et de préimprégnés, limitant l'approvisionnement d'Eltek, augmentant les prix et menaçant la rentabilité et les délais.",
+      "score": 5
     },
     {
       "title": "Risques liés aux normes environnementales strictes",
@@ -444,7 +450,8 @@
       "severity": 4,
       "score_rationale": "Position élevé, mention d'ISO 14001 et de réforme réglementaire (permis intégré). Langage sérieux (\"fines\", \"revocation\"). Tendance stable. Catégorie Régulation car liée à des obligations légales spécifiques au secteur PCB.",
       "trend": "stable",
-      "summary": "Les activités d'Eltek sont soumises à des réglementations environnementales strictes (ISO 14001, permis unifié). Un non-respect pourrait entraîner des amendes, la révocation de permis ou des coûts de conformité élevés."
+      "summary": "Les activités d'Eltek sont soumises à des réglementations environnementales strictes (ISO 14001, permis unifié). Un non-respect pourrait entraîner des amendes, la révocation de permis ou des coûts de conformité élevés.",
+      "score": 4
     },
     {
       "title": "Complexité des processus de fabrication",
@@ -452,7 +459,8 @@
       "severity": 4,
       "score_rationale": "Langage fort (\"highly complex\", \"defects\", \"material adverse effect\"). Risque récurrent, lié à la nature du produit. Catégorie Technologie car lié aux processus de production avancés des PCB.",
       "trend": "stable",
-      "summary": "Les processus de fabrication des circuits imprimés sont très complexes et sujets à des défaillances, pouvant entraîner des retards, des défauts ou des rappels, nuisant à la réputation et aux marges."
+      "summary": "Les processus de fabrication des circuits imprimés sont très complexes et sujets à des défaillances, pouvant entraîner des retards, des défauts ou des rappels, nuisant à la réputation et aux marges.",
+      "score": 4
     },
     {
       "title": "Menaces sur la propriété intellectuelle",
@@ -460,7 +468,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de l'inefficacité potentielle des protections IP et de risques de litiges. Langage préoccupé (\"not effective\", \"infringe\"). Tendance stable. Catégorie Technologie car centrale à l'innovation PCB.",
       "trend": "stable",
-      "summary": "Les mesures de protection de la propriété intellectuelle d'Eltek pourraient s'avérer insuffisantes. Des revendications d'infraction par des tiers pourraient entraîner des litiges coûteux et nuire à la compétitivité."
+      "summary": "Les mesures de protection de la propriété intellectuelle d'Eltek pourraient s'avérer insuffisantes. Des revendications d'infraction par des tiers pourraient entraîner des litiges coûteux et nuire à la compétitivité.",
+      "score": 4
     },
     {
       "title": "Concurrence asiatique à bas coût",
@@ -468,7 +477,8 @@
       "severity": 4,
       "score_rationale": "Mention directe de la concurrence en Asie avec un désavantage de coût. Langage clair (\"lower than ours\"). Position élevé. Catégorie Concurrence car facteur structurel du marché PCB.",
       "trend": "stable",
-      "summary": "Eltek fait face à une concurrence intense de fabricants asiatiques de PCB dont les coûts de production sont inférieurs, ce qui exerce une pression sur les prix et les marges."
+      "summary": "Eltek fait face à une concurrence intense de fabricants asiatiques de PCB dont les coûts de production sont inférieurs, ce qui exerce une pression sur les prix et les marges.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:32:00.415382+00:00",
@@ -514,7 +524,7 @@
   },
   "_governance_yf_fallback_at": "2026-05-14T04:41:35.580954+00:00",
   "_dividends_extracted_at": "2026-05-09T20:23:25Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2025,
@@ -526,7 +536,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:37Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:46Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "ELTK",
     "simple": {
@@ -580,7 +590,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.699Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.003Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/eltk.json",
     "enrich_root": "v2-pipeline-enrich/eltk.json",

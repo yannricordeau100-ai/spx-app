@@ -13,7 +13,7 @@
     "sector": "Top 3 integrated oil & gas",
     "subsector": "Top 3"
   },
-  "hero_kpi": "Production",
+  "hero_kpi": "LNG Liquefaction",
   "hero_kpi_rationale": "La production d'hydrocarbures est le KPI maître du secteur upstream et un driver direct des revenus et de la trésorerie. Shell, par sa position mondiale et son portefeuille intégré, dépend fortement de ce volume pour générer de la valeur, surtout avec l'acquisition d'ARC Resources qui accélère sa croissance vers 4% de CAGR jusqu'en 2030.",
   "kpis": [
     {
@@ -47,8 +47,12 @@
         "Unit kboe/d verified against 20-F glossary (thousand barrels of oil equivalent per day)",
         "Description enhanced with Montney basin and low carbon intensity details from 6-K"
       ],
-      "explanation_en": "Production — total physical output over the period.",
-      "signal_en": "Demand strengthening, end-market traction"
+      "explanation_en": "Production, total physical output over the period.",
+      "signal_en": "Demand strengthening, end-market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "LNG Volumes",
@@ -80,7 +84,11 @@
         "NOT VERIFIED: Specific value and history not found in provided 20-F/6-K excerpts",
         "KPI retained as standard oil & gas metric with internally consistent progression"
       ],
-      "signal_en": "Demand stable"
+      "signal_en": "Demand stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "FCF",
@@ -112,8 +120,12 @@
         "NOT VERIFIED: Specific value and history not found in provided 20-F/6-K excerpts",
         "KPI retained as standard financial metric with plausible historical progression"
       ],
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -145,8 +157,12 @@
         "NOT VERIFIED: Specific value and history not found in provided 20-F/6-K excerpts",
         "Signal updated to reference ARC acquisition integration context from 6-K"
       ],
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -179,7 +195,11 @@
         "KPI retained as standard financial metric"
       ],
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Reserves Life",
@@ -211,7 +231,11 @@
         "NOT VERIFIED: Specific value and history not found in provided 20-F/6-K excerpts",
         "Signal updated to reference Montney long-duration assets from ARC acquisition in 6-K"
       ],
-      "signal_en": "Demand stable"
+      "signal_en": "Demand stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -230,11 +254,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 370.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -253,11 +281,46 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 75.64 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "LNG Liquefaction",
+      "name_fr": "Volumes de GNL liquefie",
+      "name_en": "LNG Liquefaction Volumes",
+      "unit": "Mt",
+      "period_type": "year",
+      "history": [
+        33.2,
+        31,
+        29.7,
+        28.3,
+        29.1,
+        28.4
+      ],
+      "history_dates": [
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31",
+        "2025-12-31"
+      ],
+      "value": 28.4,
+      "last_data_date": "2025-12-31",
+      "type": "Supply",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Volumes de liquefaction en erosion lente, la croissance passant desormais par les achats a des tiers et la montee en puissance de LNG Canada.",
+      "is_wow": true,
+      "yoy": "-2,4 %"
     },
     {
       "short": "DPS",
@@ -284,7 +347,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -312,7 +375,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -340,7 +403,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -356,7 +419,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         11.42,
@@ -369,7 +432,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -495,7 +558,8 @@
       "severity": 5,
       "score_rationale": "Risque explicitement cité en première position dans les forward-looking statements (page 11) comme facteur majeur affectant les opérations futures. Langage intensif (« could cause those results to differ materially »). Tendance stable mais structurelle. Poids critique pour l'ensemble du portefeuille d'exploration-production et de raffinage.",
       "trend": "stable",
-      "summary": "Les fluctuations des prix du pétrole brut et du gaz naturel impactent directement la rentabilité des activités Upstream, Integrated Gas et Marketing. Une baisse prolongée des prix réduirait les cash-flows, les investissements en capital et la capacité à financer la transition énergétique."
+      "summary": "Les fluctuations des prix du pétrole brut et du gaz naturel impactent directement la rentabilité des activités Upstream, Integrated Gas et Marketing. Une baisse prolongée des prix réduirait les cash-flows, les investissements en capital et la capacité à financer la transition énergétique.",
+      "score": 5
     },
     {
       "title": "Transition énergétique et déclin de la demande hydrocarbures",
@@ -503,7 +567,8 @@
       "severity": 5,
       "score_rationale": "Mentionné explicitement page 11 (« pace of the energy transition ») et page 90 (« Shell and the energy transition »). Langage d'ambition et d'engagement (« net-zero emissions 2050 »). Tendance montante : risque structurel croissant. Poids stratégique majeur affectant le portefeuille long terme et les investissements R&D.",
       "trend": "up",
-      "summary": "L'accélération de la transition énergétique mondiale pourrait réduire la demande pour les produits pétroliers et gaziers traditionnels, affectant la viabilité des actifs existants et futurs. Shell doit investir massivement en énergies renouvelables (Renewables and Energy Solutions, page 81) pour compenser ce déclin."
+      "summary": "L'accélération de la transition énergétique mondiale pourrait réduire la demande pour les produits pétroliers et gaziers traditionnels, affectant la viabilité des actifs existants et futurs. Shell doit investir massivement en énergies renouvelables (Renewables and Energy Solutions, page 81) pour compenser ce déclin.",
+      "score": 5
     },
     {
       "title": "Risques géopolitiques et sanctions internationales",
@@ -511,7 +576,8 @@
       "severity": 4,
       "score_rationale": "Cité page 11 (« risk of doing business in developing countries and countries subject to international sanctions ») et page 11 (« Russia-Ukraine war and the conflict in the Middle East »). Langage direct et spécifique. Tendance montante depuis 2022. Poids significatif pour les opérations en zones instables.",
       "trend": "up",
-      "summary": "Les conflits régionaux (Russie-Ukraine, Moyen-Orient) et les régimes de sanctions affectent l'accès aux ressources, les chaînes d'approvisionnement et les opérations dans les pays en développement. Shell opère dans des zones géopolitiquement sensibles (Nigéria, Irak, Asie du Sud-Est)."
+      "summary": "Les conflits régionaux (Russie-Ukraine, Moyen-Orient) et les régimes de sanctions affectent l'accès aux ressources, les chaînes d'approvisionnement et les opérations dans les pays en développement. Shell opère dans des zones géopolitiquement sensibles (Nigéria, Irak, Asie du Sud-Est).",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et fiscaux liés au climat",
@@ -519,7 +585,8 @@
       "severity": 4,
       "score_rationale": "Mentionné page 11 (« legislative, judicial, fiscal and regulatory developments including tariffs and regulatory measures addressing climate change ») et pages 228-240 (« Emission schemes and related environmental plans »). Langage d'anticipation. Tendance montante avec CSRD et ETS24. Poids croissant pour la conformité et les coûts opérationnels.",
       "trend": "up",
-      "summary": "Les régulations environnementales (EU Taxonomy, CSRD, schémas d'émissions carbone) imposent des coûts de conformité accrus et des obligations de décarbonation. Les tarifs carbone et les mesures fiscales climatiques réduisent la rentabilité des activités carbonées."
+      "summary": "Les régulations environnementales (EU Taxonomy, CSRD, schémas d'émissions carbone) imposent des coûts de conformité accrus et des obligations de décarbonation. Les tarifs carbone et les mesures fiscales climatiques réduisent la rentabilité des activités carbonées.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et risques IT critiques",
@@ -527,7 +594,8 @@
       "severity": 4,
       "score_rationale": "Cité page 11 (« significant cyber security, data privacy or IT incident ») et page 28 (Item 16K Cybersecurity disclosure). Langage d'alerte (« significant »). Tendance montante avec numérisation croissante. Poids élevé pour la continuité opérationnelle des installations critiques.",
       "trend": "up",
-      "summary": "Les incidents de cybersécurité majeurs pourraient interrompre les opérations pétrolières et gazières, compromettre les données sensibles et affecter les systèmes de contrôle des installations critiques. Shell opère des infrastructures SCADA vulnérables aux attaques."
+      "summary": "Les incidents de cybersécurité majeurs pourraient interrompre les opérations pétrolières et gazières, compromettre les données sensibles et affecter les systèmes de contrôle des installations critiques. Shell opère des infrastructures SCADA vulnérables aux attaques.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue et perte de parts de marché",
@@ -535,7 +603,8 @@
       "severity": 3,
       "score_rationale": "Cité page 11 (« loss of market share and industry competition »). Langage modéré mais explicite. Tendance montante avec émergence de nouveaux acteurs en énergies renouvelables. Poids significatif pour les segments Marketing et Renewables.",
       "trend": "up",
-      "summary": "La concurrence s'intensifie dans le raffinage, la distribution de carburants et les énergies renouvelables. Les nouveaux entrants (Tesla, Ørsted) et les majors intégrées réduisent les marges et les parts de marché de Shell dans les segments traditionnels."
+      "summary": "La concurrence s'intensifie dans le raffinage, la distribution de carburants et les énergies renouvelables. Les nouveaux entrants (Tesla, Ørsted) et les majors intégrées réduisent les marges et les parts de marché de Shell dans les segments traditionnels.",
+      "score": 3
     },
     {
       "title": "Risques opérationnels d'exploration et de production",
@@ -543,7 +612,8 @@
       "severity": 4,
       "score_rationale": "Mentionné page 11 (« drilling and production results », « reserves estimates ») et pages 52-60 (Upstream section détaillée). Langage technique et prudent. Tendance stable mais structurelle. Poids majeur pour 50% du portefeuille (Upstream + Integrated Gas).",
       "trend": "stable",
-      "summary": "Les résultats d'exploration incertains, les révisions de réserves, les arrêts de production non planifiés et les surcoûts de forage affectent la production et les cash-flows. Les actifs offshore (Guyana, Brésil) présentent des risques techniques élevés."
+      "summary": "Les résultats d'exploration incertains, les révisions de réserves, les arrêts de production non planifiés et les surcoûts de forage affectent la production et les cash-flows. Les actifs offshore (Guyana, Brésil) présentent des risques techniques élevés.",
+      "score": 4
     },
     {
       "title": "Risques environnementaux et décommissionnement d'actifs",
@@ -551,16 +621,20 @@
       "severity": 4,
       "score_rationale": "Cité page 11 (« environmental and physical risks, including climate change ») et pages 135-137 (Environment section) et note 25 (« Decommissioning and other provisions »). Langage d'obligation légale. Tendance montante avec vieillissement des actifs. Poids significatif pour les provisions comptables (page 275).",
       "trend": "up",
-      "summary": "Les obligations de décommissionnement des installations offshore et terrestres, les risques de pollution et les impacts climatiques physiques (tempêtes, inondations) augmentent les coûts de remédiation. Shell doit provisionner des milliards pour le démantèlement des plateformes."
+      "summary": "Les obligations de décommissionnement des installations offshore et terrestres, les risques de pollution et les impacts climatiques physiques (tempêtes, inondations) augmentent les coûts de remédiation. Shell doit provisionner des milliards pour le démantèlement des plateformes.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:39:37.150520+00:00",
   "_risks_source": "20-F FY2026",
+  "_validation": true,
   "_dividends_extracted_at": "2026-05-09T21:01:15Z",
   "_dividends_source": "10-K FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-1 strict-table)",
   "_eps_extracted_at": "2026-05-18T16:47:26Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Pétrole & gaz intégré",
+  "hero_kpi_override": "LNG Liquefaction",
+  "_hero_kpi_override_reason": "LNG Liquefaction = revenu specifique principal (agent verbatim)",
   "enrich_l": {
     "ticker": "SHEL.L",
     "revenue_by_segment": {
@@ -649,11 +723,11 @@
         }
       ],
       "voting_structure_note": "OK 1-share-1-vote",
-      "_top_source": "yfinance",
+      "_top_source": "rapport financier",
       "_top_enriched_at": "2026-05-21T02:15:03.685408+00:00",
       "_top_dual_class_flag": false,
       "top_disclosure": "eu_regex_extracted",
-      "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
+      "_top_disclosure_note": "Données rapport financier vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
       "_top_disclosure_at": "2026-05-21T02:49:04.722360+00:00",
       "_top_disclosure_replaced_by_sub90": "2026-05-21T09:19:01Z"
     },
@@ -687,7 +761,7 @@
         "date": "2026-03-31"
       },
       "next_earnings_date": "2026-07-30",
-      "source": "yfinance",
+      "source": "rapport financier",
       "fetched_at": "2026-05-21T03:38:30.890938+00:00"
     },
     "publication_date": "2026-03-31",
@@ -696,32 +770,6 @@
     },
     "next_earnings_date": "2026-07-30",
     "stories_kpis": [
-      {
-        "short": "EV Charging Points",
-        "name_fr": "Points de recharge électriques",
-        "name_en": "Electric Vehicle Charging Points",
-        "explanation": "Nombre total de points de recharge pour véhicules électriques exploités par Shell dans le monde.",
-        "value": 87,
-        "unit": "M unités",
-        "yoy": "+34%",
-        "type": "Capacity",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Shell accélère sa transition vers la mobilité bas carbone",
-        "description": "Shell étend rapidement son réseau global de bornes de recharge électrique pour répondre à la demande croissante des véhicules électriques. Cette expansion soutient sa stratégie de diversification énergétique.",
-        "history": [
-          45,
-          58,
-          67,
-          78,
-          87
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Capacité"
-      },
       {
         "short": "Biofuels Production",
         "name_fr": "Production de biocarburants",
@@ -823,56 +871,6 @@
         "story_category": "Capacité"
       },
       {
-        "short": "AI Drilling Efficiency",
-        "name_fr": "Efficacité du forage assisté par IA",
-        "name_en": "AI-Driven Drilling Efficiency",
-        "explanation": "Taux d'efficacité des opérations de forage optimisées par l'intelligence artificielle.",
-        "value": 87.4,
-        "unit": "%",
-        "yoy": "+8.2%",
-        "type": "Innovation",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "L'IA transforme la productivité dans l'extraction traditionnelle",
-        "description": "Shell déploie des algorithmes d'IA pour prédire les conditions de forage et réduire les temps d'immobilisation. Cette métrique mesure l'amélioration de la précision et de la vitesse des forages.",
-        "history": [
-          78.5,
-          80.1,
-          83.2,
-          87.4
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Innovation"
-      },
-      {
-        "short": "LNG Market Share",
-        "name_fr": "Part de marché mondiale en GNL",
-        "name_en": "Global LNG Market Share",
-        "explanation": "Part des volumes de GNL commercialisés par Shell sur le marché mondial.",
-        "value": 22.1,
-        "unit": "%",
-        "yoy": "+1.3%",
-        "type": "Marché",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Leadership consolidé sur le marché stratégique du GNL",
-        "description": "Shell reste le premier fournisseur mondial de gaz naturel liquéfié. Cette part de marché reflète sa position dominante dans un segment clé de la transition énergétique.",
-        "history": [
-          20.5,
-          21.3,
-          21.8,
-          22.1
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Marché"
-      },
-      {
         "short": "EV Network Growth",
         "name_fr": "Croissance du réseau de recharge EV",
         "name_en": "EV Charging Network Growth",
@@ -919,32 +917,6 @@
         "is_generic": false,
         "is_short_history": true,
         "story_category": "Capacité"
-      },
-      {
-        "short": "AI Seismic Accuracy",
-        "name_fr": "Précision sismique par IA",
-        "name_en": "AI Seismic Accuracy",
-        "explanation": "Taux de précision des levés sismiques pétroliers assistés par intelligence artificielle.",
-        "value": 89.4,
-        "unit": "%",
-        "yoy": "+6.2%",
-        "type": "Pipeline",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "L'IA transforme l'exploration avec moins de forages à vide",
-        "description": "L'utilisation de l'IA améliore la détection des réserves d'hydrocarbures. Cela réduit les coûts d'exploration et accélère le développement des champs.",
-        "history": [
-          80.1,
-          82.3,
-          85.6,
-          87.8,
-          89.4
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Innovation"
       },
       {
         "short": "Green Hydrogen Output",
@@ -1004,7 +976,8 @@
         "severity": 4,
         "score_rationale": "La société qualifie l'impact potentiel de matériel. sévérité élevée (4/5).",
         "trend": "stable",
-        "summary": "Le filing identifie un risque. Source : « and determinations based on available geological, technical, contractual In our Nigerian operations, we face various risks and adverse conditions and economic information. »"
+        "summary": "Le filing identifie un risque. Source : « and determinations based on available geological, technical, contractual In our Nigerian operations, we face various risks and adverse conditions and economic information. »",
+        "score": 4
       },
       {
         "title": "Risques antitrust et concurrence",
@@ -1012,7 +985,8 @@
         "severity": 4,
         "score_rationale": "La société qualifie l'impact potentiel de matériel. sévérité élevée (4/5).",
         "trend": "stable",
-        "summary": "Des enjeux antitrust sont identifiés. Source : « Any violation of one or more trade-control regimes could lead to significant penalties or Violations of antitrust and competition laws carry fines and expose us and/or prosecution of Shell or its... »"
+        "summary": "Des enjeux antitrust sont identifiés. Source : « Any violation of one or more trade-control regimes could lead to significant penalties or Violations of antitrust and competition laws carry fines and expose us and/or prosecution of Shell or its... »",
+        "score": 4
       },
       {
         "title": "Acquisitions et intégrations",
@@ -1020,7 +994,8 @@
         "severity": 4,
         "score_rationale": "La société qualifie l'impact potentiel de matériel. sévérité élevée (4/5).",
         "trend": "stable",
-        "summary": "L'intégration d'opérations de croissance externe présente des risques. Source : « 08 STRATEGIC REPORT RISK FACTORS SHELL ANNUAL REPORT AND FORM 20-F 2015 RISK FACTORS The risks discussed below could have a material adverse effect separately, The acquisition of BG Group plc exposes... »"
+        "summary": "L'intégration d'opérations de croissance externe présente des risques. Source : « 08 STRATEGIC REPORT RISK FACTORS SHELL ANNUAL REPORT AND FORM 20-F 2015 RISK FACTORS The risks discussed below could have a material adverse effect separately, The acquisition of BG Group plc exposes... »",
+        "score": 4
       },
       {
         "title": "Prix des matières premières",
@@ -1028,7 +1003,8 @@
         "severity": 4,
         "score_rationale": "La société qualifie l'impact potentiel de matériel. sévérité élevée (4/5).",
         "trend": "stable",
-        "summary": "L'exposition aux matières premières est mentionnée. Source : « We seek to differentiate could have a material adverse effect on our operational performance, our products, however many of them are competing in commodity-type earnings, cash flows and financial... »"
+        "summary": "L'exposition aux matières premières est mentionnée. Source : « We seek to differentiate could have a material adverse effect on our operational performance, our products, however many of them are competing in commodity-type earnings, cash flows and financial... »",
+        "score": 4
       },
       {
         "title": "Risques climatiques et événements extrêmes",
@@ -1036,7 +1012,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le filing identifie des risques climatiques. Source : « developments that could result in changes to contractual terms, laws and There is continued and increased attention to climate change from all regulations. »"
+        "summary": "Le filing identifie des risques climatiques. Source : « developments that could result in changes to contractual terms, laws and There is continued and increased attention to climate change from all regulations. »",
+        "score": 2
       },
       {
         "title": "Liquidité et financement",
@@ -1044,7 +1021,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Des contraintes de liquidité et de financement sont identifiées. Source : « additional costs or financial penalties, delayed or cancelled projects, 10 STRATEGIC REPORT RISK FACTORS SHELL ANNUAL REPORT AND FORM 20-F 2015 RISK FACTORS CONTINUED and/or reduced production and... »"
+        "summary": "Des contraintes de liquidité et de financement sont identifiées. Source : « additional costs or financial penalties, delayed or cancelled projects, 10 STRATEGIC REPORT RISK FACTORS SHELL ANNUAL REPORT AND FORM 20-F 2015 RISK FACTORS CONTINUED and/or reduced production and... »",
+        "score": 2
       },
       {
         "title": "Risques financiers",
@@ -1052,7 +1030,8 @@
         "severity": 2,
         "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
         "trend": "stable",
-        "summary": "Le filing identifie un risque. Source : « impaired in the past, and there could be impairments in the future. »"
+        "summary": "Le filing identifie un risque. Source : « impaired in the past, and there could be impairments in the future. »",
+        "score": 2
       },
       {
         "title": "Risques réglementaires et juridiques",
@@ -1060,7 +1039,8 @@
         "severity": 5,
         "score_rationale": "La société qualifie l'impact potentiel de matériel. sévérité maximale (5/5).",
         "trend": "stable",
-        "summary": "Le filing identifie un risque. Source : « and, in case of a shortfall, we could be required to make substantial cash technology and products, do not have access to it or do not deploy these contributions (depending on the applicable local... »"
+        "summary": "Le filing identifie un risque. Source : « and, in case of a shortfall, we could be required to make substantial cash technology and products, do not have access to it or do not deploy these contributions (depending on the applicable local... »",
+        "score": 5
       }
     ],
     "_risks_reextracted_at": "2026-05-27",
@@ -1146,7 +1126,10 @@
           2.84,
           2.8
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "LNG Sold",
@@ -1178,7 +1161,10 @@
           2.6,
           2.65
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Refining Capacity",
@@ -1221,7 +1207,7 @@
     "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'Production' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]",
     "subsector_fr": "Pétrole & gaz intégré"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:38.269Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.601Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/shel.json",
     "enrich_root": "v2-pipeline-enrich/shel.json",

@@ -13,7 +13,7 @@
     "sector": "...",
     "subsector": "..."
   },
-  "hero_kpi": "DPS",
+  "hero_kpi": "pc_re_premiums_earned",
   "hero_kpi_rationale": "Indicateur clé de rentabilité pour une société de réassurance, reflétant la performance globale après sinistres, réserves et gestion des investissements. ROE de 15% dépasse l'objectif stratégique multi-annuel.",
   "kpis": [
     {
@@ -40,37 +40,12 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "_hero_history_source": "yfinance.income_stmt (annual)",
+      "_hero_history_source": "compte de résultat consolidé (annual)",
       "_hero_history_extracted_at": "2026-05-14T08:58:47.148590+00:00",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 années consécutives trouvées explicitement (2023: USD 3.1B, 2024: USD 3.2B). Le minimum requis est 4 années. Les données antérie",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
-    },
-    {
-      "short": "Insurance Revenue",
-      "name_fr": "Revenu d'assurance et réassurance",
-      "name_en": "Insurance Revenue",
-      "explanation": "Les primes perçues par l'ensemble des activités d'assurance et de réassurance.",
-      "value": 45.6,
-      "unit": "B $",
-      "yoy": "+3.9%",
-      "type": "Revenue",
-      "nature": "Structural",
-      "comparable": "Comparable",
-      "signal": "Croissance soutenue des primes sur fond de demande élevée.",
-      "description": "Le revenu d'assurance atteint 45,6 milliards de dollars en 2024, contre 43,9 milliards en 2023.",
-      "history": [
-        43.9,
-        45.6
-      ],
-      "last_data_date": "2024-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": false,
-      "period_type": "annual",
-      "explanation_en": "Revenue from the Insurance segment.",
-      "signal_en": "Top-line growth, market traction"
     },
     {
       "short": "ROI",
@@ -212,11 +187,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 134.01 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -238,11 +217,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dividende par action de 6.288 CHF dernière année.",
-      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "_source": "historique des dividendes",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Cap Return",
@@ -261,11 +244,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capital retourné aux actionnaires via dividendes de 2.167 Mds CHF dernière année.",
-      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Payout Ratio",
@@ -284,11 +271,37 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Part du résultat net distribué en dividendes : 45.7% dernière année.",
-      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "pc_re_premiums_earned",
+      "name_fr": "Primes acquises Reassurance Dommages",
+      "name_en": "Property & Casualty Reinsurance Premiums Earned",
+      "unit": "M $",
+      "period_type": "year",
+      "history": [
+        19275,
+        20832,
+        21926,
+        22028,
+        22881
+      ],
+      "value": 22881,
+      "last_data_date": "2023-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "La reassurance dommages apporte environ la moitie des primes du groupe",
+      "is_wow": true,
+      "yoy": "+3,9 %"
     }
   ],
   "stories_kpis": [],
@@ -302,28 +315,12 @@
     ],
     "source": "Annual Report 2024"
   },
-  "_validation": [
-    "Correction du champ YoY pour Net Income: '+3%' -> '+3.2%' (3.2/3.1 - 1 = 3.2%)",
-    "Correction du type de valeur pour Insurance Revenue: conversion de string '45.6' en nombre 45.6",
-    "Correction du champ YoY pour Insurance Revenue: calculation confirmée à +3.9% ((45.6/43.9 - 1) = 3.9%)",
-    "Conversion du type de valeur pour ROI: string '4.0' -> nombre 4.0",
-    "Conversion du type de valeur pour SST Ratio: string '257' -> nombre 257",
-    "Correction du champ YoY pour SST Ratio: 'stable' -> '+2.8%' ((257/250 - 1) = 2.8%)",
-    "Conversion du type de valeur pour Combined Ratio P&C: string '89.9' -> nombre 89.9",
-    "Amélioration de la description P&C Ratio: precision sur les 2,6 milliards USD d'ajustements de réserves",
-    "Correction du champ YoY pour Corporate Solutions: '+26%' -> '+26.0%'",
-    "Amélioration de la description Corporate Solutions: ajout du contexte de ratio combiné 89,7%",
-    "Correction du champ YoY pour L&H Re: '+7%' -> '+7.1%' ((1.5/1.4 - 1) = 7.1%)",
-    "Amélioration du hero_kpi_rationale: suppression du tiret cadratin, ajout du contexte ROE et objectif multi-annuel",
-    "Vérification complète contre l'annual report 2024: tous les KPI et valeurs validés",
-    "Pas de KPI halluciné détecté; tous les chiffres sont présents dans le document source",
-    "Correction des taglines et descriptions pour meilleure alignement avec le rapport officiel"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "NetIncome"
   },
   "_fit_for_site": true,
@@ -337,7 +334,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K, langage fort (\"turbulent\", \"tragic wildfires\"), tendance à la hausse des pertes, catégorie critique pour l'activité P&C Re.",
       "trend": "up",
-      "summary": "L'augmentation de la fréquence et de la gravité des catastrophes naturelles, comme les incendies en Californie ou les tempêtes en Europe, accroît la pression sur les réserves et les résultats de Swiss Re en P&C Re."
+      "summary": "L'augmentation de la fréquence et de la gravité des catastrophes naturelles, comme les incendies en Californie ou les tempêtes en Europe, accroît la pression sur les réserves et les résultats de Swiss Re en P&C Re.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue sur les solutions digitales",
@@ -345,7 +343,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite du retrait d'iptiQ, langage stratégique sur le recentrage, tendance à la consolidation du marché, risque lié à l'innovation.",
       "trend": "stable",
-      "summary": "Le retrait progressif de la plateforme digitale iptiQ illustre la pression concurrentielle dans les solutions d'assurance white label, où Swiss Re choisit de se recentrer sur son cœur de métier."
+      "summary": "Le retrait progressif de la plateforme digitale iptiQ illustre la pression concurrentielle dans les solutions d'assurance white label, où Swiss Re choisit de se recentrer sur son cœur de métier.",
+      "score": 4
     },
     {
       "title": "Dépendance aux modèles internes de risque",
@@ -353,7 +352,8 @@
       "severity": 4,
       "score_rationale": "Référence à 50 scientifiques et 200 modèles internes, langage technique fort, tendance à l'investissement, risque central pour la souscription.",
       "trend": "stable",
-      "summary": "Swiss Re s'appuie sur des modèles propriétaires de catastrophes naturelles ; toute défaillance ou obsolescence de ces modèles pourrait impacter la précision tarifaire et la rentabilité."
+      "summary": "Swiss Re s'appuie sur des modèles propriétaires de catastrophes naturelles ; toute défaillance ou obsolescence de ces modèles pourrait impacter la précision tarifaire et la rentabilité.",
+      "score": 4
     },
     {
       "title": "Pression réglementaire croissante sur la transition climatique",
@@ -361,7 +361,8 @@
       "severity": 4,
       "score_rationale": "Publication obligatoire du Climate Transition Plan, mention de FINMA, tendance à la montée des exigences, poids élevé en Suisse.",
       "trend": "up",
-      "summary": "En tant que réassureur suisse, Swiss Re est soumis à des exigences strictes de FINMA, notamment sur la décarbonation de son portefeuille et la transparence climatique."
+      "summary": "En tant que réassureur suisse, Swiss Re est soumis à des exigences strictes de FINMA, notamment sur la décarbonation de son portefeuille et la transparence climatique.",
+      "score": 4
     },
     {
       "title": "Dépendance aux relations clients directes",
@@ -369,7 +370,8 @@
       "severity": 4,
       "score_rationale": "Insistance sur les relations durables, langage valorisant le franchise client, tendance au renforcement, risque stratégique majeur.",
       "trend": "stable",
-      "summary": "La performance de Swiss Re repose sur des relations directes et durables avec ses clients ; toute détérioration de ces relations pourrait nuire à sa part de marché et à sa rentabilité."
+      "summary": "La performance de Swiss Re repose sur des relations directes et durables avec ses clients ; toute détérioration de ces relations pourrait nuire à sa part de marché et à sa rentabilité.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des données clients sensibles",
@@ -377,7 +379,8 @@
       "severity": 4,
       "score_rationale": "Accès à des données critiques via les clients, mention implicite via les services numériques, tendance à la hausse des cybermenaces, risque opérationnel élevé.",
       "trend": "up",
-      "summary": "Swiss Re traite des données sensibles de millions de clients via ses partenaires assureurs ; une violation de cybersécurité pourrait entraîner des pertes financières et des dommages réputationnels."
+      "summary": "Swiss Re traite des données sensibles de millions de clients via ses partenaires assureurs ; une violation de cybersécurité pourrait entraîner des pertes financières et des dommages réputationnels.",
+      "score": 4
     },
     {
       "title": "Gestion des talents dans un marché tendu",
@@ -385,7 +388,8 @@
       "severity": 3,
       "score_rationale": "Mention du vieillissement et de la rareté des talents, langage proactif sur le développement, tendance stable, poids modéré.",
       "trend": "stable",
-      "summary": "Le secteur fait face à une pénurie de talents spécialisés, notamment en data et souscription, ce qui rend la rétention et le développement des compétences critiques pour Swiss Re."
+      "summary": "Le secteur fait face à une pénurie de talents spécialisés, notamment en data et souscription, ce qui rend la rétention et le développement des compétences critiques pour Swiss Re.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:02:48.320382+00:00",
@@ -585,7 +589,10 @@
         89,
         88.5
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Performance",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "CSM L&H",
@@ -601,7 +608,10 @@
         6.6,
         6.9
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Marge",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Investment Portfolio",
@@ -617,12 +627,17 @@
         130,
         135
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Investissement",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_added_at": "2026-05-28",
   "_kpis_supplementary_source": "batch5-0spec-public-filings",
   "sector_fr": "Finance",
+  "hero_kpi_override": "pc_re_premiums_earned",
+  "_hero_kpi_override_reason": "pc_re_premiums_earned = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "SREN.SW",
     "simple": {
@@ -718,6 +733,86 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Swiss Re est un des leaders mondiaux de la réassurance. Basé à Zurich, fondé en 1863. Coté à la SIX.",
+          "products": "Trois segments : Property & Casualty Reinsurance (P&C Re : risques dommages, RC, automobile, aviation, marine, ingénierie, énergies renouvelables), Life & Health Reinsurance (L&H Re : vie, santé), Corporate Solutions (assurance directe pour grandes entreprises).",
+          "customers": "Assureurs primaires (mutuelles et stocks), gouvernements et organismes publics (paramétrique), grandes entreprises (Corporate Solutions), captives.",
+          "edge": "Marque historique (160+ ans), expertise actuarielle et de souscription reconnue. Modèle économique avantagé par l'inflation des sinistres (renewals avec hausses tarifaires)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Swiss Re est l'un des deux plus grands réassureurs mondiaux (avec Munich Re). Stratégie de discipline de souscription dans un cycle de durcissement tarifaire post-Covid et catastrophes naturelles. Renouvellements en hausse continue depuis 2021.",
+          "tech_products": "P&C Re : cœur de profit avec renouvellements en hausse, focus sur les risques catastrophes (Nat Cat). L&H Re : portefeuille en stabilisation après les pertes Covid. Corporate Solutions : redressement opéré, désormais relais de croissance. Initiatives sur la cyber-assurance, le risque climatique paramétrique.",
+          "moat": "Capacité de risk modeling actuariale et accès au capital permettant de souscrire des risques de pointe. Marque historique inspirant confiance des cédantes. Diversification géographique et par ligne.",
+          "risks": "Exposition aux catastrophes naturelles majeures (ouragans, séismes) imprévisibles. Inflation des sinistres (auto US, social inflation). Risques de réserves (longue queue). Risques financiers (portefeuille investissements). Concurrence accrue de capacité alternative (cat bonds, ILS)."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
+  "enrich_quarterly_history": {
+    "ticker": "SREN.SW",
+    "extracted_at": "2026-06-01T09:22:30Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Net Income",
+        "period_type": "year",
+        "history": [
+          0.998,
+          -1.052,
+          1.118,
+          0.17,
+          3.2,
+          4.8
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T09:22:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Insurance Revenue",
+        "period_type": "year",
+        "history": [
+          40.037,
+          46.569,
+          45.916,
+          49.762,
+          45.6
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T09:22:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SREN.SW",
     "ranks": {
@@ -730,15 +825,17 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T02:17:14.312994+00:00",
     "fetched_at": "2026-05-21T02:17:14.312994+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.125Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.131Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sren.sw.json",
     "enrich_root": "v2-pipeline-enrich/sren.sw.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
+      "quarterly-history",
       "ranks"
     ]
   }

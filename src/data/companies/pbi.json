@@ -41,8 +41,11 @@
       "_validation": [
         "Unit corrected from 'Mds $' to 'M $' (values in thousands per 10-K, displayed in millions)"
       ],
-      "period_type": "quarter",
-      "signal_en": "Margin expansion, operating leverage"
+      "period_type": "year",
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Gross Margin - SendTech Solutions",
@@ -77,8 +80,8 @@
       "name_fr": "Chiffre d'affaires total",
       "name_en": "Total Revenue",
       "explanation": "Le montant total des revenus générés par toutes les activités de l'entreprise.",
-      "value": 1892.629,
-      "unit": "M $",
+      "value": 1.893,
+      "unit": "Mds $",
       "yoy": "-7%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -86,9 +89,9 @@
       "signal": "Baisse du chiffre d'affaires due à des facteurs tels que la décision des clients de prolonger la durée de vie de leurs équipements existants.",
       "description": "Le chiffre d'affaires total a diminué, reflétant des défis dans certains segments d'activité et des changements dans les comportements d'achat des clients.",
       "history": [
-        1892.629,
-        2026.598,
-        2078.925
+        1.893,
+        2.027,
+        2.079
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -99,7 +102,8 @@
         "Verified in 10-K: 2025 revenue $1,892,629K, 2024 revenue $2,026,598K, 2023 revenue $2,078,925K"
       ],
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Research and Development Expenses",
@@ -272,9 +276,7 @@
       "_validation": [
         "Unit corrected from 'Mds $' to 'M $'",
         "Verified in 10-K: 2025 SendTech Services revenue $569,403K, 2024 $588,046K, 2023 $595,319K"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Products Revenue - SendTech Solutions",
@@ -302,9 +304,7 @@
       "_validation": [
         "Unit corrected from 'Mds $' to 'M $'",
         "Verified in 10-K: 2025 SendTech Products revenue $364,709K, 2024 $430,845K, 2023 $471,448K"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Financing and Other Revenue - SendTech Solutions",
@@ -332,9 +332,7 @@
       "_validation": [
         "Unit corrected from 'Mds $' to 'M $'",
         "Verified in 10-K: 2025 SendTech Financing and other revenue $321,889K, 2024 $335,141K, 2023 $339,097K"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -361,7 +359,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné comme 'décroissance séculaire' affectant les deux segments. Le langage est répété et renforcé dans l'Outlook 2026. La tendance est stable mais critique, avec une pondération élevée pour le secteur industriel.",
       "trend": "stable",
-      "summary": "La baisse continue de l'utilisation du courrier physique menace durablement les revenus des deux segments principaux."
+      "summary": "La baisse continue de l'utilisation du courrier physique menace durablement les revenus des deux segments principaux.",
+      "score": 5
     },
     {
       "title": "Pressions concurrentielles sur les prix",
@@ -369,7 +368,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité dans l'Outlook comme facteur pesant sur la marge EBIT de Presort Services. Langage direct ('competitive pricing pressures'). Risque récurrent, non nouveau, mais intensifié par la baisse de volume.",
       "trend": "up",
-      "summary": "La concurrence accrue oblige à des ajustements de prix, réduisant la rentabilité dans le segment Presort."
+      "summary": "La concurrence accrue oblige à des ajustements de prix, réduisant la rentabilité dans le segment Presort.",
+      "score": 4
     },
     {
       "title": "Dépendance à la trésorerie et liquidités",
@@ -377,7 +377,8 @@
       "severity": 4,
       "score_rationale": "Le chapitre 'Liquidity and Capital Resources' souligne la dépendance aux flux opérationnels et à la capacité d'emprunt. Risque amplifié par les résultats passés en perte. Catégorie Capital fortement pondérée en contexte de désendettement.",
       "trend": "stable",
-      "summary": "La santé financière dépend de la génération de trésorerie, menacée par les pertes passées et la volatilité des paiements clients."
+      "summary": "La santé financière dépend de la génération de trésorerie, menacée par les pertes passées et la volatilité des paiements clients.",
+      "score": 4
     },
     {
       "title": "Restructurations répétées et coûts associés",
@@ -385,7 +386,8 @@
       "severity": 4,
       "score_rationale": "Présence de plans de restructuration en 2023, 2024 et 2025, avec charges importantes (76M$ en 2024). Montre une transformation coûteuse et continue. Langage répété et préoccupant sur la durabilité des économies.",
       "trend": "stable",
-      "summary": "Les restructurations successives indiquent une adaptation difficile au marché, avec des coûts récurrents élevés."
+      "summary": "Les restructurations successives indiquent une adaptation difficile au marché, avec des coûts récurrents élevés.",
+      "score": 4
     },
     {
       "title": "Charges liées aux retraites et pensions",
@@ -393,7 +395,8 @@
       "severity": 3,
       "score_rationale": "Charges de 89M$ en 2024 dont 91M$ de 'settlement charge'. Bien que moindre en 2025 (8M$), le risque est volatil et lié à des hypothèses actuarielles. Catégorie Capital sensible.",
       "trend": "down",
-      "summary": "Des obligations de retraite importantes peuvent peser sur les résultats, avec une volatilité liée aux décisions de règlement en capital."
+      "summary": "Des obligations de retraite importantes peuvent peser sur les résultats, avec une volatilité liée aux décisions de règlement en capital.",
+      "score": 3
     },
     {
       "title": "Risque de change sur prêts interentreprises",
@@ -401,7 +404,8 @@
       "severity": 3,
       "score_rationale": "Mention de gains/pertes non courants liés à la réévaluation de prêts interentreprises (32M$ de pertes en 2025). Impact significatif sur SG&A. Risque macroéconomique direct.",
       "trend": "up",
-      "summary": "Les fluctuations des taux de change affectent les résultats, en particulier via les prêts entre entités du groupe."
+      "summary": "Les fluctuations des taux de change affectent les résultats, en particulier via les prêts entre entités du groupe.",
+      "score": 3
     }
   ],
   "governance": {
@@ -452,7 +456,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -504,7 +508,6 @@
       "date": "2026-05-05"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-07T09:39:26.382332+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -549,6 +552,7 @@
     ],
     "total": 1.89
   },
+  "_ai_positioning_fetched_at": "2026-05-07T09:39:26.382332+00:00",
   "_segments_fetched_at": "2026-05-07T10:48:07.771424+00:00",
   "financial_snapshot": {
     "market_cap_usd": 2247038464,
@@ -705,19 +709,15 @@
         "history": [
           22.375,
           32.996,
-          -19.91,
           11.334,
           22.588,
           32.4,
-          -22.665,
           10.493,
           20.767,
           31.129,
-          -20.984,
           9.481,
           18.589,
           22.465,
-          -18.578,
           4.763,
           8.364,
           11.773,
@@ -775,6 +775,12 @@
             "accession": "0001628280-26-031003",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (PBI)"
         ]
       },
       {
@@ -783,23 +789,18 @@
         "history": [
           1814.4,
           2689.849,
-          -1745.885,
           926.942,
           1798.437,
           2629.351,
-          -1816.688,
           834.538,
           1611.019,
           2394.77,
-          -1573.979,
           830.509,
           1623.679,
           1510.477,
-          -1938.067,
           493.42,
           955.329,
           1415.004,
-          -971.124,
           477.413
         ],
         "history_periods": [
@@ -853,6 +854,12 @@
             "accession": "0001628280-26-031003",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PBI)"
         ]
       },
       {
@@ -899,7 +906,10 @@
             "source": "PBI_2025-10-30.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -916,9 +926,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.295338+00:00",
     "fetched_at": "2026-05-21T02:17:14.295339+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.473Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.431Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pbi.json",
     "enrich_root": "v2-pipeline-enrich/pbi.json",

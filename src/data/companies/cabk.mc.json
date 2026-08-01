@@ -68,8 +68,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -88,11 +92,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 16.76 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -111,11 +119,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 5.89 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Moderate growth, slightly positive"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -134,11 +146,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.83 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 664.04 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -180,11 +200,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 49.49 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -203,10 +227,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 45.83 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -236,7 +264,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)",
     "_source_reliability": "QUESTIONABLE"
   },
@@ -264,7 +292,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans l'analyse de CaixaBank, langage soulignant un impact 'inhabituel' sur les ratios, tendance stable depuis l'acquisition, poids élevé car lié à une opération stratégique majeure.",
       "trend": "stable",
-      "summary": "L'acquisition de 100 % de BPI au Portugal en 2017 a pesé sur les ratios de capital et de levier de CaixaBank, car intégrée sans augmentation de capital. Cela expose le groupe à des risques d'intégration opérationnelle, de convergence culturelle et de gestion transfrontalière."
+      "summary": "L'acquisition de 100 % de BPI au Portugal en 2017 a pesé sur les ratios de capital et de levier de CaixaBank, car intégrée sans augmentation de capital. Cela expose le groupe à des risques d'intégration opérationnelle, de convergence culturelle et de gestion transfrontalière.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue des banques universelles locales",
@@ -272,7 +301,8 @@
       "severity": 3,
       "score_rationale": "Référencé indirectement via la comparaison avec d'autres banques locales, langage mesuré mais implicite, tendance stable, catégorie modérément pondérée.",
       "trend": "stable",
-      "summary": "CaixaBank évolue dans un environnement espagnol concurrentiel marqué par d'autres grandes banques universelles comme Santander et BBVA, qui exercent une pression sur les parts de marché, les marges et l'innovation de service."
+      "summary": "CaixaBank évolue dans un environnement espagnol concurrentiel marqué par d'autres grandes banques universelles comme Santander et BBVA, qui exercent une pression sur les parts de marché, les marges et l'innovation de service.",
+      "score": 3
     },
     {
       "title": "Régulation bancaire accrue sous Bâle III",
@@ -280,7 +310,8 @@
       "severity": 5,
       "score_rationale": "Explicitement mentionné avec référence à Bâle III et aux ratios de capital, langage technique et normatif fort, tendance à la hausse de la pression réglementaire, poids élevé en secteur bancaire.",
       "trend": "up",
-      "summary": "CaixaBank doit respecter des exigences de fonds propres de plus en plus strictes imposées par Bâle III, notamment avec des ratios CET1, buffers de conservation et anticycliques, augmentant la pression sur sa rentabilité et sa capacité d'investissement."
+      "summary": "CaixaBank doit respecter des exigences de fonds propres de plus en plus strictes imposées par Bâle III, notamment avec des ratios CET1, buffers de conservation et anticycliques, augmentant la pression sur sa rentabilité et sa capacité d'investissement.",
+      "score": 5
     },
     {
       "title": "Dépendance aux tests de résistance européens",
@@ -288,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Présent via les stress tests de l'Autorité bancaire européenne, langage sérieux et préventif, tendance stable, poids élevé en matière de conformité et de confiance du marché.",
       "trend": "stable",
-      "summary": "La solvabilité et la liquidité de CaixaBank sont régulièrement évaluées via des tests de résistance imposés par l'EBA, dont les résultats influencent la perception des investisseurs et les décisions stratégiques du groupe."
+      "summary": "La solvabilité et la liquidité de CaixaBank sont régulièrement évaluées via des tests de résistance imposés par l'EBA, dont les résultats influencent la perception des investisseurs et les décisions stratégiques du groupe.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des systèmes bancaires",
@@ -296,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Non mentionné directement ici, mais risque métier critique implicite pour toute banque digitale, langage attendu dans un 10-K, tendance à la hausse, poids élevé en secteur financier.",
       "trend": "new",
-      "summary": "En tant que banque fortement digitalisée, CaixaBank est exposée aux cyberattaques ciblant les données clients, les paiements ou les infrastructures critiques, avec des risques de pertes financières, de litiges et de dommages réputationnels."
+      "summary": "En tant que banque fortement digitalisée, CaixaBank est exposée aux cyberattaques ciblant les données clients, les paiements ou les infrastructures critiques, avec des risques de pertes financières, de litiges et de dommages réputationnels.",
+      "score": 4
     },
     {
       "title": "Pression sur la rentabilité des fonds propres",
@@ -304,7 +337,8 @@
       "severity": 4,
       "score_rationale": "Évoqué via l'analyse du ROE et du ROTE en forte croissance mais sous pression, langage positif mais vigilant, tendance stable, poids élevé pour les actionnaires.",
       "trend": "stable",
-      "summary": "Malgré une amélioration du ROE et du ROTE, CaixaBank doit maintenir une rentabilité élevée sur ses fonds propres pour satisfaire les actionnaires, ce qui devient difficile sous la pression réglementaire et la faiblesse des taux d'intérêt."
+      "summary": "Malgré une amélioration du ROE et du ROTE, CaixaBank doit maintenir une rentabilité élevée sur ses fonds propres pour satisfaire les actionnaires, ce qui devient difficile sous la pression réglementaire et la faiblesse des taux d'intérêt.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:43:49.821639+00:00",
@@ -497,9 +531,9 @@
     "country": "Spain",
     "_data_freshness_date": "2026-05-21T02:17:14.235418+00:00",
     "fetched_at": "2026-05-21T02:17:14.235419+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.060Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.498Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cabk.mc.json",
     "enrich_root": "v2-pipeline-enrich/cabk.mc.json",

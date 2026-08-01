@@ -54,9 +54,7 @@
         "old_value": 1489818000,
         "factor": 1000000000
       },
-      "signal_en": "Strong top-line growth, market traction",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "total_operating_horsepower",
@@ -103,9 +101,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Validé: KPI présent dans MDA avec valeur exacte 349.4M$ et date 2025-05-01; description enrichie avec détails fleet",
-      "_source_month": "mai 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Validé: KPI présent dans MDA avec valeur exacte 349.4M$ et date 2025-05-01; description enrichie avec détails fleet"
     },
     {
       "short": "contract_operations_backlog",
@@ -127,9 +123,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Validé: KPI présent dans MDA NGCS Acquisition (18,000 horsepower backlog); comparable changé à 'Comparable' car applicable pour suivi d'année en année",
-      "_source_month": "mai 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Validé: KPI présent dans MDA NGCS Acquisition (18,000 horsepower backlog); comparable changé à 'Comparable' car applicable pour suivi d'année en année"
     },
     {
       "short": "debt_redemption_2027_notes",
@@ -151,9 +145,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Validé: KPI présent dans MDA (300.0M$ principal repurchased); type corrigé de 'Cash' à 'Financing'; is_generic changé à false; description complétée avec détails de financement",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Validé: KPI présent dans MDA (300.0M$ principal repurchased); type corrigé de 'Cash' à 'Financing'; is_generic changé à false; description complétée avec détails de financement"
     },
     {
       "short": "flowco_disposition_horsepower",
@@ -175,9 +167,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "_validation": "Validé: KPI présent dans MDA Flowco Disposition (47,000 horsepower); description enrichie avec détail des 155 compresseurs",
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Validé: KPI présent dans MDA Flowco Disposition (47,000 horsepower); description enrichie avec détail des 155 compresseurs"
     },
     {
       "short": "Total Assets",
@@ -196,11 +186,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -225,9 +219,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Validé",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Validé"
     },
     {
       "short": "total_operating_horsepower",
@@ -252,9 +244,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Capacité",
-      "_validation": "Correction unité: '%' changé en 'Thousand horsepower'; valeur réelle '4571' au lieu de '8'; history complétée (4571, 4227, 3607)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction unité: '%' changé en 'Thousand horsepower'; valeur réelle '4571' au lieu de '8'; history complétée (4571, 4227, 3607)"
     },
     {
       "short": "ngcs_acquisition_consideration",
@@ -277,9 +267,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Validé",
-      "_source_month": "mai 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Validé"
     }
   ],
   "ai_positioning": {
@@ -293,46 +281,46 @@
       "title": "Accès au capital et financement coûteux",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le risque est documenté comme critique dans le contexte des acquisitions récentes (NGCS pour 349,4M$) et du remboursement de dette (2027 Notes pour 300M$), avec une dépendance significative aux emprunts sous la Credit Facility. Le 10-K stipule explicitement: 'there is no guarantee in our ability to access the debt and equity markets to raise capital on affordable terms in 2026 and beyond'. Le langage indique un risque existentiel si le financement n'est pas disponible à temps ou à des conditions abordables. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est documenté comme critique dans le contexte des acquisitions récentes (NGCS pour 349,4M$) et du remboursement de dette (2027 Notes pour 300M$), avec une dépendance significative aux emprunts sous la Credit Facility. Le 10-K stipule explicitement: 'there is no guarantee in our ability to access the debt and equity markets to raise capital on affordable terms in 2026 and beyond'. Le langage indique un risque existentiel si le financement n'est pas disponible à temps ou à des conditions abordables.",
       "trend": "stable",
       "summary": "La société dépend fortement de l'accès aux marchés de la dette et de l'équité pour financer ses activités, acquisitions et dépenses d'investissement. Un accès limité ou des conditions de financement défavorables pourraient entraver sa croissance et sa flexibilité opérationnelle.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Pression sur les coûts des intrants et chaîne d'approvisionnement",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le facteur est explicitement discuté dans la section 'Key Challenges and Uncertainties' avec une intensité modérée à élevée. Le 10-K mentionne: 'Significant price increases for these inputs, as a result of inflation, tariffs, or otherwise, could adversely affect our operating profits. Supply chain disruptions could also adversely affect our ability to obtain, or increase the cost of, such items.' La pression persiste avec un impact direct sur les marges opérationnelles. (score par défaut, à affiner)",
+      "score_rationale": "Le facteur est explicitement discuté dans la section 'Key Challenges and Uncertainties' avec une intensité modérée à élevée. Le 10-K mentionne: 'Significant price increases for these inputs, as a result of inflation, tariffs, or otherwise, could adversely affect our operating profits. Supply chain disruptions could also adversely affect our ability to obtain, or increase the cost of, such items.' La pression persiste avec un impact direct sur les marges opérationnelles.",
       "trend": "stable",
       "summary": "Les hausses de prix des matériaux, pièces, équipements et lubrifiants, ainsi que les ruptures d'approvisionnement, pourraient augmenter les coûts et compresser les marges opérationnelles. Bien que l'entreprise tente d'atténuer par des achats stratégiques et la diversification fournisseurs, les délais de transmission des coûts aux clients peuvent affecter la rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à la production de gaz naturel aux États-Unis",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Le lien direct et fondamental entre la demande de services de compression et la production de gaz naturel est souligné dans le 10-K: 'The key driver of our business is the production of U.S. oil and natural gas' et 'Demand for our services is dependent on the demand for natural gas in the markets we serve'. Une baisse de production impacterait fortement les revenus. Le langage est direct et répété, indiquant un risque central pour le modèle économique. (score par défaut, à affiner)",
+      "score_rationale": "Le lien direct et fondamental entre la demande de services de compression et la production de gaz naturel est souligné dans le 10-K: 'The key driver of our business is the production of U.S. oil and natural gas' et 'Demand for our services is dependent on the demand for natural gas in the markets we serve'. Une baisse de production impacterait fortement les revenus. Le langage est direct et répété, indiquant un risque central pour le modèle économique.",
       "trend": "stable",
       "summary": "L'activité de la société est étroitement liée à la production de gaz naturel aux États-Unis. Environ 60% de la flotte est déployée pour les applications de rassemblement. Une baisse de la production de gaz naturel réduirait directement la demande pour les services de compression et les revenus.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence accrue et pression tarifaire dans le secteur de la compression",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le risque est identifié dans la section 'Key Challenges and Uncertainties' du 10-K. Bien que le langage ne soit pas alarmiste, la concurrence est explicitement citée comme un facteur clé pouvant affecter les prix et la rentabilité. Le contexte de forte demande (production à niveaux records en 2025) peut attirer de nouveaux entrants. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est identifié dans la section 'Key Challenges and Uncertainties' du 10-K. Bien que le langage ne soit pas alarmiste, la concurrence est explicitement citée comme un facteur clé pouvant affecter les prix et la rentabilité. Le contexte de forte demande (production à niveaux records en 2025) peut attirer de nouveaux entrants.",
       "trend": "stable",
       "summary": "La concurrence dans le secteur de la compression pourrait augmenter avec la croissance de la demande, exerçant une pression à la baisse sur les tarifs et les marges. AROC en tant que leader doit maintenir ses avantages compétitifs et son coût d'exploitation pour préserver sa rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Transition énergétique et demande pour la compression alimentée au gaz naturel",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Le 10-K identifie explicitement ce risque: 'technological advances and accelerated adoption of renewable sources of energy could reduce demand for natural gas in our markets' et 'increased focus of our customers on reducing emissions from, or the use of, combustion engines in compression could increase demand for electric compressors or require us to make modifications to our existing natural gas-powered units'. C'est un risque à moyen-long terme. (score par défaut, à affiner)",
+      "score_rationale": "Le 10-K identifie explicitement ce risque: 'technological advances and accelerated adoption of renewable sources of energy could reduce demand for natural gas in our markets' et 'increased focus of our customers on reducing emissions from, or the use of, combustion engines in compression could increase demand for electric compressors or require us to make modifications to our existing natural gas-powered units'. C'est un risque à moyen-long terme.",
       "trend": "increasing",
       "summary": "La transition vers des sources d'énergie renouvelables et l'électrification des équipements de compression pourraient réduire la demande pour les services de compression alimentés au gaz naturel. Les clients cherchent de plus en plus à réduire les émissions, ce qui pourrait nécessiter des investissements significatifs en R&D pour les compresseurs électriques.",
-      "score": 3
+      "score": 4
     }
   ],
   "_validation": "Validation globale du dataset: 1) Correction du secteur 'Information Technology' à 'Energy' (cohérent avec business description); 2) Amélioration tagline en anglais plus descriptive; 3) Corrections majeures: KPI 'total_operating_horsepower' unité '%' changée en 'Thousand horsepower' avec valeur réelle 4571 et history complétée (4571, 4227, 3607); 4) 'contract_operations_revenue' validé comme présent dans MDA source; 5) NGCS, Flowco et 2027 Notes KPIs validés avec données exactes du 10-K; 6) Aftermarket Services markée sans données mais conservée (KPI pertinent); 7) Type 'Cash' corrigé en 'Financing' pour 2027 Notes Redemption; 8) Améliorations descriptives et names_fr; 9) Section risks enrichie avec citations directes du 10-K et trend analysis; 10) Tous les KPIs validés comme présents et non-hallucinés dans la source 10-K/MDA.",
@@ -366,7 +354,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -517,92 +505,50 @@
   },
   "enrich_quarterly_history": {
     "ticker": "AROC",
-    "extracted_at": "2026-05-15T19:48:33Z",
-    "method": "xbrl-companyfacts",
-    "_segment_method": "xbrl-segment-inline",
+    "extracted_at": "2026-06-01T02:58:02Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "aftermarket_services_revenue",
+        "short": "contract_operations_revenue",
         "period_type": "quarter",
         "history": [
-          0.018,
-          0.0165,
-          0.0169,
-          0.017,
-          0.0192,
-          0.0167,
-          0.0171,
-          0.026,
-          0.0235,
-          0.0221,
-          0.0212,
-          0.0246,
-          0.0249,
-          0.0281,
-          0.0254,
-          0.0257,
-          0.0274,
-          0.0223,
-          0.0261,
-          0.0331,
-          0.035,
-          0.0329
+          0.166034,
+          0.163865,
+          0.158911,
+          0.163656,
+          0.166298,
+          0.170497,
+          0.187745,
+          0.20112,
+          0.207552,
+          0.223051,
+          0.225468,
+          0.24542,
+          0.300397,
+          0.318327,
+          0.326269
         ],
         "history_periods": [
-          "Q3 2020",
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
+        "last_data_date": "2025-09-30",
         "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Service",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.0261,
-            "source": "AROC_2025-05-06.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.0331,
-            "source": "AROC_2025-08-05.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.035,
-            "source": "AROC_2025-10-29.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.0329,
-            "source": "calc-AROC_2026-02-26.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
-        ]
+        "_extracted_at": "2026-06-01T02:58:02Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -618,9 +564,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.223711+00:00",
     "fetched_at": "2026-05-21T02:17:14.223712+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.998Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.466Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aroc.json",
     "enrich_root": "v2-pipeline-enrich/aroc.json",

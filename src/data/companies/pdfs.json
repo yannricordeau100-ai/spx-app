@@ -84,11 +84,14 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Volume-based Revenue' not found as an explicitly labeled metric in the 10-K excerpt. The filing discusses 'Analytics' and 'Integrated Y",
       "explanation_en": "Revenue from the Volume-based segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Loss",
@@ -116,100 +119,120 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.022,
-      "unit": "Mds €",
+      "value": 22,
+      "unit": "M €",
       "yoy": "-4.3%",
       "history": [
-        0.067,
-        0.09,
-        0.101,
-        0.1,
-        0.098,
-        0.107,
-        0.102,
-        0.02,
-        0.023,
-        0.022
+        67,
+        90,
+        101,
+        100,
+        98,
+        107,
+        102,
+        20,
+        23,
+        22
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.22 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:53.597425+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.42,
-      "unit": "Mds €",
+      "value": 420,
+      "unit": "M €",
       "yoy": "+31.2%",
       "history": [
-        0.28,
-        0.29,
-        0.32,
-        0.42
+        280,
+        290,
+        320,
+        420
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.42 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "+600.0%",
       "history": [
-        0.01,
-        0.01,
-        0.01,
-        0.07
+        10,
+        10,
+        10,
+        70
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.07 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-55.6%",
       "history": [
-        0.12,
-        0.1,
-        0.09,
-        0.04
+        120,
+        100,
+        90,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,9 +254,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "M&A",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "M&A"
     }
   ],
   "ai_positioning": {
@@ -271,7 +292,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -285,7 +306,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné avec un langage fort (impossible à remplacer, arrêt de livraison). Il affecte directement la production et la rentabilité. Comparé à l'année précédente, le ton est plus alarmiste avec l'ajout de facteurs géopolitiques et cyber. La catégorie Industriel a une pondération élevée.",
       "trend": "up",
-      "summary": "La société dépend de fournisseurs uniques pour des composants critiques ; tout retard ou rupture d'approvisionnement pourrait bloquer la fabrication et nuire aux ventes."
+      "summary": "La société dépend de fournisseurs uniques pour des composants critiques ; tout retard ou rupture d'approvisionnement pourrait bloquer la fabrication et nuire aux ventes.",
+      "score": 5
     },
     {
       "title": "R&D coûteuse et risque d'obsolescence",
@@ -293,7 +315,8 @@
       "severity": 5,
       "score_rationale": "Positionné en tête des risques, avec un langage d'urgence (investissements substantiels, obsolescence, perte de position concurrentielle). Le montant des dépenses R&D est souligné comme indépendant des revenus. La catégorie Technologie est stratégique pour le secteur IT.",
       "trend": "stable",
-      "summary": "Les lourds investissements en R&D pourraient ne pas aboutir si les produits ne suivent pas l'évolution technologique, menant à l'obsolescence et à des pertes."
+      "summary": "Les lourds investissements en R&D pourraient ne pas aboutir si les produits ne suivent pas l'évolution technologique, menant à l'obsolescence et à des pertes.",
+      "score": 5
     },
     {
       "title": "Défauts dans les logiciels ou matériels",
@@ -301,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété plusieurs fois avec un langage fort (défauts, réclamations, diversion de ressources). Il est aggravé par l'intégration de l'IA. Moins existentiel que la R&D mais toujours critique pour la réputation et les marges.",
       "trend": "up",
-      "summary": "Des défauts dans les produits pourraient nuire à l'acceptation sur le marché, entraîner des coûts de réparation élevés et des pertes de clients."
+      "summary": "Des défauts dans les produits pourraient nuire à l'acceptation sur le marché, entraîner des coûts de réparation élevés et des pertes de clients.",
+      "score": 4
     },
     {
       "title": "Concentration des revenus sur peu de clients",
@@ -309,7 +333,8 @@
       "severity": 5,
       "score_rationale": "Chiffre clé : 53 % des revenus provenant de 3 clients. Langage alarmant (perte significative, pression sur les prix, consolidation). Risque majeur pour la stabilité financière. La catégorie Concurrence est fortement pondérée ici.",
       "trend": "stable",
-      "summary": "La perte ou la défaillance d'un seul grand client pourrait fortement réduire les revenus et les marges en raison d'une forte concentration."
+      "summary": "La perte ou la défaillance d'un seul grand client pourrait fortement réduire les revenus et les marges en raison d'une forte concentration.",
+      "score": 5
     },
     {
       "title": "Problèmes de sécurité des données et confidentialité",
@@ -317,7 +342,8 @@
       "severity": 5,
       "score_rationale": "Le risque est détaillé avec des menaces spécifiques (accès non autorisé, IA tierce, divulgation). Mention de sanctions réglementaires, litiges et perte de réputation. Langage très préoccupé. Catégorie Cybersécurité critique en IT.",
       "trend": "new",
-      "summary": "Toute fuite ou mauvaise gestion des données sensibles des clients pourrait entraîner des poursuites, des pertes commerciales et nuire à la réputation."
+      "summary": "Toute fuite ou mauvaise gestion des données sensibles des clients pourrait entraîner des poursuites, des pertes commerciales et nuire à la réputation.",
+      "score": 5
     },
     {
       "title": "Difficultés dans les contrats à forfait",
@@ -325,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien documenté avec des impacts financiers directs (ajustements P&L, dépassements de coûts). Moins existentiel que d'autres mais récurrent et lié à la rentabilité opérationnelle.",
       "trend": "stable",
-      "summary": "Les services à prix fixe peuvent prendre plus de temps que prévu, entraînant des pertes, des retards de revenus ou des résiliations de contrat."
+      "summary": "Les services à prix fixe peuvent prendre plus de temps que prévu, entraînant des pertes, des retards de revenus ou des résiliations de contrat.",
+      "score": 4
     },
     {
       "title": "Utilisation risquée de l'IA dans les produits",
@@ -333,7 +360,8 @@
       "severity": 4,
       "score_rationale": "L'IA est mentionnée comme de plus en plus importante, avec des risques spécifiques (sorties inexactes, décisions erronées). Le langage est prudent mais préoccupé. Moins central que R&D ou cybersécurité, mais en émergence.",
       "trend": "new",
-      "summary": "L'intégration de l'IA dans les produits expose la société à des décisions erronées, des pertes de confiance ou des responsabilités légales si les résultats sont inexacts."
+      "summary": "L'intégration de l'IA dans les produits expose la société à des décisions erronées, des pertes de confiance ou des responsabilités légales si les résultats sont inexacts.",
+      "score": 4
     }
   ],
   "governance": {
@@ -492,9 +520,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.295563+00:00",
     "fetched_at": "2026-05-21T02:17:14.295564+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.507Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.460Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pdfs.json",
     "enrich_root": "v2-pipeline-enrich/pdfs.json",

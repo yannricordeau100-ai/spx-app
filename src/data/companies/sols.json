@@ -73,8 +73,12 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "YoY corrigé de -4% à -3 points de pourcentage (35% en 2024 vs 32% en 2025)",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D Expenses",
@@ -103,7 +107,11 @@
       "ttm": 0,
       "_validation": "Unité corrigée de Mds $ à M $; name_fr corrigé de 'Investissements R&D' à 'Dépenses R&D'",
       "explanation_en": "Expenses related to R&D.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -122,80 +130,99 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.89 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.24,
-      "unit": "Mds €",
+      "value": 240,
+      "unit": "M €",
       "yoy": "-59.3%",
       "history": [
-        0.72,
-        0.62,
-        0.59,
-        0.24
+        720,
+        620,
+        590,
+        240
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.24 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Cash Flow",
       "name_fr": "Cash flow opérationnel",
       "name_en": "Operating Cash Flow",
-      "value": 0.46,
-      "unit": "Mds €",
+      "value": 460,
+      "unit": "M €",
       "yoy": "-45.2%",
       "history": [
-        0.76,
-        0.76,
-        0.84,
-        0.46
+        760,
+        760,
+        840,
+        460
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Cash flow opérationnel de 0.46 Mds € dernière année",
-      "description": "Cash flow opérationnel extrait yfinance sur les 4 dernières années.",
+      "description": "Cash flow opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
       "name_fr": "Free Cash Flow",
       "name_en": "Free Cash Flow",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-81.8%",
       "history": [
-        0.51,
-        0.46,
-        0.55,
-        0.1
+        510,
+        460,
+        550,
+        100
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 0.1 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Capex",
@@ -214,11 +241,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capex (Investissements) de -0.35 Mds € dernière année",
-      "description": "Capex (Investissements) extrait yfinance sur les 4 dernières années.",
+      "description": "Capex (Investissements) sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -264,7 +295,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne les incertitudes liées aux conditions macroéconomiques, notamment les tensions commerciales, l'incertitude des politiques commerciales et les risques inflationnistes, qui pourraient avoir un impact négatif sur les résultats de l'entreprise.",
       "trend": "stable",
-      "summary": "Les conditions macroéconomiques pourraient avoir un impact négatif sur les résultats de l'entreprise"
+      "summary": "Les conditions macroéconomiques pourraient avoir un impact négatif sur les résultats de l'entreprise",
+      "score": 4
     },
     {
       "title": "Dépendance transitoire à Honeywell",
@@ -272,7 +304,8 @@
       "severity": 3,
       "score_rationale": "La société a récemment été scindée de Honeywell et dépend de services de transition via un accord de services transitoires, créant des risques liés à la transition opérationnelle et financière.",
       "trend": "down",
-      "summary": "La société dépend temporairement de certains services de transition fournis par Honeywell jusqu'à leur remplacement interne ou par des tiers"
+      "summary": "La société dépend temporairement de certains services de transition fournis par Honeywell jusqu'à leur remplacement interne ou par des tiers",
+      "score": 3
     },
     {
       "title": "Risques de chaîne d'approvisionnement",
@@ -280,7 +313,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne les risques liés à la chaîne d'approvisionnement, notamment les pénuries de matières premières, les fluctuations de prix et la volatilité due aux conflits mondiaux et aux politiques commerciales.",
       "trend": "stable",
-      "summary": "Les risques de chaîne d'approvisionnement pourraient avoir un impact négatif sur les résultats de l'entreprise"
+      "summary": "Les risques de chaîne d'approvisionnement pourraient avoir un impact négatif sur les résultats de l'entreprise",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -288,7 +322,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans des marchés très concurrentiels des matériaux avancés, des réfrigérants et des matériaux électroniques, créant des risques liés à la perte de parts de marché.",
       "trend": "up",
-      "summary": "La concurrence accrue pourrait avoir un impact négatif sur les résultats de l'entreprise"
+      "summary": "La concurrence accrue pourrait avoir un impact négatif sur les résultats de l'entreprise",
+      "score": 3
     },
     {
       "title": "Risques réglementaires",
@@ -296,7 +331,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations strictes en matière de protection de l'environnement et de sécurité dans la fabrication de matériaux avancés et de réfrigérants.",
       "trend": "stable",
-      "summary": "Les risques réglementaires pourraient avoir un impact négatif sur les résultats de l'entreprise"
+      "summary": "Les risques réglementaires pourraient avoir un impact négatif sur les résultats de l'entreprise",
+      "score": 3
     },
     {
       "title": "Coûts de transition et de scission",
@@ -304,7 +340,8 @@
       "severity": 2,
       "score_rationale": "La société a engagé des coûts de transaction liés à la scission de 117 millions de dollars en 2025, avec des coûts supplémentaires attendus jusqu'en 2026 pour l'établissement en tant qu'entité publique indépendante.",
       "trend": "down",
-      "summary": "Les coûts de transition pour devenir une entité indépendante pourraient continuer à affecter la rentabilité"
+      "summary": "Les coûts de transition pour devenir une entité indépendante pourraient continuer à affecter la rentabilité",
+      "score": 2
     }
   ],
   "governance": {
@@ -434,9 +471,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.311790+00:00",
     "fetched_at": "2026-05-21T02:17:14.311791+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.015Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.000Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sols.json",
     "enrich_root": "v2-pipeline-enrich/sols.json",

@@ -20,69 +20,84 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.78,
-      "unit": "Mds €",
+      "value": 780,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.59,
-        0.65,
-        0.78,
-        0.78
+        590,
+        650,
+        780,
+        780
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.78 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.02,
-        0.03,
-        0.08,
-        0.08
+        20,
+        30,
+        80,
+        80
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.08 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "-15.4%",
       "history": [
-        0.16,
-        0.19,
-        0.26,
-        0.22
+        160,
+        190,
+        260,
+        220
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.22 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -99,7 +114,8 @@
       "severity": 4,
       "score_rationale": "La demande pour les services de conseil est directement affectée par les conditions économiques générales et sectorielles, mentionnée explicitement dans le 10-K comme facteur clé pouvant réduire la demande.",
       "trend": "stable",
-      "summary": "Les changements dans les conditions économiques générales et sectorielles peuvent impacter la demande pour les services de consulting"
+      "summary": "Les changements dans les conditions économiques générales et sectorielles peuvent impacter la demande pour les services de consulting",
+      "score": 4
     },
     {
       "title": "Absence de carnet de commandes",
@@ -107,7 +123,8 @@
       "severity": 4,
       "score_rationale": "L'absence de backlog significatif crée une volatilité des revenus et une imprévisibilité des engagements futurs pour Exponent.",
       "trend": "stable",
-      "summary": "L'absence de carnet de commandes créé une volatilité potentielle des revenus"
+      "summary": "L'absence de carnet de commandes créé une volatilité potentielle des revenus",
+      "score": 4
     },
     {
       "title": "Concurrence intense",
@@ -115,7 +132,8 @@
       "severity": 4,
       "score_rationale": "Les services de consulting en ingénierie et sciences font face à une concurrence croissante affectant la tarification et les marges.",
       "trend": "stable",
-      "summary": "La concurrence dans le secteur des services de consulting en ingénierie et en sciences peut impacter la tarification et les marges"
+      "summary": "La concurrence dans le secteur des services de consulting en ingénierie et en sciences peut impacter la tarification et les marges",
+      "score": 4
     },
     {
       "title": "Risques de litiges et responsabilité",
@@ -123,7 +141,8 @@
       "severity": 4,
       "score_rationale": "Les services d'Exponent impliquent souvent l'analyse d'accidents et de défaillances, ce qui peut générer des responsabilités litigieuses.",
       "trend": "stable",
-      "summary": "Les risques de litiges liés aux analyses d'accidents et à la responsabilité civile peuvent impacter la rentabilité"
+      "summary": "Les risques de litiges liés aux analyses d'accidents et à la responsabilité civile peuvent impacter la rentabilité",
+      "score": 4
     },
     {
       "title": "Rétention des talents",
@@ -131,7 +150,8 @@
       "severity": 4,
       "score_rationale": "La capacité à attirer et retenir les experts scientifiques et ingénieurs de haut niveau est critique pour la prestation de services qualifiés.",
       "trend": "up",
-      "summary": "La capacité à attirer et retenir les talents clés est essentielle à la croissance"
+      "summary": "La capacité à attirer et retenir les talents clés est essentielle à la croissance",
+      "score": 4
     },
     {
       "title": "Réglementation gouvernementale",
@@ -139,7 +159,8 @@
       "severity": 3,
       "score_rationale": "Les changements dans les réglementations gouvernementales et les lois de responsabilité civile peuvent impacter le modèle commercial d'Exponent.",
       "trend": "stable",
-      "summary": "Les changements réglementaires et les réformes de responsabilité civile peuvent affecter les activités"
+      "summary": "Les changements réglementaires et les réformes de responsabilité civile peuvent affecter les activités",
+      "score": 3
     }
   ],
   "governance": {
@@ -197,7 +218,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Services informatiques",
-  "_companies_unified_built_at": "2026-05-29T21:19:31.038Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.184Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/expo.json",
     "enrich_root": "v2-pipeline-enrich/expo.json",

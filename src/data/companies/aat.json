@@ -38,11 +38,14 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 407.3,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of explicit Rental Revenue data found in the filing (2020: $330.312M, 2021: $360.208M). Minimum threshold of 4 year",
       "explanation_en": "Revenue from the Rental segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Total Property Revenues",
@@ -90,62 +93,72 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 71,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.436,
-      "unit": "Mds €",
+      "value": 436,
+      "unit": "M €",
       "yoy": "-4.8%",
       "history": [
-        0.295,
-        0.315,
-        0.331,
-        0.367,
-        0.345,
-        0.376,
-        0.423,
-        0.441,
-        0.458,
-        0.436
+        295,
+        315,
+        331,
+        367,
+        345,
+        376,
+        423,
+        441,
+        458,
+        436
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.44 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:49.053788+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "-23.1%",
       "history": [
-        0.11,
-        0.12,
-        0.13,
-        0.1
+        110,
+        120,
+        130,
+        100
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.1 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -164,11 +177,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -187,33 +204,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "-69.8%",
       "history": [
-        0.05,
-        0.08,
-        0.43,
-        0.13
+        50,
+        80,
+        430,
+        130
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -227,7 +253,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.16,
         1.28,
@@ -240,7 +266,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -255,7 +281,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0982,
@@ -268,7 +294,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -283,7 +309,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         225.83,
@@ -296,7 +322,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -312,7 +338,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.72,
@@ -325,7 +351,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Stable, slight decline to monitor"
     }
   ],
@@ -365,16 +391,16 @@
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société est exposée au risque de non-paiement des loyers par les locataires, ce qui pourrait avoir un impact significatif sur les résultats financiers. Le langage utilisé dans le rapport est prudent, indiquant que la société fait des estimations de la collectabilité des comptes clients, ce qui suggère un niveau de risque élevé. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de non-paiement des loyers par les locataires, ce qui pourrait avoir un impact significatif sur les résultats financiers. Le langage utilisé dans le rapport est prudent, indiquant que la société fait des estimations de la collectabilité des comptes clients, ce qui suggère un niveau de risque élevé.",
       "trend": "stable",
       "summary": "La société est exposée au risque de non-paiement des loyers par les locataires, ce qui pourrait avoir un impact significatif sur les résultats financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de vacance",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société est exposée au risque de vacance des locaux, ce qui pourrait entraîner une perte de revenus. Le rapport indique que la société a des locataires qui pourraient ne pas renouveler leurs baux, ce qui suggère un niveau de risque moyen. Le taux d'occupation des immeubles de bureaux est passé de 85% à 83,1%. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de vacance des locaux, ce qui pourrait entraîner une perte de revenus. Le rapport indique que la société a des locataires qui pourraient ne pas renouveler leurs baux, ce qui suggère un niveau de risque moyen. Le taux d'occupation des immeubles de bureaux est passé de 85% à 83,1%.",
       "trend": "up",
       "summary": "La société est exposée au risque de vacance des locaux, ce qui pourrait entraîner une perte de revenus.",
       "score": 3
@@ -383,25 +409,25 @@
       "title": "Risque de dépréciation",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société est exposée au risque de dépréciation de ses actifs immobiliers, ce qui pourrait avoir un impact significatif sur les résultats financiers. Le rapport indique que la société utilise des estimations de la durée de vie utile de ses actifs, ce qui suggère un niveau de risque élevé. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de dépréciation de ses actifs immobiliers, ce qui pourrait avoir un impact significatif sur les résultats financiers. Le rapport indique que la société utilise des estimations de la durée de vie utile de ses actifs, ce qui suggère un niveau de risque élevé.",
       "trend": "stable",
       "summary": "La société est exposée au risque de dépréciation de ses actifs immobiliers, ce qui pourrait avoir un impact significatif sur les résultats financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de litige",
       "category": "Litige",
       "severity": 2,
-      "score_rationale": "La société est exposée au risque de litige avec les locataires ou les partenaires, ce qui pourrait entraîner des coûts et des pertes de revenus. Le rapport ne mentionne pas de litige en cours, ce qui suggère un niveau de risque faible. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de litige avec les locataires ou les partenaires, ce qui pourrait entraîner des coûts et des pertes de revenus. Le rapport ne mentionne pas de litige en cours, ce qui suggère un niveau de risque faible.",
       "trend": "stable",
       "summary": "La société est exposée au risque de litige avec les locataires ou les partenaires, ce qui pourrait entraîner des coûts et des pertes de revenus.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risque de régulation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est exposée au risque de changement dans les réglementations immobilières, ce qui pourrait avoir un impact sur les résultats financiers. Le rapport ne mentionne pas de changement réglementaire en cours, ce qui suggère un niveau de risque moyen. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de changement dans les réglementations immobilières, ce qui pourrait avoir un impact sur les résultats financiers. Le rapport ne mentionne pas de changement réglementaire en cours, ce qui suggère un niveau de risque moyen.",
       "trend": "stable",
       "summary": "La société est exposée au risque de changement dans les réglementations immobilières, ce qui pourrait avoir un impact sur les résultats financiers.",
       "score": 3
@@ -410,7 +436,7 @@
       "title": "Risque de concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La société est exposée au risque de concurrence avec d'autres sociétés immobilières, ce qui pourrait entraîner une perte de parts de marché. Le rapport ne mentionne pas de changement dans la concurrence, ce qui suggère un niveau de risque moyen. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de concurrence avec d'autres sociétés immobilières, ce qui pourrait entraîner une perte de parts de marché. Le rapport ne mentionne pas de changement dans la concurrence, ce qui suggère un niveau de risque moyen.",
       "trend": "stable",
       "summary": "La société est exposée au risque de concurrence avec d'autres sociétés immobilières, ce qui pourrait entraîner une perte de parts de marché.",
       "score": 3
@@ -419,10 +445,10 @@
       "title": "Risque de cyberattaque",
       "category": "Cybersécurité",
       "severity": 2,
-      "score_rationale": "La société est exposée au risque de cyberattaque, ce qui pourrait entraîner des pertes de données et des coûts. Le rapport ne mentionne pas de mesure de sécurité spécifique, ce qui suggère un niveau de risque faible. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de cyberattaque, ce qui pourrait entraîner des pertes de données et des coûts. Le rapport ne mentionne pas de mesure de sécurité spécifique, ce qui suggère un niveau de risque faible.",
       "trend": "up",
       "summary": "La société est exposée au risque de cyberattaque, ce qui pourrait entraîner des pertes de données et des coûts.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -458,7 +484,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -520,7 +546,6 @@
       "date": "2026-04-29"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:56:13.326952+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -557,9 +582,10 @@
     ],
     "total": 0.44
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:56:13.326952+00:00",
   "_segments_fetched_at": "2026-05-06T19:21:18.982410+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:57Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -586,7 +612,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:38Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:08Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_description": {
     "ticker": "AAT",
@@ -695,9 +721,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.129585+00:00",
     "fetched_at": "2026-05-21T02:17:14.129594+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.077Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.606Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aat.json",
     "enrich_root": "v2-pipeline-enrich/aat.json",

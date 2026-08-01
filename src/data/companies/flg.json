@@ -130,11 +130,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 87.51 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -153,11 +157,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 12.18 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -176,10 +184,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 5.89 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -194,52 +206,52 @@
       "title": "Risque de taux",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le risque de taux est évoqué dans le rapport comme pouvant avoir un impact matériel sur les résultats de l'entreprise, notamment en raison des changements dans les taux d'intérêt. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les taux d'intérêt sont considérés comme un facteur clé de risque. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de taux est évoqué dans le rapport comme pouvant avoir un impact matériel sur les résultats de l'entreprise, notamment en raison des changements dans les taux d'intérêt. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les taux d'intérêt sont considérés comme un facteur clé de risque.",
       "trend": "stable",
       "summary": "Le risque de taux d'intérêt peut impacter les résultats de l'entreprise en raison des changements dans les taux d'intérêt.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "Le risque de crédit est considéré comme un risque majeur, notamment en raison de la concentration de l'entreprise dans les prêts immobiliers. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les prêts immobiliers représentent une part importante du portefeuille de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de crédit est considéré comme un risque majeur, notamment en raison de la concentration de l'entreprise dans les prêts immobiliers. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les prêts immobiliers représentent une part importante du portefeuille de l'entreprise.",
       "trend": "up",
       "summary": "Le risque de crédit est élevé en raison de la concentration de l'entreprise dans les prêts immobiliers et de la possibilité de défaut de paiement.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque réglementaire",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le risque réglementaire est évoqué dans le rapport comme pouvant avoir un impact sur les résultats de l'entreprise, notamment en raison des changements dans la réglementation. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les changements dans la réglementation peuvent impacter les activités de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le risque réglementaire est évoqué dans le rapport comme pouvant avoir un impact sur les résultats de l'entreprise, notamment en raison des changements dans la réglementation. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les changements dans la réglementation peuvent impacter les activités de l'entreprise.",
       "trend": "stable",
       "summary": "Le risque réglementaire peut impacter les résultats de l'entreprise en raison des changements dans la réglementation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le risque de liquidité est considéré comme un risque important, notamment en raison de la possibilité de difficultés de trésorerie. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les difficultés de trésorerie peuvent impacter les activités de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de liquidité est considéré comme un risque important, notamment en raison de la possibilité de difficultés de trésorerie. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les difficultés de trésorerie peuvent impacter les activités de l'entreprise.",
       "trend": "stable",
       "summary": "Le risque de liquidité peut impacter les résultats de l'entreprise en raison de la possibilité de difficultés de trésorerie.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "Le risque de réputation est évoqué dans le rapport comme pouvant avoir un impact sur les résultats de l'entreprise, notamment en raison de la possibilité de pertes de confiance des clients. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les pertes de confiance des clients peuvent impacter les activités de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de réputation est évoqué dans le rapport comme pouvant avoir un impact sur les résultats de l'entreprise, notamment en raison de la possibilité de pertes de confiance des clients. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les pertes de confiance des clients peuvent impacter les activités de l'entreprise.",
       "trend": "stable",
       "summary": "Le risque de réputation peut impacter les résultats de l'entreprise en raison de la possibilité de pertes de confiance des clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de marché",
       "category": "Marché",
       "severity": 3,
-      "score_rationale": "Le risque de marché est considéré comme un risque important, notamment en raison de la possibilité de changements dans les conditions de marché. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les changements dans les conditions de marché peuvent impacter les activités de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de marché est considéré comme un risque important, notamment en raison de la possibilité de changements dans les conditions de marché. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les changements dans les conditions de marché peuvent impacter les activités de l'entreprise.",
       "trend": "stable",
       "summary": "Le risque de marché peut impacter les résultats de l'entreprise en raison de la possibilité de changements dans les conditions de marché.",
       "score": 3
@@ -248,7 +260,7 @@
       "title": "Risque opérationnel",
       "category": "Opérationnel",
       "severity": 3,
-      "score_rationale": "Le risque opérationnel est évoqué dans le rapport comme pouvant avoir un impact sur les résultats de l'entreprise, notamment en raison de la possibilité de défauts dans les processus opérationnels. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les défauts dans les processus opérationnels peuvent impacter les activités de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le risque opérationnel est évoqué dans le rapport comme pouvant avoir un impact sur les résultats de l'entreprise, notamment en raison de la possibilité de défauts dans les processus opérationnels. (1) position dans le 10-K : Item 1A, (2) intensité du langage : 'could have a material adverse effect', (3) contexte vs N-1 : les défauts dans les processus opérationnels peuvent impacter les activités de l'entreprise.",
       "trend": "stable",
       "summary": "Le risque opérationnel peut impacter les résultats de l'entreprise en raison de la possibilité de défauts dans les processus opérationnels.",
       "score": 3
@@ -408,41 +420,115 @@
   },
   "enrich_quarterly_history": {
     "ticker": "FLG",
-    "extracted_at": "2026-05-15T18:11:15Z",
-    "method": "xbrl-companyfacts",
-    "cik": 910073,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:16:34Z",
+    "n_kpis": 5,
     "kpis": [
+      {
+        "short": "Allowance for credit losses on loans and leases",
+        "period_type": "quarter",
+        "history": [
+          0.199,
+          0.197,
+          0.216,
+          0.218,
+          0.55,
+          0.594,
+          0.619,
+          0.992,
+          1.215,
+          1.268,
+          1.264,
+          1.201,
+          1.168,
+          1.106,
+          1.071
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:16:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
       {
         "short": "Assets",
         "period_type": "quarter",
         "history": [
-          -107.0971,
-          57.6569,
-          57.469,
-          57.89,
-          -113.4889,
+          59.527,
           61.005,
           63.093,
           62.956,
-          -96.91,
-          123.706,
-          118.796,
-          111.23,
-          -239.675,
-          112.9,
-          119.055,
-          114.367,
-          -246.162,
-          92.237,
-          91.668,
-          87.129
+          84.619,
+          82.327,
+          81.129,
+          71.703,
+          67.97,
+          65.955,
+          63.334,
+          62.125
         ],
         "history_periods": [
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:16:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Loans",
+        "period_type": "quarter",
+        "history": [
+          45.539,
+          46.561,
+          48.321,
+          48.766,
+          69.723,
+          83.302,
+          83.278,
+          84.878,
+          69.723,
+          84.878,
+          81.129,
+          71.703,
+          67.97,
+          65.955,
+          63.334,
+          62.125
+        ],
+        "history_periods": [
           "Q4 2021",
           "Q1 2022",
           "Q2 2022",
@@ -456,118 +542,67 @@
           "Q2 2024",
           "Q3 2024",
           "Q4 2024",
+          "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Assets",
-        "_citations": [
-          {
-            "period": "Q4 2024",
-            "value": -246.162,
-            "accession": "calc-0000910073-25-000038",
-            "end": "2024-12-31"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 92.237,
-            "accession": "0000910073-25-000110",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 91.668,
-            "accession": "0000910073-25-000181",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 87.129,
-            "accession": "0000910073-26-000047",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:16:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Deposits",
+        "period_type": "quarter",
+        "history": [
+          35.059,
+          37.954,
+          41.244,
+          41.705,
+          35.059
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022"
+        ],
+        "last_data_date": "2022-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:16:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Total stockholders equity",
         "period_type": "quarter",
         "history": [
-          -13.2235,
-          6.7964,
-          6.916,
-          6.967,
-          -13.6354,
+          7.044,
           6.909,
           6.824,
           6.746,
-          -11.655,
-          10.782,
-          11.06,
-          10.993,
-          -24.468,
-          8.39,
-          8.397,
-          8.571,
-          -17.191,
-          8.095,
-          8.108,
-          8.12
+          7.044
         ],
         "history_periods": [
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
           "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q2 2025",
-          "Q3 2025",
-          "Q1 2026"
+          "Q4 2022"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2022-09-30",
         "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "StockholdersEquity",
-        "_citations": [
-          {
-            "period": "Q4 2024",
-            "value": -17.191,
-            "accession": "calc-0000910073-25-000038",
-            "end": "2024-12-31"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 8.095,
-            "accession": "0000910073-25-000110",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 8.108,
-            "accession": "0000910073-25-000181",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 8.12,
-            "accession": "0000910073-26-000047",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:16:34Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -583,9 +618,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.261718+00:00",
     "fetched_at": "2026-05-21T02:17:14.261720+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.272Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.844Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/flg.json",
     "enrich_root": "v2-pipeline-enrich/flg.json",

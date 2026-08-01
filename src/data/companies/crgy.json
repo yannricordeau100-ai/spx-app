@@ -35,9 +35,7 @@
       "is_generic": false,
       "is_short_history": true,
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "KPI 'Senior Notes Issued 2034' not found in the provided 10-K extract. The document excerpt contains only XBRL metadata and structural tags ",
-      "_source_month": "janvier 2034",
-      "_source_month_reason": "via_signal_quarter"
+      "_hero_history_unverified_reason": "KPI 'Senior Notes Issued 2034' not found in the provided 10-K extract. The document excerpt contains only XBRL metadata and structural tags "
     },
     {
       "short": "2028 Notes Repurchased",
@@ -56,9 +54,7 @@
       "last_data_date": "2025-07-25",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "juillet 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Debt Extinguishment Loss",
@@ -77,9 +73,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "2029 Notes Outstanding",
@@ -98,9 +92,7 @@
       "last_data_date": "2026-01-02",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "2030 Notes Outstanding",
@@ -119,9 +111,7 @@
       "last_data_date": "2026-01-02",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
@@ -140,11 +130,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 12.44 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -163,33 +157,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-92.3%",
       "history": [
         0,
         0,
-        0.13,
-        0.01
+        130,
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -204,16 +207,16 @@
       "title": "Dépendance du Manager",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société est gérée par un Manager externe, ce qui peut créer des conflits d'intérêts et des risques de dépendance. (score par défaut, à affiner)",
+      "score_rationale": "La société est gérée par un Manager externe, ce qui peut créer des conflits d'intérêts et des risques de dépendance.",
       "trend": "stable",
       "summary": "La société est gérée par un Manager externe, ce qui peut créer des conflits d'intérêts et des risques de dépendance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de gouvernance",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est une société contrôlée (controlled company selon NYSE), ce qui peut créer des risques de gouvernance et de conflits d'intérêts. (score par défaut, à affiner)",
+      "score_rationale": "La société est une société contrôlée (controlled company selon NYSE), ce qui peut créer des risques de gouvernance et de conflits d'intérêts.",
       "trend": "stable",
       "summary": "La société est une société contrôlée, ce qui peut créer des risques de gouvernance et de conflits d'intérêts.",
       "score": 3
@@ -222,16 +225,16 @@
       "title": "Risques de réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La société peut être affectée par des problèmes de réputation en cas de non-respect des normes de gouvernance ou de conflits d'intérêts. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être affectée par des problèmes de réputation en cas de non-respect des normes de gouvernance ou de conflits d'intérêts.",
       "trend": "stable",
       "summary": "La société peut être affectée par des problèmes de réputation en cas de non-respect des normes de gouvernance ou de conflits d'intérêts.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de réglementation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est soumise à des réglementations strictes en tant qu'entreprise pétrolière et gazière, ce qui peut créer des risques de non-conformité. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations strictes en tant qu'entreprise pétrolière et gazière, ce qui peut créer des risques de non-conformité.",
       "trend": "up",
       "summary": "La société est soumise à des réglementations strictes, ce qui peut créer des risques de non-conformité.",
       "score": 3
@@ -240,16 +243,16 @@
       "title": "Risques de personnes clés",
       "category": "Personne-clé",
       "severity": 4,
-      "score_rationale": "La société dépend fortement de certaines personnes clés, ce qui peut créer des risques en cas de départ ou de perte de ces personnes. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de certaines personnes clés, ce qui peut créer des risques en cas de départ ou de perte de ces personnes.",
       "trend": "stable",
       "summary": "La société dépend fortement de certaines personnes clés, ce qui peut créer des risques en cas de départ ou de perte de ces personnes.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de litiges",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "La société peut être impliquée dans des litiges, ce qui peut créer des risques de coûts et de réputation. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être impliquée dans des litiges, ce qui peut créer des risques de coûts et de réputation.",
       "trend": "stable",
       "summary": "La société peut être impliquée dans des litiges, ce qui peut créer des risques de coûts et de réputation.",
       "score": 3
@@ -258,19 +261,19 @@
       "title": "Volatilité des prix des matières premières",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Les revenus et les résultats d'exploitation dépendent significativement des prix du pétrole brut et du gaz naturel, qui ont connu une volatilité périodique et soutenue. (score par défaut, à affiner)",
+      "score_rationale": "Les revenus et les résultats d'exploitation dépendent significativement des prix du pétrole brut et du gaz naturel, qui ont connu une volatilité périodique et soutenue.",
       "trend": "up",
       "summary": "Les prix du pétrole et du gaz naturel ont connu une volatilité soutenue due à des événements géopolitiques, des contraintes de la chaîne d'approvisionnement et des incertitudes réglementaires.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques d'inflation et de politique monétaire",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les niveaux d'inflation soutenus augmentent les coûts des services pétroliers, du travail et de l'équipement, impactant les dépenses en capital et les coûts opérationnels. (score par défaut, à affiner)",
+      "score_rationale": "Les niveaux d'inflation soutenus augmentent les coûts des services pétroliers, du travail et de l'équipement, impactant les dépenses en capital et les coûts opérationnels.",
       "trend": "stable",
       "summary": "L'inflation soutenue et les politiques tarifaires peuvent augmenter les coûts opérationnels et les dépenses en capital de l'entreprise.",
-      "score": 3
+      "score": 4
     }
   ],
   "_validation": [
@@ -388,9 +391,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.244727+00:00",
     "fetched_at": "2026-05-21T02:17:14.244728+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.811Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.308Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/crgy.json",
     "enrich_root": "v2-pipeline-enrich/crgy.json",

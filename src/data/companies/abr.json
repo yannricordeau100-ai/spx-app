@@ -58,47 +58,57 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "-20.6%",
       "history": [
-        0.62,
-        0.72,
-        0.63,
-        0.5
+        620,
+        720,
+        630,
+        500
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.5 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "-42.3%",
       "history": [
-        0.33,
-        0.37,
-        0.26,
-        0.15
+        330,
+        370,
+        260,
+        150
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.15 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -117,11 +127,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 14.49 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -140,33 +154,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.4 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.48,
-      "unit": "Mds €",
+      "value": 480,
+      "unit": "M €",
       "yoy": "-4.0%",
       "history": [
-        0.53,
-        0.93,
-        0.5,
-        0.48
+        530,
+        930,
+        500,
+        480
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.48 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -202,34 +225,34 @@
       "title": "Economic and Interest Rate Risk",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "The company explicitly states that the elevated and unpredictable interest rate environment has had a material adverse effect on business, results of operations, financial condition and liquidity through increases in nonperforming loans, loan modifications, credit loss reserves and foreclosures. The language used indicates alarm with terms such as 'material adverse effect' and references to prolonged dislocation and potential for severe recession. (score par défaut, à affiner)",
+      "score_rationale": "The company explicitly states that the elevated and unpredictable interest rate environment has had a material adverse effect on business, results of operations, financial condition and liquidity through increases in nonperforming loans, loan modifications, credit loss reserves and foreclosures. The language used indicates alarm with terms such as 'material adverse effect' and references to prolonged dislocation and potential for severe recession.",
       "trend": "up",
       "summary": "Current economic conditions with persistently high interest rates are negatively affecting operations with increased delinquencies, defaults and declining real estate values.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Credit Risk",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "The company reports increased payment delinquencies and defaults, with loan modifications totaling 1.71 billion dollars and foreclosures on 21 loans with net carrying value of 590.5 million dollars in 2025. The elevated interest rate environment has limited ability to resolve delinquent loans. (score par défaut, à affiner)",
+      "score_rationale": "The company reports increased payment delinquencies and defaults, with loan modifications totaling 1.71 billion dollars and foreclosures on 21 loans with net carrying value of 590.5 million dollars in 2025. The elevated interest rate environment has limited ability to resolve delinquent loans.",
       "trend": "up",
       "summary": "Credit quality deterioration with increased delinquencies, defaults, loan modifications and foreclosures driven by elevated interest rate environment and declining real estate values.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Liquidity Risk",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "The company acknowledges that the elevated interest rate environment has limited its ability to obtain financing on reasonable terms and resolve delinquent loans. Capital markets disruption mentioned as ongoing consequence of interest rate dislocation. (score par défaut, à affiner)",
+      "score_rationale": "The company acknowledges that the elevated interest rate environment has limited its ability to obtain financing on reasonable terms and resolve delinquent loans. Capital markets disruption mentioned as ongoing consequence of interest rate dislocation.",
       "trend": "up",
       "summary": "Capital markets disruption and difficulty obtaining financing on reasonable terms due to elevated interest rate environment and real estate market dislocation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Regulatory Risk",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "The company's business depends on relationships with GSEs (Fannie Mae, Freddie Mac) and HUD programs. Changes in agency requirements or relationship deterioration could negatively impact operations. REIT qualification requirements also present ongoing compliance obligations. (score par défaut, à affiner)",
+      "score_rationale": "The company's business depends on relationships with GSEs (Fannie Mae, Freddie Mac) and HUD programs. Changes in agency requirements or relationship deterioration could negatively impact operations. REIT qualification requirements also present ongoing compliance obligations.",
       "trend": "stable",
       "summary": "Regulatory dependence on GSE and HUD relationships, along with REIT qualification requirements which must be continuously maintained.",
       "score": 3
@@ -238,16 +261,16 @@
       "title": "Cybersecurity Risk",
       "category": "Cybersécurité",
       "severity": 2,
-      "score_rationale": "While not explicitly detailed in the 10-K excerpts provided, as a financial institution handling mortgage data and utilizing servicing systems, cybersecurity represents a material operational risk common to REITs and loan servicers. (score par défaut, à affiner)",
+      "score_rationale": "While not explicitly detailed in the 10-K excerpts provided, as a financial institution handling mortgage data and utilizing servicing systems, cybersecurity represents a material operational risk common to REITs and loan servicers.",
       "trend": "stable",
       "summary": "Operational dependence on mortgage origination and servicing technology systems with inherent cybersecurity and data protection risks.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Reputational Risk",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "Increased foreclosures (21 loans in 2025) and growing REO portfolio from inability to resolve delinquencies could impact relationships with borrowers, GSEs and investors. REO repositioning challenges in weak real estate markets may result in losses. (score par défaut, à affiner)",
+      "score_rationale": "Increased foreclosures (21 loans in 2025) and growing REO portfolio from inability to resolve delinquencies could impact relationships with borrowers, GSEs and investors. REO repositioning challenges in weak real estate markets may result in losses.",
       "trend": "up",
       "summary": "Rising foreclosures and REO assets from portfolio distress could affect relationships with borrowers, agencies and investor confidence.",
       "score": 3
@@ -256,7 +279,7 @@
       "title": "Concentration Risk",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "The company's concentration in commercial real estate (multifamily, SFR and CRE markets) and dependence on structured finance makes it highly vulnerable to commercial real estate market cycles and interest rate volatility. (score par défaut, à affiner)",
+      "score_rationale": "The company's concentration in commercial real estate (multifamily, SFR and CRE markets) and dependence on structured finance makes it highly vulnerable to commercial real estate market cycles and interest rate volatility.",
       "trend": "up",
       "summary": "Significant concentration in commercial real estate markets, particularly multifamily and bridge lending, creating vulnerability to market cycles.",
       "score": 3
@@ -265,10 +288,10 @@
       "title": "Technology and Systems Risk",
       "category": "Technologie",
       "severity": 2,
-      "score_rationale": "The company relies on loan origination, servicing and portfolio management systems. System failures, integration issues or inability to adapt to evolving servicing requirements could impact operations. (score par défaut, à affiner)",
+      "score_rationale": "The company relies on loan origination, servicing and portfolio management systems. System failures, integration issues or inability to adapt to evolving servicing requirements could impact operations.",
       "trend": "stable",
       "summary": "Operational dependence on loan origination, servicing and portfolio management systems with risks of system failures or adaptation challenges.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -382,7 +405,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.172Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.026Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/abr.json",
     "enrich_root": "v2-pipeline-enrich/abr.json",

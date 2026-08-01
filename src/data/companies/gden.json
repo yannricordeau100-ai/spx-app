@@ -41,7 +41,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -66,7 +66,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 61.04,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -91,7 +91,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 44.3,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Pressure, deteriorating trend"
     },
     {
@@ -140,7 +140,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 3.07,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -160,56 +160,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.02 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.52,
-      "unit": "Mds €",
+      "value": 520,
+      "unit": "M €",
       "yoy": "+4.0%",
       "history": [
-        1.07,
-        0.76,
-        0.5,
-        0.52
+        1070,
+        760,
+        500,
+        520
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.52 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.14,
-        0.16,
-        0.06,
-        0.06
+        140,
+        160,
+        60,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -223,7 +237,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -236,7 +250,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -251,7 +265,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0512,
@@ -264,7 +278,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -279,7 +293,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -292,7 +306,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -307,7 +321,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         5.04,
@@ -320,7 +334,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -348,9 +362,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Marché",
-      "ttm": 264.67,
-      "_source_month": "juillet 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": 264.67
     },
     {
       "short": "Shareholder Dividend",
@@ -372,9 +384,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capital",
-      "_source_month": "avril 2026",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capital"
     }
   ],
   "ai_positioning": {
@@ -392,64 +402,64 @@
       "title": "Échec ou retard de la Sale Transaction",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le risque est central dans le 10-K, mentionné en premier et détaillé sur plusieurs paragraphes. Le langage est fort (no assurance, materially harmed). Il concerne une opération stratégique majeure avec des conditions suspensives nombreuses, dont l'approbation réglementaire et actionnariale. La catégorie Capital est hautement pondérée ici car l'opération affecte la structure même de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est central dans le 10-K, mentionné en premier et détaillé sur plusieurs paragraphes. Le langage est fort (no assurance, materially harmed). Il concerne une opération stratégique majeure avec des conditions suspensives nombreuses, dont l'approbation réglementaire et actionnariale. La catégorie Capital est hautement pondérée ici car l'opération affecte la structure même de l'entreprise.",
       "trend": "new",
       "summary": "La transaction de vente prévue pourrait échouer ou être retardée en raison de conditions non remplies, notamment réglementaires ou actionnariales, ce qui nuirait gravement à l'entreprise.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Sensibilité à la dépense discrétionnaire",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Ce risque est largement documenté dans le 10-K avec un langage répété sur les effets négatifs des conditions économiques, pandémies, ou catastrophes naturelles. Il est récurrent dans les années précédentes mais renforcé par les références aux perturbations prolongées. La catégorie Macro est critique pour les activités de loisirs. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est largement documenté dans le 10-K avec un langage répété sur les effets négatifs des conditions économiques, pandémies, ou catastrophes naturelles. Il est récurrent dans les années précédentes mais renforcé par les références aux perturbations prolongées. La catégorie Macro est critique pour les activités de loisirs.",
       "trend": "stable",
       "summary": "Une baisse du pouvoir d'achat ou des événements comme des pandémies ou des catastrophes naturelles peut réduire la fréquentation de nos établissements, impactant fortement les revenus.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans le jeu en ligne",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le risque est explicitement mentionné avec intensité croissante (ever-increasing competition). Il inclut les jeux mobiles, les paris sportifs et les loteries. Comparé à N-1, l'accent sur l'internet gaming s'est renforcé. La catégorie Concurrence est fortement pondérée dans le secteur du gaming. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est explicitement mentionné avec intensité croissante (ever-increasing competition). Il inclut les jeux mobiles, les paris sportifs et les loteries. Comparé à N-1, l'accent sur l'internet gaming s'est renforcé. La catégorie Concurrence est fortement pondérée dans le secteur du gaming.",
       "trend": "up",
       "summary": "L'essor des jeux en ligne, des paris sportifs et des loteries d'État menace notre part de marché, notamment auprès des jeunes consommateurs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Augmentation des taxes liées au jeu",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le texte souligne que les gouvernements pourraient augmenter les taxes en raison de déficits budgétaires (intensify efforts). Le risque est répété avec un ton préoccupant. Il est stable par rapport à N-1 mais critique car les taxes sont déjà élevées dans le secteur. La catégorie Régulation est centrale ici. (score par défaut, à affiner)",
+      "score_rationale": "Le texte souligne que les gouvernements pourraient augmenter les taxes en raison de déficits budgétaires (intensify efforts). Le risque est répété avec un ton préoccupant. Il est stable par rapport à N-1 mais critique car les taxes sont déjà élevées dans le secteur. La catégorie Régulation est centrale ici.",
       "trend": "stable",
       "summary": "Toute hausse des taxes sur les jeux, notamment dans le Nevada, pourrait réduire notre rentabilité et affecter négativement nos résultats.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation stricte du jeu",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Le risque est décrit en détail, avec mention de pouvoirs étendus des autorités (révocation de licence, amendes). Le langage est fort (broad powers, material adverse effect). Il est récurrent et critique car la licence est vitale. La catégorie Régulation est ici existentielle. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est décrit en détail, avec mention de pouvoirs étendus des autorités (révocation de licence, amendes). Le langage est fort (broad powers, material adverse effect). Il est récurrent et critique car la licence est vitale. La catégorie Régulation est ici existentielle.",
       "trend": "stable",
       "summary": "Nos activités sont soumises à une réglementation stricte; toute perte de licence ou sanction réglementaire pourrait paralyser notre activité.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Difficultés de financement des rénovations",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le texte insiste sur le caractère intensif en capital du secteur et le risque de ne pas pouvoir financer les rénovations. Le langage est préoccupant (cannot assure, competitive disadvantage). Ce risque est stable mais crucial pour rester compétitif. La catégorie Capital est hautement pertinente. (score par défaut, à affiner)",
+      "score_rationale": "Le texte insiste sur le caractère intensif en capital du secteur et le risque de ne pas pouvoir financer les rénovations. Le langage est préoccupant (cannot assure, competitive disadvantage). Ce risque est stable mais crucial pour rester compétitif. La catégorie Capital est hautement pertinente.",
       "trend": "stable",
       "summary": "L'incapacité à financer les rénovations ou expansions pourrait nous placer en désavantage face à des concurrents mieux équipés.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Non-conformité avec les lois anti-blanchiment",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné avec un ton sérieux (increased focus, material adverse effect). Il est aggravé par la manipulation de grandes quantités de cash. Bien que moins développé que d'autres, il est en lien direct avec la supervision réglementaire. La catégorie Régulation renforce son importance. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné avec un ton sérieux (increased focus, material adverse effect). Il est aggravé par la manipulation de grandes quantités de cash. Bien que moins développé que d'autres, il est en lien direct avec la supervision réglementaire. La catégorie Régulation renforce son importance.",
       "trend": "stable",
       "summary": "Toute violation des lois anti-blanchiment ou de la FCPA pourrait entraîner des sanctions sévères et nuire à notre réputation et à nos résultats.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -485,7 +495,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "EBITDA"
   },
   "_fit_for_site": true,
@@ -545,7 +555,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:25Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2016,
@@ -562,7 +572,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:17Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:08Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "GDEN",
     "simple": {
@@ -660,88 +670,53 @@
   },
   "enrich_quarterly_history": {
     "ticker": "GDEN",
-    "extracted_at": "2026-05-15T18:11:26Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1071255,
+    "extracted_at": "2026-06-01T03:17:57Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Capex",
+        "short": "Adjusted EBITDA",
         "period_type": "quarter",
         "history": [
-          4.873,
-          11.438,
-          20.828,
-          -7.88,
-          10.813,
-          21.015,
-          33.506,
-          -13.915,
-          25.072,
-          53.946,
-          71.745,
-          -64.886,
-          16.259,
-          33.848,
-          41.696,
-          -41.903,
-          11.918,
-          25.342,
-          32.888,
-          -22.667
+          59.498,
+          91.012,
+          73.428,
+          67.325,
+          75.016,
+          61.055,
+          62.167,
+          58.41,
+          53.185,
+          40.992,
+          58.41,
+          53.185,
+          40.992,
+          41.192,
+          34.014
         ],
         "history_periods": [
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 11.918,
-            "accession": "0001071255-25-000057",
-            "end": "2025-03-31"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 25.342,
-            "accession": "0001071255-25-000081",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 32.888,
-            "accession": "0001071255-25-000113",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -22.667,
-            "accession": "calc-0001071255-26-000015",
-            "end": "2025-12-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:17:57Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -757,9 +732,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.265770+00:00",
     "fetched_at": "2026-05-21T02:17:14.265771+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.583Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.186Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gden.json",
     "enrich_root": "v2-pipeline-enrich/gden.json",

@@ -38,10 +38,13 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 12.365,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document fourni est un extrait XML/XBRL brut contenant principalement des métadonnées de structure et des références de contextes tempore",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Revenu segment Beverage Can",
@@ -138,8 +141,8 @@
       "name_fr": "Investissements cumulatifs en capacité depuis 2019",
       "name_en": "Cumulative Capital Investments for Capacity Since 2019",
       "explanation": "Dépenses d'investissement cumulatives pour augmenter la capacité de production depuis 2019.",
-      "value": 2000,
-      "unit": "M $",
+      "value": 2,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Investment",
       "nature": "Structurel",
@@ -147,12 +150,13 @@
       "signal": "Expansion stratégique pour répondre à la demande croissante des boissons.",
       "description": "Depuis 2019, l'entreprise a investi au moins 2 milliards de dollars dans de nouvelles installations et lignes de production pour soutenir la croissance de la demande mondiale de canettes de boissons.",
       "history": [
-        2000
+        2
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Dépenses Capex prévues",
@@ -208,7 +212,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.8,
         0.88,
@@ -221,7 +225,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -236,7 +240,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.828,
@@ -249,7 +253,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -264,7 +268,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         14.58,
@@ -277,7 +281,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -293,7 +297,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         5.99,
@@ -306,7 +310,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -331,9 +335,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     },
     {
       "short": "Part du segment Beverage Can",
@@ -355,9 +357,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -371,34 +371,34 @@
       "title": "Prix matières",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le coût des matières premières représente 47% et 8% du coût des produits vendus pour l'aluminium et l'acier. Les fluctuations de prix peuvent impacter la marge bénéficiaire. (score par défaut, à affiner)",
+      "score_rationale": "Le coût des matières premières représente 47% et 8% du coût des produits vendus pour l'aluminium et l'acier. Les fluctuations de prix peuvent impacter la marge bénéficiaire.",
       "trend": "up",
       "summary": "L'augmentation des prix des matières premières peut réduire les bénéfices de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le marché des emballages est très concurrentiel, avec des produits standardisés et une surcapacité potentielle. (score par défaut, à affiner)",
+      "score_rationale": "Le marché des emballages est très concurrentiel, avec des produits standardisés et une surcapacité potentielle.",
       "trend": "stable",
       "summary": "La concurrence peut entraîner une baisse des prix et des bénéfices.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de chaîne d'approvisionnement",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les interruptions de la chaîne d'approvisionnement peuvent avoir un impact significatif sur les opérations et les résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "Les interruptions de la chaîne d'approvisionnement peuvent avoir un impact significatif sur les opérations et les résultats financiers.",
       "trend": "up",
       "summary": "Les risques de chaîne d'approvisionnement peuvent entraîner des coûts supplémentaires et des perturbations de la production.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fluctuations de la demande",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La demande pour les produits de l'entreprise peut fluctuer en fonction des conditions météorologiques et des préférences des consommateurs. (score par défaut, à affiner)",
+      "score_rationale": "La demande pour les produits de l'entreprise peut fluctuer en fonction des conditions météorologiques et des préférences des consommateurs.",
       "trend": "stable",
       "summary": "Les fluctuations de la demande peuvent impacter les ventes et les bénéfices de l'entreprise.",
       "score": 3
@@ -407,7 +407,7 @@
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements dans les politiques commerciales et les réglementations peuvent avoir un impact sur les opérations et les résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les politiques commerciales et les réglementations peuvent avoir un impact sur les opérations et les résultats financiers.",
       "trend": "up",
       "summary": "Les risques réglementaires peuvent entraîner des coûts supplémentaires et des perturbations de la production.",
       "score": 3
@@ -416,7 +416,7 @@
       "title": "Risques de dépréciation de l'actif",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "La dépréciation de l'actif peut avoir un impact significatif sur les résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La dépréciation de l'actif peut avoir un impact significatif sur les résultats financiers.",
       "trend": "stable",
       "summary": "La dépréciation de l'actif peut réduire la valeur de l'entreprise.",
       "score": 3
@@ -425,10 +425,10 @@
       "title": "Risques de litige",
       "category": "Litige",
       "severity": 2,
-      "score_rationale": "Les litiges peuvent avoir un impact sur les résultats financiers et la réputation de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les litiges peuvent avoir un impact sur les résultats financiers et la réputation de l'entreprise.",
       "trend": "stable",
       "summary": "Les litiges peuvent entraîner des coûts supplémentaires et des perturbations de la production.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -473,7 +473,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -552,7 +552,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:14Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:11Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Emballage",
   "enrich_events": {
     "ticker": "CCK",
@@ -598,166 +598,119 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CCK",
-    "extracted_at": "2026-05-15T18:09:54Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1219601,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:05:19Z",
+    "n_kpis": 3,
     "kpis": [
       {
-        "short": "Investissements Capacité",
+        "short": "Revenu consolidé",
         "period_type": "quarter",
         "history": [
-          325,
-          512,
-          -185,
-          117,
-          310,
-          607,
-          -195,
-          233,
-          454,
-          614,
-          -508,
-          94,
-          178,
-          254,
-          -123,
-          33,
-          89,
-          181,
-          110,
-          87
+          2.564,
+          2.856,
+          2.92,
+          3.162,
+          3.51,
+          3.259,
+          2.974,
+          3.109,
+          3.069,
+          2.784,
+          3.04,
+          3.074,
+          2.887,
+          3.149,
+          3.202
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
           "Q4 2021",
           "Q1 2022",
           "Q2 2022",
-          "Q3 2022",
           "Q4 2022",
           "Q1 2023",
           "Q2 2023",
-          "Q3 2023",
           "Q4 2023",
           "Q1 2024",
           "Q2 2024",
-          "Q3 2024",
           "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
           "Q4 2025",
-          "Q1 2026"
+          "Q1 2026",
+          "Q2 2026"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 89,
-            "accession": "0001219601-25-000036",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 181,
-            "accession": "0001628280-25-047477",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 110,
-            "accession": "calc-0001628280-26-012904",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 87,
-            "accession": "0001628280-26-029288",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:05:19Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
-        "short": "Dépenses Capex prévues",
+        "short": "Revenu segment Beverage Can",
         "period_type": "quarter",
         "history": [
-          325,
-          512,
-          -185,
-          117,
-          310,
-          607,
-          -195,
-          233,
-          454,
-          614,
-          -508,
-          94,
-          178,
-          254,
-          -123,
-          33,
-          89,
-          181,
-          110,
-          87
+          1.74,
+          1.704,
+          1.704,
+          1.704,
+          1.704,
+          1.704,
+          1.704,
+          1.704,
+          1.704
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
           "Q4 2023",
           "Q1 2024",
           "Q2 2024",
-          "Q3 2024",
           "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
           "Q4 2025",
-          "Q1 2026"
+          "Q1 2026",
+          "Q2 2026"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 89,
-            "accession": "0001219601-25-000036",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 181,
-            "accession": "0001628280-25-047477",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 110,
-            "accession": "calc-0001628280-26-012904",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 87,
-            "accession": "0001628280-26-029288",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:05:19Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Revenu segment Transit Packaging",
+        "period_type": "quarter",
+        "history": [
+          0.564,
+          0.52,
+          0.52,
+          0.52,
+          0.52,
+          0.52,
+          0.52,
+          0.52,
+          0.52
+        ],
+        "history_periods": [
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025",
+          "Q1 2026",
+          "Q2 2026"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:05:19Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -773,9 +726,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.236803+00:00",
     "fetched_at": "2026-05-21T02:17:14.236804+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.210Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.659Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cck.json",
     "enrich_root": "v2-pipeline-enrich/cck.json",

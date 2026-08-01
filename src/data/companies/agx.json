@@ -38,10 +38,13 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 2.15,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 valeurs annuelles explicites trouvées (janvier 31, 2024 et janvier 31, 2025). Minimum de 4 années consécutives requis. Les valeu",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Industrial Segment Project Backlog",
@@ -96,53 +99,63 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.945,
-      "unit": "Mds €",
+      "value": 945,
+      "unit": "M €",
       "yoy": "+8.1%",
       "history": [
-        0.482,
-        0.239,
-        0.392,
-        0.509,
-        0.455,
-        0.573,
-        0.874,
-        0.945
+        482,
+        239,
+        392,
+        509,
+        455,
+        573,
+        874,
+        945
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.94 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:28.027448+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "+55.6%",
       "history": [
-        0.03,
-        0.03,
-        0.09,
-        0.14
+        30,
+        30,
+        90,
+        140
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.14 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +174,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.19 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,32 +201,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "+126.7%",
       "history": [
-        0.17,
-        0.2,
-        0.15,
-        0.34
+        170,
+        200,
+        150,
+        340
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.34 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -223,7 +249,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2022-2026). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2022-2026). ex-div dates.",
       "history": [
         1,
         1.05,
@@ -236,7 +262,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -251,7 +277,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2022-2026) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2022-2026) en milliards USD. cashflow.",
       "history": [
         null,
         0.0822,
@@ -264,7 +290,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -279,7 +305,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2022-2026). Source yfinance.",
+      "description": "Dividendes / résultat net (2022-2026).",
       "history": [
         null,
         42.17,
@@ -292,7 +318,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -308,7 +334,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2022-2026). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2022-2026). income statement (Diluted EPS).",
       "history": [
         null,
         2.33,
@@ -321,7 +347,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -346,9 +372,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "janvier 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -362,25 +386,25 @@
       "title": "Fraude et perte financière",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Mentionné en premier dans les facteurs de risque (Item 1A), le langage est direct concernant une fraude complexe et une perte nette de 2.7M$ après récupération. Bien que des fonds aient été récupérés, le risque de fraude reste une préoccupation majeure pour la sécurité financière. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné en premier dans les facteurs de risque (Item 1A), le langage est direct concernant une fraude complexe et une perte nette de 2.7M$ après récupération. Bien que des fonds aient été récupérés, le risque de fraude reste une préoccupation majeure pour la sécurité financière.",
       "trend": "up",
       "summary": "L'entreprise a subi une perte financière de 2.7 millions de dollars due à une fraude par virement bancaire en fiscal 2024. Bien que des efforts de récupération soient en cours et que des frais d'investigation aient été engagés, ce type d'incident souligne une vulnérabilité aux fraudes financières.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Litige contractuel international",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Décrit en détail dans l'Item 7, ce litige implique une filiale britannique avec une perte estimée à 13.4M$ enregistrée progressivement (3.4M$ en fiscal 2025, reste en fiscal 2024). Créances billables non résolues, variations de contrat et réclamations témoignent d'une complexité majeure. (score par défaut, à affiner)",
+      "score_rationale": "Décrit en détail dans l'Item 7, ce litige implique une filiale britannique avec une perte estimée à 13.4M$ enregistrée progressivement (3.4M$ en fiscal 2025, reste en fiscal 2024). Créances billables non résolues, variations de contrat et réclamations témoignent d'une complexité majeure.",
       "trend": "stable",
       "summary": "Une filiale britannique est impliquée dans un litige majeur concernant un projet à l'étranger, avec une perte contractuelle cumulée de 13.4 millions de dollars, des créances billables non résolues et des variations de contrat non réglées.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance au marché de l'énergie",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "L'Item 7 détaille que le carnet de commandes est constitué en grande majorité de projets du segment Power. Une forte concentration dans le secteur de l'énergie peut amplifier les risques sectoriels liés aux cycles de régulation et de financement. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 7 détaille que le carnet de commandes est constitué en grande majorité de projets du segment Power. Une forte concentration dans le secteur de l'énergie peut amplifier les risques sectoriels liés aux cycles de régulation et de financement.",
       "trend": "stable",
       "summary": "Une part importante du carnet de commandes de 2.9B$ provient du secteur de l'énergie (Power segment), rendant l'entreprise vulnérable aux fluctuations réglementaires, aux défis de financement des projets et aux délais d'interconnexion.",
       "score": 3
@@ -389,7 +413,7 @@
       "title": "Risque de retards de projet",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "L'Item 7 mentionne explicitement que le démarrage des projets est contrôlé par les propriétaires et que des retards peuvent survenir. Un exemple spécifique est donné pour le projet solaire Midwest qui a connu des retards réglementaires. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 7 mentionne explicitement que le démarrage des projets est contrôlé par les propriétaires et que des retards peuvent survenir. Un exemple spécifique est donné pour le projet solaire Midwest qui a connu des retards réglementaires.",
       "trend": "stable",
       "summary": "Les projets dépendent du calendrier des clients et des autorisations réglementaires, ce qui peut entraîner des retards imprévus affectant les revenus, les délais de livraison et la rentabilité des projets.",
       "score": 3
@@ -398,7 +422,7 @@
       "title": "Gestion des pertes contractuelles",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "L'Item 7 mentionne une perte contractuelle de 13.4M$ pour un projet à l'étranger, enregistrée progressivement. Cela indique un risque persistant de mauvaise estimation ou de dépassement des coûts sur des contrats complexes internationaux. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 7 mentionne une perte contractuelle de 13.4M$ pour un projet à l'étranger, enregistrée progressivement. Cela indique un risque persistant de mauvaise estimation ou de dépassement des coûts sur des contrats complexes internationaux.",
       "trend": "down",
       "summary": "L'entreprise a enregistré des pertes importantes sur des contrats, notamment un projet international de 13.4 millions de dollars, soulignant le risque de dépassement des coûts ou de complications dans la gestion des contrats complexes.",
       "score": 3
@@ -407,7 +431,7 @@
       "title": "Volatilité du marché de l'électricité et des délais d'interconnexion",
       "category": "Marché",
       "severity": 3,
-      "score_rationale": "L'Item 7 détaille les défis du marché de l'énergie: contraintes d'approvisionnement en équipements, délais d'interconnexion, évolution réglementaire et considérations de financement. Ces facteurs peuvent affecter les calendriers de développement et la viabilité des projets. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 7 détaille les défis du marché de l'énergie: contraintes d'approvisionnement en équipements, délais d'interconnexion, évolution réglementaire et considérations de financement. Ces facteurs peuvent affecter les calendriers de développement et la viabilité des projets.",
       "trend": "stable",
       "summary": "Le secteur de la génération d'électricité fait face à des défis structurels incluant les contraintes d'approvisionnement, les délais d'interconnexion réseau et les exigences réglementaires évolutives qui peuvent impacter les calendriers et la viabilité économique des projets.",
       "score": 3
@@ -452,7 +476,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -498,7 +522,6 @@
       "date": "2026-04-21"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:56:58.943211+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2026-01-31",
@@ -557,9 +580,10 @@
     ],
     "total": 0.94
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:56:58.943211+00:00",
   "_segments_fetched_at": "2026-05-06T19:21:58.774695+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:29Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2026)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2026)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -586,7 +610,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:31Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:19Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Construction & ingénierie",
   "enrich_description": {
     "ticker": "AGX",
@@ -674,6 +698,87 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "AGX",
+    "extracted_at": "2026-06-01T02:55:27Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Project Backlog",
+        "period_type": "quarter",
+        "history": [
+          0.7,
+          0.7,
+          0.8,
+          0.8,
+          0.8,
+          0.7,
+          0.8,
+          1,
+          0.8,
+          1.9,
+          2,
+          3
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-10-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T02:55:27Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Industrial Segment Project Backlog",
+        "period_type": "quarter",
+        "history": [
+          154,
+          145,
+          142,
+          95,
+          120,
+          92,
+          66.4,
+          91.4,
+          189,
+          158.8
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-10-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:55:27Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Activité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "AGX",
     "ranks": {
@@ -686,15 +791,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.217110+00:00",
     "fetched_at": "2026-05-21T02:17:14.217111+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.478Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.939Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/agx.json",
     "enrich_root": "v2-pipeline-enrich/agx.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

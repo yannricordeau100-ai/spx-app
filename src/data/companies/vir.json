@@ -63,29 +63,34 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.069,
-      "unit": "Mds €",
+      "value": 69,
+      "unit": "M €",
       "yoy": "-6.8%",
       "history": [
-        0.008,
-        0.076,
-        1.095,
-        1.616,
-        0.086,
-        0.074,
-        0.069
+        8,
+        76,
+        1095,
+        1616,
+        86,
+        74,
+        69
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.07 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:00.633443+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
@@ -104,11 +109,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.44 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -127,56 +136,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.0 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.13,
-        0.12,
-        0.1,
-        0.1
+        130,
+        120,
+        100,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "+4.5%",
       "history": [
-        0.85,
-        0.24,
-        0.22,
-        0.23
+        850,
+        240,
+        220,
+        230
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.23 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -202,7 +225,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "present",
+    "stance": "integrator",
     "summary": "Vir Biotechnology intègre l'intelligence artificielle dans son développement technologique via le moteur dAIsY propriétaire utilisé pour la découverte et l'ingénierie de nouvelles TCEs dans son pipeline de candidats précliniques.",
     "evidence": [
       "dAIsY AI engine utilisé pour découvrir et d'ingénierie les candidats PRO-XTEN masked TCEs en phase préclinique"
@@ -214,34 +237,34 @@
       "title": "Dépendance aux financements",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "La société dépend fortement des financements externes pour poursuivre ses activités de recherche et développement. Le 10-K indique que l'entreprise peut être contrainte de retarder, réduire ou cesser certains programmes R&D si les financements ne sont pas disponibles. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement des financements externes pour poursuivre ses activités de recherche et développement. Le 10-K indique que l'entreprise peut être contrainte de retarder, réduire ou cesser certains programmes R&D si les financements ne sont pas disponibles.",
       "trend": "stable",
       "summary": "La société a besoin de financements supplémentaires pour poursuivre ses activités de recherche et développement, malgré sa trésorerie de 781.6 millions de dollars.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques de développement clinique",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les délais et les coûts de développement clinique peuvent varier considérablement. Le 10-K précise que les délais, les coûts et la probabilité de succès peuvent différer matériellement des attentes en fonction de multiples facteurs incluant l'enrôlement de patients, les études de sécurité additionnelles et les exigences réglementaires. (score par défaut, à affiner)",
+      "score_rationale": "Les délais et les coûts de développement clinique peuvent varier considérablement. Le 10-K précise que les délais, les coûts et la probabilité de succès peuvent différer matériellement des attentes en fonction de multiples facteurs incluant l'enrôlement de patients, les études de sécurité additionnelles et les exigences réglementaires.",
       "trend": "up",
       "summary": "Les délais et les coûts de développement des produits candidats peuvent varier considérablement, affectant potentiellement la capacité de l'entreprise à obtenir les approbations réglementaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les exigences réglementaires et les processus d'approbation peuvent évoluer et impacter le développement des produits candidats. Le succès commercial dépend de l'obtention des approbations réglementaires aux États-Unis, en Europe et dans d'autres juridictions. (score par défaut, à affiner)",
+      "score_rationale": "Les exigences réglementaires et les processus d'approbation peuvent évoluer et impacter le développement des produits candidats. Le succès commercial dépend de l'obtention des approbations réglementaires aux États-Unis, en Europe et dans d'autres juridictions.",
       "trend": "stable",
       "summary": "Les changements dans les exigences réglementaires ou les retards dans les approbations réglementaires peuvent compromettre la commercialisation des produits candidats.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La concurrence dans le secteur des biotechnologies et de l'oncologie est intense. Vir Biotechnology concurrence d'autres entreprises développant des TCEs et des thérapies pour les maladies infectieuses et le cancer. (score par défaut, à affiner)",
+      "score_rationale": "La concurrence dans le secteur des biotechnologies et de l'oncologie est intense. Vir Biotechnology concurrence d'autres entreprises développant des TCEs et des thérapies pour les maladies infectieuses et le cancer.",
       "trend": "up",
       "summary": "La concurrence dans les secteurs des maladies infectieuses et de l'oncologie peut rendre difficile la réussite commerciale et la différenciation des produits candidats.",
       "score": 3
@@ -250,16 +273,16 @@
       "title": "Risques de liquidité",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Bien que la société dispose de 781.6 millions de dollars en trésorerie et placements, elle peut rencontrer des difficultés de liquidité si ses besoins opérationnels augmentent ou si les collaborations ne se concrétisent pas comme prévu. (score par défaut, à affiner)",
+      "score_rationale": "Bien que la société dispose de 781.6 millions de dollars en trésorerie et placements, elle peut rencontrer des difficultés de liquidité si ses besoins opérationnels augmentent ou si les collaborations ne se concrétisent pas comme prévu.",
       "trend": "stable",
       "summary": "La société peut rencontrer des difficultés de liquidité si ses dépenses opérationnelles augmentent significativement ou si ses sources de financement se tarissent.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de réputation et de partenariat",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "La réputation et les relations de partenariat sont critiques pour le succès des collaborations, comme celles avec Astellas, Sanofi et Norgine. Tout événement négatif affectant ces relations peut impacter les revenus et le développement des produits. (score par défaut, à affiner)",
+      "score_rationale": "La réputation et les relations de partenariat sont critiques pour le succès des collaborations, comme celles avec Astellas, Sanofi et Norgine. Tout événement négatif affectant ces relations peut impacter les revenus et le développement des produits.",
       "trend": "stable",
       "summary": "La réputation et les relations de partenariat peuvent être affectées par des événements négatifs, impactant les collaborations stratégiques et les revenus futurs.",
       "score": 3
@@ -463,7 +486,6 @@
         "history": [
           220.996,
           319.665,
-          -227.525,
           90.227,
           205.309,
           319.475,
@@ -471,15 +493,12 @@
           157.643,
           329.503,
           477.756,
-          -375.231,
           100.125,
           205.238,
           400.416,
-          -199.28,
           118.645,
           216.154,
           367.617,
-          -246.45,
           108.922
         ],
         "history_periods": [
@@ -533,6 +552,12 @@
             "accession": "0001628280-26-031471",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (VIR)"
         ]
       },
       {
@@ -541,15 +566,12 @@
         "history": [
           741.951,
           714.521,
-          -1630.053,
           812.355,
           1505.183,
           963.735,
-          -2432.642,
           824.913,
           666.949,
           452.1,
-          -1702.386,
           160.711,
           296.864,
           168.35,
@@ -611,6 +633,12 @@
             "accession": "0001628280-26-031471",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (VIR)"
         ]
       }
     ]
@@ -627,9 +655,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.324971+00:00",
     "fetched_at": "2026-05-21T02:17:14.324972+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.150Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.268Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vir.json",
     "enrich_root": null,

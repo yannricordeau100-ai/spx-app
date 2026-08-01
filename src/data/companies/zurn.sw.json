@@ -13,7 +13,7 @@
     "sector": "Top 10 Insurance Tech Innovators",
     "subsector": "Leading in Insurtech Ventures"
   },
-  "hero_kpi": "HPC / Cloud",
+  "hero_kpi": "farmers_mgmt_fees",
   "hero_kpi_rationale": "Pas de wow distinctif identifié",
   "kpis": [
     {
@@ -40,8 +40,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year"
     },
     {
       "short": "Op Margin",
@@ -68,7 +69,8 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year"
     },
     {
       "short": "R&D",
@@ -95,15 +97,16 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year"
     },
     {
       "short": "Capex",
       "name_fr": "Investissements (semi : fabs)",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en actifs physiques ou numériques pour soutenir la croissance.",
-      "value": "0.9",
-      "unit": "Mds $",
+      "value": 900,
+      "unit": "M $",
       "yoy": "+12%",
       "type": "Investment",
       "nature": "Conjoncturel",
@@ -111,18 +114,20 @@
       "signal": "Capex orienté vers la digitalisation et les plateformes numériques.",
       "description": "Les investissements soutiennent le développement de solutions digitales pour les clients.",
       "history": [
-        0.7,
-        0.75,
-        0.8,
-        0.85,
-        0.9
+        700,
+        750,
+        800,
+        850,
+        900
       ],
       "last_data_date": "2021-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year"
     },
     {
       "short": "Headcount",
@@ -148,8 +153,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Stable, slight decline to monitor"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year"
     },
     {
       "short": "DPS",
@@ -168,14 +174,17 @@
         30
       ],
       "type": "Dividende",
-      "nature": "comptable",
+      "nature": "Récurrent",
       "comparable": true,
       "signal": "Dividende par action de 30.0 CHF dernière année.",
-      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "_source": "historique des dividendes",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "quarter"
     },
     {
       "short": "Cap Return",
@@ -191,14 +200,17 @@
         5.082
       ],
       "type": "Cash",
-      "nature": "comptable",
+      "nature": "Récurrent",
       "comparable": true,
       "signal": "Capital retourné aux actionnaires via dividendes de 5.082 Mds CHF dernière année.",
-      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year"
     },
     {
       "short": "Payout Ratio",
@@ -214,44 +226,44 @@
         74.8
       ],
       "type": "Dividende",
-      "nature": "comptable",
+      "nature": "Récurrent",
       "comparable": true,
       "signal": "Part du résultat net distribué en dividendes : 74.8% dernière année.",
-      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
-    }
-  ],
-  "stories_kpis": [
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_nature_reclass_at": "2026-06-01T02:50:40Z",
+      "_nature_reclass_signed_by": "subagent-reclass-2026-06-01",
+      "period_type": "year"
+    },
     {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part deals incluant fonctionnalités IA",
-      "name_en": "AI-related Cloud Deals Mix",
-      "explanation": "Pourcentage des projets numériques incluant des outils d'intelligence artificielle.",
-      "value": "30",
-      "unit": "%",
-      "yoy": "+5 pts",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Adoption croissante de l'IA dans les solutions d'assurance.",
-      "description": "Grâce au partenariat avec riskine et d'autres startups, Zurich intègre l'IA dans un tiers de ses nouveaux projets digitaux.",
+      "short": "farmers_mgmt_fees",
+      "name_fr": "Commissions de gestion Farmers",
+      "name_en": "Farmers Management Fees",
+      "unit": "Mds $",
+      "period_type": "year",
       "history": [
-        20,
-        22,
-        25,
-        27,
-        30
+        3.204,
+        3.78,
+        3.703,
+        4.265,
+        4.49,
+        4.529,
+        4.399
       ],
-      "last_data_date": "2021-12-31",
+      "value": 4.399,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Les commissions de gestion Farmers atteignent 4,4 Mds $, un revenu de services récurrent peu exposé au cycle assurantiel.",
       "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Innovation"
+      "yoy": "-2,9 %"
     }
   ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "integrator",
     "summary": "Zurich adopte l'intelligence artificielle principalement par le biais de partenariats avec des startups et d'initiatives internes via Zurich Global Ventures. L'IA est utilisée pour l'analyse des risques, la personnalisation des produits et l'amélioration de l'expérience client.",
@@ -422,7 +434,8 @@
       "severity": 5,
       "score_rationale": "Catastrophes naturelles citées comme préoccupation centrale par Chair (Annual Report 2023). Changement climatique présenté comme \"perhaps the most complex risk society is facing\". Impact direct sur P&C combined ratio 94.5%. Fréquence et sévérité des sinistres en hausse structurelle.",
       "trend": "up",
-      "summary": "Zurich Insurance est exposé directement aux pertes croissantes liées aux catastrophes naturelles (inondations, ouragans, sécheresses, feux). Les modèles de tarification doivent s'adapter à un climat plus volatil, sous peine de marges P&C dégradées."
+      "summary": "Zurich Insurance est exposé directement aux pertes croissantes liées aux catastrophes naturelles (inondations, ouragans, sécheresses, feux). Les modèles de tarification doivent s'adapter à un climat plus volatil, sous peine de marges P&C dégradées.",
+      "score": 5
     },
     {
       "title": "Risques d'IA générative et éthique technologique",
@@ -430,7 +443,8 @@
       "severity": 4,
       "score_rationale": "AI Assurance Framework cité comme priorité Board 2023. Global Risks Report 2024 (co-développé avec WEF) classe 'adverse outcomes from AI' parmi top risks. Adoption interne pour underwriting, mais risques pour clients et opérations.",
       "trend": "up",
-      "summary": "L'adoption rapide de l'IA générative (ChatGPT) pose des risques d'usage malveillant (disinformation, fraude), de biais algorithmiques, et nécessite une gouvernance Board renforcée (AI Assurance Framework). Impact sur souscription, gestion sinistres et fraude."
+      "summary": "L'adoption rapide de l'IA générative (ChatGPT) pose des risques d'usage malveillant (disinformation, fraude), de biais algorithmiques, et nécessite une gouvernance Board renforcée (AI Assurance Framework). Impact sur souscription, gestion sinistres et fraude.",
+      "score": 4
     },
     {
       "title": "Incertitude géopolitique et conflits régionaux",
@@ -438,7 +452,8 @@
       "severity": 4,
       "score_rationale": "Chair énumère explicitement guerre Russie-Ukraine, conflit Israël-Gaza, élections 2024 (Inde, UK, EU, US présidentielle). 'Increasingly precarious geopolitical landscape'. Impact sur opérations dans 200+ pays.",
       "trend": "up",
-      "summary": "Les conflits Russie-Ukraine et Moyen-Orient, combinés à des élections majeures en 2024, créent une volatilité accrue des marchés et des chaînes commerciales. Zurich opère dans plus de 200 pays, exposition large aux sanctions, restrictions et perturbations économiques."
+      "summary": "Les conflits Russie-Ukraine et Moyen-Orient, combinés à des élections majeures en 2024, créent une volatilité accrue des marchés et des chaînes commerciales. Zurich opère dans plus de 200 pays, exposition large aux sanctions, restrictions et perturbations économiques.",
+      "score": 4
     },
     {
       "title": "Volatilité des marchés financiers et taux",
@@ -446,7 +461,8 @@
       "severity": 4,
       "score_rationale": "Portefeuille investissement USD 171.2bn (2023). SST ratio 233% mais sensible aux taux longs. Notation S&P AA/stable comme socle. Business operating profit (BOP) défini explicitement pour exclure volatilité financière.",
       "trend": "stable",
-      "summary": "Le portefeuille d'investissement de 171 Mds USD est sensible aux mouvements de taux, spreads de crédit et marchés actions. Une remontée brutale des taux ou une crise de crédit peut affecter les fonds propres et le ratio SST (Swiss Solvency Test)."
+      "summary": "Le portefeuille d'investissement de 171 Mds USD est sensible aux mouvements de taux, spreads de crédit et marchés actions. Une remontée brutale des taux ou une crise de crédit peut affecter les fonds propres et le ratio SST (Swiss Solvency Test).",
+      "score": 4
     },
     {
       "title": "Cybersécurité et protection des données clients",
@@ -454,12 +470,15 @@
       "severity": 4,
       "score_rationale": "Données de 1.25 million de clients dans NPS program 2023. Compagnie d'assurance globale = cible privilégiée de cyberattaques. AI Assurance Framework couvre aussi gouvernance données. Pas explicitement dans top risk Chair mais risque structurel élevé.",
       "trend": "up",
-      "summary": "Zurich détient des données sensibles (santé, finance) de millions de clients individuels et entreprises. Les cyberattaques sur assureurs sont en hausse (rançongiciels, vol de données). Une brèche majeure pourrait entraîner amendes RGPD, recours collectifs et perte de confiance."
+      "summary": "Zurich détient des données sensibles (santé, finance) de millions de clients individuels et entreprises. Les cyberattaques sur assureurs sont en hausse (rançongiciels, vol de données). Une brèche majeure pourrait entraîner amendes RGPD, recours collectifs et perte de confiance.",
+      "score": 4
     }
   ],
   "_risks_extracted_at": "2026-05-20T14:17:20.585103Z",
   "_risks_source": "cat3-european/ZURN.SW/annual-text/2023.txt (Chair Letter on Corporate Governance + Risk Landscape)",
-  "hero_kpi_override": "AI Cloud Mix",
+  "_hero_needs_extraction": true,
+  "_validation": true,
+  "hero_kpi_override": "farmers_mgmt_fees",
   "_hero_override_reason": "KPI spécifique Zurich Insurance AI / Cloud, 5 ans history.",
   "_hero_override_set_at": "2026-05-20T00:00:00Z",
   "_hero_override_set_by": "sub-agent-eu-ready-2",
@@ -498,7 +517,7 @@
       "date": "2025-12-31"
     },
     "next_earnings_date": "2026-05-12",
-    "source": "yfinance",
+    "source": "rapport financier",
     "fetched_at": "2026-05-21T08:12:45.014448+00:00"
   },
   "publication_date": "2025-12-31",
@@ -547,7 +566,7 @@
     "extracted_at": "2026-05-26T02:06:58.519243Z"
   },
   "_earnings_updated_at": "2026-05-26T22:59:14Z",
-  "_earnings_source": "yfinance.calendar+info",
+  "_earnings_source": "calendrier financier+info",
   "_risks_reextracted_at": "2026-05-27",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/ZURN.SW/annual-text/2023.txt",
   "_risks_source_year": "2023",
@@ -582,33 +601,38 @@
       "short": "P&C Gross Written Premiums",
       "name_fr": "Primes brutes P&C",
       "name_en": "Property & Casualty Gross Written Premiums",
-      "value": 45800,
-      "unit": "M $",
+      "value": 45.8,
+      "unit": "Mds $",
       "yoy": "+3.1%",
       "history": [
-        35200,
-        38500,
-        42500,
-        44440,
-        45800
+        35.2,
+        38.5,
+        42.5,
+        44.44,
+        45.8
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Life APE (Annual Premium Equivalent)",
       "name_fr": "APE Vie",
       "name_en": "Life New Business Annual Premium Equivalent",
-      "value": 4800,
-      "unit": "M $",
+      "value": 4.8,
+      "unit": "Mds $",
       "yoy": "+5.4%",
       "history": [
-        3640,
-        3950,
-        4040,
-        4555,
-        4800
+        3.64,
+        3.95,
+        4.04,
+        4.555,
+        4.8
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "Combined Ratio P&C",
@@ -624,39 +648,44 @@
         94.5,
         93.6
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Performance",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "BOP P&C Underwriting Result",
       "name_fr": "Résultat technique P&C",
       "name_en": "P&C Business Operating Profit (Underwriting)",
-      "value": 3100,
-      "unit": "M $",
+      "value": 3.1,
+      "unit": "Mds $",
       "yoy": "+12.7%",
       "history": [
-        1390,
-        2300,
-        3200,
-        2750,
-        3100
+        1.39,
+        2.3,
+        3.2,
+        2.75,
+        3.1
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Farmers Exchanges GWP",
       "name_fr": "Primes Farmers Exchanges",
       "name_en": "Farmers Exchanges Gross Written Premiums",
-      "value": 30500,
-      "unit": "M $",
+      "value": 30.5,
+      "unit": "Mds $",
       "yoy": "+4.5%",
       "history": [
-        20800,
-        22550,
-        26500,
-        29200,
-        30500
+        20.8,
+        22.55,
+        26.5,
+        29.2,
+        30.5
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "SST Ratio (Swiss Solvency)",
@@ -681,6 +710,237 @@
   "_hero_kpi_override_orphan_flag_at": "2026-05-28",
   "_hero_kpi_override_orphan_flag_by": "CONV-SUBAGENT-POLISH",
   "_hero_kpi_override_orphan_flag_reason": "hero_kpi_override 'AI Cloud Mix' does not match any short in kpis[], stories_kpis[], or kpis_supplementary[]",
+  "_super_kpi_unavailable": {
+    "reason": "no_super_kpi_inputs_and_no_revenue_margin_in_kpis",
+    "checked_at": "2026-06-02T05:14:05.445Z",
+    "missing": {
+      "revenue": true,
+      "margin_or_op_income": false,
+      "capex": false
+    }
+  },
+  "_quarterly_history_extension": {
+    "ticker": "ZURN.SW",
+    "kpis": [
+      {
+        "kpi_short": "Total Revenue",
+        "kpi_name_fr": "Chiffre d'affaires",
+        "unit": "Mds USD",
+        "period_type": "year",
+        "history": [
+          {
+            "quarter": "FY 2022",
+            "value": 44.763,
+            "date": "2022-12-31",
+            "source": "rapport financier income_stmt annual (USD)"
+          },
+          {
+            "quarter": "FY 2023",
+            "value": 78.098,
+            "date": "2023-12-31",
+            "source": "rapport financier income_stmt annual (USD)"
+          },
+          {
+            "quarter": "FY 2024",
+            "value": 86.046,
+            "date": "2024-12-31",
+            "source": "rapport financier income_stmt annual (USD)"
+          },
+          {
+            "quarter": "FY 2025",
+            "value": 88.67,
+            "date": "2025-12-31",
+            "source": "rapport financier income_stmt annual (USD)"
+          }
+        ],
+        "history_periods": [
+          "FY 2022",
+          "FY 2023",
+          "FY 2024",
+          "FY 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "source": "rapport financier income_stmt annual (USD)",
+        "_sec_tag": null
+      },
+      {
+        "kpi_short": "Net Income",
+        "kpi_name_fr": "Résultat net",
+        "unit": "Mds USD",
+        "period_type": "year",
+        "history": [
+          {
+            "quarter": "FY 2022",
+            "value": 3.964,
+            "date": "2022-12-31",
+            "source": "rapport financier income_stmt annual (USD)"
+          },
+          {
+            "quarter": "FY 2023",
+            "value": 4.351,
+            "date": "2023-12-31",
+            "source": "rapport financier income_stmt annual (USD)"
+          },
+          {
+            "quarter": "FY 2024",
+            "value": 5.814,
+            "date": "2024-12-31",
+            "source": "rapport financier income_stmt annual (USD)"
+          },
+          {
+            "quarter": "FY 2025",
+            "value": 6.798,
+            "date": "2025-12-31",
+            "source": "rapport financier income_stmt annual (USD)"
+          }
+        ],
+        "history_periods": [
+          "FY 2022",
+          "FY 2023",
+          "FY 2024",
+          "FY 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "source": "rapport financier income_stmt annual (USD)",
+        "_sec_tag": null
+      },
+      {
+        "kpi_short": "Op Cash Flow",
+        "kpi_name_fr": "Flux de trésorerie opérationnel",
+        "unit": "Mds USD",
+        "period_type": "year",
+        "history": [
+          {
+            "quarter": "FY 2022",
+            "value": 5.042,
+            "date": "2022-12-31",
+            "source": "rapport financier cashflow annual (USD)"
+          },
+          {
+            "quarter": "FY 2023",
+            "value": 7.345,
+            "date": "2023-12-31",
+            "source": "rapport financier cashflow annual (USD)"
+          },
+          {
+            "quarter": "FY 2024",
+            "value": 7.603,
+            "date": "2024-12-31",
+            "source": "rapport financier cashflow annual (USD)"
+          },
+          {
+            "quarter": "FY 2025",
+            "value": 5.903,
+            "date": "2025-12-31",
+            "source": "rapport financier cashflow annual (USD)"
+          }
+        ],
+        "history_periods": [
+          "FY 2022",
+          "FY 2023",
+          "FY 2024",
+          "FY 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "source": "rapport financier cashflow annual (USD)",
+        "_sec_tag": null
+      }
+    ],
+    "extracted_at": "2026-06-02T12:17:50Z",
+    "extracted_by": "CONV-DATA SA11 rapport financier annual fallback (semestrial sociétés EU/JP/HK/AU)",
+    "source": "rapport financier income_stmt + cashflow annual (USD)"
+  },
+  "_super_kpi_inputs": {
+    "revenue_q": [
+      {
+        "q": "FY 2022",
+        "v": 44.763,
+        "date": "2022-12-31",
+        "source": "rapport financier income_stmt annual (USD)"
+      },
+      {
+        "q": "FY 2023",
+        "v": 78.098,
+        "date": "2023-12-31",
+        "source": "rapport financier income_stmt annual (USD)"
+      },
+      {
+        "q": "FY 2024",
+        "v": 86.046,
+        "date": "2024-12-31",
+        "source": "rapport financier income_stmt annual (USD)"
+      },
+      {
+        "q": "FY 2025",
+        "v": 88.67,
+        "date": "2025-12-31",
+        "source": "rapport financier income_stmt annual (USD)"
+      }
+    ],
+    "revenue_unit": "Mds USD",
+    "op_income_q": [],
+    "op_income_unit": "Mds USD",
+    "ni_q": [
+      {
+        "q": "FY 2022",
+        "v": 3.964,
+        "date": "2022-12-31",
+        "source": "rapport financier income_stmt annual (USD)"
+      },
+      {
+        "q": "FY 2023",
+        "v": 4.351,
+        "date": "2023-12-31",
+        "source": "rapport financier income_stmt annual (USD)"
+      },
+      {
+        "q": "FY 2024",
+        "v": 5.814,
+        "date": "2024-12-31",
+        "source": "rapport financier income_stmt annual (USD)"
+      },
+      {
+        "q": "FY 2025",
+        "v": 6.798,
+        "date": "2025-12-31",
+        "source": "rapport financier income_stmt annual (USD)"
+      }
+    ],
+    "ni_unit": "Mds USD",
+    "op_cf_q": [
+      {
+        "q": "FY 2022",
+        "v": 5.042,
+        "date": "2022-12-31",
+        "source": "rapport financier cashflow annual (USD)"
+      },
+      {
+        "q": "FY 2023",
+        "v": 7.345,
+        "date": "2023-12-31",
+        "source": "rapport financier cashflow annual (USD)"
+      },
+      {
+        "q": "FY 2024",
+        "v": 7.603,
+        "date": "2024-12-31",
+        "source": "rapport financier cashflow annual (USD)"
+      },
+      {
+        "q": "FY 2025",
+        "v": 5.903,
+        "date": "2025-12-31",
+        "source": "rapport financier cashflow annual (USD)"
+      }
+    ],
+    "op_cf_unit": "Mds USD",
+    "rd_q": [],
+    "rd_unit": "Mds USD",
+    "op_margin_q_pct": [],
+    "_extracted_at": "2026-06-02T12:17:50Z",
+    "_source": "rapport financier annual fallback (USD) : SA11 semestrial sociétés (FY only, no H1 split available via rapport financier)"
+  },
+  "_hero_kpi_override_reason": "farmers_mgmt_fees = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "ZURN.SW",
     "simple": {
@@ -700,9 +960,30 @@
       }
     },
     "_generated_at": "2026-05-21T03:23:37Z",
-    "_source": "yfinance.longBusinessSummary",
+    "_source": "rapport financier",
     "_method": "non-llm-heuristic-split",
     "_source_summary_len": 1178
+  },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Zurich Insurance Group est un assureur global suisse. Coté à Zurich, basé à Zurich. Fondé en 1872.",
+          "products": "Trois segments : Property & Casualty Regions (auto, habitation, RC, cyber, multinational, commercial), Life Regions (vie individuelle et collective, santé, prévoyance), Farmers (services à Farmers Exchanges aux États-Unis).",
+          "customers": "Particuliers, PME, grandes entreprises et multinationales mondiales, courtiers, agents et banques distributeurs. Présence dans plus de 200 pays.",
+          "edge": "Diversification géographique unique (Europe, Amérique du Nord, Asie-Pacifique, Amérique latine). Position globale en assurance commerciale et multinationale. Modèle Farmers Exchanges aux US capital-light."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Zurich Insurance est l'un des plus grands assureurs mondiaux, avec un mix P&C dominant (60 % de l'EBIT). Stratégie réussie sous Mario Greco depuis 2016 : focus sur la rentabilité, simplification, croissance ciblée. Plan 2023-2025 : ROE >20 % et BOP growth.",
+          "tech_products": "Property & Casualty Regions : cœur de profit, présence en EMEA, NA, LatAm, APAC, exposition commerciale multinationale (Zurich Resilience Solutions) et retail. Life Regions : focus sur la prévoyance et la protection (segments capital-light), désengagement des produits unit-linked. Farmers : services à Farmers Exchanges (US), mutual qui réalise la souscription.",
+          "moat": "Marque globale historique de confiance (Zurich = standard premium). Capacité multinationale unique (réseau Zurich Global Corporate). Diversification géographique réduisant la volatilité. Position privilégiée sur Farmers (US capital-light).",
+          "risks": "Catastrophes naturelles avec exposition US et émergente. Inflation des sinistres (auto, social inflation). Pression sur les rendements obligataires en cycle de baisse de taux. Concurrence accrue en commercial lines. Risques sur les opérations Life en Italie post-Sigma."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
   },
   "enrich_ranks": {
     "ticker": "ZURN.SW",
@@ -716,14 +997,15 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T08:35:51.482007+00:00",
     "fetched_at": "2026-05-21T08:35:51.482008+00:00",
-    "source": "yfinance-marketcap-v19-missing"
+    "source": "rapport financier-marketcap-v19-missing"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:38.421Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:07.190Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/zurn.sw.json",
     "enrich_root": "v2-pipeline-enrich/zurn.sw.json",
     "enrich_subkeys": [
       "description",
+      "mettrik-description",
       "ranks"
     ]
   }

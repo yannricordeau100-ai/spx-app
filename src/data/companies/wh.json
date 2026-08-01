@@ -89,7 +89,11 @@
         "name_fr amélioré pour inclure 'droits de franchise'",
         "ttm corrigé de 443.96 à 541 (valeur année complète 2025)"
       ],
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Adjusted EBITDA",
@@ -121,8 +125,12 @@
         "ttm corrigé de 724.21 à 718 (valeur année complète 2025 après ajustements Revo)",
         "description amélioré pour clarifier les ajustements incluant charges Revo de 160M$ (86M$ impairement + 74M$ frais d'exploitation)"
       ],
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -141,34 +149,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.43 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "-34.5%",
       "history": [
-        0.35,
-        0.29,
-        0.29,
-        0.19
+        350,
+        290,
+        290,
+        190
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.19 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -187,11 +204,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.18 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -210,33 +231,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "-40.0%",
       "history": [
-        0.16,
-        0.07,
-        0.1,
-        0.06
+        160,
+        70,
+        100,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -284,7 +314,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de cyberattaques. Le rapport souligne que la société n'est pas actuellement consciente de risques matériels, mais reconnaît qu'il n'y a pas de garantie que les risques ne se matérialiseront pas à l'avenir.",
       "trend": "stable",
-      "summary": "La société dépend fortement de la technologie pour ses opérations mondiales, exposant ses systèmes à des risques de cyberattaques potentielles."
+      "summary": "La société dépend fortement de la technologie pour ses opérations mondiales, exposant ses systèmes à des risques de cyberattaques potentielles.",
+      "score": 4
     },
     {
       "title": "Insolvabilité des partenaires franchisés",
@@ -292,7 +323,8 @@
       "severity": 5,
       "score_rationale": "La société a enregistré des charges de 160 millions de dollars en 2025 due à l'insolvabilité du grand franchiseur européen Revo Hospitality Group (86M$ en impairement et 74M$ en frais d'exploitation).",
       "trend": "new",
-      "summary": "Exposition significative aux risques de crédit et d'insolvabilité des partenaires franchisés majeurs opérant dans le portefeuille de 8 300+ hôtels."
+      "summary": "Exposition significative aux risques de crédit et d'insolvabilité des partenaires franchisés majeurs opérant dans le portefeuille de 8 300+ hôtels.",
+      "score": 5
     },
     {
       "title": "Concurrence",
@@ -300,7 +332,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un secteur très concurrentiel du franchisage hôtelier avec 25 marques positionnées en économique, midscale et upper-midscale. Cependant, aucune information spécifique sur les risques compétitifs n'est fournie.",
       "trend": "stable",
-      "summary": "Le secteur du franchisage hôtelier est hautement concurrentiel, pouvant affecter les revenus de royalties et la croissance du système."
+      "summary": "Le secteur du franchisage hôtelier est hautement concurrentiel, pouvant affecter les revenus de royalties et la croissance du système.",
+      "score": 3
     },
     {
       "title": "Réglementation",
@@ -308,7 +341,8 @@
       "severity": 2,
       "score_rationale": "La société opère dans environ 100 pays et est sujette à des réglementations strictes sur la protection des données personnelles et conformité contractuelle.",
       "trend": "stable",
-      "summary": "Conformité requise avec les réglementations de protection des données et obligations contractuelles dans un portefeuille mondial couvrant 100 pays."
+      "summary": "Conformité requise avec les réglementations de protection des données et obligations contractuelles dans un portefeuille mondial couvrant 100 pays.",
+      "score": 2
     },
     {
       "title": "Dépendance à la technologie",
@@ -316,7 +350,8 @@
       "severity": 4,
       "score_rationale": "La plateforme technologique supporte le réseau mondial de 8 300+ hôtels et 869 000 chambres. Un dysfonctionnement technique ou une cyberattaque pourrait impacter les réservations et les opérations.",
       "trend": "up",
-      "summary": "Dépendance critique de la technologie pour l'infrastructure de réservations, la gestion de marque et les opérations franchisées mondiales."
+      "summary": "Dépendance critique de la technologie pour l'infrastructure de réservations, la gestion de marque et les opérations franchisées mondiales.",
+      "score": 4
     }
   ],
   "governance": {
@@ -408,7 +443,6 @@
       "date": "2026-04-30"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-07T09:40:37.694247+00:00",
   "revenue_by_geography": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -431,6 +465,7 @@
     ],
     "total": 1.43
   },
+  "_ai_positioning_fetched_at": "2026-05-07T09:40:37.694247+00:00",
   "_segments_fetched_at": "2026-05-09T14:40:42.295855+00:00",
   "financial_snapshot": {
     "market_cap_usd": 6236626432,
@@ -623,9 +658,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.327989+00:00",
     "fetched_at": "2026-05-21T02:17:14.327989+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.485Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.605Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wh.json",
     "enrich_root": "v2-pipeline-enrich/wh.json",

@@ -74,8 +74,8 @@
       "name_fr": "Chiffre d'affaires net",
       "name_en": "Net Sales",
       "explanation": "Chiffre d'affaires net consolidé",
-      "value": 8806.2,
-      "unit": "M $",
+      "value": 8.806,
+      "unit": "Mds $",
       "yoy": "+14.1%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -83,15 +83,16 @@
       "signal": "Croissance du chiffre d'affaires",
       "description": "Chiffre d'affaires net en augmentation reflétant la croissance des ventes organiques et la contribution des nouveaux magasins",
       "history": [
-        7719.3,
-        6837.4
+        7.719,
+        6.837
       ],
       "last_data_date": "2025-12-28",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
       "_validation": "KPI extrait des données financières consolidées (Fiscal 2025: $8,806,159K), unité corrigée à M $, yoy calculé (+14.1%), history ajoutée",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Marge brute",
@@ -134,11 +135,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 8.81 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,11 +162,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.16 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -180,33 +189,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.94 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "-3.7%",
       "history": [
-        0.29,
-        0.2,
-        0.27,
-        0.26
+        290,
+        200,
+        270,
+        260
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.26 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,16 +267,16 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société mentionne explicitement les risques liés aux atteintes à la sécurité de ses systèmes d'information (Disruptions to, security breaches or non-compliance involving our information technology systems), ce qui pourrait avoir un impact significatif sur son activité et sa réputation. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne explicitement les risques liés aux atteintes à la sécurité de ses systèmes d'information (Disruptions to, security breaches or non-compliance involving our information technology systems), ce qui pourrait avoir un impact significatif sur son activité et sa réputation.",
       "trend": "stable",
       "summary": "La société est exposée à des risques de cybersécurité qui pourraient nuire à son activité et à sa réputation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La société opère dans un marché compétitif et doit faire face à la concurrence d'autres détaillants, ce qui pourrait affecter ses ventes et son chiffre d'affaires. Les facteurs incluent les ouvertures de magasins concurrents et les stratégies de tarification. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché compétitif et doit faire face à la concurrence d'autres détaillants, ce qui pourrait affecter ses ventes et son chiffre d'affaires. Les facteurs incluent les ouvertures de magasins concurrents et les stratégies de tarification.",
       "trend": "up",
       "summary": "La concurrence dans le secteur de la distribution alimentaire spécialisée est élevée et pourrait avoir un impact négatif sur les ventes et le chiffre d'affaires de la société.",
       "score": 3
@@ -267,16 +285,16 @@
       "title": "Régulation",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "La société est soumise à des réglementations et des lois qui peuvent changer et avoir un impact sur son activité, notamment en ce qui concerne les tarifs et les taxes. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations et des lois qui peuvent changer et avoir un impact sur son activité, notamment en ce qui concerne les tarifs et les taxes.",
       "trend": "stable",
       "summary": "La société doit se conformer à des réglementations et des lois qui peuvent évoluer et avoir un impact sur son activité.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Litige",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "La société est impliquée dans des procédures judiciaires et des litiges qui pourraient avoir un impact négatif sur son image et son chiffre d'affaires. (score par défaut, à affiner)",
+      "score_rationale": "La société est impliquée dans des procédures judiciaires et des litiges qui pourraient avoir un impact négatif sur son image et son chiffre d'affaires.",
       "trend": "up",
       "summary": "La société est exposée à des risques de litige qui pourraient nuire à sa réputation et à son chiffre d'affaires.",
       "score": 3
@@ -285,7 +303,7 @@
       "title": "Inflation et Tarifs",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "La société est exposée aux risques d'inflation et de tarifs qui pourraient augmenter les coûts des produits (notamment les produits importés). L'impact à court terme dépend de la capacité à répercuter ces coûts sur les clients. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques d'inflation et de tarifs qui pourraient augmenter les coûts des produits (notamment les produits importés). L'impact à court terme dépend de la capacité à répercuter ces coûts sur les clients.",
       "trend": "up",
       "summary": "L'inflation et les tarifs sur les produits importés pourraient augmenter les coûts des produits et avoir un impact sur la marge brute et le chiffre d'affaires.",
       "score": 3
@@ -318,7 +336,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -385,7 +403,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.693Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.570Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sfm.json",
     "enrich_root": null,

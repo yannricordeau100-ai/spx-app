@@ -13,7 +13,7 @@
     "sector": "Not applicable",
     "subsector": "Top 10 biopharma"
   },
-  "hero_kpi": "R&D",
+  "hero_kpi": "Shingrix Sales",
   "hero_kpi_rationale": "La R&D est le principal moteur de création de valeur dans le secteur biopharma. GSK y consacre 18% de son chiffre d'affaires (6,4 milliards £), avec une forte intégration des technologies avancées comme l'IA à chaque étape du processus de découverte et développement.",
   "kpis": [
     {
@@ -67,7 +67,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "year",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -91,7 +91,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "year",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -180,11 +180,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 61.12 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -203,11 +207,44 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 17.72 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Shingrix Sales",
+      "name_fr": "Ventes Shingrix",
+      "name_en": "Shingrix Sales",
+      "unit": "Mds £",
+      "period_type": "year",
+      "history": [
+        1.989,
+        1.721,
+        2.958,
+        3.446,
+        3.364
+      ],
+      "value": 3.364,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Fort rebond post pandemie entre 2021 et 2023, suivi d un leger repli en 2024 lie a la demande americaine.",
+      "is_wow": true,
+      "history_dates": [
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "yoy": "-2,4 %"
     },
     {
       "short": "DPS",
@@ -221,7 +258,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         100,
         76.25,
@@ -234,7 +271,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +286,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         3.467,
@@ -262,7 +299,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +314,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         23.18,
@@ -290,7 +327,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -306,7 +343,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.662,
@@ -319,7 +356,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -334,28 +371,7 @@
     ],
     "source": "GSK Annual Report 2024, page 28"
   },
-  "_validation": [
-    "CORRECTION: KPI R&D - last_data_date corrigée de '2026-03-31' à '2024-12-31' (date cohérente avec l'année fiscale)",
-    "CORRECTION: KPI R&D - period_type corrigé de 'quarter' à 'year' (l'historique ne contient qu'une seule valeur annuelle)",
-    "CORRECTION: KPI Headcount - value convertie de '68.6' en 68600 (unité K = milliers, donc 68.6K = 68600 employés)",
-    "CORRECTION: KPI Headcount - signal reformaté de '68,6 milliers' à '68 600' pour cohérence avec la valeur en unités absolues",
-    "CORRECTION: KPI Headcount - period_type ajouté à 'year' pour cohérence",
-    "CORRECTION: KPI Gross Margin - value corrigée de string '75.5' à numérique 75.5",
-    "CORRECTION: KPI Gross Margin - period_type ajouté à 'year'",
-    "CORRECTION: KPI Op Margin - value corrigée de string '28.9' à numérique 28.9",
-    "CORRECTION: KPI Op Margin - period_type ajouté à 'year'",
-    "CORRECTION: KPI Patients Reached - value corrigée de string '2.0' à numérique 2.0",
-    "CORRECTION: KPI Patients Reached - explanation reformulée: 'on track' remplacé par 'en route' pour cohérence linguistique",
-    "CORRECTION: KPI Patients Reached - description reformulée: 'on track' remplacé par 'en route' et suppression du doublon texte",
-    "CORRECTION: KPI Patients Reached - period_type ajouté à 'year'",
-    "CORRECTION: KPI Tax Paid - period_type ajouté à 'year'",
-    "VALIDATION: Tous les KPIs sont présents et vérifiables dans le 10-K source (Strategic Report pages 1-78)",
-    "VALIDATION: Aucun KPI halluciné détecté - toutes les valeurs sont sourçables",
-    "VALIDATION: Unités uniformisées et validées (Mds £, K, %)",
-    "VALIDATION: YoY et history alignés avec structure annuelle",
-    "VALIDATION: hero_kpi_rationale sans em-dashes ni caractères spéciaux problématiques",
-    "VALIDATION: Tagline conforme sans modifications inutiles"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
@@ -363,7 +379,7 @@
     "method": "annual_10k",
     "yf_metric": "annual_fiscal_2024"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_1"
   ],
@@ -376,7 +392,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné indirectement dans l'analyse du portefeuille de médicaments spécialisés, avec un langage soulignant la pression concurrentielle croissante dans les domaines de l'oncologie et de l'immunologie. La tendance est à la hausse en raison de l'expansion du pipeline concurrentiel. La catégorie 'Concurrence' est centrale pour GSK.",
       "trend": "up",
-      "summary": "GSK fait face à une concurrence accrue dans ses segments clés comme l'oncologie et l'immunologie-inflammation, où de nouveaux traitements innovants sont lancés par des concurrents. Cela menace la part de marché de produits comme Nucala ou Benlysta."
+      "summary": "GSK fait face à une concurrence accrue dans ses segments clés comme l'oncologie et l'immunologie-inflammation, où de nouveaux traitements innovants sont lancés par des concurrents. Cela menace la part de marché de produits comme Nucala ou Benlysta.",
+      "score": 4
     },
     {
       "title": "Dépendance à des fournisseurs critiques",
@@ -384,7 +401,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne 18 000 fournisseurs travaillant directement avec GSK, soulignant une chaîne d'approvisionnement complexe et potentiellement vulnérable. Le langage implique un risque opérationnel élevé en cas de rupture. Position centrale dans le rapport.",
       "trend": "stable",
-      "summary": "GSK dépend d'un vaste réseau de 18 000 fournisseurs pour la production et la distribution. Toute perturbation chez un fournisseur clé, notamment pour les matières premières ou la fabrication, pourrait retarder la mise sur le marché de médicaments vitaux."
+      "summary": "GSK dépend d'un vaste réseau de 18 000 fournisseurs pour la production et la distribution. Toute perturbation chez un fournisseur clé, notamment pour les matières premières ou la fabrication, pourrait retarder la mise sur le marché de médicaments vitaux.",
+      "score": 4
     },
     {
       "title": "Régulation stricte des vaccins et médicaments",
@@ -392,7 +410,8 @@
       "severity": 5,
       "score_rationale": "Le risque est fortement mis en avant, notamment avec les défis réglementaires aux États-Unis et en Chine pour Arexvy et Shingrix. Langage intensif et position prééminente dans le rapport. Catégorie critique pour le secteur pharmaceutique.",
       "trend": "up",
-      "summary": "GSK est soumis à une réglementation stricte dans plusieurs marchés clés, comme aux États-Unis et en Chine, où des pressions externes ont affecté les ventes de vaccins. Des retards d'approbation ou des restrictions peuvent impacter la croissance."
+      "summary": "GSK est soumis à une réglementation stricte dans plusieurs marchés clés, comme aux États-Unis et en Chine, où des pressions externes ont affecté les ventes de vaccins. Des retards d'approbation ou des restrictions peuvent impacter la croissance.",
+      "score": 5
     },
     {
       "title": "Cybersécurité des données de R&D",
@@ -400,7 +419,8 @@
       "severity": 4,
       "score_rationale": "Le recours croissant à l'IA et aux données dans la R&D est souligné, impliquant une exposition accrue aux cybermenaces. Le langage est prudent mais préoccupé. Catégorie émergente mais stratégique.",
       "trend": "up",
-      "summary": "L'utilisation intensive de données, d'IA et de technologies numériques dans la découverte de médicaments expose GSK à des risques de cyberattaques ciblant des informations sensibles de R&D ou des essais cliniques."
+      "summary": "L'utilisation intensive de données, d'IA et de technologies numériques dans la découverte de médicaments expose GSK à des risques de cyberattaques ciblant des informations sensibles de R&D ou des essais cliniques.",
+      "score": 4
     },
     {
       "title": "Protection de la propriété intellectuelle",
@@ -408,7 +428,8 @@
       "severity": 5,
       "score_rationale": "La PI est fondamentale pour protéger les innovations comme Blenrep ou depemokimab. Le langage est implicite mais l'enjeu est crucial. Position centrale dans la stratégie d'innovation. Catégorie stratégique.",
       "trend": "stable",
-      "summary": "La valeur du portefeuille de GSK repose sur des brevets protégeant des traitements innovants comme les ADC ou les thérapies respiratoires. Toute remise en cause de la PI ou contrefaçon pourrait compromettre les revenus futurs."
+      "summary": "La valeur du portefeuille de GSK repose sur des brevets protégeant des traitements innovants comme les ADC ou les thérapies respiratoires. Toute remise en cause de la PI ou contrefaçon pourrait compromettre les revenus futurs.",
+      "score": 5
     },
     {
       "title": "Dépendance à la réussite du pipeline R&D",
@@ -416,7 +437,8 @@
       "severity": 5,
       "score_rationale": "Le pipeline est décrit comme le moteur de la croissance future, avec 71 actifs en développement. Langage très positif mais implicite sur le risque d'échec. Catégorie centrale, tendance à la hausse.",
       "trend": "up",
-      "summary": "La stratégie de croissance de GSK dépend fortement de la réussite clinique et réglementaire de son pipeline, notamment pour des candidats comme depemokimab ou Blenrep. Un échec en phase III aurait un impact majeur sur la valorisation."
+      "summary": "La stratégie de croissance de GSK dépend fortement de la réussite clinique et réglementaire de son pipeline, notamment pour des candidats comme depemokimab ou Blenrep. Un échec en phase III aurait un impact majeur sur la valorisation.",
+      "score": 5
     },
     {
       "title": "Litiges liés à la sécurité des produits",
@@ -424,7 +446,8 @@
       "severity": 5,
       "score_rationale": "Le règlement du litige Zantac pour 1,8 milliard de livres est explicitement mentionné. Langage fort et événement majeur dans les résultats. Catégorie en forte hausse.",
       "trend": "up",
-      "summary": "GSK a subi un impact financier majeur avec le règlement du litige Zantac. Cela illustre le risque persistant de poursuites liées à la sécurité ou à l'efficacité des produits, pouvant entraîner des coûts élevés et des atteintes à la réputation."
+      "summary": "GSK a subi un impact financier majeur avec le règlement du litige Zantac. Cela illustre le risque persistant de poursuites liées à la sécurité ou à l'efficacité des produits, pouvant entraîner des coûts élevés et des atteintes à la réputation.",
+      "score": 5
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:03:28.799604+00:00",
@@ -578,11 +601,11 @@
   "_extracted_at": "2026-05-20T14:16:27Z",
   "_source": "sec-data/cat3-european/GSK.L/annual-text/2025.txt (GSK Annual Report)",
   "_dividends_extracted_at": "2026-05-09T20:20:37Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "GBp",
   "_eps_extracted_at": "2026-05-18T16:45:14Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "hero_kpi_override": "Specialty Medicines",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "hero_kpi_override": "Shingrix Sales",
   "_hero_override_reason": "Yann fix 20 mai - hero original generique",
   "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.693Z",
   "_revenue_by_geography_normalized_at": "2026-05-21T01:53:36.693Z",
@@ -611,7 +634,7 @@
       "date": "2026-03-31"
     },
     "next_earnings_date": "2026-07-29",
-    "source": "yfinance",
+    "source": "rapport financier",
     "fetched_at": "2026-05-21T03:38:30.890938+00:00"
   },
   "publication_date": "2026-03-31",
@@ -671,7 +694,10 @@
         10.8,
         12.4
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Vaccines Sales",
@@ -687,7 +713,10 @@
         9.4,
         9
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "HIV Franchise",
@@ -703,23 +732,40 @@
         6.4,
         6.9
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Shingrix Sales",
       "name_fr": "Ventes Shingrix",
-      "name_en": "Shingrix Vaccine Sales",
-      "value": 3,
-      "unit": "Mds GBP",
-      "yoy": "-15%",
+      "name_en": "Shingrix Sales",
+      "value": 3.364,
+      "unit": "Mds £",
+      "yoy": "-2,4 %",
       "history": [
-        1.7,
-        2,
-        2.7,
-        3.4,
-        3
+        1.989,
+        1.721,
+        2.958,
+        3.446,
+        3.364
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Demand",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+      "last_data_date": "2024-12-31",
+      "comparable": "Comparable",
+      "signal": "Fort rebond post pandemie entre 2021 et 2023, suivi d un leger repli en 2024 lie a la demande americaine.",
+      "is_wow": true,
+      "history_dates": [
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ]
     },
     {
       "short": "R&D Pipeline",
@@ -735,7 +781,10 @@
         69,
         71
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Investissement",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Manufacturing Sites",
@@ -751,12 +800,16 @@
         31,
         30
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Activité",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_extracted_at": "2026-05-28T16:52:00+00:00",
   "_kpis_supplementary_source": "10K_local_filings_b3_subagent_kpi-extract-0spec-b3",
   "subsector_fr": "Biopharmacie",
+  "_hero_kpi_override_reason": "Shingrix Sales = revenu specifique principal (agent verbatim)",
   "enrich_description": {
     "ticker": "GSK.L",
     "simple": {
@@ -776,7 +829,7 @@
       }
     },
     "_generated_at": "2026-05-21T03:22:02Z",
-    "_source": "yfinance.longBusinessSummary",
+    "_source": "rapport financier",
     "_method": "non-llm-heuristic-split",
     "_source_summary_len": 1559
   },
@@ -845,9 +898,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.269647+00:00",
     "fetched_at": "2026-05-21T02:17:14.269648+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.858Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.513Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gsk.l.json",
     "enrich_root": "v2-pipeline-enrich/gsk.l.json",

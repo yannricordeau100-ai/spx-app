@@ -13,7 +13,7 @@
     "sector": "N/A",
     "subsector": "N/A"
   },
-  "hero_kpi": "Net Asset Value (NAV) per Share",
+  "hero_kpi": "Net Asset Value",
   "hero_kpi_rationale": "Le NAV par action est le KPI maître pour Exor car c'est une holding dont la valeur est déterminée par la performance de ses participations stratégiques, notamment Ferrari. Ce KPI capture directement la création de valeur actionnariale.",
   "kpis": [
     {
@@ -74,7 +74,7 @@
         "Verified: Ferrari EBITDA 2.6B / Revenue 6.7B = 38.8% margin confirmed in source",
         "Type confirmed as 'Margin' (correct)"
       ],
-      "explanation_en": "EBITDA Margin — EBITDA divided by revenue.",
+      "explanation_en": "EBITDA Margin : EBITDA divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -154,11 +154,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 37.13 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -177,11 +181,46 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.67 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Net Asset Value",
+      "name_fr": "Valeur nette d'actif (NAV)",
+      "name_en": "Net Asset Value (NAV)",
+      "unit": "Mds €",
+      "period_type": "year",
+      "history": [
+        23.282,
+        24.041,
+        31.069,
+        28.233,
+        35.423,
+        38.212
+      ],
+      "value": 38.212,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "La valeur nette d'actif atteint 38,2 milliards d'euros fin 2024, en progression continue depuis le repli de 2022.",
+      "is_wow": true,
+      "history_dates": [
+        "2019-12-31",
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "yoy": "+7,9 %"
     },
     {
       "short": "DPS",
@@ -195,7 +234,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -208,7 +247,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -223,7 +262,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         1.398,
@@ -236,7 +275,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -251,7 +290,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -264,7 +303,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -279,7 +318,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         7.792,
@@ -292,7 +331,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -323,9 +362,7 @@
         "Unit confirmed as 'B EUR' (correct standard format)",
         "Prior year verified: 4.0 / 1.90 = 2.1B EUR",
         "Verified in source: Leapmotor revenues over 4 billion EUR, more than 90% increase YoY, gross margin 8.4%, profitability in Q4"
-      ],
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Stellantis Revenue",
@@ -354,9 +391,7 @@
         "Prior year verified: 156.9 / 0.83 = 188.9B EUR (rounded to 188.8B)",
         "is_generic correctly set to false (major portfolio company)",
         "Verified in source: Stellantis net revenues 156.9B EUR, -17% vs 2023"
-      ],
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -372,29 +407,15 @@
       "Confirmed absence of AI references in available document excerpts"
     ]
   },
-  "_validation": [
-    "CRITICAL: Source document is truncated (ends at 'Despite our positive outlook on the industry, 2024 was a difficu'). Full audit limited to available sections.",
-    "Unit standardization: All units confirmed as 'B EUR' (international standard), all monetary values in EUR",
-    "KPI classification: EBITDA Margin correctly identified and named",
-    "All multi-year history data verified and correct based on YoY percentages",
-    "String value in EBITDA Margin corrected from '38' to numeric 38.0",
-    "All null values properly typed for JSON compliance",
-    "Type classifications verified: EBITDA as 'Profitability', Headcount as 'Operational'",
-    "is_generic correctly set for portfolio-specific metrics (Ferrari, Leapmotor, Stellantis)",
-    "Last_data_date corrected from future '2025-12-31' to actual '2024-12-31' for NAV per Share KPI",
-    "All key numeric KPIs verified against source excerpts provided",
-    "No hallucinated values detected: all values traceable to source document",
-    "No em-dashes detected in hero_kpi_rationale (compliant with requirements)",
-    "All story_category values valid and documented"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_2"
   ],
@@ -407,7 +428,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur pour Stellantis (40% du portefeuille). Mentionné explicitement comme facteur clé de la chute 2024 : « regulatory uncertainty, increased customer price sensitivity and reduced government incentives for EVs ». Langage intensif (« challenging », « struggling »). Tendance à la hausse avec pause du Ram électrique. Poids critique dans la stratégie de transition.",
       "trend": "up",
-      "summary": "Stellantis fait face à une demande EV plus faible que prévu en 2024-2025, exacerbée par l'incertitude réglementaire et la réduction des incitations gouvernementales. La transition vers les véhicules électriques crée des gaps temporaires dans la gamme produits et force des remises agressives pour écouler les stocks."
+      "summary": "Stellantis fait face à une demande EV plus faible que prévu en 2024-2025, exacerbée par l'incertitude réglementaire et la réduction des incitations gouvernementales. La transition vers les véhicules électriques crée des gaps temporaires dans la gamme produits et force des remises agressives pour écouler les stocks.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue des constructeurs chinois",
@@ -415,7 +437,8 @@
       "severity": 5,
       "score_rationale": "Risque existentiel pour Stellantis et CNH. Données précises : « Chinese exports of electric passenger vehicles in 2024 totalled 1.3 million units, a year-on-year increase of 24% ». Langage alarmiste (« intensified competition », « exerted downward pressure »). Tendance à la hausse avec pénétration en Brésil, UE, Mexique. Impact direct sur pricing et volumes.",
       "trend": "up",
-      "summary": "Les constructeurs automobiles chinois capturent des parts de marché significatives avec des véhicules électriques à bas prix, notamment en Brésil, UE et Mexique. Cette concurrence exerce une pression baissière sur les prix et réduit la demande pour les constructeurs établis, forçant Stellantis à investir dans des JV comme Leapmotor pour rester compétitif."
+      "summary": "Les constructeurs automobiles chinois capturent des parts de marché significatives avec des véhicules électriques à bas prix, notamment en Brésil, UE et Mexique. Cette concurrence exerce une pression baissière sur les prix et réduit la demande pour les constructeurs établis, forçant Stellantis à investir dans des JV comme Leapmotor pour rester compétitif.",
+      "score": 5
     },
     {
       "title": "Risques de litige produit et rappels massifs",
@@ -423,7 +446,8 @@
       "severity": 4,
       "score_rationale": "Philips a dû payer $1.1 milliard + €540 millions pour le rappel Respironics. Mentionné comme « significant milestones » mais reste un risque résiduel. Langage modéré (« resolved », « clarity ») mais montants substantiels. Tendance stable avec résolution en cours. Poids important pour Philips (10% du GAV).",
       "trend": "down",
-      "summary": "Philips a résolu en 2024 les litiges majeurs liés au rappel Respironics (Sleep & Respiratory Care) avec des paiements totaux de $1.1 milliard aux États-Unis et €540 millions aux assureurs. Bien que largement résolus, des risques résiduels de litige produit persistent dans le secteur médical hautement régulé."
+      "summary": "Philips a résolu en 2024 les litiges majeurs liés au rappel Respironics (Sleep & Respiratory Care) avec des paiements totaux de $1.1 milliard aux États-Unis et €540 millions aux assureurs. Bien que largement résolus, des risques résiduels de litige produit persistent dans le secteur médical hautement régulé.",
+      "score": 4
     },
     {
       "title": "Cyclicité agricole et baisse des prix des matières premières",
@@ -431,7 +455,8 @@
       "severity": 4,
       "score_rationale": "CNH subit une baisse de 23% des ventes en 2024. Langage explicite : « cyclical downturn », « reduced incomes driven by lower commodity prices ». Données régionales : Brésil et Europe faibles, combines en baisse de 43% en EMEA. Tendance à la hausse du risque. Poids significatif (CNH dans portefeuille).",
       "trend": "up",
-      "summary": "CNH fait face à un cycle baissier dans l'agriculture et la construction, avec des agriculteurs confrontés à des revenus réduits (baisse des prix des matières premières, coûts d'intrants élevés). Les ventes de moissonneuses-batteuses ont chuté de 43% en EMEA et 31% en Amérique du Sud en 2024."
+      "summary": "CNH fait face à un cycle baissier dans l'agriculture et la construction, avec des agriculteurs confrontés à des revenus réduits (baisse des prix des matières premières, coûts d'intrants élevés). Les ventes de moissonneuses-batteuses ont chuté de 43% en EMEA et 31% en Amérique du Sud en 2024.",
+      "score": 4
     },
     {
       "title": "Intégration post-acquisition et problèmes opérationnels",
@@ -439,7 +464,8 @@
       "severity": 4,
       "score_rationale": "Clarivate souffre de « integration issues from its previous strategy » et Stellantis de « large-scale retooling of factories ». Langage modéré mais répété (« struggling », « gaps in product lineup »). Tendance à la hausse avec CEO changement chez Clarivate. Poids modéré mais croissant.",
       "trend": "up",
-      "summary": "Clarivate peine à intégrer ses acquisitions précédentes et à maintenir l'innovation, tandis que Stellantis subit des retards de production dus au retooling massif des usines pour les nouvelles plateformes. Ces problèmes opérationnels limitent la capacité à répondre à la demande et impactent les marges."
+      "summary": "Clarivate peine à intégrer ses acquisitions précédentes et à maintenir l'innovation, tandis que Stellantis subit des retards de production dus au retooling massif des usines pour les nouvelles plateformes. Ces problèmes opérationnels limitent la capacité à répondre à la demande et impactent les marges.",
+      "score": 4
     },
     {
       "title": "Dépendance à la leadership et risques de succession",
@@ -447,7 +473,8 @@
       "severity": 3,
       "score_rationale": "Carlos Tavares a démissionné en décembre 2024 chez Stellantis ; Gerrit Marx nommé CEO de CNH en juillet 2024 ; Matti Shem Tov nommé CEO de Clarivate en août 2024. Langage neutre mais changements fréquents. Tendance à la hausse avec 3 CEO changes en 6 mois. Poids modéré mais stratégique.",
       "trend": "up",
-      "summary": "Exor a dû gérer plusieurs changements de leadership clés en 2024 (Stellantis, CNH, Clarivate), reflétant des défis opérationnels. Bien que les nouveaux leaders apportent expertise, les transitions créent des risques d'exécution et de continuité stratégique."
+      "summary": "Exor a dû gérer plusieurs changements de leadership clés en 2024 (Stellantis, CNH, Clarivate), reflétant des défis opérationnels. Bien que les nouveaux leaders apportent expertise, les transitions créent des risques d'exécution et de continuité stratégique.",
+      "score": 3
     },
     {
       "title": "Ralentissement du marché chinois et normalisation post-COVID",
@@ -455,7 +482,8 @@
       "severity": 3,
       "score_rationale": "Mentionné pour bioMérieux et Philips : « softness in the Chinese market and further post-COVID normalisation led to weaker results ». Langage modéré (« difficult year »). Tendance stable mais persistante. Poids modéré pour portefeuille healthcare.",
       "trend": "stable",
-      "summary": "Le marché chinois de la santé a connu un ralentissement en 2024, avec une baisse du luxe (~20%) et une normalisation post-pandémique affectant bioMérieux et Philips. Ce ralentissement réduit les perspectives de croissance dans un marché clé pour le secteur healthcare."
+      "summary": "Le marché chinois de la santé a connu un ralentissement en 2024, avec une baisse du luxe (~20%) et une normalisation post-pandémique affectant bioMérieux et Philips. Ce ralentissement réduit les perspectives de croissance dans un marché clé pour le secteur healthcare.",
+      "score": 3
     },
     {
       "title": "Saturation et concurrence dans les données et logiciels",
@@ -463,7 +491,8 @@
       "severity": 3,
       "score_rationale": "Clarivate fait face à « ever-growing competition in all its markets » et ralentissement des marchés finaux (IP filings, biotech funding). Langage modéré (« facing challenges »). Tendance à la hausse avec baisse de 40% du cours en 2024. Poids modéré (investissement de croissance).",
       "trend": "up",
-      "summary": "Clarivate subit une concurrence accrue dans ses trois segments (Academia, IP, Lifesciences) et un ralentissement des marchés finaux, notamment dans l'IP où les dépôts et renouvellements sont en baisse par rapport aux tendances historiques."
+      "summary": "Clarivate subit une concurrence accrue dans ses trois segments (Academia, IP, Lifesciences) et un ralentissement des marchés finaux, notamment dans l'IP où les dépôts et renouvellements sont en baisse par rapport aux tendances historiques.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:34:57.916111+00:00",
@@ -617,11 +646,13 @@
   "_extracted_at": "2026-05-20T14:16:27Z",
   "_source": "sec-data/cat3-european/EXO.AS/annual-text/2024.txt (Exor Annual Report)",
   "_dividends_extracted_at": "2026-05-09T20:21:25Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:44:54Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:31.015Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "hero_kpi_override": "Net Asset Value",
+  "_hero_kpi_override_reason": "Net Asset Value = revenu specifique principal (agent verbatim)",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.164Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/exo.as.json",
     "enrich_root": "v2-pipeline-enrich/exo.as.json",

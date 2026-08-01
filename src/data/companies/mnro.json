@@ -41,8 +41,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "explanation_en": "Sales — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Sales, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Comparable Store Sales",
@@ -109,8 +113,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Loss",
@@ -136,7 +144,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "ttm": 0
+      "ttm": 0,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Diluted Loss per Share",
@@ -163,7 +175,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "explanation_en": "Market share in Diluted Loss per."
+      "explanation_en": "Market share in Diluted Loss per.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -189,7 +205,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
@@ -215,8 +235,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -242,8 +266,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -272,9 +300,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Stratégie",
-      "ttm": 0,
-      "_source_month": "mai 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": 0
     }
   ],
   "ai_positioning": {
@@ -288,52 +314,52 @@
       "title": "Cyberattaques et sécurité des données",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Le risque est explicitement mis en avant dans le 10-K avec un accent fort sur le rôle du CISO et du Comité d'Audit. Le langage souligne l'importance croissante de la cybersécurité, notamment avec des présentations trimestrielles au Comité d'Audit. La catégorie 'Cybersécurité' est hautement pondérée en raison de l'exposition aux menaces numériques croissantes. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est explicitement mis en avant dans le 10-K avec un accent fort sur le rôle du CISO et du Comité d'Audit. Le langage souligne l'importance croissante de la cybersécurité, notamment avec des présentations trimestrielles au Comité d'Audit. La catégorie 'Cybersécurité' est hautement pondérée en raison de l'exposition aux menaces numériques croissantes.",
       "trend": "stable",
       "summary": "Une cyberattaque pourrait compromettre les données clients ou opérationnelles, entraînant des pertes financières et une atteinte à la réputation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques liés à la conjoncture économique",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Le document mentionne l'inflation élevée, la hausse des coûts salariaux et la possibilité d'une récession. Le langage est alarmant ('adverse impact', 'possibly significantly'), et ce risque est central dans l'analyse financière. Il affecte directement la demande et les marges. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne l'inflation élevée, la hausse des coûts salariaux et la possibilité d'une récession. Le langage est alarmant ('adverse impact', 'possibly significantly'), et ce risque est central dans l'analyse financière. Il affecte directement la demande et les marges.",
       "trend": "up",
       "summary": "Un ralentissement économique ou une récession pourrait réduire la demande pour les services automobiles, affectant fortement les ventes et la rentabilité.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Fermeture de 145 magasins sous-performants",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le plan de fermeture de 145 magasins est un changement majeur approuvé par le conseil d'administration le 23 mai 2025. Le langage indique un impact significatif sur la structure opérationnelle. Ce risque est nouveau et stratégique, avec des coûts de fermeture et une restructuration en cours. (score par défaut, à affiner)",
+      "score_rationale": "Le plan de fermeture de 145 magasins est un changement majeur approuvé par le conseil d'administration le 23 mai 2025. Le langage indique un impact significatif sur la structure opérationnelle. Ce risque est nouveau et stratégique, avec des coûts de fermeture et une restructuration en cours.",
       "trend": "new",
       "summary": "La fermeture d'environ 11% des magasins entraîne des coûts importants et des perturbations opérationnelles, avec un risque d'impact négatif sur les ventes et la moralité des équipes.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux décisions de crédit et aux covenants",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le crédit facility limite les rachats d'actions et les dividendes. Le renouvellement ou les violations de covenants pourraient restreindre la flexibilité financière. Le langage mentionne des amendements récents ('Fifth Amendment') pour plus de flexibilité, indiquant une pression financière. (score par défaut, à affiner)",
+      "score_rationale": "Le crédit facility limite les rachats d'actions et les dividendes. Le renouvellement ou les violations de covenants pourraient restreindre la flexibilité financière. Le langage mentionne des amendements récents ('Fifth Amendment') pour plus de flexibilité, indiquant une pression financière.",
       "trend": "stable",
       "summary": "Des difficultés à respecter les covenants bancaires pourraient limiter l'accès au financement, affectant la capacité à investir ou à verser des dividendes.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Changement de direction et instabilité managériale",
       "category": "Personne-clé",
       "severity": 4,
-      "score_rationale": "Le départ du PDG Michael T. Broderick le 27 mars 2025 et la nomination de Peter D. Fitzsimmons le 28 mars 2025, accompagnés d'un recours à un consultant externe (AlixPartners), indiquent une crise de performance. Le langage suggère une urgence. Ce risque est nouveau et stratégique. (score par défaut, à affiner)",
+      "score_rationale": "Le départ du PDG Michael T. Broderick le 27 mars 2025 et la nomination de Peter D. Fitzsimmons le 28 mars 2025, accompagnés d'un recours à un consultant externe (AlixPartners), indiquent une crise de performance. Le langage suggère une urgence. Ce risque est nouveau et stratégique.",
       "trend": "new",
       "summary": "Le changement de leadership et l'intervention d'un consultant externe reflètent une instabilité qui pourrait perturber la stratégie et l'exécution opérationnelle.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Litiges juridiques potentiels",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Le document mentionne des litiges en cours dans le cadre normal des activités. Bien que l'entreprise affirme qu'ils n'auront pas d'effet matériel, il reconnaît qu'un risque existe. Le ton est prudent mais pas alarmiste. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne des litiges en cours dans le cadre normal des activités. Bien que l'entreprise affirme qu'ils n'auront pas d'effet matériel, il reconnaît qu'un risque existe. Le ton est prudent mais pas alarmiste.",
       "trend": "stable",
       "summary": "Des poursuites juridiques, même courantes, pourraient avoir un impact financier ou réputationnel si elles prennent une ampleur inattendue.",
       "score": 3
@@ -409,7 +435,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -590,19 +616,15 @@
           341.818,
           689.517,
           1031.298,
-          -703.305,
           349.535,
           679.353,
           1014.546,
-          -718.052,
           326.968,
           649.059,
           966.712,
-          -665.95,
           293.182,
           594.573,
           900.342,
-          -592.763,
           301.035,
           589.949,
           883.337
@@ -658,6 +680,12 @@
             "accession": "0000876427-26-000004",
             "end": "2025-12-27"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (MNRO)"
         ]
       }
     ]
@@ -674,9 +702,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.283895+00:00",
     "fetched_at": "2026-05-21T02:17:14.283895+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.530Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.405Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mnro.json",
     "enrich_root": "v2-pipeline-enrich/mnro.json",

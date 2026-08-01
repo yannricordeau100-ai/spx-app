@@ -1,6 +1,6 @@
 {
   "ticker": "WBS",
-  "name": "Webster Financial Corporation",
+  "name": "Webster Financial",
   "sector": "Finance",
   "subsector": "Banques et services financiers",
   "tagline": "Regional bank providing commercial and personal banking services",
@@ -58,11 +58,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.89 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -81,11 +85,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.0 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -104,11 +112,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 5.9 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -127,11 +139,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 1.01 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -150,11 +166,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 84.07 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -173,11 +193,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.72 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -196,10 +220,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.45 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -241,7 +269,8 @@
       "severity": 4,
       "score_rationale": "Transaction d'acquisition de 12,3 milliards USD annoncée le 3 février 2026, soumise à des approbations réglementaires et actionnariales dont l'obtention n'est pas garantie. Impact majeur sur la stratégie, les opérations et la capacité à verser dividendes ou racheter des actions. Le Transaction Agreement impose des restrictions sur les dividendes et rachats jusqu'à clôture.",
       "trend": "new",
-      "summary": "L'acquisition par Banco Santander comporte des risques liés à l'obtention des approbations réglementaires, la satisfaction des conditions de clôture, et des restrictions sur les dividendes et rachats d'actions (programme suspendu depuis février 2026)."
+      "summary": "L'acquisition par Banco Santander comporte des risques liés à l'obtention des approbations réglementaires, la satisfaction des conditions de clôture, et des restrictions sur les dividendes et rachats d'actions (programme suspendu depuis février 2026).",
+      "score": 4
     },
     {
       "title": "Augmentation des actifs non performants",
@@ -249,7 +278,8 @@
       "severity": 3,
       "score_rationale": "Les actifs non performants ont augmenté de 218,6 M USD en 2023 à 502,1 M USD en 2025, plus que doublés en deux ans. La détérioration est documentée dans le MD&A et représente un risque de crédit croissant nécessitant une surveillance étroite.",
       "trend": "up",
-      "summary": "Le portefeuille de prêts montre une détérioration significative de la qualité, avec une augmentation marquée des actifs non performants signalant une dégradation des standards de crédit ou une réaction à l'incertitude macroéconomique."
+      "summary": "Le portefeuille de prêts montre une détérioration significative de la qualité, avec une augmentation marquée des actifs non performants signalant une dégradation des standards de crédit ou une réaction à l'incertitude macroéconomique.",
+      "score": 3
     },
     {
       "title": "Incertitude économique et risque de récession",
@@ -257,7 +287,8 @@
       "severity": 4,
       "score_rationale": "Les changements de politiques commerciales et économiques créent une incertitude significative pouvant entraîner une récession. L'impact sur le comportement des clients et les conditions de prêt est élevé et s'étend à toutes les activités. Mentionné comme facteur clé d'ajustement qualitatif dans le modèle d'allocation des pertes attendues (CECL).",
       "trend": "up",
-      "summary": "L'environnement macroéconomique demeure volatile avec des risques de récession liés aux politiques commerciales et à l'incertitude économique générale, affectant potentiellement la demande de prêts et la qualité du portefeuille."
+      "summary": "L'environnement macroéconomique demeure volatile avec des risques de récession liés aux politiques commerciales et à l'incertitude économique générale, affectant potentiellement la demande de prêts et la qualité du portefeuille.",
+      "score": 4
     },
     {
       "title": "Détérioration de la marge nette d'intérêt",
@@ -265,7 +296,8 @@
       "severity": 3,
       "score_rationale": "La marge nette d'intérêt a baissé de 3,52% en 2023 à 3,42% en 2025, soit une contraction de 10 points de base. Cette tendance à la baisse affecte la rentabilité des activités bancaires principales et la capacité à maintenir la performance.",
       "trend": "down",
-      "summary": "La compression des marges d'intérêt persiste dans un environnement de taux changeants, menaçant la profitabilité des activités de prêt et de dépôt si la tendance se maintient."
+      "summary": "La compression des marges d'intérêt persiste dans un environnement de taux changeants, menaçant la profitabilité des activités de prêt et de dépôt si la tendance se maintient.",
+      "score": 3
     },
     {
       "title": "Augmentation des coûts opérationnels",
@@ -273,7 +305,8 @@
       "severity": 2,
       "score_rationale": "Le ratio d'efficience a augmenté de 42,15% en 2023 à 45,99% en 2025, indiquant une hausse des coûts opérationnels par rapport aux revenus. La tendance à la hausse sur deux ans suggère une pression croissante sur les marges bénéficiaires.",
       "trend": "up",
-      "summary": "Les coûts opérationnels croissent plus vite que les revenus, ce qui pourrait réduire les marges bénéficiaires si cette tendance continue sans amélioration de l'efficacité opérationnelle."
+      "summary": "Les coûts opérationnels croissent plus vite que les revenus, ce qui pourrait réduire les marges bénéficiaires si cette tendance continue sans amélioration de l'efficacité opérationnelle.",
+      "score": 2
     },
     {
       "title": "Risques liés à la cybersécurité et à la technologie",
@@ -281,7 +314,8 @@
       "severity": 3,
       "score_rationale": "Bien que la gouvernance de la sécurité de l'information soit détaillée avec des comités de surveillance (Information Risk Committee, Risk Committee et Technology Committee du Board avec rapports trimestriels), les menaces aux systèmes informatiques évoluent constamment et représent un risque permanent pour les institutions financières.",
       "trend": "stable",
-      "summary": "La société dispose d'une gouvernance structurée de la cybersécurité avec rapports trimestriels au Board (Information Risk Committee, Enterprise Risk Management Committee, Risk et Technology Committees), mais doit maintenir une vigilance constante face aux menaces émergentes et à l'évolution du paysage technologique."
+      "summary": "La société dispose d'une gouvernance structurée de la cybersécurité avec rapports trimestriels au Board (Information Risk Committee, Enterprise Risk Management Committee, Risk et Technology Committees), mais doit maintenir une vigilance constante face aux menaces émergentes et à l'évolution du paysage technologique.",
+      "score": 3
     }
   ],
   "governance": {
@@ -331,7 +365,7 @@
   },
   "subsector_fr": "Banque et services financiers",
   "sector_fr": "Finance",
-  "_companies_unified_built_at": "2026-05-29T21:19:38.392Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:07.074Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wbs.json",
     "enrich_root": "v2-pipeline-enrich/wbs.json",

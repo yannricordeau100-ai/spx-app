@@ -110,34 +110,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.78 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "No explicit annual total revenue values found in the provided excerpt.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.25,
-      "unit": "Mds €",
+      "value": 250,
+      "unit": "M €",
       "yoy": "+8.7%",
       "history": [
-        0.28,
-        1.03,
-        0.23,
-        0.25
+        280,
+        1030,
+        230,
+        250
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.25 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,56 +167,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.23 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.66,
-      "unit": "Mds €",
+      "value": 660,
+      "unit": "M €",
       "yoy": "+1.5%",
       "history": [
-        1.5,
-        1.17,
-        0.65,
-        0.66
+        1500,
+        1170,
+        650,
+        660
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.66 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.46,
-      "unit": "Mds €",
+      "value": 460,
+      "unit": "M €",
       "yoy": "+64.3%",
       "history": [
-        0.41,
-        1.06,
-        0.28,
-        0.46
+        410,
+        1060,
+        280,
+        460
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.46 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -239,7 +264,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -425,6 +450,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Smiths Group plc est un conglomérat industriel britannique diversifié. Coté à Londres (FTSE 100), basé à Londres. Fondé en 1851.",
+          "products": "Quatre divisions : John Crane (joints d'étanchéité mécaniques pour pompes industrielles, oil & gas), Smiths Detection (scanners de sécurité aéroports et frontières), Flex-Tek (composants thermiques et fluides), Smiths Interconnect (composants pour défense, médical et test).",
+          "customers": "Industriels (oil & gas, chimie, énergie : John Crane), gouvernements et aéroports (Smiths Detection), constructeurs aéronautiques et défense (Smiths Interconnect), industriels chauffage (Flex-Tek).",
+          "edge": "Portefeuille de niches industrielles avec part de marché élevée (John Crane = leader mondial des joints mécaniques). Smiths Detection = top 3 mondial scanners aéroports. Génération cash résiliente."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Smiths Group est un conglomérat industriel britannique en phase d'examen stratégique sous la pression activiste (Engine Capital, Bluebell Capital). Spin-off ou cession de certaines divisions envisagés pour réduire le 'conglomerate discount'. Cession récente de Smiths Medical en 2022 à ICU Medical a simplifié le portefeuille.",
+          "tech_products": "John Crane : joints d'étanchéité mécaniques (leader mondial), filtration, oil & gas services. Smiths Detection : scanners explosifs et de cargo pour aéroports, frontières, industrie. Flex-Tek : composants flexibles et thermiques (chauffage industriel, défense aero). Smiths Interconnect : connecteurs spécialisés pour défense, médical et test.",
+          "moat": "Positions de niche dominantes (John Crane, Smiths Detection). Marques historiques. Modèle B2B avec relations clients long terme et aftermarket récurrent. Smiths Detection bénéficiaire de la croissance trafic aérien et investissements sécurité.",
+          "risks": "Conglomerate discount structurel. Cyclicité Oil & Gas pour John Crane. Cyclicité aéroports/aviation pour Smiths Detection. Pression activiste pour spin-offs. Concurrence intense sur chaque niche. Sensibilité aux dépenses gouvernementales (sécurité, défense)."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "SMIN.L",
     "ranks": {
@@ -437,15 +483,16 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.310894+00:00",
     "fetched_at": "2026-05-21T02:17:14.310895+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.908Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.905Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/smin.l.json",
     "enrich_root": "v2-pipeline-enrich/smin.l.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

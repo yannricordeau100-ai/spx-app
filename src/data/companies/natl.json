@@ -1,6 +1,6 @@
 {
   "ticker": "NATL",
-  "name": "NCR Atleos Corporation",
+  "name": "NCR Atleos",
   "sector": "Technologie",
   "subsector": "Software & Services",
   "tagline": "Leading financial technology company providing self-directed banking solutions",
@@ -39,17 +39,20 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 70.73,
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Revenue from the Recurring Revenue as % of Total segment.",
-      "signal_en": "Recurring base eroding, monitor retention"
+      "signal_en": "Recurring base eroding, monitor retention",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires total",
       "name_en": "Total Revenue",
       "explanation": "Montant total des revenus générés par l'entreprise sur une période donnée.",
-      "value": "4354",
-      "unit": "M $",
+      "value": 4.354,
+      "unit": "Mds $",
       "yoy": "+1%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -57,9 +60,9 @@
       "signal": "Croissance modeste mais positive du chiffre d'affaires global.",
       "description": "Le revenu total représente l'ensemble des ventes de biens et services avant déduction des coûts.",
       "history": [
-        4354,
-        4305,
-        4186
+        4.354,
+        4.305,
+        4.186
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -67,15 +70,16 @@
       "is_short_history": false,
       "ttm": 4157.07,
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "All other products and services",
       "name_fr": "Autres produits et services",
       "name_en": "All other products and services",
       "explanation": "Revenus provenant de produits et services ne rentrant pas dans la catégorie des revenus récurrents.",
-      "value": "1279",
-      "unit": "M $",
+      "value": 1.279,
+      "unit": "Mds $",
       "yoy": "+8%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -83,16 +87,17 @@
       "signal": "Forte croissance des revenus non récurrents.",
       "description": "Cette catégorie inclut les revenus ponctuels ou liés à des projets spécifiques.",
       "history": [
-        1279,
-        1181,
-        1209
+        1.279,
+        1.181,
+        1.209
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
       "ttm": 1216.17,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "ATM as a Service (ATMaaS)",
@@ -143,9 +148,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Revenue",
-      "ttm": 2941.98,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 2941.98
     }
   ],
   "ai_positioning": {
@@ -175,7 +178,8 @@
       "severity": 5,
       "score_rationale": "Mentionné en premier dans les facteurs de risque avec un langage fort ('matériellement défavorable'), ce risque est existentiel pour les opérations physiques de NATL, notamment ses ATM. Il est répété dans le document, ce qui souligne son importance. La catégorie Géopolitique inclut ici les événements climatiques extrêmes. Pondération élevée en raison de l'exposition physique des actifs.",
       "trend": "stable",
-      "summary": "Un événement naturel majeur pourrait gravement perturber les opérations et les revenus de NATL en endommageant ses infrastructures ATM."
+      "summary": "Un événement naturel majeur pourrait gravement perturber les opérations et les revenus de NATL en endommageant ses infrastructures ATM.",
+      "score": 5
     },
     {
       "title": "Exposition aux taux d'intérêt",
@@ -183,7 +187,8 @@
       "severity": 4,
       "score_rationale": "Le document renvoie explicitement à l'Item 7A pour plus de détails sur le risque de taux d'intérêt. La variation des taux affecte directement les frais d'intérêt (ex: -13% en 2025) et les coûts liés au cash en coffre. Le langage est technique mais récurrent, indiquant une exposition structurelle. Catégorie Capital fortement pondérée.",
       "trend": "stable",
-      "summary": "Les fluctuations des taux d'intérêt peuvent impacter négativement les coûts financiers et la rentabilité des services bancaires automatisés."
+      "summary": "Les fluctuations des taux d'intérêt peuvent impacter négativement les coûts financiers et la rentabilité des services bancaires automatisés.",
+      "score": 4
     },
     {
       "title": "Exposition aux changes",
@@ -191,7 +196,8 @@
       "severity": 4,
       "score_rationale": "Comme pour les taux d'intérêt, le risque de change est explicitement mentionné avec renvoi à l'Item 7A. Il est intégré dans les 'Other (income) expense items' du rapprochement EBITDA, ce qui montre un impact mesurable. Le langage est modéré mais le risque est structurel pour une entreprise opérant dans plusieurs pays.",
       "trend": "stable",
-      "summary": "Les variations des taux de change peuvent affecter les revenus et les coûts, en particulier dans les opérations internationales."
+      "summary": "Les variations des taux de change peuvent affecter les revenus et les coûts, en particulier dans les opérations internationales.",
+      "score": 4
     },
     {
       "title": "Saisonnalité et tourisme",
@@ -199,7 +205,8 @@
       "severity": 3,
       "score_rationale": "Le risque est bien documenté dans l'Item 1A, avec des explications détaillées sur la baisse des volumes en hiver et la hausse en été. Le langage est descriptif mais sans urgence. Il est stable d'année en année, comme indiqué par 'We expect the fluctuations... to continue'. Catégorie Industriel, pondération moyenne.",
       "trend": "stable",
-      "summary": "Les revenus varient selon les saisons, avec des baisses en hiver liées à la météo et aux déplacements, affectant la trésorerie."
+      "summary": "Les revenus varient selon les saisons, avec des baisses en hiver liées à la météo et aux déplacements, affectant la trésorerie.",
+      "score": 3
     },
     {
       "title": "Dépendance aux revenus récurrents",
@@ -207,7 +214,8 @@
       "severity": 4,
       "score_rationale": "Le document met fortement l'accent sur la transformation vers les revenus récurrents (70,6% du total en 2025). Une baisse dans ce segment (ex: -2% vs 2024) est soulignée comme un facteur clé de performance. Le langage est stratégique et répété, indiquant un risque central. Catégorie Capital en raison de l'impact sur la valorisation et la prévisibilité.",
       "trend": "stable",
-      "summary": "La performance financière dépend fortement de la stabilité des revenus récurrents, notamment liés aux contrats de maintenance et de traitement."
+      "summary": "La performance financière dépend fortement de la stabilité des revenus récurrents, notamment liés aux contrats de maintenance et de traitement.",
+      "score": 4
     }
   ],
   "governance": {
@@ -227,7 +235,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -241,7 +249,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Logiciels & services",
-  "_companies_unified_built_at": "2026-05-29T21:19:33.781Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.688Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/natl.json",
     "enrich_root": "v2-pipeline-enrich/natl.json",

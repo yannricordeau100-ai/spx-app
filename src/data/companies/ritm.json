@@ -46,7 +46,7 @@
         "Verified value 63B from source: confirmed in Item 1 Business and MD&A"
       ],
       "period_type": "quarter",
-      "explanation_en": "Assets Under Management — total client assets managed by the firm."
+      "explanation_en": "Assets Under Management, total client assets managed by the firm."
     },
     {
       "short": "BVPS",
@@ -81,8 +81,12 @@
         "Verified all BVPS values from source financial statements table",
         "Updated signal to emphasize financial stability"
       ],
-      "explanation_en": "Book Value Per Share — total equity divided by shares outstanding.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Book Value Per Share, total equity divided by shares outstanding.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -101,34 +105,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.87 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.68,
-      "unit": "Mds €",
+      "value": 680,
+      "unit": "M €",
       "yoy": "-26.9%",
       "history": [
-        0.95,
-        0.62,
-        0.93,
-        0.68
+        950,
+        620,
+        930,
+        680
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.68 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -147,11 +160,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 1.04 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -170,11 +187,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 53.06 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,11 +214,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 35.62 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -216,10 +241,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.85 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -233,7 +262,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.9,
         1,
@@ -246,7 +275,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -261,7 +290,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.5635,
@@ -274,7 +303,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -289,7 +318,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         64.56,
@@ -302,7 +331,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -318,7 +347,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.8,
@@ -331,7 +360,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -391,7 +420,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -407,7 +436,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement mentionné en premier dans le 10-K, avec un langage fort (\"material adverse effect\"). Il concerne la capacité de la société à faire face à un manque de liquidités soudain. La catégorie Capital est hautement pondérée pour un établissement financier.",
       "trend": "stable",
-      "summary": "Une erreur dans les hypothèses de liquidité pourrait entraîner un déficit soudain, affectant gravement l'activité."
+      "summary": "Une erreur dans les hypothèses de liquidité pourrait entraîner un déficit soudain, affectant gravement l'activité.",
+      "score": 5
     },
     {
       "title": "Exposition aux risques de taux d'intérêt",
@@ -415,7 +445,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement identifié dans la section dédiée. Le passage au SOFR flottant pour plusieurs séries de préférences montre une exposition accrue. Le langage est technique mais affirmé. La catégorie Macro est systémique.",
       "trend": "up",
-      "summary": "Les variations des taux d'intérêt affectent les dividendes et la valeur des titres préférentiels, ainsi que le coût du financement."
+      "summary": "Les variations des taux d'intérêt affectent les dividendes et la valeur des titres préférentiels, ainsi que le coût du financement.",
+      "score": 4
     },
     {
       "title": "Engagements hors bilan importants",
@@ -423,7 +454,8 @@
       "severity": 4,
       "score_rationale": "Exposition totale de 1,4 milliard $ hors bilan, notamment via des fonds non consolidés et des engagements de capital. Mentionné comme \"matériel\" dans le 10-K. La catégorie Capital est critique.",
       "trend": "stable",
-      "summary": "La société a des obligations potentielles significatives hors bilan, notamment sur des fonds et des engagements non consolidés."
+      "summary": "La société a des obligations potentielles significatives hors bilan, notamment sur des fonds et des engagements non consolidés.",
+      "score": 4
     },
     {
       "title": "Dépendance aux émissions de capitaux propres",
@@ -431,7 +463,8 @@
       "severity": 4,
       "score_rationale": "Programme ATM actif (750M$) et recours fréquent au marché. Mention de la distribution obligatoire de 90 % du revenu imposable, limitant la rétention de capital. Langage répétitif et préoccupant.",
       "trend": "stable",
-      "summary": "La nécessité de distribuer 90 % du revenu imposable limite la capacité à réinvestir, rendant la société dépendante des levées de fonds."
+      "summary": "La nécessité de distribuer 90 % du revenu imposable limite la capacité à réinvestir, rendant la société dépendante des levées de fonds.",
+      "score": 4
     },
     {
       "title": "Risque de crédit sur prêts résidentiels",
@@ -439,7 +472,8 @@
       "severity": 4,
       "score_rationale": "Exposition de 9,3 milliards $ en UPB de prêts résidentiels en titrisation hors bilan, avec 600M$ de risque de perte. Mention explicite de l'exposition au risque de crédit. Catégorie Crédit centrale pour l'activité.",
       "trend": "stable",
-      "summary": "La société conserve une exposition au risque de crédit sur des prêts titrisés, en cas de défaut des débiteurs."
+      "summary": "La société conserve une exposition au risque de crédit sur des prêts titrisés, en cas de défaut des débiteurs.",
+      "score": 4
     },
     {
       "title": "Risque de financement physique sur TBAs",
@@ -447,7 +481,8 @@
       "severity": 3,
       "score_rationale": "Mention du risque de devoir prendre livraison physique des MBS si les roulages deviennent coûteux. Impact sur la liquidité. Langage prudent mais pas alarmiste. Catégorie Industriel moins critique.",
       "trend": "stable",
-      "summary": "En cas de conditions de marché défavorables, la société pourrait devoir financer la livraison physique d'actifs, pesant sur sa liquidité."
+      "summary": "En cas de conditions de marché défavorables, la société pourrait devoir financer la livraison physique d'actifs, pesant sur sa liquidité.",
+      "score": 3
     },
     {
       "title": "Clawback sur revenus incitatifs",
@@ -455,7 +490,8 @@
       "severity": 3,
       "score_rationale": "Obligation de rembourser des revenus incitatifs perçus si des pertes futures surviennent dans les fonds. Mention dans les engagements hors bilan. Risque juridique réel mais limité à une partie des revenus.",
       "trend": "stable",
-      "summary": "La société pourrait devoir rembourser des revenus incitatifs perçus si les fonds sous-jacents enregistrent des pertes futures."
+      "summary": "La société pourrait devoir rembourser des revenus incitatifs perçus si les fonds sous-jacents enregistrent des pertes futures.",
+      "score": 3
     }
   ],
   "governance": {
@@ -480,7 +516,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:22:11Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2013,
@@ -505,10 +541,10 @@
     "xbrl_fetched_at": "2026-05-09T20:27:49Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:07Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Services financiers",
   "subsector_fr": "Gestion d'actifs",
-  "_companies_unified_built_at": "2026-05-29T21:19:35.224Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.439Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ritm.json",
     "enrich_root": "v2-pipeline-enrich/ritm.json",

@@ -76,8 +76,8 @@
       "name_fr": "Dette à long terme",
       "name_en": "Long-term debt",
       "explanation": "Obligations de financement à long terme de l'entreprise, principalement liées à People Inc.",
-      "value": "1441.3",
-      "unit": "M $",
+      "value": 1.441,
+      "unit": "Mds $",
       "yoy": "Non disponible",
       "type": "Risk",
       "nature": "Structurel",
@@ -88,7 +88,8 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -107,11 +108,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.39 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -130,11 +135,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.1 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,11 +162,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.13 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,33 +189,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.43 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.96,
-      "unit": "Mds €",
+      "value": 960,
+      "unit": "M €",
       "yoy": "-30.4%",
       "history": [
-        1.42,
-        1.3,
-        1.38,
-        0.96
+        1420,
+        1300,
+        1380,
+        960
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.96 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -228,7 +250,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "IAC mentionne l'intelligence artificielle dans le contexte des activités de People Inc., particulièrement concernant les licences de contenu pour les modèles de langage de grande taille et les activités connexes liées à l'IA. La monétisation du contenu pour les applications d'IA représente une opportunité croissante dans le portefeuille de l'entreprise.",
     "evidence": [
       "Content licensing royalties earned from relationships with Apple News+ and other content use and distribution relationships, including utilization in large-language models and other artificial intelligence (AI) related activities"
@@ -242,7 +264,8 @@
       "severity": 4,
       "score_rationale": "Mentionné en premier dans les facteurs de risque généraux avec langage indiquant une préoccupation constante malgré les efforts de mitigation. L'entreprise a explicitement subi des intrusions non autorisées et ne peut éliminer tous les risques ou garantir qu'aucune intrusion non détectée ne s'est produite.",
       "trend": "up",
-      "summary": "IAC est exposée à des menaces de cybersécurité et a expérimenté des intrusions non autorisées de ses systèmes, technologies et infrastructures. Malgré les processus de gestion des risques, l'entreprise ne peut fournir aucune assurance contre les incidents non détectés."
+      "summary": "IAC est exposée à des menaces de cybersécurité et a expérimenté des intrusions non autorisées de ses systèmes, technologies et infrastructures. Malgré les processus de gestion des risques, l'entreprise ne peut fournir aucune assurance contre les incidents non détectés.",
+      "score": 4
     },
     {
       "title": "Risques liés aux litiges et procédures judiciaires",
@@ -250,7 +273,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans la section des facteurs de risque généraux, le langage couvre un large éventail de litiges potentiels incluant les questions de propriété intellectuelle, les contrats et autres réclamations.",
       "trend": "stable",
-      "summary": "IAC et ses filiales sont susceptibles d'être impliquées dans diverses procédures judiciaires, y compris potentiellement des actions collectives et des litiges liés à la propriété intellectuelle."
+      "summary": "IAC et ses filiales sont susceptibles d'être impliquées dans diverses procédures judiciaires, y compris potentiellement des actions collectives et des litiges liés à la propriété intellectuelle.",
+      "score": 3
     },
     {
       "title": "Dépendance aux fournisseurs tiers pour la sécurité",
@@ -258,7 +282,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est une extension directe du risque de cybersécurité, spécifiquement axé sur les tiers. Le texte souligne explicitement que le contrôle et la capacité de surveillance de la posture de sécurité des tiers demeurent limités, et les protections contractuelles peuvent être insuffisantes.",
       "trend": "up",
-      "summary": "Bien qu'IAC ait mis en place un processus de gestion des risques pour les fournisseurs tiers, son contrôle et sa capacité de surveillance restent limités. Les protections contractuelles peuvent être insuffisantes pour prévenir les impacts négatifs liés aux compromis de sécurité des tiers."
+      "summary": "Bien qu'IAC ait mis en place un processus de gestion des risques pour les fournisseurs tiers, son contrôle et sa capacité de surveillance restent limités. Les protections contractuelles peuvent être insuffisantes pour prévenir les impacts négatifs liés aux compromis de sécurité des tiers.",
+      "score": 4
     },
     {
       "title": "Risques liés à la structure de la dette et aux obligations financières",
@@ -266,7 +291,8 @@
       "severity": 3,
       "score_rationale": "La section de la dette détaille des montants significatifs pour People Inc.: Term Loan A-1 (341,3 millions), Term Loan B-2 (700 millions) et 2032 Notes (400 millions), indiquant une exposition au risque de taux d'intérêt, de refinancement et de remboursement.",
       "trend": "stable",
-      "summary": "La majorité de la dette à long terme de l'entreprise est détenue par People Inc., totalisant environ 1,44 milliard de dollars, avec des échéances entre 2030 et 2032. L'exposition aux taux d'intérêt variables (SOFR plus marges) crée un risque financier significatif."
+      "summary": "La majorité de la dette à long terme de l'entreprise est détenue par People Inc., totalisant environ 1,44 milliard de dollars, avec des échéances entre 2030 et 2032. L'exposition aux taux d'intérêt variables (SOFR plus marges) crée un risque financier significatif.",
+      "score": 3
     },
     {
       "title": "Risques liés aux opérations d'impression et de distribution",
@@ -274,7 +300,8 @@
       "severity": 2,
       "score_rationale": "People Inc. maintient un segment Print comprenant les abonnements à des magazines, les ventes au numéro et les opérations d'agences publicitaires, avec des coûts de distribution et de production significatifs mentionnés dans les frais d'exploitation.",
       "trend": "stable",
-      "summary": "Les opérations d'impression de People Inc., incluant les abonnements à des magazines, les ventes au numéro et les services d'agences publicitaires personnalisées, comportent des risques opérationnels spécifiques liés à la distribution physique et à la production."
+      "summary": "Les opérations d'impression de People Inc., incluant les abonnements à des magazines, les ventes au numéro et les services d'agences publicitaires personnalisées, comportent des risques opérationnels spécifiques liés à la distribution physique et à la production.",
+      "score": 2
     },
     {
       "title": "Risques liés à la dépendance aux revenus publicitaires numériques",
@@ -282,7 +309,8 @@
       "severity": 3,
       "score_rationale": "Une part importante des revenus de People Inc. provient de la publicité numérique (incluant D/Cipher+) et du marketing de performance, des marchés hautement concurrentiels sensibles aux changements algorithmiques, aux réglementations et aux conditions macroéconomiques.",
       "trend": "stable",
-      "summary": "La dépendance significative aux revenus publicitaires numériques et au marketing de performance expose IAC à la volatilité du marché publicitaire, aux changements des algorithmes de plateforme et aux impacts économiques généraux sur les dépenses publicitaires."
+      "summary": "La dépendance significative aux revenus publicitaires numériques et au marketing de performance expose IAC à la volatilité du marché publicitaire, aux changements des algorithmes de plateforme et aux impacts économiques généraux sur les dépenses publicitaires.",
+      "score": 3
     }
   ],
   "governance": {
@@ -352,7 +380,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.277Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.567Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/iac.json",
     "enrich_root": null,

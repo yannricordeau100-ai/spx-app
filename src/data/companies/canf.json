@@ -33,10 +33,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -55,31 +59,40 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "",
       "history": [
         0,
         0,
         0,
-        0.01
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -128,7 +141,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de la section 'Risks Related to Our Business and Regulatory Matters', avec un langage fort comme 'material adverse effect'. La tendance est stable, mais crucial pour l'activité. La catégorie Technologie est centrale pour la valorisation de l'entreprise.",
       "trend": "stable",
-      "summary": "Can-Fite dépend entièrement de la réussite de ses essais cliniques pour Piclidenoson, Namodenoson et CF602. Tout échec dans ces études pourrait empêcher la commercialisation et menacer la pérennité de l'entreprise."
+      "summary": "Can-Fite dépend entièrement de la réussite de ses essais cliniques pour Piclidenoson, Namodenoson et CF602. Tout échec dans ces études pourrait empêcher la commercialisation et menacer la pérennité de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Obtention d'approbations réglementaires incertaine",
@@ -136,7 +150,8 @@
       "severity": 5,
       "score_rationale": "Mentionné plusieurs fois dans le texte avec des termes comme 'regulatory approvals' et 'material adverse effect'. Position centrale dans les risques métier. Tendance stable, poids élevé dans le secteur biopharma.",
       "trend": "stable",
-      "summary": "L'approbation réglementaire par la FDA ou d'autres autorités est incertaine et essentielle pour commercialiser les candidats-médicaments. Tout retard ou refus d'autorisation compromettrait gravement le modèle économique de Can-Fite."
+      "summary": "L'approbation réglementaire par la FDA ou d'autres autorités est incertaine et essentielle pour commercialiser les candidats-médicaments. Tout retard ou refus d'autorisation compromettrait gravement le modèle économique de Can-Fite.",
+      "score": 5
     },
     {
       "title": "Dépendance à des partenariats stratégiques",
@@ -144,7 +159,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne l'importance des partenariats pour la commercialisation. Langage modéré mais position importante. Tendance stable. Catégorie Concurrence car liée à la capacité de se positionner sur le marché.",
       "trend": "stable",
-      "summary": "Can-Fite n'a pas de capacités internes de vente et marketing. Elle dépend de tiers pour distribuer ses produits, ce qui limite son contrôle sur la pénétration marché et la rentabilité future."
+      "summary": "Can-Fite n'a pas de capacités internes de vente et marketing. Elle dépend de tiers pour distribuer ses produits, ce qui limite son contrôle sur la pénétration marché et la rentabilité future.",
+      "score": 4
     },
     {
       "title": "Risque de non-protection de la propriété intellectuelle",
@@ -152,7 +168,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement mentionné dans une section dédiée ('Risks Related to Our Intellectual Property') avec un langage fort ('impact our ability to compete'). Tendance stable, poids élevé.",
       "trend": "stable",
-      "summary": "La protection des brevets sur les cibles A3AR et les molécules comme Piclidenoson est cruciale. Toute contestation ou échec d'obtention de brevet à l'international affaiblirait durablement la position concurrentielle de l'entreprise."
+      "summary": "La protection des brevets sur les cibles A3AR et les molécules comme Piclidenoson est cruciale. Toute contestation ou échec d'obtention de brevet à l'international affaiblirait durablement la position concurrentielle de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Dépendance aux fournisseurs de synthèse chimique",
@@ -160,7 +177,8 @@
       "severity": 4,
       "score_rationale": "Mentionné spécifiquement dans le texte avec 'if one of our materials suppliers encounters problems'. Langage clair, position moyenne. Tendance stable. Catégorie Industriel car lié à la chaîne de production.",
       "trend": "stable",
-      "summary": "La fabrication des candidats-médicaments repose sur un processus de synthèse chimique externalisé. Un problème chez un fournisseur clé pourrait retarder les essais cliniques et compromettre les délais de développement."
+      "summary": "La fabrication des candidats-médicaments repose sur un processus de synthèse chimique externalisé. Un problème chez un fournisseur clé pourrait retarder les essais cliniques et compromettre les délais de développement.",
+      "score": 4
     },
     {
       "title": "Dépendance aux dirigeants et experts clés",
@@ -168,7 +186,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement la dépendance aux membres clés de la direction. Langage fort ('material adverse effect'). Tendance stable. Catégorie critique pour les biotechs à taille réduite.",
       "trend": "stable",
-      "summary": "La réussite de Can-Fite dépend fortement de quelques dirigeants et consultants experts. La perte de l'un d'eux, sans remplacement adéquat, pourrait nuire à la stratégie de développement et aux relations avec les partenaires."
+      "summary": "La réussite de Can-Fite dépend fortement de quelques dirigeants et consultants experts. La perte de l'un d'eux, sans remplacement adéquat, pourrait nuire à la stratégie de développement et aux relations avec les partenaires.",
+      "score": 4
     },
     {
       "title": "Concurrence intense dans le secteur biopharma",
@@ -176,7 +195,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans 'Risks Related to Our Industry' avec 'competitive companies, technologies and our industry'. Langage modéré mais implicite. Tendance stable. Catégorie centrale pour l'innovation.",
       "trend": "stable",
-      "summary": "Can-Fite opère dans un secteur hautement concurrentiel avec de grands groupes pharmaceutiques et des biotechs innovantes. Sa capacité à se différencier dépend de l'efficacité clinique et de la rapidité de développement de ses candidats."
+      "summary": "Can-Fite opère dans un secteur hautement concurrentiel avec de grands groupes pharmaceutiques et des biotechs innovantes. Sa capacité à se différencier dépend de l'efficacité clinique et de la rapidité de développement de ses candidats.",
+      "score": 4
     },
     {
       "title": "Stabilité politique et opérationnelle en Israël",
@@ -184,7 +204,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné avec un langage fort ('adversely affected by political, economic and military instability'). Position élevée. Tendance potentiellement à la hausse en contexte de tension. Catégorie Géopolitique pertinente.",
       "trend": "up",
-      "summary": "Les activités de R&D de Can-Fite sont basées en Israël. L'instabilité politique ou militaire dans la région pourrait perturber les opérations, affecter les collaborateurs et nuire aux partenariats internationaux."
+      "summary": "Les activités de R&D de Can-Fite sont basées en Israël. L'instabilité politique ou militaire dans la région pourrait perturber les opérations, affecter les collaborateurs et nuire aux partenariats internationaux.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:43:05.729936+00:00",
@@ -418,7 +439,10 @@
             "accession": "0001213900-25-081407",
             "end": "2025-06-30"
           }
-        ]
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -434,9 +458,9 @@
     "country": "Israel",
     "_data_freshness_date": "2026-05-21T02:17:14.235702+00:00",
     "fetched_at": "2026-05-21T02:17:14.235703+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.106Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.535Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/canf.json",
     "enrich_root": "v2-pipeline-enrich/canf.json",

@@ -129,11 +129,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.28 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -152,11 +156,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.86 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -188,7 +196,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "UPBD intègre progressivement l'intelligence artificielle et les technologies associées dans ses opérations. L'acquisition de Brigit en janvier 2025 représente un pivot stratégique vers les technologies de santé financière et d'apprentissage automatique. La société reconnaît les risques liés à l'implémentation de l'IA mais identifie cette technologie comme critique pour son positionnement futur en tant que leader en solutions financières innovantes pour les consommateurs mal desservis.",
     "evidence": [
       "Acquisition de Brigit (janvier 2025), une société de technologie de santé financière utilisant algorithmes de décision et données tierces",
@@ -205,7 +213,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est mentionné en premier dans la section 'Risks Relating to Economic Conditions' avec un langage très intense ('materially and adversely affect', 'significant impact'). Le MD&A confirme que les conditions macroéconomiques volatiles (inflation, taux d'intérêt, comportements de consommation) ont eu des impacts directs mesurables sur les résultats 2025, particulièrement sur le segment Rent-A-Center avec un déclin same-store-sales de 2.2%.",
       "trend": "up",
-      "summary": "La performance de l'entreprise est fortement liée à la santé économique globale (demande consommateurs, emploi, inflation, taux d'intérêt). Les conditions défavorables réduisent directement les revenus et augmentent les pertes sur portefeuille."
+      "summary": "La performance de l'entreprise est fortement liée à la santé économique globale (demande consommateurs, emploi, inflation, taux d'intérêt). Les conditions défavorables réduisent directement les revenus et augmentent les pertes sur portefeuille.",
+      "score": 5
     },
     {
       "title": "Risques liés à la chaîne d'approvisionnement et à la distribution",
@@ -213,7 +222,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est placé en tête de la section 'Risks Relating to Our Vendors, Suppliers, Products and Services' avec un langage fort ('materially and adversely affect'). Les perturbations de chaîne d'approvisionnement et les hausses de coûts des produits sont identifiées comme des facteurs affectant la disponibilité des produits et la rentabilité du modèle de location-accession.",
       "trend": "up",
-      "summary": "Les interruptions dans la chaîne d'approvisionnement des produits de location-accession peuvent nuire à la capacité de l'entreprise à servir les clients, augmenter les coûts d'acquisition de produits et réduire les marges."
+      "summary": "Les interruptions dans la chaîne d'approvisionnement des produits de location-accession peuvent nuire à la capacité de l'entreprise à servir les clients, augmenter les coûts d'acquisition de produits et réduire les marges.",
+      "score": 4
     },
     {
       "title": "Dépendance aux données tierces et aux algorithmes de décision",
@@ -221,7 +231,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est spécifiquement documenté pour l'ensemble de l'entreprise dans 'Risks Relating to Our Vendors, Suppliers, Products and Services' avec un langage fort ('material adverse effect'). L'acquisition de Brigit renforce cette dépendance : l'entreprise repose sur des données externes pour les algorithmes d'approbation et d'octroi d'avances. Des inexactitudes ou interruptions peuvent gravement affecter les taux d'approbation et les pertes sur portefeuille.",
       "trend": "up",
-      "summary": "L'entreprise s'appuie sur des données externes pour ses algorithmes de décision dans tous les segments. Des problèmes de qualité, de délai ou de disponibilité impactent directement l'approbation des clients, les pertes sur prêts et les résultats financiers."
+      "summary": "L'entreprise s'appuie sur des données externes pour ses algorithmes de décision dans tous les segments. Des problèmes de qualité, de délai ou de disponibilité impactent directement l'approbation des clients, les pertes sur prêts et les résultats financiers.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et de conformité accrus",
@@ -229,7 +240,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est placé en tête de la section 'Risks Relating to Legal and Compliance Matters' avec un langage très intense ('significant monetary obligations', 'materially adverse'). Les industries opérées sont fortement réglementées (leasing, fintech, avances sur salaire) avec une surveillance accrue. L'acquisition de Brigit ajoute une exposition aux régulations de services financiers et d'accès aux salaires dans plusieurs juridictions.",
       "trend": "up",
-      "summary": "Les secteurs de location-accession, fintech et avances sur salaire sont soumis à une réglementation stricte et à une surveillance accrue des autorités. Les changements législatifs ou violations de conformité entraînent des coûts importants et des restrictions opérationnelles."
+      "summary": "Les secteurs de location-accession, fintech et avances sur salaire sont soumis à une réglementation stricte et à une surveillance accrue des autorités. Les changements législatifs ou violations de conformité entraînent des coûts importants et des restrictions opérationnelles.",
+      "score": 5
     },
     {
       "title": "Risques liés à la sécurité et à la confidentialité des données",
@@ -237,7 +249,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est mentionné dans 'Risks Relating to Strategy and Operations' et 'Risks Relating to Legal and Compliance Matters' avec un langage fort ('significant liability', 'damage our reputation'). L'acquisition de Brigit augmente sensiblement l'exposition : la plateforme gère des données financières personnelles, des informations salariales et des données d'identité de millions de clients.",
       "trend": "up",
-      "summary": "La protection des données clients (informations financières, salariales, identité) est essentielle. Les violations de sécurité ou de confidentialité entraînent des sanctions financières importantes, des poursuites et nuisent gravement à la réputation."
+      "summary": "La protection des données clients (informations financières, salariales, identité) est essentielle. Les violations de sécurité ou de confidentialité entraînent des sanctions financières importantes, des poursuites et nuisent gravement à la réputation.",
+      "score": 4
     },
     {
       "title": "Risque de crédit et de remboursement des avances (Brigit EWA)",
@@ -245,7 +258,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est spécifiquement détaillé pour le nouveau segment Brigit dans 'Risks Relating to Strategy and Operations' suite à l'acquisition du 31 janvier 2025. Le segment d'accès aux salaires gagnés (EWA - Earned Wage Access) est exposé au risque de non-remboursement si les critères de décision algorithme sont insuffisants ou les données inexactes. La 10-K définit explicitement 'Brigit Net Advance Losses' comme métrique clé.",
       "trend": "new",
-      "summary": "Le nouveau segment Brigit d'avances sur salaire gagnées est exposé au risque de défaut de remboursement des clients. Des mécanismes de contrôle de crédit inadéquats ou une mauvaise qualité de données pourraient affecter négativement la rentabilité du segment."
+      "summary": "Le nouveau segment Brigit d'avances sur salaire gagnées est exposé au risque de défaut de remboursement des clients. Des mécanismes de contrôle de crédit inadéquats ou une mauvaise qualité de données pourraient affecter négativement la rentabilité du segment.",
+      "score": 4
     },
     {
       "title": "Intégration et utilisation de l'IA et technologies similaires",
@@ -253,7 +267,8 @@
       "severity": 3,
       "score_rationale": "Ce risque est mentionné dans 'Risks Relating to Strategy and Operations' avec un langage indiquant un impact potentiel ('adversely affect our business, reputation, and results of operations'). L'acquisition de Brigit renforce cette exposition : l'IA est intégrée dans les algorithmes d'approbation, les modèles de scoring et les recommandations de produits financiers. Le risque reste modéré car présenté comme gérable via une implémentation soigneuse.",
       "trend": "new",
-      "summary": "L'intégration de l'intelligence artificielle dans les décisions d'approbation, les modèles de scoring de crédit et les recommandations financières présente des défis en termes de biais algorithmique, transparence réglementaire et risques réputationnels potentiels."
+      "summary": "L'intégration de l'intelligence artificielle dans les décisions d'approbation, les modèles de scoring de crédit et les recommandations financières présente des défis en termes de biais algorithmique, transparence réglementaire et risques réputationnels potentiels.",
+      "score": 3
     }
   ],
   "governance": {
@@ -300,7 +315,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -320,7 +335,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.980Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.956Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/upbd.json",
     "enrich_root": null,

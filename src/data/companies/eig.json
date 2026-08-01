@@ -40,9 +40,12 @@
       "is_short_history": false,
       "ttm": 48.15,
       "_validation": "Corrigé unit de 'Mds $' à 'M $' (valeur -83.2M confirmée dans source); YoY corrigé de -367.5% à -633.3% ((−83.2−15.6)/15.6 = -633.3%)",
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Underwriting income generated over the period.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Gross Premiums Written",
@@ -173,7 +176,7 @@
       "is_short_history": false,
       "ttm": 117.98,
       "_validation": "Corrigé unit de 'Mds $' à 'M $'; valeur et YoY confirmés dans source",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Significant revenue decline, warning signal"
     },
     {
@@ -197,26 +200,24 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Valeur confirmée dans source (623 full-time employees at December 31, 2025)",
-      "explanation_en": "Total Employees — total number of employees at period end.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Total Employees, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.859,
-      "unit": "Mds $",
+      "value": 859,
+      "unit": "M $",
       "yoy": "-2.5%",
       "history": [
-        0.8,
-        0.836,
-        0.711,
-        0.703,
-        0.714,
-        0.851,
-        0.881,
-        0.859
+        800,
+        836,
+        711,
+        703,
+        714,
+        851,
+        881,
+        859
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -226,7 +227,12 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,13 +255,11 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Valeur confirmée dans source (In February 2026, we launched a new excess workers' compensation product); amélioration tagline_fr pour clarifier le contexte",
-      "_source_month": "février 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur confirmée dans source (In February 2026, we launched a new excess workers' compensation product); amélioration tagline_fr pour clarifier le contexte"
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "La société EIG mentionne l'utilisation de modèles statistiques et de l'IA dans ses risques, indiquant une dépendance croissante à ces technologies pour la tarification et l'underwriting, mais sans détails opérationnels significatifs sur le déploiement de solutions IA avancées.",
     "evidence": [
       "Risque lié aux modèles statistiques et à l'IA identifié dans les facteurs de risque, mentionnant une dépendance croissante ('increasingly reliant') et potentiel de désavantage concurrentiel"
@@ -269,7 +273,8 @@
       "severity": 4,
       "score_rationale": "Mentionné en premier dans les risques opérationnels avec langage fort ('materially adversely affected'). La précision des estimations de pertes est critique. Pondération élevée car elle affecte directement la rentabilité.",
       "trend": "stable",
-      "summary": "L'entreprise risque de mal fixer ses tarifs d'assurance, ce qui pourrait nuire à sa compétitivité et à ses résultats financiers, en raison d'informations inexactes sur les sinistres passés ou d'estimations de pertes futures erronées."
+      "summary": "L'entreprise risque de mal fixer ses tarifs d'assurance, ce qui pourrait nuire à sa compétitivité et à ses résultats financiers, en raison d'informations inexactes sur les sinistres passés ou d'estimations de pertes futures erronées.",
+      "score": 4
     },
     {
       "title": "Intense concurrence sur le marché de l'assurance",
@@ -277,7 +282,8 @@
       "severity": 4,
       "score_rationale": "Décrit en détail après le risque de tarification, avec langage fort ('materially adversely affected', 'lose market share'). La concurrence est structurelle dans l'assurance. La taille des concurrents est un désavantage notable.",
       "trend": "stable",
-      "summary": "La forte concurrence, notamment de la part d'acteurs plus grands et diversifiés, peut entraîner une perte de parts de marché et une pression sur les tarifs, affectant la rentabilité de l'entreprise."
+      "summary": "La forte concurrence, notamment de la part d'acteurs plus grands et diversifiés, peut entraîner une perte de parts de marché et une pression sur les tarifs, affectant la rentabilité de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Concentration géographique en Californie",
@@ -285,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Risque détaillé et mis en avant par sa position dans le texte. Langage fort ('significant adverse impact', 'material adverse effect'). La concentration sur un seul État (46% des primes brutes émises) est un risque structurel majeur.",
       "trend": "stable",
-      "summary": "La forte dépendance de l'entreprise vis-à-vis du marché californien (46% des primes brutes émises) expose ses résultats aux conditions économiques, réglementaires et aux catastrophes naturelles spécifiques à cet État."
+      "summary": "La forte dépendance de l'entreprise vis-à-vis du marché californien (46% des primes brutes émises) expose ses résultats aux conditions économiques, réglementaires et aux catastrophes naturelles spécifiques à cet État.",
+      "score": 4
     },
     {
       "title": "Dépendance vis-à-vis des partenaires de distribution",
@@ -293,7 +300,8 @@
       "severity": 3,
       "score_rationale": "Risque bien développé avec exemples concrets (ADP). Langage fort ('materially reduce our revenues', 'material adverse effect'). La dépendance envers un agent majeur (ADP) représente un risque significatif.",
       "trend": "stable",
-      "summary": "La perte ou la perturbation des relations avec les partenaires de distribution, en particulier avec le principal agent ADP, pourrait réduire significativement les revenus et affecter les résultats."
+      "summary": "La perte ou la perturbation des relations avec les partenaires de distribution, en particulier avec le principal agent ADP, pourrait réduire significativement les revenus et affecter les résultats.",
+      "score": 3
     },
     {
       "title": "Risque lié aux modèles statistiques et à l'IA",
@@ -301,7 +309,8 @@
       "severity": 3,
       "score_rationale": "Présenté comme une dépendance croissante aux modèles de données et d'IA. Langage modéré soulignant potentiel de désavantage concurrentiel. L'importance croissante de l'IA justifie une sévérité moyenne.",
       "trend": "up",
-      "summary": "L'entreprise s'appuie sur des modèles de données et d'IA dont les hypothèses peuvent ne pas refléter l'avenir, et ses concurrents pourraient être plus efficaces dans leur utilisation."
+      "summary": "L'entreprise s'appuie sur des modèles de données et d'IA dont les hypothèses peuvent ne pas refléter l'avenir, et ses concurrents pourraient être plus efficaces dans leur utilisation.",
+      "score": 3
     },
     {
       "title": "Risque de non-recouvrement des réassurances",
@@ -309,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Risque longuement détaillé concernant l'accord LPT. Langage fort ('materially adversely affected', 'could be responsible'). Le risque de défaut des réassureurs est critique pour la solvabilité.",
       "trend": "stable",
-      "summary": "L'entreprise pourrait ne pas pouvoir recouvrer les sommes dues par ses réassureurs, notamment dans le cadre de l'accord LPT, ce qui augmenterait sa responsabilité financière."
+      "summary": "L'entreprise pourrait ne pas pouvoir recouvrer les sommes dues par ses réassureurs, notamment dans le cadre de l'accord LPT, ce qui augmenterait sa responsabilité financière.",
+      "score": 4
     },
     {
       "title": "Risque de dégradation de la notation financière",
@@ -317,7 +327,8 @@
       "severity": 3,
       "score_rationale": "Risque clairement énoncé avec conséquences directes ('reduce the amount of business', 'termination of agreements'). La notation est cruciale pour les assureurs. Sévérité modérée car non existentielle.",
       "trend": "stable",
-      "summary": "Une dégradation de la notation financière de l'entreprise pourrait limiter sa capacité à souscrire de nouvelles polices et entraîner la résiliation d'accords stratégiques."
+      "summary": "Une dégradation de la notation financière de l'entreprise pourrait limiter sa capacité à souscrire de nouvelles polices et entraîner la résiliation d'accords stratégiques.",
+      "score": 3
     }
   ],
   "governance": {
@@ -340,7 +351,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -560,6 +571,232 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "EIG",
+    "extracted_at": "2026-06-01T03:13:17Z",
+    "n_kpis": 6,
+    "kpis": [
+      {
+        "short": "Underwriting Income",
+        "period_type": "quarter",
+        "history": [
+          0,
+          12.5,
+          3.2,
+          2.1,
+          22.4,
+          4.1,
+          -2.9,
+          10.8,
+          -0.7,
+          -3.6,
+          -11,
+          -57.1
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:13:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Gross Premiums Written",
+        "period_type": "quarter",
+        "history": [
+          171.2,
+          179.4,
+          187.1,
+          194.2,
+          198.4,
+          196.2,
+          210.9,
+          207.9,
+          181.2,
+          212.1,
+          203.3,
+          183.9
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:13:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net Premiums Earned",
+        "period_type": "quarter",
+        "history": [
+          149.6,
+          164.6,
+          177.9,
+          171.3,
+          175.5,
+          182.7,
+          184.9,
+          187.8,
+          186.6,
+          183,
+          198.3,
+          192.1
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:13:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Losses and LAE",
+        "period_type": "quarter",
+        "history": [
+          95.9,
+          95.1,
+          113.8,
+          108.5,
+          91.5,
+          115.5,
+          116.5,
+          108.8,
+          117.7,
+          120.7,
+          140.1,
+          186.6
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:13:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net Investment Income",
+        "period_type": "quarter",
+        "history": [
+          17.6,
+          18.7,
+          21.4,
+          24.8,
+          26.8,
+          23.4,
+          26.8,
+          26.9,
+          26.6,
+          32.1,
+          27.1,
+          26.1
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:13:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          2,
+          -11.6,
+          26.1,
+          30.1,
+          46.6,
+          20.8,
+          35.3,
+          40,
+          36.7,
+          15.9,
+          37,
+          -11.2
+        ],
+        "history_periods": [
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:13:17Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "EIG",
     "ranks": {
@@ -572,15 +809,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.254549+00:00",
     "fetched_at": "2026-05-21T02:17:14.254550+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.641Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.216Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/eig.json",
     "enrich_root": "v2-pipeline-enrich/eig.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

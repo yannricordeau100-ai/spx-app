@@ -1,6 +1,6 @@
 {
   "ticker": "RAL",
-  "name": "Ralliant Corporation",
+  "name": "Ralliant",
   "sector": "Technologie",
   "subsector": "Semiconductors and Equipment",
   "tagline": "Empowering engineers with precision technologies for breakthrough innovation",
@@ -41,7 +41,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -67,7 +67,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Profit margin on Op."
+      "explanation_en": "Profit margin on Op.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -93,7 +97,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Research & Development expenses."
+      "explanation_en": "Research & Development expenses.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -119,7 +127,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -145,53 +157,67 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Cash Flow",
       "name_fr": "Cash flow opérationnel",
       "name_en": "Operating Cash Flow",
-      "value": 0.4,
-      "unit": "Mds €",
+      "value": 400,
+      "unit": "M €",
       "yoy": "-11.1%",
       "history": [
-        0.39,
-        0.46,
-        0.45,
-        0.4
+        390,
+        460,
+        450,
+        400
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Cash flow opérationnel de 0.4 Mds € dernière année",
-      "description": "Cash flow opérationnel extrait yfinance sur les 4 dernières années.",
+      "description": "Cash flow opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
       "name_fr": "Free Cash Flow",
       "name_en": "Free Cash Flow",
-      "value": 0.36,
-      "unit": "Mds €",
+      "value": 360,
+      "unit": "M €",
       "yoy": "-14.3%",
       "history": [
-        0.36,
-        0.43,
-        0.42,
-        0.36
+        360,
+        430,
+        420,
+        360
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 0.36 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -205,7 +231,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -218,7 +244,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding."
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding."
     },
     {
       "short": "Cap Return",
@@ -232,7 +258,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         null,
@@ -245,7 +271,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks)."
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks)."
     },
     {
       "short": "Payout Ratio",
@@ -259,7 +285,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -272,7 +298,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -287,7 +313,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.280813,
@@ -300,7 +326,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -360,7 +386,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -376,7 +402,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, avec un prêt à 18 mois de 530,8 M$ dû en décembre 2026. Le langage insiste sur la nécessité de refinancer avant l'échéance. La catégorie Capital est hautement pondérée. Le risque est stable par rapport à N-1.",
       "trend": "stable",
-      "summary": "La société doit refinancer 530,8 millions de dollars avant décembre 2026, ce qui expose sa stabilité financière à des conditions de marché incertaines."
+      "summary": "La société doit refinancer 530,8 millions de dollars avant décembre 2026, ce qui expose sa stabilité financière à des conditions de marché incertaines.",
+      "score": 5
     },
     {
       "title": "Capacité à générer des flux opérationnels",
@@ -384,7 +411,8 @@
       "severity": 4,
       "score_rationale": "Le 10-K mentionne explicitement que les flux opérationnels pourraient ne pas suffire. Le ton est prudent (\"cannot assure\"). Le risque est répété plusieurs fois, indiquant une préoccupation récurrente. Catégorie Capital fortement impactée.",
       "trend": "stable",
-      "summary": "La société ne peut garantir que ses flux de trésorerie opérationnels suffiront à couvrir ses besoins futurs, ce qui pourrait nécessiter un financement supplémentaire."
+      "summary": "La société ne peut garantir que ses flux de trésorerie opérationnels suffiront à couvrir ses besoins futurs, ce qui pourrait nécessiter un financement supplémentaire.",
+      "score": 4
     },
     {
       "title": "Dilution actionnariale potentielle",
@@ -392,7 +420,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné comme conséquence d'un besoin de financement externe. Le langage est conditionnel (\"if\"). Moins central que les autres risques de trésorerie, mais lié à la stratégie de capitalisation.",
       "trend": "stable",
-      "summary": "Tout nouveau financement par émission d'actions pourrait diluer les actionnaires existants, affectant leur participation dans la société."
+      "summary": "Tout nouveau financement par émission d'actions pourrait diluer les actionnaires existants, affectant leur participation dans la société.",
+      "score": 3
     },
     {
       "title": "Restrictions liées à l'endettement",
@@ -400,7 +429,8 @@
       "severity": 4,
       "score_rationale": "Le ratio d'endettement est encadré (3,5x, jusqu'à 4,0x pour acquisitions). Le respect est confirmé, mais les conséquences d'un dépassement seraient sévères. Langage précis et technique, indiquant un risque surveillé.",
       "trend": "stable",
-      "summary": "La société doit respecter un ratio d'endettement strict ; tout dépassement pourrait limiter sa capacité à réaliser des acquisitions ou à s'endetter davantage."
+      "summary": "La société doit respecter un ratio d'endettement strict ; tout dépassement pourrait limiter sa capacité à réaliser des acquisitions ou à s'endetter davantage.",
+      "score": 4
     },
     {
       "title": "Reprise d'acquisitions coûteuses",
@@ -408,7 +438,8 @@
       "severity": 4,
       "score_rationale": "1,7 milliard de dollars dépensés en 2024 pour des acquisitions. Le risque est lié à la capacité future à intégrer et financer de telles opérations. Mention répétée dans les flux et obligations.",
       "trend": "stable",
-      "summary": "La stratégie de croissance par acquisitions exige des liquidités importantes, ce qui augmente la pression sur la trésorerie et l'endettement."
+      "summary": "La stratégie de croissance par acquisitions exige des liquidités importantes, ce qui augmente la pression sur la trésorerie et l'endettement.",
+      "score": 4
     },
     {
       "title": "Coûts de rapatriement d'actifs étrangers",
@@ -416,7 +447,8 @@
       "severity": 3,
       "score_rationale": "Le risque fiscal sur les bénéfices non répatriés est mentionné, avec un montant \"non facilement déterminable\". Moins urgent, mais potentiellement coûteux. Catégorie Fiscal, pondérée moyennement.",
       "trend": "stable",
-      "summary": "Le rapatriement de bénéfices à l'étranger pourrait entraîner des frais fiscaux élevés, difficiles à anticiper en raison des variations légales et fiscales."
+      "summary": "Le rapatriement de bénéfices à l'étranger pourrait entraîner des frais fiscaux élevés, difficiles à anticiper en raison des variations légales et fiscales.",
+      "score": 3
     },
     {
       "title": "Obligations fiscales envers l'ancien groupe",
@@ -424,7 +456,8 @@
       "severity": 3,
       "score_rationale": "51 M$ de coûts fiscaux liés à la séparation, dont 1,1 M$ toujours dus. Risque ponctuel mais contractuel. Mention dans les engagements à court terme.",
       "trend": "stable",
-      "summary": "La société doit encore régler 1,1 million de dollars liés aux coûts fiscaux de sa séparation d'avec Fortive, conformément à un accord contraignant."
+      "summary": "La société doit encore régler 1,1 million de dollars liés aux coûts fiscaux de sa séparation d'avec Fortive, conformément à un accord contraignant.",
+      "score": 3
     }
   ],
   "governance": {
@@ -494,7 +527,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:21:36Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2025,
@@ -506,7 +539,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:46Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:01Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "RAL",
     "fetched_at": "2026-05-14T18:26:31.858852+00:00",
@@ -524,7 +557,7 @@
         "year": 2026,
         "month": 5,
         "title": "Ralliant Analysts Raise Their Forecasts After Better-Than-Expected Q1 Earnings",
-        "body": "Ralliant Corp (NYSE:RAL) on Tuesday reported better-than-expected first-quarter financial results and raised its FY2026 guidance above estimates. Ralliant reported quarterly earnings of 57 cents per share which beat the analyst consensus es",
+        "body": "Ralliant Corp (NYSE:RAL) on Tuesday reported better-than-expected first-quarter financial results and raised its exercice 2026 guidance above estimates. Ralliant reported quarterly earnings of 57 cents per share which beat the analyst consensus es",
         "source": "Benzinga",
         "url": "https://finance.yahoo.com/news/ralliant-analysts-raise-forecasts-better-180048718.html",
         "date": "2026-05-13"
@@ -561,9 +594,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.301482+00:00",
     "fetched_at": "2026-05-21T02:17:14.301482+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.045Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.057Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ral.json",
     "enrich_root": "v2-pipeline-enrich/ral.json",

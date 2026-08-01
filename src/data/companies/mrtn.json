@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires opérationnel",
       "name_en": "Operating Revenue",
       "explanation": "Revenu généré par les activités opérationnelles de l'entreprise",
-      "value": 1131.455,
-      "unit": "M $",
+      "value": 1.131,
+      "unit": "Mds $",
       "yoy": "-10.5%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,16 @@
       "signal": "Baisse du chiffre d'affaires opérationnel",
       "description": "Revenu généré par les activités de transport de marchandises température-contrôlée et sèche",
       "history": [
-        672.929,
-        664.994,
-        671.144,
-        698.12,
-        787.594,
-        843.271,
-        874.374,
-        973.644,
-        1263.878,
-        1131.455
+        0.673,
+        0.665,
+        0.671,
+        0.698,
+        0.788,
+        0.843,
+        0.874,
+        0.974,
+        1.264,
+        1.131
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -51,7 +51,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:37.121922+00:00",
       "explanation_en": "Revenue from the Operating segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Income",
@@ -79,8 +80,12 @@
       "is_short_history": false,
       "ttm": 69.87,
       "_validation": "Unité corrigée: Mds $ vers M $ (valeur 22.9 M USD confirmée dans MD&A)",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -108,31 +113,40 @@
       "is_short_history": false,
       "ttm": 59.11,
       "_validation": "Unité corrigée: Mds $ vers M $ (valeur 17.4 M USD confirmée dans MD&A)",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.88,
-      "unit": "Mds €",
+      "value": 880,
+      "unit": "M €",
       "yoy": "-8.3%",
       "history": [
-        1.26,
-        1.13,
-        0.96,
-        0.88
+        1260,
+        1130,
+        960,
+        880
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.88 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -151,34 +165,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.21 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.95,
-      "unit": "Mds €",
+      "value": 950,
+      "unit": "M €",
       "yoy": "-2.1%",
       "history": [
-        0.97,
-        0.99,
-        0.97,
-        0.95
+        970,
+        990,
+        970,
+        950
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.95 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -197,32 +220,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.08,
-        0.05,
-        0.02,
-        0.04
+        80,
+        50,
+        20,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,9 +281,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 985.64,
-      "_validation": "Unité corrigée: Mds $ vers M $ (histoire courte de 2 années confirme la tendance baissière)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée: Mds $ vers M $ (histoire courte de 2 années confirme la tendance baissière)"
     }
   ],
   "ai_positioning": {
@@ -265,34 +295,34 @@
       "title": "Dépendance clients majeurs",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Mentionné page 6, 71% des revenus proviennent des 30 plus gros clients. Le langage est fort (materially adverse effect). La concentration client est une préoccupation structurelle pour l'industrie. Pondération élevée pour la concentration client. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné page 6, 71% des revenus proviennent des 30 plus gros clients. Le langage est fort (materially adverse effect). La concentration client est une préoccupation structurelle pour l'industrie. Pondération élevée pour la concentration client.",
       "trend": "stable",
       "summary": "Une part significative des revenus provient d'un petit nombre de clients majeurs. La perte d'un ou plusieurs de ces clients pourrait avoir un impact négatif important sur l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité des prix du carburant",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Page 8, le carburant est une des plus grandes dépenses opérationnelles. Le texte souligne les fluctuations et l'incertitude quant à la capacité de répercuter les coûts. La volatilité des prix des matières premières est un risque industriel majeur. (score par défaut, à affiner)",
+      "score_rationale": "Page 8, le carburant est une des plus grandes dépenses opérationnelles. Le texte souligne les fluctuations et l'incertitude quant à la capacité de répercuter les coûts. La volatilité des prix des matières premières est un risque industriel majeur.",
       "trend": "up",
       "summary": "Les prix du diesel, une dépense majeure, sont volatils et influencés par des facteurs externes. L'entreprise pourrait ne pas être en mesure de répercuter entièrement ces coûts, affectant sa rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence intense et fragmentation du marché",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Page 6, décrit l'industrie comme hautement compétitive et fragmentée avec de nombreux acteurs. Le langage (impair our ability to maintain current profitability) est fort. La concurrence est un facteur clé dans ce secteur. (score par défaut, à affiner)",
+      "score_rationale": "Page 6, décrit l'industrie comme hautement compétitive et fragmentée avec de nombreux acteurs. Le langage (impair our ability to maintain current profitability) est fort. La concurrence est un facteur clé dans ce secteur.",
       "trend": "stable",
       "summary": "Le secteur du transport routier est très concurrentiel avec de nombreux acteurs. La pression sur les prix et la consolidation du marché peuvent limiter la capacité de l'entreprise à maintenir sa rentabilité et sa croissance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux cyberattaques et à la sécurité des données",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "Page 7, mentionne une vulnérabilité accrue des systèmes IT et des cyberattaques passées. Le langage (materially and adversely affected) est fort. La cybersécurité est un risque croissant pour toutes les entreprises technologiques. (score par défaut, à affiner)",
+      "score_rationale": "Page 7, mentionne une vulnérabilité accrue des systèmes IT et des cyberattaques passées. Le langage (materially and adversely affected) est fort. La cybersécurité est un risque croissant pour toutes les entreprises technologiques.",
       "trend": "up",
       "summary": "Les systèmes d'information sont essentiels au bon fonctionnement de l'entreprise et sont vulnérables aux cyberattaques. Une violation de données ou une interruption de service pourrait avoir des conséquences négatives importantes.",
       "score": 3
@@ -301,7 +331,7 @@
       "title": "Augmentation des coûts d'assurance et des sinistres",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Page 7, mentionne l'auto-assurance pour une partie des sinistres et l'augmentation des primes d'assurance. Le langage (significantly affect our earnings) est fort. Les coûts d'assurance sont un poste de dépense important et croissant. (score par défaut, à affiner)",
+      "score_rationale": "Page 7, mentionne l'auto-assurance pour une partie des sinistres et l'augmentation des primes d'assurance. Le langage (significantly affect our earnings) est fort. Les coûts d'assurance sont un poste de dépense important et croissant.",
       "trend": "up",
       "summary": "Les coûts d'assurance et de gestion des sinistres (accidents, dommages) ont augmenté et pourraient continuer à le faire, impactant négativement les bénéfices de l'entreprise.",
       "score": 3
@@ -310,7 +340,7 @@
       "title": "Impact des tarifs douaniers et des politiques commerciales",
       "category": "Géopolitique",
       "severity": 3,
-      "score_rationale": "Page 5, décrit l'impact potentiel des tarifs douaniers sur les volumes de transport et les coûts des équipements. Le langage (adverse impact on our revenue and results of operations) est fort. Les politiques commerciales sont un facteur externe imprévisible. (score par défaut, à affiner)",
+      "score_rationale": "Page 5, décrit l'impact potentiel des tarifs douaniers sur les volumes de transport et les coûts des équipements. Le langage (adverse impact on our revenue and results of operations) est fort. Les politiques commerciales sont un facteur externe imprévisible.",
       "trend": "stable",
       "summary": "Les nouvelles politiques commerciales et les tarifs douaniers peuvent réduire les volumes de transport, augmenter les coûts des équipements et affecter négativement les revenus et les résultats de l'entreprise.",
       "score": 3
@@ -319,7 +349,7 @@
       "title": "Coût et disponibilité des nouveaux équipements",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Page 6, mentionne l'augmentation des prix des tracteurs et remorques due aux coûts des matières premières et aux réglementations. Le langage (financial condition, results of operations and cash flows to suffer) est fort. L'acquisition d'équipement est un CAPEX majeur. (score par défaut, à affiner)",
+      "score_rationale": "Page 6, mentionne l'augmentation des prix des tracteurs et remorques due aux coûts des matières premières et aux réglementations. Le langage (financial condition, results of operations and cash flows to suffer) est fort. L'acquisition d'équipement est un CAPEX majeur.",
       "trend": "stable",
       "summary": "L'augmentation des prix et la disponibilité potentiellement restreinte des nouveaux tracteurs et remorques pourraient nuire à la situation financière, aux résultats d'exploitation et aux flux de trésorerie de l'entreprise.",
       "score": 3
@@ -372,7 +402,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -537,19 +567,15 @@
           218.646,
           431.03,
           647.041,
-          -422.343,
           223.046,
           455.488,
           706.768,
-          -411.658,
           287.281,
           616.846,
           941.294,
-          -581.543,
           298.023,
           583.695,
           863.233,
-          -613.496,
           249.672,
           495.91,
           733.276,
@@ -606,6 +632,12 @@
             "accession": "0001437749-25-015634",
             "end": "2025-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (MRTN)"
         ]
       }
     ]
@@ -622,9 +654,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.284828+00:00",
     "fetched_at": "2026-05-21T02:17:14.284829+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.628Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.515Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mrtn.json",
     "enrich_root": "v2-pipeline-enrich/mrtn.json",

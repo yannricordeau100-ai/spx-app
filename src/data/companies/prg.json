@@ -21,8 +21,8 @@
       "name_fr": "Revenu consolidé",
       "name_en": "Consolidated Revenue",
       "explanation": "Total revenue from continuing operations",
-      "value": "2400.0",
-      "unit": "M $",
+      "value": 2.4,
+      "unit": "Mds $",
       "yoy": "+0.4%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,18 +30,23 @@
       "signal": "Modest revenue growth driven by Four segment expansion offset by Progressive Leasing decline",
       "description": "Consolidated revenue increased 0.4% to $2.4 billion in 2025 compared to 2024, driven by significant growth in Four segment offset by Progressive Leasing decline due to Big Lots bankruptcy and tightened decisioning",
       "history": [
-        2400,
-        2390,
-        2100,
-        1900,
-        1700
+        2.4,
+        2.39,
+        2.1,
+        1.9,
+        1.7
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Revenue from the Consolidated segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Four GMV",
@@ -94,7 +99,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -113,34 +122,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.41 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "-25.0%",
       "history": [
-        0.1,
-        0.14,
-        0.2,
-        0.15
+        100,
+        140,
+        200,
+        150
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.15 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,56 +177,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.61 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.6,
-      "unit": "Mds €",
+      "value": 600,
+      "unit": "M €",
       "yoy": "-7.7%",
       "history": [
-        0.61,
-        0.61,
-        0.65,
-        0.6
+        610,
+        610,
+        650,
+        600
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.6 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.31,
-      "unit": "Mds €",
+      "value": 310,
+      "unit": "M €",
       "yoy": "+244.4%",
       "history": [
-        0.13,
-        0.16,
-        0.09,
-        0.31
+        130,
+        160,
+        90,
+        310
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.31 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -222,7 +254,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -235,7 +267,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -250,7 +282,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2239,
@@ -263,7 +295,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -278,7 +310,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         0,
@@ -291,7 +323,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -307,7 +339,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.9,
@@ -320,7 +352,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -345,9 +377,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -381,7 +411,8 @@
       "severity": 5,
       "score_rationale": "Le risque est placé en haut du document et décrit comme ayant un impact significatif sur le GMV, les revenus et la performance des paiements. Le langage est répété et renforcé tout au long de la section, avec mention d'un impact persistant en 2026. La catégorie Macro est hautement pondérée ici.",
       "trend": "stable",
-      "summary": "L'inflation et le coût élevé de la vie réduisent le pouvoir d'achat de la clientèle, ce qui diminue la demande pour les produits en location et affecte négativement les performances financières."
+      "summary": "L'inflation et le coût élevé de la vie réduisent le pouvoir d'achat de la clientèle, ce qui diminue la demande pour les produits en location et affecte négativement les performances financières.",
+      "score": 5
     },
     {
       "title": "Dépendance à des partenaires clés en difficulté",
@@ -389,7 +420,8 @@
       "severity": 4,
       "score_rationale": "La faillite de Big Lots et d'American Signature est citée comme cause majeure de baisse du GMV et des revenus. Le texte insiste sur l'impact défavorable de ces fermetures, ce qui montre une forte dépendance opérationnelle. Risque récurrent, non atténué.",
       "trend": "stable",
-      "summary": "La fermeture de grands détaillants partenaires comme Big Lots et American Signature réduit l'accès aux clients et pèse sur les volumes de location et les revenus."
+      "summary": "La fermeture de grands détaillants partenaires comme Big Lots et American Signature réduit l'accès aux clients et pèse sur les volumes de location et les revenus.",
+      "score": 4
     },
     {
       "title": "Cyberattaque avec fuite de données",
@@ -397,7 +429,8 @@
       "severity": 5,
       "score_rationale": "L'incident de 2023 a impliqué des données sensibles (numéros de sécurité sociale) et a conduit à un recours collectif. Bien que couvert par l'assurance, le risque est existentiel en termes de réputation et de conformité. Mention détaillée avec conséquences juridiques concrètes.",
       "trend": "down",
-      "summary": "Une cyberattaque a exposé des données personnelles sensibles, entraînant des poursuites judiciaires et un risque réputationnel important, même si le coût direct est couvert par l'assurance."
+      "summary": "Une cyberattaque a exposé des données personnelles sensibles, entraînant des poursuites judiciaires et un risque réputationnel important, même si le coût direct est couvert par l'assurance.",
+      "score": 5
     },
     {
       "title": "Restriction des critères d'octroi",
@@ -405,7 +438,8 @@
       "severity": 4,
       "score_rationale": "Le resserrement des décisions de crédit en 2025 est présenté comme une mesure proactive, mais ayant un impact négatif direct sur le GMV et les revenus. Le langage indique un dilemme stratégique entre risque de crédit et croissance.",
       "trend": "stable",
-      "summary": "Pour protéger la qualité du portefeuille, l'entreprise a durci ses critères d'octroi, ce qui réduit les nouvelles locations et freine la croissance à court terme."
+      "summary": "Pour protéger la qualité du portefeuille, l'entreprise a durci ses critères d'octroi, ce qui réduit les nouvelles locations et freine la croissance à court terme.",
+      "score": 4
     },
     {
       "title": "Concentration du revenu sur un seul segment",
@@ -413,7 +447,8 @@
       "severity": 4,
       "score_rationale": "Le segment Progressive Leasing représente 96 % des revenus. Cette forte concentration est explicitement mentionnée comme un point de vulnérabilité face aux perturbations macroéconomiques ou opérationnelles. Pondération élevée pour le risque de concentration.",
       "trend": "stable",
-      "summary": "L'entreprise dépend à plus de 90 % de son segment de location, ce qui la rend vulnérable à toute perturbation dans ce modèle d'affaires."
+      "summary": "L'entreprise dépend à plus de 90 % de son segment de location, ce qui la rend vulnérable à toute perturbation dans ce modèle d'affaires.",
+      "score": 4
     },
     {
       "title": "Intégration de l'acquisition Purchasing Power",
@@ -421,7 +456,8 @@
       "severity": 4,
       "score_rationale": "L'acquisition de 420 millions de dollars est récente et non reflétée dans les résultats actuels. Le document mentionne des frais professionnels accrus liés à l'amélioration technologique, suggérant des défis d'intégration à venir.",
       "trend": "new",
-      "summary": "L'acquisition récente de Purchasing Power représente une opportunité stratégique mais comporte des risques d'intégration opérationnelle et technologique non encore mesurés."
+      "summary": "L'acquisition récente de Purchasing Power représente une opportunité stratégique mais comporte des risques d'intégration opérationnelle et technologique non encore mesurés.",
+      "score": 4
     },
     {
       "title": "Croissance du segment Four non encore rentable",
@@ -429,7 +465,8 @@
       "severity": 3,
       "score_rationale": "Le segment Four connaît une croissance rapide (144 % de GMV), mais avec des frais de traitement croissants et des résultats non significatifs. Le risque est modéré mais surveillé, car il pèse sur les coûts sans contribution majeure aux profits.",
       "trend": "up",
-      "summary": "La forte croissance du BNPL augmente les volumes, mais les frais associés et la faible contribution aux bénéfices posent un défi de rentabilité à ce stade."
+      "summary": "La forte croissance du BNPL augmente les volumes, mais les frais associés et la faible contribution aux bénéfices posent un défi de rentabilité à ce stade.",
+      "score": 3
     }
   ],
   "governance": {
@@ -451,7 +488,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -506,7 +543,7 @@
   "_segments_fetched_at": "2026-05-06T19:40:24.213487+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:11:55.932895+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:49Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2020,
@@ -521,7 +558,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:12Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:54Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "PRG",
     "simple": {
@@ -629,9 +666,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.298715+00:00",
     "fetched_at": "2026-05-21T02:17:14.298716+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.790Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.798Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/prg.json",
     "enrich_root": "v2-pipeline-enrich/prg.json",

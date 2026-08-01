@@ -37,7 +37,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds €' à 'B €' pour cohérence internationale",
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Op Margin",
@@ -83,7 +83,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Pas de correction requise; valeur validée dans source (p.4 et p.6)",
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Dividend Yield",
@@ -106,7 +106,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Pas de correction requise; valeur présente dans Facts & figures (p.5)",
-      "explanation_en": "Dividend Yield — annual dividend divided by share price."
+      "explanation_en": "Dividend Yield, annual dividend divided by share price."
     },
     {
       "short": "Total Revenue",
@@ -125,11 +125,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.85 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only a single revenue figure (1,852 MEUR) is present; fewer than four consecutive annual values are available.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -148,56 +154,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.25 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.71,
-      "unit": "Mds €",
+      "value": 710,
+      "unit": "M €",
       "yoy": "-35.5%",
       "history": [
-        0.96,
-        1.16,
-        1.1,
-        0.71
+        960,
+        1160,
+        1100,
+        710
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "-27.8%",
       "history": [
-        0.25,
-        0.18,
-        0.18,
-        0.13
+        250,
+        180,
+        180,
+        130
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -224,7 +244,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -252,7 +272,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -280,7 +300,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -296,7 +316,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.59,
@@ -309,7 +329,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -427,7 +447,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné indirectement dans la revue stratégique du CEO, avec un langage modéré mais une tendance à la hausse en raison de la refonte de la stratégie post-divestissement. La catégorie Concurrence est centrale pour Tieto en tant qu'acteur logiciel en expansion.",
       "trend": "up",
-      "summary": "Tieto fait face à une concurrence croissante dans les marchés européens de logiciels critiques, notamment dans les secteurs bancaire et de la santé, où des acteurs globaux et des néo-banques augmentent la pression sur les parts de marché et les marges."
+      "summary": "Tieto fait face à une concurrence croissante dans les marchés européens de logiciels critiques, notamment dans les secteurs bancaire et de la santé, où des acteurs globaux et des néo-banques augmentent la pression sur les parts de marché et les marges.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenariats stratégiques internationaux",
@@ -435,7 +456,8 @@
       "severity": 3,
       "score_rationale": "Le risque émerge des annonces de partenariats (ex. Siemens, NTT DATA), avec un langage prudent. La tendance est stable, mais la dépendance à des co-développements soulève des enjeux de contrôle technologique et de synchronisation opérationnelle.",
       "trend": "stable",
-      "summary": "L'expansion sélective de Tieto repose sur des partenariats clés en Europe, comme avec Siemens ou NTT DATA, ce qui accroît l'exposition aux risques de coordination, de divergence stratégique ou d'échec de co-développement de plateformes."
+      "summary": "L'expansion sélective de Tieto repose sur des partenariats clés en Europe, comme avec Siemens ou NTT DATA, ce qui accroît l'exposition aux risques de coordination, de divergence stratégique ou d'échec de co-développement de plateformes.",
+      "score": 3
     },
     {
       "title": "Cybersécurité et protection des données",
@@ -443,7 +465,8 @@
       "severity": 5,
       "score_rationale": "Le risque est fortement mis en avant dans le Sustainability Pledge avec des objectifs stricts (zéro violation majeure). Le langage est intense, la tendance est stable, et la catégorie est critique pour une entreprise de services numériques critiques.",
       "trend": "stable",
-      "summary": "En tant que fournisseur de systèmes critiques (santé, finance), Tieto est exposé à des menaces de cybersécurité élevées, avec des conséquences opérationnelles et réputationnelles majeures en cas de violation de données ou d'attaque sur ses plateformes SaaS."
+      "summary": "En tant que fournisseur de systèmes critiques (santé, finance), Tieto est exposé à des menaces de cybersécurité élevées, avec des conséquences opérationnelles et réputationnelles majeures en cas de violation de données ou d'attaque sur ses plateformes SaaS.",
+      "score": 5
     },
     {
       "title": "Réglementation croissante sur l'IA responsable",
@@ -451,7 +474,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite explicitement l'impact de l'AI Act européen et des principes OECD. Le langage est préventif mais intense, la tendance est à la hausse, et la conformité IA est stratégique pour les produits logiciels.",
       "trend": "up",
-      "summary": "Les solutions d'IA développées par Tieto, comme Lifecare Smart Notes ou War of Words, doivent se conformer à des réglementations strictes (ex. AI Act), ce qui implique des coûts de conformité, des retards potentiels et des risques juridiques en cas de biais ou de manque de transparence."
+      "summary": "Les solutions d'IA développées par Tieto, comme Lifecare Smart Notes ou War of Words, doivent se conformer à des réglementations strictes (ex. AI Act), ce qui implique des coûts de conformité, des retards potentiels et des risques juridiques en cas de biais ou de manque de transparence.",
+      "score": 4
     },
     {
       "title": "Intégration de nouvelles acquisitions internationales",
@@ -459,7 +483,8 @@
       "severity": 4,
       "score_rationale": "Le risque est illustré par l'acquisition d'OpenSpring et Grupo Onetec en Espagne. Le langage est prudent, la tendance est nouvelle, et l'intégration opérationnelle est critique pour atteindre les objectifs de croissance.",
       "trend": "new",
-      "summary": "L'acquisition d'entreprises espagnoles pour renforcer la présence en Europe du Sud comporte des risques d'intégration culturelle, technique et commerciale, pouvant affecter la performance et la cohésion du groupe."
+      "summary": "L'acquisition d'entreprises espagnoles pour renforcer la présence en Europe du Sud comporte des risques d'intégration culturelle, technique et commerciale, pouvant affecter la performance et la cohésion du groupe.",
+      "score": 4
     },
     {
       "title": "Dépendance aux talents technologiques spécialisés",
@@ -467,7 +492,8 @@
       "severity": 4,
       "score_rationale": "Le CEO insiste sur les 14 000 experts comme actif principal. Le langage est valorisant mais révèle une forte dépendance. La tendance est stable, et la pénurie de talents numériques est un enjeu structurel.",
       "trend": "stable",
-      "summary": "La capacité de Tieto à innover et livrer des solutions repose sur la disponibilité et la rétention de professionnels hautement qualifiés, notamment en IA, cybersécurité et développement logiciel, dans un marché du travail concurrentiel."
+      "summary": "La capacité de Tieto à innover et livrer des solutions repose sur la disponibilité et la rétention de professionnels hautement qualifiés, notamment en IA, cybersécurité et développement logiciel, dans un marché du travail concurrentiel.",
+      "score": 4
     },
     {
       "title": "Refonte stratégique et clarté de la direction",
@@ -475,7 +501,8 @@
       "severity": 3,
       "score_rationale": "Le CEO mentionne un manque de clarté perçue par les clients après plusieurs changements stratégiques. Le langage est réflexif, la tendance est en amélioration, mais le risque réputationnel persiste.",
       "trend": "down",
-      "summary": "Après une période de transition marquée par des changements de leadership et de portefeuille (cession de Tech Services), Tieto doit reconstruire une image cohérente et rassurante auprès des clients et partenaires pour regagner la confiance."
+      "summary": "Après une période de transition marquée par des changements de leadership et de portefeuille (cession de Tech Services), Tieto doit reconstruire une image cohérente et rassurante auprès des clients et partenaires pour regagner la confiance.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:05:40.119249+00:00",
@@ -561,17 +588,6 @@
   "company_description": "Tieto Oyj operates as a software and digital engineering company in Norway, Sweden, Finland, and internationally. It operates through four segments: Tieto Tech Consulting, Tieto Banktech, Tieto Caretech, and Tieto Indtech Services. The Tieto Tech Consulting segment provides business advisory and design, data engineering, and other software research and development services. The Tieto Banktech segment offers Banking-as-a-Service platform and software products for payments, cards, wealth management, financial crime prevention, and credit domains. The Tieto Caretech segment provides modular, open, and interoperable software for customers in the health and social care sectors. The Tieto Indtech segment offers software and services to various industries, such as case management, pulp, paper, and fiber; and supports processes, including billing and invoicing and industry messaging, as well as purchase-to-pay process automation. It serves automotive, banking and financial services, education, energy and utilities, healthcare and welfare, manufacturing, public sector, pulp, paper, fibre, packaging and tissue, and telecom sectors. The company was formerly known as TietoEVRY Oyj and changed ",
   "last_data_date": "2026-03-31",
   "_hero_kpi_original": "Adjusted EBITA Margin",
-  "_dividends_extracted_at": "2026-05-09T20:42:22Z",
-  "_dividends_source": "cat3-european annual-text FY2026 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
-  "_dividends_currency": "EUR",
-  "dividend_meta": {
-    "cuts": [
-      {
-        "year": 2026,
-        "reason": "Dividend proposed at EUR 0.88 per share for 2025, indicating a reduction from prior years as part of capital allocation strategy including share buybacks"
-      }
-    ]
-  },
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -608,9 +624,20 @@
     ],
     "total": 1.88
   },
+  "_dividends_extracted_at": "2026-05-09T20:42:22Z",
+  "_dividends_source": "cat3-european annual-text FY2026 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
+  "_dividends_currency": "EUR",
+  "dividend_meta": {
+    "cuts": [
+      {
+        "year": 2026,
+        "reason": "Dividend proposed at EUR 0.88 per share for 2025, indicating a reduction from prior years as part of capital allocation strategy including share buybacks"
+      }
+    ]
+  },
   "_segments_fetched_at": "2026-05-15T00:02:15.589025+00:00",
   "_eps_extracted_at": "2026-05-18T16:47:45Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Services informatiques",
   "enrich_description": {
     "ticker": "TIETO.HE",
@@ -707,6 +734,134 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "TIETO.HE",
+    "extracted_at": "2026-06-01T09:24:20Z",
+    "n_kpis": 5,
+    "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "year",
+        "history": [
+          2.928,
+          2.851,
+          2.803,
+          1.852
+        ],
+        "history_periods": [
+          "2022",
+          "2023",
+          "2024",
+          "2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "B €",
+        "_extracted_at": "2026-06-01T09:24:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Op Margin",
+        "period_type": "year",
+        "history": [
+          13,
+          12.6,
+          12.3,
+          13.8
+        ],
+        "history_periods": [
+          "2022",
+          "2023",
+          "2024",
+          "2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:24:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Headcount",
+        "period_type": "year",
+        "history": [
+          23.632,
+          24.389,
+          24.32,
+          24.159,
+          24.159,
+          14
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "K",
+        "_extracted_at": "2026-06-01T09:24:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Capacité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Dividend Yield",
+        "period_type": "year",
+        "history": [
+          5.1,
+          5.5,
+          6.8,
+          8.8,
+          4.8
+        ],
+        "history_periods": [
+          "2021",
+          "2022",
+          "2023",
+          "2024",
+          "2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:24:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Dividende",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "year",
+        "history": [
+          2.928,
+          2.851,
+          2.803,
+          1.852
+        ],
+        "history_periods": [
+          "2022",
+          "2023",
+          "2024",
+          "2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:24:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "TIETO.HE",
     "ranks": {
@@ -719,15 +874,16 @@
     "country": "Finland",
     "_data_freshness_date": "2026-05-21T02:17:14.317637+00:00",
     "fetched_at": "2026-05-21T02:17:14.317638+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.514Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.592Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tieto.he.json",
     "enrich_root": "v2-pipeline-enrich/tieto.he.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

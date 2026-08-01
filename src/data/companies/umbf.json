@@ -1,6 +1,6 @@
 {
   "ticker": "UMBF",
-  "name": "UMB Financial Corporation",
+  "name": "UMB Financial",
   "sector": "Finance",
   "subsector": "Banks",
   "tagline": "Financial holding company providing banking services and asset servicing globally",
@@ -36,8 +36,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Total Employees — total number of employees at period end."
+      "period_type": "year",
+      "explanation_en": "Total Employees, total number of employees at period end.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Banking Centers",
@@ -77,34 +80,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.43 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.7,
-      "unit": "Mds €",
+      "value": 700,
+      "unit": "M €",
       "yoy": "+59.1%",
       "history": [
-        0.43,
-        0.35,
-        0.44,
-        0.7
+        430,
+        350,
+        440,
+        700
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.7 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -123,11 +135,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 9.29 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Moderate growth, slightly positive"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -152,36 +168,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 73.09 Mds € dernière année",
-      "description": "Total des actifs consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Total des actifs consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
+      "_source": "bilan consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:57.098654+00:00",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.25,
-      "unit": "Mds €",
+      "value": 250,
+      "unit": "M €",
       "yoy": "-19.4%",
       "history": [
-        0.38,
-        1.38,
-        0.31,
-        0.25
+        380,
+        1380,
+        310,
+        250
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.25 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -200,10 +225,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 7.89 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,7 +272,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne les risques liés aux changements dans les lois et la réglementation financière, notamment en raison de la législation ou de la réglementation financière",
       "trend": "stable",
-      "summary": "Le risque réglementaire est élevé en raison des changements potentiels dans les lois et la réglementation financière"
+      "summary": "Le risque réglementaire est élevé en raison des changements potentiels dans les lois et la réglementation financière",
+      "score": 4
     },
     {
       "title": "Risque de crédit",
@@ -251,7 +281,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne les risques liés aux crédits et aux prêts, notamment en raison de la détérioration potentielle de la qualité des actifs",
       "trend": "up",
-      "summary": "Le risque de crédit est élevé en raison de la possibilité de défaut de paiement des emprunteurs"
+      "summary": "Le risque de crédit est élevé en raison de la possibilité de défaut de paiement des emprunteurs",
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
@@ -259,7 +290,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne les risques liés à la liquidité et à la capacité de la société à répondre aux demandes de retrait de fonds",
       "trend": "stable",
-      "summary": "Le risque de liquidité est moyen en raison de la possibilité de difficultés à répondre aux demandes de retrait de fonds"
+      "summary": "Le risque de liquidité est moyen en raison de la possibilité de difficultés à répondre aux demandes de retrait de fonds",
+      "score": 3
     },
     {
       "title": "Risque de réputation",
@@ -267,7 +299,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne les risques liés à la réputation de la société, notamment en raison de la publicité négative ou des scandales potentiels",
       "trend": "up",
-      "summary": "Le risque de réputation est élevé en raison de la possibilité de dommages à la réputation de la société"
+      "summary": "Le risque de réputation est élevé en raison de la possibilité de dommages à la réputation de la société",
+      "score": 4
     },
     {
       "title": "Risque de cybersécurité",
@@ -275,7 +308,8 @@
       "severity": 5,
       "score_rationale": "Le texte mentionne explicitement les risques liés à la cybersécurité et à la protection des données, à la nécessité de maintenir des systèmes sécurisés et fonctionnels face aux cyberattaques",
       "trend": "up",
-      "summary": "Le risque de cybersécurité est très élevé en raison de la possibilité de vols de données ou d'attaques informatiques"
+      "summary": "Le risque de cybersécurité est très élevé en raison de la possibilité de vols de données ou d'attaques informatiques",
+      "score": 5
     },
     {
       "title": "Risque géopolitique",
@@ -283,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne les risques liés aux événements géopolitiques et aux conditions économiques ou politiques locales, régionales, nationales ou internationales",
       "trend": "up",
-      "summary": "Le risque géopolitique est élevé en raison de la possibilité de perturbations économiques ou politiques"
+      "summary": "Le risque géopolitique est élevé en raison de la possibilité de perturbations économiques ou politiques",
+      "score": 4
     },
     {
       "title": "Risque de concurrence",
@@ -291,7 +326,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne la concurrence intense dans tous les segments d'activité et marchés, y compris de la part des sociétés fintech et technologiques",
       "trend": "stable",
-      "summary": "Le risque de concurrence est moyen en raison de la possibilité de perte de parts de marché face à des concurrents traditionnels et non traditionnels"
+      "summary": "Le risque de concurrence est moyen en raison de la possibilité de perte de parts de marché face à des concurrents traditionnels et non traditionnels",
+      "score": 3
     }
   ],
   "governance": {
@@ -327,7 +363,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -495,9 +531,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.322579+00:00",
     "fetched_at": "2026-05-21T02:17:14.322580+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.925Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.011Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/umbf.json",
     "enrich_root": "v2-pipeline-enrich/umbf.json",

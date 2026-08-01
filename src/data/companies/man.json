@@ -54,11 +54,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 17.96 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -77,34 +81,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.01 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.24,
-      "unit": "Mds €",
+      "value": 240,
+      "unit": "M €",
       "yoy": "-22.6%",
       "history": [
-        0.63,
-        0.31,
-        0.31,
-        0.24
+        630,
+        310,
+        310,
+        240
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.24 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -123,11 +136,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -0.29 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -146,11 +163,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.16 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -169,33 +190,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.09 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.87,
-      "unit": "Mds €",
+      "value": 870,
+      "unit": "M €",
       "yoy": "+70.6%",
       "history": [
-        0.64,
-        0.58,
-        0.51,
-        0.87
+        640,
+        580,
+        510,
+        870
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.87 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -221,7 +251,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "active",
+    "stance": "integrator",
     "summary": "ManpowerGroup integrates AI across its enterprise to enhance service offerings in recruitment, assessment, and workforce consulting. The company explicitly mentions AI-enabled assessments as an industry-leading capability and highlights rapid expansion and application of AI across its PowerSuite HR technology stack to deliver increasingly predictive, precise and efficient workforce solutions.",
     "evidence": [
       "Industry-leading and AI-enabled assessments help people and organizations understand their strengths and potential",
@@ -238,7 +268,8 @@
       "severity": 5,
       "score_rationale": "Client demand for workforce solutions depends heavily on overall labor market strength and economic conditions. Weak growth reduces staffing demand while increasing outplacement services demand, creating revenue volatility and profit deleveraging risk.",
       "trend": "stable",
-      "summary": "Demand for staffing services is highly correlated with economic growth; economic downturns reduce staffing demand while potentially increasing outplacement services demand, negatively impacting operating leverage."
+      "summary": "Demand for staffing services is highly correlated with economic growth; economic downturns reduce staffing demand while potentially increasing outplacement services demand, negatively impacting operating leverage.",
+      "score": 5
     },
     {
       "title": "Increased Competition",
@@ -246,7 +277,8 @@
       "severity": 4,
       "score_rationale": "The workforce solutions market is highly competitive with numerous global and local competitors. ManpowerGroup must maintain competitive positioning through continuous innovation and service improvements to retain clients.",
       "trend": "up",
-      "summary": "Intense competition in workforce solutions requires ongoing innovation and service enhancement to maintain market position and client retention."
+      "summary": "Intense competition in workforce solutions requires ongoing innovation and service enhancement to maintain market position and client retention.",
+      "score": 4
     },
     {
       "title": "Credit Risk",
@@ -254,7 +286,8 @@
       "severity": 3,
       "score_rationale": "Significant accounts receivable balances due to the business model expose the company to credit losses if clients fail to pay. The 55-day DSO indicates substantial working capital deployed in receivables.",
       "trend": "stable",
-      "summary": "Material accounts receivable from clients present credit risk exposure, though the company has processes to manage customer creditworthiness and collection."
+      "summary": "Material accounts receivable from clients present credit risk exposure, though the company has processes to manage customer creditworthiness and collection.",
+      "score": 3
     },
     {
       "title": "Technology Dependency",
@@ -262,7 +295,8 @@
       "severity": 4,
       "score_rationale": "The company relies on advanced technologies and its PowerSuite HR tech stack to deliver services. System failures, cybersecurity breaches, or technology obsolescence could disrupt operations and client service delivery.",
       "trend": "up",
-      "summary": "Heavy reliance on technology platforms and AI systems for service delivery creates vulnerability to system failures, cybersecurity incidents, and the need for continuous technology investment and updates."
+      "summary": "Heavy reliance on technology platforms and AI systems for service delivery creates vulnerability to system failures, cybersecurity incidents, and the need for continuous technology investment and updates.",
+      "score": 4
     },
     {
       "title": "Regulatory Risk",
@@ -270,7 +304,8 @@
       "severity": 3,
       "score_rationale": "Operations in more than 70 countries expose the company to diverse and evolving labor laws, employment regulations, immigration rules, and data protection requirements that could increase compliance costs or restrict business operations.",
       "trend": "stable",
-      "summary": "Exposure to complex and varying regulatory requirements across 70+ countries creates compliance burden and risk of regulatory changes impacting business model and costs."
+      "summary": "Exposure to complex and varying regulatory requirements across 70+ countries creates compliance burden and risk of regulatory changes impacting business model and costs.",
+      "score": 3
     },
     {
       "title": "Key Personnel Risk",
@@ -278,7 +313,8 @@
       "severity": 2,
       "score_rationale": "Loss of key executives or specialized talent could impact service quality and client relationships. However, the company maintains talent development and retention processes to mitigate this risk.",
       "trend": "stable",
-      "summary": "Dependence on key executives and specialized talent; loss of critical personnel could impact operational effectiveness, though succession planning processes exist."
+      "summary": "Dependence on key executives and specialized talent; loss of critical personnel could impact operational effectiveness, though succession planning processes exist.",
+      "score": 2
     },
     {
       "title": "Reputation Risk",
@@ -286,7 +322,8 @@
       "severity": 4,
       "score_rationale": "The company's reputation is critical to attracting both clients and candidates. Issues with service quality, worker treatment, or ethical conduct could damage brand value and business performance.",
       "trend": "up",
-      "summary": "Reputation is essential for client and candidate acquisition; any service failures, ethical breaches, or poor worker treatment could significantly impact competitive position and revenues."
+      "summary": "Reputation is essential for client and candidate acquisition; any service failures, ethical breaches, or poor worker treatment could significantly impact competitive position and revenues.",
+      "score": 4
     },
     {
       "title": "Geopolitical Risk",
@@ -294,7 +331,8 @@
       "severity": 3,
       "score_rationale": "Operations in 70+ countries expose the company to geopolitical tensions, trade restrictions, sanctions, and political instability that could disrupt operations or require business restructuring in affected regions.",
       "trend": "stable",
-      "summary": "Global footprint across 70+ countries creates exposure to geopolitical conflicts, trade disputes, and political instability that could impact regional operations and profitability."
+      "summary": "Global footprint across 70+ countries creates exposure to geopolitical conflicts, trade disputes, and political instability that could impact regional operations and profitability.",
+      "score": 3
     }
   ],
   "governance": {
@@ -371,7 +409,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -445,7 +483,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.265Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.841Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/man.json",
     "enrich_root": null,

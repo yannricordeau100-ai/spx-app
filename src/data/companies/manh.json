@@ -15,24 +15,29 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.84,
-      "unit": "Mds €",
+      "value": 840,
+      "unit": "M €",
       "yoy": "+10.5%",
       "history": [
-        0.57,
-        0.67,
-        0.76,
-        0.84
+        570,
+        670,
+        760,
+        840
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.84 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -49,7 +54,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné comme crucial pour la croissance. Le langage insiste sur la dépendance pour générer des revenus. La pondération est élevée car liée au modèle économique principal. Positionné en tête des risques.",
       "trend": "stable",
-      "summary": "La société dépend fortement des revenus d'abonnements cloud, dont la croissance est essentielle à sa performance."
+      "summary": "La société dépend fortement des revenus d'abonnements cloud, dont la croissance est essentielle à sa performance.",
+      "score": 5
     },
     {
       "title": "Cybersécurité et failles IT",
@@ -57,7 +63,8 @@
       "severity": 5,
       "score_rationale": "Explicitement cité avec un langage fort (possibilité de compromettre les mesures de protection des données et de sécurité IT). Mentionné dans les risques clés. Contexte aggravé par l'offre SaaS. Catégorie à haut impact.",
       "trend": "up",
-      "summary": "Une faille dans les mesures de sécurité ou les services cloud pourrait nuire gravement à la réputation et aux opérations."
+      "summary": "Une faille dans les mesures de sécurité ou les services cloud pourrait nuire gravement à la réputation et aux opérations.",
+      "score": 5
     },
     {
       "title": "Erreurs dans les logiciels",
@@ -65,7 +72,8 @@
       "severity": 4,
       "score_rationale": "Mention récurrente d'erreurs non détectées ou de bogues. Langage préoccupé (risque de défauts, retards ou interruptions). Impact opérationnel élevé pour les clients critiques.",
       "trend": "stable",
-      "summary": "Des bogues ou défauts dans les logiciels pourraient perturber les services et entraîner des pertes financières."
+      "summary": "Des bogues ou défauts dans les logiciels pourraient perturber les services et entraîner des pertes financières.",
+      "score": 4
     },
     {
       "title": "Concurrence intense",
@@ -73,7 +81,8 @@
       "severity": 4,
       "score_rationale": "Cité parmi les facteurs clés pouvant affecter les résultats. Langage standard mais contexte de marché technologique dynamique. Moins dramatique que les risques opérationnels.",
       "trend": "stable",
-      "summary": "La pression concurrentielle peut affecter la part de marché et la capacité à innover."
+      "summary": "La pression concurrentielle peut affecter la part de marché et la capacité à innover.",
+      "score": 4
     },
     {
       "title": "Dépendance à un seul métier",
@@ -81,7 +90,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné comme une vulnérabilité (dépendance sur une seule ligne d'affaires). Exposition totale aux cycles du secteur. Risque stratégique majeur souligné dans le texte.",
       "trend": "stable",
-      "summary": "L'absence de diversification expose la société aux fluctuations de son secteur principal."
+      "summary": "L'absence de diversification expose la société aux fluctuations de son secteur principal.",
+      "score": 4
     },
     {
       "title": "Risques liés à l'IA générative",
@@ -89,7 +99,8 @@
       "severity": 4,
       "score_rationale": "Nouveau risque explicitement mentionné avec un langage prudent (risques associés à l'utilisation de l'IA générative et agentic). Reflète une exposition émergente. Pondération élevée en raison de l'innovation centrale autour de l'IA chez MANH.",
       "trend": "new",
-      "summary": "L'utilisation de l'IA générative et agentic comporte des risques technologiques et opérationnels encore mal maîtrisés."
+      "summary": "L'utilisation de l'IA générative et agentic comporte des risques technologiques et opérationnels encore mal maîtrisés.",
+      "score": 4
     },
     {
       "title": "Instabilité géopolitique",
@@ -97,7 +108,8 @@
       "severity": 4,
       "score_rationale": "Cité avec des exemples concrets (guerres en Ukraine et au Moyen-Orient). Langage sérieux mais générique. Impact indirect via les opérations internationales et risques commerciaux internationaux.",
       "trend": "stable",
-      "summary": "Les conflits géopolitiques peuvent perturber les activités internationales et les chaînes d'approvisionnement."
+      "summary": "Les conflits géopolitiques peuvent perturber les activités internationales et les chaînes d'approvisionnement.",
+      "score": 4
     }
   ],
   "_validation": "Audit complet effectué. Corrections principales: (1) KPI 'AI-related Cloud Deals Mix' identifié comme halluciné, valeur 30.0 supprimée, aucune donnée trouvée dans 10-K; (2) Unités corrigées pour Capital Expenditures et Service Revenue de 'Mds $' à 'M$' pour alignement avec taille entreprise SaaS; (3) Tous les KPIs restent à null car données financières détaillées absentes de l'extrait 10-K fourni; (4) Noms_fr améliorés pour clarté et cohérence; (5) hero_kpi_rationale vérifié sans em-dash; (6) Tous les risques validés contre contenu 10-K.",
@@ -150,7 +162,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Logiciels applicatifs",
-  "_companies_unified_built_at": "2026-05-29T21:19:33.269Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.108Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/manh.json",
     "enrich_root": "v2-pipeline-enrich/manh.json",

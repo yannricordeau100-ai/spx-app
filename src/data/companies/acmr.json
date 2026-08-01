@@ -40,8 +40,11 @@
       "is_short_history": false,
       "ttm": 638.73,
       "_validation": "Correction unité Mds $ vers M $; valeurs en millions de dollars confirmées par source 10-K",
-      "period_type": "quarter",
-      "signal_en": "Top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Revenu services",
@@ -73,70 +76,85 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.9,
-      "unit": "Mds €",
+      "value": 900,
+      "unit": "M €",
       "yoy": "+15.4%",
       "history": [
-        0.39,
-        0.56,
-        0.78,
-        0.9
+        390,
+        560,
+        780,
+        900
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.9 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "-10.0%",
       "history": [
-        0.04,
-        0.08,
-        0.1,
-        0.09
+        40,
+        80,
+        100,
+        90
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.09 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "-26.7%",
       "history": [
-        0.06,
-        0.1,
-        0.15,
-        0.11
+        60,
+        100,
+        150,
+        110
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.11 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,56 +173,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.87 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "+57.9%",
       "history": [
-        0.08,
-        0.1,
-        0.19,
-        0.3
+        80,
+        100,
+        190,
+        300
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.3 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.76,
-      "unit": "Mds €",
+      "value": 760,
+      "unit": "M €",
       "yoy": "+85.4%",
       "history": [
-        0.25,
-        0.18,
-        0.41,
-        0.76
+        250,
+        180,
+        410,
+        760
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.76 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -232,9 +264,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 638.73,
-      "_validation": "Correction unité Mds $ vers M $; valeurs confirmées par source 10-K",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction unité Mds $ vers M $; valeurs confirmées par source 10-K"
     },
     {
       "short": "Revenu services 2025",
@@ -260,9 +290,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 84.37,
-      "_validation": "Correction unité Mds $ vers M $; libellé amélioré pour services, spares et advanced packaging",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction unité Mds $ vers M $; libellé amélioré pour services, spares et advanced packaging"
     }
   ],
   "ai_positioning": {
@@ -276,25 +304,25 @@
       "title": "Risque réglementaire",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société est soumise aux restrictions de change et aux règles de répartition des bénéfices en Chine, ce qui pourrait impacter sa capacité à transférer des fonds hors de Chine. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise aux restrictions de change et aux règles de répartition des bénéfices en Chine, ce qui pourrait impacter sa capacité à transférer des fonds hors de Chine.",
       "trend": "stable",
       "summary": "Les restrictions de change et les règles de répartition des bénéfices en Chine pourraient impacter la capacité de la société à transférer des fonds hors de Chine.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à la Chine",
       "category": "Géopolitique",
       "severity": 5,
-      "score_rationale": "La société a une forte dépendance à la Chine. ACM Shanghai et ACM Korea ont été ajoutées à la BIS Entity List en décembre 2024, ce qui restreint l'accès à certaines technologies et composants américains. (score par défaut, à affiner)",
+      "score_rationale": "La société a une forte dépendance à la Chine. ACM Shanghai et ACM Korea ont été ajoutées à la BIS Entity List en décembre 2024, ce qui restreint l'accès à certaines technologies et composants américains.",
       "trend": "up",
       "summary": "La société est fortement dépendante de la Chine. Les subsidiaires chinoises et coréennes sont soumises aux contrôles d'exportation américains, ce qui pourrait impacter la chaîne d'approvisionnement et les plans de production.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de liquidité",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "La société a des besoins importants en matière de liquidité pour financer ses activités de R&D, CapEx et fonds de roulement, ce qui pourrait impacter sa capacité à financer sa croissance. (score par défaut, à affiner)",
+      "score_rationale": "La société a des besoins importants en matière de liquidité pour financer ses activités de R&D, CapEx et fonds de roulement, ce qui pourrait impacter sa capacité à financer sa croissance.",
       "trend": "stable",
       "summary": "La société dépend de sa capacité à générer des liquidités pour financer ses activités opérationnelles et sa croissance.",
       "score": 3
@@ -303,7 +331,7 @@
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "La société est exposée au risque de défaut de clients et à la gestion des comptes clients impactant les flux de trésorerie opérationnels. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de défaut de clients et à la gestion des comptes clients impactant les flux de trésorerie opérationnels.",
       "trend": "stable",
       "summary": "Les fluctuations des soldes de comptes clients impactent les flux de trésorerie de la société selon le mix clients et le calendrier de livraison et d'acceptation des outils.",
       "score": 3
@@ -312,7 +340,7 @@
       "title": "Risque de change",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "La société opère principalement en Chine et Corée avec des revenus en RMB et USD, ce qui l'expose aux fluctuations des taux de change. (score par défaut, à affiner)",
+      "score_rationale": "La société opère principalement en Chine et Corée avec des revenus en RMB et USD, ce qui l'expose aux fluctuations des taux de change.",
       "trend": "stable",
       "summary": "La société est exposée aux fluctuations des taux de change entre USD, RMB et autres devises, ce qui pourrait impacter sa rentabilité et ses flux de trésorerie.",
       "score": 3
@@ -321,28 +349,28 @@
       "title": "Risque de conformité aux contrôles d'exportation",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "ACM Shanghai fait face à des restrictions significatives des contrôles d'exportation américains et néerlandais en matière de technologie et de composants semi-conducteurs. L'ajout à la BIS Entity List limite l'accès aux technologies américaines. (score par défaut, à affiner)",
+      "score_rationale": "ACM Shanghai fait face à des restrictions significatives des contrôles d'exportation américains et néerlandais en matière de technologie et de composants semi-conducteurs. L'ajout à la BIS Entity List limite l'accès aux technologies américaines.",
       "trend": "up",
       "summary": "Les restrictions d'exportation des États-Unis, des Pays-Bas et du Japon pourraient impacter la capacité d'ACM Shanghai à obtenir les pièces, technologies et logiciels nécessaires pour la production et pourrait limiter les activités du personnel américain.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de perte de clients",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché hautement compétitif du WFE (wafer fab equipment). Les restrictions d'exportation pourraient impacter sa capacité à servir certains clients. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché hautement compétitif du WFE (wafer fab equipment). Les restrictions d'exportation pourraient impacter sa capacité à servir certains clients.",
       "trend": "up",
       "summary": "La société est exposée à la concurrence intense dans le marché des équipements de fabrication de semi-conducteurs. Les restrictions d'exportation pourraient réduire la clientèle accessible.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque d'inspection et de délistage (HFCA)",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le cabinet d'audit indépendant EY est basé en Chine continentale. Si le PCAOB ne peut pas inspecter complètement les cabinets en Chine, ACM Research pourrait être ajouté à la liste conclusive du HFCA, ce qui entraînerait potentiellement un délistage. (score par défaut, à affiner)",
+      "score_rationale": "Le cabinet d'audit indépendant EY est basé en Chine continentale. Si le PCAOB ne peut pas inspecter complètement les cabinets en Chine, ACM Research pourrait être ajouté à la liste conclusive du HFCA, ce qui entraînerait potentiellement un délistage.",
       "trend": "stable",
       "summary": "Le non-respect de la loi HFCA (Holding Foreign Companies Accountable Act) concernant l'inspection des cabinets d'audit en Chine pourrait entraîner le délistage d'ACM Research du marché américain.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -380,7 +408,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -546,9 +574,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.132875+00:00",
     "fetched_at": "2026-05-21T02:17:14.132877+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.253Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.727Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/acmr.json",
     "enrich_root": null,

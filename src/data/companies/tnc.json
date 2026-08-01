@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires net",
       "name_en": "Net Sales",
       "explanation": "Argent gagné par la vente de produits et services.",
-      "value": "1203.5",
-      "unit": "M $",
+      "value": 1.204,
+      "unit": "Mds $",
       "yoy": "-6.5%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -30,16 +30,17 @@
       "signal": "Baisse organique liée à ERP et macro",
       "description": "Revenu en baisse en 2025, impacté par les perturbations ERP en Amérique du Nord et un environnement macroéconomique difficile, notamment en Chine et EMEA.",
       "history": [
-        1286.7,
-        1203.5
+        1.287,
+        1.204
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité validée: M $ correct pour 1203.5 millions, valeur numérique confirmée contre source financière",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -63,7 +64,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Pas de correction nécessaire, données validées (484.3 / 1203.5 = 40.2% en 2025, 550.0 / 1286.7 = 42.7% en 2024)",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -133,34 +134,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.33,
-      "unit": "Mds €",
+      "value": 330,
+      "unit": "M €",
       "yoy": "+32.0%",
       "history": [
-        0.33,
-        0.24,
-        0.25,
-        0.33
+        330,
+        240,
+        250,
+        330
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.33 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -174,7 +184,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.94,
         1.015,
@@ -187,7 +197,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -202,7 +212,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0239,
@@ -215,7 +225,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -230,7 +240,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         28.51,
@@ -243,7 +253,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -259,7 +269,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.55,
@@ -272,7 +282,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -318,7 +328,8 @@
       "severity": 5,
       "score_rationale": "La société est exposée à des risques économiques mondiaux, notamment les fluctuations des taux de change et les changements dans les politiques commerciales, qui peuvent impacter ses ventes et ses résultats financiers. (Item 1A, p. 1-3)",
       "trend": "stable",
-      "summary": "La société est vulnérable aux fluctuations économiques mondiales qui peuvent affecter ses ventes et ses résultats financiers."
+      "summary": "La société est vulnérable aux fluctuations économiques mondiales qui peuvent affecter ses ventes et ses résultats financiers.",
+      "score": 5
     },
     {
       "title": "Risque de concurrence",
@@ -326,7 +337,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché compétitif où les prix et la qualité des produits sont des facteurs clés de différenciation. (Item 1A, p. 8-9)",
       "trend": "up",
-      "summary": "La société doit faire face à une concurrence accrue qui peut impacter ses ventes et ses parts de marché."
+      "summary": "La société doit faire face à une concurrence accrue qui peut impacter ses ventes et ses parts de marché.",
+      "score": 4
     },
     {
       "title": "Risque de chaîne d'approvisionnement",
@@ -334,7 +346,8 @@
       "severity": 4,
       "score_rationale": "La société dépend de fournisseurs pour ses matières premières et composants, ce qui peut créer des risques de disruption dans la chaîne d'approvisionnement. (Item 1A, p. 9-10)",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de disruption dans sa chaîne d'approvisionnement qui peuvent impacter ses ventes et ses résultats financiers."
+      "summary": "La société est exposée à des risques de disruption dans sa chaîne d'approvisionnement qui peuvent impacter ses ventes et ses résultats financiers.",
+      "score": 4
     },
     {
       "title": "Risque de réglementation",
@@ -342,7 +355,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations commerciales, fiscales et environnementales qui peuvent changer et impacter ses activités. (Item 1A, p. 5-6)",
       "trend": "up",
-      "summary": "La société doit se conformer à des réglementations qui peuvent changer et impacter ses activités et ses résultats financiers."
+      "summary": "La société doit se conformer à des réglementations qui peuvent changer et impacter ses activités et ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Risque de personnel clé",
@@ -350,7 +364,8 @@
       "severity": 3,
       "score_rationale": "La société dépend de personnel clé pour son succès, notamment ses dirigeants et employés hautement qualifiés. (Item 1A, p. 10-11)",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés à la perte de personnel clé qui peut impacter ses ventes et ses résultats financiers."
+      "summary": "La société est exposée à des risques liés à la perte de personnel clé qui peut impacter ses ventes et ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Risque technologique",
@@ -358,7 +373,8 @@
       "severity": 3,
       "score_rationale": "La société doit investir dans de nouvelles technologies pour rester compétitive, ce qui peut créer des risques de dépenses importantes et de difficultés d'implémentation. (Item 1A, p. 11)",
       "trend": "up",
-      "summary": "La société doit investir dans de nouvelles technologies pour rester compétitive, ce qui peut créer des risques de dépenses importantes et de difficultés d'implémentation."
+      "summary": "La société doit investir dans de nouvelles technologies pour rester compétitive, ce qui peut créer des risques de dépenses importantes et de difficultés d'implémentation.",
+      "score": 3
     }
   ],
   "governance": {
@@ -427,7 +443,7 @@
     "margin_trend": "Marges sous pression (-2.9 pts en moyenne)."
   },
   "_dividends_extracted_at": "2026-05-09T20:20:14Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -447,9 +463,9 @@
     "xbrl_fetched_at": "2026-05-09T20:27:44Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:48Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Machines & équipements",
-  "_companies_unified_built_at": "2026-05-29T21:19:38.344Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.846Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tnc.json",
     "enrich_root": "v2-pipeline-enrich/tnc.json",

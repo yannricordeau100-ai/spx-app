@@ -71,8 +71,8 @@
       "name_fr": "Valeur de marché du portefeuille de titres à revenu fixe",
       "name_en": "Fixed Maturity Portfolio Fair Value",
       "explanation": "Valeur actuelle des investissements de l'entreprise dans des obligations et autres titres à revenu fixe.",
-      "value": 11143,
-      "unit": "M $",
+      "value": 11.143,
+      "unit": "Mds $",
       "yoy": "+6.4%",
       "type": "Investment",
       "nature": "Conjoncturel",
@@ -80,8 +80,8 @@
       "signal": "La croissance de ce portefeuille peut refléter une stratégie d'investissement prudente ou une augmentation des liquidités.",
       "description": "Représente la valeur de marché des actifs obligataires et autres instruments de dette détenus par l'entreprise.",
       "history": [
-        11143,
-        10474,
+        11.143,
+        10.474,
         null
       ],
       "last_data_date": "2025-12-31",
@@ -89,7 +89,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unité corrigée de Mds$ à M$ (11143 millions = 11,143 Mds$, mais valeur en millions)",
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Equity Securities Fair Value",
@@ -140,8 +141,11 @@
       "is_short_history": false,
       "ttm": 90.2,
       "_validation": "Valeur corrigée de 91 à 91.0 (alignée sur la table du 10-K: actual net of reinsurance)",
-      "period_type": "quarter",
-      "signal_en": "Margin compression, watch profitability"
+      "period_type": "year",
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Asbestos Reserves Net",
@@ -205,7 +209,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         28.06,
         14.31,
@@ -218,7 +222,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -233,7 +237,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         1.224,
@@ -246,7 +250,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -261,7 +265,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         135.08,
@@ -274,7 +278,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -290,7 +294,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         10.53,
@@ -303,7 +307,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Stable, slight decline to monitor"
     }
   ],
@@ -332,9 +336,7 @@
       "is_short_history": false,
       "story_category": "Performance",
       "ttm": 91.52,
-      "_validation": "Aucune correction majeure; valeurs validées contre le 10-K",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Aucune correction majeure; valeurs validées contre le 10-K"
     },
     {
       "short": "Effect of Reinsurance",
@@ -360,9 +362,7 @@
       "is_short_history": false,
       "story_category": "Risk",
       "ttm": -2.79,
-      "_validation": "History corrigée: -7.0 au lieu de -7 pour cohérence formatage",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "History corrigée: -7.0 au lieu de -7 pour cohérence formatage"
     }
   ],
   "ai_positioning": {
@@ -376,25 +376,25 @@
       "title": "Incertitude des réserves d'assurance",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Mentionné dans 'CRITICAL ACCOUNTING POLICIES' et 'LIQUIDITY AND CAPITAL RESOURCES'. Le langage est prudent ('significant uncertainty', 'vary significantly'). Le contexte est stable mais l'impact potentiel est élevé pour une compagnie d'assurance. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné dans 'CRITICAL ACCOUNTING POLICIES' et 'LIQUIDITY AND CAPITAL RESOURCES'. Le langage est prudent ('significant uncertainty', 'vary significantly'). Le contexte est stable mais l'impact potentiel est élevé pour une compagnie d'assurance.",
       "trend": "stable",
       "summary": "Les estimations des réserves pour les sinistres non réglés et les frais de règlement sont incertaines. Les règlements finaux peuvent différer considérablement des montants estimés, affectant la liquidité et le capital.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité de la valeur des investissements",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Mentionné dans 'CRITICAL ACCOUNTING POLICIES' et 'LIQUIDITY AND CAPITAL RESOURCES'. Le langage indique un risque ('adversely affect', 'significant declines'). La catégorie Capital est pondérée et l'impact sur le capital des filiales est direct. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné dans 'CRITICAL ACCOUNTING POLICIES' et 'LIQUIDITY AND CAPITAL RESOURCES'. Le langage indique un risque ('adversely affect', 'significant declines'). La catégorie Capital est pondérée et l'impact sur le capital des filiales est direct.",
       "trend": "stable",
       "summary": "Les fluctuations du marché peuvent affecter la valeur des portefeuilles d'investissement des filiales d'assurance. Une baisse significative pourrait nécessiter des capitaux supplémentaires ou réduire les dividendes versés à la société mère.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance des dividendes des filiales",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Indiqué dans 'Parent Holding Company Liquidity Management' et 'Condensed Parent Only Cash Flows'. La baisse des dividendes est explicitement mentionnée comme cause de la diminution des flux de trésorerie opérationnels de la société mère. La dépendance est structurelle. (score par défaut, à affiner)",
+      "score_rationale": "Indiqué dans 'Parent Holding Company Liquidity Management' et 'Condensed Parent Only Cash Flows'. La baisse des dividendes est explicitement mentionnée comme cause de la diminution des flux de trésorerie opérationnels de la société mère. La dépendance est structurelle.",
       "trend": "down",
       "summary": "La société mère dépend des dividendes versés par ses filiales pour financer ses opérations et rembourser sa dette.",
       "score": 3
@@ -437,7 +437,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -496,7 +496,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:19:30Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -524,7 +524,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:34Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:17Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
   "enrich_description": {
     "ticker": "AFG",
@@ -621,6 +621,55 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "AFG",
+    "extracted_at": "2026-06-01T02:55:14Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Reinsurance Recoverable",
+        "period_type": "quarter",
+        "history": [
+          3116,
+          3182,
+          3400,
+          3352,
+          3471,
+          3936,
+          3614,
+          3676,
+          4207,
+          4327,
+          3918,
+          4985,
+          4752,
+          4548,
+          5371
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:55:14Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "AFG",
     "ranks": {
@@ -633,15 +682,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.216323+00:00",
     "fetched_at": "2026-05-21T02:17:14.216324+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.433Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.887Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/afg.json",
     "enrich_root": "v2-pipeline-enrich/afg.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

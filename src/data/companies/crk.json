@@ -36,9 +36,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Proved Reserves (Tcfe) annual historical data not found in provided 10-K excerpt. Only one explicit value identified: 2.9 Tcfe acquired via "
+      "_hero_history_unverified_reason": "Proved Reserves (Tcfe) annual historical data not found in provided 10-K excerpt. Only one explicit value identified: 2.9 Tcfe acquired via ",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "PV 10 Value",
@@ -141,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.01 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -164,11 +171,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.91 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -185,7 +196,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne explicitement les menaces de sécurité, y compris les cybermenaces, qui pourraient avoir un impact négatif sur son activité et ses systèmes informatiques.",
       "trend": "stable",
-      "summary": "La société est exposée aux risques de cybersécurité, qui pourraient compromettre ses systèmes et ses données opérationnelles."
+      "summary": "La société est exposée aux risques de cybersécurité, qui pourraient compromettre ses systèmes et ses données opérationnelles.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix des matières premières",
@@ -193,7 +205,8 @@
       "severity": 5,
       "score_rationale": "Les prix du gaz naturel et du pétrole sont historiquement volatiles et pourraient avoir un impact significatif sur les revenus et la rentabilité de la société.",
       "trend": "up",
-      "summary": "La volatilité des prix des matières premières constitue un risque majeur affectant directement la profitabilité et les résultats financiers de CRK."
+      "summary": "La volatilité des prix des matières premières constitue un risque majeur affectant directement la profitabilité et les résultats financiers de CRK.",
+      "score": 5
     },
     {
       "title": "Réglementation environnementale",
@@ -201,7 +214,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations environnementales strictes applicables à l'extraction de gaz naturel, qui pourraient augmenter ses coûts et ses responsabilités.",
       "trend": "up",
-      "summary": "Les réglementations environnementales pourraient avoir un impact croissant sur les activités et les coûts de la société."
+      "summary": "Les réglementations environnementales pourraient avoir un impact croissant sur les activités et les coûts de la société.",
+      "score": 3
     },
     {
       "title": "Déclin des réserves",
@@ -209,7 +223,8 @@
       "severity": 4,
       "score_rationale": "La société doit remplacer ses réserves de gaz naturel et de pétrole pour maintenir sa production, ce qui constitue un défi stratégique et opérationnel.",
       "trend": "stable",
-      "summary": "La société doit trouver et développer de nouvelles réserves pour maintenir sa production et sa rentabilité à long terme."
+      "summary": "La société doit trouver et développer de nouvelles réserves pour maintenir sa production et sa rentabilité à long terme.",
+      "score": 4
     },
     {
       "title": "Endettement",
@@ -217,7 +232,8 @@
       "severity": 3,
       "score_rationale": "La société a un niveau d'endettement élevé, qui pourrait augmenter ses coûts d'emprunt et limiter sa flexibilité financière.",
       "trend": "up",
-      "summary": "L'endettement de la société pourrait restreindre sa capacité à investir dans de nouveaux projets et augmenter les risques financiers."
+      "summary": "L'endettement de la société pourrait restreindre sa capacité à investir dans de nouveaux projets et augmenter les risques financiers.",
+      "score": 3
     }
   ],
   "governance": {
@@ -250,7 +266,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -360,9 +376,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.245021+00:00",
     "fetched_at": "2026-05-21T02:17:14.245022+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.826Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.329Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/crk.json",
     "enrich_root": "v2-pipeline-enrich/crk.json",

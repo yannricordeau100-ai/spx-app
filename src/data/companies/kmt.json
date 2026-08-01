@@ -38,11 +38,14 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 8.78,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Infrastructure Operating Margin n'est pas explicitement chiffré dans le document. Seules les données de ventes Infrastructure ($690.7M en 20",
       "explanation_en": "Profit margin on Infrastructure Operating.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Metal Cutting Operating Margin",
@@ -116,7 +119,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 30.35,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -185,11 +188,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.55 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -203,7 +210,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.8,
         0.8,
@@ -216,7 +223,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -231,7 +238,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1521,
@@ -244,7 +251,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -259,7 +266,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         46.03,
@@ -272,7 +279,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -288,7 +295,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.72,
@@ -301,7 +308,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -328,9 +335,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Capacité",
-      "ttm": 65.32,
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 65.32
     },
     {
       "short": "Metal Cutting Operating Income",
@@ -354,9 +359,7 @@
       "is_generic": true,
       "is_short_history": false,
       "story_category": "Marché",
-      "ttm": 78.87,
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 78.87
     }
   ],
   "ai_positioning": {
@@ -399,7 +402,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -533,7 +536,8 @@
       "severity": 5,
       "score_rationale": "Mentionné en ouverture du Forward-Looking Statements comme facteur clé d'incertitude. Langage fort : « uncertainties related to changes in macroeconomic and/or global conditions », inflation, tarifs, invasion Ukraine, sanctions Russie, conflit Moyen-Orient. Impact direct sur opérations internationales (60% des ventes hors USA).",
       "trend": "up",
-      "summary": "L'inflation, les tarifs douaniers, les conflits géopolitiques (Ukraine, Moyen-Orient) et les sanctions créent une volatilité majeure affectant les chaînes d'approvisionnement et les marchés internationaux critiques pour KMT."
+      "summary": "L'inflation, les tarifs douaniers, les conflits géopolitiques (Ukraine, Moyen-Orient) et les sanctions créent une volatilité majeure affectant les chaînes d'approvisionnement et les marchés internationaux critiques pour KMT.",
+      "score": 5
     },
     {
       "title": "Disponibilité & coût des matières premières",
@@ -541,7 +545,8 @@
       "severity": 4,
       "score_rationale": "Section dédiée « Raw Materials and Supplies » souligne dépendance aux sources étrangères (tungstène, cobalt). Langage : « prices fluctuate at times », sources « located abroad ». Risque direct sur marges et continuité opérationnelle malgré recyclage interne.",
       "trend": "stable",
-      "summary": "Les matières premières critiques (tungstène, cobalt) proviennent principalement de l'étranger avec volatilité de prix. Bien que KMT dispose de recyclage interne, la dépendance aux fournisseurs externes reste un goulot d'étranglement."
+      "summary": "Les matières premières critiques (tungstène, cobalt) proviennent principalement de l'étranger avec volatilité de prix. Bien que KMT dispose de recyclage interne, la dépendance aux fournisseurs externes reste un goulot d'étranglement.",
+      "score": 4
     },
     {
       "title": "Risques opérationnels internationaux",
@@ -549,7 +554,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité : « foreign operations and international markets, such as currency exchange rates, different regulatory environments, trade barriers, exchange controls, and social and political instability ». 60% des ventes internationales amplifient l'exposition. Langage modéré mais couverture exhaustive des risques.",
       "trend": "up",
-      "summary": "Les fluctuations de change, les barrières commerciales, les environnements réglementaires hétérogènes et l'instabilité politique menacent les opérations dans 60% des marchés de KMT (Europe, Chine, Inde)."
+      "summary": "Les fluctuations de change, les barrières commerciales, les environnements réglementaires hétérogènes et l'instabilité politique menacent les opérations dans 60% des marchés de KMT (Europe, Chine, Inde).",
+      "score": 4
     },
     {
       "title": "Intégrité des actifs incorporels & goodwill",
@@ -557,7 +563,8 @@
       "severity": 3,
       "score_rationale": "Risque explicite : « potential for future goodwill and other intangible asset impairment charges ». Contexte d'acquisitions continues et divestiture récente (Goshen, perte $1.5M). Langage prudent mais reconnaissance d'exposition à dépréciation.",
       "trend": "stable",
-      "summary": "KMT pourrait faire face à des charges de dépréciation de goodwill et actifs incorporels suite à acquisitions ou ralentissements de marché, impactant les résultats nets."
+      "summary": "KMT pourrait faire face à des charges de dépréciation de goodwill et actifs incorporels suite à acquisitions ou ralentissements de marché, impactant les résultats nets.",
+      "score": 3
     },
     {
       "title": "Cybersécurité & continuité IT",
@@ -565,7 +572,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans Forward-Looking Statements : « continuity of information technology infrastructure ». Référence explicite à section 1C du 10-K dédiée à cybersécurité. Risque croissant pour industriels mais langage générique.",
       "trend": "new",
-      "summary": "La continuité de l'infrastructure IT et la sécurité des données sont des risques croissants pour KMT, particulièrement critique pour ses opérations manufacturières et ventes numériques."
+      "summary": "La continuité de l'infrastructure IT et la sécurité des données sont des risques croissants pour KMT, particulièrement critique pour ses opérations manufacturières et ventes numériques.",
+      "score": 3
     },
     {
       "title": "Passifs environnementaux & conformité",
@@ -573,7 +581,8 @@
       "severity": 3,
       "score_rationale": "Accruals de $11.0M au 30 juin 2025 pour remédiation environnementale. Langage : « likelihood of a loss...often difficult to predict ». Risque de dépassement des provisions et coûts futurs non estimables.",
       "trend": "stable",
-      "summary": "KMT maintient $11M de provisions pour nettoyage environnemental sur sites actuels/anciens. Le risque de coûts supplémentaires non estimables persiste, notamment pour sites historiques."
+      "summary": "KMT maintient $11M de provisions pour nettoyage environnemental sur sites actuels/anciens. Le risque de coûts supplémentaires non estimables persiste, notamment pour sites historiques.",
+      "score": 3
     },
     {
       "title": "Concurrence & fragmentation du marché",
@@ -581,7 +590,8 @@
       "severity": 3,
       "score_rationale": "Section dédiée reconnaît marché fragmenté avec « several hundred fabricators » et « many smaller niche businesses ». Avantage compétitif repose sur marque, expertise et innovation. Langage neutre mais consolidation possible menace position.",
       "trend": "stable",
-      "summary": "Le marché très fragmenté des outils de coupe et composants d'usure offre opportunités de consolidation concurrente. KMT doit maintenir différenciation par innovation et expertise pour éviter commoditisation."
+      "summary": "Le marché très fragmenté des outils de coupe et composants d'usure offre opportunités de consolidation concurrente. KMT doit maintenir différenciation par innovation et expertise pour éviter commoditisation.",
+      "score": 3
     },
     {
       "title": "Réalisation des synergies de restructuration",
@@ -589,12 +599,13 @@
       "severity": 3,
       "score_rationale": "Forward-Looking Statements cite : « our ability to achieve all anticipated benefits of restructuring, Commercial Excellence growth initiatives and Operational Excellence initiatives ». Langage conditionnel indique incertitude sur exécution et ROI.",
       "trend": "stable",
-      "summary": "KMT poursuit des initiatives de restructuration et d'excellence opérationnelle dont les bénéfices anticipés ne sont pas garantis, créant risque de destruction de valeur si mal exécutées."
+      "summary": "KMT poursuit des initiatives de restructuration et d'excellence opérationnelle dont les bénéfices anticipés ne sont pas garantis, créant risque de destruction de valeur si mal exécutées.",
+      "score": 3
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T21:07:23.528359+00:00",
   "_dividends_extracted_at": "2026-05-09T20:19:22Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2015,
@@ -617,7 +628,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:54Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:50Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "KMT",
     "fetched_at": "2026-05-06T17:50:32.820701+00:00",
@@ -625,8 +636,8 @@
       {
         "year": 2026,
         "month": 5,
-        "title": "Johnson Controls Tops Q2 Earnings & Revenue Estimates, Raises FY26 View",
-        "body": "JCI beats Q2 estimates and raises FY26 outlook as strong HVAC and services demand boosts growth across all regions.",
+        "title": "Johnson Controls Tops Q2 Earnings & Revenue Estimates, Raises exercice 2026 View",
+        "body": "JCI beats Q2 estimates and raises exercice 2026 outlook as strong HVAC and services demand boosts growth across all regions.",
         "source": "Zacks",
         "url": "https://finance.yahoo.com/markets/stocks/articles/johnson-controls-tops-q2-earnings-150100334.html",
         "date": "2026-05-06"
@@ -741,7 +752,10 @@
             "source": "KMT_2026-02-04.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -757,9 +771,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.274173+00:00",
     "fetched_at": "2026-05-21T02:17:14.274174+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.823Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.578Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kmt.json",
     "enrich_root": "v2-pipeline-enrich/kmt.json",

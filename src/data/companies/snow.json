@@ -21,8 +21,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Revenu total généré par la plateforme Snowflake sur l'année fiscale",
-      "value": 0.62,
-      "unit": "Mds $",
+      "value": 620,
+      "unit": "M $",
       "yoy": "+31%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,15 +30,15 @@
       "signal": "Croissance rapide du revenu",
       "description": "Revenu total de l'entreprise pour l'année fiscale terminée le 31 janvier 2026, atteignant 4,7 milliards de dollars, en augmentation de 31% par rapport à l'année précédente",
       "history": [
-        0.36,
-        0.42,
-        0.5,
-        0.56,
-        0.42,
-        0.5,
-        0.67,
-        0.73,
-        0.62
+        360,
+        420,
+        500,
+        560,
+        420,
+        500,
+        670,
+        730,
+        620
       ],
       "last_data_date": "2026-01-31",
       "is_wow": true,
@@ -46,7 +46,8 @@
       "is_short_history": false,
       "ttm": 5.06,
       "period_type": "quarter",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Clients totaux",
@@ -153,11 +154,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.13 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -176,11 +181,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.74 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -199,10 +208,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.83 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -284,7 +297,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de liste dans le 10-K, mentionné avec un langage fort (\"highly competitive\"). La tendance est stable mais critique, car la catégorie pèse lourd dans l'écosystème technologique. Snowflake dépend de son avance produit pour se différencier.",
       "trend": "stable",
-      "summary": "Snowflake fait face à une concurrence accrue de géants du cloud comme AWS, Microsoft Azure et Google Cloud, ainsi que d'autres fournisseurs de data platforms. Cette pression peut limiter sa part de marché et forcer des investissements coûteux en innovation et marketing."
+      "summary": "Snowflake fait face à une concurrence accrue de géants du cloud comme AWS, Microsoft Azure et Google Cloud, ainsi que d'autres fournisseurs de data platforms. Cette pression peut limiter sa part de marché et forcer des investissements coûteux en innovation et marketing.",
+      "score": 5
     },
     {
       "title": "Dépendance aux grands fournisseurs cloud",
@@ -292,7 +306,8 @@
       "severity": 4,
       "score_rationale": "Position centrale dans le 10-K, langage préoccupé mais mesuré. Tendance stable. Risque structurel majeur car Snowflake n'héberge pas son propre cloud. Poids élevé en cas de défaillance ou de hausse de coûts.",
       "trend": "stable",
-      "summary": "Snowflake s'appuie entièrement sur les infrastructures d'AWS, Microsoft Azure et Google Cloud. Toute interruption, augmentation de coût ou restriction d'accès sur ces plateformes peut impacter directement sa performance technique et sa rentabilité."
+      "summary": "Snowflake s'appuie entièrement sur les infrastructures d'AWS, Microsoft Azure et Google Cloud. Toute interruption, augmentation de coût ou restriction d'accès sur ces plateformes peut impacter directement sa performance technique et sa rentabilité.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et accès non autorisés aux données",
@@ -300,7 +315,8 @@
       "severity": 5,
       "score_rationale": "Mentionné dans une section dédiée (Item 1C), langage très fort (\"actual or perceived security breach\"). Tendance en hausse avec l'adoption de l'IA. Catégorie critique pour la confiance client.",
       "trend": "up",
-      "summary": "Une violation de sécurité, réelle ou perçue, sur la plateforme Snowflake ou via un tiers, pourrait nuire gravement à sa réputation, entraîner des pertes de clients et des responsabilités légales, surtout avec la montée des données sensibles et des agents IA."
+      "summary": "Une violation de sécurité, réelle ou perçue, sur la plateforme Snowflake ou via un tiers, pourrait nuire gravement à sa réputation, entraîner des pertes de clients et des responsabilités légales, surtout avec la montée des données sensibles et des agents IA.",
+      "score": 5
     },
     {
       "title": "Exécution de la stratégie d'intelligence artificielle",
@@ -308,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Position élevée dans les risques clés, langage tendu (\"if we are not successful\"). Tendance en hausse. L'IA est centrale dans la croissance future, donc le risque est stratégique.",
       "trend": "up",
-      "summary": "L'échec à développer et déployer efficacement des fonctionnalités d'IA, comme Snowflake Intelligence ou les agents de données, pourrait ralentir l'adoption par les clients et affaiblir sa position face à des concurrents innovants."
+      "summary": "L'échec à développer et déployer efficacement des fonctionnalités d'IA, comme Snowflake Intelligence ou les agents de données, pourrait ralentir l'adoption par les clients et affaiblir sa position face à des concurrents innovants.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenariats stratégiques",
@@ -316,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Mention répétée dans les risques, langage affirmé. Tendance stable. Les partenariats sont essentiels à l'expansion du réseau AI Data Cloud.",
       "trend": "stable",
-      "summary": "La croissance de Snowflake dépend fortement de ses alliances avec des partenaires technologiques, des intégrateurs et des fournisseurs de données. Un échec à développer ou maintenir ces relations limite l'adoption de sa plateforme."
+      "summary": "La croissance de Snowflake dépend fortement de ses alliances avec des partenaires technologiques, des intégrateurs et des fournisseurs de données. Un échec à développer ou maintenir ces relations limite l'adoption de sa plateforme.",
+      "score": 4
     },
     {
       "title": "Risques liés aux clients du secteur public et réglementé",
@@ -324,7 +342,8 @@
       "severity": 4,
       "score_rationale": "Position spécifique dans le 10-K, langage précis sur les exigences contractuelles et réglementaires. Tendance stable. Secteur à haut risque contractuel et de conformité.",
       "trend": "stable",
-      "summary": "En travaillant avec des gouvernements et des secteurs fortement régulés (santé, finance), Snowflake doit respecter des normes strictes de sécurité, de souveraineté des données et de conformité, ce qui augmente la complexité opérationnelle et les risques juridiques."
+      "summary": "En travaillant avec des gouvernements et des secteurs fortement régulés (santé, finance), Snowflake doit respecter des normes strictes de sécurité, de souveraineté des données et de conformité, ce qui augmente la complexité opérationnelle et les risques juridiques.",
+      "score": 4
     },
     {
       "title": "Défauts techniques ou interruptions de service",
@@ -332,7 +351,8 @@
       "severity": 5,
       "score_rationale": "Mention fréquente et en position élevée, langage alarmant (\"disruptions, outages, defects\"). Tendance stable. Impact direct sur la confiance client et la rétention.",
       "trend": "stable",
-      "summary": "Toute panne, bug ou problème de performance sur la plateforme Snowflake, ou sur les infrastructures cloud sous-jacentes, peut entraîner une perte de données, une indisponibilité du service et une fuite de clients vers des concurrents."
+      "summary": "Toute panne, bug ou problème de performance sur la plateforme Snowflake, ou sur les infrastructures cloud sous-jacentes, peut entraîner une perte de données, une indisponibilité du service et une fuite de clients vers des concurrents.",
+      "score": 5
     },
     {
       "title": "Dépendance aux talents clés et recrutement",
@@ -340,7 +360,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite dans les risques, langage préoccupé. Tendance stable. La concurrence pour les talents tech est intense, surtout en IA et cloud.",
       "trend": "stable",
-      "summary": "La perte de membres clés de la direction ou l'incapacité à attirer et retenir des ingénieurs et experts en IA et données pourrait ralentir l'innovation et l'exécution stratégique de Snowflake."
+      "summary": "La perte de membres clés de la direction ou l'incapacité à attirer et retenir des ingénieurs et experts en IA et données pourrait ralentir l'innovation et l'exécution stratégique de Snowflake.",
+      "score": 4
     }
   ],
   "governance": {
@@ -524,7 +545,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.975Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.675Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/snow.json",
     "enrich_root": "v2-pipeline-enrich/snow.json",

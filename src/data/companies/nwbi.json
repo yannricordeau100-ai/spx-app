@@ -39,9 +39,12 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 525.402,
-      "period_type": "quarter",
+      "period_type": "year",
       "explanation_en": "Net Interest income generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Noninterest Income",
@@ -92,7 +95,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 126.013,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -163,56 +166,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 16.77 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.69,
-      "unit": "Mds €",
+      "value": 690,
+      "unit": "M €",
       "yoy": "+56.8%",
       "history": [
-        0.92,
-        0.64,
-        0.44,
-        0.69
+        920,
+        640,
+        440,
+        690
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.69 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.23,
-      "unit": "Mds €",
+      "value": 230,
+      "unit": "M €",
       "yoy": "-20.7%",
       "history": [
-        0.14,
-        0.12,
-        0.29,
-        0.23
+        140,
+        120,
+        290,
+        230
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.23 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -239,9 +256,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Risk",
-      "ttm": 55.584,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 55.584
     }
   ],
   "ai_positioning": {
@@ -275,7 +290,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -302,7 +317,8 @@
       "severity": 5,
       "score_rationale": "Le provisionnement pour pertes sur cr\u0000dit a tripl\u0000 entre 2024 et 2025 (25M \u0000 56M), avec une mention explicite que des ajustements mat\u0000riels \u0000 l\u0000a provision pourraient nuire aux r\u0000sultats. Le langage insiste sur l\u0000incertitude \u0000 propos de l\u0000ad\u0000quation de la provision existante.",
       "trend": "up",
-      "summary": "La d\u0000t\u0000rioration de la qualit\u0000 du portefeuille de pr\u0000ts ou des conditions \u0000conomiques pourrait forcer une augmentation importante de la provision, impactant n\u0000gativement les r\u0000sultats."
+      "summary": "La d\u0000t\u0000rioration de la qualit\u0000 du portefeuille de pr\u0000ts ou des conditions \u0000conomiques pourrait forcer une augmentation importante de la provision, impactant n\u0000gativement les r\u0000sultats.",
+      "score": 5
     },
     {
       "title": "Sensibilit\u0000 de l\u0000a provision aux pr\u0000visions \u0000conomiques",
@@ -310,7 +326,8 @@
       "severity": 4,
       "score_rationale": "La soci\u0000t\u0000 utilise des pr\u0000visions macro-\u0000conomiques sur 24 mois et mentionne qu\u0000un sc\u0000nario de repli sur les taux de perte historiques pourrait augmenter la provision de 89M. Cela montre une forte d\u0000pendance aux hypoth\u0000ses \u0000conomiques.",
       "trend": "stable",
-      "summary": "Toute modification des pr\u0000visions \u0000conomiques ou de la dur\u0000e du sc\u0000nario raisonnablement soutenable pourrait impacter fortement la provision pour pertes et les r\u0000sultats."
+      "summary": "Toute modification des pr\u0000visions \u0000conomiques ou de la dur\u0000e du sc\u0000nario raisonnablement soutenable pourrait impacter fortement la provision pour pertes et les r\u0000sultats.",
+      "score": 4
     },
     {
       "title": "Risque li\u0000 \u0000 la m\u0000thodologie CECL",
@@ -318,7 +335,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement un montant de 20,7M de \u0000charge CECL jour 1 en 2025, indiquant une transition ou un ajustement r\u0000cent majeur. Cela refl\u0000te un risque d\u0000r\u0000glementaire li\u0000 \u0000 l\u0000application de la norme CECL.",
       "trend": "new",
-      "summary": "L\u0000adoption ou l\u0000ajustement de la norme CECL peut entra\u0000ner des charges comptables importantes et des volatilit\u0000s impr\u0000vues dans la provision pour pertes."
+      "summary": "L\u0000adoption ou l\u0000ajustement de la norme CECL peut entra\u0000ner des charges comptables importantes et des volatilit\u0000s impr\u0000vues dans la provision pour pertes.",
+      "score": 4
     },
     {
       "title": "D\u0000pendance aux conditions \u0000conomiques r\u0000gionales",
@@ -326,7 +344,8 @@
       "severity": 3,
       "score_rationale": "L\u0000activit\u0000 est concentr\u0000e en Pennsylvanie, New York, Ohio et Indiana. Le texte lie les activit\u0000s de pr\u0000t et de collecte de d\u0000p\u0000ts aux conditions \u0000conomiques r\u0000gionales, ce qui cr\u0000e un risque de concentration g\u0000ographique.",
       "trend": "stable",
-      "summary": "Une r\u0000cession locale ou une d\u0000t\u0000rioration \u0000conomique dans les march\u0000s cl\u0000s pourrait affecter n\u0000gativement les d\u0000p\u0000ts, les pr\u0000ts et la qualit\u0000 du portefeuille."
+      "summary": "Une r\u0000cession locale ou une d\u0000t\u0000rioration \u0000conomique dans les march\u0000s cl\u0000s pourrait affecter n\u0000gativement les d\u0000p\u0000ts, les pr\u0000ts et la qualit\u0000 du portefeuille.",
+      "score": 3
     },
     {
       "title": "Litiges en cours",
@@ -334,7 +353,8 @@
       "severity": 2,
       "score_rationale": "La soci\u0000t\u0000 mentionne des proc\u0000dures en cours mais affirme que leur r\u0000solution n\u0000aurait pas d\u0000effet mat\u0000riel selon la direction. Le langage est rassurant, mais le risque existe.",
       "trend": "stable",
-      "summary": "Des actions en justice en cours pourraient avoir un impact financier ou r\u0000putationnel, bien que la direction ne s\u0000attende pas \u0000 un effet mat\u0000riel."
+      "summary": "Des actions en justice en cours pourraient avoir un impact financier ou r\u0000putationnel, bien que la direction ne s\u0000attende pas \u0000 un effet mat\u0000riel.",
+      "score": 2
     },
     {
       "title": "Risque op\u0000rationnel li\u0000 \u0000 l\u0000infrastructure physique",
@@ -342,7 +362,8 @@
       "severity": 3,
       "score_rationale": "La soci\u0000t\u0000 d\u0000tient 161 agences et 140M$ de valeur nette d\u0000s immobilisations. Bien que non explicitement pr\u0000sent\u0000 comme un risque majeur, la taille du r\u0000seau implique des risques op\u0000rationnels li\u0000s \u0000 la maintenance, la s\u0000curit\u0000 et la modernisation.",
       "trend": "stable",
-      "summary": "La gestion d\u0000un vaste r\u0000seau d\u0000agences comporte des risques op\u0000rationnels et des co\u0000ts importants, notamment en cas de sinistre ou de d\u0000faillance technique."
+      "summary": "La gestion d\u0000un vaste r\u0000seau d\u0000agences comporte des risques op\u0000rationnels et des co\u0000ts importants, notamment en cas de sinistre ou de d\u0000faillance technique.",
+      "score": 3
     }
   ],
   "_kpis_cleaned": [
@@ -506,9 +527,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.291814+00:00",
     "fetched_at": "2026-05-21T02:17:14.291815+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.146Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.090Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nwbi.json",
     "enrich_root": "v2-pipeline-enrich/nwbi.json",

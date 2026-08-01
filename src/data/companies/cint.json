@@ -40,7 +40,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -67,54 +67,64 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.55,
-      "unit": "Mds €",
+      "value": 550,
+      "unit": "M €",
       "yoy": "+3.8%",
       "history": [
-        0.58,
-        0.56,
-        0.53,
-        0.55
+        580,
+        560,
+        530,
+        550
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.55 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "-13.3%",
       "history": [
-        0.2,
-        0.16,
-        0.15,
-        0.13
+        200,
+        160,
+        150,
+        130
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.13 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -142,9 +152,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     },
     {
       "short": "Revenue",
@@ -170,9 +178,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -215,7 +221,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en premier dans la section Risk Factors (position haute), langage direct (« If any of our largest clients terminates »), impact financier majeur sur revenus, tendance stable mais structurelle à l'activité de services IT.",
       "trend": "stable",
-      "summary": "CI&T dépend fortement d'un nombre limité de grands clients. La résiliation, réduction de scope ou non-renouvellement d'un contrat majeur impacterait significativement les revenus et résultats opérationnels. Risque typique des sociétés de services IT avec base clientèle concentrée."
+      "summary": "CI&T dépend fortement d'un nombre limité de grands clients. La résiliation, réduction de scope ou non-renouvellement d'un contrat majeur impacterait significativement les revenus et résultats opérationnels. Risque typique des sociétés de services IT avec base clientèle concentrée.",
+      "score": 5
     },
     {
       "title": "Attraction et rétention de talents IT hautement qualifiés",
@@ -223,7 +230,8 @@
       "severity": 5,
       "score_rationale": "Mentionné explicitement deux fois dans Risk Factors (« must attract and retain », « attrition »), langage d'urgence, impact direct sur coûts opérationnels et capacité de croissance, critique pour modèle de services.",
       "trend": "up",
-      "summary": "CI&T opère dans un marché très compétitif pour les talents IT. L'augmentation du turnover élèverait les coûts de recrutement/formation et réduirait la capacité à servir les clients. Le nearshoring brésilien expose à la concurrence mondiale pour les développeurs qualifiés."
+      "summary": "CI&T opère dans un marché très compétitif pour les talents IT. L'augmentation du turnover élèverait les coûts de recrutement/formation et réduirait la capacité à servir les clients. Le nearshoring brésilien expose à la concurrence mondiale pour les développeurs qualifiés.",
+      "score": 5
     },
     {
       "title": "Intensité concurrentielle et innovations technologiques",
@@ -231,7 +239,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité (« We face intense competition »), langage modéré mais répété, risque de perte de parts de marché et de pricing power, contexte d'innovation rapide (IA, cloud, ML mentionnés).",
       "trend": "up",
-      "summary": "CI&T fait face à une concurrence intense de la part de nouveaux entrants et acteurs établis. L'évolution rapide des technologies (IA, cloud, data analytics) exige innovation continue. Risque de commoditisation des services et pression sur marges."
+      "summary": "CI&T fait face à une concurrence intense de la part de nouveaux entrants et acteurs établis. L'évolution rapide des technologies (IA, cloud, data analytics) exige innovation continue. Risque de commoditisation des services et pression sur marges.",
+      "score": 4
     },
     {
       "title": "Qualité des solutions et risques de responsabilité",
@@ -239,7 +248,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite (« Degradation of the quality »), langage fort (« disruptions », « liability »), impact sur réputation et rétention clients, pertinent pour éditeur de solutions logicielles customisées.",
       "trend": "stable",
-      "summary": "Toute dégradation de la qualité des solutions logicielles (bugs, défaillances, non-conformité) pourrait causer des interruptions chez les clients, réduire la demande et exposer CI&T à des réclamations en responsabilité civile."
+      "summary": "Toute dégradation de la qualité des solutions logicielles (bugs, défaillances, non-conformité) pourrait causer des interruptions chez les clients, réduire la demande et exposer CI&T à des réclamations en responsabilité civile.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et conformité données clients",
@@ -247,7 +257,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans forward-looking statements (« risks related to cybersecurity and data privacy »), langage d'obligation contractuelle (« contractual security obligations »), risque d'indemnisation clients, pertinent pour prestataire IT.",
       "trend": "up",
-      "summary": "CI&T doit respecter des obligations contractuelles strictes de sécurité des données clients. Tout incident de cybersécurité (breach, attaque) pourrait entraîner des indemnisations, perte de clients et dommages réputationnels. Environnement de menaces croissantes."
+      "summary": "CI&T doit respecter des obligations contractuelles strictes de sécurité des données clients. Tout incident de cybersécurité (breach, attaque) pourrait entraîner des indemnisations, perte de clients et dommages réputationnels. Environnement de menaces croissantes.",
+      "score": 4
     },
     {
       "title": "Dépendance à la demande de services IT dans secteurs limités",
@@ -255,7 +266,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité (« revenue is dependent on a limited number of industry verticals »), risque de concentration sectorielle, impact sur croissance si secteurs en déclin, pertinent pour modèle de services verticalisés.",
       "trend": "stable",
-      "summary": "Les revenus de CI&T sont concentrés dans un nombre limité de secteurs verticaux. Toute baisse de demande de services IT dans ces secteurs ou incapacité à pénétrer de nouveaux marchés réduirait la croissance et la diversification."
+      "summary": "Les revenus de CI&T sont concentrés dans un nombre limité de secteurs verticaux. Toute baisse de demande de services IT dans ces secteurs ou incapacité à pénétrer de nouveaux marchés réduirait la croissance et la diversification.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques et instabilité économique au Brésil",
@@ -263,7 +275,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans forward-looking statements (« uncertainty concerning the current economic, political, and social environment in Latin America, specifically in Brazil »), impact sur opérations et régulation, siège social au Brésil.",
       "trend": "up",
-      "summary": "CI&T est basée au Brésil et exposée aux risques politiques, économiques et réglementaires locaux (décisions de la Cour Suprême fédérale, changements législatifs). L'instabilité macroéconomique brésilienne pourrait affecter les opérations et la rentabilité."
+      "summary": "CI&T est basée au Brésil et exposée aux risques politiques, économiques et réglementaires locaux (décisions de la Cour Suprême fédérale, changements législatifs). L'instabilité macroéconomique brésilienne pourrait affecter les opérations et la rentabilité.",
+      "score": 4
     },
     {
       "title": "Cycles de vente longs et investissements importants",
@@ -271,7 +284,8 @@
       "severity": 3,
       "score_rationale": "Explicitement cité (« long selling cycle »), impact sur cash-flow et allocation de ressources, risque modéré mais structurel au modèle de services IT complexes.",
       "trend": "stable",
-      "summary": "Certains projets clients impliquent des cycles de vente longs avec investissements importants en ressources humaines avant génération de revenus. Risque de non-concrétisation ou de délais impactant la trésorerie et l'utilisation des capacités."
+      "summary": "Certains projets clients impliquent des cycles de vente longs avec investissements importants en ressources humaines avant génération de revenus. Risque de non-concrétisation ou de délais impactant la trésorerie et l'utilisation des capacités.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:24:46.656188+00:00",
@@ -463,9 +477,9 @@
     "country": "Brazil",
     "_data_freshness_date": "2026-05-21T02:17:14.238827+00:00",
     "fetched_at": "2026-05-21T02:17:14.238828+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.411Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.871Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cint.json",
     "enrich_root": "v2-pipeline-enrich/cint.json",

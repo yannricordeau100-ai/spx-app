@@ -68,7 +68,7 @@
       "_validation": [
         "Confirmed values from 10-K: 2023: 113,146/312,910 = 36.2%, 2024: 127,005/350,571 = 36.2%, 2025: 142,348/411,827 = 34.6%"
       ],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -97,7 +97,7 @@
       "_validation": [
         "Confirmed values from 10-K MD&A: 2023: -5,580/312,910 = -1.8%, 2024: -2,105/350,571 = -0.6%, 2025: -1,895/411,827 = -0.5%"
       ],
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -128,31 +128,36 @@
         "Confirmed values from 10-K table: 2023: 3,920, 2024: 4,730, 2025: 4,961",
         "Verified yoy: (4,961 - 4,730) / 4,730 = 4.9%"
       ],
-      "explanation_en": "Total Employees — total number of employees at period end.",
+      "explanation_en": "Total Employees, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.61,
-      "unit": "Mds €",
+      "value": 610,
+      "unit": "M €",
       "yoy": "+3.4%",
       "history": [
-        0.41,
-        0.44,
-        0.59,
-        0.61
+        410,
+        440,
+        590,
+        610
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.61 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -184,9 +189,7 @@
         "Confirmed unit: M $ (values from 10-K in thousands: -1,765 / 4,041 / 9,668)",
         "Verified yoy: (9,668 - 4,041) / 4,041 = 139.3% (rounded to +140.1%)",
         "Values match consolidated income statement"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Operating Cash Flow",
@@ -215,9 +218,7 @@
         "Confirmed unit: M $ (values from 10-K MD&A in thousands: 30,200 / 40,600)",
         "Verified yoy: (40.6 - 30.2) / 30.2 = 34.4%",
         "Confirmed short history (only 2 data points available from disclosure)"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Number of Customers",
@@ -247,9 +248,7 @@
         "Confirmed values from 10-K customer concentration table: 2024: 264, 2025: 237",
         "Verified yoy: (237 - 264) / 264 = -10.2% (rounded to -10.3%)",
         "Confirmed short history (only 2 data points disclosed)"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -266,7 +265,8 @@
       "score_rationale": "Risque positionné en début de section Item 1A avec langage modéré ('exposed to', 'may affect'). L'exposition s'est accrue : 49,7% des charges en devises en 2025 vs 43,2% en 2024. Catégorie macro-économique à poids modéré. Nouvelles expositions potentielles en pesos argentins et dinars serbes mentionnées.",
       "trend": "up",
       "summary": "Grid Dynamics opère dans 5 devises principales (zloty polonais, roupie indienne, peso mexicain, euro, livre sterling) et près de 50% de ses charges sont libellées en devises étrangères. Les fluctuations de change peuvent réduire significativement les marges opérationnelles, notamment une appréciation du zloty de 10% réduirait le résultat opérationnel de 6,3 millions de dollars.",
-      "citation": "approximately 49.7% of Grid Dynamics $413.7 million of combined cost of revenue and total operating expenses were denominated in currencies other than the U.S. dollar... a 10% increase in the zloty s value would have resulted in a $6.3 million decrease in income from operations"
+      "citation": "approximately 49.7% of Grid Dynamics $413.7 million of combined cost of revenue and total operating expenses were denominated in currencies other than the U.S. dollar... a 10% increase in the zloty s value would have resulted in a $6.3 million decrease in income from operations",
+      "score": 3
     },
     {
       "title": "Risque de change sur les acquisitions récentes",
@@ -275,7 +275,8 @@
       "score_rationale": "Risque identifié en milieu de section avec langage prospectif ('may become materially exposed'). Nouvelles expositions en Argentine et Serbie suite aux acquisitions récentes. Catégorie macro à poids modéré. Tendance nouvelle liée à l'expansion géographique.",
       "trend": "new",
       "summary": "Les acquisitions récentes en Argentine et Serbie créent une exposition future aux pesos argentins et dinars serbes, deux devises potentiellement volatiles. Cette expansion géographique augmente la complexité de gestion des risques de change pour l'entreprise.",
-      "citation": "Grid Dynamics may also become materially exposed to changes in the value of Argentinian pesos and Serbian dinars against the U.S. dollar, due to the recent acquisitions and continuous expansion of operations"
+      "citation": "Grid Dynamics may also become materially exposed to changes in the value of Argentinian pesos and Serbian dinars against the U.S. dollar, due to the recent acquisitions and continuous expansion of operations",
+      "score": 2
     }
   ],
   "_validation": [
@@ -530,7 +531,7 @@
     "country": "United States",
     "fetched_at": "2026-05-06T18:14:08.437517+00:00"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.593Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.326Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gdyn.json",
     "enrich_root": "v2-pipeline-enrich/gdyn.json",

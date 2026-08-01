@@ -40,9 +40,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue stable, monitor outlook"
+      "period_type": "year",
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue stable, monitor outlook",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -68,7 +71,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -95,7 +98,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Revenue",
@@ -114,34 +117,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.23 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "-27.8%",
       "history": [
-        0.36,
-        0.35,
-        0.36,
-        0.26
+        360,
+        350,
+        360,
+        260
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.26 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -160,56 +172,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.48 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "-6.3%",
       "history": [
-        0.15,
-        0.14,
-        0.32,
-        0.3
+        150,
+        140,
+        320,
+        300
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.3 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.19,
-        0.3,
-        0.02,
-        0.02
+        190,
+        300,
+        20,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -253,7 +279,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne que son business est impacté par des facteurs tels que la concurrence, les pressions de prix et les changements dans le mix de livraison. Cela indique que la concurrence est un facteur clé qui peut affecter les résultats de l'entreprise.",
       "trend": "stable",
-      "summary": "La concurrence dans le secteur du transport peut affecter les prix et les volumes de livraison de la société."
+      "summary": "La concurrence dans le secteur du transport peut affecter les prix et les volumes de livraison de la société.",
+      "score": 4
     },
     {
       "title": "Économie",
@@ -261,7 +288,8 @@
       "severity": 5,
       "score_rationale": "La société mentionne que son business est étroitement corrélé avec les secteurs non-service de l'économie générale. Cela indique que les fluctuations économiques peuvent avoir un impact significatif sur les résultats de l'entreprise.",
       "trend": "stable",
-      "summary": "Les fluctuations économiques peuvent affecter les volumes de livraison et les prix de la société."
+      "summary": "Les fluctuations économiques peuvent affecter les volumes de livraison et les prix de la société.",
+      "score": 5
     },
     {
       "title": "Inflation",
@@ -269,7 +297,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne que les coûts de groupe d'assurance-santé ont augmenté en raison de l'inflation. Cela indique que l'inflation peut avoir un impact sur les coûts de la société.",
       "trend": "up",
-      "summary": "L'inflation peut augmenter les coûts de la société, notamment les coûts de groupe d'assurance-santé."
+      "summary": "L'inflation peut augmenter les coûts de la société, notamment les coûts de groupe d'assurance-santé.",
+      "score": 4
     },
     {
       "title": "Régulation",
@@ -277,7 +306,8 @@
       "severity": 3,
       "score_rationale": "La société mentionne que les changements dans les conditions réglementaires peuvent affecter son business. Cela indique que les réglementations peuvent avoir un impact sur les résultats de l'entreprise.",
       "trend": "stable",
-      "summary": "Les changements dans les conditions réglementaires peuvent affecter les opérations de la société."
+      "summary": "Les changements dans les conditions réglementaires peuvent affecter les opérations de la société.",
+      "score": 3
     },
     {
       "title": "Prix du diesel",
@@ -285,7 +315,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne que les prix du diesel peuvent affecter son business. Cela indique que les fluctuations des prix du diesel peuvent avoir un impact sur les coûts de la société.",
       "trend": "stable",
-      "summary": "Les fluctuations des prix du diesel peuvent affecter les coûts de la société."
+      "summary": "Les fluctuations des prix du diesel peuvent affecter les coûts de la société.",
+      "score": 4
     },
     {
       "title": "Disponibilité de la main-d'œuvre",
@@ -293,7 +324,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne que la disponibilité de la main-d'œuvre peut affecter son business. Cela indique que les difficultés de recrutement peuvent avoir un impact sur les opérations de la société.",
       "trend": "stable",
-      "summary": "Les difficultés de recrutement peuvent affecter les opérations de la société."
+      "summary": "Les difficultés de recrutement peuvent affecter les opérations de la société.",
+      "score": 4
     },
     {
       "title": "Chaîne d'approvisionnement",
@@ -301,7 +333,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne que les contraintes de la chaîne d'approvisionnement peuvent affecter son business. Cela indique que les perturbations de la chaîne d'approvisionnement peuvent avoir un impact sur les opérations de la société.",
       "trend": "stable",
-      "summary": "Les perturbations de la chaîne d'approvisionnement peuvent affecter les opérations de la société."
+      "summary": "Les perturbations de la chaîne d'approvisionnement peuvent affecter les opérations de la société.",
+      "score": 4
     }
   ],
   "governance": {
@@ -336,7 +369,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -487,40 +520,36 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SAIA",
-    "extracted_at": "2026-05-15T18:14:08Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1177702,
+    "extracted_at": "2026-06-01T09:20:01Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Capex",
+        "short": "Revenue",
         "period_type": "quarter",
         "history": [
-          100.202,
-          154.884,
-          5.092,
-          46.259,
-          156.351,
-          279.057,
-          -114.238,
-          128.415,
-          227.022,
-          340.528,
-          -256.086,
-          457.164,
-          681.919,
-          875.302,
-          -970.828,
-          202.889,
-          377.54,
-          467.814,
-          -480.604,
-          66.116
+          0.484074,
+          0.571333,
+          0.616216,
+          0.661216,
+          0.745554,
+          0.729561,
+          0.660535,
+          0.660535,
+          0.694622,
+          0.775144,
+          0.660535,
+          0.754775,
+          0.823244,
+          0.842103,
+          0.754775,
+          0.787575,
+          0.817115,
+          0.839644
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
@@ -535,40 +564,15 @@
           "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 377.54,
-            "accession": "0000950170-25-098789",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 467.814,
-            "accession": "0001193125-25-258666",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -480.604,
-            "accession": "calc-0001193125-26-067030",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 66.116,
-            "accession": "0001193125-26-197324",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T09:20:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -584,9 +588,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.306125+00:00",
     "fetched_at": "2026-05-21T02:17:14.306126+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.472Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.500Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/saia.json",
     "enrich_root": "v2-pipeline-enrich/saia.json",

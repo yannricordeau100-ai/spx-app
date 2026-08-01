@@ -73,8 +73,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Revenu total de l'entreprise",
-      "value": 1788.29,
-      "unit": "M $",
+      "value": 1.788,
+      "unit": "Mds $",
       "yoy": "+12.9%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -82,16 +82,16 @@
       "signal": "Croissance significative en 2025",
       "description": "Revenu total de l'entreprise, issu des divisions Chamberlain, Walden et Medical and Veterinary",
       "history": [
-        415.4,
-        465.942,
-        1231.211,
-        1239.687,
-        1052.001,
-        1112.38,
-        1387.122,
-        1450.826,
-        1584.652,
-        1788.29
+        0.415,
+        0.466,
+        1.231,
+        1.24,
+        1.052,
+        1.112,
+        1.387,
+        1.451,
+        1.585,
+        1.788
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -103,7 +103,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:23.769429+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Income",
@@ -128,7 +129,7 @@
       "is_short_history": false,
       "ttm": 280.56,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; type corrigé de 'Revenue' à 'Profitability'",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -150,7 +151,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Données manquantes dans la source 10-K",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -190,34 +191,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.75 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.77,
-      "unit": "Mds €",
+      "value": 770,
+      "unit": "M €",
       "yoy": "-9.4%",
       "history": [
-        1.07,
-        0.9,
-        0.85,
-        0.77
+        1070,
+        900,
+        850,
+        770
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.77 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,9 +253,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Adoption",
-      "_validation": "Données extraites du 10-K: 38,891 étudiants en mai 2025 (36,750 en mai 2024); unité ajoutée 'Étudiants'; yoy et history complétés avec données sources; last_data_date précisé",
-      "_source_month": "mai 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Données extraites du 10-K: 38,891 étudiants en mai 2025 (36,750 en mai 2024); unité ajoutée 'Étudiants'; yoy et history complétés avec données sources; last_data_date précisé"
     }
   ],
   "ai_positioning": {
@@ -261,7 +269,8 @@
       "severity": 5,
       "score_rationale": "L'impact de la réforme OBBBA sur les institutions et l'activité de l'entreprise n'est pas encore entièrement connu, mais pourrait avoir un effet défavorable significatif sur l'activité en raison des modifications des aides financières étudiantes et des restrictions de prêts.",
       "trend": "new",
-      "summary": "La réforme OBBBA pourrait avoir un impact défavorable sur l'activité de l'entreprise en raison de changements majeurs dans les aides financières étudiants, y compris la limitation des prêts PLUS et l'établissement de plafonds d'emprunt agrégés"
+      "summary": "La réforme OBBBA pourrait avoir un impact défavorable sur l'activité de l'entreprise en raison de changements majeurs dans les aides financières étudiants, y compris la limitation des prêts PLUS et l'établissement de plafonds d'emprunt agrégés",
+      "score": 5
     },
     {
       "title": "Concurrence accrue",
@@ -269,7 +278,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise opère dans un marché concurrentiel où les autres institutions d'enseignement supérieur pourraient offrir des programmes similaires.",
       "trend": "stable",
-      "summary": "La concurrence accrue dans le marché de l'enseignement supérieur pourrait affecter la part de marché de l'entreprise"
+      "summary": "La concurrence accrue dans le marché de l'enseignement supérieur pourrait affecter la part de marché de l'entreprise",
+      "score": 4
     },
     {
       "title": "Dépendance aux aides financières fédérales",
@@ -277,7 +287,8 @@
       "severity": 4,
       "score_rationale": "Les étudiants de l'entreprise dépendent fortement des aides financières fédérales pour financer leurs études, ce qui les rend vulnérables aux changements réglementaires.",
       "trend": "stable",
-      "summary": "La dépendance aux aides financières fédérales pourrait affecter la capacité de l'entreprise à attirer et à retenir des étudiants en cas de restrictions budgétaires"
+      "summary": "La dépendance aux aides financières fédérales pourrait affecter la capacité de l'entreprise à attirer et à retenir des étudiants en cas de restrictions budgétaires",
+      "score": 4
     },
     {
       "title": "Risques de crédit",
@@ -285,7 +296,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est exposée aux risques de crédit liés aux prêts étudiants et à la capacité des étudiants à rembourser leurs dettes.",
       "trend": "stable",
-      "summary": "Les risques de crédit liés aux prêts étudiants pourraient affecter la capacité de l'entreprise à recouvrer ses créances"
+      "summary": "Les risques de crédit liés aux prêts étudiants pourraient affecter la capacité de l'entreprise à recouvrer ses créances",
+      "score": 3
     },
     {
       "title": "Risques de réputation",
@@ -293,7 +305,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est exposée aux risques de réputation liés à la qualité de ses programmes et services et à l'employabilité de ses diplômés.",
       "trend": "stable",
-      "summary": "Les risques de réputation liés aux dispositions Do No Harm de l'OBBBA pourraient affecter la capacité de l'entreprise à attirer et à retenir des étudiants"
+      "summary": "Les risques de réputation liés aux dispositions Do No Harm de l'OBBBA pourraient affecter la capacité de l'entreprise à attirer et à retenir des étudiants",
+      "score": 3
     }
   ],
   "governance": {
@@ -338,7 +351,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -485,6 +498,91 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CVSA",
+    "extracted_at": "2026-06-01T03:09:23Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Chamberlain Revenue",
+        "period_type": "quarter",
+        "history": [
+          139.1,
+          135.4,
+          141.4,
+          149.7,
+          142.6,
+          153.6,
+          170.3,
+          167.9,
+          181,
+          192.6,
+          179.2,
+          183.8
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2023",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2024",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2025",
+          "Q1 2025",
+          "Q2 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:09:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Walden Revenue",
+        "period_type": "quarter",
+        "history": [
+          140.6,
+          130.9,
+          131.9,
+          132.9,
+          141.6,
+          146.8,
+          150.6,
+          161.5,
+          171.3,
+          178.4,
+          190,
+          217.6
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2023",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2024",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2025",
+          "Q1 2025",
+          "Q2 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:09:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CVSA",
     "ranks": {
@@ -497,15 +595,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.248040+00:00",
     "fetched_at": "2026-05-21T02:17:14.248041+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.021Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.549Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cvsa.json",
     "enrich_root": "v2-pipeline-enrich/cvsa.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

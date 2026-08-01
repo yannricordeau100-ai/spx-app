@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Total revenue from freight transportation services",
-      "value": 4500,
-      "unit": "M $",
+      "value": 4.5,
+      "unit": "Mds $",
       "yoy": "+1.1%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,14 +30,14 @@
       "signal": "Revenue growth driven by pricing, offset by freight volume softness",
       "description": "Total revenue for fiscal year 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 8 dernières années.",
       "history": [
-        5000,
-        5100,
-        4900,
-        4800,
-        4900,
-        4700,
-        4600,
-        4500
+        5,
+        5.1,
+        4.9,
+        4.8,
+        4.9,
+        4.7,
+        4.6,
+        4.5
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -46,8 +46,9 @@
       "ttm": 0,
       "_validation": "Unit corrected from Mds $ to M $; value is in millions not billions",
       "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Income",
@@ -75,8 +76,12 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "Unit corrected from Mds $ to M $; operating margin of 8.0% in 2025",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -104,8 +109,12 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "Unit corrected from Mds $ to M $; decline driven by $35M environmental charge and $33M insurance increase",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Margin",
@@ -133,8 +142,12 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "New KPI extracted from financial statements; calculated from operating income / revenue",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Salaries and Benefits",
@@ -162,7 +175,11 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "New KPI extracted from consolidated financial results; reflects 42.0% of revenue in 2025",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -181,11 +198,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.19 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -204,33 +225,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.09 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.31,
-      "unit": "Mds €",
+      "value": 310,
+      "unit": "M €",
       "yoy": "+24.0%",
       "history": [
-        0.46,
-        0.41,
-        0.25,
-        0.31
+        460,
+        410,
+        250,
+        310
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.31 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -261,66 +291,10 @@
       "story_category": "Capacity",
       "ttm": 0,
       "_validation": "Replaced hallucinated tonnage KPI with verified business metric from Item 1 Business section; now reflects strategic network expansion"
-    },
-    {
-      "short": "AI Linehaul Optimization",
-      "name_fr": "Optimisation par IA des lignes directes",
-      "name_en": "AI-driven linehaul efficiency improvements",
-      "explanation": "Proprietary AI models enhancing freight flow and routing efficiency",
-      "value": "1",
-      "unit": "Strategic Initiative",
-      "yoy": "New in 2025",
-      "type": "Technology",
-      "nature": "Structural",
-      "comparable": "Proprietary",
-      "signal": "Developed new AI-based linehaul models and routing innovations directly enhancing profitability in 2025",
-      "description": "In 2025, XPO developed proprietary AI-driven linehaul models to improve freight flow efficiency, piloted pickup-and-delivery routing innovations, and deployed real-time labor analytics at service center level",
-      "history": [
-        1,
-        0,
-        0,
-        0,
-        0
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": false,
-      "story_category": "Technology",
-      "ttm": 0,
-      "_validation": "New KPI added to reflect AI positioning found in Item 1 Business; updates previous 'absent' AI stance with actual 2025 implementations"
-    },
-    {
-      "short": "LTL Market Share",
-      "name_fr": "Part de marché LTL",
-      "name_en": "North American LTL market share",
-      "explanation": "Estimated market share of XPO in the U.S. Less-Than-Truckload market",
-      "value": "9",
-      "unit": "%",
-      "yoy": "Estimated 2025",
-      "type": "Market Share",
-      "nature": "Structural",
-      "comparable": "Comparable",
-      "signal": "XPO operates one of the largest LTL networks with approximately 9% of estimated 53 billion U.S. LTL market",
-      "description": "Estimated share of North American LTL market as of December 31, 2025",
-      "history": [
-        9,
-        0,
-        0,
-        0,
-        0
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": false,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Market Position",
-      "ttm": 0,
-      "_validation": "New KPI extracted from Item 1 Business; reflects market position statement with 9% estimated share"
     }
   ],
   "ai_positioning": {
-    "stance": "active",
+    "stance": "integrator",
     "summary": "XPO has integrated artificial intelligence and intelligent automation into its core North American LTL operations. In 2025, the company developed new AI-based linehaul models to improve freight flow efficiency, piloted AI-driven routing innovations for pickup-and-delivery operations, and implemented real-time labor analytics powered by AI at the service center level. Management explicitly states these proprietary developments in intelligent automation and AI-enabled decision-making are directly enhancing profitability.",
     "evidence": [
       "Developed new linehaul models using artificial intelligence to improve freight flow efficiency",
@@ -337,7 +311,8 @@
       "severity": 5,
       "score_rationale": "Transportation industry directly linked to economic cycles, inventory levels, and goods production; recessionary freight environment currently impacting volumes and pricing power",
       "trend": "stable",
-      "summary": "Economic recessions, downturns in customer business cycles, supply chain disruptions, and reduced freight volumes directly impact business levels and profitability. Current freight environment remains recessionary due to macroeconomic pressures on supply and demand"
+      "summary": "Economic recessions, downturns in customer business cycles, supply chain disruptions, and reduced freight volumes directly impact business levels and profitability. Current freight environment remains recessionary due to macroeconomic pressures on supply and demand",
+      "score": 5
     },
     {
       "title": "Intense Competition and Pricing Pressure",
@@ -345,7 +320,8 @@
       "severity": 4,
       "score_rationale": "Highly competitive LTL market with established players; capacity excess may pressure pricing and operating margins",
       "trend": "up",
-      "summary": "Competitive dynamics in North American LTL market with significant excess industry capacity could reduce pricing power and compress margins despite XPO's 9% market share position"
+      "summary": "Competitive dynamics in North American LTL market with significant excess industry capacity could reduce pricing power and compress margins despite XPO's 9% market share position",
+      "score": 4
     },
     {
       "title": "Inflation in Labor, Fuel and Operating Costs",
@@ -353,7 +329,8 @@
       "severity": 4,
       "score_rationale": "Labor costs increased as percentage of revenue (42.0% in 2025 vs 41.8% in 2024) due to wage inflation and insourcing; fuel, insurance and employee benefits all subject to inflationary pressures",
       "trend": "up",
-      "summary": "Wage inflation, elevated fuel costs, higher insurance premiums and general inflation in operating costs pressuring margins. Company mitigates through fuel surcharges and rate increases but faces timing lags"
+      "summary": "Wage inflation, elevated fuel costs, higher insurance premiums and general inflation in operating costs pressuring margins. Company mitigates through fuel surcharges and rate increases but faces timing lags",
+      "score": 4
     },
     {
       "title": "Insurance and Claims Costs",
@@ -361,7 +338,8 @@
       "severity": 4,
       "score_rationale": "Insurance and claims costs increased 24.6% year-over-year to $167M (2.0% of revenue vs 1.7% in 2024); represents material headwind to profitability",
       "trend": "up",
-      "summary": "Rising vehicular insurance costs in North American LTL segment, with $33M increase versus prior year, directly reducing net income by 18.3% despite revenue growth"
+      "summary": "Rising vehicular insurance costs in North American LTL segment, with $33M increase versus prior year, directly reducing net income by 18.3% despite revenue growth",
+      "score": 4
     },
     {
       "title": "Geopolitical and Trade Policy Uncertainty",
@@ -369,7 +347,8 @@
       "severity": 4,
       "score_rationale": "Tariff uncertainty, international conflicts impacting shipper routing patterns, and trade policy changes create unpredictable cost pressures and demand shifts",
       "trend": "up",
-      "summary": "Tariff impacts on import/export competitiveness, shipper reluctance to route through conflict-affected areas, and U.S. trading partner tensions create demand and cost uncertainties beyond company control"
+      "summary": "Tariff impacts on import/export competitiveness, shipper reluctance to route through conflict-affected areas, and U.S. trading partner tensions create demand and cost uncertainties beyond company control",
+      "score": 4
     },
     {
       "title": "Legacy Environmental Liabilities",
@@ -377,7 +356,8 @@
       "severity": 3,
       "score_rationale": "$35M pre-Con-way acquisition environmental charge in 2025 related to former subsidiary truck manufacturing plants sold in 1981; ongoing environmental and product liability claims",
       "trend": "stable",
-      "summary": "Environmental and product liability claims from legacy Con-way truck and parts manufacturing operations (pre-1981 and pre-2015 acquisition) could result in additional material charges"
+      "summary": "Environmental and product liability claims from legacy Con-way truck and parts manufacturing operations (pre-1981 and pre-2015 acquisition) could result in additional material charges",
+      "score": 3
     },
     {
       "title": "Cybersecurity and Data Protection",
@@ -385,7 +365,8 @@
       "severity": 4,
       "score_rationale": "Company relies on proprietary technology and customer data for 55,000 customers across North America and Europe; breach could impact reputation, operations and compliance",
       "trend": "up",
-      "summary": "Cybersecurity risks associated with proprietary technology systems, customer data management across 17 countries and 592 locations could disrupt operations or create liability exposure"
+      "summary": "Cybersecurity risks associated with proprietary technology systems, customer data management across 17 countries and 592 locations could disrupt operations or create liability exposure",
+      "score": 4
     },
     {
       "title": "Interest Rate and Debt Refinancing Risk",
@@ -393,7 +374,8 @@
       "severity": 3,
       "score_rationale": "Interest expense of $219M in 2025 (2.7% of revenue); refinanced term loan in Q1 2025 with $6M debt extinguishment loss; variable rate debt exposure to rate increases",
       "trend": "stable",
-      "summary": "Elevated interest rate environment increases refinancing costs and interest expense burden; company anticipates interest expense of $205-215M in 2026, suggesting rate environment stabilization"
+      "summary": "Elevated interest rate environment increases refinancing costs and interest expense burden; company anticipates interest expense of $205-215M in 2026, suggesting rate environment stabilization",
+      "score": 3
     }
   ],
   "governance": {
@@ -625,9 +607,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.331299+00:00",
     "fetched_at": "2026-05-21T02:17:14.331300+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.714Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.879Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/xpo.json",
     "enrich_root": "v2-pipeline-enrich/xpo.json",

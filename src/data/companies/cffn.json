@@ -37,13 +37,14 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Net Interest Income values not found in the provided extract. The document excerpt contains MDA sections on liquidity and capital resources,",
       "explanation_en": "Net Interest income generated over the period.",
       "signal_en": "Strong top-line growth, market traction",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Non-Interest Income",
@@ -106,9 +107,7 @@
       "is_generic": false,
       "is_short_history": true,
       "explanation_en": "Profit margin on Net Interest.",
-      "signal_en": "Margin expansion, operating leverage",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Total Loans",
@@ -127,9 +126,7 @@
       "last_data_date": "2025-09-30",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Non-Performing Assets",
@@ -148,9 +145,7 @@
       "last_data_date": "2025-09-30",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
@@ -169,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.78 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -192,11 +191,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.95 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -258,43 +261,43 @@
       "title": "Transition vers banque commerciale",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le risque est central dans le 10-K, avec une transformation stratégique majeure vers la banque commerciale. Le langage souligne la dépendance aux performances du Bank et aux investissements technologiques. Comparé à l'année précédente, l'intensité est accrue par la croissance rapide du portefeuille commercial (+40%). La catégorie Industriel a une pondération élevée ici. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est central dans le 10-K, avec une transformation stratégique majeure vers la banque commerciale. Le langage souligne la dépendance aux performances du Bank et aux investissements technologiques. Comparé à l'année précédente, l'intensité est accrue par la croissance rapide du portefeuille commercial (+40%). La catégorie Industriel a une pondération élevée ici.",
       "trend": "stable",
       "summary": "La transition vers une banque commerciale expose la société à de nouveaux risques de crédit, de concurrence et d'exécution opérationnelle.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Exposition aux taux d'intérêt",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le gap d'actifs-repassifs est de -10,1% des actifs totaux, bien que réduit par rapport à l'année précédente. Le document mentionne explicitement le dépassement des seuils internes de sensibilité aux taux. Risque récurrent et quantifié, avec une attention particulière dans le Item 7A. Pondération élevée pour le risque de capital. (score par défaut, à affiner)",
+      "score_rationale": "Le gap d'actifs-repassifs est de -10,1% des actifs totaux, bien que réduit par rapport à l'année précédente. Le document mentionne explicitement le dépassement des seuils internes de sensibilité aux taux. Risque récurrent et quantifié, avec une attention particulière dans le Item 7A. Pondération élevée pour le risque de capital.",
       "trend": "down",
       "summary": "Une variation défavorable des taux d'intérêt pourrait affecter la marge d'intérêt et la rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Stratégie de titrisation coûteuse",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Perte d'impairment de 192,6 millions en 2023 et 13,3 millions supplémentaires en 2024. Le langage est fort : 'impairment loss', 'did not have the intent to hold'. Impact direct sur le capital et les résultats. Bien que la stratégie soit terminée, ses effets structurels persistent. Catégorie Capital très pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Perte d'impairment de 192,6 millions en 2023 et 13,3 millions supplémentaires en 2024. Le langage est fort : 'impairment loss', 'did not have the intent to hold'. Impact direct sur le capital et les résultats. Bien que la stratégie soit terminée, ses effets structurels persistent. Catégorie Capital très pondérée.",
       "trend": "stable",
       "summary": "La vente massive de titres à perte a affaibli temporairement le capital et expose à des risques de refinancement futur.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance aux dépôts à haut rendement",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Croissance des dépôts tirée par un compte d'épargne à 4,00%, ce qui augmente le coût des fonds. Mention répétée dans l'analyse de gestion. Risque concurrentiel accru si d'autres banques surenchérissent. Contexte de taux élevés amplifie le risque. (score par défaut, à affiner)",
+      "score_rationale": "Croissance des dépôts tirée par un compte d'épargne à 4,00%, ce qui augmente le coût des fonds. Mention répétée dans l'analyse de gestion. Risque concurrentiel accru si d'autres banques surenchérissent. Contexte de taux élevés amplifie le risque.",
       "trend": "up",
       "summary": "La dépendance à des dépôts coûteux pour financer la croissance menace la marge d'intérêt si les taux baissent ou si la concurrence s'intensifie.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cybersécurité liée à la transformation digitale",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "Investissements majeurs en plateformes digitales, onboarding numérique, intégration d'API. Bien que non explicitement cité comme risque, l'accélération digitale augmente la surface d'attaque. Absence de mention directe dans les risques, mais implicite par les initiatives. Catégorie Cybersécurité moyennement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Investissements majeurs en plateformes digitales, onboarding numérique, intégration d'API. Bien que non explicitement cité comme risque, l'accélération digitale augmente la surface d'attaque. Absence de mention directe dans les risques, mais implicite par les initiatives. Catégorie Cybersécurité moyennement pondérée.",
       "trend": "new",
       "summary": "L'expansion des services numériques accroît l'exposition aux cybermenaces et aux défaillances technologiques.",
       "score": 3
@@ -303,10 +306,10 @@
       "title": "Risque de concentration dans l'immobilier commercial",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Croissance de 40% du portefeuille de prêts commerciaux, dont une grande partie en immobilier. Concentration géographique et par type de garantie surveillée, mais en expansion rapide. Langage prudent sur la qualité de crédit. Risque de crédit amplifié par les cycles immobiliers. (score par défaut, à affiner)",
+      "score_rationale": "Croissance de 40% du portefeuille de prêts commerciaux, dont une grande partie en immobilier. Concentration géographique et par type de garantie surveillée, mais en expansion rapide. Langage prudent sur la qualité de crédit. Risque de crédit amplifié par les cycles immobiliers.",
       "trend": "up",
       "summary": "Une surconcentration dans les prêts immobiliers commerciaux expose la banque à des dépréciations en cas de ralentissement du marché.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -350,7 +353,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -457,6 +460,187 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CFFN",
+    "extracted_at": "2026-06-01T03:05:47Z",
+    "n_kpis": 4,
+    "kpis": [
+      {
+        "short": "Net Interest Income",
+        "period_type": "quarter",
+        "history": [
+          43.073,
+          42.571,
+          45.614,
+          47.101,
+          49.981,
+          45.828,
+          41.959,
+          34.75,
+          39.593,
+          41.32,
+          40.324,
+          42.23,
+          43.84,
+          45.458,
+          51.317
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:47Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Non-Interest Income",
+        "period_type": "quarter",
+        "history": [
+          12.477,
+          5.236,
+          5.506,
+          5.416,
+          6.115,
+          5.352,
+          5.083,
+          5.814,
+          5.352,
+          4.643,
+          4.709,
+          4.693,
+          4.953,
+          5.288,
+          5.479
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:47Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Non-Interest Expense",
+        "period_type": "quarter",
+        "history": [
+          32.653,
+          27.602,
+          26.694,
+          27.96,
+          28.39,
+          27.773,
+          27.96,
+          29.336,
+          28.508,
+          28.445,
+          27.95,
+          27.148,
+          28.445,
+          29.564,
+          30.476
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:47Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Total Loans",
+        "period_type": "quarter",
+        "history": [
+          0.055412,
+          0.054779,
+          0.055788,
+          0.057285,
+          0.056886,
+          0.064819,
+          0.055412,
+          0.071918,
+          0.075941,
+          0.069319,
+          0.076803,
+          0.081394,
+          0.076122,
+          0.082914,
+          0.089792
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:05:47Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CFFN",
     "ranks": {
@@ -469,14 +653,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.237676+00:00",
     "fetched_at": "2026-05-21T02:17:14.237677+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.302Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.738Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cffn.json",
     "enrich_root": "v2-pipeline-enrich/cffn.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

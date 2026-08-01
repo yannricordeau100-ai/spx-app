@@ -21,8 +21,8 @@
       "name_fr": "Revenu locatif",
       "name_en": "Rental Income",
       "explanation": "Revenu généré par les locations de propriétés médicales",
-      "value": 1177.7,
-      "unit": "M $",
+      "value": 1.178,
+      "unit": "Mds $",
       "yoy": "-7.7%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,19 +30,23 @@
       "signal": "Baisse du revenu locatif en 2025 due aux dispositions d'actifs",
       "description": "Revenu locatif diminué de 94,7 millions en 2025 en raison des dispositions en 2024 et 2025, partiellement compensé par les activités de relocation et les développements complétés",
       "history": [
-        1272.4,
-        1177.7
+        1.272,
+        1.178
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
       "ttm": 88.17,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Extrait insuffisant : le texte fourni contient principalement des sections MDA, forward-looking statements et contrôles internes, mais ne pr",
       "explanation_en": "Rental income generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Tenant Improvements Commitments",
@@ -63,9 +67,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Leasing Commissions",
@@ -113,13 +115,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.15 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:49.217306+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
@@ -138,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.25 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +171,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.21 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,33 +198,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.15 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-57.1%",
       "history": [
-        0.06,
-        0.03,
-        0.07,
-        0.03
+        60,
+        30,
+        70,
+        30
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.03 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,9 +259,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 88.17,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 88.17
     }
   ],
   "ai_positioning": {
@@ -254,7 +275,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité explicitement dans le document comme ayant impacté négativement les résultats de la société. La faillite de Prospect Medical affecte directement les revenus locatifs et la trésorerie, constituant une menace existentielle pour la stabilité financière du REIT.",
       "trend": "stable",
-      "summary": "Le dépôt de bilan de Prospect Medical continue d'impacter négativement les résultats de la société, menaçant sa stabilité financière."
+      "summary": "Le dépôt de bilan de Prospect Medical continue d'impacter négativement les résultats de la société, menaçant sa stabilité financière.",
+      "score": 5
     },
     {
       "title": "Dépendance aux systèmes de santé associés",
@@ -262,7 +284,8 @@
       "severity": 5,
       "score_rationale": "Le document souligne une exposition significative à la viabilité des systèmes de santé locataires, avec concentration de revenus potentielle. L'insolvabilité ou les difficultés financières des locataires principaux pourraient gravement affecter les revenus locatifs.",
       "trend": "stable",
-      "summary": "La société dépend fortement de la santé financière de ses locataires exploitant des systèmes de santé, dont l'insolvabilité pourrait gravement affecter ses revenus."
+      "summary": "La société dépend fortement de la santé financière de ses locataires exploitant des systèmes de santé, dont l'insolvabilité pourrait gravement affecter ses revenus.",
+      "score": 5
     },
     {
       "title": "Risque de cybersécurité et intrusions IT",
@@ -270,7 +293,8 @@
       "severity": 4,
       "score_rationale": "Bien que non explicitement détaillé dans l'extrait fourni, les risques opérationnels liés à la dépendance aux systèmes IT pour les opérations de REIT constituent une menace croissante pour la continuité des activités.",
       "trend": "stable",
-      "summary": "Des attaques ou intrusions informatiques pourraient perturber les opérations et nuire à la réputation de la société."
+      "summary": "Des attaques ou intrusions informatiques pourraient perturber les opérations et nuire à la réputation de la société.",
+      "score": 4
     },
     {
       "title": "Augmentations de loyers fixes inférieures à l'inflation",
@@ -278,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Le document indique clairement que 96% des baux offrent des augmentations de loyer à taux fixe contre seulement 4% basées sur l'IPC. Avec une durée moyenne restante de 4,4 ans, les augmentations fixes risquent de ne pas couvrir l'inflation, comprimant les marges.",
       "trend": "up",
-      "summary": "Les loyers à escalades fixes risquent de ne pas couvrir la hausse de l'inflation et des coûts d'exploitation, comprimant les marges opérationnelles."
+      "summary": "Les loyers à escalades fixes risquent de ne pas couvrir la hausse de l'inflation et des coûts d'exploitation, comprimant les marges opérationnelles.",
+      "score": 4
     },
     {
       "title": "Illiquidité des investissements immobiliers",
@@ -286,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Les propriétés immobilières sont par nature illiquides. Le document mentionne explicitement que la société peut ne pas être en mesure de vendre les propriétés stratégiquement ciblées, limitant la flexibilité financière.",
       "trend": "stable",
-      "summary": "Les actifs immobiliers sont difficiles à vendre rapidement, limitant la capacité de la société à réagir aux besoins de trésorerie."
+      "summary": "Les actifs immobiliers sont difficiles à vendre rapidement, limitant la capacité de la société à réagir aux besoins de trésorerie.",
+      "score": 4
     },
     {
       "title": "Perte de personnel clé",
@@ -294,7 +320,8 @@
       "severity": 3,
       "score_rationale": "Risque récurrent dans les REIT, mais moins immédiat que les risques financiers ou crédit. La perte de direction expérimentée pourrait affecter la stratégie d'investissement et l'exécution opérationnelle.",
       "trend": "stable",
-      "summary": "La perte de cadres ou employés clés pourrait nuire à la stratégie et à la performance opérationnelle de la société."
+      "summary": "La perte de cadres ou employés clés pourrait nuire à la stratégie et à la performance opérationnelle de la société.",
+      "score": 3
     },
     {
       "title": "Non-qualification en tant que REIT",
@@ -302,7 +329,8 @@
       "severity": 5,
       "score_rationale": "La perte du statut REIT entraînerait une double imposition au niveau corporate et actionnarial, avec des conséquences fiscales et de valorisation majeures. C'est un risque existentiel pour le modèle économique du REIT.",
       "trend": "stable",
-      "summary": "Toute perte du statut REIT entraînerait une imposition majeure et nuirait gravement à la valeur des actions."
+      "summary": "Toute perte du statut REIT entraînerait une imposition majeure et nuirait gravement à la valeur des actions.",
+      "score": 5
     }
   ],
   "governance": {
@@ -350,7 +378,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -522,9 +550,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.527265+00:00",
     "fetched_at": "2026-05-21T01:44:37.527266+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.160Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.813Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hr.json",
     "enrich_root": "v2-pipeline-enrich/hr.json",

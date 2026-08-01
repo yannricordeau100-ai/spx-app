@@ -1,6 +1,6 @@
 {
   "ticker": "UNF",
-  "name": "UniFirst Corporation",
+  "name": "UniFirst",
   "sector": "Industrie",
   "subsector": "Uniform and Facility Services",
   "tagline": "Leading provider of uniform rental, facility management, and first aid safety solutions in North America",
@@ -21,8 +21,8 @@
       "name_fr": "Revenu des solutions d'uniforme et de service",
       "name_en": "Uniform Facility Service Solutions Revenue",
       "explanation": "Revenu généré par le segment principal incluant services d'uniforme, nettoyage, livraison et articles non-textile en Amérique du Nord",
-      "value": 2218.6,
-      "unit": "M $",
+      "value": 2.219,
+      "unit": "Mds $",
       "yoy": "-0.2%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,8 +30,8 @@
       "signal": "Stable",
       "description": "Revenu principal de l'entreprise. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 5 dernières années.",
       "history": [
-        2218.6,
-        2224,
+        2.219,
+        2.224,
         null,
         null,
         null
@@ -40,8 +40,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Revenue pressure, demand softening"
+      "period_type": "year",
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Revenu First Aid Safety Solutions",
@@ -126,8 +130,8 @@
       "name_fr": "Revenu total consolidé",
       "name_en": "Total Revenue",
       "explanation": "Revenu total consolidé incluant tous les segments de reporting",
-      "value": "2432.4",
-      "unit": "M $",
+      "value": 2.432,
+      "unit": "Mds $",
       "yoy": "+0.2%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -135,8 +139,8 @@
       "signal": "Stable",
       "description": "Revenu total de l'entreprise",
       "history": [
-        2432.4,
-        2427.4,
+        2.432,
+        2.427,
         null,
         null,
         null
@@ -145,7 +149,8 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Assets",
@@ -164,56 +169,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.78 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.05,
-        0.06,
-        0.07,
-        0.07
+        50,
+        60,
+        70,
+        70
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.07 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "+25.0%",
       "history": [
-        0.38,
-        0.08,
-        0.16,
-        0.2
+        380,
+        80,
+        160,
+        200
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.2 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -253,7 +272,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché compétitif avec de nombreux acteurs, ce qui pourrait entraîner une pression sur les prix et les marges.",
       "trend": "stable",
-      "summary": "La concurrence accrue dans le secteur des uniformes et des services de nettoyage pourrait avoir un impact négatif sur les ventes et les bénéfices de la société."
+      "summary": "La concurrence accrue dans le secteur des uniformes et des services de nettoyage pourrait avoir un impact négatif sur les ventes et les bénéfices de la société.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
@@ -261,7 +281,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations gouvernementales et des normes de sécurité, ce qui pourrait entraîner des coûts et des pertes d'exploitation en cas de non-conformité.",
       "trend": "up",
-      "summary": "Les réglementations gouvernementales et les normes de sécurité pourraient avoir un impact négatif sur les opérations et les bénéfices de la société."
+      "summary": "Les réglementations gouvernementales et les normes de sécurité pourraient avoir un impact négatif sur les opérations et les bénéfices de la société.",
+      "score": 3
     },
     {
       "title": "Dépendance à la main-d'œuvre",
@@ -269,7 +290,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de sa main-d'œuvre pour fournir ses services, ce qui pourrait entraîner des pertes d'exploitation et des coûts accrus en cas de pénurie de main-d'œuvre.",
       "trend": "stable",
-      "summary": "La dépendance à la main-d'œuvre pourrait avoir un impact négatif sur les opérations et les bénéfices de la société."
+      "summary": "La dépendance à la main-d'œuvre pourrait avoir un impact négatif sur les opérations et les bénéfices de la société.",
+      "score": 4
     },
     {
       "title": "Risques liés à la chaîne d'approvisionnement",
@@ -277,7 +299,8 @@
       "severity": 3,
       "score_rationale": "La société dépend de ses fournisseurs pour obtenir les matières premières et les produits nécessaires à ses opérations, ce qui pourrait entraîner des pertes d'exploitation et des coûts accrus en cas de rupture de la chaîne d'approvisionnement.",
       "trend": "up",
-      "summary": "Les risques liés à la chaîne d'approvisionnement pourraient avoir un impact négatif sur les opérations et les bénéfices de la société."
+      "summary": "Les risques liés à la chaîne d'approvisionnement pourraient avoir un impact négatif sur les opérations et les bénéfices de la société.",
+      "score": 3
     },
     {
       "title": "Risques financiers",
@@ -285,7 +308,8 @@
       "severity": 4,
       "score_rationale": "La société a des dettes et des engagements financiers, ce qui pourrait entraîner des coûts et des pertes d'exploitation en cas de difficultés financières.",
       "trend": "stable",
-      "summary": "Les risques financiers pourraient avoir un impact négatif sur les opérations et les bénéfices de la société."
+      "summary": "Les risques financiers pourraient avoir un impact négatif sur les opérations et les bénéfices de la société.",
+      "score": 4
     },
     {
       "title": "Risques liés à la réputation",
@@ -293,7 +317,8 @@
       "severity": 3,
       "score_rationale": "La société est sensible à la réputation et à la confiance de ses clients, ce qui pourrait entraîner des pertes d'exploitation et des coûts accrus en cas de crise de réputation.",
       "trend": "up",
-      "summary": "Les risques liés à la réputation pourraient avoir un impact négatif sur les opérations et les bénéfices de la société."
+      "summary": "Les risques liés à la réputation pourraient avoir un impact négatif sur les opérations et les bénéfices de la société.",
+      "score": 3
     },
     {
       "title": "Risques liés à la cybersécurité",
@@ -301,7 +326,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques liés à la cybersécurité, ce qui pourrait entraîner des pertes d'exploitation et des coûts accrus en cas de faille de sécurité.",
       "trend": "up",
-      "summary": "Les risques liés à la cybersécurité pourraient avoir un impact négatif sur les opérations et les bénéfices de la société."
+      "summary": "Les risques liés à la cybersécurité pourraient avoir un impact négatif sur les opérations et les bénéfices de la société.",
+      "score": 4
     }
   ],
   "governance": {
@@ -365,7 +391,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -475,23 +501,18 @@
         "history": [
           0.8966,
           1.3609,
-          -0.8782,
           0.4862,
           0.9729,
           1.4844,
-          -0.9426,
           0.5418,
           1.0845,
           1.6612,
-          -1.0544,
           0.5935,
           1.1842,
           1.7876,
-          -1.1379,
           0.6213,
           1.2071,
           1.8179,
-          -1.214,
           1.2438
         ],
         "history_periods": [
@@ -545,6 +566,12 @@
             "accession": "0001193125-26-144556",
             "end": "2026-02-28"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (UNF)"
         ]
       }
     ]
@@ -561,9 +588,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.322758+00:00",
     "fetched_at": "2026-05-21T02:17:14.322759+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.939Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.029Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/unf.json",
     "enrich_root": "v2-pipeline-enrich/unf.json",

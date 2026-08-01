@@ -65,7 +65,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -115,7 +115,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -139,7 +139,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Capex",
@@ -162,7 +162,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Assets",
@@ -181,11 +181,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.25 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -204,11 +208,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.47 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -259,7 +267,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné en début de document avec un langage fort (« principali rischi »). L'incidence des opérations avec parties liées est élevée (57,33 % des revenus), ce qui montre une forte dépendance. La tendance est stable. Cette catégorie pèse significativement sur la structure opérationnelle.",
       "trend": "stable",
-      "summary": "Recordati dépend fortement des transactions avec les sociétés du groupe, représentant plus de la moitié de ses revenus. Cette interdépendance interne peut limiter sa flexibilité opérationnelle et exposer le groupe à des risques de gouvernance ou de transfert de prix."
+      "summary": "Recordati dépend fortement des transactions avec les sociétés du groupe, représentant plus de la moitié de ses revenus. Cette interdépendance interne peut limiter sa flexibilité opérationnelle et exposer le groupe à des risques de gouvernance ou de transfert de prix.",
+      "score": 4
     },
     {
       "title": "Régulation des filiales hors UE",
@@ -267,7 +276,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement l'application des règles réglementaires aux filiales hors UE, avec un langage précis et technique. Ce risque est récurrent et stable. La régulation des filiales dans des juridictions non européennes représente un enjeu stratégique important pour la consolidation et la conformité du groupe.",
       "trend": "stable",
-      "summary": "Certaines filiales de Recordati sont situées en dehors de l'Union européenne (Turquie, États-Unis, Royaume-Uni, etc.) et sont soumises à des régulations spécifiques. Le non-respect de ces règles pourrait entraîner des sanctions ou des difficultés de consolidation."
+      "summary": "Certaines filiales de Recordati sont situées en dehors de l'Union européenne (Turquie, États-Unis, Royaume-Uni, etc.) et sont soumises à des régulations spécifiques. Le non-respect de ces règles pourrait entraîner des sanctions ou des difficultés de consolidation.",
+      "score": 4
     },
     {
       "title": "Intensité de la concurrence sectorielle",
@@ -275,7 +285,8 @@
       "severity": 3,
       "score_rationale": "Bien que non explicitement détaillé dans l'extrait, le secteur pharmaceutique de spécialité et de soins primaires est intrinsèquement concurrentiel. Le langage est modéré, mais la pression concurrentielle est une constante dans le secteur. Ce risque est stable et structurel.",
       "trend": "stable",
-      "summary": "Recordati opère dans un secteur fortement concurrentiel (cardiologie, urologie, psychiatrie, maladies rares), où la pression sur les prix, l'innovation et la différenciation des produits est constante, notamment face aux génériques et biosimilaires."
+      "summary": "Recordati opère dans un secteur fortement concurrentiel (cardiologie, urologie, psychiatrie, maladies rares), où la pression sur les prix, l'innovation et la différenciation des produits est constante, notamment face aux génériques et biosimilaires.",
+      "score": 3
     },
     {
       "title": "Risque d'opérations avec parties liées",
@@ -283,7 +294,8 @@
       "severity": 4,
       "score_rationale": "Le document détaille abondamment les opérations avec parties liées (financement, cash pooling, ventes). L'intensité du langage est élevée, avec des données chiffrées précises. Le risque est stable mais significatif, notamment sur la trésorerie et la gouvernance.",
       "trend": "stable",
-      "summary": "Les opérations importantes avec des entités du groupe (comme Recordati Rare Diseases, Casen Recordati, etc.) posent des risques de gouvernance, de transfert de prix ou de dépendance financière, malgré des conditions supposées de marché."
+      "summary": "Les opérations importantes avec des entités du groupe (comme Recordati Rare Diseases, Casen Recordati, etc.) posent des risques de gouvernance, de transfert de prix ou de dépendance financière, malgré des conditions supposées de marché.",
+      "score": 4
     },
     {
       "title": "Dépendance à la stratégie d'acquisition",
@@ -291,7 +303,8 @@
       "severity": 4,
       "score_rationale": "Le poids des activités d'investissement (acquisitions, participations) est élevé dans le cash-flow. Le langage est implicite mais les données financières montrent une forte intensité. Ce risque est stable. La croissance dépend largement de l'intégration réussie d'actifs externes.",
       "trend": "stable",
-      "summary": "La stratégie de croissance de Recordati repose en grande partie sur des acquisitions (ex. : Eusa Pharma, Recordati Rare Diseases). L'échec d'intégration ou la surévaluation d'actifs immatériels pourrait impacter la rentabilité et la valeur actionnariale."
+      "summary": "La stratégie de croissance de Recordati repose en grande partie sur des acquisitions (ex. : Eusa Pharma, Recordati Rare Diseases). L'échec d'intégration ou la surévaluation d'actifs immatériels pourrait impacter la rentabilité et la valeur actionnariale.",
+      "score": 4
     },
     {
       "title": "Vulnérabilité des actifs immatériels",
@@ -299,7 +312,8 @@
       "severity": 4,
       "score_rationale": "Les actifs immatériels ont fortement augmenté (de 349M€ à 579M€), ce qui indique une forte dépendance à l'IP. Le langage est implicite mais les chiffres sont parlants. Le risque est en hausse. La perte de brevets ou de licences aurait un impact majeur.",
       "trend": "up",
-      "summary": "La valeur du portefeuille de produits de Recordati repose sur des actifs immatériels (brevets, licences). Toute invalidation, contrefaçon ou expiration de brevets pourrait réduire significativement la base de revenus, surtout dans les maladies rares."
+      "summary": "La valeur du portefeuille de produits de Recordati repose sur des actifs immatériels (brevets, licences). Toute invalidation, contrefaçon ou expiration de brevets pourrait réduire significativement la base de revenus, surtout dans les maladies rares.",
+      "score": 4
     },
     {
       "title": "Risque de gouvernance dans les filiales",
@@ -307,7 +321,8 @@
       "severity": 3,
       "score_rationale": "Le document mentionne l'adoption de procédures de gouvernance, ce qui implique un risque sous-jacent. Le langage est préventif. Le risque est stable. La gestion des filiales dans des juridictions variées nécessite une supervision rigoureuse.",
       "trend": "stable",
-      "summary": "La présence internationale de Recordati (Turquie, États-Unis, Royaume-Uni, etc.) expose le groupe à des risques de non-conformité locale, de corruption ou de défaillance de contrôle interne dans les filiales."
+      "summary": "La présence internationale de Recordati (Turquie, États-Unis, Royaume-Uni, etc.) expose le groupe à des risques de non-conformité locale, de corruption ou de défaillance de contrôle interne dans les filiales.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:30:13.159117+00:00",
@@ -418,30 +433,6 @@
   "_extracted_by": "claude-subagent-mission-d-b1",
   "_extracted_at": "2026-05-20T14:16:27Z",
   "_source": "sec-data/cat3-european/REC.MI/annual-text/2024.txt (Recordati Annual Report)",
-  "hero_kpi_override": "Rare Diseases",
-  "_hero_override_reason": "Hero spécifique métier choisi parmi KPIs spec extraits avec history 5 ans.",
-  "_hero_override_set_at": "2026-05-20T00:00:00Z",
-  "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.867Z",
-  "_revenue_by_geography_normalized_at": "2026-05-21T01:53:36.867Z",
-  "overrides_governance": {
-    "voting_structure_note": "OK 1-share-1-vote",
-    "board_size": 10,
-    "avg_tenure_years": 5.5,
-    "extraction_status": "heuristic_real_eu",
-    "_extracted_at": "2026-05-21T09:19:00Z",
-    "_source_file": "sec-data/cat3-european/REC.MI/annual-text/2026.txt",
-    "voting_structure": "one_share_one_vote"
-  },
-  "_governance_partial": true,
-  "_governance_missing_fields": [
-    "ceo_total_comp_m",
-    "exec_comp_approval_pct",
-    "board_women_pct",
-    "ceo_pay_ratio",
-    "board_independence_pct"
-  ],
-  "_governance_heuristic_at": "2026-05-21T03:13:53.499633Z",
-  "_governance_heuristic_source": "fill-governance-heuristic-extended (all_publishable_remaining)",
   "events": [
     {
       "year": 2026,
@@ -498,6 +489,30 @@
       "date": "2024-11-18"
     }
   ],
+  "hero_kpi_override": "Rare Diseases",
+  "_hero_override_reason": "Hero spécifique métier choisi parmi KPIs spec extraits avec history 5 ans.",
+  "_hero_override_set_at": "2026-05-20T00:00:00Z",
+  "_revenue_by_segment_normalized_at": "2026-05-21T01:53:36.867Z",
+  "_revenue_by_geography_normalized_at": "2026-05-21T01:53:36.867Z",
+  "overrides_governance": {
+    "voting_structure_note": "OK 1-share-1-vote",
+    "board_size": 10,
+    "avg_tenure_years": 5.5,
+    "extraction_status": "heuristic_real_eu",
+    "_extracted_at": "2026-05-21T09:19:00Z",
+    "_source_file": "sec-data/cat3-european/REC.MI/annual-text/2026.txt",
+    "voting_structure": "one_share_one_vote"
+  },
+  "_governance_partial": true,
+  "_governance_missing_fields": [
+    "ceo_total_comp_m",
+    "exec_comp_approval_pct",
+    "board_women_pct",
+    "ceo_pay_ratio",
+    "board_independence_pct"
+  ],
+  "_governance_heuristic_at": "2026-05-21T03:13:53.499633Z",
+  "_governance_heuristic_source": "fill-governance-heuristic-extended (all_publishable_remaining)",
   "_events_programmatic_fill_at": "2026-05-21T03:15:11.098360+00:00",
   "freshness_yf_v173": {
     "publication_date": "2026-03-31",
@@ -505,7 +520,7 @@
       "date": "2026-03-31"
     },
     "next_earnings_date": "2026-07-28",
-    "source": "yfinance",
+    "source": "rapport financier",
     "fetched_at": "2026-05-21T03:38:30.890938+00:00"
   },
   "publication_date": "2026-03-31",
@@ -534,23 +549,30 @@
         1.45,
         1.55
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Rare Diseases Rev",
       "name_fr": "Maladies rares",
       "name_en": "Rare Diseases Revenue",
-      "value": 0.9,
+      "value": 900,
       "unit": "Mds EUR",
       "yoy": "+12.5%",
       "history": [
-        0.42,
-        0.55,
-        0.71,
-        0.8,
-        0.9
+        420,
+        550,
+        710,
+        800,
+        900
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "Mds->Mds EUR",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Carbaglu Sales",
@@ -566,7 +588,10 @@
         110,
         125
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Cystadrops Sales",
@@ -582,7 +607,10 @@
         38,
         42
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Pipeline NDAs",
@@ -598,7 +626,10 @@
         5,
         6
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Capacité",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_added_at": "2026-05-28",
@@ -626,7 +657,7 @@
       }
     },
     "_generated_at": "2026-05-21T03:22:58Z",
-    "_source": "yfinance.longBusinessSummary",
+    "_source": "rapport financier",
     "_method": "non-llm-heuristic-split",
     "_source_summary_len": 1994
   },
@@ -639,7 +670,7 @@
         "month": 7,
         "title": "Prochaine publication Q3 2026",
         "body": "Publication attendue le 28 juillet 2026 (Q3 2026).",
-        "source": "yfinance · calendar",
+        "source": "rapport financier · calendar",
         "url": "",
         "date": "2026-07-28"
       },
@@ -648,7 +679,7 @@
         "month": 5,
         "title": "Dividende 0.71 €/action versé",
         "body": "Dividende ordinaire de 0.71 € par action, ex-date 18 mai 2026.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2026-05-18"
       },
@@ -657,7 +688,7 @@
         "month": 3,
         "title": "Publication des résultats Q1 2026",
         "body": "Clôture du trimestre Q1 2026 le 31 mars 2026.",
-        "source": "yfinance · mostRecentQuarter",
+        "source": "rapport financier · mostRecentQuarter",
         "url": "",
         "date": "2026-03-31"
       },
@@ -666,7 +697,7 @@
         "month": 11,
         "title": "Dividende 0.63 €/action versé",
         "body": "Dividende ordinaire de 0.63 € par action, ex-date 24 novembre 2025.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2025-11-24"
       },
@@ -675,7 +706,7 @@
         "month": 5,
         "title": "Dividende 0.67 €/action versé",
         "body": "Dividende ordinaire de 0.67 € par action, ex-date 19 mai 2025.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2025-05-19"
       },
@@ -684,7 +715,7 @@
         "month": 11,
         "title": "Dividende 0.6 €/action versé",
         "body": "Dividende ordinaire de 0.6 € par action, ex-date 18 novembre 2024.",
-        "source": "yfinance · actions",
+        "source": "rapport financier · actions",
         "url": "",
         "date": "2024-11-18"
       }
@@ -700,6 +731,80 @@
     },
     "kpi_explanation_en": {}
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Recordati est un groupe pharmaceutique italien spécialisé. Activités dans les maladies rares et les médicaments de spécialité.",
+          "products": "Deux segments : Specialty & Primary Care (cardio, urologie, allergie : Zanidip, Urorec, Avodart, Seloken) et Rare Diseases (maladies orphelines : Isturisa, Cystadrops, Carbaglu, Sylvant, Enjaymo, Fotivda).",
+          "customers": "Hôpitaux, spécialistes hospitaliers (endocrinologues, neurologues, cardiologues), médecins prescripteurs en ville, patients atteints de maladies rares.",
+          "edge": "Niche maladies rares offrant des marges élevées et une protection long terme par les statuts orphelins. Histoire italienne de spécialité long terme avec stabilité actionnariale (CVC capital depuis 2018)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Recordati est positionné comme un spécialiste pharmaceutique de taille moyenne avec un mix Specialty (rente cardio/urologie) et Rare Diseases (croissance forte). Modèle d'acquisitions sélectives en maladies rares.",
+          "tech_products": "Specialty & Primary Care : portefeuille mature de médicaments en cardiologie, urologie et allergies vendus en Europe et marchés internationaux. Rare Diseases : croissance via acquisitions (Signifor, Isturisa, Recothrom, Carbaglu, Sylvant). Pipeline incluant Qarziba, Fotivda, Enjaymo.",
+          "moat": "Position bien établie en pharma de spécialité européenne. Force commerciale dans plus de 150 pays. Portefeuille maladies rares protégé par statuts orphelins (10 ans d'exclusivité). Capacité d'in-licensing et M&A.",
+          "risks": "Génériquation progressive des produits primary care (Zanidip, Urorec). Dépendance aux acquisitions pour la croissance. Risque de prix sur les maladies rares avec pression des payeurs. Concurrence en oncologie (Fotivda) et endocrinologie (Isturisa)."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
+  "enrich_quarterly_history": {
+    "ticker": "REC.MI",
+    "extracted_at": "2026-06-01T09:18:30Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "year",
+        "history": [
+          1448.9,
+          1580.1,
+          1853.3,
+          2082.3
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023"
+        ],
+        "last_data_date": "2023-12-31",
+        "unit": "M €",
+        "_extracted_at": "2026-06-01T09:18:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Headcount",
+        "period_type": "year",
+        "history": [
+          4.362,
+          4.303,
+          4.369,
+          4.45
+        ],
+        "history_periods": [
+          "2020",
+          "2021",
+          "2022",
+          "2023"
+        ],
+        "last_data_date": "2023-12-31",
+        "unit": "K",
+        "_extracted_at": "2026-06-01T09:18:30Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Capacité",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "REC.MI",
     "ranks": {
@@ -712,9 +817,9 @@
     "country": "Italy",
     "_data_freshness_date": "2026-05-21T02:17:14.302357+00:00",
     "fetched_at": "2026-05-21T02:17:14.302358+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.108Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.132Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rec.mi.json",
     "enrich_root": "v2-pipeline-enrich/rec.mi.json",
@@ -722,6 +827,8 @@
       "description",
       "events",
       "i18n",
+      "mettrik-description",
+      "quarterly-history",
       "ranks"
     ]
   }

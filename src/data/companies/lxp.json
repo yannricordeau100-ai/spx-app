@@ -103,9 +103,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur confirmée par la source (base et cash base rents 29.7% et 27.7%)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "KPI 'Rent Growth New Leases' not found as explicit annual percentage values in the 10-K excerpt. The document contains 2022 lease data (base"
+      "_hero_history_unverified_reason": "KPI 'Rent Growth New Leases' not found as explicit annual percentage values in the 10-K excerpt. The document contains 2022 lease data (base",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Acquisition Volume",
@@ -194,11 +197,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.54 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -223,9 +230,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Unit corrigée de 'Mds sq ft' à 'M sq ft' (4,9 millions, non milliards)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrigée de 'Mds sq ft' à 'M sq ft' (4,9 millions, non milliards)"
     },
     {
       "short": "Rent Growth New Leases",
@@ -248,9 +253,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur confirmée par la source",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée par la source"
     }
   ],
   "ai_positioning": {
@@ -266,7 +269,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne une concurrence accrue pour l'acquisition de propriétés industrielles, ce qui pourrait affecter sa capacité à acquérir de nouvelles propriétés à des prix compétitifs.",
       "trend": "stable",
-      "summary": "La concurrence pour l'acquisition de propriétés industrielles est élevée, ce qui pourrait affecter la capacité de la société à acquérir de nouvelles propriétés à des prix compétitifs."
+      "summary": "La concurrence pour l'acquisition de propriétés industrielles est élevée, ce qui pourrait affecter la capacité de la société à acquérir de nouvelles propriétés à des prix compétitifs.",
+      "score": 4
     },
     {
       "title": "Risques liés aux locataires",
@@ -274,7 +278,8 @@
       "severity": 3,
       "score_rationale": "L'incertitude liée à la politique commerciale internationale pousse certains locataires à réévaluer leurs besoins en espace, ce qui pourrait affecter les revenus locatifs.",
       "trend": "stable",
-      "summary": "Les locataires peuvent revoir leurs besoins en espace en raison de l'incertitude liée à la politique commerciale internationale, ce qui pourrait affecter les revenus de la société."
+      "summary": "Les locataires peuvent revoir leurs besoins en espace en raison de l'incertitude liée à la politique commerciale internationale, ce qui pourrait affecter les revenus de la société.",
+      "score": 3
     },
     {
       "title": "Risques de crédit",
@@ -282,7 +287,8 @@
       "severity": 3,
       "score_rationale": "La société surveille la crédibilité de ses locataires, mais il existe un risque que les locataires ne paient pas leurs loyers à temps.",
       "trend": "stable",
-      "summary": "La société surveille la crédibilité de ses locataires, mais il existe toujours un risque que les locataires ne paient pas leurs loyers."
+      "summary": "La société surveille la crédibilité de ses locataires, mais il existe toujours un risque que les locataires ne paient pas leurs loyers.",
+      "score": 3
     },
     {
       "title": "Risques de développement",
@@ -290,7 +296,8 @@
       "severity": 4,
       "score_rationale": "Les activités de développement sont soumises à des risques, notamment les retards et les coûts supplémentaires, pouvant affecter les résultats.",
       "trend": "up",
-      "summary": "Les activités de développement sont soumises à des risques, notamment les retards et les coûts supplémentaires, ce qui pourrait affecter les résultats de la société."
+      "summary": "Les activités de développement sont soumises à des risques, notamment les retards et les coûts supplémentaires, ce qui pourrait affecter les résultats de la société.",
+      "score": 4
     },
     {
       "title": "Risques de liquidité",
@@ -298,7 +305,8 @@
       "severity": 2,
       "score_rationale": "La société a remboursé des dettes et effectué des rachats d'actions, mais il existe un risque de liquidité si les conditions de marché changent.",
       "trend": "down",
-      "summary": "La société a remboursé des dettes et a effectué des rachats d'actions, mais il existe toujours un risque de liquidité si les conditions de marché changent."
+      "summary": "La société a remboursé des dettes et a effectué des rachats d'actions, mais il existe toujours un risque de liquidité si les conditions de marché changent.",
+      "score": 2
     }
   ],
   "governance": {
@@ -335,7 +343,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -452,9 +460,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.278956+00:00",
     "fetched_at": "2026-05-21T02:17:14.278956+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.206Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.041Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lxp.json",
     "enrich_root": "v2-pipeline-enrich/lxp.json",

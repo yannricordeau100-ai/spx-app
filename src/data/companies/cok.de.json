@@ -52,8 +52,8 @@
       "name_fr": "Revenu Allemagne",
       "name_en": "Germany Revenue",
       "explanation": "Revenus générés en Allemagne, marché domestique principal.",
-      "value": "1098",
-      "unit": "M €",
+      "value": 1.098,
+      "unit": "Mds €",
       "yoy": "-3.7%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -64,8 +64,8 @@
         null,
         null,
         null,
-        1140,
-        1098
+        1.14,
+        1.098
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -76,7 +76,8 @@
         "Historique mis à jour avec valeurs calculées (2024: 1140M€)"
       ],
       "explanation_en": "Revenue from the Germany segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -103,8 +104,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "EBITDA",
@@ -134,7 +139,11 @@
         "Type changé de 'Margin' à 'Profitability' pour cohérence sémantique"
       ],
       "explanation_en": "Earnings Before Interest, Taxes, Depreciation and Amortization.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "EBITDA margin",
@@ -161,8 +170,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": [],
-      "explanation_en": "EBITDA Margin — EBITDA divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "EBITDA Margin : EBITDA divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -194,9 +207,7 @@
       "_validation": [
         "Conversion d'unité: 1.715 Mds€ total; International ~36% = 617M€",
         "Historique corrigé avec valeurs comparables"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Germany Revenue",
@@ -226,9 +237,7 @@
       "_validation": [
         "Conversion d'unité: 1.715 Mds€ total; Germany ~64% = 1098M€",
         "Historique corrigé avec valeurs comparables"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -261,7 +270,8 @@
       "severity": 4,
       "score_rationale": "Présent dans les données financières (Item 1A équivalent). Langage modéré mais données éloquentes : croissance -1,3% en 2025 après +14,1% en 2024, puis +2,9% et +2,6% prévus. Tendance baissière confirmée. Poids catégorie élevé pour distributeur IT.",
       "trend": "up",
-      "summary": "CANCOM affiche une croissance organique déclinante, avec contraction en 2025 (-1,3%) et reprises modérées attendues (2-3%). Cette faiblesse reflète des pressions concurrentielles dans la distribution IT et une dépendance aux cycles d'investissement clients, particulièrement en Allemagne (63,7% des ventes)."
+      "summary": "CANCOM affiche une croissance organique déclinante, avec contraction en 2025 (-1,3%) et reprises modérées attendues (2-3%). Cette faiblesse reflète des pressions concurrentielles dans la distribution IT et une dépendance aux cycles d'investissement clients, particulièrement en Allemagne (63,7% des ventes).",
+      "score": 4
     },
     {
       "title": "Concentration géographique excessive sur marché allemand",
@@ -269,7 +279,8 @@
       "severity": 4,
       "score_rationale": "Données claires : 63,7% des ventes domestiques (Allemagne) en 2025, stable à 65,3% en prévisions. Position dans Item 1A équivalent (données régionales). Intensité modérée mais risque systémique élevé. Tendance stable mais structurellement concentrée.",
       "trend": "stable",
-      "summary": "Deux tiers des revenus proviennent du marché allemand, exposant CANCOM aux cycles économiques locaux et aux risques de régulation spécifiques à l'Allemagne. Diversification géographique très limitée (36,3% Rest of World en 2025), réduisant la résilience."
+      "summary": "Deux tiers des revenus proviennent du marché allemand, exposant CANCOM aux cycles économiques locaux et aux risques de régulation spécifiques à l'Allemagne. Diversification géographique très limitée (36,3% Rest of World en 2025), réduisant la résilience.",
+      "score": 4
     },
     {
       "title": "Érosion des marges EBITDA et profitabilité opérationnelle",
@@ -277,7 +288,8 @@
       "severity": 4,
       "score_rationale": "Données financières explicites : EBITDA margin 7,6% (2023) → 6,0% (2025) → 6,4% (2026E). EBIT margin 3,7% → 2,2% → 3,4%. Langage implicite dans ratios. Tendance baissière 2023-2025, légère récupération prévue. Poids catégorie critique pour distributeur.",
       "trend": "up",
-      "summary": "Les marges opérationnelles se contractent significativement, avec EBITDA margin tombant de 7,6% à 6,0% entre 2023-2025. Cette compression reflète des pressions tarifaires de la concurrence, une hausse des coûts de personnel (25% → 29% du CA) et une intensité capitalistique croissante."
+      "summary": "Les marges opérationnelles se contractent significativement, avec EBITDA margin tombant de 7,6% à 6,0% entre 2023-2025. Cette compression reflète des pressions tarifaires de la concurrence, une hausse des coûts de personnel (25% → 29% du CA) et une intensité capitalistique croissante.",
+      "score": 4
     },
     {
       "title": "Intensité capitalistique accrue et rendements du capital faibles",
@@ -285,7 +297,8 @@
       "severity": 3,
       "score_rationale": "Données de bilan et cash-flow : CAPEX prévus 39-37 EURm (2026-2028) vs 15-22 EURm (2023-2025). ROCE 4,7% (2025) vs WACC implicite ~7-8%. ROE 5,0% (2025). Langage implicite. Tendance baissière. Poids catégorie moyen-élevé.",
       "trend": "up",
-      "summary": "CANCOM doit augmenter ses investissements (CAPEX doublant) pour maintenir sa compétitivité, mais génère des rendements du capital insuffisants (ROCE 4,7% vs WACC). Cela limite la création de valeur et la capacité à financer croissance et dividendes."
+      "summary": "CANCOM doit augmenter ses investissements (CAPEX doublant) pour maintenir sa compétitivité, mais génère des rendements du capital insuffisants (ROCE 4,7% vs WACC). Cela limite la création de valeur et la capacité à financer croissance et dividendes.",
+      "score": 3
     },
     {
       "title": "Dégradation de la structure de capital et endettement net croissant",
@@ -293,7 +306,8 @@
       "severity": 3,
       "score_rationale": "Données de bilan : equity ratio 47% (2023) → 38% (2025) → 39% (2026E). Net debt/EBITDA -0,2x → 0,2x → 0,2x. Langage implicite dans ratios. Tendance baissière d'équité. Poids catégorie moyen pour distributeur.",
       "trend": "up",
-      "summary": "L'équité diminue de 47% à 38% du bilan entre 2023-2025, tandis que l'endettement net devient positif (20 EURm en 2025). Cela reflète des acquisitions (70 EURm en 2023, 29 EURm en 2024) et rachats d'actions (72-147 EURm/an) réduisant la flexibilité financière."
+      "summary": "L'équité diminue de 47% à 38% du bilan entre 2023-2025, tandis que l'endettement net devient positif (20 EURm en 2025). Cela reflète des acquisitions (70 EURm en 2023, 29 EURm en 2024) et rachats d'actions (72-147 EURm/an) réduisant la flexibilité financière.",
+      "score": 3
     },
     {
       "title": "Dépendance aux acquisitions pour croissance et intégration complexe",
@@ -301,7 +315,8 @@
       "severity": 3,
       "score_rationale": "Données cash-flow : acquisitions 70 EURm (2023), 29 EURm (2024), 4 EURm (2025). Goodwill stable 270 EURm (19% des actifs). Langage implicite. Tendance baissière d'acquisitions. Poids catégorie moyen pour distributeur en consolidation.",
       "trend": "down",
-      "summary": "CANCOM a réalisé acquisitions significatives (99 EURm cumulé 2023-2024) pour compenser faible croissance organique. Goodwill de 270 EURm représente 19% des actifs, créant risque de dépréciation si synergies ne se matérialisent pas ou si croissance reste faible."
+      "summary": "CANCOM a réalisé acquisitions significatives (99 EURm cumulé 2023-2024) pour compenser faible croissance organique. Goodwill de 270 EURm représente 19% des actifs, créant risque de dépréciation si synergies ne se matérialisent pas ou si croissance reste faible.",
+      "score": 3
     },
     {
       "title": "Volatilité des flux de trésorerie et couverture de dividende fragile",
@@ -309,7 +324,8 @@
       "severity": 3,
       "score_rationale": "Données cash-flow : FCF 69 EURm (2023) → 125 EURm (2025) → 27 EURm (2026E). Dividende stable 32-35 EURm/an. FCF yield 9,7% → 17,6% → 7,4%. Langage implicite. Tendance baissière 2025-2026. Poids catégorie moyen.",
       "trend": "up",
-      "summary": "Les flux de trésorerie libres sont volatiles (125 EURm en 2025 vs 27 EURm prévu 2026), principalement dus aux variations du besoin en fonds de roulement. Dividende de 32-35 EURm/an devient moins couvert en 2026 (FCF 27 EURm), créant risque de réduction ou suspension."
+      "summary": "Les flux de trésorerie libres sont volatiles (125 EURm en 2025 vs 27 EURm prévu 2026), principalement dus aux variations du besoin en fonds de roulement. Dividende de 32-35 EURm/an devient moins couvert en 2026 (FCF 27 EURm), créant risque de réduction ou suspension.",
+      "score": 3
     },
     {
       "title": "Compétition intense dans distribution IT et pression tarifaire",
@@ -317,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Implicite dans peer group analysis (Bechtle AG, autres comps) et données de marge. Langage modéré mais contexte clair : CANCOM moins profitable que peer group. Tendance stable mais structurelle. Poids catégorie très élevé pour distributeur.",
       "trend": "stable",
-      "summary": "CANCOM opère dans distribution IT hautement concurrentielle face à Bechtle, Arrow, Tech Data et pure-players numériques. Peer group affiche meilleures marges et croissance, indiquant pressions tarifaires et commoditisation. Risque de perte de parts de marché auprès de clients grands comptes."
+      "summary": "CANCOM opère dans distribution IT hautement concurrentielle face à Bechtle, Arrow, Tech Data et pure-players numériques. Peer group affiche meilleures marges et croissance, indiquant pressions tarifaires et commoditisation. Risque de perte de parts de marché auprès de clients grands comptes.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:33:21.231232+00:00",
@@ -416,8 +433,8 @@
   },
   "_stoxx_blocks_extracted_at": "2026-05-14T08:42:49.014230+00:00",
   "revenue_by_geography": {
-    "single_region": true,
-    "source": "Annual Report"
+    "_geography_not_disclosed": "CANCOM SE: émetteur Frankfurt, pas de 10-K SEC. Geschäftsbericht DACH-focus non intégré data-lake",
+    "_source": "Aucune source 10-K SEC data-lake"
   },
   "_seggeo_extracted_at": "2026-05-20T02:32:39.602694+00:00",
   "_seggeo_source": "haiku-eu-annual-text-v1",
@@ -591,9 +608,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.242805+00:00",
     "fetched_at": "2026-05-21T02:17:14.242806+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.659Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.133Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cok.de.json",
     "enrich_root": "v2-pipeline-enrich/cok.de.json",

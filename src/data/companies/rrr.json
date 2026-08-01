@@ -21,8 +21,8 @@
       "name_fr": "Revenus nets",
       "name_en": "Net Revenues",
       "explanation": "Revenus totaux de l'entreprise",
-      "value": 2011.483,
-      "unit": "M $",
+      "value": 2.011,
+      "unit": "Mds $",
       "yoy": "+3.7%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,13 +30,13 @@
       "signal": "Augmentation des revenus nets",
       "description": "Revenus nets de l'entreprise pour l'année 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 7 dernières années.",
       "history": [
-        1856.534,
-        1182.445,
-        1617.899,
-        1663.786,
-        1724.086,
-        1939.011,
-        2011.483
+        1.857,
+        1.182,
+        1.618,
+        1.664,
+        1.724,
+        1.939,
+        2.011
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -45,7 +45,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:46.347824+00:00",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Income",
@@ -68,7 +69,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -76,8 +77,8 @@
       "name_fr": "Revenus de casino",
       "name_en": "Casino Revenues",
       "explanation": "Revenus des activités de casino",
-      "value": "1340.5",
-      "unit": "M $",
+      "value": 1.341,
+      "unit": "Mds $",
       "yoy": "+5.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -85,14 +86,15 @@
       "signal": "Augmentation des revenus de casino",
       "description": "Revenus de casino pour l'année 2025",
       "history": [
-        1277.2,
-        1340.5
+        1.277,
+        1.341
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Food and Beverage Revenues",
@@ -181,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.17 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -204,11 +210,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.44 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -222,7 +232,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         3,
         2,
@@ -235,7 +245,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -250,7 +260,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.2582,
@@ -263,7 +273,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -278,7 +288,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         56.79,
@@ -291,7 +301,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -307,7 +317,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.36,
@@ -320,7 +330,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -383,7 +393,8 @@
       "severity": 4,
       "score_rationale": "Position centrale dans le 10-K avec analyse détaillée de l'impact d'une hausse de 1% des taux (+17,3M$). Langage préoccupé sur l'imprévisibilité des taux. Stable vs N-1. Catégorie Capital fortement pondérée.",
       "trend": "stable",
-      "summary": "La société a 1,7 milliard$ de dettes à taux variable. Une hausse des taux d'intérêt augmenterait significativement ses coûts financiers."
+      "summary": "La société a 1,7 milliard$ de dettes à taux variable. Une hausse des taux d'intérêt augmenterait significativement ses coûts financiers.",
+      "score": 4
     },
     {
       "title": "Risque de non-conformité aux covenants financiers",
@@ -391,7 +402,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite d'un ratio de levier maximal (5x) et d'une possible accélération de paiement en cas de défaut. Langage prudent sur la conformité. Importance critique pour l'accès au crédit. Catégorie Capital prioritaire.",
       "trend": "stable",
-      "summary": "Le non-respect des covenants financiers, notamment le ratio de levier, pourrait entraîner un défaut de paiement et une exigibilité anticipée de la dette."
+      "summary": "Le non-respect des covenants financiers, notamment le ratio de levier, pourrait entraîner un défaut de paiement et une exigibilité anticipée de la dette.",
+      "score": 4
     },
     {
       "title": "Obligations croissantes du TRA",
@@ -399,7 +411,8 @@
       "severity": 3,
       "score_rationale": "20,6M$ de passif TRA constaté fin 2025, décrit comme « substantiel » pour l'avenir. Langage préoccupé sur la pression sur la trésorerie. Catégorie Capital pondérée, mais risque structurel plutôt que ponctuel.",
       "trend": "stable",
-      "summary": "Les paiements futurs liés au TRA pourraient réduire significativement la trésorerie disponible, malgré les économies d'impôt associées."
+      "summary": "Les paiements futurs liés au TRA pourraient réduire significativement la trésorerie disponible, malgré les économies d'impôt associées.",
+      "score": 3
     },
     {
       "title": "Dépendance à la génération de trésorerie opérationnelle",
@@ -407,7 +420,8 @@
       "severity": 4,
       "score_rationale": "Le management déclare dépendre de la trésorerie d'exploitation pour ses besoins futurs. Langage incertain : « ne peut assurer » suffisance. Contexte de pression sur les marges. Catégorie Capital critique.",
       "trend": "stable",
-      "summary": "La capacité de la société à financer ses opérations dépend fortement de sa trésorerie d'exploitation, qui peut fluctuer avec l'activité et les conditions économiques."
+      "summary": "La capacité de la société à financer ses opérations dépend fortement de sa trésorerie d'exploitation, qui peut fluctuer avec l'activité et les conditions économiques.",
+      "score": 4
     },
     {
       "title": "Réglementation fiscale changeante",
@@ -415,7 +429,8 @@
       "severity": 3,
       "score_rationale": "Mention de risque d'augmentation des taxes sur les jeux, bien que « pas de proposition actuelle ». Langage prudent sur l'incertitude réglementaire. Catégorie Régulation modérément pondérée.",
       "trend": "stable",
-      "summary": "Toute hausse future des taxes sur les revenus de jeu, notamment à Nevada, pourrait réduire la rentabilité de la société."
+      "summary": "Toute hausse future des taxes sur les revenus de jeu, notamment à Nevada, pourrait réduire la rentabilité de la société.",
+      "score": 3
     },
     {
       "title": "Développement sur territoire amérindien",
@@ -423,7 +438,8 @@
       "severity": 3,
       "score_rationale": "Projet avec les Mono Indians mentionné comme risque spécifique. Dépendance à l'approbation fédérale et réglementaire. Langage prudent sur les incertitudes. Catégorie Géopolitique moins pondérée.",
       "trend": "stable",
-      "summary": "Le développement d'un complexe de jeux en Californie avec une tribu amérindienne est soumis à des approbations réglementaires incertaines et à des risques politiques."
+      "summary": "Le développement d'un complexe de jeux en Californie avec une tribu amérindienne est soumis à des approbations réglementaires incertaines et à des risques politiques.",
+      "score": 3
     }
   ],
   "governance": {
@@ -462,7 +478,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -574,7 +590,7 @@
   "_segments_fetched_at": "2026-05-06T19:41:45.334320+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:13:22.742436+00:00",
   "_dividends_extracted_at": "2026-05-09T20:23:16Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2016,
@@ -594,7 +610,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:28Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:14Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Hôtels, restauration & loisirs",
   "enrich_description": {
     "ticker": "RRR",
@@ -693,92 +709,268 @@
   },
   "enrich_quarterly_history": {
     "ticker": "RRR",
-    "extracted_at": "2026-05-15T19:50:39Z",
-    "method": "xbrl-companyfacts",
-    "_segment_method": "xbrl-segment-inline",
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:19:36Z",
+    "n_kpis": 6,
     "kpis": [
+      {
+        "short": "Net Revenues",
+        "period_type": "quarter",
+        "history": [
+          352.619,
+          428.157,
+          414.769,
+          401.636,
+          422.241,
+          414.439,
+          433.636,
+          422.241,
+          414.439,
+          488.897,
+          486.403,
+          468.016,
+          497.861,
+          526.273,
+          475.572
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          168.516,
+          142.895,
+          130.794,
+          68.244,
+          140.7,
+          137.275,
+          68.244,
+          140.7,
+          155.524,
+          140.234,
+          130.643,
+          154.353,
+          168.028,
+          131.484
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (RRR)"
+        ]
+      },
       {
         "short": "Casino Revenues",
         "period_type": "quarter",
         "history": [
-          0.2399,
-          0.2405,
-          0.2599,
-          0.3042,
-          0.289,
-          0.2895,
-          0.2798,
-          0.2806,
-          0.2824,
-          0.2833,
-          0.2882,
-          0.2695,
-          0.2727,
-          0.3017,
-          0.3169,
-          0.3196,
-          0.3142,
-          0.3265,
-          0.3332,
-          0.3448,
-          0.3195,
-          0.343
+          259.938,
+          304.212,
+          288.983,
+          279.771,
+          280.636,
+          282.386,
+          288.24,
+          269.507,
+          272.747,
+          316.854,
+          319.629,
+          314.225,
+          333.245,
+          344.796,
+          319.49
         ],
         "history_periods": [
-          "Q3 2020",
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Casino",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.3332,
-            "source": "RRR_2025-05-08.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.3448,
-            "source": "RRR_2025-08-07.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.3195,
-            "source": "RRR_2025-11-06.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.343,
-            "source": "calc-RRR_2026-02-20.htm.gz",
-            "tag": "us-gaap:Revenues"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Food and Beverage Revenues",
+        "period_type": "quarter",
+        "history": [
+          46.872,
+          64.885,
+          64.794,
+          65.699,
+          73.756,
+          69.799,
+          78.147,
+          77.623,
+          72.778,
+          93.278,
+          91.718,
+          83.327,
+          89.272,
+          94.374,
+          85.523
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Room Revenues",
+        "period_type": "quarter",
+        "history": [
+          21.944,
+          39.15,
+          39.519,
+          36.772,
+          44.283,
+          39.062,
+          43.939,
+          44.283,
+          42.036,
+          52.888,
+          50.142,
+          45.165,
+          50.17,
+          51.187,
+          41.568
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "SG&A Expenses",
+        "period_type": "quarter",
+        "history": [
+          78.91,
+          84.09,
+          92.602,
+          86.296,
+          90.193,
+          91.57,
+          92.505,
+          93.48,
+          91.85,
+          104.805,
+          111.318,
+          109.041,
+          104.711,
+          112.031,
+          112.853
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Performance",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ]
   },
@@ -794,9 +986,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.304998+00:00",
     "fetched_at": "2026-05-21T02:17:14.304999+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.375Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.392Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rrr.json",
     "enrich_root": "v2-pipeline-enrich/rrr.json",

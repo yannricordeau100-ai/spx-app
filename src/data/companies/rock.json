@@ -37,10 +37,13 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrigée de 'Mds $' à 'M $' (valeurs en milliers dans la source); valeur arrondie de 824.079 à 824.1; history arrondie de 782.519 à 782.5",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 années consécutives trouvées explicitement dans le filing (2019: $461.630M, 2020: $522.814M). Le minimum requis est 4 années. Le",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Revenu segment Agtech",
@@ -197,11 +200,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.39 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,7 +256,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "non_applicable",
+    "stance": "absent",
     "summary": "Gibraltar Industries n'a pas de positionnement explicite ou de mention spécifique concernant l'IA dans le 10-K. L'entreprise opère dans des marchés industriels et résidentiels où l'IA n'est pas présentée comme un moteur de revenu direct ou une compétence différenciante.",
     "evidence": [],
     "source": "10-K 2025, MD&A et sections métier"
@@ -276,7 +283,8 @@
       "severity": 5,
       "score_rationale": "Le risque est placé en premier dans le 10-K, avec un langage fort (impact significatif, impossibilité de prédire). Il affecte l'ensemble des segments et est amplifié par la sensibilité aux taux d'intérêt, inflation et dépenses discrétionnaires. Catégorie Macro pondérée fortement en contexte industriel.",
       "trend": "stable",
-      "summary": "La performance de l'entreprise dépend fortement de facteurs économiques globaux comme l'inflation, les taux et la confiance des consommateurs, hors de son contrôle."
+      "summary": "La performance de l'entreprise dépend fortement de facteurs économiques globaux comme l'inflation, les taux et la confiance des consommateurs, hors de son contrôle.",
+      "score": 5
     },
     {
       "title": "Volatilité des matières premières et ruptures d'approvisionnement",
@@ -284,7 +292,8 @@
       "severity": 5,
       "score_rationale": "Le texte insiste sur l'impact réel et récurrent des fluctuations de prix et pénuries (acier, aluminium, verre). Mention explicite de retards de production, inflation des coûts et incapacité à répercuter les hausses. Risque opérationnel central pour un industriel.",
       "trend": "stable",
-      "summary": "Les variations de prix et la disponibilité incertaine des matières premières menacent la rentabilité et la capacité à livrer à temps."
+      "summary": "Les variations de prix et la disponibilité incertaine des matières premières menacent la rentabilité et la capacité à livrer à temps.",
+      "score": 5
     },
     {
       "title": "Dépendance à quelques grands clients",
@@ -292,7 +301,8 @@
       "severity": 4,
       "score_rationale": "Les 10 plus gros clients représentent 43 % des ventes en 2025, dont un seul à 12 %. Le risque est quantifié et répété sur trois exercices. Perte potentielle significative si un client majeur part. Moins existentiel que les risques macro ou industriel.",
       "trend": "stable",
-      "summary": "Une perte de client clé pourrait fortement impacter les revenus et la trésorerie en raison d'une concentration importante."
+      "summary": "Une perte de client clé pourrait fortement impacter les revenus et la trésorerie en raison d'une concentration importante.",
+      "score": 4
     },
     {
       "title": "Difficultés d'intégration industrielle et inefficacités",
@@ -300,7 +310,8 @@
       "severity": 5,
       "score_rationale": "Le risque est renforcé par l'acquisition d'OmniMax, mentionnée comme un défi majeur. Langage fort : perturbations, coûts imprévus, pertes d'efficacité. Impact direct sur les marges et la capacité de production. Catégorie Industriel critique ici.",
       "trend": "up",
-      "summary": "L'intégration de nouvelles usines ou capacités, notamment après acquisition, peut entraîner des retards, des coûts élevés et des pertes d'efficacité."
+      "summary": "L'intégration de nouvelles usines ou capacités, notamment après acquisition, peut entraîner des retards, des coûts élevés et des pertes d'efficacité.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue sur prix et innovation",
@@ -308,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Le texte décrit une pression forte sur les prix, la qualité et l'innovation. Mention de concurrents mieux dotés en capitaux et marques. Risque de perte de parts de marché si l'innovation échoue. Moins existentiel que les risques opérationnels majeurs.",
       "trend": "stable",
-      "summary": "La pression concurrentielle oblige à innover et à réduire les coûts, menaçant la rentabilité si l'entreprise ne suit pas."
+      "summary": "La pression concurrentielle oblige à innover et à réduire les coûts, menaçant la rentabilité si l'entreprise ne suit pas.",
+      "score": 4
     },
     {
       "title": "Perte de talents clés et pénurie de main-d'œuvre",
@@ -316,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne la dépendance à la direction et aux ingénieurs, avec risque de perte d'expertise. Mention du marché du travail tendu. Impact stratégique mais moins immédiat qu'un risque de production ou macro. Catégorie pondérée moyennement.",
       "trend": "stable",
-      "summary": "La perte de dirigeants ou de personnel technique qualifié pourrait nuire à l'exécution stratégique et à l'innovation."
+      "summary": "La perte de dirigeants ou de personnel technique qualifié pourrait nuire à l'exécution stratégique et à l'innovation.",
+      "score": 4
     },
     {
       "title": "Défaillance de sous-traitants dans les contrats",
@@ -324,7 +337,8 @@
       "severity": 4,
       "score_rationale": "Les sous-traitants sont décrits comme essentiels à la livraison des projets. Leur mauvaise exécution peut entraîner des litiges clients et des retards. Risque opérationnel réel mais circonscrit à certains contrats, pas à l'ensemble de l'activité.",
       "trend": "stable",
-      "summary": "Le non-respect des obligations par des sous-traitants peut retarder les projets, nuire à la relation client et impacter les résultats."
+      "summary": "Le non-respect des obligations par des sous-traitants peut retarder les projets, nuire à la relation client et impacter les résultats.",
+      "score": 4
     }
   ],
   "governance": {
@@ -350,7 +364,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -404,7 +418,6 @@
       "date": "2026-05-08"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T20:13:10.030358+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -434,6 +447,7 @@
     ],
     "total": 1.14
   },
+  "_ai_positioning_fetched_at": "2026-05-06T20:13:10.030358+00:00",
   "_segments_fetched_at": "2026-05-06T19:41:36.561666+00:00",
   "subsector_fr": "Industrie diversifiée",
   "enrich_events": {
@@ -480,228 +494,143 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ROCK",
-    "extracted_at": "2026-05-15T19:50:37Z",
-    "method": "xbrl-companyfacts",
-    "_segment_method": "xbrl-segment-inline",
+    "extracted_at": "2026-06-01T09:19:07Z",
     "n_kpis": 3,
     "kpis": [
+      {
+        "short": "Revenu segment Résidentiel",
+        "period_type": "quarter",
+        "history": [
+          140.217,
+          164.209,
+          171.545,
+          179.485,
+          200.245,
+          215.592,
+          179.485,
+          228.234,
+          227.747,
+          185.111,
+          79.381,
+          84.064,
+          45.04,
+          230.258,
+          230.286
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "Revenu segment Agtech",
         "period_type": "quarter",
         "history": [
-          0.058,
-          0.0599,
-          0.0467,
-          0.0537,
-          0.049,
-          0.0498,
-          0.0424,
-          0.0437,
-          0.0442,
-          0.0385,
-          0.0359,
-          0.035,
-          0.0317,
-          0.0424,
-          0.034,
-          0.0345,
-          0.0415,
-          0.0427,
-          0.045,
-          0.0541,
-          0.0576,
-          0.0626
+          46.739,
+          53.696,
+          48.975,
+          42.428,
+          43.68,
+          44.217,
+          42.428,
+          35.028,
+          31.666,
+          34.027,
+          34.508,
+          41.527,
+          43.658,
+          54.092,
+          57.565
         ],
         "history_periods": [
-          "Q3 2020",
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Agtech",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.045,
-            "source": "ROCK_2025-04-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.0541,
-            "source": "ROCK_2025-08-06.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.0576,
-            "source": "ROCK_2025-10-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.0626,
-            "source": "calc-ROCK_2026-02-26.htm.gz",
-            "tag": "us-gaap:Revenues"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Revenu segment Infrastructure",
         "period_type": "quarter",
         "history": [
-          0.0168,
-          0.0124,
-          0.0151,
-          0.0227,
-          0.0187,
-          0.0165,
-          0.0172,
-          0.0215,
-          0.0204,
-          0.0173,
-          0.0187,
-          0.0242,
-          0.025,
-          0.0194,
-          0.0219,
-          0.0248,
-          0.0232,
-          0.0181,
-          0.0213,
-          0.0252,
-          0.0231,
-          0.0225
+          15.124,
+          22.733,
+          18.671,
+          17.169,
+          21.475,
+          20.363,
+          17.169,
+          24.193,
+          24.969,
+          21.872,
+          24.8,
+          23.242,
+          21.323,
+          25.167,
+          23.088
         ],
         "history_periods": [
-          "Q3 2020",
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Infrastructure",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.0213,
-            "source": "ROCK_2025-04-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.0252,
-            "source": "ROCK_2025-08-06.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.0231,
-            "source": "ROCK_2025-10-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.0225,
-            "source": "calc-ROCK_2026-02-26.htm.gz",
-            "tag": "us-gaap:Revenues"
-          }
-        ]
-      },
-      {
-        "short": "Revenu segment Résidentiel",
-        "period_type": "quarter",
-        "history": [
-          0.1851,
-          0.2143,
-          0.2124,
-          0.1707,
-          0.18,
-          0.2303,
-          0.2303,
-          0.1835
-        ],
-        "history_periods": [
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
-        ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Residential",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.18,
-            "source": "ROCK_2025-04-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.2303,
-            "source": "ROCK_2025-08-06.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.2303,
-            "source": "ROCK_2025-10-30.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.1835,
-            "source": "calc-ROCK_2026-02-26.htm.gz",
-            "tag": "us-gaap:Revenues"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:19:07Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Segment",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -717,9 +646,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.304214+00:00",
     "fetched_at": "2026-05-21T02:17:14.304215+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.303Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.304Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rock.json",
     "enrich_root": "v2-pipeline-enrich/rock.json",

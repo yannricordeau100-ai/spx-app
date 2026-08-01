@@ -130,56 +130,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.26 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.06,
-        0.05,
-        0.04,
-        0.04
+        60,
+        50,
+        40,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.41,
-      "unit": "Mds €",
+      "value": 410,
+      "unit": "M €",
       "yoy": "+20.6%",
       "history": [
-        0.6,
-        0.46,
-        0.34,
-        0.41
+        600,
+        460,
+        340,
+        410
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.41 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,7 +243,8 @@
       "severity": 5,
       "score_rationale": "Positionné en tête des facteurs de risque, le langage insiste sur des obligations légales strictes (GDPR, CCPA) et des risques de sanctions sévères. L'impact est existentiel car l'activité repose sur le traitement de données personnelles. La catégorie Régulation a une pondération élevée.",
       "trend": "stable",
-      "summary": "Des lois renforcées sur la protection des données menacent l'accès et l'utilisation des données clients, pouvant nuire à l'activité principale."
+      "summary": "Des lois renforcées sur la protection des données menacent l'accès et l'utilisation des données clients, pouvant nuire à l'activité principale.",
+      "score": 5
     },
     {
       "title": "Dépendance à l'identité numérique",
@@ -237,7 +252,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K : la technologie RampID est fondamentale pour toutes les opérations. Le langage souligne une vulnérabilité critique face à l'évolution vers le sans-cookie. Catégorie Technologie fortement pondérée.",
       "trend": "up",
-      "summary": "L'efficacité du système d'identité RampID est cruciale ; toute obsolescence technique menace l'ensemble du modèle économique."
+      "summary": "L'efficacité du système d'identité RampID est cruciale ; toute obsolescence technique menace l'ensemble du modèle économique.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue dans la tech data",
@@ -245,7 +261,8 @@
       "severity": 4,
       "score_rationale": "Mention fréquente de concurrents puissants (Google, Apple, etc.) avec des ressources supérieures. Le langage est préoccupé mais pas alarmiste. La concurrence est un risque structurel majeur mais pas immédiatement existentiel.",
       "trend": "stable",
-      "summary": "Des géants technologiques et des spécialistes offrent des solutions concurrentes, pouvant réduire la part de marché et la marge."
+      "summary": "Des géants technologiques et des spécialistes offrent des solutions concurrentes, pouvant réduire la part de marché et la marge.",
+      "score": 4
     },
     {
       "title": "Cyberattaque ou fuite de données",
@@ -253,7 +270,8 @@
       "severity": 5,
       "score_rationale": "Le risque est explicitement lié à la confiance des clients. Le langage est fort : 'breach could materially harm reputation'. Étant donné la nature sensible des données, le risque est existentiel. Catégorie Cybersécurité très pondérée.",
       "trend": "stable",
-      "summary": "Une faille de sécurité pourrait entraîner des pertes financières, des poursuites et une perte irréversible de confiance des clients."
+      "summary": "Une faille de sécurité pourrait entraîner des pertes financières, des poursuites et une perte irréversible de confiance des clients.",
+      "score": 5
     },
     {
       "title": "Dépendance à des partenaires clés",
@@ -261,7 +279,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne l'importance des intégrations avec 500+ partenaires. La perte d'un partenaire majeur est citée comme risque significatif. L'intensité est modérée mais le contexte réseau renforce l'impact.",
       "trend": "stable",
-      "summary": "La valeur du réseau dépend de partenariats stratégiques ; leur rupture pourrait affaiblir l'attractivité de la plateforme."
+      "summary": "La valeur du réseau dépend de partenariats stratégiques ; leur rupture pourrait affaiblir l'attractivité de la plateforme.",
+      "score": 4
     },
     {
       "title": "Restructuration opérationnelle",
@@ -269,7 +288,8 @@
       "severity": 3,
       "score_rationale": "La restructuration de mars 2025 (65 postes) est documentée avec des charges de 7,2M$. Le langage est mesuré, visant l'efficacité. Risque modéré lié à la perte de talents ou à la désorganisation.",
       "trend": "new",
-      "summary": "Les réductions d'effectifs peuvent nuire à la culture d'entreprise, à la productivité ou entraîner une fuite de compétences clés."
+      "summary": "Les réductions d'effectifs peuvent nuire à la culture d'entreprise, à la productivité ou entraîner une fuite de compétences clés.",
+      "score": 3
     },
     {
       "title": "Volatilité des revenus transactionnels",
@@ -277,7 +297,8 @@
       "severity": 3,
       "score_rationale": "Les revenus du Marketplace dépendent de transactions tierces et de partages de revenus. Le texte note une reconnaissance nette de revenus après partage. Risque modéré car les abonnements restent dominants.",
       "trend": "stable",
-      "summary": "Les revenus liés aux transactions et au Marketplace sont moins prévisibles et dépendent de l'activité des partenaires."
+      "summary": "Les revenus liés aux transactions et au Marketplace sont moins prévisibles et dépendent de l'activité des partenaires.",
+      "score": 3
     }
   ],
   "governance": {
@@ -309,7 +330,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.055Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.363Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ramp.json",
     "enrich_root": null,

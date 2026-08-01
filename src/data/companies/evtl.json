@@ -41,15 +41,19 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
       "name_fr": "Investissements en capital",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses annuelles pour développer les infrastructures et prototypes d'eVTOL.",
-      "value": "0.1",
-      "unit": "Mds $",
+      "value": 100,
+      "unit": "M $",
       "yoy": "+15%",
       "type": "Investment",
       "nature": "Structurel",
@@ -57,18 +61,23 @@
       "signal": "Investissement substantiel dans les capacités de fabrication et les installations de test de vol.",
       "description": "Le capex soutenu soutient le développement du Valo, l'appareil phare de la société, y compris les installations de test de vol et les centres de fabrication.",
       "history": [
-        0.08,
-        0.09,
-        0.1,
-        0.1,
-        0.12
+        80,
+        90,
+        100,
+        100,
+        120
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -100,8 +109,12 @@
         "diff_pct": 58.5,
         "reason": "kept_original_likely_pollution_or_unit"
       },
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Steady growth, healthy trend"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Revenue",
@@ -127,7 +140,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -146,78 +163,97 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+120.0%",
       "history": [
-        0.15,
-        0.08,
-        0.05,
-        0.11
+        150,
+        80,
+        50,
+        110
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.11 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "-64.2%",
       "history": [
-        0.12,
-        0.11,
-        0.53,
-        0.19
+        120,
+        110,
+        530,
+        190
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.19 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "+250.0%",
       "history": [
-        0.06,
-        0.05,
-        0.02,
-        0.07
+        60,
+        50,
+        20,
+        70
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.07 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,9 +281,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Innovation"
     },
     {
       "short": "Capex",
@@ -273,9 +307,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -325,7 +357,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de la liste des facteurs de risque, mentionné avec un langage fort (\"dependence on our partners and suppliers\"), en tendance stable, et critique car il touche au cœur de la production aéronautique.",
       "trend": "stable",
-      "summary": "Vertical Aerospace dépend fortement de partenaires et fournisseurs pour les composants essentiels de ses aéronefs eVTOL. Toute rupture d'approvisionnement ou défaillance technique de leur part pourrait retarder la certification ou la production en série du Valo."
+      "summary": "Vertical Aerospace dépend fortement de partenaires et fournisseurs pour les composants essentiels de ses aéronefs eVTOL. Toute rupture d'approvisionnement ou défaillance technique de leur part pourrait retarder la certification ou la production en série du Valo.",
+      "score": 5
     },
     {
       "title": "Certification réglementaire incertaine et retardée",
@@ -333,7 +366,8 @@
       "severity": 5,
       "score_rationale": "Mentionné plusieurs fois avec un langage alarmant (\"may not be certified... within any projected timeline, or at all\"), position élevé dans le document, tendance stable, poids élevé car la certification est une condition sine qua non à l'exploitation.",
       "trend": "stable",
-      "summary": "L'obtention de la certification par les autorités comme la CAA ou la FAA est cruciale pour le lancement du Valo. Tout retard ou refus de certification empêcherait la commercialisation de l'appareil, menaçant la viabilité de l'entreprise."
+      "summary": "L'obtention de la certification par les autorités comme la CAA ou la FAA est cruciale pour le lancement du Valo. Tout retard ou refus de certification empêcherait la commercialisation de l'appareil, menaçant la viabilité de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue dans le marché AAM",
@@ -341,7 +375,8 @@
       "severity": 4,
       "score_rationale": "Le marché AAM est décrit comme émergent avec une croissance incertaine, langage modéré mais répété, tendance en hausse, catégorie stratégique. Risque indirectement mentionné via la maturité du marché.",
       "trend": "up",
-      "summary": "Le marché de la mobilité aérienne avancée attire de nombreux acteurs. Vertical Aerospace fait face à une concurrence croissante de startups et géants industriels, ce qui pourrait limiter sa part de marché et sa capacité à monétiser ses précommandes."
+      "summary": "Le marché de la mobilité aérienne avancée attire de nombreux acteurs. Vertical Aerospace fait face à une concurrence croissante de startups et géants industriels, ce qui pourrait limiter sa part de marché et sa capacité à monétiser ses précommandes.",
+      "score": 4
     },
     {
       "title": "Défauts techniques ou sous-performance du Valo",
@@ -349,7 +384,8 @@
       "severity": 5,
       "score_rationale": "Langage fort (\"may potentially have defects\"), position centrale dans les risques, tendance stable, impact direct sur la sécurité et la confiance client. Catégorie technologique critique.",
       "trend": "stable",
-      "summary": "Le Valo, appareil eVTOL électrique, repose sur des technologies innovantes non éprouvées à grande échelle. Tout défaut de conception, problème de batterie (ex. Molicel) ou sous-performance en vol pourrait compromettre la sécurité, la certification et la réputation de l'entreprise."
+      "summary": "Le Valo, appareil eVTOL électrique, repose sur des technologies innovantes non éprouvées à grande échelle. Tout défaut de conception, problème de batterie (ex. Molicel) ou sous-performance en vol pourrait compromettre la sécurité, la certification et la réputation de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Retards ou échecs dans le développement hybride",
@@ -357,7 +393,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de risques technologiques, réglementaires et opérationnels pour la variante hybride, langage sérieux, tendance stable, poids élevé mais ciblé sur une version future.",
       "trend": "stable",
-      "summary": "Le développement d'une variante hybride-électrique du Valo ajoute une couche de complexité technologique. Les défis liés à l'intégration de systèmes hybrides non encore certifiés pour l'eVTOL pourraient retarder ou compromettre ce volet du programme."
+      "summary": "Le développement d'une variante hybride-électrique du Valo ajoute une couche de complexité technologique. Les défis liés à l'intégration de systèmes hybrides non encore certifiés pour l'eVTOL pourraient retarder ou compromettre ce volet du programme.",
+      "score": 4
     },
     {
       "title": "Précommandes non contraignantes et remboursables",
@@ -365,7 +402,8 @@
       "severity": 4,
       "score_rationale": "Mention claire que les précommandes sont conditionnelles et les paiements remboursables, langage factuel mais risqué, tendance stable, impact sur la visibilité commerciale et la crédibilité.",
       "trend": "stable",
-      "summary": "Les précommandes d'avions, bien que nombreuses, sont toutes conditionnelles et peuvent être annulées à tout moment par les clients comme American Airlines ou Virgin Atlantic, avec remboursement des acomptes. Cela fragilise la visibilité sur les revenus futurs."
+      "summary": "Les précommandes d'avions, bien que nombreuses, sont toutes conditionnelles et peuvent être annulées à tout moment par les clients comme American Airlines ou Virgin Atlantic, avec remboursement des acomptes. Cela fragilise la visibilité sur les revenus futurs.",
+      "score": 4
     },
     {
       "title": "Accidents impliquant eVTOL concurrents",
@@ -373,7 +411,8 @@
       "severity": 4,
       "score_rationale": "Risque systémique mentionné explicitement, langage préventif mais sérieux, tendance en hausse avec la montée des tests en vol, poids élevé sur la perception du marché.",
       "trend": "up",
-      "summary": "Un accident impliquant un eVTOL d'un concurrent pourrait nuire à l'image globale de la mobilité aérienne électrique, entraînant une perte de confiance des régulateurs, des clients et du public, affectant négativement Vertical Aerospace même sans être directement responsable."
+      "summary": "Un accident impliquant un eVTOL d'un concurrent pourrait nuire à l'image globale de la mobilité aérienne électrique, entraînant une perte de confiance des régulateurs, des clients et du public, affectant négativement Vertical Aerospace même sans être directement responsable.",
+      "score": 4
     },
     {
       "title": "Dépendance au management fondateur",
@@ -381,7 +420,8 @@
       "severity": 4,
       "score_rationale": "Mention de la dépendance au recrutement et à la rétention du management, langage préoccupé, tendance stable, impact élevé sur la continuité stratégique, surtout avec Stephen Fitzpatrick central.",
       "trend": "stable",
-      "summary": "La réussite de Vertical Aerospace dépend fortement de son équipe dirigeante, notamment Stephen Fitzpatrick. Le départ de personnel clé pourrait ralentir le développement technique, affaiblir les relations avec les partenaires et nuire à la stratégie Flightpath 2030."
+      "summary": "La réussite de Vertical Aerospace dépend fortement de son équipe dirigeante, notamment Stephen Fitzpatrick. Le départ de personnel clé pourrait ralentir le développement technique, affaiblir les relations avec les partenaires et nuire à la stratégie Flightpath 2030.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:43:11.523797+00:00",
@@ -583,9 +623,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.258567+00:00",
     "fetched_at": "2026-05-21T02:17:14.258568+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.977Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.557Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/evtl.json",
     "enrich_root": "v2-pipeline-enrich/evtl.json",

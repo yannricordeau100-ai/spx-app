@@ -39,8 +39,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 258.7,
-      "period_type": "quarter",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "period_type": "year",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Capital expenditures",
@@ -84,11 +87,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.73 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -107,34 +114,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.1 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-75.0%",
       "history": [
-        0.65,
-        0.35,
-        0.12,
-        0.03
+        650,
+        350,
+        120,
+        30
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.03 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,56 +169,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.09 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.8,
-      "unit": "Mds €",
+      "value": 800,
+      "unit": "M €",
       "yoy": "-27.3%",
       "history": [
-        0.86,
-        1.35,
-        1.1,
-        0.8
+        860,
+        1350,
+        1100,
+        800
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.8 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+200.0%",
       "history": [
-        0.06,
-        0.03,
-        0.01,
-        0.03
+        60,
+        30,
+        10,
+        30
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.03 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,13 +259,11 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Cash",
-      "ttm": 258.7,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 258.7
     }
   ],
   "ai_positioning": {
-    "stance": "risk_mentioned",
+    "stance": "absent",
     "summary": "AMN mentionne explicitement l'intelligence artificielle et l'apprentissage automatique dans son rapport 10-K comme facteur de risque potentiel. La société reconnaît que les clients pourraient améliorer l'efficacité de leurs fonctions de recrutement et de staffing via l'IA, l'automatisation et d'autres technologies avancées, ce qui pourrait réduire la demande pour les services d'AMN.",
     "evidence": [
       "Item 1A Risk Factors: 'If our clients are able to increase the effectiveness of their staffing and recruitment functions through analytics, automation, machine learning, artificial intelligence (AI) or other advanced technologies or otherwise increase the effectiveness of their permanent hiring or retention of permanent employees'"
@@ -247,43 +275,43 @@
       "title": "Impact des technologies sur la demande de services",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Le texte souligne que l'automatisation, l'IA et d'autres technologies peuvent améliorer l'efficacité du recrutement des clients, réduisant ainsi leur besoin de services externes. L'intensité du langage ('reduce the demand for our services', 'negatively affect our business') est notable. (score par défaut, à affiner)",
+      "score_rationale": "Le texte souligne que l'automatisation, l'IA et d'autres technologies peuvent améliorer l'efficacité du recrutement des clients, réduisant ainsi leur besoin de services externes. L'intensité du langage ('reduce the demand for our services', 'negatively affect our business') est notable.",
       "trend": "up",
       "summary": "L'adoption croissante de l'IA et d'autres technologies par les clients pour leur recrutement pourrait diminuer la demande pour les services de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance des clients et pression sur les prix",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le document mentionne explicitement que la demande de services est sensible à l'activité économique et que les clients peuvent exercer une pression sur les prix. L'intensité du langage ('negatively impact our financial condition', 'pricing pressure') et le contexte économique actuel justifient une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne explicitement que la demande de services est sensible à l'activité économique et que les clients peuvent exercer une pression sur les prix. L'intensité du langage ('negatively impact our financial condition', 'pricing pressure') et le contexte économique actuel justifient une sévérité élevée.",
       "trend": "stable",
       "summary": "La demande de services de staffing est sensible aux cycles économiques. Les ralentissements peuvent réduire la demande et entraîner une pression sur les prix, affectant la rentabilité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux litiges et responsabilités",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Le document détaille les risques de poursuites pour négligence médicale, violations de la vie privée, droit du travail et autres. L'intensité du langage ('substantial liabilities', 'significant additional wages', 'sizeable statutory penalties') indique une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le document détaille les risques de poursuites pour négligence médicale, violations de la vie privée, droit du travail et autres. L'intensité du langage ('substantial liabilities', 'significant additional wages', 'sizeable statutory penalties') indique une sévérité élevée.",
       "trend": "stable",
       "summary": "L'entreprise fait face à des risques de poursuites judiciaires liées à la négligence médicale, aux violations de la vie privée et au droit du travail, pouvant entraîner des responsabilités financières importantes.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de concentration client (Kaiser)",
       "category": "Réputation",
       "severity": 4,
-      "score_rationale": "La dépendance vis-à-vis d'un client majeur (Kaiser, 22% du CA) est clairement identifiée comme un risque. La perte de ce client aurait un impact 'material adverse effect on our revenue, results of operations and cash flows'. (score par défaut, à affiner)",
+      "score_rationale": "La dépendance vis-à-vis d'un client majeur (Kaiser, 22% du CA) est clairement identifiée comme un risque. La perte de ce client aurait un impact 'material adverse effect on our revenue, results of operations and cash flows'.",
       "trend": "stable",
       "summary": "Une part significative du chiffre d'affaires provient d'un seul client (Kaiser). La perte de ce client ou une réduction des services fournis aurait un impact matériel négatif.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Évolution du paysage réglementaire de la santé",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Le texte mentionne que le secteur de la santé est fortement influencé par les changements réglementaires (ACA, etc.) et que l'incertitude ou les modifications peuvent affecter la demande. Le langage est prudent mais souligne l'impact potentiel ('negatively affect demand', 'operating results'). (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne que le secteur de la santé est fortement influencé par les changements réglementaires (ACA, etc.) et que l'incertitude ou les modifications peuvent affecter la demande. Le langage est prudent mais souligne l'impact potentiel ('negatively affect demand', 'operating results').",
       "trend": "stable",
       "summary": "Les changements dans la réglementation du secteur de la santé, y compris l'accès à l'assurance et les modèles de remboursement, peuvent impacter la demande de services de l'entreprise.",
       "score": 3
@@ -292,7 +320,7 @@
       "title": "Impact des crises sanitaires et pandémies",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "L'expérience passée avec le COVID-19 est citée comme exemple d'impact négatif sur la demande, les opérations et les coûts. Le risque de futures crises sanitaires est explicitement mentionné ('Similar challenges could arise in future public health crises'). (score par défaut, à affiner)",
+      "score_rationale": "L'expérience passée avec le COVID-19 est citée comme exemple d'impact négatif sur la demande, les opérations et les coûts. Le risque de futures crises sanitaires est explicitement mentionné ('Similar challenges could arise in future public health crises').",
       "trend": "up",
       "summary": "Les crises sanitaires, comme la pandémie de COVID-19, peuvent perturber l'économie, affecter la demande de services de santé et augmenter les coûts opérationnels.",
       "score": 3
@@ -301,7 +329,7 @@
       "title": "Concurrence accrue via les intermédiaires",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Le document indique que les clients peuvent utiliser des intermédiaires (GPO, MSP) qui augmentent leur pouvoir de négociation ou développent leurs propres modèles de staffing. Cela peut affecter les prix et la capacité à maintenir des clients. (score par défaut, à affiner)",
+      "score_rationale": "Le document indique que les clients peuvent utiliser des intermédiaires (GPO, MSP) qui augmentent leur pouvoir de négociation ou développent leurs propres modèles de staffing. Cela peut affecter les prix et la capacité à maintenir des clients.",
       "trend": "stable",
       "summary": "L'utilisation accrue d'intermédiaires par les clients ou le développement de leurs propres solutions de staffing internes peut nuire à la capacité de l'entreprise à négocier et à maintenir des contrats rentables.",
       "score": 3
@@ -361,7 +389,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -542,166 +570,86 @@
   },
   "enrich_quarterly_history": {
     "ticker": "AMN",
-    "extracted_at": "2026-05-15T18:08:48Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1142750,
+    "extracted_at": "2026-06-01T02:56:39Z",
     "n_kpis": 2,
     "kpis": [
       {
         "short": "Net cash provided by operating activities",
         "period_type": "quarter",
         "history": [
-          139.494,
-          137.041,
-          -173.932,
-          113.482,
-          79.357,
-          155.723,
-          -284.038,
-          28.516,
-          7.013,
-          29.377,
-          -31.971,
-          50.56,
-          48.038,
-          30.55,
-          -118.499,
-          55.777,
-          41.503,
-          52.636,
-          -115.944,
-          560.738
+          200.215,
+          424.677,
+          538.405,
+          43.434,
+          241.101,
+          413.295,
+          43.434,
+          241.101,
+          413.295,
+          81.386,
+          180.901,
+          247.604
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 41.503,
-            "accession": "0001142750-25-000052",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 52.636,
-            "accession": "0001628280-25-050362",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -115.944,
-            "accession": "calc-0001628280-26-009918",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 560.738,
-            "accession": "0001628280-26-032419",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T02:56:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Capital expenditures",
         "period_type": "quarter",
         "history": [
-          23.069,
-          38.71,
-          -19.813,
           13.59,
           30.811,
           51.229,
-          -19.799,
-          17.487,
-          43.936,
-          73.831,
-          -31.567,
-          18.145,
-          45.411,
-          64.671,
-          -47.336,
-          9.975,
-          19.775,
-          27.683,
-          -21.804,
-          7.246
+          13.59,
+          30.811,
+          51.229,
+          13.59,
+          30.811,
+          51.229,
+          13.59,
+          30.811,
+          64.671
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 19.775,
-            "accession": "0001142750-25-000052",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 27.683,
-            "accession": "0001628280-25-050362",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -21.804,
-            "accession": "calc-0001628280-26-009918",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 7.246,
-            "accession": "0001628280-26-032419",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T02:56:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -717,9 +665,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.220712+00:00",
     "fetched_at": "2026-05-21T02:17:14.220713+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.766Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.191Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/amn.json",
     "enrich_root": "v2-pipeline-enrich/amn.json",

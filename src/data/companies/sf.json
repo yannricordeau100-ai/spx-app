@@ -1,6 +1,6 @@
 {
   "ticker": "SF",
-  "name": "Stifel Financial Corp.",
+  "name": "Stifel Financial",
   "sector": "Finance",
   "subsector": "Financial Services",
   "tagline": "Stifel Financial Corp. is a diversified financial services and bank holding company serving private clients, institutional investors, and investment banking clients.",
@@ -75,7 +75,7 @@
       "is_short_history": false,
       "ttm": 635.42,
       "_validation": "Type changed from 'Revenue' to 'Profitability'; explanation clarifies legal provision impact",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -115,11 +115,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.46 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -138,11 +142,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 3.91 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Pressure, deteriorating trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Pressure, deteriorating trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 41.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,11 +196,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.53 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -207,10 +223,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.57 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -251,61 +271,61 @@
       "title": "Non-conformité aux exigences réglementaires",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Le risque est cité comme pouvant entraîner des sanctions sévères, y compris des amendes et des actions réglementaires, en raison de la surveillance accrue par la SEC, FINRA, la Réserve fédérale et d'autres autorités. Le langage insiste sur les 'potentially sizable adverse legal judgments' et la 'risk of loss'. La catégorie Régulation est hautement pondérée dans le secteur financier. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est cité comme pouvant entraîner des sanctions sévères, y compris des amendes et des actions réglementaires, en raison de la surveillance accrue par la SEC, FINRA, la Réserve fédérale et d'autres autorités. Le langage insiste sur les 'potentially sizable adverse legal judgments' et la 'risk of loss'. La catégorie Régulation est hautement pondérée dans le secteur financier.",
       "trend": "stable",
       "summary": "La société fait face à un risque élevé de sanctions en cas de non-respect des nombreuses réglementations financières auxquelles elle est soumise.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Défaillance des systèmes ou collaborateurs",
       "category": "Opérationnel",
       "severity": 4,
-      "score_rationale": "Le texte mentionne explicitement que des défaillances opérationnelles peuvent entraîner des pertes financières, des sanctions et des dommages à la réputation. Bien que des contrôles soient en place, le risque est accentué par l'environnement en évolution rapide et le volume croissant de transactions. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne explicitement que des défaillances opérationnelles peuvent entraîner des pertes financières, des sanctions et des dommages à la réputation. Bien que des contrôles soient en place, le risque est accentué par l'environnement en évolution rapide et le volume croissant de transactions.",
       "trend": "stable",
       "summary": "Des erreurs humaines ou des défaillances techniques pourraient entraîner des pertes importantes malgré les contrôles existants.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Litiges liés aux pratiques de vente",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Le risque de réclamations de clients pour pratiques de vente inappropriées est mentionné comme entraînant des coûts importants, même sans faute avérée. La société a enregistré une provision de 1.16 USD par action diluée pour une décision d'arbitrage FINRA au premier trimestre 2025, indiquant une préoccupation continue et matérialisée. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de réclamations de clients pour pratiques de vente inappropriées est mentionné comme entraînant des coûts importants, même sans faute avérée. La société a enregistré une provision de 1.16 USD par action diluée pour une décision d'arbitrage FINRA au premier trimestre 2025, indiquant une préoccupation continue et matérialisée.",
       "trend": "stable",
       "summary": "La société peut être confrontée à des coûts juridiques élevés en raison de réclamations de clients, même non fondées.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Exposition en tant que garant dans les émissions",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Le texte souligne une 'potential legal exposure' significative lorsqu'elle agit comme garant dans des émissions de titres. Un comité d'experts supervise ces décisions, mais le risque juridique reste élevé en cas de litige. (score par défaut, à affiner)",
+      "score_rationale": "Le texte souligne une 'potential legal exposure' significative lorsqu'elle agit comme garant dans des émissions de titres. Un comité d'experts supervise ces décisions, mais le risque juridique reste élevé en cas de litige.",
       "trend": "stable",
       "summary": "En tant que garant dans des offres de titres, la société peut être tenue responsable en cas de problème lié à la souscription.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Insuffisance des exigences de capital",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le non-respect des exigences de capital peut déclencher des actions réglementaires obligatoires ayant un 'effet direct et matériel' sur les états financiers et les opérations. Ce risque s'applique à la société mère et à ses filiales bancaires. La non-conformité pourrait empêcher le renouvellement des dépôts en sachette et affecter la capacité à effectuer des retraits de capital. (score par défaut, à affiner)",
+      "score_rationale": "Le non-respect des exigences de capital peut déclencher des actions réglementaires obligatoires ayant un 'effet direct et matériel' sur les états financiers et les opérations. Ce risque s'applique à la société mère et à ses filiales bancaires. La non-conformité pourrait empêcher le renouvellement des dépôts en sachette et affecter la capacité à effectuer des retraits de capital.",
       "trend": "stable",
       "summary": "Un défaut de capital réglementaire pourrait entraîner des interventions sévères des autorités et impacter directement la santé financière et les opérations du groupe.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Estimations incertaines des pertes sur créances",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Les estimations des pertes sur prêts reposent sur des modèles complexes intégrant des scénarios macroéconomiques et des réversions sensibles. La complexité des hypothèses et la sensibilité aux conditions économiques augmentent l'incertitude des estimations et les risques de matérialité des ajustements futurs. (score par défaut, à affiner)",
+      "score_rationale": "Les estimations des pertes sur prêts reposent sur des modèles complexes intégrant des scénarios macroéconomiques et des réversions sensibles. La complexité des hypothèses et la sensibilité aux conditions économiques augmentent l'incertitude des estimations et les risques de matérialité des ajustements futurs.",
       "trend": "up",
       "summary": "Les estimations des pertes sur prêts reposent sur des hypothèses complexes et sensibles aux conditions économiques, ce qui peut affecter la qualité des résultats.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Effets de l'inflation sur les coûts",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "L'inflation affecte les coûts d'exploitation (rémunérations, occupancy) sans que la société puisse toujours les répercuter entièrement. Les dépenses de compensation et avantages sociaux représentent 59.2% des revenus nets. Toutefois, les actifs monétaires importants offrent une certaine protection, limitant la gravité relative. (score par défaut, à affiner)",
+      "score_rationale": "L'inflation affecte les coûts d'exploitation (rémunérations, occupancy) sans que la société puisse toujours les répercuter entièrement. Les dépenses de compensation et avantages sociaux représentent 59.2% des revenus nets. Toutefois, les actifs monétaires importants offrent une certaine protection, limitant la gravité relative.",
       "trend": "stable",
       "summary": "L'augmentation de l'inflation pèse sur les coûts d'exploitation et pourrait réduire la marge si elle n'est pas compensée par les revenus croissants.",
       "score": 3
@@ -345,7 +365,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -568,6 +588,100 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SF",
+    "extracted_at": "2026-06-01T09:20:53Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Net Revenues",
+        "period_type": "quarter",
+        "history": [
+          1.13,
+          1.15,
+          1.14,
+          1.12,
+          1.11,
+          1.05,
+          1.11,
+          1.05,
+          1.05,
+          1.16,
+          1.22,
+          1.22,
+          1.26,
+          1.28,
+          1.43
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:20:53Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          164.73,
+          189.79,
+          182.69,
+          164.23,
+          151.5,
+          141.85,
+          148.22,
+          125.03,
+          58.84,
+          154.26,
+          155.97,
+          149.19,
+          43.67,
+          145.73,
+          202.05
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:20:53Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SF",
     "ranks": {
@@ -580,15 +694,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.308163+00:00",
     "fetched_at": "2026-05-21T02:17:14.308164+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.683Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.694Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sf.json",
     "enrich_root": "v2-pipeline-enrich/sf.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -74,7 +74,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 29600,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes."
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes."
     },
     {
       "short": "Adjusted EBITDA",
@@ -99,7 +99,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 192943,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Cash generation improving, financial flexibility rising"
     },
     {
@@ -144,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.99 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -167,56 +171,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.98 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.69,
-      "unit": "Mds €",
+      "value": 690,
+      "unit": "M €",
       "yoy": "-15.9%",
       "history": [
-        1,
-        0.92,
-        0.82,
-        0.69
+        1000,
+        920,
+        820,
+        690
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.69 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-42.9%",
       "history": [
-        0.23,
-        0.15,
-        0.07,
-        0.04
+        230,
+        150,
+        70,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,13 +261,11 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Financial Performance",
-      "ttm": 102468,
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "ttm": 102468
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "La société EYE intègre progressivement des solutions d'IA et de technologie dans sa stratégie. Le CTO a rejoint la société en septembre 2025 avec une expertise spécialisée en Agentic AI et en solutions cloud, indiquant une reconnaissance croissante de l'importance de l'IA pour les opérations technologiques futures.",
     "evidence": [
       "CTO appointed September 2025 with expertise in Agentic AI, cloud solutions and enterprise software",
@@ -264,7 +280,8 @@
       "severity": 5,
       "score_rationale": "La société dépend fortement de ses systèmes d'information et de ceux de ses tiers pour opérer et protéger les données sensibles des patients. Les menaces cyber se sophistiquent continuellement et une faille pourrait avoir des conséquences graves sur l'activité, la situation financière et les opérations.",
       "trend": "up",
-      "summary": "La société est fortement exposée aux risques de cybersécurité et à la nécessité de maintenir des systèmes IT robustes et sécurisés pour l'ensemble de ses opérations."
+      "summary": "La société est fortement exposée aux risques de cybersécurité et à la nécessité de maintenir des systèmes IT robustes et sécurisés pour l'ensemble de ses opérations.",
+      "score": 5
     },
     {
       "title": "Environnement réglementaire évolutif",
@@ -272,7 +289,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un environnement fortement réglementé avec des risques liés aux lois anti-kickback, à la pratique corporative de la médecine et aux réglementations sur la télémédecine qui varient selon les juridictions.",
       "trend": "up",
-      "summary": "La société fait face à des risques réglementaires importants concernant ses arrangements avec les praticiens en soins oculaires et l'expansion de ses solutions de télémédecine à distance."
+      "summary": "La société fait face à des risques réglementaires importants concernant ses arrangements avec les praticiens en soins oculaires et l'expansion de ses solutions de télémédecine à distance.",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -280,7 +298,8 @@
       "severity": 4,
       "score_rationale": "Le marché de l'optique est très compétitif et fragmenté. La société doit maintenir sa compétitivité tout en naviguant des pressions sur les marges.",
       "trend": "stable",
-      "summary": "La société opère dans un marché très compétitif et fragmenté, requérant une adaptation continue de sa stratégie pour maintenir sa part de marché."
+      "summary": "La société opère dans un marché très compétitif et fragmenté, requérant une adaptation continue de sa stratégie pour maintenir sa part de marché.",
+      "score": 4
     },
     {
       "title": "Macroéconomie",
@@ -288,7 +307,8 @@
       "severity": 4,
       "score_rationale": "L'environnement macroéconomique défavorable avec inflation, taux d'intérêt élevés et confiance des consommateurs en baisse pourrait impacter les ventes et la situation financière de la société.",
       "trend": "up",
-      "summary": "La société est exposée aux risques macroéconomiques qui pourraient réduire les dépenses des consommateurs en soins oculaires et produits optiques."
+      "summary": "La société est exposée aux risques macroéconomiques qui pourraient réduire les dépenses des consommateurs en soins oculaires et produits optiques.",
+      "score": 4
     },
     {
       "title": "Géopolitique",
@@ -296,7 +316,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux risques géopolitiques, aux incertitudes politiques et aux tensions socio-économiques qui pourraient impacter ses opérations.",
       "trend": "up",
-      "summary": "La société est exposée aux risques géopolitiques qui pourraient affecter ses opérations internationales et sa chaîne d'approvisionnement."
+      "summary": "La société est exposée aux risques géopolitiques qui pourraient affecter ses opérations internationales et sa chaîne d'approvisionnement.",
+      "score": 3
     },
     {
       "title": "Télémédecine et réglementations d'État",
@@ -304,7 +325,8 @@
       "severity": 3,
       "score_rationale": "Les réglementations sur la télémédecine varient considérablement entre les juridictions. Certains États restreignent ou interdisent l'utilisation de la télémédecine pour les examens oculaires par les optométristes.",
       "trend": "up",
-      "summary": "La capacité à déployer les solutions de télémédecine est fortement dépendante de l'évolution des exigences réglementaires par État, ce qui peut causer des perturbations et des reconfigurations importantes."
+      "summary": "La capacité à déployer les solutions de télémédecine est fortement dépendante de l'évolution des exigences réglementaires par État, ce qui peut causer des perturbations et des reconfigurations importantes.",
+      "score": 3
     }
   ],
   "governance": {
@@ -356,7 +378,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -471,166 +493,197 @@
   },
   "enrich_quarterly_history": {
     "ticker": "EYE",
-    "extracted_at": "2026-05-15T18:11:05Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1710155,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:15:23Z",
+    "n_kpis": 5,
     "kpis": [
       {
         "short": "Adjusted Operating Income",
         "period_type": "quarter",
         "history": [
-          116.277,
-          166.988,
-          -169.776,
-          37.332,
-          55.703,
-          71.062,
-          -102.822,
-          33.312,
-          41.037,
-          -33.56,
-          -87.615,
-          24.41,
-          24.033,
-          15.212,
-          -74.014,
-          26.137,
-          42.586,
-          52.194,
-          -62.088,
-          45.239
+          67.668,
+          45.304,
+          65.581,
+          27.78,
+          54.736,
+          21.463,
+          39.873,
+          16.448,
+          15.707,
+          35.765,
+          14.073,
+          14.294
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
           "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
           "Q4 2022",
+          "Q1 2022",
           "Q1 2023",
+          "Q2 2022",
           "Q2 2023",
-          "Q3 2023",
           "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
           "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q1 2025"
         ],
-        "last_data_date": "2026-04-04",
+        "last_data_date": "2024-09-28",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 42.586,
-            "accession": "0001710155-25-000047",
-            "end": "2025-06-28"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 52.194,
-            "accession": "0001628280-25-049891",
-            "end": "2025-09-27"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -62.088,
-            "accession": "calc-0001628280-26-014379",
-            "end": "2026-01-03"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 45.239,
-            "accession": "0001628280-26-034824",
-            "end": "2026-04-04"
-          }
+        "_extracted_at": "2026-06-01T03:15:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          43.432,
+          30.147,
+          37.601,
+          9.734,
+          40.992,
+          11.502,
+          18.27,
+          5.614,
+          11.685,
+          -3.125,
+          -8.468
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q4 2022",
+          "Q1 2022",
+          "Q1 2023",
+          "Q2 2022",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025"
+        ],
+        "last_data_date": "2024-09-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:15:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (EYE)"
         ]
+      },
+      {
+        "short": "Adjusted EBITDA",
+        "period_type": "quarter",
+        "history": [
+          89.35,
+          68.583,
+          87.735,
+          51.153,
+          77.923,
+          44.443,
+          62.814,
+          39.505,
+          39.137,
+          59.021
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q4 2022",
+          "Q1 2022",
+          "Q1 2023",
+          "Q2 2022",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2024-03-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:15:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Adjusted Diluted EPS",
         "period_type": "quarter",
         "history": [
-          0.89,
-          1.34,
-          -1.28,
-          0.34,
-          0.47,
-          0.63,
-          -0.92,
-          0.22,
-          0.3,
-          -0.64,
-          -0.72,
-          0.15,
-          0.11,
-          0,
-          -0.62,
-          0.18,
-          0.29,
+          0.48,
           0.33,
-          -0.43,
-          0.38
+          0.48,
+          0.21,
+          0.38,
+          0.15,
+          0.31,
+          0.17,
+          0.15,
+          0.3
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
           "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
           "Q4 2022",
+          "Q1 2022",
           "Q1 2023",
+          "Q2 2022",
           "Q2 2023",
-          "Q3 2023",
           "Q4 2023",
           "Q1 2024",
           "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2024-03-30",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T03:15:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          534.18,
+          527.711,
+          549.489,
+          509.555,
+          518.005,
+          499.207,
+          562.369,
+          525.34,
+          532.356,
+          542.523,
+          451.733,
+          451.515
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q4 2022",
+          "Q1 2022",
+          "Q1 2023",
+          "Q2 2022",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 4 2024",
+          "Q2 2024",
           "Q3 2024",
           "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q1 2025"
         ],
-        "last_data_date": "2026-04-04",
-        "unit": "$",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "EarningsPerShareDiluted",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 0.29,
-            "accession": "0001710155-25-000047",
-            "end": "2025-06-28"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.33,
-            "accession": "0001628280-25-049891",
-            "end": "2025-09-27"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -0.43,
-            "accession": "calc-0001628280-26-014379",
-            "end": "2026-01-03"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 0.38,
-            "accession": "0001628280-26-034824",
-            "end": "2026-04-04"
-          }
-        ]
+        "last_data_date": "2024-09-28",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:15:23Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -646,9 +699,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.259221+00:00",
     "fetched_at": "2026-05-21T02:17:14.259222+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.053Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.620Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/eye.json",
     "enrich_root": "v2-pipeline-enrich/eye.json",

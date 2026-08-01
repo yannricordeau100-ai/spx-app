@@ -36,12 +36,13 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le texte fourni est un extrait XBRL brut contenant uniquement des métadonnées de structure et des références de contexte, sans valeurs numér",
-      "explanation_en": "Assets Under Management — total client assets managed by the firm.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "explanation_en": "Assets Under Management, total client assets managed by the firm.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -64,13 +65,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 11.66 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:45.857145+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -89,11 +94,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -1.38 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -112,34 +121,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -4.83 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
       "name_fr": "Free Cash Flow",
       "name_en": "Free Cash Flow",
-      "value": 0.68,
-      "unit": "Mds €",
+      "value": 680,
+      "unit": "M €",
       "yoy": "-63.2%",
       "history": [
-        -0.42,
-        -0.33,
-        1.85,
-        0.68
+        -420,
+        -330,
+        1850,
+        680
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 0.68 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -158,11 +176,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 317.99 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -181,11 +203,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -204,10 +230,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 12.46 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -221,7 +251,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.71,
         0.78,
@@ -234,7 +264,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +279,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         1.223,
@@ -262,7 +292,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +307,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -290,7 +320,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -305,7 +335,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         5.46,
@@ -318,7 +348,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -341,9 +371,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Risk Management",
-      "_source_month": "juillet 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Risk Management"
     }
   ],
   "ai_positioning": {
@@ -357,52 +385,52 @@
       "title": "Marchés financiers et conditions économiques",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Les conditions des marchés de capitaux mondiaux et l'économie affectent matériellement les activités, les résultats d'exploitation et la condition financière. Exposition significative aux marchés d'actions, taux d'intérêt et volatilité des marchés de capitaux mentionnée pages 35-36 (score par défaut, à affiner)",
+      "score_rationale": "Les conditions des marchés de capitaux mondiaux et l'économie affectent matériellement les activités, les résultats d'exploitation et la condition financière. Exposition significative aux marchés d'actions, taux d'intérêt et volatilité des marchés de capitaux mentionnée pages 35-36",
       "trend": "stable",
       "summary": "Les fluctuations des marchés financiers, les incertitudes budgétaires, les tensions géopolitiques et les changements de politique monétaire peuvent affecter matériellement les résultats et la position financière de la société",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Cybersécurité et protection des données",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Les menaces à la cybersécurité et les violations de données peuvent avoir un impact matériel sur la réputation et les résultats. Langage d'importance concernant la protection des données des clients et de l'entreprise page 36 (score par défaut, à affiner)",
+      "score_rationale": "Les menaces à la cybersécurité et les violations de données peuvent avoir un impact matériel sur la réputation et les résultats. Langage d'importance concernant la protection des données des clients et de l'entreprise page 36",
       "trend": "up",
       "summary": "Les menaces de cybersécurité peuvent compromettre la confidentialité et l'intégrité des données de l'entreprise et de ses clients, affectant la réputation et les résultats opérationnels",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de taux d'intérêt",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Les fluctuations des taux d'intérêt affectent matériellement les résultats, les portefeuilles de dérivés et les produits d'assurance. Les baisses de taux en 2025 mentionnées pages 35 et 54 (score par défaut, à affiner)",
+      "score_rationale": "Les fluctuations des taux d'intérêt affectent matériellement les résultats, les portefeuilles de dérivés et les produits d'assurance. Les baisses de taux en 2025 mentionnées pages 35 et 54",
       "trend": "stable",
       "summary": "Les changements des taux d'intérêt peuvent affecter les rendements de portefeuille, les réserves requises et la valeur des produits de retraite et d'investissement",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Les conditions de crédit défavorables peuvent avoir un impact matériel sur la liquidité et les résultats. Portefeuille d'investissement important sensible aux conditions de crédit page 36 (score par défaut, à affiner)",
+      "score_rationale": "Les conditions de crédit défavorables peuvent avoir un impact matériel sur la liquidité et les résultats. Portefeuille d'investissement important sensible aux conditions de crédit page 36",
       "trend": "stable",
       "summary": "Les difficultés d'accès au crédit et la dégradation des conditions de crédit peuvent affecter la capacité de financement et la liquidité de la société",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les changements réglementaires affectent les réserves statutaires, les exigences de capital et la rentabilité. Raffinements constants des exigences de capital et nouveaux standards de réserves mentionnés page 54 (score par défaut, à affiner)",
+      "score_rationale": "Les changements réglementaires affectent les réserves statutaires, les exigences de capital et la rentabilité. Raffinements constants des exigences de capital et nouveaux standards de réserves mentionnés page 54",
       "trend": "up",
       "summary": "Les modifications des réglementations d'assurance, des normes de réserve et des exigences de capital peuvent augmenter les coûts et affecter la profitabilité et les opérations",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques opérationnels",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les défaillances opérationnelles peuvent affecter la réputation et les résultats de la société. Langage mettant en évidence l'importance de la gestion opérationnelle page 37 (score par défaut, à affiner)",
+      "score_rationale": "Les défaillances opérationnelles peuvent affecter la réputation et les résultats de la société. Langage mettant en évidence l'importance de la gestion opérationnelle page 37",
       "trend": "stable",
       "summary": "Les erreurs ou défaillances opérationnelles peuvent affecter la qualité des services, la réputation et les résultats financiers",
       "score": 3
@@ -411,10 +439,10 @@
       "title": "Événements catastrophiques et géopolitiques",
       "category": "Géopolitique",
       "severity": 5,
-      "score_rationale": "Les catastrophes naturelles et les crises géopolitiques (conflit ukrainien, tensions moyen-orientales) peuvent avoir un impact matériel. Exposition mentionnée pages 37 et 54 (score par défaut, à affiner)",
+      "score_rationale": "Les catastrophes naturelles et les crises géopolitiques (conflit ukrainien, tensions moyen-orientales) peuvent avoir un impact matériel. Exposition mentionnée pages 37 et 54",
       "trend": "stable",
       "summary": "Les événements catastrophiques, conflits géopolitiques et crises d'origine humaine peuvent perturber les opérations et affecter matériellement les résultats financiers",
-      "score": 3
+      "score": 5
     }
   ],
   "governance": {
@@ -450,7 +478,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -495,9 +523,9 @@
     "xbrl_fetched_at": "2026-05-09T20:27:28Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:48Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Finance",
-  "_companies_unified_built_at": "2026-05-29T21:19:30.836Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.102Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/eqh.json",
     "enrich_root": "v2-pipeline-enrich/eqh.json",

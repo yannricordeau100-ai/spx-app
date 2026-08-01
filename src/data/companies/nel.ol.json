@@ -175,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.96 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -203,9 +207,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     },
     {
       "short": "PEM Order Growth",
@@ -227,9 +229,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -276,7 +276,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement identifié en Item 1A comme dépendance envers fournisseurs tiers pour composants critiques. Langage modéré mais stratégie de mitigation (dual supply chains) indique préoccupation substantielle. Tendance stable mais poids élevé pour chaîne d'approvisionnement en phase de croissance rapide.",
       "trend": "stable",
-      "summary": "Nel dépend d'un nombre limité de fournisseurs pour les composants clés de ses électrolyseurs. Bien que la stratégie de dual supply chains soit en place, les risques de rupture temporaire et l'incapacité des fournisseurs à suivre la croissance attendue de l'industrie restent préoccupants, particulièrement en phase de scaling-up."
+      "summary": "Nel dépend d'un nombre limité de fournisseurs pour les composants clés de ses électrolyseurs. Bien que la stratégie de dual supply chains soit en place, les risques de rupture temporaire et l'incapacité des fournisseurs à suivre la croissance attendue de l'industrie restent préoccupants, particulièrement en phase de scaling-up.",
+      "score": 4
     },
     {
       "title": "Risque d'obsolescence technologique et de concurrence technologique",
@@ -284,7 +285,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement : 'Other technologies under development could potentially make renewable hydrogen less relevant' et 'if competitors gain advantages in alternative electrolyser technologies'. Langage d'alerte modéré mais contexte de marché émergent à croissance rapide amplifie le risque. Tendance up en raison de l'intensification concurrentielle (notamment la Chine).",
       "trend": "up",
-      "summary": "Nel opère dans un marché émergent à croissance rapide où les risques de changement technologique sont élevés. Des technologies alternatives en développement pourraient réduire la pertinence de l'hydrogène renouvelable, et les concurrents gagnant des avantages en technologies d'électrolyseurs alternatifs pourraient affecter la position concurrentielle du groupe."
+      "summary": "Nel opère dans un marché émergent à croissance rapide où les risques de changement technologique sont élevés. Des technologies alternatives en développement pourraient réduire la pertinence de l'hydrogène renouvelable, et les concurrents gagnant des avantages en technologies d'électrolyseurs alternatifs pourraient affecter la position concurrentielle du groupe.",
+      "score": 4
     },
     {
       "title": "Risque de défaillance produit et d'obsolescence technologique",
@@ -292,7 +294,8 @@
       "severity": 4,
       "score_rationale": "Explicitement identifié : 'increased risk related to product failure and technology obsolescence' avec impact réputationnel direct ('reputational damage risk from product failure'). Langage d'alerte clair. Poids élevé car affecte l'éligibilité technologique auprès des clients. Tendance stable mais préoccupation croissante en phase de commercialisation.",
       "trend": "up",
-      "summary": "En raison de la croissance rapide de l'industrie, il existe un risque accru de défaillance produit et d'obsolescence technologique. Les dommages réputationnels liés à une défaillance produit ou à l'incapacité à répondre aux attentes élevées des clients pourraient affecter l'éligibilité de la technologie d'équipement de Nel."
+      "summary": "En raison de la croissance rapide de l'industrie, il existe un risque accru de défaillance produit et d'obsolescence technologique. Les dommages réputationnels liés à une défaillance produit ou à l'incapacité à répondre aux attentes élevées des clients pourraient affecter l'éligibilité de la technologie d'équipement de Nel.",
+      "score": 4
     },
     {
       "title": "Dépendance aux incitations gouvernementales et risque de réduction des subventions",
@@ -300,7 +303,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur explicitement souligné : 'Reduced and/or delayed support from governments will delay the developments' et 'Political incentive schemes are expected to be important contributors'. Langage d'alerte fort avec impact direct sur pipeline de projets. Tendance up : document cite 'Delays in and cancellations of announced government incentives' ayant déjà réduit l'intake de commandes.",
       "trend": "up",
-      "summary": "Nel opère dans un secteur fortement dépendant des incitations gouvernementales et des schémas de subventions. Les retards, annulations ou réductions des incitations gouvernementales (comme les crédits d'impôt 45V ou les programmes de banques d'hydrogène) ont déjà entraîné une baisse de l'intake de commandes et des retards/annulations de projets signés."
+      "summary": "Nel opère dans un secteur fortement dépendant des incitations gouvernementales et des schémas de subventions. Les retards, annulations ou réductions des incitations gouvernementales (comme les crédits d'impôt 45V ou les programmes de banques d'hydrogène) ont déjà entraîné une baisse de l'intake de commandes et des retards/annulations de projets signés.",
+      "score": 5
     },
     {
       "title": "Risque de concentration client et dépendance à la réussite commerciale des clients",
@@ -308,7 +312,8 @@
       "severity": 4,
       "score_rationale": "Identifié en Item 1A : 'Nel's ability to grow depends to a substantial degree on its ability to successfully win new customers' et risque que clients ne réussissent pas leurs plans commerciaux. Langage modéré mais impact direct sur croissance. Tendance stable mais contexte de marché ralenti augmente la criticité.",
       "trend": "up",
-      "summary": "La croissance de Nel dépend substantiellement de sa capacité à remporter de nouveaux clients et à maintenir/développer les relations existantes. Si les clients ne réussissent pas leurs plans commerciaux ou ne respectent pas leurs contrats avec Nel, les ventes pourraient être adversement affectées."
+      "summary": "La croissance de Nel dépend substantiellement de sa capacité à remporter de nouveaux clients et à maintenir/développer les relations existantes. Si les clients ne réussissent pas leurs plans commerciaux ou ne respectent pas leurs contrats avec Nel, les ventes pourraient être adversement affectées.",
+      "score": 4
     },
     {
       "title": "Risque de validation commerciale des nouvelles plateformes technologiques",
@@ -316,7 +321,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné : 'the development and roll out of new technology platforms require commercial validation' et 'a transitional period with continued risk-mitigation is expected until performance and cost assumptions are proven at scale'. Langage d'alerte clair. Poids élevé car affecte la viabilité du modèle commercial futur.",
       "trend": "new",
-      "summary": "Les plateformes de nouvelle génération de Nel (PEM et alkaline avancées) représentent un progrès technologique significatif mais nécessitent une validation commerciale. Une période de transition avec atténuation des risques est attendue jusqu'à ce que les hypothèses de performance et de coûts soient prouvées à l'échelle commerciale."
+      "summary": "Les plateformes de nouvelle génération de Nel (PEM et alkaline avancées) représentent un progrès technologique significatif mais nécessitent une validation commerciale. Une période de transition avec atténuation des risques est attendue jusqu'à ce que les hypothèses de performance et de coûts soient prouvées à l'échelle commerciale.",
+      "score": 4
     },
     {
       "title": "Risque de ralentissement du marché et de déploiement plus lent que prévu",
@@ -324,7 +330,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur documenté : 'Deployment has been slower than expected, with project cancellations, delays and fewer final investment decisions'. Langage d'alerte fort avec impact direct sur pipeline. Tendance up : document cite des projets plus petits que prévu et des défis structurels identifiés par l'IEA.",
       "trend": "up",
-      "summary": "Le marché de l'hydrogène renouvelable fait face à des défis structurels : le déploiement a été plus lent que prévu, avec annulations de projets, retards et moins de décisions d'investissement final. Les projets attendus sont désormais plus petits que prévu, et les clients adoptent une approche prudente en raison de difficultés à sécuriser des contrats d'achat à long terme."
+      "summary": "Le marché de l'hydrogène renouvelable fait face à des défis structurels : le déploiement a été plus lent que prévu, avec annulations de projets, retards et moins de décisions d'investissement final. Les projets attendus sont désormais plus petits que prévu, et les clients adoptent une approche prudente en raison de difficultés à sécuriser des contrats d'achat à long terme.",
+      "score": 4
     },
     {
       "title": "Risque de cybersécurité et de protection des données opérationnelles",
@@ -332,7 +339,8 @@
       "severity": 3,
       "score_rationale": "Identifié comme matériel dans l'évaluation de double matérialité aux côtés des sujets d'innovation et de R&D. Langage modéré mais reconnaissance explicite comme risque de durabilité. Tendance stable mais poids croissant pour entreprise manufacturière opérant globalement.",
       "trend": "stable",
-      "summary": "Nel a identifié la cybersécurité comme un sujet matériel dans son évaluation de durabilité. En tant que fabricant opérant globalement avec des systèmes d'assurance qualité et des opérations manufacturées, Nel est exposée aux risques de cyberattaques affectant ses opérations, sa propriété intellectuelle et ses données clients."
+      "summary": "Nel a identifié la cybersécurité comme un sujet matériel dans son évaluation de durabilité. En tant que fabricant opérant globalement avec des systèmes d'assurance qualité et des opérations manufacturées, Nel est exposée aux risques de cyberattaques affectant ses opérations, sa propriété intellectuelle et ses données clients.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:48:33.636759+00:00",
@@ -417,9 +425,9 @@
     "country": "Norway",
     "_data_freshness_date": "2026-05-21T02:17:14.287757+00:00",
     "fetched_at": "2026-05-21T02:17:14.287757+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.853Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.763Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nel.ol.json",
     "enrich_root": null,

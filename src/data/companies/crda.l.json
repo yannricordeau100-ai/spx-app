@@ -37,9 +37,7 @@
       "is_generic": false,
       "is_short_history": true,
       "period_type": "annual",
-      "signal_en": "Demand stable",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Demand stable"
     },
     {
       "short": "Member_Countries",
@@ -62,9 +60,7 @@
       "is_generic": false,
       "is_short_history": true,
       "period_type": "annual",
-      "signal_en": "Demand stable",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Demand stable"
     },
     {
       "short": "Loss_Prevention_Colloquium_Participants",
@@ -86,9 +82,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "period_type": "annual"
     },
     {
       "short": "Total Revenue",
@@ -107,34 +101,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.7 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only two explicit total revenue figures (2022: £2,089.3m and 2021: £1,889.6m) are present, both in pounds and not in billions of euros; fewe",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "-62.5%",
       "history": [
-        0.65,
-        0.17,
-        0.16,
-        0.06
+        650,
+        170,
+        160,
+        60
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.06 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -153,56 +158,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.41 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.7,
-      "unit": "Mds €",
+      "value": 700,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.62,
-        0.71,
-        0.7,
-        0.7
+        620,
+        710,
+        700,
+        700
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.7 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.32,
-        0.17,
-        0.17,
-        0.17
+        320,
+        170,
+        170,
+        170
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -246,7 +265,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -338,7 +357,7 @@
       "month": 3,
       "title": "Assemblee generale (estimation)",
       "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-      "source": "yfinance.info.lastFiscalYearEnd",
+      "source": "données de marché.lastFiscalYearEnd",
       "url": "",
       "date": "2027-03-15"
     },
@@ -347,7 +366,7 @@
       "month": 7,
       "title": "Prochaine publication Q3 2026",
       "body": "Publication attendue le 28 juillet 2026.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-07-28"
     },
@@ -356,7 +375,7 @@
       "month": 4,
       "title": "Dernier ex-dividende",
       "body": "Date ex-dividende : 9 avril 2026. Montant precedent : 63.0000.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-04-09"
     },
@@ -365,7 +384,7 @@
       "month": 7,
       "title": "Resultats Q3 2017 publies",
       "body": "EPS 0.41 vs consensus 0.93 (miss -56.0 %) Annonce le 25 juillet 2017.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2017-07-25"
     },
@@ -374,7 +393,7 @@
       "month": 7,
       "title": "Resultats Q3 2016 publies",
       "body": "EPS 0.31 vs consensus 0.72 (miss -56.9 %) Annonce le 25 juillet 2016.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2016-07-25"
     },
@@ -383,7 +402,7 @@
       "month": 11,
       "title": "Resultats Q4 2014 publies",
       "body": "EPS 0.29 vs consensus 0.66 (miss -56.5 %) Annonce le 7 novembre 2014.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2014-11-07"
     },
@@ -392,7 +411,7 @@
       "month": 7,
       "title": "Resultats Q3 2014 publies",
       "body": "EPS 0.30 vs consensus 0.33 (miss -8.8 %) Annonce le 22 juillet 2014.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2014-07-22"
     }
@@ -437,7 +456,7 @@
     "voting_structure": "one_share_one_vote"
   },
   "_events_sub_agent_101_fill_at": "2026-05-21T09:48:19.307979+00:00",
-  "_events_sub_agent_101_source": "yfinance-batch (earnings_dates + calendar + dividends + info)",
+  "_events_sub_agent_101_source": "rapport financier-batch (earnings_dates + calendar + dividends + info)",
   "_stories_backfill_at": "2026-05-21T10:50:55Z",
   "_stories_backfill_source": "scaleup_residuel_cerebras_key2",
   "_is_short_history_legitimate": true,
@@ -509,7 +528,10 @@
         710,
         730
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Life Sciences Sales",
@@ -525,7 +547,10 @@
         465,
         470
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Industrial Specialties Sales",
@@ -541,7 +566,10 @@
         370,
         380
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Crop Protection Sales",
@@ -557,7 +585,10 @@
         210,
         200
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Consumer Care Adj Op Margin",
@@ -573,7 +604,10 @@
         22,
         23
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Marge",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T16:47:55+00:00",
@@ -641,7 +675,7 @@
         "month": 3,
         "title": "Assemblee generale (estimation)",
         "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-        "source": "yfinance.info.lastFiscalYearEnd",
+        "source": "données de marché.lastFiscalYearEnd",
         "url": "",
         "date": "2027-03-15"
       },
@@ -650,7 +684,7 @@
         "month": 7,
         "title": "Prochaine publication Q3 2026",
         "body": "Publication attendue le 28 juillet 2026.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-07-28"
       },
@@ -659,7 +693,7 @@
         "month": 4,
         "title": "Dernier ex-dividende",
         "body": "Date ex-dividende : 9 avril 2026. Montant precedent : 63.0000.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-04-09"
       },
@@ -668,7 +702,7 @@
         "month": 7,
         "title": "Resultats Q3 2017 publies",
         "body": "EPS 0.41 vs consensus 0.93 (miss -56.0 %) Annonce le 25 juillet 2017.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2017-07-25"
       },
@@ -677,7 +711,7 @@
         "month": 7,
         "title": "Resultats Q3 2016 publies",
         "body": "EPS 0.31 vs consensus 0.72 (miss -56.9 %) Annonce le 25 juillet 2016.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2016-07-25"
       },
@@ -686,7 +720,7 @@
         "month": 11,
         "title": "Resultats Q4 2014 publies",
         "body": "EPS 0.29 vs consensus 0.66 (miss -56.5 %) Annonce le 7 novembre 2014.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2014-11-07"
       },
@@ -695,13 +729,12 @@
         "month": 7,
         "title": "Resultats Q3 2014 publies",
         "body": "EPS 0.30 vs consensus 0.33 (miss -8.8 %) Annonce le 22 juillet 2014.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2014-07-22"
       }
     ],
-    "_source": "sub-agent-101-yfinance-batch",
-    "_verified_at": "2026-05-21T09:48:19.307979+00:00",
+    "_source": "sub-agent-101-rapport financier-batch",
     "_debug": {
       "ticker": "CRDA.L",
       "ok": true,
@@ -721,9 +754,9 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.244565+00:00",
     "fetched_at": "2026-05-21T02:17:14.244567+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.792Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.289Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/crda.l.json",
     "enrich_root": "v2-pipeline-enrich/crda.l.json",

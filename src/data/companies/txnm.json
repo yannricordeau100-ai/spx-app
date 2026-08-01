@@ -37,10 +37,13 @@
       "is_generic": false,
       "is_short_history": true,
       "_validation": "Valeur confirmée dans le 10-K (Risk Factors section). Unité corrigée de 'Mds $' à 'B $' (convention anglaise). is_generic changé à false car KPI spécifique à la projection. is_short_history changé à true car un seul point de données.",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de Capex (dépenses d'investissement) trouvée dans l'extrait fourni. Le document contient des discussions su",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Customers",
@@ -85,59 +88,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.17 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:32.054833+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "-37.5%",
       "history": [
-        0.17,
-        0.09,
-        0.24,
-        0.15
+        170,
+        90,
+        240,
+        150
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.15 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.44,
-      "unit": "Mds €",
+      "value": 440,
+      "unit": "M €",
       "yoy": "-4.3%",
       "history": [
-        0.39,
-        0.3,
-        0.46,
-        0.44
+        390,
+        300,
+        460,
+        440
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.44 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 12.06 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,32 +200,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "",
       "history": [
         0,
         0,
         0,
-        0.02
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -246,7 +276,8 @@
       "severity": 5,
       "score_rationale": "La rentabilité de TXNM dépend de la capacité des entreprises à récupérer leurs coûts par des tarifs réglementés et à obtenir un rendement équitable sur le capital investi. Sans récupération rapide des coûts, y compris les investissements non amortis, la liquidité et les résultats opérationnels pourraient être négativement impactés. Les régulateurs pourraient ne pas autoriser la récupération des coûts.",
       "trend": "stable",
-      "summary": "La régulation est un risque majeur pour TXNM car elle affecte directement la capacité à récupérer les coûts d'exploitation et de capital, particulièrement en période d'investissements importants."
+      "summary": "La régulation est un risque majeur pour TXNM car elle affecte directement la capacité à récupérer les coûts d'exploitation et de capital, particulièrement en période d'investissements importants.",
+      "score": 5
     },
     {
       "title": "Environnement et conformité climatique",
@@ -254,7 +285,8 @@
       "severity": 5,
       "score_rationale": "TXNM est soumise à des lois et réglementations environnementales strictes, notamment concernant la réduction des émissions de gaz à effet de serre. Les changements climatiques créent des coûts significatifs de conformité et des risques de non-conformité. Les réglementations liées à la transition énergétique peuvent avoir un impact négatif sur les activités et exiger des investissements importants.",
       "trend": "up",
-      "summary": "Les risques environnementaux augmentent en raison des changements climatiques, des réglementations strictes de réduction des émissions et des exigences de transition énergétique."
+      "summary": "Les risques environnementaux augmentent en raison des changements climatiques, des réglementations strictes de réduction des émissions et des exigences de transition énergétique.",
+      "score": 5
     },
     {
       "title": "Concurrence et technologies alternatives",
@@ -262,7 +294,8 @@
       "severity": 4,
       "score_rationale": "TXNM fait face à une concurrence croissante de la part de nouvelles technologies et de nouveaux acteurs du marché, notamment dans la génération distribuée et le stockage d'énergie. Les avancées technologiques pourraient rendre les installations existantes moins compétitives et affecter les modèles de revenus.",
       "trend": "up",
-      "summary": "La concurrence s'intensifie avec l'émergence de technologies alternatives, de ressources distribuées et de nouveaux entrants sur le marché de l'énergie."
+      "summary": "La concurrence s'intensifie avec l'émergence de technologies alternatives, de ressources distribuées et de nouveaux entrants sur le marché de l'énergie.",
+      "score": 4
     },
     {
       "title": "Dépendance aux décisions réglementaires",
@@ -270,7 +303,8 @@
       "severity": 5,
       "score_rationale": "TXNM dépend fortement de décisions favorables des régulateurs (NMPRC, PUCT, FERC) pour maintenir sa santé financière. Les décisions défavorables concernant les approbations de taux, les mécanismes de récupération ou l'approbation d'investissements pourraient impacter significativement les résultats et les flux de trésorerie.",
       "trend": "stable",
-      "summary": "La dépendance critique aux approbations réglementaires représente un risque majeur pour la stabilité financière et opérationnelle de TXNM."
+      "summary": "La dépendance critique aux approbations réglementaires représente un risque majeur pour la stabilité financière et opérationnelle de TXNM.",
+      "score": 5
     },
     {
       "title": "Risques opérationnels et fiabilité du système",
@@ -278,7 +312,8 @@
       "severity": 4,
       "score_rationale": "TXNM est exposée à des risques opérationnels incluant les pannes d'équipement, les accidents, les erreurs humaines et les événements climatiques extrêmes. L'intégration croissante de ressources intermittentes crée de l'incertitude dans les prévisions de charge et les plans de système. Ces risques pourraient affecter la continuité de service et les résultats financiers.",
       "trend": "stable",
-      "summary": "Les risques opérationnels incluent les défaillances d'équipement, les événements climatiques extrêmes et les défis de gestion d'un réseau avec ressources intermittentes croissantes."
+      "summary": "Les risques opérationnels incluent les défaillances d'équipement, les événements climatiques extrêmes et les défis de gestion d'un réseau avec ressources intermittentes croissantes.",
+      "score": 4
     },
     {
       "title": "Impacts des changements climatiques",
@@ -286,7 +321,8 @@
       "severity": 5,
       "score_rationale": "Les changements climatiques augmentent la fréquence et la sévérité des événements météorologiques extrêmes, impactant les opérations d'TXNM. TXNM doit investir dans la résilience du réseau, la prévention des incendies de forêt et l'adaptation de ses infrastructures. Les coûts associés et les risques opérationnels représentent des menaces importantes pour les résultats financiers.",
       "trend": "up",
-      "summary": "Les changements climatiques présentent un risque majeur en raison de l'augmentation des événements extrêmes, des exigences réglementaires de résilience et des coûts de mitigation."
+      "summary": "Les changements climatiques présentent un risque majeur en raison de l'augmentation des événements extrêmes, des exigences réglementaires de résilience et des coûts de mitigation.",
+      "score": 5
     },
     {
       "title": "Décommissionnement des installations et passifs environnementaux",
@@ -294,7 +330,8 @@
       "severity": 4,
       "score_rationale": "TXNM est exposée à des coûts importants pour le décommissionnement et la remise en état des installations nucléaires et à combustible fossile. Les estimations de coûts peuvent s'avérer insuffisantes, entraînant des dépassements significatifs. Les modifications réglementaires concernant les calendriers de fermeture pourraient également impacter les prévisions financières.",
       "trend": "stable",
-      "summary": "Le décommissionnement des installations représente un risque financier important avec des coûts potentiellement significatifs et une incertitude sur l'amplitude réelle de ces obligations."
+      "summary": "Le décommissionnement des installations représente un risque financier important avec des coûts potentiellement significatifs et une incertitude sur l'amplitude réelle de ces obligations.",
+      "score": 4
     }
   ],
   "governance": {
@@ -354,7 +391,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -523,9 +560,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.320950+00:00",
     "fetched_at": "2026-05-21T02:17:14.320951+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.782Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.862Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/txnm.json",
     "enrich_root": null,

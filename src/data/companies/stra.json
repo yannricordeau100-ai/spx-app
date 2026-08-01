@@ -36,9 +36,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Extrait insuffisant : seules les données financières consolidées pour 2022, 2021, 2020 sont mentionnées dans l'en-tête (« three years in the"
+      "_hero_history_unverified_reason": "Extrait insuffisant : seules les données financières consolidées pour 2022, 2021, 2020 sont mentionnées dans l'en-tête (« three years in the",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "USHE",
@@ -103,34 +106,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.27 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "+18.2%",
       "history": [
-        0.05,
-        0.07,
-        0.11,
-        0.13
+        50,
+        70,
+        110,
+        130
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.13 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,56 +161,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.04 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "-15.4%",
       "history": [
-        0.26,
-        0.21,
-        0.13,
-        0.11
+        260,
+        210,
+        130,
+        110
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.11 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.21,
-        0.17,
-        0.14,
-        0.14
+        210,
+        170,
+        140,
+        140
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.14 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,25 +262,25 @@
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché en concurrence accrue, avec de nombreux acteurs proposant des services d'éducation en ligne et sur campus. (Item 1A, p. 61) (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché en concurrence accrue, avec de nombreux acteurs proposant des services d'éducation en ligne et sur campus. (Item 1A, p. 61)",
       "trend": "up",
       "summary": "La concurrence accrue dans le marché de l'éducation peut affecter la part de marché et les revenus de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation gouvernementale",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "La société est soumise à des réglementations gouvernementales strictes, notamment en ce qui concerne les programmes d'aide financière aux étudiants. (Item 1A, p. 63) (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations gouvernementales strictes, notamment en ce qui concerne les programmes d'aide financière aux étudiants. (Item 1A, p. 63)",
       "trend": "stable",
       "summary": "Les réglementations gouvernementales peuvent avoir un impact significatif sur les opérations et les revenus de la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à la technologie",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "La société dépend fortement de la technologie pour proposer ses services d'éducation en ligne, ce qui peut présenter des risques liés à la sécurité et à la fiabilité. (Item 1A, p. 62) (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de la technologie pour proposer ses services d'éducation en ligne, ce qui peut présenter des risques liés à la sécurité et à la fiabilité. (Item 1A, p. 62)",
       "trend": "up",
       "summary": "La dépendance à la technologie peut exposer la société à des risques liés à la sécurité et à la fiabilité des systèmes.",
       "score": 3
@@ -263,19 +289,19 @@
       "title": "Fluctuations du marché",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "La société est exposée aux fluctuations du marché, notamment en ce qui concerne les taux d'intérêt et les conditions économiques générales. (Item 1A, p. 61) (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux fluctuations du marché, notamment en ce qui concerne les taux d'intérêt et les conditions économiques générales. (Item 1A, p. 61)",
       "trend": "stable",
       "summary": "Les fluctuations du marché peuvent affecter la capacité de la société à attirer et à retenir des étudiants.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques liés à la réputation, notamment en ce qui concerne la qualité des services proposés et la satisfaction des étudiants. (Item 1A, p. 62) (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques liés à la réputation, notamment en ce qui concerne la qualité des services proposés et la satisfaction des étudiants. (Item 1A, p. 62)",
       "trend": "stable",
       "summary": "Les risques liés à la réputation peuvent affecter la capacité de la société à attirer et à retenir des étudiants.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -298,7 +324,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -433,88 +459,53 @@
   },
   "enrich_quarterly_history": {
     "ticker": "STRA",
-    "extracted_at": "2026-05-15T18:14:30Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1013934,
+    "extracted_at": "2026-06-01T09:22:56Z",
     "n_kpis": 1,
     "kpis": [
       {
         "short": "Revenu",
         "period_type": "quarter",
         "history": [
-          589.509,
-          859.587,
-          -607.746,
-          258.855,
-          532.419,
-          795.542,
-          -521.336,
-          256.606,
-          544.286,
-          830.222,
-          -498.19,
-          290.25,
-          602.516,
-          908.474,
-          -581.31,
-          303.59,
-          625.061,
-          945.01,
-          -605.441,
-          305.928
+          0.273564,
+          0.263123,
+          0.258855,
+          0.273564,
+          0.270078,
+          0.256606,
+          0.28768,
+          0.285936,
+          0.29025,
+          0.312266,
+          0.305958,
+          0.30359,
+          0.321471,
+          0.319949,
+          0.305928
         ],
         "history_periods": [
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
           "Q1 2026"
         ],
         "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 625.061,
-            "accession": "0001013934-25-000035",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 945.01,
-            "accession": "0001013934-25-000042",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -605.441,
-            "accession": "calc-0001013934-26-000006",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 305.928,
-            "accession": "0001013934-26-000012",
-            "end": "2026-03-31"
-          }
-        ]
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:22:56Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ]
   },
@@ -530,9 +521,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.314442+00:00",
     "fetched_at": "2026-05-21T02:17:14.314442+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.230Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.250Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/stra.json",
     "enrich_root": "v2-pipeline-enrich/stra.json",

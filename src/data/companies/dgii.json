@@ -47,7 +47,11 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:55.788191+00:00",
       "explanation_en": "Revenue from the IoT Products Services segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=9)"
+      ]
     },
     {
       "short": "IoT Solutions Revenue",
@@ -87,7 +91,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -147,53 +151,63 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.92,
-      "unit": "Mds €",
+      "value": 920,
+      "unit": "M €",
       "yoy": "+12.2%",
       "history": [
-        0.85,
-        0.84,
-        0.82,
-        0.92
+        850,
+        840,
+        820,
+        920
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "+21.4%",
       "history": [
-        0.26,
-        0.22,
-        0.14,
-        0.17
+        260,
+        220,
+        140,
+        170
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.17 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,7 +245,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de ses fournisseurs pour les composants limitées à une source unique. Les perturbations de la chaîne d'approvisionnement mondiale ont historiquement impacté la capacité de Digi à procurer l'inventaire nécessaire et les stress futurs pourraient avoir des impacts matériels.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de rupture de chaîne d'approvisionnement en raison de sa dépendance à l'égard de fournisseurs uniques pour certains composants critiques et à sa vulnérabilité aux perturbations mondiales."
+      "summary": "La société est exposée à des risques de rupture de chaîne d'approvisionnement en raison de sa dépendance à l'égard de fournisseurs uniques pour certains composants critiques et à sa vulnérabilité aux perturbations mondiales.",
+      "score": 4
     },
     {
       "title": "Concentration client",
@@ -239,7 +254,8 @@
       "severity": 4,
       "score_rationale": "La société a une concentration élevée de clients, ce qui la rend vulnérable à des pertes de contrats ou à des difficultés financières de ces clients clés.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés à la concentration de ses clients, ce qui peut avoir un impact négatif significatif sur son activité en cas de perte de contrats ou de difficultés financières de ces clients."
+      "summary": "La société est exposée à des risques liés à la concentration de ses clients, ce qui peut avoir un impact négatif significatif sur son activité en cas de perte de contrats ou de difficultés financières de ces clients.",
+      "score": 4
     },
     {
       "title": "Acquisitions et intégration",
@@ -247,7 +263,8 @@
       "severity": 5,
       "score_rationale": "La société a réalisé plusieurs acquisitions récentes incluant Ventus et Jolt Software, et peut en réaliser d'autres à l'avenir. Ces acquisitions comportent des risques importants d'intégration et de dilution pour les actionnaires.",
       "trend": "up",
-      "summary": "La société est exposée à des risques liés à ses acquisitions et à l'intégration de nouvelles entreprises, ce qui peut avoir un impact négatif significatif sur son activité et sa situation financière."
+      "summary": "La société est exposée à des risques liés à ses acquisitions et à l'intégration de nouvelles entreprises, ce qui peut avoir un impact négatif significatif sur son activité et sa situation financière.",
+      "score": 5
     },
     {
       "title": "Litiges et contentieux",
@@ -255,7 +272,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée à des risques de litiges et de contentieux liés à des réclamations de tiers ou à des problèmes de propriété intellectuelle.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de litiges et de contentieux, ce qui peut avoir un impact négatif sur son activité et sa situation financière."
+      "summary": "La société est exposée à des risques de litiges et de contentieux, ce qui peut avoir un impact négatif sur son activité et sa situation financière.",
+      "score": 3
     },
     {
       "title": "Risques de tarifs douaniers",
@@ -263,7 +281,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques liés à des changements de tarifs douaniers, particulièrement pour ses produits fabriqués en Chine par Ventus. Ces changements peuvent impacter la compétitivité des prix et les marges.",
       "trend": "up",
-      "summary": "La société est exposée à des risques liés à des changements de tarifs douaniers, ce qui peut rendre ses produits moins compétitifs et avoir un impact négatif significatif sur son activité et sa rentabilité."
+      "summary": "La société est exposée à des risques liés à des changements de tarifs douaniers, ce qui peut rendre ses produits moins compétitifs et avoir un impact négatif significatif sur son activité et sa rentabilité.",
+      "score": 4
     },
     {
       "title": "Risques liés aux marchés émergents",
@@ -271,7 +290,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans des marchés émergents, ce qui comporte des risques liés à la volatilité de ces marchés, à la concurrence accrue et aux variations de taux de change.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés à ses opérations dans des marchés émergents, ce qui peut avoir un impact négatif sur son activité et sa situation financière."
+      "summary": "La société est exposée à des risques liés à ses opérations dans des marchés émergents, ce qui peut avoir un impact négatif sur son activité et sa situation financière.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'égard de distributeurs et revendeurs",
@@ -279,7 +299,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement de ses distributeurs et revendeurs pour la distribution et la vente de ses produits, ce qui la rend vulnérable à des pertes de contrats ou à des difficultés financières de ces partenaires critiques.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés à sa dépendance à l'égard de ses distributeurs et revendeurs, ce qui peut avoir un impact négatif significatif sur son activité en cas de perte de contrats ou de difficultés financières."
+      "summary": "La société est exposée à des risques liés à sa dépendance à l'égard de ses distributeurs et revendeurs, ce qui peut avoir un impact négatif significatif sur son activité en cas de perte de contrats ou de difficultés financières.",
+      "score": 4
     }
   ],
   "governance": {
@@ -327,7 +348,7 @@
     "rationale": "Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.247Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.873Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dgii.json",
     "enrich_root": null,

@@ -43,7 +43,7 @@
       "ttm": null,
       "_validation": "Unité corrigée de 'Mille $' en 'K$', valeur vérifiée dans les états financiers (217,756 K$)",
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -70,7 +70,7 @@
       "is_short_history": false,
       "ttm": 83659.99,
       "_validation": "Unité corrigée de 'Mille $' en 'K$', ordre historique réordonné (2025, 2024, 2023), valeur vérifiée dans les états financiers",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -96,56 +96,64 @@
       "is_short_history": true,
       "ttm": 13834.5,
       "_validation": "Unité corrigée de 'Mille $' en 'K$', type corrigé de 'Revenue' en 'Profitability', histoire réorganisée et limitée aux 2 années disponibles (2025: 12,923 et 2024: 13,746), TTM recalculé, is_short_history changé en true car seulement 2 points de données",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.91,
-      "unit": "Mds €",
+      "value": 910,
+      "unit": "M €",
       "yoy": "+106.8%",
       "history": [
-        0.4,
-        0.4,
-        0.44,
-        0.91
+        400,
+        400,
+        440,
+        910
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.91 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.09,
-        0.15,
-        0.01,
-        0.01
+        90,
+        150,
+        10,
+        10
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.01 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -164,56 +172,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.3 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.91,
-      "unit": "Mds €",
+      "value": 910,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.79,
-        0.68,
-        0.91,
-        0.91
+        790,
+        680,
+        910,
+        910
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.91 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "+225.0%",
       "history": [
-        0.15,
-        0.14,
-        0.04,
-        0.13
+        150,
+        140,
+        40,
+        130
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -240,9 +262,7 @@
       "is_short_history": true,
       "story_category": "Innovation",
       "ttm": 180126,
-      "_validation": "Unité corrigée de 'Mille $' en 'K$', histoire corrigée (2025: 217,756, 2024: 142,496), TTM recalculé",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mille $' en 'K$', histoire corrigée (2025: 217,756, 2024: 142,496), TTM recalculé"
     }
   ],
   "ai_positioning": {
@@ -258,7 +278,8 @@
       "severity": 5,
       "score_rationale": "La société génère 84% de ses revenus grâce à ses services de connectivité. Une perte de clients ou une réduction de la demande pourrait avoir un impact significatif sur ses résultats d'exploitation",
       "trend": "stable",
-      "summary": "La société dépend fortement de ses services de connectivité pour générer des revenus. Une perte de clients importants ou une réduction de la demande pourrait avoir un impact négatif significatif sur ses résultats d'exploitation"
+      "summary": "La société dépend fortement de ses services de connectivité pour générer des revenus. Une perte de clients importants ou une réduction de la demande pourrait avoir un impact négatif significatif sur ses résultats d'exploitation",
+      "score": 5
     },
     {
       "title": "Third-party supplier dependence",
@@ -266,7 +287,8 @@
       "severity": 4,
       "score_rationale": "La société dépend de fournisseurs tiers pour la fourniture de composants et de services critiques. Une interruption pourrait avoir un impact négatif sur les opérations",
       "trend": "stable",
-      "summary": "La société est dépendante de fournisseurs tiers pour la fabrication de composants et la prestation de services. Une interruption de ces fournitures pourrait avoir un impact négatif sur ses résultats d'exploitation"
+      "summary": "La société est dépendante de fournisseurs tiers pour la fabrication de composants et la prestation de services. Une interruption de ces fournitures pourrait avoir un impact négatif sur ses résultats d'exploitation",
+      "score": 4
     },
     {
       "title": "Intensifying competitive pressure",
@@ -274,7 +296,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché hautement compétitif. Une concurrence accrue pourrait entraîner une réduction des prix et une pression sur les marges",
       "trend": "up",
-      "summary": "La société opère dans un marché compétitif où une concurrence accrue pourrait entraîner une réduction des prix et des revenus"
+      "summary": "La société opère dans un marché compétitif où une concurrence accrue pourrait entraîner une réduction des prix et des revenus",
+      "score": 4
     },
     {
       "title": "Fixed-price contract risks",
@@ -282,7 +305,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques liés aux contrats à prix fixe qui peuvent entraîner des pertes si les coûts ou les délais sont mal estimés",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés aux contrats à prix fixe, qui peuvent entraîner des pertes si les coûts sont sous-estimés ou si les délais ne sont pas respectés"
+      "summary": "La société est exposée à des risques liés aux contrats à prix fixe, qui peuvent entraîner des pertes si les coûts sont sous-estimés ou si les délais ne sont pas respectés",
+      "score": 4
     },
     {
       "title": "Dependence on third-party satellite networks",
@@ -290,7 +314,8 @@
       "severity": 4,
       "score_rationale": "La société dépend de réseaux de satellites tiers pour fournir ses services de connectivité. Une panne pourrait interrompre les opérations",
       "trend": "stable",
-      "summary": "La société dépend de réseaux de satellites tiers pour fournir ses services. Une panne ou une interruption de ces réseaux pourrait avoir un impact négatif sur ses résultats d'exploitation"
+      "summary": "La société dépend de réseaux de satellites tiers pour fournir ses services. Une panne ou une interruption de ces réseaux pourrait avoir un impact négatif sur ses résultats d'exploitation",
+      "score": 4
     },
     {
       "title": "Government contract regulatory risks",
@@ -298,7 +323,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques liés aux contrats gouvernementaux qui peuvent être affectés par des changements de politique ou des réductions budgétaires",
       "trend": "stable",
-      "summary": "La société est exposée à des risques liés aux contrats gouvernementaux, qui peuvent être affectés par des changements de politique ou des réductions de budget"
+      "summary": "La société est exposée à des risques liés aux contrats gouvernementaux, qui peuvent être affectés par des changements de politique ou des réductions de budget",
+      "score": 4
     },
     {
       "title": "Reputation and brand risks",
@@ -306,7 +332,8 @@
       "severity": 4,
       "score_rationale": "La société dépend de sa réputation pour attirer et conserver les clients. Une perte de réputation pourrait affecter négativement les résultats",
       "trend": "stable",
-      "summary": "La société est dépendante de sa réputation pour attirer et conserver des clients. Une perte de réputation pourrait avoir un impact négatif sur ses résultats d'exploitation"
+      "summary": "La société est dépendante de sa réputation pour attirer et conserver des clients. Une perte de réputation pourrait avoir un impact négatif sur ses résultats d'exploitation",
+      "score": 4
     }
   ],
   "governance": {
@@ -340,7 +367,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "EBITDA"
   },
   "_fit_for_site": true,
@@ -533,7 +560,6 @@
           20.449,
           110.298,
           131.211,
-          -116.28,
           30.49,
           31.329,
           41.959,
@@ -595,6 +621,12 @@
             "accession": "0001193125-26-211861",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (GOGO)"
         ]
       }
     ]
@@ -611,9 +643,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.269152+00:00",
     "fetched_at": "2026-05-21T02:17:14.269153+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.791Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.441Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gogo.json",
     "enrich_root": "v2-pipeline-enrich/gogo.json",

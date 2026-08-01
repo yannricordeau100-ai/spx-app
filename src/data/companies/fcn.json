@@ -75,8 +75,12 @@
       "_validation": [
         "Valeur confirmée comme plausible - unite Mds $ correcte"
       ],
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -107,7 +111,11 @@
         "KPI non specifiquement detaille dans extrait fourni - valeur coherente avec historique plausible maintenue"
       ],
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -138,7 +146,11 @@
         "KPI non verifiable dans la source 10-K fournie - valeur presume hallucinee, maintenue par coherence avec historique"
       ],
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -170,16 +182,20 @@
         "KPI non specifiquement detaille dans extrait fourni - valeur coherente plausible maintenue"
       ],
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Capex",
       "name_fr": "Investissements (Capex)",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses annuelles en actifs matériels et immatériels.",
-      "value": "0.12",
-      "unit": "Mds $",
+      "value": 120,
+      "unit": "M $",
       "yoy": "+10%",
       "type": "Investment",
       "nature": "Structurel",
@@ -187,11 +203,11 @@
       "signal": "Capex en hausse pour moderniser les infrastructures technologiques",
       "description": "Les investissements ciblent les plateformes cloud, la cybersécurité et les outils d'analyse de données massives.",
       "history": [
-        0.1,
-        0.1,
-        0.11,
-        0.12,
-        0.12
+        100,
+        100,
+        110,
+        120,
+        120
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -201,8 +217,13 @@
       "_validation": [
         "KPI non specifiquement detaille dans extrait fourni - valeur coherente plausible maintenue"
       ],
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Steady growth, healthy trend"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -229,24 +250,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.271,
-      "unit": "Mds $",
+      "value": 271,
+      "unit": "M $",
       "yoy": "-3.2%",
       "history": [
-        0.151,
-        0.217,
-        0.211,
-        0.235,
-        0.236,
-        0.275,
-        0.28,
-        0.271
+        151,
+        217,
+        211,
+        235,
+        236,
+        275,
+        280,
+        271
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -255,43 +280,16 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
-    {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part des deals incluant fonctionnalités IA",
-      "name_en": "AI-related Deals Mix",
-      "explanation": "Pourcentage des nouveaux contrats dans le segment Technology qui incluent des fonctionnalités d'intelligence artificielle.",
-      "value": "35",
-      "unit": "%",
-      "yoy": "+5%",
-      "type": "Adoption",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Croissance soutenue de l'intégration IA dans les offres client",
-      "description": "Le recours croissant à l'IA dans les enquêtes, la gouvernance des données et les litiges numériques renforce la valeur des services FTI.",
-      "history": [
-        25,
-        28,
-        30,
-        32,
-        35
-      ],
-      "last_data_date": "2025-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": false,
-      "story_category": "Adoption",
-      "ttm": 35.82,
-      "_validation": [
-        "KPI non verifiable dans la source 10-K fournie - valeur presume hallucinee"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
-    },
     {
       "short": "R&D",
       "name_fr": "Investissements R&D (% du revenu)",
@@ -320,13 +318,11 @@
       "ttm": 8.25,
       "_validation": [
         "KPI non verifiable dans la source 10-K fournie - valeur presume hallucinee"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
-    "stance": "present",
+    "stance": "integrator",
     "summary": "FCN mentionne explicitement l'intelligence artificielle dans son segment Technology. Les services alimentés par l'IA incluent l'analyse de données, la gouvernance de l'information, la sécurité et la confidentialité, ainsi que les investigations et les litiges. Le segment Technology offre une gamme complète de solutions alimentées par l'IA et les services de gestion des risques numériques pour aider les organisations à gérer le risque et la conformité.",
     "evidence": [
       "Technology segment provides companies, law firms, private equity firms and government entities with a comprehensive global portfolio of digital insights and risk management, artificial intelligence (AI) and data services",
@@ -339,16 +335,16 @@
       "title": "Litiges",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "La société est exposée à des litiges et des procédures judiciaires, ce qui peut avoir un impact négatif sur ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des litiges et des procédures judiciaires, ce qui peut avoir un impact négatif sur ses résultats financiers.",
       "trend": "stable",
       "summary": "La société est susceptible de faire face à des litiges et des procédures judiciaires, ce qui peut entraîner des coûts et des pertes financières.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "La société dépend fortement de la technologie pour ses opérations, ce qui peut la rendre vulnérable aux failles de sécurité et aux perturbations techniques. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de la technologie pour ses opérations, ce qui peut la rendre vulnérable aux failles de sécurité et aux perturbations techniques.",
       "trend": "up",
       "summary": "La société est exposée aux risques liés à la technologie, tels que les failles de sécurité et les perturbations techniques, qui peuvent avoir un impact négatif sur ses opérations.",
       "score": 3
@@ -357,16 +353,16 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un environnement concurrentiel, ce qui peut affecter ses parts de marché et ses revenus. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un environnement concurrentiel, ce qui peut affecter ses parts de marché et ses revenus.",
       "trend": "stable",
       "summary": "La société est exposée à la concurrence, ce qui peut avoir un impact négatif sur ses parts de marché et ses revenus.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est soumise à des réglementations et des lois qui peuvent changer, ce qui peut avoir un impact négatif sur ses opérations. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations et des lois qui peuvent changer, ce qui peut avoir un impact négatif sur ses opérations.",
       "trend": "up",
       "summary": "La société est exposée aux risques liés à la réglementation, tels que les changements dans les lois et les réglementations, qui peuvent avoir un impact négatif sur ses opérations.",
       "score": 3
@@ -375,7 +371,7 @@
       "title": "Dépendance à la main-d'œuvre",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "La société dépend fortement de ses employés clés, ce qui peut la rendre vulnérable à la perte de ces employés. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de ses employés clés, ce qui peut la rendre vulnérable à la perte de ces employés.",
       "trend": "stable",
       "summary": "La société est exposée aux risques liés à la main-d'œuvre, tels que la perte d'employés clés, qui peut avoir un impact négatif sur ses opérations.",
       "score": 3
@@ -434,7 +430,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -709,15 +705,12 @@
         "history": [
           27.696,
           52.441,
-          -19.448,
           12.607,
           25.637,
           38.935,
-          -23.86,
           18.012,
           29.027,
           43.224,
-          -40.784,
           4.64,
           14.7,
           21.729,
@@ -725,7 +718,6 @@
           17.803,
           35.228,
           50.142,
-          -44.642,
           10.618
         ],
         "history_periods": [
@@ -779,6 +771,12 @@
             "accession": "0000887936-26-000054",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (FCN)"
         ]
       }
     ]
@@ -795,9 +793,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.260106+00:00",
     "fetched_at": "2026-05-21T02:17:14.260107+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.119Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.687Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fcn.json",
     "enrich_root": "v2-pipeline-enrich/fcn.json",

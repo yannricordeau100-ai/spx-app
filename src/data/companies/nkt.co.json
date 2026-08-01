@@ -39,8 +39,14 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Only a single explicit revenue figure (EUR 2.72bn for 2025) is present; no four consecutive annual values are provided.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operational EBITDA",
@@ -65,7 +71,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Headcount",
@@ -90,8 +100,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Capex",
@@ -111,7 +125,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Revenue",
@@ -130,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.56 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -161,7 +179,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding."
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding."
     },
     {
       "short": "Cap Return",
@@ -188,7 +206,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position stable"
     },
     {
@@ -216,7 +234,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -231,7 +249,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.1,
@@ -244,7 +262,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -270,9 +288,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     },
     {
       "short": "Scope 3 emissions",
@@ -295,9 +311,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     }
   ],
   "ai_positioning": {
@@ -331,7 +345,8 @@
       "severity": 5,
       "score_rationale": "Risque central mentionné répétitivement (p.5-7). Langage intensif : « diligent execution remains central », « execution is a core priority ». Tendance : up (nouvelles expansions en cours). Poids : critique pour la stratégie Charging Forward 2026-2030.",
       "trend": "up",
-      "summary": "NKT dépend fortement de l'exécution réussie de ses investissements majeurs de capacité en Suède, République Tchèque, Danemark, Allemagne et Portugal. Tout retard ou dépassement de coûts (ex. Karlskrona, Cologne, Nordenham) compromettrait la réalisation des ambitions EBITDA 2030 (>EUR 900m) et les engagements clients multi-années."
+      "summary": "NKT dépend fortement de l'exécution réussie de ses investissements majeurs de capacité en Suède, République Tchèque, Danemark, Allemagne et Portugal. Tout retard ou dépassement de coûts (ex. Karlskrona, Cologne, Nordenham) compromettrait la réalisation des ambitions EBITDA 2030 (>EUR 900m) et les engagements clients multi-années.",
+      "score": 5
     },
     {
       "title": "Volatilité des prix des matières premières (cuivre, aluminium)",
@@ -339,7 +354,8 @@
       "severity": 4,
       "score_rationale": "Implicite dans la structure de reporting (« revenue at standard metal prices »). Langage modéré mais reconnaissance explicite de l'impact. Tendance : stable (mécanisme de couverture en place). Poids : affecte marges opérationnelles.",
       "trend": "stable",
-      "summary": "Les revenus et marges de NKT sont exposés aux fluctuations des prix du cuivre et de l'aluminium. Bien que des prix standards soient utilisés pour la reporting, les variations réelles impactent la rentabilité. L'accord long terme avec Hydro (aluminium bas-carbone jusqu'à 2033) réduit partiellement ce risque."
+      "summary": "Les revenus et marges de NKT sont exposés aux fluctuations des prix du cuivre et de l'aluminium. Bien que des prix standards soient utilisés pour la reporting, les variations réelles impactent la rentabilité. L'accord long terme avec Hydro (aluminium bas-carbone jusqu'à 2033) réduit partiellement ce risque.",
+      "score": 4
     },
     {
       "title": "Concentration du carnet de commandes haute tension",
@@ -347,7 +363,8 @@
       "severity": 4,
       "score_rationale": "Carnet HV de EUR 10.2bn mentionné p.9 sans détail de concentration client. Langage neutre mais dépendance stratégique évidente. Tendance : stable (maintenu à haut niveau). Poids : EUR 10.2bn = 37% du chiffre d'affaires 2025.",
       "trend": "stable",
-      "summary": "NKT dépend fortement de son carnet de commandes haute tension (EUR 10.2bn). Une concentration élevée auprès de quelques clients (TSO/DSO allemands, danois, britanniques) crée un risque de dépendance client. La perte d'un contrat majeur ou un retard de commande affecterait significativement la croissance."
+      "summary": "NKT dépend fortement de son carnet de commandes haute tension (EUR 10.2bn). Une concentration élevée auprès de quelques clients (TSO/DSO allemands, danois, britanniques) crée un risque de dépendance client. La perte d'un contrat majeur ou un retard de commande affecterait significativement la croissance.",
+      "score": 4
     },
     {
       "title": "Risques de sécurité et culture de sécurité insuffisante",
@@ -355,7 +372,8 @@
       "severity": 4,
       "score_rationale": "Mentionné p.6-7 comme « highest priority » mais avec langage d'inquiétude : « still not where we aim to be ». Taux d'accidents (RWA) 5.45 vs cible 2030 de 2.50. Tendance : up (amélioration lente). Poids : risque réputationnel et opérationnel majeur.",
       "trend": "up",
-      "summary": "Malgré les efforts depuis 2024, NKT n'atteint pas ses objectifs de sécurité (RWA 5.45 en 2025 vs cible 2.50 en 2030). Les incidents de travail persistent, menaçant la réputation, la rétention des talents et la capacité à exécuter les projets d'expansion. Un accident grave pourrait retarder les investissements."
+      "summary": "Malgré les efforts depuis 2024, NKT n'atteint pas ses objectifs de sécurité (RWA 5.45 en 2025 vs cible 2.50 en 2030). Les incidents de travail persistent, menaçant la réputation, la rétention des talents et la capacité à exécuter les projets d'expansion. Un accident grave pourrait retarder les investissements.",
+      "score": 4
     },
     {
       "title": "Dépendance technologique et leadership technologique requis",
@@ -363,7 +381,8 @@
       "severity": 4,
       "score_rationale": "Mentionné p.5-6 : « technology leadership » et « selective growth to strengthen power cable portfolio ». Langage modéré mais stratégique. Tendance : stable (investissements continus). Poids : différenciation clé vs concurrence.",
       "trend": "stable",
-      "summary": "NKT doit maintenir un leadership technologique en câbles haute tension, accessoires et systèmes HVDC pour rester compétitif face à des concurrents comme Prysmian. L'innovation en câbles sous-marins (ex. Bornholm, Champlain Hudson) et en accessoires est critique. Un retard technologique réduirait la compétitivité."
+      "summary": "NKT doit maintenir un leadership technologique en câbles haute tension, accessoires et systèmes HVDC pour rester compétitif face à des concurrents comme Prysmian. L'innovation en câbles sous-marins (ex. Bornholm, Champlain Hudson) et en accessoires est critique. Un retard technologique réduirait la compétitivité.",
+      "score": 4
     },
     {
       "title": "Régulation et conformité environnementale croissante",
@@ -371,7 +390,8 @@
       "severity": 4,
       "score_rationale": "Implicite dans les ambitions net-zero (Scope 1&2 -90% d'ici 2050, Scope 3 -90%). Langage d'engagement fort. Tendance : up (normes se durcissent). Poids : affecte coûts de production et compétitivité.",
       "trend": "up",
-      "summary": "NKT s'engage sur des cibles ambitieuses de décarbonation (Scope 1&2 -67% 2019-2025, cible -90% 2050). Les régulations environnementales en Europe (ETS, taxonomie verte) et les exigences clients en matière de durabilité augmentent les coûts de production et les investissements. Non-conformité risque d'exclure NKT de marchés publics."
+      "summary": "NKT s'engage sur des cibles ambitieuses de décarbonation (Scope 1&2 -67% 2019-2025, cible -90% 2050). Les régulations environnementales en Europe (ETS, taxonomie verte) et les exigences clients en matière de durabilité augmentent les coûts de production et les investissements. Non-conformité risque d'exclure NKT de marchés publics.",
+      "score": 4
     },
     {
       "title": "Risque de rétention et attraction de talents qualifiés",
@@ -379,7 +399,8 @@
       "severity": 3,
       "score_rationale": "Mentionné p.6-7 : « employees are essential », « employee engagement remains high ». Langage positif mais reconnaissance implicite du risque. Tendance : stable (programme d'actionnariat lancé). Poids : 6,154 employés, croissance prévue.",
       "trend": "stable",
-      "summary": "NKT dépend de talents hautement qualifiés (27 nationalités, 6,154 employés en 2025) pour exécuter ses projets complexes. L'expansion rapide (Suède, Allemagne, Portugal) crée une pression de recrutement. Un turnover élevé ou une difficulté à attirer des ingénieurs spécialisés ralentirait les investissements."
+      "summary": "NKT dépend de talents hautement qualifiés (27 nationalités, 6,154 employés en 2025) pour exécuter ses projets complexes. L'expansion rapide (Suède, Allemagne, Portugal) crée une pression de recrutement. Un turnover élevé ou une difficulté à attirer des ingénieurs spécialisés ralentirait les investissements.",
+      "score": 3
     },
     {
       "title": "Risques géopolitiques et dépendance aux marchés européens",
@@ -387,7 +408,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans la concentration géographique (Allemagne, Danemark, Suède, UK, Portugal). Langage neutre. Tendance : up (tensions géopolitiques croissantes). Poids : majorité du carnet en Europe.",
       "trend": "up",
-      "summary": "NKT est fortement exposée aux marchés européens (Allemagne, Danemark, Suède, UK) pour son carnet HV. Les tensions géopolitiques (Ukraine, sanctions, instabilité énergétique) pourraient retarder les projets d'interconnexion ou les investissements TSO/DSO. Une escalade affecterait la demande de câbles de transmission."
+      "summary": "NKT est fortement exposée aux marchés européens (Allemagne, Danemark, Suède, UK) pour son carnet HV. Les tensions géopolitiques (Ukraine, sanctions, instabilité énergétique) pourraient retarder les projets d'interconnexion ou les investissements TSO/DSO. Une escalade affecterait la demande de câbles de transmission.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:14:11.772198+00:00",
@@ -471,9 +493,6 @@
   ],
   "company_description": "NKT A/S designs, manufactures, and installs low, medium, and high voltage power cable solutions in Denmark. It operates through Solutions, Applications and Service & Accessories segments. The company offers high voltage cable solutions, including high voltage onshore and offshore cables; medium voltage, dynamic, and universal cables; and low voltage building wires, flexible cables and conduits, control cables, 1 kV cables, and telecom energy and fire performance cables. The company also provides medium voltage cable accessories, such as joints, terminations, separable connector, paper-insulated lead sheath and pre-assembled connection cables, cable branch cabinets, and pre-assembled connection cables; and high voltage cable accessories comprising GIS/transformer terminations, low pressure oil-filled cable systems, outdoor terminations, wind power applications, and transition joints. In addition, it offers lifecycle cable services; and installation, operation and maintenance, repair, decommissioning, and cable monitoring solutions. Further, the company provides oil and gas cable competence center services, and technology consulting services; and offshore and onshore wind, and solar ",
   "last_data_date": "2026-03-31",
-  "_dividends_extracted_at": "2026-05-09T20:39:32Z",
-  "_dividends_source": "cat3-european annual-text FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
-  "_dividends_currency": "EUR",
   "revenue_by_segment": {
     "unit": "EUR B",
     "source_date": "2025-12-31",
@@ -546,9 +565,12 @@
     ],
     "total": 2.6
   },
+  "_dividends_extracted_at": "2026-05-09T20:39:32Z",
+  "_dividends_source": "cat3-european annual-text FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-3)",
+  "_dividends_currency": "EUR",
   "_segments_fetched_at": "2026-05-15T00:00:38.152042+00:00",
   "_eps_extracted_at": "2026-05-18T16:46:23Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Équipements & composants électriques",
   "enrich_description": {
     "ticker": "NKT.CO",
@@ -657,9 +679,9 @@
     "country": "Denmark",
     "_data_freshness_date": "2026-05-21T02:17:14.289125+00:00",
     "fetched_at": "2026-05-21T02:17:14.289126+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.948Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.883Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nkt.co.json",
     "enrich_root": "v2-pipeline-enrich/nkt.co.json",

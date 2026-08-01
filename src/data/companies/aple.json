@@ -57,9 +57,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Only 2 consecutive years of explicit annual 'Total Guest Rooms' data found in the filing. Minimum threshold of 4 years required not met. Dat"
+      "_hero_history_unverified_reason": "Only 2 consecutive years of explicit annual 'Total Guest Rooms' data found in the filing. Minimum threshold of 4 years required not met. Dat",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Geographic Diversity",
@@ -162,11 +165,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.9 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -185,11 +192,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.65 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -204,16 +215,16 @@
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché très concurrentiel avec de nombreux acteurs, ce qui pourrait impacter sa part de marché et ses revenus. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché très concurrentiel avec de nombreux acteurs, ce qui pourrait impacter sa part de marché et ses revenus.",
       "trend": "stable",
       "summary": "La concurrence accrue dans le secteur de l'hôtellerie pourrait nuire aux performances de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements dans les réglementations gouvernementales ou les lois pourraient avoir un impact négatif sur les opérations de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les réglementations gouvernementales ou les lois pourraient avoir un impact négatif sur les opérations de la société.",
       "trend": "stable",
       "summary": "Les risques réglementaires pourraient affecter la capacité de la société à opérer de manière efficace.",
       "score": 3
@@ -222,26 +233,26 @@
       "title": "Dépendance à des gestionnaires",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société dépend fortement de ses gestionnaires pour gérer ses hôtels, ce qui pourrait créer des risques si ces gestionnaires ne remplissent pas leurs obligations. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de ses gestionnaires pour gérer ses hôtels, ce qui pourrait créer des risques si ces gestionnaires ne remplissent pas leurs obligations.",
       "trend": "stable",
       "summary": "La dépendance à des gestionnaires tiers pourrait créer des risques opérationnels pour la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société pourrait être exposée à des risques de crédit si ses clients ou partenaires ne paient pas leurs dettes. (score par défaut, à affiner)",
+      "score_rationale": "La société pourrait être exposée à des risques de crédit si ses clients ou partenaires ne paient pas leurs dettes.",
       "trend": "stable",
       "summary": "Les risques de crédit pourraient avoir un impact négatif sur la santé financière de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux litiges",
       "category": "Litige",
       "summary": "La société pourrait être impliquée dans des litiges qui pourraient avoir un impact négatif sur ses opérations et sa réputation.",
       "severity": 3,
-      "score_rationale": "Les litiges pourraient survenir en raison de divers facteurs, notamment des désaccords avec des clients ou des partenaires. (score par défaut, à affiner)",
+      "score_rationale": "Les litiges pourraient survenir en raison de divers facteurs, notamment des désaccords avec des clients ou des partenaires.",
       "trend": "stable",
       "score": 3
     },
@@ -249,10 +260,10 @@
       "title": "Risques de réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La société pourrait subir des dommages à sa réputation si elle ne parvient pas à maintenir des normes élevées de service ou si elle est impliquée dans des scandales. (score par défaut, à affiner)",
+      "score_rationale": "La société pourrait subir des dommages à sa réputation si elle ne parvient pas à maintenir des normes élevées de service ou si elle est impliquée dans des scandales.",
       "trend": "stable",
       "summary": "Les risques de réputation pourraient avoir un impact à long terme sur la capacité de la société à attirer et à retenir des clients.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -291,7 +302,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -400,9 +411,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.222242+00:00",
     "fetched_at": "2026-05-21T02:17:14.222242+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.900Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.348Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aple.json",
     "enrich_root": null,

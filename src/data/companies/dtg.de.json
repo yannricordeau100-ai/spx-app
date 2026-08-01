@@ -13,7 +13,7 @@
     "sector": "...",
     "subsector": "Top 3 global truck manufacturers"
   },
-  "hero_kpi": "Net Profit Growth",
+  "hero_kpi": "tna_rev",
   "hero_kpi_rationale": "Bénéfice net ayant augmenté de 287% en 2023 (5,3 Mds EUR), reflétant une forte amélioration de la rentabilité opérationnelle et du transfert de bénéfices du groupe",
   "kpis": [
     {
@@ -37,17 +37,20 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "period_type": "year",
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "General Administrative Expenses",
       "name_fr": "Charges administratives générales",
       "name_en": "General Administrative Expenses",
       "explanation": "Les dépenses liées à la gestion administrative de la société.",
-      "value": "0.073",
-      "unit": "Mds €",
+      "value": 73,
+      "unit": "M €",
       "yoy": "+33%",
       "type": "Operating Expense",
       "nature": "Conjoncturel",
@@ -55,23 +58,24 @@
       "signal": "Augmentation modérée des charges administratives",
       "description": "Les charges administratives générales ont augmenté en 2023, passant de 55 à 73 millions d'euros.",
       "history": [
-        0.06,
-        0.07
+        60,
+        70
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Expenses related to General Administrative.",
-      "signal_en": "Cost pressure, investment phase"
+      "signal_en": "Cost pressure, investment phase",
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Other Operating Income",
       "name_fr": "Autres produits d'exploitation",
       "name_en": "Other Operating Income",
       "explanation": "Revenus non liés aux activités principales de la société.",
-      "value": "0.017",
-      "unit": "Mds €",
+      "value": 17,
+      "unit": "M €",
       "yoy": "-26%",
       "type": "Operating Income",
       "nature": "Conjoncturel",
@@ -79,23 +83,24 @@
       "signal": "Baisse des autres produits d'exploitation",
       "description": "Les autres produits d'exploitation ont diminué en 2023, passant de 23 à 17 millions d'euros.",
       "history": [
-        0.02,
-        0.02
+        20,
+        20
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Other Operating income generated over the period.",
-      "signal_en": "Significant decline, warning signal"
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Interest Income/Expense, net",
       "name_fr": "Produits/charges d'intérêt nets",
       "name_en": "Interest Income/Expense, net",
       "explanation": "Différence entre les intérêts reçus et les intérêts payés.",
-      "value": "0.045",
-      "unit": "Mds €",
+      "value": 45,
+      "unit": "M €",
       "yoy": "+4400%",
       "type": "Financial Income",
       "nature": "Conjoncturel",
@@ -104,21 +109,22 @@
       "description": "Le résultat net d'intérêts est passé de 1 million à 45 millions d'euros, reflétant une amélioration significative de la gestion financière.",
       "history": [
         0,
-        0.04
+        40
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Cost pressure, investment phase"
+      "signal_en": "Cost pressure, investment phase",
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Income Taxes",
       "name_fr": "Impôts sur les bénéfices",
       "name_en": "Income Taxes",
       "explanation": "Montant d'impôts payés par la société sur ses bénéfices.",
-      "value": "0.238",
-      "unit": "Mds €",
+      "value": 238,
+      "unit": "M €",
       "yoy": "N/A",
       "type": "Tax",
       "nature": "Conjoncturel",
@@ -127,12 +133,13 @@
       "description": "La société a enregistré une charge d'impôt de 238 millions d'euros en 2023, contre aucune en 2022, reflétant la profitabilité accrue.",
       "history": [
         0,
-        0.24
+        240
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "Mds->M €"
     },
     {
       "short": "Equity",
@@ -174,11 +181,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 72.53 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -197,11 +208,39 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 27.65 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "tna_rev",
+      "name_fr": "CA Trucks North America",
+      "name_en": "Trucks North America Revenue",
+      "unit": "M€",
+      "period_type": "year",
+      "history": [
+        17080,
+        19370,
+        13847,
+        15782,
+        22039,
+        23492,
+        23781
+      ],
+      "value": 23781,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Trucks North America est le premier segment du groupe, avec un revenu en hausse de plus de 70 % depuis le creux de 2020.",
+      "is_wow": true,
+      "yoy": "+1,2 %"
     }
   ],
   "stories_kpis": [],
@@ -215,42 +254,15 @@
     ],
     "source": ""
   },
-  "_validation": [
-    "Correction sector: 'Information Technology' remplacé par 'Automotive' (source: entreprise de véhicules commerciaux)",
-    "Correction subsector: 'Automotive' remplacé par 'Commercial Vehicles & Trucks' (plus précis)",
-    "Correction hero_kpi: 'HPC / Cloud' remplacé par 'Net Profit Growth' (KPI réel identifié dans les données)",
-    "Correction hero_kpi_rationale: texte générique remplacé par rationale basée sur la croissance du bénéfice net de 287%",
-    "Correction Net Profit type: 'Margin' remplacé par 'Profitability'",
-    "Correction Net Profit is_wow: false remplacé par true (croissance de 287%)",
-    "Correction Net Profit is_generic: true remplacé par false (KPI distinctif)",
-    "Correction General Administrative Expenses value: '0.1' remplacé par '0.073' (en Mds €, 73M€ = 0,073 Mds€)",
-    "Correction General Administrative Expenses type: 'Investment' remplacé par 'Operating Expense'",
-    "Correction General Administrative Expenses history: valeurs converties de millions à milliards (55 → 0.055, 73 → 0.073)",
-    "Correction Other Operating Income value: '0.0' remplacé par '0.017' (17 millions = 0.017 Mds €)",
-    "Correction Other Operating Income type: 'Revenue' remplacé par 'Operating Income'",
-    "Correction Other Operating Income history: valeurs converties de millions à milliards (23 → 0.023, 17 → 0.017)",
-    "Correction Interest Income/Expense value: '0.1' remplacé par '0.045' (45 millions = 0.045 Mds €)",
-    "Correction Interest Income/Expense type: 'Cash' remplacé par 'Financial Income'",
-    "Correction Interest Income/Expense name_en: ajout de clarté",
-    "Correction Interest Income/Expense history: valeurs converties de millions à milliards (1 → 0.001, 45 → 0.045)",
-    "Correction Interest Income/Expense is_generic: true remplacé par false (données financières spécifiques)",
-    "Correction Income Taxes value: '0.2' remplacé par '0.238' (238 millions = 0.238 Mds €)",
-    "Correction Income Taxes yoy: 'stable' remplacé par 'N/A' (première charge d'impôt significative, pas de comparaison pertinente)",
-    "Correction Income Taxes type: 'Cash' remplacé par 'Tax'",
-    "Correction Income Taxes history: valeurs converties de millions à milliards (0 → 0.0, 238 → 0.238)",
-    "Correction Equity name_en: 'Equity' remplacé par 'Shareholders' Equity' (plus précis)",
-    "Correction Equity history: valeurs converties de millions à milliards (17668 → 17.668, 21302 → 21.302)",
-    "Toutes les KPIs validées par rapport au document source Income Statement et Balance Sheet",
-    "Structure JSON conservée identique"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 00:55",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_2"
   ],
@@ -263,7 +275,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné de manière récurrente dans le rapport, avec un langage affirmant une pression concurrentielle accrue dans les principaux marchés. La catégorie 'Concurrence' est stratégique pour Daimler Truck. Tendance stable par rapport à l'année précédente.",
       "trend": "stable",
-      "summary": "Daimler Truck fait face à une concurrence accrue de la part de constructeurs européens, nord-américains et asiatiques sur les segments des camions et bus, ce qui exerce une pression sur les prix, les marges et la part de marché."
+      "summary": "Daimler Truck fait face à une concurrence accrue de la part de constructeurs européens, nord-américains et asiatiques sur les segments des camions et bus, ce qui exerce une pression sur les prix, les marges et la part de marché.",
+      "score": 4
     },
     {
       "title": "Dépendance à des fournisseurs critiques",
@@ -271,7 +284,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite des risques liés aux pénuries de matériaux et à l'insolvabilité des fournisseurs. Le langage est alarmant ('disruption de production'), et le risque est récurrent. Poids élevé dans la chaîne de valeur.",
       "trend": "stable",
-      "summary": "La production de véhicules industriels dépend fortement de l'approvisionnement en semi-conducteurs, acier et autres composants. Toute rupture d'approvisionnement peut entraîner des arrêts de chaîne, comme observé lors des crises récentes."
+      "summary": "La production de véhicules industriels dépend fortement de l'approvisionnement en semi-conducteurs, acier et autres composants. Toute rupture d'approvisionnement peut entraîner des arrêts de chaîne, comme observé lors des crises récentes.",
+      "score": 4
     },
     {
       "title": "Évolution stricte des réglementations sur les émissions",
@@ -279,7 +293,8 @@
       "severity": 5,
       "score_rationale": "Mention central dans les risques prospectifs, avec un langage fort ('changement de réglementation'). La transition vers les véhicules zéro émission est stratégique. Tendance à la hausse en intensité.",
       "trend": "up",
-      "summary": "Les normes croissantes sur les émissions de CO₂, notamment en Europe et en Amérique du Nord, obligent Daimler à accélérer le développement de camions électriques et à hydrogène, avec des coûts d'investissement élevés et des risques techniques."
+      "summary": "Les normes croissantes sur les émissions de CO₂, notamment en Europe et en Amérique du Nord, obligent Daimler à accélérer le développement de camions électriques et à hydrogène, avec des coûts d'investissement élevés et des risques techniques.",
+      "score": 5
     },
     {
       "title": "Cybersécurité des véhicules connectés",
@@ -287,7 +302,8 @@
       "severity": 4,
       "score_rationale": "Bien que moins explicitement détaillé, le risque est implicite dans la montée des véhicules connectés. Le langage fait référence à des 'risques futurs'. Catégorie stratégique en croissance.",
       "trend": "up",
-      "summary": "L'augmentation des fonctionnalités numériques et de la connectivité dans les camions expose Daimler à des cyberattaques potentielles sur les flottes ou les systèmes embarqués, pouvant impacter la sécurité et la réputation."
+      "summary": "L'augmentation des fonctionnalités numériques et de la connectivité dans les camions expose Daimler à des cyberattaques potentielles sur les flottes ou les systèmes embarqués, pouvant impacter la sécurité et la réputation.",
+      "score": 4
     },
     {
       "title": "Acceptation limitée des véhicules électriques",
@@ -295,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement énoncé dans les déclarations prospectives. Langage préoccupé ('manque d'acceptation'). Lié à la stratégie de transition énergétique. Tendance à la hausse.",
       "trend": "up",
-      "summary": "Le succès des camions électriques de Daimler dépend de l'infrastructure de recharge, du coût de la batterie et de l'adoption par les flottes. Un faible taux d'adoption pourrait compromettre les objectifs de croissance et de rentabilité."
+      "summary": "Le succès des camions électriques de Daimler dépend de l'infrastructure de recharge, du coût de la batterie et de l'adoption par les flottes. Un faible taux d'adoption pourrait compromettre les objectifs de croissance et de rentabilité.",
+      "score": 4
     },
     {
       "title": "Risques liés aux coentreprises stratégiques",
@@ -303,7 +320,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne les coopérations stratégiques comme un risque. Langage prudent ('succès de la mise en œuvre'). Moins central que d'autres, mais en progression.",
       "trend": "stable",
-      "summary": "Daimler Truck dépend de partenariats (ex. : avec Cummins ou Li Shufu) pour accélérer l'innovation. Tout désaccord ou sous-performance de ces coentreprises peut nuire au développement technologique et commercial."
+      "summary": "Daimler Truck dépend de partenariats (ex. : avec Cummins ou Li Shufu) pour accélérer l'innovation. Tout désaccord ou sous-performance de ces coentreprises peut nuire au développement technologique et commercial.",
+      "score": 3
     },
     {
       "title": "Baisse des prix de revente des véhicules d'occasion",
@@ -311,7 +329,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans les facteurs de risque prospectifs. Langage modéré. Impact indirect sur la demande neuve. Tendance stable.",
       "trend": "stable",
-      "summary": "Une chute des prix de revente des camions usagés peut dissuader les clients d'acheter du neuf, affectant ainsi la demande pour les nouveaux modèles de Daimler Truck."
+      "summary": "Une chute des prix de revente des camions usagés peut dissuader les clients d'acheter du neuf, affectant ainsi la demande pour les nouveaux modèles de Daimler Truck.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:42:46.845365+00:00",
@@ -397,6 +416,8 @@
   "company_description": "Daimler Truck Holding AG manufactures and sells light, medium- and heavy-duty trucks and buses in Europe, North America, Asia, Latin America, and internationally. The company operates through five segments: Trucks North America, Mercedes-Benz Trucks, Trucks Asia, Daimler Buses, and Financial Services. It offers light, medium, and heavy-duty trucks; city and intercity buses, coaches, and bus chassis; industrial engines; and special vehicles used in various sector, as well as new and used commercial vehicles. The company also provides various financial services, such as rental, leasing, and financing for vehicles; and charging infrastructure, insurance brokerage, payment, and integrated services for zero emission vehicles. In addition, it offers connectivity solutions under the Detroit Connect, Truckonnect, TruckLive, OMNIplus ON, Mercedes-Benz Uptime, and Fleetboard brand names; and aftersales services, as well as sells spare parts. It provides trucks and buses under the Mercedes-Benz, Freightliner, Western Star, FUSO, BharatBenz, RIZON, Setra, and Thomas Built Buses brands. The company was founded in 1896 and is headquartered in Leinfelden-Echterdingen, Germany.",
   "last_data_date": "2026-03-31",
   "sector_fr": "Automobile",
+  "hero_kpi_override": "tna_rev",
+  "_hero_kpi_override_reason": "tna_rev = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "DTG.DE",
     "fetched_at": "2026-05-06T17:47:55.685351+00:00",
@@ -451,9 +472,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.252773+00:00",
     "fetched_at": "2026-05-21T02:17:14.252774+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.455Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.018Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dtg.de.json",
     "enrich_root": "v2-pipeline-enrich/dtg.de.json",

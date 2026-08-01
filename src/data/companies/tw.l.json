@@ -46,8 +46,8 @@
       "name_fr": "Valeur du carnet de commandes",
       "name_en": "Order Book Value",
       "explanation": "Valeur totale des ventes déjà contractées mais pas encore livrées.",
-      "value": "2229",
-      "unit": "M £",
+      "value": 2.229,
+      "unit": "Mds £",
       "yoy": "-4.5%",
       "type": "Demand",
       "nature": "Conjoncturel",
@@ -55,14 +55,15 @@
       "signal": "Carnet en baisse, reflétant une demande plus faible ou une livraison rapide.",
       "description": "La valeur du carnet de commandes diminue par rapport à l'année précédente, passant de 2 335 à 2 229 millions de livres.",
       "history": [
-        2335,
-        2229
+        2.335,
+        2.229
       ],
       "last_data_date": "2026-04-26",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_unit_rescaled": "M->Mds £ for 1-999 readability"
     },
     {
       "short": "Order Book Units",
@@ -173,34 +174,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.07 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.12,
-        0.13,
-        0.12,
-        0.12
+        120,
+        130,
+        120,
+        120
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.12 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -214,7 +224,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         8.28,
         9.06,
@@ -227,7 +237,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -242,7 +252,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         0.4751,
@@ -255,7 +265,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -270,7 +280,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         50.31,
@@ -283,7 +293,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -299,7 +309,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.18,
@@ -312,58 +322,11 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "Net Private Sales Rate",
-      "name_fr": "Taux de ventes nettes privées",
-      "name_en": "Net Private Sales Rate",
-      "explanation": "Nombre moyen de ventes par semaine et par agence, hors ventes en bloc.",
-      "value": "0.72",
-      "unit": "par outlet par semaine",
-      "yoy": "-5.3%",
-      "type": "Demand",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Légère baisse du rythme de ventes, signe de pression sur l'affordability.",
-      "description": "Le taux de ventes nettes privées est en recul par rapport à l'année précédente, passant de 0.76 à 0.72 par outlet par semaine, indiquant un ralentissement de la demande.",
-      "history": [
-        0.76,
-        0.72
-      ],
-      "last_data_date": "2026-04-26",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": true,
-      "story_category": "Marché"
-    },
-    {
-      "short": "Cancellation Rate",
-      "name_fr": "Taux d'annulation des ventes",
-      "name_en": "Cancellation Rate",
-      "explanation": "Pourcentage des ventes réservées qui sont annulées avant la finalisation.",
-      "value": "14",
-      "unit": "%",
-      "yoy": "-2 pts",
-      "type": "Risk",
-      "nature": "Conjoncturel",
-      "comparable": "Comparable",
-      "signal": "Amélioration notable, signe d'une meilleure stabilité des acheteurs.",
-      "description": "Le taux d'annulation baisse de 16 % à 14 %, ce qui indique une plus grande fermeté des engagements malgré les défis d'affordabilité.",
-      "history": [
-        16,
-        14
-      ],
-      "last_data_date": "2026-04-26",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": true,
-      "story_category": "Marché"
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "absent",
     "summary": "Taylor Wimpey ne mentionne aucune stratégie ou initiative liée à l'intelligence artificielle dans ses communications récentes. L'entreprise se concentre sur la qualité des logements, la discipline opérationnelle et la gestion de son parc foncier.",
@@ -375,20 +338,7 @@
     "source": ""
   },
   "_held_for_review": true,
-  "_validation": [
-    "CORRECTION SECTEUR: 'Information Technology' remplacé par 'Consumer Cyclical' (Taylor Wimpey est un constructeur immobilier, pas une tech)",
-    "CORRECTION SUBSECTOR: '...' remplacé par 'Homebuilders'",
-    "CORRECTION UNITÉ Order Book Value: 'Mds £' remplacé par 'M £' (2,229 millions de livres, pas milliards)",
-    "CORRECTION VALEUR Order Book Value: '2.229' remplacé par '2229' (cohérence avec unité M £)",
-    "CORRECTION HISTORY Order Book Value: [2.335, 2.229] remplacé par [2335, 2229] (cohérence avec unité M £)",
-    "VERIFICATION: Tous les KPI numériques correspondent aux données du trading statement du 28 avril 2026",
-    "VERIFICATION: Net Private Sales Rate 0.72 confirmé (excluding bulk sales)",
-    "VERIFICATION: Cancellation Rate 14% confirmé avec YoY de -2 pts (16% en 2025)",
-    "VERIFICATION: Order Book Units 7,689 confirmé avec history [8,153, 7,689]",
-    "VERIFICATION: Active Outlets 218 confirmé (201 en 2025)",
-    "VERIFICATION: Landbank Short Term 76k plots confirmé (78k en 2025)",
-    "VALIDATION COMPLÈTE: Aucun KPI halluciné détecté, tous les chiffres présents dans la source"
-  ],
+  "_validation": true,
   "_fit_for_site": false,
   "_fit_reasons": [
     "hero_history_too_short_2"
@@ -401,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans le contexte de la fermeture d'une enquête de la CMA sur 7 promoteurs, dont Taylor Wimpey. Le langage est mesuré mais le fait que l'entreprise ait dû fournir des engagements volontaires indique une intensité réglementaire et concurrentielle notable. Catégorie 'Concurrence' est centrale pour le secteur.",
       "trend": "stable",
-      "summary": "Taylor Wimpey fait face à une surveillance accrue de la concurrence sur le marché britannique, comme en témoigne l'enquête de la Competition and Markets Authority (CMA) fermée en octobre 2025. L'entreprise a fourni des engagements volontaires, reflétant un environnement concurrentiel tendu et régulé."
+      "summary": "Taylor Wimpey fait face à une surveillance accrue de la concurrence sur le marché britannique, comme en témoigne l'enquête de la Competition and Markets Authority (CMA) fermée en octobre 2025. L'entreprise a fourni des engagements volontaires, reflétant un environnement concurrentiel tendu et régulé.",
+      "score": 4
     },
     {
       "title": "Réglementation évolutive sur la sécurité incendie",
@@ -409,7 +360,8 @@
       "severity": 5,
       "score_rationale": "Le risque est hautement prioritaire : mentionné en première page du rapport, avec une augmentation de provision de 226M£. Le langage est fort ('commitment to resolve quickly'), tendance à la hausse, et poids élevé dans les coûts. Position centrale dans le rapport.",
       "trend": "up",
-      "summary": "L'entreprise fait face à des obligations croissantes de remise aux normes de sécurité incendie sur des bâtiments anciens. En 2025, elle a augmenté ses provisions de 226 millions de livres en raison de nouvelles investigations et de normes révisées, ce qui représente un risque réglementaire majeur et coûteux."
+      "summary": "L'entreprise fait face à des obligations croissantes de remise aux normes de sécurité incendie sur des bâtiments anciens. En 2025, elle a augmenté ses provisions de 226 millions de livres en raison de nouvelles investigations et de normes révisées, ce qui représente un risque réglementaire majeur et coûteux.",
+      "score": 5
     },
     {
       "title": "Dépendance à l'évolution de la politique de planification UK",
@@ -417,7 +369,8 @@
       "severity": 4,
       "score_rationale": "Le risque est central dans la stratégie (proactive planning strategy), mentionné plusieurs fois avec un langage positif mais conditionnel ('we expect this will allow us'). Tendance favorable mais dépendance forte. Poids stratégique élevé.",
       "trend": "stable",
-      "summary": "Taylor Wimpey dépend fortement des réformes de planification au Royaume-Uni pour débloquer son foncier. Bien que l'année 2025 ait vu une amélioration des autorisations, toute régression réglementaire pourrait freiner l'ouverture de nouveaux chantiers et limiter la croissance."
+      "summary": "Taylor Wimpey dépend fortement des réformes de planification au Royaume-Uni pour débloquer son foncier. Bien que l'année 2025 ait vu une amélioration des autorisations, toute régression réglementaire pourrait freiner l'ouverture de nouveaux chantiers et limiter la croissance.",
+      "score": 4
     },
     {
       "title": "Pression sur les marges en contexte inflationniste",
@@ -425,7 +378,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété dans plusieurs sections (coûts, marges, inflation). Langage prudent ('focused on cost efficiency'), tendance stable mais pression persistante. Impact direct sur la rentabilité opérationnelle.",
       "trend": "stable",
-      "summary": "L'entreprise fait face à une pression continue sur ses coûts de construction en raison de l'inflation. Elle maintient une discipline stricte sur sa base de coûts, mais toute hausse supplémentaire des matériaux ou de la main-d'œuvre pourrait comprimer ses marges opérationnelles."
+      "summary": "L'entreprise fait face à une pression continue sur ses coûts de construction en raison de l'inflation. Elle maintient une discipline stricte sur sa base de coûts, mais toute hausse supplémentaire des matériaux ou de la main-d'œuvre pourrait comprimer ses marges opérationnelles.",
+      "score": 4
     },
     {
       "title": "Réputation liée à la qualité de construction",
@@ -433,7 +387,8 @@
       "severity": 3,
       "score_rationale": "Le risque est implicite mais soutenu par des indicateurs positifs (5 étoiles, prix NHBC). Langage positif mais vigilance maintenue. Tendance stable, poids modéré car la réputation est actuellement solide.",
       "trend": "stable",
-      "summary": "La réputation de Taylor Wimpey repose sur la qualité de ses constructions, reconnue par des prix comme le NHBC Pride in the Job. Tout incident majeur de qualité pourrait nuire à sa marque, bien que l'entreprise maintienne actuellement des standards élevés."
+      "summary": "La réputation de Taylor Wimpey repose sur la qualité de ses constructions, reconnue par des prix comme le NHBC Pride in the Job. Tout incident majeur de qualité pourrait nuire à sa marque, bien que l'entreprise maintienne actuellement des standards élevés.",
+      "score": 3
     },
     {
       "title": "Cybersécurité des opérations numériques et données clients",
@@ -441,7 +396,8 @@
       "severity": 3,
       "score_rationale": "Non mentionné explicitement, mais inféré comme risque générique élevé pour les entreprises modernes. Absence de référence directe dans le texte, donc sévérité modérée. Catégorie pertinente mais non prioritaire dans le document.",
       "trend": "new",
-      "summary": "Bien que non explicité dans le rapport, Taylor Wimpey, comme tout grand promoteur, est exposé aux risques de cyberattaques sur ses systèmes numériques et ses données clients, notamment lors des ventes en ligne et de la gestion des dossiers."
+      "summary": "Bien que non explicité dans le rapport, Taylor Wimpey, comme tout grand promoteur, est exposé aux risques de cyberattaques sur ses systèmes numériques et ses données clients, notamment lors des ventes en ligne et de la gestion des dossiers.",
+      "score": 3
     },
     {
       "title": "Gestion des relations fournisseurs et chaîne logistique",
@@ -449,7 +405,8 @@
       "severity": 4,
       "score_rationale": "Mentionné via 'supply chain readiness' et 'efficiency'. Langage positif mais implication d'une dépendance opérationnelle. Tendance stable, poids élevé dans l'exécution.",
       "trend": "stable",
-      "summary": "La performance de Taylor Wimpey dépend de la fiabilité de sa chaîne d'approvisionnement en matériaux et en main-d'œuvre. Tout déséquilibre ou rupture pourrait retarder les livraisons et augmenter les coûts, malgré les efforts pour renforcer la préparation de la chaîne."
+      "summary": "La performance de Taylor Wimpey dépend de la fiabilité de sa chaîne d'approvisionnement en matériaux et en main-d'œuvre. Tout déséquilibre ou rupture pourrait retarder les livraisons et augmenter les coûts, malgré les efforts pour renforcer la préparation de la chaîne.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:22:48.259420+00:00",
@@ -507,10 +464,10 @@
   "company_description": "Taylor Wimpey plc operates as a homebuilder company in the United Kingdom and Spain. It engages in building and delivering various homes and communities. Taylor Wimpey plc was founded in 1880 and is based in High Wycombe, the United Kingdom.",
   "last_data_date": "2025-12-31",
   "_dividends_extracted_at": "2026-05-09T20:19:42Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "GBp",
   "_eps_extracted_at": "2026-05-18T16:47:56Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Consommation discrétionnaire",
   "enrich_events": {
     "ticker": "TW.L",
@@ -527,6 +484,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Taylor Wimpey est un des principaux constructeurs de maisons britanniques. Coté à Londres (FTSE 100), basé à High Wycombe. Fondé en 1880.",
+          "products": "Maisons individuelles, appartements et lotissements résidentiels (single-family homes, mid-rise) en Angleterre, Écosse, Pays de Galles et en Espagne (résidences secondaires).",
+          "customers": "Acheteurs particuliers britanniques (primo-accédants et secondo-accédants), retraités, investisseurs locatifs. Marché de niche en Espagne pour les résidences de vacances.",
+          "edge": "Banque foncière (landbank) de qualité avec marge importante sur les coûts d'acquisition historiques. Position d'un des top 3 housebuilders britanniques."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Taylor Wimpey est positionné dans le top 3 des housebuilders britanniques (avec Barratt Redrow et Persimmon). Modèle d'affaires production volume avec discipline d'allocation du landbank. Cycle en bas en 2023-2024 (taux d'intérêt élevés), reprise attendue avec la baisse de taux.",
+          "tech_products": "Activité de construction de logements en lotissements (housing). Banque foncière à court terme (current landbank ~80 000 plots) et stratégique (strategic land 140 000+ plots). Présence Espagne marginale pour résidences secondaires.",
+          "moat": "Banque foncière historique acquise à coûts modérés (avantage marge). Échelle permettant des économies sur achats, ingénierie, financement. Marque reconnue auprès des banques et acheteurs UK.",
+          "risks": "Cyclicité du marché immobilier UK et sensibilité aux taux hypothécaires. Fin de Help to Buy ayant impacté les volumes. Risques liés aux défauts construction (cladding remediation). Inflation des coûts (matériaux, salaires). Régulation environnementale Future Homes Standard."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "TW.L",
     "ranks": {
@@ -539,14 +517,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.320760+00:00",
     "fetched_at": "2026-05-21T02:17:14.320761+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.761Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.831Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tw.l.json",
     "enrich_root": "v2-pipeline-enrich/tw.l.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

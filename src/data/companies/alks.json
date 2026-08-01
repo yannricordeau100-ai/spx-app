@@ -16,8 +16,8 @@
       "name_fr": "Ventes nettes de produits",
       "name_en": "Product Sales, Net",
       "explanation": "Revenu total généré par la vente des médicaments de l'entreprise après déductions.",
-      "value": 1475.899,
-      "unit": "M $",
+      "value": 1.476,
+      "unit": "Mds $",
       "yoy": "-5.2%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -25,14 +25,14 @@
       "signal": "Croissance solide des ventes nettes de produits.",
       "description": "Les ventes nettes de produits ont augmenté de 101,1 millions de dollars, soit 9,3 %, pour atteindre 1 184,6 millions de dollars en 2025, contre 1 083,5 millions de dollars en 2024.",
       "history": [
-        1094.274,
-        1170.947,
-        1038.756,
-        1173.751,
-        1111.795,
-        1663.405,
-        1557.632,
-        1475.899
+        1.094,
+        1.171,
+        1.039,
+        1.174,
+        1.112,
+        1.663,
+        1.558,
+        1.476
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -42,7 +42,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:34.125542+00:00",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Income from Continuing Operations",
@@ -206,24 +207,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.242,
-      "unit": "Mds $",
+      "value": 242,
+      "unit": "M $",
       "yoy": "-34.1%",
       "history": [
-        -0.139,
-        -0.197,
-        -0.111,
-        -0.048,
-        -0.158,
-        0.356,
-        0.367,
-        0.242
+        -139,
+        -197,
+        -111,
+        -48,
+        -158,
+        356,
+        367,
+        242
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -232,8 +237,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -262,9 +272,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Revenue",
-      "_validation": "Correction: unit 'Mds $' vers 'M $' (valeurs en millions, pas milliards)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction: unit 'Mds $' vers 'M $' (valeurs en millions, pas milliards)"
     },
     {
       "short": "ARISTADA and ARISTADA INITIO",
@@ -291,9 +299,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Revenue",
-      "_validation": "Correction: unit 'Mds $' vers 'M $' (valeurs en millions, pas milliards)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction: unit 'Mds $' vers 'M $' (valeurs en millions, pas milliards)"
     },
     {
       "short": "LYBALVI",
@@ -320,9 +326,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Revenue",
-      "_validation": "Correction: unit 'Mds $' vers 'M $' (valeurs en millions, pas milliards)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction: unit 'Mds $' vers 'M $' (valeurs en millions, pas milliards)"
     }
   ],
   "ai_positioning": {
@@ -336,7 +340,7 @@
       "title": "Risque de taux d'intérêt",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne que les fluctuations des taux d'intérêt peuvent avoir un impact sur la valeur marchande des investissements de la société, mais que l'impact est considéré comme immatériel. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne que les fluctuations des taux d'intérêt peuvent avoir un impact sur la valeur marchande des investissements de la société, mais que l'impact est considéré comme immatériel.",
       "trend": "stable",
       "summary": "Les fluctuations des taux d'intérêt peuvent affecter la valeur des investissements de la société, mais l'impact est limité.",
       "score": 3
@@ -345,34 +349,34 @@
       "title": "Risque de change",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Le rapport indique que les fluctuations des taux de change peuvent avoir un impact significatif sur les revenus de la société, en particulier en ce qui concerne les ventes à l'étranger. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport indique que les fluctuations des taux de change peuvent avoir un impact significatif sur les revenus de la société, en particulier en ce qui concerne les ventes à l'étranger.",
       "trend": "up",
       "summary": "Les fluctuations des taux de change peuvent avoir un impact important sur les revenus de la société en raison de ses activités à l'étranger.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
       "category": "Capital",
       "severity": 2,
-      "score_rationale": "Le rapport mentionne que la société n'a pas de problème de liquidité significatif, car elle dispose de liquidités suffisantes pour financer ses activités. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne que la société n'a pas de problème de liquidité significatif, car elle dispose de liquidités suffisantes pour financer ses activités.",
       "trend": "stable",
       "summary": "La société dispose de liquidités suffisantes pour financer ses activités et ne semble pas avoir de problème de liquidité significatif.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 2,
-      "score_rationale": "Le rapport indique que la société a des politiques de crédit strictes pour ses investissements et que les risques de crédit sont considérés comme faibles. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport indique que la société a des politiques de crédit strictes pour ses investissements et que les risques de crédit sont considérés comme faibles.",
       "trend": "stable",
       "summary": "La société a des politiques de crédit strictes pour ses investissements, ce qui limite les risques de crédit.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risque réglementaire",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Le rapport mentionne que la société est soumise à des réglementations strictes dans le secteur de la santé, ce qui peut avoir un impact sur ses activités. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport mentionne que la société est soumise à des réglementations strictes dans le secteur de la santé, ce qui peut avoir un impact sur ses activités.",
       "trend": "stable",
       "summary": "La société est soumise à des réglementations strictes dans le secteur de la santé, ce qui peut avoir un impact sur ses activités et ses résultats financiers.",
       "score": 3
@@ -418,7 +422,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -669,255 +673,55 @@
   },
   "enrich_quarterly_history": {
     "ticker": "ALKS",
-    "extracted_at": "2026-05-15T19:48:21Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1520262,
-    "n_kpis": 3,
+    "extracted_at": "2026-06-01T02:56:08Z",
+    "n_kpis": 1,
     "kpis": [
-      {
-        "short": "Net Income from Continuing Operations",
-        "period_type": "quarter",
-        "history": [
-          -20.054,
-          -49.042,
-          43.345,
-          -35.903,
-          -66.039,
-          -130.013,
-          73.688,
-          -41.845,
-          195.22,
-          242.978,
-          -40.596,
-          36.828,
-          128.186,
-          220.567,
-          -18.511,
-          22.464,
-          109.562,
-          192.323,
-          -82.685,
-          -66.48
-        ],
-        "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
-        ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 109.562,
-            "accession": "0000950170-25-099409",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 192.323,
-            "accession": "0001193125-25-252524",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -82.685,
-            "accession": "calc-0001193125-26-068925",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": -66.48,
-            "accession": "0001193125-26-206534",
-            "end": "2026-03-31"
-          }
-        ]
-      },
-      {
-        "short": "Manufacturing and Royalty Revenues",
-        "period_type": "quarter",
-        "history": [
-          0.0734,
-          0.0765,
-          0.0616,
-          0.0811,
-          0.0793,
-          0.0811,
-          0.0371,
-          0.0032,
-          -0.0032,
-          0.0786,
-          0.0136,
-          0.3212,
-          0.0761,
-          0.0752,
-          0.0627,
-          0.0787,
-          0.0584,
-          0.0365,
-          0.0177,
-          0.0303,
-          0.0302,
-          0.0313
-        ],
-        "history_periods": [
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
-        ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Royalty",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.0177,
-            "source": "ALKS_2025-05-01.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.0303,
-            "source": "ALKS_2025-07-29.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.0302,
-            "source": "ALKS_2025-10-28.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.0313,
-            "source": "calc-ALKS_2026-02-25.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
-        ]
-      },
       {
         "short": "Product Sales, Net",
         "period_type": "quarter",
         "history": [
-          0.1427,
-          0.149,
-          0.13,
-          0.1608,
-          0.1577,
-          0.1789,
-          0.1713,
-          0.1908,
-          0.1994,
-          0.2161,
-          0.2147,
-          0.2315,
-          0.2318,
-          0.242,
-          0.2335,
-          0.2693,
-          0.273,
-          0.3077,
-          0.2445,
-          0.3072,
-          0.3174,
-          0.3155
+          129.963,
+          160.808,
+          157.737,
+          171.268,
+          190.787,
+          199.38,
+          214.727,
+          231.477,
+          231.822,
+          233.536,
+          269.273,
+          272.999,
+          244.493,
+          307.235,
+          317.423
         ],
         "history_periods": [
-          "Q3 2020",
-          "Q4 2020",
           "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025"
+          "Q3 2025"
         ],
-        "last_data_date": "2025-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Product",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 0.2445,
-            "source": "ALKS_2025-05-01.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 0.3072,
-            "source": "ALKS_2025-07-29.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.3174,
-            "source": "ALKS_2025-10-28.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.3155,
-            "source": "calc-ALKS_2026-02-25.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:56:08Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
-    ],
-    "_segment_method": "xbrl-segment-inline"
+    ]
   },
   "enrich_ranks": {
     "ticker": "ALKS",
@@ -931,9 +735,9 @@
     "country": "Ireland",
     "_data_freshness_date": "2026-05-21T02:17:14.219189+00:00",
     "fetched_at": "2026-05-21T02:17:14.219190+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.655Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.092Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/alks.json",
     "enrich_root": "v2-pipeline-enrich/alks.json",

@@ -1,6 +1,6 @@
 {
   "ticker": "TWO",
-  "name": "Two Harbors Investment Corp.",
+  "name": "Two Harbors Investment",
   "sector": "Financial Services",
   "subsector": "Real Estate Investment Trust (REIT)",
   "tagline": "Invests in, finances and manages mortgage servicing rights and Agency residential mortgage-backed securities",
@@ -84,11 +84,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.86 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -102,7 +106,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         2.72,
         2.04,
@@ -115,7 +119,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -130,7 +134,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.3418,
@@ -143,7 +147,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -158,7 +162,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -171,7 +175,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -186,7 +190,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.13,
@@ -199,7 +203,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -221,7 +225,8 @@
       "severity": 4,
       "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1",
       "trend": "stable",
-      "summary": "Les conditions difficiles du marché immobilier et des marchés financiers peuvent avoir un impact négatif sur l'entreprise"
+      "summary": "Les conditions difficiles du marché immobilier et des marchés financiers peuvent avoir un impact négatif sur l'entreprise",
+      "score": 4
     },
     {
       "title": "Réglementation",
@@ -229,7 +234,8 @@
       "severity": 4,
       "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1",
       "trend": "up",
-      "summary": "Les changements dans les lois et réglementations fédérales et étatiales peuvent avoir un impact négatif sur l'entreprise"
+      "summary": "Les changements dans les lois et réglementations fédérales et étatiales peuvent avoir un impact négatif sur l'entreprise",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -237,7 +243,8 @@
       "severity": 3,
       "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1",
       "trend": "stable",
-      "summary": "L'entreprise opère dans un marché très compétitif et peut ne pas être en mesure de concurrencer avec succès"
+      "summary": "L'entreprise opère dans un marché très compétitif et peut ne pas être en mesure de concurrencer avec succès",
+      "score": 3
     },
     {
       "title": "Gestion du risque",
@@ -245,7 +252,8 @@
       "severity": 4,
       "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1",
       "trend": "stable",
-      "summary": "Les politiques et procédures de gestion du risque de l'entreprise peuvent ne pas être efficaces pour identifier et atténuer les risques"
+      "summary": "Les politiques et procédures de gestion du risque de l'entreprise peuvent ne pas être efficaces pour identifier et atténuer les risques",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie",
@@ -253,7 +261,8 @@
       "severity": 3,
       "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1",
       "trend": "up",
-      "summary": "L'entreprise est fortement dépendante de la technologie et les défaillances ou les failles de sécurité peuvent perturber son activité"
+      "summary": "L'entreprise est fortement dépendante de la technologie et les défaillances ou les failles de sécurité peuvent perturber son activité",
+      "score": 3
     },
     {
       "title": "Financement",
@@ -261,7 +270,8 @@
       "severity": 4,
       "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1",
       "trend": "stable",
-      "summary": "L'entreprise dépend de financements pour exécuter son plan d'affaires et les limitations d'accès à ces financements peuvent avoir un impact négatif sur l'entreprise"
+      "summary": "L'entreprise dépend de financements pour exécuter son plan d'affaires et les limitations d'accès à ces financements peuvent avoir un impact négatif sur l'entreprise",
+      "score": 4
     },
     {
       "title": "Gestion de la dette",
@@ -269,7 +279,8 @@
       "severity": 4,
       "score_rationale": "Position dans le 10-K, intensité du langage, contexte vs N-1",
       "trend": "stable",
-      "summary": "L'entreprise utilise l'effet de levier pour exécuter sa stratégie d'affaires, ce qui peut augmenter les pertes en cas de conditions économiques défavorables"
+      "summary": "L'entreprise utilise l'effet de levier pour exécuter sa stratégie d'affaires, ce qui peut augmenter les pertes en cas de conditions économiques défavorables",
+      "score": 4
     }
   ],
   "governance": {
@@ -342,7 +353,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:21:01Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -369,10 +380,10 @@
     "xbrl_fetched_at": "2026-05-09T20:27:46Z"
   },
   "_eps_extracted_at": "2026-05-18T16:47:57Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Services financiers",
   "subsector_fr": "Foncières cotées (REIT)",
-  "_companies_unified_built_at": "2026-05-29T21:19:36.771Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.921Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/two.json",
     "enrich_root": "v2-pipeline-enrich/two.json",

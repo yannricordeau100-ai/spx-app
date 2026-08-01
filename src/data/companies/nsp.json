@@ -77,7 +77,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -103,8 +107,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -134,9 +142,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 73,
-      "_validation": "Valeur confirmée dans MD&A: Our adjusted EBITDA per WSEE per month decreased 52% from $73 in 2024 to $35 in 2025. Unité correcte ($). History et TTM alignés.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée dans MD&A: Our adjusted EBITDA per WSEE per month decreased 52% from $73 in 2024 to $35 in 2025. Unité correcte ($). History et TTM alignés."
     },
     {
       "short": "Net Income per WSEE",
@@ -164,9 +170,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 25,
-      "_validation": "Valeur confirmée dans MD&A: Our net income (loss) per WSEE per month decreased 108% from $25 in 2024 to $(2) in 2025. Unité correcte ($). History et TTM alignés.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée dans MD&A: Our net income (loss) per WSEE per month decreased 108% from $25 in 2024 to $(2) in 2025. Unité correcte ($). History et TTM alignés."
     }
   ],
   "ai_positioning": {
@@ -194,7 +198,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -207,7 +211,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, avec une augmentation de 9% des coûts par participant et un déficit de 18M$ en 2025. Le langage insiste sur l'impact direct sur la rentabilité. La catégorie Capital est hautement pondérée ici.",
       "trend": "up",
-      "summary": "La hausse des coûts des prestations médicales, notamment les primes et les sinistres, exerce une pression majeure sur la marge brute par WSEE."
+      "summary": "La hausse des coûts des prestations médicales, notamment les primes et les sinistres, exerce une pression majeure sur la marge brute par WSEE.",
+      "score": 5
     },
     {
       "title": "Dépendance à un partenaire technologique clé (Workday)",
@@ -215,7 +220,8 @@
       "severity": 4,
       "score_rationale": "Le développement de HR Scale, solution stratégique, dépend entièrement de Workday. Tout retard ou problème avec Workday est explicitement mentionné comme un risque opérationnel majeur.",
       "trend": "new",
-      "summary": "Le lancement de la solution HR Scale repose sur une collaboration avec Workday ; tout dysfonctionnement ou retard affecterait la croissance future."
+      "summary": "Le lancement de la solution HR Scale repose sur une collaboration avec Workday ; tout dysfonctionnement ou retard affecterait la croissance future.",
+      "score": 4
     },
     {
       "title": "Sensibilité aux fluctuations des coûts salariaux et de la main-d'œuvre",
@@ -223,7 +229,8 @@
       "severity": 4,
       "score_rationale": "Les revenus sont liés au coût de paie des WSEE. Le document souligne que l'inflation et la composition de la main-d'œuvre influencent directement les revenus et coûts. Position importante dans l'analyse financière.",
       "trend": "stable",
-      "summary": "Les variations des salaires, de l'inflation et de la structure des emplois impactent les revenus et les coûts directs, rendant la marge volatile."
+      "summary": "Les variations des salaires, de l'inflation et de la structure des emplois impactent les revenus et les coûts directs, rendant la marge volatile.",
+      "score": 4
     },
     {
       "title": "Risque de sinistres élevés en assurance santé",
@@ -231,7 +238,8 @@
       "severity": 5,
       "score_rationale": "Le document détaille un modèle partiellement autofinancé avec responsabilité jusqu'à 1M$ par assuré (500k$ en 2026). Un sinistre majeur pourrait impacter fortement les liquidités. Langage technique et précis, indiquant un risque existentiel.",
       "trend": "up",
-      "summary": "Bien que limitée, la responsabilité financière sur les sinistres santé peut entraîner des charges imprévues importantes en cas de cas graves ou multiples."
+      "summary": "Bien que limitée, la responsabilité financière sur les sinistres santé peut entraîner des charges imprévues importantes en cas de cas graves ou multiples.",
+      "score": 5
     },
     {
       "title": "Dépendance à un seul fournisseur pour l'assurance santé",
@@ -239,7 +247,8 @@
       "severity": 4,
       "score_rationale": "United assure la majorité de la couverture santé. Le texte mentionne explicitement ce risque de dépendance, avec des implications sur la négociation des tarifs et la continuité du service.",
       "trend": "stable",
-      "summary": "La concentration du risque sur un seul assureur (United) expose la société à des hausses de prix ou à des ruptures de contrat difficiles à absorber."
+      "summary": "La concentration du risque sur un seul assureur (United) expose la société à des hausses de prix ou à des ruptures de contrat difficiles à absorber.",
+      "score": 4
     },
     {
       "title": "Estimations comptables sensibles sur les coûts futurs",
@@ -247,7 +256,8 @@
       "severity": 4,
       "score_rationale": "Les estimations de sinistres non déclarés (IBNR) sont critiques et basées sur des jugements subjectifs. Une erreur d'estimation aurait un impact direct sur les résultats, comme montré par les ajustements de 11M$ en 2025.",
       "trend": "stable",
-      "summary": "Les provisions pour sinistres futurs en santé et en indemnisation du travail dépendent d'hypothèses incertaines, pouvant biaiser les résultats financiers."
+      "summary": "Les provisions pour sinistres futurs en santé et en indemnisation du travail dépendent d'hypothèses incertaines, pouvant biaiser les résultats financiers.",
+      "score": 4
     }
   ],
   "governance": {
@@ -446,23 +456,18 @@
         "history": [
           450.999,
           649.478,
-          -531.82,
           285.774,
           525.642,
           770.195,
-          -570.378,
           332.146,
           556.785,
           814.716,
-          -666.844,
           345,
           605,
           834,
-          -732,
           310,
           533,
           728,
-          -671,
           302
         ],
         "history_periods": [
@@ -516,6 +521,12 @@
             "accession": "0001000753-26-000050",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (NSP)"
         ]
       }
     ]
@@ -532,9 +543,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.290682+00:00",
     "fetched_at": "2026-05-21T02:17:14.290683+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.057Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.979Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nsp.json",
     "enrich_root": "v2-pipeline-enrich/nsp.json",

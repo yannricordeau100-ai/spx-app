@@ -29,7 +29,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -48,13 +48,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.82 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:21.136584+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -73,11 +77,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.09 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -96,11 +104,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de -0.08 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -119,11 +131,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -0.76 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -142,61 +158,75 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.58,
-      "unit": "Mds €",
+      "value": 580,
+      "unit": "M €",
       "yoy": "+1350.0%",
       "history": [
-        0.04,
-        0.04,
-        0.04,
-        0.58
+        40,
+        40,
+        40,
+        580
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.58 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "-38.5%",
       "history": [
-        0.21,
-        0.3,
-        0.26,
-        0.16
+        210,
+        300,
+        260,
+        160
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.16 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
   "ai_positioning": {
-    "stance": "indirect_beneficiary",
+    "stance": "absent",
     "summary": "DNOW n'est pas un développeur d'IA mais bénéficie indirectement de la croissance des infrastructures d'IA et de transition énergétique. L'entreprise fournit des composants essentiels (tuyauterie, vannes, équipements) pour les centres de données, installations LNG et projets d'hydrogène qui supportent l'écosystème énergétique de l'IA.",
     "evidence": [
       "DNOW fournit des PVF, pompes et équipements fabricés pour les data centers, installations LNG et facilités RNG",
@@ -212,7 +242,8 @@
       "severity": 4,
       "score_rationale": "La volatilité des prix du pétrole et du gaz naturel affecte directement les dépenses d'investissement des clients amont et les volumes de ventes. Les prix du pétrole ont baissé de 14,5% en 2025, impactant négativement la demande. (Item 1A Risk Factors, MD&A p. 36)",
       "trend": "up",
-      "summary": "La volatilité des prix du pétrole et du gaz naturel constitue un risque majeur pour les dépenses d'investissement des clients et la demande de produits DNOW"
+      "summary": "La volatilité des prix du pétrole et du gaz naturel constitue un risque majeur pour les dépenses d'investissement des clients et la demande de produits DNOW",
+      "score": 4
     },
     {
       "title": "Steel Price and Supply Chain Disruptions",
@@ -220,7 +251,8 @@
       "severity": 4,
       "score_rationale": "La majorité des produits distribués contiennent du acier. Les fluctuations de prix et les perturbations d'approvisionnement affectent directement la disponibilité et la rentabilité. (Item 1A Risk Factors, MD&A p. 36)",
       "trend": "stable",
-      "summary": "Les fluctuations des prix de l'acier et les perturbations de la chaîne d'approvisionnement peuvent réduire la disponibilité des stocks et impacter les marges"
+      "summary": "Les fluctuations des prix de l'acier et les perturbations de la chaîne d'approvisionnement peuvent réduire la disponibilité des stocks et impacter les marges",
+      "score": 4
     },
     {
       "title": "Manufacturer and Distributor Inventory Levels",
@@ -228,7 +260,8 @@
       "severity": 3,
       "score_rationale": "Les niveaux élevés de stocks chez les fabricants et autres distributeurs peuvent créer une surcapacité et réduire les prix, impactant la rentabilité. (Item 1A Risk Factors, MD&A p. 36)",
       "trend": "stable",
-      "summary": "Les niveaux de stocks du secteur peuvent créer une pression baissière sur les prix et réduire les marges de rentabilité"
+      "summary": "Les niveaux de stocks du secteur peuvent créer une pression baissière sur les prix et réduire les marges de rentabilité",
+      "score": 3
     },
     {
       "title": "Tariffs and Trade Policy Uncertainty",
@@ -236,7 +269,8 @@
       "severity": 3,
       "score_rationale": "Les tarifs douaniers sur l'acier et les produits importés peuvent augmenter les coûts de produits et affecter la compétitivité de l'entreprise. (Item 1A Risk Factors)",
       "trend": "up",
-      "summary": "Les tarifs douaniers et l'incertitude politique commerciale peuvent augmenter les coûts et réduire la compétitivité"
+      "summary": "Les tarifs douaniers et l'incertitude politique commerciale peuvent augmenter les coûts et réduire la compétitivité",
+      "score": 3
     },
     {
       "title": "Customer Capital Expenditure Dependence",
@@ -244,7 +278,8 @@
       "severity": 4,
       "score_rationale": "DNOW dépend fortement des dépenses d'investissement en capital des clients pour l'exploration, la production, le traitement et la maintenance des infrastructures énergétiques. (MD&A Key Drivers, p. 36)",
       "trend": "up",
-      "summary": "L'entreprise est fortement dépendante des dépenses d'investissement des clients en amont, intermédiaire et gaz utilities"
+      "summary": "L'entreprise est fortement dépendante des dépenses d'investissement des clients en amont, intermédiaire et gaz utilities",
+      "score": 4
     },
     {
       "title": "Energy Transition and Market Structural Changes",
@@ -252,7 +287,8 @@
       "severity": 4,
       "score_rationale": "La transition énergétique vers les sources alternatives (capture de carbone, hydrogène, énergie offshore) nécessite une adaptation des offres de produits et services. (Item 1A Risk Factors, MD&A p. 36)",
       "trend": "up",
-      "summary": "La transition énergétique requiert une adaptation stratégique de l'offre de produits pour rester pertinent dans un marché en transformation"
+      "summary": "La transition énergétique requiert une adaptation stratégique de l'offre de produits pour rester pertinent dans un marché en transformation",
+      "score": 4
     }
   ],
   "governance": {
@@ -378,7 +414,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.339Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.891Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dnow.json",
     "enrich_root": "v2-pipeline-enrich/dnow.json",

@@ -38,10 +38,13 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 932.94,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 3 années consécutives trouvées explicitement dans le Consolidated Statements of Operations (fiscal years ended June 30, 2018; June",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Marge brute",
@@ -87,32 +90,37 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.912,
-      "unit": "Mds €",
+      "value": 912,
+      "unit": "M €",
       "yoy": "+9.2%",
       "history": [
-        0.27,
-        0.409,
-        0.493,
-        0.655,
-        0.797,
-        0.924,
-        0.988,
-        0.974,
-        0.835,
-        0.912
+        270,
+        409,
+        493,
+        655,
+        797,
+        924,
+        988,
+        974,
+        835,
+        912
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.91 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:03.874149+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
@@ -131,11 +139,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.04 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -154,56 +166,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.43 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.64,
-      "unit": "Mds €",
+      "value": 640,
+      "unit": "M €",
       "yoy": "-1.5%",
       "history": [
-        0.52,
-        0.58,
-        0.65,
-        0.64
+        520,
+        580,
+        650,
+        640
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.64 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.31,
-      "unit": "Mds €",
+      "value": 310,
+      "unit": "M €",
       "yoy": "+72.2%",
       "history": [
-        0.07,
-        0.07,
-        0.18,
-        0.31
+        70,
+        70,
+        180,
+        310
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.31 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -232,7 +258,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "La société MRCY mentionne l'intelligence artificielle comme un domaine d'innovation future dans son rapport 10-K/20-F, avec des investissements en R&D en cours pour adapter les technologies commerciales aux applications aérospatiennes et de défense incluant l'IA.",
     "evidence": [
       "Including emerging needs in areas such as artificial intelligence (AI)",
@@ -245,34 +271,34 @@
       "title": "Impact potentiel des tarifs sur les marges",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Le risque est explicitement mentionné dans le contexte des marges brutes pour 2026, avec un langage prudent (could impact) et une base quantitative (marges nettes d'estimations en baisse). La catégorie Macro est pondérée modérément. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est explicitement mentionné dans le contexte des marges brutes pour 2026, avec un langage prudent (could impact) et une base quantitative (marges nettes d'estimations en baisse). La catégorie Macro est pondérée modérément.",
       "trend": "stable",
       "summary": "Des tarifs futurs pourraient réduire les marges brutes en 2026, malgré l'absence d'impact matériel en 2025.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque d'évaluation allowance fiscal",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le texte mentionne un suivi continu de la réalisation des actifs fiscaux différés et un risque explicite de création d'une provision si les prévisions changent. Langage fort (changes could lead) et enjeu financier significatif. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne un suivi continu de la réalisation des actifs fiscaux différés et un risque explicite de création d'une provision si les prévisions changent. Langage fort (changes could lead) et enjeu financier significatif.",
       "trend": "stable",
       "summary": "Un changement de prévision pourrait entraîner la création d'une provision fiscale, affectant les résultats futurs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux financements externes",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La liquidité repose sur la trésorerie, la dette et des instruments comme le shelf registration. Bien que suffisante pour 12 mois, la dépendance est soulignée comme critique. Langage répétitif et structurel. (score par défaut, à affiner)",
+      "score_rationale": "La liquidité repose sur la trésorerie, la dette et des instruments comme le shelf registration. Bien que suffisante pour 12 mois, la dépendance est soulignée comme critique. Langage répétitif et structurel.",
       "trend": "stable",
       "summary": "La société dépend de ses sources externes de financement pour couvrir ses besoins, malgré une trésorerie jugée suffisante à court terme.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Restructurations répétées affectant les coûts",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les charges de restructuration sont récurrentes (2024 et 2025), avec des impacts sur les effectifs et les dépenses. En 2024, 150 postes supprimés pour 9,5 M$ de charges; en 2025, 145 postes supprimés pour 4,9 M$ avec économies attendues de 15 M$ annualisées. Le phénomène est persistant. (score par défaut, à affiner)",
+      "score_rationale": "Les charges de restructuration sont récurrentes (2024 et 2025), avec des impacts sur les effectifs et les dépenses. En 2024, 150 postes supprimés pour 9,5 M$ de charges; en 2025, 145 postes supprimés pour 4,9 M$ avec économies attendues de 15 M$ annualisées. Le phénomène est persistant.",
       "trend": "stable",
       "summary": "Des réductions d'effectifs répétées visent à réduire les coûts, mais pourraient impacter la stabilité opérationnelle à long terme.",
       "score": 3
@@ -281,7 +307,7 @@
       "title": "Litiges et coûts juridiques à la hausse",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Augmentation des dépenses liées aux litiges et règlements (9,9 M$ en 2025). Mention explicite de coûts liés à des actions collectives et au litige avec l'ancien PDG. Intensité du langage modérée mais présence récurrente. (score par défaut, à affiner)",
+      "score_rationale": "Augmentation des dépenses liées aux litiges et règlements (9,9 M$ en 2025). Mention explicite de coûts liés à des actions collectives et au litige avec l'ancien PDG. Intensité du langage modérée mais présence récurrente.",
       "trend": "up",
       "summary": "Les coûts liés aux litiges et règlements augmentent, notamment en raison d'actions collectives et de règlements juridiques incluant le différend avec l'ancien PDG.",
       "score": 3
@@ -290,16 +316,16 @@
       "title": "Risque d'interruption de trésorerie en cas de crise gouvernementale",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Le texte cite une modification proactive de la dette en réponse à une incertitude liée à un shutdown gouvernemental. Amendment No. 5 en novembre 2023 a relevé le ratio de levier covenant de 4,50 à 5,25. Langage prudent mais révélateur d'une exposition systémique. (score par défaut, à affiner)",
+      "score_rationale": "Le texte cite une modification proactive de la dette en réponse à une incertitude liée à un shutdown gouvernemental. Amendment No. 5 en novembre 2023 a relevé le ratio de levier covenant de 4,50 à 5,25. Langage prudent mais révélateur d'une exposition systémique.",
       "trend": "stable",
       "summary": "Les risques politiques, comme un shutdown ou continuing resolution aux États-Unis, pourraient impacter la liquidité et les résultats financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Obligations d'achat contraignantes",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Engagements d'achat non révocables de 206,4 M$, dont 50 M$ liés à Cicor suite à la vente des opérations de fabrication en Suisse en avril 2025. Montant élevé mais sans indication de stress actuel. Catégorie Industriel pondérée modérément. (score par défaut, à affiner)",
+      "score_rationale": "Engagements d'achat non révocables de 206,4 M$, dont 50 M$ liés à Cicor suite à la vente des opérations de fabrication en Suisse en avril 2025. Montant élevé mais sans indication de stress actuel. Catégorie Industriel pondérée modérément.",
       "trend": "stable",
       "summary": "La société a des obligations d'achat importantes, notamment liées à l'accord de fabrication exclusive avec Cicor Group pour ses opérations suisses sur cinq ans.",
       "score": 3
@@ -338,7 +364,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -523,23 +549,18 @@
         "short": "Revenu",
         "period_type": "quarter",
         "history": [
-          -371.076,
           225.013,
           445.393,
           698.468,
-          -380.677,
           227.579,
           457.167,
           720.646,
-          -431.51,
           180.991,
           378.454,
           586.712,
-          -310.882,
           204.431,
           427.556,
           638.914,
-          -358.881,
           225.209,
           458.081,
           693.84
@@ -595,6 +616,12 @@
             "accession": "0001049521-26-000024",
             "end": "2026-03-27"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (MRCY)"
         ]
       }
     ]
@@ -611,9 +638,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.284322+00:00",
     "fetched_at": "2026-05-21T02:17:14.284323+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.584Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.452Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mrcy.json",
     "enrich_root": "v2-pipeline-enrich/mrcy.json",

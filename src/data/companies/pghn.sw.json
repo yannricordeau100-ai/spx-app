@@ -113,11 +113,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.46 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -136,11 +140,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.26 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,11 +167,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.39 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -182,33 +194,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.49 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.33,
-      "unit": "Mds €",
+      "value": 330,
+      "unit": "M €",
       "yoy": "+13.8%",
       "history": [
-        0.78,
-        0.28,
-        0.29,
-        0.33
+        780,
+        280,
+        290,
+        330
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.33 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -230,11 +251,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dividende par action de 42.0 CHF dernière année.",
-      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "_source": "historique des dividendes",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Cap Return",
@@ -253,11 +278,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capital retourné aux actionnaires via dividendes de 1.092 Mds CHF dernière année.",
-      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Payout Ratio",
@@ -276,11 +305,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Part du résultat net distribué en dividendes : 86.6% dernière année.",
-      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -335,7 +368,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans la section de gestion et supervision, avec un langage fort sur la centralisation du rôle de Danske Invest Management A/S. Tendance stable, poids élevé car structure centrale du modèle.",
       "trend": "stable",
-      "summary": "L'ensemble des fonds sont gérés exclusivement par Danske Invest Management A/S, créant une dépendance totale à cette entité pour la gestion, la conformité et l'administration, ce qui amplifie les risques opérationnels en cas de défaillance."
+      "summary": "L'ensemble des fonds sont gérés exclusivement par Danske Invest Management A/S, créant une dépendance totale à cette entité pour la gestion, la conformité et l'administration, ce qui amplifie les risques opérationnels en cas de défaillance.",
+      "score": 4
     },
     {
       "title": "Concentration des services administratifs",
@@ -343,7 +377,8 @@
       "severity": 3,
       "score_rationale": "Présent dans la section sur les prestataires, avec un changement récent de fournisseur vers J.P. Morgan. Langage neutre mais risque implicite de concentration. Poids modéré.",
       "trend": "stable",
-      "summary": "Les services centraux (dépositaire, administration, agent de transfert) sont assurés par un seul prestataire, J.P. Morgan SE, ce qui crée un point de concentration opérationnel et une vulnérabilité en cas d'interruption de service."
+      "summary": "Les services centraux (dépositaire, administration, agent de transfert) sont assurés par un seul prestataire, J.P. Morgan SE, ce qui crée un point de concentration opérationnel et une vulnérabilité en cas d'interruption de service.",
+      "score": 3
     },
     {
       "title": "Régulation stricte des fonds luxembourgeois",
@@ -351,7 +386,8 @@
       "severity": 4,
       "score_rationale": "Références multiples à la loi luxembourgeoise de 2010 et aux obligations fiscales. Langage formel et précis, tendance stable, poids élevé en raison de l'impact direct sur les coûts et la structure.",
       "trend": "stable",
-      "summary": "Le SICAV est soumis à la réglementation luxembourgeoise stricte, notamment la taxe d'abonnement et les exigences de transparence, ce qui impose des coûts fixes et des obligations continues de conformité."
+      "summary": "Le SICAV est soumis à la réglementation luxembourgeoise stricte, notamment la taxe d'abonnement et les exigences de transparence, ce qui impose des coûts fixes et des obligations continues de conformité.",
+      "score": 4
     },
     {
       "title": "Risque de conflit d'intérêts dans les frais",
@@ -359,7 +395,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans les politiques de frais, avec un dispositif de rétention des économies par la société de gestion. Langage factuel mais risque implicite. Poids modéré.",
       "trend": "stable",
-      "summary": "La société de gestion peut conserver la différence entre les frais fixes perçus et les coûts réels, ce qui crée un incitant à minimiser les dépenses au détriment potentiel de la qualité des services aux actionnaires."
+      "summary": "La société de gestion peut conserver la différence entre les frais fixes perçus et les coûts réels, ce qui crée un incitant à minimiser les dépenses au détriment potentiel de la qualité des services aux actionnaires.",
+      "score": 3
     },
     {
       "title": "Application de la swing pricing",
@@ -367,7 +404,8 @@
       "severity": 3,
       "score_rationale": "Décrit en détail dans les politiques comptables, avec un impact réel observé (ajustement appliqué). Langage technique, tendance stable, poids modéré.",
       "trend": "stable",
-      "summary": "L'utilisation de la swing pricing, bien que destinée à protéger les actionnaires, peut rendre les fonds moins attractifs face à des concurrents n'appliquant pas ce mécanisme, affectant la compétitivité en période de flux importants."
+      "summary": "L'utilisation de la swing pricing, bien que destinée à protéger les actionnaires, peut rendre les fonds moins attractifs face à des concurrents n'appliquant pas ce mécanisme, affectant la compétitivité en période de flux importants.",
+      "score": 3
     },
     {
       "title": "Dépendance aux systèmes de valorisation",
@@ -375,7 +413,8 @@
       "severity": 4,
       "score_rationale": "Présent dans les politiques de valorisation, avec des décisions critiques basées sur des estimations de valeur. Langage prudent ('bonne foi', 'estimation prudente'), poids élevé.",
       "trend": "stable",
-      "summary": "La valorisation des actifs repose sur des méthodes subjectives pour les titres non cotés ou mal cotés, augmentant le risque d'erreur ou de manipulation dans les évaluations, surtout en période de volatilité."
+      "summary": "La valorisation des actifs repose sur des méthodes subjectives pour les titres non cotés ou mal cotés, augmentant le risque d'erreur ou de manipulation dans les évaluations, surtout en période de volatilité.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:54:53.890628+00:00",
@@ -570,7 +609,7 @@
       "date": "2025-12-31"
     },
     "next_earnings_date": "2026-03-10",
-    "source": "yfinance",
+    "source": "rapport financier",
     "fetched_at": "2026-05-21T03:38:30.890938+00:00"
   },
   "publication_date": "2025-12-31",
@@ -600,7 +639,10 @@
         165,
         174
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Direct Investments",
@@ -616,7 +658,10 @@
         73,
         76
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Investissement",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Portfolio Companies",
@@ -648,7 +693,10 @@
         705,
         745
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Employees",
@@ -664,7 +712,10 @@
         2000,
         2200
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Capacité",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T16:51:39.928477+00:00",
@@ -821,9 +872,9 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T02:17:14.296349+00:00",
     "fetched_at": "2026-05-21T02:17:14.296350+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.570Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.544Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pghn.sw.json",
     "enrich_root": "v2-pipeline-enrich/pghn.sw.json",

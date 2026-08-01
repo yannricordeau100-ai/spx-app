@@ -36,7 +36,7 @@
       "is_short_history": false,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "L'extrait fourni contient uniquement des métadonnées XBRL (tags, dimensions, périodes) sans valeurs numériques explicites de 'Total Debt'. A",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings."
     },
     {
       "short": "Unrestricted Cash",
@@ -75,7 +75,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Net Debt — total debt minus cash and cash equivalents."
+      "explanation_en": "Net Debt, total debt minus cash and cash equivalents."
     },
     {
       "short": "Total Revenue",
@@ -96,36 +96,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.22 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:59.127632+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+115.0%",
       "history": [
-        -0.19,
-        0.5,
-        -0.2,
-        0.03
+        -190,
+        500,
+        -200,
+        30
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.03 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -144,33 +153,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.21 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.51,
-      "unit": "Mds €",
+      "value": 510,
+      "unit": "M €",
       "yoy": "-8.9%",
       "history": [
-        0.75,
-        0.13,
-        0.56,
-        0.51
+        750,
+        130,
+        560,
+        510
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.51 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -189,10 +207,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 2.23 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -248,7 +270,7 @@
       "title": "Interest Rate Risk on Debt",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Disclosed in Item 7A, risk quantified at 11.6M$ for 200 basis point increase. Measured language with direct impact on financing costs. Stable versus N-1. Medium weighting for capital risk. (score par défaut, à affiner)",
+      "score_rationale": "Disclosed in Item 7A, risk quantified at 11.6M$ for 200 basis point increase. Measured language with direct impact on financing costs. Stable versus N-1. Medium weighting for capital risk.",
       "trend": "stable",
       "summary": "Company is exposed to higher interest expenses if variable rates increase on its borrowings, particularly the MSGN Term Loan Facility at adjusted Term SOFR plus 5.00%.",
       "score": 3
@@ -257,7 +279,7 @@
       "title": "Foreign Exchange Risk EUR/USD",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Presented in Item 7A, linked to Holoplot acquisition in Germany. Estimated impact 0.13M$ for 10% fluctuation. Factual language, new risk since 2024. Macro category weighted medium. (score par défaut, à affiner)",
+      "score_rationale": "Presented in Item 7A, linked to Holoplot acquisition in Germany. Estimated impact 0.13M$ for 10% fluctuation. Factual language, new risk since 2024. Macro category weighted medium.",
       "trend": "new",
       "summary": "Company bears currency risk related to Euro-denominated activities following the Holoplot acquisition.",
       "score": 3
@@ -266,34 +288,34 @@
       "title": "Foreign Exchange Risk GBP/USD",
       "category": "Macro",
       "severity": 2,
-      "score_rationale": "Presented in Item 7A, linked to UK assets. Limited impact of 0.10M$ for 10% fluctuation. Stratford land sale in 2025 reduces exposure. Risk declining. Macro category. (score par défaut, à affiner)",
+      "score_rationale": "Presented in Item 7A, linked to UK assets. Limited impact of 0.10M$ for 10% fluctuation. Stratford land sale in 2025 reduces exposure. Risk declining. Macro category.",
       "trend": "down",
       "summary": "Exposure to British Pound reduced following the sale of Stratford land in 2025.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Technology Obsolescence Risk",
       "category": "Technology",
       "severity": 4,
-      "score_rationale": "Implicitly addressed through intangible asset amortization periods and obsolescence risk. Central to asset valuation assessment. Cautious but recurring language. High criticality for SPHR's immersive technology platform. (score par défaut, à affiner)",
+      "score_rationale": "Implicitly addressed through intangible asset amortization periods and obsolescence risk. Central to asset valuation assessment. Cautious but recurring language. High criticality for SPHR's immersive technology platform.",
       "trend": "stable",
       "summary": "Technology assets, particularly from the Holoplot acquisition, face rapid obsolescence risk in immersive entertainment.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Intangible Asset Impairment Risk",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Detailed in Item 1A on impairment evaluation of amortizable assets, notably affiliate relationships. Quantitative and qualitative methodology described. Technical and cautious language. Industrial category critical. (score par défaut, à affiner)",
+      "score_rationale": "Detailed in Item 1A on impairment evaluation of amortizable assets, notably affiliate relationships. Quantitative and qualitative methodology described. Technical and cautious language. Industrial category critical.",
       "trend": "stable",
       "summary": "Value of intangible assets, including customer relationships, could be reduced if projected cash flows decline.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Pension Obligation Risk",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Detailed in Item 7A on actuarial assumptions (discount rates, expected returns). 25 basis point decrease increases obligation by 0.8M$. Moderate but material impact. Capital category. (score par défaut, à affiner)",
+      "score_rationale": "Detailed in Item 7A on actuarial assumptions (discount rates, expected returns). 25 basis point decrease increases obligation by 0.8M$. Moderate but material impact. Capital category.",
       "trend": "stable",
       "summary": "Changes in actuarial assumptions could materially increase pension and retirement benefit costs.",
       "score": 3
@@ -490,82 +512,43 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SPHR",
-    "extracted_at": "2026-05-15T18:14:24Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1795250,
+    "extracted_at": "2026-06-01T09:22:18Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Unrestricted Cash",
+        "short": "Total Debt",
         "period_type": "quarter",
         "history": [
-          1003.893,
-          925.779,
-          1451.352,
-          1277.698,
-          -2486.069,
-          1331.45,
-          1258.105,
-          999.063,
-          -2760.078,
-          441.35,
-          432.173,
-          433.507,
-          614.549,
-          465.017,
-          355.661,
-          384.835,
-          629.108
+          1756.898,
+          2010.725,
+          1227.875,
+          1207.25,
+          1424.75,
+          1404.125,
+          1362.875,
+          1337.875,
+          889.334,
+          874.857
         ],
         "history_periods": [
-          "Q3 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
           "Q3 2022",
           "Q4 2022",
           "Q1 2023",
-          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
+          "Q3 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q1 2025",
-            "value": 465.017,
-            "accession": "0001795250-25-000029",
-            "end": "2025-03-31"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 355.661,
-            "accession": "0001628280-25-039390",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 384.835,
-            "accession": "0001628280-25-049008",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 629.108,
-            "accession": "0001628280-26-030740",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:22:18Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -581,9 +564,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.312507+00:00",
     "fetched_at": "2026-05-21T02:17:14.312508+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.078Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.076Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sphr.json",
     "enrich_root": "v2-pipeline-enrich/sphr.json",

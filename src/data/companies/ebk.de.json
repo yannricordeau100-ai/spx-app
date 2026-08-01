@@ -34,9 +34,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "_source_month": "mars 2011",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -56,9 +54,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Profit margin on Op.",
-      "_source_month": "mars 2011",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Profit margin on Op."
     },
     {
       "short": "Headcount",
@@ -78,9 +74,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "_source_month": "mars 2011",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -99,11 +93,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 34.52 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni concerne le rapport annuel d'Energiekontor AG, pas celui d'EnBW AG (EBK.DE). Aucun chiffre de \"Total Revenue\" (chiffre d'aff",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -122,11 +122,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.24 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -145,11 +149,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 64.28 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -168,11 +176,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 19.38 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -191,10 +203,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 4.39 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -309,7 +325,7 @@
   "company_description": "EnBW Energie Baden-Württemberg AG operates as an integrated energy company in Germany, Rest of Europe, and internationally. It operates through three segments: Sustainable Generation Infrastructure, Critical Infrastructure, and Smart Infrastructure for Customers. The Sustainable Generation Infrastructure segment encompasses company activities in the areas of renewable energies, conventional generation, district heating, waste management, and energy services. This segment includes the trading of electricity, gas, CO2 allowances, and fuels, as well as the storage of gas and the direct marketing of renewable energy power plants. The Critical Infrastructure segment transmits and distributes grids for electricity and gas, offers grid-related services, and supplies water. The Smart Infrastructure for Customers segment comprises the sale of electricity and gas, the expansion of fast-charging infrastructure, and digital solutions for electromobility. It also includes activities in the telecommunications sector and other household-level solutions, such as photovoltaics and home storage systems. In addition, the company generates power from wind, water, sun, biomass, and geothermal energy, o",
   "last_data_date": "2026-03-31",
   "_hero_kpi_original": "Total Employees",
-  "_companies_unified_built_at": "2026-05-29T21:19:30.533Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.971Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ebk.de.json",
     "enrich_root": null,

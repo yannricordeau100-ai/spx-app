@@ -36,9 +36,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Occupancy rate data found only for 1 year (2024: 94.7%). The 10-K excerpt provided contains MD&A and financial statements but does not inclu"
+      "_hero_history_unverified_reason": "Occupancy rate data found only for 1 year (2024: 94.7%). The 10-K excerpt provided contains MD&A and financial statements but does not inclu",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Average Monthly Rent",
@@ -65,32 +68,37 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.251,
-      "unit": "Mds €",
+      "value": 251,
+      "unit": "M €",
       "yoy": "-3.5%",
       "history": [
-        0.133,
-        0.144,
-        0.147,
-        0.181,
-        0.205,
-        0.219,
-        0.264,
-        0.278,
-        0.26,
-        0.251
+        133,
+        144,
+        147,
+        181,
+        205,
+        219,
+        264,
+        278,
+        260,
+        251
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.25 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:37.488809+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
@@ -109,33 +117,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.03 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.03,
-        0.05,
-        0.03,
-        0.03
+        30,
+        50,
+        30,
+        30
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.03 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -154,11 +171,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.89 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -177,33 +198,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-50.0%",
       "history": [
-        0.02,
-        0.01,
-        0.02,
-        0.01
+        20,
+        10,
+        20,
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -227,9 +257,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     }
   ],
   "ai_positioning": {
@@ -258,7 +286,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -272,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Le risque est cité en premier dans le 10-K, avec un langage fort (\"matériellement défavorable\"). Bien que la société s'attende à un impact limité, l'issue des litiges reste incertaine et pourrait affecter la réputation ou la stabilité du sponsor. La catégorie Litige a une pondération élevée.",
       "trend": "stable",
-      "summary": "Des poursuites judiciaires contre le sponsor et une personne clé pourraient nuire à la société, même si elle n'est pas directement visée."
+      "summary": "Des poursuites judiciaires contre le sponsor et une personne clé pourraient nuire à la société, même si elle n'est pas directement visée.",
+      "score": 4
     },
     {
       "title": "Dépendance aux revenus locatifs à court terme",
@@ -280,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Les revenus proviennent principalement des loyers, avec des baux d'un an ou moins. Ce modèle augmente la volatilité des revenus, surtout en cas de baisse de la demande ou de taux d'occupation. Mentionné comme source principale de revenus, ce risque est central.",
       "trend": "stable",
-      "summary": "La société dépend fortement des revenus locatifs renouvelés fréquemment, ce qui la rend sensible aux fluctuations du marché immobilier."
+      "summary": "La société dépend fortement des revenus locatifs renouvelés fréquemment, ce qui la rend sensible aux fluctuations du marché immobilier.",
+      "score": 4
     },
     {
       "title": "Arrêt des frais volontairement annulés",
@@ -288,7 +318,8 @@
       "severity": 4,
       "score_rationale": "L'adviser a annulé 21M$ de frais en 2025. Le texte précise qu'il n'est pas obligé de continuer, ce qui pourrait entraîner une hausse soudaine des coûts. Le langage souligne un risque futur concret.",
       "trend": "stable",
-      "summary": "La suppression future des renonciations aux frais pourrait fortement augmenter les charges administratives et réduire la rentabilité."
+      "summary": "La suppression future des renonciations aux frais pourrait fortement augmenter les charges administratives et réduire la rentabilité.",
+      "score": 4
     },
     {
       "title": "Augmentation des coûts d'emprunt",
@@ -296,7 +327,8 @@
       "severity": 3,
       "score_rationale": "La hausse de 2,2M$ des charges d'intérêt en 2025 est due à l'amortissement des coûts de financement. Le risque est modéré car anticipé, mais persistant dans un contexte de taux élevés.",
       "trend": "stable",
-      "summary": "Les coûts d'emprunt augmentent, pesant sur la rentabilité, notamment à cause des coûts de financement différés."
+      "summary": "Les coûts d'emprunt augmentent, pesant sur la rentabilité, notamment à cause des coûts de financement différés.",
+      "score": 3
     },
     {
       "title": "Vulnérabilité aux événements climatiques",
@@ -304,7 +336,8 @@
       "severity": 3,
       "score_rationale": "Des pertes liées à des sinistres (0,6M$ en 2024) sont signalées. Le risque est récurrent mais limité en intensité déclarée. Catégorie pondérée moyennement.",
       "trend": "stable",
-      "summary": "Des événements climatiques extrêmes peuvent entraîner des pertes d'exploitation et des coûts d'assurance accrus."
+      "summary": "Des événements climatiques extrêmes peuvent entraîner des pertes d'exploitation et des coûts d'assurance accrus.",
+      "score": 3
     },
     {
       "title": "Concentration du management externe",
@@ -312,7 +345,8 @@
       "severity": 3,
       "score_rationale": "Les frais de gestion sont payés à BH, un tiers. Une défaillance ou une rupture avec ce prestataire pourrait perturber l'exploitation. Le risque est implicite mais non explicitement quantifié.",
       "trend": "stable",
-      "summary": "La gestion des biens est externalisée, ce qui crée une dépendance à un tiers clé pour l'exploitation quotidienne."
+      "summary": "La gestion des biens est externalisée, ce qui crée une dépendance à un tiers clé pour l'exploitation quotidienne.",
+      "score": 3
     }
   ],
   "governance": {
@@ -525,9 +559,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.292379+00:00",
     "fetched_at": "2026-05-21T02:17:14.292380+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.194Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.150Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nxrt.json",
     "enrich_root": null,

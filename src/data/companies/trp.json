@@ -33,11 +33,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 15.24 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -56,11 +60,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 3.52 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -79,11 +87,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 6.76 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -102,11 +114,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 118.75 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -125,33 +141,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 60.63 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "-78.8%",
       "history": [
-        0.62,
-        3.68,
-        0.8,
-        0.17
+        620,
+        3680,
+        800,
+        170
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -199,7 +224,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 0,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "EBITDA",
     "status": "failed_no_substantive_data"
   },
@@ -214,7 +239,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental pour TC Energy : les revenus des pipelines canadiens et américains dépendent entièrement des approbations réglementaires (ROE, rate base, tarifs). Langage intensif sur les « settlements » (2025-2029 NGTL, 2021-2026 Mainline). Position centrale dans Item 1A. Tendance stable mais structurelle.",
       "trend": "stable",
-      "summary": "Les revenus nets des pipelines réglementés (NGTL System, Canadian Mainline, Columbia Gas, ANR) dépendent des décisions des régulateurs (NEB, FERC, etc.) concernant le ROE approuvé, la base d'investissement et les tarifs. Tout changement défavorable dans les settlements ou les taux de rendement autorisés impacte directement la rentabilité. Exemple : NGTL Settlement 2025-2029 fixe ROE à 10,1% sur 40% de capital-actions réputé."
+      "summary": "Les revenus nets des pipelines réglementés (NGTL System, Canadian Mainline, Columbia Gas, ANR) dépendent des décisions des régulateurs (NEB, FERC, etc.) concernant le ROE approuvé, la base d'investissement et les tarifs. Tout changement défavorable dans les settlements ou les taux de rendement autorisés impacte directement la rentabilité. Exemple : NGTL Settlement 2025-2029 fixe ROE à 10,1% sur 40% de capital-actions réputé.",
+      "score": 5
     },
     {
       "title": "Risques de construction et de mise en service des projets",
@@ -222,7 +248,8 @@
       "severity": 4,
       "score_rationale": "Portfolio de $23 milliards de projets sécurisés exposé à des risques de délai et de dépassement de coûts. Langage explicite : « weather, market conditions, route refinement, land acquisition, permitting conditions... inflationary pressures ». Mentionné comme facteur clé affectant timing et coûts. Tendance up (inflation, complexité).",
       "trend": "up",
-      "summary": "Les projets de capital (Heartland, Appalachia Supply, Bruce Power MCR, Villa de Reyes, Tula) sont exposés à des risques de retard et de surcoûts liés aux conditions météorologiques, à l'acquisition de terrains, aux permis, à l'inflation des matériaux et de la main-d'œuvre. Exemple : Tula pipeline en Mexico reste en développement avec FID futur et réévaluation des coûts requise."
+      "summary": "Les projets de capital (Heartland, Appalachia Supply, Bruce Power MCR, Villa de Reyes, Tula) sont exposés à des risques de retard et de surcoûts liés aux conditions météorologiques, à l'acquisition de terrains, aux permis, à l'inflation des matériaux et de la main-d'œuvre. Exemple : Tula pipeline en Mexico reste en développement avec FID futur et réévaluation des coûts requise.",
+      "score": 4
     },
     {
       "title": "Exposition aux risques géopolitiques et réglementaires au Mexique",
@@ -230,7 +257,8 @@
       "severity": 4,
       "score_rationale": "TGNH (Mexico Natural Gas Pipelines) représente segment clé avec partenariat CFE (13,01% depuis Q2 2024). Provision pour crédit attendu de $17M sur investissements en leases au Mexique. Langage sur « outstanding stakeholder issues » pour Villa de Reyes. Tendance up (complexité politique, provision croissante).",
       "trend": "up",
-      "summary": "Les opérations au Mexique (TGNH, Villa de Reyes, Tula) sont exposées aux risques politiques, réglementaires et de crédit. TC Energy a reconnu une provision pour perte de crédit attendue sur les investissements en leases au Mexique (estimée jusqu'à 2055), reflétant l'incertitude économique. Partenariat avec CFE (État mexicain) introduit dépendance politique."
+      "summary": "Les opérations au Mexique (TGNH, Villa de Reyes, Tula) sont exposées aux risques politiques, réglementaires et de crédit. TC Energy a reconnu une provision pour perte de crédit attendue sur les investissements en leases au Mexique (estimée jusqu'à 2055), reflétant l'incertitude économique. Partenariat avec CFE (État mexicain) introduit dépendance politique.",
+      "score": 4
     },
     {
       "title": "Volatilité des taux de change (USD/CAD, USD/MXN)",
@@ -238,7 +266,8 @@
       "severity": 4,
       "score_rationale": "Exposition significative : opérations US et Mexico en USD/MXN, consolidation en CAD. Q1 2026 : impact négatif du dollar faible (1.37 vs 1.43 en 2025). Gains/pertes de change non réalisés de $58M sur prêts interentreprises TCPL-TGNH. Langage répété sur « foreign exchange impact ». Tendance up (volatilité accrue).",
       "trend": "up",
-      "summary": "TC Energy génère revenus en USD (U.S. Natural Gas Pipelines, Mexico) et MXN (TGNH) mais consolide en CAD. Chaque fluctuation du taux USD/CAD affecte les revenus consolidés et les gains/pertes de change. Q1 2026 : affaiblissement du dollar US a réduit l'équivalent CAD des opérations US. Risque de volatilité des résultats indépendamment de la performance opérationnelle."
+      "summary": "TC Energy génère revenus en USD (U.S. Natural Gas Pipelines, Mexico) et MXN (TGNH) mais consolide en CAD. Chaque fluctuation du taux USD/CAD affecte les revenus consolidés et les gains/pertes de change. Q1 2026 : affaiblissement du dollar US a réduit l'équivalent CAD des opérations US. Risque de volatilité des résultats indépendamment de la performance opérationnelle.",
+      "score": 4
     },
     {
       "title": "Dépendance aux contrats long terme et volumes de transport",
@@ -246,7 +275,8 @@
       "severity": 4,
       "score_rationale": "Revenus pipelines dépendent des « contracted volume levels, volumes delivered and rates charged ». Langage sur « settlement-in-principle » avec ANR et « additional contract sales » indiquent besoin constant de renouvellement. Saisonnalité mentionnée (volumes plus élevés en hiver). Tendance stable mais compétitive.",
       "trend": "stable",
-      "summary": "Les revenus des pipelines naturels (ANR, Columbia Gas, GTN) dépendent du maintien et du renouvellement des contrats de transport avec les clients. Baisse des volumes contractés ou perte de clients majeurs réduirait directement les revenus. Exemple : ANR a atteint un « settlement-in-principle » pour renégocier ses tarifs, reflétant la pression concurrentielle. Saisonnalité (hiver vs été) crée volatilité."
+      "summary": "Les revenus des pipelines naturels (ANR, Columbia Gas, GTN) dépendent du maintien et du renouvellement des contrats de transport avec les clients. Baisse des volumes contractés ou perte de clients majeurs réduirait directement les revenus. Exemple : ANR a atteint un « settlement-in-principle » pour renégocier ses tarifs, reflétant la pression concurrentielle. Saisonnalité (hiver vs été) crée volatilité.",
+      "score": 4
     },
     {
       "title": "Risques opérationnels et de maintenance des actifs nucléaires (Bruce Power)",
@@ -254,7 +284,8 @@
       "severity": 4,
       "score_rationale": "Bruce Power représente actif majeur en Power and Energy Solutions. Q1 2026 : Unit 4 MCR (Major Component Replacement) en cours, réduisant la génération. Projets MCR pour Units 3, 4, 5 jusqu'à 2030 ($3,1B). Langage sur « reduced generation primarily resulting from Unit 4 MCR ». Tendance up (maintenance critique).",
       "trend": "up",
-      "summary": "Bruce Power (actif nucléaire) nécessite des remplacements majeurs de composants (MCR) pour Units 3, 4, 5 entre 2026-2030. Ces travaux réduisent la génération d'électricité et les revenus pendant les périodes de maintenance. Risques opérationnels liés à la sécurité nucléaire, aux arrêts non planifiés et aux dépassements de coûts de maintenance."
+      "summary": "Bruce Power (actif nucléaire) nécessite des remplacements majeurs de composants (MCR) pour Units 3, 4, 5 entre 2026-2030. Ces travaux réduisent la génération d'électricité et les revenus pendant les périodes de maintenance. Risques opérationnels liés à la sécurité nucléaire, aux arrêts non planifiés et aux dépassements de coûts de maintenance.",
+      "score": 4
     },
     {
       "title": "Risques de crédit sur les investissements et contrats au Mexique",
@@ -262,7 +293,8 @@
       "severity": 3,
       "score_rationale": "Provision pour perte de crédit attendue de $17M (Q1 2026) sur net investment in leases et contract assets au Mexique. Provision estimée sur durée TSA jusqu'à 2055. Langage : « will fluctuate from period to period based on changing economic assumptions ». Tendance up (provision croissante vs récupération en 2025).",
       "trend": "up",
-      "summary": "TC Energy a reconnu une provision pour perte de crédit attendue sur ses investissements en leases et contrats au Mexique (TGNH), reflétant le risque que les contreparties ne respectent pas leurs obligations. Cette provision fluctue selon les hypothèses économiques et peut augmenter si les conditions se détériorent. Risque de non-recouvrement des investissements jusqu'à 2055."
+      "summary": "TC Energy a reconnu une provision pour perte de crédit attendue sur ses investissements en leases et contrats au Mexique (TGNH), reflétant le risque que les contreparties ne respectent pas leurs obligations. Cette provision fluctue selon les hypothèses économiques et peut augmenter si les conditions se détériorent. Risque de non-recouvrement des investissements jusqu'à 2055.",
+      "score": 3
     },
     {
       "title": "Risques de litige et de résolution de questions légales",
@@ -270,7 +302,8 @@
       "severity": 3,
       "score_rationale": "Q1 2026 : dépense de $33M pour résolution de certaines questions légales dans U.S. Natural Gas Pipelines. Langage sur « resolution of certain legal matters » sans détails. Tendance new/up (charge spécifique en 2026, aucune en 2025). Potentiel de litiges additionnels non quantifiés.",
       "trend": "up",
-      "summary": "TC Energy a enregistré une charge de $33M au Q1 2026 pour la résolution de questions légales dans ses opérations de pipelines naturels américains. Le manque de détails suggère des litiges potentiels non divulgués. Risque de litiges additionnels liés à la régulation, aux contrats ou à la responsabilité civile."
+      "summary": "TC Energy a enregistré une charge de $33M au Q1 2026 pour la résolution de questions légales dans ses opérations de pipelines naturels américains. Le manque de détails suggère des litiges potentiels non divulgués. Risque de litiges additionnels liés à la régulation, aux contrats ou à la responsabilité civile.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:31:31.720017+00:00",
@@ -373,205 +406,346 @@
     ]
   },
   "enrich_to": {
-    "ticker": "TRP.TO",
-    "_canada_phase2_at": "2026-05-21T02:15:44.402851+00:00",
-    "events": [
-      {
-        "date": "2025-03-15",
-        "title": "Publication du rapport annuel 2025",
-        "description": "TC Energy publie son rapport annuel 2025, confirmant 26 années consécutives d'augmentation du dividende."
-      },
-      {
-        "date": "2025-10-02",
-        "title": "Clôture de la scission des pipelines de produits",
-        "description": "La scission des activités de pipelines de produits est finalisée, recentrant l'entreprise sur le gaz naturel et la génération d'électricité."
-      },
-      {
-        "date": "2026-01-22",
-        "title": "Record historique de livraison de gaz",
-        "description": "Le système NGTL établit un nouveau record de 33,2 Bcf/j, démontrant la capacité et la fiabilité du réseau canadien."
-      },
-      {
-        "date": "2026-05-01",
-        "title": "Approvisionnement du projet Appalachia Supply",
-        "description": "TC Energy approuve le projet Appalachia Supply de 1,5 Md$US, marquant une expansion stratégique vers les marchés électriques à forte demande."
-      }
-    ],
-    "ai_positioning": null,
-    "profit_warning": {
-      "score": 2,
-      "label": "Faible",
-      "rationale": "La société maintient ses prévisions 2026 avec une croissance de l'EBITDA comparable, malgré une baisse du bénéfice net en 2025 liée à des facteurs non récurrents."
-    },
     "governance": {
-      "ceo_name": "François Poirier",
-      "ceo_compensation_total_musd": null,
-      "board_size": null,
-      "voting_structure": "1 share = 1 vote",
-      "top3_capital": [
-        {
-          "name": "BlackRock",
-          "pct": 7.2
-        },
-        {
-          "name": "Vanguard",
-          "pct": 5.8
-        },
-        {
-          "name": "CPPIB",
-          "pct": 4.3
-        }
-      ],
-      "top3_voting": [
-        {
-          "name": "BlackRock",
-          "pct": 7.2
-        },
-        {
-          "name": "Vanguard",
-          "pct": 5.8
-        },
-        {
-          "name": "CPPIB",
-          "pct": 4.3
-        }
-      ],
       "top_disclosure": "unavailable_adr",
       "_top_source": "unavailable"
     },
-    "interpretation": {
-      "lead": "TC Energy confirme sa trajectoire de croissance rentable sur le gaz naturel, portée par l'excellence opérationnelle et une stratégie de croissance disciplinée.",
-      "moteur": "L'expansion dans les marchés électriques via des projets comme Appalachia Supply et les exportations GNL via Coastal GasLink.",
-      "vigilance": "Les risques réglementaires et ESG restent élevés, notamment sur les approbations tarifaires et les relations avec les peuples autochtones.",
-      "surveillance": "L'évolution des négociations tarifaires sur ANR et Great Lakes au T3 et T4 2026, ainsi que la progression de l'expansion CGL Phase 2."
-    },
-    "company_description": "TC Energy Corporation est un leader nord-américain des infrastructures énergétiques, actif depuis près de 75 ans dans le transport, la production et la distribution de gaz naturel, complété par des investissements stratégiques dans la génération d'électricité et les exportations de GNL. L'entreprise exploite un vaste réseau de pipelines et de centrales, assurant la sécurité énergétique et soutenant la transition énergétique.",
-    "revenue_by_segment": {
-      "slices": [
+    "_quarterly_history_extension": {
+      "ticker": "TRP.TO",
+      "period_type": "quarter",
+      "unit_currency": "CAD",
+      "kpis": [
         {
-          "label": "Canadian Natural Gas Pipelines",
-          "share_pct": 37.6,
-          "label_fr": "Pipelines de gaz naturel au Canada",
-          "label_en": "Canadian Natural Gas Pipelines",
-          "value": 1454,
-          "unit": "M $"
+          "kpi_short": "Revenue",
+          "kpi_name_fr": "Chiffre d'affaires",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 3.623,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 3.744,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 3.704,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 4.168,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 3.861,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
         },
         {
-          "label": "U.S. Natural Gas Pipelines",
-          "share_pct": 45.8,
-          "label_fr": "Pipelines de gaz naturel aux États-Unis",
-          "label_en": "U.S. Natural Gas Pipelines",
-          "value": 1769,
-          "unit": "M $"
+          "kpi_short": "Operating Income",
+          "kpi_name_fr": "Résultat opérationnel",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 1.661,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 1.624,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 1.583,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 1.894,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 1.834,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
         },
         {
-          "label": "Mexico Natural Gas Pipelines",
-          "share_pct": 11,
-          "label_fr": "Pipelines de gaz naturel au Mexique",
-          "label_en": "Mexico Natural Gas Pipelines",
-          "value": 426,
-          "unit": "M $"
+          "kpi_short": "Net Income",
+          "kpi_name_fr": "Résultat net",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 1.006,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 0.861,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 0.637,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 1.015,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 0.927,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
         },
         {
-          "label": "Power and Energy Solutions",
-          "share_pct": 5.5,
-          "label_fr": "Solutions d'énergie et d'approvisionnement électrique",
-          "label_en": "Power and Energy Solutions",
-          "value": 211,
-          "unit": "M $"
-        },
-        {
-          "label": "Corporate",
-          "share_pct": 0,
-          "label_fr": "Société mère",
-          "label_en": "Corporate",
-          "value": 1,
-          "unit": "M $"
+          "kpi_short": "Operating Cash Flow",
+          "kpi_name_fr": "Flux de trésorerie opérationnel",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 1.359,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 2.173,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 1.92,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 1.894,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 2.603,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
         }
       ],
-      "year": 2026,
-      "currency": "CAD",
-      "total": 3861
+      "extracted_at": "2026-06-02T11:39:37Z",
+      "extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "_n_kpis_merged": 4
     },
-    "revenue_by_geography": {
-      "slices": [
+    "_super_kpi_inputs": {
+      "_extracted_at": "2026-06-02T11:39:37Z",
+      "_extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "currency": "CAD",
+      "revenue_q": [
         {
-          "label": "Canada",
-          "share_pct": 37.6,
-          "label_fr": "Canada",
-          "label_en": "Canada",
-          "value": 1454,
-          "unit": "M $"
+          "q": "Q1 2025",
+          "v": 3.623,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
         },
         {
-          "label": "United States",
-          "share_pct": 45.8,
-          "label_fr": "États-Unis",
-          "label_en": "United States",
-          "value": 1769,
-          "unit": "M $"
+          "q": "Q2 2025",
+          "v": 3.744,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
         },
         {
-          "label": "Mexico",
-          "share_pct": 11,
-          "label_fr": "Mexique",
-          "label_en": "Mexico",
-          "value": 426,
-          "unit": "M $"
+          "q": "Q3 2025",
+          "v": 3.704,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
         },
         {
-          "label": "Power and Energy Solutions",
-          "share_pct": 5.5,
-          "label_fr": "Solutions d'énergie et d'approvisionnement électrique",
-          "label_en": "Power and Energy Solutions",
-          "value": 211,
-          "unit": "M $"
+          "q": "Q4 2025",
+          "v": 4.168,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
         },
         {
-          "label": "Corporate",
-          "share_pct": 0,
-          "label_fr": "Société mère",
-          "label_en": "Corporate",
-          "value": 1,
-          "unit": "M $"
+          "q": "Q1 2026",
+          "v": 3.861,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
         }
       ],
-      "year": 2026,
-      "currency": "CAD",
-      "total": 3861
-    },
-    "_repartition_backfill_at": "2026-05-25T17:32:56Z",
-    "_repartition_backfill_source": "cerebras_paid_k0",
-    "kpis_type_overrides": {
-      "Capex Net": "Investment"
-    },
-    "risks": [
-      {
-        "title": "Risque de change",
-        "category": "financial",
-        "severity": 2,
-        "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
-        "trend": "stable",
-        "summary": "L'exposition au risque de change est notable. Source : « Power 5 (1) Natural Gas Storage 11 (29) Foreign exchange (60) 58 (190) (19) Income tax attributable to risk management activities 48 5 Total unrealized gains (losses) from risk management activities »"
-      },
-      {
-        "title": "Risques opérationnels",
-        "category": "operational",
-        "severity": 2,
-        "score_rationale": "Risque mentionné parmi les facteurs Item 1A. sévérité modérée (2/5).",
-        "trend": "stable",
-        "summary": "Le filing identifie un risque. Source : « NET (INCOME) LOSS ATTRIBUTABLE TO NON-CONTROLLING INTERESTS Non-Controlling three months ended Interests March 31 Ownership at (millions of $) March 31, 2026 2026 2025 Columbia Gas and Columbia Gulf... »"
-      }
-    ],
-    "_risks_reextracted_at": "2026-05-27",
-    "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/TRP/annual-text/2026.txt",
-    "_risks_source_year": "2026",
-    "_risks_verification_needed": true,
-    "_risks_source_note": "EU annual report extracted from PDF: column-formatted text may produce fragmented quotes; review recommended.",
-    "hero_last_data_date_override": "2026-03-31",
-    "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00"
+      "op_income_q": [
+        {
+          "q": "Q1 2025",
+          "v": 1.661,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 1.624,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 1.583,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 1.894,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 1.834,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "ni_q": [
+        {
+          "q": "Q1 2025",
+          "v": 1.006,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 0.861,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 0.637,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 1.015,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 0.927,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "op_cf_q": [
+        {
+          "q": "Q1 2025",
+          "v": 1.359,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 2.173,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 1.92,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 1.894,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 2.603,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "rd_q": [],
+      "op_margin_q_pct": [
+        {
+          "q": "Q1 2025",
+          "v": 45.85,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 43.38,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 42.74,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 45.44,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 47.5,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ]
+    }
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.666Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.873Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/trp.json",
     "enrich_root": "v2-pipeline-enrich/trp.json",

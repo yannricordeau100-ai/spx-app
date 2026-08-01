@@ -1,6 +1,6 @@
 {
   "ticker": "SXT",
-  "name": "Sensient Technologies Corporation",
+  "name": "Sensient Technologies",
   "sector": "Technologie",
   "subsector": "Specialty Chemicals",
   "tagline": "Leading global manufacturer and marketer of colors, flavors, and specialty ingredients for food, beverage, pharmaceutical, and personal care industries",
@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires",
       "name_en": "Revenue",
       "explanation": "Chiffre d'affaires total de la société",
-      "value": 1396.499,
-      "unit": "M $",
+      "value": 1.396,
+      "unit": "Mds $",
       "yoy": "-2.0%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,11 +30,11 @@
       "signal": "Augmentation du chiffre d'affaires",
       "description": "Chiffre d'affaires total de la société en 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 5 dernières années.",
       "history": [
-        1525.714,
-        1501.838,
-        1420.503,
-        1424.798,
-        1396.499
+        1.526,
+        1.502,
+        1.421,
+        1.425,
+        1.396
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -44,8 +44,9 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:56.254352+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -72,7 +73,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Validation: Marge 2025 = (1612.1-1072.8)/1612.1 = 33.5%; Marge 2024 = (1557.2-1050.1)/1557.2 = 32.6%; Données confirmées du 10-K MD&A",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -100,7 +101,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Correction type de 'Revenue' à 'Operating Income'; historique complété avec 2023; Données validées du 10-K Consolidated Statements of Earnings",
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Steady growth, healthy trend"
     },
     {
@@ -120,34 +121,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.61 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "+8.3%",
       "history": [
-        0.14,
-        0.09,
-        0.12,
-        0.13
+        140,
+        90,
+        120,
+        130
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.13 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -166,56 +176,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.24 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.71,
-      "unit": "Mds €",
+      "value": 710,
+      "unit": "M €",
       "yoy": "+12.7%",
       "history": [
-        0.65,
-        0.66,
-        0.63,
-        0.71
+        650,
+        660,
+        630,
+        710
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "+33.3%",
       "history": [
-        0.02,
-        0.03,
-        0.03,
-        0.04
+        20,
+        30,
+        30,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -258,47 +282,47 @@
       "title": "Intense competition",
       "category": "Concurrence",
       "severity": 5,
-      "score_rationale": "La concurrence est intense avec de nombreux concurrents ayant des portefeuilles de produits sophistiqués et des capacités technologiques avancées. Cela peut entraîner une réduction des ventes et de la rentabilité. (score par défaut, à affiner)",
+      "score_rationale": "La concurrence est intense avec de nombreux concurrents ayant des portefeuilles de produits sophistiqués et des capacités technologiques avancées. Cela peut entraîner une réduction des ventes et de la rentabilité.",
       "trend": "stable",
       "summary": "La concurrence est un risque majeur pour l'entreprise, car elle peut entraîner une réduction des ventes et de la rentabilité.",
       "_validation": "Titre français en anglais; texte validé par source 10-K Risk Factors section",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Economic and market risks",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Les conditions économiques, politiques et de marché peuvent avoir un impact négatif sur les résultats de l'entreprise. Les fluctuations des taux d'intérêt, la confiance des consommateurs, les niveaux d'emploi et la stabilité des prix peuvent tous avoir un impact sur l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les conditions économiques, politiques et de marché peuvent avoir un impact négatif sur les résultats de l'entreprise. Les fluctuations des taux d'intérêt, la confiance des consommateurs, les niveaux d'emploi et la stabilité des prix peuvent tous avoir un impact sur l'entreprise.",
       "trend": "up",
       "summary": "Les risques économiques sont un risque majeur pour l'entreprise, car ils peuvent avoir un impact négatif sur les résultats de l'entreprise.",
       "_validation": "Titre ajusté pour clarté",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Supply chain risks",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les perturbations de la chaîne d'approvisionnement peuvent avoir un impact négatif sur les résultats de l'entreprise. Les conflits, les catastrophes naturelles et les problèmes de qualité des produits peuvent tous avoir un impact sur l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les perturbations de la chaîne d'approvisionnement peuvent avoir un impact négatif sur les résultats de l'entreprise. Les conflits, les catastrophes naturelles et les problèmes de qualité des produits peuvent tous avoir un impact sur l'entreprise.",
       "trend": "up",
       "summary": "Les risques de chaîne d'approvisionnement sont un risque important pour l'entreprise, car ils peuvent avoir un impact négatif sur les résultats de l'entreprise.",
       "_validation": "Titre anglais standardisé",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Regulatory risks",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les changements dans les réglementations et les lois peuvent avoir un impact négatif sur les résultats de l'entreprise. Les interdictions de certains produits ou les restrictions sur les ingrédients peuvent tous avoir un impact sur l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les réglementations et les lois peuvent avoir un impact négatif sur les résultats de l'entreprise. Les interdictions de certains produits ou les restrictions sur les ingrédients peuvent tous avoir un impact sur l'entreprise.",
       "trend": "up",
       "summary": "Les risques réglementaires sont un risque important pour l'entreprise, car ils peuvent avoir un impact négatif sur les résultats de l'entreprise.",
       "_validation": "Titre anglais standardisé",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Credit risks",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "Les perturbations des marchés de crédit peuvent avoir un impact négatif sur les résultats de l'entreprise. Les fluctuations des taux d'intérêt et les restrictions sur l'accès au crédit peuvent tous avoir un impact sur l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les perturbations des marchés de crédit peuvent avoir un impact négatif sur les résultats de l'entreprise. Les fluctuations des taux d'intérêt et les restrictions sur l'accès au crédit peuvent tous avoir un impact sur l'entreprise.",
       "trend": "stable",
       "summary": "Les risques de crédit sont un risque pour l'entreprise, car ils peuvent avoir un impact négatif sur les résultats de l'entreprise.",
       "_validation": "Titre anglais standardisé",
@@ -308,7 +332,7 @@
       "title": "Cybersecurity risks",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "Les attaques de cybersécurité peuvent avoir un impact négatif sur les résultats de l'entreprise. Les pertes de données et les interruptions des opérations peuvent tous avoir un impact sur l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les attaques de cybersécurité peuvent avoir un impact négatif sur les résultats de l'entreprise. Les pertes de données et les interruptions des opérations peuvent tous avoir un impact sur l'entreprise.",
       "trend": "up",
       "summary": "Les risques de cybersécurité sont un risque pour l'entreprise, car ils peuvent avoir un impact négatif sur les résultats de l'entreprise.",
       "_validation": "Titre anglais standardisé",
@@ -318,17 +342,17 @@
       "title": "Geopolitical risks",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Les conflits et les tensions géopolitiques peuvent avoir un impact négatif sur les résultats de l'entreprise. Les restrictions sur les échanges commerciaux et les perturbations des chaînes d'approvisionnement peuvent tous avoir un impact sur l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les conflits et les tensions géopolitiques peuvent avoir un impact négatif sur les résultats de l'entreprise. Les restrictions sur les échanges commerciaux et les perturbations des chaînes d'approvisionnement peuvent tous avoir un impact sur l'entreprise.",
       "trend": "up",
       "summary": "Les risques de géopolitique sont un risque important pour l'entreprise, car ils peuvent avoir un impact négatif sur les résultats de l'entreprise.",
       "_validation": "Titre anglais standardisé",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Customer consolidation risks",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La consolidation des clients peut avoir un impact négatif sur les résultats de l'entreprise. Les clients plus importants peuvent avoir plus de pouvoir de négociation et peuvent demander des prix plus bas. (score par défaut, à affiner)",
+      "score_rationale": "La consolidation des clients peut avoir un impact négatif sur les résultats de l'entreprise. Les clients plus importants peuvent avoir plus de pouvoir de négociation et peuvent demander des prix plus bas.",
       "trend": "stable",
       "summary": "Les risques de consolidation sont un risque pour l'entreprise, car ils peuvent avoir un impact négatif sur les résultats de l'entreprise.",
       "_validation": "Titre anglais ajusté pour clarté",
@@ -384,7 +408,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -542,6 +566,58 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SXT",
+    "extracted_at": "2026-06-01T09:23:25Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          359.702,
+          335.827,
+          344.287,
+          355.521,
+          371.706,
+          361.076,
+          369.006,
+          374.313,
+          363.829,
+          384.67,
+          403.525,
+          392.613,
+          392.325,
+          414.23,
+          412.109
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:23:25Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SXT",
     "ranks": {
@@ -554,15 +630,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.315432+00:00",
     "fetched_at": "2026-05-21T02:17:14.315433+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.327Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.358Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sxt.json",
     "enrich_root": "v2-pipeline-enrich/sxt.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

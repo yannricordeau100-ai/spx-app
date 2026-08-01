@@ -48,7 +48,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:05.809482+00:00",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -81,8 +81,8 @@
       "name_fr": "Primes brutes - États-Unis et Amérique latine",
       "name_en": "Gross Premiums U.S. and Latin America",
       "explanation": "Gross assumed premiums from U.S. and Latin America operations",
-      "value": "8817",
-      "unit": "M $",
+      "value": 8.817,
+      "unit": "Mds $",
       "yoy": "-17.5%",
       "type": "Revenue",
       "nature": "Cyclical",
@@ -110,15 +110,16 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Premiums - U.S. and Latin America",
       "name_fr": "Primes nettes - États-Unis et Amérique latine",
       "name_en": "Net Premiums U.S. and Latin America",
       "explanation": "Net premiums after ceding to third parties",
-      "value": "8701",
-      "unit": "M $",
+      "value": 8.701,
+      "unit": "Mds $",
       "yoy": "-17.0%",
       "type": "Revenue",
       "nature": "Cyclical",
@@ -146,15 +147,16 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Premiums - Canada",
       "name_fr": "Primes brutes - Canada",
       "name_en": "Gross Premiums Canada",
       "explanation": "Gross assumed premiums from Canada operations",
-      "value": "1567",
-      "unit": "M $",
+      "value": 1.567,
+      "unit": "Mds $",
       "yoy": "2.6%",
       "type": "Revenue",
       "nature": "Cyclical",
@@ -182,15 +184,16 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Premiums - Canada",
       "name_fr": "Primes nettes - Canada",
       "name_en": "Net Premiums Canada",
       "explanation": "Net premiums after ceding to third parties from Canada",
-      "value": "1519",
-      "unit": "M $",
+      "value": 1.519,
+      "unit": "Mds $",
       "yoy": "4.3%",
       "type": "Revenue",
       "nature": "Cyclical",
@@ -218,7 +221,8 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Debt",
@@ -237,11 +241,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -260,10 +268,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 4.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -331,7 +343,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -345,7 +357,8 @@
       "severity": 5,
       "score_rationale": "Le risque est classé comme existentiel car une force accrue du dollar américain a un impact négatif direct sur le revenu avant impôts, avec une variation de 5 % du résultat pouvant représenter jusqu'à 77 millions de dollars. Le langage insiste sur l'impact significatif des taux de change. Comparé à l'année précédente, l'exposition augmente avec une base de revenu plus élevée. La catégorie Macro est fortement pondérée ici.",
       "trend": "stable",
-      "summary": "La force du dollar américain réduit les revenus en raison de l'exposition aux devises étrangères."
+      "summary": "La force du dollar américain réduit les revenus en raison de l'exposition aux devises étrangères.",
+      "score": 5
     },
     {
       "title": "Risque de capital insuffisant",
@@ -353,7 +366,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement défini comme la possibilité de ne pas disposer du capital nécessaire pour l'activité actuelle ou future. Il est évalué via des méthodologies économiques, réglementaires et de notation, ce qui montre son importance. Bien qu'aucun déficit actuel ne soit signalé, l'impact potentiel est élevé. Position centrale dans la gestion des risques.",
       "trend": "stable",
-      "summary": "Le manque de capital adéquat pourrait empêcher la société de fonctionner ou de se développer."
+      "summary": "Le manque de capital adéquat pourrait empêcher la société de fonctionner ou de se développer.",
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
@@ -361,7 +375,8 @@
       "severity": 4,
       "score_rationale": "Le risque est défini comme l'incapacité à honorer les obligations de paiement. La société modélise régulièrement des scénarios de stress, ce qui indique une vigilance élevée. Bien que les ressources actuelles soient jugées suffisantes, l'exposition aux chocs de marché ou spécifiques à l'entreprise est reconnue comme significative.",
       "trend": "stable",
-      "summary": "La société pourrait être incapable de faire face à ses obligations de paiement en cas de stress."
+      "summary": "La société pourrait être incapable de faire face à ses obligations de paiement en cas de stress.",
+      "score": 4
     },
     {
       "title": "Risque cyber et technologique",
@@ -369,7 +384,8 @@
       "severity": 4,
       "score_rationale": "Le risque inclut la sécurité des données, l'intégrité et la disponibilité, avec des mesures préventives mises en place. Le langage souligne la protection des données confidentielles. Étant donné l'ampleur des opérations mondiales, un incident pourrait avoir un impact majeur. Risque récurrent et bien documenté.",
       "trend": "stable",
-      "summary": "Une défaillance des systèmes ou une cyberattaque pourrait compromettre les données et les opérations."
+      "summary": "Une défaillance des systèmes ou une cyberattaque pourrait compromettre les données et les opérations.",
+      "score": 4
     },
     {
       "title": "Risque de conformité et de conduite",
@@ -377,7 +393,8 @@
       "severity": 4,
       "score_rationale": "Le risque couvre la corruption, la fraude, les sanctions économiques et la protection des données. Un programme de gestion des risques de conformité est en place, avec des évaluations annuelles. Le langage est ferme sur les obligations légales et réglementaires. L'impact réputationnel et pénal potentiel est élevé.",
       "trend": "stable",
-      "summary": "Des pratiques non éthiques ou non conformes pourraient entraîner des sanctions et nuire à la réputation."
+      "summary": "Des pratiques non éthiques ou non conformes pourraient entraîner des sanctions et nuire à la réputation.",
+      "score": 4
     },
     {
       "title": "Risque lié aux modèles actuariels",
@@ -385,7 +402,8 @@
       "severity": 4,
       "score_rationale": "Le risque concerne des écarts matériels dans les estimations utilisées pour les sinistres, les pertes d'investissement, etc. La société a un cadre de gestion des risques par modèles, ce qui montre son importance. Une erreur de modèle pourrait avoir des conséquences financières directes et significatives.",
       "trend": "stable",
-      "summary": "Des erreurs dans les modèles financiers ou actuariels pourraient entraîner des pertes importantes."
+      "summary": "Des erreurs dans les modèles financiers ou actuariels pourraient entraîner des pertes importantes.",
+      "score": 4
     },
     {
       "title": "Risque lié aux nouvelles normes comptables",
@@ -393,7 +411,8 @@
       "severity": 3,
       "score_rationale": "Les changements dans les principes comptables (FASB) peuvent impacter les résultats et la position financière. Mentionné dans les notes aux états financiers, mais sans indication d'impact majeur immédiat. Le risque est surveillé, mais le langage est neutre. Moins critique que d'autres, mais toujours pertinent.",
       "trend": "stable",
-      "summary": "L'adoption de nouvelles normes comptables pourrait affecter la présentation des résultats."
+      "summary": "L'adoption de nouvelles normes comptables pourrait affecter la présentation des résultats.",
+      "score": 3
     }
   ],
   "governance": {
@@ -479,7 +498,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.169Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.409Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/rga.json",
     "enrich_root": "v2-pipeline-enrich/rga.json",

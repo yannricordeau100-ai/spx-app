@@ -41,7 +41,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 14.15,
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "NIM",
@@ -68,8 +72,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 17.83,
-      "explanation_en": "Net Interest Margin — net interest income divided by earning assets (banks).",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Net Interest Margin, net interest income divided by earning assets (banks).",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "ER",
@@ -116,34 +124,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.85 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.52,
-      "unit": "Mds €",
+      "value": 520,
+      "unit": "M €",
       "yoy": "+85.7%",
       "history": [
-        0.22,
-        0.72,
-        0.28,
-        0.52
+        220,
+        720,
+        280,
+        520
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.52 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -162,11 +179,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 22.66 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -185,11 +206,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.39 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -208,10 +233,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 3.6 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -225,7 +254,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.7128,
         0.84,
@@ -238,7 +267,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -253,7 +282,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.055,
@@ -266,7 +295,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -281,7 +310,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         19.28,
@@ -294,7 +323,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -310,7 +339,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.46,
@@ -323,7 +352,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -351,9 +380,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Croissance",
-      "ttm": 27880,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 27880
     }
   ],
   "ai_positioning": {
@@ -367,55 +394,55 @@
       "title": "Cyberattaques pouvant perturber l'activité",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Le risque est en tête des facteurs de risque, avec une gouvernance dédiée au niveau du board et des comités. Le langage insiste sur la criticité des menaces et la dépendance aux systèmes IT. La catégorie cybersécurité est pondérée fortement dans le secteur financier tech-driven. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est en tête des facteurs de risque, avec une gouvernance dédiée au niveau du board et des comités. Le langage insiste sur la criticité des menaces et la dépendance aux systèmes IT. La catégorie cybersécurité est pondérée fortement dans le secteur financier tech-driven.",
       "trend": "stable",
       "summary": "Une cyberattaque réussie pourrait interrompre les opérations, compromettre des données sensibles et entraîner des pertes financières ou réputationnelles importantes.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à des fournisseurs technologiques",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Le document mentionne explicitement les risques liés aux fournisseurs dans le titre du chapitre 'Cybersecurity, Technology and Vendor Risks'. Bien que non détaillé ici, l'inclusion dans le titre principal indique une exposition significative. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne explicitement les risques liés aux fournisseurs dans le titre du chapitre 'Cybersecurity, Technology and Vendor Risks'. Bien que non détaillé ici, l'inclusion dans le titre principal indique une exposition significative.",
       "trend": "stable",
       "summary": "La société dépend de tiers pour des services technologiques critiques, dont la défaillance pourrait nuire à la continuité des opérations.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés au spin-off de LoyaltyOne",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné dans plusieurs sections (Item 3, Note 20) comme un point de vigilance juridique. Son maintien en 2025 suggère une exposition persistante, bien que non aggravée. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné dans plusieurs sections (Item 3, Note 20) comme un point de vigilance juridique. Son maintien en 2025 suggère une exposition persistante, bien que non aggravée.",
       "trend": "stable",
       "summary": "Des obligations ou litiges résiduels liés au spin-off de LoyaltyOne pourraient entraîner des coûts juridiques ou des pertes imprévues.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans les paiements",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le secteur des paiements tech est hautement concurrentiel. Bien que non explicité ici, le positionnement de BFH comme tech-forward implique une pression constante pour innover face à des fintechs et géants tech. (score par défaut, à affiner)",
+      "score_rationale": "Le secteur des paiements tech est hautement concurrentiel. Bien que non explicité ici, le positionnement de BFH comme tech-forward implique une pression constante pour innover face à des fintechs et géants tech.",
       "trend": "up",
       "summary": "La montée de concurrents technologiques menace la part de marché et les marges sur les produits de paiement et de crédit.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance aux partenaires de marque",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "BFH collabore avec des marques majeures (ex: Ulta, Victoria's Secret). La perte d'un partenaire important aurait un impact direct sur les revenus, comme indiqué dans la structure du modèle économique. (score par défaut, à affiner)",
+      "score_rationale": "BFH collabore avec des marques majeures (ex: Ulta, Victoria's Secret). La perte d'un partenaire important aurait un impact direct sur les revenus, comme indiqué dans la structure du modèle économique.",
       "trend": "stable",
       "summary": "La performance dépend fortement de la pérennité des relations avec des partenaires commerciaux clés, dont la rupture nuirait aux revenus et à la croissance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation financière croissante",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "En tant qu'institution financière avec des banques affiliées, BFH est soumise à une surveillance réglementaire stricte. Le risque est implicite dans le secteur et renforcé par la mention de restrictions légales sur les dividendes. (score par défaut, à affiner)",
+      "score_rationale": "En tant qu'institution financière avec des banques affiliées, BFH est soumise à une surveillance réglementaire stricte. Le risque est implicite dans le secteur et renforcé par la mention de restrictions légales sur les dividendes.",
       "trend": "up",
       "summary": "L'augmentation des exigences réglementaires dans les services financiers pourrait accroître les coûts de conformité et limiter la flexibilité opérationnelle.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -468,7 +495,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -555,7 +582,7 @@
   "company_description": "Bread Financial Holdings, Inc. provides tech-forward payment and lending solutions to customers and consumer-based industries in North America. It offers credit card and other loans financing services, including risk management solutions, underwriting, and funding services for private label and co-brand credit card programs, as well as through Bread Pay partnerships. The company also manages and services the loans it originates for private label, co-brand, and general-purpose credit card programs, and installment loans and split-pay products; and provides marketing, and data and analytics services. In addition, it offers an enhanced digital suite that includes a unified software development kit, which provides access to its suite of products, as well as promotes credit payment options earlier in the shopping experience. Further, the company through Bread Pay, a digital payments platform and robust suite of application programming interfaces allows merchants and partners to integrate online point-of-sale financing and other digital payment products. Additionally, it offers retail and deposit products, primarily in the form of certificates of deposit and high-yield savings accounts, including traditional and Roth Individual Retirement Accounts. The company offers its products under the Bread, Bread Financial, Bread Cashback, Bread Rewards, Bread Pay, and Bread Savings brands. The company was formerly known as Alliance Data Systems Corporation and changed its name to Bread Financial Holdings, Inc. in March 2022. Bread Financial Holdings, Inc. was incorporated in 1995 and is headquartered in Columbus, Ohio.",
   "_profile_fetched_at": "2026-05-07T11:54:22.011732+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:33Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2016,
@@ -577,7 +604,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:10Z"
   },
   "_eps_extracted_at": "2026-05-18T16:43:53Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Services financiers",
   "subsector_fr": "Crédit à la consommation",
   "enrich_description": {
@@ -688,23 +715,18 @@
         "history": [
           2.0479,
           2.2456,
-          -3.9718,
           2.268,
           2.275,
           2.399,
-          -4.677,
           2.716,
           2.736,
           2.864,
-          -5.398,
           3.032,
           3.17,
           3.112,
-          -6.263,
           3.068,
           3.166,
           3.317,
-          -6.224,
           3.325
         ],
         "history_periods": [
@@ -758,6 +780,9 @@
             "accession": "0001101215-26-000040",
             "end": "2026-03-31"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (BFH)"
         ]
       }
     ]
@@ -774,9 +799,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.229723+00:00",
     "fetched_at": "2026-05-21T02:17:14.229725+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.561Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.043Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bfh.json",
     "enrich_root": "v2-pipeline-enrich/bfh.json",

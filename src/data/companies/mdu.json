@@ -21,8 +21,8 @@
       "name_fr": "Revenu électrique",
       "name_en": "Electric Revenue",
       "explanation": "Revenu généré par la vente d'électricité",
-      "value": 1875.066,
-      "unit": "M $",
+      "value": 1.875,
+      "unit": "Mds $",
       "yoy": "+6.7%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,16 @@
       "signal": "Baisse du revenu électrique",
       "description": "Revenu électrique en baisse malgré une hausse des ventes, impacté par des dépenses d'exploitation et de maintenance accrues, notamment pour la maintenance planifiée de la centrale Coyote et les coûts de paie",
       "history": [
-        4128.828,
-        4443.351,
-        4531.552,
-        5336.776,
-        5532.75,
-        5680.733,
-        6973.864,
-        4657.34,
-        1757.978,
-        1875.066
+        4.129,
+        4.443,
+        4.532,
+        5.337,
+        5.533,
+        5.681,
+        6.974,
+        4.657,
+        1.758,
+        1.875
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -51,7 +51,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:17.811350+00:00",
       "explanation_en": "Revenue from the Electric segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Natural Gas Distribution Revenue",
@@ -124,34 +125,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.88 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "-32.1%",
       "history": [
-        0.37,
-        0.41,
-        0.28,
-        0.19
+        370,
+        410,
+        280,
+        190
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.19 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -170,11 +180,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.62 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,33 +207,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.68 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-57.1%",
       "history": [
-        0.03,
-        0.05,
-        0.07,
-        0.03
+        30,
+        50,
+        70,
+        30
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.03 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -233,7 +256,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.3259,
         0.3335,
@@ -246,7 +269,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -261,7 +284,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1843,
@@ -274,7 +297,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -289,7 +312,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         48.14,
@@ -302,7 +325,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -318,7 +341,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.81,
@@ -331,7 +354,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -360,9 +383,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 70.83,
-      "_validation": "Correction unité: Mds$ vers M$ (64.9 millions $ confirmés dans source financière)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Correction unité: Mds$ vers M$ (64.9 millions $ confirmés dans source financière)"
     }
   ],
   "ai_positioning": {
@@ -376,16 +397,16 @@
       "title": "Cyberattaque et perturbation technologique",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société mentionne explicitement les risques de cyberattaque et de perturbation technologique dans son rapport, avec une intensité de langage élevée et un contexte de vulnérabilité accrue. Gestion formalisée incluant plan d'escalade et tests annuels. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne explicitement les risques de cyberattaque et de perturbation technologique dans son rapport, avec une intensité de langage élevée et un contexte de vulnérabilité accrue. Gestion formalisée incluant plan d'escalade et tests annuels.",
       "trend": "stable",
       "summary": "La société est exposée aux risques de cyberattaque et de perturbation technologique, qui pourraient avoir un impact significatif sur ses opérations. Un plan de réponse aux incidents est testé annuellement.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation et conformité",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est soumise à des réglementations strictes de la part des commissions de services publics d'État et de la FERC, avec risques de non-conformité et d'impact sur les rendements autorisés. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations strictes de la part des commissions de services publics d'État et de la FERC, avec risques de non-conformité et d'impact sur les rendements autorisés.",
       "trend": "up",
       "summary": "La société doit naviguer dans un environnement réglementaire complexe couvrant les coûts, la récupération des investissements et les rendements, avec des risques de lenteur réglementaire.",
       "score": 3
@@ -394,16 +415,16 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 2,
-      "score_rationale": "La société opère dans un marché compétitif des services énergétiques, avec risques de perte de parts de marché et de pression tarifaire. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché compétitif des services énergétiques, avec risques de perte de parts de marché et de pression tarifaire.",
       "trend": "stable",
       "summary": "La société doit faire face à une concurrence dans le secteur de l'énergie, avec risques de perte de parts de marché et de pression sur les prix compétitifs.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Inflation et volatilité macroéconomique",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "La société est exposée aux risques d'inflation, aux variations de taux d'intérêt, aux changements tarifaires et à la volatilité des prix des matières premières, qui pourraient impacter ses coûts et marges. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques d'inflation, aux variations de taux d'intérêt, aux changements tarifaires et à la volatilité des prix des matières premières, qui pourraient impacter ses coûts et marges.",
       "trend": "up",
       "summary": "La société gère les pressions inflationnistes, les variations de taux d'intérêt, les impacts tarifaires et la volatilité des prix des matières premières, qui affectent les coûts d'exploitation et la demande.",
       "score": 3
@@ -412,7 +433,7 @@
       "title": "Changement climatique et environnement",
       "category": "Environnemental",
       "severity": 3,
-      "score_rationale": "La société est exposée aux lois, réglementations et initiatives de changement climatique qui peuvent nécessiter des investissements importants dans la modernisation des infrastructures. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux lois, réglementations et initiatives de changement climatique qui peuvent nécessiter des investissements importants dans la modernisation des infrastructures.",
       "trend": "up",
       "summary": "La société doit se conformer aux lois de changement climatique et investir dans la modernisation des infrastructures énergétiques pour répondre aux exigences réglementaires présentes et futures.",
       "score": 3
@@ -447,7 +468,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -531,7 +552,7 @@
   "_segments_fetched_at": "2026-05-06T19:35:50.161761+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:06:46.889560+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:26Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2009,
@@ -560,7 +581,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:23Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:06Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "MDU",
     "fetched_at": "2026-05-06T17:51:11.818515+00:00",
@@ -690,7 +711,10 @@
             "source": "calc-MDU_2026-02-20.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Pipeline Revenue",
@@ -752,7 +776,10 @@
             "source": "MDU_2023-11-02.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -768,9 +795,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.282209+00:00",
     "fetched_at": "2026-05-21T02:17:14.282210+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.391Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.232Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mdu.json",
     "enrich_root": "v2-pipeline-enrich/mdu.json",

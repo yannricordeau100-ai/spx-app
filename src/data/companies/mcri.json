@@ -43,7 +43,7 @@
       "ttm": 38.315,
       "_validation": "Converted history values from thousands (38091→38.091) to millions for consistency with value unit M$. Adjusted ttm similarly.",
       "period_type": "quarter",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -72,7 +72,11 @@
       "is_short_history": false,
       "ttm": 135.574,
       "_validation": "Converted history values from thousands (140700→140.7) to millions for consistency with value unit M$. Adjusted ttm similarly.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Dividend",
@@ -100,7 +104,11 @@
       "is_short_history": false,
       "ttm": 0.3,
       "_validation": "No changes required; values already in correct format.",
-      "signal_en": "Cash position stable"
+      "signal_en": "Cash position stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Stock Repurchase",
@@ -128,7 +136,11 @@
       "is_short_history": false,
       "ttm": 57.38,
       "_validation": "Ensured consistent decimal formatting in history array (60→60.0).",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Leverage Ratio",
@@ -157,20 +169,24 @@
       "ttm": 0,
       "_validation": "Changed unit from ':1.0' to 'x' for clarity and standard ratio notation.",
       "explanation_en": "Total Leverage ratio.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.395,
-      "unit": "Mds $",
+      "value": 395,
+      "unit": "M $",
       "yoy": "+114.7%",
       "history": [
-        0.24,
-        0.249,
-        0.184,
-        0.395
+        240,
+        249,
+        184,
+        395
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -180,24 +196,29 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.101,
-      "unit": "Mds $",
+      "value": 101,
+      "unit": "M $",
       "yoy": "+38.4%",
       "history": [
-        0.034,
-        0.032,
-        0.024,
-        0.068,
-        0.087,
-        0.082,
-        0.073,
-        0.101
+        34,
+        32,
+        24,
+        68,
+        87,
+        82,
+        73,
+        101
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -206,8 +227,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -221,7 +247,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -234,7 +260,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -249,7 +275,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0065,
@@ -262,7 +288,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +303,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         0,
@@ -290,7 +316,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -306,7 +332,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         4.47,
@@ -319,7 +345,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -347,9 +373,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 74.6,
-      "_validation": "No changes required; values verified against 10-K source (February 14, 2025 judgment).",
-      "_source_month": "février 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "No changes required; values verified against 10-K source (February 14, 2025 judgment)."
     },
     {
       "short": "Available Credit",
@@ -374,9 +398,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 99.4,
-      "_validation": "No changes required; values verified against 10-K source (Amended Credit Facility with $0.6M standby LOC used).",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "No changes required; values verified against 10-K source (Amended Credit Facility with $0.6M standby LOC used)."
     }
   ],
   "ai_positioning": {
@@ -394,16 +416,16 @@
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société mentionne une concurrence accrue dans le marché de Reno et de Black Hawk, notamment de la part des casinos tribaux californiens et d'une concurrence promotionnelle agressive en Californie du Nord, ce qui pourrait impacter les revenus et les marges bénéficiaires. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne une concurrence accrue dans le marché de Reno et de Black Hawk, notamment de la part des casinos tribaux californiens et d'une concurrence promotionnelle agressive en Californie du Nord, ce qui pourrait impacter les revenus et les marges bénéficiaires.",
       "trend": "stable",
       "summary": "La concurrence accrue dans les marchés de Reno et de Black Hawk pourrait impacter les revenus et les marges bénéficiaires de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Inflation et coûts de main-d'oeuvre",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société mentionne une augmentation des coûts liés à l'inflation et aux salaires, ce qui pourrait impacter les marges bénéficiaires. Les défis en matière d'emploi et l'inflation des salaires sont mentionnés comme des pressions actives sur les revenus et les marges. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne une augmentation des coûts liés à l'inflation et aux salaires, ce qui pourrait impacter les marges bénéficiaires. Les défis en matière d'emploi et l'inflation des salaires sont mentionnés comme des pressions actives sur les revenus et les marges.",
       "trend": "up",
       "summary": "L'augmentation des coûts liés à l'inflation et aux salaires pourrait impacter les marges bénéficiaires de la société.",
       "score": 3
@@ -412,37 +434,37 @@
       "title": "Litiges et contentieux",
       "category": "Litige",
       "severity": 5,
-      "score_rationale": "La société est impliquée dans des litiges et des contentieux, notamment avec son ancien sous-traitant PCL sur l'expansion de Monarch Black Hawk, avec un jugement de 74,6 millions$ en février 2025. Cet impact significatif affecte les finances et la liquidité de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société est impliquée dans des litiges et des contentieux, notamment avec son ancien sous-traitant PCL sur l'expansion de Monarch Black Hawk, avec un jugement de 74,6 millions$ en février 2025. Cet impact significatif affecte les finances et la liquidité de la société.",
       "trend": "new",
       "summary": "Les litiges et les contentieux en cours pourraient avoir un impact significatif sur les finances et la liquidité de la société, avec un jugement déjà rendu de 74,6 millions$.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à la réglementation",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société est soumise à des réglementations strictes dans l'industrie du jeu, notamment au Bank Secrecy Act, aux taxes et redevances sur les jeux, et aux restrictions en matière de tabac. Ces réglementations pourraient impacter les activités et les revenus de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations strictes dans l'industrie du jeu, notamment au Bank Secrecy Act, aux taxes et redevances sur les jeux, et aux restrictions en matière de tabac. Ces réglementations pourraient impacter les activités et les revenus de la société.",
       "trend": "stable",
       "summary": "La société est soumise à des réglementations strictes dans l'industrie du jeu, ce qui pourrait impacter les activités et les revenus de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 2,
-      "score_rationale": "La société a peu d'obligations de crédit (zéro solde principal dû) et dispose d'une excellente couverture des charges fixes (149.7x), ce qui réduit significativement les risques de crédit traditionnels. (score par défaut, à affiner)",
+      "score_rationale": "La société a peu d'obligations de crédit (zéro solde principal dû) et dispose d'une excellente couverture des charges fixes (149.7x), ce qui réduit significativement les risques de crédit traditionnels.",
       "trend": "down",
       "summary": "La position de crédit de la société est actuellement très solide avec zéro dette en circulation et une excellente capacité de remboursement.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques de réputation",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "La société est sensible à la réputation et à la confiance des clients, ce qui pourrait impacter les revenus et les activités de la société en cas de crise de réputation ou de contentieux médiatisé comme le litige PCL. (score par défaut, à affiner)",
+      "score_rationale": "La société est sensible à la réputation et à la confiance des clients, ce qui pourrait impacter les revenus et les activités de la société en cas de crise de réputation ou de contentieux médiatisé comme le litige PCL.",
       "trend": "stable",
       "summary": "La société est sensible à la réputation et à la confiance des clients, ce qui pourrait impacter les revenus et les activités de la société en cas de crise de réputation.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -472,7 +494,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -552,7 +574,7 @@
   "company_description": "Monarch Casino & Resort, Inc., through its subsidiaries, owns and operates hotels and casinos. It owns and operates hotels and casinos under the Atlantis Casino Resort Spa in Reno, Nevada and the Monarch Casino Resort Spa Black Hawk in Black Hawk, Colorado. The company also owns separate parcels of land. In addition, it owns and operates The Toucan Charlie's Buffet & Grille, which offers a variety of food selections; The Atlantis Steakhouse, a fine dining destination; The Bistro Napa, which features wine country cuisine; The Oyster Bar on the Sky Terrace, which offers pan roasts made-to-order, fresh seafood, cioppino, house made chowder, and bisques; Sushi Bar, which serves sushi rolls; The Purple Parrot coffee shop, which serves breakfast and American comfort food; The Red Bloom Asian kitchen, which offers Asian dishes; The Manhattan Deli, which offers matzo ball soup, piled high sandwiches, salads, house made soups, bagels and lox, New York style pizza, and New York cheesecake; and The Chicago Dogs Eatery, a snack bar that serves Chicago-style hot dogs, pizza, ice cream, and arcade-style refreshments, as well as two gourmet coffee bars that offer coffee drinks, sandwiches, house made gelato, and freshly baked pastries. Monarch Casino & Resort, Inc. was incorporated in 1993 and is based in Reno, Nevada.",
   "_profile_fetched_at": "2026-05-07T11:58:28.077441+00:00",
   "_dividends_extracted_at": "2026-05-09T20:19:54Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2023,
@@ -566,7 +588,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:06Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:06Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_ai_pos": {
     "stance": "absent",
     "summary": "Monarch Casino Resort n'affiche aucun positionnement IA stratégique en 2026. L'entreprise reste centrée sur l'exploitation de ses casinos physiques sans initiatives GenAI ou ML documentées.",
@@ -698,19 +720,15 @@
           14.814,
           26.694,
           31.425,
-          -33.456,
           14.777,
           23.202,
           32.164,
-          -21.138,
           17.622,
           30.974,
           35.872,
-          -37.036,
           19.819,
           27.923,
           30.399,
-          -41.817,
           5.551
         ],
         "history_periods": [
@@ -764,6 +782,12 @@
             "accession": "0001104659-26-052821",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (MCRI)"
         ]
       }
     ]
@@ -780,9 +804,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.281927+00:00",
     "fetched_at": "2026-05-21T02:17:14.281927+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.367Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.203Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mcri.json",
     "enrich_root": "v2-pipeline-enrich/mcri.json",

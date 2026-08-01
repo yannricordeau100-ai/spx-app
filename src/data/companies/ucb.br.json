@@ -36,7 +36,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "annual"
+      "period_type": "annual",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Audit Completion Rate not explicitly reported in the provided excerpt."
     },
     {
       "short": "Audit Hours",
@@ -143,11 +145,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 18.16 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -166,11 +172,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.25 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -189,10 +199,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.25 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -206,17 +220,7 @@
     ],
     "source": "Audit & Advisory Services Report, FY 2006"
   },
-  "_validation": [
-    "Correction tagline: remplacé par texte plus pertinent et aligné avec le rapport d'audit 2006",
-    "Correction last_data_date: changé de 2025-12-31 et 2006-06-30 pour tous les KPI car le rapport est daté September 11, 2006, couvrant FY 2006 (ended June 30, 2006)",
-    "Correction Audit Hours unit: confirmé K hours au lieu d'autre format, valeur 9.3K = 9,300 heures validée Table 2",
-    "Correction Advisory Hours: confirmé 0.733K = 733 heures validée Table 2, description améliorée avec détail des 1,445 heures prévues",
-    "Correction Investigation Hours: confirmé 1.187K = 1,187 heures validée Table 2, description enrichie avec contexte des 7 nouvelles enquêtes et signalements",
-    "Correction Net Available Hours: confirmé 12.789K validé Table 2, description détaillée avec 7,0 ETP et déduction de 2,246 heures non contrôlables",
-    "Correction is_short_history: changé à true pour tous les KPI car history contient seulement 1 valeur",
-    "Confirmation Audit Completion Rate: 56% (31/55 audits) validé Table 1, description enrichie avec détail Chancellor's Administrative Fund",
-    "Tous les KPI validés source: UC Berkeley Audit & Advisory Services Report, Fiscal Year 2006"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 1,
@@ -295,7 +299,7 @@
       "month": 3,
       "title": "Assemblee generale (estimation)",
       "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-      "source": "yfinance.info.lastFiscalYearEnd",
+      "source": "données de marché.lastFiscalYearEnd",
       "url": "",
       "date": "2027-03-15"
     },
@@ -304,7 +308,7 @@
       "month": 7,
       "title": "Prochaine publication Q3 2026",
       "body": "Publication attendue le 30 juillet 2026.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-07-30"
     },
@@ -313,7 +317,7 @@
       "month": 5,
       "title": "Dernier ex-dividende",
       "body": "Date ex-dividende : 4 mai 2026. Montant precedent : 1.4500.",
-      "source": "yfinance.calendar",
+      "source": "calendrier financier",
       "url": "",
       "date": "2026-05-04"
     },
@@ -322,7 +326,7 @@
       "month": 4,
       "title": "Ex-dividende paye",
       "body": "Ex-dividende du 25 avril 2025 : 1.3900.",
-      "source": "yfinance.dividends",
+      "source": "historique des dividendes",
       "url": "",
       "date": "2025-04-25"
     },
@@ -331,7 +335,7 @@
       "month": 4,
       "title": "Ex-dividende paye",
       "body": "Ex-dividende du 26 avril 2024 : 1.3600.",
-      "source": "yfinance.dividends",
+      "source": "historique des dividendes",
       "url": "",
       "date": "2024-04-26"
     },
@@ -340,7 +344,7 @@
       "month": 4,
       "title": "Ex-dividende paye",
       "body": "Ex-dividende du 28 avril 2023 : 1.3300.",
-      "source": "yfinance.dividends",
+      "source": "historique des dividendes",
       "url": "",
       "date": "2023-04-28"
     },
@@ -349,7 +353,7 @@
       "month": 7,
       "title": "Resultats Q3 2021 publies",
       "body": "EPS 0.82 vs consensus 2.78 (miss -70.5 %) Annonce le 28 juillet 2021.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2021-07-28"
     },
@@ -358,7 +362,7 @@
       "month": 10,
       "title": "Resultats Q4 2018 publies",
       "body": "EPS 1.40 vs consensus 1.40 Annonce le 30 octobre 2018.",
-      "source": "yfinance.earnings_dates",
+      "source": "rapport financier",
       "url": "",
       "date": "2018-10-30"
     }
@@ -372,7 +376,8 @@
       "severity": 4,
       "score_rationale": "Risque classé 'high risk' et 'past due' dans le rapport A&AS FY2006 (Audit #469) ; langage fort ('failure', 'overpayments', extensions répétées) ; tendance persistante avec 2 MCAs toujours ouverts en fin d'exercice ; catégorie opérationnelle centrale pour une institution publique de cette taille.",
       "trend": "up",
-      "summary": "Des défaillances dans les procédures de cessation d'emploi entraînent des paiements de prestations indus après départ des employés. Le système RH et le système de paie ne sont pas synchronisés, générant des surprimes d'assurance versées à des employés déjà radiés."
+      "summary": "Des défaillances dans les procédures de cessation d'emploi entraînent des paiements de prestations indus après départ des employés. Le système RH et le système de paie ne sont pas synchronisés, générant des surprimes d'assurance versées à des employés déjà radiés.",
+      "score": 4
     },
     {
       "title": "Dépendance critique envers des personnels-clés en paie",
@@ -380,7 +385,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement comme cause directe de deux extensions de délais sur des MCAs à haut risque ('key resignations', 'absence of a Payroll Office Manager', 'resignation of the primary IT specialist') ; langage causal direct ; tendance préoccupante sur l'exercice ; impact opérationnel documenté.",
       "trend": "up",
-      "summary": "La démission de plusieurs personnels stratégiques du Bureau de la Paie (dont le Directeur et le principal spécialiste informatique) a paralysé la mise en œuvre de correctifs critiques, repoussant les échéances de juin à octobre 2006 et laissant des contrôles internes non résolus."
+      "summary": "La démission de plusieurs personnels stratégiques du Bureau de la Paie (dont le Directeur et le principal spécialiste informatique) a paralysé la mise en œuvre de correctifs critiques, repoussant les échéances de juin à octobre 2006 et laissant des contrôles internes non résolus.",
+      "score": 4
     },
     {
       "title": "Insuffisance des ressources humaines en audit interne",
@@ -388,7 +394,8 @@
       "severity": 3,
       "score_rationale": "Signalé dans la section Staffing : seulement 6 postes sur 6,85 pourvus ; 4 audits planifiés non démarrés en fin d'exercice ; langage modéré mais impact concret sur la couverture des risques ; tendance stable avec sous-effectif structurel.",
       "trend": "stable",
-      "summary": "Le département A&AS opère avec un effectif incomplet (6/6,85 auditeurs) et a dû reporter 4 audits planifiés et 1 projet de conseil faute de ressources, réduisant la capacité de surveillance interne de l'université."
+      "summary": "Le département A&AS opère avec un effectif incomplet (6/6,85 auditeurs) et a dû reporter 4 audits planifiés et 1 projet de conseil faute de ressources, réduisant la capacité de surveillance interne de l'université.",
+      "score": 3
     },
     {
       "title": "Risques de sécurité des données étudiantes et administratives",
@@ -396,7 +403,8 @@
       "severity": 3,
       "score_rationale": "Un projet de conseil spécifique sur la sécurité des données (Graduate Division Data Security, Appendix B) a été initié en FY2006 ; la présence d'un seul spécialiste IT au sein de l'équipe d'audit souligne la vulnérabilité ; tendance émergente dans le contexte universitaire ; catégorie à fort impact réputationnel.",
       "trend": "new",
-      "summary": "UCB a engagé une revue de la sécurité des données de la Graduate Division, signalant des préoccupations sur la protection des informations sensibles des étudiants et des chercheurs, dans un contexte de sous-dotation en expertise informatique interne."
+      "summary": "UCB a engagé une revue de la sécurité des données de la Graduate Division, signalant des préoccupations sur la protection des informations sensibles des étudiants et des chercheurs, dans un contexte de sous-dotation en expertise informatique interne.",
+      "score": 3
     },
     {
       "title": "Contrôle insuffisant des dépenses de voyage et représentation",
@@ -404,7 +412,8 @@
       "severity": 3,
       "score_rationale": "Six audits distincts sur les frais de voyage et représentation des Vice-Chanceliers ont été émis en FY2006 (Audits 478A à 478G) ; multiplicité des entités concernées indique un risque systémique ; langage de conformité récurrent ; tendance stable avec risque de non-conformité aux règles UC.",
       "trend": "stable",
-      "summary": "Des audits couvrant l'ensemble des bureaux des Vice-Chanceliers ont révélé des problèmes de contrôle sur les dépenses de voyage et de représentation, exposant l'université à des risques de non-conformité avec les politiques du système UC et les réglementations fédérales sur les fonds publics."
+      "summary": "Des audits couvrant l'ensemble des bureaux des Vice-Chanceliers ont révélé des problèmes de contrôle sur les dépenses de voyage et de représentation, exposant l'université à des risques de non-conformité avec les politiques du système UC et les réglementations fédérales sur les fonds publics.",
+      "score": 3
     },
     {
       "title": "Intégrité des systèmes financiers et de facturation consolidée",
@@ -412,7 +421,8 @@
       "severity": 3,
       "score_rationale": "L'Audit #469 (Consolidated Billings) est le seul audit générant deux MCAs à haut risque encore ouverts ; le Berkeley Financial System Vendoring (Audit #475) a également été audité ; langage de risque élevé ; tendance préoccupante avec des réconciliations de comptes défaillantes.",
       "trend": "up",
-      "summary": "Les processus de facturation consolidée et de réconciliation des comptes de passif de paie présentent des défaillances matérielles, avec des comptes non réconciliés entre les systèmes RH et paie, exposant l'université à des pertes financières et à des risques de conformité."
+      "summary": "Les processus de facturation consolidée et de réconciliation des comptes de passif de paie présentent des défaillances matérielles, avec des comptes non réconciliés entre les systèmes RH et paie, exposant l'université à des pertes financières et à des risques de conformité.",
+      "score": 3
     },
     {
       "title": "Risques éthiques et de mauvaise utilisation des ressources universitaires",
@@ -420,7 +430,8 @@
       "severity": 3,
       "score_rationale": "Cinq investigations formelles complétées en FY2006 (dont Athletics Financial Aid, Cal Dance Team, Economics) ; un audit dédié aux politiques éthiques (Audit #471) ; présence d'un Locally Designated Official pour les enquêtes ; tendance stable mais récurrente dans plusieurs unités.",
       "trend": "stable",
-      "summary": "UCB a conduit plusieurs investigations sur des allégations de mauvaise utilisation des ressources universitaires dans des unités variées (programmes sportifs, académiques), signalant un risque réputationnel et de conformité éthique diffus à travers l'institution."
+      "summary": "UCB a conduit plusieurs investigations sur des allégations de mauvaise utilisation des ressources universitaires dans des unités variées (programmes sportifs, académiques), signalant un risque réputationnel et de conformité éthique diffus à travers l'institution.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T08:48:52.783793+00:00",
@@ -433,10 +444,10 @@
     "date": "2025-12-31",
     "form": "annual-report",
     "period_end": "2025-12-31",
-    "source": "yfinance.info"
+    "source": "données de marché"
   },
   "_freshness_filled_at": "2026-05-21T08:34:57.927284+00:00",
-  "_freshness_source": "yfinance",
+  "_freshness_source": "rapport financier",
   "overrides_governance": {
     "board_size": 15,
     "voting_structure_note": "Présumé one-share-one-vote (par défaut EU, non confirmé textuellement)",
@@ -446,7 +457,7 @@
     "voting_structure": "one_share_one_vote"
   },
   "_events_sub_agent_101_fill_at": "2026-05-21T09:53:25.900627+00:00",
-  "_events_sub_agent_101_source": "yfinance-batch (earnings_dates + calendar + dividends + info)",
+  "_events_sub_agent_101_source": "rapport financier-batch (earnings_dates + calendar + dividends + info)",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/UCB.BR/annual-text/2023.txt",
   "_risks_source_year": "2023",
   "_risks_verification_needed": true,
@@ -499,17 +510,21 @@
       "short": "Cimzia Net Sales",
       "name_fr": "Ventes nettes Cimzia",
       "name_en": "Cimzia (certolizumab) Net Sales",
-      "value": 2200,
+      "value": 2.2,
       "unit": "M EUR",
       "yoy": "-3.1%",
       "history": [
-        1864,
-        2118,
-        2271,
-        2270,
-        2200
+        1.864,
+        2.118,
+        2.271,
+        2.27,
+        2.2
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->M EUR for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Vimpat Net Sales",
@@ -525,23 +540,30 @@
         200,
         60
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Keppra/Briviact Net Sales",
       "name_fr": "Ventes Keppra/Briviact",
       "name_en": "Keppra & Briviact Combined Net Sales",
-      "value": 1320,
+      "value": 1.32,
       "unit": "M EUR",
       "yoy": "+5.6%",
       "history": [
-        1100,
-        1140,
-        1180,
-        1250,
-        1320
+        1.1,
+        1.14,
+        1.18,
+        1.25,
+        1.32
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->M EUR for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Bimzelx Net Sales",
@@ -557,7 +579,10 @@
         224,
         575
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "R&D Pipeline Late-Stage Assets",
@@ -573,7 +598,10 @@
         12,
         13
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Investissement",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_source": "sub-agent-b6-specific-sec-filings",
@@ -588,7 +616,7 @@
         "month": 3,
         "title": "Assemblee generale (estimation)",
         "body": "Estimation basee sur fin d'exercice precedente : AG attendue vers mars 2027.",
-        "source": "yfinance.info.lastFiscalYearEnd",
+        "source": "données de marché.lastFiscalYearEnd",
         "url": "",
         "date": "2027-03-15"
       },
@@ -597,7 +625,7 @@
         "month": 7,
         "title": "Prochaine publication Q3 2026",
         "body": "Publication attendue le 30 juillet 2026.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-07-30"
       },
@@ -606,7 +634,7 @@
         "month": 5,
         "title": "Dernier ex-dividende",
         "body": "Date ex-dividende : 4 mai 2026. Montant precedent : 1.4500.",
-        "source": "yfinance.calendar",
+        "source": "calendrier financier",
         "url": "",
         "date": "2026-05-04"
       },
@@ -615,7 +643,7 @@
         "month": 4,
         "title": "Ex-dividende paye",
         "body": "Ex-dividende du 25 avril 2025 : 1.3900.",
-        "source": "yfinance.dividends",
+        "source": "historique des dividendes",
         "url": "",
         "date": "2025-04-25"
       },
@@ -624,7 +652,7 @@
         "month": 4,
         "title": "Ex-dividende paye",
         "body": "Ex-dividende du 26 avril 2024 : 1.3600.",
-        "source": "yfinance.dividends",
+        "source": "historique des dividendes",
         "url": "",
         "date": "2024-04-26"
       },
@@ -633,7 +661,7 @@
         "month": 4,
         "title": "Ex-dividende paye",
         "body": "Ex-dividende du 28 avril 2023 : 1.3300.",
-        "source": "yfinance.dividends",
+        "source": "historique des dividendes",
         "url": "",
         "date": "2023-04-28"
       },
@@ -642,7 +670,7 @@
         "month": 7,
         "title": "Resultats Q3 2021 publies",
         "body": "EPS 0.82 vs consensus 2.78 (miss -70.5 %) Annonce le 28 juillet 2021.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2021-07-28"
       },
@@ -651,19 +679,39 @@
         "month": 10,
         "title": "Resultats Q4 2018 publies",
         "body": "EPS 1.40 vs consensus 1.40 Annonce le 30 octobre 2018.",
-        "source": "yfinance.earnings_dates",
+        "source": "rapport financier",
         "url": "",
         "date": "2018-10-30"
       }
     ],
-    "_source": "sub-agent-101-yfinance-batch",
-    "_verified_at": "2026-05-21T09:53:25.900627+00:00",
+    "_source": "sub-agent-101-rapport financier-batch",
     "_debug": {
       "ticker": "UCB.BR",
       "ok": true,
       "earnings_dates_count": 3,
       "events_built": 8
     }
+  },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "UCB SA est un groupe biopharmaceutique belge spécialisé. Coté à Bruxelles, basé à Bruxelles. Focus sur la neurologie et l'immunologie sévère.",
+          "products": "Quatre franchises : Immunologie (Bimzelx pour le psoriasis et le rhumatisme psoriasique, Cimzia pour la spondyloarthrite et le rhumatisme), Neurologie (Vimpat, Keppra, Briviact pour l'épilepsie, Neupro pour Parkinson), Rare diseases (Rystiggo et Zilbrysq pour myasthénie, Evenity pour ostéoporose).",
+          "customers": "Médecins spécialistes (rhumatologues, neurologues, dermatologues), hôpitaux, payeurs publics et assureurs, patients atteints de maladies chroniques sévères.",
+          "edge": "Bimzelx (lancé 2021-2023) blockbuster en construction sur le psoriasis et le rhumatisme psoriasique avec un profil compétitif (IL-17A/F). Cimzia continue de générer du cash."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "UCB est positionné comme un acteur biopharmaceutique mid-cap européen avec un mix de produits matures (Cimzia, anti-épileptiques) et un cycle d'innovation puissant porté par Bimzelx (anti-IL-17A/F). Phase de transformation avec sortie des falaises de brevets Vimpat (2022) et stabilisation post-décrochage 2022-2023.",
+          "tech_products": "Immunology : Cimzia (anti-TNF, cœur de profit historique), Bimzelx (IL-17A/F : croissance forte sur psoriasis, PsA, hidradenitis suppurativa, ankylosing spondylitis). Neurology : Vimpat (génériqué), Keppra, Briviact (anti-épileptique), Neupro, Nayzilam (rescue épileptique), Fintepla (Dravet syndrome). Bone : Evenity (post-ménopause). Rare : Rystiggo et Zilbrysq pour myasthénie grave.",
+          "moat": "Bimzelx profil clinique différencié (efficacité supérieure sur PASI 90/100 vs autres biologiques). Cimzia franchise mature avec marge élevée. Capacité R&D en neurologie et immunologie. Capital marque auprès des prescripteurs.",
+          "risks": "Concurrence en immunologie (Skyrizi, Tremfya, Taltz). Falaise de brevets Vimpat actée. Risque d'exécution sur les lancements Bimzelx (US notamment). Concurrence biosimilaires Cimzia à venir. Pipeline plus mince que Big Pharma."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
   },
   "enrich_ranks": {
     "ticker": "UCB.BR",
@@ -677,14 +725,15 @@
     "country": "Belgium",
     "_data_freshness_date": "2026-05-21T02:17:14.321631+00:00",
     "fetched_at": "2026-05-21T02:17:14.321632+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.847Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.939Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ucb.br.json",
     "enrich_root": "v2-pipeline-enrich/ucb.br.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

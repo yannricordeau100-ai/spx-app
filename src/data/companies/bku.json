@@ -37,7 +37,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'B $' pour cohérence standard",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet."
     },
     {
       "short": "Net Interest Margin",
@@ -88,7 +88,7 @@
       "is_short_history": false,
       "ttm": 32.98,
       "_validation": "Pas de correction",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -114,11 +114,14 @@
       "is_short_history": false,
       "ttm": 1.89,
       "_validation": "Renommé de 'R&D' à 'Technology Investment', name_fr corrigé pour mieux refléter la nature des dépenses bancaires",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Technology Investment' (% revenu) non trouvé dans l'extrait fourni. Le document contient uniquement la table des matières, les rapports",
       "explanation_en": "Investment in Technology.",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Headcount",
@@ -143,7 +146,7 @@
       "is_short_history": false,
       "ttm": 2.13,
       "_validation": "Value converti en string pour cohérence de formatting, history[0] corrigé de 2 à 2.0",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -188,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.87 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "-55.1%",
       "history": [
-        0.57,
-        0.59,
-        0.49,
-        0.22
+        570,
+        590,
+        490,
+        220
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.22 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -241,9 +253,7 @@
       "is_short_history": false,
       "story_category": "Marché",
       "ttm": 18.99,
-      "_validation": "Unité corrigée de 'Mds $' à 'B $', comparable changé de 'Non comparable' à 'Comparable', value converti en string",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'B $', comparable changé de 'Non comparable' à 'Comparable', value converti en string"
     },
     {
       "short": "Wholesale Funding",
@@ -268,9 +278,7 @@
       "is_short_history": false,
       "story_category": "Marché",
       "ttm": 7.96,
-      "_validation": "Unité corrigée de 'Mds $' à 'B $', comparable changé de 'Non comparable' à 'Comparable', value converti en string",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité corrigée de 'Mds $' à 'B $', comparable changé de 'Non comparable' à 'Comparable', value converti en string"
     }
   ],
   "ai_positioning": {
@@ -284,52 +292,52 @@
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société est exposée à une concurrence accrue de la part d'autres institutions financières régionales et nationales et de fournisseurs de services financiers numériques, ce qui pourrait impacter sa capacité à attirer et retenir des clients. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à une concurrence accrue de la part d'autres institutions financières régionales et nationales et de fournisseurs de services financiers numériques, ce qui pourrait impacter sa capacité à attirer et retenir des clients.",
       "trend": "up",
       "summary": "La concurrence dans le secteur financier bancaire s'intensifie, menaçant la capacité de la société à maintenir ses marges et parts de marché.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "La société est exposée au risque de crédit, notamment sur son portefeuille de prêts commerciaux concentré, ce qui pourrait entraîner des pertes importantes si ses clients ne peuvent pas rembourser. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de crédit, notamment sur son portefeuille de prêts commerciaux concentré, ce qui pourrait entraîner des pertes importantes si ses clients ne peuvent pas rembourser.",
       "trend": "stable",
       "summary": "Le risque de crédit est inhérent à l'activité de prêt, et la société doit gérer strictement ce risque pour minimiser les pertes potentielles.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Réglementation",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société est soumise à des réglementations strictes en matière de capital, de liquidité et de gestion des risques; les changements réglementaires pourraient impacter ses activités et résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations strictes en matière de capital, de liquidité et de gestion des risques; les changements réglementaires pourraient impacter ses activités et résultats financiers.",
       "trend": "up",
       "summary": "Les réglementations bancaires et financières sont en constante évolution, et la société doit s'adapter rapidement pour rester conforme.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
       "category": "Marché",
       "severity": 4,
-      "score_rationale": "La rentabilité de la société dépend fortement des taux d'intérêt. Une baisse prolongée des taux pourrait compresser la marge nette d'intérêt et réduire la rentabilité. (score par défaut, à affiner)",
+      "score_rationale": "La rentabilité de la société dépend fortement des taux d'intérêt. Une baisse prolongée des taux pourrait compresser la marge nette d'intérêt et réduire la rentabilité.",
       "trend": "up",
       "summary": "Les mouvements des taux d'intérêt peuvent matérialement affecter la marge nette d'intérêt et les revenus d'exploitation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Perte de talents clés",
       "category": "Personne-clé",
       "severity": 4,
-      "score_rationale": "La société dépend de ses dirigeants et équipes de relation client expérimentées pour exécuter sa stratégie. La perte de talents clés pourrait impacter la rétention des clients et la croissance. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de ses dirigeants et équipes de relation client expérimentées pour exécuter sa stratégie. La perte de talents clés pourrait impacter la rétention des clients et la croissance.",
       "trend": "stable",
       "summary": "La société doit attirer et retenir des talents qualifiés en gestion de relation et expertise métier pour rester compétitive.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "La société pourrait faire face à des risques de liquidité en cas de perturbations de marché ou de sorties de dépôts non anticipées, impactant son accès au financement. (score par défaut, à affiner)",
+      "score_rationale": "La société pourrait faire face à des risques de liquidité en cas de perturbations de marché ou de sorties de dépôts non anticipées, impactant son accès au financement.",
       "trend": "up",
       "summary": "La société doit gérer activement sa structure de financement et ses sources de liquidité pour éviter les tensions de trésorerie.",
       "score": 3
@@ -338,7 +346,7 @@
       "title": "Risque réputationnel",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "La société est exposée aux risques réputationnels liés à des problèmes de conformité, de service client ou de gestion des risques de crédit. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques réputationnels liés à des problèmes de conformité, de service client ou de gestion des risques de crédit.",
       "trend": "stable",
       "summary": "La société doit maintenir des standards élevés de conformité, d'éthique et de gestion des risques pour préserver sa réputation.",
       "score": 3
@@ -389,7 +397,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -494,6 +502,95 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "BKU",
+    "extracted_at": "2026-06-01T03:02:42Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          35.815,
+          36.332,
+          36.551,
+          36.595,
+          37.189,
+          35.871,
+          35.39,
+          35.106,
+          35.428,
+          35.785,
+          34.832,
+          35.46,
+          35.076
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:02:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Core Deposits",
+        "period_type": "quarter",
+        "history": [
+          29.438,
+          28.541,
+          28.461,
+          27.349,
+          25.723,
+          25.839,
+          26.113,
+          27.027,
+          27.764,
+          27.856,
+          28.058,
+          28.646,
+          28.618
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:02:42Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "BKU",
     "ranks": {
@@ -506,14 +603,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.231130+00:00",
     "fetched_at": "2026-05-21T02:17:14.231131+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.698Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.180Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bku.json",
     "enrich_root": "v2-pipeline-enrich/bku.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

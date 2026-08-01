@@ -40,7 +40,11 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Year-over-year growth in Total Organic Revenue.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Organic EBITDA Growth",
@@ -66,7 +70,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Year-over-year growth in Total Organic EBITDA.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Normalized EPS",
@@ -90,7 +98,11 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Underlying EPS",
@@ -114,7 +126,11 @@
       "last_data_date": "2022-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Organic Volume Growth",
@@ -140,7 +156,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Year-over-year growth in Total Organic Volume.",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,11 +179,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 218.81 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -182,11 +206,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 73.03 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -205,10 +233,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 11.53 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -240,8 +272,7 @@
   "profit_warning": {
     "last_date": null,
     "score": 2,
-    "rationale": "Hero KPI Total Organic Revenue Growth en croissance soutenue (+11.4%), faible probabilité de profit warning. Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
-    "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
+    "rationale": "Hero KPI Total Organic Revenue Growth en croissance soutenue (+11.4%), faible probabilité de profit warning. Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call."
   },
   "governance": {
     "ceo_name": "Mr. Michel Dimitrios  Doukeris",
@@ -284,7 +315,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur mentionné dès le résumé exécutif (p.1) avec langage intensif ('could have an adverse effect'). Affecte directement la marge brute et la compétitivité tarifaire. Tendance stable mais exacerbée par géopolitique. Poids catégorie élevé pour secteur boissons.",
       "trend": "stable",
-      "summary": "AB InBev dépend fortement de la disponibilité et du prix des matières premières (orge, houblon, aluminium), de l'énergie et de l'eau. Les pressions inflationnistes, instabilité géopolitique (Russie-Ukraine, Moyen-Orient) et tarifs douaniers créent une volatilité des coûts de production difficile à répercuter intégralement sur les prix de vente sans perdre en compétitivité."
+      "summary": "AB InBev dépend fortement de la disponibilité et du prix des matières premières (orge, houblon, aluminium), de l'énergie et de l'eau. Les pressions inflationnistes, instabilité géopolitique (Russie-Ukraine, Moyen-Orient) et tarifs douaniers créent une volatilité des coûts de production difficile à répercuter intégralement sur les prix de vente sans perdre en compétitivité.",
+      "score": 5
     },
     {
       "title": "Dépendance envers distributeurs indépendants et consolidation retail",
@@ -292,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité dans résumé risques (p.1) comme risque métier clé. Langage modéré mais reconnaît vulnérabilité structurelle. Tendance up : consolidation retail accélère. Poids catégorie critique pour modèle distribution brasserie.",
       "trend": "up",
-      "summary": "AB InBev s'appuie sur des distributeurs et grossistes indépendants pour la vente au détail. La consolidation croissante des chaînes de distribution (grandes surfaces, e-commerce) renforce le pouvoir de négociation des clients et réduit les marges. Risque de perte de distributeurs clés ou d'incapacité à acquérir des intérêts dans les réseaux de distribution stratégiques."
+      "summary": "AB InBev s'appuie sur des distributeurs et grossistes indépendants pour la vente au détail. La consolidation croissante des chaînes de distribution (grandes surfaces, e-commerce) renforce le pouvoir de négociation des clients et réduit les marges. Risque de perte de distributeurs clés ou d'incapacité à acquérir des intérêts dans les réseaux de distribution stratégiques.",
+      "score": 4
     },
     {
       "title": "Changements préférences consommateurs et demande produits",
@@ -300,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans forward-looking statements (p.iii) et résumé risques. Langage modéré ('changes in consumer preferences'). Tendance up : shift vers sans-alcool, low-alcohol, alternatives. Poids catégorie très élevé pour brasserie face à disruption marché.",
       "trend": "up",
-      "summary": "Les préférences des consommateurs évoluent vers les boissons sans alcool, faibles en calories, alternatives (hard seltzers, RTD cocktails, boissons énergisantes). AB InBev doit innover rapidement en 'Beyond Beer' pour maintenir sa part de marché. Échec à anticiper ou adapter son portefeuille pourrait éroder les ventes des marques historiques (Budweiser, Corona)."
+      "summary": "Les préférences des consommateurs évoluent vers les boissons sans alcool, faibles en calories, alternatives (hard seltzers, RTD cocktails, boissons énergisantes). AB InBev doit innover rapidement en 'Beyond Beer' pour maintenir sa part de marché. Échec à anticiper ou adapter son portefeuille pourrait éroder les ventes des marques historiques (Budweiser, Corona).",
+      "score": 4
     },
     {
       "title": "Concurrence accrue et consolidation sectorielle",
@@ -308,7 +342,8 @@
       "severity": 4,
       "score_rationale": "Cité dans forward-looking statements (p.iii) : 'effects of competition and consolidation'. Langage modéré mais reconnaît pression compétitive structurelle. Tendance stable mais contexte géopolitique peut accélérer M&A. Poids catégorie critique pour leader mondial.",
       "trend": "stable",
-      "summary": "AB InBev fait face à une concurrence intense de la part de brasseries régionales, marques premium artisanales et nouveaux entrants (cannabis, boissons fonctionnelles). Les politiques de régulation/dérégulation peuvent favoriser ou défavoriser la consolidation. Perte de parts de marché face à concurrents plus agiles ou mieux positionnés sur segments en croissance."
+      "summary": "AB InBev fait face à une concurrence intense de la part de brasseries régionales, marques premium artisanales et nouveaux entrants (cannabis, boissons fonctionnelles). Les politiques de régulation/dérégulation peuvent favoriser ou défavoriser la consolidation. Perte de parts de marché face à concurrents plus agiles ou mieux positionnés sur segments en croissance.",
+      "score": 4
     },
     {
       "title": "Dommages à la réputation et image des marques",
@@ -316,7 +351,8 @@
       "severity": 4,
       "score_rationale": "Explicitement listé dans résumé risques (p.1) : 'Damage to our reputation or the image and reputation of our brands'. Langage direct et intensif. Tendance up : sensibilité accrue aux enjeux ESG, alcool, santé publique. Poids catégorie élevé pour portefeuille marques iconiques.",
       "trend": "up",
-      "summary": "Les marques phares (Budweiser, Corona, Stella Artois) sont exposées aux crises de réputation liées à la consommation d'alcool, scandales sanitaires, pratiques environnementales ou sociales. Campagnes de sensibilisation anti-alcool, régulation publicitaire, ou incidents de qualité pourraient endommager l'image de marque et réduire la demande."
+      "summary": "Les marques phares (Budweiser, Corona, Stella Artois) sont exposées aux crises de réputation liées à la consommation d'alcool, scandales sanitaires, pratiques environnementales ou sociales. Campagnes de sensibilisation anti-alcool, régulation publicitaire, ou incidents de qualité pourraient endommager l'image de marque et réduire la demande.",
+      "score": 4
     },
     {
       "title": "Régulation gouvernementale et fiscalité des boissons alcoolisées",
@@ -324,7 +360,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans forward-looking statements (p.iii) : 'changes in applicable laws, regulations and taxes'. Langage modéré mais risque structurel. Tendance up : taxes excise, restrictions publicitaires, normes environnementales se renforcent. Poids catégorie très élevé pour secteur alcool hautement régulé.",
       "trend": "up",
-      "summary": "AB InBev opère dans un environnement réglementaire strict : taxes excise sur l'alcool, restrictions publicitaires, normes d'étiquetage, régulations environnementales (plastique, eau). Augmentation des taxes ou restrictions publicitaires réduirait la demande et les marges. Variations réglementaires par pays compliquent la stratégie globale."
+      "summary": "AB InBev opère dans un environnement réglementaire strict : taxes excise sur l'alcool, restrictions publicitaires, normes d'étiquetage, régulations environnementales (plastique, eau). Augmentation des taxes ou restrictions publicitaires réduirait la demande et les marges. Variations réglementaires par pays compliquent la stratégie globale.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et risques de perte de données personnelles",
@@ -332,7 +369,8 @@
       "severity": 3,
       "score_rationale": "Cité dans forward-looking statements (p.iv) : 'technological disruptions, threats to cybersecurity and the risk of loss or misuse of personal data'. Item 16K dédié à cybersécurité. Langage modéré. Tendance up : attaques sophistiquées, supply chain. Poids catégorie croissant pour groupe numérisé.",
       "trend": "up",
-      "summary": "AB InBev gère des données clients, opérations de production et systèmes logistiques critiques. Cyberattaques, ransomware ou vol de données pourraient interrompre la production, compromettre la chaîne d'approvisionnement ou exposer des données personnelles. Coûts de remédiation et dommages réputationnels potentiels."
+      "summary": "AB InBev gère des données clients, opérations de production et systèmes logistiques critiques. Cyberattaques, ransomware ou vol de données pourraient interrompre la production, compromettre la chaîne d'approvisionnement ou exposer des données personnelles. Coûts de remédiation et dommages réputationnels potentiels.",
+      "score": 3
     },
     {
       "title": "Intégration d'acquisitions et risques de restructuration",
@@ -340,13 +378,22 @@
       "severity": 3,
       "score_rationale": "Mentionné dans forward-looking statements (p.iv) : 'risk of unexpected consequences resulting from acquisitions, joint ventures...and our ability to successfully...integrate'. Langage modéré. Tendance stable mais AB InBev historiquement actif en M&A (SAB 2016, Budweiser APAC). Poids catégorie modéré mais impact potentiel élevé.",
       "trend": "stable",
-      "summary": "AB InBev a réalisé des acquisitions majeures (SABMiller 2016, Budweiser APAC). Risques d'intégration opérationnelle, synergies non réalisées, pertes de talents clés, ou coûts de restructuration supérieurs aux prévisions. Échecs d'intégration pourraient détruire de la valeur actionnariale."
+      "summary": "AB InBev a réalisé des acquisitions majeures (SABMiller 2016, Budweiser APAC). Risques d'intégration opérationnelle, synergies non réalisées, pertes de talents clés, ou coûts de restructuration supérieurs aux prévisions. Échecs d'intégration pourraient détruire de la valeur actionnariale.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:31:13.037151+00:00",
   "_risks_source": "20-F FY2026",
+  "latest_filing": {
+    "date": "2026-05-05",
+    "eps_actual": 0.97,
+    "revenue_actual": 30607930000,
+    "_source": "FMP"
+  },
+  "next_earnings_date": "2026-07-30",
+  "_earnings_refreshed": "2026-06-11 FMP",
   "subsector_fr": "Boissons",
-  "_companies_unified_built_at": "2026-05-29T21:19:37.893Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.481Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/budff.json",
     "enrich_root": "v2-pipeline-enrich/budff.json",

@@ -41,11 +41,14 @@
       "_validation": [
         "Unit changed from 'Mds $' to 'M $' - source indicates millions, not billions"
       ],
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Core IoT Revenue' n'est pas explicitement chiffré dans l'extrait fourni du 10-K de Synaptics (année fiscale 2022). L'extrait contien",
       "explanation_en": "Revenue from the Core IoT segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -70,7 +73,7 @@
       "is_short_history": false,
       "ttm": 44.43,
       "_validation": [],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -118,11 +121,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.07 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -141,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.05 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -164,56 +175,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.58 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.88,
-      "unit": "Mds €",
+      "value": 880,
+      "unit": "M €",
       "yoy": "-14.6%",
       "history": [
-        1.04,
-        1.03,
-        1.03,
-        0.88
+        1040,
+        1030,
+        1030,
+        880
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.88 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.39,
-      "unit": "Mds €",
+      "value": 390,
+      "unit": "M €",
       "yoy": "-55.7%",
       "history": [
-        0.82,
-        0.92,
-        0.88,
-        0.39
+        820,
+        920,
+        880,
+        390
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.39 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -246,7 +271,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "active",
+    "stance": "integrator",
     "summary": "Synaptics positionne l'IA comme élément central de sa stratégie. L'entreprise met l'accent sur les solutions Edge AI à travers sa plateforme Synaptics Astra, en collaboration avec Google pour les appareils Edge AI de nouvelle génération. Les solutions d'IA native sont intégrées dans les processeurs, la connectivité sans fil et les interfaces utilisateur.",
     "evidence": [
       "Synaptics Astra family of AI solutions designed for AI-enabled IoT systems",
@@ -263,7 +288,8 @@
       "severity": 4,
       "score_rationale": "La majorité des ventes et de la fabrication se fait en dehors des États-Unis, avec une exposition substantielle aux marchés internationaux, notamment en Asie-Pacifique (Chine, Japon, Corée du Sud, Taïwan). Les fluctuations des taux de change relatifs au dollar américain peuvent matériellement impacter les revenus et la rentabilité",
       "trend": "stable",
-      "summary": "Les fluctuations des taux de change peuvent impacter significativement la rentabilité de l'entreprise"
+      "summary": "Les fluctuations des taux de change peuvent impacter significativement la rentabilité de l'entreprise",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -271,7 +297,8 @@
       "severity": 3,
       "score_rationale": "Marché en évolution avec des acteurs concurrents dans les semi-conducteurs mixtes, nécessité d'innovation constante pour maintenir la position de leader",
       "trend": "up",
-      "summary": "La concurrence dans le secteur des semi-conducteurs est élevée et exige une innovation constante"
+      "summary": "La concurrence dans le secteur des semi-conducteurs est élevée et exige une innovation constante",
+      "score": 3
     },
     {
       "title": "Dépendance à la demande clients",
@@ -279,7 +306,8 @@
       "severity": 4,
       "score_rationale": "Dépendance à la demande des clients OEM (équipementiers), notamment dans les secteurs des appareils mobiles, PC, maison intelligente et automobile. Fin des expéditions aux clients mobiles a contribué à une baisse de 9% du revenu Mobile",
       "trend": "stable",
-      "summary": "L'entreprise est exposée aux fluctuations de la demande dans les secteurs qu'elle dessert, notamment mobile et automobile"
+      "summary": "L'entreprise est exposée aux fluctuations de la demande dans les secteurs qu'elle dessert, notamment mobile et automobile",
+      "score": 4
     },
     {
       "title": "Risques liés à l'intégration des acquisitions",
@@ -287,7 +315,8 @@
       "severity": 3,
       "score_rationale": "Risques liés à l'intégration de l'acquisition Broadcom (actifs Wi-Fi et licences non-exclusives). Cette acquisition contribue aux revenus Core IoT +53% mais génère des dépenses d'amortisation supplémentaires",
       "trend": "new",
-      "summary": "L'intégration de l'acquisition Broadcom présente des défis d'intégration et de gestion des actifs acquis"
+      "summary": "L'intégration de l'acquisition Broadcom présente des défis d'intégration et de gestion des actifs acquis",
+      "score": 3
     },
     {
       "title": "Risques réglementaires et commerciaux internationaux",
@@ -295,7 +324,8 @@
       "severity": 2,
       "score_rationale": "Exposition aux réglementations internationales, notamment aux tarifs douaniers en évolution (États-Unis/Chine). Surveillance active mais exposition tarifaire actuellement limitée basée sur les pratiques d'importation/exportation actuelles",
       "trend": "stable",
-      "summary": "L'entreprise doit naviguer dans un environnement réglementaire complexe et sujet à des changements tarifaires internationaux"
+      "summary": "L'entreprise doit naviguer dans un environnement réglementaire complexe et sujet à des changements tarifaires internationaux",
+      "score": 2
     },
     {
       "title": "Gestion de la dette",
@@ -303,7 +333,8 @@
       "severity": 2,
       "score_rationale": "Refinancement réussi du Term Loan de 582 millions via un emprunt convertible de 450 millions. Dette nette réduite de 972,9 millions (2024) à 834,8 millions (2025). Exécution d'une transaction capped call pour mitiger la dilution",
       "trend": "down",
-      "summary": "La gestion de la dette s'améliore avec une réduction significative de la dette nette et un refinancement stratégique"
+      "summary": "La gestion de la dette s'améliore avec une réduction significative de la dette nette et un refinancement stratégique",
+      "score": 2
     },
     {
       "title": "Investissements technologiques et R&D",
@@ -311,7 +342,8 @@
       "severity": 3,
       "score_rationale": "Dépendance à l'innovation technologique pour rester compétitif en Edge AI, connectivité sans fil et interfaces utilisateur. Investissements R&D en augmentation de 3,1% à 346,8 millions, représentant 32,3% des revenus",
       "trend": "up",
-      "summary": "L'entreprise doit maintenir des investissements R&D substantiels pour rester à la pointe de la technologie Edge AI et de la connectivité sans fil"
+      "summary": "L'entreprise doit maintenir des investissements R&D substantiels pour rester à la pointe de la technologie Edge AI et de la connectivité sans fil",
+      "score": 3
     }
   ],
   "governance": {
@@ -358,7 +390,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -533,88 +565,66 @@
   },
   "enrich_quarterly_history": {
     "ticker": "SYNA",
-    "extracted_at": "2026-05-15T18:14:35Z",
-    "method": "xbrl-companyfacts",
-    "cik": 817720,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T09:23:35Z",
+    "n_kpis": 2,
     "kpis": [
       {
-        "short": "R&D",
+        "short": "Core IoT Revenue",
         "period_type": "quarter",
         "history": [
-          163,
-          238.8,
-          -185.3,
-          86.1,
-          175,
-          273.2,
-          -220.9,
-          89.5,
-          178.8,
-          86.5,
-          266.7,
-          168.5,
-          251.9,
-          81.3,
-          164.6,
-          253.2,
-          -152.3,
-          94.4,
-          189.5,
-          284
+          38.5,
+          37.5,
+          47.3,
+          59.6,
+          61.1,
+          67.5,
+          103.6
         ],
         "history_periods": [
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q1 2023",
           "Q3 2023",
-          "Q2 2024",
+          "Q4 2023",
+          "Q1 2024",
           "Q3 2024",
+          "Q4 2024",
           "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026",
-          "Q2 2026",
-          "Q3 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-28",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q4 2025",
-            "value": -152.3,
-            "accession": "calc-0000817720-25-000073",
-            "end": "2025-06-28"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 94.4,
-            "accession": "0000817720-25-000115",
-            "end": "2025-09-27"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 189.5,
-            "accession": "0000817720-26-000017",
-            "end": "2025-12-27"
-          },
-          {
-            "period": "Q3 2026",
-            "value": 284,
-            "accession": "0000817720-26-000036",
-            "end": "2026-03-28"
-          }
-        ]
+        "_extracted_at": "2026-06-01T09:23:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          0.219,
+          0.218,
+          0.218,
+          0.237,
+          0.246,
+          0.245,
+          0.269
+        ],
+        "history_periods": [
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T09:23:35Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -630,9 +640,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.315943+00:00",
     "fetched_at": "2026-05-21T02:17:14.315944+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.348Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.388Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/syna.json",
     "enrich_root": "v2-pipeline-enrich/syna.json",

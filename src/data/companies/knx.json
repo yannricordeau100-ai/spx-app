@@ -39,7 +39,7 @@
       "is_short_history": false,
       "ttm": 7.52,
       "_validation": "Unité corrigée de 'Mds $' à 'B$'",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -65,7 +65,7 @@
       "is_short_history": false,
       "ttm": 210.04,
       "_validation": "Aucune correction",
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -91,11 +91,14 @@
       "is_short_history": false,
       "ttm": 93.95,
       "_validation": "Aucune correction",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 3 consecutive years of Adjusted Operating Ratio found for Trucking segment (86.9% in 2017, 85.3% in 2018, 86.5% in 2019). Consolidated ",
       "explanation_en": "Adjusted Operating ratio.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Adjusted Net Income",
@@ -146,7 +149,7 @@
       "is_short_history": false,
       "ttm": 1.32,
       "_validation": "Aucune correction",
-      "explanation_en": "Adjusted Earnings Per Share — EPS excluding non-recurring items.",
+      "explanation_en": "Adjusted Earnings Per Share : EPS excluding non-recurring items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -189,11 +192,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 11.96 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -212,11 +219,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.69 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,9 +254,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 200.87,
-      "_validation": "Aucune correction majeure, données validées vs source",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Aucune correction majeure, données validées vs source"
     },
     {
       "short": "Severance Expense",
@@ -270,9 +279,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 2.56,
-      "_validation": "Aucune correction majeure, données validées vs source",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Aucune correction majeure, données validées vs source"
     }
   ],
   "ai_positioning": {
@@ -288,7 +295,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques de cyberattaques en raison de sa dépendance à la technologie et de la sensibilité des données qu'elle traite. Le langage utilisé dans le rapport est intense et met en avant l'importance de la cybersécurité.",
       "trend": "up",
-      "summary": "La société est vulnérable aux cyberattaques qui pourraient compromettre la sécurité de ses données et perturber ses opérations."
+      "summary": "La société est vulnérable aux cyberattaques qui pourraient compromettre la sécurité de ses données et perturber ses opérations.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
@@ -296,7 +304,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un secteur très concurrentiel où les entreprises doivent constamment innover et améliorer leurs services pour rester compétitives. Le rapport mentionne la concurrence accrue dans le secteur.",
       "trend": "stable",
-      "summary": "La concurrence accrue dans le secteur du transport pourrait entraîner une perte de parts de marché et de revenus pour la société."
+      "summary": "La concurrence accrue dans le secteur du transport pourrait entraîner une perte de parts de marché et de revenus pour la société.",
+      "score": 3
     },
     {
       "title": "Risques réglementaires",
@@ -304,7 +313,8 @@
       "severity": 4,
       "score_rationale": "La société est soumise à des réglementations strictes dans le secteur du transport, et tout changement dans ces réglementations pourrait avoir un impact négatif sur ses opérations. Le rapport mentionne l'importance de la conformité réglementaire.",
       "trend": "up",
-      "summary": "Les changements dans les réglementations pourraient entraîner des coûts supplémentaires et des perturbations dans les opérations de la société."
+      "summary": "Les changements dans les réglementations pourraient entraîner des coûts supplémentaires et des perturbations dans les opérations de la société.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie",
@@ -312,7 +322,8 @@
       "severity": 3,
       "score_rationale": "La société dépend fortement de la technologie pour ses opérations, et tout dysfonctionnement ou interruption pourrait avoir un impact négatif sur ses activités. Le rapport mentionne l'importance de la technologie dans les opérations de la société.",
       "trend": "stable",
-      "summary": "La dépendance à la technologie pourrait entraîner des perturbations dans les opérations de la société en cas de dysfonctionnement ou d'interruption."
+      "summary": "La dépendance à la technologie pourrait entraîner des perturbations dans les opérations de la société en cas de dysfonctionnement ou d'interruption.",
+      "score": 3
     },
     {
       "title": "Risques liés à la réputation",
@@ -320,7 +331,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée à des risques liés à la réputation en raison de la sensibilité des services qu'elle offre et de l'importance de la confiance des clients. Le rapport mentionne l'importance de la réputation dans le secteur.",
       "trend": "up",
-      "summary": "Les risques liés à la réputation pourraient entraîner une perte de confiance des clients et une diminution des revenus pour la société."
+      "summary": "Les risques liés à la réputation pourraient entraîner une perte de confiance des clients et une diminution des revenus pour la société.",
+      "score": 4
     },
     {
       "title": "Risques financiers",
@@ -328,7 +340,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée à des risques financiers en raison de sa dépendance à la dette et de la volatilité des marchés financiers. Le rapport mentionne les risques financiers liés à la dette et aux marchés financiers.",
       "trend": "stable",
-      "summary": "Les risques financiers pourraient entraîner des difficultés pour la société à honorer ses obligations financières et à maintenir sa stabilité financière."
+      "summary": "Les risques financiers pourraient entraîner des difficultés pour la société à honorer ses obligations financières et à maintenir sa stabilité financière.",
+      "score": 3
     }
   ],
   "governance": {
@@ -360,7 +373,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -519,11 +532,9 @@
           208.337,
           427.829,
           622.624,
-          -487.465,
           104.284,
           167.61,
           227.804,
-          -282.549,
           -2.635,
           17.665,
           48.129,
@@ -585,6 +596,12 @@
             "accession": "0001492691-26-000038",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (KNX)"
         ]
       },
       {
@@ -666,9 +683,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.274833+00:00",
     "fetched_at": "2026-05-21T02:17:14.274835+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.861Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.624Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/knx.json",
     "enrich_root": "v2-pipeline-enrich/knx.json",

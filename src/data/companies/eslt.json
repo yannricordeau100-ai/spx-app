@@ -40,8 +40,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -68,7 +72,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Aerospace Revenue",
@@ -95,7 +103,11 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Revenue from the Aerospace segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "ESA Revenue",
@@ -122,52 +134,66 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Revenue from the ESA segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.96,
-      "unit": "Mds €",
+      "value": 960,
+      "unit": "M €",
       "yoy": "-29.9%",
       "history": [
-        1.29,
-        1.47,
-        1.37,
-        0.96
+        1290,
+        1470,
+        1370,
+        960
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.96 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.64,
-      "unit": "Mds €",
+      "value": 640,
+      "unit": "M €",
       "yoy": "+137.0%",
       "history": [
-        0.21,
-        0.2,
-        0.27,
-        0.64
+        210,
+        200,
+        270,
+        640
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.64 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -194,7 +220,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -222,7 +248,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -250,7 +276,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -266,7 +292,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         6.2,
@@ -279,7 +305,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -308,9 +334,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2022",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -383,7 +407,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en premier dans Item 1A, langage très intensif (« material adverse effect » répété, « nation states », « AI-powered attacks »). Tendance à la hausse explicite (« increase in the number of such threats »). Poids critique : dépendance opérationnelle totale aux systèmes numériques, exigences CMMC/DoD obligatoires pour contrats.",
       "trend": "up",
-      "summary": "Elbit Systems subit des cyberattaques croissantes d'États-nations et hackers sponsorisés utilisant l'IA générative. Les menaces visent à compromettre la PI, les données clients et les opérations. Exemple concret : septembre 2025, un fournisseur a subi une brèche exposant du matériel non classifié lié à un projet Elbit. Non-conformité aux certifications CMMC/NIST 800-171 peut bloquer l'accès aux contrats DoD."
+      "summary": "Elbit Systems subit des cyberattaques croissantes d'États-nations et hackers sponsorisés utilisant l'IA générative. Les menaces visent à compromettre la PI, les données clients et les opérations. Exemple concret : septembre 2025, un fournisseur a subi une brèche exposant du matériel non classifié lié à un projet Elbit. Non-conformité aux certifications CMMC/NIST 800-171 peut bloquer l'accès aux contrats DoD.",
+      "score": 5
     },
     {
       "title": "Dépendance critique à fournisseurs uniques et ruptures chaîne logistique",
@@ -391,7 +416,8 @@
       "severity": 5,
       "score_rationale": "Deuxième risque majeur en Item 1A, langage très intensif (« material adverse effect », « single source »). Tendance à la hausse : conflits géopolitiques (Russie-Ukraine, Swords of Iron, tensions Moyen-Orient) ont augmenté les coûts de 50%+ et créé des pénuries de composants électroniques et matières premières pour explosifs.",
       "trend": "up",
-      "summary": "Certains composants proviennent d'une seule source, aggravé par les restrictions d'export vers Israël, les sanctions, les attaques Houthis en Mer Rouge et les tarifs douaniers. Elbit a augmenté les stocks mais ne peut éliminer tous les risques. Les délais de production et limitations se sont matérialisés récemment, impactant la capacité à honorer les contrats."
+      "summary": "Certains composants proviennent d'une seule source, aggravé par les restrictions d'export vers Israël, les sanctions, les attaques Houthis en Mer Rouge et les tarifs douaniers. Elbit a augmenté les stocks mais ne peut éliminer tous les risques. Les délais de production et limitations se sont matérialisés récemment, impactant la capacité à honorer les contrats.",
+      "score": 5
     },
     {
       "title": "Incapacité à recruter/retenir personnel qualifié avec habilitations sécurité",
@@ -399,7 +425,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement amplifié depuis octobre 2023 (Item 1A). Langage intensif (« material adverse effect »). Tendance à la hausse : demande accrue de produits, appels à la réserve militaire israélienne, concurrence accrue pour ingénieurs spécialisés. Poids élevé : les habilitations sécurité sont longues à obtenir.",
       "trend": "up",
-      "summary": "Elbit dépend de personnel hautement qualifié avec habilitations sécurité coûteuses à obtenir. Depuis octobre 2023, la demande de produits a explosé en Israël et mondialement, tandis que des employés sont appelés à la réserve militaire. Concurrence accrue pour les talents en ingénierie. Perte de clés employés = perte de savoir-faire technologique critique et retards de projets."
+      "summary": "Elbit dépend de personnel hautement qualifié avec habilitations sécurité coûteuses à obtenir. Depuis octobre 2023, la demande de produits a explosé en Israël et mondialement, tandis que des employés sont appelés à la réserve militaire. Concurrence accrue pour les talents en ingénierie. Perte de clés employés = perte de savoir-faire technologique critique et retards de projets.",
+      "score": 4
     },
     {
       "title": "Risques d'exécution et d'expansion opérationnelle rapide",
@@ -407,7 +434,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite en Item 1A, langage intensif (« material adverse effect »). Tendance à la hausse : croissance considérable de la demande ces dernières années. Poids élevé : Elbit investit massivement dans nouvelles usines, recrute, met à jour les processus et systèmes IT à l'échelle mondiale.",
       "trend": "up",
-      "summary": "Elbit Systems connaît une croissance forte de la demande et investit dans l'expansion mondiale (nouvelles usines, effectifs, processus). Risques : insuffisance de main-d'œuvre/matériaux, échec de construction des installations, inadaptation des processus. Tout manquement pourrait empêcher l'exécution des contrats existants et l'accès à de nouveaux marchés."
+      "summary": "Elbit Systems connaît une croissance forte de la demande et investit dans l'expansion mondiale (nouvelles usines, effectifs, processus). Risques : insuffisance de main-d'œuvre/matériaux, échec de construction des installations, inadaptation des processus. Tout manquement pourrait empêcher l'exécution des contrats existants et l'accès à de nouveaux marchés.",
+      "score": 4
     },
     {
       "title": "Défauts produits, responsabilité civile et conformité manufacturière",
@@ -415,7 +443,8 @@
       "severity": 4,
       "score_rationale": "Risque détaillé en Item 1A, langage intensif (« material adverse effect », « substantial repair costs »). Tendance stable mais structurelle. Poids élevé : produits de sécurité (homeland security, aviation commerciale), dépendance à sous-traitants pour composants, risques de contrefaçon et violation de PI.",
       "trend": "stable",
-      "summary": "Elbit Systems rencontre des défauts involontaires et malfaçons dans ses produits et processus manufacturiers. Risques : coûts de réparation/remplacement, retards, responsabilité civile, dommage réputationnel. Exemple : défauts dans les mesures de cybersécurité intégrées aux produits. Assurance responsabilité civile peut ne pas couvrir tous les risques de manière rentable."
+      "summary": "Elbit Systems rencontre des défauts involontaires et malfaçons dans ses produits et processus manufacturiers. Risques : coûts de réparation/remplacement, retards, responsabilité civile, dommage réputationnel. Exemple : défauts dans les mesures de cybersécurité intégrées aux produits. Assurance responsabilité civile peut ne pas couvrir tous les risques de manière rentable.",
+      "score": 4
     },
     {
       "title": "Risques d'acquisition, intégration et dépréciation du goodwill",
@@ -423,7 +452,8 @@
       "severity": 4,
       "score_rationale": "Risque détaillé en Item 1A, langage intensif (« material adverse effect »). Tendance stable mais structurelle : Elbit fait régulièrement des acquisitions. Poids élevé : goodwill significatif au bilan, risques de dépréciation, coûts d'intégration, perte de synergies, responsabilités cachées (IP, fiscalité, conformité anti-corruption).",
       "trend": "stable",
-      "summary": "Elbit Systems acquiert régulièrement des entreprises pour élargir ses offres et capacités techniques. Risques : due diligence insuffisante, intégration inefficace, coûts cachés, dépréciation du goodwill, perte de clés employés, responsabilités fiscales/réglementaires (anti-corruption, environnement). Acquisitions récentes dans des pays à régulations plus strictes sur propriété étrangère et autorisations d'export."
+      "summary": "Elbit Systems acquiert régulièrement des entreprises pour élargir ses offres et capacités techniques. Risques : due diligence insuffisante, intégration inefficace, coûts cachés, dépréciation du goodwill, perte de clés employés, responsabilités fiscales/réglementaires (anti-corruption, environnement). Acquisitions récentes dans des pays à régulations plus strictes sur propriété étrangère et autorisations d'export.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue de startups deep-tech et contractors non-traditionnels",
@@ -431,7 +461,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite en Item 1A, langage intensif (« disruptive technologies », « reshape the traditional defense market »). Tendance à la hausse : startups defense-tech financées par VC/PE, moins de contraintes réglementaires, favorisées par les politiques d'approvisionnement. Poids élevé : innovation rapide en IA, systèmes autonomes, logiciels, quantum computing.",
       "trend": "up",
-      "summary": "Elbit Systems fait face à une concurrence croissante de startups deep-tech et contractors non-traditionnels opérant dans l'IA, systèmes autonomes et logiciels. Ces entreprises bénéficient de financements VC/PE, de moins de contraintes réglementaires et d'une agilité supérieure. Elles peuvent développer des technologies disruptives plus rapidement et à des prix plus bas, menaçant la position d'Elbit sur le marché défense traditionnel."
+      "summary": "Elbit Systems fait face à une concurrence croissante de startups deep-tech et contractors non-traditionnels opérant dans l'IA, systèmes autonomes et logiciels. Ces entreprises bénéficient de financements VC/PE, de moins de contraintes réglementaires et d'une agilité supérieure. Elles peuvent développer des technologies disruptives plus rapidement et à des prix plus bas, menaçant la position d'Elbit sur le marché défense traditionnel.",
+      "score": 4
     },
     {
       "title": "Dépendance aux contrats gouvernementaux et approbations d'export",
@@ -439,7 +470,8 @@
       "severity": 4,
       "score_rationale": "Risque implicite mais critique en Item 1A (mentions répétées d'approbations d'export, restrictions gouvernementales, limitations imposées par Israël/USA). Tendance à la hausse : restrictions d'export vers Israël se sont accentuées récemment. Poids élevé : majorité des revenus dépend de contrats gouvernementaux et approbations d'export.",
       "trend": "up",
-      "summary": "Elbit Systems dépend fortement des contrats gouvernementaux (défense, sécurité intérieure) et des approbations d'export des gouvernements israélien et américain. Restrictions d'export vers Israël se sont renforcées récemment, causant des retards de production et augmentation des coûts. Tout refus d'approbation d'export ou changement de politique pourrait bloquer l'accès aux marchés clés."
+      "summary": "Elbit Systems dépend fortement des contrats gouvernementaux (défense, sécurité intérieure) et des approbations d'export des gouvernements israélien et américain. Restrictions d'export vers Israël se sont renforcées récemment, causant des retards de production et augmentation des coûts. Tout refus d'approbation d'export ou changement de politique pourrait bloquer l'accès aux marchés clés.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:31:15.330681+00:00",
@@ -447,7 +479,7 @@
   "_dividends_extracted_at": "2026-05-09T20:59:31Z",
   "_dividends_source": "10-K FY2025 (Cerebras qwen-3-235b-a22b-instruct-2507, V2-1 strict-table)",
   "_eps_extracted_at": "2026-05-18T16:44:52Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "ESLT",
     "simple": {
@@ -501,7 +533,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.898Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.122Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/eslt.json",
     "enrich_root": "v2-pipeline-enrich/eslt.json",

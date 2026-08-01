@@ -42,7 +42,8 @@
       "is_short_history": false,
       "period_type": "annual",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin stable, monitor cost dynamics"
+      "signal_en": "Margin stable, monitor cost dynamics",
+      "_audit_flag": "HISTORY_FLAT_SUSPECT"
     },
     {
       "short": "Gross Margin",
@@ -69,8 +70,9 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin stable, monitor cost dynamics"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin stable, monitor cost dynamics",
+      "_audit_flag": "HISTORY_FLAT_SUSPECT"
     },
     {
       "short": "Headcount",
@@ -97,54 +99,64 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.54,
-      "unit": "Mds €",
+      "value": 540,
+      "unit": "M €",
       "yoy": "+10.2%",
       "history": [
-        0.44,
-        0.46,
-        0.49,
-        0.54
+        440,
+        460,
+        490,
+        540
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.54 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.79,
-      "unit": "Mds €",
+      "value": 790,
+      "unit": "M €",
       "yoy": "+182.1%",
       "history": [
-        0.26,
-        -0.08,
-        0.28,
-        0.79
+        260,
+        -80,
+        280,
+        790
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.79 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -163,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 14.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -186,11 +202,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.06 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -209,10 +229,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.21 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -226,7 +250,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.45,
         1.2001,
@@ -239,7 +263,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -254,7 +278,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         0,
         0.4556,
@@ -267,7 +291,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -282,7 +306,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         173.11,
@@ -295,7 +319,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -311,7 +335,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.56,
@@ -324,7 +348,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -383,7 +407,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique SOCIMI mentionné explicitement aux points w, x, y du Item 1A. Langage modéré mais répété (rotation, méthodologie, monitoring). Position centrale dans les responsabilités du Comité d'audit. Tendance stable mais structurelle pour une SOCIMI.",
       "trend": "stable",
-      "summary": "Merlin Properties dépend fortement des évaluations externes de ses actifs immobiliers pour la valorisation du portefeuille et la conformité comptable (IAS). Le Comité d'audit supervise la rotation des experts, les conflits d'intérêts et la conformité aux normes RICS/IVS, mais les risques de biais méthodologique ou d'erreur d'estimation restent significatifs pour une SOCIMI."
+      "summary": "Merlin Properties dépend fortement des évaluations externes de ses actifs immobiliers pour la valorisation du portefeuille et la conformité comptable (IAS). Le Comité d'audit supervise la rotation des experts, les conflits d'intérêts et la conformité aux normes RICS/IVS, mais les risques de biais méthodologique ou d'erreur d'estimation restent significatifs pour une SOCIMI.",
+      "score": 4
     },
     {
       "title": "Risques de conformité réglementaire et criminalité financière",
@@ -391,7 +416,8 @@
       "severity": 4,
       "score_rationale": "Mentionné aux points bb et cc (Criminal Compliance Body, AML/CFT). Langage normatif mais insistant sur la supervision continue. Position structurelle dans la gouvernance. Tendance stable avec renforcement attendu (CSRD 2025).",
       "trend": "up",
-      "summary": "Merlin Properties est soumise à des obligations strictes de conformité AML/CFT et de prévention de la criminalité financière. Le Comité supervise les rapports semestriels du Criminal Compliance Body et les politiques internes d'AML/CFT. Les risques incluent les transactions avec parties liées, la fraude et les violations de régulations anti-blanchiment."
+      "summary": "Merlin Properties est soumise à des obligations strictes de conformité AML/CFT et de prévention de la criminalité financière. Le Comité supervise les rapports semestriels du Criminal Compliance Body et les politiques internes d'AML/CFT. Les risques incluent les transactions avec parties liées, la fraude et les violations de régulations anti-blanchiment.",
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité et technologie informatique",
@@ -399,7 +425,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné au point (xi) et dans le plan 2025 (point 4). Langage d'intensité modérée mais croissante (IA, contrôles IT). Position émergente dans les priorités du Comité. Tendance clairement à la hausse.",
       "trend": "up",
-      "summary": "Merlin Properties identifie les risques technologiques et de cybersécurité comme domaines prioritaires. Le Comité supervise les plans d'action du département IT et prévoit de renforcer la surveillance de l'IA et des contrôles informatiques en 2025. Les risques incluent les vulnérabilités de données, les attaques informatiques et la protection des droits des utilisateurs."
+      "summary": "Merlin Properties identifie les risques technologiques et de cybersécurité comme domaines prioritaires. Le Comité supervise les plans d'action du département IT et prévoit de renforcer la surveillance de l'IA et des contrôles informatiques en 2025. Les risques incluent les vulnérabilités de données, les attaques informatiques et la protection des droits des utilisateurs.",
+      "score": 4
     },
     {
       "title": "Risques liés aux transactions avec parties liées",
@@ -407,7 +434,8 @@
       "severity": 3,
       "score_rationale": "Détaillé aux points z et aa du Item 1A. Langage modéré mais procédural. Position structurelle dans la gouvernance. Tendance stable avec mécanismes de délégation supervisés.",
       "trend": "stable",
-      "summary": "Merlin Properties doit gérer et approuver les transactions avec parties liées (point z). Le Comité compile la documentation, évalue l'équité et la transparence, et supervise les transactions dont l'approbation a été déléguée. Les risques incluent les conflits d'intérêts, l'absence de transparence et les décisions non équitables pour les actionnaires minoritaires."
+      "summary": "Merlin Properties doit gérer et approuver les transactions avec parties liées (point z). Le Comité compile la documentation, évalue l'équité et la transparence, et supervise les transactions dont l'approbation a été déléguée. Les risques incluent les conflits d'intérêts, l'absence de transparence et les décisions non équitables pour les actionnaires minoritaires.",
+      "score": 3
     },
     {
       "title": "Risques opérationnels et de gestion des actifs immobiliers",
@@ -415,7 +443,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans le point u (réunions avec heads of business units) et la Risk Map COSO-ERM 2017 (point ix). Langage modéré. Position centrale dans la supervision des risques métier. Tendance stable.",
       "trend": "stable",
-      "summary": "Merlin Properties supervise les risques opérationnels liés à la gestion de son portefeuille immobilier via la Risk Map mise à jour annuellement. Les heads of business units rapportent les tendances métier et risques associés. Les risques incluent la vacance locative, la maintenance des actifs, la gestion des locataires et la performance opérationnelle."
+      "summary": "Merlin Properties supervise les risques opérationnels liés à la gestion de son portefeuille immobilier via la Risk Map mise à jour annuellement. Les heads of business units rapportent les tendances métier et risques associés. Les risques incluent la vacance locative, la maintenance des actifs, la gestion des locataires et la performance opérationnelle.",
+      "score": 3
     },
     {
       "title": "Risques de conformité en matière de durabilité (CSRD)",
@@ -423,7 +452,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement au point 3 du plan 2025 et implicite dans les points j et k (ICSR, sustainability reporting). Langage d'intensité croissante. Position émergente et prioritaire. Tendance clairement à la hausse.",
       "trend": "up",
-      "summary": "Merlin Properties doit se conformer à la Corporate Sustainability Reporting Directive (CSRD) avec un cadre de contrôle interne robuste (ICSR). Le Comité supervise la préparation des rapports de durabilité et les systèmes de contrôle associés. Les risques incluent les erreurs de reporting ESG, les défaillances de contrôle interne et les non-conformités réglementaires."
+      "summary": "Merlin Properties doit se conformer à la Corporate Sustainability Reporting Directive (CSRD) avec un cadre de contrôle interne robuste (ICSR). Le Comité supervise la préparation des rapports de durabilité et les systèmes de contrôle associés. Les risques incluent les erreurs de reporting ESG, les défaillances de contrôle interne et les non-conformités réglementaires.",
+      "score": 4
     },
     {
       "title": "Risques de protection des données et droits des utilisateurs",
@@ -431,7 +461,8 @@
       "severity": 3,
       "score_rationale": "Mentionné au point (xvi) concernant la conformité RGPD. Langage modéré mais explicite. Position secondaire mais croissante. Tendance stable avec renforcement attendu.",
       "trend": "stable",
-      "summary": "Merlin Properties supervise la conformité aux régulations de protection des données (RGPD) pour minimiser les risques de vulnérabilité des droits des utilisateurs de ses actifs. Le Comité vérifie l'implémentation des systèmes de contrôle. Les risques incluent les fuites de données, les violations de confidentialité et les amendes réglementaires."
+      "summary": "Merlin Properties supervise la conformité aux régulations de protection des données (RGPD) pour minimiser les risques de vulnérabilité des droits des utilisateurs de ses actifs. Le Comité vérifie l'implémentation des systèmes de contrôle. Les risques incluent les fuites de données, les violations de confidentialité et les amendes réglementaires.",
+      "score": 3
     },
     {
       "title": "Risques d'intégrité des informations financières et non-financières",
@@ -439,7 +470,8 @@
       "severity": 4,
       "score_rationale": "Thème transversal majeur aux points j, k, l, m (ICFR, ICSR, audit reports). Langage d'intensité élevée et répété. Position centrale dans les responsabilités du Comité. Tendance stable mais structurelle.",
       "trend": "stable",
-      "summary": "Merlin Properties doit assurer l'intégrité des informations financières et non-financières publiées (rapports annuels, rapports de durabilité, déclarations CNMV). Le Comité supervise les systèmes ICFR et ICSR, les méthodologies comptables et les rapports d'audit. Les risques incluent les erreurs comptables, les omissions matérielles et les défaillances de contrôle interne."
+      "summary": "Merlin Properties doit assurer l'intégrité des informations financières et non-financières publiées (rapports annuels, rapports de durabilité, déclarations CNMV). Le Comité supervise les systèmes ICFR et ICSR, les méthodologies comptables et les rapports d'audit. Les risques incluent les erreurs comptables, les omissions matérielles et les défaillances de contrôle interne.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:12:13.092842+00:00",
@@ -504,10 +536,10 @@
   "company_description": "MERLIN Properties SOCIMI, S.A. is the largest real estate and infrastructure company trading on the Spanish Stock Exchange. Specialized in the development, acquisition and management of commercial property in the lberian region. MERLIN Properties mainly invests in offices, shopping centers, logistics facilities and data centers, within the Core and Core Plus segments, forming part of the benchmark IBEX-35, Euro STOXX 600, FTSE EPRA/NAREIT Global Real Estate, GPR Global Index, GPR-250 Index, MSCI Small Caps indices and DJSI. MERLIN Properties SOCIMI, S.A. was incorporated in 2014 in Spain.",
   "last_data_date": "2025-12-31",
   "_dividends_extracted_at": "2026-05-09T20:19:28Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:46:12Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_description": {
     "ticker": "MRL.MC",
@@ -616,9 +648,9 @@
     "country": "Spain",
     "_data_freshness_date": "2026-05-21T02:17:14.284561+00:00",
     "fetched_at": "2026-05-21T02:17:14.284562+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.599Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.474Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mrl.mc.json",
     "enrich_root": "v2-pipeline-enrich/mrl.mc.json",

@@ -1,6 +1,6 @@
 {
   "ticker": "BOH",
-  "name": "Bank of Hawaii Corporation",
+  "name": "Bank of Hawaii",
   "sector": "Financial Services",
   "subsector": "Regional Banks",
   "tagline": "Hawaii-based regional bank providing comprehensive financial services",
@@ -42,8 +42,8 @@
       "name_fr": "Valeur totale des rachats d'actions",
       "name_en": "Total Share Repurchases Value",
       "explanation": "Valeur monétaire totale des actions rachetées par l'entreprise.",
-      "value": "120991859",
-      "unit": "$",
+      "value": 120.992,
+      "unit": "M $",
       "yoy": "-4.0%",
       "type": "Capital",
       "nature": "Structurel",
@@ -51,60 +51,71 @@
       "signal": "Retour de capital aux actionnaires.",
       "description": "Représente la valeur totale des actions rachetées dans le cadre du programme de rachat au cours du quatrième trimestre 2025. Cette valeur reflète les achats publics de 76,547 actions au prix moyen de 65,33 dollars par action.",
       "history": [
-        125992970,
-        120991859
+        125.993,
+        120.992
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Capital base contracting, monitor structure"
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "raw -> M $"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.71,
-      "unit": "Mds €",
+      "value": 710,
+      "unit": "M €",
       "yoy": "+12.7%",
       "history": [
-        0.7,
-        0.67,
-        0.63,
-        0.71
+        700,
+        670,
+        630,
+        710
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.71 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.21,
-      "unit": "Mds €",
+      "value": 210,
+      "unit": "M €",
       "yoy": "+40.0%",
       "history": [
-        0.23,
-        0.17,
-        0.15,
-        0.21
+        230,
+        170,
+        150,
+        210
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.21 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -123,11 +134,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 4.63 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -146,56 +161,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 24.18 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.65,
-      "unit": "Mds €",
+      "value": 650,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.51,
-        0.65,
-        0.65,
-        0.65
+        510,
+        650,
+        650,
+        650
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.65 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.95,
-      "unit": "Mds €",
+      "value": 950,
+      "unit": "M €",
       "yoy": "+25.0%",
       "history": [
-        0.32,
-        1,
-        0.76,
-        0.95
+        320,
+        1000,
+        760,
+        950
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.95 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -210,16 +239,16 @@
       "title": "Pertes de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société utilise des estimations pour déterminer les pertes de crédit, ce qui peut être sujet à des incertitudes et des erreurs. Les conditions économiques et les hypothèses utilisées pour ces estimations peuvent avoir un impact significatif sur les résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société utilise des estimations pour déterminer les pertes de crédit, ce qui peut être sujet à des incertitudes et des erreurs. Les conditions économiques et les hypothèses utilisées pour ces estimations peuvent avoir un impact significatif sur les résultats financiers.",
       "trend": "stable",
       "summary": "La société est exposée à des pertes de crédit en raison de ses activités de prêt, ce qui peut avoir un impact négatif sur ses résultats financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Fluctuations des taux d'intérêt",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Les fluctuations des taux d'intérêt peuvent avoir un impact sur la valeur des actifs et des passifs de la société, ainsi que sur ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "Les fluctuations des taux d'intérêt peuvent avoir un impact sur la valeur des actifs et des passifs de la société, ainsi que sur ses résultats financiers.",
       "trend": "up",
       "summary": "Les fluctuations des taux d'intérêt peuvent affecter la valeur des investissements de la société et ses coûts de financement.",
       "score": 3
@@ -228,25 +257,25 @@
       "title": "Risques de marché",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La société est exposée aux risques de marché, notamment en raison de ses investissements en titres et de ses activités de prêt. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux risques de marché, notamment en raison de ses investissements en titres et de ses activités de prêt.",
       "trend": "stable",
       "summary": "La société est exposée aux risques de marché, ce qui peut avoir un impact négatif sur ses résultats financiers en cas de fluctuations des marchés.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques fiscaux",
       "category": "Régulation",
       "severity": 2,
-      "score_rationale": "La société est soumise à des règles et réglementations fiscales complexes, ce qui peut entraîner des incertitudes et des erreurs dans la détermination de ses obligations fiscales. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des règles et réglementations fiscales complexes, ce qui peut entraîner des incertitudes et des erreurs dans la détermination de ses obligations fiscales.",
       "trend": "stable",
       "summary": "La société doit naviguer dans un environnement fiscal complexe, ce qui peut avoir un impact sur ses résultats financiers.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risques opérationnels",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société est exposée à des risques opérationnels, notamment en raison de ses systèmes et processus internes. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques opérationnels, notamment en raison de ses systèmes et processus internes.",
       "trend": "stable",
       "summary": "La société doit gérer des risques opérationnels pour assurer la continuité de ses activités et maintenir la confiance de ses clients et partenaires.",
       "score": 3
@@ -255,16 +284,16 @@
       "title": "Risques de liquidité",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La société doit gérer ses flux de trésorerie pour faire face à ses obligations financières et maintenir sa liquidité. (score par défaut, à affiner)",
+      "score_rationale": "La société doit gérer ses flux de trésorerie pour faire face à ses obligations financières et maintenir sa liquidité.",
       "trend": "stable",
       "summary": "La société doit gérer ses risques de liquidité pour éviter les difficultés financières et maintenir sa capacité à honorer ses engagements.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de réputation",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "La société est exposée à des risques de réputation, notamment en raison de ses activités et de ses relations avec les clients et les partenaires. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de réputation, notamment en raison de ses activités et de ses relations avec les clients et les partenaires.",
       "trend": "stable",
       "summary": "La société doit protéger sa réputation pour maintenir la confiance de ses clients et partenaires et éviter les conséquences négatives sur ses résultats financiers.",
       "score": 3
@@ -466,9 +495,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.233174+00:00",
     "fetched_at": "2026-05-21T02:17:14.233175+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.821Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.303Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/boh.json",
     "enrich_root": "v2-pipeline-enrich/boh.json",

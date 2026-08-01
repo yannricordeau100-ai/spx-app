@@ -38,9 +38,7 @@
       "is_short_history": true,
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document fourni est un en-tête de filing 20-F (formulaire de dépôt SEC) pour Greenfire Resources Ltd., année fiscale 2023. Il contient un",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Gross Margin",
@@ -62,9 +60,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Op Margin",
@@ -86,9 +82,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Profit margin on Op.",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Profit margin on Op."
     },
     {
       "short": "Headcount",
@@ -110,32 +104,35 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.6,
-      "unit": "Mds €",
+      "value": 600,
+      "unit": "M €",
       "yoy": "-26.8%",
       "history": [
-        1,
-        0.68,
-        0.82,
-        0.6
+        1000,
+        680,
+        820,
+        600
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.6 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -154,56 +151,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.29 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-97.1%",
       "history": [
-        0.26,
-        0.39,
-        0.34,
-        0.01
+        260,
+        390,
+        340,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-42.9%",
       "history": [
-        0.04,
-        0.11,
-        0.07,
-        0.04
+        40,
+        110,
+        70,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -249,7 +260,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement cité en début d'Item 1A avec formulation directe (« opposition by First Nations groups »). Langage neutre mais contexte sensible pour opérations pétrolières en Alberta. Tendance stable mais structurelle pour secteur énergétique canadien. Poids élevé : opérations SAGD Hangingstone en territoire autochtone sensible.",
       "trend": "stable",
-      "summary": "Les Premières Nations peuvent s'opposer aux activités d'exploration et de développement de Greenfire, notamment aux installations SAGD (Hangingstone Demo et Expansion) en région Athabasca. Ces oppositions peuvent retarder ou bloquer les projets et augmenter les coûts opérationnels."
+      "summary": "Les Premières Nations peuvent s'opposer aux activités d'exploration et de développement de Greenfire, notamment aux installations SAGD (Hangingstone Demo et Expansion) en région Athabasca. Ces oppositions peuvent retarder ou bloquer les projets et augmenter les coûts opérationnels.",
+      "score": 4
     },
     {
       "title": "Recrutement et rétention de personnel qualifié",
@@ -257,7 +269,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement énoncé (« inability to recruit and retain a skilled workforce and key personnel »). Langage modéré mais reconnaît défi structurel. Tendance stable dans secteur pétrolier post-transition énergétique. Poids modéré : compétition accrue pour talents en contexte de déclin relatif du secteur.",
       "trend": "up",
-      "summary": "Greenfire dépend de l'attraction et la rétention de personnel technique qualifié (ingénieurs SAGD, géoscientifiques) dans un contexte où le secteur pétrolier fait face à une transition énergétique. La concurrence pour les talents s'intensifie, risquant d'augmenter les coûts salariaux et de réduire la capacité opérationnelle."
+      "summary": "Greenfire dépend de l'attraction et la rétention de personnel technique qualifié (ingénieurs SAGD, géoscientifiques) dans un contexte où le secteur pétrolier fait face à une transition énergétique. La concurrence pour les talents s'intensifie, risquant d'augmenter les coûts salariaux et de réduire la capacité opérationnelle.",
+      "score": 3
     },
     {
       "title": "Impacts physiques du changement climatique sur production",
@@ -265,7 +278,8 @@
       "severity": 3,
       "score_rationale": "Risque spécifique cité (« potential physical effects of climate change on the Company's production and costs »). Langage direct reconnaissant vulnérabilité opérationnelle. Tendance montante : préoccupation croissante pour actifs thermiques en zones vulnérables. Poids modéré-élevé : installations SAGD consommatrices d'eau et énergie, sensibles aux extrêmes climatiques.",
       "trend": "up",
-      "summary": "Les installations SAGD de Greenfire (Hangingstone) sont vulnérables aux effets physiques du changement climatique : stress hydrique (consommation vapeur), perturbations de chaîne d'approvisionnement énergétique, et dommages infrastructurels potentiels. Cela peut augmenter les coûts de production et réduire la disponibilité des actifs."
+      "summary": "Les installations SAGD de Greenfire (Hangingstone) sont vulnérables aux effets physiques du changement climatique : stress hydrique (consommation vapeur), perturbations de chaîne d'approvisionnement énergétique, et dommages infrastructurels potentiels. Cela peut augmenter les coûts de production et réduire la disponibilité des actifs.",
+      "score": 3
     },
     {
       "title": "Coûts directs et indirects de régulations environnementales",
@@ -273,7 +287,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement énoncé (« direct and indirect costs of various GHG and other environmental regulations »). Langage reconnaissant exposition à régulations existantes ET proposées. Tendance montante : Canada renforce normes GES et réglementations pétrolières. Poids élevé : secteur pétrolier thermique cible prioritaire des politiques climatiques fédérales/provinciales.",
       "trend": "up",
-      "summary": "Greenfire fait face à des coûts croissants liés aux régulations environnementales existantes et futures : plafonds d'émissions GES fédéraux, normes de réduction carbone en Alberta, et potentielles taxes carbone additionnelles. Ces régulations augmentent les dépenses opérationnelles et réduisent la rentabilité des actifs thermiques."
+      "summary": "Greenfire fait face à des coûts croissants liés aux régulations environnementales existantes et futures : plafonds d'émissions GES fédéraux, normes de réduction carbone en Alberta, et potentielles taxes carbone additionnelles. Ces régulations augmentent les dépenses opérationnelles et réduisent la rentabilité des actifs thermiques.",
+      "score": 4
     },
     {
       "title": "Violations de cybersécurité et perte de données",
@@ -281,7 +296,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement cité (« breaches of the Company's cyber-security and loss of, or unauthorized access to, data »). Langage direct reconnaissant menace. Tendance montante : augmentation attaques secteur énergétique. Poids modéré : données opérationnelles sensibles (réserves, production) et systèmes SCADA critiques pour SAGD.",
       "trend": "up",
-      "summary": "Greenfire est exposée aux risques de cyberattaques visant ses systèmes de contrôle SAGD, données de réserves propriétaires, et informations financières. Une violation pourrait interrompre la production, compromettre l'avantage concurrentiel, ou entraîner des amendes réglementaires."
+      "summary": "Greenfire est exposée aux risques de cyberattaques visant ses systèmes de contrôle SAGD, données de réserves propriétaires, et informations financières. Une violation pourrait interrompre la production, compromettre l'avantage concurrentiel, ou entraîner des amendes réglementaires.",
+      "score": 3
     },
     {
       "title": "Conformité aux lois anticorruption et sanctions économiques",
@@ -289,7 +305,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement énoncé (« failure to comply with anticorruption, economic sanctions, and anti-money laundering laws »). Langage direct. Tendance montante : sanctions géopolitiques (Russie, Iran) affectent secteur énergétique. Poids modéré : Greenfire opère internationalement (JACOS acquisition, Trafigura partenaire), exposée à risques de conformité complexes.",
       "trend": "up",
-      "summary": "Greenfire doit se conformer à des lois anticorruption (FCPA, Loi Corruption of Foreign Public Officials Canada) et régimes de sanctions économiques. Ses partenariats commerciaux (Trafigura, JACOS) et opérations transfrontalières augmentent le risque de violation involontaire et d'amendes substantielles."
+      "summary": "Greenfire doit se conformer à des lois anticorruption (FCPA, Loi Corruption of Foreign Public Officials Canada) et régimes de sanctions économiques. Ses partenariats commerciaux (Trafigura, JACOS) et opérations transfrontalières augmentent le risque de violation involontaire et d'amendes substantielles.",
+      "score": 3
     },
     {
       "title": "Dépendance à la technologie SAGD et risques opérationnels",
@@ -297,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Risque implicite majeur : 100% des actifs sont des installations SAGD thermiques (Hangingstone Demo et Expansion). Langage indirect mais criticité opérationnelle évidente. Tendance stable mais structurelle. Poids très élevé : concentration technologique extrême, pas de diversification géographique ou de type de production.",
       "trend": "stable",
-      "summary": "Greenfire dépend entièrement de la technologie SAGD (steam-assisted gravity drainage) pour ses deux actifs Hangingstone. Tout défaut technologique, inefficacité de récupération, ou obsolescence de la méthode SAGD menace directement la viabilité économique de l'ensemble du portefeuille de production."
+      "summary": "Greenfire dépend entièrement de la technologie SAGD (steam-assisted gravity drainage) pour ses deux actifs Hangingstone. Tout défaut technologique, inefficacité de récupération, ou obsolescence de la méthode SAGD menace directement la viabilité économique de l'ensemble du portefeuille de production.",
+      "score": 4
     },
     {
       "title": "Risques de réserves et estimations préliminaires",
@@ -305,7 +323,8 @@
       "severity": 3,
       "score_rationale": "Risque explicite dans forward-looking statements (« reserves are deemed to be forward-looking statements »). Langage reconnaissant incertitude (« inherently uncertain », « preliminary in nature »). Tendance stable mais structurelle. Poids modéré-élevé : valorisation Greenfire ($950M enterprise value) repose sur estimations de réserves McDaniel.",
       "trend": "stable",
-      "summary": "Les estimations de réserves de Greenfire (certifiées par McDaniel) sont préliminaires et basées sur hypothèses pouvant s'avérer inexactes. Une révision à la baisse des réserves récupérables ou des coûts de production pourrait réduire significativement la valeur des actifs et la viabilité financière."
+      "summary": "Les estimations de réserves de Greenfire (certifiées par McDaniel) sont préliminaires et basées sur hypothèses pouvant s'avérer inexactes. Une révision à la baisse des réserves récupérables ou des coûts de production pourrait réduire significativement la valeur des actifs et la viabilité financière.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:39:08.714061+00:00",
@@ -500,9 +519,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.267136+00:00",
     "fetched_at": "2026-05-21T02:17:14.267137+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.650Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.260Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gfr.json",
     "enrich_root": "v2-pipeline-enrich/gfr.json",

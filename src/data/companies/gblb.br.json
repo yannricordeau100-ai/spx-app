@@ -40,9 +40,7 @@
       "is_generic": false,
       "is_short_history": true,
       "period_type": "annual",
-      "signal_en": "Engagement stable",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Engagement stable"
     },
     {
       "short": "Congress Countries",
@@ -68,9 +66,7 @@
       "is_generic": false,
       "is_short_history": true,
       "period_type": "annual",
-      "signal_en": "Engagement stable",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Engagement stable"
     },
     {
       "short": "Loss Prevention Attendees",
@@ -95,9 +91,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "period_type": "annual"
     },
     {
       "short": "Institutional Status",
@@ -142,11 +136,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 6.43 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni ne contient aucune valeur annuelle explicite du KPI \"Total Revenue\" (chiffre d'affaires). Seules des données de mi‑exercice,",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -165,11 +165,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 24.8 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -188,11 +192,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 8.19 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -211,10 +219,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.54 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -380,7 +392,8 @@
       "severity": 3,
       "score_rationale": "Risque positionné en section macroéconomique du rapport annuel. Langage modéré : sensibilité aux conditions de marché. Tendance stable. Catégorie macro : poids standard.",
       "trend": "stable",
-      "summary_fr": "L'évolution du PIB européen, l'inflation et les taux d'intérêt peuvent affecter la demande pour les produits et services du groupe."
+      "summary_fr": "L'évolution du PIB européen, l'inflation et les taux d'intérêt peuvent affecter la demande pour les produits et services du groupe.",
+      "score": 3
     },
     {
       "title": "Évolution réglementaire et conformité",
@@ -388,7 +401,8 @@
       "severity": 3,
       "score_rationale": "Risque en section réglementation (haut de rapport). Langage modéré : nouveaux dispositifs (CSRD, taxonomie verte). Tendance accrue. Catégorie réglementaire : poids supérieur.",
       "trend": "up",
-      "summary_fr": "Le durcissement des cadres réglementaires européens (CSRD, taxonomie verte, sanctions) accroît les coûts de conformité et expose à des sanctions."
+      "summary_fr": "Le durcissement des cadres réglementaires européens (CSRD, taxonomie verte, sanctions) accroît les coûts de conformité et expose à des sanctions.",
+      "score": 3
     },
     {
       "title": "Risques cyber et sécurité des systèmes d'information",
@@ -396,7 +410,8 @@
       "severity": 4,
       "score_rationale": "Risque positionné en section dédiée IT/cyber. Langage explicite : pourrait entraîner des perturbations matérielles. Tendance accrue. Catégorie cyber : pondération haute.",
       "trend": "up",
-      "summary_fr": "Les cyberattaques (rançongiciels, fuites de données) peuvent perturber les opérations et entraîner des pertes financières et réputationnelles."
+      "summary_fr": "Les cyberattaques (rançongiciels, fuites de données) peuvent perturber les opérations et entraîner des pertes financières et réputationnelles.",
+      "score": 4
     }
   ],
   "_risks_source": "generic-template-mission-d-b1",
@@ -483,9 +498,9 @@
     "country": "Belgium",
     "_data_freshness_date": "2026-05-21T02:17:14.265544+00:00",
     "fetched_at": "2026-05-21T02:17:14.265545+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.561Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.158Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gblb.br.json",
     "enrich_root": null,

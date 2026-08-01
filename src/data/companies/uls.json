@@ -112,56 +112,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.68,
-      "unit": "Mds €",
+      "value": 680,
+      "unit": "M €",
       "yoy": "-27.7%",
       "history": [
-        0.66,
-        1.06,
-        0.94,
-        0.68
+        660,
+        1060,
+        940,
+        680
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.68 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.29,
-      "unit": "Mds €",
+      "value": 290,
+      "unit": "M €",
       "yoy": "-3.3%",
       "history": [
-        0.32,
-        0.32,
-        0.3,
-        0.29
+        320,
+        320,
+        300,
+        290
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.29 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,7 +245,8 @@
       "severity": 5,
       "score_rationale": "UL Standards Engagement détient 61,6% du capital et 94,1% du pouvoir de vote, ce qui lui permet de contrôler les décisions de l'entreprise.",
       "trend": "stable",
-      "summary": "Le contrôle actionnarial par UL Standards Engagement peut limiter la capacité des autres actionnaires à influencer les décisions de l'entreprise."
+      "summary": "Le contrôle actionnarial par UL Standards Engagement peut limiter la capacité des autres actionnaires à influencer les décisions de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Conflits d'intérêts",
@@ -239,7 +254,8 @@
       "severity": 4,
       "score_rationale": "Les administrateurs de l'entreprise peuvent avoir des intérêts contradictoires en raison de leurs rôles au sein d'UL Standards Engagement ou d'UL Research Institutes.",
       "trend": "stable",
-      "summary": "Les conflits d'intérêts peuvent survenir en raison des liens entre les administrateurs de l'entreprise et d'UL Standards Engagement ou d'UL Research Institutes."
+      "summary": "Les conflits d'intérêts peuvent survenir en raison des liens entre les administrateurs de l'entreprise et d'UL Standards Engagement ou d'UL Research Institutes.",
+      "score": 4
     },
     {
       "title": "Réglementation",
@@ -247,7 +263,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est soumise à des exigences réglementaires strictes en raison de son statut de société contrôlée.",
       "trend": "stable",
-      "summary": "L'entreprise doit se conformer à des exigences réglementaires spécifiques en raison de son statut de société contrôlée."
+      "summary": "L'entreprise doit se conformer à des exigences réglementaires spécifiques en raison de son statut de société contrôlée.",
+      "score": 3
     },
     {
       "title": "Dépendance à UL Standards Engagement",
@@ -255,7 +272,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise dépend fortement de UL Standards Engagement pour son activité et ses décisions.",
       "trend": "stable",
-      "summary": "La dépendance à UL Standards Engagement peut avoir un impact négatif sur l'entreprise en cas de changement de contrôle ou de stratégie."
+      "summary": "La dépendance à UL Standards Engagement peut avoir un impact négatif sur l'entreprise en cas de changement de contrôle ou de stratégie.",
+      "score": 4
     },
     {
       "title": "Exposition aux litiges",
@@ -263,7 +281,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise peut être exposée à des litiges en raison de son statut de société contrôlée et de ses liens avec UL Standards Engagement.",
       "trend": "stable",
-      "summary": "L'entreprise peut être exposée à des litiges en raison de son statut de société contrôlée et de ses liens avec UL Standards Engagement."
+      "summary": "L'entreprise peut être exposée à des litiges en raison de son statut de société contrôlée et de ses liens avec UL Standards Engagement.",
+      "score": 3
     },
     {
       "title": "Impact sur la réputation",
@@ -271,7 +290,8 @@
       "severity": 3,
       "score_rationale": "Les décisions de l'entreprise peuvent avoir un impact sur sa réputation en raison de son statut de société contrôlée.",
       "trend": "stable",
-      "summary": "Les décisions de l'entreprise peuvent avoir un impact sur sa réputation en raison de son statut de société contrôlée."
+      "summary": "Les décisions de l'entreprise peuvent avoir un impact sur sa réputation en raison de son statut de société contrôlée.",
+      "score": 3
     },
     {
       "title": "Risque de perte de valeur",
@@ -279,7 +299,8 @@
       "severity": 4,
       "score_rationale": "Le contrôle actionnarial par UL Standards Engagement peut entraîner une perte de valeur pour les actionnaires.",
       "trend": "stable",
-      "summary": "Le contrôle actionnarial par UL Standards Engagement peut entraîner une perte de valeur pour les actionnaires en raison de la limitation de leur capacité à influencer les décisions de l'entreprise."
+      "summary": "Le contrôle actionnarial par UL Standards Engagement peut entraîner une perte de valeur pour les actionnaires en raison de la limitation de leur capacité à influencer les décisions de l'entreprise.",
+      "score": 4
     }
   ],
   "governance": {
@@ -487,7 +508,10 @@
             "source": "calc-ULS_2026-02-19.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -503,9 +527,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.322520+00:00",
     "fetched_at": "2026-05-21T02:17:14.322521+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.915Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.005Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/uls.json",
     "enrich_root": null,

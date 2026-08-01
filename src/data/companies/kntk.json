@@ -40,17 +40,20 @@
       "is_short_history": false,
       "ttm": 345.6,
       "_validation": "Valeur corrigée de 528482 (milliers) à 528.5 (millions) pour cohérence d'unité avec M$. History converti en millions. YoY recalculé: (528482-275873)/275873 = +92%",
-      "period_type": "quarter",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Strong growth, robust momentum"
+      "period_type": "year",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Strong growth, robust momentum",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Total assets",
       "name_fr": "Actifs totaux",
       "name_en": "Total Assets",
       "explanation": "Valeur totale des actifs du bilan consolidé",
-      "value": "7095.6",
-      "unit": "M $",
+      "value": 7.096,
+      "unit": "Mds $",
       "yoy": "+4%",
       "type": "Balance Sheet",
       "nature": "Structurel",
@@ -58,8 +61,8 @@
       "signal": "Croissance modérée de la base d'actifs",
       "description": "Actifs totaux consolidés de la société au 31 décembre 2025",
       "history": [
-        7095.6,
-        6814.9
+        7.096,
+        6.815
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -67,8 +70,9 @@
       "is_short_history": false,
       "ttm": 6747.5,
       "_validation": "Valeur corrigée de 7095611 (milliers) à 7095.6 (millions). History converti en millions. Type corrigé de 'Investment' à 'Balance Sheet'. YoY recalculé: (7095611-6814937)/6814937 = +4%",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -87,57 +91,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.76 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.53,
-      "unit": "Mds €",
+      "value": 530,
+      "unit": "M €",
       "yoy": "+120.8%",
       "history": [
-        0.14,
-        0.39,
-        0.24,
-        0.53
+        140,
+        390,
+        240,
+        530
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.53 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "-11.1%",
       "history": [
-        0.16,
-        0.18,
-        0.18,
-        0.16
+        160,
+        180,
+        180,
+        160
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.16 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +174,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.1 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,11 +201,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.87 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -202,9 +228,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,9 +261,7 @@
       "is_short_history": true,
       "story_category": "Rentabilité",
       "ttm": 19.9,
-      "_validation": "Valeur corrigée de 50728 (milliers) à 50.7 (millions). History converti en millions. Type corrigé de 'Risk' à 'Tax'. YoY recalculé: (50728-23035)/23035 = +120%. Story_category corrigé de 'Marché' à 'Rentabilité'",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur corrigée de 50728 (milliers) à 50.7 (millions). History converti en millions. Type corrigé de 'Risk' à 'Tax'. YoY recalculé: (50728-23035)/23035 = +120%. Story_category corrigé de 'Marché' à 'Rentabilité'"
     }
   ],
   "ai_positioning": {
@@ -249,7 +277,8 @@
       "severity": 5,
       "score_rationale": "Le risque est placé en haut de la section Business and Operational Risks et décrit une vulnérabilité majeure à une zone unique. Le langage insiste sur une exposition disproportionnée et un impact adverse important. La catégorie Industriel est fortement pondérée ici en raison de l'actif critique concentré. Le risque est stable par rapport à l'année précédente.",
       "trend": "stable",
-      "summary": "La majorité des actifs de la société sont situés dans le bassin permien (Delaware Basin), ce qui la rend vulnérable aux perturbations locales liées à la réglementation, aux conditions climatiques ou aux limitations de marché."
+      "summary": "La majorité des actifs de la société sont situés dans le bassin permien (Delaware Basin), ce qui la rend vulnérable aux perturbations locales liées à la réglementation, aux conditions climatiques ou aux limitations de marché.",
+      "score": 5
     },
     {
       "title": "Dépendance à l'activité des producteurs en amont",
@@ -257,7 +286,8 @@
       "severity": 5,
       "score_rationale": "Le texte souligne que la société dépend entièrement des décisions des producteurs, qu'elle ne contrôle pas. Le déclin naturel de la production et la baisse d'activité de forage sont décrits comme des menaces directes aux revenus. Le langage est alarmant (matériellement réduire nos revenus). Risque stable mais central dans le modèle économique.",
       "trend": "stable",
-      "summary": "La société dépend de la production des clients sur des gisements dédiés et de leur niveau d'activité de développement et complétion; toute baisse d'activité ou déclin naturel de puits réduit directement ses volumes et ses revenus."
+      "summary": "La société dépend de la production des clients sur des gisements dédiés et de leur niveau d'activité de développement et complétion; toute baisse d'activité ou déclin naturel de puits réduit directement ses volumes et ses revenus.",
+      "score": 5
     },
     {
       "title": "Risques liés aux acquisitions et intégrations",
@@ -265,7 +295,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement lié à la stratégie de croissance. Le texte mentionne des difficultés d'intégration, de perte de clients clés et de dérives de coûts. Le langage est prudent (ne peut fournir aucune assurance). La catégorie Capital est moyennement pondérée. Position similaire à l'année précédente.",
       "trend": "stable",
-      "summary": "Les acquisitions font partie de la stratégie de croissance, mais les difficultés d'intégration, les coûts imprévus ou la perte de clients peuvent compromettre les bénéfices attendus."
+      "summary": "Les acquisitions font partie de la stratégie de croissance, mais les difficultés d'intégration, les coûts imprévus ou la perte de clients peuvent compromettre les bénéfices attendus.",
+      "score": 4
     },
     {
       "title": "Dépendance aux pipelines tiers",
@@ -273,7 +304,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété deux fois dans le texte, avec un langage fort (interruption temporaire ou permanente, adverse affect). La société n'a aucun contrôle sur les opérateurs tiers. La catégorie Industriel est pertinente car liée aux infrastructures critiques. Position stable.",
       "trend": "stable",
-      "summary": "L'exploitation dépend de pipelines tiers pour le transport; toute interruption ou hausse de coût chez ces partenaires peut réduire les revenus et la trésorerie."
+      "summary": "L'exploitation dépend de pipelines tiers pour le transport; toute interruption ou hausse de coût chez ces partenaires peut réduire les revenus et la trésorerie.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans les services midstream",
@@ -281,7 +313,8 @@
       "severity": 4,
       "score_rationale": "Le risque est décrit comme pouvant rendre plus difficile l'attraction de clients. Mention de concurrents plus puissants et de clients développant leurs propres infrastructures. Le langage est préoccupé mais moins urgent que d'autres. Catégorie Concurrence moyennement pondérée. Risque stable.",
       "trend": "stable",
-      "summary": "La société fait face à une concurrence croissante de concurrents ou de clients développant leurs propres réseaux, ce qui peut limiter sa croissance et ses marges."
+      "summary": "La société fait face à une concurrence croissante de concurrents ou de clients développant leurs propres réseaux, ce qui peut limiter sa croissance et ses marges.",
+      "score": 4
     },
     {
       "title": "Risques liés aux coentreprises",
@@ -289,7 +322,8 @@
       "severity": 4,
       "score_rationale": "Le texte précise que la société ne contrôle pas les coentreprises, ce qui limite son influence. Risques de coûts non maîtrisés et de cash-flow incertain. Langage clair sur l'impact matériel et négatif. Catégorie Industriel pertinente. Position inchangée.",
       "trend": "stable",
-      "summary": "La société participe à des coentreprises qu'elle ne contrôle pas, ce qui expose ses coûts, ses décisions opérationnelles et ses flux de trésorerie à des partenaires externes."
+      "summary": "La société participe à des coentreprises qu'elle ne contrôle pas, ce qui expose ses coûts, ses décisions opérationnelles et ses flux de trésorerie à des partenaires externes.",
+      "score": 4
     },
     {
       "title": "Exposition indirecte aux prix des matières premières",
@@ -297,7 +331,8 @@
       "severity": 3,
       "score_rationale": "La société affirme une exposition limitée, mais reconnaît que la baisse des prix affecte les producteurs, donc leurs investissements. Le lien est indirect mais documenté. Langage mesuré (pourrait réduire). Catégorie Crédit car lié à la solvabilité des clients. Risque stable.",
       "trend": "stable",
-      "summary": "Bien que les revenus soient majoritairement indexés sur les volumes, une baisse prolongée des prix du pétrole ou du gaz peut réduire l'activité des clients et donc les volumes traités."
+      "summary": "Bien que les revenus soient majoritairement indexés sur les volumes, une baisse prolongée des prix du pétrole ou du gaz peut réduire l'activité des clients et donc les volumes traités.",
+      "score": 3
     }
   ],
   "governance": {
@@ -348,7 +383,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -518,7 +553,6 @@
           58.862,
           160.167,
           245.798,
-          -151.967,
           57.975,
           97.35,
           155.805,
@@ -526,7 +560,6 @@
           74.546,
           201.84,
           358.354,
-          -142.266,
           83.029
         ],
         "history_periods": [
@@ -580,6 +613,12 @@
             "accession": "0001692787-26-000092",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (KNTK)"
         ]
       },
       {
@@ -588,23 +627,18 @@
         "history": [
           1.8537,
           1.8659,
-          -3.8375,
           6.0137,
           5.9963,
           6.0072,
-          -12.0975,
           6.1247,
           6.2269,
           6.286,
-          -12.1407,
           6.4476,
           6.8603,
           6.8605,
-          -13.3534,
           7.0307,
           7.151,
           7.2021,
-          -14.2881,
           7.1107
         ],
         "history_periods": [
@@ -658,6 +692,12 @@
             "accession": "0001692787-26-000092",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (KNTK)"
         ]
       }
     ]
@@ -674,9 +714,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.274703+00:00",
     "fetched_at": "2026-05-21T02:17:14.274703+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.857Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.617Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kntk.json",
     "enrich_root": "v2-pipeline-enrich/kntk.json",

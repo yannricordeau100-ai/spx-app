@@ -1,6 +1,6 @@
 {
   "ticker": "PAHC",
-  "name": "Phibro Animal Health Corporation",
+  "name": "Phibro Animal Health",
   "sector": "Santé",
   "subsector": "Animal Health and Mineral Nutrition",
   "tagline": "A leading global diversified animal health and mineral nutrition company providing solutions for livestock, poultry, aquaculture and companion animals",
@@ -31,7 +31,6 @@
       "description": "Le bénéfice net ajusté a augmenté de 76% en un an à 84,9 millions USD grâce à des acquisitions et des ajustements non récurrents.",
       "history": [
         3.9,
-        -8,
         3.6,
         7.6,
         -0.6,
@@ -45,7 +44,10 @@
       "ttm": 101,
       "period_type": "quarter",
       "explanation_en": "Adjusted Net income generated over the period.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "_fix_log": [
+        "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (PAHC)"
+      ]
     },
     {
       "short": "Net Income",
@@ -70,7 +72,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 277.24,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -96,7 +98,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 78.42,
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -122,7 +124,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 37.63,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Pressure, deteriorating trend"
     },
     {
@@ -178,17 +180,17 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.833,
-      "unit": "Mds $",
+      "value": 833,
+      "unit": "M $",
       "yoy": "+4.1%",
       "history": [
-        0.692,
-        0.749,
-        0.752,
-        0.764,
-        0.82,
-        0.8,
-        0.833
+        692,
+        749,
+        752,
+        764,
+        820,
+        800,
+        833
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -198,24 +200,29 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.11,
-      "unit": "Mds $",
+      "value": 110,
+      "unit": "M $",
       "yoy": "+107.5%",
       "history": [
-        0.099,
-        0.083,
-        0.069,
-        0.075,
-        0.079,
-        0.072,
-        0.053,
-        0.11
+        99,
+        83,
+        69,
+        75,
+        79,
+        72,
+        53,
+        110
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -224,8 +231,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -239,7 +251,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.48,
         0.48,
@@ -252,7 +264,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -267,7 +279,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0194,
@@ -280,7 +292,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position stable"
     },
     {
@@ -295,7 +307,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         39.54,
@@ -308,7 +320,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -324,7 +336,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.21,
@@ -337,7 +349,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -365,9 +377,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 101,
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 101
     },
     {
       "short": "Net Income",
@@ -392,9 +402,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 277.24,
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 277.24
     }
   ],
   "ai_positioning": {
@@ -423,7 +431,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en tête des facteurs mentionnés, avec des attaques réelles subies et des menaces croissantes. Le langage insiste sur un impact potentiellement matériel, malgré un impact historique non significatif. Position centrale dans le 10-K et renforcement actif des mesures indiquent une gravité élevée. Catégorie cybersécurité fortement pondérée.",
       "trend": "stable",
-      "summary": "La société subit des cyberattaques régulières et prévoit des menaces accrues, pouvant impacter gravement ses opérations et données."
+      "summary": "La société subit des cyberattaques régulières et prévoit des menaces accrues, pouvant impacter gravement ses opérations et données.",
+      "score": 5
     },
     {
       "title": "Adoption responsable de l'IA",
@@ -431,7 +440,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite de l'impact notable de l'IA sur l'environnement opérationnel. La société a dû réagir rapidement avec des programmes de gouvernance. Langage proactif mais souligne des risques émergents en matière de conformité et de sécurité. Position secondaire mais croissante dans le texte.",
       "trend": "up",
-      "summary": "L'intégration rapide de l'IA pose des défis en matière de gouvernance, de sécurité des données et de conformité réglementaire."
+      "summary": "L'intégration rapide de l'IA pose des défis en matière de gouvernance, de sécurité des données et de conformité réglementaire.",
+      "score": 4
     },
     {
       "title": "Conflit géopolitique au Moyen-Orient",
@@ -439,7 +449,8 @@
       "severity": 5,
       "score_rationale": "Trois sites de production et 500 employés en Israël. Conflits actuels ont déjà causé des perturbations. Menaces de reprise ou d'escalade, avec risque de sanctions, de ruptures d'approvisionnement ou de fermeture d'usines. Langage alarmiste et contexte actuel renforcent la gravité. Mention détaillée dans le 10-K.",
       "trend": "up",
-      "summary": "Les hostilités en cours et récurrentes en Israël menacent la production, la chaîne d'approvisionnement et la sécurité des employés."
+      "summary": "Les hostilités en cours et récurrentes en Israël menacent la production, la chaîne d'approvisionnement et la sécurité des employés.",
+      "score": 5
     },
     {
       "title": "Litiges juridiques multiples",
@@ -447,7 +458,8 @@
       "severity": 4,
       "score_rationale": "La société fait face à des litiges fréquents dans plusieurs domaines (concurrence, protection des données, responsabilité produit). Bien que l'impact actuel soit jugé non matériel, un jugement défavorable pourrait avoir un effet significatif. Mention répétée et lien avec d'autres risques réglementaires.",
       "trend": "stable",
-      "summary": "Les poursuites judiciaires dans divers domaines peuvent entraîner des coûts élevés, des pénalités et nuire à la réputation."
+      "summary": "Les poursuites judiciaires dans divers domaines peuvent entraîner des coûts élevés, des pénalités et nuire à la réputation.",
+      "score": 4
     },
     {
       "title": "Dépendance aux fournisseurs tiers",
@@ -455,7 +467,8 @@
       "severity": 4,
       "score_rationale": "Cadre renforcé pour évaluer les risques liés aux tiers, avec questionnaires standardisés et validations. Risque d'incidents de sécurité ou de non-conformité via des partenaires. Mention détaillée des processus de contrôle, indiquant une exposition significative. Intégration récente de nouveaux sites via acquisition augmente la dépendance.",
       "trend": "up",
-      "summary": "Les fournisseurs et partenaires externes représentent un vecteur de risque en matière de cybersécurité, de conformité et de continuité opérationnelle."
+      "summary": "Les fournisseurs et partenaires externes représentent un vecteur de risque en matière de cybersécurité, de conformité et de continuité opérationnelle.",
+      "score": 4
     },
     {
       "title": "Intégration de l'acquisition Zoetis",
@@ -463,7 +476,8 @@
       "severity": 4,
       "score_rationale": "Acquisition majeure de 297,5 M$ financée par emprunt, ajoutant 37 produits et 6 sites. Risque d'intégration opérationnelle, culturelle et financière. Mention de l'inclusion dans les résultats, mais absence de garantie de synergie. Leverage accru augmente la pression financière.",
       "trend": "new",
-      "summary": "L'acquisition récente de produits Zoetis comporte des risques d'intégration, de dette accrue et de performance inférieure aux attentes."
+      "summary": "L'acquisition récente de produits Zoetis comporte des risques d'intégration, de dette accrue et de performance inférieure aux attentes.",
+      "score": 4
     },
     {
       "title": "Conformité réglementaire internationale",
@@ -471,7 +485,8 @@
       "severity": 4,
       "score_rationale": "Opérations dans 90 pays soumises à des lois variées (protection des données, environnement, concurrence). Risque de sanctions croisé entre juridictions. Mention explicite dans les litiges potentiels. Cadre de conformité en place mais complexité croissante due à la géographie.",
       "trend": "stable",
-      "summary": "La présence mondiale expose la société à un cadre réglementaire complexe et à des risques de sanctions multijuridictionnelles."
+      "summary": "La présence mondiale expose la société à un cadre réglementaire complexe et à des risques de sanctions multijuridictionnelles.",
+      "score": 4
     }
   ],
   "governance": {
@@ -626,7 +641,7 @@
   "company_description": "Phibro Animal Health Corporation operates as an animal health and mineral nutrition company in the United States, Latin America and Canada, Europe, the Middle East, Africa, and the Asia Pacific. It operates through three segments: Animal Health, Mineral Nutrition, and Performance Products. The company develops, manufactures, and markets various products for food and companion animals including poultry, swine, beef and dairy cattle, aquaculture, and dogs. It also offers animal health products, such as antibacterials, anticoccidials, nutritional specialty, and vaccines and vaccine adjuvants for animal's health and performance, food safety, and animal welfare; and engages in developing, manufacturing, and marketing of microbial and bioproducts for various applications serving animal health and nutrition, environmental, industrial, and agricultural customers. In addition, the company develops, manufactures, and markets conventionally licensed and autogenous vaccine products, as well as adjuvants for animal vaccine manufacturers. Further, it provides formulations and concentrations of trace minerals, such as zinc, copper, manganese, iron, and other compounds to fortify the daily feed requirements of their livestock's diets and maintain optimal balance of trace elements in animals. Additionally, the company offers specialty ingredients for use in personal care, industrial chemical, and chemical catalyst industries. It sells its animal health and mineral nutrition products through local sales offices to integrated poultry, swine, and cattle producers, as well as through commercial animal feed manufacturers, wholesalers, and distributors. The company was formerly known as Philipp Brothers Chemicals, Inc. and changed its name to Phibro Animal Health Corporation in July 2003. Phibro Animal Health Corporation was incorporated in 1946 and is headquartered in Teaneck, New Jersey.",
   "_profile_fetched_at": "2026-05-07T11:59:36.269748+00:00",
   "_dividends_extracted_at": "2026-05-09T20:19:49Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -650,7 +665,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:05Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:44Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "PAHC",
     "simple": {
@@ -820,7 +835,10 @@
             "accession": "0001104659-26-056280",
             "end": "2026-03-31"
           }
-        ]
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -836,9 +854,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.294760+00:00",
     "fetched_at": "2026-05-21T02:17:14.294760+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.420Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.370Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pahc.json",
     "enrich_root": "v2-pipeline-enrich/pahc.json",

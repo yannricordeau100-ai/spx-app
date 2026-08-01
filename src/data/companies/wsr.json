@@ -37,7 +37,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -61,7 +61,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -108,7 +108,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -153,10 +153,13 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Occupancy Rate (%) not found as explicit annual KPI in the provided 10-K excerpt. The document mentions tenant count (1,391 tenants as of De",
-      "signal_en": "Demand stable"
+      "signal_en": "Demand stable",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Lease Expirations",
@@ -197,11 +200,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.17 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -215,7 +222,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.43,
         0.468,
@@ -228,7 +235,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -243,7 +250,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0235,
@@ -256,7 +263,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -271,7 +278,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         65.09,
@@ -284,7 +291,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -300,7 +307,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         0.26,
@@ -313,7 +320,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -354,7 +361,8 @@
       "severity": 4,
       "score_rationale": "Les biens immobiliers sont illiquides en raison de facteurs tels que les restrictions de vente et les délais de vente, ce qui peut entraîner des pertes prolongées et réduire les flux de trésorerie.",
       "trend": "stable",
-      "summary": "Les biens immobiliers de la société sont illiquides, ce qui peut entraîner des pertes et réduire les flux de trésorerie."
+      "summary": "Les biens immobiliers de la société sont illiquides, ce qui peut entraîner des pertes et réduire les flux de trésorerie.",
+      "score": 4
     },
     {
       "title": "Développement de projets",
@@ -362,7 +370,8 @@
       "severity": 4,
       "score_rationale": "Les projets de développement peuvent être affectés par des retards ou des difficultés dans l'obtention de permis, la disponibilité du financement et la location des propriétés.",
       "trend": "stable",
-      "summary": "Les projets de développement de la société peuvent être affectés par des retards ou des difficultés, ce qui peut avoir un impact négatif sur les résultats financiers."
+      "summary": "Les projets de développement de la société peuvent être affectés par des retards ou des difficultés, ce qui peut avoir un impact négatif sur les résultats financiers.",
+      "score": 4
     },
     {
       "title": "Inflation",
@@ -370,7 +379,8 @@
       "severity": 4,
       "score_rationale": "L'inflation peut avoir un impact négatif sur les résultats financiers de la société en augmentant les coûts opérationnels et en réduisant la capacité des locataires à payer leur loyer.",
       "trend": "up",
-      "summary": "L'inflation peut avoir un impact négatif sur les résultats financiers de la société en augmentant les coûts et en réduisant les revenus."
+      "summary": "L'inflation peut avoir un impact négatif sur les résultats financiers de la société en augmentant les coûts et en réduisant les revenus.",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -378,7 +388,8 @@
       "severity": 4,
       "score_rationale": "La société fait face à une concurrence intense dans le marché immobilier, ce qui peut entraîner une réduction des taux de location et une augmentation des coûts de marketing.",
       "trend": "stable",
-      "summary": "La société fait face à une concurrence intense dans le marché immobilier, ce qui peut avoir un impact négatif sur les résultats financiers."
+      "summary": "La société fait face à une concurrence intense dans le marché immobilier, ce qui peut avoir un impact négatif sur les résultats financiers.",
+      "score": 4
     },
     {
       "title": "Pandémies",
@@ -386,7 +397,8 @@
       "severity": 5,
       "score_rationale": "Les pandémies peuvent avoir un impact significatif sur les résultats financiers de la société en réduisant les revenus et en augmentant les coûts opérationnels.",
       "trend": "new",
-      "summary": "Les pandémies peuvent avoir un impact significatif sur les résultats financiers de la société en réduisant les revenus et en augmentant les coûts."
+      "summary": "Les pandémies peuvent avoir un impact significatif sur les résultats financiers de la société en réduisant les revenus et en augmentant les coûts.",
+      "score": 5
     },
     {
       "title": "Risques de crédit",
@@ -394,7 +406,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques de crédit liés à la capacité des locataires à payer leur loyer, ce qui peut avoir un impact négatif sur les résultats financiers.",
       "trend": "stable",
-      "summary": "La société est exposée aux risques de crédit liés à la capacité des locataires à payer leur loyer, ce qui peut avoir un impact négatif sur les résultats financiers."
+      "summary": "La société est exposée aux risques de crédit liés à la capacité des locataires à payer leur loyer, ce qui peut avoir un impact négatif sur les résultats financiers.",
+      "score": 4
     },
     {
       "title": "Réglementation",
@@ -402,7 +415,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations gouvernementales qui peuvent avoir un impact sur les résultats financiers, notamment en ce qui concerne l'accessibilité des propriétés pour les personnes handicapées.",
       "trend": "stable",
-      "summary": "La société est soumise à des réglementations gouvernementales qui peuvent avoir un impact sur les résultats financiers."
+      "summary": "La société est soumise à des réglementations gouvernementales qui peuvent avoir un impact sur les résultats financiers.",
+      "score": 3
     }
   ],
   "governance": {
@@ -462,7 +476,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -525,7 +539,7 @@
   "_segments_fetched_at": "2026-05-06T19:46:58.054687+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:20:09.863942+00:00",
   "_dividends_extracted_at": "2026-05-09T20:22:22Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -544,7 +558,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:45Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:22Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_events": {
     "ticker": "WSR",
@@ -600,9 +614,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.330169+00:00",
     "fetched_at": "2026-05-21T02:17:14.330170+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.620Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.760Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wsr.json",
     "enrich_root": "v2-pipeline-enrich/wsr.json",

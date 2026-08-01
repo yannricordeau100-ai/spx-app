@@ -188,11 +188,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 15.0 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -211,11 +215,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 9.83 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -229,7 +237,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.12,
         1.16,
@@ -242,7 +250,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -257,7 +265,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.7165,
@@ -270,7 +278,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -285,7 +293,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -298,7 +306,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -313,7 +321,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.5,
@@ -326,7 +334,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -342,43 +350,43 @@
       "title": "Conditions économiques et géopolitiques adverses",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "La société mentionne explicitement les risques liés aux crises économiques, aux conditions géopolitiques, à l'inflation, aux fluctuations des taux d'intérêt et aux changements politiques. Ces facteurs pourraient avoir un impact négatif existentiel sur la condition financière et les résultats opérationnels. (score par défaut, à affiner)",
+      "score_rationale": "La société mentionne explicitement les risques liés aux crises économiques, aux conditions géopolitiques, à l'inflation, aux fluctuations des taux d'intérêt et aux changements politiques. Ces facteurs pourraient avoir un impact négatif existentiel sur la condition financière et les résultats opérationnels.",
       "trend": "up",
       "summary": "MPT est exposée aux risques liés aux crises macroéconomiques, à l'instabilité géopolitique, à l'accès aux marchés de capitaux, et aux fluctuations des conditions de financement qui pourraient affecter négativement les résultats et la situation financière.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Défaillances et insolvabilité des locataires",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société dépend fortement de ses 52 locataires opérateurs pour générer des revenus locatifs. Les restructurations de Prospect Medical Holdings et d'autres locataires pourraient impacter la récupération des investissements et les flux de trésorerie. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de ses 52 locataires opérateurs pour générer des revenus locatifs. Les restructurations de Prospect Medical Holdings et d'autres locataires pourraient impacter la récupération des investissements et les flux de trésorerie.",
       "trend": "up",
       "summary": "Les défaillances des locataires, incluant les risques de restructuration de Prospect Medical Holdings, pourraient réduire les revenus locatifs et impacter la capacité à récupérer les investissements immobiliers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de refinancement et de disponibilité du crédit",
       "category": "Financement",
       "severity": 4,
-      "score_rationale": "La capacité à refinancer la dette existante et à obtenir de nouveaux financements dépend des conditions du marché, des taux d'intérêt et des notations de crédit. Les dégradations de notation ou la restriction des marchés de capitaux pourraient compromettre la stratégie de croissance. (score par défaut, à affiner)",
+      "score_rationale": "La capacité à refinancer la dette existante et à obtenir de nouveaux financements dépend des conditions du marché, des taux d'intérêt et des notations de crédit. Les dégradations de notation ou la restriction des marchés de capitaux pourraient compromettre la stratégie de croissance.",
       "trend": "up",
       "summary": "L'incapacité à obtenir des financements sur des conditions attractives ou à respecter les clauses restrictives des emprunts pourrait affecter la capacité à financer les acquisitions, rembourser la dette et maintenir les distributions aux actionnaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires du secteur de la santé",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société opère dans le secteur de la santé, fortement réglementé aux niveaux fédéral, étatique et local. Les changements dans les lois de financement Medicaid et autres réglementations pourraient affecter négativement les locataires et les résultats de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans le secteur de la santé, fortement réglementé aux niveaux fédéral, étatique et local. Les changements dans les lois de financement Medicaid et autres réglementations pourraient affecter négativement les locataires et les résultats de la société.",
       "trend": "up",
       "summary": "Les changements réglementaires au niveau fédéral et étatique, incluant les modifications du financement Medicaid et les exigences de conformité en santé, pourraient affecter négativement la rentabilité des locataires et les revenus de MPT.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux investissements à l'étranger",
       "category": "Géopolitique",
       "severity": 3,
-      "score_rationale": "MPT détient des investissements en Europe et Amérique du Sud, exposant la société aux risques liés aux lois étrangères, aux fluctuations des taux de change, et à l'instabilité économique et politique dans ces régions. (score par défaut, à affiner)",
+      "score_rationale": "MPT détient des investissements en Europe et Amérique du Sud, exposant la société aux risques liés aux lois étrangères, aux fluctuations des taux de change, et à l'instabilité économique et politique dans ces régions.",
       "trend": "up",
       "summary": "Les investissements à l'étranger exposent MPT à des risques de change, à des instabilités politiques, à des changements réglementaires et à des crises économiques dans les marchés internationaux.",
       "score": 3
@@ -387,7 +395,7 @@
       "title": "Statut de REIT et risques fiscaux",
       "category": "Fiscalité",
       "severity": 3,
-      "score_rationale": "MPT doit conserver son statut de REIT pour les États-Unis et le Royaume-Uni. Les changements dans les lois fiscales fédérales, étatiques ou locales pourraient affecter cet avantage fiscal crucial et la structure de distribution aux actionnaires. (score par défaut, à affiner)",
+      "score_rationale": "MPT doit conserver son statut de REIT pour les États-Unis et le Royaume-Uni. Les changements dans les lois fiscales fédérales, étatiques ou locales pourraient affecter cet avantage fiscal crucial et la structure de distribution aux actionnaires.",
       "trend": "stable",
       "summary": "La perte du statut de REIT ou les changements dans les lois fiscales pourraient avoir un impact significatif sur la fiscalité d'MPT et sa capacité à distribuer des revenus aux actionnaires de manière fiscalement efficace.",
       "score": 3
@@ -396,7 +404,7 @@
       "title": "Pertes de valeur immobilière et contraintes d'actif",
       "category": "Actif",
       "severity": 3,
-      "score_rationale": "Les dépréciations nettes ont atteint 193,947 mille dollars en 2025. La baisse de la valeur immobilière pourrait limiter la capacité à céder des actifs à des prix attractifs ou à obtenir du financement garanti par les propriétés. (score par défaut, à affiner)",
+      "score_rationale": "Les dépréciations nettes ont atteint 193,947 mille dollars en 2025. La baisse de la valeur immobilière pourrait limiter la capacité à céder des actifs à des prix attractifs ou à obtenir du financement garanti par les propriétés.",
       "trend": "stable",
       "summary": "Les contraintes sur la valeur des actifs immobiliers pourraient limiter la capacité à effectuer des cessions aux conditions favorables, à refinancer la dette garantie par des immeubles, ou à obtenir des financements non garantis.",
       "score": 3
@@ -468,7 +476,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -522,7 +530,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:22:27Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -549,7 +557,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:49Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:12Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "MPT",
     "simple": {
@@ -657,9 +665,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.284239+00:00",
     "fetched_at": "2026-05-21T02:17:14.284239+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.574Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.446Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mpt.json",
     "enrich_root": "v2-pipeline-enrich/mpt.json",

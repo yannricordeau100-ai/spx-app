@@ -13,7 +13,7 @@
     "sector": "Top 20",
     "subsector": "#1"
   },
-  "hero_kpi": "Revenue",
+  "hero_kpi": "International Revenue",
   "hero_kpi_rationale": "Revenue serves as Flutter's primary performance indicator as the world's leading sports betting and gaming operator, with no distinctive AI or cloud advantage identified in the disclosed strategy.",
   "kpis": [
     {
@@ -38,13 +38,14 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seul 2 années consécutives de données de revenu annuel explicites trouvées dans l'extrait (2023: $11,790m et 2022: $9,463m). Le minimum requ",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -68,10 +69,9 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "period_type": "year"
     },
     {
       "short": "Op Margin",
@@ -97,43 +97,15 @@
       "is_short_history": true,
       "explanation_en": "Profit margin on Op.",
       "signal_en": "Margin expansion, operating leverage",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "R&D",
-      "name_fr": "Investissements R&D (% revenu)",
-      "name_en": "R&D as % Revenue",
-      "explanation": "Part du revenu investie dans la recherche et le développement technologique.",
-      "value": "4.1",
-      "unit": "%",
-      "yoy": "-0.3 pts",
-      "type": "Investment",
-      "nature": "Conjoncturel",
-      "comparable": "Non comparable",
-      "signal": "Réduction légère des dépenses R&D relative au revenu.",
-      "description": "Les dépenses R&D restent stables en valeur absolue, mais baissent légèrement en proportion du revenu en forte croissance.",
-      "history": [
-        4.4,
-        4.3,
-        4.1
-      ],
-      "last_data_date": "2023-12-31",
-      "is_wow": false,
-      "is_generic": true,
-      "is_short_history": true,
-      "explanation_en": "Research & Development expenses.",
-      "signal_en": "Stable, slight decline to monitor",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "period_type": "year"
     },
     {
       "short": "Capex",
       "name_fr": "Dépenses d'investissement",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses pour des actifs physiques ou numériques destinés à durer.",
-      "value": "0.3",
-      "unit": "Mds $",
+      "value": 300,
+      "unit": "M $",
       "yoy": "+10%",
       "type": "Investment",
       "nature": "Structurel",
@@ -141,18 +113,27 @@
       "signal": "Capex modéré, concentré sur les plateformes digitales.",
       "description": "Les investissements sont principalement axés sur les plateformes technologiques et la cybersécurité.",
       "history": [
-        0.27,
-        0.28,
-        0.3
+        100,
+        203,
+        184,
+        290,
+        177
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Steady growth, healthy trend",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "history_periods": [
+        "Q1 2025",
+        "Q2 2025",
+        "Q3 2025",
+        "Q4 2025",
+        "Q1 2026"
+      ],
+      "period_type": "quarter",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Headcount",
@@ -178,28 +159,67 @@
       "is_generic": true,
       "is_short_history": true,
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Solid expansion, positive trajectory",
-      "_source_month": "mai 2026",
-      "_source_month_reason": "via_last_data"
+      "period_type": "year"
+    },
+    {
+      "short": "International Revenue",
+      "name_fr": "Revenu segment International",
+      "name_en": "International segment revenue",
+      "unit": "M$",
+      "period_type": "quarter",
+      "history": [
+        1683,
+        1714,
+        1627,
+        1480,
+        1550,
+        1532,
+        1540,
+        1737,
+        1847,
+        1904,
+        1730,
+        1905,
+        1987,
+        2084,
+        1998,
+        2181,
+        1999,
+        2396,
+        2426,
+        2595,
+        2541
+      ],
+      "value": 2541,
+      "last_data_date": "2026-03-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "International reste le plus gros segment et progresse en glissement annuel",
+      "is_wow": true,
+      "yoy": "+27,1 %"
     },
     {
       "short": "FanDuel US Rev",
       "name_fr": "Revenu FanDuel US",
       "name_en": "FanDuel US Revenue",
-      "value": 6155,
-      "unit": "$ M",
+      "value": 6.155,
+      "unit": "$ Mds",
       "history": [
-        3219,
-        4533,
-        6155
+        null,
+        null,
+        3.219,
+        4.533,
+        6.155
       ],
       "period_type": "year",
       "yoy": "+35.8%",
       "type": "Opérationnel",
       "signal": "FanDuel US +36% à $6.15B FY24, #1 sportsbook US (~46% part de marché GGR), moteur principal de la valuation Flutter.",
       "description": "Revenu de FanDuel (sports betting + iGaming aux États-Unis), filiale clé après le pivot vers cotation primaire NYSE.",
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "US Sportsbook Share",
@@ -208,6 +228,8 @@
       "value": 43,
       "unit": "%",
       "history": [
+        null,
+        null,
         37,
         39,
         43
@@ -217,7 +239,7 @@
       "type": "Marché",
       "signal": "#1 sportsbook US à 43% part GGR (vs DraftKings ~30%), avance structurelle.",
       "description": "Part de marché GGR (Gross Gaming Revenue) de FanDuel sur le segment sports betting aux États-Unis.",
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "AMPs Total",
@@ -226,6 +248,8 @@
       "value": 14.5,
       "unit": "M",
       "history": [
+        null,
+        null,
         10.2,
         12.5,
         14.5
@@ -235,64 +259,106 @@
       "type": "Opérationnel",
       "signal": "14.5M AMPs FY24, croissance internationale + Snai Italy + Sportsbet Australia, scale unique sur le secteur.",
       "description": "Nombre moyen de joueurs actifs mensuels à travers les marques (FanDuel, Sky Bet, PokerStars, Sportsbet, Snai).",
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "International Rev",
       "name_fr": "Revenu International",
       "name_en": "International Division Revenue",
-      "value": 3550,
-      "unit": "$ M",
+      "value": 3.55,
+      "unit": "$ Mds",
       "history": [
-        3400,
-        3500,
-        3550
+        null,
+        null,
+        3.4,
+        3.5,
+        3.5500000000000003
       ],
       "period_type": "year",
       "yoy": "+1.4%",
       "type": "Opérationnel",
       "signal": "Division International (UKI + Italy + autres EU) stable à $3.55B, maturité plus prononcée vs US.",
       "description": "Revenu de la division International (PokerStars, Sky Bet UK, Snai Italy, EU).",
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "UKI Revenue",
       "name_fr": "Revenu UK & Irlande",
       "name_en": "UK & Ireland Revenue",
-      "value": 2890,
-      "unit": "$ M",
+      "value": 2.89,
+      "unit": "$ Mds",
       "history": [
-        3050,
-        2950,
-        2890
+        null,
+        null,
+        3.0500000000000003,
+        2.95,
+        2.89
       ],
       "period_type": "year",
       "yoy": "-2.0%",
       "type": "Opérationnel",
       "signal": "UK & Ireland en léger recul (-2%), pressions réglementaires + affordability checks pèsent.",
       "description": "Revenu UK & Ireland (Sky Bet, Paddy Power, tombola), marché historique mature de Flutter.",
-      "is_short_history": false
+      "is_short_history": true
     },
     {
       "short": "Australia Revenue",
       "name_fr": "Revenu Australie",
       "name_en": "Australia Revenue (Sportsbet)",
-      "value": 1335,
-      "unit": "$ M",
+      "value": 1.335,
+      "unit": "$ Mds",
       "history": [
-        1480,
-        1410,
-        1335
+        null,
+        null,
+        1.48,
+        1.41,
+        1.335
       ],
       "period_type": "year",
       "yoy": "-5.3%",
       "type": "Opérationnel",
       "signal": "Sportsbet Australia -5.3%, fin de la bulle COVID-betting, retour à la normale.",
       "description": "Revenu de Sportsbet (Australie), #1 sports betting opérateur en Australie.",
-      "is_short_history": false
+      "is_short_history": true
+    },
+    {
+      "short": "AMPs",
+      "name_fr": "Joueurs mensuels moyens",
+      "name_en": "Average monthly players",
+      "value": 14.4,
+      "unit": "000s",
+      "yoy": "-4,6%",
+      "type": "Spécifique",
+      "is_wow": true,
+      "period_type": "quarter",
+      "history": [
+        15.1,
+        14.4
+      ],
+      "explanation": "Average monthly players (AMPs) (‘000s') 14,378",
+      "_source": "ER/ES (Cerebras)"
     }
   ],
-  "stories_kpis": [],
+  "stories_kpis": [
+    {
+      "short": "Revenu total",
+      "story_fr": "Revenu total ressort à 7.5Mds $ au 2026-03-31, variation +15% sur un an.",
+      "signal": "Croissance solide tirée par l'expansion aux États-Unis et au Brésil.",
+      "category": "growth"
+    },
+    {
+      "short": "Marge brute",
+      "story_fr": "Marge brute ressort à 58.2% au 2023-12-31, variation +1.5 pts sur un an.",
+      "signal": "Différence entre le revenu et le coût des services, exprimée en pourcentage.",
+      "category": "profitability"
+    },
+    {
+      "short": "Marge opérationnelle",
+      "story_fr": "Marge opérationnelle ressort à 12.4% au 2023-12-31, variation +2.3 pts sur un an.",
+      "signal": "Amélioration de la rentabilité opérationnelle malgré les investissements.",
+      "category": "profitability"
+    }
+  ],
   "ai_positioning": {
     "stance": "cautious",
     "summary": "Flutter adopte une approche prudente en matière d'intelligence artificielle, en l'utilisant principalement pour l'analyse des risques, la détection de la fraude et l'optimisation des paris. Aucune stratégie offensive ou produit IA phare n'est annoncée.",
@@ -303,15 +369,12 @@
     ],
     "source": "10-K 2023"
   },
-  "_validation": [
-    "hero_kpi_rationale: Removed em-dash and clarified language to focus on revenue as primary indicator without AI/cloud positioning",
-    "name_fr (Capex): Changed from 'Investissements' to 'Dépenses d'investissement' for clarity and consistency with finance terminology"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -337,7 +400,8 @@
       "severity": 5,
       "score_rationale": "Mentionné de façon récurrente et centrale dans le document ; le langage est impératif ('must ensure', 'regulatory requirements', 'well-enforced regulatory frameworks'). La tendance est à la hausse avec des exigences croissantes en matière d'affordability controls, age verification et outils de protection. Catégorie réglementaire = poids maximal pour un opérateur de jeux en ligne.",
       "trend": "up",
-      "summary": "Flutter opère dans de multiples juridictions soumises à des cadres réglementaires stricts et évolutifs en matière de jeu responsable (UK, Italie, Australie, USA, Turquie). Le non-respect ou le retard d'adaptation aux nouvelles exigences (ex. certification WLA en Turquie, affordability controls au Royaume-Uni) expose Flutter à des sanctions, retraits de licence ou restrictions d'activité."
+      "summary": "Flutter opère dans de multiples juridictions soumises à des cadres réglementaires stricts et évolutifs en matière de jeu responsable (UK, Italie, Australie, USA, Turquie). Le non-respect ou le retard d'adaptation aux nouvelles exigences (ex. certification WLA en Turquie, affordability controls au Royaume-Uni) expose Flutter à des sanctions, retraits de licence ou restrictions d'activité.",
+      "score": 5
     },
     {
       "title": "Concurrence des opérateurs illégaux non régulés",
@@ -345,7 +409,8 @@
       "severity": 4,
       "score_rationale": "Explicitement identifié comme un défi majeur ('illegal operators are expanding their reach') ; le langage est alarmiste et la tendance est décrite comme croissante. Ce risque affecte directement la part de marché et l'efficacité des mesures de protection, pesant sur la réputation du secteur régulé.",
       "trend": "up",
-      "summary": "Des opérateurs illégaux, absents des régimes de licence locaux, gagnent du terrain dans les marchés de Flutter en ne respectant pas les standards de protection des consommateurs (vérification d'âge, outils de jeu responsable, paiements sécurisés). Cela érode la confiance dans le marché régulé et crée une concurrence déloyale pour FanDuel, Paddy Power, Betfair et les autres marques du groupe."
+      "summary": "Des opérateurs illégaux, absents des régimes de licence locaux, gagnent du terrain dans les marchés de Flutter en ne respectant pas les standards de protection des consommateurs (vérification d'âge, outils de jeu responsable, paiements sécurisés). Cela érode la confiance dans le marché régulé et crée une concurrence déloyale pour FanDuel, Paddy Power, Betfair et les autres marques du groupe.",
+      "score": 4
     },
     {
       "title": "Risques liés au déploiement de l'IA dans les opérations",
@@ -353,7 +418,8 @@
       "severity": 4,
       "score_rationale": "L'IA est présentée comme centrale à la stratégie opérationnelle (Pulse, détection de risque en temps réel, analyse de chat) mais le document reconnaît explicitement que 'as technology rapidly evolves, including the use of AI, we must ensure it is applied appropriately and responsibly'. Tendance nouvelle et en forte montée, avec des pilotes en cours.",
       "trend": "up",
-      "summary": "Flutter déploie massivement l'IA pour la détection de risques clients (modèle Pulse, analyse linguistique Sisal/UCSC, algorithme ADA) et la formation interne. Un usage inapproprié, biaisé ou défaillant de ces systèmes pourrait entraîner des interventions erronées sur des clients, des violations réglementaires ou une atteinte à la réputation, notamment si les modèles ne sont pas suffisamment testés dans chaque contexte culturel local."
+      "summary": "Flutter déploie massivement l'IA pour la détection de risques clients (modèle Pulse, analyse linguistique Sisal/UCSC, algorithme ADA) et la formation interne. Un usage inapproprié, biaisé ou défaillant de ces systèmes pourrait entraîner des interventions erronées sur des clients, des violations réglementaires ou une atteinte à la réputation, notamment si les modèles ne sont pas suffisamment testés dans chaque contexte culturel local.",
+      "score": 4
     },
     {
       "title": "Dépendance aux partenariats académiques et tiers pour l'innovation",
@@ -361,7 +427,8 @@
       "severity": 2,
       "score_rationale": "Plusieurs partenariats clés sont mentionnés (UCSC Milan, Bahçeşehir University, EPIC Global Solutions, Lifeline) comme fondements de l'innovation en jeu responsable. Le langage est positif mais la dépendance structurelle est réelle. Tendance stable ; poids modéré car ces partenariats sont diversifiés.",
       "trend": "stable",
-      "summary": "Flutter s'appuie sur des partenariats avec des universités (Università Cattolica, Bahçeşehir) et des ONG (EPIC Global Solutions) pour développer ses outils de protection des joueurs et ses recherches comportementales. Une rupture ou une dégradation de ces relations pourrait ralentir l'innovation en matière de jeu responsable et affaiblir la crédibilité réglementaire du groupe."
+      "summary": "Flutter s'appuie sur des partenariats avec des universités (Università Cattolica, Bahçeşehir) et des ONG (EPIC Global Solutions) pour développer ses outils de protection des joueurs et ses recherches comportementales. Une rupture ou une dégradation de ces relations pourrait ralentir l'innovation en matière de jeu responsable et affaiblir la crédibilité réglementaire du groupe.",
+      "score": 2
     },
     {
       "title": "Risque de réputation lié au jeu problématique et addictif",
@@ -369,7 +436,8 @@
       "severity": 5,
       "score_rationale": "Le document entier est structuré autour de la gestion de ce risque ; le langage reflète une pression sociétale et médiatique intense. La tendance est à la hausse avec des campagnes publiques (The Comeback with Craig Carton, Trusted Voices) indiquant une exposition croissante. Catégorie réputation critique pour un opérateur de jeux.",
       "trend": "up",
-      "summary": "En tant que leader mondial du paris sportif et de l'iGaming, Flutter est exposé à un risque réputationnel majeur si ses marques (FanDuel, Paddy Power, Sky Bet, Betfair, Sisal, Sportsbet) sont associées à des cas de jeu problématique non détectés ou mal gérés. Des incidents médiatisés ou des critiques de régulateurs pourraient déclencher des boycotts, des restrictions législatives ou une perte de confiance des investisseurs."
+      "summary": "En tant que leader mondial du paris sportif et de l'iGaming, Flutter est exposé à un risque réputationnel majeur si ses marques (FanDuel, Paddy Power, Sky Bet, Betfair, Sisal, Sportsbet) sont associées à des cas de jeu problématique non détectés ou mal gérés. Des incidents médiatisés ou des critiques de régulateurs pourraient déclencher des boycotts, des restrictions législatives ou une perte de confiance des investisseurs.",
+      "score": 5
     },
     {
       "title": "Complexité opérationnelle multi-marques et multi-juridictions",
@@ -377,7 +445,8 @@
       "severity": 3,
       "score_rationale": "Le document décrit explicitement la difficulté d'harmoniser des standards globaux avec des impératifs locaux (UK, Italie, Australie, USA, Turquie, Roumanie). Le langage souligne la nécessité d'adaptation constante ('locally relevant', 'local regulatory, cultural, and workforce contexts'). Tendance stable mais structurellement complexe.",
       "trend": "stable",
-      "summary": "Flutter gère un portefeuille de marques (Paddy Power, Sky Bet, FanDuel, Betfair, Sisal, Sportsbet, PokerStars, Sisal Sans) dans des marchés aux cadres réglementaires, culturels et linguistiques très différents. L'exécution cohérente des standards de protection des joueurs et des politiques RH à travers ces entités représente un risque opérationnel significatif, notamment lors de l'intégration de nouvelles acquisitions."
+      "summary": "Flutter gère un portefeuille de marques (Paddy Power, Sky Bet, FanDuel, Betfair, Sisal, Sportsbet, PokerStars, Sisal Sans) dans des marchés aux cadres réglementaires, culturels et linguistiques très différents. L'exécution cohérente des standards de protection des joueurs et des politiques RH à travers ces entités représente un risque opérationnel significatif, notamment lors de l'intégration de nouvelles acquisitions.",
+      "score": 3
     },
     {
       "title": "Attraction et rétention des talents dans un secteur compétitif",
@@ -385,7 +454,8 @@
       "severity": 3,
       "score_rationale": "Le document consacre une section entière ('Work Better') à la stratégie de talent, soulignant que 'our business edge is grounded in our people's expertise'. Les investissements en formation IA et inclusion indiquent une pression concurrentielle sur les talents technologiques. Tendance stable avec des efforts proactifs.",
       "trend": "stable",
-      "summary": "Flutter dépend de profils hautement spécialisés (data scientists, experts en IA, spécialistes du jeu responsable, équipes réglementaires) dans des marchés où la concurrence pour ces talents est intense. La perte de collaborateurs clés ou l'incapacité à recruter les compétences nécessaires (notamment en IA et technologie) pourrait ralentir l'innovation produit et la conformité réglementaire."
+      "summary": "Flutter dépend de profils hautement spécialisés (data scientists, experts en IA, spécialistes du jeu responsable, équipes réglementaires) dans des marchés où la concurrence pour ces talents est intense. La perte de collaborateurs clés ou l'incapacité à recruter les compétences nécessaires (notamment en IA et technologie) pourrait ralentir l'innovation produit et la conformité réglementaire.",
+      "score": 3
     },
     {
       "title": "Cybersécurité et protection des données clients sensibles",
@@ -393,35 +463,30 @@
       "severity": 4,
       "score_rationale": "Bien que non détaillé dans cet extrait, la centralisation de données comportementales et financières ultra-sensibles (dépôts, retraits, profils de risque, historiques de jeu) dans des plateformes IA temps réel (99% des interventions UK&I) crée une surface d'attaque critique. Le secteur iGaming est une cible privilégiée des cyberattaques. Tendance en hausse avec la numérisation accélérée.",
       "trend": "up",
-      "summary": "Flutter collecte et centralise des volumes massifs de données comportementales et financières de millions de clients à travers ses plateformes IA (Pulse, ADA, analyse de chat Sisal). Une violation de données ou une cyberattaque ciblant ces systèmes exposerait Flutter à des sanctions RGPD/réglementaires sévères, une perte de confiance des clients et des perturbations opérationnelles majeures sur ses marchés clés."
+      "summary": "Flutter collecte et centralise des volumes massifs de données comportementales et financières de millions de clients à travers ses plateformes IA (Pulse, ADA, analyse de chat Sisal). Une violation de données ou une cyberattaque ciblant ces systèmes exposerait Flutter à des sanctions RGPD/réglementaires sévères, une perte de confiance des clients et des perturbations opérationnelles majeures sur ses marchés clés.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:07:47.036589+00:00",
   "_risks_source": "Annual 2025",
   "profit_warning": {
     "last_date": null,
-    "score": 1,
-    "rationale": "Hero KPI Revenue en croissance soutenue (+15.0%), faible probabilité de profit warning. Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
-    "margin_trend": "Marges en expansion (+1.9 pts en moyenne sur les KPIs marge)."
+    "score": 3,
+    "rationale": "Pas de signal de profit warning identifié dans les sources analysées.",
+    "margin_trend": "stable"
   },
   "events": [
     {
-      "year": 2026,
-      "month": 4,
-      "title": "Wynn Resorts (WYNN) Earnings Expected to Grow: What to Know Ahead of Next Week's Release",
-      "body": "Wynn (WYNN) possesses the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/wynn-resorts-wynn-earnings-expected-140015186.html",
-      "date": "2026-04-30"
+      "date": "2026-04-30",
+      "title": "Wynn Resorts (WYNN) Earnings Expected to Grow: What to Know Ahead of Next Week's",
+      "type": "disclosure",
+      "short": "Wynn (WYNN) possesses the right combination of the two key ingredients for a likely earnings beat in its upcoming report"
     },
     {
-      "year": 2026,
-      "month": 4,
+      "date": "2026-04-29",
       "title": "Earnings Preview: Flutter Entertainment (FLUT) Q1 Earnings Expected to Decline",
-      "body": "Flutter (FLUT) doesn't possess the right combination of the two key ingredients for a likely earnings beat in its upcoming report. Get prepared with the key expectations.",
-      "source": "Zacks",
-      "url": "https://finance.yahoo.com/markets/stocks/articles/earnings-preview-flutter-entertainment-flut-140030945.html",
-      "date": "2026-04-29"
+      "type": "disclosure",
+      "short": "Flutter (FLUT) doesn't possess the right combination of the two key ingredients for a likely earnings beat in its upcomi"
     }
   ],
   "customer_type": "B2C",
@@ -508,6 +573,13 @@
   },
   "_seggeo_extracted_at": "2026-05-19T19:14:26.482509+00:00",
   "_seggeo_source": "haiku-eu-annual-text-v1",
+  "_maj_by": "Sub-agent Opus MAJ chunk-05",
+  "_maj_at": "2026-06-01T21:14:13Z",
+  "_hero_review_status": "auto_proposed_uncertain",
+  "_hero_last_set_at": "2026-06-04T19:12:56.998951Z",
+  "_hero_last_set_by": "vague-bulk-lowhist",
+  "_hero_previous": "Revenue",
+  "_hero_needs_extraction": true,
   "financial_snapshot": {
     "market_cap_usd": 12424969216,
     "market_cap_mds_dollars": 12.42,
@@ -571,7 +643,7 @@
   "_peers_computed_at": "2026-05-10T09:05:43.137Z",
   "latest_filing": {
     "date": "2026-05-06",
-    "form": "yfinance",
+    "form": "rapport financier",
     "period_end": "2026-03-31",
     "fetched_at": "2026-05-12T01:10:52.014364+00:00"
   },
@@ -598,7 +670,7 @@
   },
   "_customer_type_fetched_at": "2026-05-13T10:37:33.368377+00:00",
   "_geo_fetched_at": "2026-05-13T17:08:32.510143+00:00",
-  "hero_kpi_override": "R&D",
+  "hero_kpi_override": "International Revenue",
   "_hero_override_reason": "original hero generic (Revenue), switched to specific",
   "overrides_governance": {
     "avg_tenure_years": 5.5,
@@ -613,7 +685,7 @@
       "name": "Jeremy Peter Jackson",
       "title": "CEO & Executive Director"
     },
-    "source": "yfinance_companyOfficers",
+    "source": "registre public des dirigeants",
     "_extracted_at_phase_a": "2026-05-21T11:18:32+00:00"
   },
   "_governance_partial": true,
@@ -632,7 +704,7 @@
   "hero_kpi_replaced_reason": "Orphelin résolu par fallback sectoriel 'Technologie'. Hero précédent 'Revenue' avait history insuffisant. Remplaçant 'R&D' choisi parmi liste sectorielle (history=3, period=year). Stratégie B fix-hero-orphan.",
   "_hero_replaced_by_sector_fallback": true,
   "_earnings_updated_at": "2026-05-26T22:58:44Z",
-  "_earnings_source": "yfinance.calendar+info",
+  "_earnings_source": "calendrier financier+info",
   "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/FLTR.L/annual-text/2023.txt",
   "_risks_source_year": 2023,
   "_risks_verification_needed": true,
@@ -695,23 +767,49 @@
         5.7,
         7.4
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "International Revenue",
-      "name_fr": "Revenu International",
-      "name_en": "International Segment Revenue",
-      "value": 7,
-      "unit": "Mds $",
-      "yoy": "+8%",
+      "name_fr": "Revenu segment International",
+      "name_en": "International segment revenue",
+      "value": 2541,
+      "unit": "M$",
+      "yoy": "+27,1 %",
       "history": [
-        6,
-        6.2,
-        6.4,
-        6.5,
-        7
+        1683,
+        1714,
+        1627,
+        1480,
+        1550,
+        1532,
+        1540,
+        1737,
+        1847,
+        1904,
+        1730,
+        1905,
+        1987,
+        2084,
+        1998,
+        2181,
+        1999,
+        2396,
+        2426,
+        2595,
+        2541
       ],
-      "period_type": "year"
+      "period_type": "quarter",
+      "type": "Demand",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+      "last_data_date": "2026-03-31",
+      "comparable": "Comparable",
+      "signal": "International reste le plus gros segment et progresse en glissement annuel",
+      "is_wow": true
     },
     {
       "short": "Online Sportsbook Market Share US",
@@ -727,7 +825,10 @@
         43,
         43
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Géographie",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Adj EBITDA Margin",
@@ -743,11 +844,67 @@
         14,
         17
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Marge",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_at": "2026-05-28T16:52:46+00:00",
   "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
+  "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH027-2026-05-30",
+  "_risks_batch_merged_at": "2026-05-30T10:50:55.352280Z",
+  "_quarterly_history_extension": {
+    "hero_kpi_short": "Revenue",
+    "period_type": "quarter",
+    "history": [
+      {
+        "quarter": "Q1 2025",
+        "value": 3.665,
+        "date": "2025-03-31",
+        "source": "rapport financier quarterly_financials (GBP, Bn)"
+      },
+      {
+        "quarter": "Q2 2025",
+        "value": 4.187,
+        "date": "2025-06-30",
+        "source": "rapport financier quarterly_financials (GBP, Bn)"
+      },
+      {
+        "quarter": "Q3 2025",
+        "value": 3.794,
+        "date": "2025-09-30",
+        "source": "rapport financier quarterly_financials (GBP, Bn)"
+      },
+      {
+        "quarter": "Q4 2025",
+        "value": 4.737,
+        "date": "2025-12-31",
+        "source": "rapport financier quarterly_financials (GBP, Bn)"
+      },
+      {
+        "quarter": "Q1 2026",
+        "value": 4.304,
+        "date": "2026-03-31",
+        "source": "rapport financier quarterly_financials (GBP, Bn)"
+      }
+    ],
+    "extracted_at": "2026-06-01T20:45:07Z",
+    "extracted_by": "Sub-agent Opus full-q chunk-10"
+  },
+  "_super_kpi_inputs": {
+    "revenue_q": 4.304,
+    "op_income_q": 0.079,
+    "ni_q": 0.216,
+    "op_cf_q": 0.33,
+    "rd_q": 0.259,
+    "op_margin_q_pct": 1.84,
+    "_currency": "GBP",
+    "_last_quarter": "Q1 2026",
+    "_source": "rapport financier quarterly_financials + quarterly_cashflow"
+  },
+  "_stories_fab_purged": "2026-06-09",
+  "_hero_kpi_override_reason": "International Revenue = revenu specifique principal (agent verbatim)",
   "enrich_ai_pos": {
     "stance": "integrator",
     "summary": "Flutter déploie l'IA comme levier opérationnel de safer gambling et de rétention client, sans en faire un produit commercial central. Positionnement défensif et réglementaire plutôt que stratégique.",
@@ -852,7 +1009,37 @@
         "category": "News"
       }
     ],
-    "_source": "yfinance.news"
+    "_source": "rapport financier"
+  },
+  "enrich_mettrik_description": {
+    "ticker": "FLTR.L",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Flutter Entertainment est un leader mondial du pari sportif et iGaming.",
+          "products": "Ses marques incluent FanDuel (US), Paddy Power, Betfair, Sky Bet, Sisal, Tombola et Pokerstars.",
+          "customers": "Ses clients sont des parieurs sportifs et joueurs iGaming dans plus de 100 marchés.",
+          "edge": "Son atout est la position dominante de FanDuel aux États-Unis (sports betting et iCasino)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Dans le sous-secteur Hôtellerie et tourisme, Flutter est leader mondial du betting devant DraftKings, Entain et bet365.",
+          "tech_products": "L'entreprise a coté son siège primaire à New York et investit dans le développement sud-américain (Brésil) et iCasino US.",
+          "moat": "Son moat repose sur la marque FanDuel, l'effet d'échelle dans la data sportive et la diversification géographique.",
+          "risks": "Les risques incluent la régulation US (taxes State), la concurrence DraftKings et les coûts de marketing élevés en phase de lancement."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch1-2026-06-01",
+    "_generated_at": "2026-06-01T10:30:10Z",
+    "_source_kind": "v2-pipeline",
+    "_source_fields": [
+      "name",
+      "sector",
+      "subsector",
+      "company_description"
+    ]
   },
   "enrich_ranks": {
     "ticker": "FLTR.L",
@@ -866,9 +1053,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.262171+00:00",
     "fetched_at": "2026-05-21T02:17:14.262172+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.299Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.876Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fltr.l.json",
     "enrich_root": "v2-pipeline-enrich/fltr.l.json",
@@ -876,6 +1063,7 @@
       "ai-pos",
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

@@ -21,8 +21,8 @@
       "name_fr": "Dette à taux fixe",
       "name_en": "Fixed Rate Debt",
       "explanation": "Montant total de la dette portant intérêt à taux fixe.",
-      "value": "3195.2",
-      "unit": "M $",
+      "value": 3.195,
+      "unit": "Mds $",
       "yoy": "+11.8%",
       "type": "Risk",
       "nature": "Structurel",
@@ -34,13 +34,14 @@
         null,
         null,
         null,
-        3195.2
+        3.195
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "variable_rate_debt_unhedged",
@@ -135,11 +136,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -158,33 +163,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.55 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+50.0%",
       "history": [
-        0.02,
-        0.03,
-        0.02,
-        0.03
+        20,
+        30,
+        20,
+        30
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.03 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -222,7 +236,8 @@
       "severity": 4,
       "score_rationale": "La société dépend fortement des distributions pour financer ses activités, ce qui peut être affecté par les décisions du conseil d'administration.",
       "trend": "stable",
-      "summary": "La société est dépendante des distributions pour financer ses activités, ce qui peut être affecté par les décisions du conseil d'administration."
+      "summary": "La société est dépendante des distributions pour financer ses activités, ce qui peut être affecté par les décisions du conseil d'administration.",
+      "score": 4
     },
     {
       "title": "Risques de crédit",
@@ -230,7 +245,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux risques de crédit liés aux impayés de loyer et aux pertes potentielles sur les créances.",
       "trend": "stable",
-      "summary": "La société est exposée aux risques de crédit liés aux impayés de loyer et aux pertes potentielles sur les créances."
+      "summary": "La société est exposée aux risques de crédit liés aux impayés de loyer et aux pertes potentielles sur les créances.",
+      "score": 3
     },
     {
       "title": "Volatilité des marchés",
@@ -238,7 +254,8 @@
       "severity": 5,
       "score_rationale": "La société est exposée aux fluctuations des marchés immobiliers et financiers, ce qui peut affecter sa capacité à refinancer ses dettes et à réaliser des investissements.",
       "trend": "up",
-      "summary": "La société est exposée aux fluctuations des marchés immobiliers et financiers, ce qui peut affecter sa capacité à refinancer ses dettes et à réaliser des investissements."
+      "summary": "La société est exposée aux fluctuations des marchés immobiliers et financiers, ce qui peut affecter sa capacité à refinancer ses dettes et à réaliser des investissements.",
+      "score": 5
     },
     {
       "title": "Risques de régulation",
@@ -246,7 +263,8 @@
       "severity": 2,
       "score_rationale": "La société est soumise à des réglementations et des lois qui peuvent changer et affecter ses activités.",
       "trend": "stable",
-      "summary": "La société est soumise à des réglementations et des lois qui peuvent changer et affecter ses activités."
+      "summary": "La société est soumise à des réglementations et des lois qui peuvent changer et affecter ses activités.",
+      "score": 2
     },
     {
       "title": "Risques de liquidité",
@@ -254,7 +272,8 @@
       "severity": 4,
       "score_rationale": "La société peut rencontrer des difficultés de liquidité si elle ne parvient pas à refinancer ses dettes ou à réaliser des investissements.",
       "trend": "stable",
-      "summary": "La société peut rencontrer des difficultés de liquidité si elle ne parvient pas à refinancer ses dettes ou à réaliser des investissements."
+      "summary": "La société peut rencontrer des difficultés de liquidité si elle ne parvient pas à refinancer ses dettes ou à réaliser des investissements.",
+      "score": 4
     },
     {
       "title": "Risques de dépréciation",
@@ -262,7 +281,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée aux risques de dépréciation de ses actifs immobiliers, ce qui peut affecter sa valeur et ses résultats financiers.",
       "trend": "stable",
-      "summary": "La société est exposée aux risques de dépréciation de ses actifs immobiliers, ce qui peut affecter sa valeur et ses résultats financiers."
+      "summary": "La société est exposée aux risques de dépréciation de ses actifs immobiliers, ce qui peut affecter sa valeur et ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Risques de taux d'intérêt",
@@ -270,7 +290,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques de taux d'intérêt, ce qui peut affecter ses coûts de financement et ses résultats financiers.",
       "trend": "up",
-      "summary": "La société est exposée aux risques de taux d'intérêt, ce qui peut affecter ses coûts de financement et ses résultats financiers."
+      "summary": "La société est exposée aux risques de taux d'intérêt, ce qui peut affecter ses coûts de financement et ses résultats financiers.",
+      "score": 4
     }
   ],
   "governance": {
@@ -318,7 +339,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -369,7 +390,6 @@
       "date": "2026-04-29"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T20:01:59.108464+00:00",
   "revenue_by_geography": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -420,6 +440,7 @@
     ],
     "total": 0.91
   },
+  "_ai_positioning_fetched_at": "2026-05-06T20:01:59.108464+00:00",
   "_segments_fetched_at": "2026-05-06T19:32:22.627256+00:00",
   "enrich_description": {
     "ticker": "HIW",
@@ -528,9 +549,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.271402+00:00",
     "fetched_at": "2026-05-21T02:17:14.271403+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.054Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.697Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hiw.json",
     "enrich_root": "v2-pipeline-enrich/hiw.json",

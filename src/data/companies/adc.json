@@ -1,6 +1,6 @@
 {
   "ticker": "ADC",
-  "name": "Agree Realty Corporation",
+  "name": "Agree Realty",
   "sector": "Immobilier",
   "subsector": "REIT",
   "tagline": "Fully integrated REIT focused on ownership, acquisition and management of retail properties net leased to industry-leading tenants",
@@ -72,7 +72,7 @@
       "is_short_history": false,
       "ttm": 209104.32,
       "_validation": "Unité corrigée de 'Mds $' à 'M $'; type changé de 'Revenue' à 'Profitability'; description améliorée",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -128,24 +128,29 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.72,
-      "unit": "Mds €",
+      "value": 720,
+      "unit": "M €",
       "yoy": "+16.1%",
       "history": [
-        0.43,
-        0.54,
-        0.62,
-        0.72
+        430,
+        540,
+        620,
+        720
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.72 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -164,11 +169,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.8 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -187,33 +196,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.35 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.03,
-        0.01,
-        0.01,
-        0.02
+        30,
+        10,
+        10,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -238,9 +256,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Unité précisée à 'properties'; description enrichie avec prix total et taux de capitalisation; nom_fr amélioré",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unité précisée à 'properties'; description enrichie avec prix total et taux de capitalisation; nom_fr amélioré"
     },
     {
       "short": "Portfolio Size",
@@ -264,9 +280,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Capacité",
-      "_validation": "KPI additionnel extrait du 10-K pour mieux mesurer la croissance stratégique",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "KPI additionnel extrait du 10-K pour mieux mesurer la croissance stratégique"
     },
     {
       "short": "Lease Term",
@@ -289,9 +303,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Qualité",
-      "_validation": "KPI additionnel extrait du 10-K pour évaluer la qualité du portefeuille",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "KPI additionnel extrait du 10-K pour évaluer la qualité du portefeuille"
     },
     {
       "short": "Tenant Quality",
@@ -314,9 +326,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Qualité",
-      "_validation": "KPI additionnel extrait du 10-K pour mesurer la qualité creditelle du portefeuille",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "KPI additionnel extrait du 10-K pour mesurer la qualité creditelle du portefeuille"
     }
   ],
   "stories_kpis_removed": [
@@ -341,43 +351,43 @@
       "title": "Dépendance à l'endettement élevé",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le risque est central dans le 10-K, avec une forte augmentation des frais d'intérêt (+24% YoY à 134.6M USD) et une dépendance à plusieurs instruments de dette. Les émissions récentes de 400M (2035 Notes) et 450M (2034 Notes) augmentent l'exposition. La catégorie Capital est hautement pondérée en immobilier, en particulier pour les REITs en croissance par acquisition. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est central dans le 10-K, avec une forte augmentation des frais d'intérêt (+24% YoY à 134.6M USD) et une dépendance à plusieurs instruments de dette. Les émissions récentes de 400M (2035 Notes) et 450M (2034 Notes) augmentent l'exposition. La catégorie Capital est hautement pondérée en immobilier, en particulier pour les REITs en croissance par acquisition.",
       "trend": "stable",
       "summary": "La société dépend fortement de l'endettement pour financer sa croissance (1.45Md$ d'acquisitions en 2025), ce qui augmente son exposition aux taux d'intérêt et aux conditions de marché. Les frais d'intérêt ont dépassé la croissance des revenus.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Sensibilité aux taux d'intérêt",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Multiples références aux ajustements SOFR, swaps de taux et refinancements. L'entreprise a utilisé des couvertures (13.6M$ de gains sur fermeture de swaps en mai 2025), mais le risque est récurrent et intensifié par l'émission de nouvelles dettes à taux fixe 5.6% dans un environnement d'incertitude macroéconomique. (score par défaut, à affiner)",
+      "score_rationale": "Multiples références aux ajustements SOFR, swaps de taux et refinancements. L'entreprise a utilisé des couvertures (13.6M$ de gains sur fermeture de swaps en mai 2025), mais le risque est récurrent et intensifié par l'émission de nouvelles dettes à taux fixe 5.6% dans un environnement d'incertitude macroéconomique.",
       "trend": "up",
       "summary": "Les coûts d'emprunt augmentent avec les taux d'intérêt, affectant directement les marges et la rentabilité. La société a émis des notes à 5.6% en 2025, verrouillant les taux avant d'éventuels changements macro.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concentration des revenus sur quelques grands locataires",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "66.8% du loyer annualisé provient de locataires notés investment grade, ce qui montre une forte dépendance. Bien que cela réduise le risque de défaut, la perte d'un seul grand locataire pourrait impacter jusqu'à 5-10% des revenus annuels. (score par défaut, à affiner)",
+      "score_rationale": "66.8% du loyer annualisé provient de locataires notés investment grade, ce qui montre une forte dépendance. Bien que cela réduise le risque de défaut, la perte d'un seul grand locataire pourrait impacter jusqu'à 5-10% des revenus annuels.",
       "trend": "stable",
       "summary": "Une part importante des revenus dépend de grands locataires (majorité notée investment grade), rendant la société vulnérable à leurs décisions stratégiques, fusions ou difficultés financières, malgré la bonne qualité creditelle.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de non-disponibilité du financement futur",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le texte mentionne explicitement qu'il n'y a 'aucune assurance' que le financement sera disponible à des conditions favorables. Cela apparaît dans la section Liquidité, un point critique pour un REIT en croissance externe. Les conditions de crédit pourraient se resserrer rapidement. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne explicitement qu'il n'y a 'aucune assurance' que le financement sera disponible à des conditions favorables. Cela apparaît dans la section Liquidité, un point critique pour un REIT en croissance externe. Les conditions de crédit pourraient se resserrer rapidement.",
       "trend": "new",
       "summary": "La capacité à lever des fonds futurs n'est pas garantie, ce qui pourrait freiner la stratégie d'acquisition (305 propriétés/an) ou forcer des cessions d'actifs. L'ATM program (1.75Md$) lancé en avril 2026 signale une dépendance au marché des capitaux.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Provisions pour dépréciation en hausse",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La provision pour dépréciation a augmenté de 65% (de 7.2M à 11.9M USD), signalant une détérioration potentielle de certains actifs. Le langage du 10-K est mesuré, mais le signal est préoccupant et mérite un suivi. (score par défaut, à affiner)",
+      "score_rationale": "La provision pour dépréciation a augmenté de 65% (de 7.2M à 11.9M USD), signalant une détérioration potentielle de certains actifs. Le langage du 10-K est mesuré, mais le signal est préoccupant et mérite un suivi.",
       "trend": "up",
       "summary": "L'augmentation des dépréciations de 4.7M USD (65%) suggère que certains actifs pourraient perdre de la valeur future, affectant les rentes de certaines propriétés et les futurs gains de disposition.",
       "score": 3
@@ -386,16 +396,16 @@
       "title": "Dépendance à un modèle de croissance par acquisitions",
       "category": "Stratégie",
       "severity": 4,
-      "score_rationale": "La croissance des revenus dépend largement des acquisitions (305 propriétés, 1.45Md$ en 2025, soit une augmentation YoY de 12.8%). Le texte reconnaît que l'impact complet ne se voit qu'avec retard, créant un risque de désalignement entre dépenses et revenus. (score par défaut, à affiner)",
+      "score_rationale": "La croissance des revenus dépend largement des acquisitions (305 propriétés, 1.45Md$ en 2025, soit une augmentation YoY de 12.8%). Le texte reconnaît que l'impact complet ne se voit qu'avec retard, créant un risque de désalignement entre dépenses et revenus.",
       "trend": "stable",
       "summary": "La stratégie repose sur des acquisitions continues (taux de capitalisation moyen 7.2%) ; tout ralentissement d'accès au financement ou des opportunités pourrait impacter fortement la croissance de 16% YoY observée.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de taux de change ou de liquidité sur instruments dérivés",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "Fermeture de swaps à terme (325M$) pour couvrir les 2035 Notes, avec un gain de 13.6M USD en mai 2025. Cela montre une gestion active mais aussi une exposition complexe aux marchés de taux et de liquidité. (score par défaut, à affiner)",
+      "score_rationale": "Fermeture de swaps à terme (325M$) pour couvrir les 2035 Notes, avec un gain de 13.6M USD en mai 2025. Cela montre une gestion active mais aussi une exposition complexe aux marchés de taux et de liquidité.",
       "trend": "new",
       "summary": "L'utilisation de produits dérivés pour couvrir les taux et les émissions expose la société aux mouvements de marché, aux risques de refinancement et de liquidité de contrepartie.",
       "score": 3
@@ -404,7 +414,7 @@
       "title": "Intégration et risque opérationnel lié aux acquisitions rapides",
       "category": "Opérationnel",
       "severity": 3,
-      "score_rationale": "305 acquisitions en un an (41 États, 29 secteurs) requièrent une intégration opérationnelle complexe. Les frais généraux et administratifs ont augmenté de 18% (6.9M USD), suggérant des pressions de croissance. (score par défaut, à affiner)",
+      "score_rationale": "305 acquisitions en un an (41 États, 29 secteurs) requièrent une intégration opérationnelle complexe. Les frais généraux et administratifs ont augmenté de 18% (6.9M USD), suggérant des pressions de croissance.",
       "trend": "up",
       "summary": "La croissance rapide du portefeuille (41 États, 29 secteurs) présente des risques d'intégration, de gestion opérationnelle et de contrôle de qualité. Les G&A en hausse de 18% reflètent ces pressions.",
       "score": 3
@@ -670,6 +680,179 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "ADC",
+    "extracted_at": "2026-06-01T02:54:52Z",
+    "n_kpis": 4,
+    "kpis": [
+      {
+        "short": "Rental Income",
+        "period_type": "quarter",
+        "history": [
+          82.494,
+          87.469,
+          104.793,
+          110.031,
+          126.609,
+          129.876,
+          136.774,
+          149.422,
+          152.424,
+          154.292,
+          169.113,
+          175.397,
+          183.191,
+          200.676
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q3 2021",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:54:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          22.347,
+          36.374,
+          34.114,
+          37.566,
+          39.755,
+          39.009,
+          39.663,
+          43,
+          52.865,
+          42.516,
+          45.137,
+          47.339,
+          50.258,
+          60.192
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q3 2021",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:54:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Interest Expense",
+        "period_type": "quarter",
+        "history": [
+          12.549,
+          13.066,
+          15.512,
+          17.149,
+          17.998,
+          19.948,
+          20.803,
+          24.451,
+          26.416,
+          28.942,
+          30.764,
+          32.274,
+          35.212,
+          35.97
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q3 2021",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:54:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Depreciation and Amortization",
+        "period_type": "quarter",
+        "history": [
+          23.188,
+          24.488,
+          31.95,
+          35.157,
+          40.646,
+          42.75,
+          45.625,
+          48.463,
+          50.454,
+          51.504,
+          55.755,
+          58.939,
+          61.179,
+          66.699
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q3 2021",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:54:52Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Performance",
+        "nature": "Cyclique",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "ADC",
     "ranks": {
@@ -682,9 +865,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.133250+00:00",
     "fetched_at": "2026-05-21T02:17:14.133257+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.292Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.755Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/adc.json",
     "enrich_root": "v2-pipeline-enrich/adc.json",
@@ -692,6 +875,7 @@
       "ai-pos",
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

@@ -37,8 +37,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "CFFO",
@@ -84,31 +87,36 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.27,
-      "unit": "Mds €",
+      "value": 270,
+      "unit": "M €",
       "yoy": "+3.8%",
       "history": [
-        0.26,
-        0.26,
-        0.26,
-        0.27
+        260,
+        260,
+        260,
+        270
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.27 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années. Indicateur suivi annuellement, valeur historisée sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -127,11 +135,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.93 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -150,11 +162,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -178,9 +194,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -196,7 +210,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans Item 1A, risque pour les systèmes et les données de l'entreprise",
       "trend": "new",
-      "summary": "Risque de cyberattaques pouvant compromettre les informations et exposer l'entreprise à des pertes"
+      "summary": "Risque de cyberattaques pouvant compromettre les informations et exposer l'entreprise à des pertes",
+      "score": 4
     },
     {
       "title": "Réglementation REIT",
@@ -204,7 +219,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise est soumise à des réglementations spécifiques en tant que REIT en vertu des sections 856-858 du Code fiscal",
       "trend": "stable",
-      "summary": "Risque de non-conformité aux réglementations REIT pouvant impacter le statut de REIT et les opérations de l'entreprise"
+      "summary": "Risque de non-conformité aux réglementations REIT pouvant impacter le statut de REIT et les opérations de l'entreprise",
+      "score": 3
     },
     {
       "title": "Concurrence immobilière",
@@ -212,7 +228,8 @@
       "severity": 4,
       "score_rationale": "Marché compétitif des communautés d'appartements dans les zones métropolitaines clés",
       "trend": "up",
-      "summary": "Risque de perte de parts de marché en raison de la concurrence accrue dans les marchés du logement locatif"
+      "summary": "Risque de perte de parts de marché en raison de la concurrence accrue dans les marchés du logement locatif",
+      "score": 4
     },
     {
       "title": "Gestion des propriétés",
@@ -220,7 +237,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise gère 61 communautés d'appartements contenant 12,262 unités",
       "trend": "stable",
-      "summary": "Risque de difficultés dans la gestion des propriétés pouvant impacter la qualité des services et la satisfaction des résidents"
+      "summary": "Risque de difficultés dans la gestion des propriétés pouvant impacter la qualité des services et la satisfaction des résidents",
+      "score": 3
     },
     {
       "title": "Risques de financement",
@@ -228,7 +246,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise a des besoins de financement importants avec une base de propriétés de 1,9 milliard USD",
       "trend": "up",
-      "summary": "Risque de difficultés de financement ou d'augmentation des coûts d'emprunt pouvant impacter les opérations et la structure du capital"
+      "summary": "Risque de difficultés de financement ou d'augmentation des coûts d'emprunt pouvant impacter les opérations et la structure du capital",
+      "score": 4
     },
     {
       "title": "Litiges",
@@ -236,7 +255,8 @@
       "severity": 2,
       "score_rationale": "Risque de litiges en raison des opérations de gestion immobilière et résidentielle",
       "trend": "stable",
-      "summary": "Risque de litiges pouvant impacter la réputation et les finances de l'entreprise"
+      "summary": "Risque de litiges pouvant impacter la réputation et les finances de l'entreprise",
+      "score": 2
     },
     {
       "title": "Réputation et satisfaction des résidents",
@@ -244,7 +264,8 @@
       "severity": 4,
       "score_rationale": "La satisfaction des résidents et la réputation sont critiques pour la rétention et la capacité à fixer les loyers",
       "trend": "up",
-      "summary": "Risque de préjudice à la réputation de l'entreprise ou de baisse de satisfaction des résidents pouvant impacter l'occupation et les revenus"
+      "summary": "Risque de préjudice à la réputation de l'entreprise ou de baisse de satisfaction des résidents pouvant impacter l'occupation et les revenus",
+      "score": 4
     }
   ],
   "governance": {
@@ -284,7 +305,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -473,88 +494,140 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CSR",
-    "extracted_at": "2026-05-15T18:10:24Z",
-    "method": "xbrl-companyfacts",
-    "cik": 798359,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:08:39Z",
+    "n_kpis": 3,
     "kpis": [
       {
         "short": "NOI",
         "period_type": "quarter",
         "history": [
-          4.374,
-          5.518,
-          18.359,
-          -3.911,
-          -0.076,
-          6.955,
-          10.893,
-          62.597,
-          68.563,
-          85.958,
-          -132.665,
-          4.075,
-          11.267,
-          17.617,
-          -12.484,
-          4.746,
-          -2.05,
-          75.16,
-          -13.319,
-          -5.393
+          27.407,
+          27.896,
+          30.063,
+          34.441,
+          36.9,
+          38.109,
+          34.441,
+          36.9,
+          38.109,
+          39.437,
+          39.854,
+          38.366,
+          40.362,
+          42.018,
+          43.024
         ],
         "history_periods": [
+          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "OperatingIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": -2.05,
-            "accession": "0000798359-25-000087",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 75.16,
-            "accession": "0000798359-25-000111",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -13.319,
-            "accession": "calc-0000798359-26-000014",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": -5.393,
-            "accession": "0000798359-26-000038",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:08:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          46.648,
+          46.656,
+          50.413,
+          60.314,
+          63.116,
+          65.438,
+          60.314,
+          63.116,
+          65.438,
+          64.506,
+          65.043,
+          65.025,
+          67.093,
+          68.549,
+          71.399
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:08:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          1965.573,
+          1965.573,
+          1940.061,
+          1965.573,
+          1965.573,
+          1965.573,
+          1978.884,
+          1978.884,
+          1978.884,
+          1903.473,
+          1903.473,
+          1903.473,
+          2033.301,
+          2033.301,
+          2033.301
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:08:39Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -570,9 +643,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.246875+00:00",
     "fetched_at": "2026-05-21T02:17:14.246875+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.916Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.419Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/csr.json",
     "enrich_root": "v2-pipeline-enrich/csr.json",

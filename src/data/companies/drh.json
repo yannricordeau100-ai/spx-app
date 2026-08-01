@@ -77,34 +77,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.12 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.11,
-        0.09,
-        0.05,
-        0.1
+        110,
+        90,
+        50,
+        100
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.1 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -123,33 +132,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.0 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "-12.5%",
       "history": [
-        0.07,
-        0.12,
-        0.08,
-        0.07
+        70,
+        120,
+        80,
+        70
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.07 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -168,10 +186,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 1.45 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -196,9 +218,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Unit corrected from 'Mds $' to 'B $'; is_generic set to false; description aligned with source narrative on leverage strategy; signal improved",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'B $'; is_generic set to false; description aligned with source narrative on leverage strategy; signal improved"
     }
   ],
   "ai_positioning": {
@@ -214,7 +234,8 @@
       "severity": 5,
       "score_rationale": "DRH's concentration in premium full-service hotels creates inherent earnings volatility due to daily rate and occupancy fluctuations. Unlike healthcare REITs with long-term stable leases, hotel managers receive fees based on revenue and profitability, exposing DRH to operational risk. Direct quote: 'our earnings may be highly volatile.' Intensity markers: 'volatile asset class,' 'changes every day.'",
       "trend": "stable",
-      "summary": "Hotel assets are inherently volatile with daily rate and occupancy changes. Business travel and tourism demand vary with economic confidence and are subject to geopolitical pressures and shifts in work arrangements."
+      "summary": "Hotel assets are inherently volatile with daily rate and occupancy changes. Business travel and tourism demand vary with economic confidence and are subject to geopolitical pressures and shifts in work arrangements.",
+      "score": 5
     },
     {
       "title": "Industry Competition",
@@ -222,7 +243,8 @@
       "severity": 4,
       "score_rationale": "DRH faces competition from traditional hotels and alternative lodging channels in all 26 markets where it operates. Competitive pressure may impact pricing power and occupancy rates. Section: Risks Related to Our Business and Operations. Intensity: 'highly competitive' industry dynamics.",
       "trend": "up",
-      "summary": "The lodging industry is highly competitive, with alternative lodging channels (including online platforms) creating additional competitive pressure that may reduce DRH's pricing power and market share."
+      "summary": "The lodging industry is highly competitive, with alternative lodging channels (including online platforms) creating additional competitive pressure that may reduce DRH's pricing power and market share.",
+      "score": 4
     },
     {
       "title": "Technology Dependence",
@@ -230,7 +252,8 @@
       "severity": 3,
       "score_rationale": "Hotel operations depend on management systems and reservation technology operated by third-party managers and brand operators. While not explicitly detailed in extracts, operational dependence is inherent. Risk level moderated as DRH is owner not operator.",
       "trend": "stable",
-      "summary": "DRH's hotels depend on third-party operators' technology systems for reservations, guest management, and operations. System failures or cybersecurity breaches affecting operators could impact revenue."
+      "summary": "DRH's hotels depend on third-party operators' technology systems for reservations, guest management, and operations. System failures or cybersecurity breaches affecting operators could impact revenue.",
+      "score": 3
     },
     {
       "title": "Pandemic and Health Crisis Exposure",
@@ -238,7 +261,8 @@
       "severity": 5,
       "score_rationale": "Hotel demand is highly dependent on business travel and tourism, both of which are severely impacted by pandemics and health crises, as evidenced by COVID-19 impact on lodging REITs. Intensity: 'material adverse effect' potential on revenues and earnings.",
       "trend": "stable",
-      "summary": "Travel-dependent business models like hotels are acutely vulnerable to pandemic-related travel restrictions, occupancy declines, and revenue loss, as demonstrated during COVID-19."
+      "summary": "Travel-dependent business models like hotels are acutely vulnerable to pandemic-related travel restrictions, occupancy declines, and revenue loss, as demonstrated during COVID-19.",
+      "score": 5
     },
     {
       "title": "Capital Market Access and Liquidity Risk",
@@ -246,7 +270,8 @@
       "severity": 4,
       "score_rationale": "DRH's ability to raise capital for acquisitions and debt refinancing depends on credit market conditions and investor sentiment. With $1.1B debt due in 2026-2030 and $119M preferred stock redemption completed in 2025, refinancing risk is material. Interest rate risk is partially hedged at 4.98% weighted average rate.",
       "trend": "up",
-      "summary": "DRH's growth strategy and debt refinancing depend on access to capital markets. Elevated capital costs, credit market disruptions, or negative investor sentiment could impair acquisition opportunities and increase financing costs."
+      "summary": "DRH's growth strategy and debt refinancing depend on access to capital markets. Elevated capital costs, credit market disruptions, or negative investor sentiment could impair acquisition opportunities and increase financing costs.",
+      "score": 4
     },
     {
       "title": "Regulatory and Compliance Risk",
@@ -254,7 +279,8 @@
       "severity": 3,
       "score_rationale": "As a REIT, DRH must maintain 90% dividend payout of taxable income and comply with real estate investment trust qualification requirements under the Internal Revenue Code. Hotel operations are subject to local health, safety, and labor regulations. Non-compliance could affect REIT status.",
       "trend": "stable",
-      "summary": "REIT tax qualification requires 90% dividend payout of taxable income. Hotel operations face evolving labor, environmental, and health regulations that could increase operating costs."
+      "summary": "REIT tax qualification requires 90% dividend payout of taxable income. Hotel operations face evolving labor, environmental, and health regulations that could increase operating costs.",
+      "score": 3
     },
     {
       "title": "Cybersecurity Risk",
@@ -262,7 +288,8 @@
       "severity": 4,
       "score_rationale": "Third-party hotel operators manage guest data and payment information. Cyberattacks or data breaches at operator systems could expose guest information, damage brand reputation, result in regulatory fines, and disrupt operations. Increasing cyber threat landscape.",
       "trend": "up",
-      "summary": "Guest data security and payment information handled by third-party operators present cybersecurity risks. Data breaches could result in regulatory fines, reputational damage, and operational disruption."
+      "summary": "Guest data security and payment information handled by third-party operators present cybersecurity risks. Data breaches could result in regulatory fines, reputational damage, and operational disruption.",
+      "score": 4
     }
   ],
   "governance": {
@@ -378,6 +405,43 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "DRH",
+    "extracted_at": "2026-06-01T03:11:58Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Weighted Avg Interest Rate",
+        "period_type": "quarter",
+        "history": [
+          4.88,
+          4.88,
+          5.07,
+          5.22,
+          5.22,
+          5.6,
+          5.08,
+          5.17,
+          5.31
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:11:58Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "DRH",
     "ranks": {
@@ -390,14 +454,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.252237+00:00",
     "fetched_at": "2026-05-21T02:17:14.252238+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.397Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.959Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/drh.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

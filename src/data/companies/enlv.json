@@ -58,10 +58,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -80,11 +84,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.24 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -103,11 +111,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de -0.01 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -126,11 +138,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -0.73 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,11 +165,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.33 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -172,10 +192,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -194,9 +218,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -224,13 +252,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "avril 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
-    "stance": "none",
+    "stance": "absent",
     "summary": "Aucune mention d'intégration d'IA dans les documents source fournis. Enlivex est une entreprise de biotechnologie clinique développant Allocetra, une immunothérapie cellulaire.",
     "evidence": [],
     "source": "None found in source documents"
@@ -309,7 +335,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental répété 8+ fois dans Item 3.D, langage très intense (« may never », « unable to predict »), tendance stable/croissante, poids critique pour une biotech sans produit commercialisé.",
       "trend": "stable",
-      "summary": "Enlivex n'a généré aucun revenu depuis sa création en 2005 et accumule des pertes d'exploitation récurrentes. Le produit phare Allocetra n'a pas reçu d'approbation réglementaire et pourrait ne jamais atteindre la commercialisation, rendant la rentabilité opérationnelle hautement incertaine, voire impossible."
+      "summary": "Enlivex n'a généré aucun revenu depuis sa création en 2005 et accumule des pertes d'exploitation récurrentes. Le produit phare Allocetra n'a pas reçu d'approbation réglementaire et pourrait ne jamais atteindre la commercialisation, rendant la rentabilité opérationnelle hautement incertaine, voire impossible.",
+      "score": 5
     },
     {
       "title": "Dépendance critique aux essais cliniques complexes et coûteux",
@@ -317,7 +344,8 @@
       "severity": 5,
       "score_rationale": "Mentionné explicitement comme « complex and expensive », risque de retard ou d'arrêt des essais, langage d'incertitude forte, poids existentiel pour le modèle commercial.",
       "trend": "stable",
-      "summary": "Le développement d'Allocetra repose entièrement sur des essais cliniques complexes et délicats pour une thérapie cellulaire. Tout retard, échec ou résultat négatif pourrait forcer l'abandon du produit et compromettre gravement la capacité à générer des revenus."
+      "summary": "Le développement d'Allocetra repose entièrement sur des essais cliniques complexes et délicats pour une thérapie cellulaire. Tout retard, échec ou résultat négatif pourrait forcer l'abandon du produit et compromettre gravement la capacité à générer des revenus.",
+      "score": 5
     },
     {
       "title": "Risques réglementaires étendus et approbation incertaine",
@@ -325,7 +353,8 @@
       "severity": 5,
       "score_rationale": "Mentionné 6+ fois (FDA, EMA, « cannot be certain »), langage d'incertitude absolue, impact direct sur commercialisation, poids critique pour biotech.",
       "trend": "stable",
-      "summary": "Même si les essais cliniques réussissent, l'approbation réglementaire par la FDA et l'EMA n'est pas garantie. Enlivex pourrait faire face à des demandes réglementaires supplémentaires, des délais ou des refus d'approbation, bloquant toute commercialisation."
+      "summary": "Même si les essais cliniques réussissent, l'approbation réglementaire par la FDA et l'EMA n'est pas garantie. Enlivex pourrait faire face à des demandes réglementaires supplémentaires, des délais ou des refus d'approbation, bloquant toute commercialisation.",
+      "score": 5
     },
     {
       "title": "Concentration extrême sur un seul candidat produit (Allocetra)",
@@ -333,7 +362,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné (« focused substantially all efforts »), risque de concentration élevée, langage clair, poids stratégique majeur pour la viabilité.",
       "trend": "stable",
-      "summary": "Enlivex a concentré pratiquement toutes ses ressources et efforts sur Allocetra pour l'arthrose. L'échec de ce candidat unique ou l'impossibilité d'obtenir son approbation réglementaire anéantiraient la stratégie clinique entière."
+      "summary": "Enlivex a concentré pratiquement toutes ses ressources et efforts sur Allocetra pour l'arthrose. L'échec de ce candidat unique ou l'impossibilité d'obtenir son approbation réglementaire anéantiraient la stratégie clinique entière.",
+      "score": 4
     },
     {
       "title": "Processus de fabrication complexe et risque de contamination",
@@ -341,7 +371,8 @@
       "severity": 4,
       "score_rationale": "Décrit comme « complex, delicate and susceptible to contamination », langage spécifique au risque opérationnel, poids important pour une thérapie cellulaire.",
       "trend": "stable",
-      "summary": "La fabrication d'Allocetra implique des processus biologiques délicats et des intermédiaires biologiques soumis à une réglementation stricte. Toute contamination ou défaut de fabrication pourrait compromettre les essais cliniques ou la commercialisation."
+      "summary": "La fabrication d'Allocetra implique des processus biologiques délicats et des intermédiaires biologiques soumis à une réglementation stricte. Toute contamination ou défaut de fabrication pourrait compromettre les essais cliniques ou la commercialisation.",
+      "score": 4
     },
     {
       "title": "Dépendance envers tiers pour essais cliniques et commercialisation",
@@ -349,7 +380,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement (« depend on third parties »), risque de perte de contrôle et de dépendance contractuelle, poids modéré-élevé pour exécution.",
       "trend": "stable",
-      "summary": "Enlivex dépend de tiers pour conduire ses essais cliniques et prévoit de s'appuyer principalement sur des partenaires externes pour la commercialisation d'Allocetra. Tout désaccord, retrait ou défaillance de ces partenaires pourrait paralyser le développement et la mise sur marché."
+      "summary": "Enlivex dépend de tiers pour conduire ses essais cliniques et prévoit de s'appuyer principalement sur des partenaires externes pour la commercialisation d'Allocetra. Tout désaccord, retrait ou défaillance de ces partenaires pourrait paralyser le développement et la mise sur marché.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires étendus liés aux marchés de prédiction crypto (RAIN)",
@@ -357,7 +389,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné (« Regulatory risks of operating a prediction market are extensive »), langage d'alerte forte, risque de litiges et actions d'exécution, poids croissant avec la stratégie de trésorerie.",
       "trend": "up",
-      "summary": "Enlivex détient des actifs numériques RAIN via un protocole de marché de prédiction décentralisé. Les risques réglementaires sont étendus et pourraient entraîner des litiges, des actions d'exécution ou des risques criminels contre le protocole et ses opérateurs, affectant la valeur de la trésorerie."
+      "summary": "Enlivex détient des actifs numériques RAIN via un protocole de marché de prédiction décentralisé. Les risques réglementaires sont étendus et pourraient entraîner des litiges, des actions d'exécution ou des risques criminels contre le protocole et ses opérateurs, affectant la valeur de la trésorerie.",
+      "score": 4
     },
     {
       "title": "Dépendance envers cadres dirigeants clés et petit nombre d'exécutifs",
@@ -365,7 +398,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement (« depend on them even more »), langage de dépendance critique, poids modéré pour une petite biotech en phase clinique.",
       "trend": "stable",
-      "summary": "Enlivex gère son activité via un petit nombre de cadres dirigeants seniors. La perte ou l'indisponibilité de ces personnes clés pourrait gravement perturber la stratégie clinique et la gouvernance, d'autant plus que l'entreprise est plus dépendante qu'une structure comparable."
+      "summary": "Enlivex gère son activité via un petit nombre de cadres dirigeants seniors. La perte ou l'indisponibilité de ces personnes clés pourrait gravement perturber la stratégie clinique et la gouvernance, d'autant plus que l'entreprise est plus dépendante qu'une structure comparable.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:32:59.839676+00:00",
@@ -463,9 +497,9 @@
     "country": "Israel",
     "_data_freshness_date": "2026-05-21T02:17:14.255767+00:00",
     "fetched_at": "2026-05-21T02:17:14.255768+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.764Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.335Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/enlv.json",
     "enrich_root": "v2-pipeline-enrich/enlv.json",

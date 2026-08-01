@@ -38,7 +38,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Pressure, deteriorating trend"
     },
     {
@@ -129,10 +129,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Revenue from the Total segment."
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Revenue from the Total segment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -151,10 +155,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.0 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -173,9 +181,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -194,9 +206,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 0.0 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -274,7 +290,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental placé en ouverture d'Item 1A avec langage très intensif (« highly speculative », « inherent risks »). La majorité des propriétés d'exploration ne contiennent pas de gisements économiques et tous les investissements peuvent être perdus. Poids catégorique maximal pour une junior d'exploration.",
       "trend": "stable",
-      "summary": "Avrupa Minerals opère exclusivement en phase d'exploration sur tous ses projets (Portugal, Finlande, Kosovo). La plupart des propriétés d'exploration ne contiennent aucun gisement économique viable, exposant l'entreprise à la perte totale des dépenses d'exploration engagées. Aucune garantie que des découvertes commerciales génèrent des profits."
+      "summary": "Avrupa Minerals opère exclusivement en phase d'exploration sur tous ses projets (Portugal, Finlande, Kosovo). La plupart des propriétés d'exploration ne contiennent aucun gisement économique viable, exposant l'entreprise à la perte totale des dépenses d'exploration engagées. Aucune garantie que des découvertes commerciales génèrent des profits.",
+      "score": 5
     },
     {
       "title": "Concurrence intense avec des acteurs mieux dotés",
@@ -282,7 +299,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement identifié comme « highly competitive » avec mention de corporations aux ressources supérieures pouvant surenchérir ou produire à coûts inférieurs. Langage direct sur impact négatif opérationnel. Pertinent pour junior explorer face à majors.",
       "trend": "stable",
-      "summary": "Avrupa Minerals doit concurrencer directement des corporations disposant de ressources financières et techniques supérieures pour l'acquisition de projets miniers et la production à coûts compétitifs. Cette asymétrie de moyens peut compromettre l'accès aux meilleurs projets et la viabilité économique des opérations."
+      "summary": "Avrupa Minerals doit concurrencer directement des corporations disposant de ressources financières et techniques supérieures pour l'acquisition de projets miniers et la production à coûts compétitifs. Cette asymétrie de moyens peut compromettre l'accès aux meilleurs projets et la viabilité économique des opérations.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix des matières premières minérales",
@@ -290,7 +308,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique au secteur minier décrit comme « volatile over short periods » avec énumération de facteurs exogènes (tendances économiques, inflation, change, consommation). Langage d'intensité modérée-haute. Impact direct sur rentabilité des projets découverts.",
       "trend": "stable",
-      "summary": "Les prix des ressources minérales fluctuent fortement selon les cycles économiques mondiaux, les attentes inflationnistes, les taux de change et les tendances de consommation régionale. Même si Avrupa découvre des gisements commerciaux, l'absence de marché rentable ou l'effondrement des prix pourrait rendre la production non viable et compromettre le retour sur investissement."
+      "summary": "Les prix des ressources minérales fluctuent fortement selon les cycles économiques mondiaux, les attentes inflationnistes, les taux de change et les tendances de consommation régionale. Même si Avrupa découvre des gisements commerciaux, l'absence de marché rentable ou l'effondrement des prix pourrait rendre la production non viable et compromettre le retour sur investissement.",
+      "score": 4
     },
     {
       "title": "Régulation gouvernementale complexe et évolutive",
@@ -298,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Risque détaillé sur 3 juridictions (Portugal, Finlande, Kosovo) avec description des cadres réglementaires spécifiques. Langage d'alerte sur changements réglementaires imprédictibles (« beyond the control ») et augmentation des frais (Finlande). Poids significatif pour opérations multi-pays.",
       "trend": "up",
-      "summary": "Avrupa Minerals opère en Portugal (DGEG), Finlande (Ministry of Employment and Economy) et Kosovo (ICMM) sous des régimes réglementaires distincts. La Finlande a récemment proposé des modifications augmentant les frais de permis et transférant le contrôle aux autorités locales. Tout changement réglementaire, restrictions de production, contrôles d'exportation ou augmentation des obligations environnementales pourrait augmenter les coûts et retarder les opérations."
+      "summary": "Avrupa Minerals opère en Portugal (DGEG), Finlande (Ministry of Employment and Economy) et Kosovo (ICMM) sous des régimes réglementaires distincts. La Finlande a récemment proposé des modifications augmentant les frais de permis et transférant le contrôle aux autorités locales. Tout changement réglementaire, restrictions de production, contrôles d'exportation ou augmentation des obligations environnementales pourrait augmenter les coûts et retarder les opérations.",
+      "score": 4
     },
     {
       "title": "Obligations environnementales et responsabilité civile",
@@ -306,7 +326,8 @@
       "severity": 4,
       "score_rationale": "Risque environnemental explicite avec mention de législation imposant autorisation préalable, responsabilité potentielle pour rejets de substances dangereuses, et obligations de reclamation. Langage d'alerte sur coûts additionnels possibles. Pertinent pour opérations en Europe avec standards stricts.",
       "trend": "stable",
-      "summary": "Les juridictions d'opération (Portugal, Finlande, Kosovo) imposent une conformité aux standards environnementaux européens stricts. Avrupa Minerals doit obtenir autorisations environnementales préalables, respecter des méthodes non-dommageables, et peut être tenue responsable des dégâts environnementaux. Les obligations de reclamation pourraient nécessiter des fonds supplémentaires au-delà des allocations prévues."
+      "summary": "Les juridictions d'opération (Portugal, Finlande, Kosovo) imposent une conformité aux standards environnementaux européens stricts. Avrupa Minerals doit obtenir autorisations environnementales préalables, respecter des méthodes non-dommageables, et peut être tenue responsable des dégâts environnementaux. Les obligations de reclamation pourraient nécessiter des fonds supplémentaires au-delà des allocations prévues.",
+      "score": 4
     },
     {
       "title": "Contestation de titre de propriété des concessions",
@@ -314,7 +335,8 @@
       "severity": 3,
       "score_rationale": "Risque spécifique aux propriétés minières : seul un relevé préliminaire de titre a été effectué, sans garantie. Mention explicite de risques de litiges coûteux et perte de droits de propriété. Langage modéré mais impact potentiel majeur sur actifs.",
       "trend": "stable",
-      "summary": "Avrupa Minerals n'a effectué que des relevés préliminaires de titre sur ses propriétés d'exploration conformément aux standards industriels. Des accords non enregistrés, des transferts contestés ou des revendications de terres autochtones pourraient affecter la validité du titre. Une contestation de titre entraînerait des litiges coûteux et prolongés, avec risque de perte complète des droits de propriété."
+      "summary": "Avrupa Minerals n'a effectué que des relevés préliminaires de titre sur ses propriétés d'exploration conformément aux standards industriels. Des accords non enregistrés, des transferts contestés ou des revendications de terres autochtones pourraient affecter la validité du titre. Une contestation de titre entraînerait des litiges coûteux et prolongés, avec risque de perte complète des droits de propriété.",
+      "score": 3
     },
     {
       "title": "Dépendance critique envers financement externe continu",
@@ -322,7 +344,8 @@
       "severity": 5,
       "score_rationale": "Risque de financement placé en section dédiée avec mention explicite de « going concern opinion » de l'auditeur. Aucune source de revenus actuels, pertes depuis la création, dilution substantielle probable. Langage d'alerte maximale sur viabilité opérationnelle.",
       "trend": "up",
-      "summary": "Avrupa Minerals n'a aucune source de revenus opérationnels et dépend entièrement du financement par émission d'actions pour poursuivre ses programmes d'exploration. L'auditeur a inclus une opinion de continuité d'exploitation. Tout échec à obtenir un financement supplémentaire sur des termes acceptables entraînerait l'arrêt ou la réduction substantielle des opérations et la dilution massive des actionnaires existants."
+      "summary": "Avrupa Minerals n'a aucune source de revenus opérationnels et dépend entièrement du financement par émission d'actions pour poursuivre ses programmes d'exploration. L'auditeur a inclus une opinion de continuité d'exploitation. Tout échec à obtenir un financement supplémentaire sur des termes acceptables entraînerait l'arrêt ou la réduction substantielle des opérations et la dilution massive des actionnaires existants.",
+      "score": 5
     },
     {
       "title": "Dépendance envers personnel clé et expertise managériale",
@@ -330,13 +353,14 @@
       "severity": 3,
       "score_rationale": "Risque explicitement identifié avec noms spécifiques (Paul Kuhn, CEO/Président ; Winnie Wong, CFO). Langage indiquant peu de possibilité de réduction de cette dépendance à court terme. Pertinent pour junior explorer de petite taille.",
       "trend": "stable",
-      "summary": "Avrupa Minerals dépend fortement de l'expertise commerciale et technique de son équipe de direction, notamment le CEO/Président Paul Kuhn et la CFO Winnie Wong. La perte ou l'absence de ces personnels clés aurait un impact négatif significatif. L'expansion des opérations nécessitera du personnel additionnel qualifié, que l'entreprise pourrait ne pas être en mesure d'attirer et de retenir."
+      "summary": "Avrupa Minerals dépend fortement de l'expertise commerciale et technique de son équipe de direction, notamment le CEO/Président Paul Kuhn et la CFO Winnie Wong. La perte ou l'absence de ces personnels clés aurait un impact négatif significatif. L'expansion des opérations nécessitera du personnel additionnel qualifié, que l'entreprise pourrait ne pas être en mesure d'attirer et de retenir.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:38:38.576961+00:00",
   "_risks_source": "20-F FY2025",
   "subsector_fr": "Métaux & mines",
-  "_companies_unified_built_at": "2026-05-29T21:19:37.849Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.297Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/avpmf.json",
     "enrich_root": "v2-pipeline-enrich/avpmf.json",

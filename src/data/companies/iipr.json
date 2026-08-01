@@ -42,11 +42,12 @@
         "Amélioré name_en pour clarifier la nature cumulative",
         "Amélioré description pour inclure les détails du 10-K (exclusion des frais de transaction)"
       ],
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Investissements cumulatifs' n'est pas présenté sous forme d'historique annuel dans cet extrait. Seule la valeur au 31 décembre 2022 ",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Nombre de propriétés",
@@ -73,9 +74,7 @@
         "Amélioré name_en pour clarifier le contexte",
         "Enrichi la description avec les détails du 10-K (portefeuille exploité, taux de location, durée moyenne)",
         "Marqué is_generic à false car c'est un KPI spécifique IIPR"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      ]
     },
     {
       "short": "Superficie locative",
@@ -103,61 +102,69 @@
         "Amélioré name_en pour utiliser la terminologie standard 'Total Rentable Square Feet'",
         "Enrichi la description avec la répartition géographique (19 états) et les propriétés en développement",
         "Marqué is_generic à false car spécifique au secteur immobilier"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.266,
-      "unit": "Mds €",
+      "value": 266,
+      "unit": "M €",
       "yoy": "-13.9%",
       "history": [
-        0.015,
-        0.045,
-        0.117,
-        0.205,
-        0.276,
-        0.31,
-        0.309,
-        0.266
+        15,
+        45,
+        117,
+        205,
+        276,
+        310,
+        309,
+        266
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.27 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:11.950747+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.12,
-      "unit": "Mds €",
+      "value": 120,
+      "unit": "M €",
       "yoy": "-25.0%",
       "history": [
-        0.15,
-        0.17,
-        0.16,
-        0.12
+        150,
+        170,
+        160,
+        120
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.12 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -176,56 +183,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.37 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.39,
-      "unit": "Mds €",
+      "value": 390,
+      "unit": "M €",
       "yoy": "+30.0%",
       "history": [
-        0.3,
-        0.3,
-        0.3,
-        0.39
+        300,
+        300,
+        300,
+        390
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.39 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "-66.7%",
       "history": [
-        0.09,
-        0.14,
-        0.15,
-        0.05
+        90,
+        140,
+        150,
+        50
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.05 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -239,7 +260,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         5.72,
         7.1,
@@ -252,7 +273,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -267,7 +288,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.1853,
@@ -280,7 +301,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -295,7 +316,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         121.74,
@@ -308,7 +329,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -324,7 +345,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         5.52,
@@ -337,7 +358,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -368,9 +389,7 @@
         "Amélioré name_en pour clarifier la nature cumulative",
         "Enrichi la description avec le contexte du portefeuille (111 propriétés, 19 états)",
         "Amélioré le signal pour qu'il soit plus narratif et pertinent"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      ]
     }
   ],
   "ai_positioning": {
@@ -384,43 +403,43 @@
       "title": "Concurrence et pression du marché illicite",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société fait face à une concurrence accrue de la part d'autres investisseurs immobiliers et de l'industrie du cannabis illicite, ce qui peut diminuer les opportunités d'acquisition et d'exploitation de propriétés à des conditions favorables. (score par défaut, à affiner)",
+      "score_rationale": "La société fait face à une concurrence accrue de la part d'autres investisseurs immobiliers et de l'industrie du cannabis illicite, ce qui peut diminuer les opportunités d'acquisition et d'exploitation de propriétés à des conditions favorables.",
       "trend": "stable",
       "summary": "La concurrence accrue et la présence substantielle du marché illicite du cannabis pourraient réduire la demande de propriétés réglementées et affecter les tarifs locatifs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation et incertitude réglementaire",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Les réglementations sur le cannabis varient d'un état à l'autre. L'illégalité fédérale continue du cannabis limite l'accès aux financements traditionnels pour les locataires, et les changements de réglementation peuvent affecter l'exploitation et la valeur des propriétés. Plusieurs états ont renforcé la taxation et les exigences réglementaires. (score par défaut, à affiner)",
+      "score_rationale": "Les réglementations sur le cannabis varient d'un état à l'autre. L'illégalité fédérale continue du cannabis limite l'accès aux financements traditionnels pour les locataires, et les changements de réglementation peuvent affecter l'exploitation et la valeur des propriétés. Plusieurs états ont renforcé la taxation et les exigences réglementaires.",
       "trend": "up",
       "summary": "Les variations et l'évolution des cadres réglementaires du cannabis à l'échelle fédérale et des états peuvent affecter la demande pour les installations et les capacités de paiement des locataires.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de crédit locataire et disponibilité du capital",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "La disponibilité du capital pour les opérateurs de cannabis reste fortement contrainte. Les opérateurs font face à des taux d'intérêt élevés, à la volatilité des marchés et à des difficultés de refinancement. Les maturités de dette importantes et les options de refinancement limitées augmentent la pression financière sur les locataires et le risque de défaut. (score par défaut, à affiner)",
+      "score_rationale": "La disponibilité du capital pour les opérateurs de cannabis reste fortement contrainte. Les opérateurs font face à des taux d'intérêt élevés, à la volatilité des marchés et à des difficultés de refinancement. Les maturités de dette importantes et les options de refinancement limitées augmentent la pression financière sur les locataires et le risque de défaut.",
       "trend": "up",
       "summary": "Les locataires font face à une disponibilité réduite du capital et à des maturités de dette importantes, ce qui augmente les risques de défaut de paiement et peut affecter les revenus locatifs.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dynamique des prix et compression des marges",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Les états ont connu des baisses soutenues des prix unitaires des produits de cannabis réglementés, compressant les marges des opérateurs. Ces pressions tarifaires, combinées à la fiscalité élevée des états et à la concurrence du marché illicite, ont affecté la rentabilité des opérateurs dans certains marchés. (score par défaut, à affiner)",
+      "score_rationale": "Les états ont connu des baisses soutenues des prix unitaires des produits de cannabis réglementés, compressant les marges des opérateurs. Ces pressions tarifaires, combinées à la fiscalité élevée des états et à la concurrence du marché illicite, ont affecté la rentabilité des opérateurs dans certains marchés.",
       "trend": "up",
       "summary": "Les déclines tarifaires soutenues pour les produits de cannabis réglementés compriment les marges des opérateurs et peuvent affecter leur capacité de paiement des loyers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Pressions macroéconomiques et inflation",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "L'inflation, les changements de politique commerciale et les perturbations de chaîne d'approvisionnement ont augmenté les coûts d'exploitation et de capital pour les opérateurs de cannabis et pour le développement des propriétés de la société. Ces pressions peuvent affecter les plans de dépenses en capital et les marges d'exploitation des locataires. (score par défaut, à affiner)",
+      "score_rationale": "L'inflation, les changements de politique commerciale et les perturbations de chaîne d'approvisionnement ont augmenté les coûts d'exploitation et de capital pour les opérateurs de cannabis et pour le développement des propriétés de la société. Ces pressions peuvent affecter les plans de dépenses en capital et les marges d'exploitation des locataires.",
       "trend": "stable",
       "summary": "L'inflation, les tarifs commerciaux et les disruptions de chaîne d'approvisionnement augmentent les coûts pour les opérateurs de cannabis et le développement immobilier.",
       "score": 3
@@ -429,19 +448,19 @@
       "title": "Risque de défaut de locataires et reprise de propriétés",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société est exposée à des défauts de locataires dus à la situation financière difficile de certains opérateurs. Les marchés du cannabis défavorables ont déjà conduit à des défauts de certains locataires et à une réduction de la capacité de la société à relocaliser les propriétés aux tarifs actuels. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des défauts de locataires dus à la situation financière difficile de certains opérateurs. Les marchés du cannabis défavorables ont déjà conduit à des défauts de certains locataires et à une réduction de la capacité de la société à relocaliser les propriétés aux tarifs actuels.",
       "trend": "up",
       "summary": "Les défauts de locataires peuvent affecter les revenus locatifs et réduire la capacité de relocalisation des propriétés à des conditions favorables.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de liquidité et restructuring",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La disponibilité limitée du capital pour les opérateurs de cannabis, combinée aux maturités de dette importantes, peut forcer certains locataires à procéder à des restructurations de bilan, ventes d'actifs ou réductions d'exploitation, affectant les contrats de location. (score par défaut, à affiner)",
+      "score_rationale": "La disponibilité limitée du capital pour les opérateurs de cannabis, combinée aux maturités de dette importantes, peut forcer certains locataires à procéder à des restructurations de bilan, ventes d'actifs ou réductions d'exploitation, affectant les contrats de location.",
       "trend": "up",
       "summary": "Les restructurations de bilan et ventes d'actifs forcées des locataires peuvent affecter les contrats de location et l'occupation des propriétés.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -480,7 +499,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -543,7 +562,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:19:45Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2017,
@@ -563,7 +582,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:32Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:34Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Foncières cotées (REIT)",
   "enrich_description": {
     "ticker": "IIPR",
@@ -672,9 +691,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.529862+00:00",
     "fetched_at": "2026-05-21T01:44:37.529863+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.393Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.064Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/iipr.json",
     "enrich_root": "v2-pipeline-enrich/iipr.json",

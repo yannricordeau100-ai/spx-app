@@ -31,7 +31,6 @@
       "description": "Indicateur clé de la santé financière de l'entreprise. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 5 dernières années.",
       "history": [
         61.536,
-        -43.891,
         15.183,
         -20.539,
         116.206
@@ -41,8 +40,11 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (SONO)"
+      ]
     },
     {
       "short": "Revenue",
@@ -66,7 +68,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -146,69 +148,84 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.82,
-      "unit": "Mds €",
+      "value": 820,
+      "unit": "M €",
       "yoy": "-10.9%",
       "history": [
-        1.19,
-        1,
-        0.92,
-        0.82
+        1190,
+        1000,
+        920,
+        820
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.82 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.04,
-        0.06,
-        0.06,
-        0.06
+        40,
+        60,
+        60,
+        60
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.06 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.17,
-      "unit": "Mds €",
+      "value": 170,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.27,
-        0.22,
-        0.17,
-        0.17
+        270,
+        220,
+        170,
+        170
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -248,25 +265,25 @@
       "title": "Défaillance de la cybersécurité et protection des données",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le document mentionne explicitement la cybersécurité comme un risque majeur supervisé par le conseil d'administration et le comité d'audit. L'intensité du langage est modérée mais le sujet est central pour une entreprise technologique. Le contexte montre une attention continue à ce risque. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne explicitement la cybersécurité comme un risque majeur supervisé par le conseil d'administration et le comité d'audit. L'intensité du langage est modérée mais le sujet est central pour une entreprise technologique. Le contexte montre une attention continue à ce risque.",
       "trend": "up",
       "summary": "La société est exposée aux risques liés à la cybersécurité et à la protection des données, qui sont activement gérés par la direction et le conseil d'administration.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Baisse des revenus et des ventes de produits",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Le rapport détaille une baisse significative des revenus totaux (-4.9%) et des produits vendus (-7.5%) pour l'exercice 2025 par rapport à 2024. L'intensité du langage est factuelle mais la tendance est clairement négative et impacte directement la performance. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport détaille une baisse significative des revenus totaux (-4.9%) et des produits vendus (-7.5%) pour l'exercice 2025 par rapport à 2024. L'intensité du langage est factuelle mais la tendance est clairement négative et impacte directement la performance.",
       "trend": "down",
       "summary": "Les revenus et le volume des ventes de produits ont diminué en 2025, affectés par des problèmes liés au déploiement d'applications et une demande du marché plus faible.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Impact des litiges et coûts associés",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Bien que la société affirme ne pas être impliquée dans de procédures ayant un impact matériel adverse, elle reconnaît que les litiges peuvent avoir un impact négatif en raison des coûts de défense et de la distraction des ressources managériales. (score par défaut, à affiner)",
+      "score_rationale": "Bien que la société affirme ne pas être impliquée dans de procédures ayant un impact matériel adverse, elle reconnaît que les litiges peuvent avoir un impact négatif en raison des coûts de défense et de la distraction des ressources managériales.",
       "trend": "stable",
       "summary": "La société peut être impliquée dans des litiges qui, même sans impact matériel direct, entraînent des coûts de défense et détournent l'attention de la direction.",
       "score": 3
@@ -275,7 +292,7 @@
       "title": "Dépendance des revenus des ventes de Sonos speakers",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les revenus des 'Sonos speakers' représentent 77.7% du total, indiquant une forte concentration. Les baisses dans cette catégorie ont un impact disproportionné sur les résultats globaux. (score par défaut, à affiner)",
+      "score_rationale": "Les revenus des 'Sonos speakers' représentent 77.7% du total, indiquant une forte concentration. Les baisses dans cette catégorie ont un impact disproportionné sur les résultats globaux.",
       "trend": "stable",
       "summary": "Une part très importante des revenus provient de la vente de 'Sonos speakers', rendant l'entreprise vulnérable aux fluctuations de ce segment spécifique.",
       "score": 3
@@ -284,7 +301,7 @@
       "title": "Perte nette croissante",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Le rapport montre une augmentation de la perte nette de 38.1 millions de dollars en 2024 à 61.1 millions de dollars en 2025. Bien que l'EBITDA ajusté soit positif, la perte nette indique une pression financière. (score par défaut, à affiner)",
+      "score_rationale": "Le rapport montre une augmentation de la perte nette de 38.1 millions de dollars en 2024 à 61.1 millions de dollars en 2025. Bien que l'EBITDA ajusté soit positif, la perte nette indique une pression financière.",
       "trend": "up",
       "summary": "La société a enregistré une perte nette croissante en 2025, signalant une détérioration de la rentabilité globale malgré un EBITDA ajusté positif.",
       "score": 3
@@ -293,7 +310,7 @@
       "title": "Coûts de restructuration et de transformation",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Des charges importantes liées à la restructuration et à la transformation sont mentionnées pour 2025 (33.5 millions de dollars). Ces coûts impactent directement les résultats financiers et peuvent indiquer des difficultés opérationnelles. (score par défaut, à affiner)",
+      "score_rationale": "Des charges importantes liées à la restructuration et à la transformation sont mentionnées pour 2025 (33.5 millions de dollars). Ces coûts impactent directement les résultats financiers et peuvent indiquer des difficultés opérationnelles.",
       "trend": "up",
       "summary": "Des coûts significatifs liés aux initiatives de restructuration et de transformation ont été engagés, affectant la performance financière de l'entreprise.",
       "score": 3
@@ -343,7 +360,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "EBITDA"
   },
   "_fit_for_site": true,
@@ -523,6 +540,237 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SONO",
+    "extracted_at": "2026-06-01T09:22:15Z",
+    "n_kpis": 5,
+    "kpis": [
+      {
+        "short": "Adjusted EBITDA",
+        "period_type": "quarter",
+        "history": [
+          48.513,
+          46.692,
+          163.143,
+          46.854,
+          42.105,
+          123.92,
+          46.854,
+          34.304,
+          123.92,
+          46.854,
+          34.304,
+          115.242,
+          -33.643,
+          48.906,
+          132.139
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2025-12-27",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:22:15Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          332.949,
+          378.672,
+          664.481,
+          399.781,
+          371.783,
+          672.579,
+          399.781,
+          373.356,
+          672.579,
+          399.781,
+          373.356,
+          550.857,
+          252.662,
+          397.146,
+          545.662
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2025-12-27",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:22:15Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net loss",
+        "period_type": "quarter",
+        "history": [
+          -17.221,
+          -17.826,
+          -123.481,
+          -8.566,
+          0.597,
+          -75.188,
+          -8.566,
+          0.597,
+          -75.188,
+          -8.566,
+          0.597,
+          -80.947,
+          69.709,
+          -3.709,
+          -93.798
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2025-12-27",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:22:15Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Products sold",
+        "period_type": "quarter",
+        "history": [
+          1039,
+          1491,
+          2398,
+          1401,
+          1357,
+          2482,
+          1401,
+          1208,
+          2482,
+          1401,
+          1208,
+          2109,
+          747,
+          1280,
+          1793
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2025-12-27",
+        "unit": "K",
+        "_extracted_at": "2026-06-01T09:22:15Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Adjusted EBITDA margin",
+        "period_type": "quarter",
+        "history": [
+          14.6,
+          12.3,
+          24.6,
+          11.7,
+          11.3,
+          18.4,
+          11.7,
+          9.2,
+          18.4,
+          11.7,
+          9.2,
+          18.8,
+          12.3,
+          24.2
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2025-12-27",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:22:15Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (SONO)"
+        ]
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SONO",
     "ranks": {
@@ -535,15 +783,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.312070+00:00",
     "fetched_at": "2026-05-21T02:17:14.312071+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.037Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.027Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sono.json",
     "enrich_root": "v2-pipeline-enrich/sono.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

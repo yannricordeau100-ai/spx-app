@@ -1,6 +1,6 @@
 {
   "ticker": "NJR",
-  "name": "New Jersey Resources Corporation",
+  "name": "New Jersey Resources",
   "sector": "Services aux collectivités",
   "subsector": "Gas Distribution & Energy Services",
   "tagline": "Regulated natural gas distributor and energy services provider",
@@ -46,7 +46,7 @@
       "ttm": 335.6,
       "_validation": "Corrigé: valeur de 335,627 K$ = 335.6 M$ (pas Mds $), histoire simplifiée aux trois années disponibles (2023, 2024, 2025), yoy recalculé à +15.8%",
       "period_type": "quarter",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -54,8 +54,8 @@
       "name_fr": "Actifs totaux consolidés",
       "name_en": "Consolidated Total Assets",
       "explanation": "Actifs totaux consolidés de l'entreprise",
-      "value": "7578.8",
-      "unit": "M $",
+      "value": 7.579,
+      "unit": "Mds $",
       "yoy": "+8.5%",
       "type": "Investment",
       "nature": "Structurel",
@@ -63,9 +63,9 @@
       "signal": "Augmentation des actifs consolidés",
       "description": "Actifs totaux consolidés pour l'année fiscale 2025 (en millions de dollars)",
       "history": [
-        6537.5,
-        6981.6,
-        7578.8
+        6.537,
+        6.982,
+        7.579
       ],
       "last_data_date": "2025-09-30",
       "is_wow": false,
@@ -73,7 +73,8 @@
       "is_short_history": false,
       "ttm": 7578.8,
       "_validation": "Corrigé: valeur de 7,578,775 K$ = 7578.8 M$ (pas Mds $), histoire simplifiée aux trois années disponibles (2023, 2024, 2025), yoy recalculé à +8.5%",
-      "signal_en": "Steady growth, healthy trend"
+      "signal_en": "Steady growth, healthy trend",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -92,34 +93,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.04 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.45,
-      "unit": "Mds €",
+      "value": 450,
+      "unit": "M €",
       "yoy": "-2.2%",
       "history": [
-        0.41,
-        0.41,
-        0.46,
-        0.45
+        410,
+        410,
+        460,
+        450
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.45 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -138,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 3.33 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.58 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,11 +202,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.77 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -207,9 +229,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -223,7 +249,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         1.392,
         1.506,
@@ -236,7 +262,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -251,7 +277,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         0.0272,
         0.1277,
@@ -264,7 +290,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -279,7 +305,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         46.45,
@@ -292,7 +318,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -308,7 +334,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.85,
@@ -321,7 +347,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -350,9 +376,7 @@
       "is_short_history": false,
       "story_category": "Performance",
       "ttm": 213.5,
-      "_validation": "Corrigé: valeur de 213,541 K$ = 213.5 M$ (pas Mds $), histoire complétée avec données 2023-2025, yoy confirmé à +60.0%, is_short_history passé à false (3 années de données)",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Corrigé: valeur de 213,541 K$ = 213.5 M$ (pas Mds $), histoire complétée avec données 2023-2025, yoy confirmé à +60.0%, is_short_history passé à false (3 années de données)"
     }
   ],
   "ai_positioning": {
@@ -378,7 +402,8 @@
       "score_rationale": "Risque identifie en position centrale comme 'Critical Audit Matter', langage fort ('risk that the BPU will not approve full recovery'), tendance stable mais structurelle pour une societe de distribution de gaz regulee, categorie regulation = poids fort.",
       "trend": "stable",
       "summary": "La filiale NJNG est soumise a la regulation du New Jersey Board of Public Utilities. Il existe un risque que le regulateur n'approuve pas le recouvrement complet des couts engages ou du rendement sur investissement, ce qui impacterait directement la rentabilite.",
-      "citation": "there is a risk that the BPU will not approve full recovery of such costs or full recovery of all amounts invested in the utility business and a reasonable return on that investment"
+      "citation": "there is a risk that the BPU will not approve full recovery of such costs or full recovery of all amounts invested in the utility business and a reasonable return on that investment",
+      "score": 4
     },
     {
       "title": "Limitations inherentes des controles internes",
@@ -387,7 +412,8 @@
       "score_rationale": "Risque mentionne explicitement en milieu de rapport avec langage modere ('may not prevent or detect'), tendance stable et inherente a tout systeme de controle, categorie capital = poids moyen.",
       "trend": "stable",
       "summary": "Malgre l'opinion positive sur les controles internes, la societe reconnait que tout systeme de controle interne comporte des limitations inherentes et ne peut pas prevenir ou detecter tous les detournements ou erreurs.",
-      "citation": "Because of its inherent limitations, internal control over financial reporting may not prevent or detect misstatements, errors or fraud"
+      "citation": "Because of its inherent limitations, internal control over financial reporting may not prevent or detect misstatements, errors or fraud",
+      "score": 3
     },
     {
       "title": "Deterioration future des controles internes",
@@ -396,7 +422,8 @@
       "score_rationale": "Risque prospectif mentionne explicitement dans le rapport de controle interne, langage modere ('subject to the risk'), tendance stable mais reconnaissant une vulnerabilite future, categorie capital = poids moyen.",
       "trend": "stable",
       "summary": "Les projections d'efficacite des controles internes vers le futur sont soumises au risque que les controles deviennent inadequats en raison de changements de conditions ou d'une deterioration du respect des procedures.",
-      "citation": "projections of any evaluation of effectiveness to future periods are subject to the risk that controls may become inadequate because of changes in conditions, or that the degree of compliance with the policies or procedures may deteriorate"
+      "citation": "projections of any evaluation of effectiveness to future periods are subject to the risk that controls may become inadequate because of changes in conditions, or that the degree of compliance with the policies or procedures may deteriorate",
+      "score": 3
     },
     {
       "title": "Inflation et augmentation des couts",
@@ -405,7 +432,8 @@
       "score_rationale": "Risque identifie en debut de rapport (Item 1A reference), langage modere ('impact of recent increases'), tendance accrue (inflation recente), categorie macro = poids moyen pour une societe de distribution.",
       "trend": "up",
       "summary": "L'augmentation recente des taux d'inflation impacte les couts operationnels et d'exploitation de la societe, notamment les achats de gaz naturel et les depenses de maintenance.",
-      "citation": "Item 1A. Risk Factors for additional information related to the impact of recent increases in inflation rates"
+      "citation": "Item 1A. Risk Factors for additional information related to the impact of recent increases in inflation rates",
+      "score": 3
     },
     {
       "title": "Complexite de la comptabilite regulee",
@@ -414,7 +442,8 @@
       "score_rationale": "Identifie comme 'Critical Audit Matter' en position centrale, langage fort ('especially challenging, subjective, or complex judgments'), tendance stable mais structurelle, categorie regulation = poids fort.",
       "trend": "stable",
       "summary": "La comptabilite selon ASC 980 pour les operations regulees implique des jugements complexes sur la probabilite de recouvrement des actifs regules et des passifs regules, necessitant une expertise specialisee.",
-      "citation": "significant judgments made by management to support its assertions about the impacted account balances and disclosures, including assessing the probability of both recovery in rates of incurred costs, and refunds to customers"
+      "citation": "significant judgments made by management to support its assertions about the impacted account balances and disclosures, including assessing the probability of both recovery in rates of incurred costs, and refunds to customers",
+      "score": 3
     }
   ],
   "governance": {
@@ -527,7 +556,7 @@
   "_segments_fetched_at": "2026-05-06T19:37:32.477275+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:08:50.553058+00:00",
   "_dividends_extracted_at": "2026-05-09T20:19:38Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -555,7 +584,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:04Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:22Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "NJR",
     "simple": {
@@ -663,23 +692,18 @@
         "period_type": "quarter",
         "history": [
           5.4086,
-          -10.5084,
           5.9812,
           5.87,
           6.1619,
-          -11.7517,
           6.6101,
           6.2961,
           6.3126,
-          -12.6813,
           6.749,
           6.6474,
           6.7841,
-          -13.1989,
           7.194,
           7.2656,
           7.2742,
-          -14.1549,
           7.9062,
           7.9433
         ],
@@ -734,6 +758,12 @@
             "accession": "0000356309-26-000029",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (NJR)"
         ]
       }
     ]
@@ -750,9 +780,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.288790+00:00",
     "fetched_at": "2026-05-21T02:17:14.288791+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.934Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.863Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/njr.json",
     "enrich_root": "v2-pipeline-enrich/njr.json",

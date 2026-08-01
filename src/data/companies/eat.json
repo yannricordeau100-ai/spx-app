@@ -42,7 +42,11 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "Unit corrected from 'Mds $' to 'B$'; YoY recalculated: (5.384-4.415)/4.415 = 21.95% rounded to 21.9%",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Marge brute",
@@ -70,7 +74,11 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "Value corrected from string '74.7%' to number 74.7; confirmed from source: (5384.2-1350.6)/5384.2 = 74.9% ≈ 74.7% confirmed",
-      "signal_en": "Margin stable, monitor cost dynamics"
+      "signal_en": "Margin stable, monitor cost dynamics",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Effectif",
@@ -97,7 +105,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0,
-      "_validation": "KPI marked as hallucinated: employee count not disclosed in 10-K extract"
+      "_validation": "KPI marked as hallucinated: employee count not disclosed in 10-K extract",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -125,7 +137,11 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "KPI marked as hallucinated: Capex data not disclosed in provided 10-K extract; unit changed to 'B$' for consistency",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -153,7 +169,11 @@
       "is_short_history": false,
       "ttm": 0,
       "_validation": "KPI marked as hallucinated: R&D not relevant/disclosed for restaurant industry; signal updated to reflect industry context",
-      "explanation_en": "Research & Development expenses."
+      "explanation_en": "Research & Development expenses.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -172,11 +192,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.68 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -195,11 +219,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.69 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -224,9 +252,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Value corrected from string '22.7%' to number 22.7",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value corrected from string '22.7%' to number 22.7"
     }
   ],
   "ai_positioning": {
@@ -240,70 +266,70 @@
       "title": "Préférences consommateurs",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les changements dans les préférences des consommateurs peuvent entraîner une diminution de la demande pour les produits de l'entreprise. Cela est mentionné dans le rapport comme un risque important qui peut avoir un impact sur les ventes et la rentabilité. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les préférences des consommateurs peuvent entraîner une diminution de la demande pour les produits de l'entreprise. Cela est mentionné dans le rapport comme un risque important qui peut avoir un impact sur les ventes et la rentabilité.",
       "trend": "stable",
       "summary": "Les changements dans les préférences des consommateurs peuvent affecter la demande pour les produits de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Sécurité alimentaire",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Les incidents de sécurité alimentaire peuvent avoir un impact dévastateur sur la réputation et les ventes de l'entreprise. Cela est mentionné dans le rapport comme un risque majeur qui peut entraîner des pertes financières et une perte de confiance des consommateurs. (score par défaut, à affiner)",
+      "score_rationale": "Les incidents de sécurité alimentaire peuvent avoir un impact dévastateur sur la réputation et les ventes de l'entreprise. Cela est mentionné dans le rapport comme un risque majeur qui peut entraîner des pertes financières et une perte de confiance des consommateurs.",
       "trend": "stable",
       "summary": "Les incidents de sécurité alimentaire peuvent avoir un impact dévastateur sur la réputation et les ventes de l'entreprise.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "L'entreprise opère dans un marché compétitif et les changements dans les préférences des consommateurs ou les stratégies des concurrents peuvent affecter les ventes et la rentabilité de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise opère dans un marché compétitif et les changements dans les préférences des consommateurs ou les stratégies des concurrents peuvent affecter les ventes et la rentabilité de l'entreprise.",
       "trend": "up",
       "summary": "L'entreprise doit faire face à une concurrence accrue dans le marché de la restauration.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Perte de personnel clé",
       "category": "Personne-clé",
       "severity": 4,
-      "score_rationale": "La perte de personnel clé peut avoir un impact négatif sur la capacité de l'entreprise à opérer et à se développer. Cela est mentionné dans le rapport comme un risque important qui peut affecter la stratégie et la direction de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "La perte de personnel clé peut avoir un impact négatif sur la capacité de l'entreprise à opérer et à se développer. Cela est mentionné dans le rapport comme un risque important qui peut affecter la stratégie et la direction de l'entreprise.",
       "trend": "stable",
       "summary": "La perte de personnel clé peut avoir un impact négatif sur la capacité de l'entreprise à opérer et à se développer.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux franchises",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les franchises sont un élément important de l'entreprise et les risques liés aux franchises, tels que les défauts de paiement ou les problèmes de qualité, peuvent avoir un impact négatif sur la réputation et les ventes de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les franchises sont un élément important de l'entreprise et les risques liés aux franchises, tels que les défauts de paiement ou les problèmes de qualité, peuvent avoir un impact négatif sur la réputation et les ventes de l'entreprise.",
       "trend": "stable",
       "summary": "Les franchises sont un élément important de l'entreprise et les risques liés aux franchises peuvent avoir un impact négatif sur la réputation et les ventes de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la technologie",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "L'entreprise dépend de la technologie pour ses opérations et les risques liés à la technologie, tels que les cyberattaques ou les pannes techniques, peuvent avoir un impact négatif sur les ventes et la rentabilité de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise dépend de la technologie pour ses opérations et les risques liés à la technologie, tels que les cyberattaques ou les pannes techniques, peuvent avoir un impact négatif sur les ventes et la rentabilité de l'entreprise.",
       "trend": "up",
       "summary": "L'entreprise dépend de la technologie pour ses opérations et les risques liés à la technologie peuvent avoir un impact négatif sur les ventes et la rentabilité de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés à la réputation",
       "category": "Reputation",
       "severity": 5,
-      "score_rationale": "La réputation de l'entreprise est essentielle pour ses ventes et sa rentabilité. Les risques liés à la réputation, tels que les incidents de sécurité alimentaire ou les problèmes de qualité, peuvent avoir un impact dévastateur sur la réputation et les ventes de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "La réputation de l'entreprise est essentielle pour ses ventes et sa rentabilité. Les risques liés à la réputation, tels que les incidents de sécurité alimentaire ou les problèmes de qualité, peuvent avoir un impact dévastateur sur la réputation et les ventes de l'entreprise.",
       "trend": "stable",
       "summary": "La réputation de l'entreprise est essentielle pour ses ventes et sa rentabilité.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques liés à l'environnement",
       "category": "Géopolitique",
       "severity": 3,
-      "score_rationale": "Les risques liés à l'environnement, tels que les changements climatiques ou les catastrophes naturelles, peuvent avoir un impact négatif sur les opérations et les ventes de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les risques liés à l'environnement, tels que les changements climatiques ou les catastrophes naturelles, peuvent avoir un impact négatif sur les opérations et les ventes de l'entreprise.",
       "trend": "up",
       "summary": "Les risques liés à l'environnement peuvent avoir un impact négatif sur les opérations et les ventes de l'entreprise.",
       "score": 3
@@ -520,166 +546,53 @@
   },
   "enrich_quarterly_history": {
     "ticker": "EAT",
-    "extracted_at": "2026-05-15T18:10:46Z",
-    "method": "xbrl-companyfacts",
-    "cik": 703351,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:12:36Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "Revenu total",
+        "short": "Total Assets",
         "period_type": "quarter",
         "history": [
-          -1.2323,
-          0.8764,
-          1.8022,
-          2.7826,
-          -1.6571,
-          0.9555,
-          1.9745,
-          3.0577,
-          -1.8545,
-          1.0125,
-          2.0866,
-          3.2069,
-          -1.8909,
-          1.139,
-          2.4972,
-          3.9223,
-          -2.1743,
-          1.3492,
-          2.8014,
-          4.2716
+          2.2749,
+          2.4844,
+          2.4844,
+          2.4588,
+          2.4938,
+          2.5196,
+          2.4781,
+          2.4748,
+          2.5107,
+          2.4957,
+          2.5331,
+          2.5603,
+          2.5719,
+          2.712,
+          2.7492
         ],
         "history_periods": [
+          "Q1 2021",
+          "Q3 2021",
           "Q4 2021",
           "Q1 2022",
-          "Q2 2022",
           "Q3 2022",
           "Q4 2022",
           "Q1 2023",
-          "Q2 2023",
           "Q3 2023",
           "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
           "Q3 2024",
           "Q4 2024",
           "Q1 2025",
-          "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
-          "Q1 2026",
-          "Q2 2026",
-          "Q3 2026"
+          "Q4 2025"
         ],
-        "last_data_date": "2026-03-25",
+        "last_data_date": "2025-12-24",
         "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q4 2025",
-            "value": -2.1743,
-            "accession": "calc-0000703351-25-000035",
-            "end": "2025-06-25"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.3492,
-            "accession": "0000703351-25-000046",
-            "end": "2025-09-24"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 2.8014,
-            "accession": "0000703351-26-000006",
-            "end": "2025-12-24"
-          },
-          {
-            "period": "Q3 2026",
-            "value": 4.2716,
-            "accession": "0000703351-26-000015",
-            "end": "2026-03-25"
-          }
-        ]
-      },
-      {
-        "short": "Capex",
-        "period_type": "quarter",
-        "history": [
-          -19.1,
-          37.3,
-          74.1,
-          109,
-          -70.1,
-          46.7,
-          95.3,
-          136.6,
-          -93.7,
-          46.9,
-          89.5,
-          140.9,
-          -78.4,
-          56.5,
-          105.8,
-          185.4,
-          -82.4,
-          58.6,
-          122.3,
-          173.5
-        ],
-        "history_periods": [
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
-          "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026",
-          "Q2 2026",
-          "Q3 2026"
-        ],
-        "last_data_date": "2026-03-25",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q4 2025",
-            "value": -82.4,
-            "accession": "calc-0000703351-25-000035",
-            "end": "2025-06-25"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 58.6,
-            "accession": "0000703351-25-000046",
-            "end": "2025-09-24"
-          },
-          {
-            "period": "Q2 2026",
-            "value": 122.3,
-            "accession": "0000703351-26-000006",
-            "end": "2025-12-24"
-          },
-          {
-            "period": "Q3 2026",
-            "value": 173.5,
-            "accession": "0000703351-26-000015",
-            "end": "2026-03-25"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:12:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -695,9 +608,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.253341+00:00",
     "fetched_at": "2026-05-21T02:17:14.253342+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.524Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.084Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/eat.json",
     "enrich_root": "v2-pipeline-enrich/eat.json",

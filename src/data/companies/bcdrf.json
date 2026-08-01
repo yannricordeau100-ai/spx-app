@@ -34,9 +34,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Net Interest income generated over the period.",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Net Interest income generated over the period."
     },
     {
       "short": "Total Revenue",
@@ -55,11 +53,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 60.02 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -78,11 +80,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 14.1 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -101,11 +107,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.9 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -124,11 +134,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de -22.49 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -147,11 +161,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1867.52 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -170,11 +188,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 326.21 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -193,15 +215,19 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 179.3 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
   "ai_positioning": {
-    "stance": "present_but_limited",
+    "stance": "absent",
     "summary": "Banco Santander mentionne l'innovation technologique et l'intelligence artificielle dans son rapport de direction (Economic and financial review, Section 7: Technological innovation: artificial intelligence, cybersecurity and fintech ecosystem). Cependant, aucune initiative stratégique, investissement ou métrique IA spécifique n'est détaillée dans les extraits fournis.",
     "evidence": [
       "Reference to Section 7 of Economic and financial review: 'Technological innovation: artificial intelligence, cybersecurity and fintech ecosystem' (page 509)"
@@ -285,7 +311,8 @@
       "severity": 4,
       "score_rationale": "Référence explicite à 'Competition in Spain' (Section 9, p.979) dans Item 1A. Langage modéré mais positionnement stratégique central. Tendance stable mais structurelle. Poids élevé : cœur du modèle de diversification géographique.",
       "trend": "stable",
-      "summary": "Banco Santander opère dans des marchés hautement compétitifs, notamment en Espagne où la concurrence bancaire s'intensifie. La pression tarifaire et la consolidation du secteur menacent les marges, particulièrement dans le retail banking face aux fintech et néobanques numériques."
+      "summary": "Banco Santander opère dans des marchés hautement compétitifs, notamment en Espagne où la concurrence bancaire s'intensifie. La pression tarifaire et la consolidation du secteur menacent les marges, particulièrement dans le retail banking face aux fintech et néobanques numériques.",
+      "score": 4
     },
     {
       "title": "Risque de cybersécurité et attaques informatiques",
@@ -293,7 +320,8 @@
       "severity": 5,
       "score_rationale": "Cybersécurité mentionnée explicitement en Item 16.K (p.1016) et Item 5.E (p.509). Langage d'alerte : 'cyberattacks, data breaches, data losses' dans forward-looking statements. Tendance up : section dédiée en Risk management (Section 5, p.582). Poids critique : infrastructure numérique centrale.",
       "trend": "up",
-      "summary": "Banco Santander fait face à des risques croissants de cyberattaques, vol de données et incidents de sécurité informatique. La numérisation accélérée du modèle bancaire (digital bank with branches) augmente l'exposition aux menaces cyber et aux violations de données client sensibles."
+      "summary": "Banco Santander fait face à des risques croissants de cyberattaques, vol de données et incidents de sécurité informatique. La numérisation accélérée du modèle bancaire (digital bank with branches) augmente l'exposition aux menaces cyber et aux violations de données client sensibles.",
+      "score": 5
     },
     {
       "title": "Dépendance à la régulation bancaire et exigences de capital",
@@ -301,7 +329,8 @@
       "severity": 4,
       "score_rationale": "Supervision and regulation (Section 10, p.981) et Capital risk (Section 4, p.580) explicitement traités. Langage fort : 'regulatory capital and liquidity requirements' et 'greater regulation prompted by financial crises'. Tendance stable mais poids structurel élevé pour le secteur.",
       "trend": "stable",
-      "summary": "Banco Santander opère sous supervision réglementaire stricte (BCE, autorités espagnoles) avec exigences croissantes de capital, liquidité et conformité. Les changements réglementaires, notamment post-crise financière, impactent directement la rentabilité et la flexibilité opérationnelle du groupe."
+      "summary": "Banco Santander opère sous supervision réglementaire stricte (BCE, autorités espagnoles) avec exigences croissantes de capital, liquidité et conformité. Les changements réglementaires, notamment post-crise financière, impactent directement la rentabilité et la flexibilité opérationnelle du groupe.",
+      "score": 4
     },
     {
       "title": "Risque de crédit et dégradation de la qualité des portefeuilles",
@@ -309,7 +338,8 @@
       "severity": 4,
       "score_rationale": "Credit risk section (Section 2, p.556) détaillée. Forward-looking statements mentionnent 'potential losses from early loan repayment, collateral depreciation or counterparty risk'. Tendance up : sensibilité aux cycles économiques. Poids majeur : cœur de l'activité bancaire.",
       "trend": "up",
-      "summary": "Banco Santander est exposé à des risques de défaut de crédit, dégradation de collatéraux et pertes sur portefeuille de prêts. Les incertitudes macroéconomiques (inflation, tensions géopolitiques, ralentissement économique) augmentent la probabilité de dégradation de la qualité des actifs."
+      "summary": "Banco Santander est exposé à des risques de défaut de crédit, dégradation de collatéraux et pertes sur portefeuille de prêts. Les incertitudes macroéconomiques (inflation, tensions géopolitiques, ralentissement économique) augmentent la probabilité de dégradation de la qualité des actifs.",
+      "score": 4
     },
     {
       "title": "Instabilité politique et géopolitique dans zones d'opération",
@@ -317,7 +347,8 @@
       "severity": 4,
       "score_rationale": "Forward-looking statements citent explicitement 'political instability in Spain, the US, the UK, other European countries and Latin America' et 'war in Ukraine, uncertainties following the ceasefire agreement in the Middle East'. Tendance up. Poids élevé : présence multi-géographique.",
       "trend": "up",
-      "summary": "Banco Santander opère dans des zones exposées à l'instabilité politique (Espagne, Amérique latine, UK) et aux tensions géopolitiques (Ukraine, Moyen-Orient). Ces risques impactent la stabilité réglementaire, les flux de capitaux et la confiance des clients."
+      "summary": "Banco Santander opère dans des zones exposées à l'instabilité politique (Espagne, Amérique latine, UK) et aux tensions géopolitiques (Ukraine, Moyen-Orient). Ces risques impactent la stabilité réglementaire, les flux de capitaux et la confiance des clients.",
+      "score": 4
     },
     {
       "title": "Transformation technologique et dépendance aux systèmes informatiques",
@@ -325,7 +356,8 @@
       "severity": 4,
       "score_rationale": "Section 7 'Technological innovation: artificial intelligence, cybersecurity and fintech ecosystem' (p.509) dédiée. Langage d'importance : 'digital bank with branches' et 'global platforms'. Tendance up : IA et fintech en accélération. Poids stratégique : transformation du modèle.",
       "trend": "up",
-      "summary": "Banco Santander investit massivement dans l'IA, les plateformes numériques et l'écosystème fintech. La dépendance croissante aux systèmes informatiques complexes crée des risques d'obsolescence technologique, d'intégration défaillante et de perte de compétitivité face aux pure-players numériques."
+      "summary": "Banco Santander investit massivement dans l'IA, les plateformes numériques et l'écosystème fintech. La dépendance croissante aux systèmes informatiques complexes crée des risques d'obsolescence technologique, d'intégration défaillante et de perte de compétitivité face aux pure-players numériques.",
+      "score": 4
     },
     {
       "title": "Risque de réputation et perte de confiance des stakeholders",
@@ -333,7 +365,8 @@
       "severity": 4,
       "score_rationale": "Forward-looking statements mentionnent 'reputational risk and potential adverse reactions of stakeholders, including adverse effects on the market price of our securities'. Tendance stable mais sensibilité élevée. Poids majeur : secteur financier hautement réputationnel.",
       "trend": "stable",
-      "summary": "Banco Santander est exposé à des risques de réputation liés aux scandales financiers, pratiques commerciales déloyales ou défaillances de conformité. La perte de confiance des clients, investisseurs et régulateurs pourrait impacter significativement la valeur du groupe et l'accès aux marchés."
+      "summary": "Banco Santander est exposé à des risques de réputation liés aux scandales financiers, pratiques commerciales déloyales ou défaillances de conformité. La perte de confiance des clients, investisseurs et régulateurs pourrait impacter significativement la valeur du groupe et l'accès aux marchés.",
+      "score": 4
     },
     {
       "title": "Risque de conformité et blanchiment de capitaux",
@@ -341,7 +374,8 @@
       "severity": 4,
       "score_rationale": "Compliance risk (Section 6, p.588) section dédiée. Langage d'alerte implicite : 'Business conduct' (Governance information, p.93). Tendance up : renforcement des normes AML/KYC. Poids élevé : secteur fortement scruté.",
       "trend": "up",
-      "summary": "Banco Santander doit respecter des normes strictes de lutte contre le blanchiment de capitaux (AML) et de connaissance client (KYC). Les défaillances de conformité exposent le groupe à des amendes réglementaires substantielles, des poursuites judiciaires et une dégradation réputationnelle."
+      "summary": "Banco Santander doit respecter des normes strictes de lutte contre le blanchiment de capitaux (AML) et de connaissance client (KYC). Les défaillances de conformité exposent le groupe à des amendes réglementaires substantielles, des poursuites judiciaires et une dégradation réputationnelle.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:37:25.571566+00:00",
@@ -404,7 +438,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.473Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.360Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bcdrf.json",
     "enrich_root": "v2-pipeline-enrich/bcdrf.json",

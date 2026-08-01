@@ -63,8 +63,8 @@
       "name_fr": "Revenu réalisé du charbon",
       "name_en": "Realized Coal Revenue",
       "explanation": "Revenu généré par la vente de charbon, ajusté pour refléter la qualité et la quantité",
-      "value": 3476.341,
-      "unit": "M $",
+      "value": 3.476,
+      "unit": "Mds $",
       "yoy": "Pas de variation disponible",
       "type": "Revenu",
       "nature": "Cyclique",
@@ -79,7 +79,8 @@
       "_validation": "Valeur de 3,476.341 M$ extraite de la table de reconciliation (revenues 4,164.8 - adjustments). Note: document mentionne aussi 4,164.775 en revenues GAAP bruts",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le KPI 'Realized Coal Revenue' n'existe pas explicitement dans le filing. Le document contient 'Total Coal Revenue' (1,289 M$ en 2019, 1,364",
-      "explanation_en": "Revenue from the Realized Coal segment."
+      "explanation_en": "Revenue from the Realized Coal segment.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
@@ -102,13 +103,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.16 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:12.503191+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -127,11 +132,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.15 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -150,56 +159,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.13 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.45,
-      "unit": "Mds €",
+      "value": 450,
+      "unit": "M €",
       "yoy": "+114.3%",
       "history": [
-        0.4,
-        0.21,
-        0.21,
-        0.45
+        400,
+        210,
+        210,
+        450
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.45 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.43,
-      "unit": "Mds €",
+      "value": 430,
+      "unit": "M €",
       "yoy": "+4.9%",
       "history": [
-        0.27,
-        0.2,
-        0.41,
-        0.43
+        270,
+        200,
+        410,
+        430
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.43 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -213,7 +236,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         2.05,
@@ -226,7 +249,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -241,7 +264,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0715,
@@ -254,7 +277,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -269,7 +292,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -282,7 +305,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -297,7 +320,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         13.07,
@@ -310,7 +333,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -334,9 +357,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Coût",
-      "_validation": "Valeur extraite de la table de reconciliation des coûts par segment - High CV Thermal: 40.99$/tonne. Données consolidées tirées du MD&A",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur extraite de la table de reconciliation des coûts par segment - High CV Thermal: 40.99$/tonne. Données consolidées tirées du MD&A"
     },
     {
       "short": "Realized Coal Revenue per Ton Sold",
@@ -357,9 +378,7 @@
       "is_generic": false,
       "is_short_history": false,
       "story_category": "Revenu",
-      "_validation": "Valeur moyenne calculée à partir des segments. Coking coal (113.91), High CV Thermal (60.34), PRB (14.46). Le charbon métallurgique (coking coal) génère un revenu significativement plus élevé",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur moyenne calculée à partir des segments. Coking coal (113.91), High CV Thermal (60.34), PRB (14.46). Le charbon métallurgique (coking coal) génère un revenu significativement plus élevé"
     },
     {
       "short": "Cash Margin per Ton Sold",
@@ -380,9 +399,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marge",
-      "_validation": "Métrique mentionnée dans MD&A mais valeur consolidée non fournie explicitement dans le document",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Métrique mentionnée dans MD&A mais valeur consolidée non fournie explicitement dans le document"
     }
   ],
   "ai_positioning": {
@@ -398,7 +415,8 @@
       "severity": 5,
       "score_rationale": "La société mentionne explicitement que la détérioration des conditions économiques dans les industries où opèrent ses clients pourrait diminuer la demande pour ses produits et impacter sa capacité à collecter les paiements des clients. Cela est mentionné dans plusieurs sections du rapport, soulignant son importance critique.",
       "trend": "stable",
-      "summary": "La détérioration des conditions économiques pourrait diminuer la demande pour les produits de la société et impacter sa capacité à collecter les paiements."
+      "summary": "La détérioration des conditions économiques pourrait diminuer la demande pour les produits de la société et impacter sa capacité à collecter les paiements.",
+      "score": 5
     },
     {
       "title": "Volatilité des prix du charbon",
@@ -406,7 +424,8 @@
       "severity": 4,
       "score_rationale": "La volatilité des prix du charbon est mentionnée comme un facteur clé pouvant impacter les résultats d'exploitation et les flux de trésorerie de la société. Les prix du charbon sont influencés par de nombreux facteurs, y compris l'offre et la demande, les conditions météorologiques et les prix des combustibles alternatifs.",
       "trend": "up",
-      "summary": "La volatilité des prix du charbon peut avoir un impact significatif sur les résultats d'exploitation et les flux de trésorerie de la société."
+      "summary": "La volatilité des prix du charbon peut avoir un impact significatif sur les résultats d'exploitation et les flux de trésorerie de la société.",
+      "score": 4
     },
     {
       "title": "Dépendance à la clientèle concentrée",
@@ -414,7 +433,8 @@
       "severity": 4,
       "score_rationale": "La société reconnaît qu'elle a une concentration de clients, ce qui signifie que la perte ou la réduction significative des achats de ses plus grands clients pourrait avoir un impact négatif sur son activité, sa situation financière, ses résultats d'exploitation et ses flux de trésorerie.",
       "trend": "stable",
-      "summary": "La dépendance à une clientèle concentrée expose la société à des risques en cas de perte ou de réduction des achats de ces clients."
+      "summary": "La dépendance à une clientèle concentrée expose la société à des risques en cas de perte ou de réduction des achats de ces clients.",
+      "score": 4
     },
     {
       "title": "Risques environnementaux et climatiques",
@@ -422,7 +442,8 @@
       "severity": 5,
       "score_rationale": "Les réglementations environnementales et climatiques, ainsi que les changements dans les politiques gouvernementales, peuvent avoir un impact significatif sur les coûts d'exploitation de la société et sur le marché du charbon. La société mentionne explicitement les risques liés à la pollution et au changement climatique.",
       "trend": "up",
-      "summary": "Les risques environnementaux et climatiques, ainsi que les réglementations associées, peuvent impacter les coûts et les résultats d'exploitation de la société."
+      "summary": "Les risques environnementaux et climatiques, ainsi que les réglementations associées, peuvent impacter les coûts et les résultats d'exploitation de la société.",
+      "score": 5
     },
     {
       "title": "Disruptions dans la chaîne d'approvisionnement",
@@ -430,7 +451,8 @@
       "severity": 4,
       "score_rationale": "La société dépend de fournisseurs pour son équipement et ses matières premières. Les disruptions dans la chaîne d'approvisionnement, y compris les retards ou les pénuries, peuvent impacter la capacité de la société à produire et à livrer du charbon.",
       "trend": "up",
-      "summary": "Les disruptions dans la chaîne d'approvisionnement peuvent avoir un impact négatif sur la production et la livraison de charbon de la société."
+      "summary": "Les disruptions dans la chaîne d'approvisionnement peuvent avoir un impact négatif sur la production et la livraison de charbon de la société.",
+      "score": 4
     },
     {
       "title": "Risques liés aux prix et à la disponibilité des matières premières",
@@ -438,7 +460,8 @@
       "severity": 4,
       "score_rationale": "La société utilise des quantités significatives de matières premières, dont le prix et la disponibilité peuvent varier. Les augmentations de prix ou les pénuries de ces matières premières peuvent impacter les coûts d'exploitation de la société.",
       "trend": "up",
-      "summary": "Les variations de prix et de disponibilité des matières premières peuvent avoir un impact sur les coûts d'exploitation de la société."
+      "summary": "Les variations de prix et de disponibilité des matières premières peuvent avoir un impact sur les coûts d'exploitation de la société.",
+      "score": 4
     },
     {
       "title": "Risques liés à la concentration de la clientèle à l'export",
@@ -446,7 +469,8 @@
       "severity": 4,
       "score_rationale": "La société a une exposition significative aux risques liés à la concentration de sa clientèle à l'export. Les fluctuations dans la demande ou les prix sur les marchés d'exportation peuvent impacter les ventes et les résultats d'exploitation de la société.",
       "trend": "stable",
-      "summary": "La concentration de la clientèle à l'export expose la société à des risques liés aux fluctuations de la demande et des prix sur ces marchés."
+      "summary": "La concentration de la clientèle à l'export expose la société à des risques liés aux fluctuations de la demande et des prix sur ces marchés.",
+      "score": 4
     }
   ],
   "governance": {
@@ -528,7 +552,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:22:10Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2022,
@@ -544,7 +568,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:47Z"
   },
   "_eps_extracted_at": "2026-05-18T16:44:21Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "CNR",
     "simple": {
@@ -685,9 +709,343 @@
     "_risks_verification_needed": true,
     "_risks_no_source": true,
     "hero_last_data_date_override": "2026-03-31",
-    "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00"
+    "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00",
+    "_quarterly_history_extension": {
+      "ticker": "CNR.TO",
+      "period_type": "quarter",
+      "unit_currency": "CAD",
+      "kpis": [
+        {
+          "kpi_short": "Revenue",
+          "kpi_name_fr": "Chiffre d'affaires",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 4.403,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 4.272,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 4.165,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 4.464,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 4.379,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Operating Income",
+          "kpi_name_fr": "Résultat opérationnel",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 1.61,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 1.638,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 1.606,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 1.733,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 1.549,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Net Income",
+          "kpi_name_fr": "Résultat net",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 1.161,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 1.172,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 1.139,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 1.248,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 1.146,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "kpi_short": "Operating Cash Flow",
+          "kpi_name_fr": "Flux de trésorerie opérationnel",
+          "unit": "Mds CAD",
+          "period_type": "quarter",
+          "history": [
+            {
+              "quarter": "Q1 2025",
+              "value": 1.164,
+              "date": "2025-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q2 2025",
+              "value": 1.745,
+              "date": "2025-06-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q3 2025",
+              "value": 1.913,
+              "date": "2025-09-30",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q4 2025",
+              "value": 2.227,
+              "date": "2025-12-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            },
+            {
+              "quarter": "Q1 2026",
+              "value": 1.265,
+              "date": "2026-03-31",
+              "source": "rapport financier quarterly_financials/quarterly_cashflow"
+            }
+          ],
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "extracted_at": "2026-06-02T11:39:37Z",
+      "extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "_n_kpis_merged": 4
+    },
+    "_super_kpi_inputs": {
+      "_extracted_at": "2026-06-02T11:39:37Z",
+      "_extracted_by": "SA10-A rapport financier .TO batch",
+      "_source": "rapport financier quarterly_financials/quarterly_cashflow",
+      "currency": "CAD",
+      "revenue_q": [
+        {
+          "q": "Q1 2025",
+          "v": 4.403,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 4.272,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 4.165,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 4.464,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 4.379,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "op_income_q": [
+        {
+          "q": "Q1 2025",
+          "v": 1.61,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 1.638,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 1.606,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 1.733,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 1.549,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "ni_q": [
+        {
+          "q": "Q1 2025",
+          "v": 1.161,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 1.172,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 1.139,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 1.248,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 1.146,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "op_cf_q": [
+        {
+          "q": "Q1 2025",
+          "v": 1.164,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 1.745,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 1.913,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 2.227,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 1.265,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ],
+      "rd_q": [],
+      "op_margin_q_pct": [
+        {
+          "q": "Q1 2025",
+          "v": 36.57,
+          "date": "2025-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q2 2025",
+          "v": 38.34,
+          "date": "2025-06-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q3 2025",
+          "v": 38.56,
+          "date": "2025-09-30",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q4 2025",
+          "v": 38.82,
+          "date": "2025-12-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        },
+        {
+          "q": "Q1 2026",
+          "v": 35.37,
+          "date": "2026-03-31",
+          "source": "rapport financier quarterly_financials/quarterly_cashflow"
+        }
+      ]
+    }
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.588Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.688Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cnr.json",
     "enrich_root": "v2-pipeline-enrich/cnr.json",

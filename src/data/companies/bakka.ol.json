@@ -39,9 +39,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "COUNTRIES_REP",
@@ -66,9 +64,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "LOSS_PREV_COLL",
@@ -93,9 +89,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "BOARD_MEET",
@@ -120,9 +114,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "annual",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
+      "period_type": "annual"
     },
     {
       "short": "Total Assets",
@@ -141,11 +133,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 19.03 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -164,33 +160,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "-37.5%",
       "history": [
-        0.72,
-        0.41,
-        0.48,
-        0.3
+        720,
+        410,
+        480,
+        300
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.3 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -304,7 +309,7 @@
   "company_description": "P/F Bakkafrost, together with its subsidiaries, engages in the production and sale of salmon products in North America, Western Europe, Eastern Europe, Asia, and internationally. The company operates through seven segments: Fishmeal, Fish Oil and Fish Feed; Freshwater Faroe Islands; Freshwater Scotland; Farming Faroe Islands; Farming Scotland; Services; and Sales & Other. Its products include fresh and frozen whole salmon, fresh and frozen salmon fillets, fresh skin-packed salmon portions, frozen salmon portions and tails, frozen smoked salmon and salmon fillets, frozen salmon bits and pieces, frozen salmon off-cuts and belly flaps, frozen salmon heads, salmon backbones, and salmon skin. The company is also involved in the production and sale of fishmeal, fish oil, and fish feed; production of eggs from breeding self-owned salmon strains; production of smolts; and on-growing of salmon. In addition, it manages a fleet of farming service vessels; provides fish transportation, treatments, net cleaning, harvesting, freight and logistical, and heavy marine support services; converts organic waste into biogas, heating, electricity, and fertilizers; produces styrofoam boxes; and optimizes",
   "last_data_date": "2025-12-31",
   "_ai_positioning_fetched_at": "2026-05-14T05:28:54.693679+00:00",
-  "_companies_unified_built_at": "2026-05-29T21:19:28.349Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.329Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bakka.ol.json",
     "enrich_root": "v2-pipeline-enrich/bakka.ol.json",

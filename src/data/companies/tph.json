@@ -21,8 +21,8 @@
       "name_fr": "Chiffre d'affaires des ventes de maisons",
       "name_en": "Home Sales Revenue",
       "explanation": "Chiffre d'affaires généré par les ventes de maisons",
-      "value": 3260.447,
-      "unit": "M $",
+      "value": 3.26,
+      "unit": "Mds $",
       "yoy": "+5.8%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,12 +30,12 @@
       "signal": "Baisse du chiffre d'affaires des ventes de maisons",
       "description": "Le chiffre d'affaires des ventes de maisons a baissé en 2025 en raison de la conjoncture économique et de la volatilité du sentiment des consommateurs",
       "history": [
-        2401.159,
-        2405.142,
-        2810.272,
-        3262.747,
-        3083.015,
-        3260.447
+        2.401,
+        2.405,
+        2.81,
+        3.263,
+        3.083,
+        3.26
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
@@ -45,7 +45,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:18.652457+00:00",
       "explanation_en": "Revenue from the Home Sales segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -69,7 +70,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -94,7 +95,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -102,8 +103,8 @@
       "name_fr": "Liquidités totales",
       "name_en": "Total Liquidity",
       "explanation": "Trésorerie disponible plus capacité d'emprunt inutilisée",
-      "value": "1780.9",
-      "unit": "M $",
+      "value": 1.781,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Balance Sheet",
       "nature": "Financier",
@@ -111,12 +112,13 @@
       "signal": "Position de liquidité forte",
       "description": "La trésorerie totale et capacités d'emprunt s'élèvent à 1,8 milliard de dollars au 31 décembre 2025, composés de 982,8 millions de dollars en trésorerie et 798,1 millions de dollars de capacité inutilisée",
       "history": [
-        1780.9
+        1.781
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Diluted EPS",
@@ -140,7 +142,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -166,24 +168,28 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.302,
-      "unit": "Mds $",
+      "value": 302,
+      "unit": "M $",
       "yoy": "-59.6%",
       "history": [
-        0.296,
-        0.344,
-        0.353,
-        0.254,
-        0.367,
-        0.605,
-        0.747,
-        0.302
+        296,
+        344,
+        353,
+        254,
+        367,
+        605,
+        747,
+        302
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -192,8 +198,13 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -219,8 +230,12 @@
       "description": "Total des actifs extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -265,7 +280,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement la supervision des risques de cybersécurité par le conseil d'administration et le comité d'audit, ainsi que le rôle du CIO. L'intensité du langage est modérée mais le sujet est récurrent. Le contexte montre une attention accrue à ce risque.",
       "trend": "up",
-      "summary": "L'entreprise est exposée aux risques de cyberattaques et de violation de données, nécessitant une vigilance constante et des mesures de sécurité robustes pour protéger les informations sensibles."
+      "summary": "L'entreprise est exposée aux risques de cyberattaques et de violation de données, nécessitant une vigilance constante et des mesures de sécurité robustes pour protéger les informations sensibles.",
+      "score": 4
     },
     {
       "title": "Risques liés aux litiges et aux procédures réglementaires",
@@ -273,7 +289,8 @@
       "severity": 4,
       "score_rationale": "Le texte indique que des poursuites judiciaires et des procédures réglementaires sont en cours ou peuvent être engagées, avec une incertitude quant à l'issue et un risque de préjudice matériel. Le langage est prudent et le sujet est traité dans une section dédiée.",
       "trend": "stable",
-      "summary": "La société fait face à des risques de litiges et de contrôles réglementaires dans le cadre de ses activités, dont l'issue est incertaine et pourrait avoir un impact financier significatif."
+      "summary": "La société fait face à des risques de litiges et de contrôles réglementaires dans le cadre de ses activités, dont l'issue est incertaine et pourrait avoir un impact financier significatif.",
+      "score": 4
     },
     {
       "title": "Volatilité du marché immobilier et du sentiment des consommateurs",
@@ -281,7 +298,8 @@
       "severity": 4,
       "score_rationale": "Le document souligne la volatilité du sentiment des consommateurs, l'impact des prix élevés et des taux hypothécaires sur l'abordabilité, et la fluctuation de la demande. L'analyse de la performance des ventes montre une baisse significative des commandes de 23,4%.",
       "trend": "up",
-      "summary": "La demande de logements est sensible aux conditions économiques, aux taux d'intérêt et à la confiance des consommateurs, ce qui peut entraîner des fluctuations dans les ventes et la rentabilité."
+      "summary": "La demande de logements est sensible aux conditions économiques, aux taux d'intérêt et à la confiance des consommateurs, ce qui peut entraîner des fluctuations dans les ventes et la rentabilité.",
+      "score": 4
     },
     {
       "title": "Risques liés à la stratégie de fusion et d'acquisition",
@@ -289,7 +307,8 @@
       "severity": 3,
       "score_rationale": "L'annonce d'un accord de fusion avec Sumitomo implique des coûts significatifs et des conditions suspensives (approbations réglementaires et actionnariales). Le risque de rupture de change de contrôle sur les facilités de crédit et les accords de rachat de prêts hypothécaires est mentionné.",
       "trend": "new",
-      "summary": "La fusion avec Sumitomo entraîne des coûts importants et dépend de l'approbation des actionnaires et des régulateurs, présentant des risques liés à sa réalisation et à son intégration."
+      "summary": "La fusion avec Sumitomo entraîne des coûts importants et dépend de l'approbation des actionnaires et des régulateurs, présentant des risques liés à sa réalisation et à son intégration.",
+      "score": 3
     },
     {
       "title": "Risques liés à la gestion des stocks et à l'alignement de la production",
@@ -297,7 +316,8 @@
       "severity": 3,
       "score_rationale": "La société mentionne la nécessité de modérer les stocks spéculatifs et d'aligner les démarrages de construction sur la demande pour gérer les risques. Les données montrent une baisse des commandes et des taux d'absorption.",
       "trend": "stable",
-      "summary": "Une mauvaise gestion des stocks ou un désalignement entre la production et la demande réelle peut entraîner des coûts excessifs et affecter la performance financière."
+      "summary": "Une mauvaise gestion des stocks ou un désalignement entre la production et la demande réelle peut entraîner des coûts excessifs et affecter la performance financière.",
+      "score": 3
     },
     {
       "title": "Risques liés à la politique de rachat d'actions",
@@ -305,7 +325,8 @@
       "severity": 2,
       "score_rationale": "Le programme de rachat d'actions est discrétionnaire et peut être modifié ou suspendu. En 2025, l'entreprise a racheté 8,5 millions d'actions pour 277,2 millions de dollars. Bien que visant à retourner de la valeur aux actionnaires, il représente un engagement financier qui peut être réaffecté.",
       "trend": "stable",
-      "summary": "La politique de rachat d'actions, bien que flexible, engage des fonds qui pourraient être utilisés pour d'autres investissements ou pour faire face à des imprévus."
+      "summary": "La politique de rachat d'actions, bien que flexible, engage des fonds qui pourraient être utilisés pour d'autres investissements ou pour faire face à des imprévus.",
+      "score": 2
     }
   ],
   "governance": {
@@ -360,7 +381,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -568,145 +589,166 @@
   },
   "enrich_quarterly_history": {
     "ticker": "TPH",
-    "extracted_at": "2026-05-15T19:51:09Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1561680,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T09:24:45Z",
+    "n_kpis": 4,
     "kpis": [
       {
         "short": "Home Sales Revenue",
         "period_type": "quarter",
         "history": [
-          0.5971,
-          1.3672,
-          2.1996,
-          -0.9034,
-          0.721,
-          1.739
+          1004.644,
+          1057.491,
+          768.405,
+          819.077,
+          825.295,
+          918.353,
+          1133.008,
+          1113.681,
+          720.786,
+          1600.618,
+          2417.916,
+          506.496
         ],
         "history_periods": [
-          "Q1 2020",
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021"
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
         ],
-        "last_data_date": "2021-06-30",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q3 2020",
-            "value": 2.1996,
-            "accession": "0001561680-20-000108",
-            "end": "2020-09-30"
-          },
-          {
-            "period": "Q4 2020",
-            "value": -0.9034,
-            "accession": "calc-0001561680-21-000023",
-            "end": "2020-12-31"
-          },
-          {
-            "period": "Q1 2021",
-            "value": 0.721,
-            "accession": "0001561680-21-000067",
-            "end": "2021-03-31"
-          },
-          {
-            "period": "Q2 2021",
-            "value": 1.739,
-            "accession": "0001561680-21-000093",
-            "end": "2021-06-30"
-          }
-        ]
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:24:45Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Gross Margin",
         "period_type": "quarter",
         "history": [
-          1.045,
-          0.7167,
-          1.0093,
-          1.029,
-          1.2002,
-          0.7253,
-          1.0046,
-          1.0575,
-          1.5042,
-          0.7684,
-          0.8191,
-          0.8253,
-          1.2413,
-          0.9184,
-          1.133,
-          1.1137,
-          1.2214,
-          0.7208,
-          0.8798,
-          0.8173,
-          0.9459,
-          0.5065
+          27.2,
+          27.1,
+          23.5,
+          20.4,
+          22.3,
+          23,
+          23.6,
+          23.3,
+          23.9,
+          22.2,
+          21.7,
+          18.8
         ],
         "history_periods": [
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
           "Q1 2026"
         ],
         "last_data_date": "2026-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "HomeBuilding",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 0.8798,
-            "source": "TPH_2025-07-24.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.8173,
-            "source": "TPH_2025-10-23.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.9459,
-            "source": "calc-TPH_2026-02-26.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 0.5065,
-            "source": "TPH_2026-04-29.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
-        ]
+        "unit": "%",
+        "_extracted_at": "2026-06-01T09:24:45Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          136.383,
+          149.226,
+          74.742,
+          60.724,
+          75.402,
+          99.055,
+          118.002,
+          111.759,
+          64.036,
+          124.727,
+          180.837,
+          6.786
+        ],
+        "history_periods": [
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:24:45Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Diluted EPS",
+        "period_type": "quarter",
+        "history": [
+          1.33,
+          1.45,
+          0.81,
+          0.6,
+          0.76,
+          0.73,
+          0.6,
+          0.76,
+          1.03,
+          1.25,
+          1.18,
+          0.08
+        ],
+        "history_periods": [
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T09:24:45Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
-    ],
-    "_segment_method": "xbrl-segment-inline"
+    ]
   },
   "enrich_ranks": {
     "ticker": "TPH",
@@ -720,9 +762,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.319117+00:00",
     "fetched_at": "2026-05-21T02:17:14.319117+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.601Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.676Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tph.json",
     "enrich_root": "v2-pipeline-enrich/tph.json",

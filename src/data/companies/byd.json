@@ -1,6 +1,6 @@
 {
   "ticker": "BYD",
-  "name": "Boyd Gaming Corporation",
+  "name": "Boyd Gaming",
   "sector": "Consommation discrétionnaire",
   "subsector": "Jeux et paris",
   "tagline": "Multi-jurisdictional gaming company operating 27 brick-and-mortar properties and online casino gaming",
@@ -21,8 +21,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Total revenues for the fiscal year",
-      "value": "4092.0",
-      "unit": "M $",
+      "value": 4.092,
+      "unit": "Mds $",
       "yoy": "4.1",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -44,7 +44,8 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Income",
@@ -73,7 +74,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Significant decline, warning signal"
     },
     {
@@ -104,7 +105,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -124,34 +125,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 22.56 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
       "name_fr": "Free Cash Flow",
       "name_en": "Free Cash Flow",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "-46.4%",
       "history": [
-        0.71,
-        0.54,
-        0.56,
-        0.3
+        710,
+        540,
+        560,
+        300
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 0.3 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -170,11 +180,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.57 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,33 +207,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.35,
-      "unit": "Mds €",
+      "value": 350,
+      "unit": "M €",
       "yoy": "+9.4%",
       "history": [
-        0.28,
-        0.3,
-        0.32,
-        0.35
+        280,
+        300,
+        320,
+        350
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.35 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -246,9 +269,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capital Allocation",
-      "_source_month": "juillet 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capital Allocation"
     }
   ],
   "ai_positioning": {
@@ -262,16 +283,16 @@
       "title": "Cybersecurity",
       "category": "Cybersecurity",
       "severity": 4,
-      "score_rationale": "The company explicitly mentions risks related to cybersecurity, including the failure to maintain the integrity of information technology systems, protect internal information, or comply with applicable privacy and data security regulations (score par défaut, à affiner)",
+      "score_rationale": "The company explicitly mentions risks related to cybersecurity, including the failure to maintain the integrity of information technology systems, protect internal information, or comply with applicable privacy and data security regulations",
       "trend": "stable",
       "summary": "Boyd Gaming is exposed to cybersecurity risks, particularly regarding the protection of internal information and compliance with data security regulations in its gaming operations",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Competition",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "The company operates in a highly competitive gaming and entertainment sector with numerous competitors across multiple jurisdictions (score par défaut, à affiner)",
+      "score_rationale": "The company operates in a highly competitive gaming and entertainment sector with numerous competitors across multiple jurisdictions",
       "trend": "stable",
       "summary": "Competition in the gaming and hospitality sector is substantial, which could negatively impact Boyd Gaming's market share and operating results",
       "score": 3
@@ -280,25 +301,25 @@
       "title": "Regulatory",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Boyd Gaming is subject to strict gaming regulations across 11 states and operates under complex regulatory frameworks that could impact its ability to expand and operate (score par défaut, à affiner)",
+      "score_rationale": "Boyd Gaming is subject to strict gaming regulations across 11 states and operates under complex regulatory frameworks that could impact its ability to expand and operate",
       "trend": "stable",
       "summary": "The company must comply with strict gaming regulations in each jurisdiction where it operates, which could limit its activities, expansion opportunities and profitability",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Geopolitical",
       "category": "Géopolitique",
       "severity": 2,
-      "score_rationale": "Boyd Gaming operates primarily in the United States, which limits direct geopolitical exposure (score par défaut, à affiner)",
+      "score_rationale": "Boyd Gaming operates primarily in the United States, which limits direct geopolitical exposure",
       "trend": "stable",
       "summary": "Boyd Gaming's operations are concentrated in the United States, resulting in limited exposure to geopolitical risks",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Capital Requirements",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "As a capital-intensive gaming business, Boyd Gaming relies heavily on operating cash flow to fund maintenance capital expenditures, debt repayment and acquisitions (score par défaut, à affiner)",
+      "score_rationale": "As a capital-intensive gaming business, Boyd Gaming relies heavily on operating cash flow to fund maintenance capital expenditures, debt repayment and acquisitions",
       "trend": "stable",
       "summary": "The company's capital-intensive business model requires significant capital expenditures for maintenance and growth, which could impact financial flexibility if cash flows decline",
       "score": 3
@@ -307,7 +328,7 @@
       "title": "Reputation",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "Gaming companies are exposed to reputation risks from incidents, regulatory violations, or operational problems that could affect customer confidence and brand value (score par défaut, à affiner)",
+      "score_rationale": "Gaming companies are exposed to reputation risks from incidents, regulatory violations, or operational problems that could affect customer confidence and brand value",
       "trend": "stable",
       "summary": "Boyd Gaming faces potential reputation risks from gaming-related incidents or regulatory issues that could negatively impact brand perception and customer loyalty",
       "score": 3
@@ -403,7 +424,6 @@
       "date": "2026-04-24"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T19:55:52.801420+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -447,6 +467,7 @@
     ],
     "total": 4.09
   },
+  "_ai_positioning_fetched_at": "2026-05-06T19:55:52.801420+00:00",
   "_segments_fetched_at": "2026-05-06T19:25:24.089368+00:00",
   "enrich_description": {
     "ticker": "BYD",
@@ -543,6 +564,177 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "BYD",
+    "extracted_at": "2026-06-01T03:04:18Z",
+    "n_kpis": 4,
+    "kpis": [
+      {
+        "short": "Total Revenue",
+        "period_type": "quarter",
+        "history": [
+          753.307,
+          893.602,
+          843.06,
+          860.743,
+          894.45,
+          877.263,
+          963.966,
+          916.95,
+          903.164,
+          960.521,
+          916.95,
+          961.246,
+          991.565,
+          1033.998,
+          1004.361
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:04:18Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          193.735,
+          266.342,
+          223.146,
+          251.058,
+          245.07,
+          237.459,
+          284.879,
+          244.029,
+          217.872,
+          219.385,
+          244.029,
+          219.985,
+          199.887,
+          242.37,
+          139.764
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:04:18Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          102.161,
+          162.928,
+          199.731,
+          199.731,
+          217.872,
+          131.128,
+          136.473,
+          139.845,
+          135.233,
+          110.882,
+          150.354,
+          1438.836
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:04:18Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Diluted EPS",
+        "period_type": "quarter",
+        "history": [
+          0.9,
+          1.45,
+          1.93,
+          1.34,
+          1.4,
+          1.47,
+          1.34,
+          1.31,
+          1.84,
+          17.81
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q1 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "€",
+        "_extracted_at": "2026-06-01T03:04:18Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "BYD",
     "ranks": {
@@ -555,15 +747,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.235099+00:00",
     "fetched_at": "2026-05-21T02:17:14.235100+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.036Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.478Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/byd.json",
     "enrich_root": "v2-pipeline-enrich/byd.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

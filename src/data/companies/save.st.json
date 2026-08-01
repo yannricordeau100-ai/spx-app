@@ -33,11 +33,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.39 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -56,11 +60,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 3.02 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -79,11 +87,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 11.82 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Free Cash Flow",
@@ -102,11 +114,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Free Cash Flow de 12.27 Mds € dernière année",
-      "description": "Free Cash Flow extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Free Cash Flow sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -125,34 +141,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 309.41 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "-13.6%",
       "history": [
-        0.16,
-        0.17,
-        0.22,
-        0.19
+        160,
+        170,
+        220,
+        190
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.19 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -171,10 +196,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 4.67 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -193,10 +222,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 8.38 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -210,7 +243,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         3.28,
         5.56,
@@ -223,7 +256,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -238,7 +271,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards SEK. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards SEK. cashflow.",
       "history": [
         null,
         1.4444,
@@ -251,7 +284,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -266,7 +299,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         87.47,
@@ -279,7 +312,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -295,7 +328,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         6.33,
@@ -308,7 +341,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Steady growth, healthy trend"
     }
   ],
@@ -347,7 +380,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur implicite : Nordnet opère sur 4 marchés (Suède, Norvège, Danemark, Finlande) hautement compétitifs avec des acteurs établis et nouveaux entrants. Position mentionnée via classements EPSI (2e place Suède/Norvège, 1ère Danemark/Finlande) indique compétition féroce. Langage modéré mais contexte stratégique (expansion produits, innovation continue) révèle intensité réelle. Tendance stable mais pression croissante.",
       "trend": "stable",
-      "summary": "Nordnet fait face à une concurrence intense de la part de banques traditionnelles et de nouveaux acteurs fintech sur ses quatre marchés nordiques. La nécessité d'innover continuellement (pension Livrente au Danemark, PrimaryBid en Norvège, Børsdata) et d'investir en marketing et technologie pour maintenir sa position de leader reflète cette pression concurrentielle."
+      "summary": "Nordnet fait face à une concurrence intense de la part de banques traditionnelles et de nouveaux acteurs fintech sur ses quatre marchés nordiques. La nécessité d'innover continuellement (pension Livrente au Danemark, PrimaryBid en Norvège, Børsdata) et d'investir en marketing et technologie pour maintenir sa position de leader reflète cette pression concurrentielle.",
+      "score": 4
     },
     {
       "title": "Dépendance à la volatilité des marchés boursiers",
@@ -355,7 +389,8 @@
       "severity": 4,
       "score_rationale": "Risque métier critique : 72,9 Mrd SEK de net savings et croissance de 25% du capital d'épargne dépendent directement de la performance des marchés (mentionné explicitement : 'rising stock market'). Revenus de commissions (2,4 Mrd SEK) et volumes de trading (43M trades) sont procycliques. Position centrale dans le rapport (résultats record attribués au marché haussier US). Tendance up mais vulnérable aux corrections.",
       "trend": "up",
-      "summary": "Les résultats exceptionnels de Nordnet (profit ajusté de 3,6 Mrd SEK) sont largement attribuables à la hausse des marchés boursiers et à l'augmentation des volumes de trading. Une correction boursière significative réduirait directement les revenus de commissions et le capital d'épargne des clients, impactant la croissance future."
+      "summary": "Les résultats exceptionnels de Nordnet (profit ajusté de 3,6 Mrd SEK) sont largement attribuables à la hausse des marchés boursiers et à l'augmentation des volumes de trading. Une correction boursière significative réduirait directement les revenus de commissions et le capital d'épargne des clients, impactant la croissance future.",
+      "score": 4
     },
     {
       "title": "Risque de régulation bancaire et de conformité CSRD/ESRS",
@@ -363,7 +398,8 @@
       "severity": 3,
       "score_rationale": "Risque émergent spécifique : Nordnet prépare activement la conformité CSRD/ESRS (reporting à partir de 2025), rejoint SBTi et UN Global Compact. Langage proactif mais indique charge réglementaire croissante. Position dans rapport de durabilité (12 pages) montre importance stratégique. Tendance new/up : nouvelles exigences de reporting et standards ESG en évolution constante.",
       "trend": "up",
-      "summary": "Nordnet doit se conformer à la Corporate Sustainability Reporting Directive (CSRD) et aux European Sustainability Reporting Standards (ESRS) à partir de 2025. Ces nouvelles obligations réglementaires imposent des investissements en systèmes de reporting, audit et gouvernance, avec risque de pénalités en cas de non-conformité ou de divulgations insuffisantes."
+      "summary": "Nordnet doit se conformer à la Corporate Sustainability Reporting Directive (CSRD) et aux European Sustainability Reporting Standards (ESRS) à partir de 2025. Ces nouvelles obligations réglementaires imposent des investissements en systèmes de reporting, audit et gouvernance, avec risque de pénalités en cas de non-conformité ou de divulgations insuffisantes.",
+      "score": 3
     },
     {
       "title": "Cybersécurité et protection des données clients",
@@ -371,7 +407,8 @@
       "severity": 4,
       "score_rationale": "Risque métier critique non explicitement détaillé mais implicite : Nordnet gère 2,1M clients, 1,032 Mrd SEK d'actifs, opère plateforme digitale (app mobile, trading en ligne). Absence de mention de cybersécurité dans Item 1A est anomalie pour fintech. Intensité langage : silence révélateur. Tendance : risque croissant avec numérisation accélérée et augmentation des cyberattaques sectorielles.",
       "trend": "up",
-      "summary": "En tant que plateforme fintech gérant des données sensibles de 2,1 millions de clients et 1 000 milliards SEK d'actifs, Nordnet est exposée aux risques de cyberattaques, de vol de données et de fraude. Une violation majeure pourrait entraîner des pertes financières, des amendes réglementaires et une perte de confiance client critique pour son modèle."
+      "summary": "En tant que plateforme fintech gérant des données sensibles de 2,1 millions de clients et 1 000 milliards SEK d'actifs, Nordnet est exposée aux risques de cyberattaques, de vol de données et de fraude. Une violation majeure pourrait entraîner des pertes financières, des amendes réglementaires et une perte de confiance client critique pour son modèle.",
+      "score": 4
     },
     {
       "title": "Dépendance technologique et risques de disruption digitale",
@@ -379,7 +416,8 @@
       "severity": 3,
       "score_rationale": "Risque métier significatif : Nordnet investit massivement en Tech/Product (augmentation des effectifs mentionnée), développement app mobile, intégration Shareville, lancement PrimaryBid/Børsdata. Langage modéré mais stratégie clairement tech-centric. Tendance up : innovation continue requise pour rester compétitif. Poids catégorie élevé pour modèle digital-first.",
       "trend": "up",
-      "summary": "Nordnet dépend fortement de ses capacités technologiques et de son infrastructure digitale pour servir ses clients. Les défaillances système, les retards de développement ou l'obsolescence technologique pourraient réduire la compétitivité. L'intégration de nouvelles fonctionnalités (pension transfer, Livrente) et l'expansion vers de nouveaux produits requièrent des investissements IT continus."
+      "summary": "Nordnet dépend fortement de ses capacités technologiques et de son infrastructure digitale pour servir ses clients. Les défaillances système, les retards de développement ou l'obsolescence technologique pourraient réduire la compétitivité. L'intégration de nouvelles fonctionnalités (pension transfer, Livrente) et l'expansion vers de nouveaux produits requièrent des investissements IT continus.",
+      "score": 3
     },
     {
       "title": "Concentration géographique sur marchés nordiques saturés",
@@ -387,7 +425,8 @@
       "severity": 3,
       "score_rationale": "Risque métier structurel : Nordnet opère exclusivement sur 4 marchés nordiques (Suède 23%, Norvège 22%, Danemark 25%, Finlande 30% du capital d'épargne). Croissance client 14% annuelle approche saturation sur marchés matures. Langage modéré mais absence de diversification géographique révèle vulnérabilité. Tendance stable mais pression croissante.",
       "trend": "stable",
-      "summary": "Nordnet est entièrement dépendante des marchés nordiques (Suède, Norvège, Danemark, Finlande) qui sont matures et saturés. L'absence de diversification géographique limite les opportunités de croissance future et expose l'entreprise aux chocs économiques régionaux. La croissance client de 14% annuelle ralentira inévitablement à mesure que la pénétration de marché augmente."
+      "summary": "Nordnet est entièrement dépendante des marchés nordiques (Suède, Norvège, Danemark, Finlande) qui sont matures et saturés. L'absence de diversification géographique limite les opportunités de croissance future et expose l'entreprise aux chocs économiques régionaux. La croissance client de 14% annuelle ralentira inévitablement à mesure que la pénétration de marché augmente.",
+      "score": 3
     },
     {
       "title": "Risque de concentration de revenus sur commissions trading",
@@ -395,7 +434,8 @@
       "severity": 3,
       "score_rationale": "Risque métier significatif : revenus de commissions (2,4 Mrd SEK, 47% du revenu total) dépendent de volumes de trading procycliques. Augmentation 30% YoY attribuée à 'higher trading activity' et 'higher income per trade'. Langage modéré mais structure de revenus révèle concentration. Tendance up mais vulnérable aux cycles de marché.",
       "trend": "stable",
-      "summary": "Nordnet génère 47% de ses revenus d'exploitation à partir des commissions de trading (2,4 Mrd SEK), fortement dépendantes de la volatilité et des volumes de marché. Une réduction de l'activité de trading ou une compression des marges de commission réduirait significativement la rentabilité, d'où la nécessité de diversifier vers les revenus d'intérêts et les fonds."
+      "summary": "Nordnet génère 47% de ses revenus d'exploitation à partir des commissions de trading (2,4 Mrd SEK), fortement dépendantes de la volatilité et des volumes de marché. Une réduction de l'activité de trading ou une compression des marges de commission réduirait significativement la rentabilité, d'où la nécessité de diversifier vers les revenus d'intérêts et les fonds.",
+      "score": 3
     },
     {
       "title": "Risque de conformité réglementaire multi-juridictionnelle",
@@ -403,7 +443,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique : Nordnet opère sous régimes réglementaires distincts en Suède, Norvège, Danemark, Finlande (MiFID II, GDPR, règles bancaires locales). Mention de 'resolution fee' (13,3 M SEK) et divestment de portefeuille de prêts non garantis indique charge réglementaire. Langage modéré mais complexité multi-juridictionnelle élevée. Tendance up : régulation financière se durcit.",
       "trend": "up",
-      "summary": "Nordnet doit se conformer à des cadres réglementaires distincts dans quatre pays nordiques (MiFID II, GDPR, règles bancaires locales, normes de capital). Les changements réglementaires dans l'un de ces marchés pourraient imposer des coûts de conformité importants, des restrictions opérationnelles ou des amendes, particulièrement dans le contexte de durcissement réglementaire post-crise."
+      "summary": "Nordnet doit se conformer à des cadres réglementaires distincts dans quatre pays nordiques (MiFID II, GDPR, règles bancaires locales, normes de capital). Les changements réglementaires dans l'un de ces marchés pourraient imposer des coûts de conformité importants, des restrictions opérationnelles ou des amendes, particulièrement dans le contexte de durcissement réglementaire post-crise.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:59:24.863920+00:00",
@@ -478,7 +519,7 @@
   "_dividends_currency": "SEK",
   "_ai_positioning_fetched_at": "2026-05-14T05:26:57.368555+00:00",
   "_eps_extracted_at": "2026-05-18T16:47:20Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_events": {
     "ticker": "SAVE.ST",
     "fetched_at": "2026-05-14T18:26:45.526337+00:00",
@@ -524,9 +565,9 @@
     "country": "Sweden",
     "_data_freshness_date": "2026-05-21T02:17:14.306716+00:00",
     "fetched_at": "2026-05-21T02:17:14.306717+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.534Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.554Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/save.st.json",
     "enrich_root": "v2-pipeline-enrich/save.st.json",

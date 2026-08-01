@@ -40,7 +40,10 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Blue Creek Project Capex",
@@ -159,56 +162,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.78 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.27,
-      "unit": "Mds €",
+      "value": 270,
+      "unit": "M €",
       "yoy": "+58.8%",
       "history": [
-        0.34,
-        0.17,
-        0.17,
-        0.27
+        340,
+        170,
+        170,
+        270
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.27 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "-38.8%",
       "history": [
-        0.83,
-        0.74,
-        0.49,
-        0.3
+        830,
+        740,
+        490,
+        300
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.3 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -222,7 +239,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.2,
         1.54,
@@ -235,7 +252,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -250,7 +267,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0797,
@@ -263,7 +280,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -278,7 +295,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         12.42,
@@ -291,7 +308,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -307,7 +324,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         12.4,
@@ -320,7 +337,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -349,9 +366,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     },
     {
       "short": "Blue Creek Project Capex",
@@ -377,9 +392,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Investissement",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Investissement"
     }
   ],
   "ai_positioning": {
@@ -393,16 +406,16 @@
       "title": "Perte de crédits d'impôt différés",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Mentionné en premier dans les facteurs de risque, le langage est prudent ('may limit or eliminate', 'jeopardized'). Le contexte montre une adaptation à une nouvelle loi fiscale (Alabama House Bill 170) qui a conduit à une provision pour dépréciation de 45M$. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné en premier dans les facteurs de risque, le langage est prudent ('may limit or eliminate', 'jeopardized'). Le contexte montre une adaptation à une nouvelle loi fiscale (Alabama House Bill 170) qui a conduit à une provision pour dépréciation de 45M$.",
       "trend": "up",
       "summary": "La société pourrait perdre la capacité d'utiliser ses reports déficitaires fiscaux (NOLs) et ses actifs d'impôt différé, notamment en raison de changements législatifs et de la possibilité de changements de contrôle de propriété.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité des prix des matières premières",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Décrit l'exposition aux fluctuations des prix du charbon et du gaz naturel, avec des contrats de prix à court terme. Le langage ('subject to fluctuations') indique un risque présent mais géré. (score par défaut, à affiner)",
+      "score_rationale": "Décrit l'exposition aux fluctuations des prix du charbon et du gaz naturel, avec des contrats de prix à court terme. Le langage ('subject to fluctuations') indique un risque présent mais géré.",
       "trend": "stable",
       "summary": "Les revenus de la société sont sensibles aux fluctuations des prix du marché pour le charbon et le gaz naturel, bien que des stratégies de couverture et d'approvisionnement soient en place.",
       "score": 3
@@ -411,16 +424,16 @@
       "title": "Risque de crédit client",
       "category": "Crédit",
       "severity": 2,
-      "score_rationale": "Identifié comme un risque potentiel lié aux créances commerciales. La société évalue la condition financière des clients et utilise des garanties si nécessaire. Le langage ('potentially subject', 'principally dependent') suggère un risque modéré. (score par défaut, à affiner)",
+      "score_rationale": "Identifié comme un risque potentiel lié aux créances commerciales. La société évalue la condition financière des clients et utilise des garanties si nécessaire. Le langage ('potentially subject', 'principally dependent') suggère un risque modéré.",
       "trend": "stable",
       "summary": "La société est exposée au risque de non-paiement de ses clients, bien qu'elle évalue leur solvabilité et prenne des mesures pour atténuer ce risque.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risque de taux d'intérêt",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Explique l'exposition aux variations des taux d'intérêt, notamment sur la facilité de crédit renouvelable (ABL Facility) à taux variable. Une augmentation de 100 points de base entraînerait une dépense d'intérêt supplémentaire de 1,4M$. (score par défaut, à affiner)",
+      "score_rationale": "Explique l'exposition aux variations des taux d'intérêt, notamment sur la facilité de crédit renouvelable (ABL Facility) à taux variable. Une augmentation de 100 points de base entraînerait une dépense d'intérêt supplémentaire de 1,4M$.",
       "trend": "up",
       "summary": "Une hausse significative des taux d'intérêt pourrait augmenter les charges financières de la société sur sa dette à taux variable, impactant potentiellement sa rentabilité.",
       "score": 3
@@ -429,7 +442,7 @@
       "title": "Impact de l'inflation sur les coûts",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Souligne l'exposition à l'inflation pour les fournitures et la main-d'œuvre, contribuant à une hausse des coûts. La société applique des stratégies d'atténuation. Le langage ('contributed to rising costs', 'may continue to do so') indique un risque persistant. (score par défaut, à affiner)",
+      "score_rationale": "Souligne l'exposition à l'inflation pour les fournitures et la main-d'œuvre, contribuant à une hausse des coûts. La société applique des stratégies d'atténuation. Le langage ('contributed to rising costs', 'may continue to do so') indique un risque persistant.",
       "trend": "up",
       "summary": "L'inflation sur les coûts des fournitures et de la main-d'œuvre peut augmenter les dépenses d'exploitation de la société, malgré les mesures prises pour y faire face.",
       "score": 3
@@ -438,10 +451,10 @@
       "title": "Changements dans les accords d'emploi des dirigeants",
       "category": "Personne-clé",
       "severity": 2,
-      "score_rationale": "Décrit les modifications des contrats d'emploi des dirigeants, incluant des clauses de sortie et des accélérations de vesting en cas de changement de contrôle. Le langage est factuel, mais les implications financières potentielles sont significatives. (score par défaut, à affiner)",
+      "score_rationale": "Décrit les modifications des contrats d'emploi des dirigeants, incluant des clauses de sortie et des accélérations de vesting en cas de changement de contrôle. Le langage est factuel, mais les implications financières potentielles sont significatives.",
       "trend": "stable",
       "summary": "Les nouveaux accords d'emploi des dirigeants prévoient des indemnités et des avantages accrus en cas de licenciement sans cause ou pour motif valable suite à un changement de contrôle.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -480,7 +493,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -542,7 +555,7 @@
     }
   ],
   "_dividends_extracted_at": "2026-05-09T20:22:27Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2017,
@@ -561,7 +574,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:35Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:17Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Mines",
   "enrich_events": {
     "ticker": "HCC",
@@ -678,7 +691,10 @@
             "accession": "0001691303-23-000039",
             "end": "2023-09-30"
           }
-        ]
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -694,9 +710,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.270727+00:00",
     "fetched_at": "2026-05-21T02:17:14.270728+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.973Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.630Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hcc.json",
     "enrich_root": "v2-pipeline-enrich/hcc.json",

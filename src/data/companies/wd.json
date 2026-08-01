@@ -38,8 +38,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Demand softening, monitor end-markets"
+      "period_type": "year",
+      "signal_en": "Demand softening, monitor end-markets",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Total Transaction Volume from New Customers",
@@ -83,11 +86,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.06 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -125,7 +132,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K : l'entreprise dépend entièrement des agréments Fannie Mae, Freddie Mac, HUD et Ginnie Mae. Le langage est catégorique (matériellement et négativement affecter). Risque existentiel car la perte d'un agrément mettrait fin à l'activité principale. Catégorie Régulation très pondérée.",
       "trend": "stable",
-      "summary": "La société risque de perdre ses agréments essentiels auprès des Agences publiques, ce qui empêcherait toute activité de prêt et menacerait sa survie."
+      "summary": "La société risque de perdre ses agréments essentiels auprès des Agences publiques, ce qui empêcherait toute activité de prêt et menacerait sa survie.",
+      "score": 5
     },
     {
       "title": "Réforme ou disparition des GSEs (Fannie/Freddie)",
@@ -133,7 +141,8 @@
       "severity": 5,
       "score_rationale": "Mentionné en tête des risques avec référence à la conservatorship depuis 2008 et aux débats parlementaires sur leur suppression. Langage alarmant (supprimer ou réduire substantiellement). Impact direct sur la majorité des originations et du portefeuille de service. Catégorie Géopolitique très critique.",
       "trend": "stable",
-      "summary": "La suppression ou réforme des GSEs comme Fannie Mae et Freddie Mac pourrait supprimer la majeure partie des activités de prêt et de service de la société."
+      "summary": "La suppression ou réforme des GSEs comme Fannie Mae et Freddie Mac pourrait supprimer la majeure partie des activités de prêt et de service de la société.",
+      "score": 5
     },
     {
       "title": "Obligations de perte partagée avec Fannie Mae",
@@ -141,7 +150,8 @@
       "severity": 5,
       "score_rationale": "Détaille étendue des risques de perte (jusqu'à 20% du principal, 5% en première perte). Montant en jeu élevé (67,5 Md de prêts à risque). Mention de 25 M d'actifs bloqués en provision. Langage prudent (ne peut garantir que l'estimation sera suffisante). Catégorie Crédit très sévère.",
       "trend": "stable",
-      "summary": "La société supporte une part des pertes sur les prêts Fannie Mae ; une hausse des défaillances pourrait grever fortement ses résultats et sa liquidité."
+      "summary": "La société supporte une part des pertes sur les prêts Fannie Mae ; une hausse des défaillances pourrait grever fortement ses résultats et sa liquidité.",
+      "score": 5
     },
     {
       "title": "Réduction des volumes de prêts par les GSEs",
@@ -149,7 +159,8 @@
       "severity": 4,
       "score_rationale": "Le plafond d'achat de prêts multifamiliaux est encadré. Mention explicite de l'impact sur l'activité. Langage mesuré mais présent dans un contexte de contrainte réglementaire croissante. Catégorie Macro avec pondération moyenne.",
       "trend": "up",
-      "summary": "Les plafonds annuels imposés par les GSEs limitent la croissance des originations, même si une certaine flexibilité existe."
+      "summary": "Les plafonds annuels imposés par les GSEs limitent la croissance des originations, même si une certaine flexibilité existe.",
+      "score": 4
     },
     {
       "title": "Défaillance des banques partenaires",
@@ -157,7 +168,8 @@
       "severity": 4,
       "score_rationale": "Risque systémique évoqué avec impact sur la liquidité des marchés et sur les relations commerciales. Mention de l'effet en cascade sur les clients et la trésorerie. Langage prudent mais présent dans un contexte de vulnérabilité systémique. Catégorie Capital sérieuse.",
       "trend": "stable",
-      "summary": "La faillite d'une grande banque partenaire pourrait bloquer le financement court terme et nuire à la capacité de la société à financer ses prêts."
+      "summary": "La faillite d'une grande banque partenaire pourrait bloquer le financement court terme et nuire à la capacité de la société à financer ses prêts.",
+      "score": 4
     },
     {
       "title": "Perte de financement court terme (warehouse)",
@@ -165,7 +177,8 @@
       "severity": 5,
       "score_rationale": "La société dépend d'un financement court terme renouvelé annuellement. Mention explicite du risque de non-renouvellement (effet matériellement négatif). Langage d'urgence (incapable de trouver un financement). Catégorie Capital critique.",
       "trend": "stable",
-      "summary": "La non-disponibilité de financement court terme pour les prêts en cours de traitement mettrait fin à l'activité d'origination."
+      "summary": "La non-disponibilité de financement court terme pour les prêts en cours de traitement mettrait fin à l'activité d'origination.",
+      "score": 5
     }
   ],
   "_validation": [
@@ -190,7 +203,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -253,7 +266,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "sector_fr": "Services financiers",
-  "_companies_unified_built_at": "2026-05-29T21:19:37.417Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.544Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wd.json",
     "enrich_root": "v2-pipeline-enrich/wd.json",

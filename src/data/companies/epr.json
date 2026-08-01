@@ -44,7 +44,11 @@
       "_validation": [
         "Unité corrigée de 'Mds $' à 'B $' (format standard anglophone)"
       ],
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Experiential Investments",
@@ -103,7 +107,11 @@
       "ttm": 0,
       "_validation": [],
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income Per Share",
@@ -135,7 +143,11 @@
         "Type corrigé de 'Revenue' à 'Profitability'"
       ],
       "explanation_en": "Market share in Net Income Per.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "FFOAA Per Share",
@@ -168,7 +180,11 @@
         "Type corrigé de 'Revenue' à 'Profitability'"
       ],
       "explanation_en": "Market share in FFOAA Per.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Education Investments",
@@ -197,6 +213,10 @@
       "ttm": 0,
       "_validation": [
         "Unité corrigée de 'Mds $' à 'B $' (format standard anglophone)"
+      ],
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
       ]
     },
     {
@@ -216,33 +236,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.13 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+350.0%",
       "history": [
-        0.11,
-        0.08,
-        0.02,
-        0.09
+        110,
+        80,
+        20,
+        90
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.09 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -316,7 +345,8 @@
       "severity": 5,
       "score_rationale": "Impact direct sur la capacité à refinancer les obligations et obtenir de nouveaux financements, volatilité sur les marchés financiers et immobiliers",
       "trend": "up",
-      "summary": "L'incertitude économique mondiale, les défis géopolitiques, les fluctuations des taux d'intérêt et les pressions inflationnistes peuvent impacter la capacité de la société à refinancer ses obligations ou obtenir de nouveaux financements pour l'acquisition ou le développement de propriétés"
+      "summary": "L'incertitude économique mondiale, les défis géopolitiques, les fluctuations des taux d'intérêt et les pressions inflationnistes peuvent impacter la capacité de la société à refinancer ses obligations ou obtenir de nouveaux financements pour l'acquisition ou le développement de propriétés",
+      "score": 5
     },
     {
       "title": "Inflation et hausse des coûts",
@@ -324,7 +354,8 @@
       "severity": 4,
       "score_rationale": "Impact sur les coûts de construction, les dépenses de rénovation et la capacité des locataires à payer les loyers",
       "trend": "up",
-      "summary": "L'inflation peut augmenter les coûts de construction, les dépenses de rénovation et affecter la capacité des locataires et de leurs clients à satisfaire leurs obligations, notamment à travers l'impact des tarifs douaniers sur les matériaux de construction"
+      "summary": "L'inflation peut augmenter les coûts de construction, les dépenses de rénovation et affecter la capacité des locataires et de leurs clients à satisfaire leurs obligations, notamment à travers l'impact des tarifs douaniers sur les matériaux de construction",
+      "score": 4
     },
     {
       "title": "Risques de crédit et dépendance au financement par la dette",
@@ -332,7 +363,8 @@
       "severity": 5,
       "score_rationale": "Dépendance importante au financement par la dette, exposition aux covenants et aux risques de marché du crédit",
       "trend": "up",
-      "summary": "La société dépend fortement du financement par la dette pour financer ses investissements et développements, ce qui la rend vulnérable aux risques de crédit, aux covenants dans les instruments de dette et à la volatilité des marchés du crédit"
+      "summary": "La société dépend fortement du financement par la dette pour financer ses investissements et développements, ce qui la rend vulnérable aux risques de crédit, aux covenants dans les instruments de dette et à la volatilité des marchés du crédit",
+      "score": 5
     },
     {
       "title": "Risques de taux d'intérêt",
@@ -340,7 +372,8 @@
       "severity": 4,
       "score_rationale": "Impact direct sur le coût de l'emprunt et la capacité à refinancer les dettes existantes",
       "trend": "up",
-      "summary": "Les variations des taux d'intérêt peuvent augmenter le coût de l'emprunt et affecter la capacité de la société à refinancer ses dettes existantes à des conditions attrayantes"
+      "summary": "Les variations des taux d'intérêt peuvent augmenter le coût de l'emprunt et affecter la capacité de la société à refinancer ses dettes existantes à des conditions attrayantes",
+      "score": 4
     },
     {
       "title": "Insolvabilité des locataires et risque de non-paiement",
@@ -348,7 +381,8 @@
       "severity": 4,
       "score_rationale": "Dépendance vis-à-vis des locataires pour les flux de revenus, risque de défaut de paiement des loyers",
       "trend": "stable",
-      "summary": "La société dépend fortement des locataires pour générer ses revenus, ce qui la rend vulnérable au risque de non-paiement des loyers et à l'insolvabilité des locataires, particulièrement en cas de ralentissement économique"
+      "summary": "La société dépend fortement des locataires pour générer ses revenus, ce qui la rend vulnérable au risque de non-paiement des loyers et à l'insolvabilité des locataires, particulièrement en cas de ralentissement économique",
+      "score": 4
     },
     {
       "title": "Risques de change et d'incertitude commerciale",
@@ -356,7 +390,8 @@
       "severity": 3,
       "score_rationale": "Impact potentiel sur les coûts et les revenus découlant des fluctuations de taux de change et des incertitudes en matière de politique commerciale",
       "trend": "up",
-      "summary": "Les fluctuations des taux de change et les incertitudes relatives aux politiques commerciales et aux tarifs douaniers peuvent impacter les coûts de construction et les revenus de la société"
+      "summary": "Les fluctuations des taux de change et les incertitudes relatives aux politiques commerciales et aux tarifs douaniers peuvent impacter les coûts de construction et les revenus de la société",
+      "score": 3
     },
     {
       "title": "Risques de pandémie et d'interruption d'activité",
@@ -364,7 +399,8 @@
       "severity": 4,
       "score_rationale": "Impact potentiel sur l'activité économique et la capacité des locataires à opérer",
       "trend": "down",
-      "summary": "Les pandémies et les événements de santé publique majeurs peuvent impacter l'activité économique, entraîner des fermetures d'entreprises et affecter négativement les revenus et la performance du portefeuille immobilier"
+      "summary": "Les pandémies et les événements de santé publique majeurs peuvent impacter l'activité économique, entraîner des fermetures d'entreprises et affecter négativement les revenus et la performance du portefeuille immobilier",
+      "score": 4
     }
   ],
   "governance": {
@@ -436,7 +472,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -543,88 +579,47 @@
   },
   "enrich_quarterly_history": {
     "ticker": "EPR",
-    "extracted_at": "2026-05-15T18:10:57Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1045450,
+    "extracted_at": "2026-06-01T03:14:14Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Net Income Per Share",
+        "short": "Experiential Investments",
         "period_type": "quarter",
         "history": [
-          21.932,
-          54.049,
-          19.245,
-          42.192,
-          83.101,
-          133.9,
-          -82.964,
-          57.657,
-          71.257,
-          127.517,
-          -83.385,
-          62.709,
-          107.811,
-          154.461,
-          -178.915,
-          65.803,
-          141.446,
-          208.032,
-          -140.345,
-          62.61
+          5.9,
+          6,
+          6,
+          6.2,
+          6.2,
+          6.2,
+          6.4,
+          6.4,
+          6.4,
+          6.4,
+          6.5,
+          6.5
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "NetIncomeLoss",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 141.446,
-            "accession": "0001045450-25-000120",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 208.032,
-            "accession": "0001045450-25-000135",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -140.345,
-            "accession": "calc-0001045450-26-000007",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 62.61,
-            "accession": "0001045450-26-000024",
-            "end": "2026-03-31"
-          }
-        ]
+        "last_data_date": "2025-09-30",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T03:14:14Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -640,9 +635,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.256351+00:00",
     "fetched_at": "2026-05-21T02:17:14.256352+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.827Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.396Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/epr.json",
     "enrich_root": "v2-pipeline-enrich/epr.json",

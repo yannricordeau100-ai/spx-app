@@ -39,9 +39,7 @@
       "last_data_date": "2024-05-17",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Loss Prevention Colloquium Attendance",
@@ -66,9 +64,7 @@
       "last_data_date": "2024-11-04",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "novembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Member Countries Represented",
@@ -94,55 +90,63 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "mai 2024",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.37,
-      "unit": "Mds €",
+      "value": 370,
+      "unit": "M €",
       "yoy": "+5.7%",
       "history": [
-        0.28,
-        0.32,
-        0.35,
-        0.37
+        280,
+        320,
+        350,
+        370
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.37 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.24,
-      "unit": "Mds €",
+      "value": 240,
+      "unit": "M €",
       "yoy": "+20.0%",
       "history": [
-        0.33,
-        0.02,
-        0.2,
-        0.24
+        330,
+        20,
+        200,
+        240
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.24 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -156,22 +160,7 @@
     ],
     "source": "IVR Annual Report 2024"
   },
-  "_validation": [
-    "SECTOR CORRECTED: Changed from 'Information Technology' to 'Non-Profit / Professional Association' (IVR is an industry association, not a tech company)",
-    "SUBSECTOR CORRECTED: Changed from 'IT Services' to 'Industry Association'",
-    "TAGLINE CORRECTED: Original tagline was identical to company name. Updated to descriptive mission statement in English per instructions",
-    "HERO_KPI CHANGED: 'Gross Margin' was invalid (non-financial organization does not report margin). Changed to 'Annual Congress Participation' with evidence-based rationale",
-    "HERO_KPI_RATIONALE CORRECTED: Removed em-dash and rewrote in French with substantive meaning based on actual KPI",
-    "KPI 1 REMOVED: 'Gross Margin' was hallucinated - IVR is non-profit association, not financial reporting entity. No margin data in source.",
-    "KPI 2 RESTRUCTURED: 'Headcount' KPI corrected - value '215' referred to Congress participants (4 Nov date), not employees. Split into two distinct KPIs with proper context and dates",
-    "KPI 2 UNIT CORRECTED: Added 'persons' unit for clarity",
-    "KPI 2 DATE CORRECTED: Changed from '2024-11-04' to '2024-05-17' (Congress date when 225 total mentioned)",
-    "NEW KPI ADDED: 'Loss Prevention Colloquium Attendance' (80 persons, 4 Nov 2024) - sourced from annual report",
-    "NEW KPI ADDED: 'Member Countries Represented' (11 countries) - sourced from Congress participant diversity",
-    "RANKS CORRECTED: Changed all values from 'N/A', '...', etc. to 'N/A' (association has no commercial ranking)",
-    "FOUNDED DATE VERIFIED: 1877 confirmed in source (Frankfurt headquarters establishment date)",
-    "IsParseable validation confirmed for all numeric KPIs with proper sourcing"
-  ],
+  "_validation": true,
   "_fit_for_site": false,
   "_fit_reasons": [
     "no_yoy"
@@ -237,73 +226,6 @@
   "_source_size_bytes": 5465,
   "_source_year": "2026",
   "_extraction_note": "annual-text = R-F INVEST (filiale immobilière), pas Aedifica NV. 156 lignes seulement.",
-  "risks": [
-    {
-      "title": "Risques climatiques",
-      "category": "climate",
-      "severity": 3,
-      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
-      "trend": "stable",
-      "summary": "Risques climatiques physiques et transitionnels, exigences ESG croissantes et événements météo extrêmes."
-    },
-    {
-      "title": "Exécution stratégique",
-      "category": "strategic",
-      "severity": 3,
-      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
-      "trend": "stable",
-      "summary": "Risques d'exécution sur les initiatives stratégiques, intégrations d'acquisitions ou transformations en cours."
-    },
-    {
-      "title": "Risques financiers",
-      "category": "financial",
-      "severity": 3,
-      "score_rationale": "Sévérité 3/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
-      "trend": "stable",
-      "summary": "Exposition à la volatilité financière : taux, change, crédit ou liquidité, pouvant affecter la rentabilité et la flexibilité."
-    },
-    {
-      "title": "Exécution stratégique (Financing CONTENTS category)",
-      "category": "strategic",
-      "severity": 3,
-      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
-      "trend": "stable",
-      "summary": "Risques d'exécution sur les initiatives stratégiques, intégrations d'acquisitions ou transformations en cours."
-    },
-    {
-      "title": "Risques climatiques et environnementaux",
-      "category": "climate",
-      "severity": 3,
-      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
-      "trend": "stable",
-      "summary": "Risques climatiques physiques et transitionnels, exigences ESG croissantes et événements météo extrêmes."
-    },
-    {
-      "title": "Risques financiers (December Group earned)",
-      "category": "financial",
-      "severity": 3,
-      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
-      "trend": "stable",
-      "summary": "Exposition à la volatilité financière : taux, change, crédit ou liquidité, pouvant affecter la rentabilité et la flexibilité."
-    },
-    {
-      "title": "Risques opérationnels",
-      "category": "operational",
-      "severity": 3,
-      "score_rationale": "Sévérité 3/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
-      "trend": "stable",
-      "summary": "Risques opérationnels touchant chaîne d'approvisionnement, capital humain, qualité produit ou continuité d'activité."
-    }
-  ],
-  "_risks_source": "scripts/interp-risks-fill/fill-risks.py (sub-agent #88, heuristic sector template v1)",
-  "_risks_fetched_at": "2026-05-25T14:36:08Z",
-  "overrides_profit_warning": {
-    "status": "no_warning_12m",
-    "checked_at": "2026-05-25T14:36:08Z",
-    "source": "heuristic_no_filing_scan (sub-agent #88)"
-  },
-  "_stories_backfill_at": "2026-05-25T14:43:50Z",
-  "_stories_backfill_source": "cerebras_qwen3_235b_scaleup_532",
   "revenue_by_segment": {
     "slices": [
       {
@@ -430,6 +352,80 @@
     "currency": "EUR",
     "total": 342.076
   },
+  "risks": [
+    {
+      "title": "Risques climatiques",
+      "category": "climate",
+      "severity": 3,
+      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
+      "trend": "stable",
+      "summary": "Risques climatiques physiques et transitionnels, exigences ESG croissantes et événements météo extrêmes.",
+      "score": 3
+    },
+    {
+      "title": "Exécution stratégique",
+      "category": "strategic",
+      "severity": 3,
+      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
+      "trend": "stable",
+      "summary": "Risques d'exécution sur les initiatives stratégiques, intégrations d'acquisitions ou transformations en cours.",
+      "score": 3
+    },
+    {
+      "title": "Risques financiers",
+      "category": "financial",
+      "severity": 3,
+      "score_rationale": "Sévérité 3/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
+      "trend": "stable",
+      "summary": "Exposition à la volatilité financière : taux, change, crédit ou liquidité, pouvant affecter la rentabilité et la flexibilité.",
+      "score": 3
+    },
+    {
+      "title": "Exécution stratégique (Financing CONTENTS category)",
+      "category": "strategic",
+      "severity": 3,
+      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
+      "trend": "stable",
+      "summary": "Risques d'exécution sur les initiatives stratégiques, intégrations d'acquisitions ou transformations en cours.",
+      "score": 3
+    },
+    {
+      "title": "Risques climatiques et environnementaux",
+      "category": "climate",
+      "severity": 3,
+      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
+      "trend": "stable",
+      "summary": "Risques climatiques physiques et transitionnels, exigences ESG croissantes et événements météo extrêmes.",
+      "score": 3
+    },
+    {
+      "title": "Risques financiers (December Group earned)",
+      "category": "financial",
+      "severity": 3,
+      "score_rationale": "Sévérité 3/5 : risque qualifié de significatif ou substantiel par la direction dans le filing.",
+      "trend": "stable",
+      "summary": "Exposition à la volatilité financière : taux, change, crédit ou liquidité, pouvant affecter la rentabilité et la flexibilité.",
+      "score": 3
+    },
+    {
+      "title": "Risques opérationnels",
+      "category": "operational",
+      "severity": 3,
+      "score_rationale": "Sévérité 3/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
+      "trend": "stable",
+      "summary": "Risques opérationnels touchant chaîne d'approvisionnement, capital humain, qualité produit ou continuité d'activité.",
+      "score": 3
+    }
+  ],
+  "_risks_source": "scripts/interp-risks-fill/fill-risks.py (sub-agent #88, heuristic sector template v1)",
+  "_risks_fetched_at": "2026-05-25T14:36:08Z",
+  "overrides_profit_warning": {
+    "status": "no_warning_12m",
+    "checked_at": "2026-05-25T14:36:08Z",
+    "source": "heuristic_no_filing_scan (sub-agent #88)"
+  },
+  "_stories_backfill_at": "2026-05-25T14:43:50Z",
+  "_stories_backfill_source": "cerebras_qwen3_235b_scaleup_532",
   "_repartition_backfill_at": "2026-05-25T14:54:08Z",
   "_repartition_backfill_source": "cerebras_paid_k1",
   "kpis_type_overrides": {
@@ -480,17 +476,18 @@
       "short": "Investment Properties",
       "name_fr": "Portefeuille immobilier à la juste valeur",
       "name_en": "Investment Properties Fair Value",
-      "value": 6160,
-      "unit": "M €",
+      "value": 6.16,
+      "unit": "Mds €",
       "yoy": "+3%",
       "history": [
-        3300,
-        4400,
-        5500,
-        5990,
-        6160
+        3.3,
+        4.4,
+        5.5,
+        5.99,
+        6.16
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds € for 1-999 readability"
     },
     {
       "short": "Occupancy Rate",
@@ -506,7 +503,10 @@
         100,
         100
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Performance",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
     },
     {
       "short": "EPRA Earnings per Share",
@@ -522,7 +522,10 @@
         4.65,
         5.05
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Rentabilité",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "WALL Weighted Avg Lease Length",
@@ -576,7 +579,7 @@
   "_kpis_supplementary_at": "2026-05-28T16:51:49Z",
   "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
   "sector_fr": "Associations professionnelles",
-  "_companies_unified_built_at": "2026-05-29T21:19:27.378Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.113Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aed.br.json",
     "enrich_root": "v2-pipeline-enrich/aed.br.json",

@@ -43,11 +43,14 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Dividend Per Share data not found in the provided 10-K excerpt. The document contains business overview, accounting policies, and MD&A secti",
       "explanation_en": "Market share in Dividend Per.",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Revenue",
@@ -67,7 +70,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Gross Margin",
@@ -87,123 +90,148 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.488,
-      "unit": "Mds €",
+      "value": 488,
+      "unit": "M €",
       "yoy": "+19.6%",
       "history": [
-        0.409,
-        0.423,
-        0.408,
-        0.488
+        409,
+        423,
+        408,
+        488
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.62 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:09.515612+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+28.6%",
       "history": [
-        0.07,
-        0.07,
-        0.07,
-        0.09
+        70,
+        70,
+        70,
+        90
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.09 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.48,
-      "unit": "Mds €",
+      "value": 480,
+      "unit": "M €",
       "yoy": "+6.7%",
       "history": [
-        0.43,
-        0.44,
-        0.45,
-        0.48
+        430,
+        440,
+        450,
+        480
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.48 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.15,
-        0.13,
-        0.1,
-        0.1
+        150,
+        130,
+        100,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+20.0%",
       "history": [
-        0.04,
-        0.05,
-        0.05,
-        0.06
+        40,
+        50,
+        50,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -250,7 +278,8 @@
       "severity": 4,
       "score_rationale": "Le développement de nouveaux produits et extensions de gamme est crucial pour la croissance future. Les risques incluent les délais de développement, les problèmes de performance, les changements réglementaires et les échecs d'acceptation marché.",
       "trend": "stable",
-      "summary": "L'entreprise dépend de sa capacité à développer et introduire avec succès de nouveaux produits. L'échec à comprendre les besoins des clients ou à obtenir une acceptation marché peut impacter négativement les résultats financiers."
+      "summary": "L'entreprise dépend de sa capacité à développer et introduire avec succès de nouveaux produits. L'échec à comprendre les besoins des clients ou à obtenir une acceptation marché peut impacter négativement les résultats financiers.",
+      "score": 4
     },
     {
       "title": "Croissance des revenus et charge des ressources",
@@ -258,7 +287,8 @@
       "severity": 4,
       "score_rationale": "La croissance des ventes, organique ou par acquisition, peut placer une charge sur les ressources de gestion et les contrôles financiers, impactant les marges opérationnelles.",
       "trend": "stable",
-      "summary": "Une croissance des revenus supérieure aux prévisions peut créer des défis opérationnels, tandis qu'une croissance inférieure aux attentes peut réduire les marges si les niveaux de dépenses restent élevés."
+      "summary": "Une croissance des revenus supérieure aux prévisions peut créer des défis opérationnels, tandis qu'une croissance inférieure aux attentes peut réduire les marges si les niveaux de dépenses restent élevés.",
+      "score": 4
     },
     {
       "title": "Risques de change",
@@ -266,7 +296,8 @@
       "severity": 3,
       "score_rationale": "Avec des opérations dans 176 pays et des subsidiaires fonctionnant en devises non-USD, la volatilité des taux de change peut affecter les ventes, dépenses et résultats consolidés.",
       "trend": "up",
-      "summary": "Les fluctuations des taux de change peuvent impacter les résultats financiers. L'entreprise n'effectue pas de couverture systématique du risque de translation."
+      "summary": "Les fluctuations des taux de change peuvent impacter les résultats financiers. L'entreprise n'effectue pas de couverture systématique du risque de translation.",
+      "score": 3
     },
     {
       "title": "Risques liés aux matières premières et coûts",
@@ -274,7 +305,8 @@
       "severity": 3,
       "score_rationale": "Les produits chimiques de spécialité et les aérosols représentent une part significative des coûts. La volatilité des prix du pétrole peut impacter indirectement les coûts et les marges brutes.",
       "trend": "stable",
-      "summary": "Les augmentations de coûts des produits chimiques de spécialité pourraient réduire les marges brutes et les résultats opérationnels."
+      "summary": "Les augmentations de coûts des produits chimiques de spécialité pourraient réduire les marges brutes et les résultats opérationnels.",
+      "score": 3
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -282,7 +314,8 @@
       "severity": 2,
       "score_rationale": "Avec 21 millions en crédits rotatifs variables et un coût moyen pondéré de dette court terme de 5,5%, une hausse d'un point de pourcentage réduirait les gains de 0,3 million.",
       "trend": "up",
-      "summary": "L'entreprise dispose d'une facilité de crédit revolving de 125 millions exposée aux fluctuations des taux d'intérêt variables."
+      "summary": "L'entreprise dispose d'une facilité de crédit revolving de 125 millions exposée aux fluctuations des taux d'intérêt variables.",
+      "score": 2
     },
     {
       "title": "Acquisitions et intégrations",
@@ -290,7 +323,8 @@
       "severity": 3,
       "score_rationale": "L'expansion passée par acquisition de marques augmente la complexité opérationnelle. Les risques d'intégration mal gérée peuvent impacter les résultats financiers.",
       "trend": "stable",
-      "summary": "L'entreprise pourrait poursuivre sa stratégie d'acquisition, mais une intégration défaillante pourrait réduire la rentabilité."
+      "summary": "L'entreprise pourrait poursuivre sa stratégie d'acquisition, mais une intégration défaillante pourrait réduire la rentabilité.",
+      "score": 3
     },
     {
       "title": "Désinvestissement des portefeuilles de soin/nettoyage",
@@ -298,7 +332,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise a vendu certains actifs du segment EIMEA en Q4 2025 et continue de valoriser d'autres portefeuilles de soin/nettoyage en Amérique pour Q1 2026.",
       "trend": "stable",
-      "summary": "La réorientation stratégique vers les produits de maintenance peut générer de l'incertitude opérationnelle durant la transition."
+      "summary": "La réorientation stratégique vers les produits de maintenance peut générer de l'incertitude opérationnelle durant la transition.",
+      "score": 3
     }
   ],
   "governance": {
@@ -338,7 +373,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -507,9 +542,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.327663+00:00",
     "fetched_at": "2026-05-21T02:17:14.327664+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.433Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.565Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wdfc.json",
     "enrich_root": null,

@@ -36,17 +36,20 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Le document fourni est la lettre aux actionnaires et la table des matières du rapport annuel intégré 2021 d'Enel Américas. Aucune valeur ann"
+      "_hero_history_unverified_reason": "Le document fourni est la lettre aux actionnaires et la table des matières du rapport annuel intégré 2021 d'Enel Américas. Aucune valeur ann",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "EBITDA",
       "name_fr": "EBITDA",
       "name_en": "EBITDA",
       "explanation": "Bénéfice avant intérêts, impôts, dépréciation et amortissement",
-      "value": "3749",
-      "unit": "M $",
+      "value": 3.749,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Margin",
       "nature": "Cyclique",
@@ -54,13 +57,14 @@
       "signal": "Augmentation de l'EBITDA",
       "description": "L'EBITDA d'Enel Américas pour la période close le 31 décembre 2023 était de 3 749 M$",
       "history": [
-        3749
+        3.749
       ],
       "last_data_date": "2023-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Earnings Before Interest, Taxes, Depreciation and Amortization."
+      "explanation_en": "Earnings Before Interest, Taxes, Depreciation and Amortization.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Renewable Energy",
@@ -100,11 +104,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 67.45 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "No explicit annual Total Revenue figures (in billions of euros) were found in the provided excerpt.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -123,11 +133,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 4.22 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -146,11 +160,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 178.66 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -169,11 +187,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 68.47 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -192,10 +214,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 5.07 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -209,7 +235,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.358,
         0.38,
@@ -222,7 +248,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -237,7 +263,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards EUR. cashflow.",
       "history": [
         null,
         4.915,
@@ -250,7 +276,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -265,7 +291,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         314.37,
@@ -278,7 +304,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -294,7 +320,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         0.15,
@@ -307,7 +333,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -332,9 +358,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "story_category": "Digital Infrastructure",
-      "_source_month": "décembre 2023",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Digital Infrastructure"
     }
   ],
   "ai_positioning": {
@@ -364,7 +388,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -378,7 +402,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental pour un distributeur d'électricité opérant dans 4 pays (Argentine, Brésil, Colombie, Pérou) + 3 pays en génération. Langage modéré mais omniprésent (« regulatory framework » p.129). Tendance stable mais structurelle. Poids catégorie très élevé : 26,2M clients dépendent de cadres tarifaires régulés.",
       "trend": "stable",
-      "summary": "Enel Américas opère dans des environnements réglementaires fragmentés et potentiellement volatiles en Amérique latine. Les tarifs d'électricité, les conditions de concession et les exigences d'investissement réseau sont fixés par des autorités nationales (CMF au Chili, ANEEL au Brésil, etc.). Toute modification défavorable des cadres tarifaires ou des délais de concession impacte directement la rentabilité des segments distribution et génération."
+      "summary": "Enel Américas opère dans des environnements réglementaires fragmentés et potentiellement volatiles en Amérique latine. Les tarifs d'électricité, les conditions de concession et les exigences d'investissement réseau sont fixés par des autorités nationales (CMF au Chili, ANEEL au Brésil, etc.). Toute modification défavorable des cadres tarifaires ou des délais de concession impacte directement la rentabilité des segments distribution et génération.",
+      "score": 5
     },
     {
       "title": "Risque géopolitique et instabilité macroéconomique régionale",
@@ -386,7 +411,8 @@
       "severity": 4,
       "score_rationale": "Présence dans 7 pays latino-américains (Argentine, Brésil, Colombie, Pérou, Costa Rica, Guatemala, Panama) exposant à volatilité politique, inflation, dévaluation monétaire. Document mentionne « macroeconomic environment » (p.128) et contextes d'« economic uncertainty ». Tendance up : inflation et instabilité politique en 2021-2022. Poids catégorie élevé pour une entreprise multi-pays.",
       "trend": "up",
-      "summary": "L'exposition géographique diversifiée de Enel Américas (7 pays) crée une vulnérabilité aux chocs macroéconomiques régionaux : inflation, dévaluation monétaire, instabilité politique. L'Argentine et le Pérou ont connu des crises politiques et économiques en 2021-2022. Ces chocs affectent le pouvoir d'achat des clients, les coûts d'exploitation et la valeur des actifs en devises locales."
+      "summary": "L'exposition géographique diversifiée de Enel Américas (7 pays) crée une vulnérabilité aux chocs macroéconomiques régionaux : inflation, dévaluation monétaire, instabilité politique. L'Argentine et le Pérou ont connu des crises politiques et économiques en 2021-2022. Ces chocs affectent le pouvoir d'achat des clients, les coûts d'exploitation et la valeur des actifs en devises locales.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et sécurité des données critiques",
@@ -394,7 +420,8 @@
       "severity": 4,
       "score_rationale": "Rubrique dédiée « Security of information » (p.120) dans la table des matières, signalant une préoccupation formelle. Langage modéré mais présence explicite. Tendance up : digitalisation accélérée (smart meters, 5G, IoT) augmente surface d'attaque. Poids catégorie croissant pour un opérateur d'infrastructure critique.",
       "trend": "up",
-      "summary": "Enel Américas accélère la numérisation (849M smart meters, 3,319 points de recharge, réseau 5G) et la gestion des données clients. Les systèmes SCADA, les réseaux de distribution intelligents et les données de consommation sont des cibles critiques. Une cyberattaque pourrait paralyser la distribution d'électricité ou compromettre les données de 26,2M clients."
+      "summary": "Enel Américas accélère la numérisation (849M smart meters, 3,319 points de recharge, réseau 5G) et la gestion des données clients. Les systèmes SCADA, les réseaux de distribution intelligents et les données de consommation sont des cibles critiques. Une cyberattaque pourrait paralyser la distribution d'électricité ou compromettre les données de 26,2M clients.",
+      "score": 4
     },
     {
       "title": "Dépendance à la disponibilité des ressources hydrauliques",
@@ -402,7 +429,8 @@
       "severity": 4,
       "score_rationale": "Hydroélectricité représente 44% de la capacité installée (7.0 GW sur 15.9 GW). Brésil et Pérou sont fortement dépendants de l'hydroélectricité. Langage modéré mais risque climatique explicite (« energy transition », « climate change »). Tendance up : sécheresses récurrentes en Amérique du Sud (2021-2022). Poids catégorie élevé pour la génération.",
       "trend": "up",
-      "summary": "Enel Américas génère 44% de son électricité via l'hydroélectricité (7.0 GW), particulièrement au Brésil et au Pérou. Les sécheresses prolongées réduisent les niveaux de réservoirs, forçant le recours à des sources thermiques coûteuses ou à des importations. Le changement climatique augmente la volatilité des précipitations, impactant la production et les marges."
+      "summary": "Enel Américas génère 44% de son électricité via l'hydroélectricité (7.0 GW), particulièrement au Brésil et au Pérou. Les sécheresses prolongées réduisent les niveaux de réservoirs, forçant le recours à des sources thermiques coûteuses ou à des importations. Le changement climatique augmente la volatilité des précipitations, impactant la production et les marges.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue en génération renouvelable",
@@ -410,7 +438,8 @@
       "severity": 3,
       "score_rationale": "Enel Américas a 10.9 GW de capacité renouvelable (69% du portefeuille) et cible +3.5 GW d'ici 2024. Marché latino-américain attire nouveaux entrants (Arauco, Acciona, développeurs locaux). Langage modéré mais stratégie de croissance agressive indique conscience du risque. Tendance up : baisse des coûts LCOE solaire/éolien intensifie la concurrence. Poids catégorie modéré-élevé.",
       "trend": "up",
-      "summary": "Le marché de la génération renouvelable en Amérique latine s'intensifie avec l'arrivée de nouveaux concurrents et la baisse des coûts. Enel Américas doit maintenir sa position de leader (69% renouvelables) face à des développeurs plus agiles. La pression tarifaire sur les contrats PPA (Power Purchase Agreements) réduit les marges de génération."
+      "summary": "Le marché de la génération renouvelable en Amérique latine s'intensifie avec l'arrivée de nouveaux concurrents et la baisse des coûts. Enel Américas doit maintenir sa position de leader (69% renouvelables) face à des développeurs plus agiles. La pression tarifaire sur les contrats PPA (Power Purchase Agreements) réduit les marges de génération.",
+      "score": 3
     },
     {
       "title": "Intégration complexe post-fusion EGP Américas",
@@ -418,7 +447,8 @@
       "severity": 3,
       "score_rationale": "Fusion EGP Américas complétée le 1er avril 2021, intégration opérationnelle jusqu'à mars 2022. Ajout de 4.7 GW de capacité et extension à 3 nouveaux pays (Guatemala, Costa Rica, Panama). Langage modéré mais complexité opérationnelle explicite (« merger », « integration »). Tendance stable mais risque d'exécution présent. Poids catégorie modéré.",
       "trend": "stable",
-      "summary": "La fusion avec EGP Américas (complétée avril 2021, finalisée mars 2022) a ajouté 4.7 GW de capacité renouvelable et étendu l'empreinte à 7 pays. L'intégration des systèmes IT, des équipes et des processus opérationnels présente des risques : retards de synergies, pertes de clients, surcoûts d'intégration. Le premier plan stratégique post-fusion (2022-2024) dépend du succès de cette intégration."
+      "summary": "La fusion avec EGP Américas (complétée avril 2021, finalisée mars 2022) a ajouté 4.7 GW de capacité renouvelable et étendu l'empreinte à 7 pays. L'intégration des systèmes IT, des équipes et des processus opérationnels présente des risques : retards de synergies, pertes de clients, surcoûts d'intégration. Le premier plan stratégique post-fusion (2022-2024) dépend du succès de cette intégration.",
+      "score": 3
     },
     {
       "title": "Qualité de service réseau et satisfaction clients",
@@ -426,7 +456,8 @@
       "severity": 3,
       "score_rationale": "SAIDI et SAIFI sont des KPI clés (9.8h et 4.7 fois en 2021). Document souligne « high level of quality and network modernization » (p.14). Langage modéré mais enjeu commercial explicite. Tendance stable mais amélioration requise (SAIDI +9.3%, SAIFI -9.6% vs 2020). Poids catégorie modéré pour la distribution.",
       "trend": "stable",
-      "summary": "Enel Américas doit maintenir la qualité de service pour 26,2M clients de distribution. Les indicateurs SAIDI (9.8h) et SAIFI (4.7) reflètent la fiabilité du réseau. Les défaillances prolongées génèrent des plaintes réglementaires, des pénalités tarifaires et une perte de confiance client. L'investissement réseau (55% du CAPEX 2022-2024) est critique pour améliorer la résilience."
+      "summary": "Enel Américas doit maintenir la qualité de service pour 26,2M clients de distribution. Les indicateurs SAIDI (9.8h) et SAIFI (4.7) reflètent la fiabilité du réseau. Les défaillances prolongées génèrent des plaintes réglementaires, des pénalités tarifaires et une perte de confiance client. L'investissement réseau (55% du CAPEX 2022-2024) est critique pour améliorer la résilience.",
+      "score": 3
     },
     {
       "title": "Risque de change et exposition en devises locales",
@@ -434,7 +465,8 @@
       "severity": 3,
       "score_rationale": "Enel Américas opère en 7 devises (ARS, BRL, COP, PEN, CRC, GTQ, PAB). Endettement net de US$5,870M exposé à dévaluations. Langage modéré mais risque implicite dans contexte d'instabilité macroéconomique. Tendance up : dévaluations de l'ARS et du BRL en 2021-2022. Poids catégorie modéré pour un groupe multi-devises.",
       "trend": "up",
-      "summary": "Enel Américas génère des revenus en devises locales (ARS, BRL, COP, PEN) mais finance une partie de sa dette en USD. Les dévaluations monétaires (Argentine, Brésil) réduisent les revenus en USD et augmentent le service de la dette. Les flux de trésorerie inter-pays et les dividendes rapatriés sont exposés aux restrictions de change."
+      "summary": "Enel Américas génère des revenus en devises locales (ARS, BRL, COP, PEN) mais finance une partie de sa dette en USD. Les dévaluations monétaires (Argentine, Brésil) réduisent les revenus en USD et augmentent le service de la dette. Les flux de trésorerie inter-pays et les dividendes rapatriés sont exposés aux restrictions de change.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:32:15.360355+00:00",
@@ -533,12 +565,12 @@
   "_source_year": "2023",
   "_extraction_note": "Source annual-text disponible (1872086 bytes, year=2023). KPIs spécifiques + segments + geography + risks à extraire via passe LLM dédiée. Sub-agent batch 3 a validé existence et qualité minimale de la source.",
   "_dividends_extracted_at": "2026-05-09T20:20:39Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "EUR",
   "_ai_positioning_fetched_at": "2026-05-14T05:27:05.231139+00:00",
   "_segments_fetched_at": "2026-05-14T23:58:48.167309+00:00",
   "_eps_extracted_at": "2026-05-18T16:44:47Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "ENEL.MI",
     "simple": {
@@ -646,9 +678,9 @@
     "country": "Italy",
     "_data_freshness_date": "2026-05-21T02:17:14.255702+00:00",
     "fetched_at": "2026-05-21T02:17:14.255703+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.746Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.329Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/enel.mi.json",
     "enrich_root": "v2-pipeline-enrich/enel.mi.json",

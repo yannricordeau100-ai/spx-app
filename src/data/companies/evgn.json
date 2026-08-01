@@ -34,9 +34,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Cash",
@@ -55,9 +53,7 @@
       "last_data_date": "2026-04-02",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "avril 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Revenue",
@@ -79,9 +75,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Net Loss",
@@ -100,9 +94,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Casterra ENI Deal",
@@ -123,9 +115,7 @@
       "last_data_date": "2025-03-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Corteva License",
@@ -146,32 +136,35 @@
       "last_data_date": "2024-11-30",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "juillet 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-50.0%",
       "history": [
-        0.06,
-        0.05,
-        0.04,
-        0.02
+        60,
+        50,
+        40,
+        20
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.02 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -190,11 +183,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -218,9 +215,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     },
     {
       "short": "Cash",
@@ -240,9 +235,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "avril 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -291,7 +284,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en haut de liste dans le résumé des facteurs de risque, avec un langage fort (\\\"substantially dependent\\\"), en tendance stable, et critique car lié à la génération de revenus via des tiers.",
       "trend": "stable",
-      "summary": "La société dépend fortement de quelques collaborateurs, comme pour BMC128 via Biomica, pour le développement et la commercialisation. Si ces partenaires réduisent leurs efforts ou se retirent, cela pourrait bloquer la monétisation des produits."
+      "summary": "La société dépend fortement de quelques collaborateurs, comme pour BMC128 via Biomica, pour le développement et la commercialisation. Si ces partenaires réduisent leurs efforts ou se retirent, cela pourrait bloquer la monétisation des produits.",
+      "score": 5
     },
     {
       "title": "Risque de concentration opérationnelle après recentrage",
@@ -299,7 +293,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans le résumé, avec un langage d'alerte (\\\"augmente le risque\\\"), en tendance stable, et lié à une stratégie récente qui amplifie l'impact d'échecs potentiels.",
       "trend": "stable",
-      "summary": "Suite au recentrage stratégique et à la réduction du nombre de filiales actives, la société est plus exposée aux revers dans ses activités restantes, réduisant la diversification et augmentant le risque opérationnel global."
+      "summary": "Suite au recentrage stratégique et à la réduction du nombre de filiales actives, la société est plus exposée aux revers dans ses activités restantes, réduisant la diversification et augmentant le risque opérationnel global.",
+      "score": 4
     },
     {
       "title": "Protection insuffisante de la propriété intellectuelle",
@@ -307,7 +302,8 @@
       "severity": 5,
       "score_rationale": "Le risque est répété plusieurs fois, avec un langage fort (\\\"notre succès dépend\\\"), en tendance stable, et central car lié au cœur technologique de l'entreprise.",
       "trend": "stable",
-      "summary": "La capacité d'Evogene à protéger ses inventions via des brevets, secrets industriels et savoir-faire est cruciale. Toute atteinte ou contrefaçon par des tiers pourrait compromettre ses avantages concurrentiels et ses revenus futurs."
+      "summary": "La capacité d'Evogene à protéger ses inventions via des brevets, secrets industriels et savoir-faire est cruciale. Toute atteinte ou contrefaçon par des tiers pourrait compromettre ses avantages concurrentiels et ses revenus futurs.",
+      "score": 5
     },
     {
       "title": "Dépendance au moteur d'IA ChemPass",
@@ -315,7 +311,8 @@
       "severity": 5,
       "score_rationale": "Mention clé dans le résumé (\\\"si nous ne pouvons maintenir ChemPass\\\"), langage d'urgence, tendance stable, et poids maximal car lié à la plateforme centrale de R&D.",
       "trend": "stable",
-      "summary": "Le moteur d'IA ChemPass est fondamental pour les activités de découverte de produits. Toute défaillance dans son maintien, son évolution ou son accès pourrait paralyser la R&D de la société et de ses filiales."
+      "summary": "Le moteur d'IA ChemPass est fondamental pour les activités de découverte de produits. Toute défaillance dans son maintien, son évolution ou son accès pourrait paralyser la R&D de la société et de ses filiales.",
+      "score": 5
     },
     {
       "title": "Difficultés de production et de montée en échelle",
@@ -323,7 +320,8 @@
       "severity": 4,
       "score_rationale": "Présent dans le résumé avec un langage préoccupé (\\\"pourrait entraver\\\"), tendance stable, et lié à la phase critique de passage à l'échelle commerciale.",
       "trend": "stable",
-      "summary": "La société pourrait rencontrer des obstacles pour produire efficacement ses produits, qu'elle-même ou via des sous-traitants, ce qui retarderait ou compromettrait les objectifs de commercialisation."
+      "summary": "La société pourrait rencontrer des obstacles pour produire efficacement ses produits, qu'elle-même ou via des sous-traitants, ce qui retarderait ou compromettrait les objectifs de commercialisation.",
+      "score": 4
     },
     {
       "title": "Concurrence avec des entreprises mieux dotées",
@@ -331,7 +329,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné, langage comparatif fort (\\\"bien plus de ressources\\\"), tendance stable, et critique car structurel dans les secteurs de l'agriculture et de la santé.",
       "trend": "stable",
-      "summary": "Evogene opère dans des secteurs dominés par de grands groupes aux ressources financières, humaines et technologiques bien supérieures, ce qui limite sa capacité à concurrencer efficacement sans innovation disruptive."
+      "summary": "Evogene opère dans des secteurs dominés par de grands groupes aux ressources financières, humaines et technologiques bien supérieures, ce qui limite sa capacité à concurrencer efficacement sans innovation disruptive.",
+      "score": 4
     },
     {
       "title": "Réglementation gouvernementale et approbations",
@@ -339,7 +338,8 @@
       "severity": 4,
       "score_rationale": "Cité dans le résumé avec un impact direct sur les opérations (\\\"pourrait arrêter nos activités\\\"), tendance stable, et poids élevé dans les secteurs agricoles et de santé.",
       "trend": "stable",
-      "summary": "Les activités d'Evogene sont soumises à des réglementations strictes. L'absence d'approbations réglementaires ou des changements dans les lois pourraient retarder ou bloquer le développement et la commercialisation de ses produits."
+      "summary": "Les activités d'Evogene sont soumises à des réglementations strictes. L'absence d'approbations réglementaires ou des changements dans les lois pourraient retarder ou bloquer le développement et la commercialisation de ses produits.",
+      "score": 4
     },
     {
       "title": "Cybersécurité et dépendance au cloud",
@@ -347,7 +347,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans les risques et dans un item dédié (16K), langage en renforcement (\\\"menaces évolutives\\\"), tendance stable, et critique pour la protection des données sensibles.",
       "trend": "stable",
-      "summary": "La société dépend fortement d'infrastructures informatiques et de cloud computing. Des attaques de type ransomware ou des violations de données pourraient nuire à sa réputation, interrompre ses activités et compromettre ses secrets industriels."
+      "summary": "La société dépend fortement d'infrastructures informatiques et de cloud computing. Des attaques de type ransomware ou des violations de données pourraient nuire à sa réputation, interrompre ses activités et compromettre ses secrets industriels.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:34:00.101505+00:00",
@@ -484,9 +485,9 @@
     "country": "Israel",
     "_data_freshness_date": "2026-05-21T02:17:14.258179+00:00",
     "fetched_at": "2026-05-21T02:17:14.258180+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.939Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.525Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/evgn.json",
     "enrich_root": null,

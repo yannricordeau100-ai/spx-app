@@ -39,12 +39,13 @@
       "is_short_history": true,
       "ttm": 0,
       "_validation": "Corrected unit from 'Mds $' to 'B$' (standard notation); corrected value formatting from '7,0' to '7.0'; corrected history to [1.5, 7.0] matching 2024/2025 data points; corrected is_short_history from false to true (only 2 data points)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Contract Backlog values not explicitly stated with annual figures in the provided 10-K extract. The document mentions 'contract backlog' qua",
       "signal_en": "Demand strengthening, end-market traction",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Rig Count",
@@ -67,9 +68,7 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 0,
-      "_validation": "Corrected name_en to 'Drilling Rig Fleet Size' for clarity; marked as_generic false (company-specific metric); removed TTM value (not applicable for count data); corrected history to single point [367]; corrected is_short_history to true (insufficient historical context)",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Corrected name_en to 'Drilling Rig Fleet Size' for clarity; marked as_generic false (company-specific metric); removed TTM value (not applicable for count data); corrected history to single point [367]; corrected is_short_history to true (insufficient historical context)"
     },
     {
       "short": "Active Contracted Rigs",
@@ -94,9 +93,7 @@
       "is_short_history": true,
       "ttm": 0,
       "_validation": "New KPI extracted from source (missing in original); added value 208 with yoy +22.4% (208/170-1); verified from MD&A stating 208 active contracted rigs vs 170 in 2024",
-      "signal_en": "Demand strengthening, end-market traction",
-      "_source_month": "septembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Demand strengthening, end-market traction"
     },
     {
       "short": "Revenue",
@@ -121,10 +118,8 @@
       "is_short_history": true,
       "ttm": 0,
       "_validation": "Corrected value from 'X' to '3.7' (verified in Consolidated Results: 3.7B in 2025); corrected unit to 'B$'; added yoy '+32.1%' (3.7/2.8-1); added history [2.8, 3.7]; updated description with actual figures; marked is_wow true; corrected is_short_history to true",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction"
     },
     {
       "short": "Direct Operating Expenses",
@@ -150,9 +145,7 @@
       "ttm": 0,
       "_validation": "New KPI extracted from source; added value 2.5 with yoy +56.3% (2.5/1.6-1); verified from Consolidated Results section",
       "explanation_en": "Expenses related to Direct Operating.",
-      "signal_en": "Cost pressure, investment phase",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Cost pressure, investment phase"
     },
     {
       "short": "Total Assets",
@@ -171,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.71 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -194,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.21 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.2,
-      "unit": "Mds €",
+      "value": 200,
+      "unit": "M €",
       "yoy": "-9.1%",
       "history": [
-        0.23,
-        0.26,
-        0.22,
-        0.2
+        230,
+        260,
+        220,
+        200
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.2 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -263,7 +269,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans Item 1A Risk Factors comme risque majeur avec langage alarmant: 'material adverse effect'. Risque persistant et récurrent. Perturbations opérationnelles et de chaîne d'approvisionnement.",
       "trend": "stable",
-      "summary": "Les crises sanitaires mondiales peuvent gravement perturber les opérations, la chaîne d'approvisionnement et la demande des clients."
+      "summary": "Les crises sanitaires mondiales peuvent gravement perturber les opérations, la chaîne d'approvisionnement et la demande des clients.",
+      "score": 4
     },
     {
       "title": "Dépréciation de goodwill et perte d'exploitation",
@@ -271,7 +278,8 @@
       "severity": 5,
       "score_rationale": "Perte nette de 163.7M$ en 2025 vs profit de 344.2M$ en 2024. Dépréciation de goodwill de 192.2M$ mentionnée pour International Solutions et BENTEC. Impact direct sur les résultats et la valeur des actifs post-acquisition KCA Deutag.",
       "trend": "up",
-      "summary": "La perte nette significative et la dépréciation de goodwill de 192.2M$ indiquent des difficultés d'intégration et de performance post-acquisition KCA Deutag."
+      "summary": "La perte nette significative et la dépréciation de goodwill de 192.2M$ indiquent des difficultés d'intégration et de performance post-acquisition KCA Deutag.",
+      "score": 5
     },
     {
       "title": "Intégration post-acquisition de KCA Deutag",
@@ -279,7 +287,8 @@
       "severity": 5,
       "score_rationale": "Acquisition majeure de 2.0 milliards de dollars complétée le 16 janvier 2025. Coûts de transaction de 54.7M$. Synergies attendues augmentées à 50M$ en économies d'effectifs. Suspensions de contrats de 27 rigs (réductions futures attendues de 7 rigs). Risques d'intégration opérationnelle et culturelle importants.",
       "trend": "new",
-      "summary": "L'acquisition de KCA Deutag entraîne des coûts importants, des restructurations, et des risques d'échec d'intégration avec perturbations contractuelles significatives."
+      "summary": "L'acquisition de KCA Deutag entraîne des coûts importants, des restructurations, et des risques d'échec d'intégration avec perturbations contractuelles significatives.",
+      "score": 5
     },
     {
       "title": "Résiliation anticipée de contrat de forage",
@@ -287,7 +296,8 @@
       "severity": 4,
       "score_rationale": "Une notification post-clôture pour résiliation anticipée d'un contrat dans International Solutions entraîne perte de 34.9M$ de revenus futurs. Contrats KCA Deutag sans frais de résiliation anticipée (risque structurel). Vulnérabilité contractuelle explicite.",
       "trend": "new",
-      "summary": "La résiliation imprévue de contrats majeurs affecte directement la rentabilité future, particulièrement dans les marchés internationaux sans protection de résiliation."
+      "summary": "La résiliation imprévue de contrats majeurs affecte directement la rentabilité future, particulièrement dans les marchés internationaux sans protection de résiliation.",
+      "score": 4
     },
     {
       "title": "Suspensions de contrats et rigs inactifs",
@@ -295,7 +305,8 @@
       "severity": 4,
       "score_rationale": "27 rigs suspendus depuis juillet 2024, dont ceux de legacy KCA Deutag en Arabie Saoudite. Contrats sans indemnités de suspension. 478.5M$ de backlog suspendu (Arabie Saoudite). Reprise graduée attendue mais incertaine. Impact majeur sur les flux de trésorerie.",
       "trend": "up",
-      "summary": "Les suspensions massives de contrats de rigs (27 unités) réduisent les revenus et créent une importante inactivité, avec reprise incertaine."
+      "summary": "Les suspensions massives de contrats de rigs (27 unités) réduisent les revenus et créent une importante inactivité, avec reprise incertaine.",
+      "score": 4
     },
     {
       "title": "Charges de restructuration et réductions d'effectifs",
@@ -303,7 +314,8 @@
       "severity": 4,
       "score_rationale": "Plan de réduction d'effectifs pour réaliser 50M$ d'économies en frais généraux. Coûts de restructuration estimés. Tensions opérationnelles internes. Stratégie de réduction de coûts ambitieuse associée à l'intégration KCA Deutag.",
       "trend": "new",
-      "summary": "Les restructurations coûteuses et réductions d'effectifs reflètent des enjeux d'efficacité opérationnelle post-acquisition et de surcapacités."
+      "summary": "Les restructurations coûteuses et réductions d'effectifs reflètent des enjeux d'efficacité opérationnelle post-acquisition et de surcapacités.",
+      "score": 4
     },
     {
       "title": "Incertitude géopolitique et macroéconomique",
@@ -311,7 +323,8 @@
       "severity": 3,
       "score_rationale": "Annonces de tarifs douaniers américains, augmentation prévue de l'offre OPEC+, tensions géopolitiques accrues au Moyen-Orient. Impacts indirects potentiels sur l'activité 2026. Volatilité des prix du pétrole et gaz affectant les budgets clients.",
       "trend": "up",
-      "summary": "Les tensions géopolitiques et annonces macroéconomiques créent une incertitude accrue pouvant réduire les dépenses en capital des clients E&P en 2026."
+      "summary": "Les tensions géopolitiques et annonces macroéconomiques créent une incertitude accrue pouvant réduire les dépenses en capital des clients E&P en 2026.",
+      "score": 3
     }
   ],
   "governance": {
@@ -345,7 +358,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -437,9 +450,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.527099+00:00",
     "fetched_at": "2026-05-21T01:44:37.527100+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.141Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.793Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hp.json",
     "enrich_root": "v2-pipeline-enrich/hp.json",

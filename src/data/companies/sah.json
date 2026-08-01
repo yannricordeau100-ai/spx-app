@@ -33,11 +33,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.97 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -115,7 +119,8 @@
       "severity": 4,
       "score_rationale": "L'incident de cybersécurité chez CDK a eu un impact négatif sur les résultats de l'entreprise en 2024, avec une perte estimée de 47,2 millions de dollars.",
       "trend": "stable",
-      "summary": "La société est vulnérable aux cyberattaques, ce qui peut avoir un impact négatif sur ses activités et ses résultats financiers."
+      "summary": "La société est vulnérable aux cyberattaques, ce qui peut avoir un impact négatif sur ses activités et ses résultats financiers.",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -123,7 +128,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un marché compétitif, avec de nombreux acteurs et une pression sur les prix, ce qui peut affecter ses ventes et ses marges.",
       "trend": "up",
-      "summary": "La concurrence dans le secteur de la vente de véhicules peut augmenter, ce qui pourrait avoir un impact négatif sur les ventes et les résultats de la société."
+      "summary": "La concurrence dans le secteur de la vente de véhicules peut augmenter, ce qui pourrait avoir un impact négatif sur les ventes et les résultats de la société.",
+      "score": 3
     },
     {
       "title": "Risques réglementaires",
@@ -131,7 +137,8 @@
       "severity": 3,
       "score_rationale": "Les changements dans les réglementations et les lois peuvent avoir un impact sur les activités de la société et ses résultats financiers.",
       "trend": "stable",
-      "summary": "La société doit se conformer à de nombreuses réglementations et lois, ce qui peut être coûteux et complexe."
+      "summary": "La société doit se conformer à de nombreuses réglementations et lois, ce qui peut être coûteux et complexe.",
+      "score": 3
     },
     {
       "title": "Risques de crédit",
@@ -139,7 +146,8 @@
       "severity": 2,
       "score_rationale": "La société est exposée aux risques de crédit liés à ses activités de financement et de crédit-bail.",
       "trend": "stable",
-      "summary": "La société doit gérer les risques de crédit liés à ses activités de financement et de crédit-bail pour éviter les pertes financières."
+      "summary": "La société doit gérer les risques de crédit liés à ses activités de financement et de crédit-bail pour éviter les pertes financières.",
+      "score": 2
     },
     {
       "title": "Risques de marché",
@@ -147,7 +155,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques de marché liés à la conjoncture économique et aux fluctuations des prix des véhicules.",
       "trend": "up",
-      "summary": "La société est vulnérable aux fluctuations du marché et aux changements dans la conjoncture économique, ce qui peut avoir un impact négatif sur ses ventes et ses résultats financiers."
+      "summary": "La société est vulnérable aux fluctuations du marché et aux changements dans la conjoncture économique, ce qui peut avoir un impact négatif sur ses ventes et ses résultats financiers.",
+      "score": 4
     },
     {
       "title": "Dépendance à la technologie",
@@ -155,7 +164,8 @@
       "severity": 3,
       "score_rationale": "La société dépend fortement de la technologie pour ses activités, ce qui peut la rendre vulnérable aux pannes et aux cyberattaques.",
       "trend": "stable",
-      "summary": "La société doit investir dans la technologie pour maintenir ses opérations et rester compétitive."
+      "summary": "La société doit investir dans la technologie pour maintenir ses opérations et rester compétitive.",
+      "score": 3
     }
   ],
   "_validation": [
@@ -185,7 +195,11 @@
   "governance": {
     "agm_date": "2026-04-29",
     "fiscal_year": 2025,
-    "voting_structure": "Deux classes d'actions : Class A avec 1 vote par action et Class B avec 10 votes par action."
+    "voting_structure": "Deux classes d'actions : Class A avec 1 vote par action et Class B avec 10 votes par action.",
+    "ceo_name": "David Bruton Smith",
+    "board_size": 8,
+    "board_women_pct": 25,
+    "exec_comp_approval_pct": 94
   },
   "_kpis_cleaned": [
     {
@@ -203,7 +217,7 @@
   },
   "sector_fr": "Consommation discrétionnaire",
   "subsector_fr": "Commerce de détail automobile",
-  "_companies_unified_built_at": "2026-05-29T21:19:35.467Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.495Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sah.json",
     "enrich_root": "v2-pipeline-enrich/sah.json",

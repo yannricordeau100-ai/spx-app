@@ -1,6 +1,6 @@
 {
   "ticker": "JJSF",
-  "name": "J J Snack Foods Corp.",
+  "name": "J J Snack Foods",
   "sector": "Consommation discrétionnaire",
   "subsector": "Food Processing",
   "tagline": "Leading manufacturer of snack foods and frozen beverages for foodservice and retail channels",
@@ -40,9 +40,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "period_type": "year",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -68,7 +71,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -115,34 +118,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.58 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "-22.2%",
       "history": [
-        0.05,
-        0.08,
-        0.09,
-        0.07
+        50,
+        80,
+        90,
+        70
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.07 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,56 +173,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.38 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.11,
-        0.12,
-        0.16,
-        0.16
+        110,
+        120,
+        160,
+        160
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.16 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+57.1%",
       "history": [
-        0.04,
-        0.05,
-        0.07,
-        0.11
+        40,
+        50,
+        70,
+        110
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.11 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -238,9 +264,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -256,7 +280,8 @@
       "severity": 4,
       "score_rationale": "Le facteur de risque est positionné tôt dans le document et mentionne que les 10 plus grands clients représentent 46 % des ventes en 2025. Le langage insiste sur l'absence de contrats à long terme et le risque de perte soudaine de ventes. La concentration augmente légèrement vs N-1 (43 % en 2023). La catégorie Concurrence est pondérée moyennement.",
       "trend": "up",
-      "summary": "La dépendance à quelques grands clients expose l'entreprise à des pertes de revenus importantes si l'un d'eux réduit ses achats."
+      "summary": "La dépendance à quelques grands clients expose l'entreprise à des pertes de revenus importantes si l'un d'eux réduit ses achats.",
+      "score": 4
     },
     {
       "title": "Augmentation des coûts des matières premières",
@@ -264,7 +289,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est répété plusieurs fois, notamment avec lien aux tarifs douaniers américains et pressions inflationnistes. Le texte indique qu'une hausse des coûts pourrait ne pas être reportée sur les prix, impactant directement la marge. Le langage est fort (impact significatif sur nos profits). Tendance à la hausse avec nouveaux tarifs annoncés. Catégorie Industriel fortement pondérée.",
       "trend": "up",
-      "summary": "Les fluctuations des prix des matières premières (notamment le cacao en FY2025) et de l'énergie menacent la rentabilité si les hausses ne peuvent être répercutées."
+      "summary": "Les fluctuations des prix des matières premières (notamment le cacao en FY2025) et de l'énergie menacent la rentabilité si les hausses ne peuvent être répercutées.",
+      "score": 5
     },
     {
       "title": "Pénurie ou coût élevé de la main-d'œuvre",
@@ -272,7 +298,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien développé, avec mention de compétition pour les talents, coûts croissants et risques de grèves. Le marché du travail est décrit comme très compétitif. Le texte souligne un impact matériel sur les résultats. L'intensité est élevée, et la tendance est à la hausse avec l'inflation. Catégorie Industriel fortement pondérée.",
       "trend": "up",
-      "summary": "La difficulté à recruter et retenir du personnel qualifié, couplée à la hausse des salaires, pèse sur les coûts et la production."
+      "summary": "La difficulté à recruter et retenir du personnel qualifié, couplée à la hausse des salaires, pèse sur les coûts et la production.",
+      "score": 4
     },
     {
       "title": "Perturbation de la production ou distribution",
@@ -280,7 +307,8 @@
       "severity": 5,
       "score_rationale": "Le feu survenu en août 2024 au site de Holly Ridge est cité comme exemple concret de disruption. Le texte mentionne un impact matériel sur les résultats, la trésorerie et la perte potentielle de clients. Langage fort (réduction ou élimination de la disponibilité de produits). Risque existentiel pour les sites mono-source. Catégorie Industriel fortement pondérée.",
       "trend": "new",
-      "summary": "Un incident sur un site de production unique peut gravement interrompre l'approvisionnement et nuire à la relation client."
+      "summary": "Un incident sur un site de production unique peut gravement interrompre l'approvisionnement et nuire à la relation client.",
+      "score": 5
     },
     {
       "title": "Impact des thérapies contre l'obésité",
@@ -288,7 +316,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement lié aux traitements GLP-1, en plein essor. Le texte indique un risque de baisse de la demande pour certaines catégories de produits. Langage clair sur un impact matériel. Bien que récent, il est fortement contextualisé. Catégorie Concurrence moyennement pondérée.",
       "trend": "new",
-      "summary": "La montée des traitements contre l'obésité pourrait réduire l'appétit et modifier les habitudes alimentaires, affectant la demande pour les produits de l'entreprise."
+      "summary": "La montée des traitements contre l'obésité pourrait réduire l'appétit et modifier les habitudes alimentaires, affectant la demande pour les produits de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Réglementation environnementale accrue",
@@ -296,7 +325,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné avec des conséquences potentielles sur les coûts d'investissement. Toutefois, le langage est prudent (ne pouvons pas prédire). Pas de référence à des actions récentes ou de changement de tendance. Catégorie Régulation moyennement pondérée.",
       "trend": "stable",
-      "summary": "L'assouplissement ou le renforcement futur de la réglementation environnementale pourrait entraîner des dépenses supplémentaires pour l'entreprise."
+      "summary": "L'assouplissement ou le renforcement futur de la réglementation environnementale pourrait entraîner des dépenses supplémentaires pour l'entreprise.",
+      "score": 3
     },
     {
       "title": "Intégration d'acquisitions incertaine",
@@ -304,7 +334,8 @@
       "severity": 3,
       "score_rationale": "Le risque est bien décrit (culture, coûts, personnel), mais sans mention d'acquisition récente ou en cours. Le langage est standard, sans urgence particulière. Mention d'impact négatif si échec, mais pas d'exemple concret. Catégorie Capital moins pondérée.",
       "trend": "stable",
-      "summary": "L'échec à intégrer efficacement une acquisition pourrait nuire à la performance financière et opérationnelle de l'entreprise."
+      "summary": "L'échec à intégrer efficacement une acquisition pourrait nuire à la performance financière et opérationnelle de l'entreprise.",
+      "score": 3
     }
   ],
   "governance": {
@@ -340,7 +371,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -392,7 +423,6 @@
       "date": "2026-04-29"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T20:03:58.945375+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-09-27",
@@ -422,6 +452,7 @@
     ],
     "total": 1.58
   },
+  "_ai_positioning_fetched_at": "2026-05-06T20:03:58.945375+00:00",
   "_segments_fetched_at": "2026-05-06T19:33:44.338307+00:00",
   "subsector_fr": "Transformation alimentaire",
   "enrich_description": {
@@ -531,9 +562,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.272147+00:00",
     "fetched_at": "2026-05-21T02:17:14.272148+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.659Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.381Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/jjsf.json",
     "enrich_root": "v2-pipeline-enrich/jjsf.json",

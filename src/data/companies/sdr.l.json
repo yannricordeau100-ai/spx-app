@@ -63,7 +63,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -88,7 +88,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -113,7 +113,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -133,11 +133,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.25 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni ne contient aucune valeur annuelle explicite du KPI \"Total Revenue\" (chiffre d'affaires). Aucun montant en milliards d'euros",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,34 +162,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 24.61 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.57,
-      "unit": "Mds €",
+      "value": 570,
+      "unit": "M €",
       "yoy": "-5.0%",
       "history": [
-        0.36,
-        0.32,
-        0.6,
-        0.57
+        360,
+        320,
+        600,
+        570
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.57 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -202,10 +217,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 4.68 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -235,7 +254,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -304,7 +323,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dès la première page du Strategic Report : 'The principal risks and uncertainties of the Group… are not managed separately.' Le langage est explicite et délibéré. Tendance stable (structure holding permanente). La catégorie réglementaire est concernée car le Companies Act 2006 exige une divulgation adéquate des risques dans le rapport stratégique.",
       "trend": "stable",
-      "summary": "La société renvoie intégralement la gestion et la divulgation de ses risques au rapport consolidé de Schroders plc, qui ne fait pas partie de ce filing. Les actionnaires et créanciers de cette entité spécifique n'ont donc accès à aucune analyse de risque autonome, ce qui constitue une opacité structurelle."
+      "summary": "La société renvoie intégralement la gestion et la divulgation de ses risques au rapport consolidé de Schroders plc, qui ne fait pas partie de ce filing. Les actionnaires et créanciers de cette entité spécifique n'ont donc accès à aucune analyse de risque autonome, ce qui constitue une opacité structurelle.",
+      "score": 3
     },
     {
       "title": "Dépendance totale à la maison mère Schroders plc pour toute opération",
@@ -312,7 +332,8 @@
       "severity": 4,
       "score_rationale": "Le rapport indique explicitement zéro employé, des directeurs rémunérés par d'autres filiales du groupe, et des audits payés par la société mère. L'entité n'a aucune autonomie opérationnelle. Tendance stable. Poids élevé car toute défaillance ou restructuration de Schroders plc affecterait directement cette entité.",
       "trend": "stable",
-      "summary": "J. Henry Schroder Wagg & Co. Limited ne dispose d'aucun employé, d'aucune ressource propre et d'aucune capacité opérationnelle indépendante. Ses directeurs sont rémunérés par d'autres entités du groupe, et ses frais d'audit sont pris en charge par sa société mère, créant une dépendance existentielle à Schroders plc."
+      "summary": "J. Henry Schroder Wagg & Co. Limited ne dispose d'aucun employé, d'aucune ressource propre et d'aucune capacité opérationnelle indépendante. Ses directeurs sont rémunérés par d'autres entités du groupe, et ses frais d'audit sont pris en charge par sa société mère, créant une dépendance existentielle à Schroders plc.",
+      "score": 4
     },
     {
       "title": "Risque de concentration : activité unique de véhicule d'assurance santé groupe",
@@ -320,7 +341,8 @@
       "severity": 3,
       "score_rationale": "La note 2 révèle que 100% des revenus (£7,997,757) proviennent exclusivement du remboursement de primes d'assurance santé intragroupe. Aucune diversification d'activité. Tendance 'up' car les primes ont augmenté de +21% entre 2023 et 2024, signalant une exposition croissante à un seul fournisseur d'assurance.",
       "trend": "up",
-      "summary": "L'intégralité de l'activité de la société consiste à collecter et reverser des primes d'assurance santé entre entités du groupe Schroders. Toute modification des conditions du contrat avec le fournisseur d'assurance santé unique, ou toute décision de restructuration intragroupe, pourrait rendre cette entité sans objet."
+      "summary": "L'intégralité de l'activité de la société consiste à collecter et reverser des primes d'assurance santé entre entités du groupe Schroders. Toute modification des conditions du contrat avec le fournisseur d'assurance santé unique, ou toute décision de restructuration intragroupe, pourrait rendre cette entité sans objet.",
+      "score": 3
     },
     {
       "title": "Dépendance critique à un fournisseur d'assurance santé unique non nommé",
@@ -328,7 +350,8 @@
       "severity": 3,
       "score_rationale": "La note 3 mentionne 'the health insurance provider' (singulier, sans identification), représentant 100% des coûts. Absence de mention de contrats alternatifs ou de clauses de continuité. Tendance stable. La concentration sur un seul prestataire non divulgué constitue un risque de rupture d'approvisionnement.",
       "trend": "stable",
-      "summary": "La société dépend d'un unique fournisseur d'assurance santé non identifié dans le rapport pour l'intégralité de son activité. Une défaillance, une résiliation de contrat ou une hausse tarifaire de ce prestataire impacterait directement les £7,997,757 de flux transitant par cette entité."
+      "summary": "La société dépend d'un unique fournisseur d'assurance santé non identifié dans le rapport pour l'intégralité de son activité. Une défaillance, une résiliation de contrat ou une hausse tarifaire de ce prestataire impacterait directement les £7,997,757 de flux transitant par cette entité.",
+      "score": 3
     },
     {
       "title": "Risque réglementaire lié au cadre OCDE Pilier Deux (taux minimum mondial)",
@@ -336,7 +359,8 @@
       "severity": 2,
       "score_rationale": "La note 4 mentionne explicitement l'entrée en vigueur au 1er janvier 2024 du taux minimum mondial de 15% sous le cadre Pilier Deux de l'OCDE. Bien que l'impact soit jugé non matériel pour cette entité, le risque de requalification ou d'évolution du cadre réglementaire est réel. Tendance 'new' (première mention en 2024).",
       "trend": "new",
-      "summary": "Depuis le 1er janvier 2024, le groupe Schroders est soumis au taux minimum mondial de 15% prévu par le cadre Pilier Deux de l'OCDE. Bien que l'impact soit actuellement absorbé par l'entité mère, toute évolution de l'interprétation réglementaire ou de la structure intragroupe pourrait modifier l'exposition fiscale de cette entité."
+      "summary": "Depuis le 1er janvier 2024, le groupe Schroders est soumis au taux minimum mondial de 15% prévu par le cadre Pilier Deux de l'OCDE. Bien que l'impact soit actuellement absorbé par l'entité mère, toute évolution de l'interprétation réglementaire ou de la structure intragroupe pourrait modifier l'exposition fiscale de cette entité.",
+      "score": 2
     },
     {
       "title": "Absence de gouvernance autonome et risque de conformité Companies Act",
@@ -344,7 +368,8 @@
       "severity": 3,
       "score_rationale": "Le rapport indique que les KPI ne sont 'pas nécessaires ou appropriés' pour cette entité, et que la gouvernance est entièrement déléguée à Schroders plc. Le Companies Act 2006 impose des obligations de reporting stratégique aux sociétés privées. Tendance stable. Risque de non-conformité si les régulateurs contestent l'adéquation du rapport stratégique.",
       "trend": "stable",
-      "summary": "La société justifie l'absence d'indicateurs de performance propres et délègue l'intégralité de sa gouvernance à Schroders plc. Cette approche, bien que courante pour les holdings intragroupe, expose l'entité à un risque de contestation réglementaire quant à l'adéquation de son rapport stratégique au regard du Companies Act 2006."
+      "summary": "La société justifie l'absence d'indicateurs de performance propres et délègue l'intégralité de sa gouvernance à Schroders plc. Cette approche, bien que courante pour les holdings intragroupe, expose l'entité à un risque de contestation réglementaire quant à l'adéquation de son rapport stratégique au regard du Companies Act 2006.",
+      "score": 3
     },
     {
       "title": "Risque de réputation par association avec le groupe Schroders plc",
@@ -352,7 +377,8 @@
       "severity": 3,
       "score_rationale": "L'entité partage la marque historique 'J. Henry Schroder Wagg' (fondée en 1804) et est intégralement dépendante de la réputation de Schroders plc. Tout incident réputationnel affectant le groupe (sanctions, litiges, scandales de gouvernance) se répercuterait directement sur cette entité. Tendance stable.",
       "trend": "stable",
-      "summary": "En tant que filiale portant le nom historique de la banque Schroder, cette entité est exposée par association à tout risque réputationnel affectant Schroders plc ou ses autres filiales. L'absence de toute activité propre ou de communication indépendante renforce cette dépendance réputationnelle totale."
+      "summary": "En tant que filiale portant le nom historique de la banque Schroder, cette entité est exposée par association à tout risque réputationnel affectant Schroders plc ou ses autres filiales. L'absence de toute activité propre ou de communication indépendante renforce cette dépendance réputationnelle totale.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T08:50:07.614612+00:00",
@@ -391,6 +417,9 @@
   ],
   "subsector_fr": "Gestion d'actifs",
   "sector_fr": "Finance",
+  "_super_kpi_unavailable": true,
+  "_super_kpi_unavailable_reason": "batch0: no quarterly data source (no SEC quarterly filings, rapport financier empty); company likely reports semester/annual only",
+  "_super_kpi_unavailable_at": "2026-06-02T11:15:29Z",
   "enrich_description": {
     "ticker": "SDR.L",
     "simple": {
@@ -477,6 +506,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Schroders plc est un gestionnaire d'actifs britannique. Coté à Londres (FTSE 100), basé à Londres. Fondé en 1804. Société indépendante avec actionnariat familial historique.",
+          "products": "Trois segments : Wealth Management (Cazenove Capital, Benchmark Capital), Asset Management (gestion institutionnelle et fonds : equity, fixed income, multi-asset), Solutions (alternatives : private equity, infrastructure, private debt via Schroders Capital).",
+          "customers": "Institutions (fonds de pension, assureurs), HNW/UHNW particuliers via wealth management, distributeurs (banques, IFAs), grandes entreprises et gouvernements.",
+          "edge": "Marque historique de qualité (220+ ans). Présence forte en Asie (Singapour, Hong Kong, Australie). Expansion réussie dans les alternatifs et le wealth management."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Schroders plc est un asset manager mid-cap mondial avec une stratégie de pivot vers les segments à plus forte marge (alternatifs, wealth management). Sortie progressive de la gestion liquide traditionnelle low-margin. Plan stratégique 2024 avec objectif d'efficience.",
+          "tech_products": "Wealth Management : Cazenove Capital (UK HNW), Benchmark Capital (services à conseillers indépendants). Asset Management : gestion liquide institutionnelle et retail (equity, fixed income, multi-asset). Solutions/Schroders Capital : private assets (PE Schroders Capital, infrastructure Greencoat, private debt). JV avec Phoenix sur la prévoyance.",
+          "moat": "Marque historique reconnue. Présence asiatique forte (réseau distribution Asie). Capacité multi-actifs et alternatifs (Schroders Capital). Indépendance actionnariale.",
+          "risks": "Pression structurelle sur les marges en gestion liquide (passive). Sensibilité aux marchés actions/obligations (AUM). Concurrence intense (BlackRock, Vanguard, Amundi). Risques d'exécution sur le pivot vers les alternatifs et le wealth management. Performance des fonds devant rebondir."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "SDR.L",
     "ranks": {
@@ -489,15 +539,16 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.307993+00:00",
     "fetched_at": "2026-05-21T02:17:14.307994+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.643Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.675Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/sdr.l.json",
     "enrich_root": "v2-pipeline-enrich/sdr.l.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

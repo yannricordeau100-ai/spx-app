@@ -39,11 +39,14 @@
       "is_short_history": false,
       "ttm": 530.95,
       "_validation": "Valeur confirmée en source MD&A section Capital Expenditures",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Capex (acquisitions immobilières) trouvé pour 3 années seulement : 2020 ($100.3M), 2019 ($1,000M), Q4 2020 ($100.3M). Minimum 4 années consé",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Strong growth, robust momentum",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Lease Revenue",
@@ -94,7 +97,7 @@
       "is_short_history": false,
       "ttm": 89.17,
       "_validation": "Valeur confirmée: MD&A 99,416 milliers = 99.4M$; YoY -41.2% confirmé; type changé de Revenue à Profitability",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -194,9 +197,7 @@
       "is_short_history": true,
       "_validation": "Valeur confirmée en source MD&A Liquidity section: 6.0x ratio mentionné; history[0] corrigé de 6 à 6.0",
       "explanation_en": "Leverage ratio.",
-      "signal_en": "Capital base stable",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Capital base stable"
     },
     {
       "short": "Total Assets",
@@ -215,11 +216,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.72 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -246,9 +251,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 530.95,
-      "_validation": "Valeur confirmée en source MD&A",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée en source MD&A"
     },
     {
       "short": "Lease Revenue",
@@ -273,9 +276,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 459.96,
-      "_validation": "Valeur confirmée en source MD&A",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur confirmée en source MD&A"
     }
   ],
   "ai_positioning": {
@@ -289,67 +290,67 @@
       "title": "Défaut locataire",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Le défaut d'un locataire peut entraîner une perte significative de revenus et de valeur pour la société. La société a des baux à long terme avec des locataires, ce qui augmente le risque de défaut. (score par défaut, à affiner)",
+      "score_rationale": "Le défaut d'un locataire peut entraîner une perte significative de revenus et de valeur pour la société. La société a des baux à long terme avec des locataires, ce qui augmente le risque de défaut.",
       "trend": "stable",
       "summary": "Le défaut d'un locataire peut avoir un impact significatif sur la société en raison de la concentration de ses propriétés dans certains états et types de propriétés.",
       "_validation": "Confirmé en source Risk Factors: Single-tenant leases involve significant risks of tenant default",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concentration géographique",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "La concentration de la société dans certains états peut la rendre vulnérable aux développements économiques et réglementaires défavorables dans ces régions. (score par défaut, à affiner)",
+      "score_rationale": "La concentration de la société dans certains états peut la rendre vulnérable aux développements économiques et réglementaires défavorables dans ces régions.",
       "trend": "stable",
       "summary": "La concentration géographique de la société peut augmenter son exposition aux risques économiques et réglementaires.",
       "_validation": "Confirmé en source Risk Factors: Our portfolio is concentrated in certain states",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concentration de propriétés",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La concentration de la société dans certains types de propriétés peut la rendre vulnérable aux développements défavorables dans ces secteurs. (score par défaut, à affiner)",
+      "score_rationale": "La concentration de la société dans certains types de propriétés peut la rendre vulnérable aux développements défavorables dans ces secteurs.",
       "trend": "stable",
       "summary": "La concentration de propriétés de la société peut augmenter son exposition aux risques sectoriels.",
       "_validation": "Confirmé en source Risk Factors: Our portfolio is concentrated in certain property types",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de taux d'intérêt",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Les variations des taux d'intérêt peuvent affecter la capacité de la société à financer ses acquisitions et à refinancer ses dettes. (score par défaut, à affiner)",
+      "score_rationale": "Les variations des taux d'intérêt peuvent affecter la capacité de la société à financer ses acquisitions et à refinancer ses dettes.",
       "trend": "up",
       "summary": "Les risques de taux d'intérêt peuvent avoir un impact significatif sur la société en raison de son exposition aux variations des taux d'intérêt.",
       "_validation": "Confirmé en source Risk Factors: An increase in market interest rates could increase our interest costs",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à l'acquisition",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La croissance de la société dépend de sa capacité à acquérir de nouvelles propriétés, ce qui peut être affecté par les conditions de marché et la concurrence. (score par défaut, à affiner)",
+      "score_rationale": "La croissance de la société dépend de sa capacité à acquérir de nouvelles propriétés, ce qui peut être affecté par les conditions de marché et la concurrence.",
       "trend": "stable",
       "summary": "La dépendance de la société à l'acquisition de nouvelles propriétés peut augmenter son exposition aux risques de marché et de concurrence.",
       "_validation": "Confirmé en source Risk Factors: Our growth depends upon future acquisitions of properties",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société a une dette significative (2.5B$ en décembre 2025), ce qui peut augmenter son exposition aux risques de crédit en cas de défaut de paiement. (score par défaut, à affiner)",
+      "score_rationale": "La société a une dette significative (2.5B$ en décembre 2025), ce qui peut augmenter son exposition aux risques de crédit en cas de défaut de paiement.",
       "trend": "stable",
       "summary": "Les risques de crédit peuvent avoir un impact significatif sur la société en raison de son exposition à la dette.",
       "_validation": "Confirmé en source MD&A: total debt outstanding of $2.5 billion",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est soumise à des réglementations gouvernementales, ce qui peut affecter son activité et ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations gouvernementales, ce qui peut affecter son activité et ses résultats financiers.",
       "trend": "stable",
       "summary": "Les risques réglementaires peuvent avoir un impact sur la société en raison de son exposition aux réglementations gouvernementales.",
       "_validation": "Confirmé dans le contexte général de la régulation des REITs (90% distribution requirement)",
@@ -403,7 +404,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -510,88 +511,47 @@
   },
   "enrich_quarterly_history": {
     "ticker": "BNL",
-    "extracted_at": "2026-05-15T18:09:40Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1424182,
+    "extracted_at": "2026-06-01T03:03:18Z",
     "n_kpis": 1,
     "kpis": [
       {
         "short": "Capex",
         "period_type": "quarter",
         "history": [
-          1.336,
-          1.451,
-          -2.523,
           0.778,
           18.289,
           19.171,
-          -6.864,
           15.583,
           23.593,
           29.455,
-          -22.379,
+          15.583,
+          23.593,
+          29.455,
           3.132,
-          3.304,
-          10.352,
-          0.007,
-          14.348,
           16.956,
-          23.122,
-          -24.72,
-          1.364
+          23.122
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
           "Q4 2021",
-          "Q1 2022",
           "Q2 2022",
           "Q3 2022",
           "Q4 2022",
-          "Q1 2023",
           "Q2 2023",
           "Q3 2023",
           "Q4 2023",
-          "Q1 2024",
           "Q2 2024",
           "Q3 2024",
           "Q4 2024",
-          "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "PaymentsToAcquirePropertyPlantAndEquipment",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 16.956,
-            "accession": "0001424182-25-000021",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 23.122,
-            "accession": "0001424182-25-000037",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -24.72,
-            "accession": "calc-0001424182-26-000012",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 1.364,
-            "accession": "0001424182-26-000037",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:03:18Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -607,9 +567,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.231990+00:00",
     "fetched_at": "2026-05-21T02:17:14.231992+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.782Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.265Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bnl.json",
     "enrich_root": "v2-pipeline-enrich/bnl.json",

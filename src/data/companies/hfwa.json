@@ -1,6 +1,6 @@
 {
   "ticker": "HFWA",
-  "name": "Heritage Financial Corporation",
+  "name": "Heritage Financial",
   "sector": "Finance",
   "subsector": "Commercial Banking",
   "tagline": "A community bank with a heritage of service and strength in regional U.S. West Coast markets.",
@@ -39,8 +39,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 42.7,
-      "period_type": "quarter",
-      "signal_en": "Strong growth, robust momentum"
+      "period_type": "year",
+      "signal_en": "Strong growth, robust momentum",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Allowance for Credit Losses",
@@ -94,8 +97,8 @@
       "name_fr": "Portefeuille total de prêts",
       "name_en": "Total Loans Receivable",
       "explanation": "Valeur totale des prêts accordés par la banque.",
-      "value": "4783.266",
-      "unit": "M $",
+      "value": 4.783,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Revenue",
       "nature": "Structurel",
@@ -105,20 +108,21 @@
       "history": [
         null,
         null,
-        4783.266
+        4.783
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Commercial Business Loans",
       "name_fr": "Prêts aux entreprises",
       "name_en": "Commercial Business Loans",
       "explanation": "Prêts accordés aux entreprises, y compris industriels et immobiliers commerciaux.",
-      "value": "3910.673",
-      "unit": "M $",
+      "value": 3.911,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Revenue",
       "nature": "Structurel",
@@ -128,12 +132,13 @@
       "history": [
         null,
         null,
-        3910.673
+        3.911
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Residential Real Estate Loans",
@@ -162,18 +167,18 @@
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.068,
-      "unit": "Mds $",
+      "value": 68,
+      "unit": "M $",
       "yoy": "+58.1%",
       "history": [
-        0.053,
-        0.068,
-        0.047,
-        0.098,
-        0.082,
-        0.062,
-        0.043,
-        0.068
+        53,
+        68,
+        47,
+        98,
+        82,
+        62,
+        43,
+        68
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -182,8 +187,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -209,8 +219,12 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -227,7 +241,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise mentionne que son allowance pour credit losses peut s'avérer insuffisante pour absorber les pertes potentielles dans son portefeuille de prêts. Cela est mentionné dans la section Item 1A, ce qui indique une importance significative.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée à des pertes potentielles dans son portefeuille de prêts si son allowance pour credit losses est insuffisante."
+      "summary": "L'entreprise est exposée à des pertes potentielles dans son portefeuille de prêts si son allowance pour credit losses est insuffisante.",
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
@@ -235,7 +250,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est exposée à des changements dans les taux d'intérêt qui peuvent affecter son revenu net et sa marge d'intérêt. Cela est mentionné dans la section Item 7A, ce qui indique une importance significative.",
       "trend": "up",
-      "summary": "L'entreprise est exposée à des changements dans les taux d'intérêt qui peuvent affecter son revenu net et sa marge d'intérêt."
+      "summary": "L'entreprise est exposée à des changements dans les taux d'intérêt qui peuvent affecter son revenu net et sa marge d'intérêt.",
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
@@ -243,7 +259,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise mentionne que les conditions économiques ont rendu le risque de liquidité plus préoccupant. Cela est mentionné dans la section Item 7A, ce qui indique une importance moyenne.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée à des risques de liquidité en raison des conditions économiques actuelles."
+      "summary": "L'entreprise est exposée à des risques de liquidité en raison des conditions économiques actuelles.",
+      "score": 3
     },
     {
       "title": "Risque opérationnel",
@@ -251,7 +268,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise mentionne qu'elle est exposée à des risques opérationnels tels que la perte due à des comportements humains, des systèmes et des contrôles internes inadéquats. Cela est mentionné dans la section Item 7A, ce qui indique une importance moyenne.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée à des risques opérationnels qui peuvent affecter ses opérations et ses résultats financiers."
+      "summary": "L'entreprise est exposée à des risques opérationnels qui peuvent affecter ses opérations et ses résultats financiers.",
+      "score": 3
     },
     {
       "title": "Risque de réputation",
@@ -259,7 +277,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise mentionne qu'elle est exposée à des risques de réputation en raison de la non-conformité aux règles et réglementations. Cela est mentionné dans la section Item 7A, ce qui indique une importance moyenne.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée à des risques de réputation en raison de la non-conformité aux règles et réglementations."
+      "summary": "L'entreprise est exposée à des risques de réputation en raison de la non-conformité aux règles et réglementations.",
+      "score": 3
     },
     {
       "title": "Risque de bonne volonté",
@@ -267,7 +286,8 @@
       "severity": 2,
       "score_rationale": "L'entreprise mentionne que la bonne volonté peut être affectée par des changements dans l'environnement économique ou des événements défavorables. Cela est mentionné dans la section Item 1A, ce qui indique une importance faible.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée à des risques de bonne volonté en raison de changements dans l'environnement économique ou des événements défavorables."
+      "summary": "L'entreprise est exposée à des risques de bonne volonté en raison de changements dans l'environnement économique ou des événements défavorables.",
+      "score": 2
     },
     {
       "title": "Risque de conformité",
@@ -275,7 +295,8 @@
       "severity": 2,
       "score_rationale": "L'entreprise mentionne qu'elle est exposée à des risques de conformité en raison de la non-conformité aux règles et réglementations. Cela est mentionné dans la section Item 7A, ce qui indique une importance faible.",
       "trend": "stable",
-      "summary": "L'entreprise est exposée à des risques de conformité en raison de la non-conformité aux règles et réglementations."
+      "summary": "L'entreprise est exposée à des risques de conformité en raison de la non-conformité aux règles et réglementations.",
+      "score": 2
     }
   ],
   "governance": {
@@ -308,7 +329,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -497,9 +518,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.271256+00:00",
     "fetched_at": "2026-05-21T02:17:14.271257+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.029Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.678Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hfwa.json",
     "enrich_root": "v2-pipeline-enrich/hfwa.json",

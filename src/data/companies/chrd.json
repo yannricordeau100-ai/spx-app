@@ -1,6 +1,6 @@
 {
   "ticker": "CHRD",
-  "name": "Chord Energy Corporation",
+  "name": "Chord Energy",
   "sector": "Énergie",
   "subsector": "Oil & Gas Exploration & Production",
   "tagline": "A low-cost, disciplined operator focused on sustainable value creation in the Williston Basin",
@@ -38,11 +38,14 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 70.28,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Gross Margin (%) not found in the provided 10-K extract. The document contains MD&A and financial statement exhibits sections but no explici",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -74,8 +77,8 @@
       "name_fr": "Investissements en capital (dépenses)",
       "name_en": "Capital Expenditures",
       "explanation": "Montant investi dans les infrastructures productives comme les puits et équipements.",
-      "value": "0.8",
-      "unit": "Mds $",
+      "value": 800,
+      "unit": "M $",
       "yoy": "-12%",
       "type": "Investment",
       "nature": "Conjoncturel",
@@ -83,16 +86,17 @@
       "signal": "Réduction du capex en réponse à la stabilisation de la production.",
       "description": "Le capex diminue par rapport à l'année précédente, dans un contexte de discipline capitalique.",
       "history": [
-        0.9,
-        0.8
+        900,
+        800
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "ttm": 0.78,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Headcount",
@@ -116,7 +120,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 335.73,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Pressure, deteriorating trend"
     },
     {
@@ -140,13 +144,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 4.88 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:10.925119+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -165,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 13.07 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -188,33 +200,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.63 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "+375.0%",
       "history": [
-        0.59,
-        0.32,
-        0.04,
-        0.19
+        590,
+        320,
+        40,
+        190
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.19 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -231,7 +252,8 @@
       "severity": 4,
       "score_rationale": "L'inflation peut impacter la rentabilité de l'entreprise en augmentant les coûts de main-d'oeuvre, de matériaux et de services. Cela est mentionné dans l'Item 1A.",
       "trend": "up",
-      "summary": "L'inflation peut réduire la rentabilité de l'entreprise"
+      "summary": "L'inflation peut réduire la rentabilité de l'entreprise",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques",
@@ -239,7 +261,8 @@
       "severity": 3,
       "score_rationale": "Les événements géopolitiques pourraient affecter indirectement les marchés énergétiques mondiaux, mais CHRD opère principalement dans le Bassin Williston aux États-Unis.",
       "trend": "stable",
-      "summary": "Les événements géopolitiques globaux pourraient affecter les marchés énergétiques"
+      "summary": "Les événements géopolitiques globaux pourraient affecter les marchés énergétiques",
+      "score": 3
     },
     {
       "title": "Risques de crédit",
@@ -247,7 +270,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise a des dettes à long terme (1,5 Md$ en senior unsecured notes) et des obligations de retraite. Cela est mentionné dans les états financiers.",
       "trend": "stable",
-      "summary": "Les risques de crédit peuvent impacter la capacité de l'entreprise à rembourser ses dettes"
+      "summary": "Les risques de crédit peuvent impacter la capacité de l'entreprise à rembourser ses dettes",
+      "score": 3
     },
     {
       "title": "Risques réglementaires",
@@ -255,7 +279,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est soumise à des réglementations environnementales et énergétiques. Cela est mentionné dans l'Item 1A.",
       "trend": "up",
-      "summary": "Les changements réglementaires peuvent impacter les opérations de l'entreprise"
+      "summary": "Les changements réglementaires peuvent impacter les opérations de l'entreprise",
+      "score": 4
     },
     {
       "title": "Risques opérationnels",
@@ -263,7 +288,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est exposée à des risques opérationnels tels que les accidents et les pannes dans ses opérations d'exploration-production. Cela est mentionné dans les états financiers.",
       "trend": "stable",
-      "summary": "Les risques opérationnels peuvent impacter la production et la rentabilité de l'entreprise"
+      "summary": "Les risques opérationnels peuvent impacter la production et la rentabilité de l'entreprise",
+      "score": 4
     },
     {
       "title": "Risques de marché (Volatilité des prix)",
@@ -271,7 +297,8 @@
       "severity": 5,
       "score_rationale": "L'entreprise est hautement exposée aux fluctuations des prix du pétrole brut et du gaz naturel. Une baisse de 10% des prix entraînerait une réduction de 1,8 Md$ de la PV-10. Cela est mentionné dans l'Item 1A.",
       "trend": "up",
-      "summary": "Les fluctuations des prix des matières premières impactent directement la rentabilité et la valeur des réserves"
+      "summary": "Les fluctuations des prix des matières premières impactent directement la rentabilité et la valeur des réserves",
+      "score": 5
     }
   ],
   "governance": {
@@ -305,7 +332,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -458,6 +485,60 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "CHRD",
+    "extracted_at": "2026-06-01T03:06:06Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Op Margin",
+        "period_type": "quarter",
+        "history": [
+          30.57,
+          89.29,
+          40.89,
+          44.73,
+          41.93,
+          45.2,
+          36.36,
+          27.53,
+          31.39,
+          25.15,
+          22.94,
+          18.82,
+          27.83,
+          13.02
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:06:06Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (CHRD)"
+        ]
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "CHRD",
     "ranks": {
@@ -470,15 +551,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.238493+00:00",
     "fetched_at": "2026-05-21T02:17:14.238494+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.377Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.821Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/chrd.json",
     "enrich_root": "v2-pipeline-enrich/chrd.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

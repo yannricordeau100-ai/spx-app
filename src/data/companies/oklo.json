@@ -38,11 +38,14 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 76.66,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Aucune valeur annuelle explicite de R&D (investissements en recherche et développement) trouvée dans l'extrait du 10-K fourni. Le document c",
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "G&A",
@@ -94,8 +97,8 @@
       "name_fr": "Trésorerie et titres négociables",
       "name_en": "Cash, Cash Equivalents and Marketable Debt Securities",
       "explanation": "Liquidités disponibles pour financer les opérations et les investissements futurs.",
-      "value": "1412.5",
-      "unit": "M $",
+      "value": 1.413,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Capital",
       "nature": "Structurel",
@@ -103,12 +106,13 @@
       "signal": "Trésorerie élevée, renforçant la capacité à financer le développement sans levée immédiate.",
       "description": "Au 31 décembre 2025, Oklo disposait de 1,41 milliard de dollars en trésorerie et titres, provenant notamment d'émissions d'actions en 2025.",
       "history": [
-        1412.5
+        1.413
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Cash Flow",
@@ -132,7 +136,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 105.64,
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -164,8 +168,8 @@
       "name_fr": "Cash-flow de financement",
       "name_en": "Net Cash Provided by Financing Activities",
       "explanation": "Entrées de trésorerie issues des levées de fonds ou émissions d'actions.",
-      "value": "1263.2",
-      "unit": "M $",
+      "value": 1.263,
+      "unit": "Mds $",
       "yoy": "+319.1%",
       "type": "Capital",
       "nature": "Conjoncturel",
@@ -173,15 +177,16 @@
       "signal": "Fort afflux de capitaux en 2025, soutenant la croissance future.",
       "description": "Oklo a levé 1,26 milliard de dollars en 2025 via des émissions d'actions, contre 301,4M$ en 2024, marquant une accélération significative du financement.",
       "history": [
-        301.4,
-        1263.2
+        0.301,
+        1.263
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
       "ttm": 2270.95,
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Assets",
@@ -200,11 +205,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.53 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -230,9 +239,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "ttm": 76.66,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 76.66
     },
     {
       "short": "G&A",
@@ -256,9 +263,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "ttm": 122.22,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 122.22
     }
   ],
   "ai_positioning": {
@@ -272,55 +277,55 @@
       "title": "Absence de contrat d'achat d'énergie contraignant",
       "category": "Concurrence",
       "severity": 5,
-      "score_rationale": "Le risque est mentionné en première section du 10-K, avec un langage fort (no guarantee, material adverse effect). Il est central au modèle économique et répété plusieurs fois, ce qui indique une préoccupation majeure. La catégorie Concurrence est pondérée car cela impacte la capacité à gagner des parts de marché. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné en première section du 10-K, avec un langage fort (no guarantee, material adverse effect). Il est central au modèle économique et répété plusieurs fois, ce qui indique une préoccupation majeure. La catégorie Concurrence est pondérée car cela impacte la capacité à gagner des parts de marché.",
       "trend": "stable",
       "summary": "L'entreprise n'a aucun contrat contraignant pour vendre de l'électricité ou de la chaleur, ce qui menace sa viabilité commerciale.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à des fournisseurs limités pour composants critiques",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Le texte souligne la dépendance à des fournisseurs spécialisés pour des composants uniques, avec un langage d'alerte forte (challenging, may not be commercially available). Ce risque est répété et lié à la construction des centrales, ce qui en fait un enjeu existentiel. (score par défaut, à affiner)",
+      "score_rationale": "Le texte souligne la dépendance à des fournisseurs spécialisés pour des composants uniques, avec un langage d'alerte forte (challenging, may not be commercially available). Ce risque est répété et lié à la construction des centrales, ce qui en fait un enjeu existentiel.",
       "trend": "stable",
       "summary": "OKLO dépend de fournisseurs restreints pour des pièces hautement spécialisées, ce qui expose la chaîne de production à des ruptures.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Absence d'approbation réglementaire garantie pour ses réacteurs",
       "category": "Régulation",
       "severity": 5,
-      "score_rationale": "Le document indique qu'aucune licence n'a été déposée ni obtenue auprès de la NRC, avec un langage alarmant (not guaranteed, highly regulated). La réglementation nucléaire est de haute intensité, et ce risque est fondamental pour le déploiement. (score par défaut, à affiner)",
+      "score_rationale": "Le document indique qu'aucune licence n'a été déposée ni obtenue auprès de la NRC, avec un langage alarmant (not guaranteed, highly regulated). La réglementation nucléaire est de haute intensité, et ce risque est fondamental pour le déploiement.",
       "trend": "stable",
       "summary": "OKLO n'a pas encore déposé de demande de licence pour ses réacteurs, et l'approbation réglementaire n'est pas assurée, retardant tout déploiement.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Perte possible de personnel clé",
       "category": "Personne-clé",
       "severity": 4,
-      "score_rationale": "Le risque est explicitement mentionné avec un langage fort (material adverse effect). La catégorie est pondérée car l'entreprise est en phase de démarrage et dépend fortement de ses dirigeants. Position centrale dans le 10-K. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est explicitement mentionné avec un langage fort (material adverse effect). La catégorie est pondérée car l'entreprise est en phase de démarrage et dépend fortement de ses dirigeants. Position centrale dans le 10-K.",
       "trend": "stable",
       "summary": "La démission de cadres ou de personnel hautement qualifié pourrait gravement nuire à la mise en œuvre du plan d'affaires.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Indisponibilité du combustible HALEU ou au plutonium",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Le texte insiste sur l'absence de disponibilité à grande échelle du HALEU et des combustibles au plutonium, avec des défis réglementaires et de construction. Langage fort (not currently available at scale, may take longer or cost more). Risque existentiel pour le fonctionnement des réacteurs. (score par défaut, à affiner)",
+      "score_rationale": "Le texte insiste sur l'absence de disponibilité à grande échelle du HALEU et des combustibles au plutonium, avec des défis réglementaires et de construction. Langage fort (not currently available at scale, may take longer or cost more). Risque existentiel pour le fonctionnement des réacteurs.",
       "trend": "stable",
       "summary": "Le fonctionnement de ses réacteurs dépend de combustibles nucléaires non disponibles à grande échelle, ce qui menace leur viabilité technique.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Perte de confiance due à la perception négative de l'énergie nucléaire",
       "category": "Reputation",
       "severity": 4,
-      "score_rationale": "Le risque est mentionné implicitement dans le contexte des défis réglementaires et de perception publique du nucléaire. Bien que moins explicitement détaillé que d'autres risques, le secteur nucléaire fait face à des préoccupations persistantes de perception publique. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné implicitement dans le contexte des défis réglementaires et de perception publique du nucléaire. Bien que moins explicitement détaillé que d'autres risques, le secteur nucléaire fait face à des préoccupations persistantes de perception publique.",
       "trend": "stable",
       "summary": "Les préoccupations publiques concernant la sécurité et les déchets nucléaires pourraient compliquer l'acceptation social et réglementaire des projets.",
-      "score": 3
+      "score": 4
     }
   ],
   "_validation": [
@@ -361,7 +366,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -498,7 +503,10 @@
             "accession": "0001628280-26-034095",
             "end": "2026-03-31"
           }
-        ]
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Cash & Securities",
@@ -574,7 +582,10 @@
             "accession": "0001628280-26-034095",
             "end": "2026-03-31"
           }
-        ]
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ]
   },
@@ -590,9 +601,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.293422+00:00",
     "fetched_at": "2026-05-21T02:17:14.293423+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.266Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.221Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/oklo.json",
     "enrich_root": "v2-pipeline-enrich/oklo.json",

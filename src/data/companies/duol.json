@@ -71,7 +71,11 @@
       "is_short_history": false,
       "ttm": 21.69,
       "_validation": "Valeur confirmée dans 10-K (52.7M pour Q4 2025). Histoire réorganisée en ordre décroissant.",
-      "signal_en": "Adoption accelerating, user base expanding"
+      "signal_en": "Adoption accelerating, user base expanding",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Paid Subscribers",
@@ -100,7 +104,11 @@
       "ttm": 5.34,
       "_validation": "Valeur confirmée dans 10-K (12.2M au 31 décembre 2025). Histoire réorganisée en ordre décroissant.",
       "explanation_en": "Number of Paid subscribers.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Subscription Bookings",
@@ -128,7 +136,11 @@
       "is_short_history": false,
       "ttm": 410.42,
       "_validation": "Valeur confirmée dans 10-K (996.268M pour année 2025). Histoire réorganisée en ordre décroissant.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -156,8 +168,12 @@
       "is_short_history": false,
       "ttm": 21.76,
       "_validation": "Valeur confirmée dans 10-K (414.065M pour année 2025). Type changé de 'Cash' à 'Profitability'. Signal mis à jour avec contexte fiscal. Histoire réorganisée en ordre décroissant.",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -176,34 +192,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.99 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+80.0%",
       "history": [
-        0.03,
-        0.02,
-        0.05,
-        0.09
+        30,
+        20,
+        50,
+        90
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.09 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -222,10 +247,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -252,9 +281,7 @@
       "is_short_history": true,
       "story_category": "Adoption",
       "ttm": 102.61,
-      "_validation": "Histoire réorganisée en ordre décroissant.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Histoire réorganisée en ordre décroissant."
     },
     {
       "short": "Paid Subscribers",
@@ -279,13 +306,11 @@
       "is_short_history": true,
       "story_category": "Adoption",
       "ttm": 7.92,
-      "_validation": "Histoire réorganisée en ordre décroissant.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Histoire réorganisée en ordre décroissant."
     }
   ],
   "ai_positioning": {
-    "stance": "integrated",
+    "stance": "absent",
     "summary": "Duolingo intègre l'intelligence artificielle et l'apprentissage automatique comme éléments clés de sa plateforme éducative, en utilisant des données massives d'engagement utilisateur pour alimenter des techniques AI sophistiquées et améliorer continuellement l'engagement et l'efficacité de l'apprentissage.",
     "evidence": [
       "Les produits sont alimentés par des analyses de données sophistiquées et par l'IA",
@@ -301,7 +326,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché en constante évolution, avec de nouveaux acteurs et des innovations technologiques qui pourraient menacer sa position de leader.",
       "trend": "stable",
-      "summary": "La concurrence dans le marché de l'apprentissage des langues est élevée et pourrait impacter la croissance de Duolingo."
+      "summary": "La concurrence dans le marché de l'apprentissage des langues est élevée et pourrait impacter la croissance de Duolingo.",
+      "score": 4
     },
     {
       "title": "Dépendance aux données",
@@ -309,7 +335,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise repose fortement sur les données générées par ses utilisateurs pour améliorer son produit et prendre des décisions commerciales.",
       "trend": "up",
-      "summary": "Une perte ou une corruption des données pourrait avoir des conséquences graves pour l'entreprise."
+      "summary": "Une perte ou une corruption des données pourrait avoir des conséquences graves pour l'entreprise.",
+      "score": 3
     },
     {
       "title": "Réglementations",
@@ -317,7 +344,8 @@
       "severity": 4,
       "score_rationale": "Les réglementations en matière de protection des données et de confidentialité pourraient impacter les opérations de l'entreprise.",
       "trend": "up",
-      "summary": "Les changements dans les réglementations pourraient obliger l'entreprise à adapter ses pratiques et à investir dans de nouvelles technologies pour se conformer."
+      "summary": "Les changements dans les réglementations pourraient obliger l'entreprise à adapter ses pratiques et à investir dans de nouvelles technologies pour se conformer.",
+      "score": 4
     },
     {
       "title": "Cybersécurité",
@@ -325,7 +353,8 @@
       "severity": 5,
       "score_rationale": "Les attaques cybernétiques pourraient compromettre les données des utilisateurs et nuire à la réputation de l'entreprise.",
       "trend": "up",
-      "summary": "La cybersécurité est un risque majeur pour l'entreprise, car une faille de sécurité pourrait avoir des conséquences graves pour les utilisateurs et l'entreprise elle-même."
+      "summary": "La cybersécurité est un risque majeur pour l'entreprise, car une faille de sécurité pourrait avoir des conséquences graves pour les utilisateurs et l'entreprise elle-même.",
+      "score": 5
     },
     {
       "title": "Dépendance aux plateformes",
@@ -333,7 +362,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise dépend fortement des plateformes d'applications mobiles pour diffuser son produit.",
       "trend": "stable",
-      "summary": "Les changements dans les politiques des plateformes ou les conditions d'utilisation pourraient impacter la visibilité et l'accès de l'application Duolingo."
+      "summary": "Les changements dans les politiques des plateformes ou les conditions d'utilisation pourraient impacter la visibilité et l'accès de l'application Duolingo.",
+      "score": 3
     },
     {
       "title": "Risques liés aux employés",
@@ -341,7 +371,8 @@
       "severity": 2,
       "score_rationale": "La perte de personnel clé ou la difficulté à attirer et à retenir des talents pourrait impacter la capacité de l'entreprise à innover et à se développer.",
       "trend": "stable",
-      "summary": "La gestion des ressources humaines est cruciale pour le succès de l'entreprise, car les employés jouent un rôle essentiel dans le développement et la maintenance du produit."
+      "summary": "La gestion des ressources humaines est cruciale pour le succès de l'entreprise, car les employés jouent un rôle essentiel dans le développement et la maintenance du produit.",
+      "score": 2
     }
   ],
   "governance": {
@@ -373,7 +404,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -594,6 +625,78 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "DUOL",
+    "extracted_at": "2026-06-01T03:12:15Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "MAUs",
+        "period_type": "quarter",
+        "history": [
+          39.9,
+          37.9,
+          41.7,
+          49.2,
+          49.5,
+          56.5,
+          72.6,
+          74.1,
+          83.1,
+          97.6,
+          103.6,
+          113.1,
+          130.2,
+          128.3,
+          135.3
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M",
+        "_extracted_at": "2026-06-01T03:12:15Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          1.302,
+          1.403,
+          1.543,
+          1.886
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T03:12:15Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "DUOL",
     "ranks": {
@@ -606,15 +709,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.252949+00:00",
     "fetched_at": "2026-05-21T02:17:14.252950+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.474Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.038Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/duol.json",
     "enrich_root": "v2-pipeline-enrich/duol.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

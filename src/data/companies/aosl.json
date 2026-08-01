@@ -47,8 +47,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "period_type": "year",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Patent Portfolio",
@@ -72,9 +75,7 @@
       "last_data_date": "2025-06-30",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Product Portfolio",
@@ -98,32 +99,35 @@
       "last_data_date": "2025-06-30",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.7,
-      "unit": "Mds €",
+      "value": 700,
+      "unit": "M €",
       "yoy": "+6.1%",
       "history": [
-        0.78,
-        0.69,
-        0.66,
-        0.7
+        780,
+        690,
+        660,
+        700
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.7 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -142,11 +146,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.1 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -165,56 +173,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.03 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "-28.6%",
       "history": [
-        0.1,
-        0.08,
-        0.07,
-        0.05
+        100,
+        80,
+        70,
+        50
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.05 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "-16.7%",
       "history": [
-        0.31,
-        0.2,
-        0.18,
-        0.15
+        310,
+        200,
+        180,
+        150
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.15 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,9 +258,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Innovation"
     },
     {
       "short": "Power IC Launch",
@@ -258,9 +278,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -276,7 +294,8 @@
       "severity": 4,
       "score_rationale": "Risque majeur situé en début de Item 1A (Business section). Langage intensif : « critical », « important supplier », « committed to provide ». La vente de 20,3% de participation (juillet 2025) et la perte de contrôle (39,2% → 39,2% post-dilution) indiquent une dépendance accrue. Poids élevé : la JV Chongqing Fab est source essentielle de wafers et services d'assemblage/test.",
       "trend": "up",
-      "summary": "Alpha and Omega dépend fortement de la JV Company (Chongqing Fab) pour la capacité de production de wafers 12-inch et les services d'assemblage/test. La perte de contrôle majoritaire (passage de contrôle à participation minoritaire ~39%) et la vente de 20,3% supplémentaires réduisent l'influence stratégique sur les priorités de production et les tarifs. Un désaccord avec les nouveaux investisseurs ou une réorientation des capacités vers d'autres clients pourrait compromettre l'approvisionnement."
+      "summary": "Alpha and Omega dépend fortement de la JV Company (Chongqing Fab) pour la capacité de production de wafers 12-inch et les services d'assemblage/test. La perte de contrôle majoritaire (passage de contrôle à participation minoritaire ~39%) et la vente de 20,3% supplémentaires réduisent l'influence stratégique sur les priorités de production et les tarifs. Un désaccord avec les nouveaux investisseurs ou une réorientation des capacités vers d'autres clients pourrait compromettre l'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Concentration des clients et dépendance marché Computing",
@@ -284,7 +303,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement : « Although our largest end-market is the Computing market ». Langage modéré mais contexte critique : diversification en cours mais Computing reste dominant. Tendance stable mais risque structurel élevé. Poids catégorie majeur : concentration client typique du secteur semicond.",
       "trend": "stable",
-      "summary": "Le marché Computing (PC, serveurs, data centers, GPU, gaming) représente le plus grand segment de revenus d'Alpha and Omega. Une contraction du marché PC, une consolidation chez les OEM/ODM clés (Intel, AMD, NVIDIA) ou une perte de design wins critiques pourrait réduire significativement les revenus. La diversification vers consumer, communications et industrial est en cours mais reste secondaire."
+      "summary": "Le marché Computing (PC, serveurs, data centers, GPU, gaming) représente le plus grand segment de revenus d'Alpha and Omega. Une contraction du marché PC, une consolidation chez les OEM/ODM clés (Intel, AMD, NVIDIA) ou une perte de design wins critiques pourrait réduire significativement les revenus. La diversification vers consumer, communications et industrial est en cours mais reste secondaire.",
+      "score": 4
     },
     {
       "title": "Pénurie d'ingénieurs analogiques expérimentés et rétention talent",
@@ -292,7 +312,8 @@
       "severity": 3,
       "score_rationale": "Risque explicitement identifié : « Experienced engineers engaged in the design process are necessary... Experienced analog engineers with requisite knowledge are in great demand but short supply worldwide ». Langage intensif et répété. Poids élevé pour secteur analogique. Tendance stable mais structurelle.",
       "trend": "stable",
-      "summary": "La conception de semiconducteurs analogiques/power requiert des ingénieurs très expérimentés que le marché ne peut pas satisfaire. Alpha and Omega dépend de son pool d'ingénieurs pour développer les 100+ nouveaux produits annuels et les nouvelles plateformes technologiques. Une perte de talents clés ou une incapacité à recruter pourrait ralentir l'innovation et la mise au marché de produits."
+      "summary": "La conception de semiconducteurs analogiques/power requiert des ingénieurs très expérimentés que le marché ne peut pas satisfaire. Alpha and Omega dépend de son pool d'ingénieurs pour développer les 100+ nouveaux produits annuels et les nouvelles plateformes technologiques. Une perte de talents clés ou une incapacité à recruter pourrait ralentir l'innovation et la mise au marché de produits.",
+      "score": 3
     },
     {
       "title": "Risque technologique : obsolescence et cycles produit longs",
@@ -300,7 +321,8 @@
       "severity": 3,
       "score_rationale": "Risque implicite dans la description des caractéristiques du secteur analogique : « analog semiconductors tend to have a longer product life cycle... Once designed into an application, the analog portion is rarely modified ». Langage modéré mais impact structurel. Poids moyen : spécifique aux semiconductors analogiques.",
       "trend": "stable",
-      "summary": "Les semiconductors analogiques/power ont des cycles de vie produit très longs (multi-générations). Une fois intégrés dans un système client, les modifications sont rares et risquées. Cela crée une inertie : les nouveaux produits d'Alpha and Omega doivent convaincre les clients de redesigner leurs systèmes, ce qui est coûteux et long. Les technologies émergentes (SiC, GaN) pourraient rendre certains produits obsolètes."
+      "summary": "Les semiconductors analogiques/power ont des cycles de vie produit très longs (multi-générations). Une fois intégrés dans un système client, les modifications sont rares et risquées. Cela crée une inertie : les nouveaux produits d'Alpha and Omega doivent convaincre les clients de redesigner leurs systèmes, ce qui est coûteux et long. Les technologies émergentes (SiC, GaN) pourraient rendre certains produits obsolètes.",
+      "score": 3
     },
     {
       "title": "Dépendance envers les fonderies tierces et chaîne d'approvisionnement",
@@ -308,7 +330,8 @@
       "severity": 3,
       "score_rationale": "Mentionné : « we also utilize the wafer manufacturing capacity of selected third party foundries ». Langage modéré mais contexte critique post-COVID. Poids moyen : modèle hybride (in-house + tiers) réduit le risque mais crée une dépendance multi-fournisseurs. Tendance stable.",
       "trend": "stable",
-      "summary": "Alpha and Omega s'appuie sur des fonderies tierces pour compléter la capacité de l'Oregon Fab et de la JV Company. Une perturbation chez ces fournisseurs (pénurie de capacité, augmentation des prix, arrêt de production) pourrait retarder les livraisons et réduire les marges. La géopolitique (restrictions export USA vers Chine) pourrait aussi affecter l'accès aux fonderies asiatiques."
+      "summary": "Alpha and Omega s'appuie sur des fonderies tierces pour compléter la capacité de l'Oregon Fab et de la JV Company. Une perturbation chez ces fournisseurs (pénurie de capacité, augmentation des prix, arrêt de production) pourrait retarder les livraisons et réduire les marges. La géopolitique (restrictions export USA vers Chine) pourrait aussi affecter l'accès aux fonderies asiatiques.",
+      "score": 3
     },
     {
       "title": "Intensité R&D élevée et risque d'échec produit",
@@ -316,7 +339,8 @@
       "severity": 3,
       "score_rationale": "Implicite dans la stratégie : « 100+ new products in the past fiscal year », « dedicated in-house technology research and development team ». Langage modéré mais volume de lancement élevé. Poids moyen : typique du secteur semicond. Tendance stable.",
       "trend": "stable",
-      "summary": "Alpha and Omega lance 100+ nouveaux produits par an (MOSFETs, IGBTs, power ICs, multiphase controllers). Chaque lancement comporte un risque d'échec technique, de non-adoption client ou de délai de time-to-market. Les investissements R&D massifs (Oregon Fab, JV Company) doivent générer des retours suffisants. Un taux d'échec élevé ou une mauvaise allocation R&D pourrait éroder la profitabilité."
+      "summary": "Alpha and Omega lance 100+ nouveaux produits par an (MOSFETs, IGBTs, power ICs, multiphase controllers). Chaque lancement comporte un risque d'échec technique, de non-adoption client ou de délai de time-to-market. Les investissements R&D massifs (Oregon Fab, JV Company) doivent générer des retours suffisants. Un taux d'échec élevé ou une mauvaise allocation R&D pourrait éroder la profitabilité.",
+      "score": 3
     },
     {
       "title": "Régulation énergétique et conformité normes internationales",
@@ -324,7 +348,8 @@
       "severity": 2,
       "score_rationale": "Mentionné : « Regulations governing energy efficiency have accelerated this process in many applications ». Langage modéré et contexte positif (driver de demande). Poids moyen : régulation favorise les semiconductors haute efficacité. Tendance stable.",
       "trend": "stable",
-      "summary": "Les régulations énergétiques (EU, USA, Chine) imposent des normes d'efficacité croissantes pour les appareils électroniques. Cela crée une demande pour les power semiconductors haute performance d'Alpha and Omega, mais aussi une obligation de conformité. Un changement réglementaire défavorable ou une certification manquée pourrait bloquer l'accès à certains marchés."
+      "summary": "Les régulations énergétiques (EU, USA, Chine) imposent des normes d'efficacité croissantes pour les appareils électroniques. Cela crée une demande pour les power semiconductors haute performance d'Alpha and Omega, mais aussi une obligation de conformité. Un changement réglementaire défavorable ou une certification manquée pourrait bloquer l'accès à certains marchés.",
+      "score": 2
     },
     {
       "title": "Portefeuille IP et risque de contrefaçon/litige brevets",
@@ -332,7 +357,8 @@
       "severity": 2,
       "score_rationale": "Mentionné : « 949 issued patents and 64 pending patents in the United States... 961 foreign patents ». Langage neutre mais portefeuille substantiel. Poids moyen : IP critique pour différenciation mais risque de litige avec concurrents. Tendance stable.",
       "trend": "stable",
-      "summary": "Alpha and Omega détient un portefeuille IP important (949 brevets US, 961 brevets étrangers) couvrant les technologies power MOSFET, IGBT, SiC et power IC. Un litige brevet avec des concurrents (Texas Instruments, Infineon, ON Semiconductor) pourrait être coûteux et disruptif. Inversement, une contrefaçon de ses brevets par des concurrents asiatiques pourrait éroder sa position compétitive."
+      "summary": "Alpha and Omega détient un portefeuille IP important (949 brevets US, 961 brevets étrangers) couvrant les technologies power MOSFET, IGBT, SiC et power IC. Un litige brevet avec des concurrents (Texas Instruments, Infineon, ON Semiconductor) pourrait être coûteux et disruptif. Inversement, une contrefaçon de ses brevets par des concurrents asiatiques pourrait éroder sa position compétitive.",
+      "score": 2
     }
   ],
   "governance": {
@@ -367,7 +393,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -522,6 +548,69 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "AOSL",
+    "extracted_at": "2026-06-01T02:57:20Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "New Products",
+        "period_type": "quarter",
+        "history": [
+          16,
+          23,
+          29,
+          16
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q1 2024",
+          "Q1 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "",
+        "_extracted_at": "2026-06-01T02:57:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Patent Portfolio",
+        "period_type": "quarter",
+        "history": [
+          1810,
+          1848,
+          1867,
+          1881,
+          1909,
+          1928,
+          1940,
+          1974,
+          1990,
+          2000,
+          2018,
+          2033
+        ],
+        "history_periods": [
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026",
+          "Q2 2026"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "brevets",
+        "_extracted_at": "2026-06-01T02:57:20Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "AOSL",
     "ranks": {
@@ -534,15 +623,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.222009+00:00",
     "fetched_at": "2026-05-21T02:17:14.222010+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.871Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.312Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aosl.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

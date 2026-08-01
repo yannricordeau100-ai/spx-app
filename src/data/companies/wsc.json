@@ -1,6 +1,6 @@
 {
   "ticker": "WSC",
-  "name": "WillScot Holdings Corporation",
+  "name": "WillScot Holdings",
   "sector": "Industrie",
   "subsector": "Rental and Leasing Services",
   "tagline": "Right from the Start",
@@ -21,8 +21,8 @@
       "name_fr": "Revenu de location",
       "name_en": "Leasing Revenue",
       "explanation": "Revenu généré par la location de solutions d'espace temporaires et de stockage portable",
-      "value": 2281.446,
-      "unit": "M $",
+      "value": 2.281,
+      "unit": "Mds $",
       "yoy": "-4.8%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -31,15 +31,15 @@
       "description": "Revenu de location des solutions d'espace temporaires et portables. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 10 dernières années.",
       "history": [
         0,
-        445.942,
-        751.412,
-        1063.665,
-        1367.645,
-        1894.897,
-        2142.623,
-        2364.767,
-        2395.718,
-        2281.446
+        0.446,
+        0.751,
+        1.064,
+        1.368,
+        1.895,
+        2.143,
+        2.365,
+        2.396,
+        2.281
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -49,7 +49,8 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:51.222698+00:00",
       "explanation_en": "Revenue from the Leasing segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Adjusted EBITDA",
@@ -75,8 +76,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Cash Provided by Operating Activities",
@@ -102,7 +107,11 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -121,11 +130,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.28 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -144,11 +157,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.05 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -167,11 +184,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.82 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -190,11 +211,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.9 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -208,7 +233,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -221,7 +246,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding."
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding."
     },
     {
       "short": "Cap Return",
@@ -235,7 +260,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.7518,
@@ -248,7 +273,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -263,7 +288,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -276,7 +301,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -291,7 +316,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.53,
@@ -304,7 +329,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -344,34 +369,34 @@
       "title": "Risque économique",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "La société est exposée aux mouvements économiques mondiaux et locaux, qui peuvent avoir un impact négatif sur son activité. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'material adverse effect', (3) contexte vs N-1 : déclin de la construction non résidentielle aux États-Unis depuis 3 ans, (4) pondération catégorie : Macro (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée aux mouvements économiques mondiaux et locaux, qui peuvent avoir un impact négatif sur son activité. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'material adverse effect', (3) contexte vs N-1 : déclin de la construction non résidentielle aux États-Unis depuis 3 ans, (4) pondération catégorie : Macro",
       "trend": "stable",
       "summary": "La société est vulnérable aux fluctuations économiques mondiales et locales, ce qui peut affecter sa demande et ses résultats financiers.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché hautement concurrentiel, avec des entreprises nationales, régionales et locales. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'significant competition', (3) contexte vs N-1 : marché fragmenté avec environ 260 succursales pour maintenir la couverture, (4) pondération catégorie : Concurrence (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché hautement concurrentiel, avec des entreprises nationales, régionales et locales. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'significant competition', (3) contexte vs N-1 : marché fragmenté avec environ 260 succursales pour maintenir la couverture, (4) pondération catégorie : Concurrence",
       "trend": "stable",
       "summary": "La société fait face à une concurrence accrue, ce qui peut entraîner des pressions sur les prix et une perte de parts de marché.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société est exposée au risque de crédit, en particulier si les clients ont des difficultés financières. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'material adverse effect', (3) contexte vs N-1 : augmentation des radiations de créances (63,5 millions en 2025 vs niveaux antérieurs), (4) pondération catégorie : Crédit (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée au risque de crédit, en particulier si les clients ont des difficultés financières. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'material adverse effect', (3) contexte vs N-1 : augmentation des radiations de créances (63,5 millions en 2025 vs niveaux antérieurs), (4) pondération catégorie : Crédit",
       "trend": "up",
       "summary": "La société est vulnérable au risque de crédit, amplifié par l'augmentation des radiations de créances client en 2025 liées au recouvrement plus difficile.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementation gouvernementale",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "La société est soumise à diverses lois et réglementations gouvernementales, qui peuvent avoir un impact sur son activité. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'material harm', (3) contexte vs N-1 : réglementations environnementales liées aux solutions de stockage et conteneurs, (4) pondération catégorie : Régulation (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à diverses lois et réglementations gouvernementales, qui peuvent avoir un impact sur son activité. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'material harm', (3) contexte vs N-1 : réglementations environnementales liées aux solutions de stockage et conteneurs, (4) pondération catégorie : Régulation",
       "trend": "stable",
       "summary": "La société est soumise à des réglementations gouvernementales, ce qui peut entraîner des coûts et des complexités supplémentaires.",
       "score": 3
@@ -380,7 +405,7 @@
       "title": "Risque environnemental",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société est exposée à des risques environnementaux, en particulier en ce qui concerne les solutions de stockage et les conteneurs. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'material costs', (3) contexte vs N-1 : réglementations environnementales, (4) pondération catégorie : Industriel (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques environnementaux, en particulier en ce qui concerne les solutions de stockage et les conteneurs. (1) Position dans le 10-K : Risks Relating to Our Business, (2) intensité du langage : 'material costs', (3) contexte vs N-1 : réglementations environnementales, (4) pondération catégorie : Industriel",
       "trend": "stable",
       "summary": "La société est vulnérable à des risques environnementaux, ce qui peut affecter ses coûts et ses résultats financiers.",
       "score": 3
@@ -389,7 +414,7 @@
       "title": "Optimisation du réseau et sortie immobilière",
       "category": "Opérationnel",
       "severity": 3,
-      "score_rationale": "La société a lancé en décembre 2025 un plan d'optimisation du réseau impliquant des sorties immobilières et de réductions de flotte. (1) Position dans le 10-K : Network Optimization Plan, (2) intensité du langage : comprehensive, strategic analysis, (3) contexte : impact de 301,9 millions de dépréciations accélérées en 2025, (4) pondération catégorie : Opérationnel (score par défaut, à affiner)",
+      "score_rationale": "La société a lancé en décembre 2025 un plan d'optimisation du réseau impliquant des sorties immobilières et de réductions de flotte. (1) Position dans le 10-K : Network Optimization Plan, (2) intensité du langage : comprehensive, strategic analysis, (3) contexte : impact de 301,9 millions de dépréciations accélérées en 2025, (4) pondération catégorie : Opérationnel",
       "trend": "new",
       "summary": "La société exécute un plan d'optimisation du réseau complexe qui pourrait impacter la couverture de marché et les résultats d'exploitation à court terme.",
       "score": 3
@@ -427,7 +452,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -473,7 +498,7 @@
   "_ai_positioning_fetched_at": "2026-05-06T20:19:59.512362+00:00",
   "_segments_fetched_at": "2026-05-06T19:46:51.870971+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:41Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2017,
@@ -486,7 +511,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:18Z"
   },
   "_eps_extracted_at": "2026-05-18T16:48:20Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "WSC",
     "simple": {
@@ -586,23 +611,18 @@
         "history": [
           15.402,
           11.317,
-          -40.954,
           11.321,
           11.706,
           15.442,
-          -31.079,
           15.918,
           7.66,
           5.789,
-          -18.409,
           13.147,
           5.924,
           11.046,
-          -21.116,
           10.679,
           12.85,
           14.757,
-          -23.699,
           15.543
         ],
         "history_periods": [
@@ -656,6 +676,12 @@
             "accession": "0001647088-26-000031",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (WSC)"
         ]
       }
     ]
@@ -672,9 +698,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.329902+00:00",
     "fetched_at": "2026-05-21T02:17:14.329903+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.599Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.733Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wsc.json",
     "enrich_root": "v2-pipeline-enrich/wsc.json",

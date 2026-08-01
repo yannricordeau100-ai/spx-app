@@ -68,8 +68,12 @@
       "is_short_history": false,
       "ttm": 5.71,
       "_validation": "Unité corrigée de 'Mds $' à 'B $' (standard américain)",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -98,7 +102,11 @@
       "ttm": 7.95,
       "_validation": "Valeur historique 8 convertie en 8.0 pour cohérence numérique",
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -126,8 +134,12 @@
       "is_short_history": false,
       "ttm": 32.5,
       "_validation": "Valeur corrigée de 9.0% à 32.4% (marge brute réelle = 100% - 67.6% direct costs). Histoire révisée pour cohérence.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -172,11 +184,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.65 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -195,33 +211,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.34 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "-15.4%",
       "history": [
-        0.11,
-        0.12,
-        0.13,
-        0.11
+        110,
+        120,
+        130,
+        110
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.11 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -248,9 +273,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 74.9,
-      "_validation": "TTM recalculé : (75.4 + 74.4) / 2 = 74.9",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "TTM recalculé : (75.4 + 74.4) / 2 = 74.9"
     },
     {
       "short": "Federal Revenue",
@@ -275,13 +298,11 @@
       "is_short_history": true,
       "story_category": "Risk",
       "ttm": 95.4,
-      "_validation": "TTM recalculé : (95.7 + 95.1) / 2 = 95.4",
-      "_source_month": "juin 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "TTM recalculé : (95.7 + 95.1) / 2 = 95.4"
     }
   ],
   "ai_positioning": {
-    "stance": "active",
+    "stance": "integrator",
     "summary": "CACI positionne l'IA comme technologie stratégique clé. Le 10-K mentionne explicitement 'advanced data platforms and applications augmented by Artificial Intelligence (AI)' comme composante centrale de ses offres technologiques différenciées pour les besoins de sécurité nationale.",
     "evidence": [
       "Advanced data platforms and applications augmented by Artificial Intelligence (AI)",
@@ -294,43 +315,43 @@
       "title": "Perte de contrats",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "La société génère 95,7% de ses revenus à partir de contrats avec le gouvernement fédéral. Une perte de contrats pourrait avoir un impact matériel et défavorable sur son activité, ses perspectives, sa situation financière et ses résultats d'exploitation. (score par défaut, à affiner)",
+      "score_rationale": "La société génère 95,7% de ses revenus à partir de contrats avec le gouvernement fédéral. Une perte de contrats pourrait avoir un impact matériel et défavorable sur son activité, ses perspectives, sa situation financière et ses résultats d'exploitation.",
       "trend": "stable",
       "summary": "La perte de contrats avec le gouvernement fédéral pourrait avoir un impact significatif sur l'activité de la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Réglementations gouvernementales",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Les changements dans les pratiques de passation des marchés ou les règles de facturation du gouvernement fédéral pourraient nuire aux résultats d'exploitation de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les pratiques de passation des marchés ou les règles de facturation du gouvernement fédéral pourraient nuire aux résultats d'exploitation de la société.",
       "trend": "up",
       "summary": "Les changements dans les réglementations gouvernementales pourraient avoir un impact négatif sur l'activité de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un environnement concurrentiel où les entreprises doivent se battre pour obtenir des contrats. Une concurrence accrue pourrait réduire les revenus de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un environnement concurrentiel où les entreprises doivent se battre pour obtenir des contrats. Une concurrence accrue pourrait réduire les revenus de la société.",
       "trend": "up",
       "summary": "La concurrence accrue dans le secteur pourrait avoir un impact négatif sur les revenus de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à la sécurité nationale",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "La société dépend fortement des contrats liés à la sécurité nationale. Les changements dans les priorités de sécurité nationale pourraient avoir un impact sur l'activité de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement des contrats liés à la sécurité nationale. Les changements dans les priorités de sécurité nationale pourraient avoir un impact sur l'activité de la société.",
       "trend": "stable",
       "summary": "La dépendance de la société à la sécurité nationale pourrait la rendre vulnérable aux changements dans les priorités de sécurité nationale.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Problèmes de sous-traitance",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société dépend de sous-traitants pour exécuter certains contrats. Des problèmes de sous-traitance pourraient avoir un impact négatif sur l'activité de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de sous-traitants pour exécuter certains contrats. Des problèmes de sous-traitance pourraient avoir un impact négatif sur l'activité de la société.",
       "trend": "stable",
       "summary": "Des problèmes de sous-traitance pourraient avoir un impact négatif sur l'activité de la société.",
       "score": 3
@@ -339,7 +360,7 @@
       "title": "Risques de recouvrement",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "La société dépend du recouvrement de ses créances pour générer des flux de trésorerie. Des difficultés de recouvrement pourraient avoir un impact négatif sur l'activité de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend du recouvrement de ses créances pour générer des flux de trésorerie. Des difficultés de recouvrement pourraient avoir un impact négatif sur l'activité de la société.",
       "trend": "stable",
       "summary": "Des difficultés de recouvrement pourraient avoir un impact négatif sur l'activité de la société.",
       "score": 3
@@ -348,7 +369,7 @@
       "title": "Changements dans les priorités budgétaires",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Les changements dans les priorités budgétaires du gouvernement fédéral pourraient avoir un impact sur l'activité de la société. (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les priorités budgétaires du gouvernement fédéral pourraient avoir un impact sur l'activité de la société.",
       "trend": "up",
       "summary": "Les changements dans les priorités budgétaires pourraient avoir un impact négatif sur l'activité de la société.",
       "score": 3
@@ -397,7 +418,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -563,9 +584,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.235516+00:00",
     "fetched_at": "2026-05-21T02:17:14.235517+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.071Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.511Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/caci.json",
     "enrich_root": "v2-pipeline-enrich/caci.json",

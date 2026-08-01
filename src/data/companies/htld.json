@@ -142,7 +142,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -172,18 +172,18 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.806,
-      "unit": "Mds $",
+      "value": 806,
+      "unit": "M $",
       "yoy": "-23.1%",
       "history": [
-        0.611,
-        0.597,
-        0.645,
-        0.607,
-        0.968,
-        1.207,
-        1.048,
-        0.806
+        611,
+        597,
+        645,
+        607,
+        968,
+        1207,
+        1048,
+        806
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -193,7 +193,12 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -219,8 +224,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "DPS",
@@ -234,7 +243,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.58,
         0.08,
@@ -247,7 +256,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -262,7 +271,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0063,
@@ -275,7 +284,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -290,7 +299,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -303,7 +312,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -318,7 +327,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.69,
@@ -331,7 +340,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -347,34 +356,34 @@
       "title": "Demande de fret cyclique",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "La société opère dans un marché cyclique avec une demande de fret faible qui s'est prolongée plus longtemps que prévu. Cela a créé une pression significative sur les volumes et les tarifs. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché cyclique avec une demande de fret faible qui s'est prolongée plus longtemps que prévu. Cela a créé une pression significative sur les volumes et les tarifs.",
       "trend": "stable",
       "summary": "La demande cyclique et faible de fret affecte significativement les revenus et la rentabilité de la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Pénurie de conducteurs",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "La pénurie de conducteurs qualifiés est un problème majeur pour la société, car elle impacte la capacité de livraison et les coûts de main-d'œuvre. Le rapport souligne l'importance de la rétention des conducteurs. (score par défaut, à affiner)",
+      "score_rationale": "La pénurie de conducteurs qualifiés est un problème majeur pour la société, car elle impacte la capacité de livraison et les coûts de main-d'œuvre. Le rapport souligne l'importance de la rétention des conducteurs.",
       "trend": "stable",
       "summary": "La pénurie de conducteurs peut avoir un impact significatif sur les opérations de la société.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Volatilité des prix du carburant",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "La volatilité des prix du carburant, combinée à l'incapacité à transférer pleinement les augmentations aux clients, impacte les marges opérationnelles. (score par défaut, à affiner)",
+      "score_rationale": "La volatilité des prix du carburant, combinée à l'incapacité à transférer pleinement les augmentations aux clients, impacte les marges opérationnelles.",
       "trend": "stable",
       "summary": "La volatilité du marché énergétique peut avoir un impact sur les résultats financiers de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Endettement et coûts d'intérêt",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "La société a contracté de la dette pour financer les acquisitions de Smith Transport et CFI en 2022. Bien qu'elle ait remboursé 337 millions de dollars, cela continue d'augmenter les coûts d'intérêt et réduire la flexibilité financière. (score par défaut, à affiner)",
+      "score_rationale": "La société a contracté de la dette pour financer les acquisitions de Smith Transport et CFI en 2022. Bien qu'elle ait remboursé 337 millions de dollars, cela continue d'augmenter les coûts d'intérêt et réduire la flexibilité financière.",
       "trend": "down",
       "summary": "La dette de la société peut avoir un impact sur ses résultats financiers et sa capacité d'investissement.",
       "score": 3
@@ -383,7 +392,7 @@
       "title": "Réglementations environnementales",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les réglementations gouvernementales sur les gaz à effet de serre et les émissions peuvent entraîner des coûts de conformité accrus. Les interdictions d'ICE et les patchworks de réglementations créent de l'incertitude. (score par défaut, à affiner)",
+      "score_rationale": "Les réglementations gouvernementales sur les gaz à effet de serre et les émissions peuvent entraîner des coûts de conformité accrus. Les interdictions d'ICE et les patchworks de réglementations créent de l'incertitude.",
       "trend": "new",
       "summary": "Les réglementations environnementales et les exigences de conformité peuvent augmenter les coûts opérationnels.",
       "score": 3
@@ -392,7 +401,7 @@
       "title": "Intégration des acquisitions",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "La société a effectué des acquisitions majeures (Smith Transport et CFI en 2022), ce qui présente des défis d'intégration opérationnelle et systémique. (score par défaut, à affiner)",
+      "score_rationale": "La société a effectué des acquisitions majeures (Smith Transport et CFI en 2022), ce qui présente des défis d'intégration opérationnelle et systémique.",
       "trend": "stable",
       "summary": "L'intégration des acquisitions et l'unification des systèmes peuvent impacter les opérations et les résultats.",
       "score": 3
@@ -401,10 +410,10 @@
       "title": "Tarifs et concurrence commerciale",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La concurrence accrue dans le secteur du fret routier, combinée à la faiblesse de la demande, limite la capacité à augmenter les tarifs et impacte les marges. (score par défaut, à affiner)",
+      "score_rationale": "La concurrence accrue dans le secteur du fret routier, combinée à la faiblesse de la demande, limite la capacité à augmenter les tarifs et impacte les marges.",
       "trend": "stable",
       "summary": "La concurrence intense peut affecter les tarifs et les volumes de fret de la société.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -522,7 +531,7 @@
   "company_description": "Heartland Express, Inc., together with its subsidiaries, provides short, medium, and long-haul truckload carrier and transportation services in the United States, Mexico, and Canada. It primarily provides nationwide asset-based dry van truckload services for shippers; cross-border freight and other transportation services; and temperature-controlled truckload services. The company offers its services under the Heartland Express, Millis Transfer, Smith Transport, and CFI brand names. It primarily serves retailers, manufacturers, and parcel carriers in the consumer goods, appliances, food products, and automotive industries. The company was founded in 1978 and is headquartered in North Liberty, Iowa.",
   "_profile_fetched_at": "2026-05-07T11:57:22.613523+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:04Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2010,
@@ -549,7 +558,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:14Z"
   },
   "_eps_extracted_at": "2026-05-18T16:45:27Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "HTLD",
     "simple": {
@@ -666,7 +675,6 @@
           42.149,
           108.017,
           176.861,
-          -118.431,
           4.697,
           15.244,
           26.229,
@@ -728,6 +736,12 @@
             "accession": "0000799233-26-000028",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 1 aberrant negative outliers (HTLD)"
         ]
       }
     ]
@@ -744,9 +758,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.527878+00:00",
     "fetched_at": "2026-05-21T01:44:37.527879+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.209Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.862Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/htld.json",
     "enrich_root": "v2-pipeline-enrich/htld.json",

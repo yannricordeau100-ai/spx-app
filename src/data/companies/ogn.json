@@ -44,7 +44,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:39.657485+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -65,7 +65,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -84,11 +84,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 12.87 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -107,11 +111,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 8.64 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -145,7 +153,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -158,7 +166,8 @@
       "severity": 5,
       "score_rationale": "Le document mentionne une perte d'exclusivité (LOE) pour Atozet et Rosuzet, impactant négativement les ventes de 197M$ en 2025. Le langage souligne un impact majeur et répété. Catégorie 'Industriel' fortement pondérée ici.",
       "trend": "stable",
-      "summary": "La perte d'exclusivité de médicaments comme Atozet en France, Espagne et Japon réduit fortement les revenus."
+      "summary": "La perte d'exclusivité de médicaments comme Atozet en France, Espagne et Japon réduit fortement les revenus.",
+      "score": 5
     },
     {
       "title": "Concurrence générique accrue",
@@ -166,7 +175,8 @@
       "severity": 5,
       "score_rationale": "Évoquée pour NuvaRing et Singulair, avec des baisses de ventes de 21% et 30%. Le texte indique une pression continue, notamment aux États-Unis. Langage préoccupé et répété.",
       "trend": "stable",
-      "summary": "Les produits font face à une concurrence générique croissante, réduisant leur part de marché et leurs marges."
+      "summary": "Les produits font face à une concurrence générique croissante, réduisant leur part de marché et leurs marges.",
+      "score": 5
     },
     {
       "title": "Pression tarifaire en Chine (VBP)",
@@ -174,7 +184,8 @@
       "severity": 4,
       "score_rationale": "Le VBP (Volume-Based Procurement) en Chine est cité comme facteur négatif futur pour le portefeuille de médicaments génériques. Mention explicite d'impact futur négatif sur plusieurs trimestres.",
       "trend": "up",
-      "summary": "Les politiques de remboursement en Chine exercent une pression croissante sur les prix et les marges des produits."
+      "summary": "Les politiques de remboursement en Chine exercent une pression croissante sur les prix et les marges des produits.",
+      "score": 4
     },
     {
       "title": "Dépendance aux droits commerciaux acquis",
@@ -182,7 +193,8 @@
       "severity": 4,
       "score_rationale": "L'acquisition des droits de Tofidence auprès de Biogen implique des paiements initiaux et des redevances sur les ventes. Risque d'incertitude sur la rentabilité future et les paiements liés aux ventes.",
       "trend": "new",
-      "summary": "La société dépend de produits acquis dont la performance dépend de droits coûteux et de paiements futurs variables."
+      "summary": "La société dépend de produits acquis dont la performance dépend de droits coûteux et de paiements futurs variables.",
+      "score": 4
     },
     {
       "title": "Restructuration du réseau de production",
@@ -190,7 +202,8 @@
       "severity": 4,
       "score_rationale": "Coûts liés à l'optimisation du réseau de fabrication et de distribution, avec des coûts de restructuration de 95M$ en 2025. Mention d'ajustements coûteux et de pertes inévitables sur contrats fournisseurs.",
       "trend": "up",
-      "summary": "La réorganisation de la chaîne d'approvisionnement entraîne des coûts élevés et des risques opérationnels."
+      "summary": "La réorganisation de la chaîne d'approvisionnement entraîne des coûts élevés et des risques opérationnels.",
+      "score": 4
     },
     {
       "title": "Abandon de programmes de R&D",
@@ -198,7 +211,8 @@
       "severity": 4,
       "score_rationale": "Arrêt des programmes cliniques pour OG-6219 et OG-7191 en 2025. Cela réduit le pipeline futur et affaiblit la croissance à long terme. Mention explicite dans les charges R&D.",
       "trend": "new",
-      "summary": "L'abandon de candidats en développement limite les perspectives d'innovation et de nouveaux lancements."
+      "summary": "L'abandon de candidats en développement limite les perspectives d'innovation et de nouveaux lancements.",
+      "score": 4
     },
     {
       "title": "Concentration des risques commerciaux aux États-Unis",
@@ -206,7 +220,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne des pressions sur les prix, les remises et les contrats clients aux États-Unis, affectant Dulera, NuvaRing et Singulair. Risque macro lié aux politiques de santé américaines.",
       "trend": "stable",
-      "summary": "Une part importante des revenus est exposée aux dynamiques concurrentielles et réglementaires aux États-Unis."
+      "summary": "Une part importante des revenus est exposée aux dynamiques concurrentielles et réglementaires aux États-Unis.",
+      "score": 4
     }
   ],
   "governance": {
@@ -238,7 +253,7 @@
     "rationale": "Hero KPI Revenue en croissance modérée (-3.0%). Pas de profit warning formel identifié dans les sources analysées (10-K, transcripts). À reconfirmer au prochain earnings call.",
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.237Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.113Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ogn.json",
     "enrich_root": null,

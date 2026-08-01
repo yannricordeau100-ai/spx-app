@@ -36,11 +36,14 @@
       "is_wow": true,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document fourni est un extrait limité du rapport annuel 2024 d'UBS Group AG contenant principalement la lettre aux actionnaires et la tab",
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "CET1 Ratio",
@@ -62,8 +65,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter",
-      "explanation_en": "Common Equity Tier 1 ratio — core capital strength measure (banks)."
+      "period_type": "year",
+      "explanation_en": "Common Equity Tier 1 ratio, core capital strength measure (banks).",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Cost Savings",
@@ -85,7 +91,10 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Dividend",
@@ -107,7 +116,10 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Share Repurchase",
@@ -129,7 +141,10 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "RoCET1",
@@ -151,7 +166,10 @@
       "is_wow": true,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -170,11 +188,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1617.43 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,11 +215,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 336.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -219,11 +245,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dividende par action de 0.8646 CHF dernière année.",
-      "description": "Dividende par action versé annuellement, agrégé depuis yfinance.dividends sur les 7 dernières années fiscales déclarées par la société.",
+      "description": "Dividende par action versé annuellement, sur les 7 dernières années fiscales déclarées par la société.",
       "is_generic": true,
-      "_source": "yfinance.dividends",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
-      "signal_en": "Shareholder returns growing, dividend policy supportive"
+      "_source": "historique des dividendes",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
+      "signal_en": "Shareholder returns growing, dividend policy supportive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Cap Return",
@@ -242,11 +272,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capital retourné aux actionnaires via dividendes de 2.866 Mds CHF dernière année.",
-      "description": "Capital retourné aux actionnaires via dividendes annuels, extrait depuis yfinance.cashflow sur les 4 dernières années fiscales déclarées.",
+      "description": "Capital retourné aux actionnaires via dividendes annuels, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.cashflow",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "tableau des flux de trésorerie",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Payout Ratio",
@@ -265,16 +299,22 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Part du résultat net distribué en dividendes : 36.9% dernière année.",
-      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales depuis yfinance.cashflow et yfinance.income_stmt.",
+      "description": "Taux de distribution = Dividendes versés / Résultat net, calculé sur les 4 dernières années fiscales.",
       "is_generic": true,
-      "_source": "computed: yfinance.cashflow / yfinance.income_stmt",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
-      "signal_en": "Dividend cut risk, monitor payout sustainability"
+      "_source": "computed: tableau des flux de trésorerie / compte de résultat consolidé",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
+      "signal_en": "Dividend cut risk, monitor payout sustainability",
+      "_hero_history_unverified": true,
+      "_hero_history_unverified_reason": "Le texte fourni ne contient aucune valeur numérique explicite du \"Payout Ratio\" pour les années récentes, donc aucune série de 4 années cons",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
   "ai_positioning": {
-    "stance": "active",
+    "stance": "integrator",
     "summary": "UBS a intégré l'intelligence artificielle comme élément stratégique majeur de sa transformation numérique, avec plus de 500 solutions IA en production et 750 en développement à travers la banque. L'approche IA de UBS se concentre sur l'amélioration de l'expérience client et de la productivité des employés.",
     "evidence": [
       "Plus de 500 cas d'usage IA en production et environ 750 en développement à travers l'organisation",
@@ -336,7 +376,8 @@
       "severity": 5,
       "score_rationale": "Le risque est central dans le 10-K, mentionné dès l'ouverture avec un langage fort (\"execution risk\", \"most complex part\"). La tendance est stable car l'intégration progresse mais reste critique. La catégorie Concurrence est clé car l'intégration vise à renforcer la position face aux concurrents.",
       "trend": "stable",
-      "summary": "L'intégration de Credit Suisse représente un défi majeur, notamment avec la migration des comptes clients en Suisse prévue en 2025. Un échec ou une exécution défaillante pourrait nuire à la réputation, à la fidélité client et à la compétitivité face aux autres gestionnaires de patrimoine mondiaux."
+      "summary": "L'intégration de Credit Suisse représente un défi majeur, notamment avec la migration des comptes clients en Suisse prévue en 2025. Un échec ou une exécution défaillante pourrait nuire à la réputation, à la fidélité client et à la compétitivité face aux autres gestionnaires de patrimoine mondiaux.",
+      "score": 5
     },
     {
       "title": "Réglementation accrue en Suisse",
@@ -344,7 +385,8 @@
       "severity": 5,
       "score_rationale": "Position élevé dans le texte, langage alarmé (\"ill-informed public debate\", \"intensified demands\"). Tendance en hausse car les pressions politiques s'accentuent en 2025. La catégorie Régulation est centrale avec un impact direct sur le modèle économique.",
       "trend": "up",
-      "summary": "Le débat public en Suisse sur la taille et les risques de UBS alimente des pressions pour des exigences de capital excessives. Cela pourrait nuire à la compétitivité internationale de la banque et freiner son rôle dans l'économie suisse, malgré sa structure plus sûre que celle de Credit Suisse."
+      "summary": "Le débat public en Suisse sur la taille et les risques de UBS alimente des pressions pour des exigences de capital excessives. Cela pourrait nuire à la compétitivité internationale de la banque et freiner son rôle dans l'économie suisse, malgré sa structure plus sûre que celle de Credit Suisse.",
+      "score": 5
     },
     {
       "title": "Cybersécurité et dépendance à l'IA générative",
@@ -352,7 +394,8 @@
       "severity": 4,
       "score_rationale": "Mention explicite des outils d'IA comme Red et Copilot, avec un langage d'adoption massive. Tendance en hausse. La catégorie Cybersécurité est pertinente car l'exposition aux risques numériques croît avec l'usage de l'IA.",
       "trend": "up",
-      "summary": "L'adoption massive d'IA générative (50 000 licences Copilot, chatbot interne Red) augmente l'exposition aux cybermenaces, fuites de données ou biais décisionnels, nécessitant des contrôles renforcés sur l'accès aux informations sensibles et la sécurité des systèmes."
+      "summary": "L'adoption massive d'IA générative (50 000 licences Copilot, chatbot interne Red) augmente l'exposition aux cybermenaces, fuites de données ou biais décisionnels, nécessitant des contrôles renforcés sur l'accès aux informations sensibles et la sécurité des systèmes.",
+      "score": 4
     },
     {
       "title": "Dépendance aux talents clés en technologie",
@@ -360,7 +403,8 @@
       "severity": 4,
       "score_rationale": "Mention des recrutements stratégiques (ex. Lila Tretikov, experte IA) et des investissements dans les collaborateurs. Langage valorisant les talents. Tendance en hausse. La catégorie Personne-clé est critique pour l'innovation.",
       "trend": "up",
-      "summary": "La stratégie de transformation technologique dépend fortement de l'attractivité de UBS pour des talents spécialisés en IA et cybersécurité. La perte ou l'incapacité à recruter ces experts pourrait ralentir l'innovation et l'efficacité opérationnelle."
+      "summary": "La stratégie de transformation technologique dépend fortement de l'attractivité de UBS pour des talents spécialisés en IA et cybersécurité. La perte ou l'incapacité à recruter ces experts pourrait ralentir l'innovation et l'efficacité opérationnelle.",
+      "score": 4
     },
     {
       "title": "Pressions sur la réputation liées à l'acquisition",
@@ -368,7 +412,8 @@
       "severity": 4,
       "score_rationale": "Position importante dans la lettre, avec des efforts explicites pour distinguer UBS de Credit Suisse. Langage défensif. Tendance stable. La catégorie Réputation est centrale en contexte de méfiance publique.",
       "trend": "stable",
-      "summary": "Malgré les différences de modèle, UBS est associée publiquement à l'effondrement de Credit Suisse. Cela crée un risque réputationnel persistant, surtout si l'intégration révèle des failles ou si des comportements passés sont remis en cause."
+      "summary": "Malgré les différences de modèle, UBS est associée publiquement à l'effondrement de Credit Suisse. Cela crée un risque réputationnel persistant, surtout si l'intégration révèle des failles ou si des comportements passés sont remis en cause.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans la gestion de patrimoine",
@@ -376,7 +421,8 @@
       "severity": 4,
       "score_rationale": "Mention de la position n°1 en Asie Pacifique et aux Amériques, avec des ambitions de croissance. Langage offensif sur la conquête de parts de marché. Tendance stable. La catégorie Concurrence est stratégique.",
       "trend": "stable",
-      "summary": "UBS vise à renforcer sa domination en gestion de patrimoine, notamment en Asie et aux États-Unis, mais fait face à une concurrence intense de firmes locales et internationales, ce qui exige des investissements continus en produits, technologie et talents."
+      "summary": "UBS vise à renforcer sa domination en gestion de patrimoine, notamment en Asie et aux États-Unis, mais fait face à une concurrence intense de firmes locales et internationales, ce qui exige des investissements continus en produits, technologie et talents.",
+      "score": 4
     },
     {
       "title": "Risques liés à la transition climatique",
@@ -384,7 +430,8 @@
       "severity": 3,
       "score_rationale": "Mention des objectifs de décarbonation et des engagements ESG, mais avec un langage mesuré. Tendance stable. La catégorie Environnement est présente mais secondaire par rapport aux risques opérationnels.",
       "trend": "stable",
-      "summary": "UBS s'engage à réduire ses émissions directes à net zéro d'ici 2035 et à décarboner ses portefeuilles de crédit dans certains secteurs. Toutefois, les risques physiques et de transition liés au climat pourraient affecter la qualité des actifs et la demande client."
+      "summary": "UBS s'engage à réduire ses émissions directes à net zéro d'ici 2035 et à décarboner ses portefeuilles de crédit dans certains secteurs. Toutefois, les risques physiques et de transition liés au climat pourraient affecter la qualité des actifs et la demande client.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T02:57:01.527091+00:00",
@@ -606,7 +653,10 @@
         3850,
         4180
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Net New Money GWM",
@@ -638,7 +688,10 @@
         14.4,
         14.7
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Asset Management AuM",
@@ -654,7 +707,10 @@
         1599,
         1860
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Bilan",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Investment Bank RWA",
@@ -670,7 +726,10 @@
         145,
         155
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Investissement",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Credit Suisse Integration Cost Savings",
@@ -726,6 +785,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "UBS Group AG est la plus grande banque suisse et l'un des leaders mondiaux du wealth management. Coté à Zurich et New York. Acquisition de Credit Suisse finalisée en 2023.",
+          "products": "Cinq segments : Global Wealth Management (gestion privée et family office), Personal & Corporate Banking Suisse, Asset Management, Investment Bank (M&A, ECM/DCM, trading), Non-Core and Legacy (run-off Credit Suisse).",
+          "customers": "Personnes fortunées et ultra-fortunées (UHNW/HNW) mondiales, particuliers et entreprises suisses, investisseurs institutionnels, gros corporates.",
+          "edge": "Numéro un mondial du wealth management avec environ 5 000 Mds$ d'actifs sous administration. Position renforcée par Credit Suisse. Marque suisse iconique de confiance."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "UBS Group est le leader mondial incontesté du wealth management après l'acquisition de Credit Suisse en mars 2023. Phase d'intégration complexe sur 2023-2026 avec environ 13 Mds$ de synergies de coûts ciblées. Bilan en réduction (Non-Core and Legacy).",
+          "tech_products": "Global Wealth Management : cœur de profit, environ 5 000 Mds$ AuM, présent dans 50+ pays. Personal & Corporate Banking Suisse : franchise dominante locale. Asset Management : 1 800 Mds$ AuM, distribué via WM et tiers. Investment Bank : capacité conseil et trading focalisée Wealth and Corporate. Non-Core Legacy : run-off Credit Suisse pour libérer capital.",
+          "moat": "Échelle mondiale unique en wealth management. Marque historique suisse de confidentialité et de stabilité. Capacité de franchise globale Wealth + IB. Empreinte CH dominante. Talents senior internationaux.",
+          "risks": "Risques d'exécution majeurs sur l'intégration Credit Suisse (IT migration, attrition clients, fuites de talents). Risques réglementaires post-acquisition (capital, FINMA). Litiges Credit Suisse hérités. Cyclicité IB. Pression sur les marges WM."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "UBSG.SW",
     "ranks": {
@@ -738,14 +818,15 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T02:17:14.321379+00:00",
     "fetched_at": "2026-05-21T02:17:14.321416+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.831Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.920Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ubsg.sw.json",
     "enrich_root": "v2-pipeline-enrich/ubsg.sw.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

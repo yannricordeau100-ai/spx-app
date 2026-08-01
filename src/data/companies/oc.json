@@ -56,13 +56,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 10.1 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:58.872057+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Net Income",
@@ -81,11 +85,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.52 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -104,11 +112,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 1.56 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Stable, slight decline to monitor",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -127,11 +139,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -6.22 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -150,11 +166,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 12.98 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -173,33 +193,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "+6.3%",
       "history": [
-        1.1,
-        1.61,
-        0.32,
-        0.34
+        1100,
+        1610,
+        320,
+        340
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.34 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,7 +278,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans le 10-K avec détails organisationnels et supervision par le Comité d'Audit. Langage fort sur la gestion des incidents. Catégorie hautement pondérée en raison de l'exposition technologique croissante.",
       "trend": "stable",
-      "summary": "Menaces informatiques pouvant perturber les opérations ou exposer des données sensibles, avec surveillance active par la direction et le comité d'audit."
+      "summary": "Menaces informatiques pouvant perturber les opérations ou exposer des données sensibles, avec surveillance active par la direction et le comité d'audit.",
+      "score": 5
     },
     {
       "title": "Détérioration de la valeur de goodwill",
@@ -257,7 +287,8 @@
       "severity": 5,
       "score_rationale": "Perte de 1,135 Md$ en 2025 liée à l'unité Doors. Mention explicite du risque d'impairment futur. Langage alarmant sur la valeur comptable restante.",
       "trend": "up",
-      "summary": "Valeur comptable du goodwill de l'unité Doors toujours exposée à une dépréciation future en cas de sous-performance."
+      "summary": "Valeur comptable du goodwill de l'unité Doors toujours exposée à une dépréciation future en cas de sous-performance.",
+      "score": 5
     },
     {
       "title": "Risques liés à la cession des renforts en verre",
@@ -265,7 +296,8 @@
       "severity": 4,
       "score_rationale": "Cession stratégique majeure (GR) impactant structure et résultats. Position claire dans le 10-K comme changement structurel. Risque de perturbation post-cession.",
       "trend": "new",
-      "summary": "Vente du business GR finalisée en 2026, entraînant un changement stratégique majeur avec risques opérationnels et de transition."
+      "summary": "Vente du business GR finalisée en 2026, entraînant un changement stratégique majeur avec risques opérationnels et de transition.",
+      "score": 4
     },
     {
       "title": "Dépendance aux conditions du marché du bâtiment",
@@ -273,7 +305,8 @@
       "severity": 4,
       "score_rationale": "Société exposée aux cycles immobiliers résidentiels et commerciaux. Performance 2025 affectée par la baisse de la demande. Contexte macroéconomique tendu.",
       "trend": "stable",
-      "summary": "Fluctuations de la demande dans la construction affectent directement les segments Roofing, Insulation et Doors."
+      "summary": "Fluctuations de la demande dans la construction affectent directement les segments Roofing, Insulation et Doors.",
+      "score": 4
     },
     {
       "title": "Restrictions sur dividendes et rachats",
@@ -281,7 +314,8 @@
       "severity": 3,
       "score_rationale": "Limitations contractuelles dans l'accord de crédit. Mention explicite des conditions restrictives. Moins critique car pas de violation actuelle.",
       "trend": "stable",
-      "summary": "Capacité à verser des dividendes ou racheter des actions limitée par des covenants financiers et conditions de marché."
+      "summary": "Capacité à verser des dividendes ou racheter des actions limitée par des covenants financiers et conditions de marché.",
+      "score": 3
     }
   ],
   "governance": {
@@ -322,7 +356,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "subsector_fr": "Matériaux de construction",
-  "_companies_unified_built_at": "2026-05-29T21:19:34.219Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.095Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/oc.json",
     "enrich_root": "v2-pipeline-enrich/oc.json",

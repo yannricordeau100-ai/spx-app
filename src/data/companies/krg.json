@@ -38,11 +38,14 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 535.23,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "No explicit annual FFO (Funds From Operations) values found in the provided 10-K excerpt. The document contains MDA and internal controls se",
-      "explanation_en": "Funds From Operations — net income plus depreciation and amortization (REITs).",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "explanation_en": "Funds From Operations, net income plus depreciation and amortization (REITs).",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -64,63 +67,71 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes."
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.844,
-      "unit": "Mds €",
+      "value": 844,
+      "unit": "M €",
       "yoy": "+0.2%",
       "history": [
-        0.089,
-        0.089,
-        0.354,
-        0.315,
-        0.267,
-        0.373,
-        0.802,
-        0.823,
-        0.842,
-        0.844
+        89,
+        89,
+        354,
+        315,
+        267,
+        373,
+        802,
+        823,
+        842,
+        844
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.84 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:56.695958+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "+11.8%",
       "history": [
-        0.07,
-        0.13,
-        0.17,
-        0.19
+        70,
+        130,
+        170,
+        190
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.19 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -139,11 +150,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 1.37 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -162,11 +177,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.66 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -185,33 +204,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.03 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-69.2%",
       "history": [
-        0.12,
-        0.04,
-        0.13,
-        0.04
+        120,
+        40,
+        130,
+        40
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.04 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -251,7 +279,8 @@
       "severity": 5,
       "score_rationale": "The company explicitly identifies periods of economic slowdown or recession as a material risk factor that could adversely affect financial results and ability to distribute dividends to shareholders.",
       "trend": "stable",
-      "summary": "Economic recession could materially adversely affect the company's financial condition, operating results, cash flows, and ability to make distributions to shareholders."
+      "summary": "Economic recession could materially adversely affect the company's financial condition, operating results, cash flows, and ability to make distributions to shareholders.",
+      "score": 5
     },
     {
       "title": "Tenant Insolvency",
@@ -259,7 +288,8 @@
       "severity": 4,
       "score_rationale": "The company is heavily dependent on lease payments from tenants. Tenant defaults and bankruptcies pose a material risk to rental income collection and cash flow.",
       "trend": "up",
-      "summary": "Tenant defaults and insolvencies could reduce rental income and impair the company's ability to service debt obligations."
+      "summary": "Tenant defaults and insolvencies could reduce rental income and impair the company's ability to service debt obligations.",
+      "score": 4
     },
     {
       "title": "Increased Competition",
@@ -267,7 +297,8 @@
       "severity": 4,
       "score_rationale": "The company operates in a competitive real estate market where competitors may offer more favorable terms to tenants, potentially reducing rental rates and tenant retention.",
       "trend": "up",
-      "summary": "Increased competition could reduce rental rates and make it more difficult to attract and retain tenants."
+      "summary": "Increased competition could reduce rental rates and make it more difficult to attract and retain tenants.",
+      "score": 4
     },
     {
       "title": "Development and Redevelopment Risks",
@@ -275,7 +306,8 @@
       "severity": 4,
       "score_rationale": "Development and redevelopment projects carry execution risks including cost overruns, construction delays, and financing difficulties. The company has obligations under completion guarantees.",
       "trend": "stable",
-      "summary": "Development risks including cost overruns, delays, and financing challenges could negatively impact financial performance and project completion."
+      "summary": "Development risks including cost overruns, delays, and financing challenges could negatively impact financial performance and project completion.",
+      "score": 4
     },
     {
       "title": "Pandemics and Public Health Crises",
@@ -283,7 +315,8 @@
       "severity": 5,
       "score_rationale": "Public health emergencies could materially disrupt tenant operations, retail spending, and property operations similar to impacts observed during COVID-19.",
       "trend": "new",
-      "summary": "Pandemics or health crises could significantly impact tenant operations, retail demand, and the company's ability to collect rents."
+      "summary": "Pandemics or health crises could significantly impact tenant operations, retail demand, and the company's ability to collect rents.",
+      "score": 5
     },
     {
       "title": "Inflation",
@@ -291,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Rising inflation increases operating costs including insurance, property taxes, utilities, and labor, while limiting rent growth and tenant affordability.",
       "trend": "up",
-      "summary": "Inflation could increase operating costs and limit the company's ability to raise rents, adversely affecting profitability."
+      "summary": "Inflation could increase operating costs and limit the company's ability to raise rents, adversely affecting profitability.",
+      "score": 4
     },
     {
       "title": "Natural Disaster Risks",
@@ -299,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Natural disasters such as fires, earthquakes, and floods (evidenced by Tropical Storm Chantal impact in 2025) can damage properties and disrupt operations. The company currently has one property (Eastgate Crossing) reclassified from operating portfolio due to flooding.",
       "trend": "stable",
-      "summary": "Natural disasters could damage properties and disrupt operations, with negative impact on financial results and ability to operate."
+      "summary": "Natural disasters could damage properties and disrupt operations, with negative impact on financial results and ability to operate.",
+      "score": 4
     }
   ],
   "governance": {
@@ -339,7 +374,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -509,9 +544,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.275213+00:00",
     "fetched_at": "2026-05-21T02:17:14.275214+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.894Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.659Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/krg.json",
     "enrich_root": "v2-pipeline-enrich/krg.json",

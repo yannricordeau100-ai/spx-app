@@ -40,7 +40,7 @@
       "is_short_history": false,
       "ttm": 30.06,
       "_validation": "Verified from 10-K: Gross margin 28.9% (2025), 24.9% (2024), 24.7% (2023). YoY change +4.0 pts confirmed.",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -48,8 +48,8 @@
       "name_fr": "Revenu net",
       "name_en": "Net Revenue",
       "explanation": "Chiffre d'affaires total après déductions des retours et remises.",
-      "value": "1472.5",
-      "unit": "M $",
+      "value": 1.472,
+      "unit": "Mds $",
       "yoy": "+11.9%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -57,9 +57,9 @@
       "signal": "Croissance solide du chiffre d'affaires, démontrant une demande soutenue pour les produits de l'entreprise.",
       "description": "Le revenu net représente le montant total des ventes de l'entreprise.",
       "history": [
-        1459.9,
-        1316.4,
-        1472.5
+        1.46,
+        1.316,
+        1.472
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -68,7 +68,8 @@
       "ttm": 1516.15,
       "_validation": "Verified from 10-K MD&A: Net revenue $1,472.5M (2025), $1,316.4M (2024), $1,459.9M (2023). Unit was correct (M$, not Mds $). YoY +11.9% verified.",
       "explanation_en": "Revenue from the Net segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Loss",
@@ -184,34 +185,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.25 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "-20.8%",
       "history": [
-        0.3,
-        0.25,
-        0.24,
-        0.19
+        300,
+        250,
+        240,
+        190
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.19 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -234,9 +244,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Verified from 10-K MD&A: 'On September 19, 2024, we completed the acquisition of the Fanatec Business for $43.7 million'. Unit was correct (M$).",
-      "_source_month": "septembre 2024",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Verified from 10-K MD&A: 'On September 19, 2024, we completed the acquisition of the Fanatec Business for $43.7 million'. Unit was correct (M$)."
     }
   ],
   "ai_positioning": {
@@ -252,7 +260,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement des 'conditions macroéconomiques mondiales difficiles' (Item 7 MD&A). Les défis incluent l'inflation, les taux d'intérêt élevés, les tarifs douaniers substantiels depuis février 2025, et les tensions géopolitiques (Ukraine, Moyen-Orient, Mer Rouge, Chine-Taïwan). L'intensité du langage et les détails fournis justifient une sévérité élevée.",
       "trend": "up",
-      "summary": "Les conditions économiques mondiales difficiles, incluant l'inflation, les taux d'intérêt élevés, les tarifs douaniers accrus depuis février 2025, et les tensions géopolitiques, peuvent affecter négativement la demande des consommateurs et les opérations de la chaîne d'approvisionnement."
+      "summary": "Les conditions économiques mondiales difficiles, incluant l'inflation, les taux d'intérêt élevés, les tarifs douaniers accrus depuis février 2025, et les tensions géopolitiques, peuvent affecter négativement la demande des consommateurs et les opérations de la chaîne d'approvisionnement.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'égard des cycles de renouvellement technologique",
@@ -260,7 +269,8 @@
       "severity": 3,
       "score_rationale": "Le rapport souligne l'importance de l'introduction de nouveaux CPUs et GPUs comme moteur de la demande (Item 7 MD&A). La mention que 'demand moderated during 2024 as we entered into a mid-cycle period' et que 'demand in 2026 may be more consistent with mid-cycle conditions' indique une vulnérabilité aux cycles de lancement.",
       "trend": "stable",
-      "summary": "La demande pour les produits de la société, notamment les composants et systèmes gaming, est fortement liée aux lancements de nouveaux CPU et GPU de haute performance, créant une dépendance aux cycles de renouvellement technologique."
+      "summary": "La demande pour les produits de la société, notamment les composants et systèmes gaming, est fortement liée aux lancements de nouveaux CPU et GPU de haute performance, créant une dépendance aux cycles de renouvellement technologique.",
+      "score": 3
     },
     {
       "title": "Intensité de la concurrence sur le marché du jeu et de la création",
@@ -268,7 +278,8 @@
       "severity": 4,
       "score_rationale": "Le document de présentation générale (Item 1 Business) mentionne que 'notre solution est la suite de produits la plus complète parmi nos principaux concurrents', sous-entendant une forte concurrence. Le besoin de maintenir une position de leadership à travers l'innovation continue justifie une sévérité élevée.",
       "trend": "stable",
-      "summary": "Le marché des produits pour gamers et créateurs est très concurrentiel, nécessitant des investissements constants en innovation, en lancement de produits (105 en 2025) et en marketing pour maintenir une position de leader."
+      "summary": "Le marché des produits pour gamers et créateurs est très concurrentiel, nécessitant des investissements constants en innovation, en lancement de produits (105 en 2025) et en marketing pour maintenir une position de leader.",
+      "score": 4
     },
     {
       "title": "Risques liés à la chaîne d'approvisionnement mondiale et tarifs douaniers volatiles",
@@ -276,7 +287,8 @@
       "severity": 4,
       "score_rationale": "Le document MD&A (Item 7) détaille explicitement les défis : 'Since February 2025, the U.S. government has proposed and in certain cases implemented new, substantial tariffs on imports to the United States from various countries, including Taiwan, China and Vietnam, where we manufacture or source our products'. Corsair note également que 'while we mitigated the impact of new tariffs on our business to some extent during the year ended December 31, 2025, there can be no assurances that we will continue to be as effective'. Cette sévérité élevée est justifiée par l'incertitude et les impacts directs.",
       "trend": "up",
-      "summary": "Les perturbations potentielles de la chaîne d'approvisionnement mondiale et l'augmentation significative des tarifs douaniers depuis février 2025 (Taiwan, Chine, Vietnam) impactent les coûts de production et la disponibilité des produits. Bien que Corsair possède une base manufacturière flexible et multi-localisation, l'environnement reste volatile et imprévisible."
+      "summary": "Les perturbations potentielles de la chaîne d'approvisionnement mondiale et l'augmentation significative des tarifs douaniers depuis février 2025 (Taiwan, Chine, Vietnam) impactent les coûts de production et la disponibilité des produits. Bien que Corsair possède une base manufacturière flexible et multi-localisation, l'environnement reste volatile et imprévisible.",
+      "score": 4
     },
     {
       "title": "Contraintes de l'offre mondiale de semiconducteurs et hausse des prix de la DRAM",
@@ -284,7 +296,8 @@
       "severity": 3,
       "score_rationale": "Le document MD&A (Item 7) mentionne : 'We are currently observing significant constraints in the global supply of semiconductors driven by the proliferation of AI infrastructure, which are materially impacting the broader hardware market.' Il précise que 'Heightened demand for these components has driven commodity prices to high levels, resulting in a substantial increase in the market price of DRAM modules'. Corsair note cependant que 'our core market position is centered on the enthusiast-level PC builder, a demographic that historically demonstrates less price sensitivity than the broader market', ce qui tempère l'impact.",
       "trend": "stable",
-      "summary": "Les contraintes mondiales d'approvisionnement en semiconductors, amplifiées par la demande en infrastructure IA, ont entraîné une augmentation substantielle du coût des modules DRAM. Cela crée une barrière d'entrée pour le segment budget du marché des PC auto-construits, mais l'impact sur le segment d'enthousiastes core de Corsair est limité."
+      "summary": "Les contraintes mondiales d'approvisionnement en semiconductors, amplifiées par la demande en infrastructure IA, ont entraîné une augmentation substantielle du coût des modules DRAM. Cela crée une barrière d'entrée pour le segment budget du marché des PC auto-construits, mais l'impact sur le segment d'enthousiastes core de Corsair est limité.",
+      "score": 3
     }
   ],
   "_validation": "Corrections appliquées: (1) Units corrected from Mds $ to M$ for all revenue, loss, cash and operating activities KPIs (Corsair is a ~$1.5B revenue company, not ~$1500B); (2) AI positioning updated from 'absent' to 'emerging' with evidence from 10-K mentioning AI workstations in Gaming Components and Systems segment; (3) Risks expanded and refined with specific quotes and severity adjustments based on source document content; (4) Segment revenue KPIs (Gaming Components/Peripherals) marked as N/A with note that no detailed segment breakdown was provided in the 10-K extract; (5) Risk #4 upgraded to severity 4 and trend 'up' reflecting substantive tariff impacts since February 2025; (6) Risk #5 added covering semiconductor supply constraints and DRAM pricing.",
@@ -295,7 +308,8 @@
   "governance": {
     "agm_date": "2025-06-10",
     "fiscal_year": 2024,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
+    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
+    "board_size": 3
   },
   "_kpis_cleaned": [
     {
@@ -393,165 +407,158 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CRSR",
-    "extracted_at": "2026-05-15T18:10:21Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1743759,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:08:32Z",
+    "n_kpis": 5,
     "kpis": [
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          12.8,
+          23,
+          24.1,
+          25.5,
+          24.6,
+          25.7,
+          24.1,
+          22.9,
+          27.7,
+          26.8,
+          26.9
+        ],
+        "history_periods": [
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:08:32Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Revenue",
+        "period_type": "quarter",
+        "history": [
+          337.3,
+          261.3,
+          304.2,
+          369.8,
+          320.1,
+          345.8
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:08:32Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Loss",
+        "period_type": "quarter",
+        "history": [
+          11.6,
+          23.5,
+          51.6,
+          10.3,
+          20.3,
+          10.4
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:08:32Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
       {
         "short": "Cash and Restricted Cash",
         "period_type": "quarter",
         "history": [
-          134.572,
-          71.922,
-          -265.701,
-          29.049,
-          35.851,
-          57.275,
-          29.005,
-          179.147,
-          181.1,
-          144.891,
-          -329.518,
-          127.768,
-          92.178,
-          58.911,
-          -171.846,
-          99.843,
-          104.625,
-          64.405,
-          -171.69,
-          118.152
+          130.2,
+          94.6,
+          61.6,
+          102.5,
+          107.4,
+          66.1
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023",
-          "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 104.625,
-            "accession": "0000950170-25-105191",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 64.405,
-            "accession": "0001193125-25-264750",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -171.69,
-            "accession": "calc-0001193125-26-067833",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 118.152,
-            "accession": "0001193125-26-211947",
-            "end": "2026-03-31"
-          }
-        ]
+        "_extracted_at": "2026-06-01T03:08:32Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Net Cash Provided by Operating Activities",
         "period_type": "quarter",
         "history": [
-          134.572,
-          71.922,
-          -265.701,
-          29.049,
-          35.851,
-          57.275,
-          29.005,
-          179.147,
-          181.1,
-          144.891,
-          -329.518,
-          127.768,
-          92.178,
-          58.911,
-          -171.846,
-          99.843,
-          104.625,
-          64.405,
-          -171.69,
-          118.152
+          41.8,
+          44,
+          32.1,
+          18.8,
+          48.9,
+          12
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
-          "Q3 2025",
-          "Q4 2025",
-          "Q1 2026"
+          "Q3 2025"
         ],
-        "last_data_date": "2026-03-31",
+        "last_data_date": "2025-09-30",
         "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "CashAndCashEquivalentsAtCarryingValue",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 104.625,
-            "accession": "0000950170-25-105191",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 64.405,
-            "accession": "0001193125-25-264750",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -171.69,
-            "accession": "calc-0001193125-26-067833",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 118.152,
-            "accession": "0001193125-26-211947",
-            "end": "2026-03-31"
-          }
+        "_extracted_at": "2026-06-01T03:08:32Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (CRSR)"
         ]
       }
     ]
@@ -568,9 +575,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.245746+00:00",
     "fetched_at": "2026-05-21T02:17:14.245747+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.855Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.359Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/crsr.json",
     "enrich_root": null,

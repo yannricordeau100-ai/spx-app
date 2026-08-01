@@ -155,7 +155,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -175,34 +175,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.22 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.81,
-      "unit": "Mds €",
+      "value": 810,
+      "unit": "M €",
       "yoy": "+11.0%",
       "history": [
-        0.49,
-        0.52,
-        0.73,
-        0.81
+        490,
+        520,
+        730,
+        810
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.81 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -227,9 +236,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     },
     {
       "short": "Sovereignty Index",
@@ -252,9 +259,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -295,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans le contexte de la consolidation du marché IT, avec un langage affirmant une intensification de la pression concurrentielle. La tendance est stable, mais le poids du risque est élevé en raison de la fragmentation persistante du marché.",
       "trend": "stable",
-      "summary": "Le marché IT européen, particulièrement en DACH, reste très fragmenté, exposant Bechtle à une concurrence accrue de nombreux petits acteurs. Cette pression pourrait s'intensifier avec la consolidation en cours, notamment sur les services."
+      "summary": "Le marché IT européen, particulièrement en DACH, reste très fragmenté, exposant Bechtle à une concurrence accrue de nombreux petits acteurs. Cette pression pourrait s'intensifier avec la consolidation en cours, notamment sur les services.",
+      "score": 4
     },
     {
       "title": "Dépendance à la réglementation NIS-2 en cybersécurité",
@@ -303,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite explicitement l'entrée en vigueur de NIS-2 en 2025 en Allemagne, avec un langage insistant sur l'obligation légale. La tendance est à la hausse, et le risque est stratégique pour le segment Security.",
       "trend": "up",
-      "summary": "L'implémentation nationale de la directive NIS-2 en Allemagne en 2025 imposera des normes strictes de cybersécurité aux entreprises, augmentant les obligations réglementaires pour Bechtle et ses clients, tout en créant des opportunités commerciales."
+      "summary": "L'implémentation nationale de la directive NIS-2 en Allemagne en 2025 imposera des normes strictes de cybersécurité aux entreprises, augmentant les obligations réglementaires pour Bechtle et ses clients, tout en créant des opportunités commerciales.",
+      "score": 4
     },
     {
       "title": "Complexité croissante des infrastructures IT liée à l'IA",
@@ -311,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Le risque est clairement identifié avec un langage fort sur la complexité accrue. Il est en hausse constante et central pour l'activité de services, pesant sur les compétences requises.",
       "trend": "up",
-      "summary": "L'adoption de l'intelligence artificielle rend les infrastructures IT plus complexes à gérer, augmentant la dépendance des clients vis-à-vis de partenaires compétents comme Bechtle, mais exigeant des investissements en expertise technique."
+      "summary": "L'adoption de l'intelligence artificielle rend les infrastructures IT plus complexes à gérer, augmentant la dépendance des clients vis-à-vis de partenaires compétents comme Bechtle, mais exigeant des investissements en expertise technique.",
+      "score": 4
     },
     {
       "title": "Risques liés à la fin du support Windows 10",
@@ -319,7 +327,8 @@
       "severity": 3,
       "score_rationale": "Événement précis daté (octobre 2025), mentionné comme catalyseur d'investissement. Langage factuel, tendance à la hausse temporaire, impact significatif sur les ventes de hardware.",
       "trend": "up",
-      "summary": "La fin du support gratuit de Windows 10 en octobre 2025 obligera de nombreux clients à migrer vers Windows 11, souvent accompagnée d'un remplacement de matériel, créant une opportunité mais aussi une dépendance à ce cycle de renouvellement."
+      "summary": "La fin du support gratuit de Windows 10 en octobre 2025 obligera de nombreux clients à migrer vers Windows 11, souvent accompagnée d'un remplacement de matériel, créant une opportunité mais aussi une dépendance à ce cycle de renouvellement.",
+      "score": 3
     },
     {
       "title": "Pression sur les marges liée au mix matériel/services",
@@ -327,7 +336,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné dans le contexte des fluctuations de marge brute. Langage prudent, tendance stable, mais récurrente dans les périodes de forte croissance du matériel.",
       "trend": "stable",
-      "summary": "Les années de forte croissance du matériel entraînent un accroissement disproportionné du coût des marchandises vendues, exerçant une pression à la baisse sur la marge brute, compensée partiellement par les services à plus forte marge."
+      "summary": "Les années de forte croissance du matériel entraînent un accroissement disproportionné du coût des marchandises vendues, exerçant une pression à la baisse sur la marge brute, compensée partiellement par les services à plus forte marge.",
+      "score": 3
     },
     {
       "title": "Défis de recrutement et de formation de talents IT",
@@ -335,7 +345,8 @@
       "severity": 3,
       "score_rationale": "Le texte souligne l'importance de la formation et du développement des talents. Langage stratégique, tendance stable, mais critique pour le modèle de croissance dépendant des compétences humaines.",
       "trend": "stable",
-      "summary": "La pénurie de professionnels qualifiés en IT en Europe représente un risque pour Bechtle, qui mise sur la formation interne et l'attractivité de sa marque employeur pour maintenir sa capacité d'exécution."
+      "summary": "La pénurie de professionnels qualifiés en IT en Europe représente un risque pour Bechtle, qui mise sur la formation interne et l'attractivité de sa marque employeur pour maintenir sa capacité d'exécution.",
+      "score": 3
     },
     {
       "title": "Accélération de la consolidation sur le marché IT",
@@ -343,7 +354,8 @@
       "severity": 4,
       "score_rationale": "Le risque est décrit comme une tendance structurelle avec un langage affirmant une accélération post-Covid. Tendance à la hausse, poids élevé sur la stratégie M&A et la position concurrentielle.",
       "trend": "up",
-      "summary": "La consolidation du marché IT s'accélère en Europe, poussant Bechtle à renforcer sa stratégie d'acquisition pour étendre son offre de services et sa présence géographique, notamment hors DACH."
+      "summary": "La consolidation du marché IT s'accélère en Europe, poussant Bechtle à renforcer sa stratégie d'acquisition pour étendre son offre de services et sa présence géographique, notamment hors DACH.",
+      "score": 4
     },
     {
       "title": "Dépendance à la reprise des investissements publics en Allemagne",
@@ -351,7 +363,8 @@
       "severity": 3,
       "score_rationale": "Le texte lie la relance des ventes à la reprise des investissements publics. Langage conditionnel, tendance en hausse mais incertaine, impact sectoriel modéré mais significatif.",
       "trend": "up",
-      "summary": "La faible volonté d'investissement des administrations publiques allemandes, en raison de l'incertitude budgétaire, retarde les projets IT, affectant la demande et la croissance de Bechtle sur ce segment clé."
+      "summary": "La faible volonté d'investissement des administrations publiques allemandes, en raison de l'incertitude budgétaire, retarde les projets IT, affectant la demande et la croissance de Bechtle sur ce segment clé.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T03:17:26.384397+00:00",
@@ -479,6 +492,145 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "BC8.DE",
+    "extracted_at": "2026-06-01T03:01:13Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Geschäftsvolumen",
+        "period_type": "quarter",
+        "history": [
+          1.510202,
+          1.432793,
+          1.496092,
+          1.806707,
+          1.629202,
+          1.662663,
+          1.803366,
+          2.190469,
+          1.886004,
+          1.815592,
+          1.91147,
+          2.180581,
+          1.950994,
+          1.831511,
+          1.889607,
+          2.276863
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T03:01:13Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "EBT",
+        "period_type": "quarter",
+        "history": [
+          60.988,
+          81.191,
+          87.028,
+          91.293,
+          74.039,
+          88.519,
+          88.193,
+          99.736,
+          79.694,
+          93.785,
+          93.878,
+          107.12,
+          81.957,
+          83.837,
+          78.55,
+          100.709
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "Mio €",
+        "_extracted_at": "2026-06-01T03:01:13Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Op Cashflow",
+        "period_type": "quarter",
+        "history": [
+          54.261,
+          140.525,
+          185.973,
+          317.453,
+          101.725,
+          115.021,
+          116.972,
+          133.769,
+          111.126,
+          126.337,
+          127.826,
+          143.628,
+          116.642,
+          117.751,
+          115.794,
+          141.46
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q4 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024"
+        ],
+        "last_data_date": "2024-12-31",
+        "unit": "Mio €",
+        "_extracted_at": "2026-06-01T03:01:13Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "BC8.DE",
     "ranks": {
@@ -491,14 +643,15 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.228826+00:00",
     "fetched_at": "2026-05-21T02:17:14.228827+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.463Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.949Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/bc8.de.json",
     "enrich_root": "v2-pipeline-enrich/bc8.de.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

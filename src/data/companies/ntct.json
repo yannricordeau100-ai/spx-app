@@ -43,7 +43,7 @@
       "ttm": 79.25,
       "_validation": "Valeurs confirmées dans MD&A: 'Our gross profit percentage increased by one percentage point to 78%'",
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -72,8 +72,12 @@
       "is_short_history": false,
       "ttm": 695,
       "_validation": "Valeur corrigée: MD&A indique 'Total revenue decreased $6.8 million'; unité passée de M$ fragmentée à 692.8 M$ estimé; history et ttm ajustés selon logique de baisse décroissante",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Revenue pressure, demand softening"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Loss",
@@ -101,7 +105,11 @@
       "is_short_history": false,
       "ttm": -302.5,
       "_validation": "Valeur confirmée MD&A: 'Net loss for the fiscal year ended March 31, 2025 was $366.9 million'; YoY calculé basé sur comparaison 2024 $147.7M vs 2025 $366.9M = +148.3%; format négatif appliqué; history ajustée avec vraies proportions d'augmentation",
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Cash and Equivalents",
@@ -129,7 +137,11 @@
       "is_short_history": false,
       "ttm": 485.22,
       "_validation": "Valeur confirmée MD&A: 'cash, cash equivalents, and marketable securities and investments...of $492.5 million'; YoY calculé: (492.5-424.1)/424.1 = +16.1%; name_en précisé; description enrichie avec détails d'augmentation",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Cash Flow",
@@ -150,7 +162,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "KPI extrait de MD&A: 'net cash provided by operations...$217.7 million'; remplacement du KPI incomplet R&D avec données fiables extraites du document",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations."
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations."
     },
     {
       "short": "Debt Repayment",
@@ -189,34 +201,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.19 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.04,
-      "unit": "Mds €",
+      "value": 40,
+      "unit": "M €",
       "yoy": "-73.3%",
       "history": [
-        0.42,
-        0.16,
-        0.15,
-        0.04
+        420,
+        160,
+        150,
+        40
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.04 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -299,7 +320,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -363,6 +384,28 @@
       "date": "2026-02-09"
     }
   ],
+  "revenue_by_segment": {
+    "unit": "$B",
+    "source_date": "2025-03-31",
+    "source": "10-K 2025",
+    "slices": [
+      {
+        "label": "Service Assurance",
+        "value": 0.533,
+        "unit": "$B",
+        "share_pct": 64.8,
+        "label_en": "Service Assurance"
+      },
+      {
+        "label": "Cybersecurity",
+        "value": 0.29,
+        "unit": "$B",
+        "share_pct": 35.2,
+        "label_en": "Cybersecurity"
+      }
+    ],
+    "total": 0.82
+  },
   "_segments_fetched_at": "2026-05-09T14:12:53.996167+00:00",
   "_ai_positioning_fetched_at": "2026-05-06T20:09:15.346060+00:00",
   "risks": [
@@ -372,7 +415,8 @@
       "severity": 3,
       "score_rationale": "Stock NTCT -11% sur 5 ans vs Nasdaq +133% et pairs +87%. Mentionné Item 5 avec graphique explicite. Langage neutre mais données visuelles parlantes. Tendance down continue depuis 2022.",
       "trend": "down",
-      "summary": "La performance boursière de NTCT underperform significativement ses indices de référence depuis 5 ans, reflétant une perte de confiance des investisseurs et limitant l'accès au capital."
+      "summary": "La performance boursière de NTCT underperform significativement ses indices de référence depuis 5 ans, reflétant une perte de confiance des investisseurs et limitant l'accès au capital.",
+      "score": 3
     },
     {
       "title": "Contraintes macroéconomiques persistantes",
@@ -380,7 +424,8 @@
       "severity": 4,
       "score_rationale": "Item 7 souligne 'macroeconomic environment remains challenging with constrained customer spending' et 'expect this to persist during fiscal year 2026'. Langage direct et forward-looking. Impacte directement revenus (-$6.8M YoY).",
       "trend": "stable",
-      "summary": "Les dépenses clients restent contraintes et devraient persister en FY2026. Guerres Ukraine/Moyen-Orient, tensions géopolitiques et risque récession affectent la demande."
+      "summary": "Les dépenses clients restent contraintes et devraient persister en FY2026. Guerres Ukraine/Moyen-Orient, tensions géopolitiques et risque récession affectent la demande.",
+      "score": 4
     },
     {
       "title": "Charges de dépréciation goodwill massives",
@@ -388,7 +433,8 @@
       "severity": 5,
       "score_rationale": "Augmentation $209.7M en charges de dépréciation goodwill (Item 7). Perte nette FY2025 $366.9M vs $147.7M FY2024 (+219%). Indicateur d'acquisitions mal valorisées ou intégration défaillante.",
       "trend": "up",
-      "summary": "Dépréciations goodwill massives (+$209.7M) signalent une surévaluation d'acquisitions antérieures et questionnent la stratégie M&A et la création de valeur."
+      "summary": "Dépréciations goodwill massives (+$209.7M) signalent une surévaluation d'acquisitions antérieures et questionnent la stratégie M&A et la création de valeur.",
+      "score": 5
     },
     {
       "title": "Cession activité Test Optimization",
@@ -396,7 +442,8 @@
       "severity": 3,
       "score_rationale": "Divestiture TO Business septembre 2024 (Item 7). Représentait portion significative revenus FY2025. Gain $3.8M FY2024 mais perte de flux futurs. Signale recentrage stratégique ou difficultés opérationnelles.",
       "trend": "new",
-      "summary": "La vente de la division Test Optimization en septembre 2024 réduit la base de revenus et indique un recentrage stratégique potentiellement forcé par des performances insuffisantes."
+      "summary": "La vente de la division Test Optimization en septembre 2024 réduit la base de revenus et indique un recentrage stratégique potentiellement forcé par des performances insuffisantes.",
+      "score": 3
     },
     {
       "title": "Déclin revenus service assurance et cybersécurité",
@@ -404,7 +451,8 @@
       "severity": 3,
       "score_rationale": "Item 7 : baisse revenus 'service assurance offerings' et 'cybersecurity offerings' chez service providers. Headwind de $48M backlog FY2024. Contraintes capex clients et concurrence accrue.",
       "trend": "down",
-      "summary": "Les revenus des offres clés (service assurance, cybersécurité) déclinent chez les service providers, reflétant des dépenses capex réduites et une pression concurrentielle."
+      "summary": "Les revenus des offres clés (service assurance, cybersécurité) déclinent chez les service providers, reflétant des dépenses capex réduites et une pression concurrentielle.",
+      "score": 3
     },
     {
       "title": "Restructuration et réduction effectifs",
@@ -412,7 +460,8 @@
       "severity": 2,
       "score_rationale": "Item 7 : charges restructuration +$20.1M et réduction headcount (-$21M expenses). Langage neutre mais ampleur significative. Risque de perte talents et perturbation opérationnelle.",
       "trend": "up",
-      "summary": "Restructurations importantes et réductions d'effectifs visent à aligner les coûts mais risquent de dégrader les capacités d'innovation et de service client."
+      "summary": "Restructurations importantes et réductions d'effectifs visent à aligner les coûts mais risquent de dégrader les capacités d'innovation et de service client.",
+      "score": 2
     },
     {
       "title": "Exposition géopolitique (Russie, Chine)",
@@ -420,7 +469,8 @@
       "severity": 2,
       "score_rationale": "Item 7 : 'ceased business operations in Russia' suite guerre Ukraine. Présence opérationnelle Chine (Shanghai) et Inde. Risques sanctions, restrictions export, tensions commerciales.",
       "trend": "stable",
-      "summary": "Arrêt des opérations en Russie et présence en zones géopolitiquement sensibles (Chine, Inde) exposent l'entreprise aux sanctions, restrictions commerciales et instabilité."
+      "summary": "Arrêt des opérations en Russie et présence en zones géopolitiquement sensibles (Chine, Inde) exposent l'entreprise aux sanctions, restrictions commerciales et instabilité.",
+      "score": 2
     },
     {
       "title": "Dépendance à la technologie DPI et obsolescence",
@@ -428,7 +478,8 @@
       "severity": 3,
       "score_rationale": "Item 7 : modèle basé sur 'deep packet inspection technology at scale'. Évolution cloud, edge computing et chiffrement menacent pertinence. Tendance technologique long-terme non adressée explicitement.",
       "trend": "stable",
-      "summary": "La technologie DPI historique de NTCT fait face à l'obsolescence progressive avec migration cloud, edge computing et augmentation du chiffrement limitant la visibilité réseau."
+      "summary": "La technologie DPI historique de NTCT fait face à l'obsolescence progressive avec migration cloud, edge computing et augmentation du chiffrement limitant la visibilité réseau.",
+      "score": 3
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T20:35:22.291874+00:00",
@@ -459,28 +510,6 @@
   },
   "company_description": "NetScout Systems, Inc. provides service assurance and cybersecurity solutions to protect digital business services against disruptions in the United States, Europe, Asia, and internationally. It offers nGeniusONE management software to predict, preempt, and resolve network and service delivery problems, as well as facilitate the optimization and capacity planning of their network infrastructures; and specialized platforms and analytic modules to analyze and troubleshoot traffic in radio access and Wi-Fi networks. The company also provides nGeniusPULSE, an active testing tool to identify infrastructure performance issues and determine application availability, reliability, and performance; and nGenius Business Analytics solution, which enables service providers to analyze their network traffic. In addition, it offers ISNG platform for real-time collection and analysis of information-rich, high-volume packet-flow data from across the network that is displayed through the nGeniusONE Service Assurance Solution; vSTREAM, a virtualized form factor version of its intelligent data source; packet flow systems, including the nGeniusONE Service Assurance platform; and test access points. Further, the company provides cybersecurity solutions to protect networks against distributed denial of service attacks under the Arbor brand, such as Arbor Sightline, Arbor Threat Mitigation System, Arbor Insight, Arbor Edge Defense, and Arbor Cloud; and advanced threat detection solutions, such as Omnis Cyber Investigator. It serves enterprise customers in financial services, technology, manufacturing, healthcare, utilities, education, transportation, and retail; mobile operators, wireline operators, cable operators, internet service providers, and cloud providers industries; and government and associated agencies through a direct sales force, and indirect reseller and distribution channels. The company was incorporated in 1984 and is headquartered in Westford, Massachusetts.",
   "_profile_fetched_at": "2026-05-07T11:59:13.449580+00:00",
-  "revenue_by_segment": {
-    "unit": "$B",
-    "source_date": "2025-03-31",
-    "source": "10-K 2025",
-    "slices": [
-      {
-        "label": "Service Assurance",
-        "value": 0.533,
-        "unit": "$B",
-        "share_pct": 64.8,
-        "label_en": "Service Assurance"
-      },
-      {
-        "label": "Cybersecurity",
-        "value": 0.29,
-        "unit": "$B",
-        "share_pct": 35.2,
-        "label_en": "Cybersecurity"
-      }
-    ],
-    "total": 0.82
-  },
   "enrich_description": {
     "ticker": "NTCT",
     "simple": {
@@ -588,9 +617,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.291027+00:00",
     "fetched_at": "2026-05-21T02:17:14.291028+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.073Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.999Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ntct.json",
     "enrich_root": "v2-pipeline-enrich/ntct.json",

@@ -1,6 +1,6 @@
 {
   "ticker": "MTG",
-  "name": "MGIC Investment Corporation",
+  "name": "MGIC Investment",
   "sector": "Finance",
   "subsector": "Assurance",
   "tagline": "Helping families achieve homeownership through private mortgage insurance",
@@ -37,9 +37,12 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'B $' (standard notation); name_fr improved for clarity",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Only one explicit annual value found: Primary IIF of $246.6 billion at December 31, 2020. The document states 'we are a leading provider of "
+      "_hero_history_unverified_reason": "Only one explicit annual value found: Primary IIF of $246.6 billion at December 31, 2020. The document states 'we are a leading provider of ",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "MGIC Market Share",
@@ -88,36 +91,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.21 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:22.161421+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.74,
-      "unit": "Mds €",
+      "value": 740,
+      "unit": "M €",
       "yoy": "-2.6%",
       "history": [
-        0.87,
-        0.71,
-        0.76,
-        0.74
+        870,
+        710,
+        760,
+        740
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.74 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Stable, slight decline to monitor"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Stable, slight decline to monitor",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -136,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 3.14 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Steady growth, healthy trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Steady growth, healthy trend",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,56 +175,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.64 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.65,
-      "unit": "Mds €",
+      "value": 650,
+      "unit": "M €",
       "yoy": "+1.6%",
       "history": [
-        0.66,
-        0.64,
-        0.64,
-        0.65
+        660,
+        640,
+        640,
+        650
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.65 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.37,
-      "unit": "Mds €",
+      "value": 370,
+      "unit": "M €",
       "yoy": "+60.9%",
       "history": [
-        0.33,
-        0.36,
-        0.23,
-        0.37
+        330,
+        360,
+        230,
+        370
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.37 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -233,9 +263,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Unit corrected from 'Mds $' to 'B $'; name_fr improved for consistency with kpis array",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'B $'; name_fr improved for consistency with kpis array"
     }
   ],
   "ai_positioning": {
@@ -264,7 +292,8 @@
       "severity": 5,
       "score_rationale": "Ce risque est en tête du 10-K, décrit comme ayant un impact direct sur les défaillances et les pertes. Le langage est fort (\"sensitive\", \"increased losses\", \"outside of our control\"). La modération de la hausse des prix et les ratios prix-revenus élevés renforcent la vulnérabilité. Pondération élevée pour les risques macro dans l'assurance hypothécaire.",
       "trend": "stable",
-      "summary": "Une récession ou une chute des prix immobiliers augmente les défauts de paiement et les pertes, menaçant la rentabilité."
+      "summary": "Une récession ou une chute des prix immobiliers augmente les défauts de paiement et les pertes, menaçant la rentabilité.",
+      "score": 5
     },
     {
       "title": "Changements dans les pratiques des GSE",
@@ -272,7 +301,8 @@
       "severity": 5,
       "score_rationale": "Les GSE représentent la quasi-totalité des nouveaux contrats. Le texte souligne leur pouvoir de marché et les risques liés à leurs décisions unilatérales. Le langage est préoccupé (\"substantial majority\", \"adversely affect\"). Risque existentiel car dépendance structurelle. Catégorie réglementaire très pondérée.",
       "trend": "stable",
-      "summary": "Toute modification des règles des GSE (Fannie Mae, Freddie Mac) sur l'assurance hypothécaire peut réduire drastiquement nos revenus."
+      "summary": "Toute modification des règles des GSE (Fannie Mae, Freddie Mac) sur l'assurance hypothécaire peut réduire drastiquement nos revenus.",
+      "score": 5
     },
     {
       "title": "Non-conformité aux exigences PMIERs",
@@ -280,7 +310,8 @@
       "severity": 5,
       "score_rationale": "Explicitement lié à l'éligibilité pour écrire de nouveaux contrats. Le texte mentionne une suspension ou résiliation possible. Langage fort (\"significantly reduce\", \"extreme\"). La dépendance aux GSE rend ce risque critique. Catégorie capital très sensible.",
       "trend": "stable",
-      "summary": "Si MGIC ne respecte plus les exigences de capital PMIERs, elle pourrait être exclue du marché des GSE, stoppant presque toute activité nouvelle."
+      "summary": "Si MGIC ne respecte plus les exigences de capital PMIERs, elle pourrait être exclue du marché des GSE, stoppant presque toute activité nouvelle.",
+      "score": 5
     },
     {
       "title": "Estimations incorrectes des réserves de sinistres",
@@ -288,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Le risque est bien développé, avec reconnaissance d'incertitudes importantes. Langage prudent (\"subject to inherent uncertainty\", \"differ substantially\"). Impact direct sur les résultats. Moins existentiel que les autres, mais toujours majeur.",
       "trend": "stable",
-      "summary": "Les réserves pour sinistres sont basées sur des estimations incertaines ; une erreur pourrait impacter lourdement les résultats."
+      "summary": "Les réserves pour sinistres sont basées sur des estimations incertaines ; une erreur pourrait impacter lourdement les résultats.",
+      "score": 4
     },
     {
       "title": "Réglementation accrue sur la tarification et la données",
@@ -296,7 +328,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne une surveillance accrue sur l'IA, les algorithmes et la discrimination. Références à RESPA, FCRA, ECOA. Langage préventif (\"could be subject\", \"additional scrutiny\"). Moins immédiat que les autres, mais en hausse réglementaire.",
       "trend": "up",
-      "summary": "L'usage croissant de données et d'algorithmes attire une surveillance réglementaire accrue, augmentant les risques juridiques et opérationnels."
+      "summary": "L'usage croissant de données et d'algorithmes attire une surveillance réglementaire accrue, augmentant les risques juridiques et opérationnels.",
+      "score": 4
     },
     {
       "title": "Cyberattaque ou défaillance des systèmes",
@@ -304,7 +337,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans les risques réglementaires et lié à la protection des données. Bien que pas détaillé ici, il est référencé comme pouvant avoir un \"effet matériel\". Catégorie cybersécurité à impact élevé. Contexte général de menace croissante.",
       "trend": "stable",
-      "summary": "Une faille de sécurité informatique pourrait compromettre des données sensibles et nuire gravement à la réputation et aux opérations."
+      "summary": "Une faille de sécurité informatique pourrait compromettre des données sensibles et nuire gravement à la réputation et aux opérations.",
+      "score": 4
     },
     {
       "title": "Catastrophes naturelles ou pandémies",
@@ -312,7 +346,8 @@
       "severity": 4,
       "score_rationale": "Le texte décrit un impact indirect mais fort via la dégradation économique locale. Mention de l'augmentation de la fréquence des événements. Langage préoccupé (\"trigger an economic downturn\"). Impact géographiquement concentré mais potentiellement sévère.",
       "trend": "up",
-      "summary": "Les événements climatiques extrêmes ou sanitaires peuvent déclencher des vagues de défauts dans les zones touchées, augmentant les pertes."
+      "summary": "Les événements climatiques extrêmes ou sanitaires peuvent déclencher des vagues de défauts dans les zones touchées, augmentant les pertes.",
+      "score": 4
     }
   ],
   "governance": {
@@ -372,7 +407,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -543,9 +578,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.285375+00:00",
     "fetched_at": "2026-05-21T02:17:14.285375+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.693Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.579Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mtg.json",
     "enrich_root": "v2-pipeline-enrich/mtg.json",

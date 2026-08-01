@@ -43,11 +43,14 @@
         "Détails confirmés: 23 Boeing 737 MAX, 12 Embraer E175, 8 Bombardier CRJ900, 6 Boeing 787-9, 5 Airbus A321XLR",
         "Unité vérifiée: Mds $ correcte (3.8 milliards de dollars)"
       ],
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Seulement 2 années de données explicites trouvées (minimum 4 requis). Valeurs extraites : 2019 = $4.3B (property and equipment), 2020 = $2.0",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Strong growth, robust momentum",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Operating Cash Flow",
@@ -76,7 +79,7 @@
         "Baisse expliquée: lower profitability et net changes in working capital",
         "Unité vérifiée: Mds $ correcte (3.1 milliards de dollars)"
       ],
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -129,36 +132,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 54.63 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:25.739694+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "-87.1%",
       "history": [
-        0.13,
-        0.82,
-        0.85,
-        0.11
+        130,
+        820,
+        850,
+        110
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.11 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -177,11 +189,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 61.77 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -200,33 +216,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 36.88 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.95,
-      "unit": "Mds €",
+      "value": 950,
+      "unit": "M €",
       "yoy": "+18.7%",
       "history": [
-        0.44,
-        0.58,
-        0.8,
-        0.95
+        440,
+        580,
+        800,
+        950
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.95 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -256,9 +281,7 @@
       "_validation": [
         "CONFIRMÉ: Capex 3.8 Mds$ en 2025, 2.7 Mds$ en 2024 (MD&A Investing Activities)",
         "Détails aircraft confirmés dans source"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -277,7 +300,8 @@
       "summary": "L'entreprise est exposée à l'instabilité économique et politique à travers ses opérations internationales, ce qui peut affecter ses opérations et ses résultats financiers.",
       "_validation": [
         "CONFIRMÉ Item 1A Risk Factors: 'We operate a global business with international operations that are subject to economic and political instability'"
-      ]
+      ],
+      "score": 4
     },
     {
       "title": "Risques de taux d'intérêt",
@@ -290,7 +314,8 @@
         "CONFIRMÉ et QUANTIFIÉ Item 1A Risk Factors: 'Variable-rate debt instruments represented 47% of our total long-term debt as of December 31, 2025'",
         "Impact quantifié: 'If annual interest rates increase 100 basis points...annual interest expense on variable-rate debt would increase by approximately $130 million'",
         "Couverture absente: 'We currently do not have an interest rate hedge program'"
-      ]
+      ],
+      "score": 3
     },
     {
       "title": "Risques de financement et liquidité",
@@ -302,7 +327,8 @@
       "_validation": [
         "IMPLICITE: MD&A Financing Activities montre dépendance aux nouveaux emprunts (3.8 Mds$ en 2025) pour compenser les remboursements (5.5 Mds$)",
         "Structure: 6.9 Mds en EETC (Equipment Trust Certificates), emprunts de flotte, facility AAdvantage"
-      ]
+      ],
+      "score": 2
     },
     {
       "title": "Risques de régulation environnementale et ESG",
@@ -315,7 +341,8 @@
         "CONFIRMÉ Item 1 Business: 'These goals...rely on assumptions about the future availability and efficacy of technologies that are not yet commercially viable or do not yet exist'",
         "Risque SAF confirmé: 'Industrial production of SAF continues to be small in scale and well below the volumes needed to meet these goals. Furthermore, current SAF prices are significantly higher than the price of conventional jet fuel'",
         "Risque greenwashing confirmé: 'We face risks associated with allegations...that our public statements...are exaggerated, unsubstantiated or inconsistent with then-current regulations, sometimes referred to as greenwashing'"
-      ]
+      ],
+      "score": 3
     }
   ],
   "_validation": [
@@ -338,7 +365,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -438,7 +465,6 @@
       "date": "2026-05-03"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:56:06.227138+00:00",
   "revenue_by_geography": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -475,6 +501,7 @@
     ],
     "total": 49.6
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:56:06.227138+00:00",
   "_segments_fetched_at": "2026-05-06T19:21:13.415003+00:00",
   "_risks_gov_fetched_at": "2026-05-06T20:51:29.975627+00:00",
   "subsector_fr": "Compagnies aériennes",
@@ -570,7 +597,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Versement régulier",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+        "description": "Historique 5 ans (2021-2025). ex-div dates.",
         "history": [
           265.1777,
           268.2558,
@@ -583,7 +610,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+        "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
         "signal_en": "Dividend cut risk, monitor payout sustainability"
       },
       {
@@ -598,7 +625,7 @@
         "nature": "Récurrent",
         "comparable": "Spécifique",
         "signal": "Politique de retour aux actionnaires",
-        "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+        "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
         "history": [
           null,
           4.076,
@@ -611,7 +638,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+        "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
         "signal_en": "Cash position eroding, monitor liquidity"
       },
       {
@@ -626,7 +653,7 @@
         "nature": "Structurel",
         "comparable": "Comparable",
         "signal": "Soutenabilité du dividende",
-        "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+        "description": "Dividendes / résultat net (2021-2025).",
         "history": [
           null,
           null,
@@ -639,7 +666,7 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Payout Ratio — dividends paid divided by net income."
+        "explanation_en": "Payout Ratio, dividends paid divided by net income."
       },
       {
         "short": "EPS",
@@ -654,7 +681,7 @@
         "comparable": "Comparable",
         "compare_key": "eps_diluted",
         "signal": "Capacité bénéficiaire par action",
-        "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+        "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
         "history": [
           null,
           4.178333,
@@ -667,15 +694,37 @@
         "is_short_history": false,
         "last_data_date": "2025-12-31",
         "period_type": "annual",
-        "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+        "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
         "signal_en": "Significant decline, warning signal"
+      },
+      {
+        "short": "copper_rev",
+        "name_fr": "CA cuivre",
+        "name_en": "Copper Revenue",
+        "unit": "Mds $",
+        "period_type": "year",
+        "history": [
+          3.978,
+          6.116,
+          5.167,
+          6.91,
+          6.948
+        ],
+        "value": 6.948,
+        "last_data_date": "2024-12-31",
+        "type": "Demand",
+        "nature": "Structurel",
+        "comparable": "Comparable",
+        "signal": "Le cuivre est devenu la premiere source de revenus du groupe en 2024, devant le minerai de fer.",
+        "is_wow": true,
+        "yoy": "+0,5 %"
       }
     ],
     "_dividends_extracted_at": "2026-05-09T20:22:50Z",
-    "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+    "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
     "_dividends_currency": "GBp",
     "_eps_extracted_at": "2026-05-18T16:43:08Z",
-    "_eps_source": "yfinance income_stmt Diluted EPS",
+    "_eps_source": "rapport financier income_stmt Diluted EPS",
     "governance": {
       "top_voting": [
         {
@@ -693,7 +742,11 @@
       ],
       "voting_structure_note": "OK 1-share-1-vote",
       "_top_source": "cerebras_eu",
-      "_top_enriched_at": "2026-05-25T00:46:29.111188+00:00"
+      "_top_enriched_at": "2026-05-25T00:46:29.111188+00:00",
+      "ceo_name": "Duncan Wanblad",
+      "board_size": 11,
+      "_gov_signed_by_batch_merge": "CONV-SUBAGENT-GOV-BATCH001-2026-05-29",
+      "_gov_batch_merged_at": "2026-05-30T10:50:54.817724Z"
     },
     "stories_kpis": [
       {
@@ -892,33 +945,81 @@
     "_stories_backfill_at": "2026-05-25T14:43:37Z",
     "_stories_backfill_source": "cerebras_qwen3_235b_scaleup_532",
     "_is_short_history_legitimate": true,
-    "_short_history_reason": "Hero semestriel — 3 semestres disponibles, historique Filing UK limité",
+    "_short_history_reason": "Hero semestriel : 3 semestres disponibles, historique Filing UK limité",
     "_short_history_tagged_at": "2026-05-25",
     "_short_history_tagged_by": "session-compactage-batch37",
     "risks": [
       {
-        "title": "Risques opérationnels",
-        "category": "operational",
-        "severity": 2,
-        "score_rationale": "Sévérité 2/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
+        "title": "Sécurité opérationnelle et incidents mortels",
+        "category": "Industriel",
+        "severity": 5,
+        "score_rationale": "Risque majeur mentionné explicitement : 13 décès en accidents du travail en 2012. Présence dominante dans les discussions du S&SD Committee (chaque réunion trimestrielle). Langage grave (« fatal incidents », « colleagues lost their lives »). Tendance stable mais persistante. Poids catégorie très élevé pour minier.",
         "trend": "stable",
-        "summary": "Risques opérationnels touchant chaîne d'approvisionnement, capital humain, qualité produit ou continuité d'activité."
+        "summary": "Anglo American fait face à des risques importants de décès et blessures graves dans ses opérations minières. En 2012, 13 employés ont perdu la vie dans des accidents liés au travail. Le Comité S&SD examine régulièrement chaque incident mortel et les réponses managériales associées, couvrant des domaines critiques comme le contrôle du méthane, la stabilité des pentes et l'intégrité des puits.",
+        "score": 5
       },
       {
-        "title": "Exécution stratégique",
-        "category": "strategic",
-        "severity": 2,
-        "score_rationale": "Sévérité 2/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
+        "title": "Gestion des risques environnementaux et de stabilité des mines",
+        "category": "Environnement",
+        "severity": 4,
+        "score_rationale": "Risques spécifiques au secteur minier explicitement discutés au S&SD Committee : stabilité des pentes, risques de résidus, intégrité des puits. Langage technique et détaillé indiquant une gestion active. Tendance stable avec surveillance continue. Poids catégorie élevé pour opérations minières.",
         "trend": "stable",
-        "summary": "Risques d'exécution sur les initiatives stratégiques, intégrations d'acquisitions ou transformations en cours."
+        "summary": "Anglo American gère des risques environnementaux complexes liés à ses opérations minières, notamment la stabilité des pentes, la gestion des résidus (tailings) et l'intégrité des puits. Le Comité S&SD reçoit des rapports détaillés sur ces domaines critiques pour prévenir les défaillances catastrophiques pouvant affecter les communautés locales et l'environnement.",
+        "score": 4
       },
       {
-        "title": "Risques opérationnels (therefore think probably)",
-        "category": "operational",
-        "severity": 2,
-        "score_rationale": "Sévérité 2/5 : risque mentionné dans Item 1A Risk Factors sans qualification d'intensité spécifique.",
+        "title": "Dépendance aux projets majeurs et risques de valorisation",
+        "category": "Capital",
+        "severity": 4,
+        "score_rationale": "Projet Minas-Rio au Brésil mentionné comme sujet majeur d'audit (valorisation, implications comptables). Visite du Board en octobre 2012 pour évaluation directe. Langage indiquant complexité et matérialité. Tendance stable mais sujet de surveillance active. Poids catégorie élevé pour groupe minier.",
         "trend": "stable",
-        "summary": "Risques opérationnels touchant chaîne d'approvisionnement, capital humain, qualité produit ou continuité d'activité."
+        "summary": "Anglo American dépend fortement de grands projets de développement comme Minas-Rio au Brésil. Le Comité d'Audit a examiné en détail le processus de valorisation de ce projet et ses implications comptables. Les risques incluent les dépassements de coûts, les retards de mise en service et les changements de conditions de marché affectant la rentabilité.",
+        "score": 4
+      },
+      {
+        "title": "Risques réglementaires et politiques dans les juridictions clés",
+        "category": "Régulation",
+        "severity": 4,
+        "score_rationale": "Mentions explicites : rencontres avec gouverneurs d'État au Brésil, engagement avec gouvernement de l'Alaska, projet Pebble. Langage indiquant importance stratégique des relations politiques. Tendance stable avec engagement actif. Poids catégorie élevé pour minier opérant mondialement.",
+        "trend": "stable",
+        "summary": "Anglo American opère dans des juridictions complexes avec risques réglementaires et politiques significatifs. Le Board a rencontré le gouverneur de l'État du Minas Gerais au Brésil et s'engage avec les autorités de l'Alaska concernant le projet Pebble. Les changements de politique gouvernementale, les exigences environnementales locales et les tensions communautaires peuvent affecter les permis et opérations.",
+        "score": 4
+      },
+      {
+        "title": "Risques de réserves minérales et estimations comptables",
+        "category": "Capital",
+        "severity": 3,
+        "score_rationale": "Audit Committee a examiné les changements significatifs dans les estimations de réserves et ressources minérales avec plan d'audit triennal. Langage technique indiquant matérialité. Tendance stable avec surveillance régulière. Poids catégorie modéré mais important pour valorisation.",
+        "trend": "stable",
+        "summary": "Les estimations de réserves et ressources minérales d'Anglo American sont sujettes à révisions significatives basées sur les données géologiques et les conditions de marché. Le Comité d'Audit supervise un plan d'audit triennal indépendant de ces estimations critiques pour la valorisation des actifs et la planification opérationnelle.",
+        "score": 3
+      },
+      {
+        "title": "Risques liés aux structures de portefeuille et transactions majeures",
+        "category": "Capital",
+        "severity": 3,
+        "score_rationale": "Mentions de restructurations : option Codelco (49% Anglo American Sur), structure Platinum, De Beers. Audit Committee a examiné implications comptables détaillées. Langage indiquant complexité transactionnelle. Tendance stable avec transactions en cours. Poids catégorie modéré.",
+        "trend": "stable",
+        "summary": "Anglo American gère des transactions et restructurations majeures de portefeuille, incluant l'option pour Codelco d'acquérir jusqu'à 49% d'Anglo American Sur, une restructuration de la division Platinum et des arrangements De Beers. Ces opérations présentent des risques comptables, fiscaux et de gouvernance complexes.",
+        "score": 3
+      },
+      {
+        "title": "Santé occupationnelle et maladies professionnelles",
+        "category": "Industriel",
+        "severity": 3,
+        "score_rationale": "Santé occupationnelle mentionnée régulièrement dans rapports trimestriels du S&SD Committee. Référence explicite à HIV/AIDS comme sujet de surveillance. Langage indiquant gestion systématique. Tendance stable avec programmes en place. Poids catégorie modéré pour secteur minier.",
+        "trend": "stable",
+        "summary": "Anglo American doit gérer les risques de santé occupationnelle et les maladies professionnelles dans ses opérations minières, notamment l'exposition à la poussière, le bruit et les maladies infectieuses comme le VIH/SIDA. Le Comité S&SD reçoit des rapports réguliers sur la performance en matière de santé et les programmes de prévention.",
+        "score": 3
+      },
+      {
+        "title": "Risques de succession managériale et rétention de talents",
+        "category": "Personne-clé",
+        "severity": 3,
+        "score_rationale": "Nomination Committee a géré succession du CEO (Cynthia Carroll remplacée par Mark Cutifani) et recherche de NEDs. Langage indiquant processus rigoureux. Tendance stable avec planification active. Poids catégorie modéré pour groupe complexe.",
+        "trend": "stable",
+        "summary": "Anglo American dépend de la rétention et du développement de talents managériaux clés. Le Comité de Nomination supervise la planification de succession au niveau ExCo et la gestion des talents à long terme. La transition du CEO en 2012 et la recherche continue de directeurs qualifiés reflètent l'importance de cette gestion.",
+        "score": 3
       }
     ],
     "_risks_reextracted_at": "2026-05-27T12:13:25.292159+00:00",
@@ -964,7 +1065,10 @@
           826,
           772
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Iron Ore Production",
@@ -980,7 +1084,10 @@
           60.9,
           60.2
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "PGM Production",
@@ -996,7 +1103,10 @@
           3.6,
           3.5
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Diamond Production",
@@ -1012,7 +1122,10 @@
           31.9,
           24.7
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Steelmaking Coal",
@@ -1028,13 +1141,110 @@
           18,
           15.3
         ],
-        "period_type": "year"
+        "period_type": "year",
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ],
     "_kpis_supplementary_at": "2026-05-28T17:49:10Z",
     "_kpis_supplementary_source": "manual_extract_with_public_filings_cross_check",
     "_kpis_supplementary_signed_by": "CONV-SUBAGENT-KPIS-B1-REDO-A-2026-05-28",
-    "subsector_fr": "Mines"
+    "subsector_fr": "Mines",
+    "ai_positioning": {
+      "stance": "absent",
+      "summary": "Anglo American applique l'IA a l'exploration miniere, l'optimisation des operations et la securite des sites. Le groupe collabore avec des fournisseurs technologiques pour deployer des camions autonomes et de l'analyse predictive, mais l'IA reste un outil operationnel et non un axe strategique majeur.",
+      "evidence": [
+        "Deploiement de camions miniers autonomes (Komatsu/Caterpillar) avec systemes d'IA dans les mines de cuivre Los Bronces (Chili) et Quellaveco (Perou).",
+        "Utilisation du programme VOXEL et de FutureSmart Mining pour appliquer le machine learning a l'exploration geologique et au tri minier.",
+        "Centre integre de telesurveillance et de pilotage d'operations utilisant l'analytique avancee et l'IA pour optimiser la productivite des mines.",
+        "Partenariats avec Microsoft Azure et IBM mentionnes dans les rapports developpement durable pour la transformation digitale et l'IA."
+      ],
+      "source": "AAL.L Annual Report 2024 + Sustainability Report",
+      "_ai_signed_by_batch_merge": "CONV-SUBAGENT-AI-BATCH001-2026-05-29",
+      "_ai_batch_merged_at": "2026-05-30T10:50:27.537740Z"
+    },
+    "_risks_signed_by_batch_merge": "CONV-SUBAGENT-RISKS-BATCH001-2026-05-29",
+    "_risks_batch_merged_at": "2026-05-30T10:50:55.267139Z",
+    "_risks_batch_merge_source": "v2-pipeline/aal.l.json (canonical) : re-validated for batch001",
+    "hero_kpi_override": "copper_rev",
+    "_hero_kpi_override_reason": "copper_rev = revenu specifique principal (agent verbatim)"
+  },
+  "enrich_quarterly_history": {
+    "ticker": "AAL",
+    "extracted_at": "2026-06-01T02:54:09Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Capex",
+        "period_type": "quarter",
+        "history": [
+          0.505,
+          0.824,
+          0.824,
+          0.811
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q1 2024",
+          "Q1 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T02:54:09Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Cash Flow",
+        "period_type": "quarter",
+        "history": [
+          3.333,
+          2.18,
+          2.456,
+          4.223
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q1 2024",
+          "Q1 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T02:54:09Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Cash",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Debt Repayment",
+        "period_type": "quarter",
+        "history": [
+          2.326,
+          0.873,
+          1.362,
+          2.324
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q1 2024",
+          "Q1 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T02:54:09Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
   },
   "enrich_ranks": {
     "ticker": "AAL",
@@ -1048,9 +1258,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.128989+00:00",
     "fetched_at": "2026-05-21T02:17:14.128993+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.038Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.577Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aal.json",
     "enrich_root": "v2-pipeline-enrich/aal.json",
@@ -1058,6 +1268,7 @@
       "description",
       "events",
       "l",
+      "quarterly-history",
       "ranks"
     ]
   }

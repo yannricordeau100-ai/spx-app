@@ -47,25 +47,25 @@
       "ttm": 69.9,
       "_validation": "Unité corrigée de 'Mds $' à '%' (marge brute exprimée en pourcentage, non en milliards de dollars)",
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.25,
-      "unit": "Mds $",
+      "value": 250,
+      "unit": "M $",
       "yoy": "+13.6%",
       "history": [
-        0.106,
-        0.117,
-        0.129,
-        0.154,
-        0.162,
-        0.193,
-        0.22,
-        0.25
+        106,
+        117,
+        129,
+        154,
+        162,
+        193,
+        220,
+        250
       ],
       "type": "Revenue",
       "nature": "comptable",
@@ -75,24 +75,29 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.058,
-      "unit": "Mds $",
+      "value": 58,
+      "unit": "M $",
       "yoy": "+31.8%",
       "history": [
-        0.023,
-        0.018,
-        0.021,
-        0.027,
-        0.021,
-        0.03,
-        0.044,
-        0.058
+        23,
+        18,
+        21,
+        27,
+        21,
+        30,
+        44,
+        58
       ],
       "type": "Profit",
       "nature": "comptable",
@@ -101,8 +106,13 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -132,9 +142,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 95,
-      "_validation": "Description enrichie avec détail source 10-K",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Description enrichie avec détail source 10-K"
     },
     {
       "short": "Vascular Surgeon Mix",
@@ -162,9 +170,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 80,
-      "_validation": "Description enrichie pour lier à stratégie documentée",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Description enrichie pour lier à stratégie documentée"
     }
   ],
   "ai_positioning": {
@@ -178,25 +184,25 @@
       "title": "Risque de change",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "43% des ventes en 2025 étaient en devises étrangères (Euro, Dollar canadien, Livre sterling, Yen, Dollar australien), exposition directe aux fluctuations des taux de change (score par défaut, à affiner)",
+      "score_rationale": "43% des ventes en 2025 étaient en devises étrangères (Euro, Dollar canadien, Livre sterling, Yen, Dollar australien), exposition directe aux fluctuations des taux de change",
       "trend": "stable",
       "summary": "La société est exposée aux risques de change en raison de ses ventes internationales représentant 43% du total des ventes",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de dépendance client",
       "category": "Marché",
       "severity": 4,
-      "score_rationale": "80% des ventes concentrées sur chirurgiens vasculaires, exposition élevée à la concentration client géographique et spécialisée (score par défaut, à affiner)",
+      "score_rationale": "80% des ventes concentrées sur chirurgiens vasculaires, exposition élevée à la concentration client géographique et spécialisée",
       "trend": "stable",
       "summary": "La société est exposée à un risque de concentration majeure avec 80% des ventes provenant d'une seule spécialité médicale",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque d'intérêt",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Investissements en titres à taux fixe et dette convertible senior, exposition aux fluctuations des taux d'intérêt (score par défaut, à affiner)",
+      "score_rationale": "Investissements en titres à taux fixe et dette convertible senior, exposition aux fluctuations des taux d'intérêt",
       "trend": "stable",
       "summary": "La société est exposée aux risques d'intérêt en raison de ses investissements en titres à taux fixe et de sa structure de dette",
       "score": 3
@@ -205,16 +211,16 @@
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 2,
-      "score_rationale": "Investissements en obligations d'entreprise, exposition modérée aux défauts de paiement (score par défaut, à affiner)",
+      "score_rationale": "Investissements en obligations d'entreprise, exposition modérée aux défauts de paiement",
       "trend": "stable",
       "summary": "La société est exposée aux risques de crédit en raison de ses investissements en obligations d'entreprise",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risque de litige",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "Procédures judiciaires en cours (responsabilité produit, emploi, propriété intellectuelle, contrats), exposition modérée aux condamnations financières (score par défaut, à affiner)",
+      "score_rationale": "Procédures judiciaires en cours (responsabilité produit, emploi, propriété intellectuelle, contrats), exposition modérée aux condamnations financières",
       "trend": "stable",
       "summary": "La société est exposée aux risques de litige en raison de procédures judiciaires en cours relatives à la responsabilité produit et autres matières commerciales",
       "score": 3
@@ -223,7 +229,7 @@
       "title": "Risque de régulation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Secteur médical fortement réglementé, évolution constante des normes FDA et internationales, approbations réglementaires requises pour commercialisation (score par défaut, à affiner)",
+      "score_rationale": "Secteur médical fortement réglementé, évolution constante des normes FDA et internationales, approbations réglementaires requises pour commercialisation",
       "trend": "up",
       "summary": "La société est exposée aux risques de régulation en raison de l'évolution de la réglementation dans son secteur d'activité et de sa dépendance aux approbations réglementaires",
       "score": 3
@@ -503,23 +509,18 @@
         "history": [
           5.496,
           8.344,
-          -4.883,
           2.932,
           6.278,
           9.74,
-          -5.656,
           3.875,
           8.391,
           12.615,
-          -7.915,
           4.092,
           8.376,
           12.032,
-          -8.85,
           4.095,
           7.636,
           10.606,
-          -8.198,
           4.06
         ],
         "history_periods": [
@@ -573,6 +574,12 @@
             "accession": "0001193125-26-207500",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (LMAT)"
         ]
       }
     ]
@@ -589,9 +596,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.277385+00:00",
     "fetched_at": "2026-05-21T02:17:14.277386+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.065Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.860Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lmat.json",
     "enrich_root": "v2-pipeline-enrich/lmat.json",

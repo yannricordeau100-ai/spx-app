@@ -56,7 +56,7 @@
       "is_short_history": false,
       "ttm": 138.17,
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -196,11 +196,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.02 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -219,11 +223,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 8.14 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -249,9 +257,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 13.86,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 13.86
     }
   ],
   "ai_positioning": {
@@ -265,43 +271,43 @@
       "title": "Risque de liquidité et de restructuration",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Ce risque est mentionné dès le début du document (Item 1A) avec un langage fort ('total loss of their investment', 'restructuring of our liabilities'). Il est pondéré par la catégorie 'Capital' et la gravité de ses conséquences potentielles. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné dès le début du document (Item 1A) avec un langage fort ('total loss of their investment', 'restructuring of our liabilities'). Il est pondéré par la catégorie 'Capital' et la gravité de ses conséquences potentielles.",
       "trend": "up",
       "summary": "La société pourrait manquer de liquidités, nécessitant une restructuration de ses dettes, ce qui pourrait entraîner une perte totale pour les actionnaires.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Endettement élevé et contraintes de liquidité",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Ce risque est fortement souligné dans le texte ('substantial level of indebtedness', 'current liquidity constraints') et impacte directement la capacité de remboursement et les opportunités d'investissement. La catégorie 'Capital' est pertinente et la sévérité est élevée. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est fortement souligné dans le texte ('substantial level of indebtedness', 'current liquidity constraints') et impacte directement la capacité de remboursement et les opportunités d'investissement. La catégorie 'Capital' est pertinente et la sévérité est élevée.",
       "trend": "up",
       "summary": "Le niveau élevé d'endettement et le manque de liquidités actuels limitent la capacité de la société à rembourser ses dettes et à saisir des opportunités, affectant la récupération des investissements.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Changements dans l'industrie du cinéma et concurrence",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Ce risque est détaillé avec plusieurs facteurs comme le streaming, la réduction des fenêtres d'exclusivité et la baisse de production de films. Il est classé comme 'Industriel' avec une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé avec plusieurs facteurs comme le streaming, la réduction des fenêtres d'exclusivité et la baisse de production de films. Il est classé comme 'Industriel' avec une sévérité élevée.",
       "trend": "up",
       "summary": "L'évolution des modes de consommation (streaming, PVOD) et la réduction de la production de films menacent l'activité traditionnelle d'exploitation en salle.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité extrême des actions et dilution",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Le texte mentionne explicitement la 'significant recent dilution' et 'extreme volatility' des actions, avec un impact direct sur le prix et la valeur pour les investisseurs. La catégorie 'Capital' est appropriée et la sévérité est significative. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne explicitement la 'significant recent dilution' et 'extreme volatility' des actions, avec un impact direct sur le prix et la valeur pour les investisseurs. La catégorie 'Capital' est appropriée et la sévérité est significative.",
       "trend": "up",
       "summary": "Les actions de la société connaissent une forte volatilité et une dilution potentielle, ce qui peut entraîner des pertes substantielles pour les investisseurs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux systèmes d'information et cybersécurité",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "Les 'failures, unavailability or security breaches of our information systems' sont mentionnés comme un risque opérationnel. La catégorie 'Cybersécurité' est la plus pertinente, avec une sévérité modérée mais potentiellement impactante. (score par défaut, à affiner)",
+      "score_rationale": "Les 'failures, unavailability or security breaches of our information systems' sont mentionnés comme un risque opérationnel. La catégorie 'Cybersécurité' est la plus pertinente, avec une sévérité modérée mais potentiellement impactante.",
       "trend": "stable",
       "summary": "Les défaillances, indisponibilités ou violations de sécurité des systèmes d'information peuvent perturber les opérations.",
       "score": 3
@@ -310,7 +316,7 @@
       "title": "Dépendance au personnel clé et rétention des talents",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "La 'dependence on key personnel' et la capacité à 'attract and retain senior executives' sont identifiées comme un risque opérationnel. La catégorie 'Personne-clé' est directe, et la sévérité est modérée. (score par défaut, à affiner)",
+      "score_rationale": "La 'dependence on key personnel' et la capacité à 'attract and retain senior executives' sont identifiées comme un risque opérationnel. La catégorie 'Personne-clé' est directe, et la sévérité est modérée.",
       "trend": "stable",
       "summary": "La performance future dépend de la capacité à attirer et retenir des employés clés, notamment des cadres supérieurs.",
       "score": 3
@@ -319,10 +325,10 @@
       "title": "Conditions économiques mondiales et inflation",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Les 'general and international economic, political, regulatory, social and financial market conditions, including potential economic recession, inflation' sont cités comme des risques réglementaires mais impactent le revenu discrétionnaire des spectateurs. La catégorie 'Macro' est plus adaptée, avec une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Les 'general and international economic, political, regulatory, social and financial market conditions, including potential economic recession, inflation' sont cités comme des risques réglementaires mais impactent le revenu discrétionnaire des spectateurs. La catégorie 'Macro' est plus adaptée, avec une sévérité élevée.",
       "trend": "up",
       "summary": "Les conditions économiques mondiales, y compris la récession et l'inflation, peuvent réduire le revenu disponible des spectateurs et affecter les revenus de la société.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -475,88 +481,95 @@
   },
   "enrich_quarterly_history": {
     "ticker": "AMC",
-    "extracted_at": "2026-05-15T18:08:47Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1411579,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T02:56:36Z",
+    "n_kpis": 2,
     "kpis": [
       {
         "short": "Revenu total",
         "period_type": "quarter",
         "history": [
-          0.9415,
-          0.9604,
-          1.0799,
-          -1.7394,
-          0.1483,
-          0.593,
-          1.3562,
-          0.4304,
-          0.7857,
-          1.9521,
-          2.9205,
-          -1.7469,
-          0.9544,
-          2.3023,
-          3.7082,
-          -2.1523,
-          0.9514,
-          1.982,
-          3.3308,
-          -1.627
+          444.7,
+          763.2,
+          785.7,
+          1166.4,
+          968.4,
+          954.4,
+          1347.9,
+          1405.9,
+          951.4,
+          1030.6,
+          1348.8,
+          862.5,
+          1397.9,
+          1300.2,
+          1045.4
         ],
         "history_periods": [
-          "Q1 2020",
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
           "Q2 2021",
           "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024"
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
         ],
-        "last_data_date": "2024-12-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q1 2024",
-            "value": 0.9514,
-            "accession": "0001411579-24-000034",
-            "end": "2024-03-31"
-          },
-          {
-            "period": "Q2 2024",
-            "value": 1.982,
-            "accession": "0001411579-24-000060",
-            "end": "2024-06-30"
-          },
-          {
-            "period": "Q3 2024",
-            "value": 3.3308,
-            "accession": "0001411579-24-000077",
-            "end": "2024-09-30"
-          },
-          {
-            "period": "Q4 2024",
-            "value": -1.627,
-            "accession": "calc-0001411579-25-000042",
-            "end": "2024-12-31"
-          }
-        ]
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:56:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      },
+      {
+        "short": "Perte nette",
+        "period_type": "quarter",
+        "history": [
+          -343.6,
+          -224.2,
+          -337.4,
+          -121.6,
+          -226.9,
+          -235.5,
+          -226.9,
+          -226.9,
+          -163.5,
+          -32.8,
+          -20.7,
+          -202.1,
+          -4.7,
+          -298.2,
+          -117.1
+        ],
+        "history_periods": [
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:56:36Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -572,9 +585,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.220319+00:00",
     "fetched_at": "2026-05-21T02:17:14.220320+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.730Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.153Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/amc.json",
     "enrich_root": "v2-pipeline-enrich/amc.json",

@@ -21,8 +21,8 @@
       "name_fr": "Revenu segment Aérospatial Avancé",
       "name_en": "Aerospace Advanced Technologies Revenue",
       "explanation": "Ventes du segment spécialisé dans les composants haute technologie pour l'aérospatiale et la défense.",
-      "value": "1048.9",
-      "unit": "M $",
+      "value": 1.049,
+      "unit": "Mds $",
       "yoy": "+12.5%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -30,9 +30,9 @@
       "signal": "Croissance à deux chiffres soutenue depuis 3 ans",
       "description": "Le segment AAT affiche une croissance solide, tirée par la demande en composants critiques et des acquisitions ciblées comme Vian.",
       "history": [
-        789.3,
-        932.7,
-        1048.9
+        0.789,
+        0.933,
+        1.049
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -42,15 +42,16 @@
       "_validation": [
         "Valeur confirmée: 1048.9 M $ (source 10-K MDA)"
       ],
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Process Flow Technologies",
       "name_fr": "Revenu segment Technologies d'Écoulement",
       "name_en": "Process Flow Technologies Revenue",
       "explanation": "Ventes du segment spécialisé dans les solutions de contrôle d'écoulement pour l'industrie et la chimie.",
-      "value": "1256.1",
-      "unit": "M $",
+      "value": 1.256,
+      "unit": "Mds $",
       "yoy": "+4.8%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -58,9 +59,9 @@
       "signal": "Croissance modérée mais stable",
       "description": "PFT contribue à la majorité des ventes, avec une intégration réussie d'acquisitions comme BAUM, Technifab et CryoWorks.",
       "history": [
-        1072.8,
-        1198.5,
-        1256.1
+        1.073,
+        1.198,
+        1.256
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -71,7 +72,8 @@
         "Valeur confirmée: 1256.1 M $ (source 10-K MDA)",
         "is_generic changé de true à true (cohérence)"
       ],
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Op Margin",
@@ -108,8 +110,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Ventes totales consolidées de l'entreprise.",
-      "value": "2305.0",
-      "unit": "M $",
+      "value": 2.305,
+      "unit": "Mds $",
       "yoy": "+8.2%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -117,9 +119,9 @@
       "signal": "Croissance organique et contributions d'acquisitions",
       "description": "La croissance est portée par la demande en composants critiques et une stratégie d'acquisitions réussie.",
       "history": [
-        1862.1,
-        2131.2,
-        2305
+        1.862,
+        2.131,
+        2.305
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -130,7 +132,8 @@
         "Valeur confirmée: 2305.0 M $ (source 10-K MDA Total net sales)"
       ],
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Assets",
@@ -149,11 +152,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.85 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -172,11 +179,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.22 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -205,9 +216,7 @@
       "ttm": 5.79,
       "_validation": [
         "Valeur confirmée: 6.2% (source 10-K MDA Core business growth)"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     },
     {
       "short": "Acquisitions Contribution",
@@ -234,9 +243,7 @@
       "ttm": 1.13,
       "_validation": [
         "Valeur confirmée: 1.4% (source 10-K MDA Acquisitions)"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -257,7 +264,8 @@
       "severity": 5,
       "score_rationale": "Mentionné en premier parmi les risques, impact potentiel sur les résultats d'exploitation et la condition financière, langage indiquant une menace matérielle",
       "trend": "stable",
-      "summary": "Les fluctuations économiques mondiales, notamment les conditions de crédit, les politiques commerciales, les tarifs et les tensions géopolitiques, pourraient avoir un impact négatif sur les résultats d'exploitation et la condition financière."
+      "summary": "Les fluctuations économiques mondiales, notamment les conditions de crédit, les politiques commerciales, les tarifs et les tensions géopolitiques, pourraient avoir un impact négatif sur les résultats d'exploitation et la condition financière.",
+      "score": 5
     },
     {
       "title": "Geopolitical Risks",
@@ -265,7 +273,8 @@
       "severity": 5,
       "score_rationale": "Mentionné explicitement comme un risque majeur, conflits au Moyen-Orient, sanctions contre la Russie suite à l'invasion de l'Ukraine, impact potentiel direct sur les opérations",
       "trend": "up",
-      "summary": "Les risques géopolitiques, notamment les conflits régionaux et les sanctions commerciales, pourraient perturber les opérations et la condition financière de l'entreprise."
+      "summary": "Les risques géopolitiques, notamment les conflits régionaux et les sanctions commerciales, pourraient perturber les opérations et la condition financière de l'entreprise.",
+      "score": 5
     },
     {
       "title": "Cybersecurity Threats",
@@ -273,7 +282,8 @@
       "severity": 4,
       "score_rationale": "Risque potentiel pour les entreprises manufacturières modernes, impact sur la réputation et les opérations, contexte d'augmentation des menaces",
       "trend": "up",
-      "summary": "Les failles de sécurité informatique pourraient avoir un impact négatif sur la réputation et les opérations de l'entreprise."
+      "summary": "Les failles de sécurité informatique pourraient avoir un impact négatif sur la réputation et les opérations de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Competition",
@@ -281,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Risque structurel dans les marchés de composants hautement spécialisés, impact potentiel sur les parts de marché et les marges",
       "trend": "stable",
-      "summary": "La concurrence accrue dans les segments aérospatial et de traitement des flux pourrait impacter les parts de marché et les prix."
+      "summary": "La concurrence accrue dans les segments aérospatial et de traitement des flux pourrait impacter les parts de marché et les prix.",
+      "score": 4
     },
     {
       "title": "Supply Chain Disruptions",
@@ -289,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Impact direct sur la capacité de production et la livraison, tensions persistantes dans les chaînes d'approvisionnement mondiale, perturbations matérielles possibles",
       "trend": "up",
-      "summary": "Les perturbations de la chaîne d'approvisionnement, y compris les pénuries de matières premières et les augmentations de coûts, pourraient affecter les opérations."
+      "summary": "Les perturbations de la chaîne d'approvisionnement, y compris les pénuries de matières premières et les augmentations de coûts, pourraient affecter les opérations.",
+      "score": 4
     },
     {
       "title": "Government Regulation",
@@ -297,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Secteur fortement régulementé (aérospatiale, défense), changements réglementaires continus, impact potentiel sur les coûts et la conformité",
       "trend": "stable",
-      "summary": "L'évolution des réglementations gouvernementales, notamment dans l'aérospatiale et la défense, pourrait augmenter les coûts de conformité et affecter les opérations."
+      "summary": "L'évolution des réglementations gouvernementales, notamment dans l'aérospatiale et la défense, pourrait augmenter les coûts de conformité et affecter les opérations.",
+      "score": 4
     }
   ],
   "governance": {
@@ -343,7 +356,7 @@
     "margin_trend": "Marges en expansion (+1.7 pts en moyenne sur les KPIs marge)."
   },
   "subsector_fr": "Composants aérospatiale & défense",
-  "_companies_unified_built_at": "2026-05-29T21:19:37.934Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.738Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cr.json",
     "enrich_root": "v2-pipeline-enrich/cr.json",

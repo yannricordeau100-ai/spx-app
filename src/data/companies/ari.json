@@ -21,8 +21,8 @@
       "name_fr": "Portefeuille de prêts hypothécaires commerciaux",
       "name_en": "Commercial Mortgage Loan Portfolio",
       "explanation": "Total des prêts hypothécaires commerciaux détenus",
-      "value": 8700,
-      "unit": "M $",
+      "value": 8.7,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Core Asset",
       "nature": "Structurel",
@@ -35,7 +35,8 @@
       "is_generic": false,
       "is_short_history": false,
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Extrait fourni ne contient pas de valeurs annuelles explicites du 'Loan Portfolio' (portefeuille de prêts). Le texte inclut des discussions "
+      "_hero_history_unverified_reason": "Extrait fourni ne contient pas de valeurs annuelles explicites du 'Loan Portfolio' (portefeuille de prêts). Le texte inclut des discussions ",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Real Estate Assets",
@@ -60,50 +61,60 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.272,
-      "unit": "Mds €",
+      "value": 272,
+      "unit": "M €",
       "yoy": "-10.5%",
       "history": [
-        0.285,
-        0.304,
-        0.345,
-        0.304,
-        0.272
+        285,
+        304,
+        345,
+        304,
+        272
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.27 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:19.911990+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Significant revenue decline, warning signal"
+      "signal_en": "Significant revenue decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "+208.3%",
       "history": [
-        0.27,
-        0.06,
-        -0.12,
-        0.13
+        270,
+        60,
+        -120,
+        130
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.13 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -122,11 +133,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.81 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -145,11 +160,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.9 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -168,33 +187,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 7.92 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.14,
-      "unit": "Mds €",
+      "value": 140,
+      "unit": "M €",
       "yoy": "-56.2%",
       "history": [
-        0.22,
-        0.23,
-        0.32,
-        0.14
+        220,
+        230,
+        320,
+        140
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.14 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -216,9 +244,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Capital Structure",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capital Structure"
     }
   ],
   "ai_positioning": {
@@ -232,25 +258,25 @@
       "title": "Cybersecurity",
       "category": "Cybersecurity",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques de cybersécurité, notamment des attaques contre ses systèmes d'information, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de cybersécurité, notamment des attaques contre ses systèmes d'information, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers.",
       "trend": "stable",
       "summary": "La société est vulnérable aux attaques de cybersécurité, ce qui pourrait entraîner des pertes financières et des dommages à sa réputation.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Macro Risk",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "La société est exposée à des risques macroéconomiques, notamment les fluctuations des taux d'intérêt et les changements dans les conditions économiques, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques macroéconomiques, notamment les fluctuations des taux d'intérêt et les changements dans les conditions économiques, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers.",
       "trend": "up",
       "summary": "Les risques macroéconomiques pourraient avoir un impact négatif sur les opérations et les résultats financiers de la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Credit Risk",
       "category": "Credit",
       "severity": 3,
-      "score_rationale": "La société est exposée à des risques de crédit, notamment les défauts de paiement de ses emprunteurs, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de crédit, notamment les défauts de paiement de ses emprunteurs, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers.",
       "trend": "stable",
       "summary": "La société est vulnérable aux défauts de paiement de ses emprunteurs, ce qui pourrait entraîner des pertes financières.",
       "score": 3
@@ -259,7 +285,7 @@
       "title": "Reputation Risk",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "La société est exposée à des risques de réputation, notamment les atteintes à sa réputation en raison de problèmes de cybersécurité ou de défauts de paiement, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de réputation, notamment les atteintes à sa réputation en raison de problèmes de cybersécurité ou de défauts de paiement, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers.",
       "trend": "stable",
       "summary": "La société est vulnérable aux atteintes à sa réputation, ce qui pourrait entraîner des pertes financières et des dommages à sa réputation.",
       "score": 3
@@ -268,19 +294,19 @@
       "title": "Regulatory Risk",
       "category": "Regulation",
       "severity": 2,
-      "score_rationale": "La société est exposée à des risques réglementaires, notamment les changements dans les lois et les réglementations affectant les REITs et le financement immobilier commercial, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques réglementaires, notamment les changements dans les lois et les réglementations affectant les REITs et le financement immobilier commercial, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers.",
       "trend": "stable",
       "summary": "La société est vulnérable aux changements dans les lois et les réglementations, ce qui pourrait entraîner des pertes financières et des dommages à sa réputation.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Litigation Risk",
       "category": "Litigation",
       "severity": 2,
-      "score_rationale": "La société est exposée à des risques de litige, notamment les poursuites judiciaires en raison de problèmes de cybersécurité ou de défauts de paiement, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "La société est exposée à des risques de litige, notamment les poursuites judiciaires en raison de problèmes de cybersécurité ou de défauts de paiement, qui pourraient avoir un impact négatif sur ses opérations et ses résultats financiers.",
       "trend": "stable",
       "summary": "La société est vulnérable aux poursuites judiciaires, ce qui pourrait entraîner des pertes financières et des dommages à sa réputation.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -473,6 +499,59 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "ARI",
+    "extracted_at": "2026-06-01T02:57:51Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Loan Portfolio",
+        "period_type": "quarter",
+        "history": [
+          7857.26,
+          8937.36,
+          8731.31,
+          8681.99,
+          8472.07,
+          8295.43,
+          7974.03,
+          8358.09,
+          8285.89,
+          8293.9,
+          7830.61,
+          8358.09,
+          7728.29,
+          8664.87,
+          8303.65,
+          8774.22,
+          8881.62
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q2 2022",
+          "Q3 2022",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:57:51Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "ARI",
     "ranks": {
@@ -485,15 +564,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.223415+00:00",
     "fetched_at": "2026-05-21T02:17:14.223417+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.978Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.439Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ari.json",
     "enrich_root": null,
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

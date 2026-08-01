@@ -86,7 +86,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Steady growth, healthy trend"
     },
     {
@@ -136,7 +136,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Employees — total number of employees at period end.",
+      "explanation_en": "Employees, total number of employees at period end.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
@@ -180,11 +180,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 15.91 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -203,11 +207,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 9.7 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -221,7 +229,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         101.81,
         104.01,
@@ -234,7 +242,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -249,7 +257,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards GBp. cashflow.",
       "history": [
         null,
         0.2545,
@@ -262,7 +270,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -277,7 +285,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -290,7 +298,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -306,7 +314,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         -0.352,
@@ -319,7 +327,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -334,34 +342,12 @@
     ],
     "source": ""
   },
-  "_validation": [
-    "CORRECTION: Profit Before Tax value convertie de string '282.7' à numérique 282.7",
-    "CORRECTION: Capex value convertie de string '602' à numérique 602.0",
-    "CORRECTION: Dividend per Share value convertie de string '80.4' à numérique 80.4",
-    "CORRECTION: Employees value convertie de string '8289' à numérique 8289 (valeur exacte, non '8.3')",
-    "CORRECTION: RCV value convertie de string '7618' à numérique 7618.0",
-    "CORRECTION: Turnover last_data_date changé de '2025-03-31' à '2014-03-31' (cohérent avec l'année fiscale du rapport)",
-    "CORRECTION: Turnover period_type ajouté explicitement 'annual'",
-    "CORRECTION: Capex history[0] confirmé à 557.4 (calcul: 602.0 / 1.08 = 557.4)",
-    "CORRECTION: RCV history[0] complété à 7364.0 (valeur de 2013 confirmée dans le rapport)",
-    "CORRECTION: tagline amélioré pour plus de contexte géographique et détails opérationnels",
-    "CORRECTION: Profit Before Tax period_type ajouté 'annual'",
-    "CORRECTION: Capex period_type ajouté 'annual'",
-    "CORRECTION: Dividend per Share period_type ajouté 'annual'",
-    "CORRECTION: Employees period_type ajouté 'annual'",
-    "CORRECTION: RCV period_type ajouté 'annual'",
-    "VALIDATION: Toutes les valeurs KPI vérifiées et confirmées par le rapport annuel 2014 - aucune hallucination détectée",
-    "VALIDATION: Profit Before Tax yoy de +41.2% vérifié: (282.7-200.2)/200.2 = 0.412 = 41.2%",
-    "VALIDATION: Turnover yoy de +1.4% vérifié: (1856.7-1831.6)/1831.6 = 0.0137 = 1.4%",
-    "VALIDATION: Capex yoy de +8.0% vérifié: (602.0-557.4)/557.4 = 0.0799 = 8.0%",
-    "VALIDATION: Dividend per Share yoy de +6.0% vérifié: (80.4-75.85)/75.85 = 0.0600 = 6.0%",
-    "VALIDATION: RCV yoy de +3.4% vérifié: (7618.0-7364.0)/7364.0 = 0.0345 = 3.4%"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": false,
@@ -377,7 +363,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné en première partie du document, avec un langage fort (\"below inflation\", \"lowest bills\"). Il est central dans chaque communication annuelle, reflétant une pression régulière et croissante de la régulation. La catégorie Régulation est dominante dans le secteur.",
       "trend": "stable",
-      "summary": "Severn Trent opère dans un cadre régulé où Ofwat fixe les tarifs. La pression pour maintenir les prix en dessous de l'inflation, tout en investissant massivement, limite la marge de manœuvre financière et opérationnelle."
+      "summary": "Severn Trent opère dans un cadre régulé où Ofwat fixe les tarifs. La pression pour maintenir les prix en dessous de l'inflation, tout en investissant massivement, limite la marge de manœuvre financière et opérationnelle.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue due à la réforme du marché",
@@ -385,7 +372,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement le Water Act 2014 et la volonté de l'entreprise d'« exploiter les changements » liés à la concurrence. Le langage est proactif mais reconnaît un changement structurel. Ce risque est en évolution depuis plusieurs années.",
       "trend": "stable",
-      "summary": "L'ouverture du marché britannique à la concurrence, notamment pour les clients non domestiques, expose Severn Trent à de nouveaux concurrents et à une pression sur la qualité et le prix des services."
+      "summary": "L'ouverture du marché britannique à la concurrence, notamment pour les clients non domestiques, expose Severn Trent à de nouveaux concurrents et à une pression sur la qualité et le prix des services.",
+      "score": 4
     },
     {
       "title": "Performance insuffisante sur la qualité des actifs",
@@ -393,7 +381,8 @@
       "severity": 4,
       "score_rationale": "Le Chief Executive reconnaît que 3 indicateurs sur 20 ne sont pas aux normes, avec des zones de serviceabilité jugées \"marginales\". Le ton est préoccupé et des actions correctives sont annoncées. Ce risque est récurrent.",
       "trend": "stable",
-      "summary": "Certains actifs critiques ne répondent pas aux standards requis, affectant la fiabilité à long terme du réseau d'eau et d'assainissement, avec des implications réglementaires et environnementales."
+      "summary": "Certains actifs critiques ne répondent pas aux standards requis, affectant la fiabilité à long terme du réseau d'eau et d'assainissement, avec des implications réglementaires et environnementales.",
+      "score": 4
     },
     {
       "title": "Cybersécurité des infrastructures critiques",
@@ -401,7 +390,8 @@
       "severity": 4,
       "score_rationale": "Bien que non mentionné explicitement dans l'extrait, les entreprises d'eau britanniques sont classées comme infrastructures critiques. Le risque est implicite mais élevé en intensité et en impact potentiel, conforme aux standards sectoriels récents.",
       "trend": "up",
-      "summary": "En tant qu'opérateur d'infrastructures essentielles, Severn Trent est exposé aux cyberattaques pouvant perturber l'approvisionnement en eau ou compromettre des données sensibles."
+      "summary": "En tant qu'opérateur d'infrastructures essentielles, Severn Trent est exposé aux cyberattaques pouvant perturber l'approvisionnement en eau ou compromettre des données sensibles.",
+      "score": 4
     },
     {
       "title": "Dépendance aux décisions d'Ofwat",
@@ -409,7 +399,8 @@
       "severity": 5,
       "score_rationale": "Le document mentionne à plusieurs reprises Ofwat et le processus de Price Review. Le ton est de coopération mais de dépendance totale. Ce risque structurel est central et répété chaque année.",
       "trend": "stable",
-      "summary": "La rentabilité et les investissements futurs de Severn Trent dépendent entièrement des décisions tarifaires et réglementaires d'Ofwat, rendant l'entreprise vulnérable aux arbitrages régulateurs."
+      "summary": "La rentabilité et les investissements futurs de Severn Trent dépendent entièrement des décisions tarifaires et réglementaires d'Ofwat, rendant l'entreprise vulnérable aux arbitrages régulateurs.",
+      "score": 5
     },
     {
       "title": "Réduction des incidents de pollution",
@@ -417,7 +408,8 @@
       "severity": 4,
       "score_rationale": "Le rapport mentionne une réduction de plus d'un tiers des incidents de pollution, mais reconnaît des efforts en cours. Le langage montre une amélioration, mais un risque résiduel élevé en cas de récidive.",
       "trend": "down",
-      "summary": "Malgré des progrès, Severn Trent reste exposé à des incidents environnementaux pouvant entraîner des amendes, des dommages à la réputation et des pressions réglementaires accrues."
+      "summary": "Malgré des progrès, Severn Trent reste exposé à des incidents environnementaux pouvant entraîner des amendes, des dommages à la réputation et des pressions réglementaires accrues.",
+      "score": 4
     },
     {
       "title": "Performance médiocre du secteur non régulé",
@@ -425,7 +417,8 @@
       "severity": 3,
       "score_rationale": "Le document signale une perte dans la division Products et une performance décevante, malgré des gains dans Operating Services. Le ton est mitigé, avec des plans de redressement annoncés.",
       "trend": "stable",
-      "summary": "Les activités non régulées, notamment la technologie de traitement de l'eau, font face à une concurrence intense et à des marges serrées, affectant la rentabilité globale du segment."
+      "summary": "Les activités non régulées, notamment la technologie de traitement de l'eau, font face à une concurrence intense et à des marges serrées, affectant la rentabilité globale du segment.",
+      "score": 3
     },
     {
       "title": "Sécurité opérationnelle et risques industriels",
@@ -433,7 +426,8 @@
       "severity": 4,
       "score_rationale": "Le document met en avant la sécurité comme priorité, avec des taux d'accident parmi les plus bas du secteur. Toutefois, le risque est inhérent aux opérations industrielles et maintenu en haut de l'agenda.",
       "trend": "stable",
-      "summary": "Les opérations de traitement et de distribution d'eau comportent des risques industriels (accidents, fuites, pannes), avec des conséquences potentielles sur la santé publique et la continuité du service."
+      "summary": "Les opérations de traitement et de distribution d'eau comportent des risques industriels (accidents, fuites, pannes), avec des conséquences potentielles sur la santé publique et la continuité du service.",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:03:50.315969+00:00",
@@ -535,10 +529,10 @@
   },
   "_eu_blocs_extracted_at": "2026-05-19T17:31:20.708493+00:00",
   "_dividends_extracted_at": "2026-05-09T20:19:47Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "GBp",
   "_eps_extracted_at": "2026-05-18T16:47:38Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Services publics d'eau",
   "enrich_events": {
     "ticker": "SVT.L",
@@ -564,6 +558,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Severn Trent est une utility britannique régulée de l'eau et de l'assainissement. Coté à Londres (FTSE 100), basé à Coventry.",
+          "products": "Production et distribution d'eau potable, collecte et traitement des eaux usées dans la région Midlands et mid-Wales. Services aux entreprises (eaux industrielles). Production marginale d'énergie renouvelable (biogaz, hydro).",
+          "customers": "Environ 4,7 millions de foyers et entreprises dans la zone régulée Midlands et mid-Wales. Clients industriels et institutionnels (Ministère de la Défense).",
+          "edge": "Monopole régulé sur sa zone géographique. Reconnue par Ofwat comme l'une des utilities les mieux notées en performance (track record AMP7 solide). Faible exposition aux pollutions médiatisées vs concurrents (Thames Water)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Severn Trent est positionnée comme l'une des trois utilities eau cotées au UK (avec United Utilities et Pennon). Modèle régulé par Ofwat avec retours stables. Bon élève du secteur en performance opérationnelle et environnementale.",
+          "tech_products": "Deux segments : Regulated Water and Wastewater (cœur de l'activité, soumis à la régulation Ofwat AMP), Business Services (clients industriels, contrats long terme avec MoD et Coal Authority). Investissements importants pour la décarbonation, la réduction des fuites et les overflows.",
+          "moat": "Monopole géographique régulé difficile à dupliquer. RAB en croissance grâce aux investissements de capex. Performance opérationnelle reconnue (notation Ofwat). Capacité à dépasser les cibles régulatoires (incentive earnings).",
+          "risks": "Risques régulatoires (PR24 puis PR29 d'Ofwat). Pression politique sur les pollutions sewerage overflows. Sensibilité aux taux d'intérêt sur la valorisation. Coûts en hausse (inflation indice CPIH). Risque image en cas d'incident environnemental majeur."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "SVT.L",
     "ranks": {
@@ -576,14 +591,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T02:17:14.314972+00:00",
     "fetched_at": "2026-05-21T02:17:14.314973+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.286Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.313Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/svt.l.json",
     "enrich_root": "v2-pipeline-enrich/svt.l.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

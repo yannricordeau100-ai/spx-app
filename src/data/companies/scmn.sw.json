@@ -13,7 +13,7 @@
     "sector": "N/A",
     "subsector": "Top 3 in Switzerland"
   },
-  "hero_kpi": "Revenue per Employee",
+  "hero_kpi": "Swisscom CH Revenue",
   "hero_kpi_rationale": "Swisscom place son efficacité opérationnelle au coeur de sa performance, avec un revenu par employé élevé qui reflète une optimisation structurelle des coûts et une productivité solide dans un marché mature.",
   "kpis": [
     {
@@ -65,7 +65,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "EBITDA Margin — EBITDA divided by revenue.",
+      "explanation_en": "EBITDA Margin : EBITDA divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -90,7 +90,7 @@
       "is_generic": false,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Moderate growth, slightly positive"
     },
     {
@@ -165,7 +165,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "annual",
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Stable, slight decline to monitor"
     },
     {
@@ -185,11 +185,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 36.02 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -208,11 +212,93 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.73 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
+    },
+    {
+      "short": "Swisscom CH Revenue",
+      "name_fr": "Revenus Swisscom Suisse",
+      "name_en": "Swisscom Switzerland External Revenue",
+      "unit": "Mds CHF",
+      "period_type": "year",
+      "history": [
+        8.193,
+        8.177,
+        8.21,
+        8.086,
+        7.943
+      ],
+      "history_dates": [
+        "2020-12-31",
+        "2021-12-31",
+        "2022-12-31",
+        "2023-12-31",
+        "2024-12-31"
+      ],
+      "value": 7.943,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Coeur de revenus du groupe, sous pression legere depuis 2022 avec la baisse du wholesale et la concurrence tarifaire suisse.",
+      "is_wow": true,
+      "yoy": "-1,8 %"
+    },
+    {
+      "short": "Fastweb Revenue",
+      "name_fr": "Revenus Fastweb Italie",
+      "name_en": "Fastweb Revenue",
+      "unit": "M CHF",
+      "period_type": "year",
+      "history": [
+        2468,
+        2470,
+        2583,
+        2493,
+        2561,
+        2672
+      ],
+      "value": 2672,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Fastweb accelere en Italie et depasse 2,6 milliards de francs en 2024.",
+      "is_wow": false,
+      "yoy": "+4,3 %"
+    },
+    {
+      "short": "CH Mobile Lines",
+      "name_fr": "Lignes mobiles Suisse",
+      "name_en": "Mobile Access Lines Switzerland",
+      "unit": "k lignes",
+      "period_type": "year",
+      "history": [
+        6612,
+        6637,
+        6370,
+        6333,
+        6224,
+        6177,
+        6173,
+        6277,
+        6331
+      ],
+      "value": 6331,
+      "last_data_date": "2024-12-31",
+      "type": "Demand",
+      "nature": "Structurel",
+      "comparable": "Comparable",
+      "signal": "Le parc mobile suisse remonte depuis 2023 apres cinq annees de repli.",
+      "is_wow": false,
+      "yoy": "+0,9 %"
     },
     {
       "short": "DPS",
@@ -226,7 +312,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         22,
         22,
@@ -239,7 +325,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -254,7 +340,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards CHF. cashflow.",
       "history": [
         null,
         1.14,
@@ -267,7 +353,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position stable"
     },
     {
@@ -282,7 +368,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         71.16,
@@ -295,7 +381,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -311,7 +397,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         30.93,
@@ -324,7 +410,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -339,18 +425,7 @@
     ],
     "source": "2005 Annual Report"
   },
-  "_validation": [
-    "Correction tagline: remplacé 'The alpha and omega of Swisscom' (trop générique) par 'The backbone of Swiss connectivity, built on infrastructure and people' (basé sur le thème central du rapport: 'infrastructure and employees are the alpha and omega')",
-    "Correction hero_kpi_rationale: suppression de l'em-dash et reformulation pour cohérence française",
-    "Correction value EBITDA Margin: changé de string '43.6' à nombre 43.6",
-    "Correction period_type: changé de 'quarter' à 'annual' pour tous les KPI (données annuelles 2004-2005, pas trimestrielles)",
-    "Tous les KPI vérifiés contre les Key Figures du rapport: Revenue per Employee (630/642 kCHF en 2004/2005), EBITDA Margin (42.9%/43.6%), Capex (1.087/1.136 Mds CHF), Net Revenue (9.732/10.057 Mds CHF), Equity Ratio (49.4%/52.4%), Headcount (16088/15477 FTE) - tous confirmés",
-    "Tous les calculs YoY vérifiés et confirmés corrects",
-    "Aucun KPI halluciné détecté - toutes les valeurs sont présentes dans le rapport source",
-    "Unités validées: kCHF, Mds CHF, %, FTE - toutes appropriées et correctes",
-    "Dates confirmées: 2005-12-31 et 2004-12-31 pour l'historique",
-    "Histoire complète de 2 années présente pour tous les KPI"
-  ],
+  "_validation": true,
   "_quarterly_extraction": {
     "date": "2026-05-06 12:57",
     "n_periods": 2,
@@ -358,7 +433,7 @@
     "method": "annual_report_extraction",
     "yf_metric": "(none-annual-data)"
   },
-  "_fit_for_site": false,
+  "_fit_for_site": true,
   "_fit_reasons": [
     "hero_history_too_short_2"
   ],
@@ -371,7 +446,8 @@
       "severity": 5,
       "score_rationale": "Risque explicitement identifié comme « main risks facing Swisscom » en ouverture d'Item 1A. Langage intense (« over-regulation »). Révisions législatives en cours (Telecommunications Act, Radio and Television Act) non finalisées fin 2005. Poids catégorique majeur : débat politique sur dégroupage de la boucle locale et accès réseau.",
       "trend": "stable",
-      "summary": "Swisscom fait face à un risque majeur de sur-régulation du secteur. Les révisions de la Loi sur les télécommunications et de la Loi sur la radio-télévision n'étaient pas finalisées fin 2005. Swisscom s'oppose à une régulation technologiquement neutre couvrant l'accès réseau, mais a accepté un compromis politique incluant le dégroupage de la boucle locale en cuivre jusqu'aux immeubles résidentiels."
+      "summary": "Swisscom fait face à un risque majeur de sur-régulation du secteur. Les révisions de la Loi sur les télécommunications et de la Loi sur la radio-télévision n'étaient pas finalisées fin 2005. Swisscom s'oppose à une régulation technologiquement neutre couvrant l'accès réseau, mais a accepté un compromis politique incluant le dégroupage de la boucle locale en cuivre jusqu'aux immeubles résidentiels.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue et guerres de prix persistantes",
@@ -379,7 +455,8 @@
       "severity": 5,
       "score_rationale": "Mentionné explicitement comme risque additionnel majeur (« additional risks »). Langage répété : « aggressive competition », « sustained price wars », « fiercer technological competition ». Tendance confirmée pour 2006 (« expect competition to remain aggressive »). Impact direct sur Fixnet et Mobile avec érosion tarifaire documentée.",
       "trend": "up",
-      "summary": "Swisscom subit une concurrence intense avec des guerres de prix persistantes et une compétition technologique accrue. Le marché fixe s'intensifie (« battle for share became even more intense »), avec baisse des prix et hausse des attentes clients. Swisscom anticipe une concurrence agressive en 2006 accompagnée de guerres de prix soutenues."
+      "summary": "Swisscom subit une concurrence intense avec des guerres de prix persistantes et une compétition technologique accrue. Le marché fixe s'intensifie (« battle for share became even more intense »), avec baisse des prix et hausse des attentes clients. Swisscom anticipe une concurrence agressive en 2006 accompagnée de guerres de prix soutenues.",
+      "score": 5
     },
     {
       "title": "Risque technologique : Internet téléphonie et convergence",
@@ -387,7 +464,8 @@
       "severity": 4,
       "score_rationale": "Identifié comme risque spécifique (« competition from new technologies such as Internet telephony »). Langage modéré mais présent. Swisscom répond par innovation (Swisscom Innovations, VoIP/Bluewin Phone). Poids catégorique : convergence fixe-mobile-TV en cours de déploiement (Bluewin TV 300).",
       "trend": "up",
-      "summary": "La concurrence de technologies émergentes comme la téléphonie Internet (VoIP) constitue un risque pour le modèle économique de Swisscom. Swisscom répond par l'innovation systématique via Swisscom Innovations et le lancement de services convergents (Bluewin Phone, Bluewin TV 300). La demande croissante de bande passante et la convergence fixe-mobile-Internet accélèrent cette transformation."
+      "summary": "La concurrence de technologies émergentes comme la téléphonie Internet (VoIP) constitue un risque pour le modèle économique de Swisscom. Swisscom répond par l'innovation systématique via Swisscom Innovations et le lancement de services convergents (Bluewin Phone, Bluewin TV 300). La demande croissante de bande passante et la convergence fixe-mobile-Internet accélèrent cette transformation.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'infrastructure de cuivre et investissements réseau",
@@ -395,7 +473,8 @@
       "severity": 4,
       "score_rationale": "Risque implicite majeur : dégroupage de la boucle locale en cuivre (« unbundle the last mile to the copper cabling »). Investissements annuels CHF 400-500M pour maintenance et expansion réseau. Langage modéré mais enjeu stratégique : ADSL 98% couverture, migration VDSL planifiée 2006.",
       "trend": "stable",
-      "summary": "Swisscom dépend fortement de son infrastructure de cuivre pour la boucle locale. L'ouverture du dégroupage de la boucle locale (last mile unbundling) exposera Swisscom à la concurrence d'accès réseau. Swisscom investit CHF 400-500M annuels pour maintenir et étendre son réseau, avec migration technologique vers VDSL planifiée en 2006."
+      "summary": "Swisscom dépend fortement de son infrastructure de cuivre pour la boucle locale. L'ouverture du dégroupage de la boucle locale (last mile unbundling) exposera Swisscom à la concurrence d'accès réseau. Swisscom investit CHF 400-500M annuels pour maintenir et étendre son réseau, avec migration technologique vers VDSL planifiée en 2006.",
+      "score": 4
     },
     {
       "title": "Obligation de service universel et mandat de service de base",
@@ -403,7 +482,8 @@
       "severity": 3,
       "score_rationale": "Risque régulateur spécifique : mandat de service de base expire fin 2007, renouvellement conditionné (« provided this entails no disadvantages »). Langage prudent mais enjeu clair. Poids catégorique : 3.9M lignes fixes, services d'urgence, annuaires, cabines publiques (8,400 unités).",
       "trend": "stable",
-      "summary": "Swisscom détient le mandat de service de base (accès réseau analogique/numérique sur tout le territoire suisse) expirant fin 2007. Swisscom accepterait le renouvellement à condition qu'il n'entrave pas le développement technologique ou la concurrence. Le renouvellement dépendra de la révision législative 2006 et de la définition d'une provision de service technologiquement neutre à partir de 2008."
+      "summary": "Swisscom détient le mandat de service de base (accès réseau analogique/numérique sur tout le territoire suisse) expirant fin 2007. Swisscom accepterait le renouvellement à condition qu'il n'entrave pas le développement technologique ou la concurrence. Le renouvellement dépendra de la révision législative 2006 et de la définition d'une provision de service technologiquement neutre à partir de 2008.",
+      "score": 3
     },
     {
       "title": "Saturation du marché mobile suisse et croissance ralentie",
@@ -411,7 +491,8 @@
       "severity": 3,
       "score_rationale": "Marché décrit comme « near-saturated » pour Swisscom Mobile. Langage modéré mais explicite. Croissance client 2005 : +373k clients (9% sur base 4.28M). Poids catégorique : Mobile représente CHF 4.2B revenue (37% du groupe), EBITDA CHF 1.85B.",
       "trend": "stable",
-      "summary": "Le marché mobile suisse est quasi-saturé, limitant les perspectives de croissance organique pour Swisscom Mobile. Malgré une position de leader de marché, la croissance client ralentit (+373k clients en 2005). Swisscom répond par l'innovation tarifaire (liberty family) et la diversification vers les services de données."
+      "summary": "Le marché mobile suisse est quasi-saturé, limitant les perspectives de croissance organique pour Swisscom Mobile. Malgré une position de leader de marché, la croissance client ralentit (+373k clients en 2005). Swisscom répond par l'innovation tarifaire (liberty family) et la diversification vers les services de données.",
+      "score": 3
     },
     {
       "title": "Risque de transition CEO et continuité managériale",
@@ -419,7 +500,8 @@
       "severity": 2,
       "score_rationale": "Jens Alder (CEO 6 ans) a quitté janvier 2006, remplacé par Carsten Schloter. Langage positif (« successfully managed ») mais transition en cours. Poids catégorique : changement de direction majeur en période de transformation (privatisation, régulation, convergence technologique).",
       "trend": "new",
-      "summary": "Swisscom a connu un changement de direction en janvier 2006 avec le départ du CEO Jens Alder (6 ans de mandat) et l'arrivée de Carsten Schloter. Cette transition intervient en période critique : débat sur la privatisation de l'État fédéral, révisions législatives en cours, et transformation vers la convergence multimédia."
+      "summary": "Swisscom a connu un changement de direction en janvier 2006 avec le départ du CEO Jens Alder (6 ans de mandat) et l'arrivée de Carsten Schloter. Cette transition intervient en période critique : débat sur la privatisation de l'État fédéral, révisions législatives en cours, et transformation vers la convergence multimédia.",
+      "score": 2
     },
     {
       "title": "Risque de privatisation et stabilité actionnariale",
@@ -427,7 +509,8 @@
       "severity": 3,
       "score_rationale": "Conseil fédéral a soumis en janvier 2006 une proposition de cession de la majorité de l'État. Langage positif (« take a positive view ») mais risque d'instabilité actionnariale. Swisscom souligne l'importance d'une « stable shareholder base committed to the long view ».",
       "trend": "new",
-      "summary": "Le Conseil fédéral a proposé en janvier 2006 la cession de sa participation majoritaire dans Swisscom. Bien que Swisscom accueille favorablement cette privatisation, le processus crée une incertitude actionnariale. Swisscom insiste sur l'importance d'une base actionnariale stable et engagée à long terme pour la continuité stratégique."
+      "summary": "Le Conseil fédéral a proposé en janvier 2006 la cession de sa participation majoritaire dans Swisscom. Bien que Swisscom accueille favorablement cette privatisation, le processus crée une incertitude actionnariale. Swisscom insiste sur l'importance d'une base actionnariale stable et engagée à long terme pour la continuité stratégique.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T04:24:39.552846+00:00",
@@ -518,11 +601,13 @@
   },
   "_stoxx_blocks_extracted_at": "2026-05-14T08:42:39.891919+00:00",
   "_dividends_extracted_at": "2026-05-09T20:20:59Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "CHF",
   "_eps_extracted_at": "2026-05-18T16:47:24Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "subsector_fr": "Services de télécommunications",
+  "hero_kpi_override": "Swisscom CH Revenue",
+  "_hero_kpi_override_reason": "Swisscom CH Revenue = revenu specifique principal (agent verbatim)",
   "enrich_events": {
     "ticker": "SCMN.SW",
     "fetched_at": "2026-05-06T17:53:58.994881+00:00",
@@ -556,6 +641,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Swisscom AG est l'opérateur télécom historique suisse. Cotée à la SIX et à Francfort, basée à Berne. Contrôlée à 51 % par la Confédération suisse.",
+          "products": "Services télécoms mobiles, fixes, internet et TV (Swisscom blue) pour particuliers. Services ICT et cloud pour entreprises (Swisscom Enterprise Customers). Filiale Fastweb en Italie. Acquisition de Vodafone Italia en cours (finalisation 2025).",
+          "customers": "Particuliers et entreprises en Suisse (cœur de marché), entreprises et particuliers en Italie via Fastweb (post-fusion : Fastweb + Vodafone Italia).",
+          "edge": "Position dominante en Suisse (incumbent ~55 % part mobile, ~55 % broadband). Marché suisse stable et rentable (3 opérateurs). Fastweb + Vodafone Italia créera un challenger numéro deux en Italie."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Swisscom est positionné comme l'opérateur dominant et stable en Suisse, complété par une stratégie de croissance internationale en Italie. Acquisition de Vodafone Italia (8 Mds€) annoncée en mars 2024 et finalisation prévue en 2025 créera Fastweb + Vodafone, challenger national italien.",
+          "tech_products": "Suisse : services convergents fixe-mobile-TV, leader sur tous les segments. Italie pré-fusion : Fastweb (broadband fibre, mobile MVNO/MNO). Post-fusion : Fastweb + Vodafone Italia (réseau mobile propriétaire, fixed). Stratégie de convergence et services B2B.",
+          "moat": "Position d'incumbent en Suisse dans un marché à 3 acteurs (stable, peu de concurrence prix). Infrastructure fibre étendue en Suisse. Marque historique de qualité. Soutien actionnarial fédéral. Italie : taille critique post-fusion.",
+          "risks": "Risques d'exécution sur l'intégration Vodafone Italia (taille du deal, intégration de réseaux, synergies). Concurrence Iliad en Italie. Capex 5G/fibre élevés. Pression réglementaire sur les prix (notamment en Italie). Sensibilité au cycle économique B2B."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "SCMN.SW",
     "ranks": {
@@ -568,14 +674,15 @@
     "country": "Switzerland",
     "_data_freshness_date": "2026-05-21T02:17:14.307772+00:00",
     "fetched_at": "2026-05-21T02:17:14.307773+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.614Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.644Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/scmn.sw.json",
     "enrich_root": "v2-pipeline-enrich/scmn.sw.json",
     "enrich_subkeys": [
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

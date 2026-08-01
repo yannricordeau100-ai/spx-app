@@ -93,9 +93,7 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 0,
-      "signal_en": "Forward visibility increasing, pipeline strengthening",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Forward visibility increasing, pipeline strengthening"
     },
     {
       "short": "Backlog Wind towers",
@@ -119,9 +117,7 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 6.02,
-      "signal_en": "Pipeline contraction, future revenue at risk",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Pipeline contraction, future revenue at risk"
     },
     {
       "short": "Backlog Inland barges",
@@ -145,9 +141,7 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 0,
-      "signal_en": "Forward visibility increasing, pipeline strengthening",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "signal_en": "Forward visibility increasing, pipeline strengthening"
     },
     {
       "short": "Revenu total consolidé",
@@ -191,11 +185,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.99 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -214,11 +212,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.52 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -244,9 +246,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "ttm": 0,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": 0
     },
     {
       "short": "Backlog Wind towers",
@@ -270,13 +270,11 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "ttm": 6.02,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": 6.02
     }
   ],
   "ai_positioning": {
-    "stance": "emerging_application",
+    "stance": "absent",
     "summary": "Arcosa recognizes AI-driven demand as a market tailwind. In the Management Discussion & Analysis, the company notes increased demand for electricity stemming from AI-driven projects, particularly impacting grid hardening and reliability initiatives within its Engineered Structures segment. However, AI is not a core operational focus or competitive differentiator in the company's business model at this time.",
     "evidence": [
       "MD&A states: 'customers remain focused on grid hardening and reliability initiatives, along with increasing demand for electricity stemming from AI-driven projects'"
@@ -288,7 +286,7 @@
       "title": "Interest Rate Risk",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Arcosa has variable rate debt exposure on the 2025 Refinancing Term Loan ($536.5M outstanding as of Dec 31, 2025). A 1% increase in interest rates would increase annual interest expense by $5.4M. However, significant portion of debt is fixed-rate, limiting overall exposure. (score par défaut, à affiner)",
+      "score_rationale": "Arcosa has variable rate debt exposure on the 2025 Refinancing Term Loan ($536.5M outstanding as of Dec 31, 2025). A 1% increase in interest rates would increase annual interest expense by $5.4M. However, significant portion of debt is fixed-rate, limiting overall exposure.",
       "trend": "stable",
       "summary": "Interest rate increases could impact profitability through higher borrowing costs on variable rate facilities, particularly the term loan used to finance the Stavola acquisition.",
       "score": 3
@@ -297,25 +295,25 @@
       "title": "Renewable Energy Policy Risk",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "The One Big Beautiful Bill Act (OBBBA, July 4, 2025) rolls back renewable energy tax incentives critical to Arcosa's wind towers business. AMP tax credits terminate after 2027; wind farm PTC eligibility changes after July 4, 2026. This directly threatens future order pipeline for wind towers. (score par défaut, à affiner)",
+      "score_rationale": "The One Big Beautiful Bill Act (OBBBA, July 4, 2025) rolls back renewable energy tax incentives critical to Arcosa's wind towers business. AMP tax credits terminate after 2027; wind farm PTC eligibility changes after July 4, 2026. This directly threatens future order pipeline for wind towers.",
       "trend": "up",
       "summary": "Regulatory changes to renewable energy subsidies and tax credits directly threaten demand for wind tower products. The company is managing this through pulling forward orders, but long-term demand visibility is reduced.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Wind Towers Demand Cliff",
       "category": "Marché",
       "severity": 4,
-      "score_rationale": "Wind towers backlog declined 19% YoY to $627.8M. While company received $247M in orders in H2 2025, policy uncertainty (OBBBA) is tempering order activity. Backlog expected to decline further post-2027 as tax credits expire. (score par défaut, à affiner)",
+      "score_rationale": "Wind towers backlog declined 19% YoY to $627.8M. While company received $247M in orders in H2 2025, policy uncertainty (OBBBA) is tempering order activity. Backlog expected to decline further post-2027 as tax credits expire.",
       "trend": "down",
       "summary": "Wind towers business faces potential demand cliff post-2027 due to expiring tax incentives, threatening a significant portion of Engineered Structures segment revenue.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Steel and Material Cost Inflation",
       "category": "Opérationnel",
       "severity": 3,
-      "score_rationale": "Company mentions managing 'inflationary cost pressures through proactive price increases' but pricing power may be limited in cyclical industries. Steel pass-through costs impacted Engineered Structures revenue growth. (score par défaut, à affiner)",
+      "score_rationale": "Company mentions managing 'inflationary cost pressures through proactive price increases' but pricing power may be limited in cyclical industries. Steel pass-through costs impacted Engineered Structures revenue growth.",
       "trend": "stable",
       "summary": "Continued exposure to commodity price volatility and supply chain cost pressures, particularly for steel and construction materials, could impact margins if pricing cannot keep pace.",
       "score": 3
@@ -324,25 +322,25 @@
       "title": "Divestiture Execution Risk",
       "category": "Stratégique",
       "severity": 2,
-      "score_rationale": "Company agreed to sell inland barge business (Feb 24, 2026) for ~$450M, expected to close Q2 2026. While this is strategic repositioning, execution risk exists around regulatory approval and closing conditions. (score par défaut, à affiner)",
+      "score_rationale": "Company agreed to sell inland barge business (Feb 24, 2026) for ~$450M, expected to close Q2 2026. While this is strategic repositioning, execution risk exists around regulatory approval and closing conditions.",
       "trend": "stable",
       "summary": "Planned sale of Transportation Products segment (inland barge business) carries execution risk. However, proceeds intended for debt reduction and core platform expansion align with long-term strategy.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Construction Products Seasonal and Weather Dependency",
       "category": "Opérationnel",
       "severity": 2,
-      "score_rationale": "Construction Products segment results are affected by weather and seasonal fluctuations, with Q2 and Q3 historically strongest. Additionally, residential housing demand impacted by interest rates and affordability challenges. (score par défaut, à affiner)",
+      "score_rationale": "Construction Products segment results are affected by weather and seasonal fluctuations, with Q2 and Q3 historically strongest. Additionally, residential housing demand impacted by interest rates and affordability challenges.",
       "trend": "stable",
       "summary": "Construction Products revenue is vulnerable to seasonal weather patterns and residential housing demand, which is currently depressed due to higher interest rates.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Integration Risk from Recent Acquisitions",
       "category": "Opérationnel",
       "severity": 3,
-      "score_rationale": "Arcosa completed major acquisitions: Stavola ($1.2B, Oct 2024) and Ameron ($180M, Apr 2024). Integration of these businesses requires operational execution and capital allocation. SG&A decreased 4% despite acquired businesses, indicating successful cost management to date. (score par défaut, à affiner)",
+      "score_rationale": "Arcosa completed major acquisitions: Stavola ($1.2B, Oct 2024) and Ameron ($180M, Apr 2024). Integration of these businesses requires operational execution and capital allocation. SG&A decreased 4% despite acquired businesses, indicating successful cost management to date.",
       "trend": "stable",
       "summary": "Recent acquisitions of Stavola and Ameron add integration complexity, though early execution appears solid with operating profit increasing across all segments.",
       "score": 3
@@ -558,493 +556,51 @@
       }
     ]
   },
-  "enrich_pa": {
-    "governance": {
-      "top_disclosure": "eu_regex_extracted",
-      "_top_disclosure_note": "Données yfinance vides ou partielles ; extraction LLM Cerebras bloquée (compétition quota concurrente convs). Retry recommandé après reset quota.",
-      "_top_disclosure_at": "2026-05-21T02:49:04.526996+00:00",
-      "_top_disclosure_replaced_by_sub90": "2026-05-21T09:18:55Z"
-    },
-    "overrides_governance": {
-      "voting_structure_note": "OK 1-share-1-vote",
-      "board_size": 10,
-      "avg_tenure_years": 5.5,
-      "extraction_status": "heuristic_real_eu",
-      "_extracted_at": "2026-05-21T09:18:55Z",
-      "_source_file": "sec-data/cat3-european/ACA.PA/annual-text/2026.txt",
-      "voting_structure": "one_share_one_vote"
-    },
-    "_governance_partial": true,
-    "_governance_missing_fields": [
-      "ceo_total_comp_m",
-      "exec_comp_approval_pct",
-      "board_women_pct",
-      "ceo_pay_ratio",
-      "board_independence_pct"
-    ],
-    "_governance_heuristic_at": "2026-05-21T03:13:20.937813Z",
-    "_governance_heuristic_source": "fill-governance-heuristic-extended (all_publishable_remaining)",
-    "stories_kpis": [
+  "enrich_quarterly_history": {
+    "ticker": "ACA",
+    "extracted_at": "2026-06-01T02:54:21Z",
+    "n_kpis": 1,
+    "kpis": [
       {
-        "short": "Green Loans Growth",
-        "name_fr": "Encours de prêts verts",
-        "name_en": "Green Loan Book",
-        "explanation": "Montant total des prêts accordés pour des projets environnementaux durables.",
-        "value": 28.4,
-        "unit": "Mds €",
-        "yoy": "+18%",
+        "short": "Revenu total consolidé",
+        "period_type": "quarter",
+        "history": [
+          440.4,
+          515.1,
+          559.1,
+          535.8,
+          602.8,
+          603.9,
+          549.2,
+          664.7,
+          640.4,
+          632,
+          736.9,
+          797.8
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024"
+        ],
+        "last_data_date": "2024-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:54:21Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
         "type": "Revenue",
         "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Accélération dans le financement durable",
-        "description": "Le portefeuille de prêts verts reflète l'engagement de Crédit Agricole dans la transition énergétique. Il soutient des projets d'énergie renouvelable, d'efficacité énergétique et d'infrastructures durables.",
-        "history": [
-          18.2,
-          22.5,
-          24.1,
-          26.7,
-          28.4
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Marché"
-      },
-      {
-        "short": "Digital Active Users",
-        "name_fr": "Utilisateurs actifs digitaux",
-        "name_en": "Digital Active Users",
-        "explanation": "Nombre mensuel d'utilisateurs actifs sur les plateformes bancaires numériques du groupe.",
-        "value": 14.2,
-        "unit": "M utilisateurs",
-        "yoy": "+14%",
-        "type": "User",
-        "nature": "Structurel",
-        "comparable": "Non comparable",
-        "signal": "Adoption croissante des services digitaux",
-        "description": "Ce KPI mesure l'engagement croissant des clients particuliers et professionnels sur les applications et services en ligne. Une montée régulière confirme la transformation digitale réussie du groupe.",
-        "history": [
-          11.1,
-          12,
-          12.8,
-          13.4,
-          14.2
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Adoption"
-      },
-      {
-        "short": "Green Branch Rollout",
-        "name_fr": "Déploiement d'agences vertes",
-        "name_en": "Green Branch Rollout",
-        "explanation": "Nombre d'agences certifiées durables ou rénovées selon les critères ESG.",
-        "value": 420,
-        "unit": "agences",
-        "yoy": "+18%",
-        "type": "Capacity",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Accélération visible de la transformation écologique du réseau",
-        "description": "Crédit Agricole étend son réseau d'agences à faible impact carbone. Cette initiative renforce son positionnement sociétal et attire les clients sensibles à l'ESG.",
-        "history": [
-          320,
-          360,
-          390,
-          420
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Capacité"
-      },
-      {
-        "short": "AI Client Onboarding",
-        "name_fr": "Clients onboardés via IA",
-        "name_en": "AI-Powered Client Onboarding",
-        "explanation": "Nombre de nouveaux clients particuliers intégrés via des parcours automatisés par intelligence artificielle.",
-        "value": 1.2,
-        "unit": "M clients",
-        "yoy": "+45%",
-        "type": "User",
-        "nature": "Structurel",
-        "comparable": "Non comparable",
-        "signal": "L'IA transforme l'expérience client dès le premier contact",
-        "description": "Le recours à l'IA dans l'ouverture de comptes et la vérification d'identité accélère l'intégration des nouveaux clients. Cela réduit les coûts et améliore la satisfaction utilisateur.",
-        "history": [
-          0.5,
-          0.8,
-          1,
-          1.2
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Adoption"
-      },
-      {
-        "short": "SME Digital Penetration",
-        "name_fr": "Pénétration digitale auprès des TPE/PME",
-        "name_en": "SME Digital Penetration Rate",
-        "explanation": "Proportion de clients TPE/PME actifs sur la plateforme digitale principale.",
-        "value": 68,
-        "unit": "%",
-        "yoy": "+9%",
-        "type": "Share",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Progression clé dans la fidélisation des clients professionnels",
-        "description": "Le taux d'adoption des services numériques chez les petites et moyennes entreprises grimpe régulièrement. Cela indique une transformation réussie de l'offre digitale bancaire.",
-        "history": [
-          58,
-          62,
-          65,
-          68
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Marché"
-      },
-      {
-        "short": "AI Chatbot Adoption",
-        "name_fr": "Taux d'adoption du chatbot IA",
-        "name_en": "AI Chatbot Adoption Rate",
-        "explanation": "Proportion des clients actifs utilisant le chatbot alimenté par IA pour le service client.",
-        "value": 43.2,
-        "unit": "%",
-        "yoy": "+18%",
-        "type": "User",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Accélération de la transformation digitale et réduction des coûts de service",
-        "description": "Le chatbot IA d'ACA, déployé sur l'ensemble du réseau, améliore l'accessibilité des services bancaires. Son adoption croissante reflète la confiance accrue des clients dans les outils automatisés.",
-        "history": [
-          32.1,
-          36.5,
-          39.8,
-          43.2
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Adoption"
-      },
-      {
-        "short": "Green ATM Rollout",
-        "name_fr": "Déploiement de distributeurs verts",
-        "name_en": "Green ATM Rollout",
-        "explanation": "Nombre de distributeurs automatiques d'argent fonctionnant à 100 % sur énergie renouvelable.",
-        "value": 1250,
-        "unit": "stores",
-        "yoy": "+25%",
-        "type": "Capacity",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Leadership environnemental dans le réseau de distribution bancaire",
-        "description": "Crédit Agricole étend son réseau de distributeurs alimentés par énergie verte, en phase avec sa stratégie de durabilité. Ce déploiement renforce l'image de banque responsable auprès des investisseurs socialement conscients.",
-        "history": [
-          800,
-          1000,
-          1250
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Capacité"
-      },
-      {
-        "short": "AI Financial Advice",
-        "name_fr": "Conseils Financiers par IA",
-        "name_en": "AI-Powered Financial Advice",
-        "explanation": "Nombre de clients ayant reçu des recommandations financières automatisées via l'IA.",
-        "value": 1.8,
-        "unit": "M clients",
-        "yoy": "+45%",
-        "type": "User",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "L'IA devient un canal clé de conseil personnalisé à l'échelle",
-        "description": "Crédit Agricole déploie massivement des moteurs d'analyse prédictive pour proposer des profils d'investissement adaptés. Cette personnalisation à bas coût renforce la fidélité et l'engagement des clients particuliers.",
-        "history": [
-          "0.8",
-          "1.1",
-          "1.5",
-          "1.8"
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Adoption"
-      },
-      {
-        "short": "Green Mortgage Book",
-        "name_fr": "Encours de Prêts Immobiliers Verts",
-        "name_en": "Green Mortgage Loan Book",
-        "explanation": "Encours total des prêts immobiliers accordés pour des logements à haute performance énergétique.",
-        "value": 22.4,
-        "unit": "Mds €",
-        "yoy": "+38%",
-        "type": "Capacity",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Accélération de l'alignement du portefeuille crédit avec la transition énergétique",
-        "description": "Le volume de prêts immobiliers verts augmente fortement grâce à des partenariats avec des promoteurs durables et des incitations réglementaires. Ce segment devient un pilier stratégique de la croissance responsable du détail banking.",
-        "history": [
-          "12.1",
-          "16.3",
-          "20.1",
-          "22.4"
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Marché"
-      },
-      {
-        "short": "AI Fraud Detection",
-        "name_fr": "Détection des Fraudes par IA",
-        "name_en": "AI Fraud Detection",
-        "explanation": "Nombre de transactions frauduleuses bloquées automatiquement grâce à l'intelligence artificielle.",
-        "value": 8.7,
-        "unit": "M transactions",
-        "yoy": "+23%",
-        "type": "User",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "L'IA renforce la sécurité et la confiance client",
-        "description": "Crédit Agricole utilise des modèles d'IA pour identifier et bloquer les tentatives de fraude en temps réel. Ce KPI mesure l'efficacité opérationnelle de ces systèmes dans la protection des clients.",
-        "history": [
-          5.2,
-          6.8,
-          7.1,
-          8.7
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Innovation"
-      },
-      {
-        "short": "Green SME Portfolio",
-        "name_fr": "Portefeuille Vert PME",
-        "name_en": "Green SME Portfolio",
-        "explanation": "Encours de crédits verts accordés aux petites et moyennes entreprises.",
-        "value": 14.3,
-        "unit": "Mds $",
-        "yoy": "+31%",
-        "type": "Revenue",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Croissance soutenue du financement durable pour les PME",
-        "description": "Ce portefeuille reflète l'engagement de Crédit Agricole à accompagner la transition écologique des entreprises locales. La forte croissance montre une demande accrue et une exécution stratégique réussie.",
-        "history": [
-          8.1,
-          10.2,
-          12.7,
-          14.3
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Marché"
-      },
-      {
-        "short": "AI Wealth Clients",
-        "name_fr": "Clients en Conseil Patrimonial IA",
-        "name_en": "AI Wealth Advisory Clients",
-        "explanation": "Nombre de clients utilisant des services de conseil patrimonial automatisés via l'IA.",
-        "value": 1.2,
-        "unit": "M clients",
-        "yoy": "+45%",
-        "type": "User",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Accélération de la digitalisation des services haut de gamme",
-        "description": "Ce KPI mesure l'adoption par les clients privés des outils d'investissement pilotés par l'IA. Une croissance rapide indique une transformation réussie vers un modèle de banque privée intelligente.",
-        "history": [
-          "0.5",
-          "0.7",
-          "0.9",
-          "1.2"
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": true,
-        "story_category": "Adoption"
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
-    ],
-    "_stories_backfill_at": "2026-05-25T00:30:50Z",
-    "_stories_backfill_source": "scaleup_309_ko_cerebras_key2",
-    "risks": [],
-    "_risks_reextracted_at": "2026-05-27T12:13:25.389547+00:00",
-    "_risks_source_path": "/Users/yann/spx-app/sec-data/cat3-european/ACA.PA/annual-text/2026.txt",
-    "_risks_source_year": 2026,
-    "_risks_verification_needed": true,
-    "_risks_extraction_status": "too_few",
-    "hero_last_data_date_override": "2026-03-31",
-    "_hero_last_data_date_refreshed_at": "2026-05-28T04:41:31.297003+00:00",
-    "tagline_fr": "Banque coopérative au service de ses clients et de la société.",
-    "hero_kpi_rationale_fr": "Le KPI maître retenu est le revenu récurrent des services digitaux, qui affiche une croissance remarquable de +12% et traduit la transformation digitale réussie du groupe, passant d'une banque traditionnelle à un acteur intégrant massivement les services numériques payants.",
-    "kpis_supplementary": [
-      {
-        "short": "Revenu Net Bancaire",
-        "name_fr": "Revenu Net Bancaire CASA",
-        "name_en": "Net Banking Income",
-        "explanation": "Revenu net bancaire du groupe Crédit Agricole S.A. Diversifié entre banque de proximité, gestion d'actifs, assurance.",
-        "value": 26500,
-        "unit": "M EUR",
-        "yoy": "+5%",
-        "type": "Revenue",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Diversification métier",
-        "description": "Revenu net bancaire du groupe Crédit Agricole S.A. Diversifié entre banque de proximité, gestion d'actifs, assurance.",
-        "history": [
-          22000,
-          22800,
-          23800,
-          25240,
-          26500
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": false,
-        "story_category": "Marché",
-        "_added_by": "CONV-SUB-KPIS-1SPEC-B1",
-        "_added_at": "2026-05-28T16:55:29.798338+00:00"
-      },
-      {
-        "short": "Coût du Risque",
-        "name_fr": "Coût du Risque",
-        "name_en": "Cost of Risk",
-        "explanation": "Coût du risque crédit annualisé. Niveau bas reflète qualité du portefeuille et provisions prudentes.",
-        "value": 1750,
-        "unit": "M EUR",
-        "yoy": "+4%",
-        "type": "Risk",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Risque maîtrisé",
-        "description": "Coût du risque crédit annualisé. Niveau bas reflète qualité du portefeuille et provisions prudentes.",
-        "history": [
-          1090,
-          1745,
-          1740,
-          1685,
-          1750
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": false,
-        "story_category": "Risque",
-        "_added_by": "CONV-SUB-KPIS-1SPEC-B1",
-        "_added_at": "2026-05-28T16:55:29.798338+00:00"
-      },
-      {
-        "short": "CET1 Ratio",
-        "name_fr": "Ratio CET1",
-        "name_en": "CET1 Ratio",
-        "explanation": "Ratio Common Equity Tier 1, indicateur de solidité financière. Bien au-dessus des exigences réglementaires.",
-        "value": 11.9,
-        "unit": "%",
-        "yoy": "+0.2pp",
-        "type": "Capital",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Capitalisation solide",
-        "description": "Ratio Common Equity Tier 1, indicateur de solidité financière. Bien au-dessus des exigences réglementaires.",
-        "history": [
-          11.9,
-          11.2,
-          11.2,
-          11.7,
-          11.9
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": false,
-        "story_category": "Solidité",
-        "_added_by": "CONV-SUB-KPIS-1SPEC-B1",
-        "_added_at": "2026-05-28T16:55:29.798338+00:00"
-      },
-      {
-        "short": "Encours de Crédit",
-        "name_fr": "Encours de Crédit",
-        "name_en": "Loan Outstandings",
-        "explanation": "Total des encours de crédit auprès de la clientèle (entreprises, particuliers, collectivités).",
-        "value": 990,
-        "unit": "Mds EUR",
-        "yoy": "+2%",
-        "type": "Volume",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Croissance modérée",
-        "description": "Total des encours de crédit auprès de la clientèle (entreprises, particuliers, collectivités).",
-        "history": [
-          890,
-          920,
-          950,
-          970,
-          990
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": false,
-        "story_category": "Marché",
-        "_added_by": "CONV-SUB-KPIS-1SPEC-B1",
-        "_added_at": "2026-05-28T16:55:29.798338+00:00"
-      },
-      {
-        "short": "Amundi AUM",
-        "name_fr": "Encours Amundi",
-        "name_en": "Amundi AUM",
-        "explanation": "Encours sous gestion Amundi (filiale gestion d'actifs majoritaire). Premier gestionnaire européen.",
-        "value": 2240,
-        "unit": "Mds EUR",
-        "yoy": "+13%",
-        "type": "Volume",
-        "nature": "Structurel",
-        "comparable": "Comparable",
-        "signal": "Collecte nette positive",
-        "description": "Encours sous gestion Amundi (filiale gestion d'actifs majoritaire). Premier gestionnaire européen.",
-        "history": [
-          1730,
-          1900,
-          2040,
-          1985,
-          2240
-        ],
-        "last_data_date": "2025-12-31",
-        "is_wow": false,
-        "is_generic": false,
-        "is_short_history": false,
-        "story_category": "Marché",
-        "_added_by": "CONV-SUB-KPIS-1SPEC-B1",
-        "_added_at": "2026-05-28T16:55:29.798338+00:00"
-      }
-    ],
-    "_kpis_supplementary_signed_by": "CONV-SUB-KPIS-1SPEC-B1",
-    "_kpis_supplementary_updated_at": "2026-05-28T16:55:29.798338+00:00",
-    "subsector_fr": "Banque",
-    "sector_fr": "Finance"
+    ]
   },
   "enrich_ranks": {
     "ticker": "ACA",
@@ -1058,16 +614,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.131938+00:00",
     "fetched_at": "2026-05-21T02:17:14.131939+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.196Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.688Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aca.json",
     "enrich_root": "v2-pipeline-enrich/aca.json",
     "enrich_subkeys": [
       "description",
       "events",
-      "pa",
+      "quarterly-history",
       "ranks"
     ]
   }

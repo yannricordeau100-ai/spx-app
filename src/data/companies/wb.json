@@ -1,6 +1,6 @@
 {
   "ticker": "WB",
-  "name": "Weibo Corporation",
+  "name": "Weibo",
   "sector": "Technologie",
   "subsector": "Social Media",
   "tagline": "Create, Discover, and Distribute Content",
@@ -21,8 +21,8 @@
       "name_fr": "Revenu total",
       "name_en": "Revenue",
       "explanation": "Revenu total de la société",
-      "value": 1757.2,
-      "unit": "M $",
+      "value": 1.757,
+      "unit": "Mds $",
       "yoy": "+0.2%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,20 @@
       "signal": "Revenu stable malgré les défis macroéconomiques",
       "description": "Revenu total de la société, principalement issu de la publicité et des services de marketing",
       "history": [
-        1759.8,
-        1754.7,
-        1757.2
+        1.76,
+        1.755,
+        1.757
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
-      "signal_en": "Top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Bénéfice net",
@@ -87,7 +91,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Monthly Active Users — distinct users active over a month.",
+      "explanation_en": "Monthly Active Users, distinct users active over a month.",
       "signal_en": "User base contraction, monitor churn"
     },
     {
@@ -112,7 +116,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Daily Active Users — distinct users active over a day.",
+      "explanation_en": "Daily Active Users, distinct users active over a day.",
       "signal_en": "User base contraction, monitor churn"
     },
     {
@@ -132,11 +136,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.76 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,11 +163,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.09 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -178,11 +190,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.91 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -201,10 +217,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2.3 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -282,7 +302,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -302,7 +322,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début d'Item 1A avec répétition intensive (5+ paragraphes). Langage très fort : « may not be as effective », « substantial costs », « significant uncertainties ». Les VIEs génèrent 85-87% des revenus. Tendance stable mais structurelle. Poids catégorie maximal : affecte la viabilité opérationnelle entière.",
       "trend": "stable",
-      "summary": "Weibo opère via des entités variables (VIEs) en Chine car la loi interdit la propriété étrangère directe des activités internet. Le contrôle repose sur des contrats (prêts, transferts d'actions, services techniques) avec des actionnaires individuels chinois. Ces arrangements n'ont jamais été testés en justice et pourraient être invalidés par le gouvernement chinois, entraînant la perte de contrôle opérationnel et une dévaluation massive des titres."
+      "summary": "Weibo opère via des entités variables (VIEs) en Chine car la loi interdit la propriété étrangère directe des activités internet. Le contrôle repose sur des contrats (prêts, transferts d'actions, services techniques) avec des actionnaires individuels chinois. Ces arrangements n'ont jamais été testés en justice et pourraient être invalidés par le gouvernement chinois, entraînant la perte de contrôle opérationnel et une dévaluation massive des titres.",
+      "score": 5
     },
     {
       "title": "Risque de non-conformité réglementaire de la structure VIE",
@@ -310,7 +331,8 @@
       "severity": 5,
       "score_rationale": "Mentionné 4 fois avec langage critique : « severe penalties », « forced to relinquish », « may decline significantly in value or become worthless ». Incertitudes explicites sur l'interprétation future des lois PRC. Tendance up : nouvelles régulations émergent (Foreign Investment Law). Impact existentiel sur la structure.",
       "trend": "up",
-      "summary": "Le gouvernement chinois pourrait déterminer que les contrats VIE violent les lois sur l'investissement étranger dans les activités internet. Les régulations PRC et leur interprétation évoluent rapidement (Foreign Investment Law, nouvelles directives). Toute violation détectée exposerait Weibo à des pénalités sévères, à la confiscation des opérations, ou à l'interdiction de lever des capitaux à l'étranger."
+      "summary": "Le gouvernement chinois pourrait déterminer que les contrats VIE violent les lois sur l'investissement étranger dans les activités internet. Les régulations PRC et leur interprétation évoluent rapidement (Foreign Investment Law, nouvelles directives). Toute violation détectée exposerait Weibo à des pénalités sévères, à la confiscation des opérations, ou à l'interdiction de lever des capitaux à l'étranger.",
+      "score": 5
     },
     {
       "title": "Conformité cybersécurité et protection des données en évolution rapide",
@@ -318,7 +340,8 @@
       "severity": 4,
       "score_rationale": "Paragraphe dédié de 8 lignes détaillant 6 lois/mesures (Cyber Security Law, Data Security Law, Personal Information Protection Law, Administrative Measures 2024, Cybersecurity Review Measures, Outbound Data Transfer Measures). Langage : « cannot assure you », « may fail to complete », « materially and adversely affect ». Tendance up : 3 nouvelles mesures depuis 2021, amendement effectif janvier 2026.",
       "trend": "up",
-      "summary": "La Chine impose une conformité croissante en cybersécurité et protection des données (Cyber Security Law, Data Security Law, Personal Information Protection Law, Administrative Measures for Network Data Security de septembre 2024). Les transferts de données transfrontaliers requièrent des évaluations de sécurité et des approbations. Weibo ne peut garantir la conformité rapide à ces exigences en constante évolution, risquant des enquêtes gouvernementales, des amendes et la suspension d'opérations."
+      "summary": "La Chine impose une conformité croissante en cybersécurité et protection des données (Cyber Security Law, Data Security Law, Personal Information Protection Law, Administrative Measures for Network Data Security de septembre 2024). Les transferts de données transfrontaliers requièrent des évaluations de sécurité et des approbations. Weibo ne peut garantir la conformité rapide à ces exigences en constante évolution, risquant des enquêtes gouvernementales, des amendes et la suspension d'opérations.",
+      "score": 4
     },
     {
       "title": "Licences et permis manquants pour certaines activités métier",
@@ -326,7 +349,8 @@
       "severity": 4,
       "score_rationale": "Détail spécifique : Weimeng non qualifiée pour la licence audio/vidéo (Circular 56), demande de permis d'édition internet en cours, certains jeux sans approbation NPPA. Langage : « cannot assure you », « may be required to obtain », « could subject us to penalties ». Tendance stable mais risque chronique.",
       "trend": "stable",
-      "summary": "Weimeng (entité opérationnelle clé) ne peut pas obtenir la licence de transmission audio/vidéo internet car elle n'est pas contrôlée par l'État et n'opérait pas avant le Circular 56. Un permis d'édition internet pourrait être requis pour les services de jeux en ligne. Certains jeux sur la plateforme n'ont pas obtenu l'approbation de la National Press and Publication Administration. L'absence de ces licences expose Weibo à des pénalités, suspensions d'activité et révocation de permis."
+      "summary": "Weimeng (entité opérationnelle clé) ne peut pas obtenir la licence de transmission audio/vidéo internet car elle n'est pas contrôlée par l'État et n'opérait pas avant le Circular 56. Un permis d'édition internet pourrait être requis pour les services de jeux en ligne. Certains jeux sur la plateforme n'ont pas obtenu l'approbation de la National Press and Publication Administration. L'absence de ces licences expose Weibo à des pénalités, suspensions d'activité et révocation de permis.",
+      "score": 4
     },
     {
       "title": "Risque de dépendance aux approbations CSRC pour levées de capitaux",
@@ -334,7 +358,8 @@
       "severity": 4,
       "score_rationale": "Mentionné 2 fois (février 2023, Trial Administrative Measures). Langage : « cannot predict whether or for how long we will be able to obtain such approval ». Weibo a déjà dû déposer pour les convertible notes 2030. Tendance new : régime de dépôt établi en 2023. Impact direct sur capacité de financement.",
       "trend": "new",
-      "summary": "Depuis mars 2023, toute levée de capitaux offshore (offres d'actions, obligations convertibles, obligations échangeables) doit être déclarée auprès de la CSRC. Weibo ne peut prédire si elle obtiendra ou conservera ces approbations. Cela limite la flexibilité de financement et expose la société à des délais ou refus d'approbation pour les futures opérations de capital."
+      "summary": "Depuis mars 2023, toute levée de capitaux offshore (offres d'actions, obligations convertibles, obligations échangeables) doit être déclarée auprès de la CSRC. Weibo ne peut prédire si elle obtiendra ou conservera ces approbations. Cela limite la flexibilité de financement et expose la société à des délais ou refus d'approbation pour les futures opérations de capital.",
+      "score": 4
     },
     {
       "title": "Risque de non-conformité aux lois anti-monopole et concurrence",
@@ -342,7 +367,8 @@
       "severity": 3,
       "score_rationale": "Paragraphe détaillé citant 6 textes (Anti-Monopoly Law 2022, 4 implementing rules 2023, Anti-Unfair Competition Law 2022, merger control thresholds 2024, Online Anti-unfair Competition 2024, amendments 2025-2026). Langage : « cannot assure you », « may be subject to fines ». Tendance up : 7 textes/amendements depuis 2022. Poids modéré : applicable si Weibo domine un marché.",
       "trend": "up",
-      "summary": "La Chine a renforcé son cadre anti-monopole et anti-concurrence déloyale (Anti-Monopoly Law révisée août 2022, Antitrust Compliance Guidelines for Internet Platform Operators janvier 2026). Weibo ne peut garantir la conformité complète à ces régulations en évolution. Toute violation détectée pourrait entraîner des enquêtes gouvernementales, des amendes et des actions en justice affectant les opérations et les résultats financiers."
+      "summary": "La Chine a renforcé son cadre anti-monopole et anti-concurrence déloyale (Anti-Monopoly Law révisée août 2022, Antitrust Compliance Guidelines for Internet Platform Operators janvier 2026). Weibo ne peut garantir la conformité complète à ces régulations en évolution. Toute violation détectée pourrait entraîner des enquêtes gouvernementales, des amendes et des actions en justice affectant les opérations et les résultats financiers.",
+      "score": 3
     },
     {
       "title": "Risque de délistage US sous le HFCAA si accès PCAOB refusé",
@@ -350,7 +376,8 @@
       "severity": 3,
       "score_rationale": "Risque spécifique au statut de société chinoise cotée aux US. Weibo a été identifiée comme Commission-Identified Issuer en 2022 (levée en 2023 après amélioration PCAOB). Langage : « prohibit our shares or ADSs from being traded ». Tendance down : PCAOB a rétabli l'accès en décembre 2022. Mais risque récurrent annuel.",
       "trend": "stable",
-      "summary": "Le Holding Foreign Companies Accountable Act (HFCAA) interdit la cotation US si le PCAOB ne peut pas inspecter complètement l'auditeur pendant 2 ans consécutifs. Weibo a été identifiée comme Commission-Identified Issuer en 2022 mais a été retirée de la liste après que le PCAOB ait rétabli l'accès à la Chine continentale en décembre 2022. Cependant, le PCAOB réévalue chaque année son accès. Tout refus futur d'accès entraînerait l'interdiction de cotation et une dévaluation massive des ADSs."
+      "summary": "Le Holding Foreign Companies Accountable Act (HFCAA) interdit la cotation US si le PCAOB ne peut pas inspecter complètement l'auditeur pendant 2 ans consécutifs. Weibo a été identifiée comme Commission-Identified Issuer en 2022 mais a été retirée de la liste après que le PCAOB ait rétabli l'accès à la Chine continentale en décembre 2022. Cependant, le PCAOB réévalue chaque année son accès. Tout refus futur d'accès entraînerait l'interdiction de cotation et une dévaluation massive des ADSs.",
+      "score": 3
     },
     {
       "title": "Conflits d'intérêts des actionnaires individuels des VIEs",
@@ -358,7 +385,8 @@
       "severity": 3,
       "score_rationale": "Mentionné explicitement : « Shareholders of the VIEs may have potential conflicts of interest ». Les 4 actionnaires de Weimeng (Liu, Wang, Zheng, Cao) détiennent 99% et contrôlent les contrats. Langage : « may not act in the best interests », « may not perform their obligations ». Tendance stable mais risque structurel permanent.",
       "trend": "stable",
-      "summary": "Les actionnaires individuels des VIEs (Yunli Liu, Wei Wang, Wei Zheng, Zenghui Cao pour Weimeng ; Liu et Wang pour Weimeng Chuangke) pourraient avoir des intérêts divergents de ceux de Weibo Corporation. Ils pourraient refuser de performer leurs obligations contractuelles, exiger des rémunérations accrues, ou transférer leurs parts à des tiers. Weibo n'a aucun recours direct et dépend de l'arbitrage chinois pour l'exécution."
+      "summary": "Les actionnaires individuels des VIEs (Yunli Liu, Wei Wang, Wei Zheng, Zenghui Cao pour Weimeng ; Liu et Wang pour Weimeng Chuangke) pourraient avoir des intérêts divergents de ceux de Weibo Corporation. Ils pourraient refuser de performer leurs obligations contractuelles, exiger des rémunérations accrues, ou transférer leurs parts à des tiers. Weibo n'a aucun recours direct et dépend de l'arbitrage chinois pour l'exécution.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:39:22.230269+00:00",
@@ -514,9 +542,9 @@
     "country": "China",
     "_data_freshness_date": "2026-05-21T02:17:14.327381+00:00",
     "fetched_at": "2026-05-21T02:17:14.327382+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.391Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.523Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wb.json",
     "enrich_root": "v2-pipeline-enrich/wb.json",

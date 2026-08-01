@@ -93,34 +93,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.31 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "+60.0%",
       "history": [
-        0.11,
-        0.02,
-        0.05,
-        0.08
+        110,
+        20,
+        50,
+        80
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.08 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -139,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.32 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -162,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.61 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -185,9 +202,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,7 +266,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cite comme majeur dans le contexte de l'administration americaine actuelle, avec un langage fort sur l'incertitude croissante. La pression accrue sur les emissions de GES affecte directement les clients et la demande pour les services de compression. La categorie Regulation est hautement ponderee en severite.",
       "trend": "up",
-      "summary": "L'accent croissant sur la durabilite et la reglementation environnementale pourrait contraindre les clients et modifier la demande pour les services de compression."
+      "summary": "L'accent croissant sur la durabilite et la reglementation environnementale pourrait contraindre les clients et modifier la demande pour les services de compression.",
+      "score": 5
     },
     {
       "title": "Dépendance au bassin permien",
@@ -253,7 +275,8 @@
       "severity": 4,
       "score_rationale": "82.8% des actifs sont concentres dans le Permian Basin et l'Eagle Ford. Une perturbation dans ces regions aurait un impact disproportionne. Le texte souligne cette concentration comme un facteur cle de risque operationnel, avec un langage preoccupe mais mesure.",
       "trend": "stable",
-      "summary": "Une forte concentration geographique expose l'entreprise aux risques specifiques du Permian Basin, comme les reglementations locales ou les perturbations operationnelles."
+      "summary": "Une forte concentration geographique expose l'entreprise aux risques specifiques du Permian Basin, comme les reglementations locales ou les perturbations operationnelles.",
+      "score": 4
     },
     {
       "title": "Politique commerciale et tarifaire américaine",
@@ -261,7 +284,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement la volatilite des marches et l'incertitude economique liee aux politiques commerciales et aux tarifs. Bien que l'impact actuel soit limite, le risque est juge suffisamment important pour etre surveille activement, avec un langage d'avertissement.",
       "trend": "new",
-      "summary": "Les changements dans la politique commerciale americaine et les tarifs pourraient perturber les chaines d'approvisionnement et augmenter les couts."
+      "summary": "Les changements dans la politique commerciale americaine et les tarifs pourraient perturber les chaines d'approvisionnement et augmenter les couts.",
+      "score": 4
     },
     {
       "title": "Intégration de l'acquisition DPS",
@@ -269,7 +293,8 @@
       "severity": 4,
       "score_rationale": "L'acquisition de DPS pour 675 M$ est recente et significative. Le risque d'integration est implicite dans la taille de la transaction et les frais de rupture de 37.1 M$. L'absence de details operationnels accroit l'incertitude, typique des grandes acquisitions.",
       "trend": "new",
-      "summary": "L'acquisition de DPS represente une opportunite strategique mais comporte des risques d'integration, notamment financiers et operationnels."
+      "summary": "L'acquisition de DPS represente une opportunite strategique mais comporte des risques d'integration, notamment financiers et operationnels.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur la compression électrique",
@@ -277,7 +302,8 @@
       "severity": 3,
       "score_rationale": "Le texte note que certains clients adoptent la compression electrique, une technologie emergente. L'entreprise se dit bien positionnee, mais cela implique une pression concurrentielle et technologique. Le langage est modere, indiquant une menace en developpement.",
       "trend": "up",
-      "summary": "L'essor de la compression electrique pourrait redefinir la competitivite du parc traditionnel de l'entreprise."
+      "summary": "L'essor de la compression electrique pourrait redefinir la competitivite du parc traditionnel de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Exposition aux audits fiscaux",
@@ -285,7 +311,8 @@
       "severity": 3,
       "score_rationale": "Le reglement d'un audit fiscal au Texas pour 28 M$ de penalites est un evenement concret. Cela demontre une vulnerabilite aux redressements fiscaux, bien que le montant soit supportable. Le risque est reel mais ponctuel.",
       "trend": "stable",
-      "summary": "L'entreprise reste exposee a des audits fiscaux pouvant entrainer des penalites significatives, comme observe avec l'affaire du Texas."
+      "summary": "L'entreprise reste exposee a des audits fiscaux pouvant entrainer des penalites significatives, comme observe avec l'affaire du Texas.",
+      "score": 3
     },
     {
       "title": "Dépendance aux grands clients du secteur amont",
@@ -293,7 +320,8 @@
       "severity": 3,
       "score_rationale": "Le modele repose sur des contrats fixes avec des clients amont et midstream. Le texte mentionne leur discipline de capital, ce qui pourrait reduire les depenses. Le risque est modere, car les contrats sont a long terme, mais la dependance est structurelle.",
       "trend": "stable",
-      "summary": "La sante financiere des clients amont influence directement la demande pour les services de compression, surtout en periode de discipline budgetaire."
+      "summary": "La sante financiere des clients amont influence directement la demande pour les services de compression, surtout en periode de discipline budgetaire.",
+      "score": 3
     }
   ],
   "governance": {
@@ -396,7 +424,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.773Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.712Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kgs.json",
     "enrich_root": "v2-pipeline-enrich/kgs.json",

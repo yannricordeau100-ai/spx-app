@@ -21,8 +21,8 @@
       "name_fr": "Investissements non consolidés à la juste valeur",
       "name_en": "Fair Value of Unconsolidated Investments",
       "explanation": "Investissements enregistrés à la juste valeur selon l'option de juste valeur et fonds communs gérés",
-      "value": 1400,
-      "unit": "M $",
+      "value": 1.4,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Investment",
       "nature": "Structurel",
@@ -30,43 +30,49 @@
       "signal": "Portefeuille d'investissements stratégiques importants",
       "description": "Investissements non consolidés et participations dans les fonds communs gérés enregistrés à la juste valeur au 31 décembre 2025, basés sur des modèles d'évaluation utilisant les flux de trésorerie actualisés et les taux de capitalisation du marché",
       "history": [
-        1234,
-        1250,
-        1275,
-        1300,
-        1320,
-        1350,
-        1380,
-        1400
+        1.234,
+        1.25,
+        1.275,
+        1.3,
+        1.32,
+        1.35,
+        1.38,
+        1.4
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "quarter",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "-5.7%",
       "history": [
-        0.54,
-        0.56,
-        0.53,
-        0.5
+        540,
+        560,
+        530,
+        500
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.5 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -85,34 +91,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.0 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.05,
-      "unit": "Mds €",
+      "value": 50,
+      "unit": "M €",
       "yoy": "-28.6%",
       "history": [
-        0.01,
-        0.05,
-        0.07,
-        0.05
+        10,
+        50,
+        70,
+        50
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.05 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -131,11 +146,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -0.28 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -154,11 +173,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.62 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -177,33 +200,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.51 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.18,
-      "unit": "Mds €",
+      "value": 180,
+      "unit": "M €",
       "yoy": "-18.2%",
       "history": [
-        0.44,
-        0.31,
-        0.22,
-        0.18
+        440,
+        310,
+        220,
+        180
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.18 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,9 +263,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Investissement",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Investissement"
     }
   ],
   "ai_positioning": {
@@ -249,7 +279,8 @@
       "severity": 4,
       "score_rationale": "La société a une exposition significative au risque de taux d'intérêt : 78% de la dette consolidée est à taux fixe, 15% à taux flottant avec plafonds de taux et 7% à taux flottant sans plafonds. Les fluctuations des taux d'intérêt peuvent impacter la dette à taux flottant et augmenter les frais d'intérêts, bien que les maturités courtes limitent le risque à long terme.",
       "trend": "stable",
-      "summary": "Exposition importante à la volatilité des taux d'intérêt sur la portion flottante de la dette (22% du portefeuille) malgré l'utilisation de plafonds de taux pour mitiger le risque."
+      "summary": "Exposition importante à la volatilité des taux d'intérêt sur la portion flottante de la dette (22% du portefeuille) malgré l'utilisation de plafonds de taux pour mitiger le risque.",
+      "score": 4
     },
     {
       "title": "Foreign Exchange Risk",
@@ -257,7 +288,8 @@
       "severity": 3,
       "score_rationale": "La société opère internationalement et est exposée aux fluctuations des taux de change en connexion avec ses opérations à l'étranger. La société a mis en place des instruments de couverture pour atténuer ce risque, mais il reste présent du fait de la nature de ses actifs et opérations internationales.",
       "trend": "stable",
-      "summary": "Risque de change présent en raison des opérations internationales et des fluctuations des taux de change, partiellement couvert par des instruments de gestion des risques."
+      "summary": "Risque de change présent en raison des opérations internationales et des fluctuations des taux de change, partiellement couvert par des instruments de gestion des risques.",
+      "score": 3
     },
     {
       "title": "Credit Risk",
@@ -265,7 +297,8 @@
       "severity": 2,
       "score_rationale": "Le risque de crédit est faible en raison de la qualité des dettes et de la capacité de la société à rembourser ses obligations. Les dettes sont généralement garanties par des actifs immobiliers de qualité.",
       "trend": "down",
-      "summary": "Risque de crédit faible grâce à la qualité des actifs sous-jacents et à la structure de financement sécurisée."
+      "summary": "Risque de crédit faible grâce à la qualité des actifs sous-jacents et à la structure de financement sécurisée.",
+      "score": 2
     },
     {
       "title": "Regulatory Risk",
@@ -273,7 +306,8 @@
       "severity": 2,
       "score_rationale": "Le risque réglementaire est faible en raison de la conformité de la société aux réglementations en vigueur dans les juridictions où elle opère.",
       "trend": "stable",
-      "summary": "Risque réglementaire limité grâce à la conformité opérationnelle et à la gestion des obligations réglementaires."
+      "summary": "Risque réglementaire limité grâce à la conformité opérationnelle et à la gestion des obligations réglementaires.",
+      "score": 2
     },
     {
       "title": "Liquidity Risk",
@@ -281,7 +315,8 @@
       "severity": 3,
       "score_rationale": "La société doit disposer de liquidités suffisantes pour faire face à ses obligations à court terme et financer ses opérations. Le besoin de liquidités pour le remboursement de dettes et les investissements représente une exposition modérée.",
       "trend": "stable",
-      "summary": "Risque de liquidité présent en raison de la nécessité de maintenir des liquidités pour faire face aux obligations de dettes et aux besoins d'investissement."
+      "summary": "Risque de liquidité présent en raison de la nécessité de maintenir des liquidités pour faire face aux obligations de dettes et aux besoins d'investissement.",
+      "score": 3
     }
   ],
   "governance": {
@@ -497,7 +532,10 @@
             "source": "KW_2024-11-07.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -513,9 +551,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.275581+00:00",
     "fetched_at": "2026-05-21T02:17:14.275581+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.919Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.692Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/kw.json",
     "enrich_root": null,

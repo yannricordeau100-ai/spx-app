@@ -47,7 +47,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:26.186576+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -72,7 +72,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 8.75,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -147,7 +147,7 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 47.25,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Solid expansion, positive trajectory"
     },
     {
@@ -172,54 +172,64 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 76,
-      "explanation_en": "Customer concentration — share of total attributed to the largest contributors.",
+      "explanation_en": "Customer concentration, share of total attributed to the largest contributors.",
       "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.94,
-      "unit": "Mds €",
+      "value": 940,
+      "unit": "M €",
       "yoy": "-6.0%",
       "history": [
-        1.08,
-        0.94,
-        1,
-        0.94
+        1080,
+        940,
+        1000,
+        940
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.94 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "-5.9%",
       "history": [
-        0.34,
-        0.29,
-        0.17,
-        0.16
+        340,
+        290,
+        170,
+        160
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.16 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,9 +255,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 975.24,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 975.24
     },
     {
       "short": "Gross Margin",
@@ -271,9 +279,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 8.75,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 8.75
     },
     {
       "short": "Capex",
@@ -297,9 +303,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "ttm": 47.25,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 47.25
     }
   ],
   "ai_positioning": {
@@ -313,43 +317,43 @@
       "title": "Cyclicalité de l'industrie des équipements semi-conducteurs",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Le risque est mentionné dans l'Item 1A et est qualifié d'impactant les résultats d'exploitation. L'industrie est intrinsèquement cyclique, avec des fluctuations significatives de la demande, ce qui représente un risque majeur pour une entreprise dépendant à plus de 90% de ce secteur. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est mentionné dans l'Item 1A et est qualifié d'impactant les résultats d'exploitation. L'industrie est intrinsèquement cyclique, avec des fluctuations significatives de la demande, ce qui représente un risque majeur pour une entreprise dépendant à plus de 90% de ce secteur.",
       "trend": "stable",
       "summary": "L'entreprise est fortement dépendante du secteur des équipements pour semi-conducteurs, qui est sujet à des cycles économiques importants. Les fluctuations de la demande peuvent impacter significativement les ventes et les résultats.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Concentration de la clientèle",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Ce risque est clairement identifié dans l'Item 1A, soulignant que deux clients représentent 76% des ventes en 2025. La dépendance à un si petit nombre de clients majeurs est un risque significatif. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est clairement identifié dans l'Item 1A, soulignant que deux clients représentent 76% des ventes en 2025. La dépendance à un si petit nombre de clients majeurs est un risque significatif.",
       "trend": "stable",
       "summary": "Une part très importante du chiffre d'affaires provient de seulement deux clients majeurs. La perte d'un de ces clients ou une réduction de leurs commandes aurait un impact considérable sur l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Conditions macroéconomiques et tensions commerciales mondiales",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "L'Item 1A mentionne explicitement les risques liés à l'environnement commercial et réglementaire mondial, incluant les tarifs douaniers et les mesures de sécurité nationale. L'incertitude sur ces sujets est qualifiée d'impact potentiel matériel. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A mentionne explicitement les risques liés à l'environnement commercial et réglementaire mondial, incluant les tarifs douaniers et les mesures de sécurité nationale. L'incertitude sur ces sujets est qualifiée d'impact potentiel matériel.",
       "trend": "up",
       "summary": "Les tensions commerciales internationales, les tarifs douaniers et les réglementations sur les exportations de technologies avancées créent de l'incertitude et peuvent affecter les coûts, les prix et la demande pour les produits de l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux contrôles à l'exportation et réglementations",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le texte de l'Item 1A met en avant l'expansion et le raffinement des contrôles à l'exportation par le gouvernement américain, particulièrement envers la Chine. Ces contrôles créent une incertitude sur le marché et peuvent réduire la demande. (score par défaut, à affiner)",
+      "score_rationale": "Le texte de l'Item 1A met en avant l'expansion et le raffinement des contrôles à l'exportation par le gouvernement américain, particulièrement envers la Chine. Ces contrôles créent une incertitude sur le marché et peuvent réduire la demande.",
       "trend": "up",
       "summary": "Les restrictions croissantes sur l'exportation de technologies de semi-conducteurs, notamment vers la Chine, peuvent limiter l'accès au marché, réduire la demande et perturber la chaîne d'approvisionnement mondiale.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Évolution technologique et complexité croissante",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "L'Item 1A décrit l'évolution constante et la complexification des semi-conducteurs et des équipements associés. L'entreprise doit suivre ces évolutions pour rester compétitive, ce qui implique des investissements continus en R&D. (score par défaut, à affiner)",
+      "score_rationale": "L'Item 1A décrit l'évolution constante et la complexification des semi-conducteurs et des équipements associés. L'entreprise doit suivre ces évolutions pour rester compétitive, ce qui implique des investissements continus en R&D.",
       "trend": "stable",
       "summary": "Le secteur des semi-conducteurs évolue rapidement avec des technologies de plus en plus complexes. L'entreprise doit investir continuellement en recherche et développement pour adapter ses produits et rester compétitive.",
       "score": 3
@@ -391,7 +395,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -578,23 +582,18 @@
         "history": [
           7.564,
           11.469,
-          -6.857,
           4.851,
           9.758,
           14.617,
-          -9.662,
           4.313,
           9.501,
           14.689,
-          -8.28,
           5.37,
           11.296,
           17.168,
-          -10.816,
           5.874,
           11.584,
           17.482,
-          -11.854,
           5.53
         ],
         "history_periods": [
@@ -648,6 +647,12 @@
             "accession": "0001652535-26-000031",
             "end": "2026-03-27"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (ICHR)"
         ]
       },
       {
@@ -656,15 +661,12 @@
         "history": [
           15.369,
           18.704,
-          -18.634,
           3.417,
           14.413,
           22.458,
-          -10.855,
           6.819,
           10.834,
           13.239,
-          -15.396,
           4.49,
           7.337,
           13.238,
@@ -672,7 +674,6 @@
           18.481,
           25.772,
           32.92,
-          -41.004,
           7.065
         ],
         "history_periods": [
@@ -726,6 +727,12 @@
             "accession": "0001652535-26-000031",
             "end": "2026-03-27"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (ICHR)"
         ]
       }
     ]
@@ -742,9 +749,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.529219+00:00",
     "fetched_at": "2026-05-21T01:44:37.529219+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.335Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.989Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ichr.json",
     "enrich_root": "v2-pipeline-enrich/ichr.json",

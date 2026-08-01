@@ -37,9 +37,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Valeur vérifiée: 5,500 affichages numériques confirmés au 31 décembre 2025 dans la section Business (43 états et Canada)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "KPI 'Digital Billboard Count' not found in provided 10-K extract. Only capital expenditure data for 'Billboard Digital' ($81.1M in 2022, $55"
+      "_hero_history_unverified_reason": "KPI 'Digital Billboard Count' not found in provided 10-K extract. Only capital expenditure data for 'Billboard Digital' ($81.1M in 2022, $55",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Billboards",
@@ -130,7 +133,7 @@
       "is_short_history": false,
       "ttm": 153042,
       "_validation": "Valeur vérifiée: 180,800 k$ confirmés dans MDA (tableau capital expenditures 2025). Calcul YoY: (180,800-125,284)/125,284 = +44.3% correct. Unité corrigée de M$ (était M$, correct). TTM recalculé correctement.",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Strong growth, robust momentum"
     },
     {
@@ -172,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.93 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -195,11 +202,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.92 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -226,9 +237,7 @@
       "is_short_history": false,
       "story_category": "Capacité",
       "ttm": 75817,
-      "_validation": "Valeur vérifiée: 90,937 k$ (90,9 M$) confirmés dans MDA tableau capital expenditures, ligne 'Billboard Digital' pour 2025. Calcul YoY: (90,937-60,697)/60,697 = +49.8% correct. TTM recalculé.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur vérifiée: 90,937 k$ (90,9 M$) confirmés dans MDA tableau capital expenditures, ligne 'Billboard Digital' pour 2025. Calcul YoY: (90,937-60,697)/60,697 = +49.8% correct. TTM recalculé."
     }
   ],
   "ai_positioning": {
@@ -245,7 +254,8 @@
       "score_rationale": "Risque placé en début de Item 1A (position forte). Langage direct « could suffer » et « significant legal and financial exposure » indique intensité élevée. Catégorie cybersécurité = pondération maximale. Tendance stable mais équipe dédiée mentionnée suggère risque reconnu et géré.",
       "trend": "stable",
       "summary": "Une violation de cybersécurité pourrait causer des dommages matériels à l'activité et exposer l'entreprise à des poursuites et pertes financières importantes. La société dispose d'une équipe spécialisée avec 38 ans d'expérience combinée pour gérer ce risque.",
-      "citation": "Our business and operations could suffer in the event of cybersecurity breaches and we may incur significant legal and financial exposure."
+      "citation": "Our business and operations could suffer in the event of cybersecurity breaches and we may incur significant legal and financial exposure.",
+      "score": 4
     },
     {
       "title": "Dépendance aux baux immobiliers et renégociation",
@@ -254,7 +264,8 @@
       "score_rationale": "Risque détaillé dans Item 2 (position importante). Chiffres concrets : 71 500 sites loués pour 348,1 millions USD annuels (17% des revenus publicitaires). Langage « important part of our management activity » souligne criticité. Tendance stable mais concentration de risque élevée sur portefeuille de baux.",
       "trend": "stable",
       "summary": "L'entreprise loue 71 500 emplacements publicitaires pour 348 millions USD par an, représentant 17% des revenus. La renégociation régulière de ces baux est une activité de gestion critique, avec des durées variant de mois en mois à plus de dix ans.",
-      "citation": "As of December 31, 2025, we leased approximately 71,500 active outdoor sites, accounting for a total annual lease expense of approximately $348.1 million. This amount represented approximately 17% of billboard advertising net revenues."
+      "citation": "As of December 31, 2025, we leased approximately 71,500 active outdoor sites, accounting for a total annual lease expense of approximately $348.1 million. This amount represented approximately 17% of billboard advertising net revenues.",
+      "score": 4
     },
     {
       "title": "Sensibilité aux conditions économiques générales",
@@ -263,7 +274,8 @@
       "score_rationale": "Risque énoncé explicitement dans Item 7 (MD&A). Langage « particularly sensitive to changes in general economic conditions » indique vulnérabilité directe. Affecte capacité à augmenter les tarifs et l'occupation. Tendance stable mais facteur macro = pondération forte.",
       "trend": "stable",
       "summary": "Les dépenses publicitaires sont très sensibles aux conditions économiques générales, ce qui affecte directement les tarifs que l'entreprise peut facturer et sa capacité à maximiser l'occupation de ses panneaux.",
-      "citation": "Advertising spending is particularly sensitive to changes in general economic conditions, which affect the rates the Company is able to charge for advertising on its displays."
+      "citation": "Advertising spending is particularly sensitive to changes in general economic conditions, which affect the rates the Company is able to charge for advertising on its displays.",
+      "score": 4
     },
     {
       "title": "Obligations de distribution REIT et restrictions de trésorerie",
@@ -272,7 +284,8 @@
       "score_rationale": "Risque détaillé dans Item 5 (statut REIT). Obligation légale de distribuer 90% du revenu imposable REIT annuellement. Langage « must annually distribute » indique contrainte réglementaire stricte. Restrictions additionnelles dans contrats de dette. Tendance stable mais impact sur flexibilité financière.",
       "trend": "stable",
       "summary": "En tant que REIT, l'entreprise doit distribuer annuellement au moins 90% de son revenu imposable REIT aux actionnaires, ce qui limite sa flexibilité de trésorerie et sa capacité à réinvestir ou à rembourser la dette.",
-      "citation": "As a REIT, we must annually distribute to our common stockholders an amount equal to at least 90% of our REIT taxable income."
+      "citation": "As a REIT, we must annually distribute to our common stockholders an amount equal to at least 90% of our REIT taxable income.",
+      "score": 3
     },
     {
       "title": "Concentration du contrôle actionnarial famille Reilly",
@@ -281,7 +294,8 @@
       "score_rationale": "Risque identifié dans Item 5. Famille Reilly contrôle actions Classe B non cotées via RFLLC. Kevin P. Reilly Jr. (Président du Conseil) et Sean E. Reilly (PDG) sont gestionnaires. Risque de gouvernance et de conflits d'intérêts. Tendance stable mais structure de contrôle concentrée.",
       "trend": "stable",
       "summary": "La famille Reilly contrôle la totalité des actions Classe B non cotées via une entité familiale (RFLLC), avec deux membres clés en positions exécutives (Président du Conseil et PDG), créant un risque de concentration du pouvoir décisionnel.",
-      "citation": "Kevin P. Reilly, Jr., our Executive Chairman of the Board, is the executive manager of the RFLLC and Sean E. Reilly, our President and Chief Executive Officer...are also managers of the RFLLC."
+      "citation": "Kevin P. Reilly, Jr., our Executive Chairman of the Board, is the executive manager of the RFLLC and Sean E. Reilly, our President and Chief Executive Officer...are also managers of the RFLLC.",
+      "score": 3
     },
     {
       "title": "Financement des acquisitions et endettement croissant",
@@ -290,7 +304,8 @@
       "score_rationale": "Risque dans Item 7 (MD&A). Acquisitions 2025 : 191,1 millions USD en cash + 147,6 millions USD en unités de partenariat (Verde Outdoor). Dépenses capitales 2025 : 180,8 millions USD (vs 125,3 en 2024, +44%). Financement par dette et titres. Tendance up (augmentation des acquisitions et capex).",
       "trend": "up",
       "summary": "L'entreprise finance ses acquisitions stratégiques (191 millions USD en 2025) et ses dépenses d'investissement croissantes (181 millions USD) par emprunt et émission de titres, augmentant son endettement et son risque financier.",
-      "citation": "During the year ended December 31, 2025, the Company completed multiple acquisitions for a total cash purchase price of approximately $191.1 million...financed from available cash, borrowings under the senior credit facility."
+      "citation": "During the year ended December 31, 2025, the Company completed multiple acquisitions for a total cash purchase price of approximately $191.1 million...financed from available cash, borrowings under the senior credit facility.",
+      "score": 3
     },
     {
       "title": "Litiges ordinaires et procédures administratives",
@@ -299,7 +314,8 @@
       "score_rationale": "Risque mentionné dans Item 3. Litiges ordinaires (contrats publicitaires, baux, emploi, construction) et procédures administratives (permis, frais, condamnations). Langage « not likely to have a material adverse effect » atténue sévérité. Tendance stable, risque géré.",
       "trend": "stable",
       "summary": "L'entreprise est impliquée dans des litiges ordinaires (contrats, baux, emploi) et des procédures administratives (permis, frais), mais la direction estime qu'aucun n'aura d'effet matériel négatif.",
-      "citation": "The Company from time to time is involved in litigation in the ordinary course of business, including disputes involving advertising contracts, site leases, employment claims and construction matters."
+      "citation": "The Company from time to time is involved in litigation in the ordinary course of business, including disputes involving advertising contracts, site leases, employment claims and construction matters.",
+      "score": 2
     }
   ],
   "governance": {
@@ -417,7 +433,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -532,11 +548,9 @@
           28.759,
           75.802,
           116.808,
-          -54.291,
           42.285,
           93.007,
           132.152,
-          -89.173,
           29.482,
           52.13,
           82.27,
@@ -598,6 +612,12 @@
             "accession": "0001090425-26-000017",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (LAMR)"
         ]
       }
     ]
@@ -614,9 +634,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.275796+00:00",
     "fetched_at": "2026-05-21T02:17:14.275797+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.940Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.718Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lamr.json",
     "enrich_root": null,

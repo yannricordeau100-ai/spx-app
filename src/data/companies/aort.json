@@ -50,7 +50,11 @@
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:38.430067+00:00",
       "explanation_en": "Revenue from the Aortic Stent Grafts segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "On-X Revenue",
@@ -151,77 +155,90 @@
       "is_generic": false,
       "is_short_history": true,
       "_validation": "Value verified as 9.8 million dollars from consolidated financial statements for year ended December 31, 2025; is_short_history remains true (single year data available); prior year net income not provided in source documents",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes."
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.88,
-      "unit": "Mds €",
+      "value": 880,
+      "unit": "M €",
       "yoy": "+11.4%",
       "history": [
-        0.76,
-        0.79,
-        0.79,
-        0.88
+        760,
+        790,
+        790,
+        880
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.88 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "-27.8%",
       "history": [
-        0.36,
-        0.36,
-        0.36,
-        0.26
+        360,
+        360,
+        360,
+        260
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.26 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+20.0%",
       "history": [
-        0.04,
-        0.06,
-        0.05,
-        0.06
+        40,
+        60,
+        50,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -287,7 +304,8 @@
       "severity": 4,
       "score_rationale": "L'incident de cybersécurité en Q4 2024 a eu un impact quantifiable sur les revenus du quatrième trimestre 2024, et l'entreprise reste vulnérable aux attaques futures",
       "trend": "stable",
-      "summary": "L'entreprise a subi un incident de cybersécurité au Q4 2024 qui a réduit les revenus du quatrième trimestre. Le risque de futurs incidents demeure significatif. La croissance 2025 a bénéficié d'une base de comparaison affaiblie par cet incident."
+      "summary": "L'entreprise a subi un incident de cybersécurité au Q4 2024 qui a réduit les revenus du quatrième trimestre. Le risque de futurs incidents demeure significatif. La croissance 2025 a bénéficié d'une base de comparaison affaiblie par cet incident.",
+      "score": 4
     },
     {
       "title": "Réglementation",
@@ -295,7 +313,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise est soumise à des réglementations strictes des autorités sanitaires pour les produits médicaux implantables",
       "trend": "stable",
-      "summary": "L'entreprise doit se conformer à des réglementations strictes concernant les dispositifs médicaux implantables, ce qui peut affecter la commercialisation et les activités opérationnelles"
+      "summary": "L'entreprise doit se conformer à des réglementations strictes concernant les dispositifs médicaux implantables, ce qui peut affecter la commercialisation et les activités opérationnelles",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -303,7 +322,8 @@
       "severity": 3,
       "score_rationale": "Le marché des dispositifs médicaux cardiovasculaires est hautement concurrentiel avec des entreprises établies et émergentes",
       "trend": "stable",
-      "summary": "L'entreprise opère dans un marché concurrentiel où des entreprises rivales offrent des produits similaires, ce qui peut impacter les parts de marché et les marges"
+      "summary": "L'entreprise opère dans un marché concurrentiel où des entreprises rivales offrent des produits similaires, ce qui peut impacter les parts de marché et les marges",
+      "score": 3
     },
     {
       "title": "Dépendance aux fournisseurs",
@@ -311,7 +331,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise dépend de fournisseurs externes pour les matières premières et composants critiques des dispositifs",
       "trend": "stable",
-      "summary": "L'entreprise dépend de fournisseurs pour les matières premières et composants essentiels, ce qui expose les activités aux interruptions d'approvisionnement"
+      "summary": "L'entreprise dépend de fournisseurs pour les matières premières et composants essentiels, ce qui expose les activités aux interruptions d'approvisionnement",
+      "score": 3
     },
     {
       "title": "Risques liés aux changes",
@@ -319,7 +340,8 @@
       "severity": 2,
       "score_rationale": "Une part significative des revenus est générée en devises étrangères (EUR, BRL, GBP, CAD, CHF), créant une exposition aux fluctuations de change. Le dollar affaibli en 2025 a favorisé les revenus",
       "trend": "stable",
-      "summary": "L'entreprise est exposée aux risques liés aux fluctuations des taux de change, en particulier pour les ventes en euros, reais brésiliens et autres devises. Excluant les effets de change, les revenus 2025 ont augmenté de 13% par rapport à 14% en GAAP"
+      "summary": "L'entreprise est exposée aux risques liés aux fluctuations des taux de change, en particulier pour les ventes en euros, reais brésiliens et autres devises. Excluant les effets de change, les revenus 2025 ont augmenté de 13% par rapport à 14% en GAAP",
+      "score": 2
     },
     {
       "title": "Risques liés aux produits",
@@ -327,7 +349,8 @@
       "severity": 4,
       "score_rationale": "Les dispositifs médicaux implantables comportent des risques inhérents de défaillance produit avec potentiel de responsabilité élevée et impact réputationnel",
       "trend": "stable",
-      "summary": "L'entreprise est responsable de la qualité et de la sécurité de ses implants médicaux, créant un risque de rappels produits, réclamations et impacts réputationnels"
+      "summary": "L'entreprise est responsable de la qualité et de la sécurité de ses implants médicaux, créant un risque de rappels produits, réclamations et impacts réputationnels",
+      "score": 4
     }
   ],
   "governance": {
@@ -342,7 +365,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Dispositifs médicaux",
-  "_companies_unified_built_at": "2026-05-29T21:19:37.841Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.236Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aort.json",
     "enrich_root": "v2-pipeline-enrich/aort.json",

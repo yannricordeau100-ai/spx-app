@@ -77,7 +77,7 @@
         "Unité validée: %",
         "is_wow: false confirmé, amélioration régulière"
       ],
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -136,8 +136,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -163,8 +167,12 @@
       "description": "Résultat opérationnel extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -190,25 +198,29 @@
       "description": "BPA dilué extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.796,
-      "unit": "Mds $",
+      "value": 796,
+      "unit": "M $",
       "yoy": "-8.0%",
       "history": [
-        0.739,
-        0.706,
-        1.022,
-        1.05,
-        1.18,
-        1.08,
-        0.865,
-        0.796
+        739,
+        706,
+        1022,
+        1050,
+        1180,
+        1080,
+        865,
+        796
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
@@ -217,25 +229,30 @@
       "description": "Total des actifs extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Stockholders Equity",
       "name_fr": "Capitaux propres",
       "name_en": "Stockholders Equity",
-      "value": 0.452,
-      "unit": "Mds $",
+      "value": 452,
+      "unit": "M $",
       "yoy": "-12.4%",
       "history": [
-        0.4,
-        0.415,
-        0.391,
-        0.489,
-        0.676,
-        0.686,
-        0.516,
-        0.452
+        400,
+        415,
+        391,
+        489,
+        676,
+        686,
+        516,
+        452
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
@@ -244,7 +261,12 @@
       "description": "Capitaux propres extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "signal_en": "Capital base contracting, monitor structure"
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M $",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -279,9 +301,7 @@
         "is_short_history: false, données 2 périodes (2024-2025)",
         "TTM: 204.4M FY2025",
         "Story category 'Adoption' approprié pour croissance demande broadband"
-      ],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      ]
     }
   ],
   "ai_positioning": {
@@ -297,7 +317,8 @@
       "severity": 5,
       "score_rationale": "Le risque est en tête des facteurs de risque, mentionné de manière répétée avec un langage fort (matériellement négatif, effet défavorable important). Il s'agit d'un nouveau risque majeur depuis 2023, impliquant des arbitrages internationaux et des actions collectives. La catégorie Litige est pondérée fortement en cas de montant potentiellement élevé et d'incertitude procédurale.",
       "trend": "new",
-      "summary": "La rupture de la fusion avec Silicon Motion expose MXL à des poursuites coûteuses, des dommages potentiels élevés et une diversion de la direction, menaçant sa trésorerie et sa stabilité financière."
+      "summary": "La rupture de la fusion avec Silicon Motion expose MXL à des poursuites coûteuses, des dommages potentiels élevés et une diversion de la direction, menaçant sa trésorerie et sa stabilité financière.",
+      "score": 5
     },
     {
       "title": "Concurrence intense dans le secteur des semi-conducteurs",
@@ -305,7 +326,8 @@
       "severity": 4,
       "score_rationale": "Explicitement cité comme pouvant avoir un effet négatif important sur les revenus et parts de marché. Le langage est ferme et récurrent. Ce risque est stable par rapport à l'année précédente, typique du secteur technologique. La catégorie Concurrence est critique pour la pérennité commerciale.",
       "trend": "stable",
-      "summary": "La pression concurrentielle accrue dans l'industrie des semi-conducteurs menace les marges, la croissance des revenus et la position de marché de MXL."
+      "summary": "La pression concurrentielle accrue dans l'industrie des semi-conducteurs menace les marges, la croissance des revenus et la position de marché de MXL.",
+      "score": 4
     },
     {
       "title": "Cyberattaques et défaillances IT",
@@ -313,7 +335,8 @@
       "severity": 4,
       "score_rationale": "Mentionné avec un langage préoccupant (perturber nos opérations, nuire à notre réputation). Risque structurel dans le secteur IT. Présent chaque année, mais intensifié par la dépendance croissante aux systèmes numériques. La catégorie Cybersécurité a une pondération élevée en IT.",
       "trend": "stable",
-      "summary": "Des failles de sécurité, attaques ou défauts système pourraient interrompre les opérations et endommager gravement la réputation de MXL."
+      "summary": "Des failles de sécurité, attaques ou défauts système pourraient interrompre les opérations et endommager gravement la réputation de MXL.",
+      "score": 4
     },
     {
       "title": "Dépendance à quelques grands clients",
@@ -321,7 +344,8 @@
       "severity": 4,
       "score_rationale": "Le texte précise que la perte d'un client majeur a eu et pourrait continuer à avoir un effet négatif important. Langage fort et répété. Risque structurel, stable. Bien que classé sous Concurrence, il reflète une vulnérabilité commerciale majeure.",
       "trend": "stable",
-      "summary": "MXL dépend fortement d'un petit nombre de clients ; toute perte ou réduction de commande pourrait fortement impacter ses revenus et résultats."
+      "summary": "MXL dépend fortement d'un petit nombre de clients ; toute perte ou réduction de commande pourrait fortement impacter ses revenus et résultats.",
+      "score": 4
     },
     {
       "title": "Pression sur les prix de vente",
@@ -329,7 +353,8 @@
       "severity": 4,
       "score_rationale": "Les prix moyens de vente ont déjà baissé et pourraient continuer, avec un impact important sur revenus et marges. Langage affirmé, risque récurrent. La catégorie Industriel inclut les dynamiques de marché structurelles.",
       "trend": "stable",
-      "summary": "La baisse continue des prix de vente de ses produits menace les revenus et les marges brutes de MXL, notamment en raison de la concurrence et des tarifs."
+      "summary": "La baisse continue des prix de vente de ses produits menace les revenus et les marges brutes de MXL, notamment en raison de la concurrence et des tarifs.",
+      "score": 4
     },
     {
       "title": "Tensions géopolitiques et guerres commerciales",
@@ -337,7 +362,8 @@
       "severity": 4,
       "score_rationale": "Le document lie explicitement les conflits géopolitiques et les guerres commerciales à des effets négatifs sur les résultats. Mention de tarifs douaniers et de tensions militaires. Langage préoccupé, risque actuel et en hausse. La catégorie Géopolitique est fortement pondérée en contexte international.",
       "trend": "up",
-      "summary": "Les tensions géopolitiques, conflits militaires et guerres commerciales pourraient réduire la demande et nuire aux résultats financiers de MXL."
+      "summary": "Les tensions géopolitiques, conflits militaires et guerres commerciales pourraient réduire la demande et nuire aux résultats financiers de MXL.",
+      "score": 4
     },
     {
       "title": "Réglementations d'exportation et autorisations",
@@ -345,7 +371,8 @@
       "severity": 4,
       "score_rationale": "Risque croissant lié aux contrôles d'exportation de technologies sensibles et aux restrictions commerciales. Mentions répétées de conformité et d'autorisations requises. La catégorie Régulateur inclut les enjeux de contrôle d'exportation.",
       "trend": "up",
-      "summary": "Les restrictions d'exportation, autorisations manquantes ou changements réglementaires pourraient limiter l'accès aux marchés et augmenter les coûts de conformité."
+      "summary": "Les restrictions d'exportation, autorisations manquantes ou changements réglementaires pourraient limiter l'accès aux marchés et augmenter les coûts de conformité.",
+      "score": 4
     }
   ],
   "_validation_global": [
@@ -554,7 +581,7 @@
       "Le portefeuille produits (interfaces PCIe, data converters, PMICs) supporte l'automatisation industrielle et le digital twinning, applications émergentes d'IA appliquée en manufacturing et process control.",
       "La société reconnaît que les défis thermiques des transceivers optiques haute vitesse constituent la barrière physique principale à l'augmentation des débits data center, positionnant l'innovation en efficacité énergétique comme levier compétitif face à la demande GenAI."
     ],
-    "source_note": "10-K récent (FY2025) : sections Data Center Infrastructure, Industrial IoT et Market Trends ; mentions explicites OpenAI/Gemini et architectures cloud ML",
+    "source_note": "10-K récent (exercice 2025) : sections Data Center Infrastructure, Industrial IoT et Market Trends ; mentions explicites OpenAI/Gemini et architectures cloud ML",
     "_bucket": "HIGH",
     "_subsector": "Semiconductors",
     "_sources_used": {
@@ -747,7 +774,10 @@
             "source": "MXL_2026-04-23.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -763,9 +793,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.286283+00:00",
     "fetched_at": "2026-05-21T02:17:14.286284+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.761Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.663Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mxl.json",
     "enrich_root": "v2-pipeline-enrich/mxl.json",

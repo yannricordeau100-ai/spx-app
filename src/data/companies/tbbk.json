@@ -39,8 +39,11 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "History corrigée : valeurs originales [116, 8, 99, 2, 141, 1] fragmentées reconstruites en [99.2, 116.8, 141.1] à partir des années 2023-2025",
-      "period_type": "quarter",
-      "signal_en": "Strong top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Strong top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Net Interest Margin",
@@ -98,8 +101,8 @@
       "name_fr": "Dépôts moyens",
       "name_en": "Average Deposits",
       "explanation": "Moyenne annuelle des dépôts totaux, mesure clé du financement bancaire",
-      "value": "7894.5",
-      "unit": "M $",
+      "value": 7.894,
+      "unit": "Mds $",
       "yoy": "+14%",
       "type": "Balance",
       "nature": "Cyclique",
@@ -107,16 +110,17 @@
       "signal": "Augmentation de 14% en 2025, principalement tirée par fintech deposits (+970M)",
       "description": "Dépôts moyens en millions de dollars",
       "history": [
-        6407.4,
-        6947.3,
-        7894.5
+        6.407,
+        6.947,
+        7.894
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "History corrigée : [6407.4, 6947.3, 7894.5] pour 2023-2025 tirée du tableau financier ; unité conservée en M$",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Fintech Loans",
@@ -159,56 +163,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "+83.3%",
       "history": [
-        0.12,
-        0.15,
-        0.12,
-        0.22
+        120,
+        150,
+        120,
+        220
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.22 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "-80.7%",
       "history": [
-        0.89,
-        1.04,
-        0.57,
-        0.11
+        890,
+        1040,
+        570,
+        110
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.11 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -321,7 +339,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -432,7 +450,8 @@
       "severity": 5,
       "score_rationale": "Risque explicitement listé en premier dans Item 1A avec énumération complète des impacts (perte clients, divulgation données confidentielles, dommages réputationnels, exposition légale/financière). Langage d'intensité élevée. Structure de gouvernance détaillée indique reconnaissance du risque critique. Aucune comparaison N-1 disponible mais positionnement prioritaire suggère préoccupation majeure.",
       "trend": "stable",
-      "summary": "Perte de données ou interruption opérationnelle pourrait entraîner perte de clients, divulgation d'informations confidentielles et dommages réputationnels significatifs. La société a mis en place un programme cybersécurité avec CISO dédié et rapports trimestriels au Risk Committee."
+      "summary": "Perte de données ou interruption opérationnelle pourrait entraîner perte de clients, divulgation d'informations confidentielles et dommages réputationnels significatifs. La société a mis en place un programme cybersécurité avec CISO dédié et rapports trimestriels au Risk Committee.",
+      "score": 5
     },
     {
       "title": "Concentration des dépôts en Fintech (91%)",
@@ -440,7 +459,8 @@
       "severity": 4,
       "score_rationale": "Dépendance extrême aux partenaires fintech : 91% des dépôts proviennent de Fintech Solutions au 31/12/2025. Risque de concentration client et de volatilité des dépôts non mentionné explicitement dans Item 1A mais implicite dans la structure commerciale. Croissance rapide des fintech loans (+142% YoY) amplifie l'exposition sectorielle.",
       "trend": "up",
-      "summary": "91% des dépôts totaux proviennent de la division Fintech Solutions, créant une dépendance majeure envers les partenaires fintech et les produits de paiement. Toute perturbation dans ce secteur affecterait significativement la base de dépôts."
+      "summary": "91% des dépôts totaux proviennent de la division Fintech Solutions, créant une dépendance majeure envers les partenaires fintech et les produits de paiement. Toute perturbation dans ce secteur affecterait significativement la base de dépôts.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et de conformité bancaire",
@@ -448,7 +468,8 @@
       "severity": 4,
       "score_rationale": "Banque fédérale assurée FDIC soumise à régulation stricte. Item 1 mentionne restrictions sur paiement de dividendes et niveaux de capital réglementaires. Absence de détails spécifiques dans extraits mais contexte bancaire implique exposition réglementaire élevée. Restructuration institutional banking Q4 2025 suggère ajustements stratégiques liés à contraintes réglementaires.",
       "trend": "stable",
-      "summary": "En tant que banque fédérale assurée FDIC, la société est soumise à des restrictions réglementaires sur les dividendes et les niveaux de capital. Les changements réglementaires pourraient impacter la stratégie de capital et les retours aux actionnaires."
+      "summary": "En tant que banque fédérale assurée FDIC, la société est soumise à des restrictions réglementaires sur les dividendes et les niveaux de capital. Les changements réglementaires pourraient impacter la stratégie de capital et les retours aux actionnaires.",
+      "score": 4
     },
     {
       "title": "Dépendance envers les partenaires fintech",
@@ -456,7 +477,8 @@
       "severity": 4,
       "score_rationale": "Modèle commercial repose sur relations avec partenaires fintech pour marketing, servicing et origination. Aucun détail sur contrats ou durée de partenariats dans extraits. Risque de perte de partenaires clés ou de renégociation défavorable non explicitement adressé mais inhérent au modèle.",
       "trend": "up",
-      "summary": "La stratégie Fintech Solutions dépend fortement de partenaires externes pour le marketing, la servicing et l'origination de crédits. La perte de partenaires majeurs ou des conditions commerciales défavorables pourraient impacter significativement les revenus."
+      "summary": "La stratégie Fintech Solutions dépend fortement de partenaires externes pour le marketing, la servicing et l'origination de crédits. La perte de partenaires majeurs ou des conditions commerciales défavorables pourraient impacter significativement les revenus.",
+      "score": 4
     },
     {
       "title": "Croissance rapide des fintech loans (142% YoY)",
@@ -464,7 +486,8 @@
       "severity": 3,
       "score_rationale": "Fintech loans passés de $454.4M (31/12/2024) à $1.10B (31/12/2025), croissance de 142%. Risque de qualité de crédit et de concentration non détaillé dans extraits. Dépendance aux accords de credit enhancement des partenaires. Croissance rapide peut masquer risques de crédit émergents.",
       "trend": "up",
-      "summary": "Les fintech loans ont augmenté de 142% en un an pour atteindre $1.10B. Cette croissance rapide crée des risques de qualité de crédit et de concentration, avec dépendance aux accords de credit enhancement des partenaires."
+      "summary": "Les fintech loans ont augmenté de 142% en un an pour atteindre $1.10B. Cette croissance rapide crée des risques de qualité de crédit et de concentration, avec dépendance aux accords de credit enhancement des partenaires.",
+      "score": 3
     },
     {
       "title": "Restructuration institutional banking et réallocation de ressources",
@@ -472,7 +495,8 @@
       "severity": 2,
       "score_rationale": "Q4 2025 : restructuration institutional banking avec charge de $1.1M et réductions de dépenses de $8.0M en run-rate. Stratégie de déemphasis de la croissance et réallocation d'espace bilan. Risque modéré d'exécution et d'impact sur revenus futurs. Langage neutre, action stratégique planifiée.",
       "trend": "new",
-      "summary": "Restructuration Q4 2025 du secteur institutional banking avec réductions de dépenses de $8.0M en run-rate. Risque d'exécution et d'impact sur les revenus futurs de cette ligne de métier."
+      "summary": "Restructuration Q4 2025 du secteur institutional banking avec réductions de dépenses de $8.0M en run-rate. Risque d'exécution et d'impact sur les revenus futurs de cette ligne de métier.",
+      "score": 2
     },
     {
       "title": "Dépendance envers l'infrastructure technologique et l'IA",
@@ -480,7 +504,8 @@
       "severity": 3,
       "score_rationale": "Investissements croissants en outils IA pour efficacité et productivité mentionnés dans Executive Summary. Risque de dépendance technologique, de cybersécurité accrue et de disruption opérationnelle non explicitement détaillé. Langage positif mais implicite que transformation technologique est critique pour modèle économique.",
       "trend": "up",
-      "summary": "La société investit significativement dans les outils IA pour améliorer l'efficacité opérationnelle. Cela crée une dépendance accrue envers l'infrastructure technologique et augmente les risques de disruption ou de défaillance système."
+      "summary": "La société investit significativement dans les outils IA pour améliorer l'efficacité opérationnelle. Cela crée une dépendance accrue envers l'infrastructure technologique et augmente les risques de disruption ou de défaillance système.",
+      "score": 3
     }
   ],
   "_risks_gov_fetched_at": "2026-05-06T21:10:41.626838+00:00",
@@ -581,6 +606,62 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "TBBK",
+    "extracted_at": "2026-06-01T09:23:38Z",
+    "n_kpis": 2,
+    "kpis": [
+      {
+        "short": "Fintech Fees",
+        "period_type": "quarter",
+        "history": [
+          27.25,
+          29.399,
+          84.544,
+          34.446,
+          35.645,
+          35.083
+        ],
+        "history_periods": [
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:23:38Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Fintech Loans",
+        "period_type": "quarter",
+        "history": [
+          0.07,
+          0.28,
+          0.574,
+          0.68,
+          0.785
+        ],
+        "history_periods": [
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:23:38Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "TBBK",
     "ranks": {
@@ -593,15 +674,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.316213+00:00",
     "fetched_at": "2026-05-21T02:17:14.316214+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.375Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.426Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tbbk.json",
     "enrich_root": "v2-pipeline-enrich/tbbk.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

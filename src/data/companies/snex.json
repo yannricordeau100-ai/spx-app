@@ -21,8 +21,8 @@
       "name_fr": "Revenu opérationnel net",
       "name_en": "Net Operating Revenues",
       "explanation": "Revenu total de l'entreprise, hors coût des ventes de produits physiques",
-      "value": 132378.2,
-      "unit": "M $",
+      "value": 132.378,
+      "unit": "Mds $",
       "yoy": "+32.5%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,16 @@
       "signal": "Croissance significative des revenus",
       "description": "Revenu opérationnel net de l'entreprise pour l'exercice 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 10 dernières années.",
       "history": [
-        14754.9,
-        29423.6,
-        27622.7,
-        32897,
-        54139.6,
-        42534.2,
-        66036,
-        60856.1,
-        99887.8,
-        132378.2
+        14.755,
+        29.424,
+        27.623,
+        32.897,
+        54.14,
+        42.534,
+        66.036,
+        60.856,
+        99.888,
+        132.378
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -48,7 +48,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:51.578122+00:00",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Income",
@@ -74,7 +75,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -128,7 +129,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Total Employees — total number of employees at period end."
+      "explanation_en": "Total Employees, total number of employees at period end."
     },
     {
       "short": "Total Revenue",
@@ -147,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 132.38 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -170,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 45.27 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,11 +202,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 18.52 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -216,10 +229,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.61 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -287,61 +304,61 @@
       "title": "Cyberattaques ou violations de données",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Le risque est explicitement supervisé par le Comité Technologie et Opérations, avec reporting trimestriel au board. Le langage insiste sur l'importance des menaces cyber, la présence d'un CISO avec plus de 20 ans d'expérience et de plans de réponse aux incidents. La catégorie cybersécurité est critique pour une société IT financière. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est explicitement supervisé par le Comité Technologie et Opérations, avec reporting trimestriel au board. Le langage insiste sur l'importance des menaces cyber, la présence d'un CISO avec plus de 20 ans d'expérience et de plans de réponse aux incidents. La catégorie cybersécurité est critique pour une société IT financière.",
       "trend": "stable",
       "summary": "Une cyberattaque pourrait compromettre la sécurité des données clients, perturber les opérations et nuire à la réputation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance aux technologies critiques",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "La société repose sur des plateformes technologiques intégrées pour l'exécution, la compensation et la conformité. Toute défaillance système pourrait impacter fortement les services. Mention implicite via l'infrastructure globale et les plateformes numériques. Catégorie technologie fortement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "La société repose sur des plateformes technologiques intégrées pour l'exécution, la compensation et la conformité. Toute défaillance système pourrait impacter fortement les services. Mention implicite via l'infrastructure globale et les plateformes numériques. Catégorie technologie fortement pondérée.",
       "trend": "stable",
       "summary": "Un dysfonctionnement des systèmes technologiques pourrait interrompre les services financiers essentiels aux clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux acquisitions récentes de RJO et Benchmark",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Deux acquisitions majeures (RJO et Benchmark) finalisées le 31 juillet 2025, avec intégration en cours. Mention explicite des synergies attendues et de la complexité d'intégration. Le financement par dette (625M$ de Senior Secured Notes) augmente le risque financier. Catégorie capital fortement impactée. (score par défaut, à affiner)",
+      "score_rationale": "Deux acquisitions majeures (RJO et Benchmark) finalisées le 31 juillet 2025, avec intégration en cours. Mention explicite des synergies attendues et de la complexité d'intégration. Le financement par dette (625M$ de Senior Secured Notes) augmente le risque financier. Catégorie capital fortement impactée.",
       "trend": "new",
       "summary": "L'intégration des acquisitions récentes de RJO et Benchmark comporte des risques opérationnels, financiers et culturels pouvant affecter la performance.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans les services financiers",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Mention explicite dans les déclarations prospectives : impact de la concurrence croissante sur les résultats futurs. Risque de pression concurrentielle des grandes institutions bancaires. Catégorie concurrence pondérée moyennement-élevée. (score par défaut, à affiner)",
+      "score_rationale": "Mention explicite dans les déclarations prospectives : impact de la concurrence croissante sur les résultats futurs. Risque de pression concurrentielle des grandes institutions bancaires. Catégorie concurrence pondérée moyennement-élevée.",
       "trend": "stable",
       "summary": "La pression concurrentielle croissante pourrait réduire les parts de marché et les marges dans les services financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Réglementations financières changeantes",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Cité dans les déclarations prospectives : impact des changements réglementaires gouvernementaux. Société opérant dans un secteur fortement régulé (marchés financiers, clearing, change). Risque de non-conformité ou de coûts accrus. Catégorie régulation fortement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Cité dans les déclarations prospectives : impact des changements réglementaires gouvernementaux. Société opérant dans un secteur fortement régulé (marchés financiers, clearing, change). Risque de non-conformité ou de coûts accrus. Catégorie régulation fortement pondérée.",
       "trend": "stable",
       "summary": "Des changements réglementaires pourraient augmenter les coûts ou limiter les activités dans les marchés financiers.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Tarifs commerciaux et instabilité macroéconomique",
       "category": "Économique",
       "severity": 4,
-      "score_rationale": "Risque explicite lié aux nouveaux tarifs ou modifications tarifaires. Mention de multiples facteurs structurels et géopolitiques (conflits mondiaux, inflation, volatilité marchés, contraintes supply chain). Impacts potentiels : volumes de trading réduits, dépenses opérationnelles accrues, problèmes logistiques observés dans les métaux précieux. (score par défaut, à affiner)",
+      "score_rationale": "Risque explicite lié aux nouveaux tarifs ou modifications tarifaires. Mention de multiples facteurs structurels et géopolitiques (conflits mondiaux, inflation, volatilité marchés, contraintes supply chain). Impacts potentiels : volumes de trading réduits, dépenses opérationnelles accrues, problèmes logistiques observés dans les métaux précieux.",
       "trend": "increasing",
       "summary": "Les changements tarifaires et l'instabilité macroéconomique mondiale pourraient réduire les volumes de trading, augmenter les coûts et affecter la volatilité des marchés.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux pertes de contreparties et activités de trading",
       "category": "Contrepartie",
       "severity": 3,
-      "score_rationale": "Mention explicite dans les déclarations prospectives des risques de pertes liées aux défaillances de contreparties dans les activités de market-making et trading. Risque inhérent aux services financiers mondiaux. (score par défaut, à affiner)",
+      "score_rationale": "Mention explicite dans les déclarations prospectives des risques de pertes liées aux défaillances de contreparties dans les activités de market-making et trading. Risque inhérent aux services financiers mondiaux.",
       "trend": "stable",
       "summary": "La défaillance de contreparties significatives pourrait entraîner des pertes importantes dans les activités de market-making et trading.",
       "score": 3
@@ -385,7 +402,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -500,9 +517,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.311413+00:00",
     "fetched_at": "2026-05-21T02:17:14.311414+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:35.969Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.958Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/snex.json",
     "enrich_root": "v2-pipeline-enrich/snex.json",

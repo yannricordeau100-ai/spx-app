@@ -1,6 +1,6 @@
 {
   "ticker": "UTHR",
-  "name": "United Therapeutics Corporation",
+  "name": "United Therapeutics",
   "sector": "Santé",
   "subsector": "Biotechnologie",
   "tagline": "Leading innovator in pulmonary and cardiac therapies with breakthrough organ technology pipeline",
@@ -21,8 +21,8 @@
       "name_fr": "Revenus totaux",
       "name_en": "Total Revenues",
       "explanation": "Revenus totaux de la société",
-      "value": 1483.3,
-      "unit": "M $",
+      "value": 1.483,
+      "unit": "Mds $",
       "yoy": "+2.4%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -30,16 +30,16 @@
       "signal": "Croissance des revenus",
       "description": "Revenus totaux de la société en 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 10 dernières années.",
       "history": [
-        743.183,
-        916.076,
-        1116.984,
-        1288.519,
-        1465.761,
-        1598.8,
-        1725.3,
-        1627.8,
-        1448.8,
-        1483.3
+        0.743,
+        0.916,
+        1.117,
+        1.289,
+        1.466,
+        1.599,
+        1.725,
+        1.628,
+        1.449,
+        1.483
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -50,7 +50,8 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:00.709924+00:00",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Margin",
@@ -76,7 +77,7 @@
       "is_short_history": false,
       "ttm": 88.3,
       "_validation": "Valeur corrigée de '88.1%' à '88.1' (calcul: (3182.7-384.4)/3182.7 = 87.9%, arrondi à 88.1)",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
@@ -123,11 +124,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.18 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -146,11 +151,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 1.33 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -169,34 +178,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.88 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.3,
-      "unit": "Mds €",
+      "value": 300,
+      "unit": "M €",
       "yoy": "-57.1%",
       "history": [
-        0.8,
-        0.8,
-        0.7,
-        0.3
+        800,
+        800,
+        700,
+        300
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.3 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -215,10 +233,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.56 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -262,7 +284,8 @@
       "severity": 4,
       "score_rationale": "La société opère dans un marché très concurrentiel avec des entreprises bien établies comme Merck et l'approbation de nouveaux produits par la FDA comme Winrevair et Yutrepia pourrait réduire les parts de marché. Cependant, jusqu'à présent, pas d'impact matériel sur les revenus nets.",
       "trend": "up",
-      "summary": "La concurrence accrue dans le marché des soins de santé pourrait nuire aux ventes et aux parts de marché de la société."
+      "summary": "La concurrence accrue dans le marché des soins de santé pourrait nuire aux ventes et aux parts de marché de la société.",
+      "score": 4
     },
     {
       "title": "Dépendance à la FDA",
@@ -270,7 +293,8 @@
       "severity": 5,
       "score_rationale": "L'approbation de la FDA est cruciale pour les produits de la société. Tout retard ou refus d'approbation pourrait avoir un impact significatif sur les activités de la société.",
       "trend": "stable",
-      "summary": "La société est fortement dépendante de l'approbation de la FDA pour ses produits, ce qui constitue un risque important."
+      "summary": "La société est fortement dépendante de l'approbation de la FDA pour ses produits, ce qui constitue un risque important.",
+      "score": 5
     },
     {
       "title": "Coûts de recherche et développement",
@@ -278,7 +302,8 @@
       "severity": 3,
       "score_rationale": "Les coûts de recherche et développement sont élevés (550M $ en 2025, +14% YoY) et pourraient augmenter à l'avenir avec les investissements en installations de fabrication, ce qui pourrait impacter la rentabilité de la société.",
       "trend": "up",
-      "summary": "Les coûts de recherche et développement sont élevés et pourraient augmenter, ce qui pourrait réduire la rentabilité de la société."
+      "summary": "Les coûts de recherche et développement sont élevés et pourraient augmenter, ce qui pourrait réduire la rentabilité de la société.",
+      "score": 3
     },
     {
       "title": "Risques liés aux litiges",
@@ -286,7 +311,8 @@
       "severity": 4,
       "score_rationale": "La société est impliquée dans des litiges avec Sandoz. En 2025, accrual de 3.0M $; en 2024, accrual de 71.1M $. La société n'anticipe pas de pertes matérielles au-delà de cette accrual, mais le montant final dépend des appels et intérêts post-jugement.",
       "trend": "stable",
-      "summary": "Les litiges en cours pourraient entraîner des coûts et des pertes importantes pour la société."
+      "summary": "Les litiges en cours pourraient entraîner des coûts et des pertes importantes pour la société.",
+      "score": 4
     },
     {
       "title": "Dépendance à certains produits",
@@ -294,7 +320,8 @@
       "severity": 3,
       "score_rationale": "La société est fortement dépendante de certains produits. Tyvaso (total) représente 59% des revenus (1,878.2M $ sur 3,182.7M $), ce qui rend les ventes vulnérables à la concurrence et aux changements de marché.",
       "trend": "stable",
-      "summary": "La dépendance à certains produits rend les ventes de la société vulnérables à la concurrence et aux changements de marché."
+      "summary": "La dépendance à certains produits rend les ventes de la société vulnérables à la concurrence et aux changements de marché.",
+      "score": 3
     },
     {
       "title": "Risques liés à la cybersécurité",
@@ -302,7 +329,8 @@
       "severity": 2,
       "score_rationale": "Bien que non mentionné explicitement dans le 10-K, les sociétés de soins de santé sont souvent ciblées par des attaques de cybersécurité, ce qui pourrait compromettre les données sensibles des patients et nuire à la réputation de la société.",
       "trend": "up",
-      "summary": "Les risques liés à la cybersécurité pourraient compromettre les données des patients et nuire à la réputation de la société."
+      "summary": "Les risques liés à la cybersécurité pourraient compromettre les données des patients et nuire à la réputation de la société.",
+      "score": 2
     },
     {
       "title": "Risques liés à la réputation",
@@ -310,7 +338,8 @@
       "severity": 3,
       "score_rationale": "Tout problème lié à la qualité des produits, aux litiges ou à la cybersécurité pourrait nuire à la réputation de la société et impacter ses ventes.",
       "trend": "stable",
-      "summary": "Les risques liés à la réputation pourraient nuire aux ventes et à la confiance des investisseurs et des patients."
+      "summary": "Les risques liés à la réputation pourraient nuire aux ventes et à la confiance des investisseurs et des patients.",
+      "score": 3
     }
   ],
   "governance": {
@@ -345,7 +374,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -564,11 +593,9 @@
         "history": [
           378,
           457.2,
-          -598.8,
           69,
           162.9,
           229,
-          -138,
           82.9,
           171.9,
           256.6,
@@ -576,11 +603,9 @@
           104.1,
           243.7,
           347.2,
-          -214,
           149,
           283,
           410.5,
-          -292.5,
           138.2
         ],
         "history_periods": [
@@ -634,6 +659,12 @@
             "accession": "0001082554-26-000020",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (UTHR)"
         ]
       }
     ]
@@ -650,9 +681,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.324053+00:00",
     "fetched_at": "2026-05-21T02:17:14.324053+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.045Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.147Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/uthr.json",
     "enrich_root": "v2-pipeline-enrich/uthr.json",

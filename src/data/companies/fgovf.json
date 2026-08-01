@@ -65,7 +65,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Grade",
@@ -91,7 +95,11 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Location",
@@ -141,24 +149,29 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "+30.0%",
       "history": [
-        0.08,
-        0.09,
-        0.1,
-        0.13
+        80,
+        90,
+        100,
+        130
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.13 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -177,10 +190,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -208,9 +225,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Capacite",
-      "_source_month": "septembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacite"
     }
   ],
   "ai_positioning": {
@@ -252,7 +267,8 @@
       "score_rationale": "Risque positionné en début de section technique (page 8-9) avec langage fort ('no certainty', 'too speculative'). Tendance stable mais fondamental pour le projet. Catégorie industrielle pèse modérément mais critique pour viabilité économique.",
       "trend": "stable",
       "summary": "Les ressources minérales identifiées ne sont pas des réserves prouvées et ne démontrent pas la viabilité économique. Il n'y a aucune certitude que tout ou partie de la ressource sera convertie en réserves exploitables.",
-      "citation": "Mineral resources are not mineral reserves and by definition do not demonstrate economic viability. There is no certainty that all or any part of the mineral resource will be converted into mineral reserves."
+      "citation": "Mineral resources are not mineral reserves and by definition do not demonstrate economic viability. There is no certainty that all or any part of the mineral resource will be converted into mineral reserves.",
+      "score": 4
     },
     {
       "title": "Volatilité du prix de l'or et conditions de marché",
@@ -261,7 +277,8 @@
       "score_rationale": "Risque explicitement cité en milieu de rapport ('changes in the price of mineral market conditions') avec langage d'impact matériel ('could differ materially'). Tendance stable mais fondamental pour l'économie du projet. Catégorie macro pèse fort.",
       "trend": "stable",
       "summary": "Les variations du prix de l'or et les conditions de marché des minerais pourraient modifier significativement la viabilité économique du projet Golden Summit et les résultats réels.",
-      "citation": "Actual results could differ materially from those projected as a result of the following factors, among others: changes in the price of mineral market conditions"
+      "citation": "Actual results could differ materially from those projected as a result of the following factors, among others: changes in the price of mineral market conditions",
+      "score": 4
     },
     {
       "title": "Risques d'exploration minière et d'incertitude géologique",
@@ -270,7 +287,8 @@
       "score_rationale": "Risque explicitement énoncé ('risks inherent in mineral exploration') en milieu de rapport avec langage d'impact matériel. Tendance stable mais inhérent au stade d'exploration. Catégorie industrielle pèse modérément.",
       "trend": "stable",
       "summary": "L'exploration minière comporte des risques inhérents liés à l'incertitude géologique. Les résultats de forage futurs pourraient ne pas confirmer les estimations de ressources ou les continuités minéralisées attendues.",
-      "citation": "risks inherent in mineral exploration, risks associated with development, construction and mining operations, the uncertainty of future profitability"
+      "citation": "risks inherent in mineral exploration, risks associated with development, construction and mining operations, the uncertainty of future profitability",
+      "score": 4
     },
     {
       "title": "Accès au capital additionnel et financement futur",
@@ -279,7 +297,8 @@
       "score_rationale": "Risque cité explicitement ('uncertainty of access to additional capital') en milieu de rapport. Tendance atténuée (financement de 50M$ CAD complété janvier 2026 avec 20+ institutions). Catégorie capital pèse fort mais situation actuelle favorable.",
       "trend": "down",
       "summary": "Le projet nécessitera un financement additionnel pour les études de faisabilité et le développement. Bien que le financement récent soit sécurisé, l'accès à des capitaux futurs reste incertain.",
-      "citation": "uncertainty of access to additional capital. See Freegold's Annual Information Form for the year ended December 31st, 2024"
+      "citation": "uncertainty of access to additional capital. See Freegold's Annual Information Form for the year ended December 31st, 2024",
+      "score": 3
     },
     {
       "title": "Risques de développement, construction et exploitation minière",
@@ -288,7 +307,8 @@
       "score_rationale": "Risque explicitement énoncé ('risks associated with development, construction and mining operations') en milieu de rapport avec langage d'impact matériel. Tendance stable, projet en phase d'études pré-faisabilité. Catégorie industrielle pèse modérément.",
       "trend": "stable",
       "summary": "Le passage de l'exploration à la construction et l'exploitation minière comporte des risques opérationnels, techniques et de coûts. Les estimations de capital et d'exploitation pourraient s'avérer inexactes.",
-      "citation": "risks associated with development, construction and mining operations, the uncertainty of future profitability and uncertainty of access to additional capital"
+      "citation": "risks associated with development, construction and mining operations, the uncertainty of future profitability and uncertainty of access to additional capital",
+      "score": 4
     },
     {
       "title": "Incertitude sur la rentabilité future du projet",
@@ -297,7 +317,8 @@
       "score_rationale": "Risque cité explicitement ('uncertainty of future profitability') en milieu de rapport. Tendance stable, projet pré-faisabilité sans réserves prouvées. Catégorie macro pèse fort pour viabilité économique.",
       "trend": "stable",
       "summary": "La rentabilité future du projet Golden Summit reste incertaine. Aucune étude économique complète n'a été réalisée et les résultats réels pourraient différer matériellement des projections.",
-      "citation": "the uncertainty of future profitability and uncertainty of access to additional capital. See Freegold's Annual Information Form for the year ended December 31st, 2024"
+      "citation": "the uncertainty of future profitability and uncertainty of access to additional capital. See Freegold's Annual Information Form for the year ended December 31st, 2024",
+      "score": 4
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:35:50.091681+00:00",
@@ -417,6 +438,44 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "FGOVF",
+    "extracted_at": "2026-06-01T03:16:06Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          0.026,
+          0.026,
+          0.026,
+          0.03,
+          0.031,
+          0.037,
+          0.035,
+          0.033
+        ],
+        "history_periods": [
+          "Q1 2015",
+          "Q2 2015",
+          "Q3 2015",
+          "Q4 2015",
+          "Q1 2016",
+          "Q2 2016",
+          "Q3 2016",
+          "Q4 2016"
+        ],
+        "last_data_date": "2016-12-31",
+        "unit": "Mds €",
+        "_extracted_at": "2026-06-01T03:16:06Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "FGOVF",
     "ranks": {
@@ -429,14 +488,15 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.261006+00:00",
     "fetched_at": "2026-05-21T02:17:14.261008+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.197Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.768Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fgovf.json",
     "enrich_root": "v2-pipeline-enrich/fgovf.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

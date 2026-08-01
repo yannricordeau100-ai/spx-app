@@ -36,11 +36,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of explicit 'Leased rate' data found for Office Class A Properties in the Consolidated Portfolio (93.3% for both 20",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Multifamily Leased Rate",
@@ -61,9 +62,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Revenue",
@@ -88,59 +87,73 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.0 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:55.746772+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.1,
-        -0.04,
-        0.02,
-        0.02
+        100,
+        -40,
+        20,
+        20
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.02 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "-9.5%",
       "history": [
-        0.24,
-        0.15,
-        0.21,
-        0.19
+        240,
+        150,
+        210,
+        190
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.19 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Pressure, deteriorating trend"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Pressure, deteriorating trend",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,11 +172,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.29 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -182,33 +199,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.34,
-      "unit": "Mds €",
+      "value": 340,
+      "unit": "M €",
       "yoy": "-22.7%",
       "history": [
-        0.27,
-        0.52,
-        0.44,
-        0.34
+        270,
+        520,
+        440,
+        340
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.34 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -232,9 +258,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -248,34 +272,34 @@
       "title": "Inflation",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "L'inflation pourrait impacter négativement les résultats opérationnels, les flux de trésorerie et la position financière de l'entreprise. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "L'inflation pourrait impacter négativement les résultats opérationnels, les flux de trésorerie et la position financière de l'entreprise. (Item 1A)",
       "trend": "up",
       "summary": "L'inflation pourrait augmenter les coûts opérationnels et réduire la demande de locataires",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concentration géographique",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "La concentration des propriétés de l'entreprise en Californie du Sud et à Honolulu les expose à des risques associés à ces zones. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "La concentration des propriétés de l'entreprise en Californie du Sud et à Honolulu les expose à des risques associés à ces zones. (Item 1A)",
       "trend": "stable",
       "summary": "La concentration géographique de l'entreprise la rend vulnérable aux développements économiques et réglementaires défavorables",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "L'entreprise a une dette importante et est exposée au risque de fluctuation des taux d'intérêt et au risque de non-remboursement de sa dette. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise a une dette importante et est exposée au risque de fluctuation des taux d'intérêt et au risque de non-remboursement de sa dette. (Item 1A)",
       "trend": "up",
       "summary": "La dette importante de l'entreprise la rend vulnérable aux fluctuations des taux d'intérêt et aux risques de crédit",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements dans les lois et réglementations pourraient impacter négativement les résultats opérationnels et la position financière de l'entreprise. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "Les changements dans les lois et réglementations pourraient impacter négativement les résultats opérationnels et la position financière de l'entreprise. (Item 1A)",
       "trend": "stable",
       "summary": "Les changements réglementaires pourraient réduire la demande de locataires et augmenter les coûts opérationnels",
       "score": 3
@@ -284,10 +308,10 @@
       "title": "Risques de marché immobilier",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les fluctuations du marché immobilier pourraient impacter négativement les résultats opérationnels et la position financière de l'entreprise. (Item 1A) (score par défaut, à affiner)",
+      "score_rationale": "Les fluctuations du marché immobilier pourraient impacter négativement les résultats opérationnels et la position financière de l'entreprise. (Item 1A)",
       "trend": "up",
       "summary": "Les fluctuations du marché immobilier pourraient réduire la demande de locataires et augmenter les coûts opérationnels",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -329,7 +353,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -672,9 +696,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.250112+00:00",
     "fetched_at": "2026-05-21T02:17:14.250113+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.199Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.743Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dei.json",
     "enrich_root": "v2-pipeline-enrich/dei.json",

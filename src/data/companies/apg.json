@@ -1,6 +1,6 @@
 {
   "ticker": "APG",
-  "name": "APi Group Corporation",
+  "name": "APi Group",
   "sector": "Industrie",
   "subsector": "Business Services",
   "tagline": "Global market-leading provider of fire and life safety, security, elevator and escalator, and specialty services",
@@ -36,10 +36,13 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Total Acquisitions Since 2005' not found with explicit annual values in the provided 10-K extract. The document mentions acquisition st",
-      "signal_en": "Solid expansion, positive trajectory"
+      "signal_en": "Solid expansion, positive trajectory",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "2025 Acquisitions",
@@ -60,17 +63,15 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Net Revenues",
       "name_fr": "Revenus nets",
       "name_en": "Net Revenues",
       "explanation": "Total net revenues generated from all services and operations",
-      "value": 7911,
-      "unit": "M $",
+      "value": 7.911,
+      "unit": "Mds $",
       "yoy": 12.7,
       "type": "Revenue",
       "nature": "Cyclical",
@@ -78,22 +79,23 @@
       "signal": "Revenue growth",
       "description": "Net revenues for 2025 were $7,911 million, up $893 million or 12.7% compared to 2024 revenues of $7,018 million",
       "history": [
-        7911,
-        7018
+        7.911,
+        7.018
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Gross Profit",
       "name_fr": "Bénéfice brut",
       "name_en": "Gross Profit",
       "explanation": "Gross profit margin after cost of revenues",
-      "value": 2487,
-      "unit": "M $",
+      "value": 2.487,
+      "unit": "Mds $",
       "yoy": 14.2,
       "type": "Profitability",
       "nature": "Cyclical",
@@ -101,15 +103,16 @@
       "signal": "Profitability growth",
       "description": "Gross profit for 2025 was $2,487 million, up $309 million or 14.2% compared to 2024 gross profit of $2,178 million",
       "history": [
-        2487,
-        2178
+        2.487,
+        2.178
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Profit — revenue minus cost of goods sold.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Gross Profit, revenue minus cost of goods sold.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Operating Income",
@@ -132,7 +135,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -175,11 +178,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.94 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -198,11 +205,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.07 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -226,9 +237,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Growth Strategy",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Growth Strategy"
     },
     {
       "short": "Acquisition Total Since 2005",
@@ -250,9 +259,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Strategic Execution",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Strategic Execution"
     },
     {
       "short": "Revenue Growth 2025",
@@ -274,9 +281,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Financial Performance",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Financial Performance"
     },
     {
       "short": "Pre-tax Income Growth 2025",
@@ -298,9 +303,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Financial Performance",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Financial Performance"
     }
   ],
   "ai_positioning": {
@@ -314,25 +317,25 @@
       "title": "Risks Related to International Operations",
       "category": "Geopolitical",
       "severity": 4,
-      "score_rationale": "This risk is detailed in Item 1A and is presented as a foundational business risk. The language emphasizes the complexity and frequency of regulatory changes, sanctions, corruption risks, and potential civil and criminal penalties. The company operates internationally with over 500 locations, making this risk material. (score par défaut, à affiner)",
+      "score_rationale": "This risk is detailed in Item 1A and is presented as a foundational business risk. The language emphasizes the complexity and frequency of regulatory changes, sanctions, corruption risks, and potential civil and criminal penalties. The company operates internationally with over 500 locations, making this risk material.",
       "trend": "stable",
       "summary": "Operating internationally exposes APG to complex and changing laws, sanctions, corruption risks, currency fluctuations, and repatriation restrictions, which could result in significant financial penalties and reputational damage.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Failure of ERP Systems Implementation",
       "category": "Technology",
       "severity": 4,
-      "score_rationale": "Detailed risk in Item 1A with high-intensity language describing material negative effects on financial performance, results of operations, and cash flows. Implementation is characterized as complex, expensive, and subject to delays and cost overruns. (score par défaut, à affiner)",
+      "score_rationale": "Detailed risk in Item 1A with high-intensity language describing material negative effects on financial performance, results of operations, and cash flows. Implementation is characterized as complex, expensive, and subject to delays and cost overruns.",
       "trend": "up",
       "summary": "Implementation of new ERP systems is complex, costly, and risky. Failure could disrupt operations, result in data loss, and negatively impact financial performance and operational efficiency.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cloud Services Disruptions and Dependencies",
       "category": "Technology",
       "severity": 3,
-      "score_rationale": "Addressed in Item 1A following ERP implementation context. Language indicates potential material impact on financial condition and operating results from service disruptions. Cloud migration increases exposure to supply chain and operational risks. (score par défaut, à affiner)",
+      "score_rationale": "Addressed in Item 1A following ERP implementation context. Language indicates potential material impact on financial condition and operating results from service disruptions. Cloud migration increases exposure to supply chain and operational risks.",
       "trend": "up",
       "summary": "Growing dependence on cloud platforms exposes APG to service interruptions. Provider changes, migration difficulties, or service failures could disrupt operations and harm business performance.",
       "score": 3
@@ -341,16 +344,16 @@
       "title": "Risks Related to Acquisitions and Integration",
       "category": "Industrial",
       "severity": 4,
-      "score_rationale": "Dedicated section in Item 1A as a key strategic component. Strong language describing material negative effects on financial condition and operations, integration difficulties, unexpected costs, and potential liabilities. Given 140 completed acquisitions, integration risk is material. (score par défaut, à affiner)",
+      "score_rationale": "Dedicated section in Item 1A as a key strategic component. Strong language describing material negative effects on financial condition and operations, integration difficulties, unexpected costs, and potential liabilities. Given 140 completed acquisitions, integration risk is material.",
       "trend": "stable",
       "summary": "Acquisitions may be unsuccessful, costly, and difficult to integrate. They can divert management attention, create unexpected liabilities, fail to achieve synergies, and materially impact financial results.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Project Management and Delays",
       "category": "Industrial",
       "severity": 3,
-      "score_rationale": "Described in dedicated Item 1A section with moderate to high intensity language. Material negative effects on financial performance, operations, and cash flows from resource estimation errors, delays, or claims referenced. (score par défaut, à affiner)",
+      "score_rationale": "Described in dedicated Item 1A section with moderate to high intensity language. Material negative effects on financial performance, operations, and cash flows from resource estimation errors, delays, or claims referenced.",
       "trend": "stable",
       "summary": "Poor project management, resource estimation errors, or unexpected delays from clients, suppliers, or regulations can increase costs, generate claims, and reduce revenues.",
       "score": 3
@@ -359,7 +362,7 @@
       "title": "Increased Interest Rate Costs",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Addressed in Item 1A financial risks section. Language indicates negative impact on available cash and refinancing capacity. Company uses hedging instruments but their effectiveness is not guaranteed. (score par défaut, à affiner)",
+      "score_rationale": "Addressed in Item 1A financial risks section. Language indicates negative impact on available cash and refinancing capacity. Company uses hedging instruments but their effectiveness is not guaranteed.",
       "trend": "up",
       "summary": "Rising interest rates increase the cost of variable-rate debt and refinancing difficulty, reducing available cash for operations and growth initiatives.",
       "score": 3
@@ -368,7 +371,7 @@
       "title": "Credit Market Volatility",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "Mentioned in Item 1A financial risks section with emphasis on potential impact to project financing and service demand. Reduced liquidity or rising rates directly affect business operations. (score par défaut, à affiner)",
+      "score_rationale": "Mentioned in Item 1A financial risks section with emphasis on potential impact to project financing and service demand. Reduced liquidity or rising rates directly affect business operations.",
       "trend": "stable",
       "summary": "Credit market volatility can reduce financing availability for large projects, decreasing demand for APG's services and impacting revenue growth.",
       "score": 3
@@ -415,7 +418,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -432,7 +435,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Services aux entreprises",
-  "_companies_unified_built_at": "2026-05-29T21:19:27.891Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.250Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/apg.json",
     "enrich_root": "v2-pipeline-enrich/apg.json",

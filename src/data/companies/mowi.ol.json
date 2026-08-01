@@ -63,7 +63,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -175,11 +175,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.23 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -198,11 +202,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.46 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -226,9 +234,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     },
     {
       "short": "Biomass in Sea",
@@ -251,9 +257,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -293,7 +297,8 @@
       "severity": 4,
       "score_rationale": "Le risque est mentionné dans la section sur le partenariat stratégique avec Skretting/Nutreco, avec un langage fort sur la dépendance future à un unique fournisseur clé pour la formulation des aliments. La tendance est à la hausse car le partenariat est nouveau et central au modèle économique. La catégorie 'Industriel' est lourde dans le contexte de chaîne de valeur intégrée.",
       "trend": "new",
-      "summary": "Mowi dépend désormais de Skretting/Nutreco pour la formulation de ses aliments via un partenariat industriel. Cette dépendance stratégique expose Mowi à des risques d'approvisionnement, de coûts et de perturbations si le partenaire ne répond pas aux attentes ou si le marché des aliments se tend."
+      "summary": "Mowi dépend désormais de Skretting/Nutreco pour la formulation de ses aliments via un partenariat industriel. Cette dépendance stratégique expose Mowi à des risques d'approvisionnement, de coûts et de perturbations si le partenaire ne répond pas aux attentes ou si le marché des aliments se tend.",
+      "score": 4
     },
     {
       "title": "Infestations de poux de mer",
@@ -301,7 +306,8 @@
       "severity": 5,
       "score_rationale": "Le risque est récurrent, avec mention explicite de l'investissement massif dans les lasers et autres technologies. Le langage est intense (\"investing heavily\", \"improve fish welfare\"). La tendance est stable, mais le risque reste critique pour la santé des saumons et la réglementation. Poids élevé dans la catégorie Industriel.",
       "trend": "stable",
-      "summary": "Les poux de mer constituent une menace majeure pour l'aquaculture de saumon. Mowi investit dans des solutions comme les lasers, les filets submersibles et les jupes anti-poux, mais les infestations persistent et peuvent entraîner des pertes biologiques, des coûts accrus et des pressions réglementaires."
+      "summary": "Les poux de mer constituent une menace majeure pour l'aquaculture de saumon. Mowi investit dans des solutions comme les lasers, les filets submersibles et les jupes anti-poux, mais les infestations persistent et peuvent entraîner des pertes biologiques, des coûts accrus et des pressions réglementaires.",
+      "score": 5
     },
     {
       "title": "Échappées de saumons d'élevage",
@@ -309,7 +315,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans les indicateurs de performance avec deux incidents en 2025 (26 800 saumons). Le langage est mesuré mais le risque est suivi de près (objectif zéro échappée). Tendance à la baisse par rapport à 2024, mais reste critique. Catégorie Environnement fortement pondérée.",
       "trend": "down",
-      "summary": "Les échappées de saumons d'élevage vers la nature menacent les populations sauvages par hybridation ou compétition. Mowi a connu deux incidents en 2025, bien que moins graves qu'en 2024, et maintient un objectif zéro échappée, mais le risque persiste en raison des conditions marines et des infrastructures."
+      "summary": "Les échappées de saumons d'élevage vers la nature menacent les populations sauvages par hybridation ou compétition. Mowi a connu deux incidents en 2025, bien que moins graves qu'en 2024, et maintient un objectif zéro échappée, mais le risque persiste en raison des conditions marines et des infrastructures.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue sur le marché mondial",
@@ -317,7 +324,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne une surproduction mondiale de 12% en 2025, impactant négativement les prix. Le langage est préoccupé (\"high industry supply growth\", \"impacted market prices\"). Tendance à la hausse. La catégorie Concurrence est centrale pour la rentabilité.",
       "trend": "up",
-      "summary": "La forte croissance de l'offre mondiale de saumon, notamment en Amérique du Sud, exerce une pression à la baisse sur les prix. Mowi, malgré sa position intégrée, doit faire face à une intensification de la concurrence qui affecte sa marge, surtout en période de surproduction."
+      "summary": "La forte croissance de l'offre mondiale de saumon, notamment en Amérique du Sud, exerce une pression à la baisse sur les prix. Mowi, malgré sa position intégrée, doit faire face à une intensification de la concurrence qui affecte sa marge, surtout en période de surproduction.",
+      "score": 4
     },
     {
       "title": "Dépendance à la réglementation norvégienne",
@@ -325,7 +333,8 @@
       "severity": 4,
       "score_rationale": "Le risque est implicite mais fort : la Norvège est le principal site de production, et des mesures comme le \"environmental flexibility scheme\" de 2025 influencent directement les investissements. Langage neutre mais position centrale. Tendance stable. Catégorie Régulation critique pour l'expansion.",
       "trend": "stable",
-      "summary": "Mowi dépend fortement de l'autorisation réglementaire en Norvège pour étendre ses capacités, notamment via les cages fermées. Toute restriction ou changement de politique (ex. quotas, normes environnementales) pourrait freiner sa croissance ou augmenter ses coûts."
+      "summary": "Mowi dépend fortement de l'autorisation réglementaire en Norvège pour étendre ses capacités, notamment via les cages fermées. Toute restriction ou changement de politique (ex. quotas, normes environnementales) pourrait freiner sa croissance ou augmenter ses coûts.",
+      "score": 4
     },
     {
       "title": "Innovation technologique contrainte",
@@ -333,7 +342,8 @@
       "severity": 3,
       "score_rationale": "Mowi investit massivement dans les lasers, cages fermées, Mowi 4.0, mais le document ne mentionne pas explicitement les risques d'échec technologique. Langage positif mais sous-entend des enjeux. Tendance stable. Catégorie Technologie modérément pondérée.",
       "trend": "stable",
-      "summary": "Mowi mise sur des technologies innovantes (cages fermées, lasers anti-poux, automatisation) pour améliorer la productivité et le bien-être animal. Tout retard, dysfonctionnement ou coût supérieur aux attentes pourrait compromettre ses objectifs de réduction de coûts et de durabilité."
+      "summary": "Mowi mise sur des technologies innovantes (cages fermées, lasers anti-poux, automatisation) pour améliorer la productivité et le bien-être animal. Tout retard, dysfonctionnement ou coût supérieur aux attentes pourrait compromettre ses objectifs de réduction de coûts et de durabilité.",
+      "score": 3
     },
     {
       "title": "Expansion internationale risquée",
@@ -341,7 +351,8 @@
       "severity": 3,
       "score_rationale": "L'entrée au Moyen-Orient (Émirats) et en Thaïlande est récente. Le document met en avant les opportunités, mais pas les risques spécifiques. Tendance new. Catégorie Géopolitique modérée, mais croissante avec l'internationalisation.",
       "trend": "new",
-      "summary": "L'expansion de Mowi dans de nouveaux marchés comme les Émirats arabes unis et la Thaïlande expose l'entreprise à des risques géopolitiques, logistiques et de préférence locale. La réussite dépend de l'adaptation aux goûts locaux, des chaînes d'approvisionnement froides et de la stabilité régionale."
+      "summary": "L'expansion de Mowi dans de nouveaux marchés comme les Émirats arabes unis et la Thaïlande expose l'entreprise à des risques géopolitiques, logistiques et de préférence locale. La réussite dépend de l'adaptation aux goûts locaux, des chaînes d'approvisionnement froides et de la stabilité régionale.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:46:41.436248+00:00",
@@ -444,9 +455,9 @@
     "country": "Norway",
     "_data_freshness_date": "2026-05-21T02:17:14.284073+00:00",
     "fetched_at": "2026-05-21T02:17:14.284074+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.560Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.426Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mowi.ol.json",
     "enrich_root": null,

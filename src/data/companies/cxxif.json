@@ -41,8 +41,12 @@
       "is_short_history": false,
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:52:01.990134+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -65,7 +69,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -89,7 +93,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -136,54 +140,64 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Gross Profit — revenue minus cost of goods sold.",
+      "explanation_en": "Gross Profit, revenue minus cost of goods sold.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+20.0%",
       "history": [
-        0.06,
-        0.06,
-        0.05,
-        0.06
+        60,
+        60,
+        50,
+        60
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.06 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.02,
-        0.01,
-        0.01,
-        0.01
+        20,
+        10,
+        10,
+        10
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -202,9 +216,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -229,9 +247,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Croissance",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Croissance"
     },
     {
       "short": "Adjusted EBITDA",
@@ -254,9 +270,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Rentabilité",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Rentabilité"
     }
   ],
   "ai_positioning": {
@@ -299,7 +313,8 @@
       "severity": 5,
       "score_rationale": "Risque dominant du 10-K (Item 1A, première section majeure). Langage très intense (« illegal under U.S. federal law », « material negative effect », « could lose entire investment »). Tendance stable mais persistante malgré changements administratifs. Poids catégorique maximal : menace existentielle à l'activité core.",
       "trend": "stable",
-      "summary": "C21 opère légalement sous les lois d'États (40 États + DC reconnaissent le cannabis médical ; 17 États + DC autorisent l'usage récréatif), mais le cannabis reste Schedule I sous la Loi fédérale sur les substances contrôlées (CSA). Risque de poursuites fédérales, saisie d'actifs, arrestation de dirigeants/investisseurs, et interdiction d'entrée aux États-Unis pour non-citoyens, malgré la conformité étatale."
+      "summary": "C21 opère légalement sous les lois d'États (40 États + DC reconnaissent le cannabis médical ; 17 États + DC autorisent l'usage récréatif), mais le cannabis reste Schedule I sous la Loi fédérale sur les substances contrôlées (CSA). Risque de poursuites fédérales, saisie d'actifs, arrestation de dirigeants/investisseurs, et interdiction d'entrée aux États-Unis pour non-citoyens, malgré la conformité étatale.",
+      "score": 5
     },
     {
       "title": "Incertitude politique fédérale et révocation du Cole Memo",
@@ -307,7 +322,8 @@
       "severity": 5,
       "score_rationale": "Position centrale dans Item 1A avec détail chronologique (Cole Memo 2013 → Sessions Memo 2018 → Garland 2021). Langage d'incertitude répété (« no assurance », « unclear », « could change »). Tendance up : changements administratifs créent volatilité. Poids catégorique critique : protection fédérale dépend de priorités politiques imprévisibles.",
       "trend": "up",
-      "summary": "Le Cole Memo (2013) offrait une protection relative en priorisant les poursuites fédérales bas. Le Sessions Memo (2018) l'a révoqué, créant incertitude. L'AG Garland (2021) a signalé une réadoption partielle du Cole Memo, mais sans garantie formelle. Seul le Rohrabacher-Blumenauer Amendment (rider budgétaire renouvelé annuellement jusqu'en 2022) protège partiellement le cannabis médical. Risque : changement d'administration ou non-renouvellement du rider exposent C21 à poursuites fédérales."
+      "summary": "Le Cole Memo (2013) offrait une protection relative en priorisant les poursuites fédérales bas. Le Sessions Memo (2018) l'a révoqué, créant incertitude. L'AG Garland (2021) a signalé une réadoption partielle du Cole Memo, mais sans garantie formelle. Seul le Rohrabacher-Blumenauer Amendment (rider budgétaire renouvelé annuellement jusqu'en 2022) protège partiellement le cannabis médical. Risque : changement d'administration ou non-renouvellement du rider exposent C21 à poursuites fédérales.",
+      "score": 5
     },
     {
       "title": "Risques opérationnels et assurance inadéquate",
@@ -315,7 +331,8 @@
       "severity": 4,
       "score_rationale": "Énuméré explicitement dans Item 1A (« operational risks and may not be adequately insured »). Langage modéré mais exhaustif (liste : disputes, accidents, incendies, catastrophes naturelles, non-conformité). Tendance stable. Poids catégorique élevé : installations de culture/extraction vulnérables.",
       "trend": "stable",
-      "summary": "C21 exploite des installations de culture et d'extraction exposées à : disputes syndicales, accidents catastrophiques, incendies, blocages/activisme social, changements réglementaires, phénomènes naturels (tempêtes, inondations, tremblements de terre). Couverture d'assurance insuffisante pour ces risques. Impacts potentiels : destruction de propriétés, décès, dommages environnementaux, responsabilité légale, arrêt d'exploitation."
+      "summary": "C21 exploite des installations de culture et d'extraction exposées à : disputes syndicales, accidents catastrophiques, incendies, blocages/activisme social, changements réglementaires, phénomènes naturels (tempêtes, inondations, tremblements de terre). Couverture d'assurance insuffisante pour ces risques. Impacts potentiels : destruction de propriétés, décès, dommages environnementaux, responsabilité légale, arrêt d'exploitation.",
+      "score": 4
     },
     {
       "title": "Risque de blanchiment d'argent et restrictions de financement",
@@ -323,7 +340,8 @@
       "severity": 4,
       "score_rationale": "Explicitement mentionné dans Item 1A (« proceeds of crime », « money laundering statutes », « Bank Secrecy Act »). Langage d'alerte modéré mais spécifique. Tendance stable. Poids catégorique élevé : accès au financement et paiement de dividendes directement affectés.",
       "trend": "stable",
-      "summary": "Les revenus de C21 issus du cannabis pourraient être qualifiés de « produits du crime » sous la loi fédérale, restreignant la capacité à payer des dividendes ou effectuer des distributions. Risque de poursuites pour blanchiment d'argent, violation de la loi sur les transmetteurs d'argent non autorisés, et non-conformité à la Bank Secrecy Act. Accès limité au financement bancaire américain en raison de l'association avec activités fédéralement illégales."
+      "summary": "Les revenus de C21 issus du cannabis pourraient être qualifiés de « produits du crime » sous la loi fédérale, restreignant la capacité à payer des dividendes ou effectuer des distributions. Risque de poursuites pour blanchiment d'argent, violation de la loi sur les transmetteurs d'argent non autorisés, et non-conformité à la Bank Secrecy Act. Accès limité au financement bancaire américain en raison de l'association avec activités fédéralement illégales.",
+      "score": 4
     },
     {
       "title": "Taxation et frais spécialisés de l'industrie du cannabis",
@@ -331,7 +349,8 @@
       "severity": 3,
       "score_rationale": "Mentionné dans Item 1A comme « potential yet unknown risk » avec langage de prudence (« multiple states considering »). Tendance up : plusieurs États en cours d'examen. Poids catégorique modéré : impact financier direct mais prévisible comparé aux risques fédéraux.",
       "trend": "up",
-      "summary": "Plusieurs États américains envisagent des taxes ou frais spécialisés sur les entreprises de cannabis. C21 fait face à un risque d'augmentation des coûts de conformité et réduction de marges si ces taxes sont implémentées. Impact matériel sur rentabilité et résultats d'exploitation."
+      "summary": "Plusieurs États américains envisagent des taxes ou frais spécialisés sur les entreprises de cannabis. C21 fait face à un risque d'augmentation des coûts de conformité et réduction de marges si ces taxes sont implémentées. Impact matériel sur rentabilité et résultats d'exploitation.",
+      "score": 3
     },
     {
       "title": "Risque réputationnel lié aux produits de vape",
@@ -339,7 +358,8 @@
       "severity": 3,
       "score_rationale": "Détaillé dans Item 1A (septembre 2019 onwards, CDC findings novembre 2019). Langage modéré (« material source of revenue », « out of abundance of caution »). Tendance down : situation stabilisée après levée des interdictions (Oregon janvier 2020). Poids catégorique modéré : vape est source matérielle de revenus mais risque médiatique maîtrisé.",
       "trend": "down",
-      "summary": "Septembre 2019 : médias américains ont rapporté des maladies/décès liés aux produits de vape (nicotine et THC). Bien que C21 affirme que ses produits ne contiennent pas de vitamine E acétate (identifiée par CDC), plusieurs États ont imposé des interdictions précautionnaires. Oregon a levé son interdiction en janvier 2020 sur ordonnance judiciaire. Risque résiduel : nouvelle controverse sanitaire pourrait affecter les ventes de vape (source matérielle de revenus)."
+      "summary": "Septembre 2019 : médias américains ont rapporté des maladies/décès liés aux produits de vape (nicotine et THC). Bien que C21 affirme que ses produits ne contiennent pas de vitamine E acétate (identifiée par CDC), plusieurs États ont imposé des interdictions précautionnaires. Oregon a levé son interdiction en janvier 2020 sur ordonnance judiciaire. Risque résiduel : nouvelle controverse sanitaire pourrait affecter les ventes de vape (source matérielle de revenus).",
+      "score": 3
     },
     {
       "title": "Incertitude réglementaire et évolution rapide du cadre légal",
@@ -347,7 +367,8 @@
       "severity": 4,
       "score_rationale": "Thème transversal dans Item 1A (« highly regulated, highly competitive and rapidly evolving », « subject to evolving interpretations »). Langage d'incertitude répété (« cannot predict », « impossible to determine »). Tendance up : nouvelles régulations fédérales (FDA, SEC, DOJ) potentiellement applicables. Poids catégorique élevé : coûts de conformité et risque d'obsolescence opérationnelle.",
       "trend": "up",
-      "summary": "C21 opère dans une industrie nouvelle, hautement régulée et en évolution rapide. Lois et régulations fédérales/étatiques/locales sont larges, sujettes à interprétations changeantes, et appliquées avec vigueur variable. Risques : coûts de conformité substantiels, changements réglementaires imposant restructurations opérationnelles, potentiel d'application rétroactive, et scrutin accru de la FDA, SEC, DOJ, FINRA. Impossibilité de prédire l'impact de futures régulations."
+      "summary": "C21 opère dans une industrie nouvelle, hautement régulée et en évolution rapide. Lois et régulations fédérales/étatiques/locales sont larges, sujettes à interprétations changeantes, et appliquées avec vigueur variable. Risques : coûts de conformité substantiels, changements réglementaires imposant restructurations opérationnelles, potentiel d'application rétroactive, et scrutin accru de la FDA, SEC, DOJ, FINRA. Impossibilité de prédire l'impact de futures régulations.",
+      "score": 4
     },
     {
       "title": "Risque de révocation des lois étatiques légalisant le cannabis",
@@ -355,7 +376,8 @@
       "severity": 3,
       "score_rationale": "Mentionné deux fois dans Item 1A (« no guarantee that state laws will not be repealed or overturned »). Langage de prudence modéré. Tendance stable mais risque structurel. Poids catégorique modéré : dépend de contexte politique étatique.",
       "trend": "stable",
-      "summary": "Aucune garantie que les lois étatales légalisant/régulant le cannabis ne seront pas révoquées ou annulées, ou que les autorités locales ne limiteront pas leur applicabilité. Si lois étatales sont révoquées ou si gouvernement fédéral applique la CSA dans États légalisant le cannabis, activités de C21 deviendraient illégales, forçant cessation d'exploitation et perte totale d'investissement."
+      "summary": "Aucune garantie que les lois étatales légalisant/régulant le cannabis ne seront pas révoquées ou annulées, ou que les autorités locales ne limiteront pas leur applicabilité. Si lois étatales sont révoquées ou si gouvernement fédéral applique la CSA dans États légalisant le cannabis, activités de C21 deviendraient illégales, forçant cessation d'exploitation et perte totale d'investissement.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:27:37.257548+00:00",
@@ -482,9 +504,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.248658+00:00",
     "fetched_at": "2026-05-21T02:17:14.248659+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.074Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.608Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cxxif.json",
     "enrich_root": null,

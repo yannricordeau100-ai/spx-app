@@ -36,9 +36,12 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Insufficient historical data. Only one explicit annual hashrate value found: 45.6 EH/s as of September 30, 2025 (average during period, with"
+      "_hero_history_unverified_reason": "Insufficient historical data. Only one explicit annual hashrate value found: 45.6 EH/s as of September 30, 2025 (average during period, with",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Bitcoin Held",
@@ -144,7 +147,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Employees — total number of employees at period end."
+      "explanation_en": "Employees, total number of employees at period end."
     },
     {
       "short": "Total Assets",
@@ -163,61 +166,46 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.18 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.82,
-      "unit": "Mds €",
+      "value": 820,
+      "unit": "M €",
       "yoy": "+1071.4%",
       "history": [
-        0.02,
-        0.02,
-        0.07,
-        0.82
+        20,
+        20,
+        70,
+        820
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.82 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
-    {
-      "short": "AI and HPC Hosting",
-      "name_fr": "Développement IA et calcul haute performance",
-      "name_en": "AI and HPC Hosting Expansion",
-      "explanation": "Stratégie de diversification vers l'hébergement de charges de calcul IA et HPC.",
-      "value": "En cours",
-      "unit": "",
-      "yoy": "stable",
-      "type": "Pipeline",
-      "nature": "Structurel",
-      "comparable": "Non comparable",
-      "signal": "Diversification stratégique vers l'IA et le HPC annoncée en 2025, avec acquisition de propriété au Texas en octobre 2025 et accords d'approvisionnement en énergie de 285 MW.",
-      "description": "La société utilise son expertise en infrastructure pour développer des capacités dédiées à l'IA et au HPC.",
-      "history": [
-        "En cours"
-      ],
-      "last_data_date": "2025-09-30",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "octobre 2025",
-      "_source_month_reason": "via_signal_quarter"
-    },
     {
       "short": "Bitcoin Derivatives",
       "name_fr": "Utilisation de dérivés bitcoin",
@@ -238,13 +226,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "avril 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "CleanSpark positionne ses capacités d'infrastructure énergétique pour soutenir les charges de travail IA et HPC, bien que sans présence significative actuelle. La société diversifie activement son portefeuille vers AI/HPC hosting et a acquis des propriétés au Texas en octobre 2025 avec des accords d'approvisionnement en énergie de 285 MW pour développer un campus de centre de données de prochaine génération.",
     "evidence": [
       "Design d'infrastructure pour supporter bitcoin mining et AI/HPC workloads",
@@ -258,34 +244,34 @@
       "title": "Volatilité Bitcoin",
       "category": "Technologie",
       "severity": 5,
-      "score_rationale": "La valeur du bitcoin est sujette à des fluctuations importantes, ce qui peut avoir un impact significatif sur les résultats financiers de l'entreprise. Les prix du bitcoin ont varié de 15 460 USD à 124 533 USD entre octobre 2022 et septembre 2025. (score par défaut, à affiner)",
+      "score_rationale": "La valeur du bitcoin est sujette à des fluctuations importantes, ce qui peut avoir un impact significatif sur les résultats financiers de l'entreprise. Les prix du bitcoin ont varié de 15 460 USD à 124 533 USD entre octobre 2022 et septembre 2025.",
       "trend": "stable",
       "summary": "La volatilité du prix du bitcoin peut affecter la rentabilité de l'entreprise et la valeur comptable de ses avoirs",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à l'énergie",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "L'entreprise est fortement dépendante de l'énergie pour ses activités de minage de bitcoin, ce qui peut être affecté par les fluctuations des prix de l'énergie. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est fortement dépendante de l'énergie pour ses activités de minage de bitcoin, ce qui peut être affecté par les fluctuations des prix de l'énergie.",
       "trend": "up",
       "summary": "L'entreprise est vulnérable aux fluctuations des prix de l'énergie",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "L'entreprise opère dans un marché en concurrence accrue, ce qui peut affecter sa part de marché et ses revenus. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise opère dans un marché en concurrence accrue, ce qui peut affecter sa part de marché et ses revenus.",
       "trend": "up",
       "summary": "La concurrence accrue peut affecter la position de l'entreprise sur le marché",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "L'entreprise est soumise à des réglementations et des lois qui peuvent changer, ce qui peut affecter ses activités et ses résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est soumise à des réglementations et des lois qui peuvent changer, ce qui peut affecter ses activités et ses résultats financiers.",
       "trend": "stable",
       "summary": "Les changements réglementaires peuvent avoir un impact sur l'entreprise",
       "score": 3
@@ -294,7 +280,7 @@
       "title": "Litiges juridiques",
       "category": "Litige",
       "severity": 3,
-      "score_rationale": "L'entreprise est impliquée dans des litiges juridiques qui peuvent avoir un impact sur ses résultats financiers (voir Note 19). (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est impliquée dans des litiges juridiques qui peuvent avoir un impact sur ses résultats financiers (voir Note 19).",
       "trend": "stable",
       "summary": "Les litiges juridiques peuvent avoir un impact sur l'entreprise",
       "score": 3
@@ -303,16 +289,16 @@
       "title": "Dépendance à la technologie",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "L'entreprise est fortement dépendante de la technologie pour ses activités de minage de bitcoin, ce qui peut être affecté par les progrès technologiques et les changements dans l'industrie. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise est fortement dépendante de la technologie pour ses activités de minage de bitcoin, ce qui peut être affecté par les progrès technologiques et les changements dans l'industrie.",
       "trend": "up",
       "summary": "L'entreprise est vulnérable aux changements technologiques",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques de crédit",
       "category": "Crédit",
       "severity": 3,
-      "score_rationale": "L'entreprise peut être exposée à des risques de crédit si ses clients ou partenaires ne respectent pas leurs obligations financières. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise peut être exposée à des risques de crédit si ses clients ou partenaires ne respectent pas leurs obligations financières.",
       "trend": "stable",
       "summary": "Les risques de crédit peuvent avoir un impact sur l'entreprise",
       "score": 3
@@ -371,7 +357,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -433,112 +419,102 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CLSK",
-    "extracted_at": "2026-05-15T18:50:05Z",
-    "method": "xbrl-companyfacts",
-    "_segment_method": "xbrl-segment-inline",
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:06:37Z",
+    "n_kpis": 3,
     "kpis": [
+      {
+        "short": "Hashrate",
+        "period_type": "quarter",
+        "history": [
+          1.9,
+          6.2,
+          6.7,
+          6.7,
+          10,
+          16.4,
+          39.1,
+          42.4,
+          45.3,
+          47.1
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "EH/s",
+        "_extracted_at": "2026-06-01T03:06:37Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
+      {
+        "short": "Miners in Service",
+        "period_type": "quarter",
+        "history": [
+          18.8,
+          63.7,
+          68,
+          88.5,
+          133,
+          201.808,
+          205.412,
+          241.227,
+          245.199
+        ],
+        "history_periods": [
+          "Q4 2021",
+          "Q4 2022",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025"
+        ],
+        "last_data_date": "2025-12-31",
+        "unit": "K",
+        "_extracted_at": "2026-06-01T03:06:37Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
+      },
       {
         "short": "Energy Efficiency",
         "period_type": "quarter",
         "history": [
-          0.0034,
-          0.0031,
-          0.0012,
-          0.0011,
-          0.0029,
-          0.004,
-          0.0046
+          35.3,
+          31.7,
+          31,
+          29.9,
+          26.4,
+          24.6,
+          17.6,
+          17,
+          16.2,
+          16.8
         ],
         "history_periods": [
-          "Q1 2020",
-          "Q2 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
           "Q4 2021",
-          "Q1 2022"
+          "Q4 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q4 2023",
+          "Q1 2024",
+          "Q4 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q4 2025"
         ],
-        "last_data_date": "2022-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Energy",
-        "_citations": [
-          {
-            "period": "Q1 2021",
-            "value": 0.0011,
-            "source": "CLSK_2021-05-06.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q2 2021",
-            "value": 0.0029,
-            "source": "CLSK_2021-08-16.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q4 2021",
-            "value": 0.004,
-            "source": "CLSK_2022-02-09.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q1 2022",
-            "value": 0.0046,
-            "source": "CLSK_2022-05-10.htm.gz",
-            "tag": "us-gaap:Revenues"
-          }
-        ]
-      },
-      {
-        "short": "Employees",
-        "period_type": "quarter",
-        "history": [
-          0.0031,
-          0.0019,
-          0.008,
-          0.0115,
-          0.0409,
-          0.0416
-        ],
-        "history_periods": [
-          "Q2 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q4 2021",
-          "Q1 2022"
-        ],
-        "last_data_date": "2022-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Total",
-        "_citations": [
-          {
-            "period": "Q1 2021",
-            "value": 0.008,
-            "source": "CLSK_2022-05-10.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q2 2021",
-            "value": 0.0115,
-            "source": "CLSK_2021-08-16.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q4 2021",
-            "value": 0.0409,
-            "source": "CLSK_2022-02-09.htm.gz",
-            "tag": "us-gaap:Revenues"
-          },
-          {
-            "period": "Q1 2022",
-            "value": 0.0416,
-            "source": "CLSK_2022-05-10.htm.gz",
-            "tag": "us-gaap:Revenues"
-          }
-        ]
+        "last_data_date": "2025-12-31",
+        "unit": "W/TH",
+        "_extracted_at": "2026-06-01T03:06:37Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q"
       }
     ]
   },
@@ -554,9 +530,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.239583+00:00",
     "fetched_at": "2026-05-21T02:17:14.239585+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.465Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.935Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/clsk.json",
     "enrich_root": "v2-pipeline-enrich/clsk.json",

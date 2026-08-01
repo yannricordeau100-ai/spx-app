@@ -45,7 +45,7 @@
       "is_short_history": false,
       "ttm": 3630.7,
       "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -73,8 +73,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 34.4,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Income",
@@ -101,8 +105,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 678.1,
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Operating Margin",
@@ -129,8 +137,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 18.7,
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
-      "signal_en": "Margin compression, watch profitability"
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "EPS",
@@ -157,8 +169,12 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 6.31,
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -177,34 +193,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.31 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.87,
-      "unit": "Mds €",
+      "value": 870,
+      "unit": "M €",
       "yoy": "+14.5%",
       "history": [
-        0.54,
-        0.29,
-        0.76,
-        0.87
+        540,
+        290,
+        760,
+        870
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.87 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -223,10 +248,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.74 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -250,13 +279,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "ITT mentionne l'intelligence artificielle comme un élément clé de la transformation technologique affectant l'industrie manufacturière. L'entreprise voit l'IA comme une opportunité pour améliorer l'efficacité et la fiabilité, mais reconnaît également les risques de cybersécurité associés et la possibilité que les concurrents adoptent la technologie plus rapidement.",
     "evidence": [
       "Technology Transformation: Accelerating advancements in automation, data analytics, and artificial intelligence continue to reshape manufacturing and industrial solutions.",
@@ -272,7 +299,8 @@
       "severity": 5,
       "score_rationale": "Les conditions macroéconomiques défavorables, tensions géopolitiques, inflation, ralentissement de la croissance, fluctuations monétaires et augmentation des tarifs peuvent négativement impacter la confiance des clients, les dépenses et la demande pour les produits et services de l'entreprise.",
       "trend": "stable",
-      "summary": "Les conditions macroéconomiques défavorables peuvent avoir un impact négatif significatif sur la demande et la rentabilité"
+      "summary": "Les conditions macroéconomiques défavorables peuvent avoir un impact négatif significatif sur la demande et la rentabilité",
+      "score": 5
     },
     {
       "title": "Volatilité des prix et inflation des coûts",
@@ -280,7 +308,8 @@
       "severity": 4,
       "score_rationale": "La volatilité des prix des matières premières, les disruptions de chaîne d'approvisionnement et les pressions tarifaires peuvent impacter la rentabilité. L'entreprise utilise des stratégies de double sourcing et des accords à long terme pour mitiger ces risques.",
       "trend": "up",
-      "summary": "La volatilité des prix des matières premières et l'inflation des coûts d'intrants affectent la rentabilité"
+      "summary": "La volatilité des prix des matières premières et l'inflation des coûts d'intrants affectent la rentabilité",
+      "score": 4
     },
     {
       "title": "Cybersécurité et transformation technologique",
@@ -288,7 +317,8 @@
       "severity": 5,
       "score_rationale": "Les incidents de cybersécurité peuvent avoir un impact significatif sur l'entreprise. Les investissements croissants dans les technologies numériques et l'IA exposent l'entreprise à des risques cyber additionnels.",
       "trend": "up",
-      "summary": "Les risques cyber augmentent avec les investissements dans les technologies numériques et l'intelligence artificielle"
+      "summary": "Les risques cyber augmentent avec les investissements dans les technologies numériques et l'intelligence artificielle",
+      "score": 5
     },
     {
       "title": "Concurrence",
@@ -296,7 +326,8 @@
       "severity": 4,
       "score_rationale": "La concurrence dans les marchés de l'entreprise peut être intense. Il existe un risque que les concurrents adoptent les technologies émergentes comme l'IA plus rapidement et avec plus de succès que ITT.",
       "trend": "stable",
-      "summary": "La concurrence peut affecter les ventes et la rentabilité, notamment en matière d'adoption technologique"
+      "summary": "La concurrence peut affecter les ventes et la rentabilité, notamment en matière d'adoption technologique",
+      "score": 4
     },
     {
       "title": "Risque de crédit",
@@ -304,7 +335,8 @@
       "severity": 4,
       "score_rationale": "Les difficultés financières des clients et des fournisseurs peuvent impacter la capacité de l'entreprise à recouvrer ses créances et à maintenir ses relations commerciales. Les conditions macroéconomiques défavorables augmentent ce risque.",
       "trend": "up",
-      "summary": "Les difficultés financières des clients et des fournisseurs peuvent affecter le recouvrement et la rentabilité"
+      "summary": "Les difficultés financières des clients et des fournisseurs peuvent affecter le recouvrement et la rentabilité",
+      "score": 4
     },
     {
       "title": "Pénurie de main-d'œuvre qualifiée",
@@ -312,7 +344,8 @@
       "severity": 4,
       "score_rationale": "La pénurie de main-d'œuvre qualifiée peut impacter la capacité de l'entreprise à maintenir ses opérations, la qualité de livraison et l'innovation. ITT adresse ce risque par des programmes de talent et l'automatisation sélective.",
       "trend": "up",
-      "summary": "Les marchés du travail tendus et les exigences de compétences spécialisées affectent la capacité opérationnelle"
+      "summary": "Les marchés du travail tendus et les exigences de compétences spécialisées affectent la capacité opérationnelle",
+      "score": 4
     },
     {
       "title": "Risque réglementaire et conformité commerciale",
@@ -320,7 +353,8 @@
       "severity": 4,
       "score_rationale": "Les changements dans les réglementations, tarifs et politiques commerciales peuvent impacter les opérations et la rentabilité. ITT doit assurer la conformité avec les accords comme l'USMCA pour maintenir l'accès aux marchés nord-américains.",
       "trend": "up",
-      "summary": "Les changements dans les tarifs, politiques commerciales et réglementations affectent les opérations et les coûts"
+      "summary": "Les changements dans les tarifs, politiques commerciales et réglementations affectent les opérations et les coûts",
+      "score": 4
     }
   ],
   "governance": {
@@ -546,9 +580,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.531517+00:00",
     "fetched_at": "2026-05-21T01:44:37.531518+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.569Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.276Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/itt.json",
     "enrich_root": "v2-pipeline-enrich/itt.json",

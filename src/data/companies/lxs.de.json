@@ -37,7 +37,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Sales — total sales generated over the period.",
+      "explanation_en": "Sales, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -130,7 +130,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -177,7 +177,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Steady growth, healthy trend"
     },
     {
@@ -197,11 +197,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.71 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -215,7 +219,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2020-2024). ex-div dates.",
       "history": [
         0.95,
         1,
@@ -228,7 +232,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -243,7 +247,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2020-2024) en milliards EUR. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2020-2024) en milliards EUR. cashflow.",
       "history": [
         null,
         0.086,
@@ -256,7 +260,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -271,7 +275,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2020-2024). Source yfinance.",
+      "description": "Dividendes / résultat net (2020-2024).",
       "history": [
         null,
         null,
@@ -284,7 +288,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -299,7 +303,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         null,
@@ -312,7 +316,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -426,10 +430,10 @@
   "company_description": "LANXESS Aktiengesellschaft, a specialty chemicals company, engages in the development, manufacture, and marketing of chemical intermediates, additives, and consumer protection products worldwide. It operates through three segments: Consumer Protection, Specialty Additives, and Advanced Intermediates. The company provides material protection products; disinfectant, hygiene, and preservative solutions; flavors and fragrances; liquid purification technologies for the treatment of water and other liquids; and precursors and intermediates for the agrochemicals, pharmaceuticals, and specialty chemicals industries. It also offers additives, lubricants, flame retardants, plasticizers, and bromine derivatives for various rubber, plastic and paint, electrical/electronics, and construction industries. In addition, the company provides basic and fine chemicals, organometallics, and inorganic pigments for the coloring of construction materials, as well as paints and coatings. It serves the energy, natural resources, industrial applications, nutrition, health, consumer goods, agriculture, animal health, construction, chemicals, and mobility industries. LANXESS Aktiengesellschaft was founded in 1",
   "last_data_date": "2026-03-31",
   "_dividends_extracted_at": "2026-05-09T20:22:44Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2024)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2024)",
   "_dividends_currency": "EUR",
   "_eps_extracted_at": "2026-05-18T16:46:00Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Chimie",
   "subsector_fr": "Chimie de spécialités",
   "enrich_events": {
@@ -486,9 +490,9 @@
     "country": "Germany",
     "_data_freshness_date": "2026-05-21T02:17:14.279008+00:00",
     "fetched_at": "2026-05-21T02:17:14.279009+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.211Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.047Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lxs.de.json",
     "enrich_root": "v2-pipeline-enrich/lxs.de.json",

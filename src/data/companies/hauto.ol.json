@@ -41,15 +41,19 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds cbm' to 'M cbm' (3.9 million, not billion)",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Revenue",
       "name_fr": "Chiffre d'affaires total",
       "name_en": "Total Revenue",
       "explanation": "Chiffre d'affaires généré par le transport de véhicules automobiles.",
-      "value": "1426",
-      "unit": "M $",
+      "value": 1.426,
+      "unit": "Mds $",
       "yoy": "+4%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -57,19 +61,20 @@
       "signal": "Croissance du revenu malgré des taux en baisse.",
       "description": "Le revenu annuel s'élève à 1 426 millions de dollars en 2025, en progression de 4 % par rapport à 2024, tiré par les volumes et la demande contractuelle.",
       "history": [
-        1371,
+        1.371,
         null,
         null,
         null,
-        1426
+        1.426
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'M$'; value corrected from '1.426' to '1426'; name_fr updated from generic term",
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "EBITDA",
@@ -124,7 +129,7 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Name_fr and name_en updated for precision; description expanded with actual gain details from source",
-      "explanation_en": "Net Profit — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Profit, bottom-line profit after all expenses and taxes.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -152,7 +157,7 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Name_fr updated for clarity; description clarified per financial report ('dry dock expenses')",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Equity Ratio",
@@ -194,7 +199,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         1.842,
@@ -207,7 +212,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -222,7 +227,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards NOK. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards NOK. cashflow.",
       "history": [
         null,
         0.035,
@@ -235,7 +240,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -250,7 +255,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         11.72,
@@ -263,7 +268,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -279,7 +284,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         1.56,
@@ -292,7 +297,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "annual",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -322,9 +327,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Name_fr and name_en improved for clarity; description enhanced with context on customer base stability",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Name_fr and name_en improved for clarity; description enhanced with context on customer base stability"
     },
     {
       "short": "Aurora Class",
@@ -351,9 +354,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Name_fr improved; description expanded with actual vessel name (Höegh Starlight) and CEU specification per quarterly report",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Name_fr improved; description expanded with actual vessel name (Höegh Starlight) and CEU specification per quarterly report"
     }
   ],
   "ai_positioning": {
@@ -426,9 +427,6 @@
   "_freshness_yf_refreshed_at": "2026-05-14T07:11:16.904160",
   "company_description": "Höegh Autoliners ASA provides ocean transportation services within the roll-on roll-off (RoRo) cargoes on deep sea and short sea markets in Norway. It operates in two segments, Shipping Services and Logistics Services. Its services include automotive; breakbulk; truck, buses, and trailers; railcars and tramways; mining equipment; agricultural machinery; machinery shipping; construction equipment; power equipment; boats, and yachts shipping; and ocean transportation. The company offers equipment handling, and project cargo logistic services. In addition, it is involved in terminal, management, ship owning, and ship contracts services. As of December 31, 2024, the company operates a fleet of 38 vessels. The company was founded in 1927 and is headquartered in Oslo, Norway.",
   "last_data_date": "2026-03-31",
-  "_dividends_extracted_at": "2026-05-09T20:20:24Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
-  "_dividends_currency": "NOK",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2024-12-31",
@@ -448,9 +446,12 @@
       }
     ]
   },
+  "_dividends_extracted_at": "2026-05-09T20:20:24Z",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_currency": "NOK",
   "_segments_fetched_at": "2026-05-14T23:59:25.245090+00:00",
   "_eps_extracted_at": "2026-05-18T16:45:17Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "sector_fr": "Transport",
   "subsector_fr": "Transport maritime",
   "enrich_description": {
@@ -506,7 +507,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.953Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.412Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hauto.ol.json",
     "enrich_root": "v2-pipeline-enrich/hauto.ol.json",

@@ -1,6 +1,6 @@
 {
   "ticker": "SSB",
-  "name": "SouthState Bank Corporation",
+  "name": "SouthState Bank",
   "sector": "Finance",
   "subsector": "Banks",
   "tagline": "Leading regional financial services provider with diversified banking and capital markets operations across 8 states",
@@ -50,7 +50,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:55:01.956221+00:00",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -76,7 +76,7 @@
       "is_short_history": false,
       "ttm": 74.73,
       "_validation": "Unit corrected from 'Mds $' to 'B $' (billions); Type corrected from 'Capital' to 'Balance Sheet'; value verified in MD&A: 67.2 billion at December 31, 2025",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
       "signal_en": "Capital base expanding, balance-sheet growth"
     },
     {
@@ -102,7 +102,7 @@
       "is_short_history": false,
       "ttm": 8.12,
       "_validation": "Type corrected from 'Revenue' to 'Per Share'; value verified in MD&A: $7.87 diluted EPS in 2025 vs $6.97 in 2024",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
       "signal_en": "Solid expansion, positive trajectory"
     },
     {
@@ -144,56 +144,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.62 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.69,
-      "unit": "Mds €",
+      "value": 690,
+      "unit": "M €",
       "yoy": "+81.6%",
       "history": [
-        0.38,
-        0.48,
-        0.38,
-        0.69
+        380,
+        480,
+        380,
+        690
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.69 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.89,
-      "unit": "Mds €",
+      "value": 890,
+      "unit": "M €",
       "yoy": "+11.2%",
       "history": [
-        0.73,
-        0.76,
-        0.8,
-        0.89
+        730,
+        760,
+        800,
+        890
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.89 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -212,10 +226,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 9.06 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,7 +263,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "emerging",
+    "stance": "cautious",
     "summary": "SouthState Bank Corporation reconnaît l'importance de l'intelligence artificielle dans son secteur et identifie le rythme d'adoption de l'IA par ses propres opérations et ses prestataires comme un facteur de risque stratégique. L'entreprise ne détaille pas de stratégie d'IA particulière mais reconnaît le besoin d'investir dans les améliorations technologiques pour rester compétitive.",
     "evidence": [
       "Risk factor explicitly mentioning 'the pace of adoption and use of artificial intelligence tools by us and our third-party vendors and service providers'",
@@ -259,52 +277,52 @@
       "title": "Risque d'intégration post-fusion",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Mentionné en premier dans les risques liés à l'activité et à la stratégie concernant la fusion avec Independent Bank Group complétée le 1er janvier 2025. Le langage souligne les incertitudes et les impacts négatifs potentiels sur la performance financière et la valorisation boursière. Les actifs ont augmenté de 45,1% reflétant l'ampleur de l'intégration. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné en premier dans les risques liés à l'activité et à la stratégie concernant la fusion avec Independent Bank Group complétée le 1er janvier 2025. Le langage souligne les incertitudes et les impacts négatifs potentiels sur la performance financière et la valorisation boursière. Les actifs ont augmenté de 45,1% reflétant l'ampleur de l'intégration.",
       "trend": "new",
       "summary": "L'incapacité à intégrer efficacement les entités fusionnées et à réaliser les synergies attendues pourrait entraîner des coûts accrus, une baisse des revenus et une distraction de la direction.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque lié à la gestion de la croissance",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Ce risque est placé en tête des risques liés à l'activité et à la stratégie. Le texte utilise un langage fort ('material adverse effect') pour décrire les conséquences potentielles d'une mauvaise gestion de la croissance, notamment sur la stratégie et les résultats financiers. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est placé en tête des risques liés à l'activité et à la stratégie. Le texte utilise un langage fort ('material adverse effect') pour décrire les conséquences potentielles d'une mauvaise gestion de la croissance, notamment sur la stratégie et les résultats financiers.",
       "trend": "stable",
       "summary": "La stratégie de croissance de l'entreprise comporte des risques si elle n'est pas gérée efficacement, ce qui pourrait affecter négativement les résultats financiers et la capacité à exécuter la stratégie.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de taux d'intérêt",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Ce risque est détaillé et placé en tête des risques liés à l'activité. L'intensité du langage ('negatively impact', 'decrease') et la dépendance au revenu net d'intérêt soulignent sa criticité. Le contexte économique actuel avec des taux fluctuants renforce ce risque. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé et placé en tête des risques liés à l'activité. L'intensité du langage ('negatively impact', 'decrease') et la dépendance au revenu net d'intérêt soulignent sa criticité. Le contexte économique actuel avec des taux fluctuants renforce ce risque.",
       "trend": "up",
       "summary": "L'entreprise est vulnérable aux changements des taux d'intérêt qui affectent son revenu net d'intérêt, potentiellement impacté par la réévaluation des actifs et passifs et la concurrence accrue pour les dépôts.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque d'inflation et de conditions économiques",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Ce risque est mentionné explicitement et son impact sur l'entreprise et la rentabilité est souligné. Le langage ('negative impact', 'persist for longer periods') indique une préoccupation significative. Le contexte d'inflation persistante le rend plus pertinent. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné explicitement et son impact sur l'entreprise et la rentabilité est souligné. Le langage ('negative impact', 'persist for longer periods') indique une préoccupation significative. Le contexte d'inflation persistante le rend plus pertinent.",
       "trend": "up",
       "summary": "L'inflation persistante et les conditions économiques défavorables peuvent avoir un impact négatif sur l'entreprise, sa rentabilité et la demande de prêts, tout en augmentant les coûts des fonds.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de crédit et de défaut des clients",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "Ce risque est mentionné plusieurs fois, notamment dans le contexte du portefeuille de prêts immobiliers et commerciaux. Le langage ('higher risks', 'default by our clients') et la mention de la gestion du risque de crédit indiquent une importance majeure. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné plusieurs fois, notamment dans le contexte du portefeuille de prêts immobiliers et commerciaux. Le langage ('higher risks', 'default by our clients') et la mention de la gestion du risque de crédit indiquent une importance majeure.",
       "trend": "stable",
       "summary": "Le portefeuille de prêts, notamment ceux garantis par l'immobilier commercial, présente un risque de défaut accru des clients, nécessitant une gestion rigoureuse du risque de crédit.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque technologique et d'adoption de l'IA",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "Ce risque est mentionné dans le contexte de la stratégie et de l'évolution du modèle économique. Le langage ('may have fewer resources', 'pace of adoption') suggère une préoccupation quant à la capacité à suivre le rythme technologique et à l'adoption de l'IA. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné dans le contexte de la stratégie et de l'évolution du modèle économique. Le langage ('may have fewer resources', 'pace of adoption') suggère une préoccupation quant à la capacité à suivre le rythme technologique et à l'adoption de l'IA.",
       "trend": "up",
       "summary": "L'entreprise doit s'adapter aux changements technologiques rapides, y compris l'IA, et pourrait manquer de ressources par rapport à ses concurrents pour investir dans ces améliorations.",
       "score": 3
@@ -313,16 +331,16 @@
       "title": "Risque de cybersécurité et de sécurité des systèmes",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Ce risque est mentionné explicitement et de manière répétée, avec un langage fort ('failure or disruption', 'cyber-attacks', 'information security breaches'). L'importance des systèmes IT et des fournisseurs tiers est soulignée. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est mentionné explicitement et de manière répétée, avec un langage fort ('failure or disruption', 'cyber-attacks', 'information security breaches'). L'importance des systèmes IT et des fournisseurs tiers est soulignée.",
       "trend": "stable",
       "summary": "Une défaillance ou une interruption des systèmes opérationnels ou de sécurité, y compris ceux des tiers, ainsi que les cyberattaques, représentent une menace significative pour l'entreprise.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de réglementation et de conformité",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Ce risque est présenté comme une catégorie distincte. Le langage ('could limit or restrict', 'obligation to comply') indique une contrainte importante pour l'entreprise. La nature du secteur bancaire rend ce risque structurellement élevé. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est présenté comme une catégorie distincte. Le langage ('could limit or restrict', 'obligation to comply') indique une contrainte importante pour l'entreprise. La nature du secteur bancaire rend ce risque structurellement élevé.",
       "trend": "stable",
       "summary": "L'entreprise est soumise à un environnement réglementaire complexe et évolutif, avec des obligations de conformité strictes et des exigences de capital qui peuvent limiter ses activités.",
       "score": 3
@@ -379,7 +397,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "NetIncome"
   },
   "_fit_for_site": true,
@@ -484,6 +502,124 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "SSB",
+    "extracted_at": "2026-06-01T09:22:27Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          146.949,
+          100.329,
+          133.043,
+          139.926,
+          123.447,
+          124.144,
+          115.056,
+          132.37,
+          143.179,
+          89.08,
+          215.224,
+          246.641
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T09:22:27Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Total Assets",
+        "period_type": "quarter",
+        "history": [
+          44.923827,
+          75.995979,
+          75.676445,
+          76.022039,
+          76.195723,
+          76.269577,
+          76.322206,
+          101.498,
+          101.089231
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T09:22:27Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Diluted EPS",
+        "period_type": "quarter",
+        "history": [
+          2.06,
+          1.39,
+          1.75,
+          1.83,
+          1.62,
+          1.62,
+          1.83,
+          1.62,
+          1.62,
+          1.5,
+          1.73,
+          1.86
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q1 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "$",
+        "_extracted_at": "2026-06-01T09:22:27Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "SSB",
     "ranks": {
@@ -496,14 +632,15 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.313097+00:00",
     "fetched_at": "2026-05-21T02:17:14.313098+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.135Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.143Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ssb.json",
     "enrich_root": "v2-pipeline-enrich/ssb.json",
     "enrich_subkeys": [
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

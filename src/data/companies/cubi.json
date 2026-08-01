@@ -56,7 +56,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet."
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet."
     },
     {
       "short": "Total Deposits",
@@ -114,7 +114,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Shareholders' Equity — net assets attributable to shareholders."
+      "explanation_en": "Shareholders' Equity, net assets attributable to shareholders."
     },
     {
       "short": "Net Interest Margin",
@@ -153,11 +153,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.71 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -176,10 +180,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 4.41 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -255,43 +263,43 @@
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "Le risque de crédit est élevé en raison de la grande exposition de la société aux prêts commerciaux et immobiliers, qui sont plus sensibles aux conditions économiques défavorables et aux fluctuations du marché immobilier commercial. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de crédit est élevé en raison de la grande exposition de la société aux prêts commerciaux et immobiliers, qui sont plus sensibles aux conditions économiques défavorables et aux fluctuations du marché immobilier commercial.",
       "trend": "stable",
       "summary": "La société est exposée à un risque de crédit élevé en raison de sa grande exposition aux prêts commerciaux, immobiliers multifamiliaux et spécialisés.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque de marché",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Les conditions de marché, telles que les taux d'intérêt et les fluctuations des marchés financiers, peuvent avoir un impact négatif sur la société, particulièrement en période de déclination des taux d'intérêt. (score par défaut, à affiner)",
+      "score_rationale": "Les conditions de marché, telles que les taux d'intérêt et les fluctuations des marchés financiers, peuvent avoir un impact négatif sur la société, particulièrement en période de déclination des taux d'intérêt.",
       "trend": "up",
       "summary": "Les conditions de marché, notamment la baisse des taux d'intérêt et les fluctuations des prix immobiliers, peuvent réduire les revenus nets d'intérêts et impacter la valeur du portefeuille de titres.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de régulation",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société est soumise à des exigences réglementaires strictes concernant les ratios de capital, les réserves de liquidité et les normes de gestion du crédit, qui peuvent limiter sa flexibilité opérationnelle. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des exigences réglementaires strictes concernant les ratios de capital, les réserves de liquidité et les normes de gestion du crédit, qui peuvent limiter sa flexibilité opérationnelle.",
       "trend": "stable",
       "summary": "La société est soumise à des exigences réglementaires strictes en tant que banque holding régionale, pouvant limiter ses activités et augmenter ses coûts de conformité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "La société peut être exposée à un risque de liquidité en raison de sa dépendance à l'égard des dépôts et des financements à court terme, malgré sa position de liquidité actuelle solide. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être exposée à un risque de liquidité en raison de sa dépendance à l'égard des dépôts et des financements à court terme, malgré sa position de liquidité actuelle solide.",
       "trend": "stable",
       "summary": "La société dépend de sa capacité à collecter, croître et retenir ses dépôts à faible coût, particulièrement les dépôts non porteurs d'intérêts.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de réputation",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "La société peut être exposée à un risque de réputation en raison de ses activités bancaires étendues et de ses décisions commerciales, qui peuvent affecter la confiance des clients et des régulateurs. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être exposée à un risque de réputation en raison de ses activités bancaires étendues et de ses décisions commerciales, qui peuvent affecter la confiance des clients et des régulateurs.",
       "trend": "stable",
       "summary": "La société peut être exposée à un risque de réputation en raison de ses activités et de ses décisions, qui pourraient impacter la confiance des clients et les relations avec les autorités de régulation.",
       "score": 3
@@ -300,7 +308,7 @@
       "title": "Risque de cybersécurité",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "La société peut être exposée à un risque de cybersécurité en raison de sa dépendance à l'égard des systèmes informatiques, de ses activités de banque numérique et des services Banking-as-a-Service aux fintech. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être exposée à un risque de cybersécurité en raison de sa dépendance à l'égard des systèmes informatiques, de ses activités de banque numérique et des services Banking-as-a-Service aux fintech.",
       "trend": "up",
       "summary": "La société peut être exposée à un risque de cybersécurité en raison de sa dépendance aux systèmes informatiques, aux données sensibles des clients et à ses relations avec les fintech.",
       "score": 3
@@ -309,10 +317,10 @@
       "title": "Risque de géopolitique",
       "category": "Géopolitique",
       "severity": 2,
-      "score_rationale": "La société peut être exposée à un risque de géopolitique en raison des conflits militaires en Ukraine et au Moyen-Orient, affectant les prix des matières premières et les chaînes d'approvisionnement. (score par défaut, à affiner)",
+      "score_rationale": "La société peut être exposée à un risque de géopolitique en raison des conflits militaires en Ukraine et au Moyen-Orient, affectant les prix des matières premières et les chaînes d'approvisionnement.",
       "trend": "stable",
       "summary": "La société peut être exposée à un risque de géopolitique liée aux conflits militaires en Ukraine et au Moyen-Orient, affectant potentiellement les conditions macroéconomiques et les portefeuilles clients.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -424,7 +432,7 @@
   },
   "sector_fr": "Finance",
   "subsector_fr": "Banques",
-  "_companies_unified_built_at": "2026-05-29T21:19:29.978Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.796Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/cubi.json",
     "enrich_root": "v2-pipeline-enrich/cubi.json",

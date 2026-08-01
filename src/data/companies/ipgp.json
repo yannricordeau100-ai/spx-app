@@ -1,6 +1,6 @@
 {
   "ticker": "IPGP",
-  "name": "IPG Photonics Corporation",
+  "name": "IPG Photonics",
   "sector": "Technologie",
   "subsector": "Semi-conducteurs et équipements",
   "tagline": "Leading manufacturer of high-performance fiber lasers and amplifiers for materials processing, medical and advanced applications",
@@ -44,7 +44,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "R&D",
@@ -84,7 +84,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Total Revenue",
@@ -103,34 +103,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.0 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+116.7%",
       "history": [
-        0.11,
-        0.22,
-        -0.18,
-        0.03
+        110,
+        220,
+        -180,
+        30
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.03 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -149,56 +158,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.42 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.04,
-        0.02,
-        0.02,
-        0.02
+        40,
+        20,
+        20,
+        20
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.02 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.4,
-      "unit": "Mds €",
+      "value": 400,
+      "unit": "M €",
       "yoy": "-35.5%",
       "history": [
-        0.7,
-        0.51,
-        0.62,
-        0.4
+        700,
+        510,
+        620,
+        400
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.4 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,7 +259,8 @@
       "severity": 5,
       "score_rationale": "L'incertitude économique affecte les ventes et la rentabilité de l'entreprise, avec une dépendance à 29% des ventes en Chine (2025), 25% (2024), 28% (2023). Les fluctuations des taux de change et les tarifs douaniers (impact estimé à 120 points de base sur la marge brute en 2025) impactent directement l'entreprise.",
       "trend": "stable",
-      "summary": "L'incertitude économique peut affecter les ventes et la rentabilité de l'entreprise, en particulier en Chine, avec un impact measurable des tarifs douaniers sur les marges."
+      "summary": "L'incertitude économique peut affecter les ventes et la rentabilité de l'entreprise, en particulier en Chine, avec un impact measurable des tarifs douaniers sur les marges.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue",
@@ -244,7 +268,8 @@
       "severity": 4,
       "score_rationale": "La concurrence dans le marché des lasers est élevée, avec des entreprises plus grandes et plus dotées en ressources. Les pressions sur les prix des produits peuvent affecter les marges de l'entreprise.",
       "trend": "up",
-      "summary": "La concurrence accrue dans le marché des lasers peut affecter les ventes et les marges de l'entreprise."
+      "summary": "La concurrence accrue dans le marché des lasers peut affecter les ventes et les marges de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Dépendance à la Chine",
@@ -252,7 +277,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise dépend fortement des ventes en Chine (29% en 2025), ce qui la rend vulnérable aux fluctuations économiques et politiques dans ce pays, ainsi qu'aux politiques tarifaires américaines.",
       "trend": "stable",
-      "summary": "La dépendance à la Chine peut affecter les ventes et la rentabilité de l'entreprise en cas de fluctuations économiques ou politiques."
+      "summary": "La dépendance à la Chine peut affecter les ventes et la rentabilité de l'entreprise en cas de fluctuations économiques ou politiques.",
+      "score": 4
     },
     {
       "title": "Risque d'obsolescence technologique",
@@ -260,7 +286,8 @@
       "severity": 3,
       "score_rationale": "Les produits de l'entreprise peuvent devenir obsolètes en raison de l'évolution technologique, ce qui peut affecter les ventes et la rentabilité si les produits ne sont pas régulièrement améliorés.",
       "trend": "up",
-      "summary": "Le risque d'obsolescence technologique peut affecter les ventes et la rentabilité de l'entreprise si les produits ne sont pas mis à jour régulièrement."
+      "summary": "Le risque d'obsolescence technologique peut affecter les ventes et la rentabilité de l'entreprise si les produits ne sont pas mis à jour régulièrement.",
+      "score": 3
     },
     {
       "title": "Risque de surcapacité",
@@ -268,7 +295,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise a ajouté de la capacité de production en Allemagne, aux États-Unis, en Italie et en Pologne. Si les ventes ne suivent pas l'augmentation de la capacité, cela peut entraîner une sous-utilisation des capacités et affecter la rentabilité.",
       "trend": "new",
-      "summary": "Le risque de surcapacité peut affecter la rentabilité de l'entreprise si les ventes ne suivent pas l'augmentation de la capacité de production."
+      "summary": "Le risque de surcapacité peut affecter la rentabilité de l'entreprise si les ventes ne suivent pas l'augmentation de la capacité de production.",
+      "score": 3
     },
     {
       "title": "Risque de perte de parts de marché",
@@ -276,7 +304,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise peut perdre des parts de marché en raison de la concurrence accrue et de la capacité des concurrents à innover et à réduire les prix.",
       "trend": "up",
-      "summary": "Le risque de perte de parts de marché peut affecter les ventes et la rentabilité de l'entreprise."
+      "summary": "Le risque de perte de parts de marché peut affecter les ventes et la rentabilité de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Risque de non-acceptation de nouveaux produits",
@@ -284,7 +313,8 @@
       "severity": 3,
       "score_rationale": "Les nouveaux produits de l'entreprise peuvent ne pas être acceptés par les clients, ce qui peut affecter les ventes et la rentabilité.",
       "trend": "new",
-      "summary": "Le risque de non-acceptation de nouveaux produits peut affecter les ventes et la rentabilité de l'entreprise."
+      "summary": "Le risque de non-acceptation de nouveaux produits peut affecter les ventes et la rentabilité de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Risque de dépendance aux clients OEM",
@@ -292,7 +322,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise dépend fortement des clients OEM qui représentent une part significative de ses ventes. Cette dépendance la rend vulnérable aux fluctuations de la demande et aux changements dans les stratégies de ces clients.",
       "trend": "stable",
-      "summary": "La dépendance aux clients OEM peut affecter les ventes et la rentabilité de l'entreprise en cas de fluctuations de la demande ou de changements dans les stratégies de ces clients."
+      "summary": "La dépendance aux clients OEM peut affecter les ventes et la rentabilité de l'entreprise en cas de fluctuations de la demande ou de changements dans les stratégies de ces clients.",
+      "score": 3
     },
     {
       "title": "Risque géopolitique et sanction",
@@ -300,7 +331,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise a dû céder ses opérations russes (perte divestiture de 197.7 millions) et a enregistré des dépréciation de 26.6 millions sur les actifs en Biélorussie en raison du conflit russo-ukrainien et des sanctions connexes.",
       "trend": "stable",
-      "summary": "Les risques géopolitiques, incluant le conflit russo-ukrainien et les sanctions, ont eu un impact matériel sur les opérations et la rentabilité de l'entreprise."
+      "summary": "Les risques géopolitiques, incluant le conflit russo-ukrainien et les sanctions, ont eu un impact matériel sur les opérations et la rentabilité de l'entreprise.",
+      "score": 4
     }
   ],
   "governance": {
@@ -384,7 +416,6 @@
       "date": "2026-05-05"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T20:03:34.833795+00:00",
   "revenue_by_geography": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -421,6 +452,7 @@
     ],
     "total": 1
   },
+  "_ai_positioning_fetched_at": "2026-05-06T20:03:34.833795+00:00",
   "_segments_fetched_at": "2026-05-06T19:33:18.773647+00:00",
   "enrich_description": {
     "ticker": "IPGP",
@@ -530,23 +562,18 @@
         "history": [
           68.53,
           102.807,
-          -65.103,
           33.45,
           64.058,
           89.494,
-          -70.888,
           22.77,
           46.282,
           70.99,
-          -41.338,
           29.381,
           56.868,
           84.045,
-          -60.511,
           28.336,
           58.273,
           88.631,
-          -57.838,
           33.309
         ],
         "history_periods": [
@@ -600,6 +627,12 @@
             "accession": "0001111928-26-000098",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (IPGP)"
         ]
       },
       {
@@ -608,23 +641,18 @@
         "history": [
           54.344,
           93.857,
-          -52.514,
           25.177,
           59.903,
           84.552,
-          -59.491,
           33.404,
           59.139,
           85.256,
-          -67.316,
           28.052,
           52.27,
           75.358,
-          -57.156,
           24.818,
           40.176,
           60.907,
-          -47.103,
           16.311
         ],
         "history_periods": [
@@ -678,6 +706,12 @@
             "accession": "0001111928-26-000098",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (IPGP)"
         ]
       }
     ]
@@ -694,9 +728,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T01:44:37.530833+00:00",
     "fetched_at": "2026-05-21T01:44:37.530834+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.503Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.192Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ipgp.json",
     "enrich_root": "v2-pipeline-enrich/ipgp.json",

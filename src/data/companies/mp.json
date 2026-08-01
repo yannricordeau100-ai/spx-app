@@ -1,6 +1,6 @@
 {
   "ticker": "MP",
-  "name": "MP Materials Corp.",
+  "name": "MP Materials",
   "sector": "Materials & Mining",
   "subsector": "Rare Earth Elements",
   "tagline": "Restoring American Leadership in Rare Earth Materials",
@@ -39,11 +39,14 @@
       "is_short_history": false,
       "_validation": "Valeur confirmée (2599 MT), unité correcte (MT), YoY confirmé (+101%), rationnel amélioré",
       "ttm": 3249.25,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "NdPr oxide production (MT) not found with explicit annual values in the provided 10-K excerpt. The document contains financial statements an",
       "explanation_en": "Production of NdPr oxide over the period.",
-      "signal_en": "Strong growth, robust momentum"
+      "signal_en": "Strong growth, robust momentum",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Magnetics revenue",
@@ -74,24 +77,29 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "+10.0%",
       "history": [
-        0.53,
-        0.25,
-        0.2,
-        0.22
+        530,
+        250,
+        200,
+        220
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.22 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -110,11 +118,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.09 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -133,11 +145,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.86 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -156,11 +172,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.01 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -179,10 +199,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -205,9 +229,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Valeur n/a conservée (production débutée en décembre, données insuffisantes), comparable corrigé à 'Non comparable', explanation améliorée pour contextualiser l'innovation stratégique",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur n/a conservée (production débutée en décembre, données insuffisantes), comparable corrigé à 'Non comparable', explanation améliorée pour contextualiser l'innovation stratégique"
     }
   ],
   "ai_positioning": {
@@ -221,16 +243,16 @@
       "title": "Risques géopolitiques et dépendance commerciale",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "La société a cessé de vendre tous les produits à la Chine en juillet 2025 suite à l'accord avec le Département de la Guerre américain. Cette décision stratégique a réduit le chiffre d'affaires du segment Materials de 21% année sur année. Les contrôles à l'exportation chinois sur les terres rares représentent un risque continu pour les chaînes d'approvisionnement alternatives. (score par défaut, à affiner)",
+      "score_rationale": "La société a cessé de vendre tous les produits à la Chine en juillet 2025 suite à l'accord avec le Département de la Guerre américain. Cette décision stratégique a réduit le chiffre d'affaires du segment Materials de 21% année sur année. Les contrôles à l'exportation chinois sur les terres rares représentent un risque continu pour les chaînes d'approvisionnement alternatives.",
       "trend": "up",
       "summary": "Arrêt stratégique des ventes en Chine impactant les revenus et risques liés aux contrôles à l'exportation des terres rares",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Volatilité des prix des terres rares",
       "category": "Marché",
       "severity": 3,
-      "score_rationale": "Les prix des terres rares peuvent fluctuer en raison de la demande et de l'offre mondiales, ainsi que des facteurs géopolitiques. Bien que la société ait signé un accord de protection des prix avec le Département de la Guerre pour un plancher de 110 USD/kg de NdPr, cette protection est limitée à environ dix ans. (score par défaut, à affiner)",
+      "score_rationale": "Les prix des terres rares peuvent fluctuer en raison de la demande et de l'offre mondiales, ainsi que des facteurs géopolitiques. Bien que la société ait signé un accord de protection des prix avec le Département de la Guerre pour un plancher de 110 USD/kg de NdPr, cette protection est limitée à environ dix ans.",
       "trend": "stable",
       "summary": "La volatilité des prix des terres rares peut affecter la rentabilité au-delà de la période de protection des prix",
       "score": 3
@@ -239,16 +261,16 @@
       "title": "Risques de chaîne d'approvisionnement",
       "category": "Opérationnel",
       "severity": 4,
-      "score_rationale": "La société dépend de ses fournisseurs pour les terres rares lourdes (HREE) et autres matières premières nécessaires à la production de magnets. La capacité de production du nouveau 10X Facility et l'approvisionnement en HREE sont critiques pour réaliser les engagements avec le Département de la Guerre. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend de ses fournisseurs pour les terres rares lourdes (HREE) et autres matières premières nécessaires à la production de magnets. La capacité de production du nouveau 10X Facility et l'approvisionnement en HREE sont critiques pour réaliser les engagements avec le Département de la Guerre.",
       "trend": "up",
       "summary": "Les risques de chaîne d'approvisionnement pour l'approvisionnement en HREE peuvent impacter la capacité à honorer les contrats gouvernementaux",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence et position de marché",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "La société fait face à une concurrence accrue dans le secteur des terres rares et de la fabrication de magnets, particulièrement de la part de producteurs établis en Asie avec des coûts de production potentiellement plus bas. (score par défaut, à affiner)",
+      "score_rationale": "La société fait face à une concurrence accrue dans le secteur des terres rares et de la fabrication de magnets, particulièrement de la part de producteurs établis en Asie avec des coûts de production potentiellement plus bas.",
       "trend": "up",
       "summary": "La concurrence accrue peut impacter la part de marché et les marges bénéficiaires à long terme",
       "score": 3
@@ -257,19 +279,19 @@
       "title": "Risques réglementaires et environnementaux",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société opère dans un secteur hautement réglementé et doit respecter les normes environnementales strictes aux niveaux fédéral, d'État et local. Les projets d'expansion (10X Facility, extension HREE, installations de recyclage) impliquent des risques de conformité réglementaire. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un secteur hautement réglementé et doit respecter les normes environnementales strictes aux niveaux fédéral, d'État et local. Les projets d'expansion (10X Facility, extension HREE, installations de recyclage) impliquent des risques de conformité réglementaire.",
       "trend": "stable",
       "summary": "Les obligations réglementaires et environnementales peuvent impacter la capacité à opérer et à compléter les projets d'expansion",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques d'exécution de projets de capital",
       "category": "Opérationnel",
       "severity": 4,
-      "score_rationale": "La société a engagé jusqu'à 600 millions de dollars de capital pour construire le 10X Facility, étendre l'Independence Facility, et développer les capacités HREE. Les retards ou dépassements de coûts pourraient impacter la profitabilité et la capacité à honorer les garanties d'EBITDA du Département de la Guerre. (score par défaut, à affiner)",
+      "score_rationale": "La société a engagé jusqu'à 600 millions de dollars de capital pour construire le 10X Facility, étendre l'Independence Facility, et développer les capacités HREE. Les retards ou dépassements de coûts pourraient impacter la profitabilité et la capacité à honorer les garanties d'EBITDA du Département de la Guerre.",
       "trend": "up",
       "summary": "Les risques d'exécution des projets majeurs pourraient retarder la génération de revenus et impacter les obligations contractuelles",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -323,7 +345,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -477,7 +499,10 @@
             "source": "MP_2023-08-04.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Activité",
+        "nature": "Récurrent",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Materials revenue",
@@ -531,7 +556,10 @@
             "source": "calc-MP_2026-02-26.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       },
       {
         "short": "Magnetics revenue",
@@ -577,7 +605,10 @@
             "source": "calc-MP_2026-02-26.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -593,9 +624,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.284127+00:00",
     "fetched_at": "2026-05-21T02:17:14.284128+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.564Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.432Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mp.json",
     "enrich_root": "v2-pipeline-enrich/mp.json",

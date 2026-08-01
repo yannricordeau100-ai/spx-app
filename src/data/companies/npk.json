@@ -94,100 +94,120 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 22.26,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "+28.2%",
       "history": [
-        0.32,
-        0.34,
-        0.39,
-        0.5
+        320,
+        340,
+        390,
+        500
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.5 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-25.0%",
       "history": [
-        0.02,
-        0.03,
-        0.04,
-        0.03
+        20,
+        30,
+        40,
+        30
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.03 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "+11.1%",
       "history": [
-        0.41,
-        0.44,
-        0.45,
-        0.5
+        410,
+        440,
+        450,
+        500
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.5 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+200.0%",
       "history": [
-        0.01,
-        0.01,
-        0.01,
-        0.03
+        10,
+        10,
+        10,
+        30
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.03 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -206,10 +226,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -223,7 +247,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         6.25,
         4.5,
@@ -236,7 +260,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -251,7 +275,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0318,
@@ -264,7 +288,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position eroding, monitor liquidity"
     },
     {
@@ -279,7 +303,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         153.76,
@@ -292,7 +316,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -308,7 +332,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2020-2024). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2020-2024). income statement (Diluted EPS).",
       "history": [
         null,
         3.63,
@@ -321,7 +345,7 @@
       "is_short_history": false,
       "last_data_date": "2024-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Solid expansion, positive trajectory"
     }
   ],
@@ -344,9 +368,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Growth",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Growth"
     }
   ],
   "ai_positioning": {
@@ -393,7 +415,8 @@
       "severity": 5,
       "score_rationale": "Le risque est mentionné dans deux segments clés (Housewares et Safety) et décrit comme pouvant entraîner des interruptions majeures. Le langage est répété et insiste sur l'absence de remplacement rapide. La catégorie Industriel a une pondération élevée en contexte de chaîne d'approvisionnement mondiale.",
       "trend": "stable",
-      "summary": "La majorité des produits est fabriquée en Asie, principalement en Chine, rendant la société vulnérable aux perturbations d'approvisionnement et aux risques géopolitiques."
+      "summary": "La majorité des produits est fabriquée en Asie, principalement en Chine, rendant la société vulnérable aux perturbations d'approvisionnement et aux risques géopolitiques.",
+      "score": 5
     },
     {
       "title": "Augmentation des coûts des matières premières",
@@ -401,7 +424,8 @@
       "severity": 4,
       "score_rationale": "Présent dans trois segments, avec mention explicite d'impact matériel sur les résultats. Le langage est récurrent et souligne l'incapacité potentielle à répercuter les coûts. Pondération moyenne pour un risque macro.",
       "trend": "stable",
-      "summary": "Les hausses de prix des matières premières, de l'énergie et du transport pourraient réduire la marge si elles ne sont pas répercutées aux clients."
+      "summary": "Les hausses de prix des matières premières, de l'énergie et du transport pourraient réduire la marge si elles ne sont pas répercutées aux clients.",
+      "score": 4
     },
     {
       "title": "Perte de contrats gouvernementaux majeurs",
@@ -409,7 +433,8 @@
       "severity": 5,
       "score_rationale": "Le segment Defense dépend fortement des contrats fédéraux. Le texte mentionne à plusieurs reprises un impact matériel en cas de perte ou de réduction de contrat. Langage fort ('material adverse effect'). Catégorie Concurrence avec impact stratégique élevé.",
       "trend": "stable",
-      "summary": "La dépendance aux contrats avec le gouvernement américain expose la société à des risques liés aux arbitrages budgétaires et aux décisions politiques."
+      "summary": "La dépendance aux contrats avec le gouvernement américain expose la société à des risques liés aux arbitrages budgétaires et aux décisions politiques.",
+      "score": 5
     },
     {
       "title": "Terminaison de contrats par le gouvernement",
@@ -417,7 +442,8 @@
       "severity": 5,
       "score_rationale": "Explicitement décrit comme pouvant avoir un effet matériel, avec distinction entre terminaison pour commodité ou défaut. Risque élevé car impact direct sur revenus et responsabilités financières. Catégorie Régulation fortement pondérée dans le secteur de la défense.",
       "trend": "stable",
-      "summary": "Les contrats gouvernementaux peuvent être résiliés à tout moment, soit pour convenance, soit pour défaut, avec des conséquences financières sévères."
+      "summary": "Les contrats gouvernementaux peuvent être résiliés à tout moment, soit pour convenance, soit pour défaut, avec des conséquences financières sévères.",
+      "score": 5
     },
     {
       "title": "Réglementation sur la durabilité",
@@ -425,7 +451,8 @@
       "severity": 4,
       "score_rationale": "Mentionné comme générant une bureaucratie importante et des coûts élevés. Le ton est critique ('do nothing for the environment'). Risque en hausse car cadre en cours de développement. Catégorie Régulation bien pondérée.",
       "trend": "up",
-      "summary": "L'instauration future de normes de durabilité dans l'industrie des appareils portables pourrait imposer des coûts de certification et de conformité élevés."
+      "summary": "L'instauration future de normes de durabilité dans l'industrie des appareils portables pourrait imposer des coûts de certification et de conformité élevés.",
+      "score": 4
     },
     {
       "title": "Dépendance aux clients clés",
@@ -433,7 +460,8 @@
       "severity": 4,
       "score_rationale": "Spécifiquement mentionné pour le segment Housewares, avec risque de perte de ventes si un client majeur réduit ses commandes. Pas d'accords à long terme. Langage ferme ('material adverse effect').",
       "trend": "stable",
-      "summary": "L'absence d'accords contractuels à long terme avec les grands clients expose la société à des fluctuations soudaines de la demande."
+      "summary": "L'absence d'accords contractuels à long terme avec les grands clients expose la société à des fluctuations soudaines de la demande.",
+      "score": 4
     },
     {
       "title": "Problèmes de conformité réglementaire",
@@ -441,7 +469,8 @@
       "severity": 5,
       "score_rationale": "Le segment Defense est soumis à un cadre réglementaire dense (FAR, ITAR, etc.). Le texte mentionne des coûts accrus et des risques de non-conformité pouvant affecter la compétitivité. Langage technique et répété, indiquant une exposition élevée.",
       "trend": "stable",
-      "summary": "La société doit respecter de nombreuses réglementations fédérales strictes, dont le non-respect pourrait nuire à sa capacité à décrocher des contrats."
+      "summary": "La société doit respecter de nombreuses réglementations fédérales strictes, dont le non-respect pourrait nuire à sa capacité à décrocher des contrats.",
+      "score": 5
     }
   ],
   "governance": {
@@ -527,7 +556,6 @@
       "date": "2025-10-30"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T20:09:04.245001+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -557,9 +585,10 @@
     ],
     "total": 0.5
   },
+  "_ai_positioning_fetched_at": "2026-05-06T20:09:04.245001+00:00",
   "_segments_fetched_at": "2026-05-06T19:37:43.022847+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:55Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -571,7 +600,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:33Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:28Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "NPK",
     "simple": {
@@ -743,7 +772,10 @@
             "source": "calc-NPK_2026-03-13.htm.gz",
             "tag": "us-gaap:Revenues"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -759,9 +791,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.290325+00:00",
     "fetched_at": "2026-05-21T02:17:14.290326+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.026Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.960Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/npk.json",
     "enrich_root": "v2-pipeline-enrich/npk.json",

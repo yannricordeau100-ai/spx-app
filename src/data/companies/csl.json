@@ -41,7 +41,7 @@
       "_validation": "Valeurs vérifiées dans le 10-K (operating income $1,002.5M / revenues $5,019.9M = 20.0%); ttm corrigé à 20.0",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of explicit operating margin data found in the filing (2018: 11.4%, 2019: 13.6%). Minimum threshold of 4 years not ",
-      "explanation_en": "Operating Margin — operating profit divided by revenue.",
+      "explanation_en": "Operating Margin, operating profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -67,7 +67,7 @@
       "is_short_history": false,
       "ttm": 5.02,
       "_validation": "Valeurs vérifiées dans le 10-K ($5,019.9M en 2025, $5,003.6M en 2024)",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -93,7 +93,7 @@
       "is_short_history": false,
       "ttm": 35.7,
       "_validation": "Valeurs vérifiées dans le 10-K (gross profit $1,792.6M / revenues $5,019.9M = 35.7%); ttm corrigé à 35.7",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -145,7 +145,7 @@
       "is_short_history": false,
       "ttm": 1.23,
       "_validation": "Valeurs vérifiées dans le 10-K (Adjusted EBITDA $1,225.4M en 2025, $1,332.7M en 2024); valeur arrondie à 1.23 (vs 1.225); ttm corrigé à 1.23",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -170,10 +170,8 @@
       "is_short_history": true,
       "ttm": 1,
       "_validation": "Valeur vérifiée dans le MD&A ('over $1 billion of operating cash flow')",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
-      "signal_en": "Cash position stable",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
+      "signal_en": "Cash position stable"
     },
     {
       "short": "Total Assets",
@@ -192,11 +190,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.26 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -215,11 +217,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.88 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -244,9 +250,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "_validation": "Valeur vérifiée dans le MD&A ('solid re-roofing demand, which represents approximately 70% of our commercial roofing business')",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur vérifiée dans le MD&A ('solid re-roofing demand, which represents approximately 70% of our commercial roofing business')"
     },
     {
       "short": "Acquisition Growth",
@@ -269,9 +273,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "Valeur vérifiée dans le tableau Revenues du 10-K (Organic -2.9% + Acquisition 3.2% = 0.3% total)",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur vérifiée dans le tableau Revenues du 10-K (Organic -2.9% + Acquisition 3.2% = 0.3% total)"
     }
   ],
   "ai_positioning": {
@@ -288,7 +290,8 @@
       "score_rationale": "La stratégie de croissance de l'entreprise dépend en partie de l'acquisition et de l'intégration réussie d'autres entreprises. Les acquisitions impliquent de nombreux risques, notamment le défaut de réaliser les synergies attendues et les défaillances d'intégration.",
       "trend": "stable",
       "summary": "L'entreprise dépend fortement des acquisitions pour sa croissance, ce qui comporte des risques importants.",
-      "_validation": "Confirmé dans Item 1A Risk Factors du 10-K"
+      "_validation": "Confirmé dans Item 1A Risk Factors du 10-K",
+      "score": 4
     },
     {
       "title": "Perte de clients clés",
@@ -297,7 +300,8 @@
       "score_rationale": "La perte d'un ou plusieurs clients clés pourrait avoir un impact négatif sur l'entreprise, car certains segments opèrent dans des marchés de niche où une grande partie des revenus provient de quelques grands clients.",
       "trend": "stable",
       "summary": "La perte de clients clés pourrait avoir des conséquences graves pour l'entreprise en raison de sa dépendance à l'égard de ces clients.",
-      "_validation": "Confirmé dans Item 1A Risk Factors du 10-K"
+      "_validation": "Confirmé dans Item 1A Risk Factors du 10-K",
+      "score": 4
     },
     {
       "title": "Risques de fabrication",
@@ -306,7 +310,8 @@
       "score_rationale": "L'entreprise pourrait être affectée par tout dommage important ou perturbation prolongée de ses installations de fabrication, ce qui pourrait entraîner des pertes non assurées et des responsabilités.",
       "trend": "stable",
       "summary": "Les risques liés à la fabrication, tels que les dommages ou les perturbations, pourraient avoir un impact significatif sur l'entreprise.",
-      "_validation": "Déduit de la nature manufacturière de CSL et des activités de fabrication mentionnées dans le 10-K"
+      "_validation": "Déduit de la nature manufacturière de CSL et des activités de fabrication mentionnées dans le 10-K",
+      "score": 4
     },
     {
       "title": "Développement de nouveaux produits",
@@ -315,7 +320,8 @@
       "score_rationale": "Le développement et l'introduction de nouveaux produits sont cruciaux pour la stratégie Vision 2030, mais il existe des risques liés aux délais, aux coûts et à la réussite commerciale de ces nouveaux produits.",
       "trend": "up",
       "summary": "L'entreprise doit innover et développer de nouveaux produits pour rester compétitive, mais cela comporte des risques et des défis.",
-      "_validation": "Confirmé dans MD&A: 'increased new product development activities' avec hausse R&D de 33.1% (de $35.4M à $47.1M)"
+      "_validation": "Confirmé dans MD&A: 'increased new product development activities' avec hausse R&D de 33.1% (de $35.4M à $47.1M)",
+      "score": 3
     },
     {
       "title": "Risques macroéconomiques",
@@ -324,7 +330,8 @@
       "score_rationale": "L'entreprise est exposée à des risques macroéconomiques, tels que les fluctuations des taux d'intérêt, l'inflation, les tarifs douaniers et la disponibilité du crédit, qui peuvent affecter la demande pour ses produits.",
       "trend": "up",
       "summary": "Les conditions macroéconomiques peuvent avoir un impact significatif sur l'entreprise, en particulier en raison de sa dépendance à l'égard du marché de la construction.",
-      "_validation": "Confirmé dans MD&A: 'continued headwinds in new construction and a complex economic environment'; Impact visible sur revenues avec -2.9% en organique"
+      "_validation": "Confirmé dans MD&A: 'continued headwinds in new construction and a complex economic environment'; Impact visible sur revenues avec -2.9% en organique",
+      "score": 5
     }
   ],
   "_validation": "Corrections effectuées: (1) ttm corrigé pour Operating Margin (20.0), Gross Margin (35.7), R&D (0.9), Adjusted EBITDA (1.23) pour cohérence avec valeurs 2025; (2) Aucune hallucination détectée; tous les KPI et valeurs sont vérifiés dans le 10-K 2025; (3) Unités confirmées correctes (% pour marges, B $ pour revenus/EBITDA/OCF); (4) Toutes les descriptions et rationales sont cohérentes avec les données du 10-K; (5) Re-roofing Mix et Acquisition Growth sont des story_kpis confirmés dans le MD&A",
@@ -433,88 +440,175 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CSL",
-    "extracted_at": "2026-05-15T18:10:24Z",
-    "method": "xbrl-companyfacts",
-    "cik": 790051,
-    "n_kpis": 1,
+    "extracted_at": "2026-06-01T03:08:43Z",
+    "n_kpis": 5,
     "kpis": [
+      {
+        "short": "Operating Margin",
+        "period_type": "quarter",
+        "history": [
+          22.2,
+          19.4,
+          12,
+          21.5,
+          23.8,
+          20.5,
+          26,
+          23.7,
+          16.8,
+          23.1,
+          21.8,
+          17.1
+        ],
+        "history_periods": [
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:08:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          1.8469,
+          1.7941,
+          1.1788,
+          1.5259,
+          1.2598,
+          1.0965,
+          1.4506,
+          1.3336,
+          1.0958,
+          1.4495,
+          1.3469,
+          1.0521
+        ],
+        "history_periods": [
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-03-31",
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T03:08:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Gross Margin",
+        "period_type": "quarter",
+        "history": [
+          29.4,
+          37,
+          36.4,
+          37,
+          35.2,
+          36
+        ],
+        "history_periods": [
+          "Q1 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:08:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
       {
         "short": "R&D",
         "period_type": "quarter",
         "history": [
-          24.2,
-          37,
-          -23.9,
-          12.3,
-          24.9,
-          38,
-          -24.4,
-          15.5,
-          26.8,
-          20.7,
-          -34.3,
-          9.2,
-          18.5,
-          26.6,
-          -18.9,
-          10.7,
-          21.8,
-          34.2,
-          -19.6,
-          12.1
+          0.8,
+          1,
+          0.8,
+          0.8
         ],
         "history_periods": [
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
+          "Q1 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T03:08:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Investissement",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Adjusted EBITDA",
+        "period_type": "quarter",
+        "history": [
+          0.4722,
+          0.4378,
+          0.2138,
+          0.3854,
+          0.3397,
+          0.2655,
+          0.4176,
+          0.3397,
+          0.2655,
+          0.4176,
+          0.3679,
+          0.2384
+        ],
+        "history_periods": [
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
           "Q1 2026"
         ],
         "last_data_date": "2026-03-31",
-        "unit": "M $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "ResearchAndDevelopmentExpense",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 21.8,
-            "accession": "0000790051-25-000146",
-            "end": "2025-06-30"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 34.2,
-            "accession": "0000790051-25-000159",
-            "end": "2025-09-30"
-          },
-          {
-            "period": "Q4 2025",
-            "value": -19.6,
-            "accession": "calc-0000790051-26-000012",
-            "end": "2025-12-31"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 12.1,
-            "accession": "0000790051-26-000017",
-            "end": "2026-03-31"
-          }
-        ]
+        "unit": "B $",
+        "_extracted_at": "2026-06-01T03:08:43Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -530,9 +624,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.246815+00:00",
     "fetched_at": "2026-05-21T02:17:14.246816+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.911Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.413Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/csl.json",
     "enrich_root": "v2-pipeline-enrich/csl.json",

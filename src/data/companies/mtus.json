@@ -43,7 +43,7 @@
       "ttm": 22.39,
       "_validation": [],
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -73,7 +73,11 @@
       "ttm": 12.64,
       "_validation": [],
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Revenue",
@@ -103,8 +107,12 @@
       "_validation": [
         "Correction unité: 'Mds $' remplacé par 'B $' (convention standard)"
       ],
-      "explanation_en": "Revenue — total sales generated over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "explanation_en": "Revenue, total sales generated over the period.",
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
@@ -132,8 +140,12 @@
       "is_short_history": false,
       "ttm": 122.73,
       "_validation": [],
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -165,8 +177,12 @@
         "Conversion unité: '2.1 K' converti en '2100' headcount (valeur absolue plus claire)"
       ],
       "_employees_synced_from_yfinance": true,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=6)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -193,7 +209,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     },
     {
       "short": "Net Income",
@@ -219,8 +239,12 @@
       "description": "Résultat net extrait SEC EDGAR companyfacts XBRL sur les 8 dernières années fiscales déclarées (10-K).",
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -250,9 +274,7 @@
       "is_short_history": true,
       "story_category": "Risk",
       "ttm": 10.65,
-      "_validation": [],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": []
     },
     {
       "short": "Distributor Sales",
@@ -280,9 +302,7 @@
       "is_short_history": true,
       "story_category": "Marché",
       "ttm": 20,
-      "_validation": [],
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": []
     }
   ],
   "ai_positioning": {
@@ -329,7 +349,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -342,7 +362,8 @@
       "severity": 4,
       "score_rationale": "Le facteur de risque est mentionné tôt dans le document et décrit une concurrence élevée tant aux États-Unis qu'à l'étranger, avec des concurrents bien établis dans chaque segment de produit. Le langage utilisé est ferme et répété, indiquant une pression constante sur les prix, la qualité et les coûts. La catégorie Concurrence a une pondération moyenne à élevée dans l'industrie sidérurgique.",
       "trend": "stable",
-      "summary": "La société fait face à une forte concurrence de producteurs nationaux et étrangers, ce qui peut affecter ses parts de marché, ses prix et sa rentabilité."
+      "summary": "La société fait face à une forte concurrence de producteurs nationaux et étrangers, ce qui peut affecter ses parts de marché, ses prix et sa rentabilité.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix des matières premières",
@@ -350,7 +371,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est abordé en détail, avec une explication des mécanismes de surcharge et de couverture partielle. Le langage souligne l'impact significatif des fluctuations des prix du fer, des alliages et de l'énergie. Bien que des mesures d'atténuation existent, le décalage temporel (lag) est explicitement mentionné comme un risque. La catégorie Macro est hautement pondérée en raison de l'exposition aux marchés mondiaux.",
       "trend": "stable",
-      "summary": "Les variations des prix des matières premières comme le fer recyclé, le nickel ou le molybdène peuvent affecter les coûts de production et la marge brute."
+      "summary": "Les variations des prix des matières premières comme le fer recyclé, le nickel ou le molybdène peuvent affecter les coûts de production et la marge brute.",
+      "score": 4
     },
     {
       "title": "Dépendance à un client majeur",
@@ -358,7 +380,8 @@
       "severity": 3,
       "score_rationale": "Un client représente 10,6 % des ventes en 2025, dépassant le seuil de 10 %. Ce risque est factuel et mesuré, sans langage alarmiste, mais il est récurrent dans les rapports. La perte de ce client aurait un impact significatif mais pas existentiel. La catégorie Concurrence inclut ici la concentration clientèle.",
       "trend": "stable",
-      "summary": "La société dépend d'un seul client pour plus de 10 % de ses ventes, ce qui crée un risque commercial si cette relation venait à être rompue."
+      "summary": "La société dépend d'un seul client pour plus de 10 % de ses ventes, ce qui crée un risque commercial si cette relation venait à être rompue.",
+      "score": 3
     },
     {
       "title": "Risques liés aux contrats de défense",
@@ -366,7 +389,8 @@
       "severity": 4,
       "score_rationale": "Le contrat de 99,75 millions avec l'armée américaine est un élément clé d'investissement. Le risque est implicite : dépendance à des financements publics, respect des délais, et risques géopolitiques sous-jacents. Le montant en jeu et la nature stratégique du projet justifient une sévérité élevée. Le langage est mesuré mais le contexte actuel de production d'armement renforce l'importance.",
       "trend": "new",
-      "summary": "L'exécution du contrat avec l'armée américaine comporte des risques opérationnels, financiers et politiques liés aux délais, aux coûts et à la stabilité des financements."
+      "summary": "L'exécution du contrat avec l'armée américaine comporte des risques opérationnels, financiers et politiques liés aux délais, aux coûts et à la stabilité des financements.",
+      "score": 4
     },
     {
       "title": "Interruptions opérationnelles imprévues",
@@ -374,7 +398,8 @@
       "severity": 4,
       "score_rationale": "Le downtime imprévu de 2022 au site de Faircrest a eu un impact financier significatif, avec des pertes couvertes en partie par l'assurance. Ce risque est cité comme récent et coûteux. Le langage montre que l'incident a été majeur, bien que résolu. La catégorie Industriel est critique pour une usine sidérurgique.",
       "trend": "stable",
-      "summary": "Des pannes ou interruptions imprévues dans les installations de production peuvent entraîner des pertes de revenus et des coûts supplémentaires."
+      "summary": "Des pannes ou interruptions imprévues dans les installations de production peuvent entraîner des pertes de revenus et des coûts supplémentaires.",
+      "score": 4
     },
     {
       "title": "Réglementation environnementale en évolution",
@@ -382,7 +407,8 @@
       "severity": 3,
       "score_rationale": "La société est identifiée comme partie potentiellement responsable sous plusieurs lois environnementales fédérales. Bien que les provisions soient faibles (0,2 M$), le risque de futures réglementations sur le carbone est explicitement mentionné comme incertain. Le langage est prudent, mais le potentiel de changement réglementaire majeur justifie une sévérité modérée à élevée.",
       "trend": "up",
-      "summary": "Les obligations environnementales actuelles et futures, notamment liées aux émissions de carbone, pourraient entraîner des coûts accrus ou des contraintes opérationnelles."
+      "summary": "Les obligations environnementales actuelles et futures, notamment liées aux émissions de carbone, pourraient entraîner des coûts accrus ou des contraintes opérationnelles.",
+      "score": 3
     }
   ],
   "_kpis_cleaned": [
@@ -597,9 +623,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.285700+00:00",
     "fetched_at": "2026-05-21T02:17:14.285701+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.717Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.604Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mtus.json",
     "enrich_root": "v2-pipeline-enrich/mtus.json",

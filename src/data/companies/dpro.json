@@ -38,7 +38,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -63,7 +63,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -119,24 +119,29 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+900.0%",
       "history": [
-        0.01,
-        0.01,
-        0.01,
-        0.1
+        10,
+        10,
+        10,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.1 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -155,32 +160,41 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+800.0%",
       "history": [
-        0.01,
+        10,
         0,
-        0.01,
-        0.09
+        10,
+        90
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.09 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -206,9 +220,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     },
     {
       "short": "Gross Margin",
@@ -232,9 +244,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -313,7 +323,8 @@
       "severity": 4,
       "score_rationale": "Risque métier spécifique mentionné explicitement (paragraphe dédié). Langage modéré mais impact direct sur capacité R&D. Tendance stable mais structurelle. Poids élevé : R&D est cœur de métier pour technologies UAV.",
       "trend": "stable",
-      "summary": "Draganfly dépend partiellement du financement gouvernemental canadien et des rebates énergétiques pour ses activités R&D. Toute réduction de ces financements ou des incitations gouvernementales réduirait directement la capacité d'innovation et de développement produit de l'entreprise."
+      "summary": "Draganfly dépend partiellement du financement gouvernemental canadien et des rebates énergétiques pour ses activités R&D. Toute réduction de ces financements ou des incitations gouvernementales réduirait directement la capacité d'innovation et de développement produit de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Approbations réglementaires Transport Canada et certificats SFOC",
@@ -321,7 +332,8 @@
       "severity": 5,
       "score_rationale": "Risque critique mentionné 3 fois avec langage fort (« may prevent », « no assurance »). Position centrale dans Item 1A. Régulation RPAS en évolution constante. Poids maximal : opérations dépendent entièrement de SFOC valides.",
       "trend": "up",
-      "summary": "L'exploitation des RPAS (drones) au Canada requiert des certificats SFOC de Transport Canada. L'évolution rapide du cadre réglementaire crée un risque de non-conformité involontaire et peut imposer des changements opérationnels coûteux. Absence d'approbation bloquerait développement, tests et ventes."
+      "summary": "L'exploitation des RPAS (drones) au Canada requiert des certificats SFOC de Transport Canada. L'évolution rapide du cadre réglementaire crée un risque de non-conformité involontaire et peut imposer des changements opérationnels coûteux. Absence d'approbation bloquerait développement, tests et ventes.",
+      "score": 5
     },
     {
       "title": "Préoccupations publiques sur la vie privée et restrictions d'usage",
@@ -329,7 +341,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement deux fois avec langage prudent (« no assurance », « may delay or restrict »). Impact direct sur marché civil non-militaire. Tendance up : préoccupations croissantes. Poids élevé pour segment commercial.",
       "trend": "up",
-      "summary": "Les préoccupations publiques concernant la vie privée des opérations de drones civils et policiers pourraient conduire à des restrictions réglementaires ou à un ralentissement de l'adoption par les clients non-militaires, limitant l'expansion du marché commercial."
+      "summary": "Les préoccupations publiques concernant la vie privée des opérations de drones civils et policiers pourraient conduire à des restrictions réglementaires ou à un ralentissement de l'adoption par les clients non-militaires, limitant l'expansion du marché commercial.",
+      "score": 4
     },
     {
       "title": "Intensification de la concurrence UAV et obsolescence technologique",
@@ -337,7 +350,8 @@
       "severity": 4,
       "score_rationale": "Risque métier majeur avec paragraphes détaillés. Langage fort (« intensify », « render obsolete »). Marché UAV en évolution rapide. Poids élevé : compétition directe sur prix, qualité et innovation produit.",
       "trend": "up",
-      "summary": "Le marché des UAV est hautement compétitif avec émergence continue de nouveaux concurrents. Risque que des concurrents offrent des produits supérieurs, à prix plus bas, ou que les technologies de Draganfly deviennent obsolètes. Changements technologiques rapides exigent R&D continue."
+      "summary": "Le marché des UAV est hautement compétitif avec émergence continue de nouveaux concurrents. Risque que des concurrents offrent des produits supérieurs, à prix plus bas, ou que les technologies de Draganfly deviennent obsolètes. Changements technologiques rapides exigent R&D continue.",
+      "score": 4
     },
     {
       "title": "Marché UAV commercial en phase précoce d'adoption",
@@ -345,7 +359,8 @@
       "severity": 4,
       "score_rationale": "Risque métier spécifique au secteur UAV. Langage modéré mais impact structurel (« early stages », « difficult to evaluate »). Tendance stable mais persistant. Poids élevé : incertitude sur demande client et croissance.",
       "trend": "stable",
-      "summary": "Le marché commercial des UAV est encore en phase précoce d'adoption avec demande imprévisible. Draganfly ne peut pas prédire avec certitude l'ampleur de la demande future, compliquant la planification financière et opérationnelle."
+      "summary": "Le marché commercial des UAV est encore en phase précoce d'adoption avec demande imprévisible. Draganfly ne peut pas prédire avec certitude l'ampleur de la demande future, compliquant la planification financière et opérationnelle.",
+      "score": 4
     },
     {
       "title": "Rétention des cadres et personnel clé en R&D",
@@ -353,7 +368,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique mentionné avec langage modéré (« may not be able to replace »). Contexte : marché compétitif pour talents. Tendance stable. Poids moyen : dépendance à expertise technique en drones.",
       "trend": "stable",
-      "summary": "Le succès futur dépend de la rétention des cadres dirigeants et du personnel clé en R&D. Risque que des employés clés rejoignent des concurrents ou créent des entreprises rivales, emportant expertise et technologies de drones."
+      "summary": "Le succès futur dépend de la rétention des cadres dirigeants et du personnel clé en R&D. Risque que des employés clés rejoignent des concurrents ou créent des entreprises rivales, emportant expertise et technologies de drones.",
+      "score": 3
     },
     {
       "title": "Risques opérationnels et couverture d'assurance inadéquate",
@@ -361,7 +377,8 @@
       "severity": 3,
       "score_rationale": "Risque métier spécifique aux opérations RPAS. Langage modéré (« may not be adequately insured »). Énumération de risques (accidents, incidents). Tendance stable. Poids moyen : impact potentiel sur responsabilité civile.",
       "trend": "stable",
-      "summary": "Les opérations de RPAS exposent Draganfly à des risques opérationnels (accidents, incidents, dommages) pour lesquels l'assurance peut être inadéquate ou trop coûteuse. Incidents impliquant des drones pourraient créer des responsabilités légales et gouvernementales significatives."
+      "summary": "Les opérations de RPAS exposent Draganfly à des risques opérationnels (accidents, incidents, dommages) pour lesquels l'assurance peut être inadéquate ou trop coûteuse. Incidents impliquant des drones pourraient créer des responsabilités légales et gouvernementales significatives.",
+      "score": 3
     },
     {
       "title": "Risques d'intégration et de diligence raisonnable en acquisitions",
@@ -369,7 +386,8 @@
       "severity": 3,
       "score_rationale": "Risque métier lié à stratégie de croissance par acquisition. Langage modéré énumérant risques spécifiques (intégration, passifs cachés). Tendance stable. Poids moyen : acquisitions sont partie de stratégie mais non garanties.",
       "trend": "stable",
-      "summary": "Toute acquisition stratégique future expose Draganfly à des risques d'intégration opérationnelle, de passifs cachés, de perte de clients/employés et d'incapacité à générer des revenus compensant les coûts d'acquisition."
+      "summary": "Toute acquisition stratégique future expose Draganfly à des risques d'intégration opérationnelle, de passifs cachés, de perte de clients/employés et d'incapacité à générer des revenus compensant les coûts d'acquisition.",
+      "score": 3
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:39:57.732682+00:00",
@@ -534,9 +552,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.252086+00:00",
     "fetched_at": "2026-05-21T02:17:14.252087+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.378Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:55.947Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dpro.json",
     "enrich_root": "v2-pipeline-enrich/dpro.json",

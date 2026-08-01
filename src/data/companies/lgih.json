@@ -39,7 +39,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 19.95,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -65,7 +65,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 1.61,
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Significant revenue decline, warning signal"
     },
     {
@@ -116,7 +116,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 363696.51,
-      "explanation_en": "Average Selling Price — total sales divided by units sold.",
+      "explanation_en": "Average Selling Price, total sales divided by units sold.",
       "signal_en": "Revenue pressure, demand softening"
     },
     {
@@ -166,10 +166,13 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 18.47,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "KPI 'Wholesale Mix' (part des ventes en gros en %) n'est pas mentionné explicitement dans l'extrait du 10-K fourni. Aucune valeur annuelle c",
-      "signal_en": "Mix improving, premiumization underway"
+      "signal_en": "Mix improving, premiumization underway",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -194,7 +197,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 61.17,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -214,11 +217,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.93 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -244,9 +251,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 18.47,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 18.47
     },
     {
       "short": "Gross Margin",
@@ -270,9 +275,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 19.95,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 19.95
     }
   ],
   "ai_positioning": {
@@ -288,7 +291,8 @@
       "severity": 4,
       "score_rationale": "L'entreprise mentionne explicitement les contraintes d'accessibilité comme un facteur clé impactant le taux d'absorption et les fermetures de maisons. Ce facteur macroéconomique a un impact significatif sur le volume et les marges.",
       "trend": "stable",
-      "summary": "Les contraintes d'accessibilité résidentielle continuent de peser sur la demande de maisons neuves et le taux d'absorption."
+      "summary": "Les contraintes d'accessibilité résidentielle continuent de peser sur la demande de maisons neuves et le taux d'absorption.",
+      "score": 4
     },
     {
       "title": "Défaut de paiement",
@@ -296,7 +300,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise a des arrangements de financement avec des banques pour acquérir des terrains, ce qui comporte un risque de défaut de paiement. Cependant, le montant en jeu est limité.",
       "trend": "stable",
-      "summary": "L'entreprise pourrait faire face à des difficultés financières si elle ne parvient pas à rembourser ses dettes."
+      "summary": "L'entreprise pourrait faire face à des difficultés financières si elle ne parvient pas à rembourser ses dettes.",
+      "score": 3
     },
     {
       "title": "Risques liés aux garanties",
@@ -304,7 +309,8 @@
       "severity": 3,
       "score_rationale": "L'entreprise offre des garanties à ses clients, ce qui comporte un risque de coûts supplémentaires en cas de réclamations. Cependant, l'entreprise a une réserve pour garanties pour couvrir ces coûts.",
       "trend": "stable",
-      "summary": "L'entreprise pourrait subir des coûts supplémentaires si les réclamations de garanties dépassent les prévisions."
+      "summary": "L'entreprise pourrait subir des coûts supplémentaires si les réclamations de garanties dépassent les prévisions.",
+      "score": 3
     },
     {
       "title": "Risques liés aux réglementations",
@@ -312,7 +318,8 @@
       "severity": 2,
       "score_rationale": "L'entreprise est soumise à des réglementations gouvernementales, ce qui comporte un risque de non-conformité. Cependant, l'entreprise semble être en conformité avec les réglementations actuelles.",
       "trend": "stable",
-      "summary": "L'entreprise pourrait faire face à des amendes ou des pénalités si elle ne se conforme pas aux réglementations gouvernementales."
+      "summary": "L'entreprise pourrait faire face à des amendes ou des pénalités si elle ne se conforme pas aux réglementations gouvernementales.",
+      "score": 2
     },
     {
       "title": "Risques liés à la concurrence",
@@ -320,7 +327,8 @@
       "severity": 2,
       "score_rationale": "L'entreprise opère dans un marché concurrentiel, ce qui comporte un risque de perte de parts de marché. Cependant, l'entreprise semble avoir une position solide sur le marché.",
       "trend": "stable",
-      "summary": "L'entreprise pourrait subir une perte de parts de marché si elle ne parvient pas à maintenir sa compétitivité."
+      "summary": "L'entreprise pourrait subir une perte de parts de marché si elle ne parvient pas à maintenir sa compétitivité.",
+      "score": 2
     }
   ],
   "governance": {
@@ -354,7 +362,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -598,9 +606,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.276421+00:00",
     "fetched_at": "2026-05-21T02:17:14.276422+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:32.998Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:58.784Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lgih.json",
     "enrich_root": "v2-pipeline-enrich/lgih.json",

@@ -67,8 +67,8 @@
       "name_fr": "Passifs réglementaires",
       "name_en": "Regulatory Liabilities",
       "explanation": "Montants collectés auprès des clients pour des coûts futurs ou excédents remboursables",
-      "value": 1444,
-      "unit": "M $",
+      "value": 1.444,
+      "unit": "Mds $",
       "yoy": "+16.1%",
       "type": "Balance Sheet",
       "nature": "Structurel",
@@ -76,8 +76,8 @@
       "signal": "Augmentation significative des passifs réglementaires collectés auprès des clients",
       "description": "Les passifs réglementaires représentent les montants collectés auprès des clients pour des coûts futurs ou des excédents remboursables aux clients",
       "history": [
-        1244,
-        1444
+        1.244,
+        1.444
       ],
       "last_data_date": "2025-12-31",
       "is_wow": true,
@@ -85,10 +85,14 @@
       "is_short_history": false,
       "ttm": 1502.04,
       "_validation": "YoY corrigé de +16% à +16.1% (1244 to 1444), nature corrigée de Conjoncturel à Structurel, type corrigé de Risk à Balance Sheet, is_wow corrigé de false à true",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Regulatory Liabilities (Passifs réglementaires) not found with explicit annual values in the provided 10-K extract. The document excerpt con",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -113,36 +117,45 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.09 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:42.109517+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "+109.2%",
       "history": [
-        0.24,
-        0.2,
-        -1.42,
-        0.13
+        240,
+        200,
+        -1420,
+        130
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.13 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -161,11 +174,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 8.92 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -184,33 +201,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.96 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.5,
-      "unit": "Mds €",
+      "value": 500,
+      "unit": "M €",
       "yoy": "-33.3%",
       "history": [
-        0.2,
-        0.24,
-        0.75,
-        0.5
+        200,
+        240,
+        750,
+        500
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.5 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -236,9 +262,7 @@
       "is_short_history": true,
       "story_category": "Risk",
       "ttm": 47.8,
-      "_validation": "Valeur confirmée dans source (Securities Action Stipulation of Settlement 47.8M), history corrigée (suppression du malformation '47, 8'), nature corrigée de Conjoncturel à Événementiel, is_wow corrigé de false à true, type corrigé de Risk à Contingent Liability, ttm corrigé de 6.34 à 47.8",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Valeur confirmée dans source (Securities Action Stipulation of Settlement 47.8M), history corrigée (suppression du malformation '47, 8'), nature corrigée de Conjoncturel à Événementiel, is_wow corrigé de false à true, type corrigé de Risk à Contingent Liability, ttm corrigé de 6.34 à 47.8"
     }
   ],
   "ai_positioning": {
@@ -254,7 +278,8 @@
       "severity": 5,
       "score_rationale": "La société est entièrement dépendante de la réglementation par la Hawaii Public Utilities Commission, qui affecte la reconnaissance des revenus, des dépenses, des actifs et des passifs. Les passifs réglementaires ont atteint 1.4 Mds$.",
       "trend": "stable",
-      "summary": "La réglementation de la PUC a un impact significatif sur les résultats et le bilan de la société."
+      "summary": "La réglementation de la PUC a un impact significatif sur les résultats et le bilan de la société.",
+      "score": 5
     },
     {
       "title": "Actifs réglementaires reportés",
@@ -262,7 +287,8 @@
       "severity": 4,
       "score_rationale": "Les actifs réglementaires de 308 M$ représentent des coûts engagés reportés dont la récupération dépend des futurs tarifs approuvés par la PUC, ce qui crée une incertitude.",
       "trend": "stable",
-      "summary": "Les actifs réglementaires peuvent ne pas être recouvrés si l'environnement réglementaire change."
+      "summary": "Les actifs réglementaires peuvent ne pas être recouvrés si l'environnement réglementaire change.",
+      "score": 4
     },
     {
       "title": "Obligations de retraite",
@@ -270,7 +296,8 @@
       "severity": 3,
       "score_rationale": "Les obligations de retraite de la société sont importantes et peuvent avoir un impact significatif sur les résultats et la liquidité.",
       "trend": "stable",
-      "summary": "Les obligations de retraite non provisionnées pourraient affecter les résultats futurs."
+      "summary": "Les obligations de retraite non provisionnées pourraient affecter les résultats futurs.",
+      "score": 3
     },
     {
       "title": "Litiges relatifs aux incendies de Maui",
@@ -278,7 +305,8 @@
       "severity": 5,
       "score_rationale": "La société fait face à des contentieux majeurs et des accords de règlement suite aux incendies de Maui, avec une provision d'au moins 47.8 M$ plus un règlement dérivé de 100 M$, pouvant avoir un impact significatif.",
       "trend": "new",
-      "summary": "Les contentieux liés aux incendies de Maui pourraient résulter en des jugements défavorables et en charges financières importantes."
+      "summary": "Les contentieux liés aux incendies de Maui pourraient résulter en des jugements défavorables et en charges financières importantes.",
+      "score": 5
     },
     {
       "title": "Risques de taux d'intérêt",
@@ -286,7 +314,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux risques de taux d'intérêt sur ses emprunts importants, y compris les 500 M$ émis en septembre 2025 à 6.00%.",
       "trend": "stable",
-      "summary": "Les variations de taux d'intérêt peuvent augmenter significativement les frais d'intérêts futurs."
+      "summary": "Les variations de taux d'intérêt peuvent augmenter significativement les frais d'intérêts futurs.",
+      "score": 4
     },
     {
       "title": "Risques de liquidité et financement",
@@ -294,7 +323,8 @@
       "severity": 4,
       "score_rationale": "La société doit lever du capital substantiel pour financer les accords de règlement des litiges liés aux incendies de Maui et les investissements d'infrastructure.",
       "trend": "stable",
-      "summary": "L'accès au financement peut être limité si les conditions de marché se détériorent."
+      "summary": "L'accès au financement peut être limité si les conditions de marché se détériorent.",
+      "score": 4
     },
     {
       "title": "Risques de conformité réglementaire",
@@ -302,7 +332,8 @@
       "severity": 3,
       "score_rationale": "La demande en juin 2025 de résilier les Affiliate Transaction Rules (ATRs) et la requête révisée en octobre 2025 présentent une incertitude réglementaire.",
       "trend": "active",
-      "summary": "Les changements réglementaires dans les structures d'affiliation pourraient nécessiter une réorganisation opérationnelle majeure."
+      "summary": "Les changements réglementaires dans les structures d'affiliation pourraient nécessiter une réorganisation opérationnelle majeure.",
+      "score": 3
     }
   ],
   "governance": {
@@ -356,7 +387,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -528,9 +559,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.270890+00:00",
     "fetched_at": "2026-05-21T02:17:14.270891+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.997Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.645Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/he.json",
     "enrich_root": "v2-pipeline-enrich/he.json",

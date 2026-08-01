@@ -131,24 +131,29 @@
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.01,
-        0.04,
-        0.03,
-        0.03
+        10,
+        40,
+        30,
+        30
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.03 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -167,10 +172,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.0 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings."
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -189,9 +198,13 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.0 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet"
+      "_source": "bilan consolidé",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -228,7 +241,8 @@
       "severity": 5,
       "score_rationale": "Risque fondamental situé en début d'Item 3D, langage très direct (« limited operating history », « not yet generated any revenue »). Accumulation de pertes de C$42,5M au 30 juin 2025. Tendance stable mais critique pour une exploration stage company. Poids catégorie maximal : viabilité même de l'entreprise.",
       "trend": "stable",
-      "summary": "Frontier n'a généré aucun revenu depuis sa création en mai 2018 et accumule un déficit de C$42,5M. L'entreprise prévoit de continuer à enregistrer des pertes significatives pendant des années en phase d'exploration, sans garantie de rentabilité future ou de transition vers la production commerciale."
+      "summary": "Frontier n'a généré aucun revenu depuis sa création en mai 2018 et accumule un déficit de C$42,5M. L'entreprise prévoit de continuer à enregistrer des pertes significatives pendant des années en phase d'exploration, sans garantie de rentabilité future ou de transition vers la production commerciale.",
+      "score": 5
     },
     {
       "title": "Risque d'exploration minier sans succès garanti",
@@ -236,7 +250,8 @@
       "severity": 5,
       "score_rationale": "Risque métier central répété trois fois dans Item 3D (« exploration stage », « no assurance », « few properties... ultimately developed »). Langage très prudent et répétitif indiquant une préoccupation majeure. Spécifique à l'activité d'exploration uranium. Poids catégorie très élevé pour une junior explorer.",
       "trend": "stable",
-      "summary": "Tous les projets minéraux de Frontier sont en phase d'exploration. Il n'existe aucune garantie que les efforts d'exploration aboutiront à une production commerciale viable. Même si des gisements commerciaux sont découverts, leur viabilité économique dépend de facteurs incontrôlables (prix des métaux, régulation, infrastructure)."
+      "summary": "Tous les projets minéraux de Frontier sont en phase d'exploration. Il n'existe aucune garantie que les efforts d'exploration aboutiront à une production commerciale viable. Même si des gisements commerciaux sont découverts, leur viabilité économique dépend de facteurs incontrôlables (prix des métaux, régulation, infrastructure).",
+      "score": 5
     },
     {
       "title": "Dépendance critique au financement externe",
@@ -244,7 +259,8 @@
       "severity": 5,
       "score_rationale": "Risque explicitement nommé dans la liste sommaire et développé en détail. Trésorerie limitée (C$17,8M au 30 juin 2025) insuffisante pour exécuter le plan d'affaires. Langage d'alerte (« may be at risk », « could result in substantial dilution »). Tendance up : besoin de financement croissant avec expansion exploration.",
       "trend": "up",
-      "summary": "Frontier dispose de liquidités limitées (C$17,8M) et aura besoin de financements supplémentaires pour poursuivre exploration, développement et opérations. Tout financement par dilution d'actions ou dette restrictive pourrait compromettre la flexibilité opérationnelle ou la viabilité financière."
+      "summary": "Frontier dispose de liquidités limitées (C$17,8M) et aura besoin de financements supplémentaires pour poursuivre exploration, développement et opérations. Tout financement par dilution d'actions ou dette restrictive pourrait compromettre la flexibilité opérationnelle ou la viabilité financière.",
+      "score": 5
     },
     {
       "title": "Absence d'expérience en extraction et vente d'uranium",
@@ -252,7 +268,8 @@
       "severity": 4,
       "score_rationale": "Risque métier spécifique à l'uranium, explicitement énoncé dans Item 3D. Frontier n'a jamais extrait ni vendu d'uranium. Langage direct sur l'impact sur la génération de revenus. Tendance stable mais critique pour la transition exploration → production. Poids catégorie élevé : compétence opérationnelle manquante.",
       "trend": "stable",
-      "summary": "Frontier n'a aucun historique d'extraction d'uranium ni de vente commerciale. L'incapacité à développer directement des projets comme Pine Ridge en mines productives compromettrait gravement la génération de revenus et la viabilité du modèle économique."
+      "summary": "Frontier n'a aucun historique d'extraction d'uranium ni de vente commerciale. L'incapacité à développer directement des projets comme Pine Ridge en mines productives compromettrait gravement la génération de revenus et la viabilité du modèle économique.",
+      "score": 4
     },
     {
       "title": "Volatilité des prix de l'uranium et sources énergétiques alternatives",
@@ -260,7 +277,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement listé dans Item 3D comme facteur affectant projets uranium. Langage modéré mais reconnaissant l'impact « adverse ». Tendance up : transition énergétique mondiale crée incertitude long terme sur demande uranium. Poids catégorie élevé : détermine viabilité économique des projets.",
       "trend": "up",
-      "summary": "Les fluctuations du prix de l'uranium et l'émergence de sources énergétiques alternatives (énergies renouvelables, nucléaire de nouvelle génération) pourraient réduire la demande et la viabilité économique des projets uranium de Frontier, forçant l'abandon ou le report de projets."
+      "summary": "Les fluctuations du prix de l'uranium et l'émergence de sources énergétiques alternatives (énergies renouvelables, nucléaire de nouvelle génération) pourraient réduire la demande et la viabilité économique des projets uranium de Frontier, forçant l'abandon ou le report de projets.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et environnementaux stricts",
@@ -268,7 +286,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement énoncé deux fois dans Item 3D (« stringent laws », « environmental regulation »). Langage d'alerte sur dépassement de coûts anticipés et retards substantiels. Tendance up : régulation uranium et environnementale se durcit globalement. Poids catégorie élevé : uranium hautement régulé.",
       "trend": "up",
-      "summary": "L'industrie de l'uranium est soumise à des lois et normes environnementales très strictes. Tout durcissement réglementaire pourrait imposer des dépenses d'investissement non anticipées, des retards substantiels ou l'impossibilité de développer certains projets, affectant gravement les opérations."
+      "summary": "L'industrie de l'uranium est soumise à des lois et normes environnementales très strictes. Tout durcissement réglementaire pourrait imposer des dépenses d'investissement non anticipées, des retards substantiels ou l'impossibilité de développer certains projets, affectant gravement les opérations.",
+      "score": 4
     },
     {
       "title": "Risques opérationnels extraordinaires et assurance insuffisante",
@@ -276,7 +295,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique à l'exploration minière énoncé dans Item 3D. Frontier ne s'assure pas contre ces risques (« currently do not insure »). Langage direct sur dépassement de responsabilité (« liability may exceed resources »). Tendance stable mais critique pour phase exploration. Poids catégorie élevé : risques physiques importants.",
       "trend": "stable",
-      "summary": "L'exploration minière comporte des risques opérationnels extraordinaires (effondrements, accidents). Frontier ne dispose pas d'assurance adéquate contre ces risques. En cas d'incident grave, la responsabilité pourrait dépasser les ressources disponibles, causant un impact financier dévastateur."
+      "summary": "L'exploration minière comporte des risques opérationnels extraordinaires (effondrements, accidents). Frontier ne dispose pas d'assurance adéquate contre ces risques. En cas d'incident grave, la responsabilité pourrait dépasser les ressources disponibles, causant un impact financier dévastateur.",
+      "score": 4
     },
     {
       "title": "Incertitude sur les titres de propriété des projets minéraux",
@@ -284,7 +304,8 @@
       "severity": 3,
       "score_rationale": "Risque énoncé dans Item 3D (« no guarantee... free from title defects »). Langage prudent mais reconnaissant l'existence du risque. Tendance stable. Poids catégorie modéré : risque juridique spécifique aux droits miniers, mais moins critique que financement ou exploration.",
       "trend": "stable",
-      "summary": "Il n'existe aucune garantie que les intérêts de Frontier dans ses projets minéraux sont exempts de vices de titre ou de réclamations tierces. Des défauts de titre pourraient compromettre ou invalider les droits d'exploration et de développement sur les propriétés clés."
+      "summary": "Il n'existe aucune garantie que les intérêts de Frontier dans ses projets minéraux sont exempts de vices de titre ou de réclamations tierces. Des défauts de titre pourraient compromettre ou invalider les droits d'exploration et de développement sur les propriétés clés.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:38:02.905996+00:00",
@@ -336,9 +357,9 @@
     "country": "Canada",
     "_data_freshness_date": "2026-05-21T02:17:14.262776+00:00",
     "fetched_at": "2026-05-21T02:17:14.262777+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.363Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.943Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/fnuc.json",
     "enrich_root": null,

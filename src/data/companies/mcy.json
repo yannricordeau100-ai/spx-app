@@ -1,6 +1,6 @@
 {
   "ticker": "MCY",
-  "name": "Mercury General Corporation",
+  "name": "Mercury General",
   "sector": "Finance",
   "subsector": "Assurance",
   "tagline": "Leading regional property and casualty insurer with strong capital management and regulatory compliance",
@@ -67,9 +67,7 @@
       "is_short_history": true,
       "ttm": 350,
       "explanation_en": "RBC ratio.",
-      "signal_en": "Flat year-over-year, monitor closely",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Flat year-over-year, monitor closely"
     },
     {
       "short": "Premiums to Surplus Ratio",
@@ -92,9 +90,7 @@
       "is_generic": false,
       "is_short_history": true,
       "ttm": 2.39,
-      "explanation_en": "Premiums to Surplus ratio.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Premiums to Surplus ratio."
     },
     {
       "short": "Total Revenue",
@@ -113,34 +109,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 5.99 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.54,
-      "unit": "Mds €",
+      "value": 540,
+      "unit": "M €",
       "yoy": "+14.9%",
       "history": [
-        -0.51,
-        0.1,
-        0.47,
-        0.54
+        -510,
+        100,
+        470,
+        540
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.54 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,34 +164,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.56 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.59,
-      "unit": "Mds €",
+      "value": 590,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.42,
-        0.59,
-        0.59,
-        0.59
+        420,
+        590,
+        590,
+        590
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.59 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -205,10 +219,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.32 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -270,52 +288,52 @@
       "title": "Cybersecurity",
       "category": "Cybersecurity",
       "severity": 5,
-      "score_rationale": "The Board considers cybersecurity risk as critical to the enterprise with full Board oversight through the Enterprise Risk Management program. Regular independent third-party technology assessments are conducted, and the CEO provides Information Security Incident Reports to the Board. (score par défaut, à affiner)",
+      "score_rationale": "The Board considers cybersecurity risk as critical to the enterprise with full Board oversight through the Enterprise Risk Management program. Regular independent third-party technology assessments are conducted, and the CEO provides Information Security Incident Reports to the Board.",
       "trend": "stable",
       "summary": "The company is exposed to cybersecurity risks including attacks on information technology systems that could have serious consequences for operations and reputation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Regulatory Changes",
       "category": "Regulation",
       "severity": 4,
-      "score_rationale": "The company operates under strict insurance regulations, particularly in California. Recent regulations (late 2024) on catastrophe modeling and reinsurance cost incorporation impact pricing and market share requirements effective July 2026. (score par défaut, à affiner)",
+      "score_rationale": "The company operates under strict insurance regulations, particularly in California. Recent regulations (late 2024) on catastrophe modeling and reinsurance cost incorporation impact pricing and market share requirements effective July 2026.",
       "trend": "up",
       "summary": "Regulatory changes, including California's Sustainable Insurance Strategy requiring market-share alignment to 85% in wildfire-prone areas, can affect the company's ability to operate and maintain competitiveness.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Catastrophe Risk",
       "category": "Industrial",
       "severity": 5,
-      "score_rationale": "The company is highly exposed to catastrophe risks including hurricanes, wildfires, fires, and earthquakes. The January 2025 Palisades and Eaton wildfires resulted in a $50 million California FAIR Plan assessment. (score par défaut, à affiner)",
+      "score_rationale": "The company is highly exposed to catastrophe risks including hurricanes, wildfires, fires, and earthquakes. The January 2025 Palisades and Eaton wildfires resulted in a $50 million California FAIR Plan assessment.",
       "trend": "up",
       "summary": "Natural catastrophes can result in significant losses for the company, particularly through claims expenses and FAIR Plan assessments. Climate change is increasing the frequency and severity of catastrophic events.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Competition",
       "category": "Competition",
       "severity": 4,
-      "score_rationale": "The company operates in a competitive market where larger competitors with greater financial resources may impact market share and profitability. (score par défaut, à affiner)",
+      "score_rationale": "The company operates in a competitive market where larger competitors with greater financial resources may impact market share and profitability.",
       "trend": "stable",
       "summary": "Increased competition can lead to pricing pressure and reduced profit margins for the company.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Climate Change",
       "category": "Environment",
       "severity": 4,
-      "score_rationale": "The company faces increasing exposure to climate-related risks through higher frequency and severity of natural catastrophes, particularly wildfires and weather-related events in its primary markets. (score par défaut, à affiner)",
+      "score_rationale": "The company faces increasing exposure to climate-related risks through higher frequency and severity of natural catastrophes, particularly wildfires and weather-related events in its primary markets.",
       "trend": "up",
       "summary": "Climate change impacts can result in increased claims and repair costs for the company, requiring stronger capital management and reinsurance strategies.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Interest Rate Risk",
       "category": "Market",
       "severity": 3,
-      "score_rationale": "The company invests substantially in interest-sensitive assets, with 82.5% of total investments in fixed maturity securities. Interest rate changes directly impact portfolio value and reinvestment income. (score par défaut, à affiner)",
+      "score_rationale": "The company invests substantially in interest-sensitive assets, with 82.5% of total investments in fixed maturity securities. Interest rate changes directly impact portfolio value and reinvestment income.",
       "trend": "stable",
       "summary": "Rising interest rates decrease fixed maturity portfolio value; declining rates may trigger early calls and force reinvestment at lower yields, reducing investment income.",
       "score": 3
@@ -324,7 +342,7 @@
       "title": "Litigation Risk",
       "category": "Litigation",
       "severity": 3,
-      "score_rationale": "The company faces potential litigation exposure inherent in insurance operations, though recent market conduct examinations have not identified material findings. (score par défaut, à affiner)",
+      "score_rationale": "The company faces potential litigation exposure inherent in insurance operations, though recent market conduct examinations have not identified material findings.",
       "trend": "stable",
       "summary": "Litigation can result in costs and losses through legal fees and damages, particularly related to claims handling and rating practices.",
       "score": 3
@@ -333,7 +351,7 @@
       "title": "Reputational Risk",
       "category": "Reputation",
       "severity": 3,
-      "score_rationale": "Reputation issues in insurance operations could impact the company's ability to attract and retain customers, particularly during catastrophic events or market conduct examination issues. (score par défaut, à affiner)",
+      "score_rationale": "Reputation issues in insurance operations could impact the company's ability to attract and retain customers, particularly during catastrophic events or market conduct examination issues.",
       "trend": "stable",
       "summary": "Reputational problems can result in loss of customer confidence and partnership trust, with serious consequences for operations and financial results.",
       "score": 3
@@ -397,7 +415,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -470,7 +488,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.372Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.894Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mcy.json",
     "enrich_root": "v2-pipeline-enrich/mcy.json",

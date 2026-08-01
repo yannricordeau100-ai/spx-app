@@ -67,8 +67,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
-      "signal_en": "Margin expansion, operating leverage"
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Op Margin",
@@ -95,7 +99,11 @@
       "is_generic": true,
       "is_short_history": false,
       "explanation_en": "Profit margin on Op.",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "R&D",
@@ -122,15 +130,19 @@
       "is_generic": false,
       "is_short_history": false,
       "explanation_en": "Research & Development expenses.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Capex",
       "name_fr": "Investissements en capital",
       "name_en": "Capital Expenditures",
       "explanation": "Dépenses en immobilisations, notamment technologiques.",
-      "value": "0.9",
-      "unit": "Mds £",
+      "value": 900,
+      "unit": "M £",
       "yoy": "+5%",
       "type": "Investment",
       "nature": "Structurel",
@@ -138,18 +150,23 @@
       "signal": "Capex orienté vers l'infrastructure data et cloud.",
       "description": "Soutien à la scalabilité des plateformes technologiques.",
       "history": [
-        0.7,
-        0.75,
-        0.8,
-        0.85,
-        0.9
+        700,
+        750,
+        800,
+        850,
+        900
       ],
       "last_data_date": "2024-12-31",
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Moderate growth, slightly positive",
+      "_unit_rescaled": "Mds->M £",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Headcount",
@@ -175,68 +192,15 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "signal_en": "Moderate growth, slightly positive"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "signal_en": "Moderate growth, slightly positive",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     }
   ],
-  "stories_kpis": [
-    {
-      "short": "AI API Calls",
-      "name_fr": "Volume d'appels API IA",
-      "name_en": "AI API Call Volume",
-      "explanation": "Nombre d'appels aux APIs d'analyse prédictive et d'IA dans les plateformes LSEG.",
-      "value": "1.8",
-      "unit": "Mds",
-      "yoy": "+45%",
-      "type": "Adoption",
-      "nature": "Innovation",
-      "comparable": "Non comparable",
-      "signal": "Adoption rapide des outils d'IA dans les workflows clients.",
-      "description": "Croissance tirée par l'intégration de l'IA dans les outils de pricing, risque et ESG.",
-      "history": [
-        0.8,
-        1.1,
-        1.3,
-        1.5,
-        1.8
-      ],
-      "last_data_date": "2024-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
-    },
-    {
-      "short": "AI Cloud Mix",
-      "name_fr": "Part des deals incluant fonctionnalités IA",
-      "name_en": "AI-related Cloud Deals Mix",
-      "explanation": "Pourcentage des nouveaux contrats cloud incluant des modules d'IA.",
-      "value": "38",
-      "unit": "%",
-      "yoy": "+12 pts",
-      "type": "Adoption",
-      "nature": "Innovation",
-      "comparable": "Non comparable",
-      "signal": "IA devenue standard dans les nouvelles offres cloud.",
-      "description": "LSEG intègre l'IA dans ses solutions de data analytics et de reporting réglementaire.",
-      "history": [
-        15,
-        20,
-        25,
-        30,
-        38
-      ],
-      "last_data_date": "2024-12-31",
-      "is_wow": true,
-      "is_generic": false,
-      "is_short_history": true,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2024",
-      "_source_month_reason": "via_last_data"
-    }
-  ],
+  "stories_kpis": [],
   "ai_positioning": {
     "stance": "integrator",
     "summary": "LSEG adopte une stratégie d'intégration de l'IA dans ses plateformes de données financières, sans être un pionnier technologique. L'accent est mis sur l'application pratique de l'IA pour enrichir les analytics, le risque et l'ESG.",
@@ -260,7 +224,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "annual",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -405,49 +369,61 @@
       "short": "Data & Analytics Revenue",
       "name_fr": "Revenu Data & Analytics",
       "name_en": "Data & Analytics Revenue",
-      "value": 5979,
-      "unit": "M £",
+      "value": 5.979,
+      "unit": "Mds £",
       "yoy": "+6.5%",
       "history": [
-        1640,
-        4660,
-        5125,
-        5613,
-        5979
+        1.64,
+        4.66,
+        5.125,
+        5.613,
+        5.979
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds £ for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Capital Markets Revenue",
       "name_fr": "Revenu Capital Markets",
       "name_en": "Capital Markets Revenue",
-      "value": 1726,
-      "unit": "M £",
+      "value": 1.726,
+      "unit": "Mds £",
       "yoy": "+11.6%",
       "history": [
-        503,
-        1410,
-        1471,
-        1547,
-        1726
+        0.503,
+        1.41,
+        1.471,
+        1.547,
+        1.726
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds £ for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Post Trade Revenue",
       "name_fr": "Revenu Post Trade",
       "name_en": "Post Trade Revenue",
-      "value": 1198,
-      "unit": "M £",
+      "value": 1.198,
+      "unit": "Mds £",
       "yoy": "+0.5%",
       "history": [
-        724,
-        920,
-        1207,
-        1192,
-        1198
+        0.724,
+        0.92,
+        1.207,
+        1.192,
+        1.198
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "_unit_rescaled": "M->Mds £ for 1-999 readability",
+      "type": "Revenue",
+      "nature": "Structurel",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Workspace Subscribers",
@@ -463,7 +439,10 @@
         430,
         440
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Audience",
+      "nature": "Récurrent",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     },
     {
       "short": "Adj EBITDA Margin",
@@ -479,7 +458,10 @@
         48.2,
         48
       ],
-      "period_type": "year"
+      "period_type": "year",
+      "type": "Marge",
+      "nature": "Performance",
+      "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
     }
   ],
   "_kpis_supplementary_added_at": "2026-05-28T16:49:53.452297Z",
@@ -537,6 +519,29 @@
       "tagline"
     ]
   },
+  "enrich_mettrik_description": {
+    "ticker": "LSEG.L",
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "London Stock Exchange Group exploite des places de marché et fournit des données financières, des solutions de trading et des services post-trade.",
+          "products": "L'offre couvre la cotation actions à Londres, les indices FTSE Russell, les données financières via Refinitiv, les solutions de gestion de risque et les services de compensation via LCH.",
+          "customers": "Ses clients sont les institutions financières, banques d'investissement, gestionnaires d'actifs, hedge funds et sociétés cotées dans le monde entier.",
+          "edge": "La force de LSEG repose sur la combinaison unique de places de marché, données financières et compensation derivatives qui couvre toute la chaîne de valeur."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "London Stock Exchange Group s'est transformé en plateforme de données et infrastructure financière après l'acquisition de Refinitiv en 2021. Le groupe combine indices FTSE Russell, données financières et compensation LCH SwapClear, leader mondial. Microsoft est devenu actionnaire stratégique pour développer Workspace.",
+          "tech_products": "Workspace est la nouvelle plateforme intégrée concurrençant Bloomberg Terminal, développée en partenariat avec Microsoft Azure. LCH SwapClear est leader mondial de la compensation des swaps de taux d'intérêt. FTSE Russell développe des indices durables et factoriels.",
+          "moat": "LCH SwapClear bénéficie d'un effet de réseau structurel comme infrastructure de compensation de référence. Les indices FTSE Russell sous-licenciés génèrent une rente récurrente. La base données Refinitiv est l'une des deux principales au monde avec Bloomberg.",
+          "risks": "La concurrence de Bloomberg sur Workspace reste un défi long terme. La dépendance aux taux de change et aux volumes de trading expose à la cyclicité. Les régulations sur la compensation transfrontalière pourraient évoluer après le Brexit."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch2-2026-06-01",
+    "_source_kind": "v2-pipeline"
+  },
   "enrich_ranks": {
     "ticker": "LSEG.L",
     "ranks": {
@@ -549,14 +554,15 @@
     "country": "United Kingdom",
     "_data_freshness_date": "2026-05-21T08:35:51.475354+00:00",
     "fetched_at": "2026-05-21T08:35:51.475355+00:00",
-    "source": "yfinance-marketcap-v19-missing"
+    "source": "rapport financier-marketcap-v19-missing"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.157Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.817Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/lseg.l.json",
     "enrich_root": "v2-pipeline-enrich/lseg.l.json",
     "enrich_subkeys": [
       "description",
+      "mettrik-description",
       "ranks"
     ]
   }

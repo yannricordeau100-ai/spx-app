@@ -1,6 +1,6 @@
 {
   "ticker": "NX",
-  "name": "Quanex Building Products Corporation",
+  "name": "Quanex Building Products",
   "sector": "Industrie",
   "subsector": "Building Products & Components",
   "tagline": "Leading OEM component supplier for building products and fenestration markets",
@@ -56,7 +56,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment."
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment."
     },
     {
       "short": "Headcount",
@@ -76,7 +76,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Manufacturing Facilities",
@@ -120,13 +120,17 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.84 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:51:34.616295+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=10)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -145,56 +149,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.97 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.85,
-      "unit": "Mds €",
+      "value": 850,
+      "unit": "M €",
       "yoy": "-4.5%",
       "history": [
-        0.09,
-        0.12,
-        0.89,
-        0.85
+        90,
+        120,
+        890,
+        850
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.85 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "-20.0%",
       "history": [
-        0.06,
-        0.06,
-        0.1,
-        0.08
+        60,
+        60,
+        100,
+        80
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.08 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -208,7 +226,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         0.32,
         0.32,
@@ -221,7 +239,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -236,7 +254,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0172,
@@ -249,7 +267,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -264,7 +282,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -277,7 +295,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -292,7 +310,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.66,
@@ -305,7 +323,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -407,7 +425,8 @@
       "severity": 5,
       "score_rationale": "Le rapport d'audit indique une faiblesse matérielle dans la préparation et la revue du tableau de flux de trésorerie, conduisant à un avis défavorable sur la conformité des contrôles internes. Le langage est catégorique (\"adverse opinion\"), ce risque est nouveau par rapport à l'année précédente et affecte directement la crédibilité des états financiers, une catégorie hautement critique.",
       "trend": "new",
-      "summary": "La société présente une faiblesse sérieuse dans ses contrôles financiers internes, empêchant une prévention ou détection en temps voulu d'erreurs matérielles dans les états financiers."
+      "summary": "La société présente une faiblesse sérieuse dans ses contrôles financiers internes, empêchant une prévention ou détection en temps voulu d'erreurs matérielles dans les états financiers.",
+      "score": 5
     },
     {
       "title": "Dépréciation massive de goodwill",
@@ -415,7 +434,8 @@
       "severity": 5,
       "score_rationale": "Une charge d'impairment de 302,284 k$ a été enregistrée en 2025, soit plus de la moitié de la valeur comptable du goodwill. Cela reflète des indicateurs d'impairment liés à la chute du cours de l'action et à la restructuration. Le montant et le langage (\"triggering event\") montrent un risque existentiel pour la valeur des actifs.",
       "trend": "up",
-      "summary": "La chute du cours de bourse et la restructuration ont déclenché une importante dépréciation du goodwill, signalant des difficultés stratégiques ou opérationnelles profondes."
+      "summary": "La chute du cours de bourse et la restructuration ont déclenché une importante dépréciation du goodwill, signalant des difficultés stratégiques ou opérationnelles profondes.",
+      "score": 5
     },
     {
       "title": "Détérioration de la performance financière",
@@ -423,7 +443,8 @@
       "severity": 5,
       "score_rationale": "La société passe de 33 M$ de bénéfice net en 2024 à une perte nette de 251 M$ en 2025. Cette inversion brutale, soulignée dans les états financiers, indique une détérioration sévère de la santé financière, amplifiée par des charges exceptionnelles élevées.",
       "trend": "down",
-      "summary": "La société affiche une perte nette massive en 2025 après des bénéfices les années précédentes, révélant une instabilité financière grave."
+      "summary": "La société affiche une perte nette massive en 2025 après des bénéfices les années précédentes, révélant une instabilité financière grave.",
+      "score": 5
     },
     {
       "title": "Risque lié à l'évaluation du goodwill",
@@ -431,7 +452,8 @@
       "severity": 4,
       "score_rationale": "Le commissaire aux comptes identifie l'évaluation du goodwill comme un \"critical audit matter\", impliquant des jugements complexes sur les flux futurs et le coût du capital. Cela montre une incertitude élevée dans la valorisation des actifs, avec un impact direct sur les états financiers.",
       "trend": "stable",
-      "summary": "L'évaluation du goodwill repose sur des hypothèses sensibles et sujettes à interprétation, augmentant le risque d'ajustements futurs ou de nouvelles dépréciations."
+      "summary": "L'évaluation du goodwill repose sur des hypothèses sensibles et sujettes à interprétation, augmentant le risque d'ajustements futurs ou de nouvelles dépréciations.",
+      "score": 4
     },
     {
       "title": "Restructuration des segments",
@@ -439,7 +461,8 @@
       "severity": 4,
       "score_rationale": "La restructuration des segments a déclenché un test d'impairment du goodwill. Bien que non détaillée, cette action stratégique majeure implique des perturbations opérationnelles, des coûts et un risque d'intégration, mentionné explicitement comme un indicateur d'impairment.",
       "trend": "new",
-      "summary": "La restructuration des activités a eu un impact direct sur la valeur des actifs et pourrait entraîner des perturbations opérationnelles et des coûts supplémentaires."
+      "summary": "La restructuration des activités a eu un impact direct sur la valeur des actifs et pourrait entraîner des perturbations opérationnelles et des coûts supplémentaires.",
+      "score": 4
     }
   ],
   "governance": {
@@ -485,7 +508,7 @@
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
   "_dividends_extracted_at": "2026-05-09T20:21:18Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -512,8 +535,8 @@
     "xbrl_fetched_at": "2026-05-09T20:27:16Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:34Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:34.185Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.076Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nx.json",
     "enrich_root": "v2-pipeline-enrich/nx.json",

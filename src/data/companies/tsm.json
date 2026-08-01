@@ -164,7 +164,7 @@
       "_extracted_by": "claude-subagent-fpi-b0",
       "_extracted_at": "2026-05-21T02:30:00Z",
       "_source": "TSMC FY2025: CapEx US$ 40B (guidance 38-42B)",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
       "signal_en": "Cost pressure, investment phase"
     },
     {
@@ -195,7 +195,7 @@
       "_extracted_by": "claude-subagent-fpi-b0",
       "_extracted_at": "2026-05-21T02:30:00Z",
       "_source": "TSMC FY2025 income statement",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -257,7 +257,7 @@
       "_extracted_by": "claude-subagent-fpi-b0",
       "_extracted_at": "2026-05-21T02:30:00Z",
       "_source": "TSMC FY2025 cash flow statement",
-      "explanation_en": "Free Cash Flow — operating cash flow minus capital expenditures.",
+      "explanation_en": "Free Cash Flow, operating cash flow minus capital expenditures.",
       "signal_en": "Cash generation improving, financial flexibility rising"
     },
     {
@@ -318,7 +318,7 @@
       "_extracted_by": "claude-subagent-fpi-b0",
       "_extracted_at": "2026-05-21T02:30:00Z",
       "_source": "TSMC FY2025 dividend announcement",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Shareholder returns growing, dividend policy supportive"
     },
     {
@@ -398,11 +398,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7932.84 Mds $ dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -421,11 +425,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1064.58 Mds $ dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -444,10 +452,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 2767.86 Mds $ dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cap Return",
@@ -461,7 +473,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         286.1058,
@@ -474,7 +486,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -489,7 +501,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         28.73,
@@ -502,7 +514,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income.",
+      "explanation_en": "Payout Ratio, dividends paid divided by net income.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -518,7 +530,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         196,
@@ -531,7 +543,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -591,7 +603,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -605,7 +617,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur en début d'Item 1A, langage très intensif (« could negatively affect », « adversely affect »), tendance à la hausse avec nouvelles règles janvier 2025, poids dominant dans la stratégie commerciale (export vers Chine, Nanjing fab, clients spécifiés).",
       "trend": "up",
-      "summary": "Les contrôles à l'exportation américains (October Rules, janvier 2025) limitent les ventes de puces avancées (≤16nm) vers certaines destinations et imposent des licences. TSMC dépend d'une licence annuelle pour sa fab de Nanjing (expirée décembre 2025, renouvelée). Risque de révocation, retards d'expédition et perte de revenus clients chinois majeurs."
+      "summary": "Les contrôles à l'exportation américains (October Rules, janvier 2025) limitent les ventes de puces avancées (≤16nm) vers certaines destinations et imposent des licences. TSMC dépend d'une licence annuelle pour sa fab de Nanjing (expirée décembre 2025, renouvelée). Risque de révocation, retards d'expédition et perte de revenus clients chinois majeurs.",
+      "score": 5
     },
     {
       "title": "Dépendance à la demande cyclique du secteur semiconducteur",
@@ -613,7 +626,8 @@
       "severity": 4,
       "score_rationale": "Risque structurel explicitement développé en deux paragraphes distincts, langage modéré mais répétitif (« cyclical », « downturn », « overcapacity »), tendance stable (cyclicité inhérente), impact direct sur marges et revenus.",
       "trend": "stable",
-      "summary": "TSMC opère dans une industrie hautement cyclique avec périodes prolongées de surproduction et baisse de demande. Les coûts fixes élevés (fabs) ne diminuent pas avec la baisse d'utilisation, comprimant les marges. Exemple : ralentissement des marchés HPC, smartphones, IoT réduit la demande de services de fonderie."
+      "summary": "TSMC opère dans une industrie hautement cyclique avec périodes prolongées de surproduction et baisse de demande. Les coûts fixes élevés (fabs) ne diminuent pas avec la baisse d'utilisation, comprimant les marges. Exemple : ralentissement des marchés HPC, smartphones, IoT réduit la demande de services de fonderie.",
+      "score": 4
     },
     {
       "title": "Risque technologique et leadership en nœuds avancés",
@@ -621,7 +635,8 @@
       "severity": 5,
       "score_rationale": "Risque critique pour le modèle de TSMC, langage très intensif (« unable to remain a technological leader », « may become less competitive »), tendance à la hausse (accélération IA, cadence produits plus rapide), poids stratégique central.",
       "trend": "up",
-      "summary": "TSMC doit continuellement développer des nœuds avancés et technologies dérivées pour rester compétitif. La montée de l'IA accélère les cycles produits clients et intensifie la concurrence. Risque de perte de clients si incapacité à répondre aux délais de mise au marché ou si concurrents accèdent à technologies supérieures."
+      "summary": "TSMC doit continuellement développer des nœuds avancés et technologies dérivées pour rester compétitif. La montée de l'IA accélère les cycles produits clients et intensifie la concurrence. Risque de perte de clients si incapacité à répondre aux délais de mise au marché ou si concurrents accèdent à technologies supérieures.",
+      "score": 5
     },
     {
       "title": "Complexité opérationnelle et risques d'expansion mondiale",
@@ -629,7 +644,8 @@
       "severity": 4,
       "score_rationale": "Risque opérationnel majeur détaillé sur plusieurs paragraphes, langage intensif (« substantial delay », « substantial additional costs »), tendance à la hausse (projets en cours mondiaux), impact sur capacité et efficacité.",
       "trend": "up",
-      "summary": "TSMC construit des fabs mondialement (États-Unis, Japon, Europe) avec défis : pénuries de main-d'œuvre, interruptions chaînes d'approvisionnement, catastrophes naturelles (tremblements de terre, typhons à Taiwan), cyberattaques, accès aux utilités (eau, électricité). Risque de retards substantiels et surcoûts de construction."
+      "summary": "TSMC construit des fabs mondialement (États-Unis, Japon, Europe) avec défis : pénuries de main-d'œuvre, interruptions chaînes d'approvisionnement, catastrophes naturelles (tremblements de terre, typhons à Taiwan), cyberattaques, accès aux utilités (eau, électricité). Risque de retards substantiels et surcoûts de construction.",
+      "score": 4
     },
     {
       "title": "Concentration clients et volatilité de la demande",
@@ -637,7 +653,8 @@
       "severity": 4,
       "score_rationale": "Risque implicite mais significatif, mentionné via « concentration of customers » et dépendance à HPC/IA, langage modéré, tendance à la hausse (concentration accrue autour IA), impact direct sur revenus.",
       "trend": "up",
-      "summary": "TSMC dépend fortement de quelques clients majeurs (HPC, IA, smartphones). La concentration croissante autour des puces IA et accélérateurs crée vulnérabilité : perte d'un client clé ou ralentissement IA réduirait significativement les revenus et utilisation capacité."
+      "summary": "TSMC dépend fortement de quelques clients majeurs (HPC, IA, smartphones). La concentration croissante autour des puces IA et accélérateurs crée vulnérabilité : perte d'un client clé ou ralentissement IA réduirait significativement les revenus et utilisation capacité.",
+      "score": 4
     },
     {
       "title": "Tarifs commerciaux et barrières commerciales impactant coûts",
@@ -645,7 +662,8 @@
       "severity": 4,
       "score_rationale": "Risque détaillé en début d'Item 1A avec exemples concrets (tarifs 25% Section 232, accord Taiwan-USA janvier 2026), langage intensif, tendance à la hausse (évolution rapide 2025-2026), impact sur coûts opérationnels US et compétitivité.",
       "trend": "up",
-      "summary": "Tarifs américains sur puces avancées (25% ad valorem, décembre 2025) et équipements de fabrication augmentent les coûts opérationnels de TSMC aux États-Unis. Accord Taiwan-USA (janvier 2026) offre traitement préférentiel mais détails flous. Risque de tarifs additionnels et réduction de compétitivité tarifaire."
+      "summary": "Tarifs américains sur puces avancées (25% ad valorem, décembre 2025) et équipements de fabrication augmentent les coûts opérationnels de TSMC aux États-Unis. Accord Taiwan-USA (janvier 2026) offre traitement préférentiel mais détails flous. Risque de tarifs additionnels et réduction de compétitivité tarifaire.",
+      "score": 4
     },
     {
       "title": "Risques de conformité réglementaire et responsabilité légale",
@@ -653,7 +671,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite mentionné via export controls, lois chinoises de rétorsion (blocking statute janvier 2021), langage modéré mais clair (« significant legal liability »), tendance à la hausse (mesures de rétorsion émergentes), impact potentiel élevé.",
       "trend": "up",
-      "summary": "TSMC doit naviguer des régulations conflictuelles : contrôles d'exportation US vs. blocking statute chinois (2021) permettant aux entités chinoises de poursuivre les multinationales respectant les lois étrangères. Risque de responsabilité légale et pertes financières en cas de non-conformité ou conflits réglementaires."
+      "summary": "TSMC doit naviguer des régulations conflictuelles : contrôles d'exportation US vs. blocking statute chinois (2021) permettant aux entités chinoises de poursuivre les multinationales respectant les lois étrangères. Risque de responsabilité légale et pertes financières en cas de non-conformité ou conflits réglementaires.",
+      "score": 4
     },
     {
       "title": "Instabilité géopolitique et risques opérationnels Taiwan",
@@ -661,7 +680,8 @@
       "severity": 5,
       "score_rationale": "Risque existentiel pour TSMC, langage très intensif (« military conflicts », « outbreak of war », « hostilities »), tendance à la hausse (tensions R.O.C.-P.R.C. persistantes), poids critique (majorité exécutifs et fabs à Taiwan).",
       "trend": "up",
-      "summary": "Majorité des cadres dirigeants et installations de production de TSMC sont à Taiwan. Tensions géopolitiques R.O.C.-P.R.C., risques de conflit militaire, sanctions et restrictions commerciales pourraient perturber gravement les opérations, la chaîne d'approvisionnement et la liquidité des titres TSMC."
+      "summary": "Majorité des cadres dirigeants et installations de production de TSMC sont à Taiwan. Tensions géopolitiques R.O.C.-P.R.C., risques de conflit militaire, sanctions et restrictions commerciales pourraient perturber gravement les opérations, la chaîne d'approvisionnement et la liquidité des titres TSMC.",
+      "score": 5
     }
   ],
   "_risks_fetched_at": "2026-05-12T12:07:24.275566+00:00",
@@ -781,10 +801,10 @@
   "_extracted_at_fpi_b0": "2026-05-21T02:30:00Z",
   "_fpi_native_ticker": "2330.TW",
   "_dividends_extracted_at": "2026-05-09T20:21:49Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "_eps_extracted_at": "2026-05-18T16:47:54Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "revenue_by_ai_customer_type": {
     "fiscal_year": "FY26 (annualised Q1)",
     "ai_segment_revenue": 87,
@@ -900,11 +920,11 @@
     },
     "market_cap_usd": 2082991636480,
     "country": "TW",
-    "_source": "yfinance-marketcap-v2-manual-fix-21mai",
+    "_source": "rapport financier-marketcap-v2-manual-fix-21mai",
     "_data_freshness_date": "2026-05-21",
     "_audited_by": "CONV-CONCEPTS-FIX-AMZN-21MAI"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.713Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.897Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/tsm.json",
     "enrich_root": "v2-pipeline-enrich/tsm.json",

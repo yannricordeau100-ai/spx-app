@@ -38,9 +38,12 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
-      "explanation_en": "Operating Cash Flow — cash generated from core business operations.",
-      "signal_en": "Cash generation improving, financial flexibility rising"
+      "period_type": "year",
+      "explanation_en": "Operating Cash Flow, cash generated from core business operations.",
+      "signal_en": "Cash generation improving, financial flexibility rising",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Capital Expenditures",
@@ -71,8 +74,8 @@
       "name_fr": "Dette totale",
       "name_en": "Total Outstanding Debt",
       "explanation": "Aggregate principal amount of senior notes and term loans outstanding.",
-      "value": "1000.0",
-      "unit": "M $",
+      "value": 1,
+      "unit": "Mds $",
       "yoy": "N/A",
       "type": "Financing",
       "nature": "Structurel",
@@ -80,15 +83,14 @@
       "signal": "Debt reduction achieved through repayment of 2012 Term Loan in fiscal 2025",
       "description": "As of March 31, 2025, total outstanding indebtedness of $1.0 billion consists of $400.0 million of 5.125% Senior Notes due January 15, 2028 and $600.0 million of 3.750% Senior Notes due April 1, 2031. The 2012 Term Loan was fully repaid and all related commitments terminated during fiscal 2025.",
       "history": [
-        1000
+        1
       ],
       "last_data_date": "2025-03-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Top Customer Concentration",
@@ -110,9 +112,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "explanation_en": "Top Customer concentration — share of total attributed to the largest contributors.",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Top Customer concentration, share of total attributed to the largest contributors."
     },
     {
       "short": "Liquidity - ABL Revolver",
@@ -133,9 +133,7 @@
       "last_data_date": "2025-03-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
@@ -154,33 +152,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 3.4 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.03,
-        0.06,
-        0.05,
-        0.1
+        30,
+        60,
+        50,
+        100
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.1 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Stockholders Equity",
@@ -199,10 +206,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Capitaux propres de 1.83 Mds € dernière année",
-      "description": "Capitaux propres extrait yfinance sur les 4 dernières années.",
+      "description": "Capitaux propres sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -232,7 +243,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -245,7 +256,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité en première partie des facteurs de risque avec un langage fort (« shortages », « backorders », « negatively impacted »). Il est aggravé par des conditions macroéconomiques persistantes. La catégorie Industriel est hautement pondérée en impact opérationnel direct.",
       "trend": "stable",
-      "summary": "Des pénuries récurrentes de matières premières et de produits finis, notamment en soins oculaires, perturbent la production et affectent les ventes."
+      "summary": "Des pénuries récurrentes de matières premières et de produits finis, notamment en soins oculaires, perturbent la production et affectent les ventes.",
+      "score": 5
     },
     {
       "title": "Inflation et pression sur les coûts",
@@ -253,7 +265,8 @@
       "severity": 4,
       "score_rationale": "Le document mentionne explicitement l'environnement inflationniste, la hausse des coûts d'expédition et des matières, avec un impact direct sur la rentabilité. Le langage est répété et insiste sur la volatilité. Contexte stable vs N-1.",
       "trend": "stable",
-      "summary": "L'inflation et la hausse des coûts d'inputs et de transport pèsent sur la marge et la stabilité financière."
+      "summary": "L'inflation et la hausse des coûts d'inputs et de transport pèsent sur la marge et la stabilité financière.",
+      "score": 4
     },
     {
       "title": "Risque d'impairment d'actifs incorporels",
@@ -261,7 +274,8 @@
       "severity": 5,
       "score_rationale": "Les actifs incorporels représentent plus de 80% du total des actifs. Un impairement de 48,8M$ a été enregistré en 2023. Le texte souligne que des baisses futures pourraient entraîner de nouvelles charges. Langage très prudent et répété.",
       "trend": "stable",
-      "summary": "La valeur élevée des marques et du goodwill expose fortement la société à des dépréciations non-cash en cas de baisse de performance."
+      "summary": "La valeur élevée des marques et du goodwill expose fortement la société à des dépréciations non-cash en cas de baisse de performance.",
+      "score": 5
     },
     {
       "title": "Dépendance aux fabricants tiers",
@@ -269,7 +283,8 @@
       "severity": 4,
       "score_rationale": "Le texte indique que certains fabricants tiers ne parviennent pas à satisfaire la demande, causant des pénuries. Cela montre une faiblesse structurelle dans la chaîne de valeur. Risque réitéré avec intensité modérée.",
       "trend": "stable",
-      "summary": "La sous-traitance de la production crée une vulnérabilité face à la capacité de production externe."
+      "summary": "La sous-traitance de la production crée une vulnérabilité face à la capacité de production externe.",
+      "score": 4
     },
     {
       "title": "Changement des comportements d'achat",
@@ -277,7 +292,8 @@
       "severity": 4,
       "score_rationale": "Le passage à l'achat en ligne et l'évolution des habitudes des consommateurs sont cités comme facteurs de risque. Le langage est prospectif et insiste sur l'incertitude. Cohérent avec les tendances du secteur.",
       "trend": "stable",
-      "summary": "Les évolutions des canaux de distribution (notamment e-commerce) obligent à adapter rapidement la stratégie commerciale."
+      "summary": "Les évolutions des canaux de distribution (notamment e-commerce) obligent à adapter rapidement la stratégie commerciale.",
+      "score": 4
     },
     {
       "title": "Sensibilité aux taux d'intérêt et actualisation",
@@ -285,7 +301,8 @@
       "severity": 4,
       "score_rationale": "Le texte lie explicitement les tests d'impairment aux taux d'actualisation (WACC). Une hausse des taux a déjà causé un impairement en 2023. Pondération élevée car impact direct sur la valorisation des actifs.",
       "trend": "stable",
-      "summary": "L'augmentation des taux d'intérêt réduit la valeur actualisée des flux futurs et menace la pérennité comptable des actifs."
+      "summary": "L'augmentation des taux d'intérêt réduit la valeur actualisée des flux futurs et menace la pérennité comptable des actifs.",
+      "score": 4
     },
     {
       "title": "Dépendance aux programmes promotionnels",
@@ -293,7 +310,8 @@
       "severity": 3,
       "score_rationale": "Les programmes clients (réductions, publicité coopérative) sont intégrés comme variable d'ajustement des revenus. Le risque est modéré mais réel en cas de pression concurrentielle accrue. Langage technique mais pas alarmiste.",
       "trend": "stable",
-      "summary": "La nécessité de soutenir les ventes via des promotions réduit la marge et complexifie la prévision des revenus."
+      "summary": "La nécessité de soutenir les ventes via des promotions réduit la marge et complexifie la prévision des revenus.",
+      "score": 3
     }
   ],
   "governance": {
@@ -378,7 +396,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.468Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.201Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pbh.json",
     "enrich_root": null,

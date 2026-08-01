@@ -59,7 +59,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Revenue — total sales generated over the period."
+      "explanation_en": "Revenue, total sales generated over the period."
     },
     {
       "short": "Net Loss",
@@ -123,7 +123,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end."
+      "explanation_en": "Headcount, total number of employees at period end."
     },
     {
       "short": "Gross Margin",
@@ -145,30 +145,35 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue."
+      "explanation_en": "Gross Margin, gross profit divided by revenue."
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "+200.0%",
       "history": [
-        0.02,
-        0.01,
-        0.01,
-        0.03
+        20,
+        10,
+        10,
+        30
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.03 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -192,9 +197,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Innovation",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Innovation"
     }
   ],
   "ai_positioning": {
@@ -228,7 +231,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début de résumé exécutif (p.6) avec langage très direct (« dependent upon successfully concluding partnerships »). Evaxion reconnaît explicitement que sa stratégie repose sur des partenariats avec de grands pharmas pour financer les essais tardifs. Absence de garantie d'obtenir des partenaires additionnels « on acceptable terms, or at all ». Tendance : stable mais critique pour la viabilité du modèle.",
       "trend": "stable",
-      "summary": "Evaxion est une entreprise de stade clinique sans revenus récurrents, dépendante de partenariats pour avancer ses candidats. Bien qu'un accord avec MSD ait été signé en 2025 (EVX-B3, $7.5M), l'entreprise reconnaît qu'elle peut ne pas sécuriser d'autres partenaires acceptables. Sans ces partenariats, les essais cliniques tardifs et la commercialisation restent impossibles."
+      "summary": "Evaxion est une entreprise de stade clinique sans revenus récurrents, dépendante de partenariats pour avancer ses candidats. Bien qu'un accord avec MSD ait été signé en 2025 (EVX-B3, $7.5M), l'entreprise reconnaît qu'elle peut ne pas sécuriser d'autres partenaires acceptables. Sans ces partenariats, les essais cliniques tardifs et la commercialisation restent impossibles.",
+      "score": 5
     },
     {
       "title": "Plateforme IA-Immunologie novel et non validée commercialement",
@@ -236,7 +240,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement dans forward-looking statements (p.4) : « Our AI approach to the discovery of product candidates is novel and unproven ». Aucun vaccin approuvé utilisant cette technologie (p.6). Langage d'incertitude marqué (« unproven », « may never »). Risque technologique fondamental pour une TechBio dont toute la valeur repose sur cette plateforme propriétaire.",
       "trend": "stable",
-      "summary": "La technologie IA-Immunologie d'Evaxion n'a jamais produit un vaccin approuvé. Bien que présentée comme clé de la stratégie de partenariat, son efficacité réelle reste non démontrée en clinique. L'entreprise opère dans un environnement hautement compétitif où d'autres approches IA pourraient s'avérer supérieures."
+      "summary": "La technologie IA-Immunologie d'Evaxion n'a jamais produit un vaccin approuvé. Bien que présentée comme clé de la stratégie de partenariat, son efficacité réelle reste non démontrée en clinique. L'entreprise opère dans un environnement hautement compétitif où d'autres approches IA pourraient s'avérer supérieures.",
+      "score": 4
     },
     {
       "title": "Absence de produit approuvé et risques d'essais cliniques prolongés",
@@ -244,7 +249,8 @@
       "severity": 5,
       "score_rationale": "Risque majeur répété 4 fois dans le résumé (p.6) avec formulations fortes (« no vaccine has been approved », « lengthy and expensive process with uncertain outcomes »). Processus FDA/EMA décrit comme « lengthy, time consuming, and inherently unpredictable ». Aucun essai pivotal n'a commencé. Délais incertains avant commercialisation (« several years, if ever »).",
       "trend": "stable",
-      "summary": "Tous les candidats d'Evaxion restent en développement préclinique ou clinique précoce. Les processus réglementaires FDA/EMA sont longs et imprévisibles. Même avec des partenaires, plusieurs années s'écouleront avant approbation. Les résultats d'essais antérieurs ne garantissent pas les résultats futurs, et les données préliminaires peuvent changer significativement."
+      "summary": "Tous les candidats d'Evaxion restent en développement préclinique ou clinique précoce. Les processus réglementaires FDA/EMA sont longs et imprévisibles. Même avec des partenaires, plusieurs années s'écouleront avant approbation. Les résultats d'essais antérieurs ne garantissent pas les résultats futurs, et les données préliminaires peuvent changer significativement.",
+      "score": 5
     },
     {
       "title": "Dépendance aux tiers pour fabrication et essais cliniques",
@@ -252,7 +258,8 @@
       "severity": 4,
       "score_rationale": "Risque détaillé en p.5-6 avec langage d'exposition claire (« rely on third-parties », « If these third parties do not successfully carry out »). Spécificité : certains candidats sont « uniquely manufactured for each patient », créant des défis de scaling. Risque de non-conformité réglementaire, délais manqués, problèmes de chaîne d'approvisionnement explicitement cités.",
       "trend": "stable",
-      "summary": "Evaxion dépend entièrement de sous-traitants pour la fabrication préclinique, clinique et commerciale, ainsi que pour la conduite des essais. Certains candidats (thérapies personnalisées) posent des défis de production et de scaling. Tout manquement contractuel ou réglementaire des tiers pourrait bloquer les approbations."
+      "summary": "Evaxion dépend entièrement de sous-traitants pour la fabrication préclinique, clinique et commerciale, ainsi que pour la conduite des essais. Certains candidats (thérapies personnalisées) posent des défis de production et de scaling. Tout manquement contractuel ou réglementaire des tiers pourrait bloquer les approbations.",
+      "score": 4
     },
     {
       "title": "Concurrence intense dans la biotechnologie et les vaccins IA",
@@ -260,7 +267,8 @@
       "severity": 4,
       "score_rationale": "Risque explicite p.5-6 : « competition in the biotechnology and pharmaceutical industries is intense ». Langage d'urgence : « competitors may discover, develop or commercialize products faster or more successfully ». Contexte : Evaxion opère dans un espace IA-immunologie hautement compétitif où plusieurs acteurs développent des approches similaires.",
       "trend": "up",
-      "summary": "La concurrence dans la biotechnologie et les vaccins est intense. Des concurrents pourraient découvrir, développer ou commercialiser des produits plus rapidement ou efficacement. L'incapacité à concurrencer efficacement menacerait directement la viabilité commerciale et les perspectives d'Evaxion."
+      "summary": "La concurrence dans la biotechnologie et les vaccins est intense. Des concurrents pourraient découvrir, développer ou commercialiser des produits plus rapidement ou efficacement. L'incapacité à concurrencer efficacement menacerait directement la viabilité commerciale et les perspectives d'Evaxion.",
+      "score": 4
     },
     {
       "title": "Propriété intellectuelle insuffisante ou non-défendable",
@@ -268,7 +276,8 @@
       "severity": 4,
       "score_rationale": "Risque de propriété intellectuelle mentionné p.5-6 avec langage d'exposition (« if our efforts to obtain, maintain, protect, defend and/or enforce the intellectual property... are not adequate »). Risque de litiges pour infraction IP de tiers explicitement cité. Plateforme IA propriétaire est l'actif clé, sa protection est critique.",
       "trend": "stable",
-      "summary": "Si Evaxion ne peut pas obtenir, maintenir et défendre adéquatement la propriété intellectuelle de sa plateforme IA-Immunologie et de ses candidats, elle ne pourra pas concurrencer efficacement. L'entreprise pourrait être impliquée dans des litiges pour protéger sa PI ou défendre contre des accusations d'infraction."
+      "summary": "Si Evaxion ne peut pas obtenir, maintenir et défendre adéquatement la propriété intellectuelle de sa plateforme IA-Immunologie et de ses candidats, elle ne pourra pas concurrencer efficacement. L'entreprise pourrait être impliquée dans des litiges pour protéger sa PI ou défendre contre des accusations d'infraction.",
+      "score": 4
     },
     {
       "title": "Risques de sécurité, efficacité et profil de tolérance des candidats",
@@ -276,7 +285,8 @@
       "severity": 4,
       "score_rationale": "Risque clinique fondamental p.5-6 : « product candidates may not work as intended, may cause undesirable side effects ». Langage d'incertitude marqué (« may delay or prevent regulatory approval »). Risque de conséquences négatives post-approbation. Applicable à tous les candidats en développement.",
       "trend": "stable",
-      "summary": "Les candidats d'Evaxion pourraient ne pas fonctionner comme prévu, causer des effets indésirables, ou avoir d'autres propriétés retardant l'approbation ou limitant le profil commercial approuvé. Des conséquences négatives post-commercialisation sont possibles, affectant la viabilité commerciale."
+      "summary": "Les candidats d'Evaxion pourraient ne pas fonctionner comme prévu, causer des effets indésirables, ou avoir d'autres propriétés retardant l'approbation ou limitant le profil commercial approuvé. Des conséquences négatives post-commercialisation sont possibles, affectant la viabilité commerciale.",
+      "score": 4
     },
     {
       "title": "Risques géopolitiques (Ukraine, Moyen-Orient) affectant opérations",
@@ -284,7 +294,8 @@
       "severity": 3,
       "score_rationale": "Risque explicite p.5-6 : « effects of the invasion of Ukraine by Russia... have created global security concerns ». Langage d'impact : « short-term and likely longer-term adverse impacts ». Également mentionné en forward-looking statements (p.4). Applicable à opérations globales et financement. Tendance : stable mais contexte géopolitique volatile.",
       "trend": "stable",
-      "summary": "Les conflits géopolitiques (invasion russe en Ukraine, conflits au Moyen-Orient) créent des risques de sécurité globale et d'instabilité économique. Ces tensions pourraient affecter adversement les opérations d'Evaxion, le financement, les partenariats internationaux et les conditions de marché."
+      "summary": "Les conflits géopolitiques (invasion russe en Ukraine, conflits au Moyen-Orient) créent des risques de sécurité globale et d'instabilité économique. Ces tensions pourraient affecter adversement les opérations d'Evaxion, le financement, les partenariats internationaux et les conditions de marché.",
+      "score": 3
     }
   ],
   "_risks_fetched_at": "2026-05-12T11:33:24.992046+00:00",
@@ -329,7 +340,7 @@
     "fiscal_year": 2025
   },
   "_governance_yf_fallback_at": "2026-05-14T04:46:32.733218+00:00",
-  "_companies_unified_built_at": "2026-05-29T21:19:30.930Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.134Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/evax.json",
     "enrich_root": null,

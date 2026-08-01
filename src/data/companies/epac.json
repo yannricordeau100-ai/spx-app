@@ -1,6 +1,6 @@
 {
   "ticker": "EPAC",
-  "name": "Enerpac Tool Group Corp.",
+  "name": "Enerpac Tool Group",
   "sector": "Industrial Goods",
   "subsector": "Industrial Tools and Services",
   "tagline": "Premier provider of high-pressure hydraulic tools and solutions for mission-critical applications",
@@ -31,9 +31,7 @@
       "description": "Operating profit for fiscal year 2025 ended August 31, 2025. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 10 dernières années.",
       "history": [
         19.872,
-        -66.213,
         -21.648,
-        -249.145,
         0.723,
         38.077,
         15.686,
@@ -49,8 +47,11 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:50:42.350964+00:00",
-      "explanation_en": "Operating Profit — profit from core business operations.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Operating Profit, profit from core business operations.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "_fix_log": [
+        "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 2 aberrant negative outliers (EPAC)"
+      ]
     },
     {
       "short": "Net Sales",
@@ -101,122 +102,147 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 48.52,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin stable, monitor cost dynamics"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.62,
-      "unit": "Mds €",
+      "value": 620,
+      "unit": "M €",
       "yoy": "+5.1%",
       "history": [
-        0.57,
-        0.6,
-        0.59,
-        0.62
+        570,
+        600,
+        590,
+        620
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.62 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.09,
-      "unit": "Mds €",
+      "value": 90,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.02,
-        0.05,
-        0.09,
-        0.09
+        20,
+        50,
+        90,
+        90
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.09 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Flat year-over-year, monitor closely"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Flat year-over-year, monitor closely",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.83,
-      "unit": "Mds €",
+      "value": 830,
+      "unit": "M €",
       "yoy": "+6.4%",
       "history": [
-        0.76,
-        0.76,
-        0.78,
-        0.83
+        760,
+        760,
+        780,
+        830
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.83 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.19,
-      "unit": "Mds €",
+      "value": 190,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.2,
-        0.21,
-        0.19,
-        0.19
+        200,
+        210,
+        190,
+        190
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.19 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.15,
-      "unit": "Mds €",
+      "value": 150,
+      "unit": "M €",
       "yoy": "-11.8%",
       "history": [
-        0.12,
-        0.15,
-        0.17,
-        0.15
+        120,
+        150,
+        170,
+        150
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.15 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -242,9 +268,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 467.84,
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 467.84
     }
   ],
   "ai_positioning": {
@@ -258,73 +282,73 @@
       "title": "Supply chain shortages and disruptions",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Risk placed first in 10-K with strong language ('materially affect', 'reduction or interruption'). Repeated multiple times with concrete examples (China, geopolitical conflicts). Industrial category weighted high as critical for production. Risk stable compared to prior year. (score par défaut, à affiner)",
+      "score_rationale": "Risk placed first in 10-K with strong language ('materially affect', 'reduction or interruption'). Repeated multiple times with concrete examples (China, geopolitical conflicts). Industrial category weighted high as critical for production. Risk stable compared to prior year.",
       "trend": "stable",
       "summary": "Component shortages or supply disruptions, particularly from China or due to geopolitical conflicts, could delay production and harm customer relationships.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dependence on single or limited suppliers",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Explicit mention of single vendors and inability to diversify quickly. Alarming language: 'unable to diversify', 'quality issues'. Existential risk linked to critical components. High position in document and language intensity justify maximum severity. (score par défaut, à affiner)",
+      "score_rationale": "Explicit mention of single vendors and inability to diversify quickly. Alarming language: 'unable to diversify', 'quality issues'. Existential risk linked to critical components. High position in document and language intensity justify maximum severity.",
       "trend": "stable",
       "summary": "Dependence on certain single suppliers exposes the company to stock shortages impossible to compensate quickly, threatening production continuity.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Geopolitical conflicts and international sanctions",
       "category": "Géopolitique",
       "severity": 5,
-      "score_rationale": "Cited multiple times with specific examples (Ukraine/Russia, Middle East, China). Strong language: 'armed conflicts', 'international sanctions', 'tariffs'. Direct impact on supply chain and logistics. Geopolitical category highly weighted in current context. (score par défaut, à affiner)",
+      "score_rationale": "Cited multiple times with specific examples (Ukraine/Russia, Middle East, China). Strong language: 'armed conflicts', 'international sanctions', 'tariffs'. Direct impact on supply chain and logistics. Geopolitical category highly weighted in current context.",
       "trend": "up",
       "summary": "Global geopolitical tensions disrupt deliveries, increase logistics costs, and expose the company to sanctions and trade restrictions.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Cybersecurity and targeted attacks",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Dedicated section with alarming language: 'increased threats', 'sophisticated attacks', 'data loss', 'ransomware'. Mention of generative AI as risk amplifier. Despite mitigation measures, vulnerability persists. Cybersecurity category critical for IT company. (score par défaut, à affiner)",
+      "score_rationale": "Dedicated section with alarming language: 'increased threats', 'sophisticated attacks', 'data loss', 'ransomware'. Mention of generative AI as risk amplifier. Despite mitigation measures, vulnerability persists. Cybersecurity category critical for IT company.",
       "trend": "up",
       "summary": "Cyberattacks could compromise systems, cause sensitive data loss, downtime, and seriously harm the company's reputation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Increased competition and pricing pressure",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Risk clearly stated with competition factors (price, quality, technology). Moderate but repeated language. Less existential than others as compensable through innovation or differentiation. Intermediate position in document. (score par défaut, à affiner)",
+      "score_rationale": "Risk clearly stated with competition factors (price, quality, technology). Moderate but repeated language. Less existential than others as compensable through innovation or differentiation. Intermediate position in document.",
       "trend": "stable",
       "summary": "Intense global competition sometimes forces price reductions or cost increases, which can compress margins and threaten market share.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Economic instability and difficult market conditions",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Mention of economic cycles and cyclical industries (oil, manufacturing). Concerned language: 'deterioration', 'volatility', 'reduced capital expenditures'. Direct impact on demand. Macro category important but less immediate than operational risks. (score par défaut, à affiner)",
+      "score_rationale": "Mention of economic cycles and cyclical industries (oil, manufacturing). Concerned language: 'deterioration', 'volatility', 'reduced capital expenditures'. Direct impact on demand. Macro category important but less immediate than operational risks.",
       "trend": "stable",
       "summary": "A recession or economic instability could reduce product demand, especially in cyclical sectors like manufacturing and energy.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risks related to international operations",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Extended list of risks (exchange rates, regulations, political instability). Late position in text but dense content. Technical language without extreme urgency. Geopolitical category already well represented, so moderate relative weighting. (score par défaut, à affiner)",
+      "score_rationale": "Extended list of risks (exchange rates, regulations, political instability). Late position in text but dense content. Technical language without extreme urgency. Geopolitical category already well represented, so moderate relative weighting.",
       "trend": "stable",
       "summary": "International operations expose the company to currency fluctuations, regulatory changes, and political risks across multiple countries.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Major production site disruption",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Risk clearly identified with multiple causes (natural disasters, pandemics, human error). Serious language: 'material impact', 'significant capital expenditures'. Less probable but high impact. Mention in central operational section. (score par défaut, à affiner)",
+      "score_rationale": "Risk clearly identified with multiple causes (natural disasters, pandemics, human error). Serious language: 'material impact', 'significant capital expenditures'. Less probable but high impact. Mention in central operational section.",
       "trend": "stable",
       "summary": "A major plant failure could interrupt production, increase costs, and harm the company's reputation.",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -359,7 +383,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "OperatingIncome"
   },
   "_fit_for_site": true,
@@ -427,7 +451,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.811Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.096Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/epac.json",
     "enrich_root": "v2-pipeline-enrich/epac.json",

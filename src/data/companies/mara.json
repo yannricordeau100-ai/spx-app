@@ -39,8 +39,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 70.52,
-      "period_type": "quarter",
-      "signal_en": "Demand strengthening, end-market traction"
+      "period_type": "year",
+      "signal_en": "Demand strengthening, end-market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Bitcoin Holdings",
@@ -63,9 +66,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": true,
-      "signal_en": "Solid expansion, positive trajectory",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Solid expansion, positive trajectory"
     },
     {
       "short": "Energy Cost",
@@ -89,32 +90,35 @@
       "is_generic": true,
       "is_short_history": true,
       "explanation_en": "Costs related to Energy.",
-      "signal_en": "Margin compression, watch profitability",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "signal_en": "Margin compression, watch profitability"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.91,
-      "unit": "Mds €",
+      "value": 910,
+      "unit": "M €",
       "yoy": "+37.9%",
       "history": [
-        0.12,
-        0.39,
-        0.66,
-        0.91
+        120,
+        390,
+        660,
+        910
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.91 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -133,11 +137,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -1.31 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.29 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.65 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.55,
-      "unit": "Mds €",
+      "value": 550,
+      "unit": "M €",
       "yoy": "+41.0%",
       "history": [
-        0.1,
-        0.36,
-        0.39,
-        0.55
+        100,
+        360,
+        390,
+        550
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.55 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -231,9 +252,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Production",
-      "ttm": 8651.81,
-      "_source_month": "avril 2024",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": 8651.81
     }
   ],
   "ai_positioning": {
@@ -339,34 +358,34 @@
       "title": "Volatilité Bitcoin",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "La valeur du bitcoin est très volatile et peut avoir un impact significatif sur les résultats de l'entreprise. La société a déjà enregistré une perte de 422,2 millions de dollars en 2025 due à la baisse du prix du bitcoin. (score par défaut, à affiner)",
+      "score_rationale": "La valeur du bitcoin est très volatile et peut avoir un impact significatif sur les résultats de l'entreprise. La société a déjà enregistré une perte de 422,2 millions de dollars en 2025 due à la baisse du prix du bitcoin.",
       "trend": "stable",
       "summary": "La volatilité du prix du bitcoin peut avoir un impact significatif sur les résultats de l'entreprise",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Coûts énergétiques",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "Les coûts énergétiques représentent 38,5% des revenus de l'entreprise et peuvent varier en fonction des conditions météorologiques et des événements géopolitiques. (score par défaut, à affiner)",
+      "score_rationale": "Les coûts énergétiques représentent 38,5% des revenus de l'entreprise et peuvent varier en fonction des conditions météorologiques et des événements géopolitiques.",
       "trend": "up",
       "summary": "Les coûts énergétiques peuvent augmenter en fonction des conditions météorologiques et des événements géopolitiques",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La concurrence dans le secteur du minage de bitcoin est élevée et peut entraîner une baisse des prix et des marges. (score par défaut, à affiner)",
+      "score_rationale": "La concurrence dans le secteur du minage de bitcoin est élevée et peut entraîner une baisse des prix et des marges.",
       "trend": "up",
       "summary": "La concurrence dans le secteur du minage de bitcoin est élevée et peut entraîner une baisse des prix et des marges",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques réglementaires",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les réglementations gouvernementales peuvent changer et avoir un impact sur les activités de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les réglementations gouvernementales peuvent changer et avoir un impact sur les activités de l'entreprise.",
       "trend": "stable",
       "summary": "Les réglementations gouvernementales peuvent changer et avoir un impact sur les activités de l'entreprise",
       "score": 3
@@ -375,7 +394,7 @@
       "title": "Dépendance à la technologie",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "L'entreprise dépend fortement de la technologie pour ses activités et une panne ou une faille de sécurité peut avoir un impact significatif. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise dépend fortement de la technologie pour ses activités et une panne ou une faille de sécurité peut avoir un impact significatif.",
       "trend": "stable",
       "summary": "L'entreprise dépend fortement de la technologie pour ses activités et une panne ou une faille de sécurité peut avoir un impact significatif",
       "score": 3
@@ -384,7 +403,7 @@
       "title": "Gestion des risques",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "L'entreprise doit gérer les risques liés à ses activités, notamment les risques de crédit et de marché. (score par défaut, à affiner)",
+      "score_rationale": "L'entreprise doit gérer les risques liés à ses activités, notamment les risques de crédit et de marché.",
       "trend": "stable",
       "summary": "L'entreprise doit gérer les risques liés à ses activités, notamment les risques de crédit et de marché",
       "score": 3
@@ -393,10 +412,10 @@
       "title": "Événements géopolitiques",
       "category": "Géopolitique",
       "severity": 2,
-      "score_rationale": "Les événements géopolitiques peuvent avoir un impact sur les coûts énergétiques et les activités de l'entreprise. (score par défaut, à affiner)",
+      "score_rationale": "Les événements géopolitiques peuvent avoir un impact sur les coûts énergétiques et les activités de l'entreprise.",
       "trend": "stable",
       "summary": "Les événements géopolitiques peuvent avoir un impact sur les coûts énergétiques et les activités de l'entreprise",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -415,7 +434,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -559,9 +578,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.280232+00:00",
     "fetched_at": "2026-05-21T02:17:14.280233+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.284Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.129Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mara.json",
     "enrich_root": "v2-pipeline-enrich/mara.json",

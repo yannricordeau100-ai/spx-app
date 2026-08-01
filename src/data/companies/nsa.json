@@ -38,11 +38,14 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 673.2,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only 2 consecutive years of explicit Rental Revenue data found in the filing (2021: $541.547M, 2022: $748.814M). Minimum 4 years required pe",
       "explanation_en": "Revenue from the Rental segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -91,33 +94,38 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 105.6,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Significant decline, warning signal"
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.102,
-      "unit": "Mds €",
+      "value": 102,
+      "unit": "M €",
       "yoy": "+29.1%",
       "history": [
-        0.032,
-        0.058,
-        0.079,
-        0.102
+        32,
+        58,
+        79,
+        102
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.28 Mds € dernière année",
-      "description": "Résultat opérationnel consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Résultat opérationnel consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:16.224528+00:00",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Strong growth, robust momentum"
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Strong growth, robust momentum",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -136,11 +144,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 0.69 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -159,11 +171,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.08 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -182,33 +198,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.43 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.02,
-      "unit": "Mds €",
+      "value": 20,
+      "unit": "M €",
       "yoy": "-60.0%",
       "history": [
-        0.04,
-        0.06,
-        0.05,
-        0.02
+        40,
+        60,
+        50,
+        20
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.02 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -234,9 +259,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 83.4,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "ttm": 83.4
     }
   ],
   "ai_positioning": {
@@ -266,7 +289,8 @@
       "score_rationale": "Risque placé en début de section Item 1A (position forte). Langage d'intensité élevée : 'could disrupt our information technology networks'. Tendance : stable mais sujet de gouvernance renforcée. Catégorie cybersécurité = pondération maximale dans les risques modernes.",
       "trend": "stable",
       "summary": "Des attaques informatiques ou intrusions pourraient perturber les systèmes IT et réseaux de la société, impactant ses opérations de stockage. NSA a mis en place un comité de cybersécurité dédié avec expertise de 50 ans combinés.",
-      "citation": "Security breaches through cyber-attacks, cyber-intrusions, or other methods could disrupt our information technology networks and related systems"
+      "citation": "Security breaches through cyber-attacks, cyber-intrusions, or other methods could disrupt our information technology networks and related systems",
+      "score": 4
     },
     {
       "title": "Concentration géographique du portefeuille",
@@ -275,7 +299,8 @@
       "score_rationale": "Identifié implicitement via Item 2 Properties : Texas (21,7%), Californie (12,7%), Floride (10%) = 44,4% du portefeuille consolidé. Position milieu du rapport. Langage neutre mais données chiffrées révèlent concentration. Tendance : stable. Pondération industriel = moyenne.",
       "trend": "stable",
       "summary": "Le portefeuille de 801 propriétés est fortement concentré dans trois États (Texas, Californie, Floride) représentant 44% de la surface. Une récession régionale ou catastrophe naturelle dans ces zones pourrait impacter significativement les revenus.",
-      "citation": "Texas 174 properties 21.7%, California 86 properties 12.7%, Florida 78 properties 10.0% of Rentable Square Feet"
+      "citation": "Texas 174 properties 21.7%, California 86 properties 12.7%, Florida 78 properties 10.0% of Rentable Square Feet",
+      "score": 3
     },
     {
       "title": "Dépendance aux distributions de dividendes",
@@ -284,7 +309,8 @@
       "score_rationale": "Item 5 révèle obligation légale REIT : distribution minimum 90% du revenu imposable annuellement. Langage normatif 'required to distribute'. Tendance : stable, structure statutaire. Pondération capital = forte pour REIT.",
       "trend": "stable",
       "summary": "En tant que REIT, NSA doit distribuer au minimum 90% de son revenu imposable chaque année aux actionnaires. Cette obligation limite la flexibilité financière et la capacité à constituer des réserves de trésorerie.",
-      "citation": "In order to maintain our status as a REIT for U.S. federal income tax purposes, we are required to distribute at least 90% of our REIT taxable income"
+      "citation": "In order to maintain our status as a REIT for U.S. federal income tax purposes, we are required to distribute at least 90% of our REIT taxable income",
+      "score": 3
     },
     {
       "title": "Taux d'occupation variable par propriété",
@@ -293,7 +319,8 @@
       "score_rationale": "Item 2 Properties montre variation d'occupation : Alabama 73,4% vs Minnesota 90,8% (écart 17,4 points). Position milieu du rapport. Langage descriptif, pas d'alerte explicite. Tendance : stable. Pondération industriel = moyenne.",
       "trend": "stable",
       "summary": "Les taux d'occupation varient significativement entre les propriétés (73,4% en Alabama à 90,8% au Minnesota). Cette disparité expose NSA à des risques de revenus localisés et à des besoins de gestion opérationnelle différenciée.",
-      "citation": "Alabama 73.4% occupancy, Minnesota 90.8% occupancy, weighted average 83.6%"
+      "citation": "Alabama 73.4% occupancy, Minnesota 90.8% occupancy, weighted average 83.6%",
+      "score": 2
     },
     {
       "title": "Dépendance aux partenariats non consolidés",
@@ -302,7 +329,8 @@
       "score_rationale": "Item 2 révèle 262 propriétés en co-entreprise (25% participation) = 18,2M sq ft (26% du portefeuille total). Position milieu du rapport. Langage neutre mais structure de contrôle limité. Tendance : stable. Pondération capital = moyenne.",
       "trend": "stable",
       "summary": "NSA détient 25% de 262 propriétés via des co-entreprises non consolidées, représentant 26% de sa surface totale. Cette structure limite le contrôle opérationnel et expose à des risques de désaccord avec les partenaires.",
-      "citation": "262 unconsolidated real estate venture properties that contain approximately 18.2 million rentable square feet, 25% ownership interest"
+      "citation": "262 unconsolidated real estate venture properties that contain approximately 18.2 million rentable square feet, 25% ownership interest",
+      "score": 2
     }
   ],
   "governance": {
@@ -319,7 +347,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -484,9 +512,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.290393+00:00",
     "fetched_at": "2026-05-21T02:17:14.290394+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.042Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.966Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/nsa.json",
     "enrich_root": "v2-pipeline-enrich/nsa.json",

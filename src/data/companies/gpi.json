@@ -37,9 +37,12 @@
       "is_generic": false,
       "is_short_history": false,
       "_validation": "Unit corrected from 'Mds $' to 'M $' (500M not 500B)",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Share repurchases data not found in the provided 10-K excerpt. The MDA and financial sections included do not contain explicit annual figure"
+      "_hero_history_unverified_reason": "Share repurchases data not found in the provided 10-K excerpt. The MDA and financial sections included do not contain explicit annual figure",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Total Dividends Paid",
@@ -130,11 +133,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 10.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -159,9 +166,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capital",
-      "_validation": "Unit corrected from 'Mds $' to 'M $'",
-      "_source_month": "novembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Unit corrected from 'Mds $' to 'M $'"
     },
     {
       "short": "Total Dividends Per Share",
@@ -184,9 +189,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Capital",
-      "_validation": "Value standardized to 2.0 for consistency; is_generic changed to false as it is company-specific KPI",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Value standardized to 2.0 for consistency; is_generic changed to false as it is company-specific KPI"
     }
   ],
   "ai_positioning": {
@@ -202,7 +205,8 @@
       "severity": 4,
       "score_rationale": "Les tarifs douaniers imposés par les États-Unis et d'autres pays peuvent avoir un impact significatif sur les coûts et la disponibilité des véhicules, en particulier les tarifs de 25% sur les camions et les tarifs de 15% sur les pièces automobiles japonaises.",
       "trend": "up",
-      "summary": "Les tarifs douaniers peuvent augmenter les coûts et réduire la disponibilité des véhicules"
+      "summary": "Les tarifs douaniers peuvent augmenter les coûts et réduire la disponibilité des véhicules",
+      "score": 4
     },
     {
       "title": "Cyberattaques",
@@ -210,7 +214,8 @@
       "severity": 3,
       "score_rationale": "Les cyberattaques peuvent avoir un impact significatif sur les opérations et la réputation de l'entreprise",
       "trend": "new",
-      "summary": "Les cyberattaques peuvent compromettre les données et les systèmes de l'entreprise"
+      "summary": "Les cyberattaques peuvent compromettre les données et les systèmes de l'entreprise",
+      "score": 3
     },
     {
       "title": "Conjoncture économique",
@@ -218,7 +223,8 @@
       "severity": 4,
       "score_rationale": "La conjoncture économique peut avoir un impact significatif sur la demande et les ventes de véhicules, influençant les décisions d'achat des consommateurs et la disponibilité du crédit automobile.",
       "trend": "stable",
-      "summary": "La conjoncture économique peut influencer la demande et les ventes de véhicules"
+      "summary": "La conjoncture économique peut influencer la demande et les ventes de véhicules",
+      "score": 4
     },
     {
       "title": "Réglementations environnementales",
@@ -226,7 +232,8 @@
       "severity": 3,
       "score_rationale": "Les réglementations environnementales peuvent avoir un impact significatif sur les coûts et les opérations de l'entreprise",
       "trend": "up",
-      "summary": "Les réglementations environnementales peuvent obliger l'entreprise à adapter ses opérations et ses produits"
+      "summary": "Les réglementations environnementales peuvent obliger l'entreprise à adapter ses opérations et ses produits",
+      "score": 3
     },
     {
       "title": "Dépendance à la chaîne d'approvisionnement",
@@ -234,7 +241,8 @@
       "severity": 4,
       "score_rationale": "La dépendance à la chaîne d'approvisionnement peut avoir un impact significatif sur la disponibilité et les coûts des véhicules et des pièces détachées",
       "trend": "stable",
-      "summary": "La dépendance à la chaîne d'approvisionnement peut rendre l'entreprise vulnérable aux perturbations de la chaîne d'approvisionnement"
+      "summary": "La dépendance à la chaîne d'approvisionnement peut rendre l'entreprise vulnérable aux perturbations de la chaîne d'approvisionnement",
+      "score": 4
     },
     {
       "title": "Litiges et contentieux",
@@ -242,7 +250,8 @@
       "severity": 3,
       "score_rationale": "Les litiges et contentieux peuvent avoir un impact significatif sur la réputation et les finances de l'entreprise",
       "trend": "new",
-      "summary": "Les litiges et contentieux peuvent entraîner des coûts et des pertes pour l'entreprise"
+      "summary": "Les litiges et contentieux peuvent entraîner des coûts et des pertes pour l'entreprise",
+      "score": 3
     },
     {
       "title": "Fluctuations des taux d'intérêt",
@@ -250,7 +259,8 @@
       "severity": 2,
       "score_rationale": "Les fluctuations des taux d'intérêt peuvent avoir un impact sur les ventes et les finances de l'entreprise, avec une exposition de 27,2 millions de dollars pour une variation de 100 points de base.",
       "trend": "down",
-      "summary": "Les fluctuations des taux d'intérêt peuvent influencer les décisions d'achat des consommateurs"
+      "summary": "Les fluctuations des taux d'intérêt peuvent influencer les décisions d'achat des consommateurs",
+      "score": 2
     }
   ],
   "governance": {
@@ -282,7 +292,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -392,9 +402,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.269352+00:00",
     "fetched_at": "2026-05-21T02:17:14.269353+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:31.815Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.479Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gpi.json",
     "enrich_root": "v2-pipeline-enrich/gpi.json",

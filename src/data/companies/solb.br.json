@@ -38,11 +38,14 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Le document fourni est le rapport annuel 2024 de l'IVR (International Association of Classification Societies for Inland Navigation), une as",
-      "explanation_en": "Capital Expenditures — investments in property, plant and equipment.",
-      "signal_en": "Significant decline, warning signal"
+      "explanation_en": "Capital Expenditures, investments in property, plant and equipment.",
+      "signal_en": "Significant decline, warning signal",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Gross Margin",
@@ -66,7 +69,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -141,7 +144,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Headcount — total number of employees at period end.",
+      "explanation_en": "Headcount, total number of employees at period end.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -224,7 +227,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -398,6 +401,27 @@
       }
     ]
   },
+  "enrich_mettrik_description": {
+    "mettrik_description": {
+      "simple": {
+        "fr": {
+          "activity": "Solvay SA est un groupe belge de chimie de base et de spécialité. Coté à Bruxelles, séparé en deux entités en 2023 (Solvay essentials et Syensqo specialty).",
+          "products": "Cinq lignes : Sodium carbonate (soda ash pour verre et batteries), Hydrogen peroxide (blanchiment, traitement de l'eau), Silica (composant pneus verts, soins), Soda Ash & Derivatives, Coatis (solvants oxygénés).",
+          "customers": "Industriels du verre (containers, bâtiment, solaire), papetiers, fabricants de pneus, agroalimentaire (bicarbonate), fabricants de détergents, semi-conducteurs (eau ultra-pure).",
+          "edge": "Numéro un mondial du soda ash (carbonate de sodium) et du peroxyde d'hydrogène. Position-clé sur la silice pour pneus verts (économies de carburant)."
+        }
+      },
+      "advanced": {
+        "fr": {
+          "positioning": "Solvay SA est la société 'essentials chemicals' issue du spin-off du périmètre historique de Solvay en décembre 2023 (la partie specialties est devenue Syensqo). Pure-play chimie essentielle européenne avec exposition au cycle industriel et à la transition énergétique.",
+          "tech_products": "Cinq activités cœur : Soda Ash (carbonate de sodium pour verre et batteries lithium-ion), Sodium Bicarbonate (alimentation animale, traitement fumées), Peroxydes (peroxyde d'hydrogène pour papier, semiconducteurs), Silica (silice précipitée pour pneus à faible résistance au roulement), Coatis (solvants oxygénés). Géographie : Europe, Amériques.",
+          "moat": "Position de leader mondial sur le soda ash et le peroxyde d'hydrogène (économies d'échelle, intégration à la matière première). Sites industriels intégrés et logistiques captives. Position structurelle sur la silice pneus verts.",
+          "risks": "Cyclicité de la demande verre et papier. Coûts énergétiques européens élevés (Solvay très énergivore). Risque ETS (système d'échange de quotas CO2). Concurrence chinoise (Tata Chemicals notamment). Pression sur les marges en bas de cycle industriel."
+        }
+      }
+    },
+    "_mettrik_desc_signed_by": "subagent-mettrik-desc-batch3-2026-06-01"
+  },
   "enrich_ranks": {
     "ticker": "SOLB.BR",
     "ranks": {
@@ -410,15 +434,16 @@
     "country": "Belgium",
     "_data_freshness_date": "2026-05-21T02:17:14.311741+00:00",
     "fetched_at": "2026-05-21T02:17:14.311742+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.010Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:01.994Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/solb.br.json",
     "enrich_root": "v2-pipeline-enrich/solb.br.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "mettrik-description",
       "ranks"
     ]
   }

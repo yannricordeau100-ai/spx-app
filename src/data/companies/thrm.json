@@ -21,8 +21,8 @@
       "name_fr": "Revenu total",
       "name_en": "Total Revenue",
       "explanation": "Chiffre d'affaires généré par la vente de produits et services.",
-      "value": 1498.6,
-      "unit": "M $",
+      "value": 1.499,
+      "unit": "Mds $",
       "yoy": "+2.9%",
       "type": "Revenue",
       "nature": "Structurel",
@@ -30,16 +30,20 @@
       "signal": "Croissance stable du chiffre d'affaires.",
       "description": "Le revenu total de l'entreprise pour l'année fiscale 2025.",
       "history": [
-        1456.1,
-        1498.6
+        1.456,
+        1.499
       ],
       "last_data_date": "2026-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Valeur corrigée de 1.50 Mds à 1498.6 M$ (source: Product revenues $1,498,602 thousands)",
-      "period_type": "quarter",
-      "signal_en": "Top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Marge brute",
@@ -297,7 +301,8 @@
       "severity": 4,
       "score_rationale": "La société mentionne explicitement les risques liés à la cybersécurité et met en place des mesures pour les atténuer, notamment un Vice-Président Chief Information Officer rapportant au Conseil d'administration. L'Audit Committee reçoit régulièrement des rapports sur les incidents de cybersécurité et les initiatives de sécurité informatique.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de cybersécurité, mais prend des mesures pour les atténuer."
+      "summary": "La société est exposée à des risques de cybersécurité, mais prend des mesures pour les atténuer.",
+      "score": 4
     },
     {
       "title": "Concurrence",
@@ -305,7 +310,8 @@
       "severity": 3,
       "score_rationale": "La société opère dans un marché compétitif, mais sa position de leader et sa capacité à innover lui permettent de maintenir une position solide.",
       "trend": "stable",
-      "summary": "La société est exposée à la concurrence, mais sa position de leader et son innovation lui permettent de maintenir une position solide."
+      "summary": "La société est exposée à la concurrence, mais sa position de leader et son innovation lui permettent de maintenir une position solide.",
+      "score": 3
     },
     {
       "title": "Géopolitique",
@@ -313,7 +319,8 @@
       "severity": 4,
       "score_rationale": "Les conflits géopolitiques et les tensions commerciales peuvent avoir un impact significatif sur les opérations de la société, notamment en termes de chaîne d'approvisionnement et de coûts. L'impact des devises étrangères (perte de 28.4M$ en 2025) reflète ces risques.",
       "trend": "up",
-      "summary": "Les conflits géopolitiques et les tensions commerciales peuvent avoir un impact significatif sur les opérations de la société."
+      "summary": "Les conflits géopolitiques et les tensions commerciales peuvent avoir un impact significatif sur les opérations de la société.",
+      "score": 4
     },
     {
       "title": "Régulation",
@@ -321,7 +328,8 @@
       "severity": 3,
       "score_rationale": "La société est soumise à des réglementations et des normes qui peuvent évoluer, ce qui peut avoir un impact sur ses opérations et ses coûts.",
       "trend": "stable",
-      "summary": "La société est soumise à des réglementations et des normes qui peuvent évoluer, ce qui peut avoir un impact sur ses opérations et ses coûts."
+      "summary": "La société est soumise à des réglementations et des normes qui peuvent évoluer, ce qui peut avoir un impact sur ses opérations et ses coûts.",
+      "score": 3
     },
     {
       "title": "Économie",
@@ -329,7 +337,8 @@
       "severity": 4,
       "score_rationale": "La société est exposée aux fluctuations de l'économie globale, qui peuvent avoir un impact sur la demande de ses produits et ses opérations, notamment dans l'industrie automobile.",
       "trend": "up",
-      "summary": "La société est exposée aux fluctuations de l'économie globale, qui peuvent avoir un impact sur la demande de ses produits et ses opérations."
+      "summary": "La société est exposée aux fluctuations de l'économie globale, qui peuvent avoir un impact sur la demande de ses produits et ses opérations.",
+      "score": 4
     },
     {
       "title": "Litige",
@@ -337,7 +346,8 @@
       "severity": 2,
       "score_rationale": "La société peut être exposée à des litiges, mais ceux-ci ne semblent pas avoir un impact significatif sur les opérations selon les informations divulguées.",
       "trend": "stable",
-      "summary": "La société est potentiellement exposée à des litiges, mais l'impact apparent reste limité."
+      "summary": "La société est potentiellement exposée à des litiges, mais l'impact apparent reste limité.",
+      "score": 2
     }
   ],
   "_validation": {
@@ -365,7 +375,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": false,
@@ -511,23 +521,18 @@
         "history": [
           554.54,
           797.924,
-          -594.849,
           267.657,
           528.372,
           861.334,
-          -452.707,
           363.625,
           735.948,
           1102.143,
-          -732.64,
           356.015,
           731.698,
           1103.21,
-          -734.799,
           353.854,
           728.944,
           1115.814,
-          -700.01,
           393.706
         ],
         "history_periods": [
@@ -581,6 +586,12 @@
             "accession": "0001193125-26-173920",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (THRM)"
         ]
       },
       {
@@ -589,7 +600,6 @@
         "history": [
           20.669,
           29.585,
-          -21.699,
           5.659,
           15.448,
           25.737,
@@ -601,11 +611,9 @@
           11.32,
           30.704,
           50.354,
-          -19.064,
           14.871,
           23.728,
           33.378,
-          -16.304,
           5.651
         ],
         "history_periods": [
@@ -659,6 +667,9 @@
             "accession": "0001193125-26-173920",
             "end": "2026-03-31"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 3 aberrant negative outliers (THRM)"
         ]
       },
       {
@@ -717,7 +728,10 @@
             "source": "THRM_2024-04-30.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       },
       {
         "short": "Revenu Médical",
@@ -775,7 +789,10 @@
             "source": "THRM_2024-04-30.htm.gz",
             "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
           }
-        ]
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026"
       }
     ],
     "_segment_method": "xbrl-segment-inline"
@@ -792,9 +809,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.317551+00:00",
     "fetched_at": "2026-05-21T02:17:14.317552+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:36.509Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:02.586Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/thrm.json",
     "enrich_root": "v2-pipeline-enrich/thrm.json",

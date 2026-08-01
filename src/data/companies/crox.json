@@ -43,9 +43,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter",
-      "_source_month": "mars 2026",
-      "_source_month_reason": "via_last_data"
+      "period_type": "quarter"
     },
     {
       "short": "EQUITY_RESERVED",
@@ -64,9 +62,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "BUYBACK_CAPACITY",
@@ -149,9 +145,7 @@
       "last_data_date": "2026-02-05",
       "is_wow": false,
       "is_generic": true,
-      "is_short_history": true,
-      "_source_month": "février 2026",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
@@ -170,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 4.17 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -193,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.61 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.13,
-      "unit": "Mds €",
+      "value": 130,
+      "unit": "M €",
       "yoy": "-27.8%",
       "history": [
-        0.19,
-        0.15,
-        0.18,
-        0.13
+        190,
+        150,
+        180,
+        130
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.13 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [],
@@ -236,7 +243,8 @@
       "severity": 3,
       "score_rationale": "Disclosed in Item 1A, foreign exchange risk is quantified with a sensitivity of $14.1M for a 10% variation in the US dollar. This recurring risk impacts consolidated results and is actively hedged.",
       "trend": "stable",
-      "summary": "Fluctuations in foreign currency exchange rates, particularly the US Dollar, can affect the fair value of foreign currency forward contracts and impact financial results through consolidated operations."
+      "summary": "Fluctuations in foreign currency exchange rates, particularly the US Dollar, can affect the fair value of foreign currency forward contracts and impact financial results through consolidated operations.",
+      "score": 3
     },
     {
       "title": "Internal Control Effectiveness",
@@ -244,7 +252,8 @@
       "severity": 4,
       "score_rationale": "Item 1A and Item 9A extensively detail internal control limitations. Management notes that projections of effectiveness are subject to risk that controls may become ineffective due to changes in conditions or deteriorating compliance.",
       "trend": "stable",
-      "summary": "While internal controls over financial reporting are deemed effective as of December 31, 2025, there is inherent risk they may become ineffective in the future due to changing circumstances or reduced compliance with policies."
+      "summary": "While internal controls over financial reporting are deemed effective as of December 31, 2025, there is inherent risk they may become ineffective in the future due to changing circumstances or reduced compliance with policies.",
+      "score": 4
     },
     {
       "title": "Inherent Limitations of Internal Controls",
@@ -252,7 +261,8 @@
       "severity": 3,
       "score_rationale": "Item 9A emphasizes that internal control over financial reporting cannot prevent or detect all misstatements. This fundamental limitation creates ongoing risk for financial reporting reliability.",
       "trend": "stable",
-      "summary": "By their nature, internal control systems cannot guarantee absolute assurance and may fail to prevent or detect all errors or irregularities in financial statements."
+      "summary": "By their nature, internal control systems cannot guarantee absolute assurance and may fail to prevent or detect all errors or irregularities in financial statements.",
+      "score": 3
     },
     {
       "title": "Potential Shareholder Dilution",
@@ -260,7 +270,8 @@
       "severity": 3,
       "score_rationale": "Item 12 discloses 1.068 million shares reserved for equity compensation plans with weighted average exercise price of $6.98. Future issuance represents direct dilution to existing shareholders.",
       "trend": "stable",
-      "summary": "Issuance of shares under equity compensation plans and stock option exercises will dilute the ownership percentage and potential earnings per share of existing shareholders."
+      "summary": "Issuance of shares under equity compensation plans and stock option exercises will dilute the ownership percentage and potential earnings per share of existing shareholders.",
+      "score": 3
     },
     {
       "title": "Dependence on Equity Incentive Plans",
@@ -268,7 +279,8 @@
       "severity": 2,
       "score_rationale": "Item 12 details equity compensation plans as primary mechanism for talent attraction and retention. Effectiveness risk exists if plans lose appeal or if key talent departure occurs.",
       "trend": "stable",
-      "summary": "The company relies on equity-based incentive plans to attract and retain key talent. Loss of plan effectiveness or inability to compete on compensation could impact employee retention and operational performance."
+      "summary": "The company relies on equity-based incentive plans to attract and retain key talent. Loss of plan effectiveness or inability to compete on compensation could impact employee retention and operational performance.",
+      "score": 2
     },
     {
       "title": "No Dividend Policy",
@@ -276,7 +288,8 @@
       "severity": 2,
       "score_rationale": "Item 5 explicitly states no cash dividends have been declared and none are anticipated in the foreseeable future. Financing arrangements restrict dividend payments, limiting total return options for shareholders.",
       "trend": "stable",
-      "summary": "Crocs has never paid dividends and does not plan to, with financing covenants restricting dividend payments. Returns to shareholders depend entirely on capital appreciation and buybacks."
+      "summary": "Crocs has never paid dividends and does not plan to, with financing covenants restricting dividend payments. Returns to shareholders depend entirely on capital appreciation and buybacks.",
+      "score": 2
     }
   ],
   "governance": {
@@ -399,7 +412,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.845Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.756Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/crox.json",
     "enrich_root": null,

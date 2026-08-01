@@ -39,8 +39,11 @@
       "is_generic": true,
       "is_short_history": false,
       "_validation": "Conversion RMB to USD: 112.6 RMB = 16.1 USD per source; history converted at consistent rates",
-      "period_type": "quarter",
-      "signal_en": "Top-line growth, market traction"
+      "period_type": "year",
+      "signal_en": "Top-line growth, market traction",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=3<4)"
+      ]
     },
     {
       "short": "Bénéfice net",
@@ -104,11 +107,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 112.63 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -127,11 +134,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 33.76 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -150,11 +161,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 221.42 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -173,11 +188,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 6.73 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -196,10 +215,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 47.17 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -226,9 +249,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Conversion RMB to USD: 112.6 RMB = 16.1 USD per source document",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Conversion RMB to USD: 112.6 RMB = 16.1 USD per source document"
     }
   ],
   "ai_positioning": {
@@ -258,7 +279,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -278,7 +299,8 @@
       "severity": 5,
       "score_rationale": "Risque placé en début d'Item 1A avec langage très intense (« material change », « significantly decline », « worthless »). 85-88% des revenus générés par les VIE. Structure contractuelle non testée en cour chinoise. Tendance stable mais poids critique pour la viabilité opérationnelle.",
       "trend": "stable",
-      "summary": "NetEase opère 85-88% de ses activités via des entités à intérêt variable (VIE) en Chine continentale sans participation au capital, contrôlées uniquement par contrats. Toute invalidation de ces arrangements contractuels par les autorités chinoises entraînerait la déconsolidation des VIE et rendrait les titres potentiellement sans valeur. Le risque est amplifié par l'absence de précédent judiciaire en droit chinois."
+      "summary": "NetEase opère 85-88% de ses activités via des entités à intérêt variable (VIE) en Chine continentale sans participation au capital, contrôlées uniquement par contrats. Toute invalidation de ces arrangements contractuels par les autorités chinoises entraînerait la déconsolidation des VIE et rendrait les titres potentiellement sans valeur. Le risque est amplifié par l'absence de précédent judiciaire en droit chinois.",
+      "score": 5
     },
     {
       "title": "Incertitude réglementaire sur les structures VIE et investissement étranger",
@@ -286,7 +308,8 @@
       "severity": 5,
       "score_rationale": "Langage d'incertitude répété (« uncertain », « no assurance ») concernant l'interprétation future de la Foreign Investment Law. Risque que les VIE soient reclassifiées en investissement étranger indirect. Tendance up : nouvelles lois chinoises en cours d'adoption. Impact potentiel : pénalités sévères ou perte de contrôle.",
       "trend": "up",
-      "summary": "La Foreign Investment Law chinoise contient une clause fourre-tout permettant aux autorités de reclassifier les arrangements contractuels comme investissement étranger indirect. Si les VIE étaient reclassifiées et les activités de NetEase inscrites sur une liste négative, l'entreprise devrait se restructurer radicalement, avec impact matériel sur les opérations et la consolidation financière."
+      "summary": "La Foreign Investment Law chinoise contient une clause fourre-tout permettant aux autorités de reclassifier les arrangements contractuels comme investissement étranger indirect. Si les VIE étaient reclassifiées et les activités de NetEase inscrites sur une liste négative, l'entreprise devrait se restructurer radicalement, avec impact matériel sur les opérations et la consolidation financière.",
+      "score": 5
     },
     {
       "title": "Approbation gouvernementale pour offres de titres et maintien de cotation",
@@ -294,7 +317,8 @@
       "severity": 4,
       "score_rationale": "Risque explicitement mentionné avec exemples concrets (CSRC, CAC). Langage d'incertitude modérée (« cannot guarantee »). Tendance up : gouvernement chinois a indiqué intention d'augmenter la surveillance des offres offshore. Conséquences : amendes, restrictions de dividendes, délai de rapatriement.",
       "trend": "up",
-      "summary": "Les autorités chinoises (CSRC, CAC) peuvent exiger une approbation préalable pour les offres de titres offshore et le maintien de la cotation des ADS. NetEase ne peut garantir l'obtention de ces approbations en temps utile. Le non-respect pourrait entraîner des amendes, restrictions sur les dividendes internationaux et délais de rapatriement des fonds."
+      "summary": "Les autorités chinoises (CSRC, CAC) peuvent exiger une approbation préalable pour les offres de titres offshore et le maintien de la cotation des ADS. NetEase ne peut garantir l'obtention de ces approbations en temps utile. Le non-respect pourrait entraîner des amendes, restrictions sur les dividendes internationaux et délais de rapatriement des fonds.",
+      "score": 4
     },
     {
       "title": "Risque de délisting sous la loi HFCAA (audit PCAOB)",
@@ -302,7 +326,8 @@
       "severity": 4,
       "score_rationale": "Risque spécifique aux émetteurs chinois cotés aux USA. Langage clair sur les conséquences (prohibition de trading). Tendance down : PCAOB a rétabli accès d'inspection en décembre 2022, NetEase ne s'attend pas à être identifiée comme Commission-Identified Issuer. Mais risque résiduel si PCAOB perd accès futur.",
       "trend": "down",
-      "summary": "Si le PCAOB détermine qu'il ne peut plus inspecter complètement les cabinets d'audit en Chine continentale pendant deux années consécutives, NetEase serait identifiée comme Commission-Identified Issuer et ses ADS seraient interdites de trading aux USA. Bien que le risque ait diminué après décembre 2022, il persiste si l'accès d'inspection était révoqué."
+      "summary": "Si le PCAOB détermine qu'il ne peut plus inspecter complètement les cabinets d'audit en Chine continentale pendant deux années consécutives, NetEase serait identifiée comme Commission-Identified Issuer et ses ADS seraient interdites de trading aux USA. Bien que le risque ait diminué après décembre 2022, il persiste si l'accès d'inspection était révoqué.",
+      "score": 4
     },
     {
       "title": "Intervention gouvernementale chinoise sur les opérations et politiques sectorielles",
@@ -310,7 +335,8 @@
       "severity": 4,
       "score_rationale": "Langage d'incertitude générale (« cannot rule out ») sur les futures régulations. Tendance stable mais poids élevé : gouvernement chinois a publié nouvelles politiques affectant les industries de NetEase (jeux, éducation, musique). Conséquences potentielles : restrictions de croissance, déclin des revenus, valeur des titres.",
       "trend": "stable",
-      "summary": "Le gouvernement chinois peut intervenir à tout moment pour poursuivre des objectifs réglementaires, politiques ou sociétaux. NetEase opère dans plusieurs secteurs (jeux en ligne, éducation, musique) soumis à des régulations en évolution. Toute nouvelle politique restrictive pourrait limiter la croissance ou forcer des changements opérationnels majeurs."
+      "summary": "Le gouvernement chinois peut intervenir à tout moment pour poursuivre des objectifs réglementaires, politiques ou sociétaux. NetEase opère dans plusieurs secteurs (jeux en ligne, éducation, musique) soumis à des régulations en évolution. Toute nouvelle politique restrictive pourrait limiter la croissance ou forcer des changements opérationnels majeurs.",
+      "score": 4
     },
     {
       "title": "Restrictions gouvernementales sur les jeux en ligne et approbations de contenu",
@@ -318,7 +344,8 @@
       "severity": 4,
       "score_rationale": "Risque métier spécifique aux jeux mentionné dans forward-looking statements. Langage modéré (« risk that ») mais impact direct sur revenus. Tendance stable : restrictions existantes (temps de jeu mineur) mais risque d'aggravation. Poids catégorie élevé : jeux = cœur de métier.",
       "trend": "stable",
-      "summary": "Les autorités chinoises (SAPPRFT, SAMR) peuvent imposer des restrictions supplémentaires sur les jeux en ligne (temps de jeu, contenu, monétisation). NetEase dépend des approbations gouvernementales pour lancer de nouveaux jeux. Toute restriction additionnelle limiterait la croissance des revenus de jeux, activité principale de l'entreprise."
+      "summary": "Les autorités chinoises (SAPPRFT, SAMR) peuvent imposer des restrictions supplémentaires sur les jeux en ligne (temps de jeu, contenu, monétisation). NetEase dépend des approbations gouvernementales pour lancer de nouveaux jeux. Toute restriction additionnelle limiterait la croissance des revenus de jeux, activité principale de l'entreprise.",
+      "score": 4
     },
     {
       "title": "Dépendance à la popularité des jeux et risque d'échec produit",
@@ -326,7 +353,8 @@
       "severity": 4,
       "score_rationale": "Risque métier fondamental mentionné en forward-looking statements. Langage d'incertitude (« will not continue to grow », « will not be able to maintain »). Tendance stable mais poids critique : jeux = 60%+ des revenus. Risque d'obsolescence produit et perte de position de leader.",
       "trend": "stable",
-      "summary": "NetEase dépend de la popularité continue de ses jeux en ligne (PC, mobile, console). Si les nouveaux jeux ou extensions ne deviennent pas populaires, ou si les tendances du marché changent, NetEase pourrait perdre sa position de leader et voir ses revenus décliner significativement. Risque amplifié par la concurrence intense du marché des jeux."
+      "summary": "NetEase dépend de la popularité continue de ses jeux en ligne (PC, mobile, console). Si les nouveaux jeux ou extensions ne deviennent pas populaires, ou si les tendances du marché changent, NetEase pourrait perdre sa position de leader et voir ses revenus décliner significativement. Risque amplifié par la concurrence intense du marché des jeux.",
+      "score": 4
     },
     {
       "title": "Risques de cybersécurité, données personnelles et conformité CAC",
@@ -334,7 +362,8 @@
       "severity": 4,
       "score_rationale": "Mentionné explicitement comme risque associé aux actions réglementaires récentes du gouvernement chinois (cybersecurity and data privacy compliance). Langage modéré mais tendance up : CAC (Cyberspace Administration of China) a renforcé la surveillance. Poids catégorie élevé pour les services en ligne.",
       "trend": "up",
-      "summary": "NetEase opère des services en ligne (jeux, musique, éducation) collectant des données personnelles. Les autorités chinoises (CAC) renforcent la conformité en cybersécurité et protection des données. Tout manquement pourrait entraîner des amendes, restrictions opérationnelles ou suspension de services, affectant les revenus et la réputation."
+      "summary": "NetEase opère des services en ligne (jeux, musique, éducation) collectant des données personnelles. Les autorités chinoises (CAC) renforcent la conformité en cybersécurité et protection des données. Tout manquement pourrait entraîner des amendes, restrictions opérationnelles ou suspension de services, affectant les revenus et la réputation.",
+      "score": 4
     }
   ],
   "_risks_reextracted_at": "2026-05-14T05:33:12.126031+00:00",
@@ -472,9 +501,9 @@
     "country": "China",
     "_data_freshness_date": "2026-05-21T02:17:14.291088+00:00",
     "fetched_at": "2026-05-21T02:17:14.291089+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.078Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.006Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ntes.json",
     "enrich_root": "v2-pipeline-enrich/ntes.json",

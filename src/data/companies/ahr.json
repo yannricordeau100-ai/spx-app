@@ -36,12 +36,13 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only one explicit headcount value found: 121 employees as of December 31, 2025. Insufficient data points (need minimum 4 consecutive years) ",
-      "explanation_en": "Headcount — total number of employees at period end.",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "explanation_en": "Headcount, total number of employees at period end.",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Portfolio_GLA",
@@ -62,17 +63,15 @@
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "is_short_history": true
     },
     {
       "short": "Portfolio_Value",
       "name_fr": "Valeur du portefeuille immobilier",
       "name_en": "Real Estate Portfolio Contract Purchase Price",
       "explanation": "Prix d'achat contractuel agrégé du portefeuille immobilier",
-      "value": 5421191000,
-      "unit": "$",
+      "value": 5.421,
+      "unit": "Mds $",
       "yoy": null,
       "type": "Investment",
       "nature": "Structurel",
@@ -80,22 +79,21 @@
       "signal": "Growth",
       "description": "Prix d'achat contractuel agrégé de 337 bâtiments et ISHC pour un total de 5,421 milliards USD",
       "history": [
-        5421191000
+        5.421
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_unit_rescaled": "raw -> Mds $"
     },
     {
       "short": "Debt_Investment",
       "name_fr": "Investissement en dette immobilière",
       "name_en": "Real Estate-Related Debt Investment",
       "explanation": "Investissement en dette immobilière acquis",
-      "value": 60429000,
-      "unit": "$",
+      "value": 60.429,
+      "unit": "M $",
       "yoy": null,
       "type": "Investment",
       "nature": "Structurel",
@@ -103,22 +101,21 @@
       "signal": "Stable",
       "description": "Investissement en dette immobilière acquis au 31 décembre 2025",
       "history": [
-        60429000
+        60.429
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_unit_rescaled": "raw -> M $"
     },
     {
       "short": "ATM_2025_Proceeds",
       "name_fr": "Produits bruts ATM 2025",
       "name_en": "2025 ATM Offering Gross Proceeds",
       "explanation": "Produits bruts de l'offre de marché en continu 2025",
-      "value": 701417000,
-      "unit": "$",
+      "value": 701.417,
+      "unit": "M $",
       "yoy": null,
       "type": "Capital",
       "nature": "Financier",
@@ -126,14 +123,13 @@
       "signal": "Growth",
       "description": "Produits bruts de 701,417 millions USD de la vente de 15,592,634 actions sous l'offre ATM 2025",
       "history": [
-        701417000
+        701.417
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_unit_rescaled": "raw -> M $"
     },
     {
       "short": "Total Assets",
@@ -152,11 +148,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 5.43 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -175,33 +175,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.69 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.11,
-      "unit": "Mds €",
+      "value": 110,
+      "unit": "M €",
       "yoy": "+37.5%",
       "history": [
-        0.07,
-        0.04,
-        0.08,
-        0.11
+        70,
+        40,
+        80,
+        110
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.11 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -239,70 +248,70 @@
       "title": "Tenant and Operator Insolvency",
       "category": "Credit",
       "severity": 5,
-      "score_rationale": "Le rapport identifie la détérioration financière, l'insolvabilité ou la faillite des locataires ou exploitants comme un risque majeur affectant directement les revenus et la capacité de distribution aux actionnaires (score par défaut, à affiner)",
+      "score_rationale": "Le rapport identifie la détérioration financière, l'insolvabilité ou la faillite des locataires ou exploitants comme un risque majeur affectant directement les revenus et la capacité de distribution aux actionnaires",
       "trend": "stable",
       "summary": "L'insolvabilité des locataires ou exploitants peut entraîner une perte de revenus et réduire la capacité de l'entreprise à verser des dividendes",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Lease Defaults and Terminations",
       "category": "Capital",
       "severity": 5,
-      "score_rationale": "Le défaut de location ou la résiliation de baux sont explicitement identifiés comme risques affectant la génération de revenus et les distributions aux actionnaires (score par défaut, à affiner)",
+      "score_rationale": "Le défaut de location ou la résiliation de baux sont explicitement identifiés comme risques affectant la génération de revenus et les distributions aux actionnaires",
       "trend": "stable",
       "summary": "Les défauts de location peuvent entraîner une perte de revenus et réduire la capacité à faire des distributions aux actionnaires",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Key Executive Dependency",
       "category": "Key Person",
       "severity": 4,
-      "score_rationale": "Le succès de la société dépend en partie des contributions continues de certains cadres clés; le rapport note que le PDG Danny Prosky est actuellement en congé médical (score par défaut, à affiner)",
+      "score_rationale": "Le succès de la société dépend en partie des contributions continues de certains cadres clés; le rapport note que le PDG Danny Prosky est actuellement en congé médical",
       "trend": "active",
       "summary": "La perte ou l'indisponibilité d'un cadre clé pourrait matériellement affecter les opérations et les perspectives de la société",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Trilogy Manager Dependency",
       "category": "Operational",
       "severity": 4,
-      "score_rationale": "Tous les ISHC sont gérés par Trilogy Management Services, LLC, qui représente une part importante des revenus et des revenus d'exploitation (score par défaut, à affiner)",
+      "score_rationale": "Tous les ISHC sont gérés par Trilogy Management Services, LLC, qui représente une part importante des revenus et des revenus d'exploitation",
       "trend": "stable",
       "summary": "Les développements défavorables chez le gestionnaire Trilogy pourraient avoir un effet négatif matériel sur l'entreprise",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Real Estate Investment Risks",
       "category": "Market",
       "severity": 4,
-      "score_rationale": "Les risques liés aux investissements immobiliers, tels que les fluctuations de la valeur des propriétés et les conditions de marché, sont inhérents au modèle commercial de REIT (score par défaut, à affiner)",
+      "score_rationale": "Les risques liés aux investissements immobiliers, tels que les fluctuations de la valeur des propriétés et les conditions de marché, sont inhérents au modèle commercial de REIT",
       "trend": "stable",
       "summary": "Les fluctuations du marché immobilier et la baisse de la valeur des propriétés peuvent entraîner des pertes et affecter la capacité à honorer les dettes",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Healthcare Sector Regulation",
       "category": "Regulatory",
       "severity": 4,
-      "score_rationale": "Les changements réglementaires dans le secteur de la santé peuvent perturber les opérations des propriétés et affecter la capacité des locataires à générer des revenus (score par défaut, à affiner)",
+      "score_rationale": "Les changements réglementaires dans le secteur de la santé peuvent perturber les opérations des propriétés et affecter la capacité des locataires à générer des revenus",
       "trend": "stable",
       "summary": "Les changements réglementaires peuvent entraîner des perturbations et réduire la capacité à atteindre les objectifs financiers",
-      "score": 3
+      "score": 4
     },
     {
       "title": "REIT Qualification Requirements",
       "category": "Regulatory",
       "severity": 4,
-      "score_rationale": "Le maintien du statut REIT pour fins fiscales fédérales américaines est essentiel aux opérations et à la structure fiscale de la société (score par défaut, à affiner)",
+      "score_rationale": "Le maintien du statut REIT pour fins fiscales fédérales américaines est essentiel aux opérations et à la structure fiscale de la société",
       "trend": "stable",
       "summary": "L'incapacité à maintenir la qualification REIT affecterait matériellement la structure fiscale et la valeur pour les actionnaires",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Debt and Refinancing Risk",
       "category": "Credit",
       "severity": 3,
-      "score_rationale": "L'augmentation des taux d'intérêt et les risques de refinancement pourraient créer des difficultés à honorer les dettes et à investir dans de nouvelles opportunités (score par défaut, à affiner)",
+      "score_rationale": "L'augmentation des taux d'intérêt et les risques de refinancement pourraient créer des difficultés à honorer les dettes et à investir dans de nouvelles opportunités",
       "trend": "stable",
       "summary": "Les risques liés à la dette peuvent entraîner des difficultés à honorer les obligations et réduire la capacité d'investissement",
       "score": 3
@@ -311,7 +320,7 @@
       "title": "Competition for Property Acquisitions",
       "category": "Competition",
       "severity": 3,
-      "score_rationale": "La concurrence intense pour les acquisitions peut rendre difficile l'identification et l'acquisition de propriétés à des prix compétitifs (score par défaut, à affiner)",
+      "score_rationale": "La concurrence intense pour les acquisitions peut rendre difficile l'identification et l'acquisition de propriétés à des prix compétitifs",
       "trend": "stable",
       "summary": "La concurrence accrue peut affecter la capacité à acquérir des propriétés attrayantes à des conditions favorables",
       "score": 3
@@ -353,7 +362,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -470,9 +479,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.217217+00:00",
     "fetched_at": "2026-05-21T02:17:14.217218+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.497Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.952Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/ahr.json",
     "enrich_root": "v2-pipeline-enrich/ahr.json",

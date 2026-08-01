@@ -37,19 +37,22 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Only one explicit annual backlog value found in the filing: $1.4 billion as of December 31, 2024, and $850 million as of December 31, 2023. ",
-      "explanation_en": "Backlog — value of orders not yet recognized as revenue.",
-      "signal_en": "Demand softening, monitor end-markets"
+      "explanation_en": "Backlog, value of orders not yet recognized as revenue.",
+      "signal_en": "Demand softening, monitor end-markets",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "Backlog_2026",
       "name_fr": "Backlog prévu 2026",
       "name_en": "2026 Backlog",
       "explanation": "Portion du carnet de commandes à être exécutée au cours des 12 prochains mois",
-      "value": "0.694",
-      "unit": "Mds $",
+      "value": 694,
+      "unit": "M $",
       "yoy": "Not applicable",
       "type": "Demand",
       "nature": "Cyclique",
@@ -57,83 +60,99 @@
       "signal": "694 millions de dollars de contrats signés pour exécution en 2026 fournira une utilisation significative des navires et équipements",
       "description": "Le backlog prévu pour 2026 représente 53% du backlog total et démontre la visibilité des revenus pour l'année suivante",
       "history": [
-        0.69
+        690
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.877,
-      "unit": "Mds €",
+      "value": 877,
+      "unit": "M €",
       "yoy": "+3.7%",
       "history": [
-        1.2,
-        1.399,
-        0.846,
-        0.877
+        1200,
+        1399,
+        846,
+        877
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.29 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:53:40.520847+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-50.0%",
       "history": [
-        -0.09,
-        -0.01,
-        0.06,
-        0.03
+        -90,
+        -10,
+        60,
+        30
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.03 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "-38.5%",
       "history": [
-        -0.03,
-        0.11,
-        0.13,
-        0.08
+        -30,
+        110,
+        130,
+        80
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.08 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -152,56 +171,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.62 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.63,
-      "unit": "Mds €",
+      "value": 630,
+      "unit": "M €",
       "yoy": "-4.5%",
       "history": [
-        0.47,
-        0.54,
-        0.66,
-        0.63
+        470,
+        540,
+        660,
+        630
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.63 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.45,
-      "unit": "Mds €",
+      "value": 450,
+      "unit": "M €",
       "yoy": "+21.6%",
       "history": [
-        0.19,
-        0.33,
-        0.37,
-        0.45
+        190,
+        330,
+        370,
+        450
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.45 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -225,9 +258,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Marché"
     },
     {
       "short": "Market_Sentiment",
@@ -249,9 +280,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Marché",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Marché"
     }
   ],
   "ai_positioning": {
@@ -265,16 +294,16 @@
       "title": "Risques liés aux dettes",
       "category": "Crédit",
       "severity": 4,
-      "score_rationale": "La société a des dettes importantes, notamment des obligations senior, qui peuvent peser sur sa situation financière et limiter sa flexibilité financière (score par défaut, à affiner)",
+      "score_rationale": "La société a des dettes importantes, notamment des obligations senior, qui peuvent peser sur sa situation financière et limiter sa flexibilité financière",
       "trend": "up",
       "summary": "Les dettes importantes peuvent limiter la capacité de la société à investir et à se développer",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépréciation des actifs",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Les actifs longue durée, notamment les navires et l'équipement spécialisé, sont sujets à une dépréciation potentielle en cas de ralentissement du marché (score par défaut, à affiner)",
+      "score_rationale": "Les actifs longue durée, notamment les navires et l'équipement spécialisé, sont sujets à une dépréciation potentielle en cas de ralentissement du marché",
       "trend": "up",
       "summary": "La dépréciation des actifs longue durée peut avoir un impact sur la situation financière en cas de baisse d'activité",
       "score": 3
@@ -283,7 +312,7 @@
       "title": "Volatilité des prix des matières premières",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Les fluctuations des prix des matières premières, qui ont baissé de 20% en 2025, affectent directement les décisions de dépenses des clients pétroliers et gaziers (score par défaut, à affiner)",
+      "score_rationale": "Les fluctuations des prix des matières premières, qui ont baissé de 20% en 2025, affectent directement les décisions de dépenses des clients pétroliers et gaziers",
       "trend": "stable",
       "summary": "Les fluctuations des prix peuvent affecter la demande de services et la rentabilité de la société",
       "score": 3
@@ -292,7 +321,7 @@
       "title": "Concentration de la clientèle",
       "category": "Opérationnel",
       "severity": 3,
-      "score_rationale": "82% du backlog provient de six clients majeurs, créant une exposition significative aux décisions d'un nombre limité de clients (score par défaut, à affiner)",
+      "score_rationale": "82% du backlog provient de six clients majeurs, créant une exposition significative aux décisions d'un nombre limité de clients",
       "trend": "stable",
       "summary": "La concentration élevée chez quelques clients majeurs expose la société à des risques de perte de contrats",
       "score": 3
@@ -301,7 +330,7 @@
       "title": "Incertitude réglementaire et géopolitique",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Les changements réglementaires, notamment le U.K. Energy Profits Levy et le US Wind Energy Ban de janvier 2025, créent une incertitude pour les revenus futurs (score par défaut, à affiner)",
+      "score_rationale": "Les changements réglementaires, notamment le U.K. Energy Profits Levy et le US Wind Energy Ban de janvier 2025, créent une incertitude pour les revenus futurs",
       "trend": "up",
       "summary": "Les changements réglementaires et les tensions géopolitiques peuvent limiter les opportunités de marché et les revenus futurs",
       "score": 3
@@ -395,7 +424,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -411,7 +440,7 @@
   "_hero_kpi_original": "Backlog",
   "_hero_kpi_swapped_reason": "auto-promotion (original had short history)",
   "_hero_kpi_swapped_at": "2026-05-14T12:38:00Z",
-  "_companies_unified_built_at": "2026-05-29T21:19:32.086Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:05.489Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/hlx.json",
     "enrich_root": null,

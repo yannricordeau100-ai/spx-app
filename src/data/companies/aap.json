@@ -44,7 +44,7 @@
       "is_short_history": false,
       "_validation": "Valeur et unité confirmées (43.4%, +592 bps YoY). YoY ajusté de '+5.9 pts' à '+592 bps' pour clarté.",
       "period_type": "quarter",
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -236,7 +236,11 @@
       "is_generic": true,
       "_source": "SEC EDGAR companyfacts XBRL",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "quarter",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to quarter (heuristic len=8)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -264,9 +268,7 @@
       "is_short_history": true,
       "story_category": "Capacité",
       "ttm": 12.21,
-      "_validation": "Valeur et unité confirmées. YoY ajusté au format standardisé '-34.0%'. Histoire et story_category validés par source.",
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Valeur et unité confirmées. YoY ajusté au format standardisé '-34.0%'. Histoire et story_category validés par source."
     },
     {
       "short": "Excess and Obsolete Inventory Reserve",
@@ -291,9 +293,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Capacité",
-      "_validation": "YoY recalculé correctement: (68-302)/302 = -77.5% (source affichait -73.7%). Valeur et unité confirmées par 10-K.",
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "_validation": "YoY recalculé correctement: (68-302)/302 = -77.5% (source affichait -73.7%). Valeur et unité confirmées par 10-K."
     }
   ],
   "ai_positioning": {
@@ -307,41 +307,41 @@
       "title": "Restructuration coûteuse et perturbatrice",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "Le plan de restructuration de 2024 est central dans le 10-K, avec des charges de 309M$ en 2024 et 204M$ en 2025, langage fort sur l'impact opérationnel. Risque existentiel lié à la transformation profonde du modèle. Catégorie Industriel fortement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Le plan de restructuration de 2024 est central dans le 10-K, avec des charges de 309M$ en 2024 et 204M$ en 2025, langage fort sur l'impact opérationnel. Risque existentiel lié à la transformation profonde du modèle. Catégorie Industriel fortement pondérée.",
       "trend": "stable",
       "summary": "La fermeture de magasins, la réduction des effectifs et les coûts d'ajustement menacent la stabilité opérationnelle malgré des gains futurs attendus.",
       "_validation": "Risque confirmé par source 10-K (restructuring and related expenses section).",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à un fournisseur en faillite",
       "category": "Approvisionnement",
       "severity": 4,
-      "score_rationale": "Mention explicite d'un fournisseur clé en redressement judiciaire (Chapitre 11), avec une charge non monétaire de 28M$. Langage prudent sur les risques de continuité. Position élevée dans les risques récents, catégorie Approvisionnement modérément pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Mention explicite d'un fournisseur clé en redressement judiciaire (Chapitre 11), avec une charge non monétaire de 28M$. Langage prudent sur les risques de continuité. Position élevée dans les risques récents, catégorie Approvisionnement modérément pondérée.",
       "trend": "new",
       "summary": "La faillite d'un grand fournisseur expose la société à des pertes de crédits et des ruptures d'approvisionnement, même si les achats sont désormais marginaux.",
       "_validation": "Risque confirmé par source 10-K (Q3 2025 vendor bankruptcy disclosure: 28M$ non-cash charge to cost of sales). Catégorie reclassifiée de 'Concurrence' à 'Approvisionnement'.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Tensions tarifaires sur les importations",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Nouveaux tarifs douaniers sur les importations depuis le Canada, la Chine et le Mexique sont mentionnés dès le début du rapport. Langage d'alerte sur des changements futurs possibles. Catégorie Géopolitique moyennement pondérée, mais risque en hausse. (score par défaut, à affiner)",
+      "score_rationale": "Nouveaux tarifs douaniers sur les importations depuis le Canada, la Chine et le Mexique sont mentionnés dès le début du rapport. Langage d'alerte sur des changements futurs possibles. Catégorie Géopolitique moyennement pondérée, mais risque en hausse.",
       "trend": "up",
       "summary": "Les nouveaux tarifs sur les pièces importées augmentent les coûts, menaçant la marge si les hausses ne peuvent être répercutées aux clients.",
       "_validation": "Risque confirmé par forward-looking statements du 10-K mentionnant 'anticipated impacts of tariffs and other trade barriers'.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Poursuite des pressions inflationnistes",
       "category": "Macro-Économique",
       "severity": 4,
-      "score_rationale": "Inflation citée dans la section 'Industry Update' comme facteur clé affectant les coûts logistiques et salariaux. Langage récurrent et intégré aux risques macro. Catégorie Macro fortement pondérée, position centrale dans l'analyse. (score par défaut, à affiner)",
+      "score_rationale": "Inflation citée dans la section 'Industry Update' comme facteur clé affectant les coûts logistiques et salariaux. Langage récurrent et intégré aux risques macro. Catégorie Macro fortement pondérée, position centrale dans l'analyse.",
       "trend": "stable",
       "summary": "L'inflation sur les coûts de transport, de main-d'œuvre et d'approvisionnement pèse sur la rentabilité et le pouvoir d'achat des clients.",
       "_validation": "Risque confirmé par mentions répétées d'inflation dans MD&A et forward-looking statements.",
-      "score": 3
+      "score": 4
     }
   ],
   "_validation": {
@@ -399,7 +399,8 @@
         "type": "insider",
         "stake_pct": null
       }
-    ]
+    ],
+    "voting_structure": "Directors are elected by a majority of the votes cast."
   },
   "_quarterly_extraction": {
     "date": "2026-05-05 23:16",
@@ -454,6 +455,28 @@
       "date": "2026-04-28"
     }
   ],
+  "revenue_by_geography": {
+    "unit": "$B",
+    "source_date": "2026-01-03",
+    "source": "10-K 2025",
+    "slices": [
+      {
+        "label": "United States",
+        "value": 8.3,
+        "unit": "$B",
+        "share_pct": 96.5,
+        "label_en": "United States"
+      },
+      {
+        "label": "Other (Canada, Puerto Rico, U.S. Virgin Islands, Mexico, Caribbean)",
+        "value": 0.3,
+        "unit": "$B",
+        "share_pct": 3.5,
+        "label_en": "Other (Canada, Puerto Rico, U.S. Virgin Islands, Mexico, Caribbean)"
+      }
+    ],
+    "total": 8.6
+  },
   "_ai_positioning_fetched_at": "2026-05-06T17:56:08.796632+00:00",
   "_segments_fetched_at": "2026-05-09T14:37:40.701745+00:00",
   "financial_snapshot": {
@@ -483,28 +506,6 @@
   },
   "company_description": "Advance Auto Parts, Inc. provides automotive aftermarket parts. The company offers batteries and battery accessories; belts and hoses; brakes and brake pads; chassis parts; climate control parts; clutches and drive shafts; engines and engine parts; exhaust systems and parts; hub assemblies; ignition components and wires; radiators and cooling parts; starters and alternators; and steering and alignment parts. It also provides air conditioning chemicals and accessories; air fresheners; antifreeze and washer fluid; electrical wire and fuses; electronics; floor mats, seat covers, and interior accessories; hand and specialty tools; lighting products; performance parts; sealants, adhesives, and compounds; tire repair accessories; vent shades, mirrors, and exterior accessories; washes, waxes, and cleaning supplies; and wiper blades. In addition, the company offers air filters; fuel and oil additives; fuel filters; grease and lubricants; motor oil; oil filters; part cleaners and treatments; and transmission fluid. Further, it provides battery and wiper installation; engine light scanning; electrical system testing, including batteries, starters, and alternators; oil and battery recycling; and loaner tool program services. The company serves professional installers and do-it-yourself customers. It operates stores and independently owned branded stores in the United States, Canada, Puerto Rico, the U.S. Virgin Islands, Mexico, and various Caribbean islands primarily under the Advance Auto Parts and Carquest trade brands. The company also offers its products online. The company was founded in 1929 and is based in Raleigh, North Carolina.",
   "_profile_fetched_at": "2026-05-07T11:52:55.642417+00:00",
-  "revenue_by_geography": {
-    "unit": "$B",
-    "source_date": "2026-01-03",
-    "source": "10-K 2025",
-    "slices": [
-      {
-        "label": "United States",
-        "value": 8.3,
-        "unit": "$B",
-        "share_pct": 96.5,
-        "label_en": "United States"
-      },
-      {
-        "label": "Other (Canada, Puerto Rico, U.S. Virgin Islands, Mexico, Caribbean)",
-        "value": 0.3,
-        "unit": "$B",
-        "share_pct": 3.5,
-        "label_en": "Other (Canada, Puerto Rico, U.S. Virgin Islands, Mexico, Caribbean)"
-      }
-    ],
-    "total": 8.6
-  },
   "enrich_ai_pos": {
     "stance": "cautious",
     "summary": "Advance Auto Parts explore l'IA comme levier interne (supply chain, analytics) mais reste exposée à des risques de mise en œuvre et de retard compétitif dans un secteur retail en transformation.",
@@ -623,88 +624,41 @@
   },
   "enrich_quarterly_history": {
     "ticker": "AAP",
-    "extracted_at": "2026-05-15T18:08:17Z",
-    "method": "xbrl-companyfacts",
-    "cik": 1158449,
+    "extracted_at": "2026-06-01T02:54:01Z",
     "n_kpis": 1,
     "kpis": [
       {
-        "short": "Net Sales",
+        "short": "Gross Margin",
         "period_type": "quarter",
         "history": [
-          -5.532,
-          3.3304,
-          5.9798,
-          8.601,
-          -6.9132,
-          3.3742,
-          6.0396,
-          8.681,
-          -6.9401,
-          3.4176,
-          6.1037,
-          8.8227,
-          -7.0564,
-          3.4063,
-          6.0893,
-          7.0983,
-          -7.4995,
-          2.583,
-          4.593,
-          6.628
+          44.6,
+          44.6,
+          44.5,
+          44.7,
+          43,
+          42.7,
+          36.3,
+          42,
+          41.5
         ],
         "history_periods": [
-          "Q4 2020",
           "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
           "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
-          "Q2 2024",
-          "Q3 2024",
-          "Q4 2024",
-          "Q1 2025",
-          "Q2 2025",
-          "Q3 2025"
+          "Q2 2024"
         ],
-        "last_data_date": "2025-10-04",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q4 2024",
-            "value": -7.4995,
-            "accession": "calc-0001158449-25-000064",
-            "end": "2024-12-28"
-          },
-          {
-            "period": "Q1 2025",
-            "value": 2.583,
-            "accession": "0001158449-25-000189",
-            "end": "2025-04-19"
-          },
-          {
-            "period": "Q2 2025",
-            "value": 4.593,
-            "accession": "0001158449-25-000272",
-            "end": "2025-07-12"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 6.628,
-            "accession": "0001628280-25-047523",
-            "end": "2025-10-04"
-          }
-        ]
+        "last_data_date": "2024-07-13",
+        "unit": "%",
+        "_extracted_at": "2026-06-01T02:54:01Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
     ]
   },
@@ -720,9 +674,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.129290+00:00",
     "fetched_at": "2026-05-21T02:17:14.129293+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.061Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:52.590Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/aap.json",
     "enrich_root": "v2-pipeline-enrich/aap.json",

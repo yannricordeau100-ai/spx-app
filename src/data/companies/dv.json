@@ -43,7 +43,7 @@
       "is_generic": true,
       "is_short_history": false,
       "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Strong top-line growth, market traction"
     },
     {
@@ -70,7 +70,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -97,7 +97,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Profitability improving, returns strengthening"
     },
     {
@@ -149,9 +149,7 @@
       "last_data_date": "2025-12-31",
       "is_wow": true,
       "is_generic": false,
-      "is_short_history": true,
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "is_short_history": true
     },
     {
       "short": "Total Assets",
@@ -170,56 +168,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.35 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.1,
-      "unit": "Mds €",
+      "value": 100,
+      "unit": "M €",
       "yoy": "+11.1%",
       "history": [
-        0.08,
-        0.09,
-        0.09,
-        0.1
+        80,
+        90,
+        90,
+        100
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.1 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.26,
-      "unit": "Mds €",
+      "value": 260,
+      "unit": "M €",
       "yoy": "-10.3%",
       "history": [
-        0.27,
-        0.31,
-        0.29,
-        0.26
+        270,
+        310,
+        290,
+        260
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.26 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -247,13 +259,11 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Adoption",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Adoption"
     }
   ],
   "ai_positioning": {
-    "stance": "central",
+    "stance": "integrator",
     "summary": "DoubleVerify positionne l'IA au cœur de sa stratégie. La société décrit explicitement son offre comme une plateforme de mesure de l'efficacité média qui utilise l'IA pour optimiser les résultats des marques. L'IA est mentionnée comme facteur clé pour répondre à l'évolution rapide d'Internet et pour développer des solutions de protection de la qualité des médias et d'alignement stratégique des campagnes.",
     "evidence": [
       "Tagline officiel: 'leverages artificial intelligence (AI) to drive superior outcomes for global brands'",
@@ -268,34 +278,34 @@
       "title": "Obsolescence technologique et perte de compétitivité",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Mentionné en premier dans le résumé des facteurs de risque, le langage est fort ('obsolete', 'less competitive'). Le contexte est celui d'une évolution rapide du marché IT. La pondération est élevée car la technologie est le cœur de métier. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné en premier dans le résumé des facteurs de risque, le langage est fort ('obsolete', 'less competitive'). Le contexte est celui d'une évolution rapide du marché IT. La pondération est élevée car la technologie est le cœur de métier.",
       "trend": "up",
       "summary": "L'entreprise risque de voir ses solutions devenir obsolètes ou moins compétitives si elle ne parvient pas à suivre les évolutions technologiques rapides, les nouvelles normes industrielles ou les préférences changeantes des annonceurs.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence intense et pression sur les prix",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "Le marché est décrit comme 'highly competitive' et 'evolving rapidly'. Le risque de 'commoditization' et de réduction des prix est explicitement mentionné. La concurrence est un facteur clé dans le secteur technologique. (score par défaut, à affiner)",
+      "score_rationale": "Le marché est décrit comme 'highly competitive' et 'evolving rapidly'. Le risque de 'commoditization' et de réduction des prix est explicitement mentionné. La concurrence est un facteur clé dans le secteur technologique.",
       "trend": "up",
       "summary": "Le marché est très concurrentiel et en évolution rapide, ce qui pourrait entraîner une intensification de la concurrence, une pression sur les prix et une érosion des marges, affectant la capacité de l'entreprise à croître et à rester rentable.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Cyberattaques et failles de sécurité",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Ce risque est détaillé avec une forte intensité ('significantly harm', 'material adverse effect') et est accentué par le contexte géopolitique ('geopolitical conflicts'). La dépendance à la plateforme et aux données rend ce risque existentiel. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est détaillé avec une forte intensité ('significantly harm', 'material adverse effect') et est accentué par le contexte géopolitique ('geopolitical conflicts'). La dépendance à la plateforme et aux données rend ce risque existentiel.",
       "trend": "up",
       "summary": "Les cyberattaques, les failles de sécurité et les interruptions de système, potentiellement exacerbées par des conflits géopolitiques, menacent l'exploitation de la plateforme, la confidentialité des données et la réputation de l'entreprise.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance aux plateformes partenaires et intégrations",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Le texte souligne la dépendance aux 'demand- and supply-side advertising platforms' et aux 'social platforms'. Ces partenaires peuvent développer des produits concurrents ou contrôler l'accès, impactant négativement les revenus. (score par défaut, à affiner)",
+      "score_rationale": "Le texte souligne la dépendance aux 'demand- and supply-side advertising platforms' et aux 'social platforms'. Ces partenaires peuvent développer des produits concurrents ou contrôler l'accès, impactant négativement les revenus.",
       "trend": "stable",
       "summary": "L'entreprise dépend fortement des plateformes partenaires pour ses intégrations. Ces partenaires peuvent développer des offres concurrentes ou limiter l'accès, ce qui pourrait nuire aux revenus et à la relation client.",
       "score": 3
@@ -304,7 +314,7 @@
       "title": "Risques liés à l'intelligence artificielle et au machine learning",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "Mentionné spécifiquement ('risks associated with our use of artificial intelligence and machine learning models') et lié à l'évolution technologique et à la cybersécurité. L'IA est une technologie clé mais comporte des incertitudes en matière d'efficacité et de sécurité. (score par défaut, à affiner)",
+      "score_rationale": "Mentionné spécifiquement ('risks associated with our use of artificial intelligence and machine learning models') et lié à l'évolution technologique et à la cybersécurité. L'IA est une technologie clé mais comporte des incertitudes en matière d'efficacité et de sécurité.",
       "trend": "up",
       "summary": "L'utilisation de l'IA et du machine learning présente des risques, notamment en matière de concurrence, d'adoption par le marché, de développement de méthodes d'attaque sophistiquées et d'efficacité réelle des modèles.",
       "score": 3
@@ -313,16 +323,16 @@
       "title": "Réglementation sur la confidentialité et la publicité numérique",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Ce risque est explicitement mentionné ('Data privacy legislation and regulation', 'Public criticism of digital advertising'). Les changements réglementaires et la perception publique peuvent impacter directement le modèle économique. (score par défaut, à affiner)",
+      "score_rationale": "Ce risque est explicitement mentionné ('Data privacy legislation and regulation', 'Public criticism of digital advertising'). Les changements réglementaires et la perception publique peuvent impacter directement le modèle économique.",
       "trend": "up",
       "summary": "Les lois sur la protection des données et la publicité numérique, ainsi que la critique publique du secteur, peuvent affecter négativement l'activité de l'entreprise et la demande pour ses solutions.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance au personnel clé et recrutement",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "Le texte mentionne la dépendance à l'égard de l'équipe de direction et du personnel clé ('depend on our management team and other key personnel'). La perte de ces talents ou l'incapacité à en recruter de nouveaux est un risque identifié. (score par défaut, à affiner)",
+      "score_rationale": "Le texte mentionne la dépendance à l'égard de l'équipe de direction et du personnel clé ('depend on our management team and other key personnel'). La perte de ces talents ou l'incapacité à en recruter de nouveaux est un risque identifié.",
       "trend": "stable",
       "summary": "La capacité de l'entreprise à réussir dépend de sa direction et de son personnel clé. La difficulté à retenir ou à recruter des talents qualifiés pourrait nuire à sa compétitivité.",
       "score": 3
@@ -454,6 +464,58 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "DV",
+    "extracted_at": "2026-06-01T03:12:18Z",
+    "n_kpis": 1,
+    "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          67.586,
+          76.524,
+          83.098,
+          96.723,
+          109.805,
+          112.254,
+          122.594,
+          133.744,
+          143.974,
+          140.782,
+          155.89,
+          169.556,
+          165.061,
+          189.021,
+          188.621
+        ],
+        "history_periods": [
+          "Q1 2021",
+          "Q2 2021",
+          "Q3 2021",
+          "Q1 2022",
+          "Q2 2022",
+          "Q3 2022",
+          "Q1 2023",
+          "Q2 2023",
+          "Q3 2023",
+          "Q1 2024",
+          "Q2 2024",
+          "Q3 2024",
+          "Q1 2025",
+          "Q2 2025",
+          "Q3 2025"
+        ],
+        "last_data_date": "2025-09-30",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:12:18Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "DV",
     "ranks": {
@@ -466,15 +528,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.253021+00:00",
     "fetched_at": "2026-05-21T02:17:14.253022+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.479Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.044Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/dv.json",
     "enrich_root": "v2-pipeline-enrich/dv.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

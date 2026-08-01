@@ -71,7 +71,7 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 357.4,
-      "explanation_en": "Operating Profit — profit from core business operations.",
+      "explanation_en": "Operating Profit, profit from core business operations.",
       "signal_en": "Margin compression, watch profitability"
     },
     {
@@ -116,57 +116,71 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.32 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.22,
-      "unit": "Mds €",
+      "value": 220,
+      "unit": "M €",
       "yoy": "-12.0%",
       "history": [
-        0.08,
-        0.17,
-        0.25,
-        0.22
+        80,
+        170,
+        250,
+        220
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.22 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.94,
-      "unit": "Mds €",
+      "value": 940,
+      "unit": "M €",
       "yoy": "+11.9%",
       "history": [
-        0.71,
-        0.69,
-        0.84,
-        0.94
+        710,
+        690,
+        840,
+        940
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.94 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -185,33 +199,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.08 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.07,
-      "unit": "Mds €",
+      "value": 70,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.04,
-        0.05,
-        0.07,
-        0.07
+        40,
+        50,
+        70,
+        70
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.07 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position stable"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -251,55 +274,55 @@
       "title": "Concentration in RTD Protein Shakes",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "81.7% of net sales are derived from RTD protein shakes; a significant decline in this category would materially adversely affect the company's financial performance (score par défaut, à affiner)",
+      "score_rationale": "81.7% of net sales are derived from RTD protein shakes; a significant decline in this category would materially adversely affect the company's financial performance",
       "trend": "stable",
       "summary": "The company is heavily dependent on RTD protein shake sales, which represented 81.7% of net sales in fiscal 2025. Declining demand, increased competition, supply chain disruptions or failure to maintain market leadership in this category could materially harm the business",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Intense Competitive Environment",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "The convenient nutrition category is highly competitive with numerous branded and private label competitors; competitive pressures could impact market share and pricing (score par défaut, à affiner)",
+      "score_rationale": "The convenient nutrition category is highly competitive with numerous branded and private label competitors; competitive pressures could impact market share and pricing",
       "trend": "up",
       "summary": "The convenient nutrition category is highly competitive with competition from other branded nutrition companies, nutritional food and beverage manufacturers, and private label products. Competitors may have greater resources and could gain market share",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Supply Chain Disruption Risk",
       "category": "Industriel",
       "severity": 5,
-      "score_rationale": "The company depends on third-party manufacturers and suppliers; disruptions in manufacturing capacity or supply chains could impair the ability to produce and distribute products (score par défaut, à affiner)",
+      "score_rationale": "The company depends on third-party manufacturers and suppliers; disruptions in manufacturing capacity or supply chains could impair the ability to produce and distribute products",
       "trend": "stable",
       "summary": "The company relies on third-party manufacturers for product production and is dependent on suppliers for ingredients and packaging materials. Supply chain failures or manufacturer disruptions could materially adversely affect operations",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Supplier Concentration Risk",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "The company depends on a limited number of suppliers for certain ingredients and packaging materials; loss of a key supplier could disrupt operations (score par défaut, à affiner)",
+      "score_rationale": "The company depends on a limited number of suppliers for certain ingredients and packaging materials; loss of a key supplier could disrupt operations",
       "trend": "stable",
       "summary": "The company is dependent on a limited number of suppliers for certain key ingredients and packaging materials. Loss of or disruption from a significant supplier could negatively impact operations and profitability",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Input Cost Inflation",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Raw material, packaging and manufacturing costs faced inflationary pressures in fiscal 2025; continued inflation and announced tariffs could further increase supply chain costs and impact margins (score par défaut, à affiner)",
+      "score_rationale": "Raw material, packaging and manufacturing costs faced inflationary pressures in fiscal 2025; continued inflation and announced tariffs could further increase supply chain costs and impact margins",
       "trend": "up",
       "summary": "Input costs including raw materials, packaging and manufacturing faced inflationary pressures during fiscal 2025. The company anticipates announced tariffs and global trade policy changes could increase commodity volatility and further pressure margins if mitigation strategies are unsuccessful",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Changing Consumer Preferences",
       "category": "Industriel",
       "severity": 4,
-      "score_rationale": "The company must continuously identify and respond to changing consumer preferences in nutrition and wellness; failure to innovate and meet evolving needs could impact sales and competitive position (score par défaut, à affiner)",
+      "score_rationale": "The company must continuously identify and respond to changing consumer preferences in nutrition and wellness; failure to innovate and meet evolving needs could impact sales and competitive position",
       "trend": "up",
       "summary": "Consumer preferences in the nutrition category are evolving, including interest in GLP-1 medication, protein benefits and on-the-go consumption. The company must successfully identify and respond to these trends through product innovation to maintain competitive position and sales growth",
-      "score": 3
+      "score": 4
     }
   ],
   "governance": {
@@ -406,7 +429,7 @@
       "tagline"
     ]
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:28.904Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:04.448Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/brbr.json",
     "enrich_root": "v2-pipeline-enrich/brbr.json",

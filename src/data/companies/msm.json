@@ -42,7 +42,8 @@
       "is_short_history": false,
       "ttm": null,
       "period_type": "quarter",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "_audit_flag": "VALUE_ABERRANT_OUTLIER"
     },
     {
       "short": "Marge brute",
@@ -69,7 +70,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 40.8,
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Effectif",
@@ -96,7 +101,11 @@
       "is_generic": true,
       "is_short_history": false,
       "ttm": 7000,
-      "signal_en": "Flat year-over-year, monitor closely"
+      "signal_en": "Flat year-over-year, monitor closely",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Revenu d'exploitation",
@@ -123,7 +132,11 @@
       "is_generic": false,
       "is_short_history": false,
       "ttm": 301.6,
-      "signal_en": "Profitability under pressure, monitor returns"
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
@@ -142,11 +155,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 3.77 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -165,56 +182,70 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 2.46 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base stable",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.54,
-      "unit": "Mds €",
+      "value": 540,
+      "unit": "M €",
       "yoy": "-5.3%",
       "history": [
-        0.86,
-        0.52,
-        0.57,
-        0.54
+        860,
+        520,
+        570,
+        540
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.54 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.06,
-      "unit": "Mds €",
+      "value": 60,
+      "unit": "M €",
       "yoy": "+100.0%",
       "history": [
-        0.04,
-        0.05,
-        0.03,
-        0.06
+        40,
+        50,
+        30,
+        60
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.06 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -278,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Le facteur de risque est mentionné en début de section 'Business Environment' avec un langage fort ('elevated inflationary environment, sustained high interest rates'). Il est répété comme ayant un impact actuel et futur, ce qui augmente sa gravité. La catégorie Macro est pondérée fortement en contexte de distribution industrielle.",
       "trend": "stable",
-      "summary": "L'inflation élevée et les taux d'intérêt soutenus affectent la demande et les coûts, pesant sur la rentabilité et la croissance."
+      "summary": "L'inflation élevée et les taux d'intérêt soutenus affectent la demande et les coûts, pesant sur la rentabilité et la croissance.",
+      "score": 4
     },
     {
       "title": "Impact croissant des tarifs douaniers",
@@ -286,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Langage explicite sur une 'heightened macroeconomic uncertainty' et une 'increased pressure from tariffs in fiscal year 2026'. Le risque est nouveau dans sa formulation prospective et ciblé sur l'avenir proche, avec un impact déjà ressenti au Q4 2025.",
       "trend": "up",
-      "summary": "Les nouveaux et élargis tarifs douaniers augmentent l'incertitude et pourraient réduire la marge et la compétitivité des produits importés."
+      "summary": "Les nouveaux et élargis tarifs douaniers augmentent l'incertitude et pourraient réduire la marge et la compétitivité des produits importés.",
+      "score": 4
     },
     {
       "title": "Faible demande dans la fabrication lourde",
@@ -294,7 +327,8 @@
       "severity": 4,
       "score_rationale": "Le document indique que 58 % des revenus proviennent de la fabrication lourde, où la demande est 'soft' et 'felt more acutely'. Le risque est central car il touche le segment principal du chiffre d'affaires, avec un impact direct sur les ventes et la rentabilité.",
       "trend": "stable",
-      "summary": "La faiblesse persistante de la demande dans les industries manufacturières lourdes, clés pour l'entreprise, limite la croissance des ventes."
+      "summary": "La faiblesse persistante de la demande dans les industries manufacturières lourdes, clés pour l'entreprise, limite la croissance des ventes.",
+      "score": 4
     },
     {
       "title": "Dépendance à l'indice de production industrielle",
@@ -302,7 +336,8 @@
       "severity": 3,
       "score_rationale": "Le lien est explicitement établi : 67 % des revenus proviennent du secteur manufacturier, corrélé à l'IP Index. Bien que l'IP ait légèrement augmenté, le langage indique un décalage négatif ('lagged the IP index as a whole'), ce qui montre une vulnérabilité structurelle.",
       "trend": "stable",
-      "summary": "La performance de l'entreprise est étroitement liée à la production industrielle, un indicateur sensible aux cycles économiques."
+      "summary": "La performance de l'entreprise est étroitement liée à la production industrielle, un indicateur sensible aux cycles économiques.",
+      "score": 3
     },
     {
       "title": "Réduction de la trésorerie d'exploitation",
@@ -310,7 +345,8 @@
       "severity": 3,
       "score_rationale": "La trésorerie d'exploitation est passée de 410,7M$ à 333,7M$, soit une baisse de 19 %. Le texte cite une 'lower net income' comme cause, ce qui indique une pression sur la rentabilité. Le risque est modéré car il est expliqué mais non qualifié d'alarmant.",
       "trend": "stable",
-      "summary": "La génération de trésorerie diminue, ce qui pourrait limiter les capacités d'investissement et de retour aux actionnaires."
+      "summary": "La génération de trésorerie diminue, ce qui pourrait limiter les capacités d'investissement et de retour aux actionnaires.",
+      "score": 3
     },
     {
       "title": "Restructurations et coûts associés",
@@ -318,7 +354,8 @@
       "severity": 3,
       "score_rationale": "11M$ de coûts de restructuration en 2025, bien que en baisse. Le texte mentionne des 'associate severance and separation costs', ce qui indique des perturbations organisationnelles. Le risque est récurrent mais en atténuation.",
       "trend": "down",
-      "summary": "Les coûts liés aux restructurations, bien que diminués, reflètent des ajustements opérationnels en cours."
+      "summary": "Les coûts liés aux restructurations, bien que diminués, reflètent des ajustements opérationnels en cours.",
+      "score": 3
     },
     {
       "title": "Dépendance aux locations immobilières",
@@ -326,7 +363,8 @@
       "severity": 3,
       "score_rationale": "Le texte mentionne 38 entrepôts, dont plusieurs en location, avec des loyers annuels de 14,9M$. La dépendance aux baux (jusqu'en 2031) crée un risque d'augmentation des coûts. Le langage est neutre mais le risque est structurel.",
       "trend": "stable",
-      "summary": "Une part significative des installations est en location, exposant l'entreprise à des risques de hausse des loyers et de renouvellement de baux."
+      "summary": "Une part significative des installations est en location, exposant l'entreprise à des risques de hausse des loyers et de renouvellement de baux.",
+      "score": 3
     }
   ],
   "governance": {
@@ -348,7 +386,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -509,23 +547,18 @@
         "period_type": "quarter",
         "history": [
           2.4122,
-          -1.4868,
           0.8485,
           1.7111,
           2.6696,
-          -1.5374,
           0.9577,
           1.9194,
           2.9738,
-          -1.8417,
           0.954,
           1.8893,
           2.8687,
-          -1.891,
           0.9285,
           1.8202,
           2.7913,
-          -1.7705,
           0.9657,
           1.8835
         ],
@@ -580,6 +613,9 @@
             "accession": "0001003078-26-000061",
             "end": "2026-02-28"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (MSM)"
         ]
       },
       {
@@ -591,19 +627,15 @@
           90.732,
           187.9,
           324.736,
-          -134.655,
           116.01,
           230.292,
           365.678,
-          -228.247,
           101.568,
           192.763,
           299.529,
-          -203.473,
           72.28,
           134.526,
           217.261,
-          -122.504,
           76.239,
           141.031
         ],
@@ -658,6 +690,12 @@
             "accession": "0001003078-26-000061",
             "end": "2026-02-28"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 4 aberrant negative outliers (MSM)"
         ]
       }
     ]
@@ -674,9 +712,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.285017+00:00",
     "fetched_at": "2026-05-21T02:17:14.285018+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.662Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.536Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/msm.json",
     "enrich_root": "v2-pipeline-enrich/msm.json",

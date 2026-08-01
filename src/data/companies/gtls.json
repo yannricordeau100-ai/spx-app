@@ -45,7 +45,7 @@
       "is_short_history": false,
       "ttm": 4.33,
       "period_type": "quarter",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -65,11 +65,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 9.81 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -88,11 +92,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 3.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -119,9 +127,7 @@
       "is_generic": true,
       "is_short_history": true,
       "story_category": "Marché",
-      "ttm": 4.33,
-      "_source_month": "mars 2023",
-      "_source_month_reason": "via_signal_quarter"
+      "ttm": 4.33
     }
   ],
   "ai_positioning": {
@@ -137,7 +143,8 @@
       "severity": 3,
       "score_rationale": "La société est exposée à des risques de taux d'intérêt sur ses facilités de crédit revolving et ses prêts à terme. Une augmentation de 100 points de base des taux entraînerait environ 2,8 millions de dollars de dépenses supplémentaires annuelles (sur la facilité revolving) plus 14,1 millions de dollars (sur le prêt à terme), soit un impact total d'environ 17 millions de dollars.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de taux d'intérêt en raison de ses emprunts à taux flottant."
+      "summary": "La société est exposée à des risques de taux d'intérêt en raison de ses emprunts à taux flottant.",
+      "score": 3
     },
     {
       "title": "Risque de change",
@@ -145,7 +152,8 @@
       "severity": 4,
       "score_rationale": "Le risque de change est élevé en raison de l'opération de la société dans plusieurs pays avec exposition à l'euro, la couronne tchèque, le yuan chinois, la roupie indienne et d'autres devises. Une appréciation de 10% du dollar américain par rapport à l'euro entraînerait une diminution d'environ 14,3 millions de dollars du revenu d'exploitation.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de change en raison de ses opérations internationales dans plus de 62 sites de fabrication et 50 centres de service mondiaux."
+      "summary": "La société est exposée à des risques de change en raison de ses opérations internationales dans plus de 62 sites de fabrication et 50 centres de service mondiaux.",
+      "score": 4
     },
     {
       "title": "Risque de crédit",
@@ -153,7 +161,8 @@
       "severity": 2,
       "score_rationale": "Le risque de crédit est faible à moyen en raison de l'exposition de la société à ses clients (plus de 10 000 clients mondiaux) mais atténué par des programmes de gestion des risques et des relations long terme établies avec des clients multinationaux leaders.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de crédit client gérés par des programmes de gestion des risques établis."
+      "summary": "La société est exposée à des risques de crédit client gérés par des programmes de gestion des risques établis.",
+      "score": 2
     },
     {
       "title": "Risque de cybersécurité",
@@ -161,7 +170,8 @@
       "severity": 3,
       "score_rationale": "La société dépend de systèmes informatiques importants pour ses opérations mondiales, mais les risques spécifiques ne sont pas détaillés dans le rapport. Des mesures de gestion des risques sont en place.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de cybersécurité en raison de l'importance de ses données et de ses systèmes informatiques."
+      "summary": "La société est exposée à des risques de cybersécurité en raison de l'importance de ses données et de ses systèmes informatiques.",
+      "score": 3
     },
     {
       "title": "Risque de régulation",
@@ -169,7 +179,8 @@
       "severity": 3,
       "score_rationale": "Le risque de régulation est moyen en raison de l'exposition de la société à des réglementations environnementales, de sécurité et commerciales dans les pays où elle opère. La société dispose de programmes de conformité pour atténuer ces risques.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de régulation en raison de ses opérations internationales et de son engagement ESG."
+      "summary": "La société est exposée à des risques de régulation en raison de ses opérations internationales et de son engagement ESG.",
+      "score": 3
     },
     {
       "title": "Risque de réputation",
@@ -177,7 +188,8 @@
       "severity": 3,
       "score_rationale": "Le risque de réputation est moyen en raison de l'importance de la réputation de la société pour ses relations clients et sa position de marché. Une atteinte à la réputation pourrait avoir des conséquences sur l'activité commerciale.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de réputation en raison de son positionnement de leader technologique et de ses engagements ESG."
+      "summary": "La société est exposée à des risques de réputation en raison de son positionnement de leader technologique et de ses engagements ESG.",
+      "score": 3
     },
     {
       "title": "Risque de géopolitique",
@@ -185,7 +197,8 @@
       "severity": 4,
       "score_rationale": "Le risque de géopolitique est élevé en raison des opérations mondiales de la société (États-Unis, Asie, Australie, Inde, Europe, Amérique du Sud) et de l'exposition à des tensions commerciales et géopolitiques, notamment concernant les technologies d'énergie propre.",
       "trend": "stable",
-      "summary": "La société est exposée à des risques de géopolitique en raison de ses opérations internationales dans plusieurs régions sensibles."
+      "summary": "La société est exposée à des risques de géopolitique en raison de ses opérations internationales dans plusieurs régions sensibles.",
+      "score": 4
     }
   ],
   "governance": {
@@ -249,7 +262,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "subsector_fr": "Machines & équipements industriels",
-  "_companies_unified_built_at": "2026-05-29T21:19:31.873Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:57.532Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/gtls.json",
     "enrich_root": "v2-pipeline-enrich/gtls.json",

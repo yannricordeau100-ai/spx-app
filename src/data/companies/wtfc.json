@@ -1,6 +1,6 @@
 {
   "ticker": "WTFC",
-  "name": "Wintrust Financial Corporation",
+  "name": "Wintrust Financial",
   "sector": "Finance",
   "subsector": "Banques et services financiers",
   "tagline": "Community-oriented financial holding company serving the Chicago metropolitan area, southern Wisconsin, northwest Indiana and west Michigan",
@@ -36,9 +36,12 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
-      "_hero_history_unverified_reason": "Les valeurs annuelles explicites d'actifs totaux ne sont pas présentes dans l'extrait fourni. Le texte contient des références à des bilans "
+      "_hero_history_unverified_reason": "Les valeurs annuelles explicites d'actifs totaux ne sont pas présentes dans l'extrait fourni. Le texte contient des références à des bilans ",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Portefeuille de prêts",
@@ -86,52 +89,62 @@
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.266,
-      "unit": "Mds €",
+      "value": 266,
+      "unit": "M €",
       "yoy": "+6.0%",
       "history": [
-        0.161,
-        0.17,
-        0.207,
-        0.218,
-        0.22,
-        0.251,
-        0.266
+        161,
+        170,
+        207,
+        218,
+        220,
+        251,
+        266
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 2.73 Mds € dernière année",
-      "description": "Chiffre d'affaires consolidé annuellement, valeur extraite depuis yfinance.income_stmt sur les 4 dernières années fiscales déclarées.",
+      "description": "Chiffre d'affaires consolidé annuellement, sur les 4 dernières années fiscales déclarées.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:15.488830+00:00",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=7)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.82,
-      "unit": "Mds €",
+      "value": 820,
+      "unit": "M €",
       "yoy": "+17.1%",
       "history": [
-        0.51,
-        0.62,
-        0.7,
-        0.82
+        510,
+        620,
+        700,
+        820
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.82 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -150,11 +163,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 71.14 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -173,11 +190,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.48 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -196,10 +217,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 3.65 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -239,7 +264,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans le résumé et détaillé dans la section 'Risks Related to Economic Conditions and Operating Environment'. L'intensité du langage est élevée ('materially adversely affect') et le contexte souligne la concentration géographique de l'entreprise. La pondération de la catégorie Macro est élevée.",
       "trend": "stable",
-      "summary": "Une détérioration de l'économie dans les régions clés (Chicago, sud du Wisconsin, ouest du Michigan) pourrait affecter négativement la capacité des emprunteurs à rembourser leurs prêts et la valeur des garanties."
+      "summary": "Une détérioration de l'économie dans les régions clés (Chicago, sud du Wisconsin, ouest du Michigan) pourrait affecter négativement la capacité des emprunteurs à rembourser leurs prêts et la valeur des garanties.",
+      "score": 4
     },
     {
       "title": "Concurrence accrue des banques et fintechs",
@@ -247,7 +273,8 @@
       "severity": 4,
       "score_rationale": "Fortement souligné dans 'Risks Related to Competition and Reputation' avec une liste étendue de concurrents (banques, credit unions, fintechs, stablecoins). Le langage est intense ('very competitive', 'substantially greater resources'). La concentration sur la technologie et les nouvelles réglementations (GENIUS Act) indique une tendance à la hausse de ce risque.",
       "trend": "up",
-      "summary": "La concurrence des grandes banques, des coopératives de crédit et des entreprises technologiques (fintechs, stablecoins) qui disposent de plus de ressources ou de technologies avancées menace la part de marché et la rentabilité."
+      "summary": "La concurrence des grandes banques, des coopératives de crédit et des entreprises technologiques (fintechs, stablecoins) qui disposent de plus de ressources ou de technologies avancées menace la part de marché et la rentabilité.",
+      "score": 4
     },
     {
       "title": "Risques liés au changement climatique",
@@ -255,7 +282,8 @@
       "severity": 3,
       "score_rationale": "Présenté dans 'Risks Related to Economic Conditions and Operating Environment' avec une description détaillée des risques physiques et de transition. Le langage est modéré mais le sujet est nouveau et complexe. La catégorie Macro est pertinente.",
       "trend": "up",
-      "summary": "Les événements climatiques extrêmes et la transition vers une économie bas-carbone peuvent perturber les opérations, augmenter les coûts et affecter la réputation de l'entreprise."
+      "summary": "Les événements climatiques extrêmes et la transition vers une économie bas-carbone peuvent perturber les opérations, augmenter les coûts et affecter la réputation de l'entreprise.",
+      "score": 3
     },
     {
       "title": "Risques de cybersécurité et de sécurité de l'information",
@@ -263,7 +291,8 @@
       "severity": 4,
       "score_rationale": "Mentionné dans 'Risks Related to General Operations' et 'Risks Related to Competition and Reputation' comme source potentielle de dommages à la réputation et de pertes. L'intensité du langage est modérée ('fraud and security risks', 'cyber-attacks', 'information security breaches'). Ce risque est omniprésent dans le secteur financier.",
       "trend": "up",
-      "summary": "Les cyberattaques, les violations de données et autres incidents de sécurité, qu'ils soient internes ou liés à des tiers, peuvent entraîner des pertes financières et nuire à la réputation."
+      "summary": "Les cyberattaques, les violations de données et autres incidents de sécurité, qu'ils soient internes ou liés à des tiers, peuvent entraîner des pertes financières et nuire à la réputation.",
+      "score": 4
     },
     {
       "title": "Risques réglementaires et de conformité",
@@ -271,7 +300,8 @@
       "severity": 4,
       "score_rationale": "Détaillé dans 'Legal and Regulatory Risks' avec une longue liste de réglementations potentielles (ratios de capital, politique monétaire, lois sur la protection des consommateurs, etc.). Le langage est fort ('increased regulatory rigor', 'heightened capital'). La nature du secteur bancaire rend ce risque permanent et potentiellement évolutif.",
       "trend": "stable",
-      "summary": "Les changements législatifs et réglementaires, y compris les exigences de capital accrues et les lois sur la protection des consommateurs, peuvent augmenter les coûts et restreindre les activités."
+      "summary": "Les changements législatifs et réglementaires, y compris les exigences de capital accrues et les lois sur la protection des consommateurs, peuvent augmenter les coûts et restreindre les activités.",
+      "score": 4
     },
     {
       "title": "Risques de crédit et de pertes sur prêts",
@@ -279,7 +309,8 @@
       "severity": 4,
       "score_rationale": "Central dans 'Risks Related to Lending Operations' et mentionné dans le contexte économique. L'accent est mis sur la suffisance des provisions pour pertes sur créances et la dépendance à la viabilité des emprunteurs. Le langage est direct ('sufficiency to absorb losses', 'increase in loan charge-offs'). C'est un risque fondamental pour une banque.",
       "trend": "stable",
-      "summary": "L'incapacité des emprunteurs à rembourser leurs prêts, en particulier dans l'immobilier commercial, et l'insuffisance des provisions pour pertes pourraient entraîner des pertes financières importantes."
+      "summary": "L'incapacité des emprunteurs à rembourser leurs prêts, en particulier dans l'immobilier commercial, et l'insuffisance des provisions pour pertes pourraient entraîner des pertes financières importantes.",
+      "score": 4
     },
     {
       "title": "Dommages à la réputation",
@@ -287,7 +318,8 @@
       "severity": 4,
       "score_rationale": "Fortement mis en avant dans 'Risks Related to Competition and Reputation' comme un risque majeur ('damage to our reputation may harm our business', 'critical to our ability to attract and maintain customers'). Les sources sont multiples (faute professionnelle, cyberattaques, litiges). La diffusion rapide via les médias sociaux amplifie ce risque.",
       "trend": "up",
-      "summary": "Une mauvaise publicité, des incidents de sécurité, des échecs de conformité ou des actions inappropriées peuvent gravement nuire à la confiance des clients, des investisseurs et des employés."
+      "summary": "Une mauvaise publicité, des incidents de sécurité, des échecs de conformité ou des actions inappropriées peuvent gravement nuire à la confiance des clients, des investisseurs et des employés.",
+      "score": 4
     }
   ],
   "governance": {
@@ -323,7 +355,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 1,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": true,
@@ -495,23 +527,18 @@
         "history": [
           46.7385,
           47.8323,
-          -90.1108,
           50.2507,
           50.9693,
           52.3829,
-          -100.6533,
           52.8735,
           54.2862,
           55.5552,
-          -106.455,
           57.5769,
           59.7815,
           63.7884,
-          -116.2672,
           65.8701,
           68.9833,
           69.6296,
-          -133.341,
           72.1574
         ],
         "history_periods": [
@@ -565,6 +592,12 @@
             "accession": "0001015328-26-000014",
             "end": "2026-03-31"
           }
+        ],
+        "type": "Bilan",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (WTFC)"
         ]
       }
     ]
@@ -581,9 +614,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.330388+00:00",
     "fetched_at": "2026-05-21T02:17:14.330389+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.631Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.774Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/wtfc.json",
     "enrich_root": "v2-pipeline-enrich/wtfc.json",

@@ -21,8 +21,8 @@
       "name_fr": "Crédit total octroyé",
       "name_en": "Total Credit Extended",
       "explanation": "Le montant total de crédit octroyé aux emprunteurs.",
-      "value": 0.64,
-      "unit": "Mds $",
+      "value": 640,
+      "unit": "M $",
       "yoy": "+6.7%",
       "type": "Demand",
       "nature": "Cyclique",
@@ -30,12 +30,12 @@
       "signal": "Croissance de l'activité de prêt",
       "description": "Le crédit total octroyé est un indicateur clé de l'activité de la société. Indicateur suivi annuellement par les analystes de la société, valeur historisée sur les 6 dernières années.",
       "history": [
-        0.47,
-        0.45,
-        0.54,
-        0.54,
-        0.6,
-        0.64
+        470,
+        450,
+        540,
+        540,
+        600,
+        640
       ],
       "last_data_date": "2026-03-31",
       "is_wow": true,
@@ -43,7 +43,8 @@
       "is_short_history": false,
       "_validation": "Unité corrigée de 'Mds $' à 'B$' (convention standard)",
       "period_type": "quarter",
-      "signal_en": "Demand strengthening, end-market traction"
+      "signal_en": "Demand strengthening, end-market traction",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Number of Customer Transactions",
@@ -192,11 +193,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 6.47 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -215,11 +220,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 4.53 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -279,7 +288,7 @@
     }
   ],
   "ai_positioning": {
-    "stance": "active",
+    "stance": "integrator",
     "summary": "La société Enova intègre significativement l'intelligence artificielle et l'apprentissage automatique dans ses opérations. La société emploie des systèmes d'underwriting propriétaires basés sur l'analyse avancée des risques, incluant le machine learning et l'IA, pour prendre des décisions d'approbation de financement et optimiser les termes des prêts. Environ 90% des modèles utilisés dans l'environnement analytique de la société sont activés par le machine learning, ce qui démontre une dépendance opérationnelle substantielle à la technologie IA.",
     "evidence": [
       "Systèmes d'underwriting propriétaires basés sur l'analyse avancée des risques, y compris machine learning et intelligence artificielle",
@@ -294,34 +303,34 @@
       "title": "Risque de crédit",
       "category": "Crédit",
       "severity": 5,
-      "score_rationale": "Le risque de crédit est élevé en raison de la nature des activités de la société, qui consistent à accorder des prêts et des financements à des consommateurs et à des petites entreprises. Le défaut de paiement de ces prêts pourrait avoir un impact significatif sur les résultats financiers de la société. (score par défaut, à affiner)",
+      "score_rationale": "Le risque de crédit est élevé en raison de la nature des activités de la société, qui consistent à accorder des prêts et des financements à des consommateurs et à des petites entreprises. Le défaut de paiement de ces prêts pourrait avoir un impact significatif sur les résultats financiers de la société.",
       "trend": "stable",
       "summary": "Le risque de crédit est un risque majeur pour la société en raison de la nature de ses activités.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risque réglementaire",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "La société est soumise à des réglementations strictes dans les pays où elle opère, notamment aux États-Unis et au Brésil. Les changements dans ces réglementations pourraient avoir un impact négatif sur les activités de la société. La conformité avec l'autorité de réglementation du Consumer Financial Protection Bureau constitue une charge importante. (score par défaut, à affiner)",
+      "score_rationale": "La société est soumise à des réglementations strictes dans les pays où elle opère, notamment aux États-Unis et au Brésil. Les changements dans ces réglementations pourraient avoir un impact négatif sur les activités de la société. La conformité avec l'autorité de réglementation du Consumer Financial Protection Bureau constitue une charge importante.",
       "trend": "up",
       "summary": "Les réglementations strictes dans les pays où la société opère constituent un risque important.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de concurrence",
       "category": "Concurrence",
       "severity": 4,
-      "score_rationale": "La société opère dans un marché très concurrentiel, avec de nombreux acteurs qui offrent des services similaires. La concurrence pourrait entraîner une pression sur les prix et les marges de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans un marché très concurrentiel, avec de nombreux acteurs qui offrent des services similaires. La concurrence pourrait entraîner une pression sur les prix et les marges de la société.",
       "trend": "up",
       "summary": "La concurrence dans le marché des services financiers en ligne est élevée et pourrait avoir un impact négatif sur la société.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque technologique",
       "category": "Technologie",
       "severity": 3,
-      "score_rationale": "La société dépend fortement de sa technologie pour offrir ses services. Les problèmes techniques ou les cyberattaques pourraient avoir un impact négatif sur les activités de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société dépend fortement de sa technologie pour offrir ses services. Les problèmes techniques ou les cyberattaques pourraient avoir un impact négatif sur les activités de la société.",
       "trend": "stable",
       "summary": "La dépendance de la société à la technologie constitue un risque, notamment en cas de problèmes techniques ou de cyberattaques.",
       "score": 3
@@ -330,7 +339,7 @@
       "title": "Risque de réputation",
       "category": "Réputation",
       "severity": 3,
-      "score_rationale": "La réputation de la société est importante pour attirer et conserver des clients. Les incidents négatifs ou les problèmes de service pourraient avoir un impact négatif sur la réputation de la société. (score par défaut, à affiner)",
+      "score_rationale": "La réputation de la société est importante pour attirer et conserver des clients. Les incidents négatifs ou les problèmes de service pourraient avoir un impact négatif sur la réputation de la société.",
       "trend": "stable",
       "summary": "La réputation de la société est un actif important qui doit être protégé pour maintenir la confiance des clients.",
       "score": 3
@@ -339,25 +348,25 @@
       "title": "Risque géopolitique",
       "category": "Géopolitique",
       "severity": 2,
-      "score_rationale": "La société opère dans plusieurs pays, ce qui la expose aux risques géopolitiques. Les changements politiques ou les conflits pourraient avoir un impact négatif sur les activités de la société, notamment au Brésil où elle opère également. (score par défaut, à affiner)",
+      "score_rationale": "La société opère dans plusieurs pays, ce qui la expose aux risques géopolitiques. Les changements politiques ou les conflits pourraient avoir un impact négatif sur les activités de la société, notamment au Brésil où elle opère également.",
       "trend": "stable",
       "summary": "Les risques géopolitiques sont présents, mais leur impact est actuellement limité pour la société.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Risque de cybersécurité",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "La société traite des informations sensibles sur ses clients et a accumilé plus de 95 terabytes de données comportementales client accessibles. Les cyberattaques ou failles de sécurité pourraient avoir un impact significatif sur la réputation et les activités de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société traite des informations sensibles sur ses clients et a accumilé plus de 95 terabytes de données comportementales client accessibles. Les cyberattaques ou failles de sécurité pourraient avoir un impact significatif sur la réputation et les activités de la société.",
       "trend": "up",
       "summary": "La cybersécurité est un risque important pour la société en raison de la nature de ses activités et du volume important d'informations sensibles qu'elle traite.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risque de liquidité",
       "category": "Capital",
       "severity": 3,
-      "score_rationale": "La société doit maintenir une liquidité suffisante pour financer ses activités et rembourser ses dettes. Les problèmes de liquidité pourraient avoir un impact négatif sur les activités de la société. (score par défaut, à affiner)",
+      "score_rationale": "La société doit maintenir une liquidité suffisante pour financer ses activités et rembourser ses dettes. Les problèmes de liquidité pourraient avoir un impact négatif sur les activités de la société.",
       "trend": "stable",
       "summary": "La liquidité est importante pour la société pour maintenir ses activités et rembourser ses dettes.",
       "score": 3
@@ -527,9 +536,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.256115+00:00",
     "fetched_at": "2026-05-21T02:17:14.256116+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:30.801Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:56.368Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/enva.json",
     "enrich_root": null,

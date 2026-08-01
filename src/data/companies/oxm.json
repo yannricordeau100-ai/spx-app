@@ -44,9 +44,7 @@
       "is_generic": true,
       "is_short_history": true,
       "_validation": "Valeur indisponible - pas de tableau financier complet dans l'extrait. Date mise à jour au 31 janvier 2026 basée sur le bilan. Unit confirmée en Mds $.",
-      "period_type": "quarter",
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_last_data"
+      "period_type": "quarter"
     },
     {
       "short": "Total Revenue",
@@ -65,11 +63,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.48 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Revenue pressure, demand softening"
+      "signal_en": "Revenue pressure, demand softening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -88,34 +90,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.03 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Operating Income",
       "name_fr": "Résultat opérationnel",
       "name_en": "Operating Income",
-      "value": 0.03,
-      "unit": "Mds €",
+      "value": 30,
+      "unit": "M €",
       "yoy": "-75.0%",
       "history": [
-        0.22,
-        0.19,
-        0.12,
-        0.03
+        220,
+        190,
+        120,
+        30
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat opérationnel de 0.03 Mds € dernière année",
-      "description": "Résultat opérationnel extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat opérationnel sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Operating Income — profit from core business operations.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Operating Income, profit from core business operations.",
+      "signal_en": "Significant decline, warning signal",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -134,11 +145,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de -1.86 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -157,34 +172,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.31 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.56,
-      "unit": "Mds €",
+      "value": 560,
+      "unit": "M €",
       "yoy": "+24.4%",
       "history": [
-        0.41,
-        0.34,
-        0.45,
-        0.56
+        410,
+        340,
+        450,
+        560
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.56 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -198,7 +222,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2022-2026). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2022-2026). ex-div dates.",
       "history": [
         2.07,
         2.5,
@@ -211,7 +235,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend cut risk, monitor payout sustainability"
     },
     {
@@ -226,7 +250,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2022-2026) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2022-2026) en milliards USD. cashflow.",
       "history": [
         null,
         0.127,
@@ -239,7 +263,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -254,7 +278,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2022-2026). Source yfinance.",
+      "description": "Dividendes / résultat net (2022-2026).",
       "history": [
         null,
         null,
@@ -267,7 +291,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -282,7 +306,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2022-2026). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2022-2026). income statement (Diluted EPS).",
       "history": [
         null,
         10.19,
@@ -295,7 +319,7 @@
       "is_short_history": false,
       "last_data_date": "2026-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Significant decline, warning signal"
     }
   ],
@@ -345,7 +369,8 @@
       "severity": 5,
       "score_rationale": "Le facteur de risque est en tête du document et mentionné comme fondamental dans un marché hautement concurrentiel. Le langage est répété et renforcé par des références à l'augmentation des promotions et à la volatilité de la demande. La catégorie Concurrence est pondérée fortement ici en raison de l'impact direct sur la marge et les ventes.",
       "trend": "stable",
-      "summary": "La forte concurrence dans le secteur du prêt-à-porter pousse les acteurs à intensifier les promotions, réduisant les marges et rendant la croissance plus coûteuse."
+      "summary": "La forte concurrence dans le secteur du prêt-à-porter pousse les acteurs à intensifier les promotions, réduisant les marges et rendant la croissance plus coûteuse.",
+      "score": 5
     },
     {
       "title": "Dépense discrétionnaire en baisse",
@@ -353,7 +378,8 @@
       "severity": 5,
       "score_rationale": "Le document souligne que les consommateurs allouent moins de budget à l'habillement, avec un impact prolongé en période de ralentissement économique. Ce risque est central dans l'analyse du secteur et cité comme ayant un effet amplifié sur l'industrie. Langage fort et position stratégique dans le 10-K.",
       "trend": "stable",
-      "summary": "La baisse de la consommation discrétionnaire affecte directement les ventes de vêtements, produits perçus comme non essentiels, surtout en contexte économique tendu."
+      "summary": "La baisse de la consommation discrétionnaire affecte directement les ventes de vêtements, produits perçus comme non essentiels, surtout en contexte économique tendu.",
+      "score": 5
     },
     {
       "title": "Incertitudes géopolitiques et commerciales",
@@ -361,7 +387,8 @@
       "severity": 4,
       "score_rationale": "Le texte cite les tensions en Ukraine, au Moyen-Orient, les tarifs douaniers et l'incertitude commerciale comme facteurs pesant sur la confiance et les coûts. Mention détaillée avec lien explicite aux chaînes d'approvisionnement et aux coûts de transport. Catégorie Géopolitique modérément pondérée mais intensité du langage élevée.",
       "trend": "up",
-      "summary": "Les conflits internationaux et les politiques commerciales instables augmentent les coûts logistiques et perturbent les chaînes d'approvisionnement mondiales."
+      "summary": "Les conflits internationaux et les politiques commerciales instables augmentent les coûts logistiques et perturbent les chaînes d'approvisionnement mondiales.",
+      "score": 4
     },
     {
       "title": "Pression inflationniste et taux élevés",
@@ -369,7 +396,8 @@
       "severity": 5,
       "score_rationale": "Le document lie explicitement l'inflation et les taux d'intérêt élevés à la baisse de la confiance des consommateurs. Ces éléments sont présentés comme des freins majeurs à la dépense discrétionnaire. Position clé dans le texte et intensité du langage élevée.",
       "trend": "stable",
-      "summary": "L'inflation et les taux d'intérêt soutenus réduisent le pouvoir d'achat et freinent la consommation, en particulier pour les produits non essentiels comme les vêtements."
+      "summary": "L'inflation et les taux d'intérêt soutenus réduisent le pouvoir d'achat et freinent la consommation, en particulier pour les produits non essentiels comme les vêtements.",
+      "score": 5
     },
     {
       "title": "Dépendance aux plateformes numériques et technologiques",
@@ -377,7 +405,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne l'essor des plateformes numériques et de l'IA comme facteur de montée des attentes clients. Cela impose des investissements continus. Bien que le langage ne soit pas alarmiste, le risque est stratégique et répété, avec une pondération élevée pour la catégorie Technologie.",
       "trend": "up",
-      "summary": "Les attentes croissantes en matière de personnalisation et de rapidité obligent à des investissements technologiques constants pour rester compétitif."
+      "summary": "Les attentes croissantes en matière de personnalisation et de rapidité obligent à des investissements technologiques constants pour rester compétitif.",
+      "score": 4
     },
     {
       "title": "Faiblesse des ventes e-commerce et physiques",
@@ -385,7 +414,8 @@
       "severity": 4,
       "score_rationale": "Les données opérationnelles montrent des baisses récurrentes dans les ventes en ligne et en magasin, notamment chez Tommy Bahama et Johnny Was. Ces tendances sont quantifiées et liées à la performance globale. Le langage est factuel mais inquiétant, avec une chute de 13,3 % chez Johnny Was.",
       "trend": "down",
-      "summary": "Les reculs simultanés des ventes en ligne et en magasin chez plusieurs marques signalent une perte de dynamique commerciale préoccupante."
+      "summary": "Les reculs simultanés des ventes en ligne et en magasin chez plusieurs marques signalent une perte de dynamique commerciale préoccupante.",
+      "score": 4
     },
     {
       "title": "Détérioration de la marque Johnny Was",
@@ -393,7 +423,8 @@
       "severity": 5,
       "score_rationale": "Le goodwill de Johnny Was a été réduit de 61 M$, un montant majeur. Ce chiffre est isolé comme cause principale de la perte nette en 2025. Le langage est clair et le montant significatif, indiquant un risque existentiel pour cette marque. Catégorie Réputation fortement impactée.",
       "trend": "new",
-      "summary": "La dépréciation importante des actifs incorporels de Johnny Was reflète une perte de valeur de la marque et une performance décevante."
+      "summary": "La dépréciation importante des actifs incorporels de Johnny Was reflète une perte de valeur de la marque et une performance décevante.",
+      "score": 5
     }
   ],
   "governance": {
@@ -428,7 +459,7 @@
     "margin_trend": "Pas de KPI marge disponible pour évaluer la tendance."
   },
   "_dividends_extracted_at": "2026-05-09T20:22:38Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2026)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2026)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2011,
@@ -454,8 +485,8 @@
     "xbrl_fetched_at": "2026-05-09T20:27:31Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:43Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
-  "_companies_unified_built_at": "2026-05-29T21:19:34.400Z",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
+  "_companies_unified_built_at": "2026-08-01T20:28:06.174Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/oxm.json",
     "enrich_root": "v2-pipeline-enrich/oxm.json",

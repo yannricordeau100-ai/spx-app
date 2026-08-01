@@ -43,15 +43,15 @@
       "is_short_history": false,
       "_validation": "Valeur corrigée: '120-132 MBOE/d' -> '120-132' (unité séparée). Nom amélioré. Dernière date mise à jour à 2025-12-31 (fin d'exercice fiscal).",
       "period_type": "quarter",
-      "explanation_en": "Production — total physical output over the period."
+      "explanation_en": "Production, total physical output over the period."
     },
     {
       "short": "Royalty Income",
       "name_fr": "Revenu de redevance",
       "name_en": "Royalty Income",
       "explanation": "Total royalty income generated from oil, natural gas and natural gas liquids production",
-      "value": "1346",
-      "unit": "M $",
+      "value": 1.346,
+      "unit": "Mds $",
       "yoy": "57.6%",
       "type": "Revenue",
       "nature": "Cyclique",
@@ -68,7 +68,8 @@
       "is_short_history": false,
       "_validation": "Unité corrigée: 'Mds $' -> 'M $' (1346 millions = 1.346 Mds, mais source donne 1,346 millions). YoY calculé: (1346-854)/854 = 57.6%. History ajoutée avec données 2024 et 2025 depuis source.",
       "explanation_en": "Royalty income generated over the period.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Net Royalty Acres",
@@ -109,11 +110,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.39 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -132,11 +137,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.07 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Significant decline, warning signal"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Significant decline, warning signal",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 12.67 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -178,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 2.19 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.01,
-      "unit": "Mds €",
+      "value": 10,
+      "unit": "M €",
       "yoy": "-66.7%",
       "history": [
-        0.02,
-        0.03,
-        0.03,
-        0.01
+        20,
+        30,
+        30,
+        10
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.01 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -245,7 +267,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement la volatilité des prix des matières premières comme un risque majeur affectant les revenus. Les prix du WTI ont varié de 64.73 $ en 2025 à 75.76 $ en 2024, impactant directement les revenus de redevance et le besoin de dépréciation (768 millions $ en 2025).",
       "trend": "up",
-      "summary": "La fluctuation des prix du pétrole et du gaz naturel impacte directement les revenus de la société et peut nécessiter des dépréciations importantes d'actifs."
+      "summary": "La fluctuation des prix du pétrole et du gaz naturel impacte directement les revenus de la société et peut nécessiter des dépréciations importantes d'actifs.",
+      "score": 4
     },
     {
       "title": "Risque de crédit des opérateurs et acheteurs",
@@ -253,7 +276,8 @@
       "severity": 4,
       "score_rationale": "Ce risque est clairement identifié dans le texte. Deux opérateurs comptaient chacun pour plus de 10% du revenu en 2025 et 2024. L'absence de collatéral spécifié indique une dépendance vis-à-vis de la solvabilité des partenaires.",
       "trend": "up",
-      "summary": "La concentration du revenu de redevance auprès de quelques opérateurs majeurs crée un risque de crédit significatif en cas de défaillance de paiement."
+      "summary": "La concentration du revenu de redevance auprès de quelques opérateurs majeurs crée un risque de crédit significatif en cas de défaillance de paiement.",
+      "score": 4
     },
     {
       "title": "Risque lié aux taux d'intérêt",
@@ -261,7 +285,8 @@
       "severity": 3,
       "score_rationale": "La société a émis 1.6 milliard $ de Senior Notes en juillet 2025 et dispose d'une facilité de crédit revolving de 1.5 milliard $. L'exposition aux taux variables sur certaines facilités affecte les charges financières futures.",
       "trend": "stable",
-      "summary": "Les variations des taux d'intérêt peuvent augmenter le coût de la dette de la société, affectant sa rentabilité et ses flux de trésorerie."
+      "summary": "Les variations des taux d'intérêt peuvent augmenter le coût de la dette de la société, affectant sa rentabilité et ses flux de trésorerie.",
+      "score": 3
     },
     {
       "title": "Risque d'estimation des réserves prouvées",
@@ -269,7 +294,8 @@
       "severity": 4,
       "score_rationale": "L'estimation des réserves de pétrole et de gaz implique des jugements subjectifs complexes. Ces estimations impactent directement les calculs de dépréciation et de valorisation des acquisitions stratégiques comme celle de Sitio (4 milliards $).",
       "trend": "stable",
-      "summary": "L'estimation des volumes de réserves de pétrole et de gaz est complexe et sujette à des incertitudes, pouvant affecter la valorisation des actifs et les charges comptables."
+      "summary": "L'estimation des volumes de réserves de pétrole et de gaz est complexe et sujette à des incertitudes, pouvant affecter la valorisation des actifs et les charges comptables.",
+      "score": 4
     },
     {
       "title": "Risque lié aux instruments dérivés",
@@ -277,7 +303,8 @@
       "severity": 3,
       "score_rationale": "Au 31 décembre 2025, la société dispose d'une position nette d'actif dérivé de 21 millions $ sur les contrats dérivés. Le texte indique que les gains dérivés peuvent être compensés par les variations de la valeur réelle de production, créant un risque de couverture imparfaite.",
       "trend": "stable",
-      "summary": "Bien que utilisés pour se couvrir contre la volatilité des prix, les instruments dérivés peuvent ne pas compenser entièrement les fluctuations réelles, créant un risque résiduel."
+      "summary": "Bien que utilisés pour se couvrir contre la volatilité des prix, les instruments dérivés peuvent ne pas compenser entièrement les fluctuations réelles, créant un risque résiduel.",
+      "score": 3
     },
     {
       "title": "Risque d'incertitude des perspectives énergétiques à court terme",
@@ -285,7 +312,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement 'heightened levels of uncertainty' concernant les perspectives énergétiques à court terme. Ce risque macroéconomique pèse sur l'ensemble des opérations et la planification d'acquisition.",
       "trend": "up",
-      "summary": "L'incertitude macroéconomique entourant le marché de l'énergie représente un risque général pour les activités et la planification stratégique de la société."
+      "summary": "L'incertitude macroéconomique entourant le marché de l'énergie représente un risque général pour les activités et la planification stratégique de la société.",
+      "score": 4
     }
   ],
   "governance": {
@@ -488,9 +516,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.325674+00:00",
     "fetched_at": "2026-05-21T02:17:14.325674+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:37.219Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:03.340Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/vnom.json",
     "enrich_root": "v2-pipeline-enrich/vnom.json",

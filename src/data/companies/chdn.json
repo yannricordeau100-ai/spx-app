@@ -43,7 +43,7 @@
       "ttm": null,
       "_validation": "Correction unité Mds $ vers M $; correction valeur texte vers numérique 1205.3; correction history avec valeurs réelles 2024 (1159) et 2025 (1205)",
       "period_type": "quarter",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -73,7 +73,11 @@
       "ttm": 2925.9,
       "_validation": "Correction unité Mds $ vers M $; correction valeur texte vers numérique 2925.9; correction history avec valeurs réelles sources 10-K 2023 (2461.7), 2024 (2734.3), 2025 (2925.9)",
       "explanation_en": "Revenue from the Net segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Live and Historical Racing Segment Adjusted EBITDA",
@@ -101,7 +105,11 @@
       "is_short_history": false,
       "ttm": 637,
       "_validation": "Correction unité Mds $ vers M $; recalcul history: 2024 = 637.0 - 62.4 = 574.6; valeur 2025 = 637.0 (confirmée par source)",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Gaming Segment Adjusted EBITDA",
@@ -129,7 +137,11 @@
       "is_short_history": false,
       "ttm": 483,
       "_validation": "Correction unité Mds $ vers M $; recalcul history: 2024 = 483.0 + 23.9 = 506.9; valeur 2025 = 483.0 (confirmée par source)",
-      "signal_en": "Margin compression, watch profitability"
+      "signal_en": "Margin compression, watch profitability",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Wagering Services and Solutions Segment Adjusted EBITDA",
@@ -157,7 +169,11 @@
       "is_short_history": false,
       "ttm": 177.3,
       "_validation": "Correction unité Mds $ vers M $; recalcul history: 2024 = 177.3 - 11.7 = 165.6; valeur 2025 = 177.3 (confirmée par source)",
-      "signal_en": "Margin expansion, operating leverage"
+      "signal_en": "Margin expansion, operating leverage",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Net Income",
@@ -185,8 +201,12 @@
       "is_short_history": false,
       "ttm": 383,
       "_validation": "Correction unité Mds $ vers M $; correction type de Revenue vers Profitability; valeur 2025 = 383.0 (confirmée par source); valeur 2024 = 426.8 (confirmée par source)",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Profitability under pressure, monitor returns"
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Profitability under pressure, monitor returns",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -205,11 +225,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 7.48 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -228,11 +252,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.14 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -335,64 +363,64 @@
       "title": "Impact d'événements extraordinaires sur la fréquentation",
       "category": "Géopolitique",
       "severity": 5,
-      "score_rationale": "Positionné en tête des risques externes, mention explicite du COVID-19 ayant entraîné la fermeture totale des opérations. Langage fort sur l'impact matériel et la menace persistante. Catégorie pondérée à risque élevé en raison de l'exposition directe aux événements mondiaux. (score par défaut, à affiner)",
+      "score_rationale": "Positionné en tête des risques externes, mention explicite du COVID-19 ayant entraîné la fermeture totale des opérations. Langage fort sur l'impact matériel et la menace persistante. Catégorie pondérée à risque élevé en raison de l'exposition directe aux événements mondiaux.",
       "trend": "stable",
       "summary": "Des événements comme des attaques terroristes, des pandémies ou des troubles civils peuvent fortement réduire la fréquentation de nos sites et interrompre nos activités.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Sensibilité aux conditions économiques et dépenses discrétionnaires",
       "category": "Macro",
       "severity": 5,
-      "score_rationale": "Risque central, répété à plusieurs endroits avec des termes comme 'impact matériel'. Lien direct avec la consommation, l'inflation, le chômage et l'accès au crédit. Contexte post-COVID renforce sa pertinence. Catégorie macroéconomique fortement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Risque central, répété à plusieurs endroits avec des termes comme 'impact matériel'. Lien direct avec la consommation, l'inflation, le chômage et l'accès au crédit. Contexte post-COVID renforce sa pertinence. Catégorie macroéconomique fortement pondérée.",
       "trend": "stable",
       "summary": "Une baisse de la confiance des consommateurs ou de leurs dépenses discrétionnaires peut réduire la fréquentation et les mises dans nos établissements.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Risques liés aux changements fiscaux et pressions fiscales",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Mention explicite de pressions budgétaires pouvant entraîner de nouvelles taxes. Langage affirmé sur un 'impact matériel'. Risque récurrent dans le secteur du gaming. Catégorie réglementaire de poids moyen à élevé. (score par défaut, à affiner)",
+      "score_rationale": "Mention explicite de pressions budgétaires pouvant entraîner de nouvelles taxes. Langage affirmé sur un 'impact matériel'. Risque récurrent dans le secteur du gaming. Catégorie réglementaire de poids moyen à élevé.",
       "trend": "stable",
       "summary": "Des hausses d'impôts ou de frais dans les juridictions où nous opérons pourraient réduire notre rentabilité et affecter notre situation financière.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence accrue dans les jeux physiques et en ligne",
       "category": "Concurrence",
       "severity": 5,
-      "score_rationale": "Langage fort sur la concurrence accrue liée à l'expansion des jeux légaux dans plusieurs États. Risque stratégique majeur mentionnant l'impact sur les flux de revenus. Catégorie concurrence fortement pondérée. (score par défaut, à affiner)",
+      "score_rationale": "Langage fort sur la concurrence accrue liée à l'expansion des jeux légaux dans plusieurs États. Risque stratégique majeur mentionnant l'impact sur les flux de revenus. Catégorie concurrence fortement pondérée.",
       "trend": "up",
       "summary": "La montée des jeux en ligne, des paris sportifs et de nouveaux casinos augmente la concurrence et menace nos parts de marché.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Dépendance à la technologie et obsolescence des produits",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Risque lié à l'innovation rapide et à la nécessité de rester compétitif. Mention de la capacité à innover face à des concurrents. Catégorie technologie moyennement pondérée, mais critique pour le segment Wagering. (score par défaut, à affiner)",
+      "score_rationale": "Risque lié à l'innovation rapide et à la nécessité de rester compétitif. Mention de la capacité à innover face à des concurrents. Catégorie technologie moyennement pondérée, mais critique pour le segment Wagering.",
       "trend": "up",
       "summary": "L'incapacité à suivre l'évolution technologique peut rendre nos plateformes de pari obsolètes et nuire à notre compétitivité.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Risques liés aux investissements équity et partenariats",
       "category": "Capital",
       "severity": 4,
-      "score_rationale": "Mention de perte de contrôle, de désaccords et d'incapacité à sortir des investissements. Langage sérieux sur l'impact matériel. Catégorie capital moyennement pondérée, mais récurrente dans les projets stratégiques. (score par défaut, à affiner)",
+      "score_rationale": "Mention de perte de contrôle, de désaccords et d'incapacité à sortir des investissements. Langage sérieux sur l'impact matériel. Catégorie capital moyennement pondérée, mais récurrente dans les projets stratégiques.",
       "trend": "stable",
       "summary": "Nos investissements conjoints et alliances stratégiques comportent des risques de désaccord, de manque de financement ou de perte de contrôle.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Pénurie de personnel qualifié et rotation élevée",
       "category": "Ressources humaines",
       "severity": 4,
-      "score_rationale": "Langage clair sur les difficultés de recrutement, les coûts élevés et l'impact opérationnel. Mention des exigences de licence pour les employés clés. Catégorie ressources humaines moyennement pondérée mais critique pour la continuité. (score par défaut, à affiner)",
+      "score_rationale": "Langage clair sur les difficultés de recrutement, les coûts élevés et l'impact opérationnel. Mention des exigences de licence pour les employés clés. Catégorie ressources humaines moyennement pondérée mais critique pour la continuité.",
       "trend": "stable",
       "summary": "La difficulté à attirer et retenir des employés qualifiés peut perturber nos opérations et freiner notre croissance.",
-      "score": 3
+      "score": 4
     }
   ],
   "_validation": [
@@ -463,7 +491,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "EBITDA"
   },
   "_fit_for_site": true,
@@ -644,161 +672,49 @@
   },
   "enrich_quarterly_history": {
     "ticker": "CHDN",
-    "extracted_at": "2026-05-15T19:48:51Z",
-    "method": "xbrl-companyfacts",
-    "cik": 20212,
-    "n_kpis": 2,
+    "extracted_at": "2026-06-01T03:05:58Z",
+    "n_kpis": 1,
     "kpis": [
       {
-        "short": "Net Revenue",
+        "short": "Adjusted EBITDA",
         "period_type": "quarter",
         "history": [
-          0.2529,
-          0.438,
-          0.7758,
-          -0.4127,
-          0.3243,
-          0.8394,
-          1.2324,
-          -0.7989,
-          0.3641,
-          0.9466,
-          1.3297,
-          -0.8306,
-          0.5595,
-          1.328
+          304.6,
+          177.2,
+          241,
+          380.8,
+          237.1,
+          241,
+          466.1,
+          258.8,
+          263.2,
+          466.1,
+          258.8,
+          267
         ],
         "history_periods": [
-          "Q1 2020",
-          "Q2 2020",
-          "Q3 2020",
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
           "Q2 2022",
           "Q3 2022",
-          "Q4 2022",
-          "Q1 2023",
-          "Q2 2023"
-        ],
-        "last_data_date": "2023-06-30",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR XBRL companyfacts",
-        "_tag": "Revenues",
-        "_citations": [
-          {
-            "period": "Q3 2022",
-            "value": 1.3297,
-            "accession": "0000020212-22-000154",
-            "end": "2022-09-30"
-          },
-          {
-            "period": "Q4 2022",
-            "value": -0.8306,
-            "accession": "calc-0000020212-23-000059",
-            "end": "2022-12-31"
-          },
-          {
-            "period": "Q1 2023",
-            "value": 0.5595,
-            "accession": "0000020212-23-000084",
-            "end": "2023-03-31"
-          },
-          {
-            "period": "Q2 2023",
-            "value": 1.328,
-            "accession": "0000020212-23-000115",
-            "end": "2023-06-30"
-          }
-        ]
-      },
-      {
-        "short": "Gaming Segment Adjusted EBITDA",
-        "period_type": "quarter",
-        "history": [
-          0.1247,
-          0.152,
-          0.186,
-          0.1853,
-          0.1721,
-          0.1773,
-          0.1843,
-          0.1834,
-          0.2109,
-          0.25,
-          0.2459,
-          0.2443,
-          0.2284,
-          0.2392,
-          0.2742,
-          0.2697,
-          0.256,
-          0.2632,
-          0.266,
-          0.265,
-          0.2487,
-          0.257
-        ],
-        "history_periods": [
-          "Q4 2020",
-          "Q1 2021",
-          "Q2 2021",
-          "Q3 2021",
-          "Q4 2021",
-          "Q1 2022",
-          "Q2 2022",
-          "Q3 2022",
-          "Q4 2022",
           "Q1 2023",
           "Q2 2023",
           "Q3 2023",
-          "Q4 2023",
           "Q1 2024",
           "Q2 2024",
           "Q3 2024",
-          "Q4 2024",
           "Q1 2025",
           "Q2 2025",
           "Q3 2025",
-          "Q4 2025",
           "Q1 2026"
         ],
         "last_data_date": "2026-03-31",
-        "unit": "Mds $",
-        "_source": "SEC EDGAR iXBRL inline (segment)",
-        "_segment_member": "Gaming",
-        "_citations": [
-          {
-            "period": "Q2 2025",
-            "value": 0.266,
-            "source": "CHDN_2025-07-23.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q3 2025",
-            "value": 0.265,
-            "source": "CHDN_2025-10-22.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q4 2025",
-            "value": 0.2487,
-            "source": "calc-CHDN_2026-02-25.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          },
-          {
-            "period": "Q1 2026",
-            "value": 0.257,
-            "source": "CHDN_2026-04-22.htm.gz",
-            "tag": "us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax"
-          }
-        ]
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T03:05:58Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
       }
-    ],
-    "_segment_method": "xbrl-segment-inline"
+    ]
   },
   "enrich_ranks": {
     "ticker": "CHDN",
@@ -812,9 +728,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.238284+00:00",
     "fetched_at": "2026-05-21T02:17:14.238285+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:29.352Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:54.795Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/chdn.json",
     "enrich_root": "v2-pipeline-enrich/chdn.json",

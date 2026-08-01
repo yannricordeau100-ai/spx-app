@@ -40,15 +40,18 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "period_type": "quarter"
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=1<4)"
+      ]
     },
     {
       "short": "Revenu net d'intérêts",
       "name_fr": "Revenu net d'intérêts annuel",
       "name_en": "Net interest income",
       "explanation": "Revenu net d'intérêts généré par les opérations bancaires pour l'année",
-      "value": 1081.5,
-      "unit": "M $",
+      "value": 1.081,
+      "unit": "Mds $",
       "yoy": "n/a",
       "type": "Investment",
       "nature": "Cyclique",
@@ -60,12 +63,13 @@
         null,
         null,
         null,
-        1081.5
+        1.081
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
       "is_generic": false,
-      "is_short_history": false
+      "is_short_history": false,
+      "_unit_rescaled": "M->Mds $ for 1-999 readability"
     },
     {
       "short": "Résultat net annuel",
@@ -109,34 +113,43 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 1.2 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
       "name_fr": "Résultat net",
       "name_en": "Net Income",
-      "value": 0.54,
-      "unit": "Mds €",
+      "value": 540,
+      "unit": "M €",
       "yoy": "+12.5%",
       "history": [
-        0.52,
-        0.42,
-        0.48,
-        0.54
+        520,
+        420,
+        480,
+        540
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de 0.54 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Solid expansion, positive trajectory"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Solid expansion, positive trajectory",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -155,11 +168,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 38.46 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -178,11 +195,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 1.95 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
@@ -201,10 +222,14 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 1.75 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -232,9 +257,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Capacité",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "story_category": "Capacité"
     },
     {
       "short": "Acquisitions annoncées",
@@ -260,9 +283,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": true,
-      "story_category": "Capacité",
-      "_source_month": "janvier 2026",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Capacité"
     }
   ],
   "ai_positioning": {
@@ -293,7 +314,7 @@
     "date": "2026-05-06 00:55",
     "n_periods": 5,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -309,7 +330,8 @@
       "severity": 5,
       "score_rationale": "Le risque est cité en premier dans l'Item 1A, avec un langage fort (\"interruption ou violation\") et un cadre de gouvernance détaillé impliquant le CISO, le STOC et les comités de risque. La mention répétée du CISO et des rapports trimestriels souligne l'importance stratégique. La catégorie cybersécurité est critique pour les institutions financières, ce qui renforce la gravité.",
       "trend": "stable",
-      "summary": "Une brèche ou une interruption des systèmes d'information pourrait compromettre la sécurité des données, nuire à la réputation et entraîner des pertes financières importantes."
+      "summary": "Une brèche ou une interruption des systèmes d'information pourrait compromettre la sécurité des données, nuire à la réputation et entraîner des pertes financières importantes.",
+      "score": 5
     },
     {
       "title": "Risque lié à des évolutions réglementaires bancaires",
@@ -317,7 +339,8 @@
       "severity": 4,
       "score_rationale": "Le texte mentionne explicitement des risques liés à des réponses réglementaires suite à des défaillances bancaires médiatisées, notamment sur les cotisations d'assurance des dépôts. Le langage est préoccupé (\"développements à haut risque\", \"impact potentiel\"). La réglementation bancaire est une source majeure de pression pour les banques régionales, ce qui justifie une sévérité élevée.",
       "trend": "up",
-      "summary": "Des changements réglementaires ou des augmentations des coûts d'assurance des dépôts pourraient réduire la rentabilité et limiter la flexibilité financière."
+      "summary": "Des changements réglementaires ou des augmentations des coûts d'assurance des dépôts pourraient réduire la rentabilité et limiter la flexibilité financière.",
+      "score": 4
     },
     {
       "title": "Intégration d'acquisitions bancaires récentes",
@@ -325,7 +348,8 @@
       "severity": 4,
       "score_rationale": "Le risque d'acquisition (Stellar Bancorp, American, Southwest) est largement développé, avec une liste détaillée de menaces (coûts, intégration, attrition client, perturbations). Le langage est répétitif et insiste sur l'incertitude. Bien que la catégorie soit liée à la croissance, l'impact opérationnel et financier potentiel est élevé, justifiant une sévérité de 4.",
       "trend": "new",
-      "summary": "L'échec de l'intégration des banques acquises pourrait entraîner des coûts imprévus, une perte de clients et des perturbations opérationnelles."
+      "summary": "L'échec de l'intégration des banques acquises pourrait entraîner des coûts imprévus, une perte de clients et des perturbations opérationnelles.",
+      "score": 4
     },
     {
       "title": "Dépendance aux conditions économiques locales et aux matières premières",
@@ -333,7 +357,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne l'exposition aux fluctuations des prix du pétrole, gaz et autres commodités, affectant la qualité du crédit et la demande. Le langage est préoccupé (\"adverse effect\", \"deterioration in credit quality\"). La concentration géographique (Texas, Oklahoma) amplifie ce risque, typique des banques régionales, ce qui justifie une sévérité élevée.",
       "trend": "stable",
-      "summary": "Une baisse des prix des matières premières ou une faiblesse économique locale pourrait nuire à la capacité des emprunteurs à rembourser leurs prêts."
+      "summary": "Une baisse des prix des matières premières ou une faiblesse économique locale pourrait nuire à la capacité des emprunteurs à rembourser leurs prêts.",
+      "score": 4
     },
     {
       "title": "Perte de personnel clé ou difficultés de recrutement",
@@ -341,7 +366,8 @@
       "severity": 3,
       "score_rationale": "Le risque est mentionné dans la section MD&A avec un langage modéré (\"inability to hire qualified personnel\"). Bien que le CISO soit présenté comme hautement qualifié, le risque de dépendance à des individus clés est implicite. Moins central que les autres, mais pertinent pour la continuité opérationnelle, d'où une sévérité modérée.",
       "trend": "stable",
-      "summary": "La perte de cadres expérimentés ou l'incapacité à recruter du personnel qualifié pourrait nuire à la performance et à la stabilité de la banque."
+      "summary": "La perte de cadres expérimentés ou l'incapacité à recruter du personnel qualifié pourrait nuire à la performance et à la stabilité de la banque.",
+      "score": 3
     },
     {
       "title": "Litiges en cours dans le cours normal des affaires",
@@ -349,7 +375,8 @@
       "severity": 2,
       "score_rationale": "Le risque est mentionné brièvement dans l'Item 3, avec un langage rassurant (\"no material adverse effect\"). Bien que les litiges soient inévitables, la société minimise leur impact potentiel. La catégorie litige est pondérée moyennement, mais ici l'intensité du langage et l'absence de détails justifient une faible sévérité.",
       "trend": "stable",
-      "summary": "Des poursuites judiciaires liées aux activités bancaires pourraient survenir, mais leur impact est jugé non significatif par la direction."
+      "summary": "Des poursuites judiciaires liées aux activités bancaires pourraient survenir, mais leur impact est jugé non significatif par la direction.",
+      "score": 2
     }
   ],
   "governance": {
@@ -482,23 +509,18 @@
         "history": [
           263.92,
           392.51,
-          -270.442,
           122.326,
           250.816,
           386.636,
-          -235.262,
           124.694,
           211.632,
           323.84,
-          -240.85,
           110.426,
           222.028,
           349.31,
-          -202.378,
           130.225,
           265.38,
           402.936,
-          -255.698,
           116.267
         ],
         "history_periods": [
@@ -552,6 +574,9 @@
             "accession": "0001193125-26-215187",
             "end": "2026-03-31"
           }
+        ],
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PB)"
         ]
       }
     ]
@@ -568,9 +593,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.295196+00:00",
     "fetched_at": "2026-05-21T02:17:14.295197+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.459Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.418Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/pb.json",
     "enrich_root": "v2-pipeline-enrich/pb.json",

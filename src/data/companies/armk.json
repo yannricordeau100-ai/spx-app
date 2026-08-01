@@ -42,7 +42,7 @@
       "period_type": "quarter",
       "_hero_history_source": "SEC EDGAR companyfacts (XBRL)",
       "_hero_history_extracted_at": "2026-05-14T10:54:53.610560+00:00",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -66,7 +66,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Operating Income — profit from core business operations.",
+      "explanation_en": "Operating Income, profit from core business operations.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -90,7 +90,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -110,11 +110,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 18.51 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Diluted EPS",
@@ -133,11 +137,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "BPA dilué de 1.22 € dernière année",
-      "description": "BPA dilué extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "BPA dilué sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Diluted Earnings Per Share — EPS including all convertible securities.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Diluted Earnings Per Share : EPS including all convertible securities.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
@@ -156,11 +164,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 13.3 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
@@ -179,33 +191,42 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 5.72 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.64,
-      "unit": "Mds €",
+      "value": 640,
+      "unit": "M €",
       "yoy": "-4.5%",
       "history": [
-        0.33,
-        1.93,
-        0.67,
-        0.64
+        330,
+        1930,
+        670,
+        640
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.64 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position eroding, monitor liquidity"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position eroding, monitor liquidity",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     }
   ],
   "stories_kpis": [
@@ -243,43 +264,43 @@
       "title": "Cyberattaques et sécurité des données",
       "category": "Cybersécurité",
       "severity": 5,
-      "score_rationale": "Le risque est central dans le 10-K, avec un comité dédié (Audit Committee) et des rapports réguliers du CISO. Le langage souligne l'importance des menaces émergentes et la supervision active du conseil. La catégorie cybersécurité est hautement critique pour les entreprises de services. Pondération élevée en raison de l'exposition aux données sensibles et des obligations réglementaires. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est central dans le 10-K, avec un comité dédié (Audit Committee) et des rapports réguliers du CISO. Le langage souligne l'importance des menaces émergentes et la supervision active du conseil. La catégorie cybersécurité est hautement critique pour les entreprises de services. Pondération élevée en raison de l'exposition aux données sensibles et des obligations réglementaires.",
       "trend": "stable",
       "summary": "Une cyberattaque pourrait compromettre les données clients, perturber les opérations et nuire à la réputation.",
-      "score": 3
+      "score": 5
     },
     {
       "title": "Litiges juridiques multiples",
       "category": "Litige",
       "severity": 4,
-      "score_rationale": "Le document mentionne de nombreux litiges potentiels dans divers domaines (emploi, environnement, conformité, etc.). Bien que l'entreprise estime qu'aucun n'est matériel individuellement, le risque agrégé est significatif. Le langage indique qu'une résolution défavorable pourrait avoir un impact matériel, ce qui reflète une intensité modérée à élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le document mentionne de nombreux litiges potentiels dans divers domaines (emploi, environnement, conformité, etc.). Bien que l'entreprise estime qu'aucun n'est matériel individuellement, le risque agrégé est significatif. Le langage indique qu'une résolution défavorable pourrait avoir un impact matériel, ce qui reflète une intensité modérée à élevée.",
       "trend": "stable",
       "summary": "L'entreprise fait face à diverses actions juridiques qui, collectivement, pourraient affecter sa performance financière.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Conformité réglementaire complexe",
       "category": "Régulation",
       "severity": 4,
-      "score_rationale": "Le risque couvre de nombreux cadres réglementaires (protection des données, santé-sécurité, environnement, anti-corruption, etc.). Le texte cite explicitement des lois fédérales, étatiques et internationales, indiquant une exposition étendue. La complexité croissante des réglementations justifie une sévérité élevée. (score par défaut, à affiner)",
+      "score_rationale": "Le risque couvre de nombreux cadres réglementaires (protection des données, santé-sécurité, environnement, anti-corruption, etc.). Le texte cite explicitement des lois fédérales, étatiques et internationales, indiquant une exposition étendue. La complexité croissante des réglementations justifie une sévérité élevée.",
       "trend": "stable",
       "summary": "Le respect des nombreuses réglementations locales et internationales représente un défi opérationnel et juridique important.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Vulnérabilités liées aux données personnelles",
       "category": "Cybersécurité",
       "severity": 4,
-      "score_rationale": "Le risque est inclus dans les programmes supervisés par le CISO et le comité d'audit, avec mention explicite de la protection des données. Le traitement de données sensibles (santé, emploi, etc.) augmente l'exposition. Le langage est préventif mais reconnaît des menaces critiques. (score par défaut, à affiner)",
+      "score_rationale": "Le risque est inclus dans les programmes supervisés par le CISO et le comité d'audit, avec mention explicite de la protection des données. Le traitement de données sensibles (santé, emploi, etc.) augmente l'exposition. Le langage est préventif mais reconnaît des menaces critiques.",
       "trend": "stable",
       "summary": "La gestion inadéquate des données personnelles pourrait entraîner des sanctions et des atteintes à la confiance des clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Dépendance à la gouvernance du CISO",
       "category": "Personne-clé",
       "severity": 3,
-      "score_rationale": "Le CISO joue un rôle central dans la stratégie et la réponse aux incidents. Bien que son expérience soit soulignée (20 ans, certifications), la concentration des responsabilités présente un risque modéré si une transition n'était pas bien gérée. Le poste est critique mais des processus institutionnels semblent en place. (score par défaut, à affiner)",
+      "score_rationale": "Le CISO joue un rôle central dans la stratégie et la réponse aux incidents. Bien que son expérience soit soulignée (20 ans, certifications), la concentration des responsabilités présente un risque modéré si une transition n'était pas bien gérée. Le poste est critique mais des processus institutionnels semblent en place.",
       "trend": "stable",
       "summary": "La sécurité informatique dépend fortement de l'expertise et de la continuité du CISO.",
       "score": 3
@@ -288,7 +309,7 @@
       "title": "Risques environnementaux opérationnels",
       "category": "Industriel",
       "severity": 3,
-      "score_rationale": "Mention d'opérations passées et actuelles soumises à des réglementations environnementales, avec discussions de règlements informels. L'entreprise estime que l'impact n'est pas matériel, mais le risque existe, surtout pour les sites hérités d'acquisitions. Langage prudent mais pas alarmiste. (score par défaut, à affiner)",
+      "score_rationale": "Mention d'opérations passées et actuelles soumises à des réglementations environnementales, avec discussions de règlements informels. L'entreprise estime que l'impact n'est pas matériel, mais le risque existe, surtout pour les sites hérités d'acquisitions. Langage prudent mais pas alarmiste.",
       "trend": "stable",
       "summary": "Les activités passées et présentes peuvent entraîner des coûts de conformité ou de remédiation environnementale.",
       "score": 3
@@ -324,7 +345,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -376,7 +397,6 @@
       "date": "2026-04-08"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:58:07.200916+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-09-30",
@@ -421,6 +441,7 @@
     ],
     "total": 18.5
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:58:07.200916+00:00",
   "_segments_fetched_at": "2026-05-06T19:23:23.754746+00:00",
   "enrich_description": {
     "ticker": "ARMK",
@@ -517,6 +538,106 @@
       }
     ]
   },
+  "enrich_quarterly_history": {
+    "ticker": "ARMK",
+    "extracted_at": "2026-06-01T02:58:04Z",
+    "n_kpis": 3,
+    "kpis": [
+      {
+        "short": "Revenue",
+        "period_type": "quarter",
+        "history": [
+          3.916,
+          4.053,
+          4.2,
+          4.376,
+          4.552,
+          4.279,
+          4.626,
+          4.832
+        ],
+        "history_periods": [
+          "Q3 2023",
+          "Q4 2023",
+          "Q3 2024",
+          "Q4 2024",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-01-02",
+        "unit": "Mds $",
+        "_extracted_at": "2026-06-01T02:58:04Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Operating Income",
+        "period_type": "quarter",
+        "history": [
+          125.357,
+          132.512,
+          159.086,
+          132.512,
+          217.264,
+          174.175,
+          182.587,
+          217.549
+        ],
+        "history_periods": [
+          "Q3 2023",
+          "Q4 2023",
+          "Q3 2024",
+          "Q4 2024",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-01-02",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:58:04Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      },
+      {
+        "short": "Net Income",
+        "period_type": "quarter",
+        "history": [
+          14.09,
+          58.126,
+          53.002,
+          56.041,
+          105.703,
+          61.973,
+          71.952,
+          96.501
+        ],
+        "history_periods": [
+          "Q3 2023",
+          "Q4 2023",
+          "Q3 2024",
+          "Q4 2024",
+          "Q2 2025",
+          "Q3 2025",
+          "Q4 2025",
+          "Q1 2026"
+        ],
+        "last_data_date": "2026-01-02",
+        "unit": "M $",
+        "_extracted_at": "2026-06-01T02:58:04Z",
+        "_source": "cerebras-qwen-3-235b · 10-K/10-Q",
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026"
+      }
+    ]
+  },
   "enrich_ranks": {
     "ticker": "ARMK",
     "ranks": {
@@ -529,15 +650,16 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.223623+00:00",
     "fetched_at": "2026-05-21T02:17:14.223624+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.993Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.459Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/armk.json",
     "enrich_root": "v2-pipeline-enrich/armk.json",
     "enrich_subkeys": [
       "description",
       "events",
+      "quarterly-history",
       "ranks"
     ]
   }

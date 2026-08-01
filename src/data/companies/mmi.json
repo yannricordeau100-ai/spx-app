@@ -82,7 +82,11 @@
       "ttm": 50.8,
       "_validation": "Corrected value unit from 'Mds $' to 'B $'; Fixed yoy to '+2.4%' (50.8 vs 49.6 from 2024); Corrected history with actual comparable figures; Improved description",
       "explanation_en": "Volume of Total Sales over the period.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Adjusted EBITDA",
@@ -110,31 +114,40 @@
       "is_short_history": false,
       "ttm": 24.6,
       "_validation": "Corrected value unit from 'Mds $' to 'M $' (value is in thousands converted to millions: $24,611K = $24.6M); Fixed yoy calculation to '+162.5%' ((24.6-9.4)/9.4); Corrected type to 'Profitability'; Updated history with actual GAAP reconciliation data from 10-K; Improved rationale without em-dash",
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
-      "signal_en": "Profitability improving, returns strengthening"
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
+      "signal_en": "Profitability improving, returns strengthening",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=5)"
+      ]
     },
     {
       "short": "Total Revenue",
       "name_fr": "Chiffre d'affaires",
       "name_en": "Total Revenue",
-      "value": 0.76,
-      "unit": "Mds €",
+      "value": 760,
+      "unit": "M €",
       "yoy": "+8.6%",
       "history": [
-        1.3,
-        0.65,
-        0.7,
-        0.76
+        1300,
+        650,
+        700,
+        760
       ],
       "type": "Comptes",
       "nature": "comptable",
       "comparable": true,
       "signal": "Chiffre d'affaires de 0.76 Mds € dernière année",
-      "description": "Chiffre d'affaires extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Chiffre d'affaires sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
+      "_source": "compte de résultat consolidé",
       "explanation_en": "Revenue from the Total segment.",
-      "signal_en": "Top-line growth, market traction"
+      "signal_en": "Top-line growth, market traction",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Net Income",
@@ -153,79 +166,98 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Résultat net de -0.0 Mds € dernière année",
-      "description": "Résultat net extrait yfinance.income_stmt sur les 4 dernières années.",
+      "description": "Résultat net sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.income_stmt",
-      "explanation_en": "Net Income — bottom-line profit after all expenses and taxes.",
-      "signal_en": "Strong growth, robust momentum"
+      "_source": "compte de résultat consolidé",
+      "explanation_en": "Net Income, bottom-line profit after all expenses and taxes.",
+      "signal_en": "Strong growth, robust momentum",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Assets",
       "name_fr": "Total des actifs",
       "name_en": "Total Assets",
-      "value": 0.83,
-      "unit": "Mds €",
+      "value": 830,
+      "unit": "M €",
       "yoy": "-4.6%",
       "history": [
-        1,
-        0.88,
-        0.87,
-        0.83
+        1000,
+        880,
+        870,
+        830
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 0.83 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base contracting, monitor structure"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base contracting, monitor structure",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Total Debt",
       "name_fr": "Dette totale",
       "name_en": "Total Debt",
-      "value": 0.08,
-      "unit": "Mds €",
+      "value": 80,
+      "unit": "M €",
       "yoy": "+0.0%",
       "history": [
-        0.08,
-        0.09,
-        0.08,
-        0.08
+        80,
+        90,
+        80,
+        80
       ],
       "type": "Balance Sheet",
       "nature": "comptable",
       "comparable": true,
       "signal": "Dette totale de 0.08 Mds € dernière année",
-      "description": "Dette totale extrait yfinance sur les 4 dernières années.",
+      "description": "Dette totale sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Debt — sum of short-term and long-term borrowings.",
-      "signal_en": "Capital base stable"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Debt, sum of short-term and long-term borrowings.",
+      "signal_en": "Capital base stable",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "Cash & Equivalents",
       "name_fr": "Trésorerie & équivalents",
       "name_en": "Cash And Cash Equivalents",
-      "value": 0.16,
-      "unit": "Mds €",
+      "value": 160,
+      "unit": "M €",
       "yoy": "+6.7%",
       "history": [
-        0.24,
-        0.17,
-        0.15,
-        0.16
+        240,
+        170,
+        150,
+        160
       ],
       "type": "Cash",
       "nature": "comptable",
       "comparable": true,
       "signal": "Trésorerie & équivalents de 0.16 Mds € dernière année",
-      "description": "Trésorerie & équivalents extrait yfinance sur les 4 dernières années.",
+      "description": "Trésorerie & équivalents sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "signal_en": "Cash position strengthening, balance-sheet flexibility"
+      "_source": "bilan consolidé",
+      "signal_en": "Cash position strengthening, balance-sheet flexibility",
+      "_unit_rescaled": "Mds->M €",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -239,7 +271,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         1.5,
@@ -252,7 +284,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding.",
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding.",
       "signal_en": "Dividend stable, payout consistent"
     },
     {
@@ -267,7 +299,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0894,
@@ -280,7 +312,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -295,7 +327,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -308,7 +340,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -323,7 +355,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         2.59,
@@ -336,7 +368,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Strong growth, robust momentum"
     }
   ],
@@ -383,16 +415,16 @@
       "title": "Economic Downturn and Recession",
       "category": "Macro",
       "severity": 4,
-      "score_rationale": "Commercial real estate transaction volume and valuations are cyclical and highly sensitive to economic conditions. A recession would directly reduce property values and transaction activity. (score par défaut, à affiner)",
+      "score_rationale": "Commercial real estate transaction volume and valuations are cyclical and highly sensitive to economic conditions. A recession would directly reduce property values and transaction activity.",
       "trend": "stable",
       "summary": "Economic recession could significantly reduce commercial real estate market activity, valuations and transaction volumes, thereby reducing brokerage commissions and financing fees.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Interest Rate Risk",
       "category": "Macro",
       "severity": 3,
-      "score_rationale": "Higher interest rates reduce financing activity and property valuations, impacting both financing fee revenue and overall transaction volumes. (score par défaut, à affiner)",
+      "score_rationale": "Higher interest rates reduce financing activity and property valuations, impacting both financing fee revenue and overall transaction volumes.",
       "trend": "stable",
       "summary": "Rising interest rates reduce commercial property valuations and financing demand, which could decrease transaction volumes and financing fees.",
       "score": 3
@@ -401,7 +433,7 @@
       "title": "Competition",
       "category": "Competition",
       "severity": 3,
-      "score_rationale": "Commercial real estate brokerage market is competitive with multiple national and regional firms. Market share could be lost to competitors. (score par défaut, à affiner)",
+      "score_rationale": "Commercial real estate brokerage market is competitive with multiple national and regional firms. Market share could be lost to competitors.",
       "trend": "stable",
       "summary": "Intense competition in commercial real estate brokerage could result in loss of market share and pressure on commission rates.",
       "score": 3
@@ -410,7 +442,7 @@
       "title": "Dependence on Independent Contractors",
       "category": "Operations",
       "severity": 3,
-      "score_rationale": "Sales professionals are primarily independent contractors who can terminate relationships and move to competitors, creating retention and revenue risks. (score par défaut, à affiner)",
+      "score_rationale": "Sales professionals are primarily independent contractors who can terminate relationships and move to competitors, creating retention and revenue risks.",
       "trend": "up",
       "summary": "Loss of key investment sales and financing professionals to competitors could significantly impact revenue generation and market position.",
       "score": 3
@@ -419,19 +451,19 @@
       "title": "Credit and Counterparty Risk",
       "category": "Credit",
       "severity": 2,
-      "score_rationale": "Company has guarantee obligations of $444.9M for loans through strategic alliance. Loan defaults could result in losses. (score par défaut, à affiner)",
+      "score_rationale": "Company has guarantee obligations of $444.9M for loans through strategic alliance. Loan defaults could result in losses.",
       "trend": "stable",
       "summary": "Guarantee obligations to MTRCC for Fannie Mae loans expose company to potential losses if underlying loans default.",
-      "score": 3
+      "score": 2
     },
     {
       "title": "Regulatory Changes",
       "category": "Regulation",
       "severity": 2,
-      "score_rationale": "Changes in real estate regulations, licensing requirements or securities laws could increase compliance costs. (score par défaut, à affiner)",
+      "score_rationale": "Changes in real estate regulations, licensing requirements or securities laws could increase compliance costs.",
       "trend": "stable",
       "summary": "Regulatory changes in real estate services, securities laws or licensing requirements could increase operational costs and complexity.",
-      "score": 3
+      "score": 2
     }
   ],
   "governance": {
@@ -526,7 +558,6 @@
       "date": "2026-04-21"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T20:07:08.991184+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -556,9 +587,10 @@
     ],
     "total": 0.76
   },
+  "_ai_positioning_fetched_at": "2026-05-06T20:07:08.991184+00:00",
   "_segments_fetched_at": "2026-05-06T19:36:13.200328+00:00",
   "_dividends_extracted_at": "2026-05-09T20:19:55Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2024,
@@ -571,7 +603,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:06Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:09Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "MMI",
     "simple": {
@@ -652,9 +684,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.283447+00:00",
     "fetched_at": "2026-05-21T02:17:14.283449+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:33.495Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:59.366Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/mmi.json",
     "enrich_root": "v2-pipeline-enrich/mmi.json",

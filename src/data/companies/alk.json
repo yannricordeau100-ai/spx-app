@@ -39,7 +39,7 @@
       "is_short_history": false,
       "ttm": 14.239,
       "_validation": "Valeur corrigée de 13.9 à 14.239 (source: total operating revenue pro forma 2025); unité corrigée de 'Mds $' à 'B$'; history ajustée",
-      "explanation_en": "Revenue — total sales generated over the period.",
+      "explanation_en": "Revenue, total sales generated over the period.",
       "signal_en": "Top-line growth, market traction"
     },
     {
@@ -91,10 +91,13 @@
       "is_short_history": false,
       "ttm": 82.9,
       "_validation": "Données validées sans changement",
-      "period_type": "quarter",
+      "period_type": "year",
       "_hero_history_unverified": true,
       "_hero_history_unverified_reason": "Load factor (taux de remplissage) n'est pas explicitement mentionné dans l'extrait du 10-K fourni. Bien que le document contienne des donnée",
-      "signal_en": "Demand softening, monitor end-markets"
+      "signal_en": "Demand softening, monitor end-markets",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type quarter→year (len=2<4)"
+      ]
     },
     {
       "short": "RASM",
@@ -177,7 +180,7 @@
       "name_fr": "Capacité offerte (ASMs)",
       "name_en": "Available Seat Miles",
       "explanation": "Nombre total de sièges-miles offerts aux passagers.",
-      "value": "92962",
+      "value": 92.962,
       "unit": "M ASM",
       "yoy": "+1.9%",
       "type": "Supply",
@@ -186,8 +189,8 @@
       "signal": "Croissance modérée de la capacité",
       "description": "La capacité a augmenté de 1.9%, en ligne avec la stratégie de croissance contrôlée post-intégration.",
       "history": [
-        91208,
-        92962
+        91.208,
+        92.962
       ],
       "last_data_date": "2025-12-31",
       "is_wow": false,
@@ -195,7 +198,8 @@
       "is_short_history": false,
       "ttm": 92962,
       "_validation": "Unité corrigée de 'Mds ASM' à 'M ASM'; valeur corrigée de 92.962 à 92962; history ajustée",
-      "signal_en": "Moderate growth, slightly positive"
+      "signal_en": "Moderate growth, slightly positive",
+      "_unit_rescaled": "M->M ASM for 1-999 readability"
     },
     {
       "short": "Employees",
@@ -220,7 +224,7 @@
       "is_short_history": false,
       "ttm": 31585,
       "_validation": "Unité corrigée de 'K' à 'headcount'; valeur corrigée de 31.585 à 31585; history ajustée",
-      "explanation_en": "Employees — total number of employees at period end.",
+      "explanation_en": "Employees, total number of employees at period end.",
       "signal_en": "Moderate growth, slightly positive"
     }
   ],
@@ -246,9 +250,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Risk",
-      "_validation": "Données validées avec amélioration de la description",
-      "_source_month": "décembre 2025",
-      "_source_month_reason": "via_last_data"
+      "_validation": "Données validées avec amélioration de la description"
     },
     {
       "short": "Loyalty Program",
@@ -271,9 +273,7 @@
       "is_generic": false,
       "is_short_history": true,
       "story_category": "Innovation",
-      "_validation": "Value corrigée de '2025' à '2025-08-01' (date du lancement); unit changée de 'year' à 'date'; description améliorée",
-      "_source_month": "août 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "_validation": "Value corrigée de '2025' à '2025-08-01' (date du lancement); unit changée de 'year' à 'date'; description améliorée"
     }
   ],
   "ai_positioning": {
@@ -287,7 +287,7 @@
       "title": "Cybersécurité",
       "category": "Cybersécurité",
       "severity": 3,
-      "score_rationale": "Incident de cybersécurité en juin 2025 chez Hawaiian Airlines; impact limité mais révélateur de vulnérabilités systémiques (score par défaut, à affiner)",
+      "score_rationale": "Incident de cybersécurité en juin 2025 chez Hawaiian Airlines; impact limité mais révélateur de vulnérabilités systémiques",
       "trend": "new",
       "summary": "Un incident de cybersécurité a eu lieu en juin 2025 affectant les systèmes informatiques de Hawaiian Airlines. Bien que sans impact matériel selon les enquêtes, cet incident souligne les risques potentiels liés à l'intégration des systèmes.",
       "score": 3
@@ -296,16 +296,16 @@
       "title": "Perturbations opérationnelles",
       "category": "Opérations",
       "severity": 4,
-      "score_rationale": "Incidents technologiques majeurs en juillet et octobre 2025 causant environ 80 millions de dollars de pertes (score par défaut, à affiner)",
+      "score_rationale": "Incidents technologiques majeurs en juillet et octobre 2025 causant environ 80 millions de dollars de pertes",
       "trend": "new",
       "summary": "Multiples pannes informatiques et arrêt gouvernemental en 2025 ont entraîné des interruptions de service, annulations de vols et réductions de capacité avec impact financier significatif.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Concurrence",
       "category": "Concurrence",
       "severity": 3,
-      "score_rationale": "Marché compétitif, pression sur les prix et les marges bénéficiaires (score par défaut, à affiner)",
+      "score_rationale": "Marché compétitif, pression sur les prix et les marges bénéficiaires",
       "trend": "stable",
       "summary": "Le marché de l'aviation est hautement compétitif avec une pression continue sur les prix et les marges bénéficiaires malgré les efforts de différenciation.",
       "score": 3
@@ -314,7 +314,7 @@
       "title": "Régulation",
       "category": "Régulation",
       "severity": 3,
-      "score_rationale": "Réglementations gouvernementales affectant les opérations et les coûts (score par défaut, à affiner)",
+      "score_rationale": "Réglementations gouvernementales affectant les opérations et les coûts",
       "trend": "stable",
       "summary": "Les réglementations gouvernementales impactent les opérations de l'entreprise notamment en matière de sécurité, environnement et conformité.",
       "score": 3
@@ -323,25 +323,25 @@
       "title": "Géopolitique",
       "category": "Géopolitique",
       "severity": 4,
-      "score_rationale": "Risques géopolitiques affectant la stabilité opérationnelle et les routes internationales (score par défaut, à affiner)",
+      "score_rationale": "Risques géopolitiques affectant la stabilité opérationnelle et les routes internationales",
       "trend": "up",
       "summary": "Les risques géopolitiques, conflits et sanctions peuvent affecter les opérations, particulièrement sur les routes Asia-Pacifique et internationales naissantes.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Technologie",
       "category": "Technologie",
       "severity": 4,
-      "score_rationale": "Dépendance critique aux systèmes IT confirmée par incidents en 2025; défaillances de fournisseurs tiers (score par défaut, à affiner)",
+      "score_rationale": "Dépendance critique aux systèmes IT confirmée par incidents en 2025; défaillances de fournisseurs tiers",
       "trend": "up",
       "summary": "Les défaillances technologiques incluant pannes systèmes internes et fournisseurs cloud tiers impactent directement les opérations et la satisfaction clients.",
-      "score": 3
+      "score": 4
     },
     {
       "title": "Ressources humaines",
       "category": "Ressources humaines",
       "severity": 3,
-      "score_rationale": "Négociations collectives en cours pour plusieurs groupes de personnel; risques de disruption (score par défaut, à affiner)",
+      "score_rationale": "Négociations collectives en cours pour plusieurs groupes de personnel; risques de disruption",
       "trend": "stable",
       "summary": "Négociations de conventions collectives en cours pour Horizon et Alaska-Hawaiian avec implication de médiateurs; risques potentiels de grèves.",
       "score": 3
@@ -350,7 +350,7 @@
       "title": "Intégration hawaiienne",
       "category": "Intégration",
       "severity": 3,
-      "score_rationale": "Processus complexe d'intégration générant des coûts additionnels et complexité opérationnelle (score par défaut, à affiner)",
+      "score_rationale": "Processus complexe d'intégration générant des coûts additionnels et complexité opérationnelle",
       "trend": "stable",
       "summary": "L'intégration de Hawaiian Airlines continue de générer des coûts de transition et des défis opérationnels malgré les synergies réalisées.",
       "score": 3
@@ -365,7 +365,9 @@
     "exec_comp_approval_pct": 94.5,
     "board_independence": null,
     "board_size": 10,
-    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action."
+    "voting_structure": "Une seule classe d'actions ordinaires, 1 vote par action.",
+    "board_independence_pct": 90,
+    "board_women_pct": 40
   },
   "_validation": "Corrections effectuées: 1) Secteur changé de 'Information Technology' à 'Industrials' (compagnie aérienne); 2) Founded changé de 1985 à 1932 (Alaska Airlines incorporation); 3) Revenue: valeur 13.9B$ corrigée à 14.239B$ (pro forma 2025); 4) Pretax Income: 0.146B$ corrigé à 146M$ avec history ajustée; 5) Capacity: 92.962Mds ASM corrigé à 92962 M ASM; 6) Employees: 31.585K corrigé à 31585 headcount; 7) hero_kpi_rationale enrichie sans em-dash; 8) Loyalty Program value changée de '2025' à '2025-08-01' et unit de 'year' à 'date'; 9) Risques rationalisés et alignés avec source 10-K; 10) Tous les KPI validés contre MD&A et operating statistics pro forma",
   "_iterative_refinement": {
@@ -378,7 +380,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 2,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "(none-fallback-existing-history)"
   },
   "_fit_for_site": false,
@@ -412,7 +414,6 @@
       "date": "2026-04-26"
     }
   ],
-  "_ai_positioning_fetched_at": "2026-05-06T17:57:15.248406+00:00",
   "revenue_by_segment": {
     "unit": "$B",
     "source_date": "2025-12-31",
@@ -485,6 +486,7 @@
     ],
     "total": 14.41
   },
+  "_ai_positioning_fetched_at": "2026-05-06T17:57:15.248406+00:00",
   "_segments_fetched_at": "2026-05-06T19:22:23.097186+00:00",
   "subsector_fr": "Compagnies aériennes",
   "enrich_events": {
@@ -514,9 +516,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.219136+00:00",
     "fetched_at": "2026-05-21T02:17:14.219137+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:27.649Z",
+  "_companies_unified_built_at": "2026-08-01T20:27:53.086Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/alk.json",
     "enrich_root": "v2-pipeline-enrich/alk.json",

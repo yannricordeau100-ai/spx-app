@@ -73,7 +73,7 @@
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "explanation_en": "Gross Margin — gross profit divided by revenue.",
+      "explanation_en": "Gross Margin, gross profit divided by revenue.",
       "signal_en": "Margin expansion, operating leverage"
     },
     {
@@ -154,8 +154,8 @@
       "name_fr": "Chiffre d'affaires net - Activité de financement",
       "name_en": "Net Sales - Financing Business",
       "explanation": "Revenus provenant des activités de financement d'équipements IT, logiciels et services.",
-      "value": "0.06",
-      "unit": "Mds $",
+      "value": 60,
+      "unit": "M $",
       "yoy": "+20.6%",
       "type": "Revenue",
       "nature": "Conjoncturel",
@@ -163,15 +163,16 @@
       "signal": "Segment de financement complémentaire en croissance, répondant aux besoins de financement des clients.",
       "description": "Le chiffre d'affaires net de l'activité de financement pour l'exercice clos le 31 mars 2025.",
       "history": [
-        0.06,
-        0.05,
-        0.05
+        60,
+        50,
+        50
       ],
       "last_data_date": "2025-03-31",
       "is_wow": false,
       "is_generic": true,
       "is_short_history": false,
-      "signal_en": "Strong top-line growth, market traction"
+      "signal_en": "Strong top-line growth, market traction",
+      "_unit_rescaled": "Mds->M $"
     },
     {
       "short": "Adjusted EBITDA",
@@ -195,7 +196,7 @@
       "is_wow": false,
       "is_generic": false,
       "is_short_history": false,
-      "explanation_en": "Adjusted EBITDA — EBITDA excluding non-recurring or one-off items.",
+      "explanation_en": "Adjusted EBITDA : EBITDA excluding non-recurring or one-off items.",
       "signal_en": "Profitability under pressure, monitor returns"
     },
     {
@@ -215,11 +216,15 @@
       "nature": "comptable",
       "comparable": true,
       "signal": "Total des actifs de 1.88 Mds € dernière année",
-      "description": "Total des actifs extrait yfinance sur les 4 dernières années.",
+      "description": "Total des actifs sur les 4 dernières années.",
       "is_generic": true,
-      "_source": "yfinance.balance_sheet",
-      "explanation_en": "Total Assets — sum of all assets on the balance sheet.",
-      "signal_en": "Capital base expanding, balance-sheet growth"
+      "_source": "bilan consolidé",
+      "explanation_en": "Total Assets, sum of all assets on the balance sheet.",
+      "signal_en": "Capital base expanding, balance-sheet growth",
+      "period_type": "year",
+      "_fix_log": [
+        "audit-fix-safe 2026-06-05T19:55:44.263211Z: period_type set to year (heuristic len=4)"
+      ]
     },
     {
       "short": "DPS",
@@ -233,7 +238,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Versement régulier",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance ex-div dates.",
+      "description": "Historique 5 ans (2021-2025). ex-div dates.",
       "history": [
         null,
         null,
@@ -246,7 +251,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Dividend Per Share — total dividends paid divided by shares outstanding."
+      "explanation_en": "Dividend Per Share, total dividends paid divided by shares outstanding."
     },
     {
       "short": "Cap Return",
@@ -260,7 +265,7 @@
       "nature": "Récurrent",
       "comparable": "Spécifique",
       "signal": "Politique de retour aux actionnaires",
-      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. Source yfinance cashflow.",
+      "description": "Dividendes + rachats cumulés (2021-2025) en milliards USD. cashflow.",
       "history": [
         null,
         0.0136,
@@ -273,7 +278,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Capital Return — total cash returned to shareholders (dividends + buybacks).",
+      "explanation_en": "Capital Return, total cash returned to shareholders (dividends + buybacks).",
       "signal_en": "Cash position strengthening, balance-sheet flexibility"
     },
     {
@@ -288,7 +293,7 @@
       "nature": "Structurel",
       "comparable": "Comparable",
       "signal": "Soutenabilité du dividende",
-      "description": "Dividendes / résultat net (2021-2025). Source yfinance.",
+      "description": "Dividendes / résultat net (2021-2025).",
       "history": [
         null,
         null,
@@ -301,7 +306,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Payout Ratio — dividends paid divided by net income."
+      "explanation_en": "Payout Ratio, dividends paid divided by net income."
     },
     {
       "short": "EPS",
@@ -316,7 +321,7 @@
       "comparable": "Comparable",
       "compare_key": "eps_diluted",
       "signal": "Capacité bénéficiaire par action",
-      "description": "Historique 5 ans (2021-2025). Source : yfinance income statement (Diluted EPS).",
+      "description": "Historique 5 ans (2021-2025). income statement (Diluted EPS).",
       "history": [
         null,
         3.93,
@@ -329,7 +334,7 @@
       "is_short_history": false,
       "last_data_date": "2025-12-31",
       "period_type": "year",
-      "explanation_en": "Earnings Per Share — net income divided by shares outstanding.",
+      "explanation_en": "Earnings Per Share, net income divided by shares outstanding.",
       "signal_en": "Pressure, deteriorating trend"
     }
   ],
@@ -396,9 +401,7 @@
       "is_wow": true,
       "is_generic": false,
       "is_short_history": false,
-      "story_category": "Croissance",
-      "_source_month": "mars 2025",
-      "_source_month_reason": "via_signal_quarter"
+      "story_category": "Croissance"
     }
   ],
   "ai_positioning": {
@@ -433,7 +436,8 @@
       "severity": 4,
       "score_rationale": "Le risque est cité en tête des facteurs spécifiques à l'activité, avec une concentration de 17 % des comptes clients sur Verizon. Le langage insiste sur un 'effet matériel adverse'. La dépendance persiste sur deux exercices, sans signe d'amélioration. Pondération élevée pour la concentration client.",
       "trend": "stable",
-      "summary": "Une réduction des achats ou un défaut de paiement de Verizon pourrait gravement impacter la trésorerie et les résultats."
+      "summary": "Une réduction des achats ou un défaut de paiement de Verizon pourrait gravement impacter la trésorerie et les résultats.",
+      "score": 4
     },
     {
       "title": "Dépendance critique à Cisco",
@@ -441,7 +445,8 @@
       "severity": 5,
       "score_rationale": "Cisco représente 32 % du chiffre d'affaires (44 % en 2024), avec mention explicite de risque de rupture d'approvisionnement. Le langage est alarmant : 'effet matériel', 'impossible de trouver des sources alternatives rapidement'. Risque existentiel pour la chaîne d'approvisionnement.",
       "trend": "down",
-      "summary": "La forte dépendance à Cisco expose la société à des ruptures de stock et des pertes de revenus en cas de problème d'approvisionnement."
+      "summary": "La forte dépendance à Cisco expose la société à des ruptures de stock et des pertes de revenus en cas de problème d'approvisionnement.",
+      "score": 5
     },
     {
       "title": "Menaces cyber et fuites de données",
@@ -449,7 +454,8 @@
       "severity": 5,
       "score_rationale": "Le risque est détaillé sur plusieurs paragraphes, avec mention de menaces croissantes (ransomware, AI, attaques ciblées). Langage fort : 'compromis ou violation', 'atteinte à la réputation', 'responsabilité civile'. Tendance à la hausse des cyber-risques liée au télétravail.",
       "trend": "up",
-      "summary": "Une faille de sécurité pourrait entraîner des fuites de données sensibles, des poursuites et une perte de confiance des clients."
+      "summary": "Une faille de sécurité pourrait entraîner des fuites de données sensibles, des poursuites et une perte de confiance des clients.",
+      "score": 5
     },
     {
       "title": "Concurrence accrue sur les prix et l'innovation",
@@ -457,7 +463,8 @@
       "severity": 4,
       "score_rationale": "Le risque est répété plusieurs fois, avec mention de concurrents plus gros, plus rapides, et capables d'adopter l'IA générative. Langage : 'menace sérieuse', 'marges brutes non maintenables'. Pression persistante et accrue par les marketplaces en ligne.",
       "trend": "up",
-      "summary": "La pression concurrentielle, notamment sur les prix et l'innovation technologique, menace la rentabilité et la part de marché."
+      "summary": "La pression concurrentielle, notamment sur les prix et l'innovation technologique, menace la rentabilité et la part de marché.",
+      "score": 4
     },
     {
       "title": "Ruptures de chaîne logistique",
@@ -465,7 +472,8 @@
       "severity": 4,
       "score_rationale": "Le texte décrit des risques multiples (pandémies, conflits, grèves, pénuries). Mention de l'absence de stock de sécurité, ce qui amplifie le risque. Langage : 'retards', 'coûts accrus', 'perte de clients'. Contexte géopolitique tendu renforce le risque.",
       "trend": "stable",
-      "summary": "Toute perturbation dans la chaîne d'approvisionnement peut entraîner des retards de livraison et des coûts supplémentaires."
+      "summary": "Toute perturbation dans la chaîne d'approvisionnement peut entraîner des retards de livraison et des coûts supplémentaires.",
+      "score": 4
     },
     {
       "title": "Dépendance aux conditions de crédit fournisseurs",
@@ -473,7 +481,8 @@
       "severity": 4,
       "score_rationale": "Le risque est explicitement lié au besoin en fonds de roulement. Mention : 'effet matériel' si réduction des lignes de crédit. Aucune mention de mesures d'atténuation. Catégorie Capital fortement pondérée en cas de tension de liquidité.",
       "trend": "stable",
-      "summary": "Une réduction des facilités de crédit accordées par les fournisseurs augmenterait le besoin de financement et les coûts."
+      "summary": "Une réduction des facilités de crédit accordées par les fournisseurs augmenterait le besoin de financement et les coûts.",
+      "score": 4
     },
     {
       "title": "Échec d'innovation face à la demande",
@@ -481,7 +490,8 @@
       "severity": 4,
       "score_rationale": "Le texte souligne la nécessité d'adapter rapidement les solutions aux évolutions technologiques (ex: IA). Langage : 'érosion de la position concurrentielle', 'réduction des revenus'. Risque renforcé par l'absence de personnel qualifié.",
       "trend": "up",
-      "summary": "L'incapacité à innover ou à répondre aux nouvelles attentes clients pourrait entraîner une perte de parts de marché."
+      "summary": "L'incapacité à innover ou à répondre aux nouvelles attentes clients pourrait entraîner une perte de parts de marché.",
+      "score": 4
     }
   ],
   "governance": {
@@ -503,7 +513,7 @@
     "date": "2026-05-06 12:57",
     "n_periods": 3,
     "period_type": "quarter",
-    "method": "yfinance",
+    "method": "rapport financier",
     "yf_metric": "TotalRevenue"
   },
   "_fit_for_site": true,
@@ -588,7 +598,7 @@
   },
   "_segments_fetched_at": "2026-05-06T19:39:58.525896+00:00",
   "_dividends_extracted_at": "2026-05-09T20:21:37Z",
-  "_dividends_source": "yfinance dividends + cashflow + income (V3 fallback FY2025)",
+  "_dividends_source": "rapport financier dividends + cashflow + income (V3 fallback FY2025)",
   "_dividends_currency": "USD",
   "dividend_meta": {
     "first_year_xbrl": 2014,
@@ -601,7 +611,7 @@
     "xbrl_fetched_at": "2026-05-09T20:27:17Z"
   },
   "_eps_extracted_at": "2026-05-18T16:46:51Z",
-  "_eps_source": "yfinance income_stmt Diluted EPS",
+  "_eps_source": "rapport financier income_stmt Diluted EPS",
   "enrich_description": {
     "ticker": "PLUS",
     "simple": {
@@ -681,23 +691,18 @@
         "short": "Net Sales",
         "period_type": "quarter",
         "history": [
-          -0.7905,
           0.4166,
           0.8747,
           1.3695,
-          -0.8398,
           0.4584,
           0.9521,
           1.5755,
-          -0.9182,
           0.5742,
           1.1618,
           1.6708,
-          -1.1815,
           0.5445,
           1.0597,
           1.5707,
-          -1.1061,
           0.6373,
           1.2461,
           1.8609
@@ -753,29 +758,30 @@
             "accession": "0001140361-26-003725",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PLUS)"
         ]
       },
       {
         "short": "Operating Income Margin",
         "period_type": "quarter",
         "history": [
-          -54.889,
           32.452,
           76.755,
           112.84,
-          -74.731,
           33.183,
           77.29,
           123.748,
-          -68.059,
           46.332,
           91.195,
           129.242,
-          -108.512,
           35.469,
           78.187,
           106.698,
-          -78.941,
           36.2,
           85.035,
           128.501
@@ -831,29 +837,30 @@
             "accession": "0001140361-26-003725",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Marge",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PLUS)"
         ]
       },
       {
         "short": "Net Earnings",
         "period_type": "quarter",
         "history": [
-          -39.013,
           23.518,
           54.931,
           81.355,
-          -54.204,
           22.339,
           50.808,
           86.502,
-          -40.293,
           33.847,
           66.511,
           93.793,
-          -78.375,
           27.339,
           58.649,
           82.782,
-          -60.792,
           37.697,
           72.552,
           107.604
@@ -909,29 +916,30 @@
             "accession": "0001140361-26-003725",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Rentabilité",
+        "nature": "Performance",
+        "_type_nature_patched_by": "patch-heuristic-v2-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PLUS)"
         ]
       },
       {
         "short": "Net Sales - Technology Business",
         "period_type": "quarter",
         "history": [
-          -0.7905,
           0.4166,
           0.8747,
           1.3695,
-          -0.8398,
           0.4584,
           0.9521,
           1.5755,
-          -0.9182,
           0.5742,
           1.1618,
           1.6708,
-          -1.1815,
           0.5445,
           1.0597,
           1.5707,
-          -1.1061,
           0.6373,
           1.2461,
           1.8609
@@ -987,29 +995,30 @@
             "accession": "0001140361-26-003725",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PLUS)"
         ]
       },
       {
         "short": "Net Sales - Financing Business",
         "period_type": "quarter",
         "history": [
-          -0.7905,
           0.4166,
           0.8747,
           1.3695,
-          -0.8398,
           0.4584,
           0.9521,
           1.5755,
-          -0.9182,
           0.5742,
           1.1618,
           1.6708,
-          -1.1815,
           0.5445,
           1.0597,
           1.5707,
-          -1.1061,
           0.6373,
           1.2461,
           1.8609
@@ -1065,6 +1074,12 @@
             "accession": "0001140361-26-003725",
             "end": "2025-12-31"
           }
+        ],
+        "type": "Revenue",
+        "nature": "Structurel",
+        "_type_nature_patched_by": "patch-heuristic-yann-4juin-2026",
+        "_fix_log": [
+          "fix-quarterly-ytd-bug 2026-06-05T16:15:17.515549Z: dropped 5 aberrant negative outliers (PLUS)"
         ]
       }
     ]
@@ -1081,9 +1096,9 @@
     "country": "United States",
     "_data_freshness_date": "2026-05-21T02:17:14.297515+00:00",
     "fetched_at": "2026-05-21T02:17:14.297516+00:00",
-    "source": "yfinance-marketcap-v2"
+    "source": "rapport financier-marketcap-v2"
   },
-  "_companies_unified_built_at": "2026-05-29T21:19:34.671Z",
+  "_companies_unified_built_at": "2026-08-01T20:28:00.664Z",
   "_companies_unified_sources": {
     "base": "v2-pipeline/plus.json",
     "enrich_root": "v2-pipeline-enrich/plus.json",
